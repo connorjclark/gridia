@@ -13,14 +13,14 @@ function createSector(bare: boolean) {
     for (let y = 0; y < SECTOR_SIZE; y++) {
       if (bare) {
         tiles[x][y] = {
-          floor: 1,
+          floor: 5,
           item: null,
         }
       } else {
         tiles[x][y] = {
-          floor: (x + y) % 10,
+          floor: 100 + ((x + y) % 10) * 20,
           item: x === y ? {
-            type: 1,
+            type: 7,
             quantity: 1,
           } : null,
         }

@@ -1,4 +1,5 @@
 import { ProtocolContext, ServerProtocolContext } from "./context";
+import { getMetaItem } from './items'
 
 interface ProtocolDef<T, P extends ProtocolContext = ProtocolContext> {
   check?(context: P, args: T): boolean
@@ -31,6 +32,10 @@ export const moveItem: ProtocolDef<{ from: Point, to: Point }> = {
 
     if (!fromTile.item) return false;
     if (toTile.item && fromTile.item.type !== toTile.item.type) return false;
+
+    if (!getMetaItem(fromTile.item.type).moveable) {
+      return false
+    }
 
     return true;
   },
