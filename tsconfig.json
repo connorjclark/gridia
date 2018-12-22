@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    // "noEmit": true,
+    // "module": "system",
+    "target": "ES2016",
+    // "allowJs": true,
+    // "checkJs": true,
+    // "strict": true,
+    "diagnostics": true,
+    "sourceMap": true
+  },
+  "include": [
+    "src"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "webgl-learn",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "parcel-bundler": "^1.11.0",
+    "typescript": "^3.2.2"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {}
+}
