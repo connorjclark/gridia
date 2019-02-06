@@ -1,10 +1,18 @@
 import { worldToTile } from './utils'
 import { openAndConnectToServerInMemory } from './server'
-import { ClientProtocolContext } from './context'
+import { ClientWorldContext } from './context'
 import { getMetaItem } from './items'
 
-const context = new ClientProtocolContext()
-const wire = openAndConnectToServerInMemory(context)
+export class Client {
+  creatureId: number
+  world: ClientWorldContext
+}
+
+const client = new Client()
+const wire = openAndConnectToServerInMemory(client)
+
+// @ts-ignore - for debugging
+window._client = client
 
 const state = {
   viewport: {
@@ -17,7 +25,8 @@ const state = {
     tile: { x: 0, y: 0 },
     downTile: null,
     state: '',
-  }
+  },
+  keys: {},
 }
 
 function mouseToWorld(pm: Point): Point {
@@ -34,20 +43,30 @@ function tileToScreen(pt: Point): Point {
   }
 }
 
-function main(gl, ctx: CanvasRenderingContext2D) {
-  const speed = 5;
+let lastMove = performance.now()
 
-  if (state.keys[38]) {
-    state.viewport.y += -speed;
-  }
-  if (state.keys[40]) {
-    state.viewport.y -= -speed;
-  }
-  if (state.keys[37]) {
-    state.viewport.x -= speed;
-  }
-  if (state.keys[39]) {
-    state.viewport.x += speed;
+function main(gl, ctx: CanvasRenderingContext2D) {
+  const focusCreature = client.world.getCreature(client.creatureId);
+
+  if (focusCreature && performance.now() - lastMove > 200) {
+    const pos = { ...focusCreature.pos }
+    if (state.keys[38]) {
+      pos.y += -1;
+    }
+    if (state.keys[40]) {
+      pos.y -= -1;
+    }
+    if (state.keys[37]) {
+      pos.x -= 1;
+    }
+    if (state.keys[39]) {
+      pos.x += 1;
+    }
+
+    if (pos.x !== focusCreature.pos.x || pos.y !== focusCreature.pos.y) {
+      lastMove = performance.now()
+      wire.send('move', pos)
+    }
   }
 
   window.requestAnimationFrame(() => main(gl, ctx))
@@ -75,6 +94,12 @@ function main(gl, ctx: CanvasRenderingContext2D) {
     delete state.mouse.downTile;
   }
 
+  const focus = focusCreature ? focusCreature.pos : {x: 0, y: 0};
+  state.viewport = {
+    x: focus.x * 32 - gl.canvas.width / 2,
+    y: focus.y * 32 - gl.canvas.height / 2,
+  }
+
   const tilesWidth = Math.ceil(gl.canvas.width / 32);
   const tilesHeight = Math.ceil(gl.canvas.height / 32);
   const startTileX = Math.floor(state.viewport.x / 32);
@@ -84,9 +109,9 @@ function main(gl, ctx: CanvasRenderingContext2D) {
 
   for (let x = startTileX; x <= endTileX; x++) {
     for (let y = startTileY; y <= endTileY; y++) {
-      if (!context.world.inBounds({ x, y })) continue;
+      if (!client.world.inBounds({ x, y })) continue;
 
-      const tile = context.world.getTile({ x, y })
+      const tile = client.world.getTile({ x, y })
       const sx = x * 32 - state.viewport.x;
       const sy = y * 32 - state.viewport.y;
 
@@ -97,10 +122,15 @@ function main(gl, ctx: CanvasRenderingContext2D) {
         // TODO webgl
         drawItem(ctx, tile.item, sx, sy)
       }
+
+      if (tile.creature) {
+        // TODO webgl
+        drawCreature(ctx, tile.creature, sx, sy)
+      }
     }
   }
 
-  if (context.world.inBounds(state.mouse.tile)) {
+  if (client.world.inBounds(state.mouse.tile)) {
     ctx.fillStyle = "yellow";
     ctx.strokeStyle = "yellow";
     ctx.lineWidth = 5;
@@ -115,8 +145,8 @@ function main(gl, ctx: CanvasRenderingContext2D) {
   // only dragged items should be drawn on bottom part of canvas
   ctx.clearRect(0, gl.canvas.height, ctx.canvas.width, ctx.canvas.height);
 
-  if (state.mouse.state === 'down' && context.world.inBounds(state.mouse.downTile)) {
-    const item = context.world.getItem(state.mouse.downTile)
+  if (state.mouse.state === 'down' && client.world.inBounds(state.mouse.downTile)) {
+    const item = client.world.getItem(state.mouse.downTile)
     const { x, y } = state.mouse
     drawItem(ctx, item, x, y)
   }
@@ -139,6 +169,14 @@ function loadSpritesheet(type, index) {
   return spritesheet
 }
 
+function drawCreature(ctx: CanvasRenderingContext2D, creature: Creature, x: number, y: number) {
+  const spritesheetIndex = Math.floor(creature.image / 100)
+  const spritesheet = loadSpritesheet('player', spritesheetIndex)
+  const sx = (creature.image % 10) * 32
+  const sy = Math.floor((creature.image % 100) / 10) * 32
+  ctx.drawImage(spritesheet, sx, sy, 32, 32, x, y, 32, 32)
+}
+
 function drawItem(ctx: CanvasRenderingContext2D, item: Item, x: number, y: number) {
   const metaItem = getMetaItem(item.type)
   const spritesheetIndex = Math.floor(metaItem.animations[0] / 100)
@@ -149,7 +187,7 @@ function drawItem(ctx: CanvasRenderingContext2D, item: Item, x: number, y: numbe
 }
 
 function drawFloor(ctx: CanvasRenderingContext2D, point: Point, x: number, y: number) {
-  const floor = context.world.getTile(point).floor
+  const floor = client.world.getTile(point).floor
   if (floor === 1) {
     drawWater(ctx, point, x, y)
     return
@@ -193,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.onmousedown = (e) => {
-    if (!context.world.inBounds(state.mouse.tile) || !context.world.getItem(state.mouse.tile)) {
+    if (!client.world.inBounds(state.mouse.tile) || !client.world.getItem(state.mouse.tile)) {
       delete state.mouse.state;
       return;
     }
@@ -216,12 +254,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.onclick = (e) => {
     const point = worldToTile(mouseToWorld({ x: e.clientX, y: e.clientY }))
-    if (context.world.inBounds(point)) {
-      context.world.getTile(point).floor = ++context.world.getTile(point).floor % 10
+    if (client.world.inBounds(point)) {
+      client.world.getTile(point).floor = ++client.world.getTile(point).floor % 10
     }
   }
 
-  state.keys = {};
   document.onkeydown = (e) => {
     state.keys[e.keyCode] = true;
   }
@@ -246,16 +283,27 @@ document.addEventListener('DOMContentLoaded', () => {
 // this is only for floors right now
 // more uses?
 function useTemplate(templateId: number, typeToMatch: number, x: number, y: number, z: number) {
-  var size = context.world.size;
-  var xl = x == 0 ? size - 1 : x - 1;
-  var xr = x == size - 1 ? 0 : x + 1;
-  var yu = y == 0 ? size - 1 : y + 1;
-  var yd = y == size - 1 ? 0 : y - 1;
+  var size = client.world.size;
+  // var xl = x == 0 ? size - 1 : x - 1;
+  // var xr = x == size - 1 ? 0 : x + 1;
+  // var yu = y == 0 ? size - 1 : y + 1;
+  // var yd = y == size - 1 ? 0 : y - 1;
+  var xl = x - 1;
+  var xr = x + 1
+  var yu = y + 1
+  var yd = y - 1
 
-  var below = context.world.getTile({ x, y: yu, z }).floor == typeToMatch;
-  var above = context.world.getTile({ x, y: yd, z }).floor == typeToMatch;
-  var left = context.world.getTile({ x: xl, y, z }).floor == typeToMatch;
-  var right = context.world.getTile({ x: xr, y, z }).floor == typeToMatch;
+  function getTileOrFake(pos: Point): Partial<{ floor: number }> {
+    if (!client.world.inBounds(pos)) {
+      return { floor: typeToMatch }
+    }
+    return client.world.getTile(pos)
+  }
+
+  var below = getTileOrFake({ x, y: yu, z }).floor == typeToMatch;
+  var above = getTileOrFake({ x, y: yd, z }).floor == typeToMatch;
+  var left = getTileOrFake({ x: xl, y, z }).floor == typeToMatch;
+  var right = getTileOrFake({ x: xr, y, z }).floor == typeToMatch;
 
   var offset = templateId * 50;
   var v = (above ? 1 : 0) + (below ? 2 : 0) + (left ? 4 : 0) + (right ? 8 : 0);
@@ -268,10 +316,10 @@ function useTemplate(templateId: number, typeToMatch: number, x: number, y: numb
   // ^ nov 2014
   // update: just copied this again here in dec 2018
 
-  var downleft = context.world.getTile({ x: xl, y: yu, z }).floor == typeToMatch;
-  var downright = context.world.getTile({ x: xr, y: yu, z }).floor == typeToMatch;
-  var upleft = context.world.getTile({ x: xl, y: yd, z }).floor == typeToMatch;
-  var upright = context.world.getTile({ x: xr, y: yd, z }).floor == typeToMatch;
+  var downleft = getTileOrFake({ x: xl, y: yu, z }).floor == typeToMatch;
+  var downright = getTileOrFake({ x: xr, y: yu, z }).floor == typeToMatch;
+  var upleft = getTileOrFake({ x: xl, y: yd, z }).floor == typeToMatch;
+  var upright = getTileOrFake({ x: xr, y: yd, z }).floor == typeToMatch;
 
   if (v == 15) {
     if (!upleft) {

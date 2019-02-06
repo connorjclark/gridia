@@ -1,70 +1,119 @@
-import * as protocol from './protocol'
-import { ServerProtocolContext, ClientProtocolContext, ClientWorldContext, ServerWorldContext } from "./context";
+import { ClientToServerProtocol, ServerToClientProtocol } from './protocol'
+import { ServerWorldContext, ClientWorldContext } from "./context";
+import { Client } from './main';
 
-const context = new ServerProtocolContext()
-context.reply = function (type, args) {
-  outboundMessages.push({
-    to: this.currentClient,
-    type,
-    args,
-  })
-}
-context.world = new ServerWorldContext()
-let outboundMessages = [];
-const clients = []
+export default class Server {
+  world = new ServerWorldContext;
+  clientConnections: ClientConnection[] = [];
+  outboundMessages = [];
+  currentClientConnection: ClientConnection;
 
-function tick() {
-  for (const client of clients) {
-    // only read one message from a client at a time
-    const message = client.getMessage()
-    if (message) {
-      console.log('from client', message.type, message.args)
-      protocol[message.type].apply(context, message.args)
-    }
-  }
-
-  for (const message of outboundMessages) {
-    if (message.to) {
-      message.to.send(message.type, message.args)
-    } else {
-      for (const client of clients) {
-        client.send(message.type, message.args)
+  tick() {
+    for (const clientConnection of this.clientConnections) {
+      // only read one message from a client at a time
+      const message = clientConnection.getMessage()
+      if (message) {
+        console.log('from client', message.type, message.args)
+        // context.client = client
+        this.currentClientConnection = clientConnection;
+        ClientToServerProtocol[message.type](this, message.args)
       }
     }
+
+    for (const message of this.outboundMessages) {
+      if (message.to) {
+        message.to.send(message.type, message.args)
+      } else {
+        for (const clientConnection of this.clientConnections) {
+          clientConnection.send(message.type, message.args)
+        }
+      }
+    }
+    this.outboundMessages = []
   }
-  outboundMessages = []
+
+  reply = ((type, args) => {
+    this.outboundMessages.push({
+      to: this.currentClientConnection,
+      type,
+      args,
+    });
+  }) as ServerToClientWire['send'];
+
+  nextCreatureId = 1
+  makeCreature(pos: Point): Creature {
+    const creature = {
+      id: this.nextCreatureId++,
+      image: 5,
+      pos,
+    }
+    this.world.setCreature(creature)
+    return creature
+  }
 }
 
-export function openAndConnectToServerInMemory(context: ClientProtocolContext) {
-  function makeWire(context, messageQueue): Wire {
+// const context = new ServerProtocolContext()
+// context.world = new ServerWorldContext()
+// let outboundMessages = [];
+// const clients: Client[] = []
+
+// function tick() {
+//   for (const client of clients) {
+//     // only read one message from a client at a time
+//     const message = client.getMessage()
+//     if (message) {
+//       console.log('from client', message.type, message.args)
+//       context.client = client
+//       protocol[message.type].apply(context, message.args)
+//     }
+//   }
+
+//   for (const message of outboundMessages) {
+//     if (message.to) {
+//       message.to.send(message.type, message.args)
+//     } else {
+//       for (const client of clients) {
+//         client.send(message.type, message.args)
+//       }
+//     }
+//   }
+//   outboundMessages = []
+// }
+
+
+
+export function openAndConnectToServerInMemory(client: Client) {
+  const server = new Server();
+
+  function makeWire(client, messageQueue): ClientToServerWire {
     return {
       send(type, args) {
-        const p = protocol[type]
-        // @ts-ignore
-        if (p.check && p.check(context, args)) {
-          // dummy delay
-          setTimeout(() => {
-            messageQueue.push({
-              type,
-              args,
-            })
-          }, 20)
-        }
+        // const p = ServerToClientProtocol[type]
+        // dummy delay
+        setTimeout(() => {
+          messageQueue.push({
+            type,
+            args,
+          })
+        }, 20)
       },
       receive(type, args) {
         console.log('from server', type, args)
-        const p = protocol[type]
+        const p = ServerToClientProtocol[type]
         // @ts-ignore
-        p.apply(context, args)
+        p(client, args)
       },
     }
   }
 
   const messageQueue = []
-  const wire = makeWire(context, messageQueue)
-  context.world = new ClientWorldContext(wire)
+  const wire = makeWire(client, messageQueue)
+  client.world = new ClientWorldContext(wire)
 
-  const client = {
+  const creature = server.makeCreature({ x: 5, y: 5 })
+
+  const clientConnection: ClientConnection = {
+    creature,
     getMessage() {
       if (messageQueue.length) {
         return messageQueue.shift()
@@ -77,9 +126,17 @@ export function openAndConnectToServerInMemory(context: ClientProtocolContext) {
       }, 20)
     },
   }
-  clients.push(client)
+  server.clientConnections.push(clientConnection)
 
-  setInterval(tick, 50)
+  clientConnection.send('setCreature', creature);
+  // clientConnection.send('initialize', creature);
+  clientConnection.send('initialize', {
+    creatureId: creature.id,
+  });
+
+  setInterval(() => {
+    server.tick();
+  }, 50)
 
   return wire
 }

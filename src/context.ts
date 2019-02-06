@@ -1,4 +1,5 @@
 import { worldToSector } from "./utils";
+import {ClientToServerProtocol} from './protocol'
 
 const WORLD_SIZE = 100
 const SECTOR_SIZE = 20
@@ -47,6 +48,7 @@ function matrix<T>(w: number, h: number, val: T = null): T[][] {
 export abstract class WorldContext {
   size: number = WORLD_SIZE
   sectors: Sector[][] = matrix(WORLD_SIZE, WORLD_SIZE)
+  creatures: Record<number, Creature> = {}
 
   abstract load(point: Point): Sector
 
@@ -70,10 +72,19 @@ export abstract class WorldContext {
   getItem(point: Point) {
     return this.getTile(point).item
   }
+
+  getCreature(id: number): Creature | void {
+    return this.creatures[id];
+  }
+
+  setCreature(creature: Creature) {
+    this.creatures[creature.id] = creature
+    this.getTile(creature.pos).creature = creature
+  }
 }
 
 export class ClientWorldContext extends WorldContext {
-  constructor(private wire: Wire) {
+  constructor(private wire: ClientToServerWire) {
     super()
   }
 
@@ -87,37 +98,5 @@ export class ServerWorldContext extends WorldContext {
   load(point: Point): Sector {
     // TODO load from disk
     return createSector(false)
-  }
-}
-
-export abstract class ProtocolContext {
-  world: WorldContext
-
-  assertClient() {
-    throw new Error('expected client')
-  }
-
-  assertServer() {
-    throw new Error('expected server')
-  }
-
-  getTile(point: Point): Tile | null {
-    return this.world.getTile(point)
-  }
-
-  inView(point: Point): boolean {
-    return true
-  }
-}
-
-export class ClientProtocolContext extends ProtocolContext {
-  assertClient() {
-  }
-}
-
-export class ServerProtocolContext extends ProtocolContext {
-  reply: Wire['send']
-
-  assertServer() {
   }
 }

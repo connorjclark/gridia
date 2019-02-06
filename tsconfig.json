@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    // "noEmit": true,
+    "noEmit": true,
     // "module": "system",
     "target": "ES2016",
     // "allowJs": true,

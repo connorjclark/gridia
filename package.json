@@ -8,8 +8,9 @@
     "typescript": "^3.2.2"
   },
   "scripts": {
-    "build": "parcel build src/main.ts -d dist",
-    "watch": "parcel src/main.ts -d dist"
+    "build": "parcel build src/main.ts -d dist --public-url .",
+    "watch": "parcel src/main.ts -d dist --public-url .",
+    "typecheck": "tsc"
   },
   "devDependencies": {}
 }
