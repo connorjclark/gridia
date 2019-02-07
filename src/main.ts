@@ -1,8 +1,9 @@
+import * as PIXI from 'pixi.js'
+import KEYS from './keys'
 import { worldToTile } from './utils'
 import { openAndConnectToServerInMemory } from './server'
 import { ClientWorldContext } from './context'
 import { getMetaItem } from './items'
-
 export class Client {
   creatureId: number
   world: ClientWorldContext
@@ -11,9 +12,7 @@ export class Client {
 const client = new Client()
 const wire = openAndConnectToServerInMemory(client)
 
-// @ts-ignore - for debugging
-window._client = client
-
+let lastMove = performance.now()
 const state = {
   viewport: {
     x: 0,
@@ -29,197 +28,190 @@ const state = {
   keys: {},
 }
 
-function mouseToWorld(pm: Point): Point {
-  return {
-    x: pm.x + state.viewport.x,
-    y: pm.y + state.viewport.y,
+// @ts-ignore - for debugging
+window._client = client
+
+const player = {
+  sprite: null,
+  lastMoved: 0,
+}
+
+const ResourceKeys = {
+  floors: [
+    "../world/floors/floors0.png",
+    "../world/floors/floors1.png",
+    "../world/floors/floors2.png",
+    "../world/floors/floors3.png",
+    "../world/floors/floors4.png",
+    "../world/floors/floors5.png",
+  ],
+  items: [
+    "../world/items/items0.png",
+    "../world/items/items1.png",
+    "../world/items/items2.png",
+  ],
+  templates: [
+    "../world/templates/templates0.png",
+  ],
+}
+
+function makeTextureCache(resourceType: string) {
+  const textureCache = new Map<number, PIXI.Texture>();
+  return (type: number) => {
+    let texture = textureCache.get(type);
+    if (texture) {
+      return texture
+    }
+
+    const textureIndex = Math.floor(type / 100);
+    const resourceKey = ResourceKeys[resourceType][textureIndex];
+    texture = new PIXI.Texture(
+      PIXI.loader.resources[resourceKey].texture.baseTexture,
+      new PIXI.Rectangle((type % 10) * 32, Math.floor((type % 100) / 10) * 32, 32, 32)
+    );
+    textureCache.set(type, texture);
+    return texture;
   };
 }
 
-function tileToScreen(pt: Point): Point {
-  return {
-    x: pt.x * 32 - state.viewport.x,
-    y: pt.y * 32 - state.viewport.y,
-  }
+const getTexture = {
+  floors: makeTextureCache('floors'),
+  items: makeTextureCache('items'),
+  templates: makeTextureCache('templates'),
 }
 
-let lastMove = performance.now()
+document.addEventListener("DOMContentLoaded", () => {
+  PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+  let app = new PIXI.Application({ width: 256, height: 256 });
 
-function main(gl, ctx: CanvasRenderingContext2D) {
-  const focusCreature = client.world.getCreature(client.creatureId);
+  app.renderer.view.style.position = "absolute";
+  app.renderer.view.style.display = "block";
+  app.renderer.autoResize = true;
+  app.renderer.resize(window.innerWidth, window.innerHeight);
 
-  if (focusCreature && performance.now() - lastMove > 200) {
-    const pos = { ...focusCreature.pos }
-    if (state.keys[38]) {
-      pos.y += -1;
-    }
-    if (state.keys[40]) {
-      pos.y -= -1;
-    }
-    if (state.keys[37]) {
-      pos.x -= 1;
-    }
-    if (state.keys[39]) {
-      pos.x += 1;
-    }
+  //Add the canvas that Pixi automatically created for you to the HTML document
+  document.body.appendChild(app.view);
 
-    if (pos.x !== focusCreature.pos.x || pos.y !== focusCreature.pos.y) {
-      lastMove = performance.now()
-      wire.send('move', pos)
-    }
-  }
+  PIXI.loader
+    .add(Object.values(ResourceKeys))
+    .on("progress", (loader, resource) => console.log('loading ' + loader.progress + "%"))
+    .load(() => {
+      const floorLayer = new PIXI.Container();
+      app.stage.addChild(floorLayer);
 
-  window.requestAnimationFrame(() => main(gl, ctx))
+      const itemLayer = new PIXI.Container();
+      app.stage.addChild(itemLayer);
 
-  // Set clear color to black, fully opaque
-  gl.clearColor(0.0, 0.0, 0.0, 1.0);
-  // Clear the color buffer with specified clear color
-  gl.clear(gl.COLOR_BUFFER_BIT);
+      const topLayer = new PIXI.Container();
+      app.stage.addChild(topLayer);
 
-  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  // ctx.beginPath();
-  // ctx.closePath();
+      // TODO make creature layer
 
-  ctx.textAlign = "center";
+      app.ticker.add(delta => {
+        if (state.mouse.state === 'up') {
+          wire.send('moveItem', {
+            from: state.mouse.downTile,
+            to: state.mouse.tile,
+          });
+          // if (inBounds(state.mouse.tile) && !state.world.tiles[state.mouse.tile.x][state.mouse.tile.y].item) {
+          // }
 
-  if (state.mouse.state === 'up') {
-    wire.send('moveItem', {
-      from: state.mouse.downTile,
-      to: state.mouse.tile,
+          delete state.mouse.state;
+          delete state.mouse.downTile;
+        }
+
+        const focusCreature = client.world.getCreature(client.creatureId);
+        const focusPos = focusCreature ? focusCreature.pos : { x: 0, y: 0 };
+
+        state.viewport = {
+          x: focusPos.x * 32 - app.view.width / 2,
+          y: focusPos.y * 32 - app.view.height / 2,
+        }
+
+        const tilesWidth = Math.ceil(app.view.width / 32);
+        const tilesHeight = Math.ceil(app.view.height / 32);
+        const startTileX = Math.floor(state.viewport.x / 32);
+        const startTileY = Math.floor(state.viewport.y / 32);
+        const endTileX = startTileX + tilesWidth;
+        const endTileY = startTileY + tilesHeight;
+
+        floorLayer.removeChildren();
+        for (let x = startTileX; x <= endTileX; x++) {
+          for (let y = startTileY; y <= endTileY; y++) {
+            const floor = client.world.getTile({ x, y }).floor;
+
+            let sprite;
+            if (floor === 1) {
+              const template = getWaterFloor({ x, y })
+              sprite = new PIXI.Sprite(getTexture.templates(template));
+            } else {
+              sprite = new PIXI.Sprite(getTexture.floors(floor));
+            }
+
+            sprite.x = x * 32;
+            sprite.y = y * 32;
+            floorLayer.addChild(sprite);
+          }
+        }
+
+        itemLayer.removeChildren();
+        for (let x = startTileX; x <= endTileX; x++) {
+          for (let y = startTileY; y <= endTileY; y++) {
+            const item = client.world.getTile({ x, y }).item;
+            if (item) {
+              const itemSprite = new PIXI.Sprite(getTexture.items(item.type));
+              itemSprite.x = x * 32;
+              itemSprite.y = y * 32;
+              itemLayer.addChild(itemSprite);
+            }
+          }
+        }
+
+        if (focusCreature) {
+          player.sprite = new PIXI.Sprite(getTexture.items(focusCreature.image));
+          player.sprite.x = 32 * focusPos.x;
+          player.sprite.y = 32 * focusPos.y;
+          itemLayer.addChild(player.sprite);
+        }
+
+        if (focusCreature && performance.now() - lastMove > 200) {
+          const pos = { ...focusCreature.pos }
+          if (state.keys[KEYS.UP_ARROW]) {
+            pos.y -= 1;
+          } else if (state.keys[KEYS.DOWN_ARROW]) {
+            pos.y += 1;
+          }
+          if (state.keys[KEYS.LEFT_ARROW]) {
+            pos.x -= 1;
+          } else if (state.keys[KEYS.RIGHT_ARROW]) {
+            pos.x += 1;
+          }
+
+          if (pos.x !== focusCreature.pos.x || pos.y !== focusCreature.pos.y) {
+            lastMove = performance.now()
+            wire.send('move', pos)
+          }
+        }
+
+        topLayer.removeChildren();
+        if (client.world.inBounds(state.mouse.tile)) {
+          const item = client.world.getItem(state.mouse.tile);
+          if (item && item.type) {
+            const itemSprite = new PIXI.Sprite(getTexture.items(item.type));
+            const { x, y } = tileToScreen(state.mouse.tile);
+            itemSprite.x = x;
+            itemSprite.y = y;
+            topLayer.addChild(itemSprite);
+          }
+        }
+
+        // TODO
+        // only dragged items should be drawn on bottom part of canvas
+
+        app.stage.x = -focusPos.x * 32 + Math.floor(app.view.width / 2);
+        app.stage.y = -focusPos.y * 32 + Math.floor(app.view.height / 2);
+      });
     });
-    // if (inBounds(state.mouse.tile) && !state.world.tiles[state.mouse.tile.x][state.mouse.tile.y].item) {
-    // }
-
-    delete state.mouse.state;
-    delete state.mouse.downTile;
-  }
-
-  const focus = focusCreature ? focusCreature.pos : {x: 0, y: 0};
-  state.viewport = {
-    x: focus.x * 32 - gl.canvas.width / 2,
-    y: focus.y * 32 - gl.canvas.height / 2,
-  }
-
-  const tilesWidth = Math.ceil(gl.canvas.width / 32);
-  const tilesHeight = Math.ceil(gl.canvas.height / 32);
-  const startTileX = Math.floor(state.viewport.x / 32);
-  const startTileY = Math.floor(state.viewport.y / 32);
-  const endTileX = startTileX + tilesWidth;
-  const endTileY = startTileY + tilesHeight;
-
-  for (let x = startTileX; x <= endTileX; x++) {
-    for (let y = startTileY; y <= endTileY; y++) {
-      if (!client.world.inBounds({ x, y })) continue;
-
-      const tile = client.world.getTile({ x, y })
-      const sx = x * 32 - state.viewport.x;
-      const sy = y * 32 - state.viewport.y;
-
-      // TODO webgl
-      drawFloor(ctx, { x, y }, sx, sy)
-
-      if (tile.item) {
-        // TODO webgl
-        drawItem(ctx, tile.item, sx, sy)
-      }
-
-      if (tile.creature) {
-        // TODO webgl
-        drawCreature(ctx, tile.creature, sx, sy)
-      }
-    }
-  }
-
-  if (client.world.inBounds(state.mouse.tile)) {
-    ctx.fillStyle = "yellow";
-    ctx.strokeStyle = "yellow";
-    ctx.lineWidth = 5;
-    ctx.beginPath();
-    const { x, y } = tileToScreen(state.mouse.tile);
-    ctx.rect(x, y, 32, 32);
-    ctx.stroke();
-    ctx.closePath();
-    // ctx.fillText(`${x}, ${y}`, (x + 0.5) * 32, (y + 0.5) * 32);
-  }
-
-  // only dragged items should be drawn on bottom part of canvas
-  ctx.clearRect(0, gl.canvas.height, ctx.canvas.width, ctx.canvas.height);
-
-  if (state.mouse.state === 'down' && client.world.inBounds(state.mouse.downTile)) {
-    const item = client.world.getItem(state.mouse.downTile)
-    const { x, y } = state.mouse
-    drawItem(ctx, item, x, y)
-  }
-}
-
-function loadImage(url) {
-  return new Promise(resolve => { let i = new Image(); i.onload = () => { resolve(i) }; i.src = url; });
-}
-
-const spritesheets = {}
-function loadSpritesheet(type, index) {
-  const key = `${type}${index}`
-  let spritesheet = spritesheets[key]
-  if (!spritesheet) {
-    spritesheet = spritesheets[key] = new Image(320, 320) // stub
-    loadImage(`/world/${type}/${type}${index}.png`).then(img => {
-      spritesheets[key] = img
-    })
-  }
-  return spritesheet
-}
-
-function drawCreature(ctx: CanvasRenderingContext2D, creature: Creature, x: number, y: number) {
-  const spritesheetIndex = Math.floor(creature.image / 100)
-  const spritesheet = loadSpritesheet('player', spritesheetIndex)
-  const sx = (creature.image % 10) * 32
-  const sy = Math.floor((creature.image % 100) / 10) * 32
-  ctx.drawImage(spritesheet, sx, sy, 32, 32, x, y, 32, 32)
-}
-
-function drawItem(ctx: CanvasRenderingContext2D, item: Item, x: number, y: number) {
-  const metaItem = getMetaItem(item.type)
-  const spritesheetIndex = Math.floor(metaItem.animations[0] / 100)
-  const spritesheet = loadSpritesheet('items', spritesheetIndex)
-  const sx = (item.type % 10) * 32
-  const sy = Math.floor((item.type % 100) / 10) * 32
-  ctx.drawImage(spritesheet, sx, sy, 32, 32, x, y, 32, 32)
-}
-
-function drawFloor(ctx: CanvasRenderingContext2D, point: Point, x: number, y: number) {
-  const floor = client.world.getTile(point).floor
-  if (floor === 1) {
-    drawWater(ctx, point, x, y)
-    return
-  }
-
-  const spritesheetIndex = Math.floor(floor / 100)
-  const spritesheet = loadSpritesheet('floors', spritesheetIndex)
-  const sx = (floor % 10) * 32
-  const sy = Math.floor((floor % 100) / 10) * 32
-  ctx.drawImage(spritesheet, sx, sy, 32, 32, x, y, 32, 32)
-}
-
-function drawWater(ctx: CanvasRenderingContext2D, point: Point, x: number, y: number) {
-  const spritesheet = loadSpritesheet('templates', 0)
-  const templateIndex = useTemplate(0, 1, point.x, point.y, 0)
-  const sx = (templateIndex % 10) * 32
-  const sy = Math.floor((templateIndex % 100) / 10) * 32
-  ctx.drawImage(spritesheet, sx, sy, 32, 32, x, y, 32, 32)
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const canvas = document.querySelector<HTMLCanvasElement>("#glCanvas");
-  // Initialize the GL context
-  const gl = canvas.getContext("webgl");
-
-  // Only continue if WebGL is available and working
-  if (gl === null) {
-    alert("Unable to initialize WebGL. Your browser or machine may not support it.");
-    return;
-  }
-
-  const ctx = document.querySelector<HTMLCanvasElement>("#ctxText").getContext('2d');
 
   document.onmousemove = (e) => {
     state.mouse = {
@@ -268,21 +260,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // resize the canvas to fill browser window dynamically
   function resize() {
-    gl.canvas.width = window.innerWidth;
-    gl.canvas.height = gl.canvas.parentElement.getBoundingClientRect().bottom;
-    ctx.canvas.width = window.innerWidth;
-    ctx.canvas.height = window.innerHeight;
+    // gl.canvas.width = window.innerWidth;
+    // gl.canvas.height = gl.canvas.parentElement.getBoundingClientRect().bottom;
+    // ctx.canvas.width = window.innerWidth;
+    // ctx.canvas.height = window.innerHeight;
   }
   window.addEventListener('resize', resize);
   resize();
-
-  window.requestAnimationFrame(() => main(gl, ctx))
 })
+
+function mouseToWorld(pm: Point): Point {
+  return {
+    x: pm.x + state.viewport.x,
+    y: pm.y + state.viewport.y,
+  };
+}
+
+function tileToScreen(pt: Point): Point {
+  return {
+    x: pt.x * 32 - state.viewport.x,
+    y: pt.y * 32 - state.viewport.y,
+  }
+}
+
+function getWaterFloor(point: Point) {
+  const templateIndex = useTemplate(0, 1, point)
+  return templateIndex;
+}
 
 // generalize
 // this is only for floors right now
 // more uses?
-function useTemplate(templateId: number, typeToMatch: number, x: number, y: number, z: number) {
+function useTemplate(templateId: number, typeToMatch: number, { x, y }: Point) {
+  const z = 0;
+
   var size = client.world.size;
   // var xl = x == 0 ? size - 1 : x - 1;
   // var xr = x == size - 1 ? 0 : x + 1;

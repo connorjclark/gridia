@@ -5,12 +5,15 @@
   "license": "MIT",
   "dependencies": {
     "parcel-bundler": "^1.11.0",
-    "typescript": "^3.2.2"
+    "pixi.js": "^4.8.5"
   },
   "scripts": {
     "build": "parcel build src/main.ts -d dist --public-url .",
     "watch": "parcel src/main.ts -d dist --public-url .",
     "typecheck": "tsc"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/pixi.js": "^4.8.6",
+    "typescript": "^3.3.1"
+  }
 }

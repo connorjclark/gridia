@@ -65,6 +65,8 @@ export abstract class WorldContext {
   }
 
   getTile(point: Point): Tile | null {
+    if (point.x < 0 || point.y < 0) return {floor: 0, item: null};
+
     const sector = this.getSector(worldToSector(point, SECTOR_SIZE))
     return sector[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE]
   }

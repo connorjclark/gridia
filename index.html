@@ -1,50 +1,64 @@
 <html>
-    <head>
-        <script src="dist/main.js"></script>
-        <style>
-            html {
-                overflow-x: hidden;
-                overflow-y: hidden;
-                width: 100%;
-            }
-            body {
-                overflow-x: hidden;
-                overflow-y: hidden;
-                width: 100%;
-                display:flex;
-                flex-direction:column;
-            }
-            #canvases {
-                flex-grow: 1;
-            }
-            canvas {
-                border: 1px solid black;
-            }
-            #glCanvas {
-                position: absolute;
-                left: 0px;
-                top: 0px;
-            }
-            #ctxText {
-                position: absolute;
-                left: 0px;
-                top: 0px;
-                z-index: 2;
-                pointer-events:none;
-            }
-            #ui {
-                min-height: 200px
-            }
-        </style>
-    </head>
-    <body>
-        <div id="canvases">
-            <canvas id="glCanvas" height="480"></canvas>
-            <canvas id="ctxText" height="680"></canvas>
-        </div>
-        <div id="ui">
-            <p>Be respectful.</p>
-            <textarea name="chat" id="chat" cols="30" rows="10"></textarea>
-        </div>
-    </body>
+
+<head>
+    <script src="dist/main.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html {
+            overflow-x: hidden;
+            overflow-y: hidden;
+            width: 100%;
+        }
+
+        body {
+            overflow-x: hidden;
+            overflow-y: hidden;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #canvases {
+            flex-grow: 1;
+        }
+
+        canvas {
+            border: 1px solid black;
+        }
+
+        #glCanvas {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+
+        #ctxText {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        #ui {
+            min-height: 200px
+        }
+    </style>
+</head>
+
+<body>
+    <div id="canvases">
+        <canvas id="glCanvas" height="480"></canvas>
+        <canvas id="ctxText" height="680"></canvas>
+    </div>
+    <div id="ui">
+        <p>Be respectful.</p>
+        <textarea name="chat" id="chat" cols="30" rows="10"></textarea>
+    </div>
+</body>
+
 </html>
