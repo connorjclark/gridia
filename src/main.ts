@@ -82,15 +82,10 @@ const getTexture = {
 
 document.addEventListener("DOMContentLoaded", () => {
   PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
-  let app = new PIXI.Application({ width: 256, height: 256 });
+  const app = new PIXI.Application();
 
-  app.renderer.view.style.position = "absolute";
-  app.renderer.view.style.display = "block";
-  app.renderer.autoResize = true;
-  app.renderer.resize(window.innerWidth, window.innerHeight);
-
-  //Add the canvas that Pixi automatically created for you to the HTML document
-  document.body.appendChild(app.view);
+  const canvasesEl = document.body.querySelector('#canvases');
+  canvasesEl.appendChild(app.view);
 
   PIXI.loader
     .add(Object.values(ResourceKeys))
@@ -194,11 +189,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         topLayer.removeChildren();
-        if (client.world.inBounds(state.mouse.tile)) {
-          const item = client.world.getItem(state.mouse.tile);
+
+        // Draw item being moved.
+        if (state.mouse.state === 'down' && client.world.inBounds(state.mouse.downTile)) {
+          const item = client.world.getItem(state.mouse.downTile);
           if (item && item.type) {
             const itemSprite = new PIXI.Sprite(getTexture.items(item.type));
-            const { x, y } = tileToScreen(state.mouse.tile);
+            const { x, y } = mouseToWorld(state.mouse);
             itemSprite.x = x;
             itemSprite.y = y;
             topLayer.addChild(itemSprite);
@@ -213,16 +210,16 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-  document.onmousemove = (e) => {
+  canvasesEl.addEventListener('mousemove', (e: MouseEvent) => {
     state.mouse = {
       ...state.mouse,
       x: e.clientX,
       y: e.clientY,
       tile: worldToTile(mouseToWorld({ x: e.clientX, y: e.clientY })),
     }
-  }
+  });
 
-  document.onmousedown = (e) => {
+  canvasesEl.addEventListener('mousedown', (e: MouseEvent) => {
     if (!client.world.inBounds(state.mouse.tile) || !client.world.getItem(state.mouse.tile)) {
       delete state.mouse.state;
       return;
@@ -233,16 +230,16 @@ document.addEventListener("DOMContentLoaded", () => {
       state: 'down',
       downTile: state.mouse.tile,
     }
-  }
+  });
 
-  document.onmouseup = (e) => {
+  canvasesEl.addEventListener('mouseup', (e: MouseEvent) => {
     if (state.mouse.state !== 'down') return;
 
     state.mouse = {
       ...state.mouse,
       state: 'up',
     }
-  }
+  });
 
   document.onclick = (e) => {
     const point = worldToTile(mouseToWorld({ x: e.clientX, y: e.clientY }))
@@ -260,6 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // resize the canvas to fill browser window dynamically
   function resize() {
+    app.renderer.resize(canvasesEl.getBoundingClientRect().width, canvasesEl.getBoundingClientRect().height);
     // gl.canvas.width = window.innerWidth;
     // gl.canvas.height = gl.canvas.parentElement.getBoundingClientRect().bottom;
     // ctx.canvas.width = window.innerWidth;
@@ -278,8 +276,8 @@ function mouseToWorld(pm: Point): Point {
 
 function tileToScreen(pt: Point): Point {
   return {
-    x: pt.x * 32 - state.viewport.x,
-    y: pt.y * 32 - state.viewport.y,
+    x: pt.x * 32 - state.viewport.x / 2,
+    y: pt.y * 32 - state.viewport.y / 2,
   }
 }
 

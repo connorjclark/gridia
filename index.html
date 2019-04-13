@@ -6,6 +6,7 @@
         * {
             padding: 0;
             margin: 0;
+            user-select: none;
         }
 
         html {
@@ -24,6 +25,7 @@
 
         #canvases {
             flex-grow: 1;
+            height: 75%;
         }
 
         canvas {
@@ -52,12 +54,14 @@
 
 <body>
     <div id="canvases">
-        <canvas id="glCanvas" height="480"></canvas>
-        <canvas id="ctxText" height="680"></canvas>
+        <!-- <canvas id="glCanvas" height="480"></canvas>
+        <canvas id="ctxText" height="680"></canvas> -->
     </div>
     <div id="ui">
         <p>Be respectful.</p>
-        <textarea name="chat" id="chat" cols="30" rows="10"></textarea>
+        <textarea name="chat" id="chat" cols="30" rows="10">
+            hello
+        </textarea>
     </div>
 </body>
 
