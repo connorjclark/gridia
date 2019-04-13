@@ -80,6 +80,70 @@ const getTexture = {
   templates: makeTextureCache('templates'),
 }
 
+function makeDraggableWindow() {
+  const container = new PIXI.Container();
+
+  container.interactive = true;
+
+  let dragging = false;
+  let downAt = null;
+  let startingPosition = null;
+  const onDragBegin = (e: PIXI.interaction.InteractionEvent) => {
+    dragging = true;
+    downAt = { x: e.target.x, y: e.target.y };
+    startingPosition = { x: container.x, y: container.y };
+  };
+  const onDrag = (e: PIXI.interaction.InteractionEvent) => {
+    if (dragging) {
+      container.x = startingPosition.x + e.data.global.x - downAt.x;
+      container.y = startingPosition.y + e.data.global.y - downAt.y;
+    }
+  };
+  const onDragEnd = () => {
+    dragging = false;
+    downAt = null;
+    startingPosition = null;
+  };
+
+  container.on('mousedown', onDragBegin)
+    .on('mousemove', onDrag)
+    .on('mouseup', onDragEnd)
+    .on('mouseupoutside', onDragEnd)
+
+  return container;
+}
+
+function makeItemContainer() {
+  const window = makeDraggableWindow();
+
+  const items: Item[] = [];
+  const maxSize = 10;
+
+  const borderSize = 5;
+
+  function draw() {
+    window.removeChildren();
+    for (const [i, item] of items.entries()) {
+      const itemSprite = new PIXI.Sprite(getTexture.items(item.type));
+      itemSprite.x = borderSize + i * 32;
+      itemSprite.y = borderSize;
+      window.addChild(itemSprite);
+    }
+
+    const border = new PIXI.Graphics();
+    border.beginFill(0, 0.1);
+    border.lineStyle(borderSize, 0);
+    border.drawRect(0, 0, borderSize * 2 + maxSize * 32, borderSize * 2 + 32);
+    window.addChild(border);
+  }
+
+  return {
+    window,
+    items,
+    draw,
+  };
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
   const app = new PIXI.Application();
@@ -91,14 +155,25 @@ document.addEventListener("DOMContentLoaded", () => {
     .add(Object.values(ResourceKeys))
     .on("progress", (loader, resource) => console.log('loading ' + loader.progress + "%"))
     .load(() => {
+      const world = new PIXI.Container();
+      app.stage.addChild(world);
+
       const floorLayer = new PIXI.Container();
-      app.stage.addChild(floorLayer);
+      world.addChild(floorLayer);
 
       const itemLayer = new PIXI.Container();
-      app.stage.addChild(itemLayer);
+      world.addChild(itemLayer);
 
       const topLayer = new PIXI.Container();
-      app.stage.addChild(topLayer);
+      world.addChild(topLayer);
+
+      const inventory = makeItemContainer();
+      app.stage.addChild(inventory.window);
+
+      inventory.items.push({ type: 10, quantity: 1 });
+      inventory.items.push({ type: 11, quantity: 1 });
+      inventory.items.push({ type: 12, quantity: 1 });
+      inventory.draw();
 
       // TODO make creature layer
 
@@ -205,8 +280,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // TODO
         // only dragged items should be drawn on bottom part of canvas
 
-        app.stage.x = -focusPos.x * 32 + Math.floor(app.view.width / 2);
-        app.stage.y = -focusPos.y * 32 + Math.floor(app.view.height / 2);
+        world.x = -focusPos.x * 32 + Math.floor(app.view.width / 2);
+        world.y = -focusPos.y * 32 + Math.floor(app.view.height / 2);
       });
     });
 
