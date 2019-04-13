@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js'
 import KEYS from './keys'
-import { worldToTile } from './utils'
+import { worldToTile, equalPoints } from './utils'
 import { openAndConnectToServerInMemory } from './server'
 import { ClientWorldContext } from './context'
 import { getMetaItem } from './items'
@@ -178,20 +178,31 @@ document.addEventListener("DOMContentLoaded", () => {
       // TODO make creature layer
 
       app.ticker.add(delta => {
+        const focusCreature = client.world.getCreature(client.creatureId);
+        const focusPos = focusCreature ? focusCreature.pos : { x: 0, y: 0 };
+
         if (state.mouse.state === 'up') {
-          wire.send('moveItem', {
-            from: state.mouse.downTile,
-            to: state.mouse.tile,
-          });
+          console.log(state.mouse.tile);
+          console.log(focusPos);
+          // Move to player inventory if dragging to player.
+          if (equalPoints(state.mouse.tile, focusPos)) {
+            // TODO wire inventory state
+            const item = client.world.getItem(state.mouse.downTile);
+            inventory.items.push(item);
+            inventory.draw();
+          } else {
+            wire.send('moveItem', {
+              from: state.mouse.downTile,
+              to: state.mouse.tile,
+            });
+          }
+
           // if (inBounds(state.mouse.tile) && !state.world.tiles[state.mouse.tile.x][state.mouse.tile.y].item) {
           // }
 
           delete state.mouse.state;
           delete state.mouse.downTile;
         }
-
-        const focusCreature = client.world.getCreature(client.creatureId);
-        const focusPos = focusCreature ? focusCreature.pos : { x: 0, y: 0 };
 
         state.viewport = {
           x: focusPos.x * 32 - app.view.width / 2,
@@ -276,9 +287,6 @@ document.addEventListener("DOMContentLoaded", () => {
             topLayer.addChild(itemSprite);
           }
         }
-
-        // TODO
-        // only dragged items should be drawn on bottom part of canvas
 
         world.x = -focusPos.x * 32 + Math.floor(app.view.width / 2);
         world.y = -focusPos.y * 32 + Math.floor(app.view.height / 2);
