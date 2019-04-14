@@ -310,11 +310,6 @@ document.addEventListener("DOMContentLoaded", () => {
           containerWindow.draw();
         }
 
-        // if (state.mouse.state === 'up') {
-        //   delete state.mouse.state;
-        //   delete state.mouse.downTile;
-        // }
-
         state.viewport = {
           x: focusPos.x * 32 - app.view.width / 2,
           y: focusPos.y * 32 - app.view.height / 2,
@@ -411,11 +406,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   canvasesEl.addEventListener('mousedown', (e: MouseEvent) => {
-    if (!client.world.inBounds(state.mouse.tile) || !client.world.getItem(state.mouse.tile)) {
-      delete state.mouse.state;
-      return;
-    }
-
     state.mouse = {
       ...state.mouse,
       state: 'down',
@@ -424,8 +414,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   canvasesEl.addEventListener('mouseup', (e: MouseEvent) => {
-    if (state.mouse.state !== 'down') return;
-
     state.mouse = {
       ...state.mouse,
       state: 'up',
@@ -450,10 +438,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function resize() {
     const size = getCanvasSize();
     app.renderer.resize(size.width, size.height);
-    // gl.canvas.width = window.innerWidth;
-    // gl.canvas.height = gl.canvas.parentElement.getBoundingClientRect().bottom;
-    // ctx.canvas.width = window.innerWidth;
-    // ctx.canvas.height = window.innerHeight;
   }
   window.addEventListener('resize', resize);
   resize();
