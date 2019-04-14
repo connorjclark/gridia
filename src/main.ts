@@ -113,9 +113,32 @@ function makeDraggableWindow() {
   return container;
 }
 
-const containerWindows = new Map();
+type ContainerWindow = ReturnType<typeof makeItemContainerWindow>;
+const containerWindows = new Map<number, ContainerWindow>();
 function makeItemContainerWindow(container: Container) {
   const window = makeDraggableWindow();
+  const containerWindow = {
+    window,
+    container,
+    draw,
+    mouseOverIndex: null,
+  };
+
+  window
+    .on('mousemove', (e: PIXI.interaction.InteractionEvent) => {
+      if (e.target !== window) {
+        containerWindow.mouseOverIndex = null;
+        return;
+      }
+
+      const x = e.data.getLocalPosition(e.target).x;
+      const index = Math.floor((x - borderSize) / 32);
+      if (index >= 0 && index < container.items.length) {
+        containerWindow.mouseOverIndex = index;
+      } else {
+        containerWindow.mouseOverIndex = null;
+      }
+    });
 
   const borderSize = 5;
 
@@ -134,13 +157,16 @@ function makeItemContainerWindow(container: Container) {
     border.lineStyle(borderSize, 0);
     border.drawRect(0, 0, borderSize * 2 + container.items.length * 32, borderSize * 2 + 32);
     window.addChild(border);
+
+    if (containerWindow.mouseOverIndex !== null && state.mouse.state === 'down') {
+      const highlight = new PIXI.Graphics();
+      highlight.beginFill(0xffff00, 0.3);
+      highlight.drawRect(borderSize + 32 * containerWindow.mouseOverIndex, borderSize, 32, 32);
+      window.addChild(highlight);
+    }
   }
 
-  return {
-    window,
-    container,
-    draw,
-  };
+  return containerWindow;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -182,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
             containerWindows.set(id, containerWindow);
             app.stage.addChild(containerWindow.window);
           }
-          
+
           containerWindow.draw();
         }
 
@@ -192,8 +218,21 @@ document.addEventListener("DOMContentLoaded", () => {
           from = state.mouse.downTile;
           fromSource = 0;
 
-          // Move to player inventory if dragging to player.
-          if (equalPoints(state.mouse.tile, focusPos)) {
+          let highlightedContainer: ContainerWindow = null;
+          for (const containerWindow of containerWindows.values()) {
+            if (containerWindow.mouseOverIndex !== null) {
+              highlightedContainer = containerWindow;
+              break;
+            }
+          }
+          
+          // Move to container if mouse is over one.
+          // Else, move to player inventory if dragging to player.
+          // Else, move to somewhere in the world.
+          if (highlightedContainer) {
+            to = { x: highlightedContainer.mouseOverIndex, y: 0 };
+            toSource = highlightedContainer.container.id;
+          } else if (equalPoints(state.mouse.tile, focusPos)) {
             to = null;
             toSource = focusCreature.containerId;
           } else {
