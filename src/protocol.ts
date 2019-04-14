@@ -5,36 +5,88 @@ import { Client } from "./main";
 // ClientToServerProtocolFn
 type C2S<T> = (server: Server, data: T) => void;
 
-type MoveItemParams = { from: Point, to: Point };
-const moveItem: C2S<MoveItemParams> = (server, { from, to }) => {
-  if (!server.world.inBounds(from) || !server.world.inBounds(to)) {
+// moveItem handles movement between anywhere items can be - from the world to a player's
+// container, within a container, from a container to the world, or even between containers.
+// Note, containers have a fixed y value of 0. If "to" is null for a container, no location
+// is specified and the item will be place in the first viable slot.
+// TODO - better name than "source"? Maybe just generalize to "Container" where 0 refers to world?
+export const ItemSourceWorld = 0;
+type MoveItemParams = { from: Point, fromSource: number, to: Point, toSource: number };
+const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource }) => {
+  function boundsCheck(loc: Point | null, source: number) {
+    if (source === ItemSourceWorld) {
+      return server.world.inBounds(loc);
+    } else {
+      // No location specified.
+      if (!loc) return true;
+
+      const container = server.getContainer(source);
+      if (!container) return false;
+      return loc.x < container.items.length;
+    }
+  }
+
+  function getItem(loc: Point, source: number) {
+    if (source === ItemSourceWorld) {
+      return server.world.getItem(loc);
+    } else {
+      if (!loc) return;
+      return server.getContainer(source)[loc.x];
+    }
+  }
+
+  function setItem(loc: Point, source: number, item: Item) {
+    if (source === ItemSourceWorld) {
+      server.world.getTile(loc).item = item;
+    } else {
+      const container = server.getContainer(source);
+      if (!loc) {
+        for (let i = 0; i < container.items.length; i++) {
+          if (!container.items[i]) {
+            loc = {x: i, y: 0};
+            break;
+          }
+        }
+      }
+      if (loc) {
+        container.items[loc.x] = item;
+      } else {
+        container.items.push(item);
+      }
+    }
+  }
+
+  if (!boundsCheck(from, fromSource) || !boundsCheck(to, toSource)) {
     return false
   }
+
+  // Ignore if moving to same location.
+  if (from === to && fromSource === toSource) {
+    return false;
+  }
+
+  const fromItem = getItem(from, fromSource);
+  const toItem = getItem(to, toSource);
 
   // if (!server.inView(from) || !server.inView(to)) {
   //   return false
   // }
 
-  const fromTile = server.world.getTile(from)
-  const toTile = server.world.getTile(to)
+  if (!fromItem) return false;
+  if (toItem && fromItem.type !== toItem.type) return false;
 
-  if (fromTile === toTile) {
-    return false
+  if (!getMetaItem(fromItem.type).moveable) {
+    return false;
   }
 
-  if (!fromTile.item) return false;
-  if (toTile.item && fromTile.item.type !== toTile.item.type) return false;
-
-  if (!getMetaItem(fromTile.item.type).moveable) {
-    return false
+  if (toItem && toItem.type === fromItem.type) {
+    fromItem.quantity += 1
   }
+  
+  setItem(from, fromSource, null);
+  setItem(to, toSource, fromItem);
 
-  if (toTile.item && toTile.item.type === fromTile.item.type) {
-    fromTile.item.quantity += 1
-  }
-  toTile.item = fromTile.item
-  fromTile.item = null
-
+  // TODO queue changes and send to all clients.
   // context.queueTileChange(from)
   // context.queueTileChange(to)
 }
@@ -101,20 +153,33 @@ const sector: S2C<SectorParams> = (client, { x, y, tiles }) => {
   client.world.sectors[x][y] = tiles
 }
 
-type SetItemParams = Point & { item: Item };
-const setItem: S2C<SetItemParams> = (client, { x, y, item }) => {
-  client.world.getTile({ x, y }).item = item
+type ContainerParams = Container;
+const container: S2C<ContainerParams> = (client, container) => {
+  client.world.containers.set(container.id, container);
+}
+
+type SetItemParams = Point & { source: number, item: Item };
+const setItem: S2C<SetItemParams> = (client, { x, y, source, item }) => {
+  if (source === ItemSourceWorld) {
+    client.world.getTile({ x, y }).item = item
+  } else {
+    const container = client.world.containers.get(source);
+    if (container) {
+      container.items[x] = item;
+    }
+  }
 }
 
 // TODO make all but id optional
 type SetCreatureParams = Partial<Creature>;
-const setCreature: S2C<SetCreatureParams> = (client, { pos, id, image }) => {
+const setCreature: S2C<SetCreatureParams> = (client, { pos, id, containerId, image }) => {
   let creature = client.world.getCreature(id);
 
   if (!creature) {
     if (id) {
       client.world.setCreature(creature = {
         id,
+        containerId,
         image,
         pos,
       });
@@ -122,6 +187,7 @@ const setCreature: S2C<SetCreatureParams> = (client, { pos, id, image }) => {
       // TODO get from server
       client.world.setCreature(creature = {
         id,
+        containerId,
         image,
         pos,
       });
@@ -136,6 +202,7 @@ const setCreature: S2C<SetCreatureParams> = (client, { pos, id, image }) => {
 export const ServerToClientProtocol = {
   initialize,
   sector,
+  container,
   setItem,
   setCreature,
 }

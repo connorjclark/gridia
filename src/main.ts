@@ -113,17 +113,16 @@ function makeDraggableWindow() {
   return container;
 }
 
-function makeItemContainer() {
+const containerWindows = new Map();
+function makeItemContainerWindow(container: Container) {
   const window = makeDraggableWindow();
-
-  const items: Item[] = [];
-  const maxSize = 10;
 
   const borderSize = 5;
 
   function draw() {
     window.removeChildren();
-    for (const [i, item] of items.entries()) {
+    for (const [i, item] of container.items.entries()) {
+      if (!item) continue;
       const itemSprite = new PIXI.Sprite(getTexture.items(item.type));
       itemSprite.x = borderSize + i * 32;
       itemSprite.y = borderSize;
@@ -133,13 +132,13 @@ function makeItemContainer() {
     const border = new PIXI.Graphics();
     border.beginFill(0, 0.1);
     border.lineStyle(borderSize, 0);
-    border.drawRect(0, 0, borderSize * 2 + maxSize * 32, borderSize * 2 + 32);
+    border.drawRect(0, 0, borderSize * 2 + container.items.length * 32, borderSize * 2 + 32);
     window.addChild(border);
   }
 
   return {
     window,
-    items,
+    container,
     draw,
   };
 }
@@ -167,35 +166,46 @@ document.addEventListener("DOMContentLoaded", () => {
       const topLayer = new PIXI.Container();
       world.addChild(topLayer);
 
-      const inventory = makeItemContainer();
-      app.stage.addChild(inventory.window);
-
-      inventory.items.push({ type: 10, quantity: 1 });
-      inventory.items.push({ type: 11, quantity: 1 });
-      inventory.items.push({ type: 12, quantity: 1 });
-      inventory.draw();
-
       // TODO make creature layer
 
       app.ticker.add(delta => {
         const focusCreature = client.world.getCreature(client.creatureId);
         const focusPos = focusCreature ? focusCreature.pos : { x: 0, y: 0 };
 
+        if (!focusCreature) return;
+
+        // Draw container windows.
+        for (const [id, container] of client.world.containers.entries()) {
+          let containerWindow = containerWindows.get(id);
+          if (!containerWindow) {
+            containerWindow = makeItemContainerWindow(container);
+            containerWindows.set(id, containerWindow);
+            app.stage.addChild(containerWindow.window);
+          }
+          
+          containerWindow.draw();
+        }
+
         if (state.mouse.state === 'up') {
-          console.log(state.mouse.tile);
-          console.log(focusPos);
+          let from, fromSource, to, toSource;
+
+          from = state.mouse.downTile;
+          fromSource = 0;
+
           // Move to player inventory if dragging to player.
           if (equalPoints(state.mouse.tile, focusPos)) {
-            // TODO wire inventory state
-            const item = client.world.getItem(state.mouse.downTile);
-            inventory.items.push(item);
-            inventory.draw();
+            to = null;
+            toSource = focusCreature.containerId;
           } else {
-            wire.send('moveItem', {
-              from: state.mouse.downTile,
-              to: state.mouse.tile,
-            });
+            to = state.mouse.tile;
+            toSource = 0;
           }
+          wire.send('moveItem', {
+            from,
+            fromSource,
+            to,
+            toSource,
+          });
 
           // if (inBounds(state.mouse.tile) && !state.world.tiles[state.mouse.tile.x][state.mouse.tile.y].item) {
           // }

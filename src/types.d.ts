@@ -17,8 +17,14 @@ interface Item {
   quantity: number
 }
 
+interface Container {
+  id: number;
+  items: Item[];
+}
+
 interface Creature {
   id: number
+  containerId: number
   image: number
   pos: Point
 }

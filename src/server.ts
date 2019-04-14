@@ -2,6 +2,8 @@ import { ClientToServerProtocol, ServerToClientProtocol } from './protocol'
 import { ServerWorldContext, ClientWorldContext } from "./context";
 import { Client } from './main';
 
+// TODO document how the f this works.
+
 export default class Server {
   world = new ServerWorldContext;
   clientConnections: ClientConnection[] = [];
@@ -44,11 +46,26 @@ export default class Server {
   makeCreature(pos: Point): Creature {
     const creature = {
       id: this.nextCreatureId++,
+      containerId: this.makeContainer().id,
       image: 5,
       pos,
     }
     this.world.setCreature(creature)
     return creature
+  }
+
+  nextContainerId = 1;
+  makeContainer() {
+    const container = {
+      id: this.nextContainerId++,
+      items: Array(10).fill(null),
+    };
+    this.world.containers.set(container.id, container);
+    return container;
+  }
+
+  getContainer(id: number) {
+    return this.world.containers.get(id);
   }
 }
 
@@ -133,6 +150,7 @@ export function openAndConnectToServerInMemory(client: Client) {
   clientConnection.send('initialize', {
     creatureId: creature.id,
   });
+  clientConnection.send('container', server.getContainer(creature.containerId));
 
   setInterval(() => {
     server.tick();

@@ -49,6 +49,7 @@ export abstract class WorldContext {
   size: number = WORLD_SIZE
   sectors: Sector[][] = matrix(WORLD_SIZE, WORLD_SIZE)
   creatures: Record<number, Creature> = {}
+  containers: Map<number, Container> = new Map();
 
   abstract load(point: Point): Sector
 
