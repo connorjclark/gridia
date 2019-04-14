@@ -245,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const point = worldToTile(mouseToWorld({ x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY }));
         if (!client.world.inBounds(point)) return;
         const item = client.world.getItem(point);
-        if (!item) return;
+        if (!item || !item.type) return;
 
         eventEmitter.emit('ItemMoveBegin', {
           source: 0,
@@ -253,7 +253,14 @@ document.addEventListener("DOMContentLoaded", () => {
           item,
         });
       });
-      world.on('mouseup', e => {
+      world.on('mouseup', (e: PIXI.interaction.InteractionEvent) => {
+        if (!itemMovingState) {
+          const point = worldToTile(e.data.getLocalPosition(world));
+          if (client.world.inBounds(point)) {
+            client.world.getTile(point).floor = ++client.world.getTile(point).floor % 10
+          }
+        }
+
         const focusCreature = client.world.getCreature(client.creatureId);
         if (focusCreature && equalPoints(state.mouse.tile, focusCreature.pos)) {
           eventEmitter.emit('ItemMoveEnd', {
@@ -273,6 +280,8 @@ document.addEventListener("DOMContentLoaded", () => {
         itemMovingState = e;
       });
       eventEmitter.on('ItemMoveEnd', e => {
+        if (!itemMovingState) return;
+
         wire.send('moveItem', {
           from: itemMovingState.loc,
           fromSource: itemMovingState.source,
@@ -419,13 +428,6 @@ document.addEventListener("DOMContentLoaded", () => {
       state: 'up',
     }
   });
-
-  document.onclick = (e) => {
-    const point = worldToTile(mouseToWorld({ x: e.clientX, y: e.clientY }))
-    if (client.world.inBounds(point)) {
-      client.world.getTile(point).floor = ++client.world.getTile(point).floor % 10
-    }
-  }
 
   document.onkeydown = (e) => {
     state.keys[e.keyCode] = true;
