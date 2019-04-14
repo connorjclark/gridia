@@ -1,5 +1,6 @@
 import { worldToSector } from "./utils";
 import {ClientToServerProtocol} from './protocol'
+import { getMetaItemByName } from "./items";
 
 const WORLD_SIZE = 100
 const SECTOR_SIZE = 20
@@ -7,7 +8,9 @@ const SECTORS_SIDE = WORLD_SIZE / SECTOR_SIZE
 
 function createSector(bare: boolean) {
   /** @type {Tile[][]} */
-  const tiles = []
+  const tiles = [];
+
+  const treeType = getMetaItemByName('Pine Tree').id;
 
   for (let x = 0; x < SECTOR_SIZE; x++) {
     tiles[x] = []
@@ -21,7 +24,7 @@ function createSector(bare: boolean) {
         tiles[x][y] = {
           floor: 100 + ((x + y) % 10) * 20,
           item: x === y ? {
-            type: 7,
+            type: treeType,
             quantity: 1,
           } : null,
         }

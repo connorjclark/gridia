@@ -116,6 +116,10 @@ const move: C2S<MoveParams> = (server, pos) => {
     return false
   }
 
+  const item = server.world.getItem(pos);
+  const meta = getMetaItem(item ? item.type : 0);
+  if (!meta.walkable) return false;
+
   // if (!server.inView(pos)) {
   //   return false
   // }

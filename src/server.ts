@@ -130,7 +130,7 @@ export function openAndConnectToServerInMemory(client: Client) {
   const wire = makeWire(client, messageQueue)
   client.world = new ClientWorldContext(wire)
 
-  const creature = server.makeCreature({ x: 5, y: 5 })
+  const creature = server.makeCreature({ x: 5, y: 6 })
 
   const clientConnection: ClientConnection = {
     creature,
