@@ -31,7 +31,7 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
       return server.world.getItem(loc);
     } else {
       if (!loc) return;
-      return server.getContainer(source)[loc.x];
+      return server.getContainer(source).items[loc.x];
     }
   }
 

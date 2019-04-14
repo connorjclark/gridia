@@ -56,10 +56,11 @@ export default class Server {
 
   nextContainerId = 1;
   makeContainer() {
-    const container = {
+    const container: Container = {
       id: this.nextContainerId++,
       items: Array(10).fill(null),
     };
+    container.items[0] = { type: 50, quantity: 1 };
     this.world.containers.set(container.id, container);
     return container;
   }

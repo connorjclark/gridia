@@ -160,9 +160,11 @@ function makeItemContainerWindow(container: Container) {
     .on('mousedown', (e: PIXI.interaction.InteractionEvent) => {
       const x = e.data.getLocalPosition(e.target).x;
       const index = Math.floor(x / 32);
+      if (!container.items[index]) return;
       eventEmitter.emit('ItemMoveBegin', {
         source: container.id,
         loc: { x: index, y: 0 },
+        item: container.items[index],
       });
     })
     .on('mousemove', (e: PIXI.interaction.InteractionEvent) => {
@@ -239,10 +241,16 @@ document.addEventListener("DOMContentLoaded", () => {
       world.addChild(topLayer);
 
       world.interactive = true;
-      world.on('mousedown', e => {
+      world.on('mousedown', (e: PIXI.interaction.InteractionEvent) => {
+        const point = worldToTile(mouseToWorld({ x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY }));
+        if (!client.world.inBounds(point)) return;
+        const item = client.world.getItem(point);
+        if (!item) return;
+
         eventEmitter.emit('ItemMoveBegin', {
           source: 0,
           loc: state.mouse.tile,
+          item,
         });
       });
       world.on('mouseup', e => {
@@ -380,15 +388,12 @@ document.addEventListener("DOMContentLoaded", () => {
         topLayer.removeChildren();
 
         // Draw item being moved.
-        if (state.mouse.state === 'down' && client.world.inBounds(state.mouse.downTile)) {
-          const item = client.world.getItem(state.mouse.downTile);
-          if (item && item.type) {
-            const itemSprite = new PIXI.Sprite(getTexture.items(item.type));
-            const { x, y } = mouseToWorld(state.mouse);
-            itemSprite.x = x;
-            itemSprite.y = y;
-            topLayer.addChild(itemSprite);
-          }
+        if (itemMovingState) {
+          const itemSprite = new PIXI.Sprite(getTexture.items(itemMovingState.item.type));
+          const { x, y } = mouseToWorld(state.mouse);
+          itemSprite.x = x - 16;
+          itemSprite.y = y - 16;
+          topLayer.addChild(itemSprite);
         }
 
         world.x = -focusPos.x * 32 + Math.floor(app.view.width / 2);
