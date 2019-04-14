@@ -1,5 +1,5 @@
 import { worldToSector } from "./utils";
-import {ClientToServerProtocol} from './protocol'
+import { ClientToServerProtocol } from './protocol'
 import { getMetaItemByName } from "./items";
 
 const WORLD_SIZE = 100
@@ -11,6 +11,7 @@ function createSector(bare: boolean) {
   const tiles = [];
 
   const treeType = getMetaItemByName('Pine Tree').id;
+  const flowerType = getMetaItemByName('Cut Red Rose').id;
 
   for (let x = 0; x < SECTOR_SIZE; x++) {
     tiles[x] = []
@@ -21,12 +22,25 @@ function createSector(bare: boolean) {
           item: null,
         }
       } else {
-        tiles[x][y] = {
-          floor: 100 + ((x + y) % 10) * 20,
-          item: x === y ? {
+        let item = null;
+
+        if (x === y) {
+          item = {
             type: treeType,
             quantity: 1,
-          } : null,
+          }
+        }
+
+        if (x === y - 1) {
+          item = {
+            type: flowerType,
+            quantity: 1,
+          }
+        }
+
+        tiles[x][y] = {
+          floor: 100 + ((x + y) % 10) * 20,
+          item,
         }
       }
     }
@@ -69,7 +83,7 @@ export abstract class WorldContext {
   }
 
   getTile(point: Point): Tile | null {
-    if (point.x < 0 || point.y < 0) return {floor: 0, item: null};
+    if (point.x < 0 || point.y < 0) return { floor: 0, item: null };
 
     const sector = this.getSector(worldToSector(point, SECTOR_SIZE))
     return sector[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE]

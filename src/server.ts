@@ -61,7 +61,6 @@ export default class Server {
       id: this.nextContainerId++,
       items: Array(10).fill(null),
     };
-    console.log(getMetaItemByName('Wood Axe'));
     container.items[0] = { type: getMetaItemByName('Wood Axe').id, quantity: 1 };
     this.world.containers.set(container.id, container);
     return container;
@@ -130,7 +129,7 @@ export function openAndConnectToServerInMemory(client: Client) {
   const wire = makeWire(client, messageQueue)
   client.world = new ClientWorldContext(wire)
 
-  const creature = server.makeCreature({ x: 5, y: 6 })
+  const creature = server.makeCreature({ x: 5, y: 7 })
 
   const clientConnection: ClientConnection = {
     creature,
