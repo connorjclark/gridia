@@ -4,6 +4,7 @@ import { worldToTile, equalPoints } from './utils'
 import { openAndConnectToServerInMemory } from './server'
 import { ClientWorldContext } from './context'
 import { getMetaItem } from './items'
+import { EventEmitter } from 'events';
 export class Client {
   creatureId: number
   world: ClientWorldContext
@@ -11,6 +12,7 @@ export class Client {
 
 const client = new Client()
 const wire = openAndConnectToServerInMemory(client)
+const eventEmitter = new EventEmitter();
 
 let lastMove = performance.now()
 const state = {
@@ -125,6 +127,14 @@ function makeItemContainerWindow(container: Container) {
   };
 
   window
+    .on('mousedown', (e: PIXI.interaction.InteractionEvent) => {
+      const x = e.data.getLocalPosition(e.target).x;
+      const index = Math.floor((x - borderSize) / 32);
+      eventEmitter.emit('ItemMoveBegin', {
+        source: container.id,
+        loc: { x: index, y: 0 },
+      });
+    })
     .on('mousemove', (e: PIXI.interaction.InteractionEvent) => {
       if (e.target !== window) {
         containerWindow.mouseOverIndex = null;
@@ -137,6 +147,16 @@ function makeItemContainerWindow(container: Container) {
         containerWindow.mouseOverIndex = index;
       } else {
         containerWindow.mouseOverIndex = null;
+      }
+    })
+    .on('mouseup', (e: PIXI.interaction.InteractionEvent) => {
+      console.log('mouseup window');
+      if (containerWindow.mouseOverIndex) {
+        eventEmitter.emit('ItemMoveEnd', {
+          source: container.id,
+          loc: { x: containerWindow.mouseOverIndex, y: 0 },
+        });
+        e.stopPropagation();
       }
     });
 
@@ -192,6 +212,41 @@ document.addEventListener("DOMContentLoaded", () => {
       const topLayer = new PIXI.Container();
       world.addChild(topLayer);
 
+      world.interactive = true;
+      world.on('mousedown', e => {
+        eventEmitter.emit('ItemMoveBegin', {
+          source: 0,
+          loc: state.mouse.tile,
+        });
+      });
+      world.on('mouseup', e => {
+        const focusCreature = client.world.getCreature(client.creatureId);
+        if (focusCreature && equalPoints(state.mouse.tile, focusCreature.pos)) {
+          eventEmitter.emit('ItemMoveEnd', {
+            source: focusCreature.containerId,
+            loc: null,
+          });
+        } else {
+          eventEmitter.emit('ItemMoveEnd', {
+            source: 0,
+            loc: state.mouse.tile,
+          });
+        }
+      });
+
+      let itemMovingState = null;
+      eventEmitter.on('ItemMoveBegin', e => {
+        itemMovingState = e;
+      });
+      eventEmitter.on('ItemMoveEnd', e => {
+        wire.send('moveItem', {
+          from: itemMovingState.loc,
+          fromSource: itemMovingState.source,
+          to: e.loc,
+          toSource: e.source,
+        });
+      });
+
       // TODO make creature layer
 
       app.ticker.add(delta => {
@@ -212,46 +267,10 @@ document.addEventListener("DOMContentLoaded", () => {
           containerWindow.draw();
         }
 
-        if (state.mouse.state === 'up') {
-          let from, fromSource, to, toSource;
-
-          from = state.mouse.downTile;
-          fromSource = 0;
-
-          let highlightedContainer: ContainerWindow = null;
-          for (const containerWindow of containerWindows.values()) {
-            if (containerWindow.mouseOverIndex !== null) {
-              highlightedContainer = containerWindow;
-              break;
-            }
-          }
-          
-          // Move to container if mouse is over one.
-          // Else, move to player inventory if dragging to player.
-          // Else, move to somewhere in the world.
-          if (highlightedContainer) {
-            to = { x: highlightedContainer.mouseOverIndex, y: 0 };
-            toSource = highlightedContainer.container.id;
-          } else if (equalPoints(state.mouse.tile, focusPos)) {
-            to = null;
-            toSource = focusCreature.containerId;
-          } else {
-            to = state.mouse.tile;
-            toSource = 0;
-          }
-          wire.send('moveItem', {
-            from,
-            fromSource,
-            to,
-            toSource,
-          });
-
-          // if (inBounds(state.mouse.tile) && !state.world.tiles[state.mouse.tile.x][state.mouse.tile.y].item) {
-          // }
-
-          delete state.mouse.state;
-          delete state.mouse.downTile;
-        }
+        // if (state.mouse.state === 'up') {
+        //   delete state.mouse.state;
+        //   delete state.mouse.downTile;
+        // }
 
         state.viewport = {
           x: focusPos.x * 32 - app.view.width / 2,
