@@ -468,6 +468,21 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   document.onkeyup = (e) => {
     delete state.keys[e.keyCode];
+
+    if (e.keyCode >= KEYS.ZERO && e.keyCode <= KEYS.NINE) {
+      const num = e.keyCode - KEYS.ZERO;
+      const focusCreature = client.world.getCreature(client.creatureId);
+      if (!focusCreature) return;
+      const inventoryWindow = containerWindows.get(focusCreature.containerId);
+
+      // 1234567890
+      if (num === 0) {
+        inventoryWindow.selectedIndex = 9;  
+      } else {
+        inventoryWindow.selectedIndex = num - 1;
+      }
+      inventoryWindow.draw();
+    }
   }
 
   // resize the canvas to fill browser window dynamically
