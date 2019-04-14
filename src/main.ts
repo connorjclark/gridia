@@ -27,6 +27,7 @@ const state = {
     downTile: null,
     state: '',
   },
+  selectedTile: null,
   keys: {},
 }
 
@@ -214,15 +215,15 @@ function makeItemContainerWindow(container: Container) {
     }
 
     if (containerWindow.mouseOverIndex !== null && state.mouse.state === 'down') {
-      const highlight = new PIXI.Graphics();
-      highlight.beginFill(0xffff00, 0.3);
-      highlight.drawRect(32 * containerWindow.mouseOverIndex, 0, 32, 32);
+      const highlight = makeHighlight(0xffff00, 0.3);
+      highlight.x = 32 * containerWindow.mouseOverIndex;
+      highlight.y = 0;
       window.contents.addChild(highlight);
     }
 
-    const highlight = new PIXI.Graphics();
-    highlight.beginFill(0x00ff00, 0.5);
-    highlight.drawRect(32 * containerWindow.selectedIndex, 0, 32, 32);
+    const highlight = makeHighlight(0x00ff00, 0.5);
+    highlight.x = 32 * containerWindow.selectedIndex;
+    highlight.y = 0;
     window.contents.addChild(highlight);
 
     window.draw();
@@ -234,6 +235,13 @@ function makeItemContainerWindow(container: Container) {
 function getCanvasSize() {
   const canvasesEl = document.body.querySelector('#canvases');
   return canvasesEl.getBoundingClientRect();
+}
+
+function makeHighlight(color: number, alpha: number) {
+  const highlight = new PIXI.Graphics();
+  highlight.beginFill(color, alpha);
+  highlight.drawRect(0, 0, 32, 32);
+  return highlight;
 }
 
 function makeItemSprite(item: Item) {
@@ -406,18 +414,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (focusCreature && performance.now() - lastMove > 200) {
           const pos = { ...focusCreature.pos }
-          if (state.keys[KEYS.UP_ARROW]) {
+          if (state.keys[KEYS.W]) {
             pos.y -= 1;
-          } else if (state.keys[KEYS.DOWN_ARROW]) {
+          } else if (state.keys[KEYS.S]) {
             pos.y += 1;
           }
-          if (state.keys[KEYS.LEFT_ARROW]) {
+          if (state.keys[KEYS.A]) {
             pos.x -= 1;
-          } else if (state.keys[KEYS.RIGHT_ARROW]) {
+          } else if (state.keys[KEYS.D]) {
             pos.x += 1;
           }
 
           if (pos.x !== focusCreature.pos.x || pos.y !== focusCreature.pos.y) {
+            state.selectedTile = null;
             lastMove = performance.now()
             wire.send('move', pos)
           }
@@ -432,6 +441,21 @@ document.addEventListener("DOMContentLoaded", () => {
           itemSprite.x = x - 16;
           itemSprite.y = y - 16;
           topLayer.addChild(itemSprite);
+        }
+
+        // Draw selected highlight.
+        if (state.selectedTile) {
+          const highlight = makeHighlight(0xffff00, 0.2);
+          highlight.x = state.selectedTile.x * 32;
+          highlight.y = state.selectedTile.y * 32;
+          const inventoryWindow = containerWindows.get(focusCreature.containerId);
+          const item = inventoryWindow.container.items[inventoryWindow.selectedIndex];
+          if (item) {
+            const itemSprite = makeItemSprite(item);
+            itemSprite.anchor.x = itemSprite.anchor.y = 0.5;
+            highlight.addChild(itemSprite);
+          }
+          topLayer.addChild(highlight);
         }
 
         world.x = -focusPos.x * 32 + Math.floor(app.view.width / 2);
@@ -469,19 +493,38 @@ document.addEventListener("DOMContentLoaded", () => {
   document.onkeyup = (e) => {
     delete state.keys[e.keyCode];
 
+    const focusCreature = client.world.getCreature(client.creatureId);
+    if (!focusCreature) return;
+
     if (e.keyCode >= KEYS.ZERO && e.keyCode <= KEYS.NINE) {
       const num = e.keyCode - KEYS.ZERO;
-      const focusCreature = client.world.getCreature(client.creatureId);
-      if (!focusCreature) return;
       const inventoryWindow = containerWindows.get(focusCreature.containerId);
 
       // 1234567890
       if (num === 0) {
-        inventoryWindow.selectedIndex = 9;  
+        inventoryWindow.selectedIndex = 9;
       } else {
         inventoryWindow.selectedIndex = num - 1;
       }
       inventoryWindow.draw();
+    }
+
+    let dx = 0, dy = 0;
+    if (e.keyCode === KEYS.UP_ARROW) {
+      dy -= 1;
+    } else if (e.keyCode === KEYS.DOWN_ARROW) {
+      dy += 1;
+    }
+    if (e.keyCode === KEYS.LEFT_ARROW) {
+      dx -= 1;
+    } else if (e.keyCode === KEYS.RIGHT_ARROW) {
+      dx += 1;
+    }
+
+    if (dx || dy) {
+      state.selectedTile = state.selectedTile || { ...focusCreature.pos };
+      state.selectedTile.x += dx;
+      state.selectedTile.y += dy;
     }
   }
 
