@@ -47,7 +47,7 @@ export default class Server {
     const creature = {
       id: this.nextCreatureId++,
       containerId: this.makeContainer().id,
-      image: 5,
+      image: 10,
       pos,
     }
     this.world.setCreature(creature)

@@ -39,6 +39,9 @@ const player = {
 }
 
 const ResourceKeys = {
+  creatures: [
+    "../world/player/player0.png",
+  ],
   floors: [
     "../world/floors/floors0.png",
     "../world/floors/floors1.png",
@@ -77,6 +80,7 @@ function makeTextureCache(resourceType: string) {
 }
 
 const getTexture = {
+  creatures: makeTextureCache('creatures'),
   floors: makeTextureCache('floors'),
   items: makeTextureCache('items'),
   templates: makeTextureCache('templates'),
@@ -193,7 +197,7 @@ function makeItemContainerWindow(container: Container) {
   function draw() {
     window.contents.removeChildren();
     for (const [i, item] of container.items.entries()) {
-      const itemSprite = new PIXI.Sprite(getTexture.items(item ? item.type : 0));
+      const itemSprite = new PIXI.Sprite(getTexture.items(item ? item.type : 1));
       itemSprite.x = i * 32;
       itemSprite.y = 0;
       window.contents.addChild(itemSprite);
@@ -364,7 +368,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (focusCreature) {
-          player.sprite = new PIXI.Sprite(getTexture.items(focusCreature.image));
+          player.sprite = new PIXI.Sprite(getTexture.creatures(focusCreature.image));
           player.sprite.x = 32 * focusPos.x;
           player.sprite.y = 32 * focusPos.y;
           itemLayer.addChild(player.sprite);
