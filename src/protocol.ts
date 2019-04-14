@@ -1,6 +1,7 @@
 import { getMetaItem } from './items'
 import Server from './server'
 import { Client } from "./main";
+import { equalPoints } from './utils'
 
 // ClientToServerProtocolFn
 type C2S<T> = (server: Server, data: T) => void;
@@ -43,7 +44,7 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
       if (!loc) {
         for (let i = 0; i < container.items.length; i++) {
           if (!container.items[i]) {
-            loc = {x: i, y: 0};
+            loc = { x: i, y: 0 };
             break;
           }
         }
@@ -61,7 +62,7 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
   }
 
   // Ignore if moving to same location.
-  if (from === to && fromSource === toSource) {
+  if (fromSource === toSource && equalPoints(from, to)) {
     return false;
   }
 
@@ -80,9 +81,9 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
   }
 
   if (toItem && toItem.type === fromItem.type) {
-    fromItem.quantity += 1
+    fromItem.quantity += toItem.quantity;
   }
-  
+
   setItem(from, fromSource, null);
   setItem(to, toSource, fromItem);
 

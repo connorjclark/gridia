@@ -24,7 +24,9 @@ export function maxDiff(p1: Point, p2: Point): number {
   return Math.max(Math.abs(p1.x - p2.x), Math.abs(p1.y - p2.y))
 }
 
-export function equalPoints(p1: Point, p2: Point) {
+export function equalPoints(p1?: Point, p2?: Point) {
+  if (p1 === null && p2 === null) return true;
+  if (p1 === null || p2 === null) return false;
   return p1.x === p2.x && p1.y === p2.y;
 }
 
