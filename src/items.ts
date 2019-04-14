@@ -1,4 +1,4 @@
-const items: MetaItem[] = require('../world/content/items.json')
+const items: (MetaItem | null)[] = require('../world/content/items.json')
 
 interface MetaItem {
   id: number
@@ -15,4 +15,8 @@ interface MetaItem {
 
 export function getMetaItem(id: number): MetaItem {
   return items[id]
+}
+
+export function getMetaItemByName(name: string): MetaItem {
+  return items.find(item => item && item.name === name);
 }

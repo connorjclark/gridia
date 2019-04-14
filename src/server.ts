@@ -1,6 +1,7 @@
 import { ClientToServerProtocol, ServerToClientProtocol } from './protocol'
 import { ServerWorldContext, ClientWorldContext } from "./context";
 import { Client } from './main';
+import { getMetaItemByName } from './items'
 
 // TODO document how the f this works.
 
@@ -60,7 +61,8 @@ export default class Server {
       id: this.nextContainerId++,
       items: Array(10).fill(null),
     };
-    container.items[0] = { type: 50, quantity: 1 };
+    console.log(getMetaItemByName('Wood Axe'));
+    container.items[0] = { type: getMetaItemByName('Wood Axe').id, quantity: 1 };
     this.world.containers.set(container.id, container);
     return container;
   }

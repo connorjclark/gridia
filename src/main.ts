@@ -3,7 +3,7 @@ import KEYS from './keys'
 import { worldToTile, equalPoints, clamp } from './utils'
 import { openAndConnectToServerInMemory } from './server'
 import { ClientWorldContext } from './context'
-import { getMetaItem } from './items'
+import { getMetaItem, getMetaItemByName } from './items'
 import { EventEmitter } from 'events';
 export class Client {
   creatureId: number
@@ -54,6 +54,9 @@ const ResourceKeys = {
     "../world/items/items0.png",
     "../world/items/items1.png",
     "../world/items/items2.png",
+    "../world/items/items3.png",
+    "../world/items/items4.png",
+    "../world/items/items5.png",
   ],
   templates: [
     "../world/templates/templates0.png",
@@ -158,13 +161,17 @@ function makeItemContainerWindow(container: Container) {
     container,
     draw,
     mouseOverIndex: null,
+    selectedIndex: 0,
   };
+
+  let mouseDownIndex;
 
   window.contents
     .on('mousedown', (e: PIXI.interaction.InteractionEvent) => {
       const x = e.data.getLocalPosition(e.target).x;
       const index = Math.floor(x / 32);
       if (!container.items[index]) return;
+      mouseDownIndex = index;
       eventEmitter.emit('ItemMoveBegin', {
         source: container.id,
         loc: { x: index, y: 0 },
@@ -192,12 +199,15 @@ function makeItemContainerWindow(container: Container) {
           loc: { x: containerWindow.mouseOverIndex, y: 0 },
         });
       }
+      if (mouseDownIndex === containerWindow.mouseOverIndex) {
+        containerWindow.selectedIndex = mouseDownIndex;
+      }
     });
 
   function draw() {
     window.contents.removeChildren();
     for (const [i, item] of container.items.entries()) {
-      const itemSprite = makeItemSprite(item ? item : {type: 1, quantity: 1});
+      const itemSprite = makeItemSprite(item ? item : { type: 0, quantity: 1 });
       itemSprite.x = i * 32;
       itemSprite.y = 0;
       window.contents.addChild(itemSprite);
@@ -209,6 +219,11 @@ function makeItemContainerWindow(container: Container) {
       highlight.drawRect(32 * containerWindow.mouseOverIndex, 0, 32, 32);
       window.contents.addChild(highlight);
     }
+
+    const highlight = new PIXI.Graphics();
+    highlight.beginFill(0x00ff00, 0.5);
+    highlight.drawRect(32 * containerWindow.selectedIndex, 0, 32, 32);
+    window.contents.addChild(highlight);
 
     window.draw();
   }
@@ -222,7 +237,9 @@ function getCanvasSize() {
 }
 
 function makeItemSprite(item: Item) {
-  const sprite = new PIXI.Sprite(getTexture.items(item.type));
+  const meta = getMetaItem(item.type);
+  const texture = meta.animations ? meta.animations[0] : 1;
+  const sprite = new PIXI.Sprite(getTexture.items(texture));
   if (item.quantity !== 1) {
     const qty = new PIXI.Text(item.quantity.toString(), {
       fontSize: 14,
