@@ -197,7 +197,7 @@ function makeItemContainerWindow(container: Container) {
   function draw() {
     window.contents.removeChildren();
     for (const [i, item] of container.items.entries()) {
-      const itemSprite = new PIXI.Sprite(getTexture.items(item ? item.type : 1));
+      const itemSprite = makeItemSprite(item ? item : {type: 1, quantity: 1});
       itemSprite.x = i * 32;
       itemSprite.y = 0;
       window.contents.addChild(itemSprite);
@@ -219,6 +219,19 @@ function makeItemContainerWindow(container: Container) {
 function getCanvasSize() {
   const canvasesEl = document.body.querySelector('#canvases');
   return canvasesEl.getBoundingClientRect();
+}
+
+function makeItemSprite(item: Item) {
+  const sprite = new PIXI.Sprite(getTexture.items(item.type));
+  if (item.quantity !== 1) {
+    const qty = new PIXI.Text(item.quantity.toString(), {
+      fontSize: 14,
+      stroke: 0xffffff,
+      strokeThickness: 4,
+    });
+    sprite.addChild(qty);
+  }
+  return sprite;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -359,7 +372,7 @@ document.addEventListener("DOMContentLoaded", () => {
           for (let y = startTileY; y <= endTileY; y++) {
             const item = client.world.getTile({ x, y }).item;
             if (item) {
-              const itemSprite = new PIXI.Sprite(getTexture.items(item.type));
+              const itemSprite = makeItemSprite(item);
               itemSprite.x = x * 32;
               itemSprite.y = y * 32;
               itemLayer.addChild(itemSprite);
@@ -397,7 +410,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Draw item being moved.
         if (itemMovingState) {
-          const itemSprite = new PIXI.Sprite(getTexture.items(itemMovingState.item.type));
+          const itemSprite = makeItemSprite(itemMovingState.item);
           const { x, y } = mouseToWorld(state.mouse);
           itemSprite.x = x - 16;
           itemSprite.y = y - 16;
