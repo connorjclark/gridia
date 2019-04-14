@@ -41,17 +41,35 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
       server.world.getTile(loc).item = item;
     } else {
       const container = server.getContainer(source);
+
+      // If location is not specified, pick one:
+      // Pick the first slot of the same item type, if stackable.
+      // Else, pick the first open slot.
       if (!loc) {
+        let firstOpenSlot = null;
+        let firstStackableSlot = null;
         for (let i = 0; i < container.items.length; i++) {
-          if (!container.items[i]) {
-            loc = { x: i, y: 0 };
+          if (firstOpenSlot === null && !container.items[i]) {
+            firstOpenSlot = i;
+          }
+          if (firstStackableSlot === null && container.items[i] && container.items[i].type === item.type) {
+            firstStackableSlot = i;
             break;
           }
         }
+
+        if (firstStackableSlot !== null) {
+          loc = { x: firstStackableSlot, y: 0 };
+          item.quantity += container.items[firstStackableSlot].quantity;
+        } else if (firstOpenSlot !== null) {
+          loc = { x: firstOpenSlot, y: 0 };
+        }
       }
+
       if (loc) {
         container.items[loc.x] = item;
       } else {
+        // TODO don't let containers grow unbounded.
         container.items.push(item);
       }
     }
