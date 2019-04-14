@@ -28,6 +28,10 @@ export function equalPoints(p1: Point, p2: Point) {
   return p1.x === p2.x && p1.y === p2.y;
 }
 
+export function clamp(val: number, min: number, max: number) {
+  return Math.max(Math.min(val, max), min);
+}
+
 //   export function tileToScreen(pt: Point): Point {
 //     return {
 //       x: pt.x * 32 - state.viewport.x,

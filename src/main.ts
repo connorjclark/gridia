@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js'
 import KEYS from './keys'
-import { worldToTile, equalPoints } from './utils'
+import { worldToTile, equalPoints, clamp } from './utils'
 import { openAndConnectToServerInMemory } from './server'
 import { ClientWorldContext } from './context'
 import { getMetaItem } from './items'
@@ -83,22 +83,40 @@ const getTexture = {
 }
 
 function makeDraggableWindow() {
-  const container = new PIXI.Container();
+  const borderSize = 10;
 
+  const container = new PIXI.Container();
   container.interactive = true;
+
+  const border = new PIXI.Graphics();
+  border.interactive = true;
+  container.addChild(border);
+
+  const contents = new PIXI.Container();
+  contents.interactive = true;
+  contents.x = borderSize;
+  contents.y = borderSize;
+  container.addChild(contents);
 
   let dragging = false;
   let downAt = null;
   let startingPosition = null;
   const onDragBegin = (e: PIXI.interaction.InteractionEvent) => {
+    // Only drag from the border.
+    if (e.target !== border) return;
+
     dragging = true;
-    downAt = { x: e.target.x, y: e.target.y };
+    downAt = { x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY };
     startingPosition = { x: container.x, y: container.y };
   };
   const onDrag = (e: PIXI.interaction.InteractionEvent) => {
     if (dragging) {
-      container.x = startingPosition.x + e.data.global.x - downAt.x;
-      container.y = startingPosition.y + e.data.global.y - downAt.y;
+      container.x = startingPosition.x + e.data.originalEvent.pageX - downAt.x;
+      container.y = startingPosition.y + e.data.originalEvent.pageY - downAt.y;
+
+      const size = getCanvasSize();
+      container.x = clamp(container.x, 0, size.width - container.width);
+      container.y = clamp(container.y, 0, size.height - container.height);
     }
   };
   const onDragEnd = () => {
@@ -107,12 +125,24 @@ function makeDraggableWindow() {
     startingPosition = null;
   };
 
+  function draw() {
+    border.clear();
+    border.beginFill(0, 0.2);
+    border.lineStyle(borderSize, 0, 1, 0);
+    border.drawRect(0, 0, contents.width + 2 * borderSize, contents.height + 2 * borderSize);
+  }
+
   container.on('mousedown', onDragBegin)
     .on('mousemove', onDrag)
     .on('mouseup', onDragEnd)
     .on('mouseupoutside', onDragEnd)
 
-  return container;
+  // TODO better names
+  return {
+    container,
+    contents,
+    draw,
+  };
 }
 
 type ContainerWindow = ReturnType<typeof makeItemContainerWindow>;
@@ -126,23 +156,23 @@ function makeItemContainerWindow(container: Container) {
     mouseOverIndex: null,
   };
 
-  window
+  window.contents
     .on('mousedown', (e: PIXI.interaction.InteractionEvent) => {
       const x = e.data.getLocalPosition(e.target).x;
-      const index = Math.floor((x - borderSize) / 32);
+      const index = Math.floor(x / 32);
       eventEmitter.emit('ItemMoveBegin', {
         source: container.id,
         loc: { x: index, y: 0 },
       });
     })
     .on('mousemove', (e: PIXI.interaction.InteractionEvent) => {
-      if (e.target !== window) {
+      if (e.target !== window.contents) {
         containerWindow.mouseOverIndex = null;
         return;
       }
 
       const x = e.data.getLocalPosition(e.target).x;
-      const index = Math.floor((x - borderSize) / 32);
+      const index = Math.floor(x / 32);
       if (index >= 0 && index < container.items.length) {
         containerWindow.mouseOverIndex = index;
       } else {
@@ -150,43 +180,39 @@ function makeItemContainerWindow(container: Container) {
       }
     })
     .on('mouseup', (e: PIXI.interaction.InteractionEvent) => {
-      console.log('mouseup window');
-      if (containerWindow.mouseOverIndex) {
+      if (containerWindow.mouseOverIndex !== null) {
         eventEmitter.emit('ItemMoveEnd', {
           source: container.id,
           loc: { x: containerWindow.mouseOverIndex, y: 0 },
         });
-        e.stopPropagation();
       }
     });
 
-  const borderSize = 5;
-
   function draw() {
-    window.removeChildren();
+    window.contents.removeChildren();
     for (const [i, item] of container.items.entries()) {
-      if (!item) continue;
-      const itemSprite = new PIXI.Sprite(getTexture.items(item.type));
-      itemSprite.x = borderSize + i * 32;
-      itemSprite.y = borderSize;
-      window.addChild(itemSprite);
+      const itemSprite = new PIXI.Sprite(getTexture.items(item ? item.type : 0));
+      itemSprite.x = i * 32;
+      itemSprite.y = 0;
+      window.contents.addChild(itemSprite);
     }
-
-    const border = new PIXI.Graphics();
-    border.beginFill(0, 0.1);
-    border.lineStyle(borderSize, 0);
-    border.drawRect(0, 0, borderSize * 2 + container.items.length * 32, borderSize * 2 + 32);
-    window.addChild(border);
 
     if (containerWindow.mouseOverIndex !== null && state.mouse.state === 'down') {
       const highlight = new PIXI.Graphics();
       highlight.beginFill(0xffff00, 0.3);
-      highlight.drawRect(borderSize + 32 * containerWindow.mouseOverIndex, borderSize, 32, 32);
-      window.addChild(highlight);
+      highlight.drawRect(32 * containerWindow.mouseOverIndex, 0, 32, 32);
+      window.contents.addChild(highlight);
     }
+
+    window.draw();
   }
 
   return containerWindow;
+}
+
+function getCanvasSize() {
+  const canvasesEl = document.body.querySelector('#canvases');
+  return canvasesEl.getBoundingClientRect();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -226,7 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
             source: focusCreature.containerId,
             loc: null,
           });
-        } else {
+        } else if (state.mouse.tile) {
           eventEmitter.emit('ItemMoveEnd', {
             source: 0,
             loc: state.mouse.tile,
@@ -245,6 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
           to: e.loc,
           toSource: e.source,
         });
+        itemMovingState = null;
       });
 
       // TODO make creature layer
@@ -261,7 +288,15 @@ document.addEventListener("DOMContentLoaded", () => {
           if (!containerWindow) {
             containerWindow = makeItemContainerWindow(container);
             containerWindows.set(id, containerWindow);
-            app.stage.addChild(containerWindow.window);
+            app.stage.addChild(containerWindow.window.container);
+
+            // Inventory.
+            if (id === focusCreature.containerId) {
+              containerWindow.draw();
+              const size = getCanvasSize();
+              containerWindow.window.container.x = size.width / 2 - containerWindow.window.container.width / 2;
+              containerWindow.window.container.y = size.height - containerWindow.window.container.height;
+            }
           }
 
           containerWindow.draw();
@@ -408,7 +443,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // resize the canvas to fill browser window dynamically
   function resize() {
-    app.renderer.resize(canvasesEl.getBoundingClientRect().width, canvasesEl.getBoundingClientRect().height);
+    const size = getCanvasSize();
+    app.renderer.resize(size.width, size.height);
     // gl.canvas.width = window.innerWidth;
     // gl.canvas.height = gl.canvas.parentElement.getBoundingClientRect().bottom;
     // ctx.canvas.width = window.innerWidth;
