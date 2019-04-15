@@ -29,29 +29,6 @@ export class ItemWrapper {
   }
 }
 
-interface MetaItem {
-  id: number
-  burden: number
-  growthItem: number
-  growthDelta: number
-  name: string
-  animations: number[]
-  walkable: boolean
-  moveable: boolean
-  stackable: boolean
-  class: 'Normal'
-}
-
-interface ItemUse {
-  successMessage: string;
-  tool: number;
-  focus: number;
-  toolQuantityConsumed: number;
-  focusQuantityConsumed: number;
-  products: number[];
-  quantities: number[];
-}
-
 export function getMetaItem(id: number): MetaItem {
   return items[id]
 }

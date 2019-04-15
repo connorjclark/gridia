@@ -173,6 +173,29 @@ export function openAndConnectToServerInMemory(client: Client) {
 
   const creature = server.makeCreature({ x: 5, y: 7 })
 
+  // make a playground of items to use
+  const itemUsesGroupedByTool = new Map<number, ItemUse[]>();
+  for (const use of require('../world/content/itemuses.json') as ItemUse[]) {
+    let arr = itemUsesGroupedByTool.get(use.tool);
+    if (!arr) {
+      itemUsesGroupedByTool.set(use.tool, arr = []);
+    }
+    arr.push(use);
+  }
+  let i = 0;
+  for (const [tool, uses] of Array.from(itemUsesGroupedByTool.entries()).sort(([_, a], [__, b]) => {
+    return b.length - a.length;
+  }).slice(0, 30)) {
+    const startX = 25;
+    const y = i * 3;
+    server.world.getTile({ x: startX, y }).item = { type: tool, quantity: 1 };
+    const focusItems = [...new Set(uses.map(u => u.focus))];
+    for (let j = 0; j < focusItems.length; j++) {
+      server.world.getTile({ x: startX + j + 2, y }).item = { type: focusItems[j], quantity: 1 };
+    }
+    i++;
+  }
+
   const clientConnection: ClientConnection = {
     creature,
     getMessage() {

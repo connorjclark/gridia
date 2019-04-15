@@ -44,25 +44,18 @@ const ResourceKeys = {
   creatures: [
     "../world/player/player0.png",
   ],
-  floors: [
-    "../world/floors/floors0.png",
-    "../world/floors/floors1.png",
-    "../world/floors/floors2.png",
-    "../world/floors/floors3.png",
-    "../world/floors/floors4.png",
-    "../world/floors/floors5.png",
-  ],
-  items: [
-    "../world/items/items0.png",
-    "../world/items/items1.png",
-    "../world/items/items2.png",
-    "../world/items/items3.png",
-    "../world/items/items4.png",
-    "../world/items/items5.png",
-  ],
+  floors: [],
+  items: [],
   templates: [
     "../world/templates/templates0.png",
   ],
+}
+
+for (let i = 0; i < 6; i++) {
+  ResourceKeys.floors.push(`../world/floors/floors${i}.png`);
+}
+for (let i = 0; i < 27; i++) {
+  ResourceKeys.items.push(`../world/items/items${i}.png`);
 }
 
 function makeTextureCache(resourceType: string) {
