@@ -29,6 +29,7 @@ const state = {
   },
   selectedTile: null,
   keys: {},
+  elapsedFrames: 0,
 }
 
 // @ts-ignore - for debugging
@@ -246,7 +247,15 @@ function makeHighlight(color: number, alpha: number) {
 
 function makeItemSprite(item: Item) {
   const meta = getMetaItem(item.type);
-  const texture = meta.animations ? meta.animations[0] : 1;
+  let texture = 1;
+  if (meta.animations) {
+    if (meta.animations.length === 1) {
+      texture = meta.animations[0];
+    } else if (meta.animations.length > 1) {
+      const index = Math.floor((state.elapsedFrames * (60 / 1000)) % meta.animations.length);
+      texture = meta.animations[index];
+    }
+  }
   const sprite = new PIXI.Sprite(getTexture.items(texture));
   if (item.quantity !== 1) {
     const qty = new PIXI.Text(item.quantity.toString(), {
@@ -336,6 +345,8 @@ document.addEventListener("DOMContentLoaded", () => {
       // TODO make creature layer
 
       app.ticker.add(delta => {
+        state.elapsedFrames = (state.elapsedFrames + 1) % 60000;
+
         const focusCreature = client.world.getCreature(client.creatureId);
         const focusPos = focusCreature ? focusCreature.pos : { x: 0, y: 0 };
 
