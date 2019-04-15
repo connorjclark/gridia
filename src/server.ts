@@ -62,12 +62,54 @@ export default class Server {
       items: Array(10).fill(null),
     };
     container.items[0] = { type: getMetaItemByName('Wood Axe').id, quantity: 1 };
+    container.items[1] = { type: getMetaItemByName('Fire Starter').id, quantity: 1 };
     this.world.containers.set(container.id, container);
     return container;
   }
 
   getContainer(id: number) {
     return this.world.containers.get(id);
+  }
+
+  findNearest(loc: Point, range: number, includeTargetLocation: boolean, predicate: (tile: Tile) => boolean): Point {
+    const test = (l: Point) => {
+      if (!this.world.inBounds(l)) return false;
+      return predicate(this.world.getTile(l));
+    }
+
+    let x0 = loc.x;
+    let y0 = loc.y;
+    for (let offset = includeTargetLocation ? 0 : 1; offset <= range; offset++) {
+      for (let y1 = y0 - offset; y1 <= offset + y0; y1++) {
+        if (y1 == y0 - offset || y1 == y0 + offset) {
+          for (let x1 = x0 - offset; x1 <= offset + x0; x1++) {
+            if (test({ x: x1, y: y1 })) {
+              return { x: x1, y: y1 };
+            }
+          }
+        } else {
+          if (test({ x: x0 - offset, y: y1 })) {
+            return { x: x0 - offset, y: y1 };
+          }
+          if (test({ x: x0 + offset, y: y1 })) {
+            return { x: x0 + offset, y: y1 };
+          }
+        }
+      }
+    }
+
+    return null;
+  }
+
+  addItemNear(loc: Point, item: Item) {
+    const nearestLoc = this.findNearest(loc, 6, true, tile => !tile.item || tile.item.type === item.type);
+    if (!nearestLoc) return; // TODO what to do in this case?
+    const tile = this.world.getTile(nearestLoc);
+    if (tile.item) {
+      tile.item.quantity += item.quantity;
+    } else {
+      tile.item = item;
+    }
   }
 }
 

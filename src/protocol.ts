@@ -1,4 +1,4 @@
-import { getMetaItem } from './items'
+import { getMetaItem, getItemUses, ItemWrapper } from './items'
 import Server from './server'
 import { Client } from "./main";
 import { equalPoints } from './utils'
@@ -157,10 +157,49 @@ const requestSector: C2S<RequestSectorParams> = (server, { x, y }) => {
   })
 }
 
+type UseParams = {toolIndex: number, loc: Point};
+const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
+  if (!server.world.inBounds(loc)) {
+    return false
+  }
+
+  const creature = server.currentClientConnection.creature;
+  const inventory = server.getContainer(creature.containerId);
+  const tool = inventory.items[toolIndex];
+  if (!tool) return;
+
+  const focus = server.world.getItem(loc) || {type: 0, quantity: 0};
+  
+  const uses = getItemUses(tool.type, focus.type);
+  if (!uses.length) return;
+  const use = uses[0];
+
+  const usageResult = {
+    tool: new ItemWrapper(tool.type, tool.quantity).remove(use.toolQuantityConsumed).raw(),
+    focus: new ItemWrapper(focus.type, focus.quantity).remove(use.focusQuantityConsumed).raw(),
+    products: [] as Item[],
+  };
+  for (let i = 0; i < use.products.length; i++) {
+    usageResult.products.push({
+      type: use.products[i],
+      quantity: use.quantities[i],
+    });
+  }
+
+  inventory.items[toolIndex] = usageResult.tool;
+  server.world.getTile(loc).item = usageResult.focus;
+  for (const product of usageResult.products) {
+    server.addItemNear(loc, product);
+  }
+
+  console.log(usageResult);
+}
+
 export const ClientToServerProtocol = {
   moveItem,
   requestSector,
   move,
+  use,
 }
 
 // ServerToClientProtocolFn

@@ -495,10 +495,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const focusCreature = client.world.getCreature(client.creatureId);
     if (!focusCreature) return;
+    const inventoryWindow = containerWindows.get(focusCreature.containerId);
 
+    // Number keys for selecting tool in inventory.
     if (e.keyCode >= KEYS.ZERO && e.keyCode <= KEYS.NINE) {
       const num = e.keyCode - KEYS.ZERO;
-      const inventoryWindow = containerWindows.get(focusCreature.containerId);
 
       // 1234567890
       if (num === 0) {
@@ -509,6 +510,7 @@ document.addEventListener("DOMContentLoaded", () => {
       inventoryWindow.draw();
     }
 
+    // Arrow keys for selecting tile in world.
     let dx = 0, dy = 0;
     if (e.keyCode === KEYS.UP_ARROW) {
       dy -= 1;
@@ -525,6 +527,14 @@ document.addEventListener("DOMContentLoaded", () => {
       state.selectedTile = state.selectedTile || { ...focusCreature.pos };
       state.selectedTile.x += dx;
       state.selectedTile.y += dy;
+    }
+
+    // Space bar to use tool.
+    if (e.keyCode === KEYS.SPACE_BAR && state.selectedTile) {
+      wire.send('use', {
+        toolIndex: inventoryWindow.selectedIndex,
+        loc: state.selectedTile,
+      })
     }
   }
 
