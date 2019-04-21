@@ -74,8 +74,7 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
       }
     }
 
-    // TODO broadcast
-    server.reply('setItem', {
+    server.broadcast('setItem', {
       ...loc,
       source,
       item,
@@ -208,8 +207,7 @@ const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
 
   inventory.items[toolIndex] = usageResult.tool;
   server.world.getTile(loc).item = usageResult.focus;
-  // TODO broadcast
-  server.reply('setItem', {
+  server.broadcast('setItem', {
     ...loc,
     source: 0,
     item: usageResult.focus,

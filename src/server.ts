@@ -19,13 +19,20 @@ export default class Server {
     });
   }) as ServerToClientWire['send'];
 
+  public broadcast = ((type, args) => {
+    this.outboundMessages.push({
+      type,
+      args,
+    });
+  }) as ServerToClientWire['send'];
+
   public nextCreatureId = 1;
 
   public nextContainerId = 1;
 
-  public verbose: Boolean;
+  public verbose: boolean;
 
-  constructor({verbose = false, fillWorldWithStuff = false}) {
+  constructor({ verbose = false, fillWorldWithStuff = false }) {
     this.verbose = verbose;
     this.world.fillWorldWithStuff = fillWorldWithStuff;
   }
@@ -51,6 +58,14 @@ export default class Server {
       }
     }
     this.outboundMessages = [];
+  }
+
+  public queueItemChange(loc: Point) {
+    this.broadcast('setItem', {
+      source: 0,
+      ...loc,
+      item: this.world.getItem(loc),
+    });
   }
 
   public consumeAllMessages() {
@@ -125,8 +140,7 @@ export default class Server {
       tile.item = item;
     }
 
-    // TODO queue and broadcast...
-    this.reply('setItem', {
+    this.broadcast('setItem', {
       ...nearestLoc,
       source: 0,
       item: tile.item,
@@ -176,7 +190,7 @@ export function openAndConnectToServerInMemory(client: Client, { dummyDelay, ver
     }
   }
 
-  const server = new Server({verbose, fillWorldWithStuff});
+  const server = new Server({ verbose, fillWorldWithStuff });
 
   const messageQueue = [];
   const wire: ClientToServerWire = {
