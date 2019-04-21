@@ -549,6 +549,16 @@ document.addEventListener('DOMContentLoaded', () => {
         loc: state.selectedTile,
       });
     }
+
+    // Shift to pick up item.
+    if (e.keyCode === KEYS.SHIFT && state.selectedTile) {
+      wire.send('moveItem', {
+        fromSource: 0,
+        from: state.selectedTile,
+        toSource: focusCreature.containerId,
+        to: null,
+      });
+    }
   };
 
   // resize the canvas to fill browser window dynamically

@@ -144,7 +144,7 @@ const move: C2S<MoveParams> = (server, pos) => {
   });
 };
 
-interface RequestContainerParams {containerId: number}
+interface RequestContainerParams {containerId: number;}
 const requestContainer: C2S<RequestContainerParams> = (server, { containerId }) => {
   const isClose = true; // TODO
   if (!isClose) {
