@@ -52,9 +52,13 @@ export default class Server {
     }
   }
   public makeCreature(pos: Point): Creature {
+    const container = this.makeContainer();
+    container.items[0] = { type: getMetaItemByName('Wood Axe').id, quantity: 1 };
+    container.items[1] = { type: getMetaItemByName('Fire Starter').id, quantity: 1 };
+
     const creature = {
       id: this.nextCreatureId++,
-      containerId: this.makeContainer().id,
+      containerId: container.id,
       image: 10,
       pos,
     };
@@ -66,8 +70,6 @@ export default class Server {
       id: this.nextContainerId++,
       items: Array(10).fill(null),
     };
-    container.items[0] = { type: getMetaItemByName('Wood Axe').id, quantity: 1 };
-    container.items[1] = { type: getMetaItemByName('Fire Starter').id, quantity: 1 };
     this.world.containers.set(container.id, container);
     return container;
   }

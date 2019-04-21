@@ -3,7 +3,7 @@
 import Server, { openAndConnectToServerInMemory } from '../src/server';
 import Client from '../src/client';
 import * as assert from 'assert';
-import { getMetaItemByName } from '../src/items';
+import { getMetaItem, getMetaItemByName } from '../src/items';
 
 let client: Client;
 let server: Server;
@@ -17,6 +17,9 @@ beforeEach(() => {
 });
 
 describe('moveItem', () => {
+  assert(getMetaItem(1).stackable);
+  assert(getMetaItem(1).moveable);
+
   it('move item', () => {
     const from = { x: 0, y: 0 };
     const to = { x: 1, y: 0 };
@@ -75,5 +78,69 @@ describe('moveItem', () => {
 
     assert.equal(null, server.world.getItem(from));
     expect(server.world.getItem(to)).toEqual({ type: gold.id, quantity: 3 });
+  });
+
+  it('move item from world to container', () => {
+    const from = { x: 0, y: 0 };
+
+    server.world.getTile(from).item = { type: 1, quantity: 1 };
+    const container = server.makeContainer();
+
+    wire.send('moveItem', {
+      from,
+      fromSource: 0,
+      to: { x: 0, y: 0 },
+      toSource: container.id,
+    });
+
+    server.consumeAllMessages();
+
+    assert.equal(null, server.world.getItem(from));
+    expect(container.items[0]).toEqual({ type: 1, quantity: 1 });
+  });
+
+  it('move item from world to container: null places in first open slot', () => {
+    const from = { x: 0, y: 0 };
+
+    server.world.getTile(from).item = { type: 1, quantity: 1 };
+    const container = server.makeContainer();
+    container.items[0] = { type: 2, quantity: 1 };
+    container.items[1] = { type: 2, quantity: 1 };
+    container.items[3] = { type: 2, quantity: 1 };
+
+    wire.send('moveItem', {
+      from,
+      fromSource: 0,
+      to: null,
+      toSource: container.id,
+    });
+
+    server.consumeAllMessages();
+
+    assert.equal(null, server.world.getItem(from));
+    expect(container.items[2]).toEqual({ type: 1, quantity: 1 });
+  });
+
+  it('move item from world to container: null places in first open slot - stacks', () => {
+    const from = { x: 0, y: 0 };
+
+    server.world.getTile(from).item = { type: 1, quantity: 1 };
+    const container = server.makeContainer();
+    container.items[0] = { type: 2, quantity: 1 };
+    container.items[1] = { type: 2, quantity: 1 };
+    container.items[2] = { type: 1, quantity: 2 };
+    container.items[3] = { type: 2, quantity: 1 };
+
+    wire.send('moveItem', {
+      from,
+      fromSource: 0,
+      to: null,
+      toSource: container.id,
+    });
+
+    server.consumeAllMessages();
+
+    assert.equal(null, server.world.getItem(from));
+    expect(container.items[2]).toEqual({ type: 1, quantity: 3 });
   });
 });
