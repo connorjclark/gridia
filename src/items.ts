@@ -1,6 +1,5 @@
-const items: Array<MetaItem | null> = require("../world/content/items.json");
-
-const itemUses: ItemUse[] = require("../world/content/itemuses.json");
+const items: Array<MetaItem | null> = require('../world/content/items.json');
+const itemUses: ItemUse[] = require('../world/content/itemuses.json');
 
 for (const use of itemUses) {
   use.focusQuantityConsumed = use.focusQuantityConsumed || 1;

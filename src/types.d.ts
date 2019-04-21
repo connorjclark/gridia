@@ -45,18 +45,18 @@ interface Wire<Input extends WireMap, Output extends WireMap> {
 }
 
 type ServerToClientWire = Wire<
-  typeof import("./protocol")["ClientToServerProtocol"],
-  typeof import("./protocol")["ServerToClientProtocol"]
+  typeof import('./protocol')['ClientToServerProtocol'],
+  typeof import('./protocol')['ServerToClientProtocol']
 >;
 
 type ClientToServerWire = Wire<
-  typeof import("./protocol")["ServerToClientProtocol"],
-  typeof import("./protocol")["ClientToServerProtocol"]
+  typeof import('./protocol')['ServerToClientProtocol'],
+  typeof import('./protocol')['ClientToServerProtocol']
 >;
 
 interface ClientConnection {
   creature: Creature;
-  send: WireMethod<typeof import("./protocol")["ServerToClientProtocol"]>;
+  send: WireMethod<typeof import('./protocol')['ServerToClientProtocol']>;
   getMessage(): any;
   hasMessage(): boolean;
 }
@@ -71,7 +71,7 @@ interface MetaItem {
   walkable: boolean;
   moveable: boolean;
   stackable: boolean;
-  class: "Normal";
+  class: 'Normal';
 }
 
 interface ItemUse {

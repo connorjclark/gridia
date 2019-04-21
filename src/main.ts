@@ -1,10 +1,10 @@
-import { EventEmitter } from "events";
-import * as PIXI from "pixi.js";
-import Client from "./client";
-import { getMetaItem, getMetaItemByName } from "./items";
-import KEYS from "./keys";
-import { openAndConnectToServerInMemory } from "./server";
-import { clamp, equalPoints, worldToTile } from "./utils";
+import { EventEmitter } from 'events';
+import * as PIXI from 'pixi.js';
+import Client from './client';
+import { getMetaItem, getMetaItemByName } from './items';
+import KEYS from './keys';
+import { openAndConnectToServerInMemory } from './server';
+import { clamp, equalPoints, worldToTile } from './utils';
 
 const client = new Client();
 const wire = openAndConnectToServerInMemory(client, {dummyDelay: 20}).clientToServerWire;
@@ -21,7 +21,7 @@ const state = {
     y: 0,
     tile: { x: 0, y: 0 },
     downTile: null,
-    state: "",
+    state: '',
   },
   selectedTile: null,
   keys: {},
@@ -38,12 +38,12 @@ const player = {
 
 const ResourceKeys = {
   creatures: [
-    "../world/player/player0.png",
+    '../world/player/player0.png',
   ],
   floors: [],
   items: [],
   templates: [
-    "../world/templates/templates0.png",
+    '../world/templates/templates0.png',
   ],
 };
 
@@ -74,10 +74,10 @@ function makeTextureCache(resourceType: string) {
 }
 
 const getTexture = {
-  creatures: makeTextureCache("creatures"),
-  floors: makeTextureCache("floors"),
-  items: makeTextureCache("items"),
-  templates: makeTextureCache("templates"),
+  creatures: makeTextureCache('creatures'),
+  floors: makeTextureCache('floors'),
+  items: makeTextureCache('items'),
+  templates: makeTextureCache('templates'),
 };
 
 function makeDraggableWindow() {
@@ -100,6 +100,9 @@ function makeDraggableWindow() {
   let downAt = null;
   let startingPosition = null;
   const onDragBegin = (e: PIXI.interaction.InteractionEvent) => {
+    // ts - ignore TouchEvent
+    if (!('pageX' in e.data.originalEvent)) return;
+
     // Only drag from the border.
     if (e.target !== border) return;
 
@@ -108,6 +111,9 @@ function makeDraggableWindow() {
     startingPosition = { x: container.x, y: container.y };
   };
   const onDrag = (e: PIXI.interaction.InteractionEvent) => {
+    // ts - ignore TouchEvent
+    if (!('pageX' in e.data.originalEvent)) return;
+
     if (dragging) {
       container.x = startingPosition.x + e.data.originalEvent.pageX - downAt.x;
       container.y = startingPosition.y + e.data.originalEvent.pageY - downAt.y;
@@ -130,10 +136,10 @@ function makeDraggableWindow() {
     border.drawRect(0, 0, contents.width + 2 * borderSize, contents.height + 2 * borderSize);
   }
 
-  container.on("mousedown", onDragBegin)
-    .on("mousemove", onDrag)
-    .on("mouseup", onDragEnd)
-    .on("mouseupoutside", onDragEnd);
+  container.on('mousedown', onDragBegin)
+    .on('mousemove', onDrag)
+    .on('mouseup', onDragEnd)
+    .on('mouseupoutside', onDragEnd);
 
   // TODO better names
   return {
@@ -158,18 +164,18 @@ function makeItemContainerWindow(container: Container) {
   let mouseDownIndex;
 
   window.contents
-    .on("mousedown", (e: PIXI.interaction.InteractionEvent) => {
+    .on('mousedown', (e: PIXI.interaction.InteractionEvent) => {
       const x = e.data.getLocalPosition(e.target).x;
       const index = Math.floor(x / 32);
       if (!container.items[index]) return;
       mouseDownIndex = index;
-      eventEmitter.emit("ItemMoveBegin", {
+      eventEmitter.emit('ItemMoveBegin', {
         source: container.id,
         loc: { x: index, y: 0 },
         item: container.items[index],
       });
     })
-    .on("mousemove", (e: PIXI.interaction.InteractionEvent) => {
+    .on('mousemove', (e: PIXI.interaction.InteractionEvent) => {
       if (e.target !== window.contents) {
         containerWindow.mouseOverIndex = null;
         return;
@@ -183,9 +189,9 @@ function makeItemContainerWindow(container: Container) {
         containerWindow.mouseOverIndex = null;
       }
     })
-    .on("mouseup", (e: PIXI.interaction.InteractionEvent) => {
+    .on('mouseup', (e: PIXI.interaction.InteractionEvent) => {
       if (containerWindow.mouseOverIndex !== null) {
-        eventEmitter.emit("ItemMoveEnd", {
+        eventEmitter.emit('ItemMoveEnd', {
           source: container.id,
           loc: { x: containerWindow.mouseOverIndex, y: 0 },
         });
@@ -204,7 +210,7 @@ function makeItemContainerWindow(container: Container) {
       window.contents.addChild(itemSprite);
     }
 
-    if (containerWindow.mouseOverIndex !== null && state.mouse.state === "down") {
+    if (containerWindow.mouseOverIndex !== null && state.mouse.state === 'down') {
       const highlight = makeHighlight(0xffff00, 0.3);
       highlight.x = 32 * containerWindow.mouseOverIndex;
       highlight.y = 0;
@@ -223,7 +229,7 @@ function makeItemContainerWindow(container: Container) {
 }
 
 function getCanvasSize() {
-  const canvasesEl = document.body.querySelector("#canvases");
+  const canvasesEl = document.body.querySelector('#canvases');
   return canvasesEl.getBoundingClientRect();
 }
 
@@ -257,16 +263,16 @@ function makeItemSprite(item: Item) {
   return sprite;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
   const app = new PIXI.Application();
 
-  const canvasesEl = document.body.querySelector("#canvases");
+  const canvasesEl = document.body.querySelector('#canvases');
   canvasesEl.appendChild(app.view);
 
   PIXI.loader
     .add(Object.values(ResourceKeys))
-    .on("progress", (loader, resource) => console.log("loading " + loader.progress + "%"))
+    .on('progress', (loader, resource) => console.log('loading ' + loader.progress + '%'))
     .load(() => {
       const world = new PIXI.Container();
       app.stage.addChild(world);
@@ -281,19 +287,22 @@ document.addEventListener("DOMContentLoaded", () => {
       world.addChild(topLayer);
 
       world.interactive = true;
-      world.on("mousedown", (e: PIXI.interaction.InteractionEvent) => {
+      world.on('mousedown', (e: PIXI.interaction.InteractionEvent) => {
+        // ts - ignore TouchEvent
+        if (!('pageX' in e.data.originalEvent)) return;
+
         const point = worldToTile(mouseToWorld({ x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY }));
         if (!client.world.inBounds(point)) return;
         const item = client.world.getItem(point);
         if (!item || !item.type) return;
 
-        eventEmitter.emit("ItemMoveBegin", {
+        eventEmitter.emit('ItemMoveBegin', {
           source: 0,
           loc: state.mouse.tile,
           item,
         });
       });
-      world.on("mouseup", (e: PIXI.interaction.InteractionEvent) => {
+      world.on('mouseup', (e: PIXI.interaction.InteractionEvent) => {
         if (!itemMovingState) {
           const point = worldToTile(e.data.getLocalPosition(world));
           if (client.world.inBounds(point)) {
@@ -303,12 +312,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const focusCreature = client.world.getCreature(client.creatureId);
         if (focusCreature && equalPoints(state.mouse.tile, focusCreature.pos)) {
-          eventEmitter.emit("ItemMoveEnd", {
+          eventEmitter.emit('ItemMoveEnd', {
             source: focusCreature.containerId,
             loc: null,
           });
         } else if (state.mouse.tile) {
-          eventEmitter.emit("ItemMoveEnd", {
+          eventEmitter.emit('ItemMoveEnd', {
             source: 0,
             loc: state.mouse.tile,
           });
@@ -316,13 +325,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       let itemMovingState = null;
-      eventEmitter.on("ItemMoveBegin", (e) => {
+      eventEmitter.on('ItemMoveBegin', (e) => {
         itemMovingState = e;
       });
-      eventEmitter.on("ItemMoveEnd", (e) => {
+      eventEmitter.on('ItemMoveEnd', (e) => {
         if (!itemMovingState) return;
 
-        wire.send("moveItem", {
+        wire.send('moveItem', {
           from: itemMovingState.loc,
           fromSource: itemMovingState.source,
           to: e.loc,
@@ -428,7 +437,7 @@ document.addEventListener("DOMContentLoaded", () => {
           if (pos.x !== focusCreature.pos.x || pos.y !== focusCreature.pos.y) {
             state.selectedTile = null;
             lastMove = performance.now();
-            wire.send("move", pos);
+            wire.send('move', pos);
           }
         }
 
@@ -463,7 +472,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-  canvasesEl.addEventListener("mousemove", (e: MouseEvent) => {
+  canvasesEl.addEventListener('mousemove', (e: MouseEvent) => {
     state.mouse = {
       ...state.mouse,
       x: e.clientX,
@@ -472,18 +481,18 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   });
 
-  canvasesEl.addEventListener("mousedown", (e: MouseEvent) => {
+  canvasesEl.addEventListener('mousedown', (e: MouseEvent) => {
     state.mouse = {
       ...state.mouse,
-      state: "down",
+      state: 'down',
       downTile: state.mouse.tile,
     };
   });
 
-  canvasesEl.addEventListener("mouseup", (e: MouseEvent) => {
+  canvasesEl.addEventListener('mouseup', (e: MouseEvent) => {
     state.mouse = {
       ...state.mouse,
-      state: "up",
+      state: 'up',
     };
   });
 
@@ -531,7 +540,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Space bar to use tool.
     if (e.keyCode === KEYS.SPACE_BAR && state.selectedTile) {
-      wire.send("use", {
+      wire.send('use', {
         toolIndex: inventoryWindow.selectedIndex,
         loc: state.selectedTile,
       });
@@ -543,7 +552,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const size = getCanvasSize();
     app.renderer.resize(size.width, size.height);
   }
-  window.addEventListener("resize", resize);
+  window.addEventListener('resize', resize);
   resize();
 });
 
@@ -572,15 +581,15 @@ function getWaterFloor(point: Point) {
 function useTemplate(templateId: number, typeToMatch: number, { x, y }: Point) {
   const z = 0;
 
-  let size = client.world.size;
-  // var xl = x == 0 ? size - 1 : x - 1;
-  // var xr = x == size - 1 ? 0 : x + 1;
-  // var yu = y == 0 ? size - 1 : y + 1;
-  // var yd = y == size - 1 ? 0 : y - 1;
-  let xl = x - 1;
-  let xr = x + 1;
-  let yu = y + 1;
-  let yd = y - 1;
+  const size = client.world.size;
+  // const xl = x == 0 ? size - 1 : x - 1;
+  // const xr = x == size - 1 ? 0 : x + 1;
+  // const yu = y == 0 ? size - 1 : y + 1;
+  // const yd = y == size - 1 ? 0 : y - 1;
+  const xl = x - 1;
+  const xr = x + 1;
+  const yu = y + 1;
+  const yd = y - 1;
 
   function getTileOrFake(pos: Point): Partial<{ floor: number }> {
     if (!client.world.inBounds(pos)) {
@@ -589,12 +598,12 @@ function useTemplate(templateId: number, typeToMatch: number, { x, y }: Point) {
     return client.world.getTile(pos);
   }
 
-  let below = getTileOrFake({ x, y: yu, z }).floor == typeToMatch;
-  let above = getTileOrFake({ x, y: yd, z }).floor == typeToMatch;
-  let left = getTileOrFake({ x: xl, y, z }).floor == typeToMatch;
-  let right = getTileOrFake({ x: xr, y, z }).floor == typeToMatch;
+  const below = getTileOrFake({ x, y: yu, z }).floor === typeToMatch;
+  const above = getTileOrFake({ x, y: yd, z }).floor === typeToMatch;
+  const left = getTileOrFake({ x: xl, y, z }).floor === typeToMatch;
+  const right = getTileOrFake({ x: xr, y, z }).floor === typeToMatch;
 
-  let offset = templateId * 50;
+  const offset = templateId * 50;
   let v = (above ? 1 : 0) + (below ? 2 : 0) + (left ? 4 : 0) + (right ? 8 : 0);
 
   // this is where the complicated crap kicks in
@@ -605,12 +614,12 @@ function useTemplate(templateId: number, typeToMatch: number, { x, y }: Point) {
   // ^ nov 2014
   // update: just copied this again here in dec 2018
 
-  let downleft = getTileOrFake({ x: xl, y: yu, z }).floor == typeToMatch;
-  let downright = getTileOrFake({ x: xr, y: yu, z }).floor == typeToMatch;
-  let upleft = getTileOrFake({ x: xl, y: yd, z }).floor == typeToMatch;
-  let upright = getTileOrFake({ x: xr, y: yd, z }).floor == typeToMatch;
+  const downleft = getTileOrFake({ x: xl, y: yu, z }).floor === typeToMatch;
+  const downright = getTileOrFake({ x: xr, y: yu, z }).floor === typeToMatch;
+  const upleft = getTileOrFake({ x: xl, y: yd, z }).floor === typeToMatch;
+  const upright = getTileOrFake({ x: xr, y: yd, z }).floor === typeToMatch;
 
-  if (v == 15) {
+  if (v === 15) {
     if (!upleft) {
       v++;
     }
@@ -623,23 +632,23 @@ function useTemplate(templateId: number, typeToMatch: number, { x, y }: Point) {
     if (!downright) {
       v += 8;
     }
-  } else if (v == 5) {
+  } else if (v === 5) {
     if (!upleft) {
       v = 31;
     }
-  } else if (v == 6) {
+  } else if (v === 6) {
     if (!downleft) {
       v = 32;
     }
-  } else if (v == 9) {
+  } else if (v === 9) {
     if (!upright) {
       v = 33;
     }
-  } else if (v == 10) {
+  } else if (v === 10) {
     if (!downright) {
       v = 34;
     }
-  } else if (v == 7) {
+  } else if (v === 7) {
     if (!downleft || !upleft) {
       v = 34;
       if (!downleft) {
@@ -649,7 +658,7 @@ function useTemplate(templateId: number, typeToMatch: number, { x, y }: Point) {
         v += 2;
       }
     }
-  } else if (v == 11) {
+  } else if (v === 11) {
     if (!downright || !upright) {
       v = 37;
       if (!downright) {
@@ -659,7 +668,7 @@ function useTemplate(templateId: number, typeToMatch: number, { x, y }: Point) {
         v += 2;
       }
     }
-  } else if (v == 13) {
+  } else if (v === 13) {
     if (!upright || !upleft) {
       v = 40;
       if (!upright) {
@@ -669,7 +678,7 @@ function useTemplate(templateId: number, typeToMatch: number, { x, y }: Point) {
         v += 2;
       }
     }
-  } else if (v == 14) {
+  } else if (v === 14) {
     if (!downright || !downleft) {
       v = 43;
       if (!downright) {

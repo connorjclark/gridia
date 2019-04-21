@@ -1,7 +1,7 @@
-import Client from "./client";
-import { getItemUses, getMetaItem, ItemWrapper } from "./items";
-import Server from "./server";
-import { equalPoints } from "./utils";
+import Client from './client';
+import { getItemUses, getMetaItem, ItemWrapper } from './items';
+import Server from './server';
+import { equalPoints } from './utils';
 
 // ClientToServerProtocolFn
 type C2S<T> = (server: Server, data: T) => void;
@@ -131,7 +131,7 @@ const move: C2S<MoveParams> = (server, pos) => {
   server.world.getTile(creature.pos).creature = creature;
 
   // TODO reply all
-  server.reply("setCreature", {
+  server.reply('setCreature', {
     id: creature.id,
     pos: creature.pos,
   });
@@ -140,24 +140,24 @@ const move: C2S<MoveParams> = (server, pos) => {
 const requested = new Map<string, boolean>();
 type RequestSectorParams = Point;
 const requestSector: C2S<RequestSectorParams> = (server, { x, y }) => {
-  if (requested.get(x + "," + y)) {
+  if (requested.get(x + ',' + y)) {
     return false;
   }
-  requested.set(x + "," + y, true);
+  requested.set(x + ',' + y, true);
 
   const isClose = true; // TODO
   if (x < 0 || y < 0 || !isClose) {
     return false;
   }
 
-  server.reply("sector", {
+  server.reply('sector', {
     x,
     y,
     tiles: server.world.getSector({ x, y }),
   });
 };
 
-interface UseParams {toolIndex: number; loc: Point;}
+interface UseParams {toolIndex: number; loc: Point; }
 const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
   if (!server.world.inBounds(loc)) {
     return false;

@@ -1,6 +1,6 @@
-import { getMetaItemByName } from "./items";
-import { ClientToServerProtocol } from "./protocol";
-import { worldToSector } from "./utils";
+import { getMetaItemByName } from './items';
+import { ClientToServerProtocol } from './protocol';
+import { worldToSector } from './utils';
 
 const WORLD_SIZE = 100;
 const SECTOR_SIZE = 20;
@@ -10,8 +10,8 @@ function createSector(bare: boolean) {
   /** @type {Tile[][]} */
   const tiles = [];
 
-  const treeType = getMetaItemByName("Pine Tree").id;
-  const flowerType = getMetaItemByName("Cut Red Rose").id;
+  const treeType = getMetaItemByName('Pine Tree').id;
+  const flowerType = getMetaItemByName('Cut Red Rose').id;
 
   for (let x = 0; x < SECTOR_SIZE; x++) {
     tiles[x] = [];
@@ -109,7 +109,7 @@ export class ClientWorldContext extends WorldContext {
   }
 
   public load(point: Point): Sector {
-    this.wire.send("requestSector", point);
+    this.wire.send('requestSector', point);
     return createSector(true); // temporary until server sends something
   }
 }
