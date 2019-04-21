@@ -7,7 +7,7 @@ import { openAndConnectToServerInMemory } from './server';
 import { clamp, equalPoints, worldToTile } from './utils';
 
 const client = new Client();
-const wire = openAndConnectToServerInMemory(client, {dummyDelay: 20}).clientToServerWire;
+const wire = openAndConnectToServerInMemory(client, { dummyDelay: 20 }).clientToServerWire;
 const eventEmitter = new EventEmitter();
 
 let lastMove = performance.now();
@@ -211,16 +211,16 @@ function makeItemContainerWindow(container: Container) {
     }
 
     if (containerWindow.mouseOverIndex !== null && state.mouse.state === 'down') {
-      const highlight = makeHighlight(0xffff00, 0.3);
-      highlight.x = 32 * containerWindow.mouseOverIndex;
-      highlight.y = 0;
-      window.contents.addChild(highlight);
+      const mouseHighlight = makeHighlight(0xffff00, 0.3);
+      mouseHighlight.x = 32 * containerWindow.mouseOverIndex;
+      mouseHighlight.y = 0;
+      window.contents.addChild(mouseHighlight);
     }
 
-    const highlight = makeHighlight(0x00ff00, 0.5);
-    highlight.x = 32 * containerWindow.selectedIndex;
-    highlight.y = 0;
-    window.contents.addChild(highlight);
+    const selectedHighlight = makeHighlight(0x00ff00, 0.5);
+    selectedHighlight.x = 32 * containerWindow.selectedIndex;
+    selectedHighlight.y = 0;
+    window.contents.addChild(selectedHighlight);
 
     window.draw();
   }

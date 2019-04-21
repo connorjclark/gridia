@@ -152,35 +152,31 @@ interface OpenAndConnectToServerInMemoryOpts {
 export function openAndConnectToServerInMemory(client: Client, { dummyDelay }: OpenAndConnectToServerInMemoryOpts = { dummyDelay: 0 }) {
   const server = new Server();
 
-  function makeWire(client, messageQueue): ClientToServerWire {
-    return {
-      send(type, args) {
-        // const p = ServerToClientProtocol[type]
-        if (dummyDelay) {
-          setTimeout(() => {
-            messageQueue.push({
-              type,
-              args,
-            });
-          }, dummyDelay);
-        } else {
+  const messageQueue = [];
+  const wire: ClientToServerWire = {
+    send(type, args) {
+      // const p = ServerToClientProtocol[type]
+      if (dummyDelay) {
+        setTimeout(() => {
           messageQueue.push({
             type,
             args,
           });
-        }
-      },
-      receive(type, args) {
-        console.log('from server', type, args);
-        const p = ServerToClientProtocol[type];
-        // @ts-ignore
-        p(client, args);
-      },
-    };
-  }
-
-  const messageQueue = [];
-  const wire = makeWire(client, messageQueue);
+        }, dummyDelay);
+      } else {
+        messageQueue.push({
+          type,
+          args,
+        });
+      }
+    },
+    receive(type, args) {
+      console.log('from server', type, args);
+      const p = ServerToClientProtocol[type];
+      // @ts-ignore
+      p(client, args);
+    },
+  };
   client.world = new ClientWorldContext(wire);
 
   const creature = server.makeCreature({ x: 5, y: 7 });
@@ -228,7 +224,6 @@ export function openAndConnectToServerInMemory(client: Client, { dummyDelay }: O
   server.clientConnections.push(clientConnection);
 
   clientConnection.send('setCreature', creature);
-  // clientConnection.send('initialize', creature);
   clientConnection.send('initialize', {
     creatureId: creature.id,
   });
