@@ -16,11 +16,11 @@ export function worldToSector(ps: Point, SECTOR_SIZE: number): Point {
   return {
     x: Math.floor(ps.x / SECTOR_SIZE),
     y: Math.floor(ps.y / SECTOR_SIZE),
-  }
+  };
 }
 
 export function maxDiff(p1: Point, p2: Point): number {
-  return Math.max(Math.abs(p1.x - p2.x), Math.abs(p1.y - p2.y))
+  return Math.max(Math.abs(p1.x - p2.x), Math.abs(p1.y - p2.y));
 }
 
 export function equalPoints(p1?: Point, p2?: Point) {

@@ -1,89 +1,89 @@
-import { ClientToServerProtocol, ServerToClientProtocol } from './protocol'
-import { ServerWorldContext, ClientWorldContext } from "./context";
-import { getMetaItemByName } from './items'
-import Client from './client';
+import Client from "./client";
+import { ClientWorldContext, ServerWorldContext } from "./context";
+import { getMetaItemByName } from "./items";
+import { ClientToServerProtocol, ServerToClientProtocol } from "./protocol";
 
 // TODO document how the f this works.
 
 export default class Server {
-  world = new ServerWorldContext;
-  clientConnections: ClientConnection[] = [];
-  outboundMessages = [];
-  currentClientConnection: ClientConnection;
+  public world = new ServerWorldContext;
+  public clientConnections: ClientConnection[] = [];
+  public outboundMessages = [];
+  public currentClientConnection: ClientConnection;
 
-  tick() {
-    for (const clientConnection of this.clientConnections) {
-      // only read one message from a client at a time
-      const message = clientConnection.getMessage()
-      if (message) {
-        console.log('from client', message.type, message.args)
-        this.currentClientConnection = clientConnection;
-        ClientToServerProtocol[message.type](this, message.args)
-      }
-    }
-
-    for (const message of this.outboundMessages) {
-      if (message.to) {
-        message.to.send(message.type, message.args)
-      } else {
-        for (const clientConnection of this.clientConnections) {
-          clientConnection.send(message.type, message.args)
-        }
-      }
-    }
-    this.outboundMessages = []
-  }
-
-  consumeAllMessages() {
-    while (this.clientConnections.some(c => c.hasMessage()) || this.outboundMessages.length) {
-      this.tick();
-    }
-  }
-
-  reply = ((type, args) => {
+  public reply = ((type, args) => {
     this.outboundMessages.push({
       to: this.currentClientConnection,
       type,
       args,
     });
-  }) as ServerToClientWire['send'];
+  }) as ServerToClientWire["send"];
 
-  nextCreatureId = 1
-  makeCreature(pos: Point): Creature {
+  public nextCreatureId = 1;
+
+  public nextContainerId = 1;
+
+  public tick() {
+    for (const clientConnection of this.clientConnections) {
+      // only read one message from a client at a time
+      const message = clientConnection.getMessage();
+      if (message) {
+        console.log("from client", message.type, message.args);
+        this.currentClientConnection = clientConnection;
+        ClientToServerProtocol[message.type](this, message.args);
+      }
+    }
+
+    for (const message of this.outboundMessages) {
+      if (message.to) {
+        message.to.send(message.type, message.args);
+      } else {
+        for (const clientConnection of this.clientConnections) {
+          clientConnection.send(message.type, message.args);
+        }
+      }
+    }
+    this.outboundMessages = [];
+  }
+
+  public consumeAllMessages() {
+    while (this.clientConnections.some((c) => c.hasMessage()) || this.outboundMessages.length) {
+      this.tick();
+    }
+  }
+  public makeCreature(pos: Point): Creature {
     const creature = {
       id: this.nextCreatureId++,
       containerId: this.makeContainer().id,
       image: 10,
       pos,
-    }
-    this.world.setCreature(creature)
-    return creature
+    };
+    this.world.setCreature(creature);
+    return creature;
   }
-
-  nextContainerId = 1;
-  makeContainer() {
+  public makeContainer() {
     const container: Container = {
       id: this.nextContainerId++,
       items: Array(10).fill(null),
     };
-    container.items[0] = { type: getMetaItemByName('Wood Axe').id, quantity: 1 };
-    container.items[1] = { type: getMetaItemByName('Fire Starter').id, quantity: 1 };
+    container.items[0] = { type: getMetaItemByName("Wood Axe").id, quantity: 1 };
+    container.items[1] = { type: getMetaItemByName("Fire Starter").id, quantity: 1 };
     this.world.containers.set(container.id, container);
     return container;
   }
 
-  getContainer(id: number) {
+  public getContainer(id: number) {
     return this.world.containers.get(id);
   }
 
-  findNearest(loc: Point, range: number, includeTargetLocation: boolean, predicate: (tile: Tile) => boolean): Point {
+  public findNearest(loc: Point, range: number, includeTargetLocation: boolean, predicate: (tile: Tile) => boolean): Point {
     const test = (l: Point) => {
       if (!this.world.inBounds(l)) return false;
       return predicate(this.world.getTile(l));
-    }
+    };
 
-    let x0 = loc.x;
-    let y0 = loc.y;
+    const x0 = loc.x;
+    const y0 = loc.y;
     for (let offset = includeTargetLocation ? 0 : 1; offset <= range; offset++) {
       for (let y1 = y0 - offset; y1 <= offset + y0; y1++) {
         if (y1 == y0 - offset || y1 == y0 + offset) {
@@ -106,8 +106,8 @@ export default class Server {
     return null;
   }
 
-  addItemNear(loc: Point, item: Item) {
-    const nearestLoc = this.findNearest(loc, 6, true, tile => !tile.item || tile.item.type === item.type);
+  public addItemNear(loc: Point, item: Item) {
+    const nearestLoc = this.findNearest(loc, 6, true, (tile) => !tile.item || tile.item.type === item.type);
     if (!nearestLoc) return; // TODO what to do in this case?
     const tile = this.world.getTile(nearestLoc);
     if (tile.item) {
@@ -146,7 +146,6 @@ export default class Server {
 //   outboundMessages = []
 // }
 
-
 interface OpenAndConnectToServerInMemoryOpts {
   dummyDelay: number;
 }
@@ -162,33 +161,33 @@ export function openAndConnectToServerInMemory(client: Client, { dummyDelay }: O
             messageQueue.push({
               type,
               args,
-            })
+            });
           }, dummyDelay);
         } else {
           messageQueue.push({
             type,
             args,
-          })
+          });
         }
       },
       receive(type, args) {
-        console.log('from server', type, args)
-        const p = ServerToClientProtocol[type]
+        console.log("from server", type, args);
+        const p = ServerToClientProtocol[type];
         // @ts-ignore
-        p(client, args)
+        p(client, args);
       },
-    }
+    };
   }
 
-  const messageQueue = []
-  const wire = makeWire(client, messageQueue)
-  client.world = new ClientWorldContext(wire)
+  const messageQueue = [];
+  const wire = makeWire(client, messageQueue);
+  client.world = new ClientWorldContext(wire);
 
-  const creature = server.makeCreature({ x: 5, y: 7 })
+  const creature = server.makeCreature({ x: 5, y: 7 });
 
   // make a playground of items to use
   const itemUsesGroupedByTool = new Map<number, ItemUse[]>();
-  for (const use of require('../world/content/itemuses.json') as ItemUse[]) {
+  for (const use of require("../world/content/itemuses.json") as ItemUse[]) {
     let arr = itemUsesGroupedByTool.get(use.tool);
     if (!arr) {
       itemUsesGroupedByTool.set(use.tool, arr = []);
@@ -202,7 +201,7 @@ export function openAndConnectToServerInMemory(client: Client, { dummyDelay }: O
     const startX = 25;
     const y = i * 3;
     server.world.getTile({ x: startX, y }).item = { type: tool, quantity: 1 };
-    const focusItems = [...new Set(uses.map(u => u.focus))];
+    const focusItems = [...new Set(uses.map((u) => u.focus))];
     for (let j = 0; j < focusItems.length; j++) {
       server.world.getTile({ x: startX + j + 2, y }).item = { type: focusItems[j], quantity: 1 };
     }
@@ -213,7 +212,7 @@ export function openAndConnectToServerInMemory(client: Client, { dummyDelay }: O
     creature,
     getMessage() {
       if (messageQueue.length) {
-        return messageQueue.shift()
+        return messageQueue.shift();
       }
     },
     hasMessage() {
@@ -222,22 +221,22 @@ export function openAndConnectToServerInMemory(client: Client, { dummyDelay }: O
     send(type, args) {
       // dummy delay
       setTimeout(() => {
-        wire.receive(type, args)
-      }, 20)
+        wire.receive(type, args);
+      }, 20);
     },
-  }
-  server.clientConnections.push(clientConnection)
+  };
+  server.clientConnections.push(clientConnection);
 
-  clientConnection.send('setCreature', creature);
+  clientConnection.send("setCreature", creature);
   // clientConnection.send('initialize', creature);
-  clientConnection.send('initialize', {
+  clientConnection.send("initialize", {
     creatureId: creature.id,
   });
-  clientConnection.send('container', server.getContainer(creature.containerId));
+  clientConnection.send("container", server.getContainer(creature.containerId));
 
   setInterval(() => {
     server.tick();
-  }, 50)
+  }, 50);
 
   return { clientToServerWire: wire, server };
 }

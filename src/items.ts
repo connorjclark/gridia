@@ -1,6 +1,6 @@
-const items: (MetaItem | null)[] = require('../world/content/items.json')
+const items: Array<MetaItem | null> = require("../world/content/items.json");
 
-const itemUses: ItemUse[] = require('../world/content/itemuses.json');
+const itemUses: ItemUse[] = require("../world/content/itemuses.json");
 
 for (const use of itemUses) {
   use.focusQuantityConsumed = use.focusQuantityConsumed || 1;
@@ -9,12 +9,12 @@ for (const use of itemUses) {
 export class ItemWrapper {
   constructor(public type: number, public quantity: number) { }
 
-  raw() {
+  public raw() {
     if (this.type === 0) return null;
     return { type: this.type, quantity: this.quantity };
   }
 
-  remove(quantity: number) {
+  public remove(quantity: number) {
     this.quantity -= quantity;
     if (this.quantity <= 0) {
       this.quantity = 0;
@@ -24,19 +24,19 @@ export class ItemWrapper {
     return this;
   }
 
-  clone() {
+  public clone() {
     return new ItemWrapper(this.type, this.quantity);
   }
 }
 
 export function getMetaItem(id: number): MetaItem {
-  return items[id]
+  return items[id];
 }
 
 export function getMetaItemByName(name: string): MetaItem {
-  return items.find(item => item && item.name === name);
+  return items.find((item) => item && item.name === name);
 }
 
 export function getItemUses(tool: number, focus: number) {
-  return itemUses.filter(item => item.tool === tool && item.focus === focus);
+  return itemUses.filter((item) => item.tool === tool && item.focus === focus);
 }

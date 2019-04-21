@@ -1,8 +1,8 @@
 import { ClientWorldContext } from "./context";
 
 class Client {
-  creatureId: number
-  world: ClientWorldContext
+  public creatureId: number;
+  public world: ClientWorldContext;
 }
 
 export default Client;

@@ -1,7 +1,7 @@
-import { getMetaItem, getItemUses, ItemWrapper } from './items'
-import Server from './server'
-import { equalPoints } from './utils'
-import Client from './client';
+import Client from "./client";
+import { getItemUses, getMetaItem, ItemWrapper } from "./items";
+import Server from "./server";
+import { equalPoints } from "./utils";
 
 // ClientToServerProtocolFn
 type C2S<T> = (server: Server, data: T) => void;
@@ -12,7 +12,7 @@ type C2S<T> = (server: Server, data: T) => void;
 // is specified and the item will be place in the first viable slot.
 // TODO - better name than "source"? Maybe just generalize to "Container" where 0 refers to world?
 export const ItemSourceWorld = 0;
-type MoveItemParams = { from: Point, fromSource: number, to: Point, toSource: number };
+interface MoveItemParams { from: Point; fromSource: number; to: Point; toSource: number; }
 const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource }) => {
   function boundsCheck(loc: Point | null, source: number) {
     if (source === ItemSourceWorld) {
@@ -76,7 +76,7 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
   }
 
   if (!boundsCheck(from, fromSource) || !boundsCheck(to, toSource)) {
-    return false
+    return false;
   }
 
   // Ignore if moving to same location.
@@ -108,12 +108,12 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
   // TODO queue changes and send to all clients.
   // context.queueTileChange(from)
   // context.queueTileChange(to)
-}
+};
 
 type MoveParams = Point;
 const move: C2S<MoveParams> = (server, pos) => {
   if (!server.world.inBounds(pos)) {
-    return false
+    return false;
   }
 
   const item = server.world.getItem(pos);
@@ -131,36 +131,36 @@ const move: C2S<MoveParams> = (server, pos) => {
   server.world.getTile(creature.pos).creature = creature;
 
   // TODO reply all
-  server.reply('setCreature', {
+  server.reply("setCreature", {
     id: creature.id,
-    pos: creature.pos
+    pos: creature.pos,
   });
-}
+};
 
-const requested = new Map<string, boolean>()
+const requested = new Map<string, boolean>();
 type RequestSectorParams = Point;
 const requestSector: C2S<RequestSectorParams> = (server, { x, y }) => {
-  if (requested.get(x + ',' + y)) {
-    return false
+  if (requested.get(x + "," + y)) {
+    return false;
   }
-  requested.set(x + ',' + y, true)
+  requested.set(x + "," + y, true);
 
-  const isClose = true // TODO
+  const isClose = true; // TODO
   if (x < 0 || y < 0 || !isClose) {
     return false;
   }
 
-  server.reply('sector', {
+  server.reply("sector", {
     x,
     y,
     tiles: server.world.getSector({ x, y }),
-  })
-}
+  });
+};
 
-type UseParams = {toolIndex: number, loc: Point};
+interface UseParams {toolIndex: number; loc: Point;}
 const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
   if (!server.world.inBounds(loc)) {
-    return false
+    return false;
   }
 
   const creature = server.currentClientConnection.creature;
@@ -169,7 +169,7 @@ const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
   if (!tool) return;
 
   const focus = server.world.getItem(loc) || {type: 0, quantity: 0};
-  
+
   const uses = getItemUses(tool.type, focus.type);
   if (!uses.length) return;
   const use = uses[0];
@@ -191,46 +191,44 @@ const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
   for (const product of usageResult.products) {
     server.addItemNear(loc, product);
   }
-
-  console.log(usageResult);
-}
+};
 
 export const ClientToServerProtocol = {
   moveItem,
   requestSector,
   move,
   use,
-}
+};
 
 // ServerToClientProtocolFn
 type S2C<T> = (client: Client, data: T) => void;
 
-type InitializeParams = { creatureId: number };
+interface InitializeParams { creatureId: number; }
 const initialize: S2C<InitializeParams> = (client, { creatureId }) => {
   client.creatureId = creatureId;
-}
+};
 
 type SectorParams = Point & { tiles: Sector };
 const sector: S2C<SectorParams> = (client, { x, y, tiles }) => {
-  client.world.sectors[x][y] = tiles
-}
+  client.world.sectors[x][y] = tiles;
+};
 
 type ContainerParams = Container;
 const container: S2C<ContainerParams> = (client, container) => {
   client.world.containers.set(container.id, container);
-}
+};
 
 type SetItemParams = Point & { source: number, item: Item };
 const setItem: S2C<SetItemParams> = (client, { x, y, source, item }) => {
   if (source === ItemSourceWorld) {
-    client.world.getTile({ x, y }).item = item
+    client.world.getTile({ x, y }).item = item;
   } else {
     const container = client.world.containers.get(source);
     if (container) {
       container.items[x] = item;
     }
   }
-}
+};
 
 // TODO make all but id optional
 type SetCreatureParams = Partial<Creature>;
@@ -259,7 +257,7 @@ const setCreature: S2C<SetCreatureParams> = (client, { pos, id, containerId, ima
   client.world.getTile(creature.pos).creature = null;
   creature.pos = pos;
   client.world.getTile(creature.pos).creature = creature;
-}
+};
 
 export const ServerToClientProtocol = {
   initialize,
@@ -267,4 +265,4 @@ export const ServerToClientProtocol = {
   container,
   setItem,
   setCreature,
-}
+};

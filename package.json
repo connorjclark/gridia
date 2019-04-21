@@ -10,13 +10,15 @@
   "scripts": {
     "build": "parcel build src/main.ts -d dist --public-url .",
     "watch": "parcel src/main.ts -d dist --public-url .",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'"
   },
   "devDependencies": {
     "@types/jest": "^24.0.11",
     "@types/pixi.js": "^4.8.6",
     "jest": "^24.7.1",
     "ts-jest": "^24.0.2",
+    "tslint": "^5.16.0",
     "typescript": "^3.3.1"
   }
 }
