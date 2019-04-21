@@ -124,6 +124,13 @@ export default class Server {
     } else {
       tile.item = item;
     }
+
+    // TODO queue and broadcast...
+    this.reply('setItem', {
+      ...nearestLoc,
+      source: 0,
+      item: tile.item,
+    });
   }
 }
 

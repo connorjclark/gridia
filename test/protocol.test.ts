@@ -4,10 +4,13 @@ import * as assert from 'assert';
 import Client from '../src/client';
 import { getMetaItem, getMetaItemByName } from '../src/items';
 import Server, { openAndConnectToServerInMemory } from '../src/server';
+import { equalItems } from '../src/utils';
 
 let client: Client;
 let server: Server;
 let wire: ClientToServerWire;
+
+// TODO would be cool to see these tests while rendering the game.
 
 beforeEach(() => {
   client = new Client();
@@ -34,6 +37,12 @@ function assertItemInWorld(location: Point, item: Item) {
   expect(client.world.getItem(location)).toEqual(item);
 }
 
+function assertItemInWorldNear(location: Point, item: Item) {
+  const point = server.findNearest(location, 10, true, (tile) => equalItems(tile.item, item));
+  assert(point);
+  expect(client.world.getItem(point)).toEqual(item);
+}
+
 function assertItemInContainer(containerId: number, index: number, item: Item) {
   expect(server.getContainer(containerId).items[index]).toEqual(item);
   expect(client.world.containers.get(containerId).items[index]).toEqual(item);
@@ -47,7 +56,7 @@ describe('moveItem', () => {
     const from = { x: 0, y: 0 };
     const to = { x: 1, y: 0 };
 
-    server.world.getTile(from).item = { type: 1, quantity: 10 };
+    setItem(from, { type: 1, quantity: 10 });
 
     wire.send('moveItem', {
       from,
@@ -108,7 +117,7 @@ describe('moveItem', () => {
 
     setItem(from, { type: 1, quantity: 1 });
     const container = server.makeContainer();
-    wire.send('requestContainer', {containerId: container.id});
+    wire.send('requestContainer', { containerId: container.id });
 
     wire.send('moveItem', {
       from,
@@ -131,7 +140,7 @@ describe('moveItem', () => {
     container.items[0] = { type: 2, quantity: 1 };
     container.items[1] = { type: 2, quantity: 1 };
     container.items[3] = { type: 2, quantity: 1 };
-    wire.send('requestContainer', {containerId: container.id});
+    wire.send('requestContainer', { containerId: container.id });
 
     wire.send('moveItem', {
       from,
@@ -155,7 +164,7 @@ describe('moveItem', () => {
     container.items[1] = { type: 2, quantity: 1 };
     container.items[2] = { type: 1, quantity: 2 };
     container.items[3] = { type: 2, quantity: 1 };
-    wire.send('requestContainer', {containerId: container.id});
+    wire.send('requestContainer', { containerId: container.id });
 
     wire.send('moveItem', {
       from,
@@ -168,5 +177,30 @@ describe('moveItem', () => {
 
     assertItemInWorld(from, null);
     assertItemInContainer(container.id, 2, { type: 1, quantity: 3 });
+  });
+});
+
+describe('use', () => {
+  beforeEach(() => {
+    assert(server.clientConnections[0]);
+    assert.equal(getMetaItemByName('Wood Axe').id, server.getContainer(server.clientConnections[0].creature.containerId).items[0].type);
+  });
+
+  it('cut down tree', () => {
+    const toolIndex = 0;
+    const loc = { x: 0, y: 0 };
+
+    setItem(loc, { type: getMetaItemByName('Pine Tree').id, quantity: 1 });
+
+    wire.send('use', {
+      toolIndex,
+      loc,
+    });
+
+    server.consumeAllMessages();
+
+    assertItemInWorld(loc, { type: getMetaItemByName('Pine Tree Stump').id, quantity: 1 });
+    assertItemInWorldNear(loc, { type: getMetaItemByName('Small Branches').id, quantity: 6 });
+    assertItemInWorldNear(loc, { type: getMetaItemByName('Small Log').id, quantity: 2 });
   });
 });

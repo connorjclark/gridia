@@ -29,6 +29,12 @@ export function equalPoints(p1?: Point, p2?: Point) {
   return p1.x === p2.x && p1.y === p2.y;
 }
 
+export function equalItems(i1?: Item, i2?: Item) {
+  if (i1 === null && i2 === null) return true;
+  if (i1 === null || i2 === null) return false;
+  return i1.type === i2.type && i1.quantity === i2.quantity;
+}
+
 export function clamp(val: number, min: number, max: number) {
   return Math.max(Math.min(val, max), min);
 }

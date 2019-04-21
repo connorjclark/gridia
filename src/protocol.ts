@@ -208,6 +208,12 @@ const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
 
   inventory.items[toolIndex] = usageResult.tool;
   server.world.getTile(loc).item = usageResult.focus;
+  // TODO broadcast
+  server.reply('setItem', {
+    ...loc,
+    source: 0,
+    item: usageResult.focus,
+  });
   for (const product of usageResult.products) {
     server.addItemNear(loc, product);
   }
