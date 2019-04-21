@@ -7,7 +7,11 @@ import { openAndConnectToServerInMemory } from './server';
 import { clamp, equalPoints, worldToTile } from './utils';
 
 const client = new Client();
-const wire = openAndConnectToServerInMemory(client, { dummyDelay: 20 }).clientToServerWire;
+const wire = openAndConnectToServerInMemory(client, {
+  dummyDelay: 20,
+  fillWorldWithStuff: true,
+  verbose: true,
+}).clientToServerWire;
 const eventEmitter = new EventEmitter();
 
 let lastMove = performance.now();

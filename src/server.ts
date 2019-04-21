@@ -23,12 +23,19 @@ export default class Server {
 
   public nextContainerId = 1;
 
+  public verbose: Boolean;
+
+  constructor({verbose = false, fillWorldWithStuff = false}) {
+    this.verbose = verbose;
+    this.world.fillWorldWithStuff = fillWorldWithStuff;
+  }
+
   public tick() {
     for (const clientConnection of this.clientConnections) {
       // only read one message from a client at a time
       const message = clientConnection.getMessage();
       if (message) {
-        console.log('from client', message.type, message.args);
+        if (this.verbose) console.log('from client', message.type, message.args);
         this.currentClientConnection = clientConnection;
         ClientToServerProtocol[message.type](this, message.args);
       }
@@ -150,30 +157,33 @@ export default class Server {
 
 interface OpenAndConnectToServerInMemoryOpts {
   dummyDelay: number;
+  verbose: boolean;
+  fillWorldWithStuff: boolean;
 }
-export function openAndConnectToServerInMemory(client: Client, { dummyDelay }: OpenAndConnectToServerInMemoryOpts = { dummyDelay: 0 }) {
-  const server = new Server();
+export function openAndConnectToServerInMemory(client: Client, { dummyDelay, verbose, fillWorldWithStuff }: OpenAndConnectToServerInMemoryOpts) {
+  function maybeDelay(fn: Function) {
+    if (dummyDelay > 0) {
+      setTimeout(fn, dummyDelay);
+    } else {
+      fn();
+    }
+  }
+
+  const server = new Server({verbose, fillWorldWithStuff});
 
   const messageQueue = [];
   const wire: ClientToServerWire = {
     send(type, args) {
       // const p = ServerToClientProtocol[type]
-      if (dummyDelay) {
-        setTimeout(() => {
-          messageQueue.push({
-            type,
-            args,
-          });
-        }, dummyDelay);
-      } else {
+      maybeDelay(() => {
         messageQueue.push({
           type,
           args,
         });
-      }
+      });
     },
     receive(type, args) {
-      console.log('from server', type, args);
+      if (verbose) console.log('from server', type, args);
       const p = ServerToClientProtocol[type];
       // @ts-ignore
       p(client, args);
@@ -183,27 +193,29 @@ export function openAndConnectToServerInMemory(client: Client, { dummyDelay }: O
 
   const creature = server.makeCreature({ x: 5, y: 7 });
 
-  // make a playground of items to use
-  const itemUsesGroupedByTool = new Map<number, ItemUse[]>();
-  for (const use of require('../world/content/itemuses.json') as ItemUse[]) {
-    let arr = itemUsesGroupedByTool.get(use.tool);
-    if (!arr) {
-      itemUsesGroupedByTool.set(use.tool, arr = []);
+  if (fillWorldWithStuff) {
+    // make a playground of items to use
+    const itemUsesGroupedByTool = new Map<number, ItemUse[]>();
+    for (const use of require('../world/content/itemuses.json') as ItemUse[]) {
+      let arr = itemUsesGroupedByTool.get(use.tool);
+      if (!arr) {
+        itemUsesGroupedByTool.set(use.tool, arr = []);
+      }
+      arr.push(use);
     }
-    arr.push(use);
-  }
-  let i = 0;
-  for (const [tool, uses] of Array.from(itemUsesGroupedByTool.entries()).sort(([_, a], [__, b]) => {
-    return b.length - a.length;
-  }).slice(0, 30)) {
-    const startX = 25;
-    const y = i * 3;
-    server.world.getTile({ x: startX, y }).item = { type: tool, quantity: 1 };
-    const focusItems = [...new Set(uses.map((u) => u.focus))];
-    for (let j = 0; j < focusItems.length; j++) {
-      server.world.getTile({ x: startX + j + 2, y }).item = { type: focusItems[j], quantity: 1 };
+    let i = 0;
+    for (const [tool, uses] of Array.from(itemUsesGroupedByTool.entries()).sort(([_, a], [__, b]) => {
+      return b.length - a.length;
+    }).slice(0, 30)) {
+      const startX = 25;
+      const y = i * 3;
+      server.world.getTile({ x: startX, y }).item = { type: tool, quantity: 1 };
+      const focusItems = [...new Set(uses.map((u) => u.focus))];
+      for (let j = 0; j < focusItems.length; j++) {
+        server.world.getTile({ x: startX + j + 2, y }).item = { type: focusItems[j], quantity: 1 };
+      }
+      i++;
     }
-    i++;
   }
 
   const clientConnection: ClientConnection = {
@@ -217,10 +229,9 @@ export function openAndConnectToServerInMemory(client: Client, { dummyDelay }: O
       return messageQueue.length > 0;
     },
     send(type, args) {
-      // dummy delay
-      setTimeout(() => {
+      maybeDelay(() => {
         wire.receive(type, args);
-      }, 20);
+      });
     },
   };
   server.clientConnections.push(clientConnection);

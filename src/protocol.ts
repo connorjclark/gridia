@@ -73,6 +73,13 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
         container.items.push(item);
       }
     }
+
+    // TODO broadcast
+    server.reply('setItem', {
+      ...loc,
+      source,
+      item,
+    });
   }
 
   if (!boundsCheck(from, fromSource) || !boundsCheck(to, toSource)) {

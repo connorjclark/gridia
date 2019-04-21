@@ -115,8 +115,10 @@ export class ClientWorldContext extends WorldContext {
 }
 
 export class ServerWorldContext extends WorldContext {
+  public fillWorldWithStuff = false;
+
   public load(point: Point): Sector {
     // TODO load from disk
-    return createSector(false);
+    return createSector(!this.fillWorldWithStuff);
   }
 }
