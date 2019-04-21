@@ -1,9 +1,9 @@
 /// <reference path="../src/types.d.ts" />
 
-import Server, { openAndConnectToServerInMemory } from '../src/server';
-import Client from '../src/client';
 import * as assert from 'assert';
+import Client from '../src/client';
 import { getMetaItem, getMetaItemByName } from '../src/items';
+import Server, { openAndConnectToServerInMemory } from '../src/server';
 
 let client: Client;
 let server: Server;
@@ -11,7 +11,7 @@ let wire: ClientToServerWire;
 
 beforeEach(() => {
   client = new Client();
-  let serverAndWire = openAndConnectToServerInMemory(client);
+  const serverAndWire = openAndConnectToServerInMemory(client);
   wire = serverAndWire.clientToServerWire;
   server = serverAndWire.server;
 });
