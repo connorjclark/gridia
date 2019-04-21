@@ -58,6 +58,7 @@ interface ClientConnection {
   creature: Creature
   send: WireMethod<typeof import('./protocol')['ServerToClientProtocol']>
   getMessage(): any
+  hasMessage(): boolean
 }
 
 interface MetaItem {

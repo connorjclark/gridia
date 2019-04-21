@@ -2,16 +2,12 @@ import * as PIXI from 'pixi.js'
 import KEYS from './keys'
 import { worldToTile, equalPoints, clamp } from './utils'
 import { openAndConnectToServerInMemory } from './server'
-import { ClientWorldContext } from './context'
 import { getMetaItem, getMetaItemByName } from './items'
 import { EventEmitter } from 'events';
-export class Client {
-  creatureId: number
-  world: ClientWorldContext
-}
+import Client from './client';
 
-const client = new Client()
-const wire = openAndConnectToServerInMemory(client)
+const client = new Client();
+const wire = openAndConnectToServerInMemory(client, {dummyDelay: 20}).clientToServerWire;
 const eventEmitter = new EventEmitter();
 
 let lastMove = performance.now()

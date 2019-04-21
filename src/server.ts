@@ -1,7 +1,7 @@
 import { ClientToServerProtocol, ServerToClientProtocol } from './protocol'
 import { ServerWorldContext, ClientWorldContext } from "./context";
-import { Client } from './main';
 import { getMetaItemByName } from './items'
+import Client from './client';
 
 // TODO document how the f this works.
 
@@ -17,7 +17,6 @@ export default class Server {
       const message = clientConnection.getMessage()
       if (message) {
         console.log('from client', message.type, message.args)
-        // context.client = client
         this.currentClientConnection = clientConnection;
         ClientToServerProtocol[message.type](this, message.args)
       }
@@ -33,6 +32,12 @@ export default class Server {
       }
     }
     this.outboundMessages = []
+  }
+
+  consumeAllMessages() {
+    while (this.clientConnections.some(c => c.hasMessage()) || this.outboundMessages.length) {
+      this.tick();
+    }
   }
 
   reply = ((type, args) => {
@@ -142,21 +147,29 @@ export default class Server {
 // }
 
 
-
-export function openAndConnectToServerInMemory(client: Client) {
+interface OpenAndConnectToServerInMemoryOpts {
+  dummyDelay: number;
+}
+export function openAndConnectToServerInMemory(client: Client, { dummyDelay }: OpenAndConnectToServerInMemoryOpts = { dummyDelay: 0 }) {
   const server = new Server();
 
   function makeWire(client, messageQueue): ClientToServerWire {
     return {
       send(type, args) {
         // const p = ServerToClientProtocol[type]
-        // dummy delay
-        setTimeout(() => {
+        if (dummyDelay) {
+          setTimeout(() => {
+            messageQueue.push({
+              type,
+              args,
+            })
+          }, dummyDelay);
+        } else {
           messageQueue.push({
             type,
             args,
           })
-        }, 20)
+        }
       },
       receive(type, args) {
         console.log('from server', type, args)
@@ -203,6 +216,9 @@ export function openAndConnectToServerInMemory(client: Client) {
         return messageQueue.shift()
       }
     },
+    hasMessage() {
+      return messageQueue.length > 0;
+    },
     send(type, args) {
       // dummy delay
       setTimeout(() => {
@@ -223,5 +239,5 @@ export function openAndConnectToServerInMemory(client: Client) {
     server.tick();
   }, 50)
 
-  return wire
+  return { clientToServerWire: wire, server };
 }

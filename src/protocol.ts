@@ -1,7 +1,7 @@
 import { getMetaItem, getItemUses, ItemWrapper } from './items'
 import Server from './server'
-import { Client } from "./main";
 import { equalPoints } from './utils'
+import Client from './client';
 
 // ClientToServerProtocolFn
 type C2S<T> = (server: Server, data: T) => void;
