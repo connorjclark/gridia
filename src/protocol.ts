@@ -144,9 +144,21 @@ const move: C2S<MoveParams> = (server, pos) => {
   });
 };
 
+interface RequestContainerParams {containerId: number}
+const requestContainer: C2S<RequestContainerParams> = (server, { containerId }) => {
+  const isClose = true; // TODO
+  if (!isClose) {
+    return false;
+  }
+
+  server.reply('container', server.getContainer(containerId));
+};
+
 const requested = new Map<string, boolean>();
 type RequestSectorParams = Point;
 const requestSector: C2S<RequestSectorParams> = (server, { x, y }) => {
+  // TODO: this should run in the client. make a helper function that
+  // calls wire.send('requestSector').
   if (requested.get(x + ',' + y)) {
     return false;
   }
@@ -201,9 +213,10 @@ const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
 };
 
 export const ClientToServerProtocol = {
-  moveItem,
-  requestSector,
   move,
+  moveItem,
+  requestContainer,
+  requestSector,
   use,
 };
 

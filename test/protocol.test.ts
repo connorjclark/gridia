@@ -36,7 +36,7 @@ function assertItemInWorld(location: Point, item: Item) {
 
 function assertItemInContainer(containerId: number, index: number, item: Item) {
   expect(server.getContainer(containerId).items[index]).toEqual(item);
-  // expect(client.world.containers[containerId].items[index]).toEqual(item);
+  expect(client.world.containers.get(containerId).items[index]).toEqual(item);
 }
 
 describe('moveItem', () => {
@@ -108,6 +108,7 @@ describe('moveItem', () => {
 
     setItem(from, { type: 1, quantity: 1 });
     const container = server.makeContainer();
+    wire.send('requestContainer', {containerId: container.id});
 
     wire.send('moveItem', {
       from,
@@ -130,6 +131,7 @@ describe('moveItem', () => {
     container.items[0] = { type: 2, quantity: 1 };
     container.items[1] = { type: 2, quantity: 1 };
     container.items[3] = { type: 2, quantity: 1 };
+    wire.send('requestContainer', {containerId: container.id});
 
     wire.send('moveItem', {
       from,
@@ -153,6 +155,7 @@ describe('moveItem', () => {
     container.items[1] = { type: 2, quantity: 1 };
     container.items[2] = { type: 1, quantity: 2 };
     container.items[3] = { type: 2, quantity: 1 };
+    wire.send('requestContainer', {containerId: container.id});
 
     wire.send('moveItem', {
       from,
