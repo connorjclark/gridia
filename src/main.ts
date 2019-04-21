@@ -559,6 +559,14 @@ document.addEventListener('DOMContentLoaded', () => {
         to: null,
       });
     }
+
+    // Alt to use hand on item.
+    if (e.key === 'Alt') {
+      wire.send('use', {
+        toolIndex: -1,
+        loc: state.selectedTile,
+      });
+    }
   };
 
   // resize the canvas to fill browser window dynamically

@@ -144,7 +144,7 @@ const move: C2S<MoveParams> = (server, pos) => {
   });
 };
 
-interface RequestContainerParams {containerId: number;}
+interface RequestContainerParams { containerId: number; }
 const requestContainer: C2S<RequestContainerParams> = (server, { containerId }) => {
   const isClose = true; // TODO
   if (!isClose) {
@@ -176,7 +176,7 @@ const requestSector: C2S<RequestSectorParams> = (server, { x, y }) => {
   });
 };
 
-interface UseParams {toolIndex: number; loc: Point; }
+interface UseParams { toolIndex: number; loc: Point; }
 const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
   if (!server.world.inBounds(loc)) {
     return false;
@@ -184,10 +184,11 @@ const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
 
   const creature = server.currentClientConnection.creature;
   const inventory = server.getContainer(creature.containerId);
-  const tool = inventory.items[toolIndex];
+  // If -1, use an item that represents "Hand".
+  const tool = toolIndex === -1 ? { type: 0, quantity: 0 } : inventory.items[toolIndex];
   if (!tool) return;
 
-  const focus = server.world.getItem(loc) || {type: 0, quantity: 0};
+  const focus = server.world.getItem(loc) || { type: 0, quantity: 0 };
 
   const uses = getItemUses(tool.type, focus.type);
   if (!uses.length) return;
