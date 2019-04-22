@@ -61,12 +61,14 @@ export default class Server {
     this.outboundMessages = [];
   }
 
-  public queueItemChange(loc: Point) {
-    this.broadcast('setItem', {
-      source: 0,
-      ...loc,
-      item: this.world.getItem(loc),
+  public addClient(clientConnection: ClientConnection) {
+    this.clientConnections.push(clientConnection);
+
+    clientConnection.send('setCreature', clientConnection.creature);
+    clientConnection.send('initialize', {
+      creatureId: clientConnection.creature.id,
     });
+    clientConnection.send('container', this.getContainer(clientConnection.creature.containerId));
   }
 
   public consumeAllMessages() {
@@ -149,6 +151,22 @@ export default class Server {
   }
 }
 
+class ClientConnection {
+  public messageQueue: any[] = [];
+
+  public creature: Creature;
+
+  public send: WireMethod<typeof import('./protocol')['ServerToClientProtocol']>;
+
+  public getMessage(): any {
+    return this.messageQueue.shift();
+  }
+
+  public hasMessage(): boolean {
+    return this.messageQueue.length > 0;
+  }
+}
+
 // const context = new ServerProtocolContext()
 // context.world = new ServerWorldContext()
 // let outboundMessages = [];
@@ -193,12 +211,21 @@ export function openAndConnectToServerInMemory(client: Client, { dummyDelay, ver
 
   const server = new Server({ verbose, fillWorldWithStuff });
 
-  const messageQueue = [];
+  const creature = server.makeCreature({ x: 5, y: 7 });
+
+  const clientConnection = new ClientConnection();
+  clientConnection.creature = creature;
+  clientConnection.send = function(type, args) {
+    maybeDelay(() => {
+      wire.receive(type, args);
+    });
+  };
+
   const wire: ClientToServerWire = {
     send(type, args) {
       // const p = ServerToClientProtocol[type]
       maybeDelay(() => {
-        messageQueue.push({
+        clientConnection.messageQueue.push({
           type,
           args,
         });
@@ -212,8 +239,6 @@ export function openAndConnectToServerInMemory(client: Client, { dummyDelay, ver
     },
   };
   client.world = new ClientWorldContext(wire);
-
-  const creature = server.makeCreature({ x: 5, y: 7 });
 
   if (fillWorldWithStuff) {
     // make a playground of items to use
@@ -240,29 +265,7 @@ export function openAndConnectToServerInMemory(client: Client, { dummyDelay, ver
     }
   }
 
-  const clientConnection: ClientConnection = {
-    creature,
-    getMessage() {
-      if (messageQueue.length) {
-        return messageQueue.shift();
-      }
-    },
-    hasMessage() {
-      return messageQueue.length > 0;
-    },
-    send(type, args) {
-      maybeDelay(() => {
-        wire.receive(type, args);
-      });
-    },
-  };
-  server.clientConnections.push(clientConnection);
-
-  clientConnection.send('setCreature', creature);
-  clientConnection.send('initialize', {
-    creatureId: creature.id,
-  });
-  clientConnection.send('container', server.getContainer(creature.containerId));
+  server.addClient(clientConnection);
 
   setInterval(() => {
     server.tick();
@@ -288,32 +291,17 @@ export function startServer(port: number) {
     console.log('open');
     ws.on('message', (data) => {
       if (verbose) console.log('got', JSON.parse(data.toString('utf-8')));
-      messageQueue.push(JSON.parse(data.toString('utf-8')));
+      clientConnection.messageQueue.push(JSON.parse(data.toString('utf-8')));
     });
 
-    const messageQueue = [];
     const creature = server.makeCreature({ x: 5, y: 7 });
-    const clientConnection: ClientConnection = {
-      creature,
-      getMessage() {
-        if (messageQueue.length) {
-          return messageQueue.shift();
-        }
-      },
-      hasMessage() {
-        return messageQueue.length > 0;
-      },
-      send(type, args) {
-        ws.send(JSON.stringify({type, args}));
-      },
+    const clientConnection = new ClientConnection();
+    clientConnection.creature = creature;
+    clientConnection.send = function(type, args) {
+      ws.send(JSON.stringify({type, args}));
     };
-    server.clientConnections.push(clientConnection);
 
-    clientConnection.send('setCreature', creature);
-    clientConnection.send('initialize', {
-      creatureId: creature.id,
-    });
-    clientConnection.send('container', server.getContainer(creature.containerId));
+    server.addClient(clientConnection);
   });
 
   setInterval(() => {
