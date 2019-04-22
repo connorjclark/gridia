@@ -5,20 +5,27 @@
   "license": "MIT",
   "dependencies": {
     "parcel-bundler": "^1.11.0",
-    "pixi.js": "^4.8.5"
+    "pixi.js": "^4.8.5",
+    "ws": "*"
   },
   "scripts": {
-    "build": "parcel build src/main.ts -d dist --public-url .",
-    "watch": "parcel src/main.ts -d dist --public-url .",
-    "typecheck": "tsc",
+    "build": "yarn build-client && yarn build-server",
+    "build-client": "parcel build src/main.ts -d dist --public-url .",
+    "build-server": "tsc --outDir dist-server",
+    "watch": "parcel src/main.ts -d dist --public-url . & yarn build-server --watch",
+    "typecheck": "tsc --noEmit",
     "lint": "tslint -c tslint.json '{src,test}/**/*.ts'"
   },
   "devDependencies": {
     "@types/jest": "^24.0.11",
     "@types/pixi.js": "^4.8.6",
+    "@types/ws": "^6.0.1",
     "jest": "^24.7.1",
     "ts-jest": "^24.0.2",
     "tslint": "^5.16.0",
     "typescript": "^3.3.1"
-  }
+  },
+  "browserslist": [
+    "last 1 Chrome version"
+  ]
 }

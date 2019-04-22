@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "noEmit": true,
-    // "module": "system",
+    // "noEmit": true,
+    "module": "commonjs",
     "target": "ES2017",
     // "allowJs": true,
     // "checkJs": true,

@@ -3,15 +3,10 @@ import * as PIXI from 'pixi.js';
 import Client from './client';
 import { getMetaItem, getMetaItemByName } from './items';
 import KEYS from './keys';
-import { openAndConnectToServerInMemory } from './server';
+import { connect, openAndConnectToServerInMemory } from './server';
 import { clamp, equalPoints, worldToTile } from './utils';
 
 const client = new Client();
-const wire = openAndConnectToServerInMemory(client, {
-  dummyDelay: 20,
-  fillWorldWithStuff: true,
-  verbose: true,
-}).clientToServerWire;
 const eventEmitter = new EventEmitter();
 
 let lastMove = performance.now();
@@ -267,7 +262,18 @@ function makeItemSprite(item: Item) {
   return sprite;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  let wire: ClientToServerWire;
+  if (window.location.search.includes('connect')) {
+    wire = await connect(client, 9001);
+  } else {
+      wire = openAndConnectToServerInMemory(client, {
+        dummyDelay: 20,
+        fillWorldWithStuff: true,
+        verbose: true,
+      }).clientToServerWire;
+  }
+
   PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
   const app = new PIXI.Application();
 

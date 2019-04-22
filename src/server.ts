@@ -1,3 +1,4 @@
+import {Server as WebSocketServer} from 'ws';
 import Client from './client';
 import { ClientWorldContext, ServerWorldContext } from './context';
 import { getMetaItemByName } from './items';
@@ -268,4 +269,88 @@ export function openAndConnectToServerInMemory(client: Client, { dummyDelay, ver
   }, 50);
 
   return { clientToServerWire: wire, server };
+}
+
+export function startServer(port: number) {
+  const verbose = true;
+  const fillWorldWithStuff = true;
+
+  const server = new Server({
+    verbose,
+    fillWorldWithStuff,
+  });
+
+  const wss = new WebSocketServer({
+    port,
+  });
+
+  wss.on('connection', (ws) => {
+    console.log('open');
+    ws.on('message', (data) => {
+      if (verbose) console.log('got', JSON.parse(data.toString('utf-8')));
+      messageQueue.push(JSON.parse(data.toString('utf-8')));
+    });
+
+    const messageQueue = [];
+    const creature = server.makeCreature({ x: 5, y: 7 });
+    const clientConnection: ClientConnection = {
+      creature,
+      getMessage() {
+        if (messageQueue.length) {
+          return messageQueue.shift();
+        }
+      },
+      hasMessage() {
+        return messageQueue.length > 0;
+      },
+      send(type, args) {
+        ws.send(JSON.stringify({type, args}));
+      },
+    };
+    server.clientConnections.push(clientConnection);
+
+    clientConnection.send('setCreature', creature);
+    clientConnection.send('initialize', {
+      creatureId: creature.id,
+    });
+    clientConnection.send('container', server.getContainer(creature.containerId));
+  });
+
+  setInterval(() => {
+    server.tick();
+  }, 50);
+}
+
+export async function connect(client: Client, port: number): Promise<ClientToServerWire> {
+  const verbose = true;
+
+  const ws = new WebSocket('ws://localhost:' + port);
+
+  const wire: ClientToServerWire = {
+    send(type, args) {
+      ws.send(JSON.stringify({
+        type,
+        args,
+      }));
+    },
+    receive(type, args) {
+      if (verbose) console.log('from server', type, args);
+      const p = ServerToClientProtocol[type];
+      // @ts-ignore
+      p(client, args);
+    },
+  };
+  client.world = new ClientWorldContext(wire);
+
+  ws.addEventListener('message', (e) => {
+    const parsed = JSON.parse(e.data);
+    wire.receive(parsed.type, parsed.args);
+  });
+
+  await new Promise((resolve, reject) => {
+    ws.addEventListener('open', resolve);
+    ws.addEventListener('close', reject);
+  });
+
+  return wire;
 }
