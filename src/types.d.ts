@@ -67,6 +67,7 @@ interface MetaItem {
   growthItem: number;
   growthDelta: number;
   name: string;
+  imageHeight: number;
   animations: number[];
   walkable: boolean;
   moveable: boolean;

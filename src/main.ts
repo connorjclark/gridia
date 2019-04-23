@@ -55,7 +55,7 @@ for (let i = 0; i < 27; i++) {
 
 function makeTextureCache(resourceType: string) {
   const textureCache = new Map<number, PIXI.Texture>();
-  return (type: number) => {
+  return (type: number, tilesWidth = 1, tilesHeight = 1) => {
     let texture = textureCache.get(type);
     if (texture) {
       return texture;
@@ -65,7 +65,7 @@ function makeTextureCache(resourceType: string) {
     const resourceKey = ResourceKeys[resourceType][textureIndex];
     texture = new PIXI.Texture(
       PIXI.loader.resources[resourceKey].texture.baseTexture,
-      new PIXI.Rectangle((type % 10) * 32, Math.floor((type % 100) / 10) * 32, 32, 32),
+      new PIXI.Rectangle((type % 10) * 32, Math.floor((type % 100) / 10) * 32, tilesWidth * 32, tilesHeight * 32),
     );
     textureCache.set(type, texture);
     return texture;
@@ -250,7 +250,10 @@ function makeItemSprite(item: Item) {
       texture = meta.animations[index];
     }
   }
-  const sprite = new PIXI.Sprite(getTexture.items(texture));
+  const imgHeight = meta.imageHeight || 1;
+  const sprite = new PIXI.Sprite(getTexture.items(texture, 1, imgHeight));
+  sprite.anchor.y = (imgHeight - 1) / imgHeight;
+
   if (item.quantity !== 1) {
     const qty = new PIXI.Text(item.quantity.toString(), {
       fontSize: 14,
