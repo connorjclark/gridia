@@ -293,8 +293,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       const floorLayer = new PIXI.Container();
       world.addChild(floorLayer);
 
-      const itemLayer = new PIXI.Container();
-      world.addChild(itemLayer);
+      const itemAndCreatureLayer = new PIXI.Container();
+      world.addChild(itemAndCreatureLayer);
 
       const topLayer = new PIXI.Container();
       world.addChild(topLayer);
@@ -352,8 +352,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
         itemMovingState = null;
       });
-
-      // TODO make creature layer
 
       app.ticker.add((delta) => {
         state.elapsedFrames = (state.elapsedFrames + 1) % 60000;
@@ -414,7 +412,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           }
         }
 
-        itemLayer.removeChildren();
+        itemAndCreatureLayer.removeChildren();
         for (let x = startTileX; x <= endTileX; x++) {
           for (let y = startTileY; y <= endTileY; y++) {
             const item = client.world.getTile({ x, y }).item;
@@ -422,16 +420,17 @@ document.addEventListener('DOMContentLoaded', async () => {
               const itemSprite = makeItemSprite(item);
               itemSprite.x = x * 32;
               itemSprite.y = y * 32;
-              itemLayer.addChild(itemSprite);
+              itemAndCreatureLayer.addChild(itemSprite);
+            }
+
+            // TODO other creatures.
+            if (x === focusPos.x && y === focusPos.y) {
+              player.sprite = new PIXI.Sprite(getTexture.creatures(focusCreature.image));
+              player.sprite.x = 32 * focusPos.x;
+              player.sprite.y = 32 * focusPos.y;
+              itemAndCreatureLayer.addChild(player.sprite);
             }
           }
-        }
-
-        if (focusCreature) {
-          player.sprite = new PIXI.Sprite(getTexture.creatures(focusCreature.image));
-          player.sprite.x = 32 * focusPos.x;
-          player.sprite.y = 32 * focusPos.y;
-          itemLayer.addChild(player.sprite);
         }
 
         if (focusCreature && performance.now() - lastMove > 200) {
