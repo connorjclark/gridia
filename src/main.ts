@@ -479,6 +479,20 @@ document.addEventListener('DOMContentLoaded', async () => {
           topLayer.addChild(highlight);
         }
 
+        // Draw name of item under mouse.
+        const itemUnderMouse = state.mouse.tile && client.world.getItem(state.mouse.tile);
+        if (itemUnderMouse) {
+          const meta = getMetaItem(itemUnderMouse.type);
+          const text = itemUnderMouse.quantity === 1 ? meta.name : `${meta.name} (${itemUnderMouse.quantity})`;
+          const label = new PIXI.Text(text, {fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round'});
+          const { x, y } = mouseToWorld(state.mouse);
+          label.anchor.x = 0.5;
+          label.anchor.y = 1;
+          label.x = x;
+          label.y = y - 8;
+          topLayer.addChild(label);
+        }
+
         world.x = -focusPos.x * 32 + Math.floor(app.view.width / 2);
         world.y = -focusPos.y * 32 + Math.floor(app.view.height / 2);
       });
