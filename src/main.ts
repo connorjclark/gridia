@@ -412,6 +412,45 @@ document.addEventListener('DOMContentLoaded', async () => {
           }
         }
 
+        // TODO don't recreate all these sprites every frame. First pass here, but it's
+        // is overcomplicated and not worth using yet.
+        // const floorSpritesToRemove = new Set(Object.keys(floorLayer2.pointToSprite));
+        // for (let x = startTileX; x <= endTileX; x++) {
+        //   for (let y = startTileY; y <= endTileY; y++) {
+        //     function makeSprite() {
+        //       let sprite;
+        //       if (floor === 1) {
+        //         const template = getWaterFloor({ x, y });
+        //         sprite = new PIXI.Sprite(getTexture.templates(template));
+        //       } else {
+        //         sprite = new PIXI.Sprite(getTexture.floors(floor));
+        //       }
+
+        //       sprite.x = x * 32;
+        //       sprite.y = y * 32;
+        //       floorLayer2.layer.addChild(sprite);
+        //       floorLayer2.pointToSprite[`${x},${y}`] = {sprite, floor}
+        //       return sprite;
+        //     }
+
+        //     const floor = client.world.getTile({ x, y }).floor;
+
+        //     const currentSprite = floorLayer2.pointToSprite[`${x},${y}`];
+        //     if (currentSprite) {
+        //       floorSpritesToRemove.delete(`${x},${y}`);
+        //       if (floor === currentSprite.floor) {
+        //         continue;
+        //       }
+        //     }
+
+        //     makeSprite();
+        //   }
+        // }
+        // for (const key of floorSpritesToRemove) {
+        //   floorLayer2.pointToSprite[key].sprite.destroy();
+        //   delete floorLayer2.pointToSprite[key];
+        // }
+
         itemAndCreatureLayer.removeChildren();
         for (let x = startTileX; x <= endTileX; x++) {
           for (let y = startTileY; y <= endTileY; y++) {
