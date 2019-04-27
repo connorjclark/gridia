@@ -82,6 +82,7 @@ export default class Server {
     const container = this.makeContainer();
     container.items[0] = { type: getMetaItemByName('Wood Axe').id, quantity: 1 };
     container.items[1] = { type: getMetaItemByName('Fire Starter').id, quantity: 1 };
+    container.items[2] = { type: getMetaItemByName('Pick').id, quantity: 1 };
 
     const creature = {
       id: this.nextCreatureId++,
@@ -92,6 +93,8 @@ export default class Server {
     this.world.setCreature(creature);
     return creature;
   }
+
+  // TODO make Container class.
   public makeContainer() {
     const container: Container = {
       id: this.nextContainerId++,
@@ -99,6 +102,14 @@ export default class Server {
     };
     this.world.containers.set(container.id, container);
     return container;
+  }
+
+  public containerHasItem(id: number, itemType: number) {
+    const container = this.world.containers.get(id);
+    for (const item of container.items) {
+      if (item && item.type === itemType) return true;
+    }
+    return false;
   }
 
   public getContainer(id: number) {

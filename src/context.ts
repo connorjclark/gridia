@@ -1,4 +1,5 @@
 import {SECTOR_SIZE} from './constants';
+import { getMetaItem } from './items';
 import { matrix, worldToSector } from './utils';
 
 export abstract class WorldContext {
@@ -24,6 +25,11 @@ export abstract class WorldContext {
 
   public inBounds(point: TilePoint): boolean {
     return point.x >= 0 && point.y >= 0 && point.x < this.width && point.y < this.height && point.z >= 0 && point.z < this.depth;
+  }
+
+  public walkable(point: TilePoint): boolean {
+    const tile = this.getTile(point);
+    return !tile.creature && (!tile.item || getMetaItem(tile.item.type).walkable);
   }
 
   public getSector(sectorPoint: TilePoint): Sector {

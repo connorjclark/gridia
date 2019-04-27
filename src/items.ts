@@ -39,3 +39,20 @@ export function getMetaItemByName(name: string): MetaItem {
 export function getItemUses(tool: number, focus: number) {
   return itemUses.filter((item) => item.tool === tool && item.focus === focus);
 }
+
+// Weighted by rarity.
+export function getRandomMetaItemOfClass(itemClass: MetaItem['class']) {
+  const itemsOfClass = items.filter((item) => item && item.class === itemClass);
+  const maxRarity = itemsOfClass.reduce((acc, item) => acc + item.rarity, 0);
+  const value = Math.random() * maxRarity;
+
+  let acc = 0;
+  for (const item of itemsOfClass) {
+    acc += item.rarity;
+    if (value < acc) return item;
+  }
+
+  // Shouldn't ever reach here.
+  console.error('unexpected behavior in getRandomMetaItemOfClass.');
+  return itemsOfClass[Math.floor(Math.random() * itemsOfClass.length)];
+}

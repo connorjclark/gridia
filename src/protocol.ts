@@ -1,6 +1,7 @@
 import Client from './client/client';
+import { MINE } from './constants';
 import { ClientWorldContext } from './context';
-import { getItemUses, getMetaItem, ItemWrapper } from './items';
+import { getItemUses, getMetaItem, getMetaItemByName, getRandomMetaItemOfClass, ItemWrapper } from './items';
 import Server from './server/server';
 import { equalPoints } from './utils';
 
@@ -123,9 +124,15 @@ const move: C2S<MoveParams> = (server, pos) => {
     return false;
   }
 
-  const item = server.world.getItem(pos);
-  const meta = getMetaItem(item ? item.type : 0);
-  if (!meta.walkable) return false;
+  if (!server.world.walkable(pos)) return false;
+
+  if (server.world.getTile(pos).floor === MINE) {
+    const playerHasPick = server.containerHasItem(server.currentClientConnection.creature.containerId, getMetaItemByName('Pick').id);
+    if (!playerHasPick) return false;
+
+    server.world.getTile(pos).floor = 19;
+    server.addItemNear(pos, {type: getRandomMetaItemOfClass('Ore').id, quantity: 1});
+  }
 
   // if (!server.inView(pos)) {
   //   return false
