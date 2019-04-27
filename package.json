@@ -8,10 +8,13 @@
     "pixi.js": "^4.8.5",
     "ws": "*"
   },
+  "engines" : { "node" : ">=10" },
   "scripts": {
     "build": "yarn build-client && yarn build-server",
     "build-client": "parcel build src/main.ts -d dist --public-url .",
     "build-server": "tsc --outDir dist-server",
+    "run-server": "node ./dist-server/run-server.js",
+    "clean": "rm -rf dist dist-server",
     "watch": "parcel src/main.ts -d dist --public-url . & yarn build-server --watch",
     "typecheck": "tsc --noEmit",
     "lint": "tslint -c tslint.json '{src,test}/**/*.ts'"

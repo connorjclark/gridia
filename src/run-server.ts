@@ -1,3 +1,3 @@
 import { startServer } from './server';
 
-startServer(9001);
+const server = startServer(9001);

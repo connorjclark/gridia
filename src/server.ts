@@ -1,6 +1,6 @@
 import {Server as WebSocketServer} from 'ws';
 import Client from './client';
-import { ClientWorldContext } from './context';
+import { ClientWorldContext, ServerWorldContext } from './context';
 import { getMetaItemByName } from './items';
 import mapgen from './mapgen';
 import { ClientToServerProtocol, ServerToClientProtocol } from './protocol';
@@ -8,7 +8,7 @@ import { ClientToServerProtocol, ServerToClientProtocol } from './protocol';
 // TODO document how the f this works.
 
 export default class Server {
-  public world = mapgen(100, 100, 1);
+  public world: ServerWorldContext;
   public clientConnections: ClientConnection[] = [];
   public outboundMessages = [];
   public currentClientConnection: ClientConnection;
@@ -201,7 +201,7 @@ interface OpenAndConnectToServerInMemoryOpts {
   dummyDelay: number;
   verbose: boolean;
 }
-export function openAndConnectToServerInMemory(client: Client, { dummyDelay, verbose }: OpenAndConnectToServerInMemoryOpts) {
+export async function openAndConnectToServerInMemory(client: Client, { dummyDelay, verbose }: OpenAndConnectToServerInMemoryOpts) {
   function maybeDelay(fn: Function) {
     if (dummyDelay > 0) {
       setTimeout(fn, dummyDelay);
@@ -211,6 +211,7 @@ export function openAndConnectToServerInMemory(client: Client, { dummyDelay, ver
   }
 
   const server = new Server({ verbose });
+  server.world = mapgen(100, 100, 1);
 
   const creature = server.makeCreature({ x: 5, y: 7 });
 
@@ -256,13 +257,13 @@ export function startServer(port: number) {
   const server = new Server({
     verbose,
   });
+  server.world = mapgen(100, 100, 1);
 
   const wss = new WebSocketServer({
     port,
   });
 
   wss.on('connection', (ws) => {
-    console.log('open');
     ws.on('message', (data) => {
       if (verbose) console.log('got', JSON.parse(data.toString('utf-8')));
       clientConnection.messageQueue.push(JSON.parse(data.toString('utf-8')));
@@ -281,6 +282,12 @@ export function startServer(port: number) {
   setInterval(() => {
     server.tick();
   }, 50);
+
+  setInterval(() => {
+    server.world.saveAll();
+  }, 1000 * 60 * 5);
+
+  return server;
 }
 
 export async function connect(client: Client, port: number): Promise<ClientToServerWire> {
