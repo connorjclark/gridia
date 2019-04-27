@@ -1,7 +1,12 @@
-interface Point {
+interface TilePoint {
   x: number;
   y: number;
-  z?: number;
+  z: number;
+}
+
+interface ScreenPoint {
+  x: number;
+  y: number;
 }
 
 interface Tile {
@@ -26,7 +31,7 @@ interface Creature {
   id: number;
   containerId: number;
   image: number;
-  pos: Point;
+  pos: TilePoint;
 }
 
 interface ProtocolDef<T> {

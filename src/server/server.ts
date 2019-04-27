@@ -60,12 +60,14 @@ export default class Server {
   }
 
   public addClient(clientConnection: ClientConnection) {
+    clientConnection.creature = this.makeCreature({ x: 5, y: 7, z: 1 });
     this.clientConnections.push(clientConnection);
 
     clientConnection.send('initialize', {
       creatureId: clientConnection.creature.id,
       width: this.world.width,
       height: this.world.height,
+      depth: this.world.depth,
     });
     clientConnection.send('setCreature', clientConnection.creature);
     clientConnection.send('container', this.getContainer(clientConnection.creature.containerId));
@@ -76,7 +78,7 @@ export default class Server {
       this.tick();
     }
   }
-  public makeCreature(pos: Point): Creature {
+  public makeCreature(pos: TilePoint): Creature {
     const container = this.makeContainer();
     container.items[0] = { type: getMetaItemByName('Wood Axe').id, quantity: 1 };
     container.items[1] = { type: getMetaItemByName('Fire Starter').id, quantity: 1 };
@@ -103,28 +105,29 @@ export default class Server {
     return this.world.containers.get(id);
   }
 
-  public findNearest(loc: Point, range: number, includeTargetLocation: boolean, predicate: (tile: Tile) => boolean): Point {
-    const test = (l: Point) => {
+  public findNearest(loc: TilePoint, range: number, includeTargetLocation: boolean, predicate: (tile: Tile) => boolean): TilePoint {
+    const test = (l: TilePoint) => {
       if (!this.world.inBounds(l)) return false;
       return predicate(this.world.getTile(l));
     };
 
     const x0 = loc.x;
     const y0 = loc.y;
+    const z = loc.z;
     for (let offset = includeTargetLocation ? 0 : 1; offset <= range; offset++) {
       for (let y1 = y0 - offset; y1 <= offset + y0; y1++) {
         if (y1 === y0 - offset || y1 === y0 + offset) {
           for (let x1 = x0 - offset; x1 <= offset + x0; x1++) {
-            if (test({ x: x1, y: y1 })) {
-              return { x: x1, y: y1 };
+            if (test({ x: x1, y: y1, z })) {
+              return { x: x1, y: y1, z };
             }
           }
         } else {
-          if (test({ x: x0 - offset, y: y1 })) {
-            return { x: x0 - offset, y: y1 };
+          if (test({ x: x0 - offset, y: y1, z })) {
+            return { x: x0 - offset, y: y1, z };
           }
-          if (test({ x: x0 + offset, y: y1 })) {
-            return { x: x0 + offset, y: y1 };
+          if (test({ x: x0 + offset, y: y1, z })) {
+            return { x: x0 + offset, y: y1, z };
           }
         }
       }
@@ -133,7 +136,7 @@ export default class Server {
     return null;
   }
 
-  public addItemNear(loc: Point, item: Item) {
+  public addItemNear(loc: TilePoint, item: Item) {
     const nearestLoc = this.findNearest(loc, 6, true, (tile) => !tile.item || tile.item.type === item.type);
     if (!nearestLoc) return; // TODO what to do in this case?
     const tile = this.world.getTile(nearestLoc);

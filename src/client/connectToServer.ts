@@ -53,12 +53,9 @@ export async function openAndConnectToServerInMemory(client: Client, { dummyDela
   }
 
   const server = new Server({ verbose });
-  server.world = mapgen(100, 100, 1);
-
-  const creature = server.makeCreature({ x: 5, y: 7 });
+  server.world = mapgen(100, 100, 2);
 
   const clientConnection = new ClientConnection();
-  clientConnection.creature = creature;
   clientConnection.send = function(type, args) {
     maybeDelay(() => {
       wire.receive(type, args);

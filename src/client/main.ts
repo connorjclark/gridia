@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 import * as PIXI from 'pixi.js';
 import { getMetaItem } from '../items';
-import { clamp, equalPoints, worldToTile } from '../utils';
+import { clamp, equalPoints, worldToTile as _worldToTile } from '../utils';
 import Client from './client';
 import { connect, openAndConnectToServerInMemory } from './connectToServer';
 import KEYS from './keys';
@@ -18,8 +18,8 @@ const state = {
   mouse: {
     x: 0,
     y: 0,
-    tile: { x: 0, y: 0 },
-    downTile: null,
+    tile: { x: 0, y: 0, z: 0 },
+    downTile: null as TilePoint,
     state: '',
   },
   selectedTile: null,
@@ -265,6 +265,11 @@ function makeItemSprite(item: Item) {
   return sprite;
 }
 
+function getZ() {
+  const focusCreature = client.world.getCreature(client.creatureId);
+  return focusCreature ? focusCreature.pos.z : 0;
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   let wire: ClientToServerWire;
   if (window.location.search.includes('connect')) {
@@ -303,6 +308,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // ts - ignore TouchEvent
         if (!('pageX' in e.data.originalEvent)) return;
 
+        const z = getZ();
         const point = worldToTile(mouseToWorld({ x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY }));
         if (!client.world.inBounds(point)) return;
         const item = client.world.getItem(point);
@@ -356,7 +362,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         state.elapsedFrames = (state.elapsedFrames + 1) % 60000;
 
         const focusCreature = client.world.getCreature(client.creatureId);
-        const focusPos = focusCreature ? focusCreature.pos : { x: 0, y: 0 };
+        const focusPos = focusCreature ? focusCreature.pos : { x: 0, y: 0, z: 0 };
+        const z = focusPos.z;
 
         if (!focusCreature) return;
         if (!client.world.isInited()) return;
@@ -396,11 +403,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         floorLayer.removeChildren();
         for (let x = startTileX; x <= endTileX; x++) {
           for (let y = startTileY; y <= endTileY; y++) {
-            const floor = client.world.getTile({ x, y }).floor;
+            const floor = client.world.getTile({ x, y, z }).floor;
 
             let sprite;
             if (floor === 1) {
-              const template = getWaterFloor({ x, y });
+              const template = getWaterFloor({ x, y, z });
               sprite = new PIXI.Sprite(getTexture.templates(template));
             } else {
               sprite = new PIXI.Sprite(getTexture.floors(floor));
@@ -454,7 +461,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         itemAndCreatureLayer.removeChildren();
         for (let x = startTileX; x <= endTileX; x++) {
           for (let y = startTileY; y <= endTileY; y++) {
-            const item = client.world.getTile({ x, y }).item;
+            const item = client.world.getTile({ x, y, z }).item;
             if (item) {
               const itemSprite = makeItemSprite(item);
               itemSprite.x = x * 32;
@@ -628,6 +635,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         loc: state.selectedTile,
       });
     }
+
+    // T to toggle z.
+    if (e.key === 't') {
+      wire.send('move', {
+        ...focusCreature.pos,
+        z: 1 - focusCreature.pos.z,
+      });
+    }
   };
 
   // resize the canvas to fill browser window dynamically
@@ -639,21 +654,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   resize();
 });
 
-function mouseToWorld(pm: Point): Point {
+function worldToTile(pw: ScreenPoint) {
+  return _worldToTile(pw, getZ());
+}
+
+function mouseToWorld(pm: ScreenPoint): ScreenPoint {
   return {
     x: pm.x + state.viewport.x,
     y: pm.y + state.viewport.y,
   };
 }
 
-function tileToScreen(pt: Point): Point {
+function tileToScreen(pt: TilePoint): ScreenPoint {
   return {
     x: pt.x * 32 - state.viewport.x / 2,
     y: pt.y * 32 - state.viewport.y / 2,
   };
 }
 
-function getWaterFloor(point: Point) {
+function getWaterFloor(point: TilePoint) {
   const templateIndex = useTemplate(0, 1, point);
   return templateIndex;
 }
@@ -661,9 +680,7 @@ function getWaterFloor(point: Point) {
 // generalize
 // this is only for floors right now
 // more uses?
-function useTemplate(templateId: number, typeToMatch: number, { x, y }: Point) {
-  const z = 0;
-
+function useTemplate(templateId: number, typeToMatch: number, { x, y, z }: TilePoint) {
   // const width = client.world.width;
   // const height = client.world.height;
   // const xl = x == 0 ? width - 1 : x - 1;
@@ -675,7 +692,7 @@ function useTemplate(templateId: number, typeToMatch: number, { x, y }: Point) {
   const yu = y + 1;
   const yd = y - 1;
 
-  function getTileOrFake(pos: Point): Partial<{ floor: number }> {
+  function getTileOrFake(pos: TilePoint): Partial<{ floor: number }> {
     if (!client.world.inBounds(pos)) {
       return { floor: typeToMatch };
     }

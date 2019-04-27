@@ -22,9 +22,7 @@ function startServer(port: number) {
       clientConnection.messageQueue.push(JSON.parse(data.toString('utf-8')));
     });
 
-    const creature = server.makeCreature({ x: 5, y: 7 });
     const clientConnection = new ClientConnection();
-    clientConnection.creature = creature;
     clientConnection.send = function(type, args) {
       ws.send(JSON.stringify({type, args}));
     };
