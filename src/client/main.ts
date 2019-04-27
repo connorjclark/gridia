@@ -1,5 +1,6 @@
 import { EventEmitter } from 'events';
 import * as PIXI from 'pixi.js';
+import { MINE, WATER } from '../constants';
 import { getMetaItem } from '../items';
 import { clamp, equalPoints, worldToTile as _worldToTile } from '../utils';
 import Client from './client';
@@ -406,8 +407,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             const floor = client.world.getTile({ x, y, z }).floor;
 
             let sprite;
-            if (floor === 1) {
+            if (floor === WATER) {
               const template = getWaterFloor({ x, y, z });
+              sprite = new PIXI.Sprite(getTexture.templates(template));
+            } else if (floor === MINE) {
+              const template = getMineFloor({ x, y, z });
               sprite = new PIXI.Sprite(getTexture.templates(template));
             } else {
               sprite = new PIXI.Sprite(getTexture.floors(floor));
@@ -673,7 +677,12 @@ function tileToScreen(pt: TilePoint): ScreenPoint {
 }
 
 function getWaterFloor(point: TilePoint) {
-  const templateIndex = useTemplate(0, 1, point);
+  const templateIndex = useTemplate(0, WATER, point);
+  return templateIndex;
+}
+
+function getMineFloor(point: TilePoint) {
+  const templateIndex = useTemplate(1, MINE, point);
   return templateIndex;
 }
 

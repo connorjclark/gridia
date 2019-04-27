@@ -1,8 +1,7 @@
 import * as assert from 'assert';
+import {MINE, SECTOR_SIZE} from './constants';
 import { getMetaItemByName } from './items';
 import { ServerWorldContext } from './server/serverWorldContext';
-
-const SECTOR_SIZE = 20;
 
 export default function mapgen(width: number, height: number, depth: number, bare: boolean) {
   assert.ok(width % SECTOR_SIZE === 0);
@@ -13,7 +12,6 @@ export default function mapgen(width: number, height: number, depth: number, bar
 
   const treeType = getMetaItemByName('Pine Tree').id;
   const flowerType = getMetaItemByName('Cut Red Rose').id;
-  const mineFloor = 19;
 
   const world = new ServerWorldContext(width, height, depth);
 
@@ -23,28 +21,35 @@ export default function mapgen(width: number, height: number, depth: number, bar
         const loc = { x, y, z };
         if (bare) {
           world.setTile(loc, {
-            floor: z ? mineFloor : 100,
+            floor: z ? MINE : 100,
             item: null,
           });
         } else {
+          let floor = 0;
           let item = null;
 
-          if (!z && x === y) {
-            item = {
-              type: treeType,
-              quantity: 1,
-            };
-          }
+          if (z === 0) {
+            floor = 100 + ((x + y) % 10) * 20;
 
-          if (!z && x === y - 1) {
-            item = {
-              type: flowerType,
-              quantity: 1,
-            };
+            if (x === y) {
+              item = {
+                type: treeType,
+                quantity: 1,
+              };
+            }
+
+            if (x === y - 1) {
+              item = {
+                type: flowerType,
+                quantity: 1,
+              };
+            }
+          } else {
+            floor = Math.random() > 0.2 ? MINE : 19;
           }
 
           world.setTile(loc, {
-            floor: z ? mineFloor : 100 + ((x + y) % 10) * 20,
+            floor,
             item,
           });
         }

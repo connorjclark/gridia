@@ -1,6 +1,5 @@
+import {SECTOR_SIZE} from './constants';
 import { matrix, worldToSector } from './utils';
-
-const SECTOR_SIZE = 20;
 
 export abstract class WorldContext {
   public width: number;
