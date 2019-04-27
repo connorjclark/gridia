@@ -28,6 +28,7 @@ export abstract class WorldContext {
   }
 
   public walkable(point: TilePoint): boolean {
+    if (!this.inBounds(point)) return false;
     const tile = this.getTile(point);
     return !tile.creature && (!tile.item || getMetaItem(tile.item.type).walkable);
   }

@@ -58,6 +58,7 @@ export default function mapgen(width: number, height: number, depth: number, bar
   }
 
   if (!bare) {
+    // Item playground.
     const itemUsesGroupedByTool = new Map<number, ItemUse[]>();
     for (const use of require('../world/content/itemuses.json') as ItemUse[]) {
       let arr = itemUsesGroupedByTool.get(use.tool);
@@ -79,6 +80,18 @@ export default function mapgen(width: number, height: number, depth: number, bar
       }
       i++;
     }
+
+    // Some stairs.
+    const loc = {x: 5, y: 5, z: 0};
+    world.getTile({...loc, z: 1}).floor = world.getTile(loc).floor = 10;
+    world.getTile({...loc, z: 1}).item = {
+      type: getMetaItemByName('Royal Stairs Up').id,
+      quantity: 1,
+    };
+    world.getTile(loc).item = {
+      type: getMetaItemByName('Royal Stairs Down').id,
+      quantity: 1,
+    };
   }
 
   return world;

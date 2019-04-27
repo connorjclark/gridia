@@ -3,6 +3,9 @@ export default class ClientConnection {
 
   public creature: Creature;
 
+  // True if last movement was a warp. Prevents infinite stairs.
+  public warped: boolean;
+
   public send: WireMethod<typeof import('../protocol')['ServerToClientProtocol']>;
 
   public getMessage(): any {

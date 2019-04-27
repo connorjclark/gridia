@@ -1,4 +1,4 @@
-import { getMetaItemByName } from '../items';
+import { getMetaItem, getMetaItemByName } from '../items';
 import { ClientToServerProtocol } from '../protocol';
 import ClientConnection from './clientConnection';
 import { ServerWorldContext } from './serverWorldContext';
@@ -37,6 +37,30 @@ export default class Server {
   }
 
   public tick() {
+    // Handle stairs.
+    for (const clientConnection of Object.values(this.clientConnections)) {
+      if (clientConnection.warped) continue;
+
+      const creature = clientConnection.creature;
+      const item = this.world.getItem(creature.pos);
+      if (item) {
+        const meta = getMetaItem(item.type);
+
+        let newPos = null;
+        if (meta.class === 'Cave_down' && this.world.walkable({...creature.pos, z: creature.pos.z + 1})) {
+          newPos = {...creature.pos, z: creature.pos.z + 1};
+        } else if (meta.class === 'Cave_up' && this.world.walkable({...creature.pos, z: creature.pos.z - 1})) {
+          newPos = {...creature.pos, z: creature.pos.z - 1};
+        }
+
+        if (newPos) {
+          this.moveCreature(creature, newPos);
+          clientConnection.warped = true;
+        }
+      }
+    }
+
+    // Handle messages.
     for (const clientConnection of this.clientConnections) {
       // only read one message from a client at a time
       const message = clientConnection.getMessage();
@@ -78,6 +102,7 @@ export default class Server {
       this.tick();
     }
   }
+
   public makeCreature(pos: TilePoint): Creature {
     const container = this.makeContainer();
     container.items[0] = { type: getMetaItemByName('Wood Axe').id, quantity: 1 };
@@ -92,6 +117,16 @@ export default class Server {
     };
     this.world.setCreature(creature);
     return creature;
+  }
+
+  public moveCreature(creature: Creature, pos: TilePoint) {
+    this.world.getTile(creature.pos).creature = null;
+    creature.pos = pos;
+    this.world.getTile(creature.pos).creature = creature;
+    this.broadcast('setCreature', {
+      id: creature.id,
+      pos: creature.pos,
+    });
   }
 
   // TODO make Container class.
