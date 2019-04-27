@@ -1,4 +1,5 @@
 import Client from './client';
+import { ClientWorldContext } from './context';
 import { getItemUses, getMetaItem, ItemWrapper } from './items';
 import Server from './server';
 import { equalPoints } from './utils';
@@ -228,8 +229,9 @@ export const ClientToServerProtocol = {
 // ServerToClientProtocolFn
 type S2C<T> = (client: Client, data: T) => void;
 
-interface InitializeParams { creatureId: number; }
-const initialize: S2C<InitializeParams> = (client, { creatureId }) => {
+interface InitializeParams { creatureId: number; width: number; height: number; }
+const initialize: S2C<InitializeParams> = (client, { creatureId, width, height }) => {
+  client.world.init(width, height);
   client.creatureId = creatureId;
 };
 

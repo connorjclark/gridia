@@ -272,7 +272,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   } else {
       wire = openAndConnectToServerInMemory(client, {
         dummyDelay: 20,
-        fillWorldWithStuff: true,
         verbose: true,
       }).clientToServerWire;
   }
@@ -360,6 +359,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const focusPos = focusCreature ? focusCreature.pos : { x: 0, y: 0 };
 
         if (!focusCreature) return;
+        if (!client.world.isInited()) return;
 
         // Draw container windows.
         for (const [id, container] of client.world.containers.entries()) {
@@ -664,11 +664,12 @@ function getWaterFloor(point: Point) {
 function useTemplate(templateId: number, typeToMatch: number, { x, y }: Point) {
   const z = 0;
 
-  const size = client.world.size;
-  // const xl = x == 0 ? size - 1 : x - 1;
-  // const xr = x == size - 1 ? 0 : x + 1;
-  // const yu = y == 0 ? size - 1 : y + 1;
-  // const yd = y == size - 1 ? 0 : y - 1;
+  // const width = client.world.width;
+  // const height = client.world.height;
+  // const xl = x == 0 ? width - 1 : x - 1;
+  // const xr = x == width - 1 ? 0 : x + 1;
+  // const yu = y == 0 ? height - 1 : y + 1;
+  // const yd = y == height - 1 ? 0 : y - 1;
   const xl = x - 1;
   const xr = x + 1;
   const yu = y + 1;

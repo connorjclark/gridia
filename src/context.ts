@@ -2,47 +2,19 @@ import { getMetaItemByName } from './items';
 import { ClientToServerProtocol } from './protocol';
 import { worldToSector } from './utils';
 
-const WORLD_SIZE = 100;
 const SECTOR_SIZE = 20;
-const SECTORS_SIDE = WORLD_SIZE / SECTOR_SIZE;
 
-function createSector(bare: boolean) {
+function createSector() {
   /** @type {Tile[][]} */
   const tiles = [];
-
-  const treeType = getMetaItemByName('Pine Tree').id;
-  const flowerType = getMetaItemByName('Cut Red Rose').id;
 
   for (let x = 0; x < SECTOR_SIZE; x++) {
     tiles[x] = [];
     for (let y = 0; y < SECTOR_SIZE; y++) {
-      if (bare) {
-        tiles[x][y] = {
-          floor: 5,
-          item: null,
-        };
-      } else {
-        let item = null;
-
-        if (x === y) {
-          item = {
-            type: treeType,
-            quantity: 1,
-          };
-        }
-
-        if (x === y - 1) {
-          item = {
-            type: flowerType,
-            quantity: 1,
-          };
-        }
-
-        tiles[x][y] = {
-          floor: 100 + ((x + y) % 10) * 20,
-          item,
-        };
-      }
+      tiles[x][y] = {
+        floor: 0,
+        item: null,
+      };
     }
   }
 
@@ -63,15 +35,26 @@ function matrix<T>(w: number, h: number, val: T = null): T[][] {
 }
 
 export abstract class WorldContext {
-  public size: number = WORLD_SIZE;
-  public sectors: Sector[][] = matrix(WORLD_SIZE, WORLD_SIZE);
+  public width: number;
+  public height: number;
+  public sectors: Sector[][];
   public creatures: Record<number, Creature> = {};
   public containers: Map<number, Container> = new Map();
+
+  constructor(width: number, height: number) {
+    this.init(width, height);
+  }
+
+  public init(width: number, height: number) {
+    this.width = width;
+    this.height = height;
+    this.sectors = matrix(width / SECTOR_SIZE, height / SECTOR_SIZE);
+  }
 
   public abstract load(point: Point): Sector;
 
   public inBounds(point: Point): boolean {
-    return point.x >= 0 && point.y >= 0 && point.x < this.size && point.y < this.size;
+    return point.x >= 0 && point.y >= 0 && point.x < this.width && point.y < this.height;
   }
 
   public getSector(sectorPoint: Point): Sector {
@@ -83,10 +66,15 @@ export abstract class WorldContext {
   }
 
   public getTile(point: Point): Tile | null {
-    if (point.x < 0 || point.y < 0) return { floor: 0, item: null };
+    if (!this.inBounds(point)) return { floor: 0, item: null };
 
     const sector = this.getSector(worldToSector(point, SECTOR_SIZE));
     return sector[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE];
+  }
+
+  public setTile(point: Point, tile: Tile) {
+    const sector = this.getSector(worldToSector(point, SECTOR_SIZE));
+    sector[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE] = tile;
   }
 
   public getItem(point: Point) {
@@ -105,20 +93,23 @@ export abstract class WorldContext {
 
 export class ClientWorldContext extends WorldContext {
   constructor(private wire: ClientToServerWire) {
-    super();
+    super(0, 0);
+  }
+
+  public isInited() {
+    return this.width > 0;
   }
 
   public load(point: Point): Sector {
     this.wire.send('requestSector', point);
-    return createSector(true); // temporary until server sends something
+    return createSector(); // temporary until server sends something
   }
 }
 
 export class ServerWorldContext extends WorldContext {
-  public fillWorldWithStuff = false;
-
   public load(point: Point): Sector {
     // TODO load from disk
-    return createSector(!this.fillWorldWithStuff);
+    return createSector();
+    // return createSector(!this.fillWorldWithStuff);
   }
 }

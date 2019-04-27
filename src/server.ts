@@ -1,13 +1,14 @@
 import {Server as WebSocketServer} from 'ws';
 import Client from './client';
-import { ClientWorldContext, ServerWorldContext } from './context';
+import { ClientWorldContext } from './context';
 import { getMetaItemByName } from './items';
+import mapgen from './mapgen';
 import { ClientToServerProtocol, ServerToClientProtocol } from './protocol';
 
 // TODO document how the f this works.
 
 export default class Server {
-  public world = new ServerWorldContext();
+  public world = mapgen(100, 100, 1);
   public clientConnections: ClientConnection[] = [];
   public outboundMessages = [];
   public currentClientConnection: ClientConnection;
@@ -33,9 +34,8 @@ export default class Server {
 
   public verbose: boolean;
 
-  constructor({ verbose = false, fillWorldWithStuff = false }) {
+  constructor({ verbose = false }) {
     this.verbose = verbose;
-    this.world.fillWorldWithStuff = fillWorldWithStuff;
   }
 
   public tick() {
@@ -64,10 +64,12 @@ export default class Server {
   public addClient(clientConnection: ClientConnection) {
     this.clientConnections.push(clientConnection);
 
-    clientConnection.send('setCreature', clientConnection.creature);
     clientConnection.send('initialize', {
       creatureId: clientConnection.creature.id,
+      width: this.world.width,
+      height: this.world.height,
     });
+    clientConnection.send('setCreature', clientConnection.creature);
     clientConnection.send('container', this.getContainer(clientConnection.creature.containerId));
   }
 
@@ -198,9 +200,8 @@ class ClientConnection {
 interface OpenAndConnectToServerInMemoryOpts {
   dummyDelay: number;
   verbose: boolean;
-  fillWorldWithStuff: boolean;
 }
-export function openAndConnectToServerInMemory(client: Client, { dummyDelay, verbose, fillWorldWithStuff }: OpenAndConnectToServerInMemoryOpts) {
+export function openAndConnectToServerInMemory(client: Client, { dummyDelay, verbose }: OpenAndConnectToServerInMemoryOpts) {
   function maybeDelay(fn: Function) {
     if (dummyDelay > 0) {
       setTimeout(fn, dummyDelay);
@@ -209,7 +210,7 @@ export function openAndConnectToServerInMemory(client: Client, { dummyDelay, ver
     }
   }
 
-  const server = new Server({ verbose, fillWorldWithStuff });
+  const server = new Server({ verbose });
 
   const creature = server.makeCreature({ x: 5, y: 7 });
 
@@ -240,31 +241,6 @@ export function openAndConnectToServerInMemory(client: Client, { dummyDelay, ver
   };
   client.world = new ClientWorldContext(wire);
 
-  if (fillWorldWithStuff) {
-    // make a playground of items to use
-    const itemUsesGroupedByTool = new Map<number, ItemUse[]>();
-    for (const use of require('../world/content/itemuses.json') as ItemUse[]) {
-      let arr = itemUsesGroupedByTool.get(use.tool);
-      if (!arr) {
-        itemUsesGroupedByTool.set(use.tool, arr = []);
-      }
-      arr.push(use);
-    }
-    let i = 0;
-    for (const [tool, uses] of Array.from(itemUsesGroupedByTool.entries()).sort(([_, a], [__, b]) => {
-      return b.length - a.length;
-    }).slice(0, 30)) {
-      const startX = 25;
-      const y = i * 3;
-      server.world.getTile({ x: startX, y }).item = { type: tool, quantity: 1 };
-      const focusItems = [...new Set(uses.map((u) => u.focus))];
-      for (let j = 0; j < focusItems.length; j++) {
-        server.world.getTile({ x: startX + j + 2, y }).item = { type: focusItems[j], quantity: 1 };
-      }
-      i++;
-    }
-  }
-
   server.addClient(clientConnection);
 
   setInterval(() => {
@@ -276,11 +252,9 @@ export function openAndConnectToServerInMemory(client: Client, { dummyDelay, ver
 
 export function startServer(port: number) {
   const verbose = true;
-  const fillWorldWithStuff = true;
 
   const server = new Server({
     verbose,
-    fillWorldWithStuff,
   });
 
   const wss = new WebSocketServer({
