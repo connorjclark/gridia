@@ -1,6 +1,6 @@
 import * as assert from 'assert';
-import { ServerWorldContext } from './context';
 import { getMetaItemByName } from './items';
+import { ServerWorldContext } from './server/serverWorldContext';
 
 const SECTOR_SIZE = 20;
 

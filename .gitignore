@@ -1,5 +1,4 @@
 dist
-dist-server
 node_modules
 .cache
 .DS_Store

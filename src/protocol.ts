@@ -1,7 +1,7 @@
-import Client from './client';
+import Client from './client/client';
 import { ClientWorldContext } from './context';
 import { getItemUses, getMetaItem, ItemWrapper } from './items';
-import Server from './server';
+import Server from './server/server';
 import { equalPoints } from './utils';
 
 // ClientToServerProtocolFn

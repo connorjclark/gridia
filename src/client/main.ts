@@ -1,10 +1,10 @@
 import { EventEmitter } from 'events';
 import * as PIXI from 'pixi.js';
+import { getMetaItem } from '../items';
+import { clamp, equalPoints, worldToTile } from '../utils';
 import Client from './client';
-import { getMetaItem, getMetaItemByName } from './items';
+import { connect, openAndConnectToServerInMemory } from './connectToServer';
 import KEYS from './keys';
-import { connect, openAndConnectToServerInMemory } from './server';
-import { clamp, equalPoints, worldToTile } from './utils';
 
 const client = new Client();
 const eventEmitter = new EventEmitter();

@@ -39,6 +39,19 @@ export function clamp(val: number, min: number, max: number) {
   return Math.max(Math.min(val, max), min);
 }
 
+export function matrix<T>(w: number, h: number, val: T = null): T[][] {
+  const m = Array(w);
+
+  for (let i = 0; i < w; i++) {
+    m[i] = Array(h);
+    for (let j = 0; j < h; j++) {
+      m[i][j] = val;
+    }
+  }
+
+  return m;
+}
+
 //   export function tileToScreen(pt: Point): Point {
 //     return {
 //       x: pt.x * 32 - state.viewport.x,

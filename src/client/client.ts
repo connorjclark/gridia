@@ -1,4 +1,4 @@
-import { ClientWorldContext } from './context';
+import { ClientWorldContext } from '../context';
 
 class Client {
   public creatureId: number;

@@ -1,9 +1,7 @@
-import {Server as WebSocketServer} from 'ws';
-import Client from './client';
-import { ClientWorldContext, ServerWorldContext } from './context';
-import { getMetaItemByName } from './items';
-import mapgen from './mapgen';
-import { ClientToServerProtocol, ServerToClientProtocol } from './protocol';
+import { getMetaItemByName } from '../items';
+import { ClientToServerProtocol } from '../protocol';
+import ClientConnection from './clientConnection';
+import { ServerWorldContext } from './serverWorldContext';
 
 // TODO document how the f this works.
 
@@ -153,22 +151,6 @@ export default class Server {
   }
 }
 
-class ClientConnection {
-  public messageQueue: any[] = [];
-
-  public creature: Creature;
-
-  public send: WireMethod<typeof import('./protocol')['ServerToClientProtocol']>;
-
-  public getMessage(): any {
-    return this.messageQueue.shift();
-  }
-
-  public hasMessage(): boolean {
-    return this.messageQueue.length > 0;
-  }
-}
-
 // const context = new ServerProtocolContext()
 // context.world = new ServerWorldContext()
 // let outboundMessages = [];
@@ -196,130 +178,3 @@ class ClientConnection {
 //   }
 //   outboundMessages = []
 // }
-
-interface OpenAndConnectToServerInMemoryOpts {
-  dummyDelay: number;
-  verbose: boolean;
-}
-export async function openAndConnectToServerInMemory(client: Client, { dummyDelay, verbose }: OpenAndConnectToServerInMemoryOpts) {
-  function maybeDelay(fn: Function) {
-    if (dummyDelay > 0) {
-      setTimeout(fn, dummyDelay);
-    } else {
-      fn();
-    }
-  }
-
-  const server = new Server({ verbose });
-  server.world = mapgen(100, 100, 1);
-
-  const creature = server.makeCreature({ x: 5, y: 7 });
-
-  const clientConnection = new ClientConnection();
-  clientConnection.creature = creature;
-  clientConnection.send = function(type, args) {
-    maybeDelay(() => {
-      wire.receive(type, args);
-    });
-  };
-
-  const wire: ClientToServerWire = {
-    send(type, args) {
-      // const p = ServerToClientProtocol[type]
-      maybeDelay(() => {
-        clientConnection.messageQueue.push({
-          type,
-          args,
-        });
-      });
-    },
-    receive(type, args) {
-      if (verbose) console.log('from server', type, args);
-      const p = ServerToClientProtocol[type];
-      // @ts-ignore
-      p(client, args);
-    },
-  };
-  client.world = new ClientWorldContext(wire);
-
-  server.addClient(clientConnection);
-
-  setInterval(() => {
-    server.tick();
-  }, 50);
-
-  return { clientToServerWire: wire, server };
-}
-
-export function startServer(port: number) {
-  const verbose = true;
-
-  const server = new Server({
-    verbose,
-  });
-  server.world = mapgen(100, 100, 1);
-
-  const wss = new WebSocketServer({
-    port,
-  });
-
-  wss.on('connection', (ws) => {
-    ws.on('message', (data) => {
-      if (verbose) console.log('got', JSON.parse(data.toString('utf-8')));
-      clientConnection.messageQueue.push(JSON.parse(data.toString('utf-8')));
-    });
-
-    const creature = server.makeCreature({ x: 5, y: 7 });
-    const clientConnection = new ClientConnection();
-    clientConnection.creature = creature;
-    clientConnection.send = function(type, args) {
-      ws.send(JSON.stringify({type, args}));
-    };
-
-    server.addClient(clientConnection);
-  });
-
-  setInterval(() => {
-    server.tick();
-  }, 50);
-
-  setInterval(() => {
-    server.world.saveAll();
-  }, 1000 * 60 * 5);
-
-  return server;
-}
-
-export async function connect(client: Client, port: number): Promise<ClientToServerWire> {
-  const verbose = true;
-
-  const ws = new WebSocket('ws://localhost:' + port);
-
-  const wire: ClientToServerWire = {
-    send(type, args) {
-      ws.send(JSON.stringify({
-        type,
-        args,
-      }));
-    },
-    receive(type, args) {
-      if (verbose) console.log('from server', type, args);
-      const p = ServerToClientProtocol[type];
-      // @ts-ignore
-      p(client, args);
-    },
-  };
-  client.world = new ClientWorldContext(wire);
-
-  ws.addEventListener('message', (e) => {
-    const parsed = JSON.parse(e.data);
-    wire.receive(parsed.type, parsed.args);
-  });
-
-  await new Promise((resolve, reject) => {
-    ws.addEventListener('open', resolve);
-    ws.addEventListener('close', reject);
-  });
-
-  return wire;
-}

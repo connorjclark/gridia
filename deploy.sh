@@ -4,7 +4,7 @@ rm -rf deploy
 mkdir deploy
 
 yarn build
-cp -r index.html dist world deploy
+cp -r index.html dist/gridia.* world deploy
 
 # Not used yet.
 rm -rf deploy/world/sound
