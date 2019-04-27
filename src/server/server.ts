@@ -60,7 +60,7 @@ export default class Server {
   }
 
   public addClient(clientConnection: ClientConnection) {
-    clientConnection.creature = this.makeCreature({ x: 5, y: 7, z: 1 });
+    clientConnection.creature = this.makeCreature({ x: 5, y: 7, z: 0 });
     this.clientConnections.push(clientConnection);
 
     clientConnection.send('initialize', {

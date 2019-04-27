@@ -41,7 +41,6 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
     if (source === ItemSourceWorld) {
       server.world.getTile(loc).item = item;
     } else {
-      const z = loc.z;
       const container = server.getContainer(source);
 
       // If location is not specified, pick one:
@@ -61,10 +60,10 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
         }
 
         if (firstStackableSlot !== null) {
-          loc = { x: firstStackableSlot, y: 0, z };
+          loc = { x: firstStackableSlot, y: 0, z: 0 };
           item.quantity += container.items[firstStackableSlot].quantity;
         } else if (firstOpenSlot !== null) {
-          loc = { x: firstOpenSlot, y: 0, z };
+          loc = { x: firstOpenSlot, y: 0, z: 0 };
         }
       }
 

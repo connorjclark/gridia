@@ -4,7 +4,7 @@ import { ServerWorldContext } from './server/serverWorldContext';
 
 const SECTOR_SIZE = 20;
 
-export default function mapgen(width: number, height: number, depth: number) {
+export default function mapgen(width: number, height: number, depth: number, bare: boolean) {
   assert.ok(width % SECTOR_SIZE === 0);
   assert.ok(height % SECTOR_SIZE === 0);
   assert.ok(width < 1000);
@@ -16,7 +16,6 @@ export default function mapgen(width: number, height: number, depth: number) {
   const mineFloor = 19;
 
   const world = new ServerWorldContext(width, height, depth);
-  const bare = false;
 
   for (let x = 0; x < width; x++) {
     for (let y = 0; y < height; y++) {

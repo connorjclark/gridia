@@ -1,9 +1,11 @@
 /// <reference path="../src/types.d.ts" />
 
 import * as assert from 'assert';
-import Client from '../src/client';
+import Client from '../src/client/client';
+import { openAndConnectToServerInMemory } from '../src/client/connectToServer';
 import { getMetaItem, getMetaItemByName } from '../src/items';
-import Server, { openAndConnectToServerInMemory } from '../src/server';
+import mapgen from '../src/mapgen';
+import Server from '../src/server/server';
 import { equalItems } from '../src/utils';
 
 let client: Client;
@@ -17,7 +19,7 @@ beforeEach(() => {
   const serverAndWire = openAndConnectToServerInMemory(client, {
     dummyDelay: 0,
     verbose: false,
-    fillWorldWithStuff: false,
+    world: mapgen(20, 20, 1, true),
   });
   wire = serverAndWire.clientToServerWire;
   server = serverAndWire.server;
@@ -27,17 +29,17 @@ function clone<T>(obj: T): T {
   return JSON.parse(JSON.stringify(obj));
 }
 
-function setItem(location: Point, item: Item) {
+function setItem(location: TilePoint, item: Item) {
   server.world.getTile(location).item = clone(item);
   client.world.getTile(location).item = clone(item);
 }
 
-function assertItemInWorld(location: Point, item: Item) {
+function assertItemInWorld(location: TilePoint, item: Item) {
   expect(server.world.getItem(location)).toEqual(item);
   expect(client.world.getItem(location)).toEqual(item);
 }
 
-function assertItemInWorldNear(location: Point, item: Item) {
+function assertItemInWorldNear(location: TilePoint, item: Item) {
   const point = server.findNearest(location, 10, true, (tile) => equalItems(tile.item, item));
   assert(point);
   expect(client.world.getItem(point)).toEqual(item);
@@ -53,8 +55,8 @@ describe('moveItem', () => {
   assert(getMetaItem(1).moveable);
 
   it('move item', () => {
-    const from = { x: 0, y: 0 };
-    const to = { x: 1, y: 0 };
+    const from = { x: 0, y: 0, z: 0 };
+    const to = { x: 1, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 10 });
 
@@ -72,8 +74,8 @@ describe('moveItem', () => {
   });
 
   it('fail to move item to non-empty tile', () => {
-    const from = { x: 0, y: 0 };
-    const to = { x: 1, y: 0 };
+    const from = { x: 0, y: 0, z: 0 };
+    const to = { x: 1, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
     setItem(to, { type: 2, quantity: 1 });
@@ -92,8 +94,8 @@ describe('moveItem', () => {
   });
 
   it('move stackable item', () => {
-    const from = { x: 0, y: 0 };
-    const to = { x: 1, y: 0 };
+    const from = { x: 0, y: 0, z: 0 };
+    const to = { x: 1, y: 0, z: 0 };
     const gold = getMetaItemByName('Gold');
 
     setItem(from, { type: gold.id, quantity: 1 });
@@ -113,7 +115,7 @@ describe('moveItem', () => {
   });
 
   it('move item from world to container', () => {
-    const from = { x: 0, y: 0 };
+    const from = { x: 0, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
     const container = server.makeContainer();
@@ -122,7 +124,7 @@ describe('moveItem', () => {
     wire.send('moveItem', {
       from,
       fromSource: 0,
-      to: { x: 0, y: 0 },
+      to: { x: 0, y: 0, z: 0 },
       toSource: container.id,
     });
 
@@ -133,7 +135,7 @@ describe('moveItem', () => {
   });
 
   it('move item from world to container: null places in first open slot', () => {
-    const from = { x: 0, y: 0 };
+    const from = { x: 0, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
     const container = server.makeContainer();
@@ -156,7 +158,7 @@ describe('moveItem', () => {
   });
 
   it('move item from world to container: null places in first open slot - stacks', () => {
-    const from = { x: 0, y: 0 };
+    const from = { x: 0, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
     const container = server.makeContainer();
@@ -188,7 +190,7 @@ describe('use', () => {
 
   it('cut down tree', () => {
     const toolIndex = 0;
-    const loc = { x: 0, y: 0 };
+    const loc = { x: 0, y: 0, z: 0 };
 
     setItem(loc, { type: getMetaItemByName('Pine Tree').id, quantity: 1 });
 

@@ -3,6 +3,7 @@ import mapgen from '../mapgen';
 import { ServerToClientProtocol } from '../protocol';
 import ClientConnection from '../server/clientConnection';
 import Server from '../server/server';
+import { ServerWorldContext } from '../server/serverWorldContext';
 import Client from './client';
 
 export async function connect(client: Client, port: number): Promise<ClientToServerWire> {
@@ -42,8 +43,9 @@ export async function connect(client: Client, port: number): Promise<ClientToSer
 interface OpenAndConnectToServerInMemoryOpts {
   dummyDelay: number;
   verbose: boolean;
+  world?: ServerWorldContext;
 }
-export async function openAndConnectToServerInMemory(client: Client, { dummyDelay, verbose }: OpenAndConnectToServerInMemoryOpts) {
+export function openAndConnectToServerInMemory(client: Client, { dummyDelay, verbose, world }: OpenAndConnectToServerInMemoryOpts) {
   function maybeDelay(fn: Function) {
     if (dummyDelay > 0) {
       setTimeout(fn, dummyDelay);
@@ -53,7 +55,7 @@ export async function openAndConnectToServerInMemory(client: Client, { dummyDela
   }
 
   const server = new Server({ verbose });
-  server.world = mapgen(100, 100, 2);
+  server.world = world ? world : mapgen(100, 100, 2, false);
 
   const clientConnection = new ClientConnection();
   clientConnection.send = function(type, args) {

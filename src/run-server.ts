@@ -9,7 +9,7 @@ function startServer(port: number) {
   const server = new Server({
     verbose,
   });
-  const world = mapgen(100, 100, 1);
+  const world = mapgen(100, 100, 1, false);
   server.world = world;
 
   const wss = new WebSocketServer({
