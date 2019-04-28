@@ -1,5 +1,4 @@
 import { EventEmitter } from 'events';
-import * as _PIXISound from 'pixi-sound';
 import * as PIXI from 'pixi.js';
 import { MINE, WATER } from '../constants';
 import { getMetaItem } from '../items';
@@ -8,8 +7,11 @@ import Client from './client';
 import { connect, openAndConnectToServerInMemory } from './connectToServer';
 import KEYS from './keys';
 
+// pixi-sound needs to load after PIXI. The linter reorders imports in a way
+// that breaks that requirement. So require here.
 // @ts-ignore - https://github.com/pixijs/pixi-sound/issues/99
-const PIXISound: typeof _PIXISound = _PIXISound.default;
+const PIXISound: typeof import('pixi-sound') = require('pixi-sound').default;
+
 const client = new Client();
 client.PIXI = PIXI;
 client.PIXISound = PIXISound;

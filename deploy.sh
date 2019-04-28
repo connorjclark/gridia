@@ -10,9 +10,6 @@ cp -r index.html world deploy
 cp dist/gridia.js deploy/dist/gridia.js
 cp dist/gridia.map deploy/dist/gridia.map
 
-# Not used yet.
-rm -rf deploy/world/sound
-
 cd deploy
 surge . gridia.surge.sh
 echo https://gridia.surge.sh/

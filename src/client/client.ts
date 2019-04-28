@@ -1,10 +1,8 @@
-import * as _PIXISound from 'pixi-sound';
-import * as PIXI from 'pixi.js';
 import { ClientWorldContext } from '../context';
 
 class Client {
-  public PIXI: typeof PIXI;
-  public PIXISound: typeof _PIXISound;
+  public PIXI: typeof import('pixi.js');
+  public PIXISound: typeof import('pixi-sound');
   public creatureId: number;
   public world: ClientWorldContext;
 }
