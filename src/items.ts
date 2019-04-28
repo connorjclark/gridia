@@ -46,10 +46,10 @@ export function getRandomMetaItemOfClass(itemClass: MetaItem['class']) {
   const maxRarity = itemsOfClass.reduce((acc, item) => acc + item.rarity, 0);
   const value = Math.random() * maxRarity;
 
-  let acc = 0;
+  let sumSoFar = 0;
   for (const item of itemsOfClass) {
-    acc += item.rarity;
-    if (value < acc) return item;
+    sumSoFar += item.rarity;
+    if (value < sumSoFar) return item;
   }
 
   // Shouldn't ever reach here.

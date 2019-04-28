@@ -151,7 +151,8 @@ export default class Server {
     return this.world.containers.get(id);
   }
 
-  public findNearest(loc: TilePoint, range: number, includeTargetLocation: boolean, predicate: (tile: Tile) => boolean): TilePoint {
+  public findNearest(loc: TilePoint, range: number, includeTargetLocation: boolean,
+                     predicate: (tile: Tile) => boolean): TilePoint {
     const test = (l: TilePoint) => {
       if (!this.world.inBounds(l)) return false;
       return predicate(this.world.getTile(l));
@@ -185,17 +186,17 @@ export default class Server {
   public addItemNear(loc: TilePoint, item: Item) {
     const nearestLoc = this.findNearest(loc, 6, true, (tile) => !tile.item || tile.item.type === item.type);
     if (!nearestLoc) return; // TODO what to do in this case?
-    const tile = this.world.getTile(nearestLoc);
-    if (tile.item) {
-      tile.item.quantity += item.quantity;
+    const nearestTile = this.world.getTile(nearestLoc);
+    if (nearestTile.item) {
+      nearestTile.item.quantity += item.quantity;
     } else {
-      tile.item = item;
+      nearestTile.item = item;
     }
 
     this.broadcast('setItem', {
       ...nearestLoc,
       source: 0,
-      item: tile.item,
+      item: nearestTile.item,
     });
   }
 }

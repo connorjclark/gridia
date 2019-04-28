@@ -9,7 +9,9 @@
         "object-literal-sort-keys": false,
         "quotemark": [true, "single"],
         "interface-name": [true, "never-prefix"],
-        "one-variable-per-declaration": false
+        "one-variable-per-declaration": false,
+        "no-console": false,
+        "no-var-requires": false
     },
     "rulesDirectory": []
 }

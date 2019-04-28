@@ -1,6 +1,5 @@
 import Client from './client/client';
 import { MINE } from './constants';
-import { ClientWorldContext } from './context';
 import { getItemUses, getMetaItem, getMetaItemByName, getRandomMetaItemOfClass, ItemWrapper } from './items';
 import Server from './server/server';
 import { equalPoints } from './utils';
