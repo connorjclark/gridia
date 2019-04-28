@@ -132,6 +132,10 @@ const move: C2S<MoveParams> = (server, pos) => {
 
     server.world.getTile(pos).floor = 19;
     server.addItemNear(pos, {type: getRandomMetaItemOfClass('Ore').id, quantity: 1});
+    server.broadcast('sound', {
+      ...pos,
+      key: 'digi_plink',
+    });
   }
 
   // if (!server.inView(pos)) {
@@ -286,10 +290,16 @@ const setCreature: S2C<SetCreatureParams> = (client, { pos, id, containerId, ima
   client.world.getTile(creature.pos).creature = creature;
 };
 
+type SoundParams = TilePoint & { key: string };
+const sound: S2C<SoundParams> = (client, { x, y, z, key }) => {
+  client.PIXISound.play(key);
+};
+
 export const ServerToClientProtocol = {
   initialize,
   sector,
   container,
   setItem,
   setCreature,
+  sound,
 };

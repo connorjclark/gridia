@@ -1,4 +1,5 @@
 import { EventEmitter } from 'events';
+import * as _PIXISound from 'pixi-sound';
 import * as PIXI from 'pixi.js';
 import { MINE, WATER } from '../constants';
 import { getMetaItem } from '../items';
@@ -7,7 +8,11 @@ import Client from './client';
 import { connect, openAndConnectToServerInMemory } from './connectToServer';
 import KEYS from './keys';
 
+// @ts-ignore - https://github.com/pixijs/pixi-sound/issues/99
+const PIXISound: typeof _PIXISound = _PIXISound.default;
 const client = new Client();
+client.PIXI = PIXI;
+client.PIXISound = PIXISound;
 const eventEmitter = new EventEmitter();
 
 let lastMove = performance.now();
@@ -36,6 +41,14 @@ const player = {
   lastMoved: 0,
 };
 
+function convertToPixiLoaderEntries(keys): Array<{key: string, url: string}> {
+  const entries = [];
+  for (const [key, url] of Object.entries(keys)) {
+    entries.push({key, url});
+  }
+  return entries;
+}
+
 const ResourceKeys = {
   creatures: [
     '../world/player/player0.png',
@@ -45,6 +58,11 @@ const ResourceKeys = {
   templates: [
     '../world/templates/templates0.png',
   ],
+};
+
+const SfxKeys = {
+  ShovelDig: '../world/sound/sfx/rpgwo/ShovelDig.wav',
+  digi_plink: '../world/sound/sfx/rcptones/digi_plink.wav',
 };
 
 for (let i = 0; i < 6; i++) {
@@ -290,6 +308,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   PIXI.loader
     .add(Object.values(ResourceKeys))
+    .add(convertToPixiLoaderEntries(SfxKeys))
     .on('progress', (loader, resource) => console.log('loading ' + loader.progress + '%'))
     .load(() => {
       const world = new PIXI.Container();
