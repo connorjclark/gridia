@@ -3,6 +3,7 @@
 import * as assert from 'assert';
 import Client from '../src/client/client';
 import { openAndConnectToServerInMemory } from '../src/client/connectToServer';
+import { MINE } from '../src/constants';
 import { getMetaItem, getMetaItemByName } from '../src/items';
 import mapgen from '../src/mapgen';
 import Server from '../src/server/server';
@@ -23,6 +24,10 @@ beforeEach(() => {
   });
   wire = serverAndWire.clientToServerWire;
   server = serverAndWire.server;
+
+  // TOOD make mock.
+  // @ts-ignore
+  client.PIXISound = {play: () => {}};
 });
 
 function clone<T>(obj: T): T {
@@ -32,6 +37,11 @@ function clone<T>(obj: T): T {
 function setItem(location: TilePoint, item: Item) {
   server.world.getTile(location).item = clone(item);
   client.world.getTile(location).item = clone(item);
+}
+
+function setFloor(location: TilePoint, floor: number) {
+  server.world.getTile(location).floor = floor;
+  client.world.getTile(location).floor = floor;
 }
 
 function assertItemInWorld(location: TilePoint, item: Item) {
@@ -49,6 +59,96 @@ function assertItemInContainer(containerId: number, index: number, item: Item) {
   expect(server.getContainer(containerId).items[index]).toEqual(item);
   expect(client.world.containers.get(containerId).items[index]).toEqual(item);
 }
+
+function assertCreatureAt(location: TilePoint, creatureId: number) {
+  let creature;
+
+  creature = server.world.getCreature(creatureId);
+  expect(creature.pos).toEqual(location);
+  expect(server.world.getTile(location).creature).toEqual(creature);
+
+  creature = client.world.getCreature(creatureId);
+  expect(creature.pos).toEqual(location);
+  expect(client.world.getTile(location).creature).toEqual(creature);
+}
+
+describe('move', () => {
+  let creature;
+  beforeEach(() => {
+    creature = server.world.getCreature(client.creatureId);
+    server.moveCreature(creature, {x: 5, y: 5, z: 0});
+    server.consumeAllMessages();
+  });
+
+  it('player can move to open space', () => {
+    const from = {x: 5, y: 5, z: 0};
+    const to = {x: 6, y: 5, z: 0};
+
+    assertCreatureAt(from, creature.id);
+    wire.send('move', to);
+    server.consumeAllMessages();
+    assertCreatureAt(to, creature.id);
+  });
+
+  it('player can move to walkable item', () => {
+    const from = {x: 5, y: 5, z: 0};
+    const to = {x: 6, y: 5, z: 0};
+    setItem(to, { type: 1, quantity: getMetaItemByName('Cut Red Rose').id });
+
+    assertCreatureAt(from, creature.id);
+    wire.send('move', to);
+    server.consumeAllMessages();
+    assertCreatureAt(to, creature.id);
+  });
+
+  it('player can not move to unwalkable item', () => {
+    const from = {x: 5, y: 5, z: 0};
+    const to = {x: 6, y: 5, z: 0};
+    setItem(to, { type: getMetaItemByName('Granite Wall').id, quantity: 1 });
+
+    assertCreatureAt(from, creature.id);
+    wire.send('move', to);
+    server.consumeAllMessages();
+    assertCreatureAt(from, creature.id);
+  });
+
+  // TODO broadcast new creatures.
+  // it('player can not move where other creature is', () => {
+  //   const from = {x: 5, y: 5, z: 0};
+  //   const to = {x: 6, y: 5, z: 0};
+  //   const otherCreature = server.makeCreature(to);
+  //   server.consumeAllMessages();
+  //   assertCreatureAt(to, otherCreature.id);
+
+  //   assertCreatureAt(from, creature.id);
+  //   wire.send('move', to);
+  //   server.consumeAllMessages();
+  //   assertCreatureAt(from, creature.id);
+  // });
+
+  // TODO refactor "server.makeCreature" to not give items.
+  // it('player can not move to mine wall without pickaxe in inventory', () => {
+  //   const from = {x: 5, y: 5, z: 0};
+  //   const to = {x: 6, y: 5, z: 0};
+  //   setFloor(to, MINE);
+
+  //   assertCreatureAt(from, creature.id);
+  //   wire.send('move', to);
+  //   server.consumeAllMessages();
+  //   assertCreatureAt(from, creature.id);
+  // });
+
+  it('player can move to mine wall with pickaxe in inventory', () => {
+    const from = {x: 5, y: 5, z: 0};
+    const to = {x: 6, y: 5, z: 0};
+    setFloor(to, MINE);
+
+    assertCreatureAt(from, creature.id);
+    wire.send('move', to);
+    server.consumeAllMessages();
+    assertCreatureAt(to, creature.id);
+  });
+});
 
 describe('moveItem', () => {
   assert(getMetaItem(1).stackable);

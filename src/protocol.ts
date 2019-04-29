@@ -126,7 +126,8 @@ const move: C2S<MoveParams> = (server, pos) => {
   if (!server.world.walkable(pos)) return false;
 
   if (server.world.getTile(pos).floor === MINE) {
-    const playerHasPick = server.containerHasItem(server.currentClientConnection.creature.containerId, getMetaItemByName('Pick').id);
+    const containerId = server.currentClientConnection.creature.containerId;
+    const playerHasPick = server.containerHasItem(containerId, getMetaItemByName('Pick').id);
     if (!playerHasPick) return false;
 
     server.world.getTile(pos).floor = 19;

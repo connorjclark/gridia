@@ -1,4 +1,4 @@
-import {SECTOR_SIZE} from './constants';
+import { SECTOR_SIZE } from './constants';
 import { getMetaItem } from './items';
 import { matrix, worldToSector } from './utils';
 
@@ -24,13 +24,18 @@ export abstract class WorldContext {
   public abstract load(point: TilePoint): Sector;
 
   public inBounds(point: TilePoint): boolean {
-    return point.x >= 0 && point.y >= 0 && point.x < this.width && point.y < this.height && point.z >= 0 && point.z < this.depth;
+    return point.x >= 0 && point.y >= 0 && point.x < this.width && point.y < this.height &&
+      point.z >= 0 && point.z < this.depth;
   }
 
   public walkable(point: TilePoint): boolean {
     if (!this.inBounds(point)) return false;
+
     const tile = this.getTile(point);
-    return !tile.creature && (!tile.item || getMetaItem(tile.item.type).walkable);
+    if (tile.creature) return false;
+    if (tile.item && !getMetaItem(tile.item.type).walkable) return false;
+
+    return true;
   }
 
   public getSector(sectorPoint: TilePoint): Sector {
@@ -57,7 +62,8 @@ export abstract class WorldContext {
     return this.getTile(point).item;
   }
 
-  public getCreature(id: number): Creature | void {
+  // TODO how to handle when creature does not exist?
+  public getCreature(id: number): Creature {
     return this.creatures[id];
   }
 
