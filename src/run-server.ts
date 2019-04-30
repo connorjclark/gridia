@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+import * as https from 'https';
 import {Server as WebSocketServer} from 'ws';
 import mapgen from './mapgen';
 import ClientConnection from './server/clientConnection';
@@ -14,6 +16,11 @@ function startServer(port: number) {
 
   const wss = new WebSocketServer({
     port,
+    // TODO support http. don't hardcode.
+    server: https.createServer({
+      cert: fs.readFileSync('/etc/letsencrypt/live/hoten.cc/fullchain.pem'),
+      key: fs.readFileSync('/etc/letsencrypt/live/hoten.cc/privkey.pem'),
+    }),
   });
 
   wss.on('connection', (ws) => {

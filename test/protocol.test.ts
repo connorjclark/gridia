@@ -287,7 +287,6 @@ describe('use', () => {
       loc,
     });
 
-
     assertItemInWorld(loc, { type: getMetaItemByName('Pine Tree Stump').id, quantity: 1 });
     assertItemInWorldNear(loc, { type: getMetaItemByName('Small Branches').id, quantity: 6 });
     assertItemInWorldNear(loc, { type: getMetaItemByName('Small Log').id, quantity: 2 });
