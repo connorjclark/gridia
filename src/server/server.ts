@@ -97,6 +97,10 @@ export default class Server {
     clientConnection.send('container', this.getContainer(clientConnection.creature.containerId));
   }
 
+  public removeClient(clientConnection: ClientConnection) {
+    this.clientConnections.splice(this.clientConnections.indexOf(clientConnection), 1);
+  }
+
   public consumeAllMessages() {
     while (this.clientConnections.some((c) => c.hasMessage()) || this.outboundMessages.length) {
       this.tick();

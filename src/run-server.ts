@@ -32,6 +32,10 @@ function startServer(port: number) {
       clientConnection.messageQueue.push(JSON.parse(data.toString('utf-8')));
     });
 
+    ws.on('close', (data) => {
+      server.removeClient(clientConnection);
+    });
+
     const clientConnection = new ClientConnection();
     clientConnection.send = function(type, args) {
       ws.send(JSON.stringify({type, args}));
