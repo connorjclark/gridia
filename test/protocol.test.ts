@@ -25,6 +25,13 @@ beforeEach(() => {
   wire = serverAndWire.clientToServerWire;
   server = serverAndWire.server;
 
+  // Immediately process messages.
+  const originalFn = wire.send;
+  wire.send = (...args) => {
+    originalFn(...args);
+    server.consumeAllMessages();
+  };
+
   // TOOD make mock.
   // @ts-ignore
   client.PIXISound = {play: () => {}};
@@ -86,7 +93,6 @@ describe('move', () => {
 
     assertCreatureAt(from, creature.id);
     wire.send('move', to);
-    server.consumeAllMessages();
     assertCreatureAt(to, creature.id);
   });
 
@@ -97,7 +103,6 @@ describe('move', () => {
 
     assertCreatureAt(from, creature.id);
     wire.send('move', to);
-    server.consumeAllMessages();
     assertCreatureAt(to, creature.id);
   });
 
@@ -108,7 +113,6 @@ describe('move', () => {
 
     assertCreatureAt(from, creature.id);
     wire.send('move', to);
-    server.consumeAllMessages();
     assertCreatureAt(from, creature.id);
   });
 
@@ -117,12 +121,10 @@ describe('move', () => {
   //   const from = {x: 5, y: 5, z: 0};
   //   const to = {x: 6, y: 5, z: 0};
   //   const otherCreature = server.makeCreature(to);
-  //   server.consumeAllMessages();
   //   assertCreatureAt(to, otherCreature.id);
 
   //   assertCreatureAt(from, creature.id);
   //   wire.send('move', to);
-  //   server.consumeAllMessages();
   //   assertCreatureAt(from, creature.id);
   // });
 
@@ -134,7 +136,6 @@ describe('move', () => {
 
   //   assertCreatureAt(from, creature.id);
   //   wire.send('move', to);
-  //   server.consumeAllMessages();
   //   assertCreatureAt(from, creature.id);
   // });
 
@@ -145,7 +146,6 @@ describe('move', () => {
 
     assertCreatureAt(from, creature.id);
     wire.send('move', to);
-    server.consumeAllMessages();
     assertCreatureAt(to, creature.id);
   });
 });
@@ -167,8 +167,6 @@ describe('moveItem', () => {
       toSource: 0,
     });
 
-    server.consumeAllMessages();
-
     assertItemInWorld(from, null);
     assertItemInWorld(to, { type: 1, quantity: 10 });
   });
@@ -186,8 +184,6 @@ describe('moveItem', () => {
       to,
       toSource: 0,
     });
-
-    server.consumeAllMessages();
 
     assertItemInWorld(from, { type: 1, quantity: 1 });
     assertItemInWorld(to, { type: 2, quantity: 1 });
@@ -208,8 +204,6 @@ describe('moveItem', () => {
       toSource: 0,
     });
 
-    server.consumeAllMessages();
-
     assertItemInWorld(from, null);
     assertItemInWorld(to, { type: gold.id, quantity: 3 });
   });
@@ -227,8 +221,6 @@ describe('moveItem', () => {
       to: { x: 0, y: 0, z: 0 },
       toSource: container.id,
     });
-
-    server.consumeAllMessages();
 
     assertItemInWorld(from, null);
     assertItemInContainer(container.id, 0, { type: 1, quantity: 1 });
@@ -250,8 +242,6 @@ describe('moveItem', () => {
       to: null,
       toSource: container.id,
     });
-
-    server.consumeAllMessages();
 
     assertItemInWorld(from, null);
     assertItemInContainer(container.id, 2, { type: 1, quantity: 1 });
@@ -275,8 +265,6 @@ describe('moveItem', () => {
       toSource: container.id,
     });
 
-    server.consumeAllMessages();
-
     assertItemInWorld(from, null);
     assertItemInContainer(container.id, 2, { type: 1, quantity: 3 });
   });
@@ -299,7 +287,6 @@ describe('use', () => {
       loc,
     });
 
-    server.consumeAllMessages();
 
     assertItemInWorld(loc, { type: getMetaItemByName('Pine Tree Stump').id, quantity: 1 });
     assertItemInWorldNear(loc, { type: getMetaItemByName('Small Branches').id, quantity: 6 });
