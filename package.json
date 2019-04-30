@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "yarn build-client && yarn build-ts",
-    "build-client": "parcel build src/client/main.ts -d dist -o gridia.js --public-url .",
+    "build-client": "parcel build src/client/main.ts -d dist -o gridia.js --public-url . && cp index.html dist && cp -r world dist/world",
     "build-ts": "tsc --outDir dist",
     "run-server": "node ./dist/server/run-server.js",
     "clean": "rm -rf dist",

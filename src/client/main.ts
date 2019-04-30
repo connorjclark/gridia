@@ -53,25 +53,25 @@ function convertToPixiLoaderEntries(keys): Array<{key: string, url: string}> {
 
 const ResourceKeys = {
   creatures: [
-    '../world/player/player0.png',
+    './world/player/player0.png',
   ],
   floors: [],
   items: [],
   templates: [
-    '../world/templates/templates0.png',
+    './world/templates/templates0.png',
   ],
 };
 
 const SfxKeys = {
-  ShovelDig: '../world/sound/sfx/rpgwo/ShovelDig.wav',
-  digi_plink: '../world/sound/sfx/rcptones/digi_plink.wav',
+  ShovelDig: './world/sound/sfx/rpgwo/ShovelDig.wav',
+  digi_plink: './world/sound/sfx/rcptones/digi_plink.wav',
 };
 
 for (let i = 0; i < 6; i++) {
-  ResourceKeys.floors.push(`../world/floors/floors${i}.png`);
+  ResourceKeys.floors.push(`./world/floors/floors${i}.png`);
 }
 for (let i = 0; i < 27; i++) {
-  ResourceKeys.items.push(`../world/items/items${i}.png`);
+  ResourceKeys.items.push(`./world/items/items${i}.png`);
 }
 
 function makeTextureCache(resourceType: string) {

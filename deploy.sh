@@ -2,13 +2,9 @@
 
 rm -rf deploy
 mkdir deploy
-# TODO remove "dist" from deployment.
-mkdir deploy/dist
 
 yarn build
-cp -r index.html world deploy
-cp dist/gridia.js deploy/dist/gridia.js
-cp dist/gridia.map deploy/dist/gridia.map
+cp -r dist/index.html dist/world dist/gridia.js dist/gridia.map deploy
 
 cd deploy
 surge . gridia.surge.sh
