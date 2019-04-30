@@ -13,6 +13,7 @@ function startServer(port: number) {
   });
   const world = mapgen(100, 100, 1, false);
   server.world = world;
+  world.saveAll();
 
   // TODO support http. don't hardcode.
   const webserver = https.createServer({
