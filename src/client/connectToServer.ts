@@ -9,7 +9,7 @@ import Client from './client';
 export async function connect(client: Client, port: number): Promise<ClientToServerWire> {
   const verbose = true;
 
-  const ws = new WebSocket('ws://localhost:' + port);
+  const ws = new WebSocket(`ws://${window.location.hostname}:port`);
 
   const wire: ClientToServerWire = {
     send(type, args) {
