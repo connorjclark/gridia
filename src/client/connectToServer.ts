@@ -85,9 +85,5 @@ export function openAndConnectToServerInMemory(client: Client, { dummyDelay, ver
 
   server.addClient(clientConnection);
 
-  setInterval(() => {
-    server.tick();
-  }, 50);
-
   return { clientToServerWire: wire, server };
 }

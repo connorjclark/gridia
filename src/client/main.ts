@@ -296,10 +296,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (window.location.search.includes('connect')) {
     wire = await connect(client, 9001);
   } else {
-      wire = openAndConnectToServerInMemory(client, {
+      const serverAndWire = openAndConnectToServerInMemory(client, {
         dummyDelay: 20,
         verbose: true,
-      }).clientToServerWire;
+      });
+      wire = serverAndWire.clientToServerWire;
+
+      setInterval(() => {
+        serverAndWire.server.tick();
+      }, 50);
   }
 
   PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
