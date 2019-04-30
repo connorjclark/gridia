@@ -14,14 +14,17 @@ function startServer(port: number) {
   const world = mapgen(100, 100, 1, false);
   server.world = world;
 
-  const wss = new WebSocketServer({
-    port,
-    // TODO support http. don't hardcode.
-    server: https.createServer({
-      cert: fs.readFileSync('/etc/letsencrypt/live/hoten.cc/fullchain.pem'),
-      key: fs.readFileSync('/etc/letsencrypt/live/hoten.cc/privkey.pem'),
-    }),
+  // TODO support http. don't hardcode.
+  const webserver = https.createServer({
+    cert: fs.readFileSync('/etc/letsencrypt/live/hoten.cc/fullchain.pem'),
+    key: fs.readFileSync('/etc/letsencrypt/live/hoten.cc/privkey.pem'),
   });
+  const wss = new WebSocketServer({
+    // port,
+    server: webserver,
+  });
+
+  webserver.listen(port);
 
   wss.on('connection', (ws) => {
     ws.on('message', (data) => {
