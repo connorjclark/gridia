@@ -1,8 +1,10 @@
+#!/usr/bin/env node
+
 import * as fs from 'fs';
 import * as http from 'http';
 import * as https from 'https';
 import {Server as WebSocketServer} from 'ws';
-import * as yargs from  'yargs';
+import * as yargs from 'yargs';
 import mapgen from './mapgen';
 import ClientConnection from './server/clientConnection';
 import Server from './server/server';
