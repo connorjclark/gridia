@@ -99,6 +99,7 @@ export default class Server {
 
   public removeClient(clientConnection: ClientConnection) {
     this.clientConnections.splice(this.clientConnections.indexOf(clientConnection), 1);
+    this.moveCreature(clientConnection.creature, null);
   }
 
   public consumeAllMessages() {
@@ -123,13 +124,16 @@ export default class Server {
     return creature;
   }
 
-  public moveCreature(creature: Creature, pos: TilePoint) {
+  public moveCreature(creature: Creature, pos: TilePoint | null) {
     this.world.getTile(creature.pos).creature = null;
-    creature.pos = pos;
-    this.world.getTile(creature.pos).creature = creature;
+    if (pos) {
+      creature.pos = pos;
+      this.world.getTile(creature.pos).creature = creature;
+    }
     this.broadcast('setCreature', {
       id: creature.id,
-      pos: creature.pos,
+      pos,
+      image: creature.image,
     });
   }
 

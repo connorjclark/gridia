@@ -238,6 +238,14 @@ const initialize: S2C<InitializeParams> = (client, { creatureId, width, height, 
 type SectorParams = TilePoint & { tiles: Sector };
 const sector: S2C<SectorParams> = (client, { x, y, z, tiles }) => {
   client.world.sectors[x][y][z] = tiles;
+
+  for (const row of tiles) {
+    for (const tile of row) {
+      if (tile.creature) {
+        client.world.setCreature(tile.creature);
+      }
+    }
+  }
 };
 
 type ContainerParams = Container;
@@ -284,6 +292,12 @@ const setCreature: S2C<SetCreatureParams> = (client, { pos, id, containerId, ima
         pos,
       });
     }
+  }
+
+  // Remove creature. Maybe a separate protocol?
+  if (!pos) {
+    client.world.getTile(creature.pos).creature = null;
+    return;
   }
 
   client.world.getTile(creature.pos).creature = null;
