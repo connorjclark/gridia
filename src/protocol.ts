@@ -157,16 +157,8 @@ const requestContainer: C2S<RequestContainerParams> = (server, { containerId }) 
   server.reply('container', server.getContainer(containerId));
 };
 
-const requested = new Map<string, boolean>();
 type RequestSectorParams = TilePoint;
 const requestSector: C2S<RequestSectorParams> = (server, { x, y, z }) => {
-  // TODO: this should run in the client. make a helper function that
-  // calls wire.send('requestSector').
-  if (requested.get(x + ',' + y + ',' + z)) {
-    return false;
-  }
-  requested.set(x + ',' + y + ',' + z, true);
-
   const isClose = true; // TODO
   if (x < 0 || y < 0 || z < 0 || !isClose) {
     return false;

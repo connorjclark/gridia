@@ -1,30 +1,42 @@
 import * as fs from 'fs';
+import * as http from 'http';
 import * as https from 'https';
 import {Server as WebSocketServer} from 'ws';
+import * as yargs from  'yargs';
 import mapgen from './mapgen';
 import ClientConnection from './server/clientConnection';
 import Server from './server/server';
 
-function startServer(port: number) {
+interface ServerOptions {
+  port: number;
+  ssl?: {
+    cert: string;
+    key: string;
+  };
+}
+function startServer(options: ServerOptions) {
+  const {port, ssl} = options;
   const verbose = true;
 
   const server = new Server({
     verbose,
   });
-  const world = mapgen(100, 100, 1, false);
+  const world = mapgen(100, 100, 2, false);
   server.world = world;
   world.saveAll();
 
-  // TODO support http. don't hardcode.
-  const webserver = https.createServer({
-    cert: fs.readFileSync('/etc/letsencrypt/live/hoten.cc/fullchain.pem'),
-    key: fs.readFileSync('/etc/letsencrypt/live/hoten.cc/privkey.pem'),
-  });
+  let webserver;
+  if (ssl) {
+    webserver = https.createServer({
+      cert: fs.readFileSync(ssl.cert),
+      key: fs.readFileSync(ssl.key),
+    });
+  } else {
+    webserver = http.createServer();
+  }
   const wss = new WebSocketServer({
-    // port,
     server: webserver,
   });
-
   webserver.listen(port);
 
   wss.on('connection', (ws) => {
@@ -56,4 +68,14 @@ function startServer(port: number) {
   return server;
 }
 
-startServer(9001);
+const argv = yargs
+  .default('port', 9001)
+  .string('sslCert')
+  .string('sslKey')
+  .parse();
+
+const {sslCert, sslKey, ...mostOfArgs} = argv;
+startServer({
+  ...mostOfArgs,
+  ssl: argv.sslCert ? {cert: sslCert, key: sslKey} : undefined,
+});

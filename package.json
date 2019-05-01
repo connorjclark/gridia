@@ -7,7 +7,8 @@
     "parcel-bundler": "^1.11.0",
     "pixi-sound": "^2.1.3",
     "pixi.js": "^4.8.5",
-    "ws": "*"
+    "ws": "*",
+    "yargs": "^13.2.2"
   },
   "engines": {
     "node": ">=10"
@@ -15,7 +16,7 @@
   "scripts": {
     "build": "yarn build-client && yarn build-server",
     "build-client": "parcel build src/client/main.ts -d dist/client -o gridia.js --public-url . && cp index.html dist/client && cp -r world dist/client/world",
-    "build-server": "tsc --outDir dist/server",
+    "build-server": "tsc --outDir dist/server && cp -r world dist/world",
     "run-server": "node ./dist/server/run-server.js",
     "clean": "rm -rf dist",
     "watch": "parcel src/client/main.ts -d dist -o gridia.js --public-url . & yarn build-ts --watch",

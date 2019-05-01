@@ -90,6 +90,7 @@ export abstract class WorldContext {
   }
 }
 
+/* tslint:disable-next-line */
 export class ClientWorldContext extends WorldContext {
   constructor(private wire: ClientToServerWire) {
     super(0, 0, 0);
