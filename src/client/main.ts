@@ -491,19 +491,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         itemAndCreatureLayer.removeChildren();
         for (let x = startTileX; x <= endTileX; x++) {
           for (let y = startTileY; y <= endTileY; y++) {
-            const item = client.world.getTile({ x, y, z }).item;
-            if (item) {
-              const itemSprite = makeItemSprite(item);
+            const tile = client.world.getTile({ x, y, z });
+            if (tile.item) {
+              const itemSprite = makeItemSprite(tile.item);
               itemSprite.x = x * 32;
               itemSprite.y = y * 32;
               itemAndCreatureLayer.addChild(itemSprite);
             }
 
-            // TODO other creatures.
-            if (x === focusPos.x && y === focusPos.y) {
-              player.sprite = new PIXI.Sprite(getTexture.creatures(focusCreature.image));
-              player.sprite.x = 32 * focusPos.x;
-              player.sprite.y = 32 * focusPos.y;
+            if (tile.creature) {
+              player.sprite = new PIXI.Sprite(getTexture.creatures(tile.creature.image));
+              player.sprite.x = x * 32;
+              player.sprite.y = y * 32;
               itemAndCreatureLayer.addChild(player.sprite);
             }
           }
