@@ -131,6 +131,10 @@ const move: C2S<MoveParams> = (server, pos) => {
     if (!playerHasPick) return false;
 
     server.world.getTile(pos).floor = 19;
+    server.broadcast('setFloor', {
+      ...pos,
+      floor: 19,
+    })
     server.addItemNear(pos, {type: getRandomMetaItemOfClass('Ore').id, quantity: 1});
     server.broadcast('sound', {
       ...pos,
@@ -241,6 +245,11 @@ const container: S2C<ContainerParams> = (client, container) => {
   client.world.containers.set(container.id, container);
 };
 
+type SetFloorParams = TilePoint & { floor: number };
+const setFloor: S2C<SetFloorParams> = (client, { x, y, z, floor }) => {
+  client.world.getTile({ x, y, z }).floor = floor;
+};
+
 type SetItemParams = TilePoint & { source: number, item: Item };
 const setItem: S2C<SetItemParams> = (client, { x, y, z, source, item }) => {
   if (source === ItemSourceWorld) {
@@ -291,6 +300,7 @@ export const ServerToClientProtocol = {
   initialize,
   sector,
   container,
+  setFloor,
   setItem,
   setCreature,
   sound,
