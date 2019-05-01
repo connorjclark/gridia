@@ -134,7 +134,7 @@ const move: C2S<MoveParams> = (server, pos) => {
     server.broadcast('setFloor', {
       ...pos,
       floor: 19,
-    })
+    });
     server.addItemNear(pos, {type: getRandomMetaItemOfClass('Ore').id, quantity: 1});
     server.broadcast('sound', {
       ...pos,
