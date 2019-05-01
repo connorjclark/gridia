@@ -1,6 +1,5 @@
 #!/bin/bash -ex
 
-git pull
 yarn clean
 yarn build
 
