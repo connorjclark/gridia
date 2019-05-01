@@ -4,7 +4,9 @@ After=network.target
 StartLimitIntervalSec=0
 
 [Service]
-ExecStart=/usr/bin/node /root/gridia/gridia-2019-wip/dist/server/run-server.js
+ExecStart=/usr/bin/node /root/gridia/gridia-2019-wip/dist/server/run-server.js \
+            --ssl-cert /etc/letsencrypt/live/hoten.cc/fullchain.pem \
+            --ssl-key /etc/letsencrypt/live/hoten.cc/privkey.pem
 Restart=always
 RestartSec=1
 Environment=PATH=/usr/bin:/usr/local/bin
