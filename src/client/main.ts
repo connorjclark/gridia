@@ -293,7 +293,15 @@ function getZ() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   let wire: ClientToServerWire;
-  if (window.location.search.includes('connect')) {
+
+  let connectOverSocket = !window.location.hostname.includes('localhost');
+  if (window.location.search.includes('socket')) {
+    connectOverSocket = true;
+  } else if (window.location.search.includes('memory')) {
+    connectOverSocket = false;
+  }
+
+  if (connectOverSocket) {
     wire = await connect(client, 9001);
   } else {
       const serverAndWire = openAndConnectToServerInMemory(client, {
