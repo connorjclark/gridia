@@ -37,50 +37,11 @@ export default class Server {
   }
 
   public tick() {
-    // Handle stairs.
-    for (const clientConnection of Object.values(this.clientConnections)) {
-      if (clientConnection.warped) continue;
-
-      const creature = clientConnection.creature;
-      const item = this.world.getItem(creature.pos);
-      if (item) {
-        const meta = getMetaItem(item.type);
-
-        let newPos = null;
-        if (meta.class === 'Cave_down' && this.world.walkable({...creature.pos, z: creature.pos.z + 1})) {
-          newPos = {...creature.pos, z: creature.pos.z + 1};
-        } else if (meta.class === 'Cave_up' && this.world.walkable({...creature.pos, z: creature.pos.z - 1})) {
-          newPos = {...creature.pos, z: creature.pos.z - 1};
-        }
-
-        if (newPos) {
-          this.moveCreature(creature, newPos);
-          clientConnection.warped = true;
-        }
-      }
+    try {
+      this.tickImpl();
+    } catch (err) {
+      console.error(err);
     }
-
-    // Handle messages.
-    for (const clientConnection of this.clientConnections) {
-      // only read one message from a client at a time
-      const message = clientConnection.getMessage();
-      if (message) {
-        if (this.verbose) console.log('from client', message.type, message.args);
-        this.currentClientConnection = clientConnection;
-        ClientToServerProtocol[message.type](this, message.args);
-      }
-    }
-
-    for (const message of this.outboundMessages) {
-      if (message.to) {
-        message.to.send(message.type, message.args);
-      } else {
-        for (const clientConnection of this.clientConnections) {
-          clientConnection.send(message.type, message.args);
-        }
-      }
-    }
-    this.outboundMessages = [];
   }
 
   public addClient(clientConnection: ClientConnection) {
@@ -206,6 +167,53 @@ export default class Server {
       source: 0,
       item: nearestTile.item,
     });
+  }
+
+  private tickImpl() {
+    // Handle stairs.
+    for (const clientConnection of Object.values(this.clientConnections)) {
+      if (clientConnection.warped) continue;
+
+      const creature = clientConnection.creature;
+      const item = this.world.getItem(creature.pos);
+      if (item) {
+        const meta = getMetaItem(item.type);
+
+        let newPos = null;
+        if (meta.class === 'Cave_down' && this.world.walkable({...creature.pos, z: creature.pos.z + 1})) {
+          newPos = {...creature.pos, z: creature.pos.z + 1};
+        } else if (meta.class === 'Cave_up' && this.world.walkable({...creature.pos, z: creature.pos.z - 1})) {
+          newPos = {...creature.pos, z: creature.pos.z - 1};
+        }
+
+        if (newPos) {
+          this.moveCreature(creature, newPos);
+          clientConnection.warped = true;
+        }
+      }
+    }
+
+    // Handle messages.
+    for (const clientConnection of this.clientConnections) {
+      // only read one message from a client at a time
+      const message = clientConnection.getMessage();
+      if (message) {
+        if (this.verbose) console.log('from client', message.type, message.args);
+        this.currentClientConnection = clientConnection;
+        ClientToServerProtocol[message.type](this, message.args);
+      }
+    }
+
+    for (const message of this.outboundMessages) {
+      if (message.to) {
+        message.to.send(message.type, message.args);
+      } else {
+        for (const clientConnection of this.clientConnections) {
+          clientConnection.send(message.type, message.args);
+        }
+      }
+    }
+    this.outboundMessages = [];
   }
 }
 
