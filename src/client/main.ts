@@ -666,7 +666,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Alt to use hand on item.
-    if (e.key === 'Alt') {
+    if (e.key === 'Alt' && state.selectedTile) {
       wire.send('use', {
         toolIndex: -1,
         loc: state.selectedTile,
