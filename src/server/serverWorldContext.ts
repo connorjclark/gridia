@@ -1,21 +1,27 @@
+import * as fsSync from 'fs';
+import * as path from 'path';
 import { WorldContext } from '../context';
 import * as fs from '../iso-fs';
 
 export class ServerWorldContext extends WorldContext {
-  public static async load() {
-    const meta = JSON.parse(await fs.readFile(`serverdata/meta.json`, 'utf-8'));
-    return new ServerWorldContext(meta.width, meta.height, meta.depth);
+  public static async load(worldPath: string) {
+    const meta = JSON.parse(await fs.readFile(path.join(worldPath, 'meta.json'), 'utf-8'));
+    const world = new ServerWorldContext(meta.width, meta.height, meta.depth);
+    world.worldPath = worldPath;
+    return world;
   }
 
-  public load(point: TilePoint): Sector {
-    // TODO load from disk
-    return this.createEmptySector();
-    // return createSector(!this.fillWorldWithStuff);
+  public worldPath: string;
+
+  public load(sectorPoint: TilePoint): Sector {
+    const sectorPath = path.join(this.worldPath, `${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}.json`);
+    const data = JSON.parse(fsSync.readFileSync(sectorPath, 'utf-8'));
+    return data;
   }
 
   public async save(sectorPoint: TilePoint) {
     const sector = this.getSector(sectorPoint);
-    const sectorPath = `serverdata/${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}.json`;
+    const sectorPath = path.join(this.worldPath, `${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}.json`);
     const data = JSON.stringify(sector, null, 2);
     await fs.writeFile(sectorPath, data);
   }
@@ -34,6 +40,6 @@ export class ServerWorldContext extends WorldContext {
       height: this.height,
       depth: this.depth,
     };
-    await fs.writeFile(`serverdata/meta.json`, JSON.stringify(meta, null, 2));
+    await fs.writeFile(path.join(this.worldPath, 'meta.json'), JSON.stringify(meta, null, 2));
   }
 }

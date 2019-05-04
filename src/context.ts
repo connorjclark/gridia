@@ -72,7 +72,7 @@ export abstract class WorldContext {
     this.getTile(creature.pos).creature = creature;
   }
 
-  protected createEmptySector() {
+  public createEmptySector() {
     /** @type {Tile[][]} */
     const tiles = [];
 

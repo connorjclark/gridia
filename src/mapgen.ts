@@ -15,6 +15,14 @@ export default function mapgen(width: number, height: number, depth: number, bar
 
   const world = new ServerWorldContext(width, height, depth);
 
+  for (let sx = 0; sx < world.sectors.length; sx++) {
+    for (let sy = 0; sy < world.sectors[0].length; sy++) {
+      for (let sz = 0; sz < world.sectors[0][0].length; sz++) {
+        world.sectors[sx][sy][sz] = world.createEmptySector();
+      }
+    }
+  }
+
   for (let x = 0; x < width; x++) {
     for (let y = 0; y < height; y++) {
       for (let z = 0; z < depth; z++) {

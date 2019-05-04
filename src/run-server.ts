@@ -1,11 +1,13 @@
 import * as fs from 'fs';
 import * as http from 'http';
 import * as https from 'https';
+import * as path from 'path';
 import {Server as WebSocketServer} from 'ws';
 import * as yargs from 'yargs';
 import mapgen from './mapgen';
 import ClientConnection from './server/clientConnection';
 import Server from './server/server';
+import { ServerWorldContext } from './server/serverWorldContext';
 import { randInt } from './utils';
 
 interface ServerOptions {
@@ -14,17 +16,29 @@ interface ServerOptions {
     cert: string;
     key: string;
   };
+  serverData: string;
 }
-function startServer(options: ServerOptions) {
-  const {port, ssl} = options;
+async function startServer(options: ServerOptions) {
+  const {port, ssl, serverData} = options;
   const verbose = true;
 
   const server = new Server({
     verbose,
   });
-  const world = mapgen(100, 100, 2, false);
-  server.world = world;
-  world.saveAll();
+
+  if (!fs.existsSync(serverData)) {
+    fs.mkdirSync(serverData);
+  }
+
+  const worldPath = path.join(serverData, 'world');
+  if (fs.existsSync(worldPath)) {
+    server.world = await ServerWorldContext.load(worldPath);
+  } else {
+    fs.mkdirSync(worldPath);
+    server.world = mapgen(100, 100, 2, false);
+    server.world.worldPath = worldPath;
+    server.world.saveAll();
+  }
 
   let webserver;
   if (ssl) {
@@ -88,6 +102,7 @@ const argv = yargs
   .default('port', 9001)
   .string('sslCert')
   .string('sslKey')
+  .default('serverData', 'server-data')
   .parse();
 
 const {sslCert, sslKey, ...mostOfArgs} = argv;
