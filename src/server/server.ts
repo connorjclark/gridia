@@ -2,7 +2,7 @@ import { getMetaItem, getMetaItemByName } from '../items';
 import { ClientToServerProtocol } from '../protocol';
 import ClientConnection from './clientConnection';
 import { ServerWorldContext } from './serverWorldContext';
-import { maxDiff } from '../utils';
+import { maxDiff, worldToSector } from '../utils';
 
 // TODO document how the f this works.
 
@@ -40,6 +40,10 @@ export default class Server {
   public nextContainerId = 1;
 
   public verbose: boolean;
+
+  // RPGWO does 20 second intervals.
+  private growRate = 20 * 1000;
+  private nextGrowthAt = new Date().getTime();
 
   constructor({ verbose = false }) {
     this.verbose = verbose;
@@ -83,6 +87,8 @@ export default class Server {
     container.items[0] = { type: getMetaItemByName('Wood Axe').id, quantity: 1 };
     container.items[1] = { type: getMetaItemByName('Fire Starter').id, quantity: 1 };
     container.items[2] = { type: getMetaItemByName('Pick').id, quantity: 1 };
+    container.items[3] = { type: getMetaItemByName('Plough').id, quantity: 1 };
+    container.items[4] = { type: getMetaItemByName('Mana Plant Seeds').id, quantity: 100 };
 
     const creature = {
       id: this.nextCreatureId++,
@@ -237,6 +243,31 @@ export default class Server {
 
         if (newPos) {
           this.warpCreature(creature, newPos);
+        }
+      }
+    }
+
+    // Handle growth.
+    // TODO: Only load part of the world in memory and simulate growth of inactive areas on load.
+    if (this.nextGrowthAt <= now) {
+      this.nextGrowthAt += this.growRate;
+      for (let x = 0; x < this.world.width; x++) {
+        for (let y = 0; y < this.world.height; y++) {
+          const pos = {x, y, z: 0};
+          const item = this.world.getItem(pos);
+          const meta = item && getMetaItem(item.type);
+          if (meta && meta.growthItem) {
+            item.growth = (item.growth || 0) + 1;
+            if (item.growth >= meta.growthDelta) {
+              item.type = meta.growthItem;
+              item.growth = 0;
+              this.broadcast('setItem', {
+                ...pos,
+                source: 0,
+                item,
+              });
+            }
+          }
         }
       }
     }

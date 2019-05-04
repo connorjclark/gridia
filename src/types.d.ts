@@ -20,6 +20,7 @@ type Sector = Tile[][];
 interface Item {
   type: number;
   quantity: number;
+  growth?: number;
 }
 
 interface Container {
