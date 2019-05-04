@@ -2,6 +2,7 @@ import { getMetaItem, getMetaItemByName } from '../items';
 import { ClientToServerProtocol } from '../protocol';
 import ClientConnection from './clientConnection';
 import { ServerWorldContext } from './serverWorldContext';
+import { maxDiff } from '../utils';
 
 // TODO document how the f this works.
 
@@ -16,6 +17,7 @@ export default class Server {
     lastMove: number;
     // True if last movement was a warp. Prevents infinite stairs.
     warped: boolean;
+    home: TilePoint;
   }> = {};
 
   public reply = ((type, args) => {
@@ -93,6 +95,7 @@ export default class Server {
       isPlayer,
       lastMove: new Date().getTime(),
       warped: false,
+      home: pos,
     };
     this.world.setCreature(creature);
     return creature;
@@ -210,7 +213,7 @@ export default class Server {
         const newPos = {...creature.pos};
         newPos.x += Math.floor(Math.random() * 3 - 1);
         newPos.y += Math.floor(Math.random() * 3 - 1);
-        if (this.world.walkable(newPos)) {
+        if (this.world.walkable(newPos) && maxDiff(state.home, newPos) <= 10) {
           this.moveCreature(creature, newPos);
         }
       }

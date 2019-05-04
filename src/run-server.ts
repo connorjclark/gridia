@@ -65,9 +65,9 @@ function startServer(options: ServerOptions) {
   setInterval(() => {
     if (server.clientConnections.length > 0) {
       if (Object.keys(server.creatureStates).length < 15) {
-        const pos = {x: randInt(0, 10), y: randInt(0, 10), z: 0};
+        const pos = {x: randInt(0, 30), y: randInt(0, 30), z: 0};
         if (server.world.walkable(pos)) {
-          server.makeCreature(pos, 9, false);
+          server.makeCreature(pos, randInt(0, 100), false);
         }
       }
     } else {
