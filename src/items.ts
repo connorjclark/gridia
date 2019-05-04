@@ -6,6 +6,12 @@ for (const use of itemUses) {
   use.focusQuantityConsumed = use.focusQuantityConsumed || 1;
 }
 
+for (const animation of animations) {
+  for (const frame of animation.frames) {
+    if (frame.sound) frame.sound = frame.sound.toLowerCase();
+  }
+}
+
 export class ItemWrapper {
   constructor(public type: number, public quantity: number) { }
 

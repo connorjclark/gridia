@@ -46,7 +46,7 @@ const player = {
 function convertToPixiLoaderEntries(keys): Array<{key: string, url: string}> {
   const entries = [];
   for (const [key, url] of Object.entries(keys)) {
-    entries.push({key, url});
+    entries.push({key: key.toLowerCase(), url});
   }
   return entries;
 }
@@ -63,9 +63,33 @@ const ResourceKeys = {
 };
 
 const SfxKeys = {
-  ShovelDig: './world/sound/sfx/rpgwo/ShovelDig.wav',
+  pop_drip: './world/sound/sfx/rcptones/pop_drip.wav',
   digi_plink: './world/sound/sfx/rcptones/digi_plink.wav',
-  Woodcutting: './world/sound/sfx/ryanconway/woodcutting.wav',
+  woodcutting: './world/sound/sfx/ryanconway/woodcutting.wav',
+  roll: './world/sound/sfx/zelda/roll.wav',
+  Crossbow: './world/sound/sfx/rpgwo/Crossbow.wav',
+  bubble: './world/sound/sfx/rpgwo/bubble.wav',
+  diescream: './world/sound/sfx/rpgwo/diescream.wav',
+  beep: './world/sound/sfx/rpgwo/beep.WAV',
+  fishing: './world/sound/sfx/rpgwo/fishing.wav',
+  criket: './world/sound/sfx/rpgwo/criket.wav',
+  warp: './world/sound/sfx/rpgwo/warp.wav',
+  BlowArrow: './world/sound/sfx/rpgwo/BlowArrow.WAV',
+  Saw: './world/sound/sfx/rpgwo/Saw.wav',
+  havenmayor: './world/sound/sfx/rpgwo/havenmayor.wav',
+  burning: './world/sound/sfx/rpgwo/burning.wav',
+  smithinghammer: './world/sound/sfx/rpgwo/smithinghammer.wav',
+  ShovelDig: './world/sound/sfx/rpgwo/ShovelDig.wav',
+  CarpentryHammer: './world/sound/sfx/rpgwo/CarpentryHammer.wav',
+  harry: './world/sound/sfx/rpgwo/harry.wav',
+  bombtiq: './world/sound/sfx/rpgwo/bombtiq.wav',
+  punch: './world/sound/sfx/rpgwo/punch.wav',
+  hiccup: './world/sound/sfx/rpgwo/hiccup.wav',
+  sparkly: './world/sound/sfx/rpgwo/sparkly.wav',
+  CaneSwish: './world/sound/sfx/rpgwo/CaneSwish.wav',
+  door: './world/sound/sfx/rpgwo/door.wav',
+  ice: './world/sound/sfx/rpgwo/ice.WAV',
+  heal: './world/sound/sfx/ff6/heal.wav',
 };
 
 for (let i = 0; i < 6; i++) {
