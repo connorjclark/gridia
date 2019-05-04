@@ -15,6 +15,7 @@ export default function mapgen(width: number, height: number, depth: number, bar
 
   const world = new ServerWorldContext(width, height, depth);
 
+  // tslint:disable-next-line: prefer-for-of
   for (let sx = 0; sx < world.sectors.length; sx++) {
     for (let sy = 0; sy < world.sectors[0].length; sy++) {
       for (let sz = 0; sz < world.sectors[0][0].length; sz++) {

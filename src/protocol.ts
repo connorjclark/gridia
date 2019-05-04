@@ -1,6 +1,7 @@
 import Client from './client/client';
 import { MINE } from './constants';
-import { getAnimation, getItemUses, getMetaItem, getMetaItemByName, getRandomMetaItemOfClass, ItemWrapper } from './items';
+import { getAnimation, getItemUses, getMetaItem,
+  getMetaItemByName, getRandomMetaItemOfClass, ItemWrapper } from './items';
 import Server from './server/server';
 import { equalPoints } from './utils';
 

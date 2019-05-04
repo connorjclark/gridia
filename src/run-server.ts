@@ -65,7 +65,7 @@ async function startServer(options: ServerOptions) {
     });
 
     const clientConnection = new ClientConnection();
-    clientConnection.send = function(type, args) {
+    clientConnection.send = (type, args) => {
       ws.send(JSON.stringify({type, args}));
     };
 

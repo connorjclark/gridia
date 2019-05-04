@@ -50,8 +50,8 @@ interface OpenAndConnectToServerInMemoryOpts {
   verbose: boolean;
   world?: ServerWorldContext;
 }
-export function openAndConnectToServerInMemory(client: Client, { dummyDelay, verbose, world }: OpenAndConnectToServerInMemoryOpts) {
-  function maybeDelay(fn: Function) {
+export function openAndConnectToServerInMemory(client: Client, opts: OpenAndConnectToServerInMemoryOpts) {
+  function maybeDelay(fn: () => void) {
     if (dummyDelay > 0) {
       setTimeout(fn, dummyDelay);
     } else {
@@ -59,11 +59,12 @@ export function openAndConnectToServerInMemory(client: Client, { dummyDelay, ver
     }
   }
 
+  const { dummyDelay, verbose, world } = opts;
   const server = new Server({ verbose });
   server.world = world ? world : mapgen(100, 100, 2, false);
 
   const clientConnection = new ClientConnection();
-  clientConnection.send = function(type, args) {
+  clientConnection.send = (type, args) => {
     maybeDelay(() => {
       wire.receive(type, args);
     });
