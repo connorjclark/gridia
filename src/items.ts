@@ -3,7 +3,9 @@ const itemUses: ItemUse[] = require('../world/content/itemuses.json');
 const animations: Animation[] = require('../world/content/animations.json');
 
 for (const use of itemUses) {
-  use.focusQuantityConsumed = use.focusQuantityConsumed || 1;
+  if (use.focusQuantityConsumed === undefined) {
+    use.focusQuantityConsumed = 1;
+  }
 }
 
 for (const animation of animations) {

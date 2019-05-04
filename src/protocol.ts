@@ -42,45 +42,8 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
     if (source === ItemSourceWorld) {
       server.world.getTile(loc).item = item;
     } else {
-      const container = server.getContainer(source);
-
-      // If location is not specified, pick one:
-      // Pick the first slot of the same item type, if stackable.
-      // Else, pick the first open slot.
-      if (!loc) {
-        let firstOpenSlot = null;
-        let firstStackableSlot = null;
-        for (let i = 0; i < container.items.length; i++) {
-          if (firstOpenSlot === null && !container.items[i]) {
-            firstOpenSlot = i;
-          }
-          if (firstStackableSlot === null && container.items[i] && container.items[i].type === item.type) {
-            firstStackableSlot = i;
-            break;
-          }
-        }
-
-        if (firstStackableSlot !== null) {
-          loc = { x: firstStackableSlot, y: 0, z: 0 };
-          item.quantity += container.items[firstStackableSlot].quantity;
-        } else if (firstOpenSlot !== null) {
-          loc = { x: firstOpenSlot, y: 0, z: 0 };
-        }
-      }
-
-      if (loc) {
-        container.items[loc.x] = item;
-      } else {
-        // TODO don't let containers grow unbounded.
-        container.items.push(item);
-      }
+      server.addItemToContainer(source, item, loc ? loc.x : undefined);
     }
-
-    server.broadcast('setItem', {
-      ...loc,
-      source,
-      item,
-    });
   }
 
   if (!boundsCheck(from, fromSource) || !boundsCheck(to, toSource)) {
@@ -198,6 +161,7 @@ const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
   const usageResult = {
     tool: new ItemWrapper(tool.type, tool.quantity).remove(toolQuantityConsumed).raw(),
     focus: new ItemWrapper(focus.type, focus.quantity).remove(use.focusQuantityConsumed).raw(),
+    successTool: use.successTool !== undefined ? new ItemWrapper(use.successTool, 1).raw() : null,
     products: [] as Item[],
   };
   for (let i = 0; i < use.products.length; i++) {
@@ -205,6 +169,10 @@ const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
       type: use.products[i],
       quantity: use.quantities[i],
     });
+  }
+
+  if (usageResult.successTool) {
+    server.addItemToContainer(creature.containerId, usageResult.successTool);
   }
 
   inventory.items[toolIndex] = usageResult.tool;

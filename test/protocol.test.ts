@@ -34,7 +34,7 @@ beforeEach(() => {
 
   // TOOD make mock.
   // @ts-ignore
-  client.PIXISound = {play: () => {}};
+  client.PIXISound = {play: () => {}, exists: () => false};
 });
 
 function clone<T>(obj: T): T {
@@ -313,6 +313,32 @@ describe('use', () => {
     assertItemInContainer(container.id, toolIndex, {
       type: getMetaItemByName('Mana Plant Seeds').id,
       quantity: 99,
+    });
+  });
+
+  it('cook food', () => {
+    const toolIndex = 0;
+    const loc = { x: 0, y: 0, z: 0 };
+
+    container.items[toolIndex].type = getMetaItemByName('Un-Cooked Large Ribs').id;
+    container.items[toolIndex].quantity = 5;
+    container.items[toolIndex + 1] = null;
+    setItem(loc, { type: getMetaItemByName('Large Camp Fire').id, quantity: 1 });
+
+    wire.send('use', {
+      toolIndex,
+      loc,
+    });
+
+    assertItemInWorld(loc, { type: getMetaItemByName('Large Camp Fire').id, quantity: 1 });
+    assertItemInContainer(container.id, toolIndex, {
+      type: getMetaItemByName('Un-Cooked Large Ribs').id,
+      quantity: 4,
+    });
+    // Cooked ribs should be placed in the container.
+    assertItemInContainer(container.id, toolIndex + 1, {
+      type: getMetaItemByName('Cooked Large Ribs').id,
+      quantity: 1,
     });
   });
 });

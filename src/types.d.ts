@@ -89,6 +89,7 @@ interface ItemUse {
   focus: number;
   toolQuantityConsumed: number;
   focusQuantityConsumed: number;
+  successTool?: number;
   products: number[];
   quantities: number[];
 }

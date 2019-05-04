@@ -206,6 +206,47 @@ export default class Server {
     });
   }
 
+  public addItemToContainer(id: number, item: Item, index?: number) {
+    const container = this.world.containers.get(id);
+
+    // If index is not specified, pick one:
+    // Pick the first slot of the same item type, if stackable.
+    // Else, pick the first open slot.
+    if (index === undefined) {
+      let firstOpenSlot = null;
+      let firstStackableSlot = null;
+      for (let i = 0; i < container.items.length; i++) {
+        if (firstOpenSlot === null && !container.items[i]) {
+          firstOpenSlot = i;
+        }
+        if (firstStackableSlot === null && container.items[i] && container.items[i].type === item.type) {
+          firstStackableSlot = i;
+          break;
+        }
+      }
+
+      if (firstStackableSlot !== null) {
+        index = firstStackableSlot;
+        item.quantity += container.items[firstStackableSlot].quantity;
+      } else if (firstOpenSlot !== null) {
+        index = firstOpenSlot;
+      }
+    }
+
+    if (index !== undefined) {
+      container.items[index] = item;
+    } else {
+      // TODO don't let containers grow unbounded.
+      container.items.push(item);
+    }
+
+    this.broadcast('setItem', {
+      ...{x: index, y: 0, z: 0},
+      source: id,
+      item,
+    });
+  }
+
   private tickImpl() {
     const now = new Date().getTime();
 
