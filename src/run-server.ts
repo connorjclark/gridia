@@ -95,6 +95,7 @@ async function startServer(options: ServerOptions) {
     server.world.saveAll();
   }, 1000 * 60 * 5);
 
+  console.log('Server started.');
   return server;
 }
 
