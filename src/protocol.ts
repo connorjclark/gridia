@@ -148,7 +148,6 @@ const move: C2S<MoveParams> = (server, pos) => {
 
   const creature = server.currentClientConnection.creature;
   server.moveCreature(creature, pos);
-  server.currentClientConnection.warped = false;
 };
 
 interface RequestContainerParams { containerId: number; }

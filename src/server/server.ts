@@ -12,7 +12,10 @@ export default class Server {
   public currentClientConnection: ClientConnection;
   public creatureStates: Record<number, {
     creature: Creature;
+    isPlayer: boolean;
     lastMove: number;
+    // True if last movement was a warp. Prevents infinite stairs.
+    warped: boolean;
   }> = {};
 
   public reply = ((type, args) => {
@@ -73,7 +76,7 @@ export default class Server {
     }
   }
 
-  public makeCreature(pos: TilePoint, image: number, forPlayer: boolean): Creature {
+  public makeCreature(pos: TilePoint, image: number, isPlayer: boolean): Creature {
     const container = this.makeContainer();
     container.items[0] = { type: getMetaItemByName('Wood Axe').id, quantity: 1 };
     container.items[1] = { type: getMetaItemByName('Fire Starter').id, quantity: 1 };
@@ -85,12 +88,12 @@ export default class Server {
       image,
       pos,
     };
-    if (!forPlayer) {
-      this.creatureStates[creature.id] = {
-        creature,
-        lastMove: new Date().getTime(),
-      };
-    }
+    this.creatureStates[creature.id] = {
+      creature,
+      isPlayer,
+      lastMove: new Date().getTime(),
+      warped: false,
+    };
     this.world.setCreature(creature);
     return creature;
   }
@@ -106,6 +109,12 @@ export default class Server {
       pos,
       image: creature.image,
     });
+    this.creatureStates[creature.id].warped = false;
+  }
+
+  public warpCreature(creature: Creature, pos: TilePoint | null) {
+    this.moveCreature(creature, pos);
+    this.creatureStates[creature.id].warped = true;
   }
 
   public removeCreature(creature: Creature) {
@@ -193,6 +202,7 @@ export default class Server {
 
     // Handle creatures.
     for (const state of Object.values(this.creatureStates)) {
+      if (state.isPlayer) continue;
       const {creature} = state;
 
       if (now - state.lastMove > 3000) {
@@ -207,10 +217,10 @@ export default class Server {
     }
 
     // Handle stairs.
-    for (const clientConnection of Object.values(this.clientConnections)) {
-      if (clientConnection.warped) continue;
+    for (const state of Object.values(this.creatureStates)) {
+      const creature = state.creature;
+      if (state.warped) continue;
 
-      const creature = clientConnection.creature;
       const item = this.world.getItem(creature.pos);
       if (item) {
         const meta = getMetaItem(item.type);
@@ -223,8 +233,7 @@ export default class Server {
         }
 
         if (newPos) {
-          this.moveCreature(creature, newPos);
-          clientConnection.warped = true;
+          this.warpCreature(creature, newPos);
         }
       }
     }
