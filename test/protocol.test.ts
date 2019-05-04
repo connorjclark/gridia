@@ -271,9 +271,15 @@ describe('moveItem', () => {
 });
 
 describe('use', () => {
+  let container;
+
   beforeEach(() => {
     assert(server.clientConnections[0]);
-    assert.equal(getMetaItemByName('Wood Axe').id, server.getContainer(server.clientConnections[0].creature.containerId).items[0].type);
+    container = server.getContainer(server.clientConnections[0].creature.containerId);
+    // TODO don't rely on this hardcoded.
+    assert.equal(getMetaItemByName('Wood Axe').id, container.items[0].type);
+    assert.equal(getMetaItemByName('Mana Plant Seeds').id, container.items[4].type);
+    assert.equal(100, container.items[4].quantity);
   });
 
   it('cut down tree', () => {
@@ -290,5 +296,23 @@ describe('use', () => {
     assertItemInWorld(loc, { type: getMetaItemByName('Pine Tree Stump').id, quantity: 1 });
     assertItemInWorldNear(loc, { type: getMetaItemByName('Small Branches').id, quantity: 6 });
     assertItemInWorldNear(loc, { type: getMetaItemByName('Small Log').id, quantity: 2 });
+  });
+
+  it('plant a seed', () => {
+    const toolIndex = 4;
+    const loc = { x: 0, y: 0, z: 0 };
+
+    setItem(loc, { type: getMetaItemByName('Ploughed Ground').id, quantity: 1 });
+
+    wire.send('use', {
+      toolIndex,
+      loc,
+    });
+
+    assertItemInWorld(loc, { type: getMetaItemByName('Mana Plant Seeded Ground').id, quantity: 1 });
+    assertItemInContainer(container.id, toolIndex, {
+      type: getMetaItemByName('Mana Plant Seeds').id,
+      quantity: 99,
+    });
   });
 });

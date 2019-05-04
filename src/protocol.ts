@@ -193,8 +193,9 @@ const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
   if (!uses.length) return;
   const use = uses[0];
 
+  const toolQuantityConsumed = use.toolQuantityConsumed === undefined ? 1 : use.toolQuantityConsumed;
   const usageResult = {
-    tool: new ItemWrapper(tool.type, tool.quantity).remove(use.toolQuantityConsumed).raw(),
+    tool: new ItemWrapper(tool.type, tool.quantity).remove(toolQuantityConsumed).raw(),
     focus: new ItemWrapper(focus.type, focus.quantity).remove(use.focusQuantityConsumed).raw(),
     products: [] as Item[],
   };

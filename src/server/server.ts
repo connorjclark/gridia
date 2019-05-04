@@ -1,8 +1,8 @@
 import { getMetaItem, getMetaItemByName } from '../items';
 import { ClientToServerProtocol } from '../protocol';
+import { maxDiff, worldToSector } from '../utils';
 import ClientConnection from './clientConnection';
 import { ServerWorldContext } from './serverWorldContext';
-import { maxDiff, worldToSector } from '../utils';
 
 // TODO document how the f this works.
 
@@ -43,7 +43,7 @@ export default class Server {
 
   // RPGWO does 20 second intervals.
   private growRate = 20 * 1000;
-  private nextGrowthAt = new Date().getTime();
+  private nextGrowthAt = new Date().getTime() + this.growRate;
 
   constructor({ verbose = false }) {
     this.verbose = verbose;
