@@ -555,7 +555,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           const inventoryWindow = containerWindows.get(focusCreature.containerId);
           const item = inventoryWindow.container.items[inventoryWindow.selectedIndex];
           if (item) {
-            const itemSprite = makeItemSprite(item);
+            const itemSprite = makeItemSprite({type: item.type, quantity: 1});
             itemSprite.anchor.x = itemSprite.anchor.y = 0.5;
             highlight.addChild(itemSprite);
           }
