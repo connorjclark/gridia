@@ -6,6 +6,7 @@ import * as yargs from 'yargs';
 import mapgen from './mapgen';
 import ClientConnection from './server/clientConnection';
 import Server from './server/server';
+import { randInt } from './utils';
 
 interface ServerOptions {
   port: number;
@@ -60,6 +61,18 @@ function startServer(options: ServerOptions) {
   setInterval(() => {
     server.tick();
   }, 50);
+
+  setInterval(() => {
+    if (server.clientConnections.length > 0) {
+      if (Object.keys(server.creatureStates).length < 5) {
+        server.makeCreature({x: randInt(0, 10), y: randInt(0, 10), z: 0}, 9, false);
+      }
+    } else {
+      for (const {creature} of Object.values(server.creatureStates)) {
+        server.removeCreature(creature);
+      }
+    }
+  }, 1000 * 5);
 
   setInterval(() => {
     server.world.saveAll();

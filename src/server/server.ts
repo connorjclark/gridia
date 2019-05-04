@@ -10,6 +10,10 @@ export default class Server {
   public clientConnections: ClientConnection[] = [];
   public outboundMessages = [];
   public currentClientConnection: ClientConnection;
+  public creatureStates: Record<number, {
+    creature: Creature;
+    lastMove: number;
+  }> = {};
 
   public reply = ((type, args) => {
     this.outboundMessages.push({
@@ -45,7 +49,7 @@ export default class Server {
   }
 
   public addClient(clientConnection: ClientConnection) {
-    clientConnection.creature = this.makeCreature({ x: 5, y: 7, z: 0 });
+    clientConnection.creature = this.makeCreature({ x: 5, y: 7, z: 0 }, 10, true);
     this.clientConnections.push(clientConnection);
 
     clientConnection.send('initialize', {
@@ -69,7 +73,7 @@ export default class Server {
     }
   }
 
-  public makeCreature(pos: TilePoint): Creature {
+  public makeCreature(pos: TilePoint, image: number, forPlayer: boolean): Creature {
     const container = this.makeContainer();
     container.items[0] = { type: getMetaItemByName('Wood Axe').id, quantity: 1 };
     container.items[1] = { type: getMetaItemByName('Fire Starter').id, quantity: 1 };
@@ -78,9 +82,15 @@ export default class Server {
     const creature = {
       id: this.nextCreatureId++,
       containerId: container.id,
-      image: 10,
+      image,
       pos,
     };
+    if (!forPlayer) {
+      this.creatureStates[creature.id] = {
+        creature,
+        lastMove: new Date().getTime(),
+      };
+    }
     this.world.setCreature(creature);
     return creature;
   }
@@ -96,6 +106,15 @@ export default class Server {
       pos,
       image: creature.image,
     });
+  }
+
+  public removeCreature(creature: Creature) {
+    this.world.getTile(creature.pos).creature = null;
+    delete this.world.creatures[creature.id];
+    if (this.creatureStates[creature.id]) {
+      delete this.creatureStates[creature.id];
+    }
+    // TODO broadcast removal.
   }
 
   // TODO make Container class.
@@ -170,6 +189,23 @@ export default class Server {
   }
 
   private tickImpl() {
+    const now = new Date().getTime();
+
+    // Handle creatures.
+    for (const state of Object.values(this.creatureStates)) {
+      const {creature} = state;
+
+      if (now - state.lastMove > 3000) {
+        state.lastMove = now;
+        const newPos = {...creature.pos};
+        newPos.x += Math.floor(Math.random() * 3 - 1);
+        newPos.y += Math.floor(Math.random() * 3 - 1);
+        if (this.world.walkable(newPos)) {
+          this.moveCreature(creature, newPos);
+        }
+      }
+    }
+
     // Handle stairs.
     for (const clientConnection of Object.values(this.clientConnections)) {
       if (clientConnection.warped) continue;

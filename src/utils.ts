@@ -58,6 +58,10 @@ export function matrix<T>(x: number, y: number, z: number, val: T = null): T[][]
   return m;
 }
 
+export function randInt(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 //   export function tileToScreen(pt: TilePoint): TilePoint {
 //     return {
 //       x: pt.x * 32 - state.viewport.x,
