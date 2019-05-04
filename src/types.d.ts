@@ -83,6 +83,7 @@ interface MetaItem {
 }
 
 interface ItemUse {
+  animation?: string;
   successMessage: string;
   tool: number;
   focus: number;
@@ -90,4 +91,11 @@ interface ItemUse {
   focusQuantityConsumed: number;
   products: number[];
   quantities: number[];
+}
+
+interface Animation {
+  name: string;
+  frames: Array<{
+    sound: string;
+  }>;
 }

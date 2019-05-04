@@ -1,5 +1,6 @@
 const items: Array<MetaItem | null> = require('../world/content/items.json');
 const itemUses: ItemUse[] = require('../world/content/itemuses.json');
+const animations: Animation[] = require('../world/content/animations.json');
 
 for (const use of itemUses) {
   use.focusQuantityConsumed = use.focusQuantityConsumed || 1;
@@ -55,4 +56,8 @@ export function getRandomMetaItemOfClass(itemClass: MetaItem['class']) {
   // Shouldn't ever reach here.
   console.error('unexpected behavior in getRandomMetaItemOfClass.');
   return itemsOfClass[Math.floor(Math.random() * itemsOfClass.length)];
+}
+
+export function getAnimation(key: string) {
+  return animations.find((a) => a.name === key);
 }

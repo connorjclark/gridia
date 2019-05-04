@@ -1,6 +1,6 @@
 import Client from './client/client';
 import { MINE } from './constants';
-import { getItemUses, getMetaItem, getMetaItemByName, getRandomMetaItemOfClass, ItemWrapper } from './items';
+import { getAnimation, getItemUses, getMetaItem, getMetaItemByName, getRandomMetaItemOfClass, ItemWrapper } from './items';
 import Server from './server/server';
 import { equalPoints } from './utils';
 
@@ -136,9 +136,9 @@ const move: C2S<MoveParams> = (server, pos) => {
       floor: 19,
     });
     server.addItemNear(pos, {type: getRandomMetaItemOfClass('Ore').id, quantity: 1});
-    server.broadcast('sound', {
+    server.broadcast('animation', {
       ...pos,
-      key: 'digi_plink',
+      key: 'MiningSound',
     });
   }
 
@@ -215,6 +215,13 @@ const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
   });
   for (const product of usageResult.products) {
     server.addItemNear(loc, product);
+  }
+
+  if (use.animation) {
+    server.broadcast('animation', {
+      ...loc,
+      key: use.animation,
+    });
   }
 };
 
@@ -305,9 +312,12 @@ const setCreature: S2C<SetCreatureParams> = (client, { pos, id, containerId, ima
   client.world.getTile(creature.pos).creature = creature;
 };
 
-type SoundParams = TilePoint & { key: string };
-const sound: S2C<SoundParams> = (client, { x, y, z, key }) => {
-  client.PIXISound.play(key);
+type AnimationParams = TilePoint & { key: string };
+const animation: S2C<AnimationParams> = (client, { x, y, z, key }) => {
+  const animationData = getAnimation(key);
+  for (const frame of animationData.frames) {
+    if (frame.sound && client.PIXISound.exists(frame.sound)) client.PIXISound.play(frame.sound);
+  }
 };
 
 export const ServerToClientProtocol = {
@@ -317,5 +327,5 @@ export const ServerToClientProtocol = {
   setFloor,
   setItem,
   setCreature,
-  sound,
+  animation,
 };

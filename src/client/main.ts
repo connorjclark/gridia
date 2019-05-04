@@ -65,6 +65,7 @@ const ResourceKeys = {
 const SfxKeys = {
   ShovelDig: './world/sound/sfx/rpgwo/ShovelDig.wav',
   digi_plink: './world/sound/sfx/rcptones/digi_plink.wav',
+  Woodcutting: './world/sound/sfx/ryanconway/woodcutting.wav',
 };
 
 for (let i = 0; i < 6; i++) {
