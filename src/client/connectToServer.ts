@@ -38,6 +38,10 @@ export async function connect(client: Client, port: number): Promise<ClientToSer
     ws.addEventListener('close', reject);
   });
 
+  ws.addEventListener('close', () => {
+    window.document.body.innerText = 'Lost connection to server. Please refresh.';
+  });
+
   return wire;
 }
 
