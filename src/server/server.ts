@@ -108,7 +108,7 @@ export default class Server {
     this.creatureStates[creature.id] = {
       creature,
       isPlayer,
-      lastMove: new Date().getTime(),
+      lastMove: performance.now(),
       warped: false,
       home: pos,
     };
