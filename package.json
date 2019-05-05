@@ -17,7 +17,8 @@
     "clean": "rm -rf dist",
     "watch": "parcel src/client/main.ts -d dist -o gridia.js --public-url . & nodemon",
     "typecheck": "tsc --noEmit",
-    "lint": "tslint -c tslint.json '{src,test}/**/*.ts'"
+    "lint": "tslint -c tslint.json '{src,test}/**/*.ts'",
+    "test": "yarn lint && jest"
   },
   "devDependencies": {
     "@types/jest": "^24.0.11",
