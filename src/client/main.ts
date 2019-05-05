@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 import * as PIXI from 'pixi.js';
 import { MINE, WATER } from '../constants';
-import { getMetaItem, getItemUsesForTool, getItemUsesForProduct, getItemUsesForFocus } from '../items';
+import { getItemUsesForFocus, getItemUsesForProduct, getItemUsesForTool, getMetaItem } from '../items';
 import { clamp, equalPoints, worldToTile as _worldToTile } from '../utils';
 import Client from './client';
 import { connect, openAndConnectToServerInMemory } from './connectToServer';
