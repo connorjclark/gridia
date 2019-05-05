@@ -227,6 +227,7 @@ export default class Server {
   public setItemInContainer(id: number, index: number, item: Item) {
     const container = this.world.containers.get(id);
     container.items[index] = item;
+    // TODO: track which clients are looking at containers.
     this.broadcast('setItem', {
       ...{x: index, y: 0, z: 0},
       source: id,
