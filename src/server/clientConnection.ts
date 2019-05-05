@@ -5,6 +5,8 @@ export default class ClientConnection {
 
   public send: WireMethod<typeof import('../protocol')['ServerToClientProtocol']>;
 
+  public registeredContainers = [] as number[];
+
   public getMessage(): any {
     return this.messageQueue.shift();
   }

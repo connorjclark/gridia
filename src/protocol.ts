@@ -123,6 +123,7 @@ const requestContainer: C2S<RequestContainerParams> = (server, { containerId }) 
     return false;
   }
 
+  server.currentClientConnection.registeredContainers.push(containerId);
   server.reply('container', server.getContainer(containerId));
 };
 

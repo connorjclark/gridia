@@ -10,7 +10,12 @@ import { ServerWorldContext } from './serverWorldContext';
 export default class Server {
   public world: ServerWorldContext;
   public clientConnections: ClientConnection[] = [];
-  public outboundMessages = [];
+  public outboundMessages = [] as Array<{
+    type: keyof typeof import('../protocol')['ServerToClientProtocol'],
+    args: any,
+    to?: ClientConnection,
+    filter?: (client: ClientConnection) => boolean,
+  }>;
   public currentClientConnection: ClientConnection;
   public creatureStates: Record<number, {
     creature: Creature;
@@ -56,6 +61,10 @@ export default class Server {
 
   constructor({ verbose = false }) {
     this.verbose = verbose;
+  }
+
+  public conditionalBroadcast(filter: (client: ClientConnection) => boolean): ServerToClientWire['send'] {
+    return (type, args) => this.outboundMessages.push({type, args, filter});
   }
 
   public tick() {
@@ -227,8 +236,9 @@ export default class Server {
   public setItemInContainer(id: number, index: number, item: Item) {
     const container = this.world.containers.get(id);
     container.items[index] = item;
-    // TODO: track which clients are looking at containers.
-    this.broadcast('setItem', {
+    this.conditionalBroadcast((clientConnection) => {
+      return clientConnection.creature.containerId === id || clientConnection.registeredContainers.includes(id);
+    })('setItem', {
       ...{x: index, y: 0, z: 0},
       source: id,
       item,
@@ -263,17 +273,12 @@ export default class Server {
     }
 
     if (index !== undefined) {
-      container.items[index] = item;
+      this.setItemInContainer(id, index, item);
     } else {
       // TODO don't let containers grow unbounded.
-      container.items.push(item);
+      container.items.length += 1;
+      this.setItemInContainer(id, container.items.length - 1, item);
     }
-
-    this.broadcast('setItem', {
-      ...{x: index, y: 0, z: 0},
-      source: id,
-      item,
-    });
   }
 
   private tickImpl() {
@@ -357,6 +362,10 @@ export default class Server {
     for (const message of this.outboundMessages) {
       if (message.to) {
         message.to.send(message.type, message.args);
+      } else if (message.filter) {
+        for (const clientConnection of this.clientConnections) {
+          if (message.filter(clientConnection)) clientConnection.send(message.type, message.args);
+        }
       } else {
         for (const clientConnection of this.clientConnections) {
           clientConnection.send(message.type, message.args);
