@@ -215,6 +215,15 @@ export default class Server {
     });
   }
 
+  public setItem(loc: TilePoint, item: Item) {
+    this.world.getTile(loc).item = item;
+    this.broadcast('setItem', {
+      ...loc,
+      source: 0,
+      item,
+    });
+  }
+
   public addItemToContainer(id: number, item: Item, index?: number) {
     const container = this.world.containers.get(id);
 

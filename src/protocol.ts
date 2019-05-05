@@ -40,7 +40,7 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
 
   function setItem(loc: TilePoint, source: number, item: Item) {
     if (source === ItemSourceWorld) {
-      server.world.getTile(loc).item = item;
+      server.setItem(loc, item);
     } else {
       server.addItemToContainer(source, item, loc ? loc.x : undefined);
     }

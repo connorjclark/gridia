@@ -35,6 +35,10 @@ beforeEach(() => {
   // TOOD make mock.
   // @ts-ignore
   client.PIXISound = {play: () => {}, exists: () => false};
+
+  // Make client make initial request for the sector, so that partial updates are tested later.
+  client.world.getTile({x: 0, y: 0, z: 0});
+  server.consumeAllMessages();
 });
 
 function clone<T>(obj: T): T {

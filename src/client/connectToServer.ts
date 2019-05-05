@@ -70,13 +70,14 @@ export function openAndConnectToServerInMemory(client: Client, opts: OpenAndConn
     });
   };
 
+  // Make sure to clone args so no objects are accidently shared.
   const wire: ClientToServerWire = {
     send(type, args) {
       // const p = ServerToClientProtocol[type]
       maybeDelay(() => {
         clientConnection.messageQueue.push({
           type,
-          args,
+          args: JSON.parse(JSON.stringify(args)),
         });
       });
     },
@@ -84,7 +85,7 @@ export function openAndConnectToServerInMemory(client: Client, opts: OpenAndConn
       if (verbose) console.log('from server', type, args);
       const p = ServerToClientProtocol[type];
       // @ts-ignore
-      p(client, args);
+      p(client, JSON.parse(JSON.stringify(args)));
     },
   };
   client.world = new ClientWorldContext(wire);
