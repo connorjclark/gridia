@@ -14,6 +14,20 @@ for (const animation of animations) {
   }
 }
 
+// Add name properties for readability in the console.
+function getName(id) {
+  if (id === -1) return 'Hand';
+  return getMetaItem(id).name;
+}
+for (const use of itemUses) {
+  // @ts-ignore
+  use.toolName = getName(use.tool);
+  // @ts-ignore
+  use.focusName = getName(use.focus);
+  // @ts-ignore
+  use.productNames = use.products.map((id) => getName(id));
+}
+
 export class ItemWrapper {
   constructor(public type: number, public quantity: number) { }
 
@@ -47,6 +61,18 @@ export function getMetaItemByName(name: string): MetaItem {
 
 export function getItemUses(tool: number, focus: number) {
   return itemUses.filter((item) => item.tool === tool && item.focus === focus);
+}
+
+export function getItemUsesForTool(tool: number) {
+  return itemUses.filter((item) => item.tool === tool);
+}
+
+export function getItemUsesForFocus(focus: number) {
+  return itemUses.filter((item) => item.focus === focus);
+}
+
+export function getItemUsesForProduct(product: number) {
+  return itemUses.filter((item) => item.products.includes(product) || item.successTool === product);
 }
 
 // Weighted by rarity.
