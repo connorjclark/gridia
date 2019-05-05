@@ -1,3 +1,5 @@
+// tslint:disable: no-shadowed-variable
+
 import Client from './client/client';
 import { MINE } from './constants';
 import { getAnimation, getItemUses, getMetaItem,

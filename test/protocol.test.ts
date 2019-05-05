@@ -1,3 +1,4 @@
+// tslint:disable-next-line: no-reference
 /// <reference path="../src/types.d.ts" />
 
 import * as assert from 'assert';
@@ -34,6 +35,7 @@ beforeEach(() => {
 
   // TOOD make mock.
   // @ts-ignore
+  // tslint:disable-next-line: no-empty
   client.PIXISound = {play: () => {}, exists: () => false};
 
   // Make client make initial request for the sector, so that partial updates are tested later.
