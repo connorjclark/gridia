@@ -19,7 +19,7 @@
     "build-server": "tsc --outDir dist/server && cp -r world dist/world",
     "run-server": "node ./dist/server/run-server.js",
     "clean": "rm -rf dist",
-    "watch": "parcel src/client/main.ts -d dist -o gridia.js --public-url . & yarn build-ts --watch & nodemon",
+    "watch": "parcel src/client/main.ts -d dist -o gridia.js --public-url . & nodemon",
     "typecheck": "tsc --noEmit",
     "lint": "tslint -c tslint.json '{src,test}/**/*.ts'"
   },

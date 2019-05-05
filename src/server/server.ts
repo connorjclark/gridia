@@ -3,6 +3,7 @@ import { ClientToServerProtocol } from '../protocol';
 import { maxDiff, worldToSector } from '../utils';
 import ClientConnection from './clientConnection';
 import { ServerWorldContext } from './serverWorldContext';
+import performance from '../performance';
 
 // TODO document how the f this works.
 
@@ -44,6 +45,14 @@ export default class Server {
   // RPGWO does 20 second intervals.
   private growRate = 20 * 1000;
   private nextGrowthAt = new Date().getTime() + this.growRate;
+
+  private ticks = 0;
+
+  private perf = {
+    ticks: [] as Array<{started: number, duration: number}>,
+    tickDurationAverage: 0,
+    tickDurationMax: 0,
+  };
 
   constructor({ verbose = false }) {
     this.verbose = verbose;
@@ -248,7 +257,8 @@ export default class Server {
   }
 
   private tickImpl() {
-    const now = new Date().getTime();
+    const now = performance.now();
+    this.ticks++;
 
     // Handle creatures.
     for (const state of Object.values(this.creatureStates)) {
@@ -334,6 +344,34 @@ export default class Server {
       }
     }
     this.outboundMessages = [];
+
+    const tickDuration = performance.now() - now;
+    this.perf.ticks.push({
+      started: now,
+      duration: tickDuration,
+    });
+
+    // Send clients perf stats.
+    // TODO just send to admins.
+    if (this.ticks % (20 * 10) === 0) {
+      // ~every 10 seconds @ 50ms / tick.
+
+      // Only keep the last 10 seconds of ticks.
+      const cutoff = now - 10 * 1000;
+      const firstValid = this.perf.ticks.findIndex((tick) => tick.started >= cutoff);
+      this.perf.ticks.splice(0, firstValid);
+      this.perf.tickDurationAverage =
+        this.perf.ticks.reduce((acc, cur) => acc + cur.duration, 0) / this.perf.ticks.length;
+      this.perf.tickDurationMax = this.perf.ticks.reduce((acc, cur) => Math.max(acc, cur.duration), 0);
+
+      this.broadcast('log', {
+        msg: JSON.stringify({
+          ticksPerSec: this.perf.ticks.length / 10,
+          avg: this.perf.tickDurationAverage,
+          max: this.perf.tickDurationMax,
+        }),
+      });
+    }
   }
 }
 

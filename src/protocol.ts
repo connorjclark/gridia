@@ -289,6 +289,12 @@ const animation: S2C<AnimationParams> = (client, { x, y, z, key }) => {
   }
 };
 
+// tslint:disable-next-line: interface-over-type-literal
+type LogParams = { msg: string };
+const log: S2C<LogParams> = (client, { msg }) => {
+  console.log(msg);
+};
+
 export const ServerToClientProtocol = {
   initialize,
   sector,
@@ -297,4 +303,5 @@ export const ServerToClientProtocol = {
   setItem,
   setCreature,
   animation,
+  log,
 };
