@@ -50,6 +50,11 @@ function setItem(location: TilePoint, item: Item) {
   client.world.getTile(location).item = clone(item);
 }
 
+function setItemInContainer(id: number, index: number, item: Item) {
+  server.getContainer(id).items[index] = clone(item);
+  client.world.containers.get(id).items[index] = clone(item);
+}
+
 function setFloor(location: TilePoint, floor: number) {
   server.world.getTile(location).floor = floor;
   client.world.getTile(location).floor = floor;
@@ -324,9 +329,11 @@ describe('use', () => {
     const toolIndex = 0;
     const loc = { x: 0, y: 0, z: 0 };
 
-    container.items[toolIndex].type = getMetaItemByName('Un-Cooked Large Ribs').id;
-    container.items[toolIndex].quantity = 5;
-    container.items[toolIndex + 1] = null;
+    setItemInContainer(container.id, toolIndex, {
+      type: getMetaItemByName('Un-Cooked Large Ribs').id,
+      quantity: 5,
+    });
+    setItemInContainer(container.id, toolIndex + 1, null);
     setItem(loc, { type: getMetaItemByName('Large Camp Fire').id, quantity: 1 });
 
     wire.send('use', {

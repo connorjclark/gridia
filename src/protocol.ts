@@ -175,7 +175,7 @@ const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
     server.addItemToContainer(creature.containerId, usageResult.successTool);
   }
 
-  inventory.items[toolIndex] = usageResult.tool;
+  server.setItemInContainer(inventory.id, toolIndex, usageResult.tool);
   server.world.getTile(loc).item = usageResult.focus;
   server.broadcast('setItem', {
     ...loc,

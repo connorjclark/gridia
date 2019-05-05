@@ -1,9 +1,9 @@
 import { getMetaItem, getMetaItemByName } from '../items';
+import performance from '../performance';
 import { ClientToServerProtocol } from '../protocol';
 import { maxDiff, worldToSector } from '../utils';
 import ClientConnection from './clientConnection';
 import { ServerWorldContext } from './serverWorldContext';
-import performance from '../performance';
 
 // TODO document how the f this works.
 
@@ -220,6 +220,16 @@ export default class Server {
     this.broadcast('setItem', {
       ...loc,
       source: 0,
+      item,
+    });
+  }
+
+  public setItemInContainer(id: number, index: number, item: Item) {
+    const container = this.world.containers.get(id);
+    container.items[index] = item;
+    this.broadcast('setItem', {
+      ...{x: index, y: 0, z: 0},
+      source: id,
       item,
     });
   }
