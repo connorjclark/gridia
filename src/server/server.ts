@@ -63,6 +63,14 @@ export default class Server {
     this.verbose = verbose;
   }
 
+  public async save() {
+    await this.world.saveAll();
+  }
+
+  public async load(worldPath: string) {
+    this.world = await ServerWorldContext.load(worldPath);
+  }
+
   public conditionalBroadcast(filter: (client: ClientConnection) => boolean): ServerToClientWire['send'] {
     return (type, args) => this.outboundMessages.push({type, args, filter});
   }

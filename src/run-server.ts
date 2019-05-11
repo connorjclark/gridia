@@ -7,7 +7,6 @@ import * as yargs from 'yargs';
 import mapgen from './mapgen';
 import ClientConnection from './server/clientConnection';
 import Server from './server/server';
-import { ServerWorldContext } from './server/serverWorldContext';
 import { randInt } from './utils';
 
 interface ServerOptions {
@@ -32,12 +31,12 @@ async function startServer(options: ServerOptions) {
 
   const worldPath = path.join(serverData, 'world');
   if (fs.existsSync(worldPath)) {
-    server.world = await ServerWorldContext.load(worldPath);
+    await server.load(worldPath);
   } else {
     fs.mkdirSync(worldPath);
     server.world = mapgen(100, 100, 2, false);
     server.world.worldPath = worldPath;
-    server.world.saveAll();
+    await server.world.saveAll();
   }
 
   let webserver;
@@ -92,7 +91,7 @@ async function startServer(options: ServerOptions) {
   }, 1000);
 
   setInterval(() => {
-    server.world.saveAll();
+    server.save();
   }, 1000 * 60 * 5);
 
   console.log('Server started.');
