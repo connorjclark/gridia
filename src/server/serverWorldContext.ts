@@ -1,18 +1,23 @@
 import * as fsSync from 'fs';
 import * as path from 'path';
+import Container from '../container';
 import { WorldContext } from '../context';
 import * as fs from '../iso-fs';
 
 export class ServerWorldContext extends WorldContext {
-  public static async load(worldPath: string) {
-    const meta = JSON.parse(await fs.readFile(path.join(worldPath, 'meta.json'), 'utf-8'));
+  public static async load(worldDir: string) {
+    const meta = JSON.parse(await fs.readFile(path.join(worldDir, 'meta.json'), 'utf-8'));
     const world = new ServerWorldContext(meta.width, meta.height, meta.depth);
-    world.worldPath = worldPath;
+    world.worldDir = worldDir;
+    world.sectorDir = path.join(worldDir, 'sectors');
+    world.containerDir = path.join(worldDir, 'containers');
     // TODO when to load containers? all at once here, or lazily as needed like sectors?
     return world;
   }
 
-  public worldPath: string;
+  public worldDir: string;
+  public sectorDir: string;
+  public containerDir: string;
 
   public load(sectorPoint: TilePoint): Sector {
     return JSON.parse(fsSync.readFileSync(this.sectorPath(sectorPoint), 'utf-8'));
@@ -25,8 +30,8 @@ export class ServerWorldContext extends WorldContext {
   }
 
   public async saveAll() {
-    await fs.mkdir(path.dirname(this.sectorPath({x: 0, y: 0, z: 0})), {recursive: true});
-    await fs.mkdir(path.dirname(this.containerPath({id: 0, items: []})), {recursive: true});
+    await fs.mkdir(this.sectorDir, {recursive: true});
+    await fs.mkdir(this.containerDir, {recursive: true});
 
     const meta = {
       width: this.width,
@@ -50,14 +55,14 @@ export class ServerWorldContext extends WorldContext {
   }
 
   protected metaPath() {
-    return path.join(this.worldPath, 'meta.json');
+    return path.join(this.worldDir, 'meta.json');
   }
 
   protected sectorPath(sectorPoint: TilePoint) {
-    return path.join(this.worldPath, 'sectors', `${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}.json`);
+    return path.join(this.sectorDir, `${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}.json`);
   }
 
   protected containerPath(container: Container) {
-    return path.join(this.worldPath, 'containers', `${container.id}.json`);
+    return path.join(this.containerDir, `${container.id}.json`);
   }
 }

@@ -29,13 +29,13 @@ async function startServer(options: ServerOptions) {
     fs.mkdirSync(serverData);
   }
 
-  const worldPath = path.join(serverData, 'world');
-  if (fs.existsSync(worldPath)) {
-    await server.load(worldPath);
+  const worldDir = path.join(serverData, 'world');
+  if (fs.existsSync(worldDir)) {
+    await server.load(worldDir);
   } else {
-    fs.mkdirSync(worldPath);
+    fs.mkdirSync(worldDir);
     server.world = mapgen(100, 100, 2, false);
-    server.world.worldPath = worldPath;
+    server.world.worldDir = worldDir;
     await server.world.saveAll();
   }
 

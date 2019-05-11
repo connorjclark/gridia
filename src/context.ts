@@ -1,4 +1,5 @@
 import { SECTOR_SIZE } from './constants';
+import Container from './container';
 import { getMetaItem } from './items';
 import { matrix, worldToSector } from './utils';
 

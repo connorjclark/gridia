@@ -1,3 +1,4 @@
+import Container from '../container';
 import { getMetaItem, getMetaItemByName } from '../items';
 import performance from '../performance';
 import { ClientToServerProtocol } from '../protocol';
@@ -161,22 +162,10 @@ export default class Server {
     // TODO broadcast removal.
   }
 
-  // TODO make Container class.
   public makeContainer() {
-    const container: Container = {
-      id: this.nextContainerId++,
-      items: Array(10).fill(null),
-    };
+    const container = new Container(this.nextContainerId++, Array(10).fill(null));
     this.world.containers.set(container.id, container);
     return container;
-  }
-
-  public containerHasItem(id: number, itemType: number) {
-    const container = this.world.containers.get(id);
-    for (const item of container.items) {
-      if (item && item.type === itemType) return true;
-    }
-    return false;
   }
 
   public getContainer(id: number) {

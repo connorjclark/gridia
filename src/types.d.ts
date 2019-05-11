@@ -23,11 +23,6 @@ interface Item {
   growth?: number;
 }
 
-interface Container {
-  id: number;
-  items: Item[];
-}
-
 interface Creature {
   id: number;
   containerId: number;

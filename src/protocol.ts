@@ -2,6 +2,7 @@
 
 import Client from './client/client';
 import { MINE } from './constants';
+import Container from './container';
 import { getAnimation, getItemUses, getMetaItem,
   getMetaItemByName, getRandomMetaItemOfClass, ItemWrapper } from './items';
 import Server from './server/server';
@@ -93,7 +94,8 @@ const move: C2S<MoveParams> = (server, pos) => {
 
   if (server.world.getTile(pos).floor === MINE) {
     const containerId = server.currentClientConnection.creature.containerId;
-    const playerHasPick = server.containerHasItem(containerId, getMetaItemByName('Pick').id);
+    const container = server.getContainer(containerId);
+    const playerHasPick = container.hasItem(getMetaItemByName('Pick').id);
     if (!playerHasPick) return false;
 
     server.world.getTile(pos).floor = 19;
