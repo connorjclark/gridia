@@ -342,6 +342,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         verbose: true,
       });
       wire = serverAndWire.clientToServerWire;
+      // @ts-ignore debugging.
+      Gridia.server = serverAndWire.server;
 
       setInterval(() => {
         serverAndWire.server.tick();
