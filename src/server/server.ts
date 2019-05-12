@@ -350,9 +350,18 @@ export default class Server {
       if (message) {
         if (this.verbose) console.log('from client', message.type, message.args);
         this.currentClientConnection = clientConnection;
+        // performance.mark(`${message.type}-start`);
         ClientToServerProtocol[message.type](this, message.args);
+        // performance.mark(`${message.type}-end`);
+        // performance.measure(message.type, `${message.type}-start`, `${message.type}-end`);
       }
     }
+
+    // TODO stream marks somewhere, and pull in isomorphic node/browser performance.
+    // console.log(performance.getEntries());
+    // performance.clearMarks();
+    // performance.clearMeasures();
+    // performance.clearResourceTimings();
 
     for (const message of this.outboundMessages) {
       if (message.to) {
