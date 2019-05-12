@@ -21,7 +21,7 @@ interface MoveItemParams { from: TilePoint; fromSource: number; to: TilePoint; t
 const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource }) => {
   function boundsCheck(loc: TilePoint | null, source: number) {
     if (source === ItemSourceWorld) {
-      return server.world.inBounds(loc);
+      return server.world.map.inBounds(loc);
     } else {
       // No location specified.
       if (!loc) return true;
@@ -34,7 +34,7 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
 
   function getItem(loc: TilePoint, source: number) {
     if (source === ItemSourceWorld) {
-      return server.world.getItem(loc);
+      return server.world.map.getItem(loc);
     } else {
       if (!loc) return;
       return server.getContainer(source).items[loc.x];
@@ -86,18 +86,18 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
 
 type MoveParams = TilePoint;
 const move: C2S<MoveParams> = (server, pos) => {
-  if (!server.world.inBounds(pos)) {
+  if (!server.world.map.inBounds(pos)) {
     return false;
   }
 
-  if (!server.world.walkable(pos)) return false;
+  if (!server.world.map.walkable(pos)) return false;
 
-  if (server.world.getTile(pos).floor === MINE) {
+  if (server.world.map.getTile(pos).floor === MINE) {
     const container = server.currentClientConnection.container;
     const playerHasPick = container.hasItem(getMetaItemByName('Pick').id);
     if (!playerHasPick) return false;
 
-    server.world.getTile(pos).floor = 19;
+    server.world.map.getTile(pos).floor = 19;
     server.broadcast('setFloor', {
       ...pos,
       floor: 19,
@@ -139,13 +139,13 @@ const requestSector: C2S<RequestSectorParams> = (server, { x, y, z }) => {
     x,
     y,
     z,
-    tiles: server.world.getSector({ x, y, z }),
+    tiles: server.world.map.getSector({ x, y, z }),
   });
 };
 
 interface UseParams { toolIndex: number; loc: TilePoint; }
 const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
-  if (!server.world.inBounds(loc)) {
+  if (!server.world.map.inBounds(loc)) {
     return false;
   }
 
@@ -155,7 +155,7 @@ const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
   const tool = toolIndex === -1 ? { type: 0, quantity: 0 } : inventory.items[toolIndex];
   if (!tool) return;
 
-  const focus = server.world.getItem(loc) || { type: 0, quantity: 0 };
+  const focus = server.world.map.getItem(loc) || { type: 0, quantity: 0 };
 
   const uses = getItemUses(tool.type, focus.type);
   if (!uses.length) return;
@@ -180,7 +180,7 @@ const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
   }
 
   server.setItemInContainer(inventory.id, toolIndex, usageResult.tool);
-  server.world.getTile(loc).item = usageResult.focus;
+  server.world.map.getTile(loc).item = usageResult.focus;
   server.broadcast('setItem', {
     ...loc,
     source: 0,
@@ -211,14 +211,14 @@ type S2C<T> = (client: Client, data: T) => void;
 
 interface InitializeParams { creatureId: number; containerId: number; width: number; height: number; depth: number; }
 const initialize: S2C<InitializeParams> = (client, { creatureId, containerId, width, height, depth }) => {
-  client.world.init(width, height, depth);
+  client.world.map.init(width, height, depth);
   client.creatureId = creatureId;
   client.containerId = containerId;
 };
 
 type SectorParams = TilePoint & { tiles: Sector };
 const sector: S2C<SectorParams> = (client, { x, y, z, tiles }) => {
-  client.world.sectors[x][y][z] = tiles;
+  client.world.map.sectors[x][y][z] = tiles;
 
   for (const row of tiles) {
     for (const tile of row) {
@@ -236,13 +236,13 @@ const container: S2C<ContainerParams> = (client, container) => {
 
 type SetFloorParams = TilePoint & { floor: number };
 const setFloor: S2C<SetFloorParams> = (client, { x, y, z, floor }) => {
-  client.world.getTile({ x, y, z }).floor = floor;
+  client.world.map.getTile({ x, y, z }).floor = floor;
 };
 
 type SetItemParams = TilePoint & { source: number, item: Item };
 const setItem: S2C<SetItemParams> = (client, { x, y, z, source, item }) => {
   if (source === ItemSourceWorld) {
-    client.world.getTile({ x, y, z }).item = item;
+    client.world.map.getTile({ x, y, z }).item = item;
   } else {
     const container = client.world.containers.get(source);
     if (container) {
@@ -275,13 +275,13 @@ const setCreature: S2C<SetCreatureParams> = (client, { pos, id, image }) => {
 
   // Remove creature. Maybe a separate protocol?
   if (!pos) {
-    client.world.getTile(creature.pos).creature = null;
+    client.world.map.getTile(creature.pos).creature = null;
     return;
   }
 
-  client.world.getTile(creature.pos).creature = null;
+  client.world.map.getTile(creature.pos).creature = null;
   creature.pos = pos;
-  client.world.getTile(creature.pos).creature = creature;
+  client.world.map.getTile(creature.pos).creature = creature;
 };
 
 type AnimationParams = TilePoint & { key: string };

@@ -1,10 +1,20 @@
-import { ClientWorldContext } from '../context';
+import { WorldContext } from '../context';
 import mapgen from '../mapgen';
 import { ServerToClientProtocol } from '../protocol';
 import ClientConnection from '../server/clientConnection';
 import Server from '../server/server';
 import { ServerWorldContext } from '../server/serverWorldContext';
+import WorldMap from '../world-map';
 import Client from './client';
+
+function createClientWorldMap(wire: ClientToServerWire) {
+  const map = new WorldMap(0, 0, 0);
+  map.loader = (sectorPoint) => {
+    wire.send('requestSector', sectorPoint);
+    return map.createEmptySector(); // temporary until server sends something
+  };
+  return map;
+}
 
 export async function connect(client: Client, port: number): Promise<ClientToServerWire> {
   const verbose = true;
@@ -26,7 +36,7 @@ export async function connect(client: Client, port: number): Promise<ClientToSer
       p(client, args);
     },
   };
-  client.world = new ClientWorldContext(wire);
+  client.world = new WorldContext(createClientWorldMap(wire));
 
   ws.addEventListener('message', (e) => {
     const parsed = JSON.parse(e.data);
@@ -48,7 +58,7 @@ export async function connect(client: Client, port: number): Promise<ClientToSer
 interface OpenAndConnectToServerInMemoryOpts {
   dummyDelay: number;
   verbose: boolean;
-  world?: ServerWorldContext;
+  context?: ServerWorldContext;
 }
 export function openAndConnectToServerInMemory(client: Client, opts: OpenAndConnectToServerInMemoryOpts) {
   function maybeDelay(fn: () => void) {
@@ -59,9 +69,11 @@ export function openAndConnectToServerInMemory(client: Client, opts: OpenAndConn
     }
   }
 
-  const { dummyDelay, verbose, world } = opts;
-  const server = new Server({ verbose });
-  server.world = world ? world : mapgen(100, 100, 2, false);
+  const { dummyDelay, verbose, context } = opts;
+  const server = new Server({
+    context: context ? context : new ServerWorldContext(mapgen(100, 100, 2, false)),
+    verbose,
+  });
 
   const clientConnection = new ClientConnection();
   clientConnection.send = (type, args) => {
@@ -88,7 +100,7 @@ export function openAndConnectToServerInMemory(client: Client, opts: OpenAndConn
       p(client, JSON.parse(JSON.stringify(args)));
     },
   };
-  client.world = new ClientWorldContext(wire);
+  client.world = new WorldContext(createClientWorldMap(wire));
 
   server.addClient(clientConnection);
 

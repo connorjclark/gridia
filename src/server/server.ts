@@ -7,6 +7,10 @@ import ClientConnection from './clientConnection';
 import { ServerWorldContext } from './serverWorldContext';
 
 // TODO document how the f this works.
+interface CtorOpts {
+  context: ServerWorldContext;
+  verbose: boolean;
+}
 
 export default class Server {
   public world: ServerWorldContext;
@@ -60,16 +64,9 @@ export default class Server {
     tickDurationMax: 0,
   };
 
-  constructor({ verbose = false }) {
-    this.verbose = verbose;
-  }
-
-  public async save() {
-    await this.world.saveAll();
-  }
-
-  public async load(worldPath: string) {
-    this.world = await ServerWorldContext.load(worldPath);
+  constructor(opts: CtorOpts) {
+    this.world = opts.context;
+    this.verbose = opts.verbose;
   }
 
   public conditionalBroadcast(filter: (client: ClientConnection) => boolean): ServerToClientWire['send'] {
@@ -93,17 +90,18 @@ export default class Server {
     clientConnection.container.items[2] = { type: getMetaItemByName('Pick').id, quantity: 1 };
     clientConnection.container.items[3] = { type: getMetaItemByName('Plough').id, quantity: 1 };
     clientConnection.container.items[4] = { type: getMetaItemByName('Mana Plant Seeds').id, quantity: 100 };
-    this.clientConnections.push(clientConnection);
 
     clientConnection.send('initialize', {
       creatureId: clientConnection.creature.id,
       containerId: clientConnection.container.id,
-      width: this.world.width,
-      height: this.world.height,
-      depth: this.world.depth,
+      width: this.world.map.width,
+      height: this.world.map.height,
+      depth: this.world.map.depth,
     });
     clientConnection.send('setCreature', clientConnection.creature);
     clientConnection.send('container', this.getContainer(clientConnection.container.id));
+
+    this.clientConnections.push(clientConnection);
   }
 
   public removeClient(clientConnection: ClientConnection) {
@@ -135,10 +133,10 @@ export default class Server {
   }
 
   public moveCreature(creature: Creature, pos: TilePoint | null) {
-    this.world.getTile(creature.pos).creature = null;
+    this.world.map.getTile(creature.pos).creature = null;
     if (pos) {
       creature.pos = pos;
-      this.world.getTile(creature.pos).creature = creature;
+      this.world.map.getTile(creature.pos).creature = creature;
     }
     this.broadcast('setCreature', {
       id: creature.id,
@@ -154,7 +152,7 @@ export default class Server {
   }
 
   public removeCreature(creature: Creature) {
-    this.world.getTile(creature.pos).creature = null;
+    this.world.map.getTile(creature.pos).creature = null;
     delete this.world.creatures[creature.id];
     if (this.creatureStates[creature.id]) {
       delete this.creatureStates[creature.id];
@@ -175,8 +173,8 @@ export default class Server {
   public findNearest(loc: TilePoint, range: number, includeTargetLocation: boolean,
                      predicate: (tile: Tile) => boolean): TilePoint {
     const test = (l: TilePoint) => {
-      if (!this.world.inBounds(l)) return false;
-      return predicate(this.world.getTile(l));
+      if (!this.world.map.inBounds(l)) return false;
+      return predicate(this.world.map.getTile(l));
     };
 
     const x0 = loc.x;
@@ -207,7 +205,7 @@ export default class Server {
   public addItemNear(loc: TilePoint, item: Item) {
     const nearestLoc = this.findNearest(loc, 6, true, (tile) => !tile.item || tile.item.type === item.type);
     if (!nearestLoc) return; // TODO what to do in this case?
-    const nearestTile = this.world.getTile(nearestLoc);
+    const nearestTile = this.world.map.getTile(nearestLoc);
     if (nearestTile.item) {
       nearestTile.item.quantity += item.quantity;
     } else {
@@ -222,7 +220,7 @@ export default class Server {
   }
 
   public setItem(loc: TilePoint, item: Item) {
-    this.world.getTile(loc).item = item;
+    this.world.map.getTile(loc).item = item;
     this.broadcast('setItem', {
       ...loc,
       source: 0,
@@ -292,7 +290,7 @@ export default class Server {
         const newPos = {...creature.pos};
         newPos.x += Math.floor(Math.random() * 3 - 1);
         newPos.y += Math.floor(Math.random() * 3 - 1);
-        if (this.world.walkable(newPos) && maxDiff(state.home, newPos) <= 10) {
+        if (this.world.map.walkable(newPos) && maxDiff(state.home, newPos) <= 10) {
           this.moveCreature(creature, newPos);
         }
       }
@@ -303,14 +301,14 @@ export default class Server {
       const creature = state.creature;
       if (state.warped) continue;
 
-      const item = this.world.getItem(creature.pos);
+      const item = this.world.map.getItem(creature.pos);
       if (item) {
         const meta = getMetaItem(item.type);
 
         let newPos = null;
-        if (meta.class === 'Cave_down' && this.world.walkable({...creature.pos, z: creature.pos.z + 1})) {
+        if (meta.class === 'Cave_down' && this.world.map.walkable({...creature.pos, z: creature.pos.z + 1})) {
           newPos = {...creature.pos, z: creature.pos.z + 1};
-        } else if (meta.class === 'Cave_up' && this.world.walkable({...creature.pos, z: creature.pos.z - 1})) {
+        } else if (meta.class === 'Cave_up' && this.world.map.walkable({...creature.pos, z: creature.pos.z - 1})) {
           newPos = {...creature.pos, z: creature.pos.z - 1};
         }
 
@@ -324,10 +322,10 @@ export default class Server {
     // TODO: Only load part of the world in memory and simulate growth of inactive areas on load.
     if (this.nextGrowthAt <= now) {
       this.nextGrowthAt += this.growRate;
-      for (let x = 0; x < this.world.width; x++) {
-        for (let y = 0; y < this.world.height; y++) {
+      for (let x = 0; x < this.world.map.width; x++) {
+        for (let y = 0; y < this.world.map.height; y++) {
           const pos = {x, y, z: 0};
-          const item = this.world.getItem(pos);
+          const item = this.world.map.getItem(pos);
           const meta = item && getMetaItem(item.type);
           if (meta && meta.growthItem) {
             item.growth = (item.growth || 0) + 1;

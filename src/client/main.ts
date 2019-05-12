@@ -381,8 +381,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const z = getZ();
         const point = worldToTile(mouseToWorld({ x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY }));
-        if (!client.world.inBounds(point)) return;
-        const item = client.world.getItem(point);
+        if (!client.world.map.inBounds(point)) return;
+        const item = client.world.map.getItem(point);
         if (!item || !item.type) return;
 
         eventEmitter.emit('ItemMoveBegin', {
@@ -394,8 +394,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       world.on('mouseup', (e: PIXI.interaction.InteractionEvent) => {
         if (!itemMovingState) {
           const point = worldToTile(e.data.getLocalPosition(world));
-          if (client.world.inBounds(point)) {
-            client.world.getTile(point).floor = ++client.world.getTile(point).floor % 10;
+          if (client.world.map.inBounds(point)) {
+            client.world.map.getTile(point).floor = ++client.world.map.getTile(point).floor % 10;
           }
         }
 
@@ -437,7 +437,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const z = focusPos.z;
 
         if (!focusCreature) return;
-        if (!client.world.isInited()) return;
+        if (client.world.map.width === 0) return;
 
         // Draw container windows.
         for (const [id, container] of client.world.containers.entries()) {
@@ -474,7 +474,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         floorLayer.removeChildren();
         for (let x = startTileX; x <= endTileX; x++) {
           for (let y = startTileY; y <= endTileY; y++) {
-            const floor = client.world.getTile({ x, y, z }).floor;
+            const floor = client.world.map.getTile({ x, y, z }).floor;
 
             let sprite;
             if (floor === WATER) {
@@ -535,7 +535,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         itemAndCreatureLayer.removeChildren();
         for (let x = startTileX; x <= endTileX; x++) {
           for (let y = startTileY; y <= endTileY; y++) {
-            const tile = client.world.getTile({ x, y, z });
+            const tile = client.world.map.getTile({ x, y, z });
             if (tile.item) {
               const itemSprite = makeItemSprite(tile.item);
               itemSprite.x = x * 32;
@@ -599,7 +599,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         // Draw name of item under mouse.
-        const itemUnderMouse = state.mouse.tile && client.world.getItem(state.mouse.tile);
+        const itemUnderMouse = state.mouse.tile && client.world.map.getItem(state.mouse.tile);
         if (itemUnderMouse) {
           const meta = getMetaItem(itemUnderMouse.type);
           const text = itemUnderMouse.quantity === 1 ? meta.name : `${meta.name} (${itemUnderMouse.quantity})`;
@@ -771,10 +771,10 @@ function useTemplate(templateId: number, typeToMatch: number, { x, y, z }: TileP
   const yd = y - 1;
 
   function getTileOrFake(pos: TilePoint): Partial<{ floor: number }> {
-    if (!client.world.inBounds(pos)) {
+    if (!client.world.map.inBounds(pos)) {
       return { floor: typeToMatch };
     }
-    return client.world.getTile(pos);
+    return client.world.map.getTile(pos);
   }
 
   const below = getTileOrFake({ x, y: yu, z }).floor === typeToMatch;

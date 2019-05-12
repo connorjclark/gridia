@@ -3,47 +3,56 @@ import * as path from 'path';
 import Container from '../container';
 import { WorldContext } from '../context';
 import * as fs from '../iso-fs';
+import WorldMap from '../world-map';
 
 export class ServerWorldContext extends WorldContext {
-  public static async load(worldDir: string) {
-    const meta = JSON.parse(await fs.readFile(path.join(worldDir, 'meta.json'), 'utf-8'));
-    const world = new ServerWorldContext(meta.width, meta.height, meta.depth);
-    world.worldDir = worldDir;
-    world.sectorDir = path.join(worldDir, 'sectors');
-    world.containerDir = path.join(worldDir, 'containers');
+  public static async load(serverDir: string) {
+    const meta = JSON.parse(await fs.readFile(path.join(serverDir, 'meta.json'), 'utf-8'));
+    const map = new WorldMap(meta.width, meta.height, meta.depth);
+    map.loader = (sectorPoint) => {
+      return context.loadSector(sectorPoint);
+    };
+    const context = new ServerWorldContext(map);
+    context.setServerDir(serverDir);
     // TODO when to load containers? all at once here, or lazily as needed like sectors?
-    return world;
+    return context;
   }
 
-  public worldDir: string;
+  public serverDir: string;
   public sectorDir: string;
   public containerDir: string;
 
-  public load(sectorPoint: TilePoint): Sector {
+  public setServerDir(serverDir: string) {
+    this.serverDir = serverDir;
+    this.sectorDir = path.join(serverDir, 'sectors');
+    this.containerDir = path.join(serverDir, 'containers');
+  }
+
+  public loadSector(sectorPoint: TilePoint): Sector {
     return JSON.parse(fsSync.readFileSync(this.sectorPath(sectorPoint), 'utf-8'));
   }
 
-  public async save(sectorPoint: TilePoint) {
-    const sector = this.getSector(sectorPoint);
+  public async saveSector(sectorPoint: TilePoint) {
+    const sector = this.map.getSector(sectorPoint);
     const data = JSON.stringify(sector, null, 2);
     await fs.writeFile(this.sectorPath(sectorPoint), data);
   }
 
-  public async saveAll() {
+  public async save() {
     await fs.mkdir(this.sectorDir, {recursive: true});
     await fs.mkdir(this.containerDir, {recursive: true});
 
     const meta = {
-      width: this.width,
-      height: this.height,
-      depth: this.depth,
+      width: this.map.width,
+      height: this.map.height,
+      depth: this.map.depth,
     };
     await fs.writeFile(this.metaPath(), JSON.stringify(meta, null, 2));
 
-    for (let sx = 0; sx < this.sectors.length; sx++) {
-      for (let sy = 0; sy < this.sectors[0].length; sy++) {
-        for (let sz = 0; sz < this.sectors[0][0].length; sz++) {
-          await this.save({x: sx, y: sy, z: sz});
+    for (let sx = 0; sx < this.map.sectors.length; sx++) {
+      for (let sy = 0; sy < this.map.sectors[0].length; sy++) {
+        for (let sz = 0; sz < this.map.sectors[0][0].length; sz++) {
+          await this.saveSector({x: sx, y: sy, z: sz});
         }
       }
     }
@@ -55,7 +64,7 @@ export class ServerWorldContext extends WorldContext {
   }
 
   protected metaPath() {
-    return path.join(this.worldDir, 'meta.json');
+    return path.join(this.serverDir, 'meta.json');
   }
 
   protected sectorPath(sectorPoint: TilePoint) {

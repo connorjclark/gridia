@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {MINE, SECTOR_SIZE} from './constants';
 import { getMetaItemByName } from './items';
-import { ServerWorldContext } from './server/serverWorldContext';
+import WorldMap from './world-map';
 
 export default function mapgen(width: number, height: number, depth: number, bare: boolean) {
   assert.ok(width % SECTOR_SIZE === 0);
@@ -13,13 +13,13 @@ export default function mapgen(width: number, height: number, depth: number, bar
   const treeType = getMetaItemByName('Pine Tree').id;
   const flowerType = getMetaItemByName('Cut Red Rose').id;
 
-  const world = new ServerWorldContext(width, height, depth);
+  const map = new WorldMap(width, height, depth);
 
   // tslint:disable-next-line: prefer-for-of
-  for (let sx = 0; sx < world.sectors.length; sx++) {
-    for (let sy = 0; sy < world.sectors[0].length; sy++) {
-      for (let sz = 0; sz < world.sectors[0][0].length; sz++) {
-        world.sectors[sx][sy][sz] = world.createEmptySector();
+  for (let sx = 0; sx < map.sectors.length; sx++) {
+    for (let sy = 0; sy < map.sectors[0].length; sy++) {
+      for (let sz = 0; sz < map.sectors[0][0].length; sz++) {
+        map.sectors[sx][sy][sz] = map.createEmptySector();
       }
     }
   }
@@ -29,7 +29,7 @@ export default function mapgen(width: number, height: number, depth: number, bar
       for (let z = 0; z < depth; z++) {
         const loc = { x, y, z };
         if (bare) {
-          world.setTile(loc, {
+          map.setTile(loc, {
             floor: z ? MINE : 100,
             item: null,
           });
@@ -57,7 +57,7 @@ export default function mapgen(width: number, height: number, depth: number, bar
             floor = Math.random() > 0.2 ? MINE : 19;
           }
 
-          world.setTile(loc, {
+          map.setTile(loc, {
             floor,
             item,
           });
@@ -82,26 +82,26 @@ export default function mapgen(width: number, height: number, depth: number, bar
     }).slice(0, 30)) {
       const startX = 25;
       const y = i * 3;
-      world.getTile({ x: startX, y, z: 0 }).item = { type: tool, quantity: 1 };
+      map.getTile({ x: startX, y, z: 0 }).item = { type: tool, quantity: 1 };
       const focusItems = [...new Set(uses.map((u) => u.focus))];
       for (let j = 0; j < focusItems.length; j++) {
-        world.getTile({ x: startX + j + 2, y, z: 0 }).item = { type: focusItems[j], quantity: 1 };
+        map.getTile({ x: startX + j + 2, y, z: 0 }).item = { type: focusItems[j], quantity: 1 };
       }
       i++;
     }
 
     // Some stairs.
     const loc = {x: 5, y: 5, z: 0};
-    world.getTile({...loc, z: 1}).floor = world.getTile(loc).floor = 10;
-    world.getTile({...loc, z: 1}).item = {
+    map.getTile({...loc, z: 1}).floor = map.getTile(loc).floor = 10;
+    map.getTile({...loc, z: 1}).item = {
       type: getMetaItemByName('Royal Stairs Up').id,
       quantity: 1,
     };
-    world.getTile(loc).item = {
+    map.getTile(loc).item = {
       type: getMetaItemByName('Royal Stairs Down').id,
       quantity: 1,
     };
   }
 
-  return world;
+  return map;
 }

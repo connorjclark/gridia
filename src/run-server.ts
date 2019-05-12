@@ -7,6 +7,7 @@ import * as yargs from 'yargs';
 import mapgen from './mapgen';
 import ClientConnection from './server/clientConnection';
 import Server from './server/server';
+import { ServerWorldContext } from './server/serverWorldContext';
 import { randInt } from './utils';
 
 interface ServerOptions {
@@ -21,23 +22,20 @@ async function startServer(options: ServerOptions) {
   const {port, ssl, serverData} = options;
   const verbose = true;
 
+  let context: ServerWorldContext;
+  if (fs.existsSync(serverData)) {
+    context = await ServerWorldContext.load(serverData);
+  } else {
+    fs.mkdirSync(serverData);
+    context = new ServerWorldContext(mapgen(100, 100, 2, false));
+    context.setServerDir(serverData);
+    await context.save();
+  }
+
   const server = new Server({
+    context,
     verbose,
   });
-
-  if (!fs.existsSync(serverData)) {
-    fs.mkdirSync(serverData);
-  }
-
-  const worldDir = path.join(serverData, 'world');
-  if (fs.existsSync(worldDir)) {
-    await server.load(worldDir);
-  } else {
-    fs.mkdirSync(worldDir);
-    server.world = mapgen(100, 100, 2, false);
-    server.world.worldDir = worldDir;
-    await server.world.saveAll();
-  }
 
   let webserver;
   if (ssl) {
@@ -79,7 +77,7 @@ async function startServer(options: ServerOptions) {
     if (server.clientConnections.length > 0) {
       if (Object.keys(server.creatureStates).length < 5) {
         const pos = {x: randInt(0, 30), y: randInt(0, 30), z: 0};
-        if (server.world.walkable(pos)) {
+        if (server.world.map.walkable(pos)) {
           server.makeCreature(pos, randInt(0, 100), false);
         }
       }
@@ -91,7 +89,7 @@ async function startServer(options: ServerOptions) {
   }, 1000);
 
   setInterval(() => {
-    server.save();
+    server.world.save();
   }, 1000 * 60 * 5);
 
   console.log('Server started.');
