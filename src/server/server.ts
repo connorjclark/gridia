@@ -3,8 +3,8 @@ import { getMetaItem, getMetaItemByName } from '../items';
 import performance from '../performance';
 import { ClientToServerProtocol } from '../protocol';
 import { maxDiff, worldToSector } from '../utils';
-import ClientConnection from './clientConnection';
-import { ServerContext } from './serverWorldContext';
+import ClientConnection from './client-connection';
+import { ServerContext } from './server-context';
 
 // TODO document how the f this works.
 interface CtorOpts {

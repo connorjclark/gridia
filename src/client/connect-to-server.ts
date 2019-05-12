@@ -1,9 +1,9 @@
 import { Context } from '../context';
 import mapgen from '../mapgen';
 import { ServerToClientProtocol } from '../protocol';
-import ClientConnection from '../server/clientConnection';
+import ClientConnection from '../server/client-connection';
 import Server from '../server/server';
-import { ServerContext } from '../server/serverWorldContext';
+import { ServerContext } from '../server/server-context';
 import WorldMap from '../world-map';
 import Client from './client';
 

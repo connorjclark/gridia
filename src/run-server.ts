@@ -4,9 +4,9 @@ import * as https from 'https';
 import {Server as WebSocketServer} from 'ws';
 import * as yargs from 'yargs';
 import mapgen from './mapgen';
-import ClientConnection from './server/clientConnection';
+import ClientConnection from './server/client-connection';
 import Server from './server/server';
-import { ServerContext } from './server/serverWorldContext';
+import { ServerContext } from './server/server-context';
 import { randInt } from './utils';
 
 interface ServerOptions {

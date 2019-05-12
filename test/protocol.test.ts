@@ -3,12 +3,12 @@
 
 import * as assert from 'assert';
 import Client from '../src/client/client';
-import { openAndConnectToServerInMemory } from '../src/client/connectToServer';
+import { openAndConnectToServerInMemory } from '../src/client/connect-to-server';
 import { MINE } from '../src/constants';
 import { getMetaItem, getMetaItemByName } from '../src/items';
 import mapgen from '../src/mapgen';
 import Server from '../src/server/server';
-import { ServerContext } from '../src/server/serverWorldContext';
+import { ServerContext } from '../src/server/server-context';
 import { equalItems } from '../src/utils';
 
 let client: Client;

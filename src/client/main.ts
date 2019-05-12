@@ -5,7 +5,7 @@ import Container from '../container';
 import { getItemUsesForFocus, getItemUsesForProduct, getItemUsesForTool, getMetaItem } from '../items';
 import { clamp, equalPoints, worldToTile as _worldToTile } from '../utils';
 import Client from './client';
-import { connect, openAndConnectToServerInMemory } from './connectToServer';
+import { connect, openAndConnectToServerInMemory } from './connect-to-server';
 import KEYS from './keys';
 
 // pixi-sound needs to load after PIXI. The linter reorders imports in a way
