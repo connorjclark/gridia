@@ -81,7 +81,7 @@ export default class Server {
   public addClient(clientConnection: ClientConnection) {
     clientConnection.creature = this.makeCreature({ x: 5, y: 7, z: 0 }, 10, true);
 
-    clientConnection.container = this.makeContainer();
+    clientConnection.container = this.context.makeContainer();
     clientConnection.container.items[0] = { type: getMetaItemByName('Wood Axe').id, quantity: 1 };
     clientConnection.container.items[1] = { type: getMetaItemByName('Fire Starter').id, quantity: 1 };
     clientConnection.container.items[2] = { type: getMetaItemByName('Pick').id, quantity: 1 };
@@ -96,7 +96,7 @@ export default class Server {
       depth: this.context.map.depth,
     });
     clientConnection.send('setCreature', clientConnection.creature);
-    clientConnection.send('container', this.getContainer(clientConnection.container.id));
+    clientConnection.send('container', this.context.getContainer(clientConnection.container.id));
 
     this.clientConnections.push(clientConnection);
   }
@@ -155,16 +155,6 @@ export default class Server {
       delete this.creatureStates[creature.id];
     }
     // TODO broadcast removal.
-  }
-
-  public makeContainer() {
-    const container = new Container(this.context.nextContainerId++, Array(10).fill(null));
-    this.context.containers.set(container.id, container);
-    return container;
-  }
-
-  public getContainer(id: number) {
-    return this.context.containers.get(id);
   }
 
   public findNearest(loc: TilePoint, range: number, includeTargetLocation: boolean,

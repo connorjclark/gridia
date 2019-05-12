@@ -26,7 +26,7 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
       // No location specified.
       if (!loc) return true;
 
-      const container = server.getContainer(source);
+      const container = server.context.getContainer(source);
       if (!container) return false;
       return loc.x < container.items.length;
     }
@@ -37,7 +37,7 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
       return server.context.map.getItem(loc);
     } else {
       if (!loc) return;
-      return server.getContainer(source).items[loc.x];
+      return server.context.getContainer(source).items[loc.x];
     }
   }
 
@@ -125,7 +125,7 @@ const requestContainer: C2S<RequestContainerParams> = (server, { containerId }) 
   }
 
   server.currentClientConnection.registeredContainers.push(containerId);
-  server.reply('container', server.getContainer(containerId));
+  server.reply('container', server.context.getContainer(containerId));
 };
 
 type RequestSectorParams = TilePoint;

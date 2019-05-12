@@ -16,7 +16,6 @@ export class ServerContext extends Context {
     };
     const context = new ServerContext(map);
     context.setServerDir(serverDir);
-    // TODO when to load containers? all at once here, or lazily as needed like sectors?
 
     const creatures = JSON.parse(await fs.readFile(context.creaturesPath(), 'utf-8'));
     for (const creature of creatures) {
@@ -67,6 +66,23 @@ export class ServerContext extends Context {
     await fs.writeFile(this.sectorPath(sectorPoint), json);
   }
 
+  public makeContainer() {
+    const container = new Container(this.nextContainerId++, Array(10).fill(null));
+    this.containers.set(container.id, container);
+    return container;
+  }
+
+  // TODO defer to loader like sector is?
+  public getContainer(id: number) {
+    let container = this.containers.get(id);
+    if (container) return container;
+
+    // TODO handle error.
+    container = JSON.parse(fsSync.readFileSync(this.containerPath(id), 'utf-8'));
+    this.containers.set(id, container);
+    return container;
+  }
+
   public async save() {
     await fs.mkdir(this.sectorDir, {recursive: true});
     await fs.mkdir(this.containerDir, {recursive: true});
@@ -90,7 +106,7 @@ export class ServerContext extends Context {
 
     for (const container of this.containers.values()) {
       const json = JSON.stringify(container.items, null, 2);
-      await fs.writeFile(this.containerPath(container), json);
+      await fs.writeFile(this.containerPath(container.id), json);
     }
 
     await fs.writeFile(this.creaturesPath(), JSON.stringify([...this.creatures.values()], null, 2));
@@ -108,7 +124,7 @@ export class ServerContext extends Context {
     return path.join(this.sectorDir, `${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}.json`);
   }
 
-  protected containerPath(container: Container) {
-    return path.join(this.containerDir, `${container.id}.json`);
+  protected containerPath(id: number) {
+    return path.join(this.containerDir, `${id}.json`);
   }
 }

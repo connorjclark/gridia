@@ -53,7 +53,7 @@ function setItem(location: TilePoint, item: Item) {
 }
 
 function setItemInContainer(id: number, index: number, item: Item) {
-  server.getContainer(id).items[index] = clone(item);
+  server.context.getContainer(id).items[index] = clone(item);
   client.context.containers.get(id).items[index] = clone(item);
 }
 
@@ -74,7 +74,7 @@ function assertItemInWorldNear(location: TilePoint, item: Item) {
 }
 
 function assertItemInContainer(containerId: number, index: number, item: Item) {
-  expect(server.getContainer(containerId).items[index]).toEqual(item);
+  expect(server.context.getContainer(containerId).items[index]).toEqual(item);
   expect(client.context.containers.get(containerId).items[index]).toEqual(item);
 }
 
@@ -223,7 +223,7 @@ describe('moveItem', () => {
     const from = { x: 0, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
-    const container = server.makeContainer();
+    const container = server.context.makeContainer();
     wire.send('requestContainer', { containerId: container.id });
 
     wire.send('moveItem', {
@@ -241,7 +241,7 @@ describe('moveItem', () => {
     const from = { x: 0, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
-    const container = server.makeContainer();
+    const container = server.context.makeContainer();
     container.items[0] = { type: 2, quantity: 1 };
     container.items[1] = { type: 2, quantity: 1 };
     container.items[3] = { type: 2, quantity: 1 };
@@ -262,7 +262,7 @@ describe('moveItem', () => {
     const from = { x: 0, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
-    const container = server.makeContainer();
+    const container = server.context.makeContainer();
     container.items[0] = { type: 2, quantity: 1 };
     container.items[1] = { type: 2, quantity: 1 };
     container.items[2] = { type: 1, quantity: 2 };
