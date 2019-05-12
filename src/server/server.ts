@@ -1,8 +1,9 @@
 import Container from '../container';
 import { getMetaItem, getMetaItemByName } from '../items';
 import performance from '../performance';
+import Player from '../player';
 import { ClientToServerProtocol } from '../protocol';
-import { maxDiff, worldToSector } from '../utils';
+import { maxDiff, randInt, worldToSector } from '../utils';
 import ClientConnection from './client-connection';
 import { ServerContext } from './server-context';
 
@@ -78,8 +79,20 @@ export default class Server {
     }
   }
 
+  public async save() {
+    for (const clientConnection of this.clientConnections) {
+      await this.context.savePlayer(clientConnection.player);
+    }
+    await this.context.save();
+  }
+
   public addClient(clientConnection: ClientConnection) {
-    clientConnection.creature = this.makeCreature({ x: 5, y: 7, z: 0 }, 10, true);
+    // TODO register/login.
+    const player = new Player();
+    player.id = this.context.nextPlayerId++;
+    const startingLoc = {x: randInt(0, 10), y: randInt(0, 10), z: 0};
+    player.creature = this.makeCreature(startingLoc, randInt(0, 10), true);
+    clientConnection.player = player;
 
     clientConnection.container = this.context.makeContainer();
     clientConnection.container.items[0] = { type: getMetaItemByName('Wood Axe').id, quantity: 1 };
@@ -89,13 +102,13 @@ export default class Server {
     clientConnection.container.items[4] = { type: getMetaItemByName('Mana Plant Seeds').id, quantity: 100 };
 
     clientConnection.send('initialize', {
-      creatureId: clientConnection.creature.id,
+      creatureId: player.creature.id,
       containerId: clientConnection.container.id,
       width: this.context.map.width,
       height: this.context.map.height,
       depth: this.context.map.depth,
     });
-    clientConnection.send('setCreature', clientConnection.creature);
+    clientConnection.send('setCreature', player.creature);
     clientConnection.send('container', this.context.getContainer(clientConnection.container.id));
 
     this.clientConnections.push(clientConnection);
@@ -103,7 +116,7 @@ export default class Server {
 
   public removeClient(clientConnection: ClientConnection) {
     this.clientConnections.splice(this.clientConnections.indexOf(clientConnection), 1);
-    this.moveCreature(clientConnection.creature, null);
+    this.moveCreature(clientConnection.player.creature, null);
   }
 
   public consumeAllMessages() {

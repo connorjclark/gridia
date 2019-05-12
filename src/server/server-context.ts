@@ -4,6 +4,7 @@ import { SECTOR_SIZE } from '../constants';
 import Container from '../container';
 import { Context } from '../context';
 import * as fs from '../iso-fs';
+import Player from '../player';
 import { equalPoints, worldToSector } from '../utils';
 import WorldMap from '../world-map';
 
@@ -23,23 +24,27 @@ export class ServerContext extends Context {
       // Purposefully do not set creature on tile, as that would load the sector.
     }
 
-    context.nextCreatureId = meta.nextCreatureId;
     context.nextContainerId = meta.nextContainerId;
+    context.nextCreatureId = meta.nextCreatureId;
+    context.nextPlayerId = meta.nextPlayerId;
 
     return context;
   }
 
   public nextContainerId = 1;
   public nextCreatureId = 1;
+  public nextPlayerId = 1;
 
   public serverDir: string;
-  public sectorDir: string;
   public containerDir: string;
+  public playerDir: string;
+  public sectorDir: string;
 
   public setServerDir(serverDir: string) {
     this.serverDir = serverDir;
-    this.sectorDir = path.join(serverDir, 'sectors');
     this.containerDir = path.join(serverDir, 'containers');
+    this.playerDir = path.join(serverDir, 'players');
+    this.sectorDir = path.join(serverDir, 'sectors');
   }
 
   public loadSector(sectorPoint: TilePoint): Sector {
@@ -66,6 +71,15 @@ export class ServerContext extends Context {
     await fs.writeFile(this.sectorPath(sectorPoint), json);
   }
 
+  public async savePlayer(player: Player) {
+    const data = {
+      id: player.id,
+      creature: player.creature,
+    };
+    const json = JSON.stringify(data, null, 2);
+    await fs.writeFile(this.playerPath(player.id), json);
+  }
+
   public makeContainer() {
     const container = new Container(this.nextContainerId++, Array(10).fill(null));
     this.containers.set(container.id, container);
@@ -84,8 +98,9 @@ export class ServerContext extends Context {
   }
 
   public async save() {
-    await fs.mkdir(this.sectorDir, {recursive: true});
     await fs.mkdir(this.containerDir, {recursive: true});
+    await fs.mkdir(this.playerDir, {recursive: true});
+    await fs.mkdir(this.sectorDir, {recursive: true});
 
     const meta = {
       width: this.map.width,
@@ -93,6 +108,7 @@ export class ServerContext extends Context {
       depth: this.map.depth,
       nextContainerId: this.nextContainerId,
       nextCreatureId: this.nextCreatureId,
+      nextPlayerId: this.nextPlayerId,
     };
     await fs.writeFile(this.metaPath(), JSON.stringify(meta, null, 2));
 
@@ -126,5 +142,9 @@ export class ServerContext extends Context {
 
   protected containerPath(id: number) {
     return path.join(this.containerDir, `${id}.json`);
+  }
+
+  protected playerPath(id: number) {
+    return path.join(this.playerDir, `${id}.json`);
   }
 }

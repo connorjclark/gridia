@@ -1,9 +1,10 @@
 import Container from '../container';
+import Player from '../player';
 
 export default class ClientConnection {
   public messageQueue: any[] = [];
 
-  public creature: Creature;
+  public player: Player;
 
   public container: Container;
 

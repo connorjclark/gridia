@@ -113,7 +113,7 @@ const move: C2S<MoveParams> = (server, pos) => {
   //   return false
   // }
 
-  const creature = server.currentClientConnection.creature;
+  const creature = server.currentClientConnection.player.creature;
   server.moveCreature(creature, pos);
 };
 
@@ -149,7 +149,6 @@ const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
     return false;
   }
 
-  const creature = server.currentClientConnection.creature;
   const inventory = server.currentClientConnection.container;
   // If -1, use an item that represents "Hand".
   const tool = toolIndex === -1 ? { type: 0, quantity: 0 } : inventory.items[toolIndex];

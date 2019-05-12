@@ -87,8 +87,8 @@ async function startServer(options: ServerOptions) {
     }
   }, 1000);
 
-  setInterval(() => {
-    server.context.save();
+  setInterval(async () => {
+    await server.save();
   }, 1000 * 60 * 5);
 
   console.log('Server started.');
