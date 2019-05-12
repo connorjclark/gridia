@@ -22,6 +22,7 @@ export default class Server {
     filter?: (client: ClientConnection) => boolean,
   }>;
   public currentClientConnection: ClientConnection;
+  // State that clients don't need and shouldn't have.
   public creatureStates: Record<number, {
     creature: Creature;
     isPlayer: boolean;
@@ -46,15 +47,11 @@ export default class Server {
     });
   }) as ServerToClientWire['send'];
 
-  public nextCreatureId = 1;
-
-  public nextContainerId = 1;
-
   public verbose: boolean;
 
   // RPGWO does 20 second intervals.
   private growRate = 20 * 1000;
-  private nextGrowthAt = new Date().getTime() + this.growRate;
+  private nextGrowthAt = performance.now() + this.growRate;
 
   private ticks = 0;
 
@@ -117,7 +114,7 @@ export default class Server {
 
   public makeCreature(pos: TilePoint, image: number, isPlayer: boolean): Creature {
     const creature = {
-      id: this.nextCreatureId++,
+      id: this.context.nextCreatureId++,
       image,
       pos,
     };
@@ -161,7 +158,7 @@ export default class Server {
   }
 
   public makeContainer() {
-    const container = new Container(this.nextContainerId++, Array(10).fill(null));
+    const container = new Container(this.context.nextContainerId++, Array(10).fill(null));
     this.context.containers.set(container.id, container);
     return container;
   }

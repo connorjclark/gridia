@@ -3,7 +3,7 @@ import WorldMap from './world-map';
 
 export class Context {
   public map: WorldMap;
-  public creatures: Record<number, Creature> = {};
+  public creatures: Map<number, Creature> = new Map();
   public containers: Map<number, Container> = new Map();
 
   constructor(map: WorldMap) {
@@ -12,11 +12,11 @@ export class Context {
 
   // TODO how to handle when creature does not exist?
   public getCreature(id: number): Creature {
-    return this.creatures[id];
+    return this.creatures.get(id);
   }
 
   public setCreature(creature: Creature) {
-    this.creatures[creature.id] = creature;
+    this.creatures.set(creature.id, creature);
     this.map.getTile(creature.pos).creature = creature;
   }
 }

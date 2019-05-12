@@ -34,7 +34,6 @@ beforeEach(() => {
     server.consumeAllMessages();
   };
 
-  // TOOD make mock.
   // @ts-ignore
   // tslint:disable-next-line: no-empty
   client.PIXISound = {play: () => {}, exists: () => false};
