@@ -1,7 +1,7 @@
 import Container from './container';
 import WorldMap from './world-map';
 
-export class WorldContext {
+export class Context {
   public map: WorldMap;
   public creatures: Record<number, Creature> = {};
   public containers: Map<number, Container> = new Map();

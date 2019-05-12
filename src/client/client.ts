@@ -1,4 +1,4 @@
-import { WorldContext } from '../context';
+import { Context } from '../context';
 
 class Client {
   public PIXI: typeof import('pixi.js');
@@ -6,7 +6,7 @@ class Client {
   // TODO: keep references instead?
   public creatureId: number;
   public containerId: number;
-  public world: WorldContext;
+  public context: Context;
 }
 
 export default Client;

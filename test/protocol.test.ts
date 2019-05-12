@@ -8,7 +8,7 @@ import { MINE } from '../src/constants';
 import { getMetaItem, getMetaItemByName } from '../src/items';
 import mapgen from '../src/mapgen';
 import Server from '../src/server/server';
-import { ServerWorldContext } from '../src/server/serverWorldContext';
+import { ServerContext } from '../src/server/serverWorldContext';
 import { equalItems } from '../src/utils';
 
 let client: Client;
@@ -22,7 +22,7 @@ beforeEach(() => {
   const serverAndWire = openAndConnectToServerInMemory(client, {
     dummyDelay: 0,
     verbose: false,
-    context: new ServerWorldContext(mapgen(20, 20, 1, true)),
+    context: new ServerContext(mapgen(20, 20, 1, true)),
   });
   wire = serverAndWire.clientToServerWire;
   server = serverAndWire.server;
@@ -40,7 +40,7 @@ beforeEach(() => {
   client.PIXISound = {play: () => {}, exists: () => false};
 
   // Make client make initial request for the sector, so that partial updates are tested later.
-  client.world.map.getTile({x: 0, y: 0, z: 0});
+  client.context.map.getTile({x: 0, y: 0, z: 0});
   server.consumeAllMessages();
 });
 
@@ -49,52 +49,52 @@ function clone<T>(obj: T): T {
 }
 
 function setItem(location: TilePoint, item: Item) {
-  server.world.map.getTile(location).item = clone(item);
-  client.world.map.getTile(location).item = clone(item);
+  server.context.map.getTile(location).item = clone(item);
+  client.context.map.getTile(location).item = clone(item);
 }
 
 function setItemInContainer(id: number, index: number, item: Item) {
   server.getContainer(id).items[index] = clone(item);
-  client.world.containers.get(id).items[index] = clone(item);
+  client.context.containers.get(id).items[index] = clone(item);
 }
 
 function setFloor(location: TilePoint, floor: number) {
-  server.world.map.getTile(location).floor = floor;
-  client.world.map.getTile(location).floor = floor;
+  server.context.map.getTile(location).floor = floor;
+  client.context.map.getTile(location).floor = floor;
 }
 
 function assertItemInWorld(location: TilePoint, item: Item) {
-  expect(server.world.map.getItem(location)).toEqual(item);
-  expect(client.world.map.getItem(location)).toEqual(item);
+  expect(server.context.map.getItem(location)).toEqual(item);
+  expect(client.context.map.getItem(location)).toEqual(item);
 }
 
 function assertItemInWorldNear(location: TilePoint, item: Item) {
   const point = server.findNearest(location, 10, true, (tile) => equalItems(tile.item, item));
   assert(point);
-  expect(client.world.map.getItem(point)).toEqual(item);
+  expect(client.context.map.getItem(point)).toEqual(item);
 }
 
 function assertItemInContainer(containerId: number, index: number, item: Item) {
   expect(server.getContainer(containerId).items[index]).toEqual(item);
-  expect(client.world.containers.get(containerId).items[index]).toEqual(item);
+  expect(client.context.containers.get(containerId).items[index]).toEqual(item);
 }
 
 function assertCreatureAt(location: TilePoint, creatureId: number) {
   let creature;
 
-  creature = server.world.getCreature(creatureId);
+  creature = server.context.getCreature(creatureId);
   expect(creature.pos).toEqual(location);
-  expect(server.world.map.getTile(location).creature).toEqual(creature);
+  expect(server.context.map.getTile(location).creature).toEqual(creature);
 
-  creature = client.world.getCreature(creatureId);
+  creature = client.context.getCreature(creatureId);
   expect(creature.pos).toEqual(location);
-  expect(client.world.map.getTile(location).creature).toEqual(creature);
+  expect(client.context.map.getTile(location).creature).toEqual(creature);
 }
 
 describe('move', () => {
   let creature;
   beforeEach(() => {
-    creature = server.world.getCreature(client.creatureId);
+    creature = server.context.getCreature(client.creatureId);
     server.moveCreature(creature, {x: 5, y: 5, z: 0});
     server.consumeAllMessages();
   });

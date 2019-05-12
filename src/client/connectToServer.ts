@@ -1,9 +1,9 @@
-import { WorldContext } from '../context';
+import { Context } from '../context';
 import mapgen from '../mapgen';
 import { ServerToClientProtocol } from '../protocol';
 import ClientConnection from '../server/clientConnection';
 import Server from '../server/server';
-import { ServerWorldContext } from '../server/serverWorldContext';
+import { ServerContext } from '../server/serverWorldContext';
 import WorldMap from '../world-map';
 import Client from './client';
 
@@ -36,7 +36,7 @@ export async function connect(client: Client, port: number): Promise<ClientToSer
       p(client, args);
     },
   };
-  client.world = new WorldContext(createClientWorldMap(wire));
+  client.context = new Context(createClientWorldMap(wire));
 
   ws.addEventListener('message', (e) => {
     const parsed = JSON.parse(e.data);
@@ -58,7 +58,7 @@ export async function connect(client: Client, port: number): Promise<ClientToSer
 interface OpenAndConnectToServerInMemoryOpts {
   dummyDelay: number;
   verbose: boolean;
-  context?: ServerWorldContext;
+  context?: ServerContext;
 }
 export function openAndConnectToServerInMemory(client: Client, opts: OpenAndConnectToServerInMemoryOpts) {
   function maybeDelay(fn: () => void) {
@@ -71,7 +71,7 @@ export function openAndConnectToServerInMemory(client: Client, opts: OpenAndConn
 
   const { dummyDelay, verbose, context } = opts;
   const server = new Server({
-    context: context ? context : new ServerWorldContext(mapgen(100, 100, 2, false)),
+    context: context ? context : new ServerContext(mapgen(100, 100, 2, false)),
     verbose,
   });
 
@@ -100,7 +100,7 @@ export function openAndConnectToServerInMemory(client: Client, opts: OpenAndConn
       p(client, JSON.parse(JSON.stringify(args)));
     },
   };
-  client.world = new WorldContext(createClientWorldMap(wire));
+  client.context = new Context(createClientWorldMap(wire));
 
   server.addClient(clientConnection);
 

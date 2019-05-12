@@ -7,7 +7,7 @@ import * as yargs from 'yargs';
 import mapgen from './mapgen';
 import ClientConnection from './server/clientConnection';
 import Server from './server/server';
-import { ServerWorldContext } from './server/serverWorldContext';
+import { ServerContext } from './server/serverWorldContext';
 import { randInt } from './utils';
 
 interface ServerOptions {
@@ -22,12 +22,12 @@ async function startServer(options: ServerOptions) {
   const {port, ssl, serverData} = options;
   const verbose = true;
 
-  let context: ServerWorldContext;
+  let context: ServerContext;
   if (fs.existsSync(serverData)) {
-    context = await ServerWorldContext.load(serverData);
+    context = await ServerContext.load(serverData);
   } else {
     fs.mkdirSync(serverData);
-    context = new ServerWorldContext(mapgen(100, 100, 2, false));
+    context = new ServerContext(mapgen(100, 100, 2, false));
     context.setServerDir(serverData);
     await context.save();
   }
@@ -77,7 +77,7 @@ async function startServer(options: ServerOptions) {
     if (server.clientConnections.length > 0) {
       if (Object.keys(server.creatureStates).length < 5) {
         const pos = {x: randInt(0, 30), y: randInt(0, 30), z: 0};
-        if (server.world.map.walkable(pos)) {
+        if (server.context.map.walkable(pos)) {
           server.makeCreature(pos, randInt(0, 100), false);
         }
       }
@@ -89,7 +89,7 @@ async function startServer(options: ServerOptions) {
   }, 1000);
 
   setInterval(() => {
-    server.world.save();
+    server.context.save();
   }, 1000 * 60 * 5);
 
   console.log('Server started.');

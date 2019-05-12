@@ -1,18 +1,18 @@
 import * as fsSync from 'fs';
 import * as path from 'path';
 import Container from '../container';
-import { WorldContext } from '../context';
+import { Context } from '../context';
 import * as fs from '../iso-fs';
 import WorldMap from '../world-map';
 
-export class ServerWorldContext extends WorldContext {
+export class ServerContext extends Context {
   public static async load(serverDir: string) {
     const meta = JSON.parse(await fs.readFile(path.join(serverDir, 'meta.json'), 'utf-8'));
     const map = new WorldMap(meta.width, meta.height, meta.depth);
     map.loader = (sectorPoint) => {
       return context.loadSector(sectorPoint);
     };
-    const context = new ServerWorldContext(map);
+    const context = new ServerContext(map);
     context.setServerDir(serverDir);
     // TODO when to load containers? all at once here, or lazily as needed like sectors?
     return context;
