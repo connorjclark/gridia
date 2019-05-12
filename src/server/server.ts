@@ -23,9 +23,9 @@ export default class Server {
   }>;
   public currentClientConnection: ClientConnection;
   // State that clients don't need and shouldn't have.
+  // Also isn't serialized - this state is transient.
   public creatureStates: Record<number, {
     creature: Creature;
-    isPlayer: boolean;
     lastMove: number;
     // True if last movement was a warp. Prevents infinite stairs.
     warped: boolean;
@@ -94,7 +94,8 @@ export default class Server {
       name: 'Player',
       pos: {x: randInt(0, 10), y: randInt(0, 10), z: 0},
       image: randInt(0, 10),
-    }, true);
+      isPlayer: true,
+    });
     clientConnection.player = player;
 
     clientConnection.container = this.context.makeContainer();
@@ -136,16 +137,16 @@ export default class Server {
       image: template.image,
       name: template.name,
       pos,
+      isPlayer: false,
     };
 
-    this.registerCreature(creature, false);
+    this.registerCreature(creature);
     return creature;
   }
 
-  public registerCreature(creature: Creature, isPlayer: boolean): Creature {
+  public registerCreature(creature: Creature): Creature {
     this.creatureStates[creature.id] = {
       creature,
-      isPlayer,
       lastMove: performance.now(),
       warped: false,
       home: creature.pos,
@@ -290,8 +291,8 @@ export default class Server {
 
     // Handle creatures.
     for (const state of Object.values(this.creatureStates)) {
-      if (state.isPlayer) continue;
       const {creature} = state;
+      if (creature.isPlayer) continue;
 
       if (now - state.lastMove > 3000) {
         state.lastMove = now;

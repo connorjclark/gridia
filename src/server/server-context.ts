@@ -7,14 +7,12 @@ import * as fs from '../iso-fs';
 import Player from '../player';
 import { equalPoints, worldToSector } from '../utils';
 import WorldMap from '../world-map';
+import Server from './server';
 
 export class ServerContext extends Context {
   public static async load(serverDir: string) {
     const meta = JSON.parse(await fs.readFile(path.join(serverDir, 'meta.json'), 'utf-8'));
     const map = new WorldMap(meta.width, meta.height, meta.depth);
-    map.loader = (sectorPoint) => {
-      return context.loadSector(sectorPoint);
-    };
     const context = new ServerContext(map);
     context.setServerDir(serverDir);
 
@@ -47,16 +45,19 @@ export class ServerContext extends Context {
     this.sectorDir = path.join(serverDir, 'sectors');
   }
 
-  public loadSector(sectorPoint: TilePoint): Sector {
+  public loadSector(server: Server, sectorPoint: TilePoint): Sector {
     const sector: Sector = JSON.parse(fsSync.readFileSync(this.sectorPath(sectorPoint), 'utf-8'));
 
     // Set creatures (all of which are always loaded in memory) to the sector (of which only active areas are loaded).
     // Kinda lame, I guess.
-    for (const creature of this.creatures.values()) {
-      if (equalPoints(sectorPoint, worldToSector(creature.pos, SECTOR_SIZE))) {
-        sector[creature.pos.x % SECTOR_SIZE][creature.pos.y % SECTOR_SIZE].creature = creature;
+    // Run on next tick, so that loadSector is not called recursively.
+    setImmediate(() => {
+      for (const creature of this.creatures.values()) {
+        if (equalPoints(sectorPoint, worldToSector(creature.pos, SECTOR_SIZE))) {
+          server.registerCreature(creature);
+        }
       }
-    }
+    });
 
     return sector;
   }
@@ -125,7 +126,9 @@ export class ServerContext extends Context {
       await fs.writeFile(this.containerPath(container.id), json);
     }
 
-    await fs.writeFile(this.creaturesPath(), JSON.stringify([...this.creatures.values()], null, 2));
+    // Player creatures are transient (new creature made for each login), so don't bother saving them.
+    const npcs = [...this.creatures.values()].filter((c) => !c.isPlayer);
+    await fs.writeFile(this.creaturesPath(), JSON.stringify(npcs, null, 2));
   }
 
   protected metaPath() {

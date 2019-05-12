@@ -28,6 +28,7 @@ interface Creature {
   image: number;
   name: string;
   pos: TilePoint;
+  isPlayer: boolean;
 }
 
 interface ProtocolDef<T> {

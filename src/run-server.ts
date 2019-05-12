@@ -36,6 +36,11 @@ async function startServer(options: ServerOptions) {
     verbose,
   });
 
+  // This cyclical dependency between Server and WorldMap could be improved.
+  context.map.loader = (sectorPoint) => {
+    return context.loadSector(server, sectorPoint);
+  };
+
   let webserver;
   if (ssl) {
     webserver = https.createServer({
