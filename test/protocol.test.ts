@@ -286,7 +286,7 @@ describe('use', () => {
 
   beforeEach(() => {
     assert(server.clientConnections[0]);
-    container = server.getContainer(server.clientConnections[0].creature.containerId);
+    container = server.clientConnections[0].container;
     // TODO don't rely on this hardcoded.
     assert.equal(getMetaItemByName('Wood Axe').id, container.items[0].type);
     assert.equal(getMetaItemByName('Mana Plant Seeds').id, container.items[4].type);
