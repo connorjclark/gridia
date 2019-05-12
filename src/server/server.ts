@@ -1,5 +1,4 @@
-import Container from '../container';
-import { getMetaItem, getMetaItemByName } from '../items';
+import { getMetaItem, getMetaItemByName, getMonsterTemplate } from '../items';
 import performance from '../performance';
 import Player from '../player';
 import { ClientToServerProtocol } from '../protocol';
@@ -90,8 +89,12 @@ export default class Server {
     // TODO register/login.
     const player = new Player();
     player.id = this.context.nextPlayerId++;
-    const startingLoc = {x: randInt(0, 10), y: randInt(0, 10), z: 0};
-    player.creature = this.makeCreature(startingLoc, randInt(0, 10), true);
+    player.creature = this.registerCreature({
+      id: this.context.nextCreatureId++,
+      name: 'Player',
+      pos: {x: randInt(0, 10), y: randInt(0, 10), z: 0},
+      image: randInt(0, 10),
+    }, true);
     clientConnection.player = player;
 
     clientConnection.container = this.context.makeContainer();
@@ -125,18 +128,27 @@ export default class Server {
     }
   }
 
-  public makeCreature(pos: TilePoint, image: number, isPlayer: boolean): Creature {
+  public makeCreatureFromTemplate(creatureType: number, pos: TilePoint): Creature {
+    const template = getMonsterTemplate(creatureType);
+
     const creature = {
       id: this.context.nextCreatureId++,
-      image,
+      image: template.image,
+      name: template.name,
       pos,
     };
+
+    this.registerCreature(creature, false);
+    return creature;
+  }
+
+  public registerCreature(creature: Creature, isPlayer: boolean): Creature {
     this.creatureStates[creature.id] = {
       creature,
       isPlayer,
       lastMove: performance.now(),
       warped: false,
-      home: pos,
+      home: creature.pos,
     };
     this.context.setCreature(creature);
     return creature;
@@ -148,11 +160,7 @@ export default class Server {
       creature.pos = pos;
       this.context.map.getTile(creature.pos).creature = creature;
     }
-    this.broadcast('setCreature', {
-      id: creature.id,
-      pos,
-      image: creature.image,
-    });
+    this.broadcast('setCreature', creature);
     this.creatureStates[creature.id].warped = false;
   }
 

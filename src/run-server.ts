@@ -77,7 +77,7 @@ async function startServer(options: ServerOptions) {
       if (Object.keys(server.creatureStates).length < 5) {
         const pos = {x: randInt(0, 30), y: randInt(0, 30), z: 0};
         if (server.context.map.walkable(pos)) {
-          server.makeCreature(pos, randInt(0, 100), false);
+          server.makeCreatureFromTemplate(randInt(1, 100), pos);
         }
       }
     } else {

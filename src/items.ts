@@ -1,6 +1,7 @@
 const items: Array<MetaItem | null> = require('../world/content/items.json');
 const itemUses: ItemUse[] = require('../world/content/itemuses.json');
 const animations: Animation[] = require('../world/content/animations.json');
+const monsters: Monster[] = require('../world/content/monsters.json');
 
 for (const use of itemUses) {
   if (use.focusQuantityConsumed === undefined) {
@@ -94,4 +95,8 @@ export function getRandomMetaItemOfClass(itemClass: MetaItem['class']) {
 
 export function getAnimation(key: string) {
   return animations.find((a) => a.name === key);
+}
+
+export function getMonsterTemplate(id: number) {
+  return monsters[id];
 }

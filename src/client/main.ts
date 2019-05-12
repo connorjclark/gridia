@@ -544,7 +544,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             if (tile.creature) {
-              player.sprite = new PIXI.Sprite(getTexture.creatures(tile.creature.image));
+              // TODO get more player images. (% 100)
+              player.sprite = new PIXI.Sprite(getTexture.creatures(tile.creature.image % 100));
               player.sprite.x = x * 32;
               player.sprite.y = y * 32;
               itemAndCreatureLayer.addChild(player.sprite);

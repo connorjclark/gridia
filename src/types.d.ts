@@ -26,6 +26,7 @@ interface Item {
 interface Creature {
   id: number;
   image: number;
+  name: string;
   pos: TilePoint;
 }
 
@@ -86,4 +87,10 @@ interface Animation {
   frames: Array<{
     sound: string;
   }>;
+}
+
+interface Monster {
+  id: number;
+  name: string;
+  image: number;
 }

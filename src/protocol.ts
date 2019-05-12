@@ -250,37 +250,43 @@ const setItem: S2C<SetItemParams> = (client, { x, y, z, source, item }) => {
   }
 };
 
-// TODO make all but id optional
-type SetCreatureParams = Partial<Creature>;
-const setCreature: S2C<SetCreatureParams> = (client, { pos, id, image }) => {
-  let creature = client.context.getCreature(id);
-
+// TODO optimize for partial updates. For now, every change (including movement)
+// includes all data for the creature.
+// type SetCreatureParams = Partial<Creature>;
+type SetCreatureParams = Creature;
+const setCreature: S2C<SetCreatureParams> = (client, creatureUpdate) => {
+  const creature = client.context.getCreature(creatureUpdate.id);
   if (!creature) {
-    if (id) {
-      client.context.setCreature(creature = {
-        id,
-        image,
-        pos,
-      });
-    } else {
-      // TODO get from server
-      client.context.setCreature(creature = {
-        id,
-        image,
-        pos,
-      });
-    }
-  }
-
-  // Remove creature. Maybe a separate protocol?
-  if (!pos) {
-    client.context.map.getTile(creature.pos).creature = null;
+    client.context.setCreature(creatureUpdate);
     return;
   }
 
-  client.context.map.getTile(creature.pos).creature = null;
-  creature.pos = pos;
-  client.context.map.getTile(creature.pos).creature = creature;
+  const previousPos = creature.pos;
+
+  if (creatureUpdate.pos && !equalPoints(previousPos, creatureUpdate.pos)) {
+    client.context.map.getTile(previousPos).creature = null;
+    client.context.setCreature(creatureUpdate);
+  }
+
+  // WIP partial update needs work.
+  // const id = creatureUpdate.id;
+  // const creature = client.context.getCreature(id);
+
+  // if (!creature) {
+  //   // @ts-ignore
+  //   client.context.setCreature(creatureUpdate);
+  //   return;
+  // }
+
+  // const prevPos = creature.pos;
+
+  // // Move.
+  // if (creatureUpdate.pos && !equalPoints(prevPos, creatureUpdate.pos)) {
+  //   client.context.map.getTile(prevPos).creature = null;
+  //   client.context.map.getTile(creatureUpdate.pos).creature = creature;
+  // }
+
+  // Object.assign(creature, creatureUpdate);
 };
 
 type AnimationParams = TilePoint & { key: string };

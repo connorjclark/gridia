@@ -1,4 +1,4 @@
-// Because parcel does not support extenals.
+// Because parcel does not support externals.
 // https://github.com/parcel-bundler/parcel/issues/144
 
 let performance: typeof window.performance;
