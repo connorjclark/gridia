@@ -6,7 +6,8 @@ StartLimitIntervalSec=0
 [Service]
 ExecStart=/usr/bin/node /root/gridia/gridia-2019-wip/dist/server/run-server.js \
             --ssl-cert /etc/letsencrypt/live/hoten.cc/fullchain.pem \
-            --ssl-key /etc/letsencrypt/live/hoten.cc/privkey.pem
+            --ssl-key /etc/letsencrypt/live/hoten.cc/privkey.pem \
+            --verbose
 Restart=always
 RestartSec=1
 Environment=PATH=/usr/bin:/usr/local/bin

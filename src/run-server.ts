@@ -17,10 +17,10 @@ interface ServerOptions {
     key: string;
   };
   serverData: string;
+  verbose: boolean;
 }
 async function startServer(options: ServerOptions) {
-  const {port, ssl, serverData} = options;
-  const verbose = true;
+  const {port, ssl, serverData, verbose} = options;
 
   let context: ServerContext;
   if (fs.existsSync(serverData)) {
@@ -100,6 +100,7 @@ const argv = yargs
   .default('port', 9001)
   .string('sslCert')
   .string('sslKey')
+  .default('verbose', false)
   .default('serverData', 'server-data')
   .parse();
 
