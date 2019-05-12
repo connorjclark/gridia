@@ -17,5 +17,8 @@ systemctl daemon-reload
 # Register service to run on bootup.
 systemctl enable gridia
 
+# Delete world.
+rm -rf /root/gridia/gridia-2019-wip/server-data
+
 # Restart.
 systemctl restart gridia
