@@ -86,16 +86,24 @@ export default class Server {
 
   public addClient(clientConnection: ClientConnection) {
     clientConnection.creature = this.makeCreature({ x: 5, y: 7, z: 0 }, 10, true);
+
+    clientConnection.container = this.makeContainer();
+    clientConnection.container.items[0] = { type: getMetaItemByName('Wood Axe').id, quantity: 1 };
+    clientConnection.container.items[1] = { type: getMetaItemByName('Fire Starter').id, quantity: 1 };
+    clientConnection.container.items[2] = { type: getMetaItemByName('Pick').id, quantity: 1 };
+    clientConnection.container.items[3] = { type: getMetaItemByName('Plough').id, quantity: 1 };
+    clientConnection.container.items[4] = { type: getMetaItemByName('Mana Plant Seeds').id, quantity: 100 };
     this.clientConnections.push(clientConnection);
 
     clientConnection.send('initialize', {
       creatureId: clientConnection.creature.id,
+      containerId: clientConnection.container.id,
       width: this.world.width,
       height: this.world.height,
       depth: this.world.depth,
     });
     clientConnection.send('setCreature', clientConnection.creature);
-    clientConnection.send('container', this.getContainer(clientConnection.creature.containerId));
+    clientConnection.send('container', this.getContainer(clientConnection.container.id));
   }
 
   public removeClient(clientConnection: ClientConnection) {
@@ -110,16 +118,8 @@ export default class Server {
   }
 
   public makeCreature(pos: TilePoint, image: number, isPlayer: boolean): Creature {
-    const container = this.makeContainer();
-    container.items[0] = { type: getMetaItemByName('Wood Axe').id, quantity: 1 };
-    container.items[1] = { type: getMetaItemByName('Fire Starter').id, quantity: 1 };
-    container.items[2] = { type: getMetaItemByName('Pick').id, quantity: 1 };
-    container.items[3] = { type: getMetaItemByName('Plough').id, quantity: 1 };
-    container.items[4] = { type: getMetaItemByName('Mana Plant Seeds').id, quantity: 100 };
-
     const creature = {
       id: this.nextCreatureId++,
-      containerId: container.id,
       image,
       pos,
     };
@@ -234,7 +234,7 @@ export default class Server {
     const container = this.world.containers.get(id);
     container.items[index] = item;
     this.conditionalBroadcast((clientConnection) => {
-      return clientConnection.creature.containerId === id || clientConnection.registeredContainers.includes(id);
+      return clientConnection.container.id === id || clientConnection.registeredContainers.includes(id);
     })('setItem', {
       ...{x: index, y: 0, z: 0},
       source: id,

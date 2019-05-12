@@ -93,8 +93,7 @@ const move: C2S<MoveParams> = (server, pos) => {
   if (!server.world.walkable(pos)) return false;
 
   if (server.world.getTile(pos).floor === MINE) {
-    const containerId = server.currentClientConnection.creature.containerId;
-    const container = server.getContainer(containerId);
+    const container = server.currentClientConnection.container;
     const playerHasPick = container.hasItem(getMetaItemByName('Pick').id);
     if (!playerHasPick) return false;
 
@@ -151,7 +150,7 @@ const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
   }
 
   const creature = server.currentClientConnection.creature;
-  const inventory = server.getContainer(creature.containerId);
+  const inventory = server.currentClientConnection.container;
   // If -1, use an item that represents "Hand".
   const tool = toolIndex === -1 ? { type: 0, quantity: 0 } : inventory.items[toolIndex];
   if (!tool) return;
@@ -177,7 +176,7 @@ const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
   }
 
   if (usageResult.successTool) {
-    server.addItemToContainer(creature.containerId, usageResult.successTool);
+    server.addItemToContainer(inventory.id, usageResult.successTool);
   }
 
   server.setItemInContainer(inventory.id, toolIndex, usageResult.tool);
@@ -210,10 +209,11 @@ export const ClientToServerProtocol = {
 // ServerToClientProtocolFn
 type S2C<T> = (client: Client, data: T) => void;
 
-interface InitializeParams { creatureId: number; width: number; height: number; depth: number; }
-const initialize: S2C<InitializeParams> = (client, { creatureId, width, height, depth }) => {
+interface InitializeParams { creatureId: number; containerId: number; width: number; height: number; depth: number; }
+const initialize: S2C<InitializeParams> = (client, { creatureId, containerId, width, height, depth }) => {
   client.world.init(width, height, depth);
   client.creatureId = creatureId;
+  client.containerId = containerId;
 };
 
 type SectorParams = TilePoint & { tiles: Sector };
@@ -253,14 +253,13 @@ const setItem: S2C<SetItemParams> = (client, { x, y, z, source, item }) => {
 
 // TODO make all but id optional
 type SetCreatureParams = Partial<Creature>;
-const setCreature: S2C<SetCreatureParams> = (client, { pos, id, containerId, image }) => {
+const setCreature: S2C<SetCreatureParams> = (client, { pos, id, image }) => {
   let creature = client.world.getCreature(id);
 
   if (!creature) {
     if (id) {
       client.world.setCreature(creature = {
         id,
-        containerId,
         image,
         pos,
       });
@@ -268,7 +267,6 @@ const setCreature: S2C<SetCreatureParams> = (client, { pos, id, containerId, ima
       // TODO get from server
       client.world.setCreature(creature = {
         id,
-        containerId,
         image,
         pos,
       });

@@ -25,7 +25,6 @@ interface Item {
 
 interface Creature {
   id: number;
-  containerId: number;
   image: number;
   pos: TilePoint;
 }

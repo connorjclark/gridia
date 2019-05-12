@@ -402,7 +402,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const focusCreature = client.world.getCreature(client.creatureId);
         if (focusCreature && equalPoints(state.mouse.tile, focusCreature.pos)) {
           eventEmitter.emit('ItemMoveEnd', {
-            source: focusCreature.containerId,
+            source: client.containerId,
             loc: null,
           });
         } else if (state.mouse.tile) {
@@ -448,7 +448,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             app.stage.addChild(containerWindow.window.container);
 
             // Inventory.
-            if (id === focusCreature.containerId) {
+            if (id === client.containerId) {
               containerWindow.draw();
               const size = getCanvasSize();
               containerWindow.window.container.x = size.width / 2 - containerWindow.window.container.width / 2;
@@ -588,7 +588,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           const highlight = makeHighlight(0xffff00, 0.2);
           highlight.x = state.selectedTile.x * 32;
           highlight.y = state.selectedTile.y * 32;
-          const inventoryWindow = containerWindows.get(focusCreature.containerId);
+          const inventoryWindow = containerWindows.get(client.containerId);
           const item = inventoryWindow.container.items[inventoryWindow.selectedIndex];
           if (item) {
             const itemSprite = makeItemSprite({type: item.type, quantity: 1});
@@ -649,7 +649,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const focusCreature = client.world.getCreature(client.creatureId);
     if (!focusCreature) return;
-    const inventoryWindow = containerWindows.get(focusCreature.containerId);
+    const inventoryWindow = containerWindows.get(client.containerId);
 
     // Number keys for selecting tool in inventory.
     if (e.keyCode >= KEYS.ZERO && e.keyCode <= KEYS.NINE) {
@@ -696,7 +696,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       wire.send('moveItem', {
         fromSource: 0,
         from: state.selectedTile,
-        toSource: focusCreature.containerId,
+        toSource: client.containerId,
         to: null,
       });
     }
