@@ -47,11 +47,6 @@ window.Gridia = {
   },
 };
 
-const player = {
-  sprite: null,
-  lastMoved: 0,
-};
-
 function convertToPixiLoaderEntries(keys): Array<{key: string, url: string}> {
   const entries = [];
   for (const [key, url] of Object.entries(keys)) {
@@ -545,10 +540,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (tile.creature) {
               // TODO get more player images. (% 100)
-              player.sprite = new PIXI.Sprite(getTexture.creatures(tile.creature.image % 100));
-              player.sprite.x = x * 32;
-              player.sprite.y = y * 32;
-              itemAndCreatureLayer.addChild(player.sprite);
+              const creatureSprite = new PIXI.Sprite(getTexture.creatures(tile.creature.image % 100));
+              creatureSprite.x = x * 32;
+              creatureSprite.y = y * 32;
+              itemAndCreatureLayer.addChild(creatureSprite);
+
+              const label = new PIXI.Text(tile.creature.name,
+                {fill: 'white', stroke: 'black', strokeThickness: 3, lineJoin: 'round', fontSize: 16});
+              label.anchor.x = 0.5;
+              label.anchor.y = 1;
+              creatureSprite.addChild(label);
             }
           }
         }
