@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 import * as http from 'http';
 import * as https from 'https';
-import * as path from 'path';
 import {Server as WebSocketServer} from 'ws';
 import * as yargs from 'yargs';
 import mapgen from './mapgen';
