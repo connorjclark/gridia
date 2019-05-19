@@ -27,7 +27,7 @@ const state = {
   mouse: {
     x: 0,
     y: 0,
-    tile: { x: 0, y: 0, z: 0 },
+    tile: null as TilePoint,
     downTile: null as TilePoint,
     state: '',
   },
@@ -571,6 +571,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             state.selectedTile = null;
             lastMove = performance.now();
             wire.send('move', pos);
+
+            state.mouse.tile = null;
           }
         }
 
