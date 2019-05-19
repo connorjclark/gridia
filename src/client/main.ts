@@ -1,4 +1,3 @@
-import { EventEmitter } from 'events';
 import * as PIXI from 'pixi.js';
 import { MINE, WATER } from '../constants';
 import Container from '../container';
@@ -18,7 +17,6 @@ const PIXISound: typeof import('pixi-sound') = require('pixi-sound').default;
 const client = new Client();
 client.PIXI = PIXI;
 client.PIXISound = PIXISound;
-const eventEmitter = new EventEmitter();
 
 let lastMove = performance.now();
 const state = {
@@ -238,7 +236,7 @@ function makeItemContainerWindow(container: Container) {
         loc: { x: index, y: 0, z: 0 },
         item: container.items[index],
       };
-      eventEmitter.emit('ItemMoveBegin', evt);
+      client.eventEmitter.emit('ItemMoveBegin', evt);
     })
     .on('mousemove', (e: PIXI.interaction.InteractionEvent) => {
       if (e.target !== window.contents) {
@@ -260,7 +258,7 @@ function makeItemContainerWindow(container: Container) {
           source: container.id,
           loc: { x: containerWindow.mouseOverIndex, y: 0, z: 0 },
         };
-        eventEmitter.emit('ItemMoveEnd', evt);
+        client.eventEmitter.emit('ItemMoveEnd', evt);
       }
       if (mouseDownIndex === containerWindow.mouseOverIndex) {
         containerWindow.selectedIndex = mouseDownIndex;
@@ -522,7 +520,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const item = client.context.map.getItem(point);
         if (!item || !item.type) return;
 
-        eventEmitter.emit('ItemMoveBegin', {
+        client.eventEmitter.emit('ItemMoveBegin', {
           source: 0,
           loc: state.mouse.tile,
           item,
@@ -542,13 +540,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             source: client.containerId,
             loc: null,
           };
-          eventEmitter.emit('ItemMoveEnd', evt);
+          client.eventEmitter.emit('ItemMoveEnd', evt);
         } else if (state.mouse.tile) {
           const evt: ItemMoveEvent = {
             source: 0,
             loc: state.mouse.tile,
           };
-          eventEmitter.emit('ItemMoveEnd', evt);
+          client.eventEmitter.emit('ItemMoveEnd', evt);
         }
       });
       world.on('click', (e: PIXI.interaction.InteractionEvent) => {
@@ -561,14 +559,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       let itemMovingState: ItemMoveEvent = null;
       let mouseHasMoved = false;
-      eventEmitter.on('ItemMoveBegin', (e: ItemMoveEvent) => {
+      client.eventEmitter.on('ItemMoveBegin', (e: ItemMoveEvent) => {
         itemMovingState = e;
         mouseHasMoved = false;
         world.once('mousemove', () => {
           mouseHasMoved = true;
         });
       });
-      eventEmitter.on('ItemMoveEnd', (e: ItemMoveEvent) => {
+      client.eventEmitter.on('ItemMoveEnd', (e: ItemMoveEvent) => {
         if (!itemMovingState) return;
 
         wire.send('moveItem', {
@@ -578,6 +576,15 @@ document.addEventListener('DOMContentLoaded', async () => {
           toSource: e.source,
         });
         itemMovingState = null;
+      });
+      client.eventEmitter.on('message', (e) => {
+        // TODO improve type checking.
+        if (e.type === 'setItem') {
+          const loc = {x: e.args.x, y: e.args.y, z: e.args.z};
+          if (equalPoints(loc, state.selectedTile)) {
+            selectItem(state.selectedTile);
+          }
+        }
       });
 
       app.ticker.add((delta) => {

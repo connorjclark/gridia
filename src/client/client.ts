@@ -1,3 +1,4 @@
+import { EventEmitter } from 'events';
 import { Context } from '../context';
 
 class Client {
@@ -7,6 +8,7 @@ class Client {
   public creatureId: number;
   public containerId: number;
   public context: Context;
+  public eventEmitter = new EventEmitter();
 }
 
 export default Client;

@@ -34,6 +34,9 @@ export async function connect(client: Client, port: number): Promise<ClientToSer
       const p = ServerToClientProtocol[type];
       // @ts-ignore
       p(client, args);
+      // Allow for hooks in the main client code. Should
+      // only be used for refreshing UI, not updating game state.
+      client.eventEmitter.emit('message', {type, args});
     },
   };
   client.context = new Context(createClientWorldMap(wire));
@@ -98,6 +101,9 @@ export function openAndConnectToServerInMemory(client: Client, opts: OpenAndConn
       const p = ServerToClientProtocol[type];
       // @ts-ignore
       p(client, JSON.parse(JSON.stringify(args)));
+      // Allow for hooks in the main client code. Should
+      // only be used for refreshing UI, not updating game state.
+      client.eventEmitter.emit('message', {type, args});
     },
   };
   client.context = new Context(createClientWorldMap(wire));
