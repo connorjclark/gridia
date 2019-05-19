@@ -2,11 +2,13 @@ import { EventEmitter } from 'events';
 import * as PIXI from 'pixi.js';
 import { MINE, WATER } from '../constants';
 import Container from '../container';
-import { getItemUsesForFocus, getItemUsesForProduct, getItemUsesForTool, getMetaItem } from '../items';
+import { getItemUses, getItemUsesForFocus, getItemUsesForProduct, getItemUsesForTool, getMetaItem } from '../items';
 import { clamp, equalPoints, worldToTile as _worldToTile } from '../utils';
 import Client from './client';
 import { connect, openAndConnectToServerInMemory } from './connect-to-server';
 import KEYS from './keys';
+
+let wire: ClientToServerWire;
 
 // pixi-sound needs to load after PIXI. The linter reorders imports in a way
 // that breaks that requirement. So require here.
@@ -213,7 +215,14 @@ function makeItemContainerWindow(container: Container) {
     container,
     draw,
     mouseOverIndex: null,
-    selectedIndex: 0,
+    _selectedIndex: 0,
+    // Selected item actions are based off currently selected tool. If
+    // the tool changes, should re-render the selected item panel.
+    set selectedIndex(selectedIndex: number) {
+      this._selectedIndex = selectedIndex;
+      selectItem(state.selectedTile);
+    },
+    get selectedIndex() { return this._selectedIndex; },
   };
 
   let mouseDownIndex: number;
@@ -323,13 +332,137 @@ function makeItemSprite(item: Item) {
   return sprite;
 }
 
+function renderSelectedItem(item: Item) {
+  const el = document.querySelector('.selected-item');
+  let data;
+  let meta: MetaItem;
+  if (item) {
+    meta = getMetaItem(item.type);
+    data = {
+      name: meta.name,
+      quantity: item.quantity,
+      burden: item.quantity * meta.burden,
+      misc: JSON.stringify(meta, null, 2),
+    };
+  } else {
+    data = {
+      name: '-',
+      quantity: 0,
+      burden: 0,
+      misc: '',
+    };
+  }
+
+  el.querySelector('.selected-item--name').innerHTML = `Item: ${data.name}`;
+  el.querySelector('.selected-item--quantity').innerHTML = `Quantity: ${data.quantity}`;
+  el.querySelector('.selected-item--burden').innerHTML = `Burden: ${data.burden}`;
+  el.querySelector('.selected-item--misc').innerHTML = data.misc;
+
+  const actionsEl = el.querySelector('.selected-item--actions');
+  actionsEl.innerHTML = 'Actions:';
+
+  if (!meta) return;
+
+  const actions = [] as Array<{innerText: string, title: string, action: SelectedItemAction}>;
+
+  if (meta.moveable) {
+    actions.push({
+      innerText: 'Pickup',
+      title: 'Shortcut: Shift',
+      action: 'pickup',
+    });
+  }
+
+  if (canUseHand(item.type)) {
+    actions.push({
+      innerText: 'Use Hand',
+      title: 'Shortcut: Alt',
+      action: 'use-hand',
+    });
+  }
+
+  if (state.selectedTile) {
+    const tool = getSelectedTool();
+    if (tool && usageExists(tool.type, item.type)) {
+      actions.push({
+        innerText: `Use ${getMetaItem(tool.type).name}`,
+        title: 'Shortcut: Spacebar',
+        action: 'use-tool',
+      });
+    }
+  }
+
+  for (const action of actions) {
+    const actionEl = document.createElement('button');
+    actionEl.innerText = action.innerText;
+    actionEl.dataset.action = action.action;
+    actionEl.title = action.title;
+    actionsEl.appendChild(actionEl);
+  }
+}
+
+type SelectedItemAction = 'pickup' | 'use-hand' | 'use-tool';
+
+/**
+ * @param {Event} e
+ */
+function onActionButtonClick(e) {
+  const type: SelectedItemAction = e.target.dataset.action;
+
+  switch (type) {
+    case 'pickup':
+      wire.send('moveItem', {
+        from: state.mouse.downTile,
+        fromSource: 0,
+        to: null,
+        toSource: client.containerId,
+      });
+      break;
+    case 'use-hand':
+      useHand(state.selectedTile);
+      break;
+    case 'use-tool':
+      wire.send('use', {
+        toolIndex: getSelectedToolIndex(),
+        loc: state.selectedTile,
+      });
+      break;
+    default:
+      console.error('unknown action type', type);
+    }
+  // TODO: re-render selected item view when item changes.
+}
+
+function canUseHand(itemType: number) {
+  return usageExists(0, itemType);
+}
+
+function usageExists(tool: number, focus: number) {
+  return getItemUses(tool, focus).length !== 0;
+}
+
+function selectItem(loc: TilePoint | null) {
+  state.selectedTile = loc;
+  const item = loc ? client.context.map.getItem(loc) : null;
+  renderSelectedItem(item);
+}
+
 function getZ() {
   const focusCreature = client.context.getCreature(client.creatureId);
   return focusCreature ? focusCreature.pos.z : 0;
 }
 
+function getSelectedTool() {
+  const inventoryWindow = containerWindows.get(client.containerId);
+  return inventoryWindow.container.items[inventoryWindow.selectedIndex];
+}
+
+function getSelectedToolIndex() {
+  const inventoryWindow = containerWindows.get(client.containerId);
+  return inventoryWindow.selectedIndex;
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
-  let wire: ClientToServerWire;
 
   let connectOverSocket = !window.location.hostname.includes('localhost');
   if (window.location.search.includes('socket')) {
@@ -360,6 +493,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const canvasesEl = document.body.querySelector('#canvases');
   canvasesEl.appendChild(app.view);
 
+  document.querySelector('.selected-item--actions').addEventListener('click', onActionButtonClick);
+
   PIXI.loader
     .add(Object.values(ResourceKeys))
     .add(convertToPixiLoaderEntries(SfxKeys))
@@ -382,7 +517,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         // ts - ignore TouchEvent
         if (!('pageX' in e.data.originalEvent)) return;
 
-        const z = getZ();
         const point = worldToTile(mouseToWorld({ x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY }));
         if (!client.context.map.inBounds(point)) return;
         const item = client.context.map.getItem(point);
@@ -416,6 +550,13 @@ document.addEventListener('DOMContentLoaded', async () => {
           };
           eventEmitter.emit('ItemMoveEnd', evt);
         }
+      });
+      world.on('click', (e: PIXI.interaction.InteractionEvent) => {
+        // ts - ignore TouchEvent
+        if (!('pageX' in e.data.originalEvent)) return;
+
+        const point = worldToTile(mouseToWorld({ x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY }));
+        selectItem(point);
       });
 
       let itemMovingState: ItemMoveEvent = null;
@@ -583,7 +724,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           }
 
           if (pos.x !== focusCreature.pos.x || pos.y !== focusCreature.pos.y) {
-            state.selectedTile = null;
+            selectItem(null);
             lastMove = performance.now();
             wire.send('move', pos);
 
@@ -604,13 +745,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Draw selected highlight.
         if (state.selectedTile) {
+          const selectedItem = client.context.map.getItem(state.selectedTile);
           const highlight = makeHighlight(0xffff00, 0.2);
           highlight.x = state.selectedTile.x * 32;
           highlight.y = state.selectedTile.y * 32;
-          const inventoryWindow = containerWindows.get(client.containerId);
-          const item = inventoryWindow.container.items[inventoryWindow.selectedIndex];
-          if (item) {
-            const itemSprite = makeItemSprite({type: item.type, quantity: 1});
+          const tool = getSelectedTool();
+          if (tool && selectedItem && usageExists(tool.type, selectedItem.type)) {
+            const itemSprite = makeItemSprite({type: tool.type, quantity: 1});
             itemSprite.anchor.x = itemSprite.anchor.y = 0.5;
             highlight.addChild(itemSprite);
           }
@@ -700,6 +841,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       state.selectedTile = state.selectedTile || { ...focusCreature.pos };
       state.selectedTile.x += dx;
       state.selectedTile.y += dy;
+      selectItem(state.selectedTile);
     }
 
     // Space bar to use tool.
@@ -722,10 +864,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Alt to use hand on item.
     if (e.key === 'Alt' && state.selectedTile) {
-      wire.send('use', {
-        toolIndex: -1,
-        loc: state.selectedTile,
-      });
+      useHand(state.selectedTile);
     }
 
     // T to toggle z.
@@ -889,4 +1028,12 @@ function useTemplate(templateId: number, typeToMatch: number, { x, y, z }: TileP
   }
 
   return v + offset;
+}
+
+// Wire helpers.
+function useHand(loc: TilePoint) {
+  wire.send('use', {
+    toolIndex: -1,
+    loc,
+  });
 }

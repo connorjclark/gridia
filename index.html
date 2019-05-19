@@ -47,8 +47,23 @@
             pointer-events: none;
         }
 
-        #ui {
-            min-height: 200px
+        .ui {
+            min-height: 200px;
+            display: flex;
+            padding: 10px;
+        }
+
+        .instructions {
+            width: 50%;
+        }
+
+        .instructions pre {
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .selected-item {
+            width: 50%;
         }
     </style>
 </head>
@@ -58,17 +73,26 @@
         <!-- <canvas id="glCanvas" height="480"></canvas>
         <canvas id="ctxText" height="680"></canvas> -->
     </div>
-    <div id="ui">
-        <!-- <p>Chat:</p>
-        <textarea name="chat" id="chat" cols="30" rows="10">(not implemented)</textarea> -->
-        <a href="https://github.com/Hoten/gridia-2019-wip">GitHub</a>
-        <pre>
-            WASD to move character.
-            Number keys / Click to equip tool in inventory.
-            Arrow keys to select item in the world.
-            Space to use tool on selected item in the world. Alt to use hand.
-            To pick up item in the world: shift to pick up selected item, or drag and drop to inventory slot or character.
-        </pre>
+    <div class="ui">
+        <div class="instructions">
+            <!-- <p>Chat:</p>
+            <textarea name="chat" id="chat" cols="30" rows="10">(not implemented)</textarea> -->
+            <a href="https://github.com/Hoten/gridia-2019-wip">GitHub</a>
+            <pre>
+WASD to move character.
+Number keys / Click to equip tool in inventory.
+Arrow keys to select item in the world.
+Space to use tool on selected item in the world. Alt to use hand.
+To pick up item in the world: shift to pick up selected item, or drag and drop to inventory slot or character.
+            </pre>
+        </div>
+        <div class="selected-item">
+            <div class="selected-item--actions"></div>
+            <div class="selected-item--name"></div>
+            <div class="selected-item--quantity"></div>
+            <div class="selected-item--burden"></div>
+            <div class="selected-item--misc"></div>
+        </div>
     </div>
 </body>
 
