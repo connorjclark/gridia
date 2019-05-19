@@ -198,6 +198,12 @@ function makeDraggableWindow() {
   };
 }
 
+interface ItemMoveEvent {
+  source: number;
+  loc: TilePoint;
+  item?: Item;
+}
+
 type ContainerWindow = ReturnType<typeof makeItemContainerWindow>;
 const containerWindows = new Map<number, ContainerWindow>();
 function makeItemContainerWindow(container: Container) {
@@ -218,11 +224,12 @@ function makeItemContainerWindow(container: Container) {
       const index = Math.floor(x / 32);
       if (!container.items[index]) return;
       mouseDownIndex = index;
-      eventEmitter.emit('ItemMoveBegin', {
+      const evt: ItemMoveEvent = {
         source: container.id,
-        loc: { x: index, y: 0 },
+        loc: { x: index, y: 0, z: 0 },
         item: container.items[index],
-      });
+      };
+      eventEmitter.emit('ItemMoveBegin', evt);
     })
     .on('mousemove', (e: PIXI.interaction.InteractionEvent) => {
       if (e.target !== window.contents) {
@@ -240,10 +247,11 @@ function makeItemContainerWindow(container: Container) {
     })
     .on('mouseup', (e: PIXI.interaction.InteractionEvent) => {
       if (containerWindow.mouseOverIndex !== null) {
-        eventEmitter.emit('ItemMoveEnd', {
+        const evt: ItemMoveEvent = {
           source: container.id,
-          loc: { x: containerWindow.mouseOverIndex, y: 0 },
-        });
+          loc: { x: containerWindow.mouseOverIndex, y: 0, z: 0 },
+        };
+        eventEmitter.emit('ItemMoveEnd', evt);
       }
       if (mouseDownIndex === containerWindow.mouseOverIndex) {
         containerWindow.selectedIndex = mouseDownIndex;
@@ -387,32 +395,39 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
       });
       world.on('mouseup', (e: PIXI.interaction.InteractionEvent) => {
-        if (!itemMovingState) {
-          const point = worldToTile(e.data.getLocalPosition(world));
-          if (client.context.map.inBounds(point)) {
-            client.context.map.getTile(point).floor = ++client.context.map.getTile(point).floor % 10;
-          }
-        }
+        // if (!itemMovingState) {
+        //   const point = worldToTile(e.data.getLocalPosition(world));
+        //   if (client.context.map.inBounds(point)) {
+        //     client.context.map.getTile(point).floor = ++client.context.map.getTile(point).floor % 10;
+        //   }
+        // }
 
         const focusCreature = client.context.getCreature(client.creatureId);
         if (focusCreature && equalPoints(state.mouse.tile, focusCreature.pos)) {
-          eventEmitter.emit('ItemMoveEnd', {
+          const evt: ItemMoveEvent = {
             source: client.containerId,
             loc: null,
-          });
+          };
+          eventEmitter.emit('ItemMoveEnd', evt);
         } else if (state.mouse.tile) {
-          eventEmitter.emit('ItemMoveEnd', {
+          const evt: ItemMoveEvent = {
             source: 0,
             loc: state.mouse.tile,
-          });
+          };
+          eventEmitter.emit('ItemMoveEnd', evt);
         }
       });
 
-      let itemMovingState = null;
-      eventEmitter.on('ItemMoveBegin', (e) => {
+      let itemMovingState: ItemMoveEvent = null;
+      let mouseHasMoved = false;
+      eventEmitter.on('ItemMoveBegin', (e: ItemMoveEvent) => {
         itemMovingState = e;
+        mouseHasMoved = false;
+        world.once('mousemove', () => {
+          mouseHasMoved = true;
+        });
       });
-      eventEmitter.on('ItemMoveEnd', (e) => {
+      eventEmitter.on('ItemMoveEnd', (e: ItemMoveEvent) => {
         if (!itemMovingState) return;
 
         wire.send('moveItem', {
@@ -579,7 +594,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         topLayer.removeChildren();
 
         // Draw item being moved.
-        if (itemMovingState) {
+        if (itemMovingState && mouseHasMoved) {
           const itemSprite = makeItemSprite(itemMovingState.item);
           const { x, y } = mouseToWorld(state.mouse);
           itemSprite.x = x - 16;
