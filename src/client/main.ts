@@ -410,7 +410,7 @@ function onActionButtonClick(e) {
   switch (type) {
     case 'pickup':
       wire.send('moveItem', {
-        from: state.mouse.downTile,
+        from: state.selectedTile,
         fromSource: 0,
         to: null,
         toSource: client.containerId,
