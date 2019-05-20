@@ -19,7 +19,6 @@ const client = new Client();
 client.PIXI = PIXI;
 client.PIXISound = PIXISound;
 
-let lastMove = performance.now();
 const state = {
   viewport: {
     x: 0,
@@ -35,6 +34,7 @@ const state = {
   selectedTile: null,
   keys: {},
   elapsedFrames: 0,
+  lastMove: performance.now(),
 };
 
 // @ts-ignore - for debugging
@@ -849,7 +849,7 @@ class Game {
       }
     }
 
-    if (focusCreature && performance.now() - lastMove > 200) {
+    if (focusCreature && performance.now() - state.lastMove > 200) {
       const pos = { ...focusCreature.pos };
       if (state.keys[KEYS.W]) {
         pos.y -= 1;
@@ -864,7 +864,7 @@ class Game {
 
       if (pos.x !== focusCreature.pos.x || pos.y !== focusCreature.pos.y) {
         selectItem(null);
-        lastMove = performance.now();
+        state.lastMove = performance.now();
         wire.send('move', pos);
 
         state.mouse.tile = null;
