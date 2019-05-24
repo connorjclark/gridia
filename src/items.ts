@@ -1,7 +1,22 @@
-const items: Array<MetaItem | null> = require('../world/content/items.json');
+import { assert } from './utils';
+
+const items: MetaItem[] = require('../world/content/items.json');
 const itemUses: ItemUse[] = require('../world/content/itemuses.json');
 const animations: Animation[] = require('../world/content/animations.json');
 const monsters: Monster[] = require('../world/content/monsters.json');
+
+function fillNulls<T>(arr: T[], defaultValue: T) {
+  for (let i = 0; i < arr.length; i++) {
+    if (!arr[i]) {
+      arr[i] = defaultValue;
+    }
+  }
+}
+
+// There are gaps in the items.json file. Instead of typing items as Array<MetaItem | null>,
+// fill in those gaps with the empty item (the first item).
+assert(items[0]);
+fillNulls(items, items[0]);
 
 for (const use of itemUses) {
   if (use.focusQuantityConsumed === undefined) {
@@ -16,7 +31,7 @@ for (const animation of animations) {
 }
 
 // Add name properties for readability in the console.
-function getName(id) {
+function getName(id: number) {
   if (id === -1) return 'Hand';
   return getMetaItem(id).name;
 }
@@ -57,7 +72,7 @@ export function getMetaItem(id: number): MetaItem {
 }
 
 export function getMetaItemByName(name: string): MetaItem {
-  return items.find((item) => item && item.name === name);
+  return items.find((item) => Boolean(item && item.name === name));
 }
 
 export function getItemUses(tool: number, focus: number) {
@@ -76,9 +91,13 @@ export function getItemUsesForProduct(product: number) {
   return itemUses.filter((item) => item.products.includes(product) || item.successTool === product);
 }
 
+function getMetaItemsOfClass(itemClass: MetaItem['class']): MetaItem[] {
+  return items.filter((item) => Boolean(item && item.class === itemClass));
+}
+
 // Weighted by rarity.
 export function getRandomMetaItemOfClass(itemClass: MetaItem['class']) {
-  const itemsOfClass = items.filter((item) => item && item.class === itemClass);
+  const itemsOfClass = getMetaItemsOfClass(itemClass);
   const maxRarity = itemsOfClass.reduce((acc, item) => acc + item.rarity, 0);
   const value = Math.random() * maxRarity;
 

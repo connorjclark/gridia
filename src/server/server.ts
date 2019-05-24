@@ -2,7 +2,7 @@ import { getMetaItem, getMetaItemByName, getMonsterTemplate } from '../items';
 import performance from '../performance';
 import Player from '../player';
 import { ClientToServerProtocol } from '../protocol';
-import { maxDiff, randInt, worldToSector } from '../utils';
+import { maxDiff, randInt } from '../utils';
 import ClientConnection from './client-connection';
 import { ServerContext } from './server-context';
 
@@ -21,6 +21,7 @@ export default class Server {
     to?: ClientConnection,
     filter?: (client: ClientConnection) => boolean,
   }>;
+  // @ts-ignore: this is always defined when accessed.
   public currentClientConnection: ClientConnection;
   // State that clients don't need and shouldn't have.
   // Also isn't serialized - this state is transient.
@@ -156,7 +157,7 @@ export default class Server {
   }
 
   public moveCreature(creature: Creature, pos: TilePoint | null) {
-    this.context.map.getTile(creature.pos).creature = null;
+    delete this.context.map.getTile(creature.pos).creature;
     if (pos) {
       creature.pos = pos;
       this.context.map.getTile(creature.pos).creature = creature;
@@ -171,7 +172,7 @@ export default class Server {
   }
 
   public removeCreature(creature: Creature) {
-    this.context.map.getTile(creature.pos).creature = null;
+    delete this.context.map.getTile(creature.pos).creature;
     this.context.creatures.delete(creature.id);
     if (this.creatureStates[creature.id]) {
       delete this.creatureStates[creature.id];
@@ -180,7 +181,7 @@ export default class Server {
   }
 
   public findNearest(loc: TilePoint, range: number, includeTargetLocation: boolean,
-                     predicate: (tile: Tile) => boolean): TilePoint {
+                     predicate: (tile: Tile) => boolean): TilePoint | null {
     const test = (l: TilePoint) => {
       if (!this.context.map.inBounds(l)) return false;
       return predicate(this.context.map.getTile(l));
@@ -335,18 +336,19 @@ export default class Server {
         for (let y = 0; y < this.context.map.height; y++) {
           const pos = {x, y, z: 0};
           const item = this.context.map.getItem(pos);
-          const meta = item && getMetaItem(item.type);
-          if (meta && meta.growthItem) {
-            item.growth = (item.growth || 0) + 1;
-            if (item.growth >= meta.growthDelta) {
-              item.type = meta.growthItem;
-              item.growth = 0;
-              this.broadcast('setItem', {
-                ...pos,
-                source: 0,
-                item,
-              });
-            }
+          if (!item) continue;
+          const meta = getMetaItem(item.type);
+          if (!meta || !meta.growthItem) continue;
+
+          item.growth = (item.growth || 0) + 1;
+          if (item.growth >= meta.growthDelta) {
+            item.type = meta.growthItem;
+            item.growth = 0;
+            this.broadcast('setItem', {
+              ...pos,
+              source: 0,
+              item,
+            });
           }
         }
       }

@@ -27,8 +27,8 @@ const state = {
   mouse: {
     x: 0,
     y: 0,
-    tile: null as TilePoint,
-    downTile: null as TilePoint,
+    tile: null as (TilePoint | null),
+    downTile: null as (TilePoint | null),
     state: '',
   },
   selectedTile: null,
@@ -48,7 +48,7 @@ window.Gridia = {
   },
 };
 
-function convertToPixiLoaderEntries(keys): Array<{key: string, url: string}> {
+function convertToPixiLoaderEntries(keys: Record<string, string>): Array<{key: string, url: string}> {
   const entries = [];
   for (const [key, url] of Object.entries(keys)) {
     entries.push({key: key.toLowerCase(), url});
@@ -56,7 +56,7 @@ function convertToPixiLoaderEntries(keys): Array<{key: string, url: string}> {
   return entries;
 }
 
-const ResourceKeys = {
+const ResourceKeys: Record<string, string[]> = {
   creatures: [
     './world/player/player0.png',
   ],
@@ -154,6 +154,11 @@ const Helper = {
   getSelectedToolIndex() {
     const inventoryWindow = containerWindows.get(client.containerId);
     return inventoryWindow.selectedIndex;
+  },
+  find(node: Element, query: string) {
+    const result = node.querySelector(query);
+    if (!result) throw new Error(`no elements matching ${query}`);
+    return result;
   },
 };
 
@@ -357,14 +362,14 @@ type ContainerWindow = ReturnType<typeof Draw.makeItemContainerWindow>;
 const containerWindows = new Map<number, ContainerWindow>();
 
 function getCanvasSize() {
-  const canvasesEl = document.body.querySelector('#canvases');
+  const canvasesEl = Helper.find(document.body, '#canvases');
   return canvasesEl.getBoundingClientRect();
 }
 
 function renderSelectedItem(item: Item) {
-  const el = document.querySelector('.selected-item');
+  const el = Helper.find(document.body, '.selected-item');
   let data;
-  let meta: MetaItem;
+  let meta;
   if (item) {
     meta = getMetaItem(item.type);
     data = {
@@ -382,12 +387,12 @@ function renderSelectedItem(item: Item) {
     };
   }
 
-  el.querySelector('.selected-item--name').innerHTML = `Item: ${data.name}`;
-  el.querySelector('.selected-item--quantity').innerHTML = `Quantity: ${data.quantity}`;
-  el.querySelector('.selected-item--burden').innerHTML = `Burden: ${data.burden}`;
-  el.querySelector('.selected-item--misc').innerHTML = data.misc;
+  Helper.find(el, '.selected-item--name').innerHTML = `Item: ${data.name}`;
+  Helper.find(el, '.selected-item--quantity').innerHTML = `Quantity: ${data.quantity}`;
+  Helper.find(el, '.selected-item--burden').innerHTML = `Burden: ${data.burden}`;
+  Helper.find(el, '.selected-item--misc').innerHTML = data.misc;
 
-  const actionsEl = el.querySelector('.selected-item--actions');
+  const actionsEl = Helper.find(el, '.selected-item--actions');
   actionsEl.innerHTML = 'Actions:';
 
   if (!meta) return;
@@ -515,7 +520,7 @@ class Game {
     this.canvasesEl = document.body.querySelector('#canvases');
     this.canvasesEl.appendChild(this.app.view);
 
-    document.querySelector('.selected-item--actions').addEventListener('click', onActionButtonClick);
+    Helper.find(document.body, '.selected-item--actions').addEventListener('click', onActionButtonClick);
 
     PIXI.loader
       .add(Object.values(ResourceKeys))

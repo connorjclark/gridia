@@ -31,11 +31,10 @@ export default function mapgen(width: number, height: number, depth: number, bar
         if (bare) {
           map.setTile(loc, {
             floor: z ? MINE : 100,
-            item: null,
           });
         } else {
           let floor = 0;
-          let item = null;
+          let item;
 
           if (z === 0) {
             floor = 100 + ((x + y) % 10) * 20;

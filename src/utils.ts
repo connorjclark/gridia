@@ -26,14 +26,14 @@ export function maxDiff(p1: TilePoint, p2: TilePoint): number {
 }
 
 export function equalPoints(p1?: TilePoint, p2?: TilePoint) {
-  if (p1 === null && p2 === null) return true;
-  if (p1 === null || p2 === null) return false;
+  if (!p1 && !p2) return true;
+  if (!p1 || !p2) return false;
   return p1.x === p2.x && p1.y === p2.y && p1.z === p2.z;
 }
 
 export function equalItems(i1?: Item, i2?: Item) {
-  if (i1 === null && i2 === null) return true;
-  if (i1 === null || i2 === null) return false;
+  if (!i1 && !i2) return true;
+  if (!i1 || !i2) return false;
   return i1.type === i2.type && i1.quantity === i2.quantity;
 }
 
@@ -42,7 +42,8 @@ export function clamp(val: number, min: number, max: number) {
 }
 
 // 3d matrix
-export function matrix<T>(x: number, y: number, z: number, val: T = null): T[][][] {
+// TODO: this doesn't seem properly typed.
+export function matrix<T>(x: number, y: number, z: number, val?: T): T[][][] {
   const m = Array(x);
 
   for (let i = 0; i < x; i++) {
@@ -60,6 +61,10 @@ export function matrix<T>(x: number, y: number, z: number, val: T = null): T[][]
 
 export function randInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min)) + min;
+}
+
+export function assert(val: any) {
+  if (!val) throw new Error('assertion failed');
 }
 
 //   export function tileToScreen(pt: TilePoint): TilePoint {

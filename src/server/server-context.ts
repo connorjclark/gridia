@@ -93,7 +93,7 @@ export class ServerContext extends Context {
     if (container) return container;
 
     // TODO handle error.
-    container = JSON.parse(fsSync.readFileSync(this.containerPath(id), 'utf-8'));
+    container = JSON.parse(fsSync.readFileSync(this.containerPath(id), 'utf-8')) as Container;
     this.containers.set(id, container);
     return container;
   }

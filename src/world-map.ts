@@ -6,13 +6,17 @@ export default class WorldMap {
   public width: number;
   public height: number;
   public depth: number;
-  public sectors: Sector[][][];
+  public sectors: Array<Array<Array<Sector | null>>>; // (Sector | null)[][][]
   public loader: (sectorPoint: TilePoint) => Sector;
 
   constructor(width: number, height: number, depth: number) {
-    this.init(width, height, depth);
+    this.width = width;
+    this.height = height;
+    this.depth = depth;
+    this.sectors = matrix(width / SECTOR_SIZE, height / SECTOR_SIZE, depth);
   }
 
+  // TODO - can this be removed?
   public init(width: number, height: number, depth: number) {
     this.width = width;
     this.height = height;
@@ -36,15 +40,15 @@ export default class WorldMap {
   }
 
   public getSector(sectorPoint: TilePoint): Sector {
-    let sector = this.sectors[sectorPoint.x][sectorPoint.y][sectorPoint.z];
+    let sector: Sector | null = this.sectors[sectorPoint.x][sectorPoint.y][sectorPoint.z];
     if (!sector) {
       sector = this.sectors[sectorPoint.x][sectorPoint.y][sectorPoint.z] = this.loader(sectorPoint);
     }
     return sector;
   }
 
-  public getTile(point: TilePoint): Tile | null {
-    if (!this.inBounds(point)) return { floor: 0, item: null };
+  public getTile(point: TilePoint): Tile {
+    if (!this.inBounds(point)) return { floor: 0 };
 
     const sector = this.getSector(worldToSector(point, SECTOR_SIZE));
     return sector[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE];
@@ -60,15 +64,13 @@ export default class WorldMap {
   }
 
   public createEmptySector() {
-    /** @type {Tile[][]} */
-    const tiles = [];
+    const tiles: Tile[][] = [];
 
     for (let x = 0; x < SECTOR_SIZE; x++) {
       tiles[x] = [];
       for (let y = 0; y < SECTOR_SIZE; y++) {
         tiles[x][y] = {
           floor: 0,
-          item: null,
         };
       }
     }
