@@ -19,7 +19,27 @@ const client = new Client();
 client.PIXI = PIXI;
 client.PIXISound = PIXISound;
 
-const state = {
+interface UIState {
+  viewport: {
+    x: number;
+    y: number;
+  };
+  mouse: {
+    x: number;
+    y: number;
+    tile?: TilePoint;
+    downTile?: TilePoint;
+    state: string;
+  };
+  selectedTile?: TilePoint;
+  keys: {
+    [index: number]: boolean;
+  };
+  elapsedFrames: number;
+  lastMove: number;
+}
+
+const state: UIState = {
   viewport: {
     x: 0,
     y: 0,
@@ -27,11 +47,8 @@ const state = {
   mouse: {
     x: 0,
     y: 0,
-    tile: null as (TilePoint | null),
-    downTile: null as (TilePoint | null),
     state: '',
   },
-  selectedTile: null,
   keys: {},
   elapsedFrames: 0,
   lastMove: performance.now(),
@@ -354,7 +371,7 @@ const Draw = {
 
 interface ItemMoveEvent {
   source: number;
-  loc: TilePoint;
+  loc?: TilePoint;
   item?: Item;
 }
 
@@ -466,7 +483,7 @@ function onActionButtonClick(e) {
     }
 }
 
-function selectItem(loc: TilePoint | null) {
+function selectItem(loc?: TilePoint) {
   state.selectedTile = loc;
   const item = loc ? client.context.map.getItem(loc) : null;
   renderSelectedItem(item);
@@ -593,7 +610,6 @@ class Game {
       if (focusCreature && equalPoints(state.mouse.tile, focusCreature.pos)) {
         const evt: ItemMoveEvent = {
           source: client.containerId,
-          loc: null,
         };
         client.eventEmitter.emit('ItemMoveEnd', evt);
       } else if (state.mouse.tile) {
@@ -868,18 +884,18 @@ class Game {
       }
 
       if (pos.x !== focusCreature.pos.x || pos.y !== focusCreature.pos.y) {
-        selectItem(null);
+        selectItem(undefined);
         state.lastMove = performance.now();
         wire.send('move', pos);
 
-        state.mouse.tile = null;
+        delete state.mouse.tile;
       }
     }
 
     this.containers.topLayer.removeChildren();
 
     // Draw item being moved.
-    if (this.itemMovingState && this.mouseHasMovedSinceItemMoveBegin) {
+    if (this.itemMovingState && this.mouseHasMovedSinceItemMoveBegin && this.itemMovingState.item) {
       const itemSprite = Draw.makeItemSprite(this.itemMovingState.item);
       const { x, y } = mouseToWorld(state.mouse);
       itemSprite.x = x - 16;

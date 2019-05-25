@@ -44,6 +44,7 @@ beforeEach(() => {
 });
 
 function clone<T>(obj: T): T {
+  if (obj === undefined) return obj;
   return JSON.parse(JSON.stringify(obj));
 }
 
@@ -178,7 +179,7 @@ describe('moveItem', () => {
       toSource: 0,
     });
 
-    assertItemInWorld(from, null);
+    assertItemInWorld(from, undefined);
     assertItemInWorld(to, { type: 1, quantity: 10 });
   });
 
@@ -215,7 +216,7 @@ describe('moveItem', () => {
       toSource: 0,
     });
 
-    assertItemInWorld(from, null);
+    assertItemInWorld(from, undefined);
     assertItemInWorld(to, { type: gold.id, quantity: 3 });
   });
 
@@ -233,11 +234,11 @@ describe('moveItem', () => {
       toSource: container.id,
     });
 
-    assertItemInWorld(from, null);
+    assertItemInWorld(from, undefined);
     assertItemInContainer(container.id, 0, { type: 1, quantity: 1 });
   });
 
-  it('move item from world to container: null places in first open slot', () => {
+  it('move item from world to container: no "to" places in first open slot', () => {
     const from = { x: 0, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
@@ -250,15 +251,14 @@ describe('moveItem', () => {
     wire.send('moveItem', {
       from,
       fromSource: 0,
-      to: null,
       toSource: container.id,
     });
 
-    assertItemInWorld(from, null);
+    assertItemInWorld(from, undefined);
     assertItemInContainer(container.id, 2, { type: 1, quantity: 1 });
   });
 
-  it('move item from world to container: null places in first open slot - stacks', () => {
+  it('move item from world to container: no "to" places in first open slot - stacks', () => {
     const from = { x: 0, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
@@ -272,11 +272,10 @@ describe('moveItem', () => {
     wire.send('moveItem', {
       from,
       fromSource: 0,
-      to: null,
       toSource: container.id,
     });
 
-    assertItemInWorld(from, null);
+    assertItemInWorld(from, undefined);
     assertItemInContainer(container.id, 2, { type: 1, quantity: 3 });
   });
 });
@@ -335,7 +334,7 @@ describe('use', () => {
       type: getMetaItemByName('Un-Cooked Large Ribs').id,
       quantity: 5,
     });
-    setItemInContainer(container.id, toolIndex + 1, null);
+    setItemInContainer(container.id, toolIndex + 1, undefined);
     setItem(loc, { type: getMetaItemByName('Large Camp Fire').id, quantity: 1 });
 
     wire.send('use', {

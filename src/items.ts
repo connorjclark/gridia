@@ -48,7 +48,7 @@ export class ItemWrapper {
   constructor(public type: number, public quantity: number) { }
 
   public raw() {
-    if (this.type === 0) return null;
+    if (this.type === 0) return;
     return { type: this.type, quantity: this.quantity };
   }
 

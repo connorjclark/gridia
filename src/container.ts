@@ -1,5 +1,5 @@
 export default class Container {
-  constructor(public id: number, public items: Item[]) {
+  constructor(public id: number, public items: Array<Item | undefined>) {
   }
 
   public hasItem(itemType: number) {

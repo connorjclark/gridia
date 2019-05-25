@@ -229,7 +229,7 @@ export default class Server {
     });
   }
 
-  public setItem(loc: TilePoint, item: Item) {
+  public setItem(loc: TilePoint, item?: Item) {
     this.context.map.getTile(loc).item = item;
     this.broadcast('setItem', {
       ...loc,
@@ -238,8 +238,10 @@ export default class Server {
     });
   }
 
-  public setItemInContainer(id: number, index: number, item: Item) {
+  public setItemInContainer(id: number, index: number, item?: Item) {
     const container = this.context.containers.get(id);
+    if (!container) throw new Error('no container: ' + id);
+
     container.items[index] = item;
     this.conditionalBroadcast((clientConnection) => {
       return clientConnection.container.id === id || clientConnection.registeredContainers.includes(id);
@@ -252,6 +254,7 @@ export default class Server {
 
   public addItemToContainer(id: number, item: Item, index?: number) {
     const container = this.context.containers.get(id);
+    if (!container) throw new Error('no container: ' + id);
 
     // If index is not specified, pick one:
     // Pick the first slot of the same item type, if stackable.
@@ -362,7 +365,12 @@ export default class Server {
         if (this.verbose) console.log('from client', message.type, message.args);
         this.currentClientConnection = clientConnection;
         // performance.mark(`${message.type}-start`);
-        ClientToServerProtocol[message.type](this, message.args);
+        try {
+          ClientToServerProtocol[message.type](this, message.args);
+        } catch (err) {
+          // Don't let a bad message kill the message loop.
+          console.error(err, message);
+        }
         // performance.mark(`${message.type}-end`);
         // performance.measure(message.type, `${message.type}-start`, `${message.type}-end`);
       }

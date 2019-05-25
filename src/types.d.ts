@@ -11,7 +11,7 @@ interface ScreenPoint {
 
 interface Tile {
   floor: number;
-  item?: Item;
+  item?: Item; // Prefer undefined over null.
   creature?: Creature;
 }
 

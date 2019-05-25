@@ -17,13 +17,14 @@ type C2S<T> = (server: Server, data: T) => void;
 // is specified and the item will be place in the first viable slot.
 // TODO - better name than "source"? Maybe just generalize to "Container" where 0 refers to world?
 export const ItemSourceWorld = 0;
-interface MoveItemParams { from: TilePoint; fromSource: number; to: TilePoint; toSource: number; }
+interface MoveItemParams { fromSource: number; from: TilePoint; toSource: number; to?: TilePoint; }
 const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource }) => {
-  function boundsCheck(loc: TilePoint | null, source: number) {
+  function boundsCheck(source: number, loc?: TilePoint) {
     if (source === ItemSourceWorld) {
+      if (!loc) throw new Error('invariant violated');
       return server.context.map.inBounds(loc);
     } else {
-      // No location specified.
+      // No location specified, so no way it could be out of bounds.
       if (!loc) return true;
 
       const container = server.context.getContainer(source);
@@ -32,24 +33,26 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
     }
   }
 
-  function getItem(loc: TilePoint, source: number) {
+  function getItem(source: number, loc?: TilePoint) {
+    if (!loc) return;
     if (source === ItemSourceWorld) {
       return server.context.map.getItem(loc);
     } else {
-      if (!loc) return;
       return server.context.getContainer(source).items[loc.x];
     }
   }
 
-  function setItem(loc: TilePoint, source: number, item: Item) {
+  function setItem(source: number, loc?: TilePoint, item?: Item) {
     if (source === ItemSourceWorld) {
+      if (!loc) throw new Error('invariant violated');
       server.setItem(loc, item);
     } else {
+      if (!item) throw new Error('invariant violated');
       server.addItemToContainer(source, item, loc ? loc.x : undefined);
     }
   }
 
-  if (!boundsCheck(from, fromSource) || !boundsCheck(to, toSource)) {
+  if (!boundsCheck(fromSource, from) || !boundsCheck(toSource, to)) {
     return false;
   }
 
@@ -58,8 +61,8 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
     return false;
   }
 
-  const fromItem = getItem(from, fromSource);
-  const toItem = getItem(to, toSource);
+  const fromItem = getItem(fromSource, from);
+  const toItem = getItem(toSource, to);
 
   // if (!server.inView(from) || !server.inView(to)) {
   //   return false
@@ -76,8 +79,8 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
     fromItem.quantity += toItem.quantity;
   }
 
-  setItem(from, fromSource, null);
-  setItem(to, toSource, fromItem);
+  setItem(fromSource, from, undefined);
+  setItem(toSource, to, fromItem);
 
   // TODO queue changes and send to all clients.
   // context.queueTileChange(from)
@@ -152,6 +155,7 @@ const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
   const inventory = server.currentClientConnection.container;
   // If -1, use an item that represents "Hand".
   const tool = toolIndex === -1 ? { type: 0, quantity: 0 } : inventory.items[toolIndex];
+  // Got a request to use nothing as a tool - doesn't make sense to do that.
   if (!tool) return;
 
   const focus = server.context.map.getItem(loc) || { type: 0, quantity: 0 };
@@ -238,7 +242,7 @@ const setFloor: S2C<SetFloorParams> = (client, { x, y, z, floor }) => {
   client.context.map.getTile({ x, y, z }).floor = floor;
 };
 
-type SetItemParams = TilePoint & { source: number, item: Item };
+type SetItemParams = TilePoint & { source: number, item?: Item };
 const setItem: S2C<SetItemParams> = (client, { x, y, z, source, item }) => {
   if (source === ItemSourceWorld) {
     client.context.map.getTile({ x, y, z }).item = item;
@@ -264,7 +268,7 @@ const setCreature: S2C<SetCreatureParams> = (client, creatureUpdate) => {
   const previousPos = creature.pos;
 
   if (creatureUpdate.pos && !equalPoints(previousPos, creatureUpdate.pos)) {
-    client.context.map.getTile(previousPos).creature = null;
+    delete client.context.map.getTile(previousPos).creature;
     client.context.setCreature(creatureUpdate);
   }
 
@@ -292,6 +296,7 @@ const setCreature: S2C<SetCreatureParams> = (client, creatureUpdate) => {
 type AnimationParams = TilePoint & { key: string };
 const animation: S2C<AnimationParams> = (client, { x, y, z, key }) => {
   const animationData = getAnimation(key);
+  if (!animationData) throw new Error('no animation found: ' + key);
   for (const frame of animationData.frames) {
     if (frame.sound && client.PIXISound.exists(frame.sound)) client.PIXISound.play(frame.sound);
   }
