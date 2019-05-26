@@ -374,9 +374,16 @@ const Draw = {
       .on('mousedown', (e: PIXI.interaction.InteractionEvent) => {
         const {x, y} = e.data.getLocalPosition(e.target);
         const index = Math.floor(x / 32) + Math.floor(y / 32) * 10;
-        game.removeWindow(usageWindow);
+        close();
         Helper.useTool(loc, index);
       });
+
+    client.eventEmitter.on('PlayerMove', close);
+
+    function close() {
+      client.eventEmitter.removeListener('PlayerMove', close);
+      game.removeWindow(usageWindow);
+    }
 
     function draw() {
       window.contents.removeChildren();
@@ -952,6 +959,7 @@ class Game {
         selectItem(undefined);
         state.lastMove = performance.now();
         wire.send('move', pos);
+        client.eventEmitter.emit('PlayerMove');
 
         delete state.mouse.tile;
       }
