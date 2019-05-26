@@ -87,6 +87,14 @@ export class ServerContext extends Context {
     return container;
   }
 
+  public getContainerIdFromItem(item: Item) {
+    if (item.containerId) {
+      return item.containerId;
+    } else {
+      return item.containerId = this.makeContainer().id;
+    }
+  }
+
   // TODO defer to loader like sector is?
   public getContainer(id: number) {
     let container = this.containers.get(id);

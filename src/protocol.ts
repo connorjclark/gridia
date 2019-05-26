@@ -61,16 +61,28 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
   }
 
   const fromItem = getItem(fromSource, from);
-  const toItem = getItem(toSource, to);
+
+  let toItem = getItem(toSource, to);
 
   // if (!server.inView(from) || !server.inView(to)) {
   //   return false
   // }
 
   if (!fromItem) return false;
+  if (toItem && getMetaItem(toItem.type).class === 'Container') {
+    // Dragging to a container.
+    toSource = server.context.getContainerIdFromItem(toItem);
+    to = null;
+    toItem = null;
+  }
   if (toItem && fromItem.type !== toItem.type) return false;
 
   if (!getMetaItem(fromItem.type).moveable) {
+    return false;
+  }
+
+  // Prevent container-ception.
+  if (getMetaItem(fromItem.type).class === 'Container' && toSource === fromItem.containerId) {
     return false;
   }
 
@@ -125,11 +137,7 @@ const requestContainer: C2S<RequestContainerParams> = (server, { containerId, lo
 
   if (!containerId) {
     const item = server.context.map.getItem(loc);
-    if (item.containerId) {
-      containerId = item.containerId;
-    } else {
-      containerId = item.containerId = server.context.makeContainer().id;
-    }
+    containerId = server.context.getContainerIdFromItem(item);
   }
 
   const isClose = true; // TODO
