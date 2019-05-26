@@ -12224,6 +12224,7 @@
     ],
     "growthDelta": 5000,
     "growthItem": 1006,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -12238,6 +12239,7 @@
     "burden": 100,
     "growthDelta": 5000,
     "growthItem": 1008,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -12252,6 +12254,7 @@
     "burden": 100,
     "growthDelta": 5000,
     "growthItem": 1009,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -12266,6 +12269,7 @@
     "burden": 100,
     "growthDelta": 5000,
     "growthItem": 1009,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -13576,6 +13580,7 @@
       1232
     ],
     "burden": 10000,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -14745,6 +14750,7 @@
       1104
     ],
     "burden": 10000,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -16580,6 +16586,7 @@
     ],
     "growthDelta": 5000,
     "growthItem": 1367,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -16593,6 +16600,7 @@
     ],
     "growthDelta": 5000,
     "growthItem": 1006,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17383,6 +17391,7 @@
     "burden": 100,
     "growthDelta": 5000,
     "growthItem": 1428,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17397,6 +17406,7 @@
     "burden": 100,
     "growthDelta": 5000,
     "growthItem": 1429,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17411,6 +17421,7 @@
     "burden": 100,
     "growthDelta": 5000,
     "growthItem": 1430,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17425,6 +17436,7 @@
     "burden": 100,
     "growthDelta": 5000,
     "growthItem": 1430,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17481,6 +17493,7 @@
     "burden": 100,
     "growthDelta": 5000,
     "growthItem": 1435,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17495,6 +17508,7 @@
     "burden": 100,
     "growthDelta": 5000,
     "growthItem": 1436,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17509,6 +17523,7 @@
     "burden": 100,
     "growthDelta": 5000,
     "growthItem": 1437,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17523,6 +17538,7 @@
     "burden": 100,
     "growthDelta": 5000,
     "growthItem": 1437,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -24677,6 +24693,7 @@
       1738
     ],
     "burden": 500,
+    "imageHeight": 3,
     "moveable": true,
     "rarity": 15,
     "stackable": true,
@@ -24690,6 +24707,7 @@
       1736
     ],
     "burden": 1000,
+    "imageHeight": 3,
     "moveable": true,
     "rarity": 10,
     "stackable": true,
@@ -24703,6 +24721,7 @@
       1746
     ],
     "burden": 1500,
+    "imageHeight": 3,
     "moveable": true,
     "rarity": 5,
     "stackable": true,
@@ -24789,6 +24808,7 @@
     "burden": 100,
     "growthDelta": 5000,
     "growthItem": 2046,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -24802,6 +24822,7 @@
     "burden": 100,
     "growthDelta": 5000,
     "growthItem": 2047,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -24815,6 +24836,7 @@
     "burden": 100,
     "growthDelta": 5000,
     "growthItem": 2048,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -24828,6 +24850,7 @@
     "burden": 100,
     "growthDelta": 5000,
     "growthItem": 2048,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -25638,6 +25661,7 @@
       1451
     ],
     "burden": 3000,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -25650,6 +25674,7 @@
       1653
     ],
     "burden": 3000,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -25662,6 +25687,7 @@
       1905
     ],
     "burden": 3000,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -26059,6 +26085,7 @@
     ],
     "growthDelta": 5000,
     "growthItem": 2154,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -26071,6 +26098,7 @@
     ],
     "growthDelta": 5000,
     "growthItem": 2155,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -26083,6 +26111,7 @@
     ],
     "growthDelta": 5000,
     "growthItem": 2155,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -26143,6 +26172,7 @@
     ],
     "growthDelta": 5000,
     "growthItem": 2161,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -26155,6 +26185,7 @@
     ],
     "growthDelta": 5000,
     "growthItem": 2162,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -26167,6 +26198,7 @@
     ],
     "growthDelta": 5000,
     "growthItem": 2162,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -27107,6 +27139,7 @@
       2100
     ],
     "burden": 5000,
+    "imageHeight": 4,
     "moveable": true,
     "stackable": false,
     "walkable": false
@@ -34365,6 +34398,7 @@
       1451
     ],
     "burden": 3000,
+    "imageHeight": 2,
     "moveable": true,
     "stackable": false,
     "walkable": false
@@ -34485,6 +34519,7 @@
       1788
     ],
     "burden": 3000,
+    "imageHeight": 2,
     "moveable": true,
     "stackable": false,
     "walkable": false
@@ -34497,6 +34532,7 @@
       1789
     ],
     "burden": 3000,
+    "imageHeight": 2,
     "moveable": true,
     "stackable": false,
     "walkable": false
@@ -34509,6 +34545,7 @@
       1788
     ],
     "burden": 3000,
+    "imageHeight": 4,
     "moveable": true,
     "stackable": false,
     "walkable": false
@@ -35337,6 +35374,7 @@
       2608
     ],
     "burden": 2000,
+    "imageHeight": 4,
     "moveable": true,
     "stackable": false,
     "walkable": false
@@ -35895,6 +35933,7 @@
       2300
     ],
     "burden": 5000,
+    "imageHeight": 4,
     "moveable": true,
     "stackable": false,
     "walkable": false
@@ -35907,6 +35946,7 @@
       2302
     ],
     "burden": 3000,
+    "imageHeight": 2,
     "moveable": false,
     "stackable": false,
     "walkable": false

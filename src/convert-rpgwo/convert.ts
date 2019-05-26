@@ -99,6 +99,8 @@ function parseItemsIni() {
       currentItem.animations.push(num(value));
     } else if (key.match(/^notmovable/i)) {
       currentItem.moveable = false;
+    } else if (key.match(/^imagetype/i)) {
+      currentItem.imageHeight = num(value) + 1;
     } else if (key.match(/^BlockMovement/i)) {
       // if (value !== '1') console.log(currentItem.name, value, value !== '1');
       currentItem.walkable = (value || '1') !== '1';

@@ -58,17 +58,17 @@ type ClientToServerWire = Wire<
 
 interface MetaItem {
   id: number;
-  burden: number;
-  growthItem: number;
-  growthDelta: number;
   name: string;
-  imageHeight: number;
-  animations: number[];
-  walkable: boolean;
-  moveable: boolean;
-  stackable: boolean;
   class: 'Normal' | 'Ore' | 'CaveDown' | 'CaveUp';
+  animations: number[];
+  burden: number;
+  growthDelta: number;
+  growthItem: number;
+  imageHeight: number;
+  moveable: boolean;
   rarity: number;
+  stackable: boolean;
+  walkable: boolean;
 }
 
 interface ItemUse {
