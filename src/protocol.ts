@@ -145,8 +145,8 @@ const requestSector: C2S<RequestSectorParams> = (server, { x, y, z }) => {
   });
 };
 
-interface UseParams { toolIndex: number; loc: TilePoint; }
-const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
+interface UseParams { toolIndex: number; loc: TilePoint; usageIndex?: number; }
+const use: C2S<UseParams> = (server, { toolIndex, loc, usageIndex = 0 }) => {
   if (!server.context.map.inBounds(loc)) {
     return false;
   }
@@ -161,7 +161,7 @@ const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
 
   const uses = getItemUses(tool.type, focus.type);
   if (!uses.length) return;
-  const use = uses[0];
+  const use = uses[usageIndex];
 
   const toolQuantityConsumed = use.toolQuantityConsumed === undefined ? 1 : use.toolQuantityConsumed;
   const usageResult = {

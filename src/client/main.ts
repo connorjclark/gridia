@@ -160,6 +160,26 @@ const Helper = {
       loc,
     });
   },
+  useTool(loc: TilePoint, usageIndex?: number) {
+    const toolIndex = Helper.getSelectedToolIndex();
+    const tool = Helper.getSelectedTool();
+    const focus = client.context.map.getItem(loc);
+    const usages = getItemUses(tool.type, focus.type);
+
+    if (usages.length === 0) {
+      return;
+    }
+
+    if (usages.length === 1 || usageIndex !== undefined) {
+      wire.send('use', {
+        toolIndex,
+        loc,
+        usageIndex,
+      });
+    } else {
+      Draw.makeUsageWindow(tool, focus, usages, loc);
+    }
+  },
   getZ() {
     const focusCreature = client.context.getCreature(client.creatureId);
     return focusCreature ? focusCreature.pos.z : 0;
@@ -242,11 +262,13 @@ const Draw = {
       .on('mouseupoutside', onDragEnd);
 
     // TODO better names
-    return {
+    const window = {
       container,
       contents,
       draw,
     };
+
+    return window;
   },
 
   makeItemContainerWindow(container: Container) {
@@ -332,7 +354,42 @@ const Draw = {
       window.draw();
     }
 
+    game.addWindow({container: window.container, draw});
     return containerWindow;
+  },
+
+  makeUsageWindow(tool: Item, focus: Item, usages: ItemUse[], loc: TilePoint) {
+    const window = Draw.makeDraggableWindow();
+    const usageWindow = {
+      window,
+      draw,
+    };
+
+    window.contents
+      .on('mousedown', (e: PIXI.interaction.InteractionEvent) => {
+        const {x, y} = e.data.getLocalPosition(e.target);
+        const index = Math.floor(x / 32) + Math.floor(y / 32) * 10;
+        game.removeWindow(windowHandle);
+        Helper.useTool(loc, index);
+      });
+
+    function draw() {
+      window.contents.removeChildren();
+      for (const [i, usage] of usages.entries()) {
+        const item = {type: usage.products[0], quantity: usage.quantities[0]};
+        const itemSprite = Draw.makeItemSprite(item);
+        itemSprite.x = (i % 10) * 32;
+        itemSprite.y = Math.floor(i / 10) * 32;
+        window.contents.addChild(itemSprite);
+      }
+
+      window.draw();
+    }
+
+    window.container.x = window.container.y = 40;
+    const windowHandle = {container: window.container, draw};
+    game.addWindow(windowHandle);
+    return usageWindow;
   },
 
   makeHighlight(color: number, alpha: number) {
@@ -375,6 +432,10 @@ interface ItemMoveEvent {
   item?: Item;
 }
 
+interface Drawable {
+  container: PIXI.Container;
+  draw: () => void;
+}
 type ContainerWindow = ReturnType<typeof Draw.makeItemContainerWindow>;
 const containerWindows = new Map<number, ContainerWindow>();
 
@@ -454,18 +515,15 @@ function renderSelectedItem(item: Item) {
 
 type SelectedItemAction = 'pickup' | 'use-hand' | 'use-tool';
 
-/**
- * @param {Event} e
- */
-function onActionButtonClick(e) {
+function onActionButtonClick(e: Event) {
+  // @ts-ignore
   const type: SelectedItemAction = e.target.dataset.action;
 
   switch (type) {
     case 'pickup':
       wire.send('moveItem', {
-        from: state.selectedTile,
         fromSource: 0,
-        to: null,
+        from: state.selectedTile,
         toSource: client.containerId,
       });
       break;
@@ -473,10 +531,7 @@ function onActionButtonClick(e) {
       Helper.useHand(state.selectedTile);
       break;
     case 'use-tool':
-      wire.send('use', {
-        toolIndex: Helper.getSelectedToolIndex(),
-        loc: state.selectedTile,
-      });
+      Helper.useTool(state.selectedTile);
       break;
     default:
       console.error('unknown action type', type);
@@ -504,6 +559,7 @@ class Game {
   protected app: PIXI.Application;
   protected canvasesEl: HTMLElement;
   protected containers: Record<string, PIXI.Container> = {};
+  protected windows: Drawable[] = [];
   protected itemMovingState: ItemMoveEvent = null;
   protected mouseHasMovedSinceItemMoveBegin = false;
 
@@ -554,6 +610,16 @@ class Game {
     world.addChild(this.containers.topLayer = new PIXI.Container());
     this.app.ticker.add(this.tick.bind(this));
     this.registerListeners();
+  }
+
+  public addWindow(window: Drawable) {
+    this.windows.push(window);
+    this.app.stage.addChild(window.container);
+  }
+
+  public removeWindow(window: Drawable) {
+    this.windows.splice(this.windows.indexOf(window), 1);
+    this.app.stage.removeChild(window.container);
   }
 
   public registerListeners() {
@@ -673,10 +739,7 @@ class Game {
 
       // Space bar to use tool.
       if (e.keyCode === KEYS.SPACE_BAR && state.selectedTile) {
-        wire.send('use', {
-          toolIndex: inventoryWindow.selectedIndex,
-          loc: state.selectedTile,
-        });
+        Helper.useTool(state.selectedTile);
       }
 
       // Shift to pick up item.
@@ -750,11 +813,10 @@ class Game {
     if (!focusCreature) return;
     if (client.context.map.width === 0) return;
 
-    // Draw container windows.
+    // Make container windows.
     for (const [id, container] of client.context.containers.entries()) {
-      let containerWindow = containerWindows.get(id);
-      if (!containerWindow) {
-        containerWindow = Draw.makeItemContainerWindow(container);
+      if (!containerWindows.has(id)) {
+        const containerWindow = Draw.makeItemContainerWindow(container);
         containerWindows.set(id, containerWindow);
         this.app.stage.addChild(containerWindow.window.container);
 
@@ -766,8 +828,11 @@ class Game {
           containerWindow.window.container.y = size.height - containerWindow.window.container.height;
         }
       }
+    }
 
-      containerWindow.draw();
+    // Draw windows.
+    for (const window of this.windows) {
+      window.draw();
     }
 
     state.viewport = {
@@ -937,7 +1002,8 @@ class Game {
   }
 }
 
+let game: Game;
 document.addEventListener('DOMContentLoaded', () => {
-  const game = new Game();
+  game = new Game();
   game.start();
 });

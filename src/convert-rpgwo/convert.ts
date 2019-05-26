@@ -67,22 +67,6 @@ function parseItemsIni() {
   };
   const items = [];
 
-  // Only save properties that Gridia utilizes.
-  const whitelist = [
-    'animations',
-    'burden',
-    'class',
-    'growthDelta',
-    'growthItem',
-    'id',
-    'imageHeight',
-    'moveable',
-    'name',
-    'rarity',
-    'stackable',
-    'walkable',
-  ];
-
   let currentItem;
   for (const [key, value] of itemsIni) {
     if (key.match(/^item$/i)) {
@@ -102,7 +86,6 @@ function parseItemsIni() {
     } else if (key.match(/^imagetype/i)) {
       currentItem.imageHeight = num(value) + 1;
     } else if (key.match(/^BlockMovement/i)) {
-      // if (value !== '1') console.log(currentItem.name, value, value !== '1');
       currentItem.walkable = (value || '1') !== '1';
     } else {
       // Most properties are unchanged, except for being camelCase.
@@ -126,6 +109,21 @@ function parseItemsIni() {
 
   // printUniqueKeys(items);
 
+  // Only save properties that Gridia utilizes.
+  const whitelist = [
+    'animations',
+    'burden',
+    'class',
+    'growthDelta',
+    'growthItem',
+    'id',
+    'imageHeight',
+    'moveable',
+    'name',
+    'rarity',
+    'stackable',
+    'walkable',
+  ];
   for (const item of items) {
     for (const key of Object.keys(item)) {
       if (!whitelist.includes(key)) {
