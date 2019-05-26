@@ -140,6 +140,7 @@
     "animations": [
       11
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 1366,
     "moveable": false,
@@ -429,6 +430,7 @@
     "animations": [
       65
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -2185,6 +2187,7 @@
     "animations": [
       468
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 182,
     "moveable": false,
@@ -2198,6 +2201,7 @@
     "animations": [
       469
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 182,
     "moveable": false,
@@ -2262,6 +2266,7 @@
     "animations": [
       129
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 188,
     "moveable": false,
@@ -2275,6 +2280,7 @@
     "animations": [
       532
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 11,
     "moveable": false,
@@ -3719,6 +3725,7 @@
     "animations": [
       107
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -3730,6 +3737,7 @@
     "animations": [
       108
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -3741,6 +3749,7 @@
     "animations": [
       109
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -3752,6 +3761,7 @@
     "animations": [
       148
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -3763,6 +3773,7 @@
     "animations": [
       128
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -3774,6 +3785,7 @@
     "animations": [
       149
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -3785,6 +3797,7 @@
     "animations": [
       226
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -3796,6 +3809,7 @@
     "animations": [
       246
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -5140,6 +5154,7 @@
     "animations": [
       613
     ],
+    "burden": 10000,
     "growthDelta": 2000,
     "growthItem": 420,
     "moveable": false,
@@ -5153,6 +5168,7 @@
     "animations": [
       614
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 419,
     "moveable": false,
@@ -5178,6 +5194,7 @@
     "animations": [
       613
     ],
+    "burden": 10000,
     "growthDelta": 2000,
     "growthItem": 423,
     "moveable": false,
@@ -5191,6 +5208,7 @@
     "animations": [
       615
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 422,
     "moveable": false,
@@ -5216,6 +5234,7 @@
     "animations": [
       613
     ],
+    "burden": 10000,
     "growthDelta": 2000,
     "growthItem": 426,
     "moveable": false,
@@ -5229,6 +5248,7 @@
     "animations": [
       616
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 425,
     "moveable": false,
@@ -5254,6 +5274,7 @@
     "animations": [
       613
     ],
+    "burden": 10000,
     "growthDelta": 2000,
     "growthItem": 429,
     "moveable": false,
@@ -5267,6 +5288,7 @@
     "animations": [
       617
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 428,
     "moveable": false,
@@ -5520,6 +5542,7 @@
     "animations": [
       403
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -5531,6 +5554,7 @@
     "animations": [
       404
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -5542,6 +5566,7 @@
     "animations": [
       405
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -5553,6 +5578,7 @@
     "animations": [
       406
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -5564,6 +5590,7 @@
     "animations": [
       407
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -5575,6 +5602,7 @@
     "animations": [
       408
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -5586,6 +5614,7 @@
     "animations": [
       409
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -5597,6 +5626,7 @@
     "animations": [
       413
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -5608,6 +5638,7 @@
     "animations": [
       414
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -5619,6 +5650,7 @@
     "animations": [
       415
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -5630,6 +5662,7 @@
     "animations": [
       416
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -5641,6 +5674,7 @@
     "animations": [
       417
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -5652,6 +5686,7 @@
     "animations": [
       418
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -5663,6 +5698,7 @@
     "animations": [
       419
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -5674,6 +5710,7 @@
     "animations": [
       423
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -5685,6 +5722,7 @@
     "animations": [
       424
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -5696,6 +5734,7 @@
     "animations": [
       426
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -5767,6 +5806,7 @@
     "animations": [
       774
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -5778,6 +5818,7 @@
     "animations": [
       775
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -5828,6 +5869,7 @@
       392,
       391
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -5844,6 +5886,7 @@
       393,
       392
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -5992,6 +6035,7 @@
     "animations": [
       525
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -6003,6 +6047,7 @@
     "animations": [
       526
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -6014,6 +6059,7 @@
     "animations": [
       527
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -6037,6 +6083,7 @@
     "animations": [
       525
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -6108,6 +6155,7 @@
     "animations": [
       433
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -6119,6 +6167,7 @@
     "animations": [
       434
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -6130,6 +6179,7 @@
     "animations": [
       435
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -6141,6 +6191,7 @@
     "animations": [
       436
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -6152,6 +6203,7 @@
     "animations": [
       437
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -6163,6 +6215,7 @@
     "animations": [
       438
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -6174,6 +6227,7 @@
     "animations": [
       439
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -6185,6 +6239,7 @@
     "animations": [
       477
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -6196,6 +6251,7 @@
     "animations": [
       478
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -6207,6 +6263,7 @@
     "animations": [
       479
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -6218,6 +6275,7 @@
     "animations": [
       487
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -6229,6 +6287,7 @@
     "animations": [
       488
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -6240,6 +6299,7 @@
     "animations": [
       489
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -6251,6 +6311,7 @@
     "animations": [
       443
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -6262,6 +6323,7 @@
     "animations": [
       444
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -6273,6 +6335,7 @@
     "animations": [
       445
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -6284,6 +6347,7 @@
     "animations": [
       446
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -7121,6 +7185,7 @@
     "animations": [
       267
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -7132,6 +7197,7 @@
     "animations": [
       267
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -7143,6 +7209,7 @@
     "animations": [
       267
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -7154,6 +7221,7 @@
     "animations": [
       267
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -7991,6 +8059,7 @@
     "animations": [
       11
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -11892,6 +11961,7 @@
     "animations": [
       687
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -11903,6 +11973,7 @@
     "animations": [
       598
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -11914,6 +11985,7 @@
     "animations": [
       641
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -11925,6 +11997,7 @@
     "animations": [
       2190
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -11936,6 +12009,7 @@
     "animations": [
       599
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -11947,6 +12021,7 @@
     "animations": [
       634
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -11958,6 +12033,7 @@
     "animations": [
       635
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -11969,6 +12045,7 @@
     "animations": [
       636
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -11980,6 +12057,7 @@
     "animations": [
       637
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -11991,6 +12069,7 @@
     "animations": [
       594
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -12002,6 +12081,7 @@
     "animations": [
       595
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -12013,6 +12093,7 @@
     "animations": [
       596
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -12024,6 +12105,7 @@
     "animations": [
       597
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -12222,6 +12304,7 @@
     "animations": [
       1100
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 1006,
     "imageHeight": 2,
@@ -13081,6 +13164,7 @@
       393,
       392
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -13212,6 +13296,7 @@
       393,
       392
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -13228,6 +13313,7 @@
       393,
       392
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -13592,6 +13678,7 @@
     "animations": [
       1000
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -13603,6 +13690,7 @@
     "animations": [
       1001
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -14142,6 +14230,7 @@
       1014,
       1013
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -14158,6 +14247,7 @@
       1022,
       1021
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -15205,6 +15295,7 @@
     "animations": [
       409
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -15216,6 +15307,7 @@
     "animations": [
       774
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -15227,6 +15319,7 @@
     "animations": [
       414
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -15238,6 +15331,7 @@
     "animations": [
       775
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -16450,6 +16544,7 @@
     "animations": [
       1210
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -16461,6 +16556,7 @@
     "animations": [
       1211
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -16472,6 +16568,7 @@
     "animations": [
       1212
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -16483,6 +16580,7 @@
     "animations": [
       1213
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -16494,6 +16592,7 @@
     "animations": [
       1214
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -16505,6 +16604,7 @@
     "animations": [
       1215
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -16516,6 +16616,7 @@
     "animations": [
       1216
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -16527,6 +16628,7 @@
     "animations": [
       1217
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -16538,6 +16640,7 @@
     "animations": [
       748
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -16549,6 +16652,7 @@
     "animations": [
       749
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -16584,6 +16688,7 @@
     "animations": [
       1230
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 1367,
     "imageHeight": 2,
@@ -16598,6 +16703,7 @@
     "animations": [
       1231
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 1006,
     "imageHeight": 2,
@@ -17600,6 +17706,7 @@
     "animations": [
       1233
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17611,6 +17718,7 @@
     "animations": [
       1234
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17622,6 +17730,7 @@
     "animations": [
       1235
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17633,6 +17742,7 @@
     "animations": [
       1236
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17644,6 +17754,7 @@
     "animations": [
       1237
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17655,6 +17766,7 @@
     "animations": [
       1238
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17666,6 +17778,7 @@
     "animations": [
       1239
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17677,6 +17790,7 @@
     "animations": [
       1243
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17688,6 +17802,7 @@
     "animations": [
       1244
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -17699,6 +17814,7 @@
     "animations": [
       1245
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17710,6 +17826,7 @@
     "animations": [
       1246
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17721,6 +17838,7 @@
     "animations": [
       1247
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17732,6 +17850,7 @@
     "animations": [
       1248
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17743,6 +17862,7 @@
     "animations": [
       1249
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17754,6 +17874,7 @@
     "animations": [
       1253
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17765,6 +17886,7 @@
     "animations": [
       1254
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17776,6 +17898,7 @@
     "animations": [
       1256
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17787,6 +17910,7 @@
     "animations": [
       1257
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17798,6 +17922,7 @@
     "animations": [
       1258
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -17881,6 +18006,7 @@
     "animations": [
       1290
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17892,6 +18018,7 @@
     "animations": [
       1291
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17903,6 +18030,7 @@
     "animations": [
       1292
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17914,6 +18042,7 @@
     "animations": [
       1293
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17925,6 +18054,7 @@
     "animations": [
       1294
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -17936,6 +18066,7 @@
     "animations": [
       1295
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19483,6 +19614,7 @@
     "animations": [
       1403
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19494,6 +19626,7 @@
     "animations": [
       1404
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19505,6 +19638,7 @@
     "animations": [
       1405
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19516,6 +19650,7 @@
     "animations": [
       1406
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19527,6 +19662,7 @@
     "animations": [
       1407
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19538,6 +19674,7 @@
     "animations": [
       1408
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19549,6 +19686,7 @@
     "animations": [
       1409
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19560,6 +19698,7 @@
     "animations": [
       1413
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19571,6 +19710,7 @@
     "animations": [
       1414
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -19582,6 +19722,7 @@
     "animations": [
       1415
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19593,6 +19734,7 @@
     "animations": [
       1416
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19604,6 +19746,7 @@
     "animations": [
       1417
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19615,6 +19758,7 @@
     "animations": [
       1418
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19626,6 +19770,7 @@
     "animations": [
       1419
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19637,6 +19782,7 @@
     "animations": [
       1423
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19648,6 +19794,7 @@
     "animations": [
       1424
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19659,6 +19806,7 @@
     "animations": [
       1426
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19670,6 +19818,7 @@
     "animations": [
       1427
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19681,6 +19830,7 @@
     "animations": [
       1428
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -19692,6 +19842,7 @@
     "animations": [
       1433
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19703,6 +19854,7 @@
     "animations": [
       1434
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19714,6 +19866,7 @@
     "animations": [
       1435
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19725,6 +19878,7 @@
     "animations": [
       1436
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19736,6 +19890,7 @@
     "animations": [
       1437
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19747,6 +19902,7 @@
     "animations": [
       1438
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19758,6 +19914,7 @@
     "animations": [
       1439
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19769,6 +19926,7 @@
     "animations": [
       1443
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19780,6 +19938,7 @@
     "animations": [
       1444
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -19791,6 +19950,7 @@
     "animations": [
       1445
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19802,6 +19962,7 @@
     "animations": [
       1446
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19813,6 +19974,7 @@
     "animations": [
       1447
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19824,6 +19986,7 @@
     "animations": [
       1448
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19835,6 +19998,7 @@
     "animations": [
       1449
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19846,6 +20010,7 @@
     "animations": [
       1453
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19857,6 +20022,7 @@
     "animations": [
       1454
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19868,6 +20034,7 @@
     "animations": [
       1456
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19879,6 +20046,7 @@
     "animations": [
       1457
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19890,6 +20058,7 @@
     "animations": [
       1458
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -19901,6 +20070,7 @@
     "animations": [
       1463
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19912,6 +20082,7 @@
     "animations": [
       1464
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19923,6 +20094,7 @@
     "animations": [
       1465
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19934,6 +20106,7 @@
     "animations": [
       1466
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19945,6 +20118,7 @@
     "animations": [
       1467
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19956,6 +20130,7 @@
     "animations": [
       1468
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19967,6 +20142,7 @@
     "animations": [
       1469
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19978,6 +20154,7 @@
     "animations": [
       1473
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -19989,6 +20166,7 @@
     "animations": [
       1474
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -20000,6 +20178,7 @@
     "animations": [
       1475
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -20011,6 +20190,7 @@
     "animations": [
       1476
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -20022,6 +20202,7 @@
     "animations": [
       1477
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -20033,6 +20214,7 @@
     "animations": [
       1478
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -20044,6 +20226,7 @@
     "animations": [
       1479
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -20055,6 +20238,7 @@
     "animations": [
       1483
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -20066,6 +20250,7 @@
     "animations": [
       1484
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -20077,6 +20262,7 @@
     "animations": [
       1486
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -20088,6 +20274,7 @@
     "animations": [
       1487
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -20099,6 +20286,7 @@
     "animations": [
       1488
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -22224,6 +22412,7 @@
     "animations": [
       1622
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -22439,6 +22628,7 @@
     "animations": [
       1409
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -22450,6 +22640,7 @@
     "animations": [
       1414
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -22461,6 +22652,7 @@
     "animations": [
       1427
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -22472,6 +22664,7 @@
     "animations": [
       1428
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -22507,6 +22700,7 @@
     "animations": [
       1433
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -22518,6 +22712,7 @@
     "animations": [
       1434
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -22529,6 +22724,7 @@
     "animations": [
       1435
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -22540,6 +22736,7 @@
     "animations": [
       1436
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -22551,6 +22748,7 @@
     "animations": [
       1437
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -22562,6 +22760,7 @@
     "animations": [
       1438
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -22573,6 +22772,7 @@
     "animations": [
       1439
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -22584,6 +22784,7 @@
     "animations": [
       1443
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -22595,6 +22796,7 @@
     "animations": [
       1444
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -22606,6 +22808,7 @@
     "animations": [
       1445
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -22617,6 +22820,7 @@
     "animations": [
       1446
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -22628,6 +22832,7 @@
     "animations": [
       1447
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -22639,6 +22844,7 @@
     "animations": [
       1448
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -22650,6 +22856,7 @@
     "animations": [
       1449
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -22661,6 +22868,7 @@
     "animations": [
       1453
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -22672,6 +22880,7 @@
     "animations": [
       1454
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -22683,6 +22892,7 @@
     "animations": [
       1456
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -22694,6 +22904,7 @@
     "animations": [
       1457
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -22705,6 +22916,7 @@
     "animations": [
       1458
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -24001,6 +24213,7 @@
     "animations": [
       1800
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 2,
     "moveable": false,
@@ -24014,6 +24227,7 @@
     "animations": [
       1801
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 6,
     "moveable": false,
@@ -24027,6 +24241,7 @@
     "animations": [
       1839
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 185,
     "moveable": false,
@@ -24040,6 +24255,7 @@
     "animations": [
       1804
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 856,
     "moveable": false,
@@ -24053,6 +24269,7 @@
     "animations": [
       1805
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 859,
     "moveable": false,
@@ -24066,6 +24283,7 @@
     "animations": [
       1806
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 861,
     "moveable": false,
@@ -24079,6 +24297,7 @@
     "animations": [
       1807
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 863,
     "moveable": false,
@@ -24092,6 +24311,7 @@
     "animations": [
       1808
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 865,
     "moveable": false,
@@ -24105,6 +24325,7 @@
     "animations": [
       1809
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 873,
     "moveable": false,
@@ -24118,6 +24339,7 @@
     "animations": [
       1810
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 875,
     "moveable": false,
@@ -24131,6 +24353,7 @@
     "animations": [
       1811
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 877,
     "moveable": false,
@@ -24144,6 +24367,7 @@
     "animations": [
       1812
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 879,
     "moveable": false,
@@ -24157,6 +24381,7 @@
     "animations": [
       1813
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 881,
     "moveable": false,
@@ -24170,6 +24395,7 @@
     "animations": [
       1814
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 883,
     "moveable": false,
@@ -24183,6 +24409,7 @@
     "animations": [
       1815
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 885,
     "moveable": false,
@@ -24196,6 +24423,7 @@
     "animations": [
       1816
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 887,
     "moveable": false,
@@ -24209,6 +24437,7 @@
     "animations": [
       1817
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 889,
     "moveable": false,
@@ -24222,6 +24451,7 @@
     "animations": [
       1818
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 891,
     "moveable": false,
@@ -24235,6 +24465,7 @@
     "animations": [
       1819
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 893,
     "moveable": false,
@@ -24248,6 +24479,7 @@
     "animations": [
       1820
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 896,
     "moveable": false,
@@ -24261,6 +24493,7 @@
     "animations": [
       1821
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 899,
     "moveable": false,
@@ -24274,6 +24507,7 @@
     "animations": [
       1822
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 950,
     "moveable": false,
@@ -24287,6 +24521,7 @@
     "animations": [
       1823
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 952,
     "moveable": false,
@@ -24300,6 +24535,7 @@
     "animations": [
       1824
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 954,
     "moveable": false,
@@ -24313,6 +24549,7 @@
     "animations": [
       1825
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 956,
     "moveable": false,
@@ -24326,6 +24563,7 @@
     "animations": [
       1826
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 958,
     "moveable": false,
@@ -24339,6 +24577,7 @@
     "animations": [
       1827
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 961,
     "moveable": false,
@@ -24352,6 +24591,7 @@
     "animations": [
       1828
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 964,
     "moveable": false,
@@ -24372,6 +24612,7 @@
       1831,
       1831
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 969,
     "moveable": false,
@@ -24385,6 +24626,7 @@
     "animations": [
       1829
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 997,
     "moveable": false,
@@ -24398,6 +24640,7 @@
     "animations": [
       1837
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 1028,
     "moveable": false,
@@ -24411,6 +24654,7 @@
     "animations": [
       1836
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 1029,
     "moveable": false,
@@ -24424,6 +24668,7 @@
     "animations": [
       1833
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 1093,
     "moveable": false,
@@ -24437,6 +24682,7 @@
     "animations": [
       1834
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 1097,
     "moveable": false,
@@ -24450,6 +24696,7 @@
     "animations": [
       1835
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 1106,
     "moveable": false,
@@ -24463,6 +24710,7 @@
     "animations": [
       1802
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 1311,
     "moveable": false,
@@ -24476,6 +24724,7 @@
     "animations": [
       1803
     ],
+    "burden": 10000,
     "growthDelta": 1000,
     "growthItem": 852,
     "moveable": false,
@@ -25699,6 +25948,7 @@
     "animations": [
       1940
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -25713,6 +25963,7 @@
       1942,
       1942
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25727,6 +25978,7 @@
       1944,
       1944
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25738,6 +25990,7 @@
     "animations": [
       633
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25749,6 +26002,7 @@
     "animations": [
       525
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25760,6 +26014,7 @@
     "animations": [
       525
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25771,6 +26026,7 @@
     "animations": [
       633
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25782,6 +26038,7 @@
     "animations": [
       633
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25793,6 +26050,7 @@
     "animations": [
       633
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25804,6 +26062,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25815,6 +26074,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25826,6 +26086,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25837,6 +26098,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25848,6 +26110,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25859,6 +26122,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25870,6 +26134,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25881,6 +26146,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25892,6 +26158,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25903,6 +26170,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25914,6 +26182,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25925,6 +26194,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25936,6 +26206,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25947,6 +26218,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25958,6 +26230,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25969,6 +26242,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25980,6 +26254,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -25991,6 +26266,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -26002,6 +26278,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -26013,6 +26290,7 @@
     "animations": [
       0
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -26047,6 +26325,7 @@
     "animations": [
       1906
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 2151,
     "moveable": false,
@@ -26059,6 +26338,7 @@
     "animations": [
       1907
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 2152,
     "moveable": false,
@@ -26071,6 +26351,7 @@
     "animations": [
       1908
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 2153,
     "moveable": false,
@@ -26083,6 +26364,7 @@
     "animations": [
       1920
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 2154,
     "imageHeight": 2,
@@ -26096,6 +26378,7 @@
     "animations": [
       1921
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 2155,
     "imageHeight": 2,
@@ -26109,6 +26392,7 @@
     "animations": [
       1922
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 2155,
     "imageHeight": 2,
@@ -26134,6 +26418,7 @@
     "animations": [
       1916
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 2158,
     "moveable": false,
@@ -26146,6 +26431,7 @@
     "animations": [
       1917
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 2159,
     "moveable": false,
@@ -26158,6 +26444,7 @@
     "animations": [
       1918
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 2160,
     "moveable": false,
@@ -26170,6 +26457,7 @@
     "animations": [
       1923
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 2161,
     "imageHeight": 2,
@@ -26183,6 +26471,7 @@
     "animations": [
       1924
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 2162,
     "imageHeight": 2,
@@ -26196,6 +26485,7 @@
     "animations": [
       1925
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 2162,
     "imageHeight": 2,
@@ -26636,6 +26926,7 @@
     "animations": [
       2030
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -26647,6 +26938,7 @@
     "animations": [
       2031
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -27107,6 +27399,7 @@
       2038,
       2037
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -27736,6 +28029,7 @@
       2044,
       2045
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -34630,6 +34924,7 @@
     "animations": [
       1794
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -34641,6 +34936,7 @@
     "animations": [
       1795
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -34700,6 +34996,7 @@
     "animations": [
       1911
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -34711,6 +35008,7 @@
     "animations": [
       1913
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -34722,6 +35020,7 @@
     "animations": [
       1910
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -34733,6 +35032,7 @@
     "animations": [
       1912
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -34888,6 +35188,7 @@
     "animations": [
       1854
     ],
+    "burden": 10000,
     "moveable": true,
     "stackable": false,
     "walkable": true
@@ -34899,6 +35200,7 @@
     "animations": [
       1853
     ],
+    "burden": 10000,
     "moveable": true,
     "stackable": false,
     "walkable": true
@@ -34946,6 +35248,7 @@
     "animations": [
       1856
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -34957,6 +35260,7 @@
     "animations": [
       1857
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -34968,6 +35272,7 @@
     "animations": [
       1859
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -34979,6 +35284,7 @@
     "animations": [
       1859
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -35014,6 +35320,7 @@
     "animations": [
       1861
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": true
@@ -35327,6 +35634,7 @@
     "animations": [
       2696
     ],
+    "burden": 10000,
     "moveable": true,
     "stackable": false,
     "walkable": true
@@ -35338,6 +35646,7 @@
     "animations": [
       2695
     ],
+    "burden": 10000,
     "moveable": true,
     "stackable": false,
     "walkable": true
@@ -35521,6 +35830,7 @@
     "animations": [
       1838
     ],
+    "burden": 10000,
     "growthDelta": 250,
     "growthItem": 3136,
     "moveable": false,
@@ -35534,6 +35844,7 @@
     "animations": [
       1838
     ],
+    "burden": 10000,
     "growthDelta": 750,
     "growthItem": 3137,
     "moveable": false,
@@ -35811,6 +36122,7 @@
     "animations": [
       2182
     ],
+    "burden": 10000,
     "moveable": false,
     "stackable": false,
     "walkable": false
@@ -35822,6 +36134,7 @@
     "animations": [
       613
     ],
+    "burden": 10000,
     "growthDelta": 2000,
     "growthItem": 3161,
     "moveable": false,
@@ -35835,6 +36148,7 @@
     "animations": [
       2191
     ],
+    "burden": 10000,
     "growthDelta": 5000,
     "growthItem": 3160,
     "moveable": false,

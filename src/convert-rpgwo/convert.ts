@@ -61,6 +61,7 @@ function parseItemsIni() {
   const itemsIni = loadIni('item');
 
   const defaults = {
+    burden: 10000,
     moveable: true,
     stackable: false,
     walkable: true,
