@@ -47,8 +47,7 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
       if (!loc) throw new Error('invariant violated');
       server.setItem(loc, item);
     } else {
-      if (!item) throw new Error('invariant violated');
-      server.addItemToContainer(source, item, loc ? loc.x : undefined);
+      server.addItemToContainer(source, loc ? loc.x : undefined, item);
     }
   }
 
@@ -179,7 +178,7 @@ const use: C2S<UseParams> = (server, { toolIndex, loc }) => {
   }
 
   if (usageResult.successTool) {
-    server.addItemToContainer(inventory.id, usageResult.successTool);
+    server.addItemToContainer(inventory.id, undefined, usageResult.successTool);
   }
 
   server.setItemInContainer(inventory.id, toolIndex, usageResult.tool);

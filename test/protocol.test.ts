@@ -220,6 +220,24 @@ describe('moveItem', () => {
     assertItemInWorld(to, { type: gold.id, quantity: 3 });
   });
 
+  it('move item from container to world', () => {
+    const to = { x: 0, y: 0, z: 0 };
+
+    const container = server.context.makeContainer();
+    container.items[0] = { type: 1, quantity: 1 };
+    wire.send('requestContainer', { containerId: container.id });
+
+    wire.send('moveItem', {
+      from: {x: 0, y: 0, z: 0},
+      fromSource: container.id,
+      to,
+      toSource: 0,
+    });
+
+    assertItemInWorld(to, { type: 1, quantity: 1 });
+    assertItemInContainer(container.id, 0, undefined);
+  });
+
   it('move item from world to container', () => {
     const from = { x: 0, y: 0, z: 0 };
 

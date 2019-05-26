@@ -252,7 +252,7 @@ export default class Server {
     });
   }
 
-  public addItemToContainer(id: number, item: Item, index?: number) {
+  public addItemToContainer(id: number, index?: number, item?: Item) {
     const container = this.context.containers.get(id);
     if (!container) throw new Error('no container: ' + id);
 
