@@ -21,6 +21,7 @@ interface Item {
   type: number;
   quantity: number;
   growth?: number;
+  containerId?: number;
 }
 
 interface Creature {
@@ -59,7 +60,7 @@ type ClientToServerWire = Wire<
 interface MetaItem {
   id: number;
   name: string;
-  class: 'Normal' | 'Ore' | 'CaveDown' | 'CaveUp';
+  class: 'Normal' | 'Ore' | 'CaveDown' | 'CaveUp' | 'Container';
   animations: number[];
   burden: number;
   growthDelta: number;

@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import {MINE, SECTOR_SIZE} from './constants';
-import { getMetaItemByName } from './items';
+import { getMetaItemByName, getRandomMetaItemOfClass } from './items';
 import WorldMap from './world-map';
 
 export default function mapgen(width: number, height: number, depth: number, bare: boolean) {
@@ -98,6 +98,16 @@ export default function mapgen(width: number, height: number, depth: number, bar
     };
     map.getTile(loc).item = {
       type: getMetaItemByName('Royal Stairs Down').id,
+      quantity: 1,
+    };
+
+    // Chests to test containers.
+    map.getTile({x: 8, y: 8, z: 0}).item = {
+      type: getRandomMetaItemOfClass('Container').id,
+      quantity: 1,
+    };
+    map.getTile({x: 9, y: 8, z: 0}).item = {
+      type: getRandomMetaItemOfClass('Container').id,
       quantity: 1,
     };
   }

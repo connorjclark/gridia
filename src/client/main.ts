@@ -180,6 +180,18 @@ const Helper = {
       Draw.makeUsageWindow(tool, focus, usages, loc);
     }
   },
+  // TODO: add tests checking that subscribed containers are updated in all clients.
+  // TODO: don't keep requesting container if already open.
+  openContainer(loc: TilePoint) {
+    wire.send('requestContainer', {
+      loc,
+    });
+  },
+  closeContainer(containerId: number) {
+    wire.send('closeContainer', {
+      containerId,
+    });
+  },
   getZ() {
     const focusCreature = client.context.getCreature(client.creatureId);
     return focusCreature ? focusCreature.pos.z : 0;
@@ -335,7 +347,20 @@ const Draw = {
         }
       });
 
+    if (container.id !== client.containerId) {
+      client.eventEmitter.on('PlayerMove', close);
+    }
+
+    function close() {
+      client.eventEmitter.removeListener('PlayerMove', close);
+      game.removeWindow(containerWindow);
+      containerWindows.delete(container.id);
+      client.context.containers.delete(container.id);
+    }
+
     function draw() {
+      // Hack: b/c container is requested multiple times, 'container' reference can get stale.
+      container = client.context.containers.get(container.id);
       window.contents.removeChildren();
       for (const [i, item] of container.items.entries()) {
         const itemSprite = Draw.makeItemSprite(item ? item : { type: 0, quantity: 1 });
@@ -359,6 +384,8 @@ const Draw = {
       window.draw();
     }
 
+    // TODO: take actual positions of windows into account.
+    window.container.y = (containerWindows.size - 1) * 50;
     game.addWindow(containerWindow);
     return containerWindow;
   },
@@ -500,6 +527,14 @@ function renderSelectedItem(item: Item) {
     });
   }
 
+  if (meta.class === 'Container') {
+    actions.push({
+      innerText: 'Open',
+      title: 'Look inside',
+      action: 'open-container',
+    });
+  }
+
   if (state.selectedTile) {
     const tool = Helper.getSelectedTool();
     if (tool && Helper.usageExists(tool.type, item.type)) {
@@ -520,7 +555,7 @@ function renderSelectedItem(item: Item) {
   }
 }
 
-type SelectedItemAction = 'pickup' | 'use-hand' | 'use-tool';
+type SelectedItemAction = 'pickup' | 'use-hand' | 'use-tool' | 'open-container';
 
 function onActionButtonClick(e: Event) {
   // @ts-ignore
@@ -539,6 +574,9 @@ function onActionButtonClick(e: Event) {
       break;
     case 'use-tool':
       Helper.useTool(state.selectedTile);
+      break;
+    case 'open-container':
+      Helper.openContainer(state.selectedTile);
       break;
     default:
       console.error('unknown action type', type);
@@ -956,12 +994,19 @@ class Game {
       }
 
       if (pos.x !== focusCreature.pos.x || pos.y !== focusCreature.pos.y) {
-        selectItem(undefined);
-        state.lastMove = performance.now();
-        wire.send('move', pos);
-        client.eventEmitter.emit('PlayerMove');
+        const itemToMoveTo = client.context.map.getItem(pos);
+        if (itemToMoveTo && getMetaItem(itemToMoveTo.type).class === 'Container') {
+          Helper.openContainer(pos);
+        }
 
-        delete state.mouse.tile;
+        if (client.context.map.walkable(pos)) {
+          selectItem(undefined);
+          state.lastMove = performance.now();
+          wire.send('move', pos);
+          client.eventEmitter.emit('PlayerMove');
+
+          delete state.mouse.tile;
+        }
       }
     }
 

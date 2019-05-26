@@ -119,8 +119,19 @@ const move: C2S<MoveParams> = (server, pos) => {
   server.moveCreature(creature, pos);
 };
 
-interface RequestContainerParams { containerId: number; }
-const requestContainer: C2S<RequestContainerParams> = (server, { containerId }) => {
+interface RequestContainerParams { containerId?: number; loc?: TilePoint; }
+const requestContainer: C2S<RequestContainerParams> = (server, { containerId, loc }) => {
+  if (!containerId && !loc) throw new Error('expected containerId or loc');
+
+  if (!containerId) {
+    const item = server.context.map.getItem(loc);
+    if (item.containerId) {
+      containerId = item.containerId;
+    } else {
+      containerId = item.containerId = server.context.makeContainer().id;
+    }
+  }
+
   const isClose = true; // TODO
   if (!isClose) {
     return false;
@@ -128,6 +139,14 @@ const requestContainer: C2S<RequestContainerParams> = (server, { containerId }) 
 
   server.currentClientConnection.registeredContainers.push(containerId);
   server.reply('container', server.context.getContainer(containerId));
+};
+
+interface CloseContainerParams { containerId: number; }
+const closeContainer: C2S<CloseContainerParams> = (server, { containerId }) => {
+  const index = server.currentClientConnection.registeredContainers.indexOf(containerId);
+  if (index !== -1) {
+    server.currentClientConnection.registeredContainers.splice(index, 1);
+  }
 };
 
 type RequestSectorParams = TilePoint;
@@ -201,6 +220,7 @@ const use: C2S<UseParams> = (server, { toolIndex, loc, usageIndex = 0 }) => {
 };
 
 export const ClientToServerProtocol = {
+  closeContainer,
   move,
   moveItem,
   requestContainer,
