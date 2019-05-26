@@ -1,0 +1,30 @@
+RPGWO Deity Guide
+
+***Last Updated 08/18/05
+
+
+Deity gives a player special abilities:
+ - all magic spells plus the deity spells
+ - warping
+ - non-blocked walking
+
+
+
+Deity Rules
+
+1 - Must not kill players but can come close. 
+
+2 - Players must build their temple. Deities cannot build anything.
+    Deities can augment or enhance their temple with un-makable, decorative items (statues, etc)
+
+3 - Use /karma [<name> [, <number>]] to view, give, and reduce karma
+
+4 - Players earn karma by doing things for the deity (donate gold, items, missions, etc)
+
+5 - Player spend karma by getting things from the deity (spells, items, tames, warps, etc)
+
+6 - Food is the only item a deity can make and give to players
+
+7 - A deity may not enter another deity's temple.
+
+ 

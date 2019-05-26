@@ -1,0 +1,344 @@
+RPGWO @@ Admin Guide
+April 27, 2004
+
+MOST IMPORTANT: YOU represent ME when I am not there. So, represent well.
+
+Intent: To inform on the rules and guidelines that a @@ admin on a RPGWO 
+ 	server should follow.
+
+What: A @@ regulates and enforces rules/EULA regarding chat on all levels(global,
+	local, mail, post, etc). A @@ builds quests, dungeons, etc, per @@@ direction.
+
+When: Whenever players give you oppurtunities. Mods, @, and @@@ are too lazy to deal with it, heh
+ 	And they expect you to deal with it anyways, heh, dang it
+
+How: With the following commands:
+
+	- /a <message>
+		- admin chat
+
+	- /warp <xpos>, <ypos>
+
+	- /warpme <player name>
+		- should never be used unless a player/tame is blocking
+		- whenever a player gets stuck, recommend /suicide
+		- meant to deal with bugs not careless players
+
+	- /warpmex <monster name>
+		- warps up to 8
+
+	- /warpto <player name>
+
+	- /warpmefollowers
+
+	- /down
+
+	- /up
+
+	- /whois <player name>
+		- gets logon name and IP of player
+
+	- /clientinfo
+
+	- /ruleadd <rule text>
+
+	- /ruledel <number>
+
+	- /boot <player name>
+		- use at will on bad players, outdated though, better to use /ban
+
+	- /imagetype <player name>, <0 - 4>
+		- only use on admins, mainly yourself
+
+	- /jail <player name>
+		- outdated, better to just /ban
+
+	- /amotd 	
+		- admin message of the day
+
+	- /globaldelay <seconds>
+		- setting to -1 turns globals off
+		- setting to 0 has no delay
+		- never set it lower than 60 unless turning it off
+		- generally raise the delay if arguments abound or if 
+		  the chat is not game related or breaking rules/EULA
+		- turns globals off when it is excessive
+		- give warning or not, up to you and if you want to be secret
+
+	- /muzzle <name>
+		- turns on or off local muzzle on <name>
+		- rarely used unless a gross offender or you in right place at
+		  right time or another player complains
+		- use sparingly
+
+	- /muzzleglobal <name>
+		- used the most, you can warn if you want but better to just muzzle
+		- note that only you or a @@@ can unmuzzle once a player is muzzled
+
+	- /muzzlepost <name>
+		- stops a player from posting
+
+	- /muzzlemail <name>
+		- stops a player from mailing
+
+	- /rename <old>, <new>
+		- rename if they have an offensive, rude, etc, name
+		- if they ask, you are free to charge gold, heh
+
+	- /jailnpc
+		- will jail any/all tames you are next to
+		- only to be used when tames found in quests, alone or in a city in wrong place
+
+	- /ban <playername>, <days>
+		- will ban the player/account for <days> day(s), a -1 is perm ban
+		- best to not perm ban, leave that for @@@, a 7 day MAX is good
+		- works if they are offline too, I think
+		- to be used when the player is very very bad and muzzle did not settle them
+
+	- /macban <playername>, <days>
+		- will ban the computer for <days> day(s), a -1 is a perm ban
+		- best to not perm ban, leave that for @@@, a 7 day MAX is good
+		- works if they are offline too, I think
+		- to be used when the player is very very bad and muzzle did not settle them
+
+	- /recentclient
+		- displays possible multi-clients
+		- the list is formed by logons that have matching computer ID or IP
+
+	- /recentclientremove <name>
+		- removes from recent client list and keeps them off it
+		- use this after you are satisfied they are not a multi - impossible to tell
+
+	- /stoptame <player name>
+	
+	- /playeractive <player name>
+		- toggles if they are active(off newb or not)
+		- use if they leave accidentally, use first then warp them
+
+	- /plotchat <message>
+
+	- /ipok <client or player name> 
+		- keeps them from showing up on recent client list
+
+	- /topten <level | attribute | skill>
+		- should not be globaled or givingto anyone, some players want secrecy
+
+	- /owner
+		- use over an item to see who created it, more for admins
+
+	- /undelete <player name>, <instance>
+		- instance skips over previous matched names cuz player tend to make, delete, ...
+
+	- /clearstats 
+		- just clears your players stats, obsolete for @@
+
+	- /shadow <player name>
+		- broke now
+
+	- /monsterhome
+		- send monster you are next to home
+
+	- /monsterfollow
+		- makes monster you are next to follow you
+
+	- /monsterchat <message>
+		- picks first monster that is following you and does chat through them
+
+	- /monsterguard
+		- makes monster you are next to gaurd
+
+	- /monsternewhome
+		- makes monster you are next to this spot their new home
+	
+	- /monsterremove
+
+	- /uuid <player name>
+		- returns that players UUID
+		- UUIDs are used for various things like for player only doors
+		- not used much
+
+	- /attune <player name>
+		- the players spot is their new resurrect spot
+		- when a player attunes to a life stone that makes him trapped then use this
+		  once you warp them out		
+
+	- /soccer <message>
+
+
+	****** Building Commands *******
+
+	- /triggerlist
+
+	- /itemid <item name>
+
+	- /treasureid <treasure name>
+
+	- /skillid <skill name>
+
+	- /monsterid <monster name>
+
+	- /water
+
+	- /groundwater
+
+	- /locklist
+
+	- /vendorlist
+
+	- /grass
+
+
+	****** Restricted Building Commands ******
+
+	- /landnowarp
+		- toggle for allowing warp spells
+		- used on quest areas
+
+	- /landnopk
+		- toggle for forced PK, normal, or NO PK
+		- life stones should get NO PK
+
+	- /forest <item>, <radius>
+
+	- /cave <extent>
+
+	- /dig
+
+	- /itemreset [value]
+		- used on items you want to go back to the current state like to close/lock doors
+
+	- /itemlock
+
+	- /itemtrigger [value]
+		- use on switches/traps and walls to link them
+
+	- /streamadd
+		- use to add water to land
+
+	- /streamdel
+
+	- /streamcreate [2 | 4 | 6 | 8]
+		- creates a long stream
+		- the number is a start direction according to the numeric pad
+
+	- /streamfill
+		- enclose/outline an area first then use this to fill it
+		- limit to 10 spots since it soo powerful
+
+	- /streamdestroy
+		- removes each stream part recursively
+		- cut off the portion you want to save then use this on the portion
+		  you want to delete
+		- very powerful, be careful
+
+	- /streamtrail
+		- where you walk, it drops water
+
+	- /addwater
+		- kinda obsolete, only useful in ocean, use /streamadd
+
+	- /delwater
+		- kinda obsolete, only useful in ocean, use /streamdel
+
+	- /level <range>
+		- levels the land
+
+	- /item <item name>, <quantity>
+		- creates an item in your inventory
+		- you cannot give this item to players, it not allowed
+		- it created with no degrade and not movable
+
+	- /itemdegrade
+		- toggles item degrade		
+
+	- /itemmove <direction>
+		- makes the item move once per 20 seconds
+		- use numeric keypad for directions
+		- greater than 9 is raqndom direction
+				
+
+	- /itemtextx <message>
+		- does not mark it with your admin name
+
+	- /itemtext <message>
+
+	- /itemspawn <itemid> <timeout> <data1> <data2> <data3> <data4> <data5> <usesleft> <quantity>
+
+	- /itemspawnlist
+
+	- /itemspawndelete
+
+	- /itemdata [data1 data2 data3 data4 data5 data6 data7 data8]
+		- each item type uses the data differently like doors/keys 1-4 is key code and
+		  1-2 for weapons/armor is skillid and bonusvalue, and many others
+		- when in doubt ask a @@@
+
+	- /raise <value>
+
+	- /lower <value>
+
+	- /surfacefill <value>
+		- does a 3x3 fill
+
+	- /surfacetrail <value>
+
+	- /surfacetrailwidth <value>
+
+	- /monsterspawnadd
+		- type it to see usage
+
+	- /monsterspawndelete
+
+	- /monsterspawnlist
+
+	- /monsterspawn
+
+	- /mapitemclear <range>
+
+	- /itemtrail <item>
+
+
+
+
+Note: Time limits on these commands is up to you and the severity of the "crime". I 
+	usually wait a week before I un-muzzle.
+
+Note: If a player, you did a command on, argues with you about it, do not entertain them,
+	merely tell them to email mickey@rpgwo.com or the commanding @@@. If they persist
+	warn with a banning. Then inform me or the @@@ of the server and we will review
+	logs and act accordingly.
+
+Note: Every command you do is logged and we will be able to see exactly what you are doing.
+	If you are not sure of an action then contact @@@ ASAP. If we don't respond 
+	promptly then use your best judgement. Then we can review the logs and let you
+	know what was proper, etc.
+
+Note: Abuse of these commands, like muzzling for no real reason, will not be tolerated
+	and will result in immediate permanent banning. I don't want you screwing around
+	mis-representing ME. For this reason, see the note above where if you are not
+	sure then contact a @@@ before or at least during in order to cover yourself.
+	If you are just testing, then that is fine of course, but I just need you to
+	respect other players mostly. 
+
+Note: The perk you get is no limit on globals. This of course should not be over used.
+	But none the less, use it as often as needed and proper. Warping on your @ player.
+	To make an @ admin, just add Admin to your name when creating. Wall walking too
+	plus going anyplace. These are NOT to be abused to help your player.
+
+Note: You may be logged in twice on your admin account and your normal player account but
+	please do not make a normal player on your admin account. So you would be running 
+	2 clients at the same time.
+	
+Note: If the swearing filter catches something like !@#$ then that is NOT a violation
+	of the rules/EULA. Of course if they get around it, LET EM HAVE IT!! I show
+	no mercy on those persons.
+
+Note: By the way, make sure you have read and understand the EULA. Even I have to
+	read it to remember the rules at times. Any rules you would like added then
+	let me or a @@@ know and we can add them if proper.
+
+Note: Rune combos can be globaled, it is part of the game. BUT websites with all of them,
+	I do NOT want globaled. That is my only fair restriction.
+
+
+

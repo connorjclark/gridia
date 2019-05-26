@@ -14,6 +14,7 @@
     "build": "yarn build-client && yarn build-server",
     "build-client": "parcel build src/client/main.ts -d dist/client -o gridia.js --public-url . && cp index.html dist/client && cp -r world dist/client/world",
     "build-server": "tsc --outDir dist/server && cp -r world dist/world",
+    "convert": "ts-node src/convert-rpgwo/convert.ts",
     "run-server": "node -r source-map-support/register ./dist/server/run-server.js",
     "clean": "rm -rf dist",
     "watch": "parcel src/client/main.ts -d dist -o gridia.js --public-url . & nodemon",
@@ -28,6 +29,7 @@
     "jest": "^24.7.1",
     "nodemon": "^1.18.11",
     "ts-jest": "^24.0.2",
+    "ts-node": "^8.1.1",
     "tslint": "^5.16.0",
     "typescript": "^3.3.1"
   },

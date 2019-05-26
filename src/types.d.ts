@@ -67,7 +67,7 @@ interface MetaItem {
   walkable: boolean;
   moveable: boolean;
   stackable: boolean;
-  class: 'Normal' | 'Ore' | 'Cave_down' | 'Cave_up';
+  class: 'Normal' | 'Ore' | 'CaveDown' | 'CaveUp';
   rarity: number;
 }
 

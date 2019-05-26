@@ -1,0 +1,91 @@
+RPGWO Trap Guide
+June 12, 2003
+
+
+There are many traps both invisible and visible.
+This will discuss the invisible ones. The "purple" ones.
+
+There are 2 kinds: quick and normal.
+    - quick will reset right away so they can trigger again immediately
+      there are only a few quick ones, like Warp and trigger i think
+    - normal get triggered then reset back accordingly, you determine
+      when it resets in the item process cycles which is 20 seconds per
+
+Normal setup...
+    - create the trap(/item or editor) and set it in place
+    - set the /itemreset on it (if you fail to set the reset, it will trigger then 
+      never re-set and you will have to delete the trap and start over, so it
+      would be a one time only trap)
+    - use /itemdata to set the values of the trap, for example the damage done
+      or the warp destination
+
+Quick setup...
+    - create the trap(/item or editor) and set it in place
+    - use /itemdata to set the values of the trap, for example the damage done
+      or the warp destination
+
+
+As an admin, when you walk on a trap, it tells you the affect but resets immediately 
+as if it were a quick trap.
+
+Each trap uses the /itemdata values differently.
+
+1 - Damage Trap
+  - Data1 = damage
+
+2 - Monster Trap
+  - Data1 = monsterID    (use /monsterid <name>  to get the ID)
+  - data2 = quantity     (8 will surround the player)
+
+3 - Warp Trap   (works same way as warp stones/portals, a portal is just a quick warp trap anyways)
+  - Data1 = X
+  - Data2 = Y
+  - Data3 = Low player level range
+  - Data4 = high player level range
+  - Data5 = player UUID    (get a player's UUID with /uuid <name>)
+  - Data6 = Z
+
+4 - Trigger Trap
+  - use /itemtrigger <number>  to set the number
+  - note: use /itemtrigger <number> on walls to make them open, only granite, straight walls work with this
+  - note: the numbers must match and can have unlimited range
+  - note: the walls triggered need /itemreset to make them close
+  - note: trigger numbers can be assigned to multiple walls
+  - note: trigger numbers are not checked so it is possible to accidentally re-use one
+
+5 - Hero Trap
+  - data1 = value
+
+6 - Nova Trap
+  - data1 = value
+
+7 - Ice Trap
+  - data1 = duration, player cycles, 1 per 4 seconds
+
+8 - Blind Trap
+  - data1 = duration, player cycles, 1 per 4 seconds
+
+9 - Heal Trap
+  - data1 = value
+
+10 - Revive Trap 
+   - data1 = value
+
+11 - Mana trap
+   - data1 = value
+
+12 - Item spawn trap  - spawns items around the player like fire
+   - data1 = itemid    (use /itemid <name> to get an items id)
+   - data2 = quantity
+
+13 - Item transform trap - changes the trap item to new item
+   - data1 = itemid
+   - note: use /itemreset to make it change back of course
+
+14 - Attune - forces lifestone attunement to the spot
+   - no data used
+
+15 - Text Trap  - displays text when you walk on it
+   - use /itemtext <message> to set the text
+   - note: use to set the mood of an area like... "As you enter the room, you see a glowing warp portal..."
+

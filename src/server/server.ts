@@ -319,9 +319,9 @@ export default class Server {
         const meta = getMetaItem(item.type);
 
         let newPos = null;
-        if (meta.class === 'Cave_down' && this.context.map.walkable({...creature.pos, z: creature.pos.z + 1})) {
+        if (meta.class === 'CaveDown' && this.context.map.walkable({...creature.pos, z: creature.pos.z + 1})) {
           newPos = {...creature.pos, z: creature.pos.z + 1};
-        } else if (meta.class === 'Cave_up' && this.context.map.walkable({...creature.pos, z: creature.pos.z - 1})) {
+        } else if (meta.class === 'CaveUp' && this.context.map.walkable({...creature.pos, z: creature.pos.z - 1})) {
           newPos = {...creature.pos, z: creature.pos.z - 1};
         }
 

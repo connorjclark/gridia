@@ -1,0 +1,99 @@
+RPGWO Moderator Guide 
+Version Jan 6, 2005
+
+MOST IMPORTANT: YOU represent ME when I am not there. So, represent well.
+
+Intent: To inform on the rules and guidelines that a moderator(mod) on a RPGWO 
+ 	server should follow.
+
+What: A mod regulates and enforces rules/EULA regarding chat on all levels(global,
+	local, mail, post, etc). 
+
+When: Whenever players give you oppurtunities. @, @@, and @@@ are too lazy to deal with it, heh
+ 	And they expect you to deal with it anyways, heh, dang it
+
+How: With the following commands:
+
+	- /m <message>
+		- mod chat
+
+	- /globaldelay <seconds>
+		- setting to -1 turns globals off
+		- setting to 0 has no delay
+		- never set it lower than 60 unless turning it off
+		- generally raise the delay if arguments abound or if 
+		  the chat is not game related or breaking rules/EULA
+		- turns globals off when it is excessive
+		- give warning or not, up to you and if you want to be secret
+
+	- /muzzle <name>
+		- turns on or off local muzzle on <name>
+		- rarely used unless a gross offender or you in right place at
+		  right time or another player complains
+		- use sparingly
+
+	- /muzzleglobal <name>
+		- used the most, you can warn if you want but better to just muzzle
+		- note that only you or a @@@ can unmuzzle once a player is muzzled
+
+	- /muzzlepost <name>
+		- stops a player from posting
+
+	- /muzzlemail <name>
+		- stops a player from mailing
+
+	- /rename <old>, <new>
+		- rename if they have an offensive, rude, etc, name
+		- if they ask, you are free to charge gold, heh
+
+	- /jailnpc
+		- will jail any/all tames you are next to
+		- only to be used when tames found in quests, alone or in a city in wrong place
+
+	- /ban <playername>
+		- will ban the player/account for 1 day
+		- works if they are offline too, I think
+		- to be used when the player is very very bad and muzzle did not settle them
+
+	- /macban <playername>
+		- will ban the computer for 1 day
+		- works if they are offline too, I think
+		- to be used when the player is very very bad and muzzle did not settle them
+
+Note: Time limits on these commands is up to you and the severity of the "crime". I 
+	usually wait a week before I un-muzzle.
+
+Note: If a player, you did a command on, argues with you about it, do not entertain them,
+	merely tell them to email mickey@rpgwo.com or the commanding @@@. If they persist
+	warn with a banning. Then inform me or the @@@ of the server and we will review
+	logs and act accordingly.
+
+Note: Every command you do is logged and we will be able to see exactly what you are doing.
+	If you are not sure of an action then contact @@@ ASAP. If we don't respond 
+	promptly then use your best judgement. Then we can review the logs and let you
+	know what was proper, etc.
+
+Note: Abuse of these commands, like muzzling for no real reason, will not be tolerated
+	and will result in immediate permanent banning. I don't want you screwing around
+	mis-representing ME. For this reason, see the note above where if you are not
+	sure then contact a @@@ before or at least during in order to cover yourself.
+	If you are just testing, then that is fine of course, but I just need you to
+	respect other players mostly. 
+
+Note: The perk you get is no limit on globals. This of course should not be over used.
+	But none the less, use it as often as needed and proper.
+	
+Note: If the swearing filter catches something like !@#$ then that is NOT a violation
+	of the rules/EULA. Of course if they get around it, LET EM HAVE IT!! I show
+	no mercy on those persons.
+
+Note: By the way, make sure you have read and understand the EULA. Even I have to
+	read it to remember the rules at times. Any rules you would like added then
+	let me or a @@@ know and we can add them if proper.
+
+Note: Rune combos can be globaled, it is part of the game. BUT websites with all of them,
+	I do NOT want globaled. That is my only fair restriction.
+
+Note: Never reveal a mods true identity.
+
+

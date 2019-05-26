@@ -1,0 +1,63 @@
+RPGWO Quest Guidelines
+Last Updated: 5/04/04
+
+Definition:
+    A common linking of area(s), npc(s), item(s), monster(s), etc in such
+    a way that it proposes a challenge to the player(s) to overcome with
+    adequet reward(item, XP, prestige, etc.)
+
+
+Primary Requirements to be called a "Quest":
+    - must be tied to at least one NPC or have a story or theme or history
+
+
+Secondary Requirements:
+    - uses admin built area(s) (dungeon, house, etc)
+    
+
+Dungeon Requirements:
+    - must have similiar monster(s) or some physical challenge
+    - must have at least one locked item for picklockers
+    - must have at least 4 traps for trappers
+    - must have text traps to help set the mood
+    - recommended to use the rune keys instead of normal ones
+    - recommended to have locked access via NPC
+    - recommended to use unique items
+
+
+
+Example:
+    - Marble Quest
+        - Talk to Crazy Old Man: He says he lost his Marbles.
+        - You explore areas, find marble in the city sewers
+        - You return the marbles to the Old Man and he gives a reward.
+
+    - Reuben's Quest
+        - You talk to Lisa the beggar: she asks for an apple
+        - You get an apple
+        - You give apple to Lisa, she gives you a key to catacombs and asks
+          for you to look for her dads will
+        - You head to catacombs, find ruebens skeleton and kill it, get the
+          crypt key, open the crypt, find the will
+        - You give will to lisa, she tells you to give to mayor
+        - you give will to mayor, mayor gives land deed for lisa
+        - you give lisa the deed, lisa gives you V Note
+
+    - Spine Quest (on old Liberty)
+        - just a natural cave inhabited by similiar monsters
+        - no NPC or story but it does have a history to it
+        - A natural cave formed... monsters moved in
+
+
+Bad Examples:
+    - Monster Bash
+        - a structure setup with varying monsters with no real theme
+          except to get through it and get the prize
+        - don't get me wrong, it is fun and challenging but is not
+          what we want to do here
+
+
+How do I make a quest? What steps are involved?
+    - No WORK IS TO BE DONE IN WORLD UNLESS APPROVED BY MICKEY
+    - Present the basic idea to Mickey or just start designing it
+    

@@ -1,5 +1,6 @@
 import { assert } from './utils';
 
+// import * as items from '../world/content/items.json';
 const items: MetaItem[] = require('../world/content/items.json');
 const itemUses: ItemUse[] = require('../world/content/itemuses.json');
 const animations: Animation[] = require('../world/content/animations.json');
