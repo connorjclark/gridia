@@ -6,19 +6,6 @@ const itemUses: ItemUse[] = require('../world/content/itemuses.json');
 const animations: Animation[] = require('../world/content/animations.json');
 const monsters: Monster[] = require('../world/content/monsters.json');
 
-function fillNulls<T>(arr: T[], defaultValue: T) {
-  for (let i = 0; i < arr.length; i++) {
-    if (!arr[i]) {
-      arr[i] = defaultValue;
-    }
-  }
-}
-
-// There are gaps in the items.json file. Instead of typing items as Array<MetaItem | null>,
-// fill in those gaps with the empty item (the first item).
-assert(items[0]);
-fillNulls(items, items[0]);
-
 for (const use of itemUses) {
   if (use.focusQuantityConsumed === undefined) {
     use.focusQuantityConsumed = 1;
