@@ -186,7 +186,7 @@ const Helper = {
   },
   getSelectedTool() {
     const inventoryWindow = containerWindows.get(client.containerId);
-    return inventoryWindow.container.items[inventoryWindow.selectedIndex];
+    return inventoryWindow.itemsContainer.items[inventoryWindow.selectedIndex];
   },
   getSelectedToolIndex() {
     const inventoryWindow = containerWindows.get(client.containerId);
@@ -198,6 +198,11 @@ const Helper = {
     return result;
   },
 };
+
+interface GridiaWindow {
+  container: PIXI.Container;
+  draw: () => void;
+}
 
 const Draw = {
   makeDraggableWindow() {
@@ -274,9 +279,9 @@ const Draw = {
   makeItemContainerWindow(container: Container) {
     const window = Draw.makeDraggableWindow();
     const containerWindow = {
-      window,
-      container,
+      container: window.container,
       draw,
+      itemsContainer: container,
       mouseOverIndex: null,
       _selectedIndex: 0,
       // Selected item actions are based off currently selected tool. If
@@ -354,14 +359,14 @@ const Draw = {
       window.draw();
     }
 
-    game.addWindow({container: window.container, draw});
+    game.addWindow(containerWindow);
     return containerWindow;
   },
 
   makeUsageWindow(tool: Item, focus: Item, usages: ItemUse[], loc: TilePoint) {
     const window = Draw.makeDraggableWindow();
     const usageWindow = {
-      window,
+      container: window.container,
       draw,
     };
 
@@ -369,7 +374,7 @@ const Draw = {
       .on('mousedown', (e: PIXI.interaction.InteractionEvent) => {
         const {x, y} = e.data.getLocalPosition(e.target);
         const index = Math.floor(x / 32) + Math.floor(y / 32) * 10;
-        game.removeWindow(windowHandle);
+        game.removeWindow(usageWindow);
         Helper.useTool(loc, index);
       });
 
@@ -387,8 +392,7 @@ const Draw = {
     }
 
     window.container.x = window.container.y = 40;
-    const windowHandle = {container: window.container, draw};
-    game.addWindow(windowHandle);
+    game.addWindow(usageWindow);
     return usageWindow;
   },
 
@@ -432,10 +436,6 @@ interface ItemMoveEvent {
   item?: Item;
 }
 
-interface Drawable {
-  container: PIXI.Container;
-  draw: () => void;
-}
 type ContainerWindow = ReturnType<typeof Draw.makeItemContainerWindow>;
 const containerWindows = new Map<number, ContainerWindow>();
 
@@ -559,7 +559,7 @@ class Game {
   protected app: PIXI.Application;
   protected canvasesEl: HTMLElement;
   protected containers: Record<string, PIXI.Container> = {};
-  protected windows: Drawable[] = [];
+  protected windows: GridiaWindow[] = [];
   protected itemMovingState: ItemMoveEvent = null;
   protected mouseHasMovedSinceItemMoveBegin = false;
 
@@ -612,12 +612,12 @@ class Game {
     this.registerListeners();
   }
 
-  public addWindow(window: Drawable) {
+  public addWindow(window: GridiaWindow) {
     this.windows.push(window);
     this.app.stage.addChild(window.container);
   }
 
-  public removeWindow(window: Drawable) {
+  public removeWindow(window: GridiaWindow) {
     this.windows.splice(this.windows.indexOf(window), 1);
     this.app.stage.removeChild(window.container);
   }
@@ -818,14 +818,14 @@ class Game {
       if (!containerWindows.has(id)) {
         const containerWindow = Draw.makeItemContainerWindow(container);
         containerWindows.set(id, containerWindow);
-        this.app.stage.addChild(containerWindow.window.container);
 
         // Inventory.
         if (id === client.containerId) {
+          // Draw so width and height are set.
           containerWindow.draw();
           const size = getCanvasSize();
-          containerWindow.window.container.x = size.width / 2 - containerWindow.window.container.width / 2;
-          containerWindow.window.container.y = size.height - containerWindow.window.container.height;
+          containerWindow.container.x = size.width / 2 - containerWindow.container.width / 2;
+          containerWindow.container.y = size.height - containerWindow.container.height;
         }
       }
     }
