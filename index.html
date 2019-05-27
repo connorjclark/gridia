@@ -65,6 +65,17 @@
         .selected-item {
             width: 50%;
         }
+
+        .contextmenu {
+            display: none;
+            position: absolute;
+            background: blanchedalmond;
+            padding: 5px;
+            border: 2px solid black;
+        }
+        .contextmenu div:hover {
+            background: burlywood;
+        }
     </style>
 </head>
 
@@ -93,6 +104,7 @@ To pick up item in the world: shift to pick up selected item, or drag and drop t
             <div class="selected-item--burden"></div>
             <div class="selected-item--misc"></div>
         </div>
+        <div class="contextmenu"></div>
     </div>
 </body>
 

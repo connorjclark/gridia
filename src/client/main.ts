@@ -206,9 +206,10 @@ const Helper = {
     const inventoryWindow = containerWindows.get(client.containerId);
     return inventoryWindow.selectedIndex;
   },
-  find(node: Element, query: string) {
+  find(node: Element, query: string): HTMLElement {
     const result = node.querySelector(query);
     if (!result) throw new Error(`no elements matching ${query}`);
+    if (!(result instanceof HTMLElement)) throw new Error('expected HTMLElement');
     return result;
   },
 };
@@ -478,8 +479,64 @@ function getCanvasSize() {
   return canvasesEl.getBoundingClientRect();
 }
 
-function renderSelectedItem(item: Item) {
+function getContextMenu() {
+  return Helper.find(document.body, '.contextmenu');
+}
+
+function isContextMenuOpen() {
+  return getContextMenu().style.display === 'block';
+}
+
+function closeContextMenu() {
+  getContextMenu().style.display = 'none';
+}
+
+function getActionsForTile(loc: TilePoint) {
+  const item = client.context.map.getItem(loc);
+  const meta = getMetaItem(item ? item.type : 0);
+  const actions = [] as Array<{innerText: string, title: string, action: SelectedItemAction}>;
+
+  if (item && meta.moveable) {
+    actions.push({
+      innerText: 'Pickup',
+      title: 'Shortcut: Shift',
+      action: 'pickup',
+    });
+  }
+
+  if (item && Helper.canUseHand(item.type)) {
+    actions.push({
+      innerText: 'Use Hand',
+      title: 'Shortcut: Alt',
+      action: 'use-hand',
+    });
+  }
+
+  if (meta.class === 'Container') {
+    actions.push({
+      innerText: 'Open',
+      title: 'Look inside',
+      action: 'open-container',
+    });
+  }
+
+  if (state.selectedTile) {
+    const tool = Helper.getSelectedTool();
+    if (tool && Helper.usageExists(tool.type, meta.id)) {
+      actions.push({
+        innerText: `Use ${getMetaItem(tool.type).name}`,
+        title: 'Shortcut: Spacebar',
+        action: 'use-tool',
+      });
+    }
+  }
+
+  return actions;
+}
+
+function renderSelectedItem() {
   const el = Helper.find(document.body, '.selected-item');
+  const item = state.selectedTile ? client.context.map.getItem(state.selectedTile) : null;
   let data;
   let meta;
   if (item) {
@@ -509,84 +566,56 @@ function renderSelectedItem(item: Item) {
 
   if (!meta) return;
 
-  const actions = [] as Array<{innerText: string, title: string, action: SelectedItemAction}>;
-
-  if (meta.moveable) {
-    actions.push({
-      innerText: 'Pickup',
-      title: 'Shortcut: Shift',
-      action: 'pickup',
-    });
-  }
-
-  if (Helper.canUseHand(item.type)) {
-    actions.push({
-      innerText: 'Use Hand',
-      title: 'Shortcut: Alt',
-      action: 'use-hand',
-    });
-  }
-
-  if (meta.class === 'Container') {
-    actions.push({
-      innerText: 'Open',
-      title: 'Look inside',
-      action: 'open-container',
-    });
-  }
-
-  if (state.selectedTile) {
-    const tool = Helper.getSelectedTool();
-    if (tool && Helper.usageExists(tool.type, item.type)) {
-      actions.push({
-        innerText: `Use ${getMetaItem(tool.type).name}`,
-        title: 'Shortcut: Spacebar',
-        action: 'use-tool',
-      });
-    }
-  }
-
+  const actions = getActionsForTile(state.selectedTile);
   for (const action of actions) {
     const actionEl = document.createElement('button');
     actionEl.innerText = action.innerText;
     actionEl.dataset.action = action.action;
+    actionEl.dataset.loc = JSON.stringify(state.selectedTile);
     actionEl.title = action.title;
     actionsEl.appendChild(actionEl);
   }
 }
 
-type SelectedItemAction = 'pickup' | 'use-hand' | 'use-tool' | 'open-container';
+// TODO: rename.
+type SelectedItemAction = 'pickup' | 'use-hand' | 'use-tool' | 'open-container' | 'cancel';
 
-function onActionButtonClick(e: Event) {
+function onAction(e: Event) {
   // @ts-ignore
   const type: SelectedItemAction = e.target.dataset.action;
+  // @ts-ignore
+  const loc: TilePoint = JSON.parse(e.target.dataset.loc);
 
   switch (type) {
     case 'pickup':
       wire.send('moveItem', {
         fromSource: 0,
-        from: state.selectedTile,
+        from: loc,
         toSource: client.containerId,
       });
       break;
     case 'use-hand':
-      Helper.useHand(state.selectedTile);
+      Helper.useHand(loc);
       break;
     case 'use-tool':
-      Helper.useTool(state.selectedTile);
+      Helper.useTool(loc);
       break;
     case 'open-container':
-      Helper.openContainer(state.selectedTile);
+      Helper.openContainer(loc);
+      break;
+    case 'cancel':
+      // Do nothing.
       break;
     default:
       console.error('unknown action type', type);
-    }
+  }
+
+  closeContextMenu();
 }
 
 function selectItem(loc?: TilePoint) {
   state.selectedTile = loc;
-  const item = loc ? client.context.map.getItem(loc) : null;
-  renderSelectedItem(item);
+  renderSelectedItem();
 }
 
 function worldToTile(pw: ScreenPoint) {
@@ -638,7 +667,8 @@ class Game {
     this.canvasesEl = document.body.querySelector('#canvases');
     this.canvasesEl.appendChild(this.app.view);
 
-    Helper.find(document.body, '.selected-item--actions').addEventListener('click', onActionButtonClick);
+    Helper.find(document.body, '.selected-item--actions').addEventListener('click', onAction);
+    Helper.find(document.body, '.contextmenu').addEventListener('click', onAction);
 
     PIXI.loader
       .add(Object.values(ResourceKeys))
@@ -710,6 +740,32 @@ class Game {
       };
     });
 
+    this.canvasesEl.addEventListener('contextmenu', (e: MouseEvent) => {
+      e.preventDefault();
+      const point = worldToTile(mouseToWorld({ x: e.pageX, y: e.pageY }));
+
+      const contextMenuEl = getContextMenu();
+      contextMenuEl.style.display = 'block';
+      contextMenuEl.style.left = e.pageX + 'px';
+      contextMenuEl.style.top = e.pageY + 'px';
+
+      contextMenuEl.innerHTML = '';
+      const actions = getActionsForTile(point);
+      actions.push({
+        innerText: 'Cancel',
+        title: '',
+        action: 'cancel',
+      });
+      for (const action of actions) {
+        const actionEl = document.createElement('div');
+        actionEl.innerText = action.innerText;
+        actionEl.dataset.action = action.action;
+        actionEl.dataset.loc = JSON.stringify(point);
+        actionEl.title = action.title;
+        contextMenuEl.appendChild(actionEl);
+      }
+    });
+
     const world = this.containers.world;
     world.interactive = true;
     world.on('mousedown', (e: PIXI.interaction.InteractionEvent) => {
@@ -752,6 +808,11 @@ class Game {
     world.on('click', (e: PIXI.interaction.InteractionEvent) => {
       // ts - ignore TouchEvent
       if (!('pageX' in e.data.originalEvent)) return;
+
+      if (isContextMenuOpen()) {
+        closeContextMenu();
+        return;
+      }
 
       const point = worldToTile(mouseToWorld({ x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY }));
       selectItem(point);
@@ -1018,6 +1079,9 @@ class Game {
 
         if (client.context.map.walkable(pos)) {
           selectItem(undefined);
+          if (isContextMenuOpen()) {
+            closeContextMenu();
+          }
           state.lastMove = performance.now();
           wire.send('move', pos);
           client.eventEmitter.emit('PlayerMove');
