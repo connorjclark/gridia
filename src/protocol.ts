@@ -203,6 +203,9 @@ const use: C2S<UseParams> = (server, { toolIndex, loc, usageIndex = 0 }) => {
       quantity: use.quantities[i],
     });
   }
+  if (focus.containerId && usageResult.products.length) {
+    usageResult.products[0].containerId = focus.containerId;
+  }
 
   if (usageResult.successTool) {
     server.addItemToContainer(inventory.id, undefined, usageResult.successTool);

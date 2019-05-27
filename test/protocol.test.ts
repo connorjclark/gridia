@@ -371,4 +371,24 @@ describe('use', () => {
       quantity: 1,
     });
   });
+
+  it('closing/opening chest retains container id', () => {
+    const loc = { x: 0, y: 0, z: 0 };
+
+    setItem(loc, { type: getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123 });
+
+    wire.send('use', {
+      toolIndex: -1,
+      loc,
+    });
+
+    assertItemInWorld(loc, { type: getMetaItemByName('Wooden Box').id, quantity: 1, containerId: 123 });
+
+    wire.send('use', {
+      toolIndex: -1,
+      loc,
+    });
+
+    assertItemInWorld(loc, { type: getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123 });
+  });
 });
