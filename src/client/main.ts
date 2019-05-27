@@ -479,17 +479,42 @@ function getCanvasSize() {
   return canvasesEl.getBoundingClientRect();
 }
 
-function getContextMenu() {
-  return Helper.find(document.body, '.contextmenu');
-}
+const ContextMenu = {
+  get() {
+    return Helper.find(document.body, '.contextmenu');
+  },
 
-function isContextMenuOpen() {
-  return getContextMenu().style.display === 'block';
-}
+  isOpen() {
+    return ContextMenu.get().style.display === 'block';
+  },
 
-function closeContextMenu() {
-  getContextMenu().style.display = 'none';
-}
+  close() {
+    ContextMenu.get().style.display = 'none';
+  },
+
+  openForTile(screen: ScreenPoint, loc: TilePoint) {
+    const contextMenuEl = ContextMenu.get();
+    contextMenuEl.style.display = 'block';
+    contextMenuEl.style.left = screen.x + 'px';
+    contextMenuEl.style.top = screen.y + 'px';
+
+    contextMenuEl.innerHTML = '';
+    const actions = getActionsForTile(loc);
+    actions.push({
+      innerText: 'Cancel',
+      title: '',
+      action: 'cancel',
+    });
+    for (const action of actions) {
+      const actionEl = document.createElement('div');
+      actionEl.innerText = action.innerText;
+      actionEl.dataset.action = action.action;
+      actionEl.dataset.loc = JSON.stringify(loc);
+      actionEl.title = action.title;
+      contextMenuEl.appendChild(actionEl);
+    }
+  },
+};
 
 function getActionsForTile(loc: TilePoint) {
   const item = client.context.map.getItem(loc);
@@ -610,7 +635,7 @@ function onAction(e: Event) {
       console.error('unknown action type', type);
   }
 
-  closeContextMenu();
+  ContextMenu.close();
 }
 
 function selectItem(loc?: TilePoint) {
@@ -742,28 +767,9 @@ class Game {
 
     this.canvasesEl.addEventListener('contextmenu', (e: MouseEvent) => {
       e.preventDefault();
-      const point = worldToTile(mouseToWorld({ x: e.pageX, y: e.pageY }));
-
-      const contextMenuEl = getContextMenu();
-      contextMenuEl.style.display = 'block';
-      contextMenuEl.style.left = e.pageX + 'px';
-      contextMenuEl.style.top = e.pageY + 'px';
-
-      contextMenuEl.innerHTML = '';
-      const actions = getActionsForTile(point);
-      actions.push({
-        innerText: 'Cancel',
-        title: '',
-        action: 'cancel',
-      });
-      for (const action of actions) {
-        const actionEl = document.createElement('div');
-        actionEl.innerText = action.innerText;
-        actionEl.dataset.action = action.action;
-        actionEl.dataset.loc = JSON.stringify(point);
-        actionEl.title = action.title;
-        contextMenuEl.appendChild(actionEl);
-      }
+      const mouse = { x: e.pageX, y: e.pageY };
+      const tile = worldToTile(mouseToWorld(mouse));
+      ContextMenu.openForTile(mouse, tile);
     });
 
     const world = this.containers.world;
@@ -809,8 +815,8 @@ class Game {
       // ts - ignore TouchEvent
       if (!('pageX' in e.data.originalEvent)) return;
 
-      if (isContextMenuOpen()) {
-        closeContextMenu();
+      if (ContextMenu.isOpen()) {
+        ContextMenu.close();
         return;
       }
 
@@ -1079,9 +1085,7 @@ class Game {
 
         if (client.context.map.walkable(pos)) {
           selectItem(undefined);
-          if (isContextMenuOpen()) {
-            closeContextMenu();
-          }
+          ContextMenu.close();
           state.lastMove = performance.now();
           wire.send('move', pos);
           client.eventEmitter.emit('PlayerMove');
