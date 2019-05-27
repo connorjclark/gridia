@@ -115,9 +115,13 @@ function parseItemId(val: string) {
 function parseItemsIni() {
   const itemsIni = loadIni('item');
 
+  // TODO: consider putting defaults on the first item,
+  // and making every MetaItem.prototype = that first item.
+  // would make items.json much smaller.
   const defaults = {
     burden: 10000,
     moveable: true,
+    rarity: 1,
     stackable: false,
     walkable: true,
   };
