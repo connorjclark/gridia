@@ -38,6 +38,7 @@ interface UIState {
   };
   elapsedFrames: number;
   lastMove: number;
+  destination: TilePoint | null;
 }
 
 const state: UIState = {
@@ -53,6 +54,7 @@ const state: UIState = {
   keys: {},
   elapsedFrames: 0,
   lastMove: performance.now(),
+  destination: null,
 };
 
 // @ts-ignore - for debugging
@@ -505,6 +507,11 @@ const ContextMenu = {
       title: '',
       action: 'cancel',
     });
+    actions.push({
+      innerText: 'Move Here',
+      title: '',
+      action: 'move-here',
+    });
     for (const action of actions) {
       const actionEl = document.createElement('div');
       actionEl.innerText = action.innerText;
@@ -603,7 +610,13 @@ function renderSelectedItem() {
 }
 
 // TODO: rename.
-type SelectedItemAction = 'pickup' | 'use-hand' | 'use-tool' | 'open-container' | 'cancel';
+type SelectedItemAction =
+  'cancel' |
+  'move-here' |
+  'open-container' |
+  'pickup' |
+  'use-hand' |
+  'use-tool';
 
 function onAction(e: Event) {
   // @ts-ignore
@@ -627,6 +640,9 @@ function onAction(e: Event) {
       break;
     case 'open-container':
       Helper.openContainer(loc);
+      break;
+    case 'move-here':
+      state.destination = loc;
       break;
     case 'cancel':
       // Do nothing.
@@ -1065,32 +1081,52 @@ class Game {
     }
 
     if (focusCreature && performance.now() - state.lastMove > 200) {
-      const pos = { ...focusCreature.pos };
+      let dest: TilePoint = { ...focusCreature.pos };
+
+      const keyInputDelta = {x: 0, y: 0, z: 0};
       if (state.keys[KEYS.W]) {
-        pos.y -= 1;
+        keyInputDelta.y -= 1;
       } else if (state.keys[KEYS.S]) {
-        pos.y += 1;
+        keyInputDelta.y += 1;
       }
       if (state.keys[KEYS.A]) {
-        pos.x -= 1;
+        keyInputDelta.x -= 1;
       } else if (state.keys[KEYS.D]) {
-        pos.x += 1;
+        keyInputDelta.x += 1;
       }
 
-      if (pos.x !== focusCreature.pos.x || pos.y !== focusCreature.pos.y) {
-        const itemToMoveTo = client.context.map.getItem(pos);
+      if (!equalPoints(keyInputDelta, {x: 0, y: 0, z: 0})) {
+        dest = { ...focusCreature.pos };
+        dest.x += keyInputDelta.x;
+        dest.y += keyInputDelta.y;
+
+        // Invalidate destination on user input.
+        state.destination = null;
+      } else if (state.destination && state.destination.z === focusCreature.pos.z) {
+        dest.x += clamp(state.destination.x - focusCreature.pos.x, -1, 1);
+        dest.y += clamp(state.destination.y - focusCreature.pos.y, -1, 1);
+      }
+
+      if (dest && !equalPoints(dest, focusCreature.pos)) {
+        const itemToMoveTo = client.context.map.getItem(dest);
         if (itemToMoveTo && getMetaItem(itemToMoveTo.type).class === 'Container') {
-          Helper.openContainer(pos);
+          Helper.openContainer(dest);
         }
 
-        if (client.context.map.walkable(pos)) {
+        if (client.context.map.walkable(dest)) {
           selectItem(undefined);
           ContextMenu.close();
           state.lastMove = performance.now();
-          wire.send('move', pos);
+          wire.send('move', dest);
           client.eventEmitter.emit('PlayerMove');
+          if (state.destination && equalPoints(state.destination, dest)) {
+            state.destination = null;
+          }
 
           delete state.mouse.tile;
+        } else {
+          // TODO - implement actualy path finding for destination.
+          state.destination = null;
         }
       }
     }
