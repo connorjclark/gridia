@@ -3,16 +3,44 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
+// Just for self-referential lookups - Can't use '../items.ts' b/c it loads data from disk,
+// not what was just parsed.
+const state = {
+  items: [],
+};
+
+function getMetaItemByName(name: string) {
+  const lowerCaseName = name.toLowerCase();
+  return state.items.find((item) => Boolean(item && item.name.toLowerCase() === lowerCaseName));
+}
+
 function loadIni(type: string) {
   const iniPath = `${__dirname}/v1.15/data-files/${type}.ini`;
   return fs.readFileSync(iniPath, 'utf-8')
     .split(/[\n\r]+/)
     .filter((line) => !line.startsWith(';'))
-    .map((line) => line.split('='))
+    .map((line) => {
+      const kv = line.split('=');
+      if (kv.length === 2) {
+        // Remove stuff after ":::" in values.
+        kv[1] = kv[1].split(':::')[0];
+        kv[1] = kv[1].trim();
+      }
+      return kv;
+    })
     .filter((kv) => kv[0]);
 }
 
-function num(val: string) {
+function forcenum(val: string) {
+  return parseFloat(val);
+}
+
+function loosenum(val: string) {
+  // This is ok, b/c strings like "Infinity" or "1/8 Full Water Barrel"
+  // should not be converted to a number.
+  if (!val || !val.match(/^[+-]?([0-9]*[.])?[0-9]+$/)) {
+    return val;
+  }
   return parseFloat(val);
 }
 
@@ -28,6 +56,14 @@ function printUniqueKeys(objects) {
 
 function camelCase(str: string) {
   return str[0].toLowerCase() + str.substring(1);
+}
+
+function filterProperties(object: any, whitelist: string[]) {
+  for (const key of Object.keys(object)) {
+    if (!whitelist.includes(key)) {
+      delete object[key];
+    }
+  }
 }
 
 function sortObject(object, explicitOrder) {
@@ -57,6 +93,25 @@ function sortObject(object, explicitOrder) {
   return sorted;
 }
 
+function parseItemId(val: string) {
+  // TODO: maybe use string enums for 'anything' / 'player' / 'hand'?
+  if (val.match(/^hand$/i)) {
+    return 0;
+  } else if (val === '*') {
+    return -1;
+  } else if (val === '<player>') {
+    return -2;
+  } else if (val === '<mining>') {
+    return -3;
+  } else if (val === '<fish>') {
+    return -4;
+  } else if (loosenum(val) !== val) {
+    return forcenum(val);
+  } else {
+    return getMetaItemByName(val).id;
+  }
+}
+
 function parseItemsIni() {
   const itemsIni = loadIni('item');
 
@@ -72,7 +127,7 @@ function parseItemsIni() {
   for (const [key, value] of itemsIni) {
     if (key.match(/^item$/i)) {
       currentItem = {
-        id: num(value),
+        id: forcenum(value),
         ...defaults,
       };
       items.push(currentItem);
@@ -81,21 +136,21 @@ function parseItemsIni() {
       defaults[camelCase(key.replace('default', ''))] = value;
     } else if (key.match(/^animation/i)) {
       currentItem.animations = currentItem.animations || [];
-      currentItem.animations.push(num(value));
+      currentItem.animations.push(forcenum(value));
     } else if (key.match(/^notmovable/i)) {
       currentItem.moveable = false;
     } else if (key.match(/^imagetype/i)) {
-      currentItem.imageHeight = num(value) + 1;
+      currentItem.imageHeight = forcenum(value) + 1;
     } else if (key.match(/^BlockMovement/i)) {
       currentItem.walkable = (value || '1') !== '1';
     } else {
       // Most properties are unchanged, except for being camelCase.
       const camelCaseKey = camelCase(key);
 
-      let convertedValue: any = value;
-      const asNumber = num(value);
-      if (!Number.isNaN(asNumber)) {
-        convertedValue = asNumber;
+      let convertedValue: string | number | boolean = value;
+      const maybeNumber = loosenum(value);
+      if (typeof maybeNumber === 'number' && Number.isFinite(maybeNumber)) {
+        convertedValue = maybeNumber;
       }
       if (convertedValue === undefined) {
         convertedValue = true;
@@ -126,14 +181,84 @@ function parseItemsIni() {
     'walkable',
   ];
   for (const item of items) {
-    for (const key of Object.keys(item)) {
-      if (!whitelist.includes(key)) {
-        delete item[key];
-      }
-    }
+    filterProperties(item, whitelist);
   }
 
   return items;
+}
+
+function parseItemUsagesIni() {
+  const usagesIni = loadIni('itemuse');
+
+  const defaults = {
+    // burden: 10000,
+    // moveable: true,
+    // stackable: false,
+    // walkable: true,
+  };
+  const usages = [];
+
+  let currentUsage;
+  for (const [key, value] of usagesIni) {
+    console.log(key, value);
+    if (key.match(/^itemuse$/i)) {
+      currentUsage = {
+        ...defaults,
+      };
+      usages.push(currentUsage);
+    } else if (key.match(/^itemtool$/i)) {
+      currentUsage.tool = parseItemId(value);
+    } else if (key.match(/^itemfocus$/i)) {
+      currentUsage.focus = parseItemId(value);
+    } else if (key.match(/^successtool$/i)) {
+      currentUsage.successTool = parseItemId(value);
+    } else if (key.match(/^successitemqty/i)) {
+      const index = forcenum(key.replace(/successitemqty/i, '')) - 1;
+      currentUsage.products[index].quantity = forcenum(value);
+    } else if (key.match(/^successitem/i)) {
+      currentUsage.products = currentUsage.products || [];
+      const index = forcenum(key.replace(/successitem/i, '')) - 1;
+      currentUsage.products[index] = {
+        type: parseItemId(value),
+        quantity: 1,
+      };
+    } else if (key.match(/^successmsg$/i)) {
+      currentUsage.successMessage = value;
+    } else {
+      // Most properties are unchanged, except for being camelCase.
+      const camelCaseKey = camelCase(key);
+
+      let convertedValue: string | number | boolean = value;
+      const maybeNumber = loosenum(value);
+      if (typeof maybeNumber === 'number' && Number.isFinite(maybeNumber)) {
+        convertedValue = maybeNumber;
+      }
+      if (convertedValue === undefined) {
+        convertedValue = true;
+      }
+
+      currentUsage[camelCaseKey] = convertedValue;
+    }
+  }
+
+  // printUniqueKeys(usages);
+
+  // Only save properties that Gridia utilizes.
+  const whitelist = [
+    'animation',
+    'focus',
+    'focusQuantityConsumed',
+    'products',
+    'successMessage',
+    'successTool',
+    'tool',
+    'toolQuantityConsumed',
+  ];
+  for (const usage of usages) {
+    filterProperties(usage, whitelist);
+  }
+
+  return usages;
 }
 
 function fillGaps(objects: any[], make: (id: number) => any) {
@@ -174,11 +299,22 @@ function convertItems() {
   })).map((item) => sortObject(item, explicitOrder));
 }
 
-function run() {
-  const items = convertItems();
+function convertItemUsages() {
+  const usages = parseItemUsagesIni();
+  const explicitOrder = ['tool', 'focus', 'skill'];
+  return usages.map((usage) => sortObject(usage, explicitOrder));
+}
 
+function run() {
+  const items = state.items = convertItems();
   const itemsPath = path.join(__dirname, '..', '..', 'world', 'content', 'items.json');
   fs.writeFileSync(itemsPath, JSON.stringify(items, null, 2));
   console.log('saved ' + itemsPath);
+
+  // WIP
+  // const usages = convertItemUsages();
+  // const usagesPath = path.join(__dirname, '..', '..', 'world', 'content', 'itemuses.json');
+  // fs.writeFileSync(usagesPath, JSON.stringify(usages, null, 2));
+  // console.log('saved ' + usagesPath);
 }
 run();

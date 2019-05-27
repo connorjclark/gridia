@@ -174,7 +174,7 @@
   {
     "id": 14,
     "name": "Iron Chest Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       14
     ],
@@ -1305,8 +1305,8 @@
   },
   {
     "id": 110,
-    "name": "Bone Scythe ",
-    "class": "weapon ",
+    "name": "Bone Scythe",
+    "class": "weapon",
     "animations": [
       74
     ],
@@ -1337,8 +1337,8 @@
   },
   {
     "id": 113,
-    "name": "Bone Armor ",
-    "class": "Armor ",
+    "name": "Bone Armor",
+    "class": "Armor",
     "animations": [
       53
     ],
@@ -6355,7 +6355,7 @@
   {
     "id": 517,
     "name": "Copper Chest Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       703
     ],
@@ -6367,7 +6367,7 @@
   {
     "id": 518,
     "name": "Copper Chest Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       704
     ],
@@ -6379,7 +6379,7 @@
   {
     "id": 519,
     "name": "Copper Chest Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       705
     ],
@@ -6391,7 +6391,7 @@
   {
     "id": 520,
     "name": "Magnetite Chest Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       716
     ],
@@ -6403,7 +6403,7 @@
   {
     "id": 521,
     "name": "Magnetite Chest Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       717
     ],
@@ -6415,7 +6415,7 @@
   {
     "id": 522,
     "name": "Magnetite Chest Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       718
     ],
@@ -6427,7 +6427,7 @@
   {
     "id": 523,
     "name": "Zircon Chest Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       713
     ],
@@ -6439,7 +6439,7 @@
   {
     "id": 524,
     "name": "Zircon Chest Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       714
     ],
@@ -6451,7 +6451,7 @@
   {
     "id": 525,
     "name": "Zircon Chest Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       715
     ],
@@ -6463,7 +6463,7 @@
   {
     "id": 526,
     "name": "Titanium Chest Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       706
     ],
@@ -6475,7 +6475,7 @@
   {
     "id": 527,
     "name": "Titanium Chest Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       707
     ],
@@ -6487,7 +6487,7 @@
   {
     "id": 528,
     "name": "Titanium Chest Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       708
     ],
@@ -6499,7 +6499,7 @@
   {
     "id": 529,
     "name": "Silver Chest Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       710
     ],
@@ -6511,7 +6511,7 @@
   {
     "id": 530,
     "name": "Silver Chest Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       711
     ],
@@ -6523,7 +6523,7 @@
   {
     "id": 531,
     "name": "Silver Chest Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       712
     ],
@@ -6535,7 +6535,7 @@
   {
     "id": 532,
     "name": "Gold Chest Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       700
     ],
@@ -6547,7 +6547,7 @@
   {
     "id": 533,
     "name": "Gold Chest Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       701
     ],
@@ -6559,7 +6559,7 @@
   {
     "id": 534,
     "name": "Gold Chest Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       702
     ],
@@ -6571,7 +6571,7 @@
   {
     "id": 535,
     "name": "Hessite Chest Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       720
     ],
@@ -6583,7 +6583,7 @@
   {
     "id": 536,
     "name": "Hessite Chest Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       721
     ],
@@ -6595,7 +6595,7 @@
   {
     "id": 537,
     "name": "Hessite Chest Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       722
     ],
@@ -6750,7 +6750,7 @@
   },
   {
     "id": 550,
-    "name": 1,
+    "name": "1/8 Full Water Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -6762,7 +6762,7 @@
   },
   {
     "id": 551,
-    "name": 1,
+    "name": "1/4 Full Water Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -6774,7 +6774,7 @@
   },
   {
     "id": 552,
-    "name": 3,
+    "name": "3/8 Full Water Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -6786,7 +6786,7 @@
   },
   {
     "id": 553,
-    "name": 1,
+    "name": "1/2 Full Water Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -6798,7 +6798,7 @@
   },
   {
     "id": 554,
-    "name": 5,
+    "name": "5/8 Full Water Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -6810,7 +6810,7 @@
   },
   {
     "id": 555,
-    "name": 3,
+    "name": "3/4 Full Water Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -6822,7 +6822,7 @@
   },
   {
     "id": 556,
-    "name": 7,
+    "name": "7/8 Full Water Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -8955,7 +8955,7 @@
   {
     "id": 731,
     "name": "Iron Leggings Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       723
     ],
@@ -8967,7 +8967,7 @@
   {
     "id": 732,
     "name": "Copper Leggings Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       709
     ],
@@ -8979,7 +8979,7 @@
   {
     "id": 733,
     "name": "Copper Leggings Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       719
     ],
@@ -8991,7 +8991,7 @@
   {
     "id": 734,
     "name": "Copper Leggings Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       729
     ],
@@ -9003,7 +9003,7 @@
   {
     "id": 735,
     "name": "Magnetite Leggings Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       739
     ],
@@ -9015,7 +9015,7 @@
   {
     "id": 736,
     "name": "Magnetite Leggings Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       740
     ],
@@ -9027,7 +9027,7 @@
   {
     "id": 737,
     "name": "Magnetite Leggings Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       741
     ],
@@ -9039,7 +9039,7 @@
   {
     "id": 738,
     "name": "Zircon Leggings Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       736
     ],
@@ -9051,7 +9051,7 @@
   {
     "id": 739,
     "name": "Zircon Leggings Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       737
     ],
@@ -9063,7 +9063,7 @@
   {
     "id": 740,
     "name": "Zircon Leggings Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       738
     ],
@@ -9075,7 +9075,7 @@
   {
     "id": 741,
     "name": "Titanium Leggings Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       730
     ],
@@ -9087,7 +9087,7 @@
   {
     "id": 742,
     "name": "Titanium Leggings Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       731
     ],
@@ -9099,7 +9099,7 @@
   {
     "id": 743,
     "name": "Titanium Leggings Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       732
     ],
@@ -9111,7 +9111,7 @@
   {
     "id": 744,
     "name": "Silver Leggings Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       733
     ],
@@ -9123,7 +9123,7 @@
   {
     "id": 745,
     "name": "Silver Leggings Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       734
     ],
@@ -9135,7 +9135,7 @@
   {
     "id": 746,
     "name": "Silver Leggings Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       735
     ],
@@ -9147,7 +9147,7 @@
   {
     "id": 747,
     "name": "Gold Leggings Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       726
     ],
@@ -9159,7 +9159,7 @@
   {
     "id": 748,
     "name": "Gold Leggings Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       727
     ],
@@ -9171,7 +9171,7 @@
   {
     "id": 749,
     "name": "Gold Leggings Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       728
     ],
@@ -9183,7 +9183,7 @@
   {
     "id": 750,
     "name": "Hessite Leggings Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       742
     ],
@@ -9195,7 +9195,7 @@
   {
     "id": 751,
     "name": "Hessite Leggings Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       743
     ],
@@ -9207,7 +9207,7 @@
   {
     "id": 752,
     "name": "Hessite Leggings Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       744
     ],
@@ -9243,7 +9243,7 @@
   {
     "id": 755,
     "name": "Iron Helmet Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       750
     ],
@@ -9255,7 +9255,7 @@
   {
     "id": 756,
     "name": "Copper Helmet Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       756
     ],
@@ -9267,7 +9267,7 @@
   {
     "id": 757,
     "name": "Copper Helmet Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       757
     ],
@@ -9279,7 +9279,7 @@
   {
     "id": 758,
     "name": "Copper Helmet Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       758
     ],
@@ -9291,7 +9291,7 @@
   {
     "id": 759,
     "name": "Magnetite Helmet Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       768
     ],
@@ -9303,7 +9303,7 @@
   {
     "id": 760,
     "name": "Magnetite Helmet Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       769
     ],
@@ -9315,7 +9315,7 @@
   {
     "id": 761,
     "name": "Magnetite Helmet Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       770
     ],
@@ -9327,7 +9327,7 @@
   {
     "id": 762,
     "name": "Zircon Helmet Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       765
     ],
@@ -9339,7 +9339,7 @@
   {
     "id": 763,
     "name": "Zircon Helmet Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       766
     ],
@@ -9351,7 +9351,7 @@
   {
     "id": 764,
     "name": "Zircon Helmet Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       767
     ],
@@ -9363,7 +9363,7 @@
   {
     "id": 765,
     "name": "Titanium Helmet Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       759
     ],
@@ -9375,7 +9375,7 @@
   {
     "id": 766,
     "name": "Titanium Helmet Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       760
     ],
@@ -9387,7 +9387,7 @@
   {
     "id": 767,
     "name": "Titanium Helmet Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       761
     ],
@@ -9399,7 +9399,7 @@
   {
     "id": 768,
     "name": "Silver Helmet Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       762
     ],
@@ -9411,7 +9411,7 @@
   {
     "id": 769,
     "name": "Silver Helmet Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       763
     ],
@@ -9423,7 +9423,7 @@
   {
     "id": 770,
     "name": "Silver Helmet Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       764
     ],
@@ -9435,7 +9435,7 @@
   {
     "id": 771,
     "name": "Gold Helmet Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       753
     ],
@@ -9447,7 +9447,7 @@
   {
     "id": 772,
     "name": "Gold Helmet Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       754
     ],
@@ -9459,7 +9459,7 @@
   {
     "id": 773,
     "name": "Gold Helmet Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       755
     ],
@@ -9471,7 +9471,7 @@
   {
     "id": 774,
     "name": "Hessite Helmet Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       771
     ],
@@ -9483,7 +9483,7 @@
   {
     "id": 775,
     "name": "Hessite Helmet Scale",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       772
     ],
@@ -9495,7 +9495,7 @@
   {
     "id": 776,
     "name": "Hessite Helmet Plate",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       773
     ],
@@ -9627,7 +9627,7 @@
   {
     "id": 787,
     "name": "Leather Cap",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       885
     ],
@@ -9639,7 +9639,7 @@
   {
     "id": 788,
     "name": "Leather Leggings",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       886
     ],
@@ -15290,7 +15290,7 @@
   },
   {
     "id": 1250,
-    "name": "EW Closed Inn Door ",
+    "name": "EW Closed Inn Door",
     "class": "Wall",
     "animations": [
       409
@@ -15419,7 +15419,7 @@
   {
     "id": 1261,
     "name": "Mutant Leather Cap",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       1117
     ],
@@ -15431,7 +15431,7 @@
   {
     "id": 1262,
     "name": "Mutant Leather Leggings",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       1118
     ],
@@ -15443,7 +15443,7 @@
   {
     "id": 1263,
     "name": "Elk Leather Cap",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       1127
     ],
@@ -15455,7 +15455,7 @@
   {
     "id": 1264,
     "name": "Elk Leather Leggings",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       1128
     ],
@@ -15467,7 +15467,7 @@
   {
     "id": 1265,
     "name": "Drake Scale Helmet",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       1119
     ],
@@ -15479,7 +15479,7 @@
   {
     "id": 1266,
     "name": "Drake Scale Leggings",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       1129
     ],
@@ -15491,7 +15491,7 @@
   {
     "id": 1267,
     "name": "Skunk Helmet",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       1140
     ],
@@ -18254,7 +18254,7 @@
   {
     "id": 1488,
     "name": "Copper Studded Cap",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       885
     ],
@@ -18266,7 +18266,7 @@
   {
     "id": 1489,
     "name": "Copper Studded Leggings",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       886
     ],
@@ -18290,7 +18290,7 @@
   {
     "id": 1491,
     "name": "Silver Studded Cap",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       885
     ],
@@ -18302,7 +18302,7 @@
   {
     "id": 1492,
     "name": "Silver Studded Leggings",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       886
     ],
@@ -18326,7 +18326,7 @@
   {
     "id": 1494,
     "name": "Iron Studded Cap",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       885
     ],
@@ -18338,7 +18338,7 @@
   {
     "id": 1495,
     "name": "Iron Studded Leggings",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       886
     ],
@@ -18362,7 +18362,7 @@
   {
     "id": 1497,
     "name": "Gold Studded Cap",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       885
     ],
@@ -18374,7 +18374,7 @@
   {
     "id": 1498,
     "name": "Gold Studded Leggings",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       886
     ],
@@ -18398,7 +18398,7 @@
   {
     "id": 1500,
     "name": "Zircon Studded Cap",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       885
     ],
@@ -18410,7 +18410,7 @@
   {
     "id": 1501,
     "name": "Zircon Studded Leggings",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       886
     ],
@@ -18434,7 +18434,7 @@
   {
     "id": 1503,
     "name": "Titanium Studded Cap",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       885
     ],
@@ -18446,7 +18446,7 @@
   {
     "id": 1504,
     "name": "Titanium Studded Leggings",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       886
     ],
@@ -18470,7 +18470,7 @@
   {
     "id": 1506,
     "name": "Hessite Studded Cap",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       885
     ],
@@ -18482,7 +18482,7 @@
   {
     "id": 1507,
     "name": "Hessite Studded Leggings",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       886
     ],
@@ -18506,7 +18506,7 @@
   {
     "id": 1509,
     "name": "Damon Studded Cap",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       885
     ],
@@ -18518,7 +18518,7 @@
   {
     "id": 1510,
     "name": "Damon Studded Leggings",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       886
     ],
@@ -18734,7 +18734,7 @@
   {
     "id": 1528,
     "name": "Steel Chest Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       1310
     ],
@@ -18794,7 +18794,7 @@
   {
     "id": 1533,
     "name": "Steel Helmet Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       1307
     ],
@@ -18830,7 +18830,7 @@
   {
     "id": 1536,
     "name": "Steel Leggings Chain",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       1313
     ],
@@ -20425,7 +20425,7 @@
   },
   {
     "id": 1669,
-    "name": "EW Log Wall ",
+    "name": "EW Log Wall",
     "class": "Wall",
     "animations": [
       1501
@@ -20461,7 +20461,7 @@
   },
   {
     "id": 1672,
-    "name": "NE Log Wall ",
+    "name": "NE Log Wall",
     "class": "Wall",
     "animations": [
       1520
@@ -20473,7 +20473,7 @@
   },
   {
     "id": 1673,
-    "name": "EW Log Door Closed ",
+    "name": "EW Log Door Closed",
     "class": "Wall",
     "animations": [
       1521
@@ -20485,7 +20485,7 @@
   },
   {
     "id": 1674,
-    "name": "NW Log Wall ",
+    "name": "NW Log Wall",
     "class": "Wall",
     "animations": [
       1522
@@ -20497,7 +20497,7 @@
   },
   {
     "id": 1675,
-    "name": "S Log End ",
+    "name": "S Log End",
     "class": "Wall",
     "animations": [
       1523
@@ -20509,7 +20509,7 @@
   },
   {
     "id": 1676,
-    "name": "N Log End ",
+    "name": "N Log End",
     "class": "Wall",
     "animations": [
       1513
@@ -20521,7 +20521,7 @@
   },
   {
     "id": 1677,
-    "name": "NS Log Wall ",
+    "name": "NS Log Wall",
     "class": "Wall",
     "animations": [
       1512
@@ -20533,7 +20533,7 @@
   },
   {
     "id": 1678,
-    "name": "Rugged Sign ",
+    "name": "Rugged Sign",
     "class": "Normal",
     "animations": [
       1511
@@ -20545,7 +20545,7 @@
   },
   {
     "id": 1679,
-    "name": "E Log End ",
+    "name": "E Log End",
     "class": "Wall",
     "animations": [
       1514
@@ -20557,7 +20557,7 @@
   },
   {
     "id": 1680,
-    "name": "W Log End ",
+    "name": "W Log End",
     "class": "Wall",
     "animations": [
       1524
@@ -20569,7 +20569,7 @@
   },
   {
     "id": 1681,
-    "name": "NS Log Door Open ",
+    "name": "NS Log Door Open",
     "class": "Wall",
     "animations": [
       1503
@@ -20581,7 +20581,7 @@
   },
   {
     "id": 1682,
-    "name": "EW Log Door Open ",
+    "name": "EW Log Door Open",
     "class": "Wall",
     "animations": [
       1504
@@ -20929,7 +20929,7 @@
   },
   {
     "id": 1711,
-    "name": "East Closed Bar ",
+    "name": "East Closed Bar",
     "class": "Normal",
     "animations": [
       1430
@@ -20953,7 +20953,7 @@
   },
   {
     "id": 1713,
-    "name": "West Closed Bar ",
+    "name": "West Closed Bar",
     "class": "Normal",
     "animations": [
       1440
@@ -21285,7 +21285,7 @@
   },
   {
     "id": 1741,
-    "name": 1,
+    "name": "1/8 Full Beer Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -21297,7 +21297,7 @@
   },
   {
     "id": 1742,
-    "name": 1,
+    "name": "1/4 Full Beer Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -21309,7 +21309,7 @@
   },
   {
     "id": 1743,
-    "name": 3,
+    "name": "3/8 Full Beer Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -21321,7 +21321,7 @@
   },
   {
     "id": 1744,
-    "name": 1,
+    "name": "1/2 Full Beer Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -21333,7 +21333,7 @@
   },
   {
     "id": 1745,
-    "name": 5,
+    "name": "5/8 Full Beer Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -21345,7 +21345,7 @@
   },
   {
     "id": 1746,
-    "name": 3,
+    "name": "3/4 Full Beer Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -21357,7 +21357,7 @@
   },
   {
     "id": 1747,
-    "name": 7,
+    "name": "7/8 Full Beer Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -21432,7 +21432,7 @@
   },
   {
     "id": 1753,
-    "name": 1,
+    "name": "1/8 Full Wine Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -21444,7 +21444,7 @@
   },
   {
     "id": 1754,
-    "name": 1,
+    "name": "1/4 Full Wine Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -21456,7 +21456,7 @@
   },
   {
     "id": 1755,
-    "name": 3,
+    "name": "3/8 Full Wine Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -21468,7 +21468,7 @@
   },
   {
     "id": 1756,
-    "name": 1,
+    "name": "1/2 Full Wine Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -21480,7 +21480,7 @@
   },
   {
     "id": 1757,
-    "name": 5,
+    "name": "5/8 Full Wine Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -21492,7 +21492,7 @@
   },
   {
     "id": 1758,
-    "name": 3,
+    "name": "3/4 Full Wine Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -21504,7 +21504,7 @@
   },
   {
     "id": 1759,
-    "name": 7,
+    "name": "7/8 Full Wine Barrel",
     "class": "Normal",
     "animations": [
       453
@@ -22623,7 +22623,7 @@
   },
   {
     "id": 1849,
-    "name": "Closed Market Door ",
+    "name": "Closed Market Door",
     "class": "Wall",
     "animations": [
       1409
@@ -22635,7 +22635,7 @@
   },
   {
     "id": 1850,
-    "name": "Open Market Door ",
+    "name": "Open Market Door",
     "class": "Wall",
     "animations": [
       1414
@@ -22647,7 +22647,7 @@
   },
   {
     "id": 1851,
-    "name": "Closed Market Door ",
+    "name": "Closed Market Door",
     "class": "Wall",
     "animations": [
       1427
@@ -22659,7 +22659,7 @@
   },
   {
     "id": 1852,
-    "name": "Open Market Door ",
+    "name": "Open Market Door",
     "class": "Wall",
     "animations": [
       1428
@@ -23726,7 +23726,7 @@
   {
     "id": 1943,
     "name": "Sewer Helmet",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       1690
     ],
@@ -25737,7 +25737,7 @@
   {
     "id": 2102,
     "name": "Mongrim Leather Helmet",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       1888
     ],
@@ -25761,7 +25761,7 @@
   {
     "id": 2104,
     "name": "Mongrim Leather Leggings",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       1889
     ],
@@ -25809,7 +25809,7 @@
   {
     "id": 2108,
     "name": "Dragon Scale Helmet",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       1892
     ],
@@ -25833,7 +25833,7 @@
   {
     "id": 2110,
     "name": "Dragon Scale Leggings",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       1894
     ],
@@ -26297,7 +26297,7 @@
   },
   {
     "id": 2148,
-    "name": null,
+    "name": "Infinity Fragment",
     "class": "Normal",
     "animations": [
       1917
@@ -26309,7 +26309,7 @@
   },
   {
     "id": 2149,
-    "name": null,
+    "name": "Infinity Dust",
     "class": "Normal",
     "animations": [
       1918
@@ -27247,7 +27247,7 @@
   {
     "id": 2225,
     "name": "Tungsten Helmet",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       2022
     ],
@@ -27271,7 +27271,7 @@
   {
     "id": 2227,
     "name": "Tungsten Leggings",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       2021
     ],
@@ -36268,7 +36268,7 @@
   {
     "id": 3171,
     "name": "Mongrim Skull",
-    "class": "Normal ",
+    "class": "Normal",
     "animations": [
       2212
     ],
@@ -36280,7 +36280,7 @@
   {
     "id": 3172,
     "name": "Skull Helmet",
-    "class": "Armor ",
+    "class": "Armor",
     "animations": [
       2213
     ],

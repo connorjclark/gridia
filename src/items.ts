@@ -8,6 +8,13 @@ for (const use of itemUses) {
   if (use.focusQuantityConsumed === undefined) {
     use.focusQuantityConsumed = 1;
   }
+
+  // @ts-ignore - remove when convert.ts is working.
+  use.products = [...use.products.entries()].map(([index, type]) => ({
+    type,
+    // @ts-ignore
+    quantity: use.quantities[index],
+  }));
 }
 
 for (const animation of animations) {
@@ -27,13 +34,13 @@ for (const use of itemUses) {
   // @ts-ignore
   use.focusName = getName(use.focus);
   // @ts-ignore
-  use.productNames = use.products.map((id) => getName(id));
+  use.productNames = use.products.map((product) => getName(product.type));
 }
 
 export class ItemWrapper {
   constructor(public type: number, public quantity: number) { }
 
-  public raw() {
+  public raw(): Item | undefined {
     if (this.type === 0) return;
     return { type: this.type, quantity: this.quantity };
   }
@@ -58,7 +65,8 @@ export function getMetaItem(id: number): MetaItem {
 }
 
 export function getMetaItemByName(name: string): MetaItem {
-  return items.find((item) => Boolean(item && item.name === name));
+  const lowerCaseName = name.toLowerCase();
+  return items.find((item) => Boolean(item && item.name.toLowerCase() === lowerCaseName));
 }
 
 export function getItemUses(tool: number, focus: number) {
@@ -73,8 +81,10 @@ export function getItemUsesForFocus(focus: number) {
   return itemUses.filter((item) => item.focus === focus);
 }
 
-export function getItemUsesForProduct(product: number) {
-  return itemUses.filter((item) => item.products.includes(product) || item.successTool === product);
+export function getItemUsesForProduct(type: number) {
+  return itemUses.filter((item) => {
+    return item.successTool === type || item.products.some((product) => product.type === type);
+  });
 }
 
 function getMetaItemsOfClass(itemClass: MetaItem['class']): MetaItem[] {

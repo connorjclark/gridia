@@ -80,8 +80,7 @@ interface ItemUse {
   toolQuantityConsumed: number;
   focusQuantityConsumed: number;
   successTool?: number;
-  products: number[];
-  quantities: number[];
+  products: Array<{type: number, quantity: number}>;
 }
 
 interface Animation {

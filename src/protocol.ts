@@ -195,14 +195,8 @@ const use: C2S<UseParams> = (server, { toolIndex, loc, usageIndex = 0 }) => {
     tool: new ItemWrapper(tool.type, tool.quantity).remove(toolQuantityConsumed).raw(),
     focus: new ItemWrapper(focus.type, focus.quantity).remove(use.focusQuantityConsumed).raw(),
     successTool: use.successTool !== undefined ? new ItemWrapper(use.successTool, 1).raw() : null,
-    products: [] as Item[],
+    products: use.products.map((product) => ({...product})) as Item[],
   };
-  for (let i = 0; i < use.products.length; i++) {
-    usageResult.products.push({
-      type: use.products[i],
-      quantity: use.quantities[i],
-    });
-  }
   if (focus.containerId && usageResult.products.length) {
     usageResult.products[0].containerId = focus.containerId;
   }

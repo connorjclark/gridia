@@ -415,7 +415,7 @@ const Draw = {
     function draw() {
       window.contents.removeChildren();
       for (const [i, usage] of usages.entries()) {
-        const item = {type: usage.products[0], quantity: usage.quantities[0]};
+        const item = usage.products[0];
         const itemSprite = Draw.makeItemSprite(item);
         itemSprite.x = (i % 10) * 32;
         itemSprite.y = Math.floor(i / 10) * 32;
