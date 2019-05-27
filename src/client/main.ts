@@ -74,9 +74,7 @@ function convertToPixiLoaderEntries(keys: Record<string, string>): Array<{key: s
 }
 
 const ResourceKeys: Record<string, string[]> = {
-  creatures: [
-    './world/player/player0.png',
-  ],
+  creatures: [],
   floors: [],
   items: [],
   templates: [
@@ -114,6 +112,9 @@ const SfxKeys = {
   woodcutting: './world/sound/sfx/ryanconway/woodcutting.wav',
 };
 
+for (let i = 0; i < 8; i++) {
+  ResourceKeys.creatures.push(`./world/player/player${i}.png`);
+}
 for (let i = 0; i < 6; i++) {
   ResourceKeys.floors.push(`./world/floors/floors${i}.png`);
 }
@@ -965,8 +966,7 @@ class Game {
         }
 
         if (tile.creature) {
-          // TODO get more player images. (% 100)
-          const creatureSprite = new PIXI.Sprite(getTexture.creatures(tile.creature.image % 100));
+          const creatureSprite = new PIXI.Sprite(getTexture.creatures(tile.creature.image - 1));
           creatureSprite.x = x * 32;
           creatureSprite.y = y * 32;
           this.containers.itemAndCreatureLayer.addChild(creatureSprite);
