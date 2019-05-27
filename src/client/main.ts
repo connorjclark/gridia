@@ -1,3 +1,4 @@
+import {OutlineFilter} from '@pixi/filter-outline';
 import * as PIXI from 'pixi.js';
 import { MINE, WATER } from '../constants';
 import Container from '../container';
@@ -367,6 +368,9 @@ const Draw = {
         const itemSprite = Draw.makeItemSprite(item ? item : { type: 0, quantity: 1 });
         itemSprite.x = i * 32;
         itemSprite.y = 0;
+        if (containerWindow.selectedIndex === i) {
+          itemSprite.filters = [new OutlineFilter(1, 0xFFFF00, 1)];
+        }
         window.contents.addChild(itemSprite);
       }
 
@@ -376,11 +380,6 @@ const Draw = {
         mouseHighlight.y = 0;
         window.contents.addChild(mouseHighlight);
       }
-
-      const selectedHighlight = Draw.makeHighlight(0x00ff00, 0.5);
-      selectedHighlight.x = 32 * containerWindow.selectedIndex;
-      selectedHighlight.y = 0;
-      window.contents.addChild(selectedHighlight);
 
       window.draw();
     }
@@ -656,6 +655,24 @@ class Game {
     world.addChild(this.containers.topLayer = new PIXI.Container());
     this.app.ticker.add(this.tick.bind(this));
     this.registerListeners();
+
+    // This makes everything "pop".
+    this.containers.itemAndCreatureLayer.filters = [new OutlineFilter(0.5, 0, 1)];
+  }
+
+  public trip() {
+    const filtersBefore = this.containers.itemAndCreatureLayer.filters;
+    const filter = new OutlineFilter(0, 0, 1);
+    const start = performance.now();
+    this.containers.itemAndCreatureLayer.filters = [filter];
+    const handle = setInterval(() => {
+      const multiplier = 0.5 + Math.cos((performance.now() - start) / 1000) / 2;
+      filter.thickness = 2 + multiplier * 3;
+    }, 100);
+    setTimeout(() => {
+      clearInterval(handle);
+      this.containers.itemAndCreatureLayer.filters = filtersBefore;
+    }, 1000 * 10);
   }
 
   public addWindow(window: GridiaWindow) {
@@ -1059,4 +1076,6 @@ let game: Game;
 document.addEventListener('DOMContentLoaded', () => {
   game = new Game();
   game.start();
+  // @ts-ignore
+  window.Gridia.game = game;
 });
