@@ -25,6 +25,10 @@ export function maxDiff(p1: TilePoint, p2: TilePoint): number {
   return Math.max(Math.abs(p1.x - p2.x), Math.abs(p1.y - p2.y));
 }
 
+export function dist(p1: TilePoint, p2: TilePoint): number {
+  return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
+}
+
 export function equalPoints(p1?: TilePoint, p2?: TilePoint) {
   if (!p1 && !p2) return true;
   if (!p1 || !p2) return false;
