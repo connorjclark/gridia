@@ -3,6 +3,7 @@ import * as PIXI from 'pixi.js';
 import { MINE, WATER } from '../constants';
 import Container from '../container';
 import { getItemUses, getItemUsesForFocus, getItemUsesForProduct, getItemUsesForTool, getMetaItem } from '../items';
+import { findPath } from '../path-finding';
 import { clamp, equalPoints, worldToTile as _worldToTile } from '../utils';
 import Client from './client';
 import { connect, openAndConnectToServerInMemory } from './connect-to-server';
@@ -39,6 +40,7 @@ interface UIState {
   elapsedFrames: number;
   lastMove: number;
   destination: TilePoint | null;
+  pathToDestination: TilePoint[];
 }
 
 const state: UIState = {
@@ -55,6 +57,7 @@ const state: UIState = {
   elapsedFrames: 0,
   lastMove: performance.now(),
   destination: null,
+  pathToDestination: [],
 };
 
 // @ts-ignore - for debugging
@@ -642,6 +645,8 @@ function onAction(e: Event) {
       Helper.openContainer(loc);
       break;
     case 'move-here':
+      const focusPos = client.context.getCreature(client.creatureId).pos;
+      state.pathToDestination = findPath(client.context.map, focusPos, loc);
       state.destination = loc;
       break;
     case 'cancel':
@@ -657,6 +662,11 @@ function onAction(e: Event) {
 function selectItem(loc?: TilePoint) {
   state.selectedTile = loc;
   renderSelectedItem();
+}
+
+function invalidateDestination() {
+  state.destination = null;
+  state.pathToDestination = [];
 }
 
 function worldToTile(pw: ScreenPoint) {
@@ -1095,16 +1105,17 @@ class Game {
         keyInputDelta.x += 1;
       }
 
+      if (state.destination && state.destination.z !== focusCreature.pos.z) {
+        invalidateDestination();
+      }
+
       if (!equalPoints(keyInputDelta, {x: 0, y: 0, z: 0})) {
         dest = { ...focusCreature.pos };
         dest.x += keyInputDelta.x;
         dest.y += keyInputDelta.y;
-
-        // Invalidate destination on user input.
-        state.destination = null;
-      } else if (state.destination && state.destination.z === focusCreature.pos.z) {
-        dest.x += clamp(state.destination.x - focusCreature.pos.x, -1, 1);
-        dest.y += clamp(state.destination.y - focusCreature.pos.y, -1, 1);
+        invalidateDestination();
+      } else if (state.destination) {
+        dest = state.pathToDestination.splice(0, 1)[0];
       }
 
       if (dest && !equalPoints(dest, focusCreature.pos)) {
@@ -1120,13 +1131,13 @@ class Game {
           wire.send('move', dest);
           client.eventEmitter.emit('PlayerMove');
           if (state.destination && equalPoints(state.destination, dest)) {
-            state.destination = null;
+            invalidateDestination();
           }
 
           delete state.mouse.tile;
         } else {
-          // TODO - implement actualy path finding for destination.
-          state.destination = null;
+          // TODO - repath.
+          invalidateDestination();
         }
       }
     }
