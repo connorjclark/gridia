@@ -1,5 +1,6 @@
 #!/bin/bash -ex
 
+yarn
 yarn clean
 yarn build
 
