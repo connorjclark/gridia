@@ -963,12 +963,19 @@ class Game {
     client.eventEmitter.on('ItemMoveEnd', (e: ItemMoveEvent) => {
       if (!this.itemMovingState) return;
 
-      wire.send('moveItem', {
-        from: this.itemMovingState.loc,
-        fromSource: this.itemMovingState.source,
-        to: e.loc,
-        toSource: e.source,
-      });
+      const from = this.itemMovingState.loc;
+      const fromSource = this.itemMovingState.source;
+      const to = e.loc;
+      const toSource = e.source;
+      if (!(fromSource === toSource && equalPoints(from, to))) {
+        wire.send('moveItem', {
+          from,
+          fromSource,
+          to,
+          toSource,
+        });
+      }
+
       this.itemMovingState = null;
     });
     client.eventEmitter.on('message', (e) => {
