@@ -2,7 +2,8 @@ import {OutlineFilter} from '@pixi/filter-outline';
 import * as PIXI from 'pixi.js';
 import { MINE, WATER } from '../constants';
 import Container from '../container';
-import { getItemUses, getItemUsesForFocus, getItemUsesForProduct, getItemUsesForTool, getMetaItem } from '../items';
+import { getItemUses, getItemUsesForFocus, getItemUsesForProduct,
+  getItemUsesForTool, getMetaItem, getSkill, getSkills } from '../items';
 import { findPath } from '../path-finding';
 import { clamp, equalPoints, worldToTile as _worldToTile } from '../utils';
 import Client from './client';
@@ -613,6 +614,21 @@ function renderSelectedItem() {
   }
 }
 
+function renderSkills() {
+  const skillsEl = Helper.find('.skills');
+  skillsEl.innerHTML = '';
+
+  const sortedByName = [...client.skills.keys()].sort((a, b) => getSkill(a).name.localeCompare(getSkill(b).name));
+  for (const skillId of sortedByName) {
+    const skill = getSkill(skillId);
+    const xp = client.skills.get(skillId);
+    const skillEl = document.createElement('div');
+    skillEl.classList.add('skill');
+    skillEl.innerText = `${skill.name} (${xp})`;
+    skillsEl.appendChild(skillEl);
+  }
+}
+
 function registerPanelListeners() {
   Helper.find('.panels__tabs').addEventListener('click', (e) => {
     Helper.find('.panels__tab--active').classList.toggle('panels__tab--active');
@@ -712,6 +728,20 @@ class Game {
   protected mouseHasMovedSinceItemMoveBegin = false;
 
   public async start() {
+    client.eventEmitter.on('message', (e) => {
+      // TODO improve type checking.
+      if (e.type === 'initialize') {
+        renderSkills();
+      }
+
+      if (e.type === 'setItem') {
+        const loc = {x: e.args.x, y: e.args.y, z: e.args.z};
+        if (equalPoints(loc, state.selectedTile)) {
+          selectItem(state.selectedTile);
+        }
+      }
+    });
+
     let connectOverSocket = !window.location.hostname.includes('localhost');
     if (window.location.search.includes('socket')) {
       connectOverSocket = true;
@@ -740,9 +770,6 @@ class Game {
 
     this.canvasesEl = document.body.querySelector('#canvases');
     this.canvasesEl.appendChild(this.app.view);
-
-    Helper.find('.selected-item--actions').addEventListener('click', onAction);
-    Helper.find('.contextmenu').addEventListener('click', onAction);
 
     PIXI.loader
       .add(Object.values(ResourceKeys))
@@ -790,6 +817,9 @@ class Game {
   }
 
   public registerListeners() {
+    Helper.find('.selected-item--actions').addEventListener('click', onAction);
+    Helper.find('.contextmenu').addEventListener('click', onAction);
+
     this.canvasesEl.addEventListener('mousemove', (e: MouseEvent) => {
       state.mouse = {
         ...state.mouse,
@@ -977,15 +1007,6 @@ class Game {
       }
 
       this.itemMovingState = null;
-    });
-    client.eventEmitter.on('message', (e) => {
-      // TODO improve type checking.
-      if (e.type === 'setItem') {
-        const loc = {x: e.args.x, y: e.args.y, z: e.args.z};
-        if (equalPoints(loc, state.selectedTile)) {
-          selectItem(state.selectedTile);
-        }
-      }
     });
 
     registerPanelListeners();

@@ -16,6 +16,8 @@ class Client {
   public settings: Settings = {
     volume: 0.6,
   };
+  // skill id -> xp
+  public skills: Map<number, number> = new Map();
 }
 
 export default Client;

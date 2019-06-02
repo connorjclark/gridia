@@ -120,3 +120,7 @@ export function getMonsterTemplate(id: number) {
 export function getSkills() {
   return skills;
 }
+
+export function getSkill(id: number) {
+  return skills[id];
+}

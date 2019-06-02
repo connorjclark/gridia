@@ -353,7 +353,13 @@ function convertItemUsages() {
 }
 
 function convertSkills() {
-  const skills = parseSkillsIni();
+  const skills = [
+    {
+      id: 0,
+      name: 'Nothing',
+    },
+    ...parseSkillsIni(),
+  ];
   const explicitOrder = ['id', 'name'];
   return skills.map((usage) => sortObject(usage, explicitOrder));
 }

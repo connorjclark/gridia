@@ -4,7 +4,7 @@ import Client from './client/client';
 import { MINE } from './constants';
 import Container from './container';
 import { getAnimation, getItemUses, getMetaItem,
-  getMetaItemByName, getRandomMetaItemOfClass, ItemWrapper } from './items';
+  getMetaItemByName, getRandomMetaItemOfClass, getSkills, ItemWrapper } from './items';
 import Server from './server/server';
 import { equalPoints } from './utils';
 
@@ -241,6 +241,11 @@ const initialize: S2C<InitializeParams> = (client, { creatureId, containerId, wi
   client.context.map.init(width, height, depth);
   client.creatureId = creatureId;
   client.containerId = containerId;
+
+  // Mock xp for now.
+  for (const skill of getSkills()) {
+    client.skills.set(skill.id, 1);
+  }
 };
 
 type SectorParams = TilePoint & { tiles: Sector };
