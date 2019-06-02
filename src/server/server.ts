@@ -1,4 +1,4 @@
-import { getMetaItem, getMetaItemByName, getMonsterTemplate } from '../items';
+import * as Content from '../content';
 import performance from '../performance';
 import Player from '../player';
 import { ClientToServerProtocol } from '../protocol';
@@ -100,11 +100,11 @@ export default class Server {
     clientConnection.player = player;
 
     clientConnection.container = this.context.makeContainer();
-    clientConnection.container.items[0] = { type: getMetaItemByName('Wood Axe').id, quantity: 1 };
-    clientConnection.container.items[1] = { type: getMetaItemByName('Fire Starter').id, quantity: 1 };
-    clientConnection.container.items[2] = { type: getMetaItemByName('Pick').id, quantity: 1 };
-    clientConnection.container.items[3] = { type: getMetaItemByName('Plough').id, quantity: 1 };
-    clientConnection.container.items[4] = { type: getMetaItemByName('Mana Plant Seeds').id, quantity: 100 };
+    clientConnection.container.items[0] = { type: Content.getMetaItemByName('Wood Axe').id, quantity: 1 };
+    clientConnection.container.items[1] = { type: Content.getMetaItemByName('Fire Starter').id, quantity: 1 };
+    clientConnection.container.items[2] = { type: Content.getMetaItemByName('Pick').id, quantity: 1 };
+    clientConnection.container.items[3] = { type: Content.getMetaItemByName('Plough').id, quantity: 1 };
+    clientConnection.container.items[4] = { type: Content.getMetaItemByName('Mana Plant Seeds').id, quantity: 100 };
 
     clientConnection.send('initialize', {
       creatureId: player.creature.id,
@@ -131,7 +131,7 @@ export default class Server {
   }
 
   public makeCreatureFromTemplate(creatureType: number, pos: TilePoint): Creature {
-    const template = getMonsterTemplate(creatureType);
+    const template = Content.getMonsterTemplate(creatureType);
 
     const creature = {
       id: this.context.nextCreatureId++,
@@ -316,7 +316,7 @@ export default class Server {
 
       const item = this.context.map.getItem(creature.pos);
       if (item) {
-        const meta = getMetaItem(item.type);
+        const meta = Content.getMetaItem(item.type);
 
         let newPos = null;
         if (meta.class === 'CaveDown' && this.context.map.walkable({...creature.pos, z: creature.pos.z + 1})) {
@@ -340,7 +340,7 @@ export default class Server {
           const pos = {x, y, z: 0};
           const item = this.context.map.getItem(pos);
           if (!item) continue;
-          const meta = getMetaItem(item.type);
+          const meta = Content.getMetaItem(item.type);
           if (!meta || !meta.growthItem) continue;
 
           item.growth = (item.growth || 0) + 1;

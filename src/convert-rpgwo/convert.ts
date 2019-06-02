@@ -3,7 +3,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-// Just for self-referential lookups - Can't use '../items.ts' b/c it loads data from disk,
+// Just for self-referential lookups - Can't use '../content.ts' b/c it loads data from disk,
 // not what was just parsed.
 const state = {
   items: [],

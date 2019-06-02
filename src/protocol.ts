@@ -3,8 +3,7 @@
 import Client from './client/client';
 import { MINE } from './constants';
 import Container from './container';
-import { getAnimation, getItemUses, getMetaItem,
-  getMetaItemByName, getRandomMetaItemOfClass, getSkills, ItemWrapper } from './items';
+import * as Content from './content';
 import Server from './server/server';
 import { equalPoints } from './utils';
 
@@ -69,7 +68,7 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
   // }
 
   if (!fromItem) return false;
-  if (toItem && getMetaItem(toItem.type).class === 'Container') {
+  if (toItem && Content.getMetaItem(toItem.type).class === 'Container') {
     // Dragging to a container.
     toSource = server.context.getContainerIdFromItem(toItem);
     to = null;
@@ -77,12 +76,12 @@ const moveItem: C2S<MoveItemParams> = (server, { from, fromSource, to, toSource 
   }
   if (toItem && fromItem.type !== toItem.type) return false;
 
-  if (!getMetaItem(fromItem.type).moveable) {
+  if (!Content.getMetaItem(fromItem.type).moveable) {
     return false;
   }
 
   // Prevent container-ception.
-  if (getMetaItem(fromItem.type).class === 'Container' && toSource === fromItem.containerId) {
+  if (Content.getMetaItem(fromItem.type).class === 'Container' && toSource === fromItem.containerId) {
     return false;
   }
 
@@ -108,7 +107,7 @@ const move: C2S<MoveParams> = (server, pos) => {
 
   if (server.context.map.getTile(pos).floor === MINE) {
     const container = server.currentClientConnection.container;
-    const playerHasPick = container.hasItem(getMetaItemByName('Pick').id);
+    const playerHasPick = container.hasItem(Content.getMetaItemByName('Pick').id);
     if (!playerHasPick) return false;
 
     server.context.map.getTile(pos).floor = 19;
@@ -116,7 +115,7 @@ const move: C2S<MoveParams> = (server, pos) => {
       ...pos,
       floor: 19,
     });
-    server.addItemNear(pos, {type: getRandomMetaItemOfClass('Ore').id, quantity: 1});
+    server.addItemNear(pos, {type: Content.getRandomMetaItemOfClass('Ore').id, quantity: 1});
     server.broadcast('animation', {
       ...pos,
       key: 'MiningSound',
@@ -186,15 +185,15 @@ const use: C2S<UseParams> = (server, { toolIndex, loc, usageIndex = 0 }) => {
 
   const focus = server.context.map.getItem(loc) || { type: 0, quantity: 0 };
 
-  const uses = getItemUses(tool.type, focus.type);
+  const uses = Content.getItemUses(tool.type, focus.type);
   if (!uses.length) return;
   const use = uses[usageIndex];
 
   const toolQuantityConsumed = use.toolQuantityConsumed === undefined ? 1 : use.toolQuantityConsumed;
   const usageResult = {
-    tool: new ItemWrapper(tool.type, tool.quantity).remove(toolQuantityConsumed).raw(),
-    focus: new ItemWrapper(focus.type, focus.quantity).remove(use.focusQuantityConsumed).raw(),
-    successTool: use.successTool !== undefined ? new ItemWrapper(use.successTool, 1).raw() : null,
+    tool: new Content.ItemWrapper(tool.type, tool.quantity).remove(toolQuantityConsumed).raw(),
+    focus: new Content.ItemWrapper(focus.type, focus.quantity).remove(use.focusQuantityConsumed).raw(),
+    successTool: use.successTool !== undefined ? new Content.ItemWrapper(use.successTool, 1).raw() : null,
     products: use.products.map((product) => ({...product})) as Item[],
   };
   if (focus.containerId && usageResult.products.length) {
@@ -243,7 +242,7 @@ const initialize: S2C<InitializeParams> = (client, { creatureId, containerId, wi
   client.containerId = containerId;
 
   // Mock xp for now.
-  for (const skill of getSkills()) {
+  for (const skill of Content.getSkills()) {
     client.skills.set(skill.id, 1);
   }
 };
@@ -324,7 +323,7 @@ const setCreature: S2C<SetCreatureParams> = (client, creatureUpdate) => {
 
 type AnimationParams = TilePoint & { key: string };
 const animation: S2C<AnimationParams> = (client, { x, y, z, key }) => {
-  const animationData = getAnimation(key);
+  const animationData = Content.getAnimation(key);
   if (!animationData) throw new Error('no animation found: ' + key);
   for (const frame of animationData.frames) {
     if (frame.sound && client.PIXISound.exists(frame.sound)) {

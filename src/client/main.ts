@@ -2,8 +2,7 @@ import {OutlineFilter} from '@pixi/filter-outline';
 import * as PIXI from 'pixi.js';
 import { MINE, WATER } from '../constants';
 import Container from '../container';
-import { getItemUses, getItemUsesForFocus, getItemUsesForProduct,
-  getItemUsesForTool, getMetaItem, getSkill, getSkills } from '../items';
+import * as Content from '../content';
 import { findPath } from '../path-finding';
 import { clamp, equalPoints, worldToTile as _worldToTile } from '../utils';
 import Client from './client';
@@ -65,10 +64,10 @@ const state: UIState = {
 window.Gridia = {
   client,
   item(itemType: number) {
-    console.log(getMetaItem(itemType));
-    console.log('tool', getItemUsesForTool(itemType));
-    console.log('focus', getItemUsesForFocus(itemType));
-    console.log('product', getItemUsesForProduct(itemType));
+    console.log(Content.getMetaItem(itemType));
+    console.log('tool', Content.getItemUsesForTool(itemType));
+    console.log('focus', Content.getItemUsesForFocus(itemType));
+    console.log('product', Content.getItemUsesForProduct(itemType));
   },
 };
 
@@ -160,7 +159,7 @@ const Helper = {
     return Helper.usageExists(0, itemType);
   },
   usageExists(tool: number, focus: number) {
-    return getItemUses(tool, focus).length !== 0;
+    return Content.getItemUses(tool, focus).length !== 0;
   },
   useHand(loc: TilePoint) {
     wire.send('use', {
@@ -172,7 +171,7 @@ const Helper = {
     const toolIndex = Helper.getSelectedToolIndex();
     const tool = Helper.getSelectedTool();
     const focus = client.context.map.getItem(loc);
-    const usages = getItemUses(tool.type, focus.type);
+    const usages = Content.getItemUses(tool.type, focus.type);
 
     if (usages.length === 0) {
       return;
@@ -446,7 +445,7 @@ const Draw = {
   },
 
   makeItemSprite(item: Item) {
-    const meta = getMetaItem(item.type);
+    const meta = Content.getMetaItem(item.type);
     let texture = 1;
     if (meta.animations) {
       if (meta.animations.length === 1) {
@@ -530,7 +529,7 @@ const ContextMenu = {
 
 function getActionsForTile(loc: TilePoint) {
   const item = client.context.map.getItem(loc);
-  const meta = getMetaItem(item ? item.type : 0);
+  const meta = Content.getMetaItem(item ? item.type : 0);
   const actions = [] as Array<{innerText: string, title: string, action: SelectedItemAction}>;
 
   if (item && meta.moveable) {
@@ -561,7 +560,7 @@ function getActionsForTile(loc: TilePoint) {
     const tool = Helper.getSelectedTool();
     if (tool && Helper.usageExists(tool.type, meta.id)) {
       actions.push({
-        innerText: `Use ${getMetaItem(tool.type).name}`,
+        innerText: `Use ${Content.getMetaItem(tool.type).name}`,
         title: 'Shortcut: Spacebar',
         action: 'use-tool',
       });
@@ -577,7 +576,7 @@ function renderSelectedItem() {
   let data;
   let meta;
   if (item) {
-    meta = getMetaItem(item.type);
+    meta = Content.getMetaItem(item.type);
     data = {
       name: meta.name,
       quantity: item.quantity,
@@ -618,9 +617,10 @@ function renderSkills() {
   const skillsEl = Helper.find('.skills');
   skillsEl.innerHTML = '';
 
-  const sortedByName = [...client.skills.keys()].sort((a, b) => getSkill(a).name.localeCompare(getSkill(b).name));
+  const sortedByName = [...client.skills.keys()].sort(
+    (a, b) => Content.getSkill(a).name.localeCompare(Content.getSkill(b).name));
   for (const skillId of sortedByName) {
-    const skill = getSkill(skillId);
+    const skill = Content.getSkill(skillId);
     const xp = client.skills.get(skillId);
     const skillEl = document.createElement('div');
     skillEl.classList.add('skill');
@@ -1173,7 +1173,7 @@ class Game {
 
       if (dest && !equalPoints(dest, focusCreature.pos)) {
         const itemToMoveTo = client.context.map.getItem(dest);
-        if (itemToMoveTo && getMetaItem(itemToMoveTo.type).class === 'Container') {
+        if (itemToMoveTo && Content.getMetaItem(itemToMoveTo.type).class === 'Container') {
           Helper.openContainer(dest);
         }
 
@@ -1224,7 +1224,7 @@ class Game {
     // Draw name of item under mouse.
     const itemUnderMouse = state.mouse.tile && client.context.map.getItem(state.mouse.tile);
     if (itemUnderMouse) {
-      const meta = getMetaItem(itemUnderMouse.type);
+      const meta = Content.getMetaItem(itemUnderMouse.type);
       const text = itemUnderMouse.quantity === 1 ? meta.name : `${meta.name} (${itemUnderMouse.quantity})`;
       const label = new PIXI.Text(text, {fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round'});
       const { x, y } = mouseToWorld(state.mouse);

@@ -1,5 +1,5 @@
 import { SECTOR_SIZE } from './constants';
-import { getMetaItem } from './items';
+import * as Content from './content';
 import { matrix, worldToSector } from './utils';
 
 export default class WorldMap {
@@ -34,7 +34,7 @@ export default class WorldMap {
 
     const tile = this.getTile(point);
     if (tile.creature) return false;
-    if (tile.item && !getMetaItem(tile.item.type).walkable) return false;
+    if (tile.item && !Content.getMetaItem(tile.item.type).walkable) return false;
 
     return true;
   }

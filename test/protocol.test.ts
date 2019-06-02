@@ -5,7 +5,7 @@ import * as assert from 'assert';
 import Client from '../src/client/client';
 import { openAndConnectToServerInMemory } from '../src/client/connect-to-server';
 import { MINE } from '../src/constants';
-import { getMetaItem, getMetaItemByName } from '../src/items';
+import * as Content from '../src/content';
 import mapgen from '../src/mapgen';
 import Server from '../src/server/server';
 import { ServerContext } from '../src/server/server-context';
@@ -111,7 +111,7 @@ describe('move', () => {
   it('player can move to walkable item', () => {
     const from = {x: 5, y: 5, z: 0};
     const to = {x: 6, y: 5, z: 0};
-    setItem(to, { type: 1, quantity: getMetaItemByName('Cut Red Rose').id });
+    setItem(to, { type: 1, quantity: Content.getMetaItemByName('Cut Red Rose').id });
 
     assertCreatureAt(from, creature.id);
     wire.send('move', to);
@@ -121,7 +121,7 @@ describe('move', () => {
   it('player can not move to unwalkable item', () => {
     const from = {x: 5, y: 5, z: 0};
     const to = {x: 6, y: 5, z: 0};
-    setItem(to, { type: getMetaItemByName('Granite Wall').id, quantity: 1 });
+    setItem(to, { type: Content.getMetaItemByName('Granite Wall').id, quantity: 1 });
 
     assertCreatureAt(from, creature.id);
     wire.send('move', to);
@@ -163,8 +163,8 @@ describe('move', () => {
 });
 
 describe('moveItem', () => {
-  assert(getMetaItem(1).stackable);
-  assert(getMetaItem(1).moveable);
+  assert(Content.getMetaItem(1).stackable);
+  assert(Content.getMetaItem(1).moveable);
 
   it('move item', () => {
     const from = { x: 0, y: 0, z: 0 };
@@ -204,7 +204,7 @@ describe('moveItem', () => {
   it('move stackable item', () => {
     const from = { x: 0, y: 0, z: 0 };
     const to = { x: 1, y: 0, z: 0 };
-    const gold = getMetaItemByName('Gold');
+    const gold = Content.getMetaItemByName('Gold');
 
     setItem(from, { type: gold.id, quantity: 1 });
     setItem(to, { type: gold.id, quantity: 2 });
@@ -305,8 +305,8 @@ describe('use', () => {
     assert(server.clientConnections[0]);
     container = server.clientConnections[0].container;
     // TODO don't rely on this hardcoded.
-    assert.equal(getMetaItemByName('Wood Axe').id, container.items[0].type);
-    assert.equal(getMetaItemByName('Mana Plant Seeds').id, container.items[4].type);
+    assert.equal(Content.getMetaItemByName('Wood Axe').id, container.items[0].type);
+    assert.equal(Content.getMetaItemByName('Mana Plant Seeds').id, container.items[4].type);
     assert.equal(100, container.items[4].quantity);
   });
 
@@ -314,32 +314,32 @@ describe('use', () => {
     const toolIndex = 0;
     const loc = { x: 0, y: 0, z: 0 };
 
-    setItem(loc, { type: getMetaItemByName('Pine Tree').id, quantity: 1 });
+    setItem(loc, { type: Content.getMetaItemByName('Pine Tree').id, quantity: 1 });
 
     wire.send('use', {
       toolIndex,
       loc,
     });
 
-    assertItemInWorld(loc, { type: getMetaItemByName('Pine Tree Stump').id, quantity: 1 });
-    assertItemInWorldNear(loc, { type: getMetaItemByName('Small Branches').id, quantity: 6 });
-    assertItemInWorldNear(loc, { type: getMetaItemByName('Small Log').id, quantity: 2 });
+    assertItemInWorld(loc, { type: Content.getMetaItemByName('Pine Tree Stump').id, quantity: 1 });
+    assertItemInWorldNear(loc, { type: Content.getMetaItemByName('Small Branches').id, quantity: 6 });
+    assertItemInWorldNear(loc, { type: Content.getMetaItemByName('Small Log').id, quantity: 2 });
   });
 
   it('plant a seed', () => {
     const toolIndex = 4;
     const loc = { x: 0, y: 0, z: 0 };
 
-    setItem(loc, { type: getMetaItemByName('Ploughed Ground').id, quantity: 1 });
+    setItem(loc, { type: Content.getMetaItemByName('Ploughed Ground').id, quantity: 1 });
 
     wire.send('use', {
       toolIndex,
       loc,
     });
 
-    assertItemInWorld(loc, { type: getMetaItemByName('Mana Plant Seeded Ground').id, quantity: 1 });
+    assertItemInWorld(loc, { type: Content.getMetaItemByName('Mana Plant Seeded Ground').id, quantity: 1 });
     assertItemInContainer(container.id, toolIndex, {
-      type: getMetaItemByName('Mana Plant Seeds').id,
+      type: Content.getMetaItemByName('Mana Plant Seeds').id,
       quantity: 99,
     });
   });
@@ -349,25 +349,25 @@ describe('use', () => {
     const loc = { x: 0, y: 0, z: 0 };
 
     setItemInContainer(container.id, toolIndex, {
-      type: getMetaItemByName('Un-Cooked Large Ribs').id,
+      type: Content.getMetaItemByName('Un-Cooked Large Ribs').id,
       quantity: 5,
     });
     setItemInContainer(container.id, toolIndex + 1, undefined);
-    setItem(loc, { type: getMetaItemByName('Large Camp Fire').id, quantity: 1 });
+    setItem(loc, { type: Content.getMetaItemByName('Large Camp Fire').id, quantity: 1 });
 
     wire.send('use', {
       toolIndex,
       loc,
     });
 
-    assertItemInWorld(loc, { type: getMetaItemByName('Large Camp Fire').id, quantity: 1 });
+    assertItemInWorld(loc, { type: Content.getMetaItemByName('Large Camp Fire').id, quantity: 1 });
     assertItemInContainer(container.id, toolIndex, {
-      type: getMetaItemByName('Un-Cooked Large Ribs').id,
+      type: Content.getMetaItemByName('Un-Cooked Large Ribs').id,
       quantity: 4,
     });
     // Cooked ribs should be placed in the container.
     assertItemInContainer(container.id, toolIndex + 1, {
-      type: getMetaItemByName('Cooked Large Ribs').id,
+      type: Content.getMetaItemByName('Cooked Large Ribs').id,
       quantity: 1,
     });
   });
@@ -375,20 +375,20 @@ describe('use', () => {
   it('closing/opening chest retains container id', () => {
     const loc = { x: 0, y: 0, z: 0 };
 
-    setItem(loc, { type: getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123 });
+    setItem(loc, { type: Content.getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123 });
 
     wire.send('use', {
       toolIndex: -1,
       loc,
     });
 
-    assertItemInWorld(loc, { type: getMetaItemByName('Wooden Box').id, quantity: 1, containerId: 123 });
+    assertItemInWorld(loc, { type: Content.getMetaItemByName('Wooden Box').id, quantity: 1, containerId: 123 });
 
     wire.send('use', {
       toolIndex: -1,
       loc,
     });
 
-    assertItemInWorld(loc, { type: getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123 });
+    assertItemInWorld(loc, { type: Content.getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123 });
   });
 });

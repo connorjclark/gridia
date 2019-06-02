@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import {MINE, SECTOR_SIZE} from './constants';
-import { getMetaItemByName, getRandomMetaItemOfClass } from './items';
+import * as Content from './content';
 import WorldMap from './world-map';
 
 export default function mapgen(width: number, height: number, depth: number, bare: boolean) {
@@ -10,8 +10,8 @@ export default function mapgen(width: number, height: number, depth: number, bar
   assert.ok(height < 1000);
   assert.ok(depth < 10);
 
-  const treeType = getMetaItemByName('Pine Tree').id;
-  const flowerType = getMetaItemByName('Cut Red Rose').id;
+  const treeType = Content.getMetaItemByName('Pine Tree').id;
+  const flowerType = Content.getMetaItemByName('Cut Red Rose').id;
 
   const map = new WorldMap(width, height, depth);
 
@@ -93,21 +93,21 @@ export default function mapgen(width: number, height: number, depth: number, bar
     const loc = {x: 5, y: 5, z: 0};
     map.getTile({...loc, z: 1}).floor = map.getTile(loc).floor = 10;
     map.getTile({...loc, z: 1}).item = {
-      type: getMetaItemByName('Royal Stairs Up').id,
+      type: Content.getMetaItemByName('Royal Stairs Up').id,
       quantity: 1,
     };
     map.getTile(loc).item = {
-      type: getMetaItemByName('Royal Stairs Down').id,
+      type: Content.getMetaItemByName('Royal Stairs Down').id,
       quantity: 1,
     };
 
     // Chests to test containers.
     map.getTile({x: 8, y: 8, z: 0}).item = {
-      type: getRandomMetaItemOfClass('Container').id,
+      type: Content.getRandomMetaItemOfClass('Container').id,
       quantity: 1,
     };
     map.getTile({x: 9, y: 8, z: 0}).item = {
-      type: getRandomMetaItemOfClass('Container').id,
+      type: Content.getRandomMetaItemOfClass('Container').id,
       quantity: 1,
     };
   }
