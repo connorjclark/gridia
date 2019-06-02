@@ -1,5 +1,5 @@
 {
-  "watch": ["src"],
+  "watch": ["src", "index.html"],
   "ext": "ts",
   "exec": "yarn build && yarn run-server"
 }

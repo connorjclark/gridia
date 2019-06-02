@@ -211,7 +211,8 @@ const Helper = {
     const inventoryWindow = containerWindows.get(client.containerId);
     return inventoryWindow.selectedIndex;
   },
-  find(node: Element, query: string): HTMLElement {
+  find(query: string, node?: Element): HTMLElement {
+    if (!node) node = document.body;
     const result = node.querySelector(query);
     if (!result) throw new Error(`no elements matching ${query}`);
     if (!(result instanceof HTMLElement)) throw new Error('expected HTMLElement');
@@ -480,13 +481,13 @@ type ContainerWindow = ReturnType<typeof Draw.makeItemContainerWindow>;
 const containerWindows = new Map<number, ContainerWindow>();
 
 function getCanvasSize() {
-  const canvasesEl = Helper.find(document.body, '#canvases');
+  const canvasesEl = Helper.find('#canvases');
   return canvasesEl.getBoundingClientRect();
 }
 
 const ContextMenu = {
   get() {
-    return Helper.find(document.body, '.contextmenu');
+    return Helper.find('.contextmenu');
   },
 
   isOpen() {
@@ -570,7 +571,7 @@ function getActionsForTile(loc: TilePoint) {
 }
 
 function renderSelectedItem() {
-  const el = Helper.find(document.body, '.selected-item');
+  const el = Helper.find('.selected-item');
   const item = state.selectedTile ? client.context.map.getItem(state.selectedTile) : null;
   let data;
   let meta;
@@ -591,12 +592,12 @@ function renderSelectedItem() {
     };
   }
 
-  Helper.find(el, '.selected-item--name').innerHTML = `Item: ${data.name}`;
-  Helper.find(el, '.selected-item--quantity').innerHTML = `Quantity: ${data.quantity}`;
-  Helper.find(el, '.selected-item--burden').innerHTML = `Burden: ${data.burden}`;
-  Helper.find(el, '.selected-item--misc').innerHTML = data.misc;
+  Helper.find('.selected-item--name', el).innerHTML = `Item: ${data.name}`;
+  Helper.find('.selected-item--quantity', el).innerHTML = `Quantity: ${data.quantity}`;
+  Helper.find('.selected-item--burden', el).innerHTML = `Burden: ${data.burden}`;
+  Helper.find('.selected-item--misc', el).innerHTML = data.misc;
 
-  const actionsEl = Helper.find(el, '.selected-item--actions');
+  const actionsEl = Helper.find('.selected-item--actions', el);
   actionsEl.innerHTML = 'Actions:';
 
   if (!meta) return;
@@ -610,6 +611,18 @@ function renderSelectedItem() {
     actionEl.title = action.title;
     actionsEl.appendChild(actionEl);
   }
+}
+
+function registerPanelListeners() {
+  Helper.find('.panels__tabs').addEventListener('click', (e) => {
+    Helper.find('.panels__tab--active').classList.toggle('panels__tab--active');
+    Helper.find('.panel--active').classList.toggle('panel--active');
+
+    const targetEl = e.target as HTMLElement;
+    const panelName = targetEl.dataset.panel;
+    targetEl.classList.toggle('panels__tab--active');
+    Helper.find('.panel--' + panelName).classList.toggle('panel--active');
+  });
 }
 
 // TODO: rename.
@@ -718,8 +731,8 @@ class Game {
     this.canvasesEl = document.body.querySelector('#canvases');
     this.canvasesEl.appendChild(this.app.view);
 
-    Helper.find(document.body, '.selected-item--actions').addEventListener('click', onAction);
-    Helper.find(document.body, '.contextmenu').addEventListener('click', onAction);
+    Helper.find('.selected-item--actions').addEventListener('click', onAction);
+    Helper.find('.contextmenu').addEventListener('click', onAction);
 
     PIXI.loader
       .add(Object.values(ResourceKeys))
@@ -957,6 +970,8 @@ class Game {
         }
       }
     });
+
+    registerPanelListeners();
   }
 
   public tick() {
