@@ -623,6 +623,16 @@ function registerPanelListeners() {
     targetEl.classList.toggle('panels__tab--active');
     Helper.find('.panel--' + panelName).classList.toggle('panel--active');
   });
+
+  Helper.find('.settings').addEventListener('change', (e) => {
+    if (!(e.target instanceof HTMLInputElement)) return;
+
+    client.settings[e.target.id] = e.target.valueAsNumber;
+    // TODO: save and load settings.
+  });
+
+  const getInput = (id: string) => Helper.find('.settings #' + id) as HTMLInputElement;
+  getInput('volume').value = String(client.settings.volume);
 }
 
 // TODO: rename.

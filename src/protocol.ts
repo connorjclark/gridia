@@ -322,7 +322,9 @@ const animation: S2C<AnimationParams> = (client, { x, y, z, key }) => {
   const animationData = getAnimation(key);
   if (!animationData) throw new Error('no animation found: ' + key);
   for (const frame of animationData.frames) {
-    if (frame.sound && client.PIXISound.exists(frame.sound)) client.PIXISound.play(frame.sound);
+    if (frame.sound && client.PIXISound.exists(frame.sound)) {
+      client.PIXISound.play(frame.sound, {volume: client.settings.volume});
+    }
   }
 };
 
