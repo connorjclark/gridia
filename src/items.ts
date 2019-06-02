@@ -3,6 +3,7 @@ const items: MetaItem[] = require('../world/content/items.json');
 const itemUses: ItemUse[] = require('../world/content/itemuses.json');
 const animations: Animation[] = require('../world/content/animations.json');
 const monsters: Monster[] = require('../world/content/monsters.json');
+const skills: Skill[] = require('../world/content/skills.json');
 
 for (const use of itemUses) {
   if (use.focusQuantityConsumed === undefined) {
@@ -114,4 +115,8 @@ export function getAnimation(key: string) {
 
 export function getMonsterTemplate(id: number) {
   return monsters[id];
+}
+
+export function getSkills() {
+  return skills;
 }

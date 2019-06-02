@@ -83,6 +83,11 @@ interface ItemUse {
   products: Array<{type: number, quantity: number}>;
 }
 
+interface Skill {
+  id: number;
+  name: string;
+}
+
 interface Animation {
   name: string;
   frames: Array<{

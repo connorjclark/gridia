@@ -265,6 +265,49 @@ function parseItemUsagesIni() {
   return usages;
 }
 
+function parseSkillsIni() {
+  const skillsIni = loadIni('Skill');
+
+  const skills = [];
+
+  let currentSkill;
+  for (const [key, value] of skillsIni) {
+    if (key.match(/^skill$/i)) {
+      currentSkill = {
+        id: forcenum(value),
+      };
+      skills.push(currentSkill);
+    } else {
+      // Most properties are unchanged, except for being camelCase.
+      const camelCaseKey = camelCase(key);
+
+      let convertedValue: string | number | boolean = value;
+      const maybeNumber = loosenum(value);
+      if (typeof maybeNumber === 'number' && Number.isFinite(maybeNumber)) {
+        convertedValue = maybeNumber;
+      }
+      if (convertedValue === undefined) {
+        convertedValue = true;
+      }
+
+      currentSkill[camelCaseKey] = convertedValue;
+    }
+  }
+
+  // printUniqueKeys(skills);
+
+  // Only save properties that Gridia utilizes.
+  const whitelist = [
+    'id',
+    'name',
+  ];
+  for (const skill of skills) {
+    filterProperties(skill, whitelist);
+  }
+
+  return skills;
+}
+
 function fillGaps(objects: any[], make: (id: number) => any) {
   const noGaps = [];
 
@@ -309,6 +352,12 @@ function convertItemUsages() {
   return usages.map((usage) => sortObject(usage, explicitOrder));
 }
 
+function convertSkills() {
+  const skills = parseSkillsIni();
+  const explicitOrder = ['id', 'name'];
+  return skills.map((usage) => sortObject(usage, explicitOrder));
+}
+
 function run() {
   const items = state.items = convertItems();
   const itemsPath = path.join(__dirname, '..', '..', 'world', 'content', 'items.json');
@@ -320,5 +369,10 @@ function run() {
   // const usagesPath = path.join(__dirname, '..', '..', 'world', 'content', 'itemuses.json');
   // fs.writeFileSync(usagesPath, JSON.stringify(usages, null, 2));
   // console.log('saved ' + usagesPath);
+
+  const skills = convertSkills();
+  const skillsPath = path.join(__dirname, '..', '..', 'world', 'content', 'skills.json');
+  fs.writeFileSync(skillsPath, JSON.stringify(skills, null, 2));
+  console.log('saved ' + skillsPath);
 }
 run();

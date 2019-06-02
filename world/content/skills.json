@@ -1,0 +1,178 @@
+[
+  {
+    "id": 1,
+    "name": "Melee Defense"
+  },
+  {
+    "id": 2,
+    "name": "Unarmed Attack"
+  },
+  {
+    "id": 3,
+    "name": "Dagger"
+  },
+  {
+    "id": 4,
+    "name": "Sword"
+  },
+  {
+    "id": 5,
+    "name": "Axe"
+  },
+  {
+    "id": 6,
+    "name": "Mace"
+  },
+  {
+    "id": 7,
+    "name": "Spear"
+  },
+  {
+    "id": 8,
+    "name": "Staff"
+  },
+  {
+    "id": 9,
+    "name": "Flail"
+  },
+  {
+    "id": 10,
+    "name": "Scythe"
+  },
+  {
+    "id": 11,
+    "name": "Missle Defense"
+  },
+  {
+    "id": 12,
+    "name": "Bow"
+  },
+  {
+    "id": 13,
+    "name": "Crossbow"
+  },
+  {
+    "id": 14,
+    "name": "Throwing"
+  },
+  {
+    "id": 15,
+    "name": "Magic Defense"
+  },
+  {
+    "id": 16,
+    "name": "Black Magic"
+  },
+  {
+    "id": 17,
+    "name": "White Magic"
+  },
+  {
+    "id": 18,
+    "name": "Red Magic"
+  },
+  {
+    "id": 19,
+    "name": "Blue Magic"
+  },
+  {
+    "id": 20,
+    "name": "Mana Conversion"
+  },
+  {
+    "id": 21,
+    "name": "Alchemy"
+  },
+  {
+    "id": 22,
+    "name": "Read Ancient"
+  },
+  {
+    "id": 23,
+    "name": "Swim"
+  },
+  {
+    "id": 24,
+    "name": "Scan"
+  },
+  {
+    "id": 25,
+    "name": "Run"
+  },
+  {
+    "id": 26,
+    "name": "Deception"
+  },
+  {
+    "id": 27,
+    "name": "Assess"
+  },
+  {
+    "id": 28,
+    "name": "Stealth"
+  },
+  {
+    "id": 29,
+    "name": "Trap"
+  },
+  {
+    "id": 30,
+    "name": "Tame"
+  },
+  {
+    "id": 31,
+    "name": "Blacksmith"
+  },
+  {
+    "id": 32,
+    "name": "Farming"
+  },
+  {
+    "id": 33,
+    "name": "Masonry"
+  },
+  {
+    "id": 34,
+    "name": "Fishing"
+  },
+  {
+    "id": 35,
+    "name": "Cooking"
+  },
+  {
+    "id": 36,
+    "name": "Mining"
+  },
+  {
+    "id": 37,
+    "name": "Fletching"
+  },
+  {
+    "id": 38,
+    "name": "LockSmith"
+  },
+  {
+    "id": 39,
+    "name": "Tailor"
+  },
+  {
+    "id": 40,
+    "name": "Carpentry"
+  },
+  {
+    "id": 41,
+    "name": "First Aid"
+  },
+  {
+    "id": 42,
+    "name": "Sports"
+  },
+  {
+    "id": 43,
+    "name": "Jewelry Making"
+  },
+  {
+    "id": 44,
+    "name": "Climb"
+  }
+]
