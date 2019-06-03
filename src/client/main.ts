@@ -170,7 +170,7 @@ const Helper = {
   useTool(loc: TilePoint, usageIndex?: number) {
     const toolIndex = Helper.getSelectedToolIndex();
     const tool = Helper.getSelectedTool();
-    const focus = client.context.map.getItem(loc);
+    const focus = client.context.map.getItem(loc) || {type: 0, quantity: 0};
     const usages = Content.getItemUses(tool.type, focus.type);
 
     if (usages.length === 0) {

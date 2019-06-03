@@ -5,19 +5,6 @@ const animations: Animation[] = require('../world/content/animations.json');
 const monsters: Monster[] = require('../world/content/monsters.json');
 const skills: Skill[] = require('../world/content/skills.json');
 
-for (const use of itemUses) {
-  if (use.focusQuantityConsumed === undefined) {
-    use.focusQuantityConsumed = 1;
-  }
-
-  // @ts-ignore - remove when convert.ts is working.
-  use.products = [...use.products.entries()].map(([index, type]) => ({
-    type,
-    // @ts-ignore
-    quantity: use.quantities[index],
-  }));
-}
-
 for (const animation of animations) {
   for (const frame of animation.frames) {
     if (frame.sound) frame.sound = frame.sound.toLowerCase();

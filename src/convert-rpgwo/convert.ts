@@ -204,10 +204,10 @@ function parseItemUsagesIni() {
 
   let currentUsage;
   for (const [key, value] of usagesIni) {
-    console.log(key, value);
     if (key.match(/^itemuse$/i)) {
       currentUsage = {
         ...defaults,
+        products: [],
       };
       usages.push(currentUsage);
     } else if (key.match(/^itemtool$/i)) {
@@ -215,19 +215,33 @@ function parseItemUsagesIni() {
     } else if (key.match(/^itemfocus$/i)) {
       currentUsage.focus = parseItemId(value);
     } else if (key.match(/^successtool$/i)) {
-      currentUsage.successTool = parseItemId(value);
+      const successToolId = parseItemId(value);
+      if (successToolId > 0) {
+        currentUsage.successTool = successToolId;
+      }
+      currentUsage.toolQuantityConsumed = 1;
     } else if (key.match(/^successitemqty/i)) {
       const index = forcenum(key.replace(/successitemqty/i, '')) - 1;
       currentUsage.products[index].quantity = forcenum(value);
     } else if (key.match(/^successitem/i)) {
-      currentUsage.products = currentUsage.products || [];
       const index = forcenum(key.replace(/successitem/i, '')) - 1;
       currentUsage.products[index] = {
         type: parseItemId(value),
         quantity: 1,
       };
+    } else if (key.match(/^successfocus$/i)) {
+      currentUsage.successFocus = {
+        type: parseItemId(value),
+        quantity: 1,
+      };
     } else if (key.match(/^successmsg$/i)) {
       currentUsage.successMessage = value;
+    } else if (key.match(/^skillxpsuccess$/i)) {
+      currentUsage.skillSuccessXp = forcenum(value);
+    } else if (key.match(/^animation$/i)) {
+      // TODO remove when animations are converted.
+      const animations = require('../../world/content/animations');
+      currentUsage.animation = animations[forcenum(value) - 1].name;
     } else {
       // Most properties are unchanged, except for being camelCase.
       const camelCaseKey = camelCase(key);
@@ -242,6 +256,17 @@ function parseItemUsagesIni() {
       }
 
       currentUsage[camelCaseKey] = convertedValue;
+    }
+  }
+
+  for (const usage of usages) {
+    if (usage.successFocus) usage.products.unshift(usage.successFocus);
+    usage.products = usage.products.filter(Boolean);
+
+    // TODO: support rich item selectors. focusSubType, <mining>, etc.
+    usage.focus = Math.max(usage.focus || 0, 0);
+    for (const product of usage.products) {
+      product.type = Math.max(product.type, 0);
     }
   }
 
@@ -260,6 +285,13 @@ function parseItemUsagesIni() {
   ];
   for (const usage of usages) {
     filterProperties(usage, whitelist);
+  }
+
+  if (process.env.DEBUG === '1') {
+    for (const usage of usages) {
+      if (usage.tool >= 0) usage.tool_ = state.items[usage.tool].name;
+      if (usage.focus >= 0) usage.focus_ = state.items[usage.focus].name;
+    }
   }
 
   return usages;
@@ -348,6 +380,16 @@ function convertItems() {
 
 function convertItemUsages() {
   const usages = parseItemUsagesIni();
+
+  // Add some animations.
+  for (const usage of usages) {
+    if (usage.animation) continue;
+
+    if (/chop up|cut down/.test(usage.successMessage)) {
+      usage.animation = 'Woodcutting';
+    }
+  }
+
   const explicitOrder = ['tool', 'focus', 'skill'];
   return usages.map((usage) => sortObject(usage, explicitOrder));
 }
@@ -370,11 +412,10 @@ function run() {
   fs.writeFileSync(itemsPath, JSON.stringify(items, null, 2));
   console.log('saved ' + itemsPath);
 
-  // WIP
-  // const usages = convertItemUsages();
-  // const usagesPath = path.join(__dirname, '..', '..', 'world', 'content', 'itemuses.json');
-  // fs.writeFileSync(usagesPath, JSON.stringify(usages, null, 2));
-  // console.log('saved ' + usagesPath);
+  const usages = convertItemUsages();
+  const usagesPath = path.join(__dirname, '..', '..', 'world', 'content', 'itemuses.json');
+  fs.writeFileSync(usagesPath, JSON.stringify(usages, null, 2));
+  console.log('saved ' + usagesPath);
 
   const skills = convertSkills();
   const skillsPath = path.join(__dirname, '..', '..', 'world', 'content', 'skills.json');
