@@ -393,6 +393,16 @@ function convertItemUsages() {
     }
   }
 
+  usages.sort((a, b) => {
+    if (a.tool > b.tool) return 1;
+    if (a.tool < b.tool) return -1;
+
+    if (a.focus > b.focus) return 1;
+    if (a.focus < b.focus) return -1;
+
+    return 0;
+  });
+
   const explicitOrder = ['tool', 'focus', 'skill'];
   return usages.map((usage) => sortObject(usage, explicitOrder));
 }
