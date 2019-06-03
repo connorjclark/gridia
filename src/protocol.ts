@@ -239,15 +239,14 @@ export const ClientToServerProtocol = {
 // ServerToClientProtocolFn
 type S2C<T> = (client: Client, data: T) => void;
 
-interface InitializeParams { creatureId: number; containerId: number; width: number; height: number; depth: number; }
-const initialize: S2C<InitializeParams> = (client, { creatureId, containerId, width, height, depth }) => {
+interface InitializeParams { creatureId: number; containerId: number; width: number;
+  height: number; depth: number; skills: Array<[number, number]>; }
+const initialize: S2C<InitializeParams> = (client, { creatureId, containerId, width, height, depth, skills }) => {
   client.context.map.init(width, height, depth);
   client.creatureId = creatureId;
   client.containerId = containerId;
-
-  // Mock xp for now.
-  for (const skill of Content.getSkills()) {
-    client.skills.set(skill.id, 1);
+  for (const [skillId, xp] of skills) {
+    client.skills.set(skillId, xp);
   }
 };
 

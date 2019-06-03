@@ -76,6 +76,7 @@ export class ServerContext extends Context {
     const data = {
       id: player.id,
       creature: player.creature,
+      skills: [...player.skills.entries()],
     };
     const json = JSON.stringify(data, null, 2);
     await fs.writeFile(this.playerPath(player.id), json);

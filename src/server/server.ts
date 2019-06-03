@@ -101,6 +101,10 @@ export default class Server {
       image: randInt(0, 10),
       isPlayer: true,
     });
+    // Mock xp for now.
+    for (const skill of Content.getSkills()) {
+      player.skills.set(skill.id, 1);
+    }
     clientConnection.player = player;
 
     clientConnection.container = this.context.makeContainer();
@@ -116,6 +120,7 @@ export default class Server {
       width: this.context.map.width,
       height: this.context.map.height,
       depth: this.context.map.depth,
+      skills: [...player.skills.entries()],
     });
     clientConnection.send('setCreature', player.creature);
     clientConnection.send('container', this.context.getContainer(clientConnection.container.id));
@@ -294,6 +299,10 @@ export default class Server {
   }
 
   public grantXp(clientConnection: ClientConnection, skill: number, xp: number) {
+    const currentXp = clientConnection.player.skills.get(skill);
+    const newXp = (currentXp || 0) + xp;
+    clientConnection.player.skills.set(skill, newXp);
+
     this.send(clientConnection)('xp', {
       skill,
       xp,
