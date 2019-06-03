@@ -81,6 +81,8 @@ interface ItemUse {
   focusQuantityConsumed: number;
   successTool?: number;
   products: Array<{type: number, quantity: number}>;
+  skill?: string;
+  skillSuccessXp?: number;
 }
 
 interface Skill {

@@ -734,6 +734,11 @@ class Game {
         renderSkills();
       }
 
+      // This is crap.
+      if (e.type === 'xp') {
+        renderSkills();
+      }
+
       if (e.type === 'setItem') {
         const loc = {x: e.args.x, y: e.args.y, z: e.args.z};
         if (equalPoints(loc, state.selectedTile)) {

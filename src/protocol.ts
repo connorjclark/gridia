@@ -220,6 +220,11 @@ const use: C2S<UseParams> = (server, { toolIndex, loc, usageIndex = 0 }) => {
       key: use.animation,
     });
   }
+
+  if (use.skill && use.skillSuccessXp) {
+    const skill = Content.getSkills().find((skill) => skill.name === use.skill);
+    if (skill) server.grantXp(server.currentClientConnection, skill.id, use.skillSuccessXp);
+  }
 };
 
 export const ClientToServerProtocol = {
@@ -337,6 +342,13 @@ const log: S2C<LogParams> = (client, { msg }) => {
   console.log(msg);
 };
 
+// tslint:disable-next-line: interface-over-type-literal
+type XpParams = { skill: number; xp: number };
+const xp: S2C<XpParams> = (client, { skill, xp }) => {
+  const currentXp = client.skills.get(skill) || 0;
+  client.skills.set(skill, currentXp + xp);
+};
+
 export const ServerToClientProtocol = {
   initialize,
   sector,
@@ -346,4 +358,5 @@ export const ServerToClientProtocol = {
   setCreature,
   animation,
   log,
+  xp,
 };

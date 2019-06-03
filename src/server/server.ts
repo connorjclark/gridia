@@ -67,6 +67,10 @@ export default class Server {
     this.verbose = opts.verbose;
   }
 
+  public send(toClient: ClientConnection): ServerToClientWire['send'] {
+    return (type, args) => this.outboundMessages.push({to: toClient, type, args});
+  }
+
   public conditionalBroadcast(filter: (client: ClientConnection) => boolean): ServerToClientWire['send'] {
     return (type, args) => this.outboundMessages.push({type, args, filter});
   }
@@ -287,6 +291,13 @@ export default class Server {
       container.items.length += 1;
       this.setItemInContainer(id, container.items.length - 1, item);
     }
+  }
+
+  public grantXp(clientConnection: ClientConnection, skill: number, xp: number) {
+    this.send(clientConnection)('xp', {
+      skill,
+      xp,
+    });
   }
 
   private tickImpl() {

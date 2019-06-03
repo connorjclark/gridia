@@ -278,6 +278,8 @@ function parseItemUsagesIni() {
     'focus',
     'focusQuantityConsumed',
     'products',
+    'skill',
+    'skillSuccessXp',
     'successMessage',
     'successTool',
     'tool',
