@@ -1684,7 +1684,7 @@
   {
     "tool": 18,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the armor."
@@ -1712,7 +1712,7 @@
   {
     "tool": 19,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the armor."
@@ -1740,7 +1740,7 @@
   {
     "tool": 21,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You repair the weapon."
@@ -1748,7 +1748,7 @@
   {
     "tool": 22,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You repair the weapon."
@@ -1756,7 +1756,7 @@
   {
     "tool": 25,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -1764,7 +1764,7 @@
   {
     "tool": 29,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the armor."
@@ -1792,7 +1792,7 @@
   {
     "tool": 31,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You repair the weapon."
@@ -1800,7 +1800,7 @@
   {
     "tool": 32,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 60,
     "successMessage": "You repair the weapon."
@@ -1808,7 +1808,7 @@
   {
     "tool": 33,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 70,
     "successMessage": "You repair the weapon."
@@ -1816,7 +1816,7 @@
   {
     "tool": 34,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -1842,7 +1842,7 @@
   {
     "tool": 36,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 80,
     "successMessage": "You repair the weapon."
@@ -1850,7 +1850,7 @@
   {
     "tool": 41,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You repair the weapon."
@@ -1858,7 +1858,7 @@
   {
     "tool": 42,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 65,
     "successMessage": "You repair the weapon."
@@ -1866,7 +1866,7 @@
   {
     "tool": 43,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 80,
     "successMessage": "You repair the weapon."
@@ -1874,7 +1874,7 @@
   {
     "tool": 45,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -1882,7 +1882,7 @@
   {
     "tool": 46,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 70,
     "successMessage": "You repair the weapon."
@@ -1890,7 +1890,7 @@
   {
     "tool": 47,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -1905,7 +1905,7 @@
   {
     "tool": 51,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You repair the weapon."
@@ -1913,7 +1913,7 @@
   {
     "tool": 52,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 60,
     "successMessage": "You repair the weapon."
@@ -1921,7 +1921,7 @@
   {
     "tool": 53,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 70,
     "successMessage": "You repair the weapon."
@@ -1929,7 +1929,7 @@
   {
     "tool": 55,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 80,
     "successMessage": "You repair the weapon."
@@ -1937,7 +1937,7 @@
   {
     "tool": 56,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 70,
     "successMessage": "You repair the weapon."
@@ -3461,7 +3461,7 @@
   {
     "tool": 61,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You repair the weapon."
@@ -3469,7 +3469,7 @@
   {
     "tool": 62,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 60,
     "successMessage": "You repair the weapon."
@@ -3477,7 +3477,7 @@
   {
     "tool": 63,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -3485,7 +3485,7 @@
   {
     "tool": 64,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 60,
     "successMessage": "You repair the weapon."
@@ -3493,7 +3493,7 @@
   {
     "tool": 69,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 70,
     "successMessage": "You repair the weapon."
@@ -3501,7 +3501,7 @@
   {
     "tool": 71,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You repair the weapon."
@@ -3569,7 +3569,7 @@
   {
     "tool": 71,
     "focus": 806,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -3614,7 +3614,7 @@
   {
     "tool": 72,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 60,
     "successMessage": "You repair the weapon."
@@ -3622,7 +3622,7 @@
   {
     "tool": 76,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 80,
     "successMessage": "You repair the weapon."
@@ -3769,7 +3769,7 @@
   {
     "tool": 81,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You repair the weapon."
@@ -3777,7 +3777,7 @@
   {
     "tool": 82,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 60,
     "successMessage": "You repair the weapon."
@@ -3785,7 +3785,7 @@
   {
     "tool": 83,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 70,
     "successMessage": "You repair the weapon."
@@ -3793,7 +3793,7 @@
   {
     "tool": 85,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 80,
     "successMessage": "You repair the weapon."
@@ -3801,7 +3801,7 @@
   {
     "tool": 86,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the armor."
@@ -3881,7 +3881,7 @@
   {
     "tool": 90,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You repair the weapon."
@@ -3889,7 +3889,7 @@
   {
     "tool": 91,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You repair the weapon."
@@ -3897,14 +3897,14 @@
   {
     "tool": 92,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100
   },
   {
     "tool": 94,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -3940,7 +3940,7 @@
   {
     "tool": 110,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You repair the weapon."
@@ -3948,7 +3948,7 @@
   {
     "tool": 113,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You repair the armor."
@@ -3956,7 +3956,7 @@
   {
     "tool": 118,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the shield."
@@ -6351,7 +6351,7 @@
   {
     "tool": 139,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 300,
     "successMessage": "You repair the weapon."
@@ -6399,7 +6399,7 @@
   {
     "tool": 148,
     "focus": 945,
-    "skill": "blacksmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -6533,7 +6533,7 @@
   {
     "tool": 155,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -6935,7 +6935,7 @@
   {
     "tool": 256,
     "focus": 679,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -6977,7 +6977,7 @@
   {
     "tool": 259,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -7018,7 +7018,7 @@
   {
     "tool": 268,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You repair the weapon."
@@ -7026,7 +7026,7 @@
   {
     "tool": 269,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -7571,7 +7571,7 @@
   {
     "tool": 272,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You repair the weapon."
@@ -7579,7 +7579,7 @@
   {
     "tool": 274,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You repair the weapon."
@@ -9939,7 +9939,7 @@
   {
     "tool": 316,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
     "successMessage": "You make gold bars.",
@@ -9949,7 +9949,7 @@
   {
     "tool": 316,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
     "successMessage": "You make gold bars.",
@@ -10548,7 +10548,7 @@
   {
     "tool": 358,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -10574,7 +10574,7 @@
   {
     "tool": 359,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -10600,7 +10600,7 @@
   {
     "tool": 368,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -10626,7 +10626,7 @@
   {
     "tool": 369,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -11543,7 +11543,7 @@
   {
     "tool": 404,
     "focus": 343,
-    "skill": "tailor",
+    "skill": "Tailor",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12235,7 +12235,7 @@
   {
     "tool": 407,
     "focus": 674,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12251,7 +12251,7 @@
   {
     "tool": 407,
     "focus": 675,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12267,7 +12267,7 @@
   {
     "tool": 407,
     "focus": 676,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12283,7 +12283,7 @@
   {
     "tool": 407,
     "focus": 677,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12299,7 +12299,7 @@
   {
     "tool": 407,
     "focus": 678,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12315,7 +12315,7 @@
   {
     "tool": 407,
     "focus": 679,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12331,7 +12331,7 @@
   {
     "tool": 407,
     "focus": 680,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12347,7 +12347,7 @@
   {
     "tool": 407,
     "focus": 682,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12363,7 +12363,7 @@
   {
     "tool": 407,
     "focus": 684,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12379,7 +12379,7 @@
   {
     "tool": 407,
     "focus": 685,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12395,7 +12395,7 @@
   {
     "tool": 407,
     "focus": 686,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12411,7 +12411,7 @@
   {
     "tool": 407,
     "focus": 804,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12427,7 +12427,7 @@
   {
     "tool": 407,
     "focus": 805,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12443,7 +12443,7 @@
   {
     "tool": 407,
     "focus": 807,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12459,7 +12459,7 @@
   {
     "tool": 407,
     "focus": 808,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12475,7 +12475,7 @@
   {
     "tool": 407,
     "focus": 809,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12491,7 +12491,7 @@
   {
     "tool": 407,
     "focus": 817,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12507,7 +12507,7 @@
   {
     "tool": 407,
     "focus": 818,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12538,7 +12538,7 @@
   {
     "tool": 407,
     "focus": 835,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12680,7 +12680,7 @@
   {
     "tool": 407,
     "focus": 1937,
-    "skill": "blacksmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12788,7 +12788,7 @@
   {
     "tool": 435,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
     "successMessage": "You make a Bone Wand.",
@@ -12798,7 +12798,7 @@
   {
     "tool": 435,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
     "successMessage": "You make a Bone Dagger.",
@@ -12808,7 +12808,7 @@
   {
     "tool": 435,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You make some Bone Armor.",
@@ -12818,7 +12818,7 @@
   {
     "tool": 435,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
     "successMessage": "You make a Bone Scythe.",
@@ -12828,7 +12828,7 @@
   {
     "tool": 441,
     "focus": 820,
-    "skill": "TaIlor",
+    "skill": "Tailor",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -12872,7 +12872,7 @@
   {
     "tool": 489,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the shield."
@@ -12972,7 +12972,7 @@
   {
     "tool": 520,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 933,
@@ -12981,7 +12981,7 @@
   {
     "tool": 520,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 933,
@@ -12998,7 +12998,7 @@
   {
     "tool": 521,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 70,
     "successTool": 933,
@@ -13007,7 +13007,7 @@
   {
     "tool": 521,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 70,
     "successTool": 933,
@@ -13024,7 +13024,7 @@
   {
     "tool": 522,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 90,
     "successTool": 933,
@@ -13033,7 +13033,7 @@
   {
     "tool": 522,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 90,
     "successTool": 933,
@@ -13933,7 +13933,7 @@
   {
     "tool": 666,
     "focus": 665,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "MiningSound",
     "products": [],
     "skillSuccessXp": 20,
@@ -13993,7 +13993,7 @@
   {
     "tool": 681,
     "focus": 61,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -14009,7 +14009,7 @@
   {
     "tool": 681,
     "focus": 71,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -14025,7 +14025,7 @@
   {
     "tool": 683,
     "focus": 71,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -14235,7 +14235,7 @@
   {
     "tool": 735,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 933,
@@ -14244,7 +14244,7 @@
   {
     "tool": 735,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 933,
@@ -14261,7 +14261,7 @@
   {
     "tool": 736,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 70,
     "successTool": 933,
@@ -14270,7 +14270,7 @@
   {
     "tool": 736,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 70,
     "successTool": 933,
@@ -14287,7 +14287,7 @@
   {
     "tool": 737,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 90,
     "successTool": 933,
@@ -14296,7 +14296,7 @@
   {
     "tool": 737,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 90,
     "successTool": 933,
@@ -14925,7 +14925,7 @@
   {
     "tool": 788,
     "focus": 405,
-    "skill": "Leather",
+    "skill": "Tailor",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You repair the armor."
@@ -16613,7 +16613,7 @@
   {
     "tool": 839,
     "focus": 64,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -16629,7 +16629,7 @@
   {
     "tool": 839,
     "focus": 71,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -16645,7 +16645,7 @@
   {
     "tool": 840,
     "focus": 71,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -16661,7 +16661,7 @@
   {
     "tool": 841,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -16669,7 +16669,7 @@
   {
     "tool": 842,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -17009,7 +17009,7 @@
   {
     "tool": 900,
     "focus": 4,
-    "skill": "masonry",
+    "skill": "Masonry",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -18546,7 +18546,7 @@
   {
     "tool": 902,
     "focus": 0,
-    "skill": "farming",
+    "skill": "Farming",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -18641,7 +18641,7 @@
   {
     "tool": 902,
     "focus": 133,
-    "skill": "farming",
+    "skill": "Farming",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -18659,7 +18659,7 @@
   {
     "tool": 902,
     "focus": 134,
-    "skill": "farming",
+    "skill": "Farming",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -18677,7 +18677,7 @@
   {
     "tool": 902,
     "focus": 135,
-    "skill": "farming",
+    "skill": "Farming",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -18695,7 +18695,7 @@
   {
     "tool": 902,
     "focus": 174,
-    "skill": "farming",
+    "skill": "Farming",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -18709,7 +18709,7 @@
   {
     "tool": 902,
     "focus": 177,
-    "skill": "farming",
+    "skill": "Farming",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -18840,7 +18840,7 @@
   {
     "tool": 902,
     "focus": 1368,
-    "skill": "farming",
+    "skill": "Farming",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -18858,7 +18858,7 @@
   {
     "tool": 902,
     "focus": 1369,
-    "skill": "farming",
+    "skill": "Farming",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -18876,7 +18876,7 @@
   {
     "tool": 902,
     "focus": 1370,
-    "skill": "farming",
+    "skill": "Farming",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -19576,7 +19576,7 @@
   {
     "tool": 917,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 100,
@@ -19587,7 +19587,7 @@
   {
     "tool": 917,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 200,
@@ -19598,7 +19598,7 @@
   {
     "tool": 918,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 100,
@@ -19609,7 +19609,7 @@
   {
     "tool": 918,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 200,
@@ -19620,7 +19620,7 @@
   {
     "tool": 919,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 150,
     "successTool": 918,
@@ -19629,7 +19629,7 @@
   {
     "tool": 919,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 150,
     "successTool": 918,
@@ -19638,7 +19638,7 @@
   {
     "tool": 920,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 150,
@@ -19649,7 +19649,7 @@
   {
     "tool": 920,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 250,
@@ -19660,7 +19660,7 @@
   {
     "tool": 921,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 150,
@@ -19671,7 +19671,7 @@
   {
     "tool": 921,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 250,
@@ -19682,7 +19682,7 @@
   {
     "tool": 922,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 175,
     "successTool": 921,
@@ -19691,7 +19691,7 @@
   {
     "tool": 922,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 175,
     "successTool": 921,
@@ -19700,7 +19700,7 @@
   {
     "tool": 923,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 20,
@@ -19711,7 +19711,7 @@
   {
     "tool": 923,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 40,
@@ -19722,7 +19722,7 @@
   {
     "tool": 924,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 20,
@@ -19733,7 +19733,7 @@
   {
     "tool": 924,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 40,
@@ -19744,7 +19744,7 @@
   {
     "tool": 925,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 924,
@@ -19753,7 +19753,7 @@
   {
     "tool": 925,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 924,
@@ -19762,7 +19762,7 @@
   {
     "tool": 926,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 30,
@@ -19773,7 +19773,7 @@
   {
     "tool": 926,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 60,
@@ -19784,7 +19784,7 @@
   {
     "tool": 927,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 30,
@@ -19795,7 +19795,7 @@
   {
     "tool": 927,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 60,
@@ -19806,7 +19806,7 @@
   {
     "tool": 928,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
     "successTool": 927,
@@ -19815,7 +19815,7 @@
   {
     "tool": 928,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
     "successTool": 927,
@@ -19824,7 +19824,7 @@
   {
     "tool": 929,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 40,
@@ -19835,7 +19835,7 @@
   {
     "tool": 929,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 80,
@@ -19846,7 +19846,7 @@
   {
     "tool": 930,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 40,
@@ -19857,7 +19857,7 @@
   {
     "tool": 930,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 80,
@@ -19868,7 +19868,7 @@
   {
     "tool": 931,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successTool": 930,
@@ -19877,7 +19877,7 @@
   {
     "tool": 931,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successTool": 930,
@@ -19886,7 +19886,7 @@
   {
     "tool": 932,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 50,
@@ -19897,7 +19897,7 @@
   {
     "tool": 932,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 100,
@@ -19908,7 +19908,7 @@
   {
     "tool": 933,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 50,
@@ -19919,7 +19919,7 @@
   {
     "tool": 933,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 100,
@@ -19930,7 +19930,7 @@
   {
     "tool": 934,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 933,
@@ -19939,7 +19939,7 @@
   {
     "tool": 934,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 933,
@@ -19948,7 +19948,7 @@
   {
     "tool": 935,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 40,
@@ -19959,7 +19959,7 @@
   {
     "tool": 935,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 80,
@@ -19970,7 +19970,7 @@
   {
     "tool": 935,
     "focus": 1933,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -19986,7 +19986,7 @@
   {
     "tool": 936,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 40,
@@ -19997,7 +19997,7 @@
   {
     "tool": 936,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 80,
@@ -20008,7 +20008,7 @@
   {
     "tool": 937,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successTool": 936,
@@ -20017,7 +20017,7 @@
   {
     "tool": 937,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successTool": 936,
@@ -20026,7 +20026,7 @@
   {
     "tool": 937,
     "focus": 1933,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -20042,7 +20042,7 @@
   {
     "tool": 938,
     "focus": 2237,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 400,
@@ -20053,7 +20053,7 @@
   {
     "tool": 939,
     "focus": 2237,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 400,
@@ -20064,7 +20064,7 @@
   {
     "tool": 940,
     "focus": 2237,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 939,
@@ -20073,7 +20073,7 @@
   {
     "tool": 941,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successTool": 2181,
@@ -20082,7 +20082,7 @@
   {
     "tool": 941,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 764,
@@ -20096,7 +20096,7 @@
   {
     "tool": 941,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 250,
     "successMessage": "You make a zircon sword.",
@@ -20106,7 +20106,7 @@
   {
     "tool": 941,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You make a zircon Mace.",
@@ -20116,7 +20116,7 @@
   {
     "tool": 941,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 150,
     "successTool": 919,
@@ -20125,7 +20125,7 @@
   {
     "tool": 941,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You make a Zircon Dagger.",
@@ -20135,7 +20135,7 @@
   {
     "tool": 941,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You make a Zircon Claw.",
@@ -20145,7 +20145,7 @@
   {
     "tool": 941,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successTool": 2183,
@@ -20154,7 +20154,7 @@
   {
     "tool": 941,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 375,
     "successTool": 2182,
@@ -20163,7 +20163,7 @@
   {
     "tool": 941,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 28,
@@ -20177,7 +20177,7 @@
   {
     "tool": 941,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 230,
     "successMessage": "You make armor.",
@@ -20187,7 +20187,7 @@
   {
     "tool": 941,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 245,
     "successMessage": "You make armor.",
@@ -20197,7 +20197,7 @@
   {
     "tool": 941,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 1564,
@@ -20206,7 +20206,7 @@
   {
     "tool": 941,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 260,
     "successMessage": "You make armor.",
@@ -20216,7 +20216,7 @@
   {
     "tool": 941,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 230,
     "successMessage": "You make armor.",
@@ -20226,7 +20226,7 @@
   {
     "tool": 941,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 245,
     "successMessage": "You make armor.",
@@ -20236,7 +20236,7 @@
   {
     "tool": 941,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 763,
@@ -20250,7 +20250,7 @@
   {
     "tool": 941,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 762,
@@ -20264,7 +20264,7 @@
   {
     "tool": 941,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 260,
     "successMessage": "You make armor.",
@@ -20274,7 +20274,7 @@
   {
     "tool": 942,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 766,
@@ -20288,7 +20288,7 @@
   {
     "tool": 942,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 475,
     "successTool": 2186,
@@ -20297,7 +20297,7 @@
   {
     "tool": 942,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 450,
     "successTool": 2185,
@@ -20306,7 +20306,7 @@
   {
     "tool": 942,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 867,
@@ -20320,7 +20320,7 @@
   {
     "tool": 942,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 767,
@@ -20334,7 +20334,7 @@
   {
     "tool": 942,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 175,
     "successTool": 922,
@@ -20343,7 +20343,7 @@
   {
     "tool": 942,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 275,
     "successMessage": "You make armor.",
@@ -20353,7 +20353,7 @@
   {
     "tool": 942,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 290,
     "successMessage": "You make armor.",
@@ -20363,7 +20363,7 @@
   {
     "tool": 942,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 305,
     "successMessage": "You make armor.",
@@ -20373,7 +20373,7 @@
   {
     "tool": 942,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 425,
     "successTool": 2184,
@@ -20382,7 +20382,7 @@
   {
     "tool": 942,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 765,
@@ -20396,7 +20396,7 @@
   {
     "tool": 942,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 250,
     "successTool": 1565,
@@ -20405,7 +20405,7 @@
   {
     "tool": 942,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 275,
     "successMessage": "You make armor.",
@@ -20415,7 +20415,7 @@
   {
     "tool": 942,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 290,
     "successMessage": "You make armor.",
@@ -20425,7 +20425,7 @@
   {
     "tool": 942,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 305,
     "successMessage": "You make armor.",
@@ -20435,7 +20435,7 @@
   {
     "tool": 942,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 300,
     "successMessage": "You make a weapon.",
@@ -20445,7 +20445,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 925,
@@ -20454,7 +20454,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 1560,
@@ -20463,7 +20463,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successTool": 2171,
@@ -20472,7 +20472,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
     "successTool": 2170,
@@ -20481,7 +20481,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 2169,
@@ -20490,7 +20490,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1665,
@@ -20503,7 +20503,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You make armor.",
@@ -20513,7 +20513,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 65,
     "successMessage": "You make armor.",
@@ -20523,7 +20523,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1115,
@@ -20536,7 +20536,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 817,
@@ -20549,7 +20549,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 80,
     "successMessage": "You make armor.",
@@ -20559,7 +20559,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You make armor.",
@@ -20569,7 +20569,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 65,
     "successMessage": "You make armor.",
@@ -20579,7 +20579,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 818,
@@ -20592,7 +20592,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 352,
@@ -20601,7 +20601,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 329,
@@ -20610,7 +20610,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You make some alembics.",
@@ -20620,7 +20620,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 80,
     "successMessage": "You make armor.",
@@ -20630,7 +20630,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 366,
@@ -20639,7 +20639,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 1937,
@@ -20648,7 +20648,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 756,
@@ -20662,7 +20662,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 757,
@@ -20676,7 +20676,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You make a tool.",
@@ -20686,7 +20686,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 37,
@@ -20699,7 +20699,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 758,
@@ -20713,7 +20713,7 @@
   {
     "tool": 943,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You make a tool.",
@@ -20723,7 +20723,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 779,
@@ -20736,7 +20736,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1704,
@@ -20749,7 +20749,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
     "successTool": 928,
@@ -20758,7 +20758,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1821,
@@ -20772,7 +20772,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 95,
     "successMessage": "You make armor.",
@@ -20782,7 +20782,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 110,
     "successMessage": "You make armor.",
@@ -20792,7 +20792,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You make armor.",
@@ -20802,7 +20802,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 95,
     "successMessage": "You make armor.",
@@ -20812,7 +20812,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 110,
     "successMessage": "You make armor.",
@@ -20822,7 +20822,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You make armor.",
@@ -20832,7 +20832,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1822,
@@ -20846,7 +20846,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 1936,
@@ -20855,7 +20855,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 768,
@@ -20869,7 +20869,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 769,
@@ -20883,7 +20883,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 770,
@@ -20897,7 +20897,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1012,
@@ -20910,7 +20910,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 777,
@@ -20923,7 +20923,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 778,
@@ -20936,7 +20936,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 3029,
@@ -20949,7 +20949,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 780,
@@ -20962,7 +20962,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 781,
@@ -20975,7 +20975,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successTool": 2172,
@@ -20984,7 +20984,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 150,
     "successTool": 2173,
@@ -20993,7 +20993,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 175,
     "successTool": 2174,
@@ -21002,7 +21002,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 782,
@@ -21015,7 +21015,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 783,
@@ -21028,7 +21028,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 784,
@@ -21041,7 +21041,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 785,
@@ -21054,7 +21054,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 786,
@@ -21067,7 +21067,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 396,
@@ -21080,7 +21080,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 397,
@@ -21093,7 +21093,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1013,
@@ -21106,7 +21106,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 364,
@@ -21115,7 +21115,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 851,
@@ -21128,7 +21128,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 405,
@@ -21141,7 +21141,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1170,
@@ -21155,7 +21155,7 @@
   {
     "tool": 944,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
     "successTool": 1561,
@@ -21164,7 +21164,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 280,
@@ -21177,7 +21177,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 281,
@@ -21190,7 +21190,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 70,
     "successTool": 839,
@@ -21199,7 +21199,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successTool": 840,
@@ -21208,7 +21208,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successTool": 125,
@@ -21217,7 +21217,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 130,
     "successMessage": "You make a head.",
@@ -21227,7 +21227,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successTool": 361,
@@ -21236,7 +21236,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 95,
@@ -21250,7 +21250,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1352,
@@ -21263,7 +21263,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 98,
@@ -21277,7 +21277,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
     "successTool": 268,
@@ -21286,7 +21286,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 20,
     "successTool": 338,
@@ -21295,7 +21295,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 845,
@@ -21304,7 +21304,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successTool": 847,
@@ -21313,7 +21313,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 150,
     "successTool": 849,
@@ -21322,7 +21322,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successTool": 1156,
@@ -21331,7 +21331,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 150,
     "successTool": 1158,
@@ -21340,7 +21340,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 1160,
@@ -21349,7 +21349,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successTool": 1562,
@@ -21358,7 +21358,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successTool": 841,
@@ -21367,7 +21367,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successTool": 842,
@@ -21376,7 +21376,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You make a head.",
@@ -21386,7 +21386,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 110,
     "successMessage": "You make a head.",
@@ -21396,7 +21396,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 681,
@@ -21410,7 +21410,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 683,
@@ -21424,7 +21424,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You make a head.",
@@ -21434,7 +21434,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 80,
     "successMessage": "You make a head.",
@@ -21444,7 +21444,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 110,
     "successMessage": "You make a head.",
@@ -21454,7 +21454,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 140,
     "successMessage": "You make a head.",
@@ -21464,7 +21464,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 87,
@@ -21478,7 +21478,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1325,
@@ -21492,7 +21492,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1328,
@@ -21506,7 +21506,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You make an anvil.",
@@ -21516,7 +21516,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 804,
@@ -21525,7 +21525,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 805,
@@ -21534,7 +21534,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 806,
@@ -21543,7 +21543,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 807,
@@ -21552,7 +21552,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You make a scythe.",
@@ -21562,7 +21562,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 110,
     "successMessage": "You make a head.",
@@ -21572,7 +21572,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 70,
     "successMessage": "You make a head.",
@@ -21582,7 +21582,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 3066,
@@ -21595,7 +21595,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You make a head.",
@@ -21605,7 +21605,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 753,
@@ -21619,7 +21619,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 754,
@@ -21633,7 +21633,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 755,
@@ -21647,7 +21647,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 170,
     "successMessage": "You make some armor.",
@@ -21657,7 +21657,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 155,
     "successMessage": "You make some armor.",
@@ -21667,7 +21667,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 140,
     "successMessage": "You make Chain Armor.",
@@ -21677,7 +21677,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 170,
     "successMessage": "You make some armor.",
@@ -21687,7 +21687,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 155,
     "successMessage": "You make some armor.",
@@ -21697,7 +21697,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 140,
     "successMessage": "You make Chain Armor.",
@@ -21707,7 +21707,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You make a staff.",
@@ -21717,7 +21717,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successTool": 1525,
@@ -21726,7 +21726,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You make a Claw.",
@@ -21736,7 +21736,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 30,
     "successMessage": "You make Brass Knuckles.",
@@ -21746,7 +21746,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 140,
     "successMessage": "You make a great sword.",
@@ -21756,7 +21756,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 110,
     "successMessage": "You make a broad sword.",
@@ -21766,7 +21766,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 80,
     "successMessage": "You make a long sword.",
@@ -21776,7 +21776,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 80,
     "successMessage": "You make a Baking Sheet.",
@@ -21786,7 +21786,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 70,
     "successMessage": "You make a Cookie Cutter.",
@@ -21796,7 +21796,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 40,
     "successMessage": "You make a Cooking Pan.",
@@ -21806,7 +21806,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You make a short sword.",
@@ -21816,7 +21816,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 22,
@@ -21830,7 +21830,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 21,
@@ -21844,7 +21844,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 80,
     "successMessage": "You make a head.",
@@ -21854,7 +21854,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successTool": 931,
@@ -21863,7 +21863,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 250,
     "successTool": 2177,
@@ -21872,7 +21872,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 225,
     "successTool": 2176,
@@ -21881,7 +21881,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 2175,
@@ -21890,7 +21890,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 808,
@@ -21899,7 +21899,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 809,
@@ -21908,7 +21908,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 835,
@@ -21917,7 +21917,7 @@
   {
     "tool": 945,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 67,
@@ -21930,7 +21930,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1441,
@@ -21944,7 +21944,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1200,
@@ -21958,7 +21958,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1186,
@@ -21972,7 +21972,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1185,
@@ -21986,7 +21986,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1184,
@@ -22000,7 +22000,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1183,
@@ -22014,7 +22014,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1182,
@@ -22028,7 +22028,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1181,
@@ -22042,7 +22042,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1180,
@@ -22056,7 +22056,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1179,
@@ -22070,7 +22070,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1178,
@@ -22084,7 +22084,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1177,
@@ -22098,7 +22098,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1176,
@@ -22112,7 +22112,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1175,
@@ -22126,7 +22126,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1188,
@@ -22140,7 +22140,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1189,
@@ -22154,7 +22154,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 934,
@@ -22163,7 +22163,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You make armor.",
@@ -22173,7 +22173,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 70,
     "successMessage": "You make armor.",
@@ -22183,7 +22183,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 90,
     "successMessage": "You make armor.",
@@ -22193,7 +22193,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You make armor.",
@@ -22203,7 +22203,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 70,
     "successMessage": "You make armor.",
@@ -22213,7 +22213,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 90,
     "successMessage": "You make armor.",
@@ -22223,7 +22223,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 759,
@@ -22237,7 +22237,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 760,
@@ -22251,7 +22251,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 761,
@@ -22265,7 +22265,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 871,
@@ -22279,7 +22279,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1171,
@@ -22293,7 +22293,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1172,
@@ -22307,7 +22307,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1173,
@@ -22321,7 +22321,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1174,
@@ -22335,7 +22335,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1190,
@@ -22349,7 +22349,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1191,
@@ -22363,7 +22363,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1192,
@@ -22377,7 +22377,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1193,
@@ -22391,7 +22391,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1440,
@@ -22405,7 +22405,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 3116,
@@ -22419,7 +22419,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1324,
@@ -22433,7 +22433,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1323,
@@ -22447,7 +22447,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1322,
@@ -22461,7 +22461,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1321,
@@ -22475,7 +22475,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1320,
@@ -22489,7 +22489,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1319,
@@ -22503,7 +22503,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1318,
@@ -22517,7 +22517,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1199,
@@ -22531,7 +22531,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1198,
@@ -22545,7 +22545,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1197,
@@ -22559,7 +22559,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1196,
@@ -22573,7 +22573,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1195,
@@ -22587,7 +22587,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1194,
@@ -22601,7 +22601,7 @@
   {
     "tool": 946,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1187,
@@ -22615,7 +22615,7 @@
   {
     "tool": 947,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 525,
     "successTool": 937,
@@ -22624,7 +22624,7 @@
   {
     "tool": 947,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 300,
     "successTool": 2179,
@@ -22633,7 +22633,7 @@
   {
     "tool": 947,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 325,
     "successTool": 2180,
@@ -22642,7 +22642,7 @@
   {
     "tool": 947,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 2234,
@@ -22656,7 +22656,7 @@
   {
     "tool": 947,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successTool": 1563,
@@ -22665,7 +22665,7 @@
   {
     "tool": 947,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 151,
@@ -22679,7 +22679,7 @@
   {
     "tool": 947,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 26,
@@ -22693,7 +22693,7 @@
   {
     "tool": 947,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 773,
@@ -22707,7 +22707,7 @@
   {
     "tool": 947,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 275,
     "successTool": 2178,
@@ -22716,7 +22716,7 @@
   {
     "tool": 947,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 771,
@@ -22730,7 +22730,7 @@
   {
     "tool": 947,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 215,
     "successMessage": "You make armor.",
@@ -22740,7 +22740,7 @@
   {
     "tool": 947,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 235,
     "successMessage": "You make armor.",
@@ -22750,7 +22750,7 @@
   {
     "tool": 947,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 185,
     "successMessage": "You make armor.",
@@ -22760,7 +22760,7 @@
   {
     "tool": 947,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 215,
     "successMessage": "You make armor.",
@@ -22770,7 +22770,7 @@
   {
     "tool": 947,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You make armor.",
@@ -22780,7 +22780,7 @@
   {
     "tool": 947,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 185,
     "successMessage": "You make armor.",
@@ -22790,7 +22790,7 @@
   {
     "tool": 947,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 316,
@@ -22804,7 +22804,7 @@
   {
     "tool": 947,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 772,
@@ -22818,7 +22818,7 @@
   {
     "tool": 948,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 940,
@@ -22827,7 +22827,7 @@
   {
     "tool": 948,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 250,
     "successMessage": "You make a hessite sword.",
@@ -22837,7 +22837,7 @@
   {
     "tool": 948,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 250,
     "successMessage": "You make a hessite mace.",
@@ -22847,7 +22847,7 @@
   {
     "tool": 948,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successMessage": "You make armor.",
@@ -22857,7 +22857,7 @@
   {
     "tool": 948,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 774,
@@ -22871,7 +22871,7 @@
   {
     "tool": 948,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 335,
     "successMessage": "You make armor.",
@@ -22881,7 +22881,7 @@
   {
     "tool": 948,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 775,
@@ -22895,7 +22895,7 @@
   {
     "tool": 948,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 776,
@@ -22909,7 +22909,7 @@
   {
     "tool": 948,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 869,
@@ -22923,7 +22923,7 @@
   {
     "tool": 948,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 300,
     "successTool": 1566,
@@ -22932,7 +22932,7 @@
   {
     "tool": 948,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 550,
     "successTool": 2189,
@@ -22941,7 +22941,7 @@
   {
     "tool": 948,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 525,
     "successTool": 2188,
@@ -22950,7 +22950,7 @@
   {
     "tool": 948,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successTool": 2187,
@@ -22959,7 +22959,7 @@
   {
     "tool": 948,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 335,
     "successMessage": "You make armor.",
@@ -22969,7 +22969,7 @@
   {
     "tool": 948,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 320,
     "successMessage": "You make armor.",
@@ -22979,7 +22979,7 @@
   {
     "tool": 948,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successMessage": "You make armor.",
@@ -22989,7 +22989,7 @@
   {
     "tool": 948,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 320,
     "successMessage": "You make armor.",
@@ -25260,7 +25260,7 @@
   {
     "tool": 1068,
     "focus": 1668,
-    "skill": "carpentry",
+    "skill": "Carpentry",
     "animation": "SawSound",
     "focusQuantityConsumed": 1,
     "products": [
@@ -25274,7 +25274,7 @@
   {
     "tool": 1068,
     "focus": 1669,
-    "skill": "carpentry",
+    "skill": "Carpentry",
     "animation": "SawSound",
     "focusQuantityConsumed": 1,
     "products": [
@@ -25288,7 +25288,7 @@
   {
     "tool": 1068,
     "focus": 1670,
-    "skill": "carpentry",
+    "skill": "Carpentry",
     "animation": "SawSound",
     "focusQuantityConsumed": 1,
     "products": [
@@ -25302,7 +25302,7 @@
   {
     "tool": 1068,
     "focus": 1671,
-    "skill": "carpentry",
+    "skill": "Carpentry",
     "animation": "SawSound",
     "focusQuantityConsumed": 1,
     "products": [
@@ -25316,7 +25316,7 @@
   {
     "tool": 1068,
     "focus": 1672,
-    "skill": "carpentry",
+    "skill": "Carpentry",
     "animation": "SawSound",
     "focusQuantityConsumed": 1,
     "products": [
@@ -25330,7 +25330,7 @@
   {
     "tool": 1068,
     "focus": 1673,
-    "skill": "carpentry",
+    "skill": "Carpentry",
     "animation": "SawSound",
     "focusQuantityConsumed": 1,
     "products": [
@@ -25344,7 +25344,7 @@
   {
     "tool": 1068,
     "focus": 1674,
-    "skill": "carpentry",
+    "skill": "Carpentry",
     "animation": "SawSound",
     "focusQuantityConsumed": 1,
     "products": [
@@ -25358,7 +25358,7 @@
   {
     "tool": 1068,
     "focus": 1675,
-    "skill": "carpentry",
+    "skill": "Carpentry",
     "animation": "SawSound",
     "focusQuantityConsumed": 1,
     "products": [
@@ -25372,7 +25372,7 @@
   {
     "tool": 1068,
     "focus": 1676,
-    "skill": "carpentry",
+    "skill": "Carpentry",
     "animation": "SawSound",
     "focusQuantityConsumed": 1,
     "products": [
@@ -25386,7 +25386,7 @@
   {
     "tool": 1068,
     "focus": 1677,
-    "skill": "carpentry",
+    "skill": "Carpentry",
     "animation": "SawSound",
     "focusQuantityConsumed": 1,
     "products": [
@@ -25400,7 +25400,7 @@
   {
     "tool": 1068,
     "focus": 1679,
-    "skill": "carpentry",
+    "skill": "Carpentry",
     "animation": "SawSound",
     "focusQuantityConsumed": 1,
     "products": [
@@ -25414,7 +25414,7 @@
   {
     "tool": 1068,
     "focus": 1680,
-    "skill": "carpentry",
+    "skill": "Carpentry",
     "animation": "SawSound",
     "focusQuantityConsumed": 1,
     "products": [
@@ -25428,7 +25428,7 @@
   {
     "tool": 1068,
     "focus": 1681,
-    "skill": "carpentry",
+    "skill": "Carpentry",
     "animation": "MiningSound",
     "focusQuantityConsumed": 1,
     "products": [
@@ -25442,7 +25442,7 @@
   {
     "tool": 1068,
     "focus": 1682,
-    "skill": "carpentry",
+    "skill": "Carpentry",
     "animation": "MiningSound",
     "focusQuantityConsumed": 1,
     "products": [
@@ -25456,7 +25456,7 @@
   {
     "tool": 1068,
     "focus": 1683,
-    "skill": "carpentry",
+    "skill": "Carpentry",
     "animation": "SawSound",
     "focusQuantityConsumed": 1,
     "products": [
@@ -25470,7 +25470,7 @@
   {
     "tool": 1068,
     "focus": 1684,
-    "skill": "carpentry",
+    "skill": "Carpentry",
     "animation": "SawSound",
     "focusQuantityConsumed": 1,
     "products": [
@@ -25484,7 +25484,7 @@
   {
     "tool": 1068,
     "focus": 1685,
-    "skill": "carpentry",
+    "skill": "Carpentry",
     "animation": "SawSound",
     "focusQuantityConsumed": 1,
     "products": [
@@ -25498,7 +25498,7 @@
   {
     "tool": 1068,
     "focus": 1686,
-    "skill": "carpentry",
+    "skill": "Carpentry",
     "animation": "SawSound",
     "focusQuantityConsumed": 1,
     "products": [
@@ -25512,7 +25512,7 @@
   {
     "tool": 1068,
     "focus": 1687,
-    "skill": "carpentry",
+    "skill": "Carpentry",
     "animation": "SawSound",
     "focusQuantityConsumed": 1,
     "products": [
@@ -25653,7 +25653,7 @@
   {
     "tool": 1079,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 130,
     "successMessage": "You repair the weapon."
@@ -26702,7 +26702,7 @@
   {
     "tool": 1152,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -26728,7 +26728,7 @@
   {
     "tool": 1153,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -27176,7 +27176,7 @@
   {
     "tool": 1273,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27184,7 +27184,7 @@
   {
     "tool": 1274,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the weapon."
@@ -27192,7 +27192,7 @@
   {
     "tool": 1275,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27200,7 +27200,7 @@
   {
     "tool": 1276,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the weapon."
@@ -27208,7 +27208,7 @@
   {
     "tool": 1277,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27216,7 +27216,7 @@
   {
     "tool": 1278,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the weapon."
@@ -27224,7 +27224,7 @@
   {
     "tool": 1279,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
     "successMessage": "You repair the weapon."
@@ -27232,7 +27232,7 @@
   {
     "tool": 1280,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
     "successMessage": "You repair the weapon."
@@ -27240,7 +27240,7 @@
   {
     "tool": 1281,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27248,7 +27248,7 @@
   {
     "tool": 1282,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the weapon."
@@ -27256,7 +27256,7 @@
   {
     "tool": 1283,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27264,7 +27264,7 @@
   {
     "tool": 1284,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the weapon."
@@ -27272,7 +27272,7 @@
   {
     "tool": 1285,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27280,7 +27280,7 @@
   {
     "tool": 1286,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the weapon."
@@ -27288,7 +27288,7 @@
   {
     "tool": 1287,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the weapon."
@@ -27296,7 +27296,7 @@
   {
     "tool": 1288,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27304,7 +27304,7 @@
   {
     "tool": 1289,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the weapon."
@@ -27312,7 +27312,7 @@
   {
     "tool": 1290,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27320,7 +27320,7 @@
   {
     "tool": 1291,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the weapon."
@@ -27328,7 +27328,7 @@
   {
     "tool": 1292,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27336,7 +27336,7 @@
   {
     "tool": 1293,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27344,7 +27344,7 @@
   {
     "tool": 1294,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the weapon."
@@ -27352,7 +27352,7 @@
   {
     "tool": 1295,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27360,7 +27360,7 @@
   {
     "tool": 1296,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the weapon."
@@ -27368,7 +27368,7 @@
   {
     "tool": 1297,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27376,7 +27376,7 @@
   {
     "tool": 1298,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the weapon."
@@ -27384,7 +27384,7 @@
   {
     "tool": 1299,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the weapon."
@@ -27392,7 +27392,7 @@
   {
     "tool": 1300,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the weapon."
@@ -27400,7 +27400,7 @@
   {
     "tool": 1301,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the weapon."
@@ -27408,7 +27408,7 @@
   {
     "tool": 1302,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27416,7 +27416,7 @@
   {
     "tool": 1303,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the weapon."
@@ -27424,7 +27424,7 @@
   {
     "tool": 1304,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27432,7 +27432,7 @@
   {
     "tool": 1305,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the weapon."
@@ -27440,7 +27440,7 @@
   {
     "tool": 1306,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27448,7 +27448,7 @@
   {
     "tool": 1307,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the weapon."
@@ -27655,7 +27655,7 @@
   {
     "tool": 1331,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27663,7 +27663,7 @@
   {
     "tool": 1332,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27671,7 +27671,7 @@
   {
     "tool": 1333,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27679,7 +27679,7 @@
   {
     "tool": 1334,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27687,7 +27687,7 @@
   {
     "tool": 1335,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27695,7 +27695,7 @@
   {
     "tool": 1336,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27703,7 +27703,7 @@
   {
     "tool": 1337,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27711,7 +27711,7 @@
   {
     "tool": 1338,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27719,7 +27719,7 @@
   {
     "tool": 1339,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27727,7 +27727,7 @@
   {
     "tool": 1340,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27735,7 +27735,7 @@
   {
     "tool": 1341,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27743,7 +27743,7 @@
   {
     "tool": 1342,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27751,7 +27751,7 @@
   {
     "tool": 1343,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27759,7 +27759,7 @@
   {
     "tool": 1344,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27767,7 +27767,7 @@
   {
     "tool": 1345,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27775,7 +27775,7 @@
   {
     "tool": 1346,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27783,7 +27783,7 @@
   {
     "tool": 1347,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -27791,7 +27791,7 @@
   {
     "tool": 1348,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -28244,7 +28244,7 @@
   {
     "tool": 1464,
     "focus": 2237,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 500,
@@ -28255,7 +28255,7 @@
   {
     "tool": 1465,
     "focus": 2237,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 500,
@@ -28266,7 +28266,7 @@
   {
     "tool": 1466,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 365,
     "successMessage": "You make armor.",
@@ -28276,7 +28276,7 @@
   {
     "tool": 1466,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successMessage": "You make a weapon.",
@@ -28286,7 +28286,7 @@
   {
     "tool": 1466,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successMessage": "You make a weapon.",
@@ -28296,7 +28296,7 @@
   {
     "tool": 1466,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successMessage": "You make a weapon.",
@@ -28306,7 +28306,7 @@
   {
     "tool": 1466,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 365,
     "successMessage": "You make armor.",
@@ -28316,7 +28316,7 @@
   {
     "tool": 1466,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successMessage": "You make a weapon.",
@@ -28326,7 +28326,7 @@
   {
     "tool": 1466,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successMessage": "You make a shield.",
@@ -28336,7 +28336,7 @@
   {
     "tool": 1466,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successMessage": "You make a wand.",
@@ -28346,7 +28346,7 @@
   {
     "tool": 1466,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successMessage": "You make a weapon.",
@@ -28356,7 +28356,7 @@
   {
     "tool": 1466,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successMessage": "You make a weapon.",
@@ -28366,7 +28366,7 @@
   {
     "tool": 1466,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successMessage": "You make a weapon.",
@@ -28376,7 +28376,7 @@
   {
     "tool": 1466,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successMessage": "You make a weapon.",
@@ -28386,7 +28386,7 @@
   {
     "tool": 1466,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successMessage": "You make a weapon.",
@@ -28396,7 +28396,7 @@
   {
     "tool": 1466,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successMessage": "You make a weapon.",
@@ -28406,7 +28406,7 @@
   {
     "tool": 1466,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successMessage": "You make a weapon.",
@@ -28416,7 +28416,7 @@
   {
     "tool": 1466,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 365,
     "successMessage": "You make armor.",
@@ -28426,7 +28426,7 @@
   {
     "tool": 1466,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successMessage": "You make a weapon.",
@@ -28451,7 +28451,7 @@
   {
     "tool": 1474,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -28477,7 +28477,7 @@
   {
     "tool": 1475,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -28620,7 +28620,7 @@
   {
     "tool": 1522,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -28628,7 +28628,7 @@
   {
     "tool": 1523,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -28636,7 +28636,7 @@
   {
     "tool": 1524,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -28644,7 +28644,7 @@
   {
     "tool": 1525,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You repair the weapon."
@@ -28652,7 +28652,7 @@
   {
     "tool": 1526,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the armor."
@@ -28660,7 +28660,7 @@
   {
     "tool": 1527,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the armor."
@@ -28668,7 +28668,7 @@
   {
     "tool": 1528,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the armor."
@@ -28676,7 +28676,7 @@
   {
     "tool": 1529,
     "focus": 194,
-    "skill": "blacksmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successTool": 1537,
@@ -28685,7 +28685,7 @@
   {
     "tool": 1529,
     "focus": 342,
-    "skill": "blacksmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 1537,
@@ -28694,7 +28694,7 @@
   {
     "tool": 1530,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successTool": 1529,
@@ -28703,7 +28703,7 @@
   {
     "tool": 1530,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 1529,
@@ -28712,7 +28712,7 @@
   {
     "tool": 1531,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the armor."
@@ -28720,7 +28720,7 @@
   {
     "tool": 1532,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the armor."
@@ -28728,7 +28728,7 @@
   {
     "tool": 1533,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the armor."
@@ -28736,7 +28736,7 @@
   {
     "tool": 1534,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the armor."
@@ -28744,7 +28744,7 @@
   {
     "tool": 1535,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the armor."
@@ -28752,7 +28752,7 @@
   {
     "tool": 1536,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the armor."
@@ -28760,7 +28760,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 240,
     "successTool": 1534,
@@ -28769,7 +28769,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 1528,
@@ -28778,7 +28778,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 220,
     "successTool": 1527,
@@ -28797,7 +28797,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 240,
     "successTool": 1526,
@@ -28806,7 +28806,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 1536,
@@ -28815,7 +28815,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 220,
     "successTool": 1535,
@@ -28824,7 +28824,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1533,
@@ -28837,7 +28837,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1532,
@@ -28850,7 +28850,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1531,
@@ -28863,7 +28863,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 1538,
@@ -28872,7 +28872,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 250,
     "successTool": 1539,
@@ -28881,7 +28881,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 1541,
@@ -28890,7 +28890,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 250,
     "successTool": 1540,
@@ -28899,7 +28899,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 1542,
@@ -28908,7 +28908,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 250,
     "successTool": 1543,
@@ -28917,7 +28917,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 250,
     "successTool": 1544,
@@ -28926,7 +28926,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 1545,
@@ -28935,7 +28935,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 250,
     "successTool": 1546,
@@ -28944,7 +28944,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 1547,
@@ -28953,7 +28953,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 250,
     "successTool": 1548,
@@ -28962,7 +28962,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 250,
     "successTool": 1549,
@@ -28971,7 +28971,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 1550,
@@ -28980,7 +28980,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [
       {
         "type": 1551,
@@ -28993,7 +28993,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 1552,
@@ -29002,7 +29002,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 1530,
@@ -29011,7 +29011,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 2388,
@@ -29020,7 +29020,7 @@
   {
     "tool": 1537,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 150,
     "successTool": 1568,
@@ -29029,7 +29029,7 @@
   {
     "tool": 1538,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the weapon."
@@ -29053,7 +29053,7 @@
   {
     "tool": 1539,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the weapon."
@@ -29061,7 +29061,7 @@
   {
     "tool": 1540,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the weapon."
@@ -29069,7 +29069,7 @@
   {
     "tool": 1541,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the weapon."
@@ -29093,7 +29093,7 @@
   {
     "tool": 1542,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the weapon."
@@ -29117,7 +29117,7 @@
   {
     "tool": 1543,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the weapon."
@@ -29125,7 +29125,7 @@
   {
     "tool": 1544,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the weapon."
@@ -29149,7 +29149,7 @@
   {
     "tool": 1545,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the weapon."
@@ -29157,7 +29157,7 @@
   {
     "tool": 1546,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the weapon."
@@ -29181,7 +29181,7 @@
   {
     "tool": 1547,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the weapon."
@@ -29205,7 +29205,7 @@
   {
     "tool": 1548,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the weapon."
@@ -29229,7 +29229,7 @@
   {
     "tool": 1549,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the weapon."
@@ -29253,7 +29253,7 @@
   {
     "tool": 1550,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the weapon."
@@ -29277,7 +29277,7 @@
   {
     "tool": 1552,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the weapon."
@@ -29285,7 +29285,7 @@
   {
     "tool": 1553,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You repair the weapon."
@@ -29293,7 +29293,7 @@
   {
     "tool": 1554,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
     "successMessage": "You repair the weapon."
@@ -29301,7 +29301,7 @@
   {
     "tool": 1555,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -29309,7 +29309,7 @@
   {
     "tool": 1556,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the weapon."
@@ -29317,7 +29317,7 @@
   {
     "tool": 1557,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 150,
     "successMessage": "You repair the weapon."
@@ -29325,7 +29325,7 @@
   {
     "tool": 1558,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 175,
     "successMessage": "You repair the weapon."
@@ -29333,7 +29333,7 @@
   {
     "tool": 1559,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the weapon."
@@ -29341,7 +29341,7 @@
   {
     "tool": 1567,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the weapon."
@@ -30219,7 +30219,7 @@
   {
     "tool": 1806,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 400,
@@ -30230,7 +30230,7 @@
   {
     "tool": 1806,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 500,
@@ -30241,7 +30241,7 @@
   {
     "tool": 1807,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 400,
@@ -30251,7 +30251,7 @@
   {
     "tool": 1807,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 400,
@@ -30261,7 +30261,7 @@
   {
     "tool": 1808,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 300,
     "successTool": 1807,
@@ -30270,7 +30270,7 @@
   {
     "tool": 1808,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 300,
     "successTool": 1807,
@@ -30279,7 +30279,7 @@
   {
     "tool": 1809,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 400,
@@ -30289,7 +30289,7 @@
   {
     "tool": 1809,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 400,
@@ -30299,7 +30299,7 @@
   {
     "tool": 1809,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 400,
@@ -30309,7 +30309,7 @@
   {
     "tool": 1809,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successTool": 1808,
@@ -30318,7 +30318,7 @@
   {
     "tool": 1810,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the armor."
@@ -30326,7 +30326,7 @@
   {
     "tool": 1810,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 400,
@@ -30336,7 +30336,7 @@
   {
     "tool": 1810,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 400,
@@ -30346,7 +30346,7 @@
   {
     "tool": 1811,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the armor."
@@ -30354,7 +30354,7 @@
   {
     "tool": 1811,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 400,
@@ -30364,7 +30364,7 @@
   {
     "tool": 1811,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 400,
@@ -30374,7 +30374,7 @@
   {
     "tool": 1812,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the armor."
@@ -30382,7 +30382,7 @@
   {
     "tool": 1812,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 400,
@@ -30392,7 +30392,7 @@
   {
     "tool": 1812,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 400,
@@ -30432,7 +30432,7 @@
   {
     "tool": 1822,
     "focus": 1825,
-    "skill": "cooking",
+    "skill": "Cooking",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30482,7 +30482,7 @@
   {
     "tool": 1895,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 250,
     "successMessage": "You repair the weapon."
@@ -30490,7 +30490,7 @@
   {
     "tool": 1896,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the weapon."
@@ -30498,7 +30498,7 @@
   {
     "tool": 1897,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the weapon."
@@ -30506,7 +30506,7 @@
   {
     "tool": 1898,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 250,
     "successMessage": "You repair the weapon."
@@ -30514,7 +30514,7 @@
   {
     "tool": 1899,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 250,
     "successMessage": "You repair the weapon."
@@ -30522,7 +30522,7 @@
   {
     "tool": 1924,
     "focus": 1920,
-    "skill": "jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30539,7 +30539,7 @@
   {
     "tool": 1924,
     "focus": 1921,
-    "skill": "jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30556,7 +30556,7 @@
   {
     "tool": 1924,
     "focus": 1922,
-    "skill": "jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30573,7 +30573,7 @@
   {
     "tool": 1924,
     "focus": 1923,
-    "skill": "jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30590,7 +30590,7 @@
   {
     "tool": 1924,
     "focus": 2216,
-    "skill": "jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30607,7 +30607,7 @@
   {
     "tool": 1924,
     "focus": 3025,
-    "skill": "jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30624,7 +30624,7 @@
   {
     "tool": 1924,
     "focus": 3026,
-    "skill": "jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30641,7 +30641,7 @@
   {
     "tool": 1925,
     "focus": 1929,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30656,7 +30656,7 @@
   {
     "tool": 1925,
     "focus": 1930,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30671,7 +30671,7 @@
   {
     "tool": 1925,
     "focus": 1931,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30686,7 +30686,7 @@
   {
     "tool": 1926,
     "focus": 1929,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30701,7 +30701,7 @@
   {
     "tool": 1926,
     "focus": 1930,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30716,7 +30716,7 @@
   {
     "tool": 1926,
     "focus": 1931,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30731,7 +30731,7 @@
   {
     "tool": 1927,
     "focus": 1929,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30746,7 +30746,7 @@
   {
     "tool": 1927,
     "focus": 1930,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30761,7 +30761,7 @@
   {
     "tool": 1927,
     "focus": 1931,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30776,7 +30776,7 @@
   {
     "tool": 1928,
     "focus": 1929,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30791,7 +30791,7 @@
   {
     "tool": 1928,
     "focus": 1930,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30806,7 +30806,7 @@
   {
     "tool": 1928,
     "focus": 1931,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30821,7 +30821,7 @@
   {
     "tool": 1928,
     "focus": 3095,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -30836,7 +30836,7 @@
   {
     "tool": 1934,
     "focus": 194,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You melt the gold.",
@@ -30846,7 +30846,7 @@
   {
     "tool": 1934,
     "focus": 342,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "products": [],
     "skillSuccessXp": 150,
     "successMessage": "You melt the gold.",
@@ -30856,7 +30856,7 @@
   {
     "tool": 1935,
     "focus": 1932,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "products": [
       {
         "type": 1933,
@@ -30871,7 +30871,7 @@
   {
     "tool": 1935,
     "focus": 1932,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "products": [
       {
         "type": 1931,
@@ -30889,7 +30889,7 @@
   {
     "tool": 1935,
     "focus": 1932,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "products": [
       {
         "type": 1929,
@@ -30907,7 +30907,7 @@
   {
     "tool": 1935,
     "focus": 1932,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "products": [
       {
         "type": 1930,
@@ -30925,7 +30925,7 @@
   {
     "tool": 1936,
     "focus": 71,
-    "skill": "blacksmith",
+    "skill": "Blacksmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -31687,7 +31687,7 @@
   {
     "tool": 2111,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -31739,7 +31739,7 @@
   {
     "tool": 2169,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You repair the shield."
@@ -31747,7 +31747,7 @@
   {
     "tool": 2169,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 924,
@@ -31756,7 +31756,7 @@
   {
     "tool": 2169,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 924,
@@ -31765,7 +31765,7 @@
   {
     "tool": 2170,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
     "successMessage": "You repair the shield."
@@ -31773,7 +31773,7 @@
   {
     "tool": 2170,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
     "successTool": 924,
@@ -31782,7 +31782,7 @@
   {
     "tool": 2170,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
     "successTool": 924,
@@ -31791,7 +31791,7 @@
   {
     "tool": 2171,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successMessage": "You repair the shield."
@@ -31799,7 +31799,7 @@
   {
     "tool": 2171,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successTool": 924,
@@ -31808,7 +31808,7 @@
   {
     "tool": 2171,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
     "successTool": 924,
@@ -31817,7 +31817,7 @@
   {
     "tool": 2172,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You repair the shield."
@@ -31825,7 +31825,7 @@
   {
     "tool": 2172,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successTool": 927,
@@ -31834,7 +31834,7 @@
   {
     "tool": 2172,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 125,
     "successTool": 927,
@@ -31843,7 +31843,7 @@
   {
     "tool": 2173,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 150,
     "successMessage": "You repair the shield."
@@ -31851,7 +31851,7 @@
   {
     "tool": 2173,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 150,
     "successTool": 927,
@@ -31860,7 +31860,7 @@
   {
     "tool": 2173,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 150,
     "successTool": 927,
@@ -31869,7 +31869,7 @@
   {
     "tool": 2174,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 175,
     "successMessage": "You repair the shield."
@@ -31877,7 +31877,7 @@
   {
     "tool": 2174,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 175,
     "successTool": 927,
@@ -31886,7 +31886,7 @@
   {
     "tool": 2174,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 175,
     "successTool": 927,
@@ -31895,7 +31895,7 @@
   {
     "tool": 2175,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the shield."
@@ -31903,7 +31903,7 @@
   {
     "tool": 2175,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 930,
@@ -31912,7 +31912,7 @@
   {
     "tool": 2175,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 930,
@@ -31921,7 +31921,7 @@
   {
     "tool": 2176,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 225,
     "successMessage": "You repair the shield."
@@ -31929,7 +31929,7 @@
   {
     "tool": 2176,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 225,
     "successTool": 930,
@@ -31938,7 +31938,7 @@
   {
     "tool": 2176,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 225,
     "successTool": 930,
@@ -31947,7 +31947,7 @@
   {
     "tool": 2177,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 250,
     "successMessage": "You repair the shield."
@@ -31955,7 +31955,7 @@
   {
     "tool": 2177,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 250,
     "successTool": 930,
@@ -31964,7 +31964,7 @@
   {
     "tool": 2177,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 250,
     "successTool": 930,
@@ -31973,7 +31973,7 @@
   {
     "tool": 2178,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 275,
     "successMessage": "You repair the shield."
@@ -31981,7 +31981,7 @@
   {
     "tool": 2178,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 275,
     "successTool": 936,
@@ -31990,7 +31990,7 @@
   {
     "tool": 2178,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 275,
     "successTool": 936,
@@ -31999,7 +31999,7 @@
   {
     "tool": 2179,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 300,
     "successMessage": "You repair the shield."
@@ -32007,7 +32007,7 @@
   {
     "tool": 2179,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 300,
     "successTool": 936,
@@ -32016,7 +32016,7 @@
   {
     "tool": 2179,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 300,
     "successTool": 936,
@@ -32025,7 +32025,7 @@
   {
     "tool": 2180,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 325,
     "successMessage": "You repair the shield."
@@ -32033,7 +32033,7 @@
   {
     "tool": 2180,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 325,
     "successTool": 936,
@@ -32042,7 +32042,7 @@
   {
     "tool": 2180,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 325,
     "successTool": 936,
@@ -32051,7 +32051,7 @@
   {
     "tool": 2181,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successMessage": "You repair the shield."
@@ -32059,7 +32059,7 @@
   {
     "tool": 2181,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successTool": 918,
@@ -32068,7 +32068,7 @@
   {
     "tool": 2181,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 350,
     "successTool": 918,
@@ -32077,7 +32077,7 @@
   {
     "tool": 2182,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 375,
     "successMessage": "You repair the shield."
@@ -32085,7 +32085,7 @@
   {
     "tool": 2182,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 375,
     "successTool": 918,
@@ -32094,7 +32094,7 @@
   {
     "tool": 2182,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 375,
     "successTool": 918,
@@ -32103,7 +32103,7 @@
   {
     "tool": 2183,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the shield."
@@ -32111,7 +32111,7 @@
   {
     "tool": 2183,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successTool": 918,
@@ -32120,7 +32120,7 @@
   {
     "tool": 2183,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successTool": 918,
@@ -32129,7 +32129,7 @@
   {
     "tool": 2184,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 425,
     "successMessage": "You repair the shield."
@@ -32137,7 +32137,7 @@
   {
     "tool": 2184,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 425,
     "successTool": 921,
@@ -32146,7 +32146,7 @@
   {
     "tool": 2184,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 425,
     "successTool": 921,
@@ -32155,7 +32155,7 @@
   {
     "tool": 2185,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 450,
     "successMessage": "You repair the shield."
@@ -32163,7 +32163,7 @@
   {
     "tool": 2185,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 450,
     "successTool": 921,
@@ -32172,7 +32172,7 @@
   {
     "tool": 2185,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 450,
     "successTool": 921,
@@ -32181,7 +32181,7 @@
   {
     "tool": 2186,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 475,
     "successMessage": "You repair the shield."
@@ -32189,7 +32189,7 @@
   {
     "tool": 2186,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 475,
     "successTool": 921,
@@ -32198,7 +32198,7 @@
   {
     "tool": 2186,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 475,
     "successTool": 921,
@@ -32207,7 +32207,7 @@
   {
     "tool": 2187,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the shield."
@@ -32215,7 +32215,7 @@
   {
     "tool": 2187,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successTool": 939,
@@ -32224,7 +32224,7 @@
   {
     "tool": 2187,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successTool": 939,
@@ -32233,7 +32233,7 @@
   {
     "tool": 2188,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 525,
     "successMessage": "You repair the shield."
@@ -32241,7 +32241,7 @@
   {
     "tool": 2188,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 525,
     "successTool": 939,
@@ -32250,7 +32250,7 @@
   {
     "tool": 2188,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 525,
     "successTool": 939,
@@ -32259,7 +32259,7 @@
   {
     "tool": 2189,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 550,
     "successMessage": "You repair the shield."
@@ -32267,7 +32267,7 @@
   {
     "tool": 2189,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 550,
     "successTool": 939,
@@ -32276,7 +32276,7 @@
   {
     "tool": 2189,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 550,
     "successTool": 939,
@@ -32285,7 +32285,7 @@
   {
     "tool": 2200,
     "focus": 2213,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -32293,7 +32293,7 @@
   {
     "tool": 2201,
     "focus": 2213,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -32301,7 +32301,7 @@
   {
     "tool": 2202,
     "focus": 2213,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -32309,7 +32309,7 @@
   {
     "tool": 2203,
     "focus": 2213,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -32317,7 +32317,7 @@
   {
     "tool": 2204,
     "focus": 2213,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -32325,7 +32325,7 @@
   {
     "tool": 2205,
     "focus": 2213,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -32333,7 +32333,7 @@
   {
     "tool": 2206,
     "focus": 2213,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -32341,7 +32341,7 @@
   {
     "tool": 2207,
     "focus": 2213,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -32349,7 +32349,7 @@
   {
     "tool": 2208,
     "focus": 2213,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -32357,7 +32357,7 @@
   {
     "tool": 2209,
     "focus": 2213,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -32365,7 +32365,7 @@
   {
     "tool": 2210,
     "focus": 2213,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -32373,7 +32373,7 @@
   {
     "tool": 2211,
     "focus": 2213,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -32381,7 +32381,7 @@
   {
     "tool": 2212,
     "focus": 2213,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -32389,7 +32389,7 @@
   {
     "tool": 2217,
     "focus": 1929,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -32404,7 +32404,7 @@
   {
     "tool": 2217,
     "focus": 1930,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -32419,7 +32419,7 @@
   {
     "tool": 2217,
     "focus": 1931,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -32434,7 +32434,7 @@
   {
     "tool": 2218,
     "focus": 1929,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -32449,7 +32449,7 @@
   {
     "tool": 2218,
     "focus": 1930,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -32464,7 +32464,7 @@
   {
     "tool": 2218,
     "focus": 1931,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -32479,7 +32479,7 @@
   {
     "tool": 2222,
     "focus": 2237,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 0,
@@ -32490,7 +32490,7 @@
   {
     "tool": 2223,
     "focus": 2237,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 500,
@@ -32501,7 +32501,7 @@
   {
     "tool": 2224,
     "focus": 2237,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successTool": 2223,
@@ -32510,7 +32510,7 @@
   {
     "tool": 2225,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 550,
     "successMessage": "You repair the armor."
@@ -32518,7 +32518,7 @@
   {
     "tool": 2225,
     "focus": 2237,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 550,
     "successMessage": "You smelt the armor.",
@@ -32528,7 +32528,7 @@
   {
     "tool": 2226,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 550,
     "successMessage": "You repair the armor."
@@ -32536,7 +32536,7 @@
   {
     "tool": 2226,
     "focus": 2237,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 550,
     "successMessage": "You smelt the armor.",
@@ -32546,7 +32546,7 @@
   {
     "tool": 2227,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 550,
     "successMessage": "You repair the armor."
@@ -32554,7 +32554,7 @@
   {
     "tool": 2227,
     "focus": 2237,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 550,
     "successMessage": "You smelt the armor.",
@@ -32564,7 +32564,7 @@
   {
     "tool": 2228,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successTool": 2224,
@@ -32573,7 +32573,7 @@
   {
     "tool": 2228,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 550,
     "successMessage": "You make the armor.",
@@ -32583,7 +32583,7 @@
   {
     "tool": 2228,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 550,
     "successMessage": "You make the armor.",
@@ -32593,7 +32593,7 @@
   {
     "tool": 2228,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 550,
     "successMessage": "You make the armor.",
@@ -33911,7 +33911,7 @@
   {
     "tool": 3010,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -33929,7 +33929,7 @@
   {
     "tool": 3015,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -33937,7 +33937,7 @@
   {
     "tool": 3015,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 500,
     "successMessage": "You repair the weapon."
@@ -33955,7 +33955,7 @@
   {
     "tool": 3027,
     "focus": 1929,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -33970,7 +33970,7 @@
   {
     "tool": 3027,
     "focus": 1930,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -33985,7 +33985,7 @@
   {
     "tool": 3027,
     "focus": 1931,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34000,7 +34000,7 @@
   {
     "tool": 3028,
     "focus": 1929,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34015,7 +34015,7 @@
   {
     "tool": 3028,
     "focus": 1930,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34030,7 +34030,7 @@
   {
     "tool": 3028,
     "focus": 1931,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34402,7 +34402,7 @@
   {
     "tool": 3030,
     "focus": 1929,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34417,7 +34417,7 @@
   {
     "tool": 3030,
     "focus": 1930,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34432,7 +34432,7 @@
   {
     "tool": 3030,
     "focus": 1931,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34447,7 +34447,7 @@
   {
     "tool": 3031,
     "focus": 1929,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34462,7 +34462,7 @@
   {
     "tool": 3031,
     "focus": 1930,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34477,7 +34477,7 @@
   {
     "tool": 3031,
     "focus": 1931,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34492,7 +34492,7 @@
   {
     "tool": 3032,
     "focus": 1929,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34507,7 +34507,7 @@
   {
     "tool": 3032,
     "focus": 1930,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34522,7 +34522,7 @@
   {
     "tool": 3032,
     "focus": 1931,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34537,7 +34537,7 @@
   {
     "tool": 3033,
     "focus": 1929,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34552,7 +34552,7 @@
   {
     "tool": 3033,
     "focus": 1930,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34567,7 +34567,7 @@
   {
     "tool": 3033,
     "focus": 1931,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34582,7 +34582,7 @@
   {
     "tool": 3034,
     "focus": 1929,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34597,7 +34597,7 @@
   {
     "tool": 3034,
     "focus": 1930,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34612,7 +34612,7 @@
   {
     "tool": 3034,
     "focus": 1931,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34627,7 +34627,7 @@
   {
     "tool": 3035,
     "focus": 1929,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34642,7 +34642,7 @@
   {
     "tool": 3035,
     "focus": 1930,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34657,7 +34657,7 @@
   {
     "tool": 3035,
     "focus": 1931,
-    "skill": "Jewelry making",
+    "skill": "Jewelry Making",
     "focusQuantityConsumed": 1,
     "products": [
       {
@@ -34672,7 +34672,7 @@
   {
     "tool": 3036,
     "focus": 194,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
     "successMessage": "You make gold bars.",
@@ -34682,7 +34682,7 @@
   {
     "tool": 3036,
     "focus": 342,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
     "successMessage": "You make gold bars.",
@@ -34790,7 +34790,7 @@
   {
     "tool": 3100,
     "focus": 2237,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 400,
@@ -34801,7 +34801,7 @@
   {
     "tool": 3101,
     "focus": 2237,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 400,
@@ -34812,7 +34812,7 @@
   {
     "tool": 3103,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You make a weapon.",
@@ -34822,7 +34822,7 @@
   {
     "tool": 3103,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You make a weapon.",
@@ -34832,7 +34832,7 @@
   {
     "tool": 3103,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You make a weapon.",
@@ -34842,7 +34842,7 @@
   {
     "tool": 3103,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You make a weapon.",
@@ -34852,7 +34852,7 @@
   {
     "tool": 3103,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You make a weapon.",
@@ -34862,7 +34862,7 @@
   {
     "tool": 3103,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You make a weapon.",
@@ -34872,7 +34872,7 @@
   {
     "tool": 3103,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You make a weapon.",
@@ -34882,7 +34882,7 @@
   {
     "tool": 3103,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You make a weapon.",
@@ -34892,7 +34892,7 @@
   {
     "tool": 3103,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You make a weapon.",
@@ -34902,7 +34902,7 @@
   {
     "tool": 3103,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You make a weapon.",
@@ -34912,7 +34912,7 @@
   {
     "tool": 3103,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You make a weapon.",
@@ -34922,7 +34922,7 @@
   {
     "tool": 3103,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You make a weapon.",
@@ -34932,7 +34932,7 @@
   {
     "tool": 3104,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -34940,7 +34940,7 @@
   {
     "tool": 3105,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -34948,7 +34948,7 @@
   {
     "tool": 3106,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -34956,7 +34956,7 @@
   {
     "tool": 3107,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -34964,7 +34964,7 @@
   {
     "tool": 3108,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -34972,7 +34972,7 @@
   {
     "tool": 3109,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -34980,7 +34980,7 @@
   {
     "tool": 3110,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -34988,7 +34988,7 @@
   {
     "tool": 3111,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -34996,7 +34996,7 @@
   {
     "tool": 3112,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -35004,7 +35004,7 @@
   {
     "tool": 3113,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -35012,7 +35012,7 @@
   {
     "tool": 3114,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -35020,7 +35020,7 @@
   {
     "tool": 3115,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You repair the weapon."
@@ -35055,7 +35055,7 @@
   {
     "tool": 3156,
     "focus": 140,
-    "skill": "BlackSmith",
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 200,
     "successMessage": "You repair the weapon."

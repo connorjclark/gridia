@@ -237,6 +237,11 @@ function parseItemUsagesIni() {
       currentUsage.focusQuantityConsumed = 1;
     } else if (key.match(/^successmsg$/i)) {
       currentUsage.successMessage = value;
+    } else if (key.match(/^skill$/i)) {
+      // Normalize skill name.
+      const skills = require('../../world/content/skills.json');
+      if (value === 'Leather') currentUsage.skill = 'Tailor';
+      else currentUsage.skill = skills.find((skill) => skill.name.toLowerCase() === value.toLowerCase()).name;
     } else if (key.match(/^skillxpsuccess$/i)) {
       currentUsage.skillSuccessXp = forcenum(value);
     } else if (key.match(/^animation$/i)) {
