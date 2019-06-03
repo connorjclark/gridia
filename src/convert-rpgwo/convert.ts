@@ -234,6 +234,7 @@ function parseItemUsagesIni() {
         type: parseItemId(value),
         quantity: 1,
       };
+      currentUsage.focusQuantityConsumed = 1;
     } else if (key.match(/^successmsg$/i)) {
       currentUsage.successMessage = value;
     } else if (key.match(/^skillxpsuccess$/i)) {
