@@ -734,8 +734,16 @@ class Game {
         renderSkills();
       }
 
-      // This is crap.
       if (e.type === 'xp') {
+        const statusTextEl = document.createElement('div');
+        statusTextEl.classList.add('status-text');
+        setTimeout(() => statusTextEl.classList.add('status-text--remove'), 500);
+        statusTextEl.innerText = `+${e.args.xp}xp ${Content.getSkill(e.args.skill).name}`;
+        // TODO: add one listener to .status-texts
+        statusTextEl.addEventListener('transitionend', () => statusTextEl.remove());
+        Helper.find('.status-texts').appendChild(statusTextEl);
+
+        // This is crap.
         renderSkills();
       }
 

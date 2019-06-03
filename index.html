@@ -27,25 +27,42 @@
     #canvases {
       flex-grow: 1;
       height: 75%;
+      position: relative;
     }
 
     canvas {
       border: 1px solid black;
     }
 
-    #glCanvas {
+    .status-texts {
       position: absolute;
-      left: 0px;
-      top: 0px;
+      bottom: 0;
+      right: 0;
+      pointer-events: none;
+      color: yellow;
+      padding: 5px;
+    }
+    .status-text {
+      transition: 2s ease-in-out;
+    }
+    .status-text--remove {
+      transform: translate(0, -100px);
+      opacity: 0;
+    }
+
+    /* #glCanvas {
+      position: absolute;
+      left: 0;
+      top: 0;
     }
 
     #ctxText {
       position: absolute;
-      left: 0px;
-      top: 0px;
+      left: 0;
+      top: 0;
       z-index: 2;
       pointer-events: none;
-    }
+    } */
 
     .ui {
       min-height: 200px;
@@ -109,6 +126,7 @@
   <div id="canvases">
     <!-- <canvas id="glCanvas" height="480"></canvas>
         <canvas id="ctxText" height="680"></canvas> -->
+    <div class="status-texts"></div>
   </div>
   <div class="ui">
     <div class="instructions">
