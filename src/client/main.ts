@@ -537,7 +537,7 @@ const ContextMenu = {
 function getActionsForTile(tile: Tile) {
   const item = tile.item;
   const meta = Content.getMetaItem(item ? item.type : 0);
-  const actions = [] as Array<{innerText: string, title: string, action: SelectedItemAction}>;
+  const actions = [] as Array<{innerText: string, title: string, action: SelectedViewAction}>;
 
   if (item && meta.moveable) {
     actions.push({
@@ -578,7 +578,14 @@ function getActionsForTile(tile: Tile) {
 }
 
 function getActionsForCreature(creature: Creature) {
-  const actions = [];
+  const actions = [] as Array<{innerText: string, title: string, action: SelectedViewAction}>;
+
+  actions.push({
+    innerText: 'Follow',
+    title: 'Follow',
+    action: 'follow',
+  });
+
   return actions;
 }
 
@@ -623,17 +630,15 @@ function renderSelectedView() {
   const actionsEl = Helper.find('.selected-view--actions', el);
   actionsEl.innerHTML = 'Actions:';
 
-  if (!meta) return;
-
   const actions = creature ?
     getActionsForCreature(creature) :
-    getActionsForTile(tile);
+    meta ? getActionsForTile(tile) : [];
   for (const action of actions) {
     const actionEl = document.createElement('button');
     actionEl.innerText = action.innerText;
     actionEl.dataset.action = action.action;
-    if (state.selectedView.tile) actionEl.dataset.loc = JSON.stringify(state.selectedView.tile);
-    // if (state.selectedView.creatureId) actionEl.dataset.creatureId = JSON.stringify(state.selectedView.creatureId);
+    if (creature) actionEl.dataset.creatureId = String(state.selectedView.creatureId);
+    else actionEl.dataset.loc = JSON.stringify(state.selectedView.tile);
     actionEl.title = action.title;
     actionsEl.appendChild(actionEl);
   }
@@ -678,8 +683,9 @@ function registerPanelListeners() {
 }
 
 // TODO: rename.
-type SelectedItemAction =
+type SelectedViewAction =
   'cancel' |
+  'follow' |
   'move-here' |
   'open-container' |
   'pickup' |
@@ -687,41 +693,55 @@ type SelectedItemAction =
   'use-tool';
 
 function onAction(e: Event) {
-  // @ts-ignore
-  const type: SelectedItemAction = e.target.dataset.action;
-  // @ts-ignore
-  const loc: TilePoint = JSON.parse(e.target.dataset.loc);
-
-  switch (type) {
-    case 'pickup':
-      wire.send('moveItem', {
-        fromSource: 0,
-        from: loc,
-        toSource: client.containerId,
-      });
-      break;
-    case 'use-hand':
-      Helper.useHand(loc);
-      break;
-    case 'use-tool':
-      Helper.useTool(loc);
-      break;
-    case 'open-container':
-      Helper.openContainer(loc);
-      break;
-    case 'move-here':
-      const focusPos = client.context.getCreature(client.creatureId).pos;
-      state.pathToDestination = findPath(client.context.map, focusPos, loc);
-      state.destination = loc;
-      break;
-    case 'cancel':
-      // Do nothing.
-      break;
-    default:
-      console.error('unknown action type', type);
-  }
-
   ContextMenu.close();
+
+  // @ts-ignore
+  const dataset = e.target.dataset;
+  const type: SelectedViewAction = dataset.action;
+  const focusPos = client.context.getCreature(client.creatureId).pos;
+
+  // Do nothing.
+  if (type === 'cancel') return;
+
+  if (dataset.loc) {
+    const loc: TilePoint = JSON.parse(dataset.loc);
+    switch (type) {
+      case 'pickup':
+        wire.send('moveItem', {
+          fromSource: 0,
+          from: loc,
+          toSource: client.containerId,
+        });
+        break;
+      case 'use-hand':
+        Helper.useHand(loc);
+        break;
+      case 'use-tool':
+        Helper.useTool(loc);
+        break;
+      case 'open-container':
+        Helper.openContainer(loc);
+        break;
+      case 'move-here':
+        state.pathToDestination = findPath(client.context.map, focusPos, loc);
+        state.destination = loc;
+        break;
+      default:
+        console.error('unknown action type', type);
+    }
+  } else {
+    const creatureId = Number(dataset.creatureId);
+    const creature = creatureId ? client.context.getCreature(creatureId) : null;
+    switch (type) {
+      case 'follow':
+        // TODO path should update as creature moves.
+        // state.pathToDestination = findPath(client.context.map, focusPos, creature.pos);
+        // state.destination = creature.pos;
+        break;
+      default:
+        console.error('unknown action type', type);
+    }
+  }
 }
 
 function selectView(loc?: TilePoint) {
