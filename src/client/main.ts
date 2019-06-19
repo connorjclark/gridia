@@ -33,7 +33,10 @@ interface UIState {
     downTile?: TilePoint;
     state: string;
   };
-  selectedTile?: TilePoint;
+  selectedView: {
+    tile?: TilePoint;
+    creatureId?: number;
+  };
   keys: {
     [index: number]: boolean;
   };
@@ -58,6 +61,7 @@ const state: UIState = {
   lastMove: performance.now(),
   destination: null,
   pathToDestination: [],
+  selectedView: {},
 };
 
 // @ts-ignore - for debugging
@@ -309,7 +313,7 @@ const Draw = {
       // the tool changes, should re-render the selected item panel.
       set selectedIndex(selectedIndex: number) {
         this._selectedIndex = selectedIndex;
-        selectItem(state.selectedTile);
+        renderSelectedView();
       },
       get selectedIndex() { return this._selectedIndex; },
     };
@@ -482,7 +486,9 @@ const containerWindows = new Map<number, ContainerWindow>();
 
 function getCanvasSize() {
   const canvasesEl = Helper.find('#canvases');
-  return canvasesEl.getBoundingClientRect();
+  // BoundingClientRect includes the border - which we don't want.
+  // It causes an ever-increasing canvas on window resize.
+  return {width: canvasesEl.clientWidth, height: canvasesEl.clientHeight};
 }
 
 const ContextMenu = {
@@ -505,7 +511,8 @@ const ContextMenu = {
     contextMenuEl.style.top = screen.y + 'px';
 
     contextMenuEl.innerHTML = '';
-    const actions = getActionsForTile(loc);
+    const tile = client.context.map.getTile(loc);
+    const actions = getActionsForTile(tile);
     actions.push({
       innerText: 'Cancel',
       title: '',
@@ -527,8 +534,8 @@ const ContextMenu = {
   },
 };
 
-function getActionsForTile(loc: TilePoint) {
-  const item = client.context.map.getItem(loc);
+function getActionsForTile(tile: Tile) {
+  const item = tile.item;
   const meta = Content.getMetaItem(item ? item.type : 0);
   const actions = [] as Array<{innerText: string, title: string, action: SelectedItemAction}>;
 
@@ -556,7 +563,7 @@ function getActionsForTile(loc: TilePoint) {
     });
   }
 
-  if (state.selectedTile) {
+  if (state.selectedView.tile) {
     const tool = Helper.getSelectedTool();
     if (tool && Helper.usageExists(tool.type, meta.id)) {
       actions.push({
@@ -570,44 +577,63 @@ function getActionsForTile(loc: TilePoint) {
   return actions;
 }
 
-function renderSelectedItem() {
-  const el = Helper.find('.selected-item');
-  const item = state.selectedTile ? client.context.map.getItem(state.selectedTile) : null;
-  let data;
+function getActionsForCreature(creature: Creature) {
+  const actions = [];
+  return actions;
+}
+
+function renderSelectedView() {
+  const el = Helper.find('.selected-view');
+  const tile = state.selectedView.tile ? client.context.map.getTile(state.selectedView.tile) : null;
+  const item = tile ? tile.item : null;
+  const creature = state.selectedView.creatureId ? client.context.getCreature(state.selectedView.creatureId) : null;
+
+  let data: Record<string, string>;
   let meta;
-  if (item) {
+  if (creature) {
+    data = {
+      name: creature.name,
+    };
+  } else if (item) {
     meta = Content.getMetaItem(item.type);
     data = {
       name: meta.name,
-      quantity: item.quantity,
-      burden: item.quantity * meta.burden,
+      quantity: String(item.quantity),
+      burden: String(item.quantity * meta.burden),
       misc: JSON.stringify(meta, null, 2),
     };
   } else {
     data = {
       name: '-',
-      quantity: 0,
-      burden: 0,
+      quantity: '0',
+      burden: '0',
       misc: '',
     };
   }
 
-  Helper.find('.selected-item--name', el).innerHTML = `Item: ${data.name}`;
-  Helper.find('.selected-item--quantity', el).innerHTML = `Quantity: ${data.quantity}`;
-  Helper.find('.selected-item--burden', el).innerHTML = `Burden: ${data.burden}`;
-  Helper.find('.selected-item--misc', el).innerHTML = data.misc;
+  const detailsEl = Helper.find('.selected-view--details', el);
+  detailsEl.innerHTML = '';
+  for (const [key, value] of Object.entries(data)) {
+    const detailEl = document.createElement('div');
+    detailEl.classList.add('.selected-view--detail', `.selected-view--detail-${key}`);
+    detailEl.textContent = `${key[0].toUpperCase() + key.substr(1)}: ${value}`;
+    detailsEl.appendChild(detailEl);
+  }
 
-  const actionsEl = Helper.find('.selected-item--actions', el);
+  const actionsEl = Helper.find('.selected-view--actions', el);
   actionsEl.innerHTML = 'Actions:';
 
   if (!meta) return;
 
-  const actions = getActionsForTile(state.selectedTile);
+  const actions = creature ?
+    getActionsForCreature(creature) :
+    getActionsForTile(tile);
   for (const action of actions) {
     const actionEl = document.createElement('button');
     actionEl.innerText = action.innerText;
     actionEl.dataset.action = action.action;
-    actionEl.dataset.loc = JSON.stringify(state.selectedTile);
+    if (state.selectedView.tile) actionEl.dataset.loc = JSON.stringify(state.selectedView.tile);
+    // if (state.selectedView.creatureId) actionEl.dataset.creatureId = JSON.stringify(state.selectedView.creatureId);
     actionEl.title = action.title;
     actionsEl.appendChild(actionEl);
   }
@@ -698,9 +724,22 @@ function onAction(e: Event) {
   ContextMenu.close();
 }
 
-function selectItem(loc?: TilePoint) {
-  state.selectedTile = loc;
-  renderSelectedItem();
+function selectView(loc?: TilePoint) {
+  if (loc) {
+    const creature = client.context.map.getTile(loc).creature;
+    if (creature && creature.id !== client.creatureId) {
+      state.selectedView.creatureId = creature.id;
+      state.selectedView.tile = null;
+    } else {
+      state.selectedView.tile = loc;
+      state.selectedView.creatureId = null;
+    }
+  } else {
+    state.selectedView.tile = null;
+    state.selectedView.creatureId = null;
+  }
+
+  renderSelectedView();
 }
 
 function invalidateDestination() {
@@ -749,8 +788,8 @@ class Game {
 
       if (e.type === 'setItem') {
         const loc = {x: e.args.x, y: e.args.y, z: e.args.z};
-        if (equalPoints(loc, state.selectedTile)) {
-          selectItem(state.selectedTile);
+        if (equalPoints(loc, state.selectedView.tile)) {
+          selectView(state.selectedView.tile);
         }
       }
     });
@@ -830,7 +869,7 @@ class Game {
   }
 
   public registerListeners() {
-    Helper.find('.selected-item--actions').addEventListener('click', onAction);
+    Helper.find('.selected-view--actions').addEventListener('click', onAction);
     Helper.find('.contextmenu').addEventListener('click', onAction);
 
     this.canvasesEl.addEventListener('mousemove', (e: MouseEvent) => {
@@ -913,7 +952,7 @@ class Game {
       }
 
       const point = worldToTile(mouseToWorld({ x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY }));
-      selectItem(point);
+      selectView(point);
     });
 
     document.onkeydown = (e) => {
@@ -953,30 +992,39 @@ class Game {
       }
 
       if (dx || dy) {
-        state.selectedTile = state.selectedTile || { ...focusCreature.pos };
-        state.selectedTile.x += dx;
-        state.selectedTile.y += dy;
-        selectItem(state.selectedTile);
+        let currentCursor = null;
+        if (state.selectedView.creatureId) {
+          currentCursor = { ...client.context.getCreature(state.selectedView.creatureId).pos };
+        } else if (state.selectedView.tile) {
+          currentCursor = state.selectedView.tile;
+        } else {
+          currentCursor = { ...focusCreature.pos };
+        }
+
+        currentCursor.x += dx;
+        currentCursor.y += dy;
+        selectView(currentCursor);
+        renderSelectedView();
       }
 
       // Space bar to use tool.
-      if (e.keyCode === KEYS.SPACE_BAR && state.selectedTile) {
-        Helper.useTool(state.selectedTile);
+      if (e.keyCode === KEYS.SPACE_BAR && state.selectedView.tile) {
+        Helper.useTool(state.selectedView.tile);
       }
 
       // Shift to pick up item.
-      if (e.keyCode === KEYS.SHIFT && state.selectedTile) {
+      if (e.keyCode === KEYS.SHIFT && state.selectedView.tile) {
         wire.send('moveItem', {
           fromSource: 0,
-          from: state.selectedTile,
+          from: state.selectedView.tile,
           toSource: client.containerId,
           to: null,
         });
       }
 
       // Alt to use hand on item.
-      if (e.key === 'Alt' && state.selectedTile) {
-        Helper.useHand(state.selectedTile);
+      if (e.key === 'Alt' && state.selectedView.tile) {
+        Helper.useHand(state.selectedView.tile);
       }
 
       // T to toggle z.
@@ -1191,7 +1239,7 @@ class Game {
         }
 
         if (client.context.map.walkable(dest)) {
-          selectItem(undefined);
+          if (!state.selectedView.creatureId) selectView(undefined);
           ContextMenu.close();
           state.lastMove = performance.now();
           wire.send('move', dest);
@@ -1219,19 +1267,26 @@ class Game {
       this.containers.topLayer.addChild(itemSprite);
     }
 
-    // Draw selected highlight.
-    if (state.selectedTile) {
-      const selectedItem = client.context.map.getItem(state.selectedTile);
+    // Draw highlight over selected view.
+    const selectedViewLoc = state.selectedView.creatureId ?
+      client.context.getCreature(state.selectedView.creatureId).pos :
+      state.selectedView.tile;
+    if (selectedViewLoc) {
       const highlight = Draw.makeHighlight(0xffff00, 0.2);
-      highlight.x = state.selectedTile.x * 32;
-      highlight.y = state.selectedTile.y * 32;
-      const tool = Helper.getSelectedTool();
-      if (tool && selectedItem && Helper.usageExists(tool.type, selectedItem.type)) {
-        const itemSprite = Draw.makeItemSprite({type: tool.type, quantity: 1});
-        itemSprite.anchor.x = itemSprite.anchor.y = 0.5;
-        highlight.addChild(itemSprite);
-      }
+      highlight.x = selectedViewLoc.x * 32;
+      highlight.y = selectedViewLoc.y * 32;
       this.containers.topLayer.addChild(highlight);
+
+      // If item is the selected view, draw selected tool if usable.
+      if (!state.selectedView.creatureId) {
+        const tool = Helper.getSelectedTool();
+        const selectedItem = client.context.map.getItem(state.selectedView.tile);
+        if (tool && selectedItem && Helper.usageExists(tool.type, selectedItem.type)) {
+          const itemSprite = Draw.makeItemSprite({type: tool.type, quantity: 1});
+          itemSprite.anchor.x = itemSprite.anchor.y = 0.5;
+          highlight.addChild(itemSprite);
+        }
+      }
     }
 
     // Draw name of item under mouse.

@@ -28,9 +28,6 @@
       flex-grow: 1;
       height: 75%;
       position: relative;
-    }
-
-    canvas {
       border: 1px solid black;
     }
 
@@ -97,7 +94,7 @@
     .panels {
       border: black solid 1px;
       padding: 2px;
-      height: 17vh;
+      height: 20vh;
       overflow-y: scroll;
     }
     .panel {
@@ -143,13 +140,10 @@ To pick up item in the world: shift to pick up selected item, or drag and drop t
     </div>
     <div class="panels-container">
       <div class="panels">
-        <div class="panel panel--selected-item panel--active">
-          <div class="selected-item">
-            <div class="selected-item--actions"></div>
-            <div class="selected-item--name"></div>
-            <div class="selected-item--quantity"></div>
-            <div class="selected-item--burden"></div>
-            <div class="selected-item--misc"></div>
+        <div class="panel panel--selected-view panel--active">
+          <div class="selected-view">
+            <div class="selected-view--actions"></div>
+            <span class="selected-view--details"><!-- insert details here --></span>
           </div>
         </div>
         <div class="panel panel--skills">
@@ -163,7 +157,7 @@ To pick up item in the world: shift to pick up selected item, or drag and drop t
         </div>
       </div>
       <div class="panels__tabs">
-        <div class="panels__tab panels__tab--active" data-panel="selected-item">View</div>
+        <div class="panels__tab panels__tab--active" data-panel="selected-view">View</div>
         <div class="panels__tab" data-panel="skills">Skills</div>
         <div class="panels__tab" data-panel="settings">Settings</div>
       </div>
