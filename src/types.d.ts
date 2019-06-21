@@ -102,3 +102,34 @@ interface Monster {
   name: string;
   image: number;
 }
+
+interface ItemMoveEvent {
+  source: number;
+  loc?: TilePoint;
+  item?: Item;
+}
+
+interface UIState {
+  viewport: {
+    x: number;
+    y: number;
+  };
+  mouse: {
+    x: number;
+    y: number;
+    tile?: TilePoint;
+    downTile?: TilePoint;
+    state: string;
+  };
+  selectedView: {
+    tile?: TilePoint;
+    creatureId?: number;
+  };
+  keys: {
+    [index: number]: boolean;
+  };
+  elapsedFrames: number;
+  lastMove: number;
+  destination: TilePoint | null;
+  pathToDestination: TilePoint[];
+}

@@ -1,16 +1,18 @@
 import {OutlineFilter} from '@pixi/filter-outline';
 import * as PIXI from 'pixi.js';
 import { MINE, WATER } from '../constants';
-import Container from '../container';
 import * as Content from '../content';
 import { findPath } from '../path-finding';
-import { clamp, equalPoints, worldToTile as _worldToTile } from '../utils';
+import { equalPoints, worldToTile as _worldToTile } from '../utils';
 import Client from './client';
+import ClientModule from './client-module';
 import { connect, openAndConnectToServerInMemory } from './connect-to-server';
+import * as Draw from './draw';
+import god from './god';
+import * as Helper from './helper';
 import KEYS from './keys';
+import SettingsClientModule from './modules/settings-module';
 import { getMineFloor, getWaterFloor } from './template-draw';
-
-let wire: ClientToServerWire;
 
 // pixi-sound needs to load after PIXI. The linter reorders imports in a way
 // that breaks that requirement. So require here.
@@ -18,33 +20,9 @@ let wire: ClientToServerWire;
 const PIXISound: typeof import('pixi-sound') = require('pixi-sound').default;
 
 const client = new Client();
+god.client = client;
 client.PIXI = PIXI;
 client.PIXISound = PIXISound;
-
-interface UIState {
-  viewport: {
-    x: number;
-    y: number;
-  };
-  mouse: {
-    x: number;
-    y: number;
-    tile?: TilePoint;
-    downTile?: TilePoint;
-    state: string;
-  };
-  selectedView: {
-    tile?: TilePoint;
-    creatureId?: number;
-  };
-  keys: {
-    [index: number]: boolean;
-  };
-  elapsedFrames: number;
-  lastMove: number;
-  destination: TilePoint | null;
-  pathToDestination: TilePoint[];
-}
 
 const state: UIState = {
   viewport: {
@@ -63,6 +41,7 @@ const state: UIState = {
   pathToDestination: [],
   selectedView: {},
 };
+god.state = state;
 
 // @ts-ignore - for debugging
 window.Gridia = {
@@ -75,420 +54,9 @@ window.Gridia = {
   },
 };
 
-function convertToPixiLoaderEntries(keys: Record<string, string>): Array<{key: string, url: string}> {
-  const entries = [];
-  for (const [key, url] of Object.entries(keys)) {
-    entries.push({key: key.toLowerCase(), url});
-  }
-  return entries;
-}
-
-const ResourceKeys: Record<string, string[]> = {
-  creatures: [],
-  floors: [],
-  items: [],
-  templates: [
-    './world/templates/templates0.png',
-  ],
-};
-
-const SfxKeys = {
-  beep: './world/sound/sfx/rpgwo/beep.WAV',
-  BlowArrow: './world/sound/sfx/rpgwo/BlowArrow.WAV',
-  bombtiq: './world/sound/sfx/rpgwo/bombtiq.wav',
-  bubble: './world/sound/sfx/rpgwo/bubble.wav',
-  burning: './world/sound/sfx/rpgwo/burning.wav',
-  CaneSwish: './world/sound/sfx/rpgwo/CaneSwish.wav',
-  CarpentryHammer: './world/sound/sfx/rpgwo/CarpentryHammer.wav',
-  criket: './world/sound/sfx/rpgwo/criket.wav',
-  Crossbow: './world/sound/sfx/rpgwo/Crossbow.wav',
-  diescream: './world/sound/sfx/rpgwo/diescream.wav',
-  digi_plink: './world/sound/sfx/rcptones/digi_plink.wav',
-  door: './world/sound/sfx/rpgwo/door.wav',
-  fishing: './world/sound/sfx/rpgwo/fishing.wav',
-  harry: './world/sound/sfx/rpgwo/harry.wav',
-  havenmayor: './world/sound/sfx/rpgwo/havenmayor.wav',
-  heal: './world/sound/sfx/ff6/heal.wav',
-  hiccup: './world/sound/sfx/rpgwo/hiccup.wav',
-  ice: './world/sound/sfx/rpgwo/ice.WAV',
-  pop_drip: './world/sound/sfx/rcptones/pop_drip.wav',
-  punch: './world/sound/sfx/rpgwo/punch.wav',
-  roll: './world/sound/sfx/zelda/roll.wav',
-  Saw: './world/sound/sfx/rpgwo/Saw.wav',
-  ShovelDig: './world/sound/sfx/rpgwo/ShovelDig.wav',
-  smithinghammer: './world/sound/sfx/rpgwo/smithinghammer.wav',
-  sparkly: './world/sound/sfx/rpgwo/sparkly.wav',
-  warp: './world/sound/sfx/rpgwo/warp.wav',
-  woodcutting: './world/sound/sfx/ryanconway/woodcutting.wav',
-};
-
-for (let i = 0; i < 8; i++) {
-  ResourceKeys.creatures.push(`./world/player/player${i}.png`);
-}
-for (let i = 0; i < 6; i++) {
-  ResourceKeys.floors.push(`./world/floors/floors${i}.png`);
-}
-for (let i = 0; i < 27; i++) {
-  ResourceKeys.items.push(`./world/items/items${i}.png`);
-}
-
-function makeTextureCache(resourceType: string) {
-  const textureCache = new Map<number, PIXI.Texture>();
-  return (type: number, tilesWidth = 1, tilesHeight = 1) => {
-    let texture = textureCache.get(type);
-    if (texture) {
-      return texture;
-    }
-
-    const textureIndex = Math.floor(type / 100);
-    const resourceKey = ResourceKeys[resourceType][textureIndex];
-    texture = new PIXI.Texture(
-      PIXI.loader.resources[resourceKey].texture.baseTexture,
-      new PIXI.Rectangle((type % 10) * 32, Math.floor((type % 100) / 10) * 32, tilesWidth * 32, tilesHeight * 32),
-    );
-    textureCache.set(type, texture);
-    return texture;
-  };
-}
-
-const getTexture = {
-  creatures: makeTextureCache('creatures'),
-  floors: makeTextureCache('floors'),
-  items: makeTextureCache('items'),
-  templates: makeTextureCache('templates'),
-};
-
-const Helper = {
-  canUseHand(itemType: number) {
-    return Helper.usageExists(0, itemType);
-  },
-  usageExists(tool: number, focus: number) {
-    return Content.getItemUses(tool, focus).length !== 0;
-  },
-  useHand(loc: TilePoint) {
-    wire.send('use', {
-      toolIndex: -1,
-      loc,
-    });
-  },
-  useTool(loc: TilePoint, usageIndex?: number) {
-    const toolIndex = Helper.getSelectedToolIndex();
-    const tool = Helper.getSelectedTool();
-    const focus = client.context.map.getItem(loc) || {type: 0, quantity: 0};
-    const usages = Content.getItemUses(tool.type, focus.type);
-
-    if (usages.length === 0) {
-      return;
-    }
-
-    if (usages.length === 1 || usageIndex !== undefined) {
-      wire.send('use', {
-        toolIndex,
-        loc,
-        usageIndex,
-      });
-    } else {
-      Draw.makeUsageWindow(tool, focus, usages, loc);
-    }
-  },
-  // TODO: add tests checking that subscribed containers are updated in all clients.
-  // TODO: don't keep requesting container if already open.
-  openContainer(loc: TilePoint) {
-    wire.send('requestContainer', {
-      loc,
-    });
-  },
-  closeContainer(containerId: number) {
-    wire.send('closeContainer', {
-      containerId,
-    });
-  },
-  getZ() {
-    const focusCreature = client.context.getCreature(client.creatureId);
-    return focusCreature ? focusCreature.pos.z : 0;
-  },
-  getSelectedTool() {
-    const inventoryWindow = containerWindows.get(client.containerId);
-    return inventoryWindow.itemsContainer.items[inventoryWindow.selectedIndex];
-  },
-  getSelectedToolIndex() {
-    const inventoryWindow = containerWindows.get(client.containerId);
-    return inventoryWindow.selectedIndex;
-  },
-  find(query: string, node?: Element): HTMLElement {
-    if (!node) node = document.body;
-    const result = node.querySelector(query);
-    if (!result) throw new Error(`no elements matching ${query}`);
-    if (!(result instanceof HTMLElement)) throw new Error('expected HTMLElement');
-    return result;
-  },
-};
-
 interface GridiaWindow {
   container: PIXI.Container;
   draw: () => void;
-}
-
-const Draw = {
-  makeDraggableWindow() {
-    const borderSize = 10;
-
-    const container = new PIXI.Container();
-    container.interactive = true;
-
-    const border = new PIXI.Graphics();
-    border.interactive = true;
-    container.addChild(border);
-
-    const contents = new PIXI.Container();
-    contents.interactive = true;
-    contents.x = borderSize;
-    contents.y = borderSize;
-    container.addChild(contents);
-
-    let dragging = false;
-    let downAt = null;
-    let startingPosition = null;
-    const onDragBegin = (e: PIXI.interaction.InteractionEvent) => {
-      // ts - ignore TouchEvent
-      if (!('pageX' in e.data.originalEvent)) return;
-
-      // Only drag from the border.
-      if (e.target !== border) return;
-
-      dragging = true;
-      downAt = { x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY };
-      startingPosition = { x: container.x, y: container.y };
-    };
-    const onDrag = (e: PIXI.interaction.InteractionEvent) => {
-      // ts - ignore TouchEvent
-      if (!('pageX' in e.data.originalEvent)) return;
-
-      if (dragging) {
-        container.x = startingPosition.x + e.data.originalEvent.pageX - downAt.x;
-        container.y = startingPosition.y + e.data.originalEvent.pageY - downAt.y;
-
-        const size = getCanvasSize();
-        container.x = clamp(container.x, 0, size.width - container.width);
-        container.y = clamp(container.y, 0, size.height - container.height);
-      }
-    };
-    const onDragEnd = () => {
-      dragging = false;
-      downAt = null;
-      startingPosition = null;
-    };
-
-    function draw() {
-      border.clear();
-      border.beginFill(0, 0.2);
-      border.lineStyle(borderSize, 0, 1, 0);
-      border.drawRect(0, 0, contents.width + 2 * borderSize, contents.height + 2 * borderSize);
-    }
-
-    container.on('mousedown', onDragBegin)
-      .on('mousemove', onDrag)
-      .on('mouseup', onDragEnd)
-      .on('mouseupoutside', onDragEnd);
-
-    // TODO better names
-    const window = {
-      container,
-      contents,
-      draw,
-    };
-
-    return window;
-  },
-
-  makeItemContainerWindow(container: Container) {
-    const window = Draw.makeDraggableWindow();
-    const containerWindow = {
-      container: window.container,
-      draw,
-      itemsContainer: container,
-      mouseOverIndex: null,
-      _selectedIndex: 0,
-      // Selected item actions are based off currently selected tool. If
-      // the tool changes, should re-render the selected item panel.
-      set selectedIndex(selectedIndex: number) {
-        this._selectedIndex = selectedIndex;
-        renderSelectedView();
-      },
-      get selectedIndex() { return this._selectedIndex; },
-    };
-
-    let mouseDownIndex: number;
-
-    window.contents
-      .on('mousedown', (e: PIXI.interaction.InteractionEvent) => {
-        const x = e.data.getLocalPosition(e.target).x;
-        const index = Math.floor(x / 32);
-        if (!container.items[index]) return;
-        mouseDownIndex = index;
-        const evt: ItemMoveEvent = {
-          source: container.id,
-          loc: { x: index, y: 0, z: 0 },
-          item: container.items[index],
-        };
-        client.eventEmitter.emit('ItemMoveBegin', evt);
-      })
-      .on('mousemove', (e: PIXI.interaction.InteractionEvent) => {
-        if (e.target !== window.contents) {
-          containerWindow.mouseOverIndex = null;
-          return;
-        }
-
-        const x = e.data.getLocalPosition(e.target).x;
-        const index = Math.floor(x / 32);
-        if (index >= 0 && index < container.items.length) {
-          containerWindow.mouseOverIndex = index;
-        } else {
-          containerWindow.mouseOverIndex = null;
-        }
-      })
-      .on('mouseup', (e: PIXI.interaction.InteractionEvent) => {
-        if (containerWindow.mouseOverIndex !== null) {
-          const evt: ItemMoveEvent = {
-            source: container.id,
-            loc: { x: containerWindow.mouseOverIndex, y: 0, z: 0 },
-          };
-          client.eventEmitter.emit('ItemMoveEnd', evt);
-        }
-        if (mouseDownIndex === containerWindow.mouseOverIndex) {
-          containerWindow.selectedIndex = mouseDownIndex;
-        }
-      });
-
-    if (container.id !== client.containerId) {
-      client.eventEmitter.on('PlayerMove', close);
-    }
-
-    function close() {
-      client.eventEmitter.removeListener('PlayerMove', close);
-      game.removeWindow(containerWindow);
-      containerWindows.delete(container.id);
-      client.context.containers.delete(container.id);
-    }
-
-    function draw() {
-      // Hack: b/c container is requested multiple times, 'container' reference can get stale.
-      container = client.context.containers.get(container.id);
-      window.contents.removeChildren();
-      for (const [i, item] of container.items.entries()) {
-        const itemSprite = Draw.makeItemSprite(item ? item : { type: 0, quantity: 1 });
-        itemSprite.x = i * 32;
-        itemSprite.y = 0;
-        if (containerWindow.selectedIndex === i) {
-          itemSprite.filters = [new OutlineFilter(1, 0xFFFF00, 1)];
-        }
-        window.contents.addChild(itemSprite);
-      }
-
-      if (containerWindow.mouseOverIndex !== null && state.mouse.state === 'down') {
-        const mouseHighlight = Draw.makeHighlight(0xffff00, 0.3);
-        mouseHighlight.x = 32 * containerWindow.mouseOverIndex;
-        mouseHighlight.y = 0;
-        window.contents.addChild(mouseHighlight);
-      }
-
-      window.draw();
-    }
-
-    // TODO: take actual positions of windows into account.
-    window.container.y = (containerWindows.size - 1) * 50;
-    game.addWindow(containerWindow);
-    return containerWindow;
-  },
-
-  makeUsageWindow(tool: Item, focus: Item, usages: ItemUse[], loc: TilePoint) {
-    const window = Draw.makeDraggableWindow();
-    const usageWindow = {
-      container: window.container,
-      draw,
-    };
-
-    window.contents
-      .on('mousedown', (e: PIXI.interaction.InteractionEvent) => {
-        const {x, y} = e.data.getLocalPosition(e.target);
-        const index = Math.floor(x / 32) + Math.floor(y / 32) * 10;
-        close();
-        Helper.useTool(loc, index);
-      });
-
-    client.eventEmitter.on('PlayerMove', close);
-
-    function close() {
-      client.eventEmitter.removeListener('PlayerMove', close);
-      game.removeWindow(usageWindow);
-    }
-
-    function draw() {
-      window.contents.removeChildren();
-      for (const [i, usage] of usages.entries()) {
-        const item = usage.products[0];
-        const itemSprite = Draw.makeItemSprite(item);
-        itemSprite.x = (i % 10) * 32;
-        itemSprite.y = Math.floor(i / 10) * 32;
-        window.contents.addChild(itemSprite);
-      }
-
-      window.draw();
-    }
-
-    window.container.x = window.container.y = 40;
-    game.addWindow(usageWindow);
-    return usageWindow;
-  },
-
-  makeHighlight(color: number, alpha: number) {
-    const highlight = new PIXI.Graphics();
-    highlight.beginFill(color, alpha);
-    highlight.drawRect(0, 0, 32, 32);
-    return highlight;
-  },
-
-  makeItemSprite(item: Item) {
-    const meta = Content.getMetaItem(item.type);
-    let texture = 1;
-    if (meta.animations) {
-      if (meta.animations.length === 1) {
-        texture = meta.animations[0];
-      } else if (meta.animations.length > 1) {
-        const index = Math.floor((state.elapsedFrames * (60 / 1000)) % meta.animations.length);
-        texture = meta.animations[index];
-      }
-    }
-    const imgHeight = meta.imageHeight || 1;
-    const sprite = new PIXI.Sprite(getTexture.items(texture, 1, imgHeight));
-    sprite.anchor.y = (imgHeight - 1) / imgHeight;
-
-    if (item.quantity !== 1) {
-      const qty = new PIXI.Text(item.quantity.toString(), {
-        fontSize: 14,
-        stroke: 0xffffff,
-        strokeThickness: 4,
-      });
-      sprite.addChild(qty);
-    }
-    return sprite;
-  },
-};
-
-interface ItemMoveEvent {
-  source: number;
-  loc?: TilePoint;
-  item?: Item;
-}
-
-type ContainerWindow = ReturnType<typeof Draw.makeItemContainerWindow>;
-const containerWindows = new Map<number, ContainerWindow>();
-
-function getCanvasSize() {
-  const canvasesEl = Helper.find('#canvases');
-  // BoundingClientRect includes the border - which we don't want.
-  // It causes an ever-increasing canvas on window resize.
-  return {width: canvasesEl.clientWidth, height: canvasesEl.clientHeight};
 }
 
 const ContextMenu = {
@@ -670,16 +238,6 @@ function registerPanelListeners() {
     targetEl.classList.toggle('panels__tab--active');
     Helper.find('.panel--' + panelName).classList.toggle('panel--active');
   });
-
-  Helper.find('.settings').addEventListener('change', (e) => {
-    if (!(e.target instanceof HTMLInputElement)) return;
-
-    client.settings[e.target.id] = e.target.valueAsNumber;
-    // TODO: save and load settings.
-  });
-
-  const getInput = (id: string) => Helper.find('.settings #' + id) as HTMLInputElement;
-  getInput('volume').value = String(client.settings.volume);
 }
 
 // TODO: rename.
@@ -707,7 +265,7 @@ function onAction(e: Event) {
     const loc: TilePoint = JSON.parse(dataset.loc);
     switch (type) {
       case 'pickup':
-        wire.send('moveItem', {
+        god.wire.send('moveItem', {
           fromSource: 0,
           from: loc,
           toSource: client.containerId,
@@ -785,6 +343,11 @@ class Game {
   protected windows: GridiaWindow[] = [];
   protected itemMovingState: ItemMoveEvent = null;
   protected mouseHasMovedSinceItemMoveBegin = false;
+  protected modules: ClientModule[] = [];
+
+  public addModule(clientModule: ClientModule) {
+    this.modules.push(clientModule);
+  }
 
   public async start() {
     client.eventEmitter.on('message', (e) => {
@@ -822,13 +385,13 @@ class Game {
     }
 
     if (connectOverSocket) {
-      wire = await connect(client, 9001);
+      god.wire = await connect(client, 9001);
     } else {
       const serverAndWire = openAndConnectToServerInMemory(client, {
         dummyDelay: 20,
         verbose: true,
       });
-      wire = serverAndWire.clientToServerWire;
+      god.wire = serverAndWire.clientToServerWire;
       // @ts-ignore debugging.
       Gridia.server = serverAndWire.server;
 
@@ -844,8 +407,8 @@ class Game {
     this.canvasesEl.appendChild(this.app.view);
 
     PIXI.loader
-      .add(Object.values(ResourceKeys))
-      .add(convertToPixiLoaderEntries(SfxKeys))
+      .add(Object.values(Draw.getImageResourceKeys()))
+      .add(Draw.getSfxResourceKeys())
       .on('progress', (loader, resource) => console.log('loading ' + loader.progress + '%'))
       .load(this.onLoad.bind(this));
   }
@@ -856,6 +419,9 @@ class Game {
     world.addChild(this.containers.floorLayer = new PIXI.Container());
     world.addChild(this.containers.itemAndCreatureLayer = new PIXI.Container());
     world.addChild(this.containers.topLayer = new PIXI.Container());
+
+    this.modules.forEach((clientModule) => clientModule.onStart());
+
     this.app.ticker.add(this.tick.bind(this));
     this.registerListeners();
 
@@ -983,7 +549,7 @@ class Game {
 
       const focusCreature = client.context.getCreature(client.creatureId);
       if (!focusCreature) return;
-      const inventoryWindow = containerWindows.get(client.containerId);
+      const inventoryWindow = Draw.getContainerWindow(client.containerId);
 
       // Number keys for selecting tool in inventory.
       if (e.keyCode >= KEYS.ZERO && e.keyCode <= KEYS.NINE) {
@@ -1034,7 +600,7 @@ class Game {
 
       // Shift to pick up item.
       if (e.keyCode === KEYS.SHIFT && state.selectedView.tile) {
-        wire.send('moveItem', {
+        god.wire.send('moveItem', {
           fromSource: 0,
           from: state.selectedView.tile,
           toSource: client.containerId,
@@ -1049,7 +615,7 @@ class Game {
 
       // T to toggle z.
       if (e.key === 't') {
-        wire.send('move', {
+        god.wire.send('move', {
           ...focusCreature.pos,
           z: 1 - focusCreature.pos.z,
         });
@@ -1058,7 +624,7 @@ class Game {
 
     // resize the canvas to fill browser window dynamically
     const resize = () => {
-      const size = getCanvasSize();
+      const size = Draw.getCanvasSize();
       this.app.renderer.resize(size.width, size.height);
     };
     window.addEventListener('resize', resize);
@@ -1079,7 +645,7 @@ class Game {
       const to = e.loc;
       const toSource = e.source;
       if (!(fromSource === toSource && equalPoints(from, to))) {
-        wire.send('moveItem', {
+        god.wire.send('moveItem', {
           from,
           fromSource,
           to,
@@ -1088,6 +654,10 @@ class Game {
       }
 
       this.itemMovingState = null;
+    });
+
+    client.eventEmitter.on('containerWindowSelectedIndexChanged', () => {
+      renderSelectedView();
     });
 
     registerPanelListeners();
@@ -1105,15 +675,15 @@ class Game {
 
     // Make container windows.
     for (const [id, container] of client.context.containers.entries()) {
-      if (!containerWindows.has(id)) {
+      if (!Draw.hasContainerWindow(id)) {
         const containerWindow = Draw.makeItemContainerWindow(container);
-        containerWindows.set(id, containerWindow);
+        Draw.setContainerWindow(id, containerWindow);
 
         // Inventory.
         if (id === client.containerId) {
           // Draw so width and height are set.
           containerWindow.draw();
-          const size = getCanvasSize();
+          const size = Draw.getCanvasSize();
           containerWindow.container.x = size.width / 2 - containerWindow.container.width / 2;
           containerWindow.container.y = size.height - containerWindow.container.height;
         }
@@ -1145,12 +715,12 @@ class Game {
         let sprite;
         if (floor === WATER) {
           const template = getWaterFloor(client.context.map, { x, y, z });
-          sprite = new PIXI.Sprite(getTexture.templates(template));
+          sprite = new PIXI.Sprite(Draw.getTexture.templates(template));
         } else if (floor === MINE) {
           const template = getMineFloor(client.context.map, { x, y, z });
-          sprite = new PIXI.Sprite(getTexture.templates(template));
+          sprite = new PIXI.Sprite(Draw.getTexture.templates(template));
         } else {
-          sprite = new PIXI.Sprite(getTexture.floors(floor));
+          sprite = new PIXI.Sprite(Draw.getTexture.floors(floor));
         }
 
         sprite.x = x * 32;
@@ -1210,7 +780,7 @@ class Game {
         }
 
         if (tile.creature) {
-          const creatureSprite = new PIXI.Sprite(getTexture.creatures(tile.creature.image - 1));
+          const creatureSprite = new PIXI.Sprite(Draw.getTexture.creatures(tile.creature.image - 1));
           creatureSprite.x = x * 32;
           creatureSprite.y = y * 32;
           this.containers.itemAndCreatureLayer.addChild(creatureSprite);
@@ -1262,7 +832,7 @@ class Game {
           if (!state.selectedView.creatureId) selectView(undefined);
           ContextMenu.close();
           state.lastMove = performance.now();
-          wire.send('move', dest);
+          god.wire.send('move', dest);
           client.eventEmitter.emit('PlayerMove');
           if (state.destination && equalPoints(state.destination, dest)) {
             invalidateDestination();
@@ -1328,9 +898,15 @@ class Game {
   }
 }
 
-let game: Game;
 document.addEventListener('DOMContentLoaded', () => {
-  game = new Game();
+  const game = new Game();
+  god.game = game;
+
+  const moduleClasses = [SettingsClientModule];
+  for (const moduleClass of moduleClasses) {
+    game.addModule(new moduleClass(game, client));
+  }
+
   game.start();
   // @ts-ignore
   window.Gridia.game = game;
