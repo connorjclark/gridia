@@ -12,6 +12,7 @@ import god from './god';
 import * as Helper from './helper';
 import KEYS from './keys';
 import SettingsClientModule from './modules/settings-module';
+import SkillsClientModule from './modules/skills-module';
 import { getMineFloor, getWaterFloor } from './template-draw';
 
 // pixi-sound needs to load after PIXI. The linter reorders imports in a way
@@ -212,22 +213,6 @@ function renderSelectedView() {
   }
 }
 
-function renderSkills() {
-  const skillsEl = Helper.find('.skills');
-  skillsEl.innerHTML = '';
-
-  const sortedByName = [...client.skills.keys()].sort(
-    (a, b) => Content.getSkill(a).name.localeCompare(Content.getSkill(b).name));
-  for (const skillId of sortedByName) {
-    const skill = Content.getSkill(skillId);
-    const xp = client.skills.get(skillId);
-    const skillEl = document.createElement('div');
-    skillEl.classList.add('skill');
-    skillEl.innerText = `${skill.name} (${xp})`;
-    skillsEl.appendChild(skillEl);
-  }
-}
-
 function registerPanelListeners() {
   Helper.find('.panels__tabs').addEventListener('click', (e) => {
     Helper.find('.panels__tab--active').classList.toggle('panels__tab--active');
@@ -352,23 +337,6 @@ class Game {
   public async start() {
     client.eventEmitter.on('message', (e) => {
       // TODO improve type checking.
-      if (e.type === 'initialize') {
-        renderSkills();
-      }
-
-      if (e.type === 'xp') {
-        const statusTextEl = document.createElement('div');
-        statusTextEl.classList.add('status-text');
-        setTimeout(() => statusTextEl.classList.add('status-text--remove'), 500);
-        statusTextEl.innerText = `+${e.args.xp}xp ${Content.getSkill(e.args.skill).name}`;
-        // TODO: add one listener to .status-texts
-        statusTextEl.addEventListener('transitionend', () => statusTextEl.remove());
-        Helper.find('.status-texts').appendChild(statusTextEl);
-
-        // This is crap.
-        renderSkills();
-      }
-
       if (e.type === 'setItem') {
         const loc = {x: e.args.x, y: e.args.y, z: e.args.z};
         if (equalPoints(loc, state.selectedView.tile)) {
@@ -902,7 +870,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const game = new Game();
   god.game = game;
 
-  const moduleClasses = [SettingsClientModule];
+  const moduleClasses = [
+    SettingsClientModule,
+    SkillsClientModule,
+  ];
   for (const moduleClass of moduleClasses) {
     game.addModule(new moduleClass(game, client));
   }
