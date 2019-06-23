@@ -273,7 +273,7 @@ export function makeItemContainerWindow(container: Container) {
       window.contents.addChild(itemSprite);
     }
 
-    if (containerWindow.mouseOverIndex !== null && god.state.mouse.state === 'down') {
+    if (containerWindow.mouseOverIndex !== null && god.game.state.mouse.state === 'down') {
       const mouseHighlight = makeHighlight(0xffff00, 0.3);
       mouseHighlight.x = 32 * containerWindow.mouseOverIndex;
       mouseHighlight.y = 0;
@@ -343,7 +343,7 @@ export function makeItemSprite(item: Item) {
     if (meta.animations.length === 1) {
       texture = meta.animations[0];
     } else if (meta.animations.length > 1) {
-      const index = Math.floor((god.state.elapsedFrames * (60 / 1000)) % meta.animations.length);
+      const index = Math.floor((god.game.state.elapsedFrames * (60 / 1000)) % meta.animations.length);
       texture = meta.animations[index];
     }
   }

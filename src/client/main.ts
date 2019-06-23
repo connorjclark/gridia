@@ -19,21 +19,6 @@ god.client = client;
 client.PIXI = PIXI;
 client.PIXISound = PIXISound;
 
-const state: UIState = {
-  viewport: {
-    x: 0,
-    y: 0,
-  },
-  mouse: {
-    x: 0,
-    y: 0,
-    state: '',
-  },
-  elapsedFrames: 0,
-  selectedView: {},
-};
-god.state = state;
-
 // @ts-ignore - for debugging
 window.Gridia = {
   client,
@@ -74,7 +59,7 @@ function globalActionCreator(tile: Tile, loc: TilePoint): GameAction[] {
     });
   }
 
-  if (state.selectedView.tile) {
+  if (god.game.state.selectedView.tile) {
     const tool = Helper.getSelectedTool();
     if (tool && Helper.usageExists(tool.type, meta.id)) {
       actions.push({

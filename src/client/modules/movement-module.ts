@@ -81,7 +81,7 @@ class MovementClientModule extends ClientModule {
             this.invalidateDestination();
           }
 
-          delete god.state.mouse.tile;
+          delete this.game.state.mouse.tile;
         } else {
           // TODO - repath.
           this.invalidateDestination();

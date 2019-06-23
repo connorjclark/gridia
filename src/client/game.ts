@@ -62,10 +62,10 @@ const ContextMenu = {
 
 function renderSelectedView() {
   const el = Helper.find('.selected-view');
-  const tile = god.state.selectedView.tile ? god.client.context.map.getTile(god.state.selectedView.tile) : null;
+  const state = god.game.state;
+  const tile = state.selectedView.tile ? god.client.context.map.getTile(state.selectedView.tile) : null;
   const item = tile ? tile.item : null;
-  const creature =
-    god.state.selectedView.creatureId ? god.client.context.getCreature(god.state.selectedView.creatureId) : null;
+  const creature = state.selectedView.creatureId ? god.client.context.getCreature(state.selectedView.creatureId) : null;
 
   let data: Record<string, string>;
   let meta;
@@ -102,14 +102,14 @@ function renderSelectedView() {
   const actionsEl = Helper.find('.selected-view--actions', el);
   actionsEl.innerHTML = 'Actions:';
 
-  const actions = tile ? god.game.getActionsFor(tile, god.state.selectedView.tile) : [];
+  const actions = tile ? god.game.getActionsFor(tile, god.game.state.selectedView.tile) : [];
   for (const action of actions) {
     const actionEl = document.createElement('button');
     actionEl.classList.add('action');
     actionEl.innerText = action.innerText;
     actionEl.dataset.action = JSON.stringify(action);
-    if (creature) actionEl.dataset.creatureId = String(god.state.selectedView.creatureId);
-    else actionEl.dataset.loc = JSON.stringify(god.state.selectedView.tile);
+    if (creature) actionEl.dataset.creatureId = String(god.game.state.selectedView.creatureId);
+    else actionEl.dataset.loc = JSON.stringify(god.game.state.selectedView.tile);
     actionEl.title = action.title;
     actionsEl.appendChild(actionEl);
   }
@@ -161,8 +161,8 @@ function globalOnActionHandler(e: GameActionEvent) {
     switch (type) {
       case 'follow':
         // TODO path should update as creature moves.
-        // god.state.pathToDestination = findPath(client.context.map, focusPos, creature.pos);
-        // god.state.destination = creature.pos;
+        // god.game.state.pathToDestination = findPath(client.context.map, focusPos, creature.pos);
+        // god.game.state.destination = creature.pos;
         break;
       default:
         console.error('unknown action type', type);
@@ -174,15 +174,15 @@ function selectView(loc?: TilePoint) {
   if (loc) {
     const creature = god.client.context.map.getTile(loc).creature;
     if (creature && creature.id !== god.client.creatureId) {
-      god.state.selectedView.creatureId = creature.id;
-      god.state.selectedView.tile = null;
+      god.game.state.selectedView.creatureId = creature.id;
+      god.game.state.selectedView.tile = null;
     } else {
-      god.state.selectedView.tile = loc;
-      god.state.selectedView.creatureId = null;
+      god.game.state.selectedView.tile = loc;
+      god.game.state.selectedView.creatureId = null;
     }
   } else {
-    god.state.selectedView.tile = null;
-    god.state.selectedView.creatureId = null;
+    god.game.state.selectedView.tile = null;
+    god.game.state.selectedView.creatureId = null;
   }
 
   renderSelectedView();
@@ -194,12 +194,13 @@ function worldToTile(pw: ScreenPoint) {
 
 function mouseToWorld(pm: ScreenPoint): ScreenPoint {
   return {
-    x: pm.x + god.state.viewport.x,
-    y: pm.y + god.state.viewport.y,
+    x: pm.x + god.game.state.viewport.x,
+    y: pm.y + god.game.state.viewport.y,
   };
 }
 
 class Game {
+  public state: UIState;
   public keys: Record<number, boolean> = {};
   protected app: PIXI.Application;
   protected canvasesEl: HTMLElement;
@@ -210,7 +211,21 @@ class Game {
   protected modules: ClientModule[] = [];
   protected actionCreators: GameActionCreator[] = [];
 
-  constructor(public client: Client) {}
+  constructor(public client: Client) {
+    this.state = {
+      viewport: {
+        x: 0,
+        y: 0,
+      },
+      mouse: {
+        x: 0,
+        y: 0,
+        state: '',
+      },
+      elapsedFrames: 0,
+      selectedView: {},
+    };
+  }
 
   public addModule(clientModule: ClientModule) {
     this.modules.push(clientModule);
@@ -237,8 +252,8 @@ class Game {
       // TODO improve type checking.
       if (e.type === 'setItem') {
         const loc = {x: e.args.x, y: e.args.y, z: e.args.z};
-        if (equalPoints(loc, god.state.selectedView.tile)) {
-          selectView(god.state.selectedView.tile);
+        if (equalPoints(loc, this.state.selectedView.tile)) {
+          selectView(this.state.selectedView.tile);
         }
       }
     });
@@ -341,8 +356,8 @@ class Game {
     Helper.find('.contextmenu').addEventListener('click', onActionSelection);
 
     this.canvasesEl.addEventListener('mousemove', (e: MouseEvent) => {
-      god.state.mouse = {
-        ...god.state.mouse,
+      this.state.mouse = {
+        ...this.state.mouse,
         x: e.clientX,
         y: e.clientY,
         tile: worldToTile(mouseToWorld({ x: e.clientX, y: e.clientY })),
@@ -350,16 +365,16 @@ class Game {
     });
 
     this.canvasesEl.addEventListener('mousedown', (e: MouseEvent) => {
-      god.state.mouse = {
-        ...god.state.mouse,
+      this.state.mouse = {
+        ...this.state.mouse,
         state: 'down',
-        downTile: god.state.mouse.tile,
+        downTile: this.state.mouse.tile,
       };
     });
 
     this.canvasesEl.addEventListener('mouseup', (e: MouseEvent) => {
-      god.state.mouse = {
-        ...god.state.mouse,
+      this.state.mouse = {
+        ...this.state.mouse,
         state: 'up',
       };
     });
@@ -384,7 +399,7 @@ class Game {
 
       this.client.eventEmitter.emit('ItemMoveBegin', {
         source: 0,
-        loc: god.state.mouse.tile,
+        loc: this.state.mouse.tile,
         item,
       });
     });
@@ -397,15 +412,15 @@ class Game {
       // }
 
       const focusCreature = this.client.context.getCreature(this.client.creatureId);
-      if (focusCreature && equalPoints(god.state.mouse.tile, focusCreature.pos)) {
+      if (focusCreature && equalPoints(this.state.mouse.tile, focusCreature.pos)) {
         const evt: ItemMoveEvent = {
           source: this.client.containerId,
         };
         this.client.eventEmitter.emit('ItemMoveEnd', evt);
-      } else if (god.state.mouse.tile) {
+      } else if (this.state.mouse.tile) {
         const evt: ItemMoveEvent = {
           source: 0,
-          loc: god.state.mouse.tile,
+          loc: this.state.mouse.tile,
         };
         this.client.eventEmitter.emit('ItemMoveEnd', evt);
       }
@@ -461,10 +476,10 @@ class Game {
 
       if (dx || dy) {
         let currentCursor = null;
-        if (god.state.selectedView.creatureId) {
-          currentCursor = { ...this.client.context.getCreature(god.state.selectedView.creatureId).pos };
-        } else if (god.state.selectedView.tile) {
-          currentCursor = god.state.selectedView.tile;
+        if (this.state.selectedView.creatureId) {
+          currentCursor = { ...this.client.context.getCreature(this.state.selectedView.creatureId).pos };
+        } else if (this.state.selectedView.tile) {
+          currentCursor = this.state.selectedView.tile;
         } else {
           currentCursor = { ...focusCreature.pos };
         }
@@ -476,23 +491,23 @@ class Game {
       }
 
       // Space bar to use tool.
-      if (e.keyCode === KEYS.SPACE_BAR && god.state.selectedView.tile) {
-        Helper.useTool(god.state.selectedView.tile);
+      if (e.keyCode === KEYS.SPACE_BAR && this.state.selectedView.tile) {
+        Helper.useTool(this.state.selectedView.tile);
       }
 
       // Shift to pick up item.
-      if (e.keyCode === KEYS.SHIFT && god.state.selectedView.tile) {
+      if (e.keyCode === KEYS.SHIFT && this.state.selectedView.tile) {
         this.client.wire.send('moveItem', {
           fromSource: 0,
-          from: god.state.selectedView.tile,
+          from: this.state.selectedView.tile,
           toSource: this.client.containerId,
           to: null,
         });
       }
 
       // Alt to use hand on item.
-      if (e.key === 'Alt' && god.state.selectedView.tile) {
-        Helper.useHand(god.state.selectedView.tile);
+      if (e.key === 'Alt' && this.state.selectedView.tile) {
+        Helper.useHand(this.state.selectedView.tile);
       }
 
       // T to toggle z.
@@ -543,7 +558,7 @@ class Game {
     });
 
     this.client.eventEmitter.on('PlayerMove', () => {
-      if (!god.state.selectedView.creatureId) selectView(undefined);
+      if (!this.state.selectedView.creatureId) selectView(undefined);
       ContextMenu.close();
     });
 
@@ -553,7 +568,7 @@ class Game {
   }
 
   public tick() {
-    god.state.elapsedFrames = (god.state.elapsedFrames + 1) % 60000;
+    this.state.elapsedFrames = (this.state.elapsedFrames + 1) % 60000;
 
     const focusCreature = this.client.context.getCreature(this.client.creatureId);
     const focusPos = focusCreature ? focusCreature.pos : { x: 0, y: 0, z: 0 };
@@ -584,15 +599,15 @@ class Game {
       window.draw();
     }
 
-    god.state.viewport = {
+    this.state.viewport = {
       x: focusPos.x * 32 - this.app.view.width / 2,
       y: focusPos.y * 32 - this.app.view.height / 2,
     };
 
     const tilesWidth = Math.ceil(this.app.view.width / 32);
     const tilesHeight = Math.ceil(this.app.view.height / 32);
-    const startTileX = Math.floor(god.state.viewport.x / 32);
-    const startTileY = Math.floor(god.state.viewport.y / 32);
+    const startTileX = Math.floor(this.state.viewport.x / 32);
+    const startTileY = Math.floor(this.state.viewport.y / 32);
     const endTileX = startTileX + tilesWidth;
     const endTileY = startTileY + tilesHeight;
 
@@ -688,16 +703,16 @@ class Game {
     // Draw item being moved.
     if (this.itemMovingState && this.mouseHasMovedSinceItemMoveBegin && this.itemMovingState.item) {
       const itemSprite = Draw.makeItemSprite(this.itemMovingState.item);
-      const { x, y } = mouseToWorld(god.state.mouse);
+      const { x, y } = mouseToWorld(this.state.mouse);
       itemSprite.x = x - 16;
       itemSprite.y = y - 16;
       this.containers.topLayer.addChild(itemSprite);
     }
 
     // Draw highlight over selected view.
-    const selectedViewLoc = god.state.selectedView.creatureId ?
-    this.client.context.getCreature(god.state.selectedView.creatureId).pos :
-      god.state.selectedView.tile;
+    const selectedViewLoc = this.state.selectedView.creatureId ?
+    this.client.context.getCreature(this.state.selectedView.creatureId).pos :
+      this.state.selectedView.tile;
     if (selectedViewLoc) {
       const highlight = Draw.makeHighlight(0xffff00, 0.2);
       highlight.x = selectedViewLoc.x * 32;
@@ -705,9 +720,9 @@ class Game {
       this.containers.topLayer.addChild(highlight);
 
       // If item is the selected view, draw selected tool if usable.
-      if (!god.state.selectedView.creatureId) {
+      if (!this.state.selectedView.creatureId) {
         const tool = Helper.getSelectedTool();
-        const selectedItem = this.client.context.map.getItem(god.state.selectedView.tile);
+        const selectedItem = this.client.context.map.getItem(this.state.selectedView.tile);
         if (tool && selectedItem && Helper.usageExists(tool.type, selectedItem.type)) {
           const itemSprite = Draw.makeItemSprite({type: tool.type, quantity: 1});
           itemSprite.anchor.x = itemSprite.anchor.y = 0.5;
@@ -717,12 +732,12 @@ class Game {
     }
 
     // Draw name of item under mouse.
-    const itemUnderMouse = god.state.mouse.tile && this.client.context.map.getItem(god.state.mouse.tile);
+    const itemUnderMouse = this.state.mouse.tile && this.client.context.map.getItem(this.state.mouse.tile);
     if (itemUnderMouse) {
       const meta = Content.getMetaItem(itemUnderMouse.type);
       const text = itemUnderMouse.quantity === 1 ? meta.name : `${meta.name} (${itemUnderMouse.quantity})`;
       const label = new PIXI.Text(text, {fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round'});
-      const { x, y } = mouseToWorld(god.state.mouse);
+      const { x, y } = mouseToWorld(this.state.mouse);
       label.anchor.x = 0.5;
       label.anchor.y = 1;
       label.x = x;
