@@ -125,11 +125,19 @@ interface UIState {
     tile?: TilePoint;
     creatureId?: number;
   };
-  keys: {
-    [index: number]: boolean;
-  };
   elapsedFrames: number;
-  lastMove: number;
-  destination: TilePoint | null;
-  pathToDestination: TilePoint[];
+}
+
+interface GameAction {
+  type: string;
+  innerText: string;
+  title: string;
+}
+
+type GameActionCreator = (tile: Tile, loc: TilePoint) => GameAction[] | GameAction | undefined;
+
+interface GameActionEvent {
+  action: GameAction;
+  loc: TilePoint;
+  creature: Creature;
 }

@@ -2,7 +2,6 @@ import {OutlineFilter} from '@pixi/filter-outline';
 import * as PIXI from 'pixi.js';
 import { MINE, WATER } from '../constants';
 import * as Content from '../content';
-import { findPath } from '../path-finding';
 import { equalPoints, worldToTile as _worldToTile } from '../utils';
 import Client from './client';
 import ClientModule from './client-module';
@@ -11,6 +10,7 @@ import * as Draw from './draw';
 import god from './god';
 import * as Helper from './helper';
 import KEYS from './keys';
+import MovementClientModule from './modules/movement-module';
 import SettingsClientModule from './modules/settings-module';
 import SkillsClientModule from './modules/skills-module';
 import { getMineFloor, getWaterFloor } from './template-draw';
@@ -35,11 +35,7 @@ const state: UIState = {
     y: 0,
     state: '',
   },
-  keys: {},
   elapsedFrames: 0,
-  lastMove: performance.now(),
-  destination: null,
-  pathToDestination: [],
   selectedView: {},
 };
 god.state = state;
@@ -81,21 +77,22 @@ const ContextMenu = {
 
     contextMenuEl.innerHTML = '';
     const tile = client.context.map.getTile(loc);
-    const actions = getActionsForTile(tile);
+    const actions: GameAction[] = god.game.getActionsFor(tile, loc);
     actions.push({
+      type: 'cancel',
       innerText: 'Cancel',
       title: '',
-      action: 'cancel',
     });
     actions.push({
+      type: 'move-here',
       innerText: 'Move Here',
       title: '',
-      action: 'move-here',
     });
     for (const action of actions) {
       const actionEl = document.createElement('div');
+      actionEl.classList.add('action');
       actionEl.innerText = action.innerText;
-      actionEl.dataset.action = action.action;
+      actionEl.dataset.action = JSON.stringify(action);
       actionEl.dataset.loc = JSON.stringify(loc);
       actionEl.title = action.title;
       contextMenuEl.appendChild(actionEl);
@@ -103,32 +100,32 @@ const ContextMenu = {
   },
 };
 
-function getActionsForTile(tile: Tile) {
+function globalActionCreator(tile: Tile, loc: TilePoint): GameAction[] {
   const item = tile.item;
   const meta = Content.getMetaItem(item ? item.type : 0);
-  const actions = [] as Array<{innerText: string, title: string, action: SelectedViewAction}>;
+  const actions = [] as Array<{innerText: string, title: string, type: string}>;
 
   if (item && meta.moveable) {
     actions.push({
+      type: 'pickup',
       innerText: 'Pickup',
       title: 'Shortcut: Shift',
-      action: 'pickup',
     });
   }
 
   if (item && Helper.canUseHand(item.type)) {
     actions.push({
+      type: 'use-hand',
       innerText: 'Use Hand',
       title: 'Shortcut: Alt',
-      action: 'use-hand',
     });
   }
 
   if (meta.class === 'Container') {
     actions.push({
+      type: 'open-container',
       innerText: 'Open',
       title: 'Look inside',
-      action: 'open-container',
     });
   }
 
@@ -136,24 +133,12 @@ function getActionsForTile(tile: Tile) {
     const tool = Helper.getSelectedTool();
     if (tool && Helper.usageExists(tool.type, meta.id)) {
       actions.push({
+        type: 'use-tool',
         innerText: `Use ${Content.getMetaItem(tool.type).name}`,
         title: 'Shortcut: Spacebar',
-        action: 'use-tool',
       });
     }
   }
-
-  return actions;
-}
-
-function getActionsForCreature(creature: Creature) {
-  const actions = [] as Array<{innerText: string, title: string, action: SelectedViewAction}>;
-
-  actions.push({
-    innerText: 'Follow',
-    title: 'Follow',
-    action: 'follow',
-  });
 
   return actions;
 }
@@ -199,13 +184,13 @@ function renderSelectedView() {
   const actionsEl = Helper.find('.selected-view--actions', el);
   actionsEl.innerHTML = 'Actions:';
 
-  const actions = creature ?
-    getActionsForCreature(creature) :
-    meta ? getActionsForTile(tile) : [];
+  // TODO: remove explicit type when god.game is typed
+  const actions: GameAction[] = tile ? god.game.getActionsFor(tile, state.selectedView.tile) : [];
   for (const action of actions) {
     const actionEl = document.createElement('button');
+    actionEl.classList.add('action');
     actionEl.innerText = action.innerText;
-    actionEl.dataset.action = action.action;
+    actionEl.dataset.action = JSON.stringify(action);
     if (creature) actionEl.dataset.creatureId = String(state.selectedView.creatureId);
     else actionEl.dataset.loc = JSON.stringify(state.selectedView.tile);
     actionEl.title = action.title;
@@ -225,29 +210,16 @@ function registerPanelListeners() {
   });
 }
 
-// TODO: rename.
-type SelectedViewAction =
-  'cancel' |
-  'follow' |
-  'move-here' |
-  'open-container' |
-  'pickup' |
-  'use-hand' |
-  'use-tool';
-
-function onAction(e: Event) {
+function globalOnActionHandler(e: GameActionEvent) {
   ContextMenu.close();
 
-  // @ts-ignore
-  const dataset = e.target.dataset;
-  const type: SelectedViewAction = dataset.action;
-  const focusPos = client.context.getCreature(client.creatureId).pos;
+  const type = e.action.type;
+  const {loc} = e;
 
   // Do nothing.
   if (type === 'cancel') return;
 
-  if (dataset.loc) {
-    const loc: TilePoint = JSON.parse(dataset.loc);
+  if (loc) {
     switch (type) {
       case 'pickup':
         god.wire.send('moveItem', {
@@ -265,16 +237,10 @@ function onAction(e: Event) {
       case 'open-container':
         Helper.openContainer(loc);
         break;
-      case 'move-here':
-        state.pathToDestination = findPath(client.context.map, focusPos, loc);
-        state.destination = loc;
-        break;
       default:
-        console.error('unknown action type', type);
+        // console.error('unknown action type', type);
     }
   } else {
-    const creatureId = Number(dataset.creatureId);
-    const creature = creatureId ? client.context.getCreature(creatureId) : null;
     switch (type) {
       case 'follow':
         // TODO path should update as creature moves.
@@ -305,11 +271,6 @@ function selectView(loc?: TilePoint) {
   renderSelectedView();
 }
 
-function invalidateDestination() {
-  state.destination = null;
-  state.pathToDestination = [];
-}
-
 function worldToTile(pw: ScreenPoint) {
   return _worldToTile(pw, Helper.getZ());
 }
@@ -329,9 +290,27 @@ class Game {
   protected itemMovingState: ItemMoveEvent = null;
   protected mouseHasMovedSinceItemMoveBegin = false;
   protected modules: ClientModule[] = [];
+  protected keys: Record<number, boolean> = {};
+  protected actionCreators: GameActionCreator[] = [];
 
   public addModule(clientModule: ClientModule) {
     this.modules.push(clientModule);
+  }
+
+  public addActionCreator(actionCreator: GameActionCreator) {
+    this.actionCreators.push(actionCreator);
+  }
+
+  public getActionsFor(tile: Tile, loc: TilePoint): GameAction[] {
+    const actions = [];
+
+    for (const actionCreator of this.actionCreators) {
+      const action = actionCreator(tile, loc);
+      if (Array.isArray(action)) actions.push(...action);
+      else if (action) actions.push(action);
+    }
+
+    return actions;
   }
 
   public async start() {
@@ -423,8 +402,24 @@ class Game {
   }
 
   public registerListeners() {
-    Helper.find('.selected-view--actions').addEventListener('click', onAction);
-    Helper.find('.contextmenu').addEventListener('click', onAction);
+    const onActionSelection = (e: Event) => {
+      if (!(e.target instanceof HTMLElement)) return;
+      if (!e.target.classList.contains('action')) return;
+
+      // @ts-ignore
+      const dataset = e.target.dataset;
+      const action: GameAction = JSON.parse(dataset.action);
+      const loc: TilePoint = JSON.parse(dataset.loc);
+      const creatureId = Number(dataset.creatureId);
+      const creature = creatureId ? client.context.getCreature(creatureId) : null;
+      client.eventEmitter.emit('Action', {
+        action,
+        loc,
+        creature,
+      } as GameActionEvent);
+    };
+    Helper.find('.selected-view--actions').addEventListener('click', onActionSelection);
+    Helper.find('.contextmenu').addEventListener('click', onActionSelection);
 
     this.canvasesEl.addEventListener('mousemove', (e: MouseEvent) => {
       state.mouse = {
@@ -510,10 +505,10 @@ class Game {
     });
 
     document.onkeydown = (e) => {
-      state.keys[e.keyCode] = true;
+      this.keys[e.keyCode] = true;
     };
     document.onkeyup = (e) => {
-      delete state.keys[e.keyCode];
+      delete this.keys[e.keyCode];
 
       const focusCreature = client.context.getCreature(client.creatureId);
       if (!focusCreature) return;
@@ -627,6 +622,13 @@ class Game {
     client.eventEmitter.on('containerWindowSelectedIndexChanged', () => {
       renderSelectedView();
     });
+
+    client.eventEmitter.on('PlayerMove', () => {
+      if (!state.selectedView.creatureId) selectView(undefined);
+      ContextMenu.close();
+    });
+
+    client.eventEmitter.on('Action', globalOnActionHandler);
 
     registerPanelListeners();
   }
@@ -762,58 +764,6 @@ class Game {
       }
     }
 
-    if (focusCreature && performance.now() - state.lastMove > 200) {
-      let dest: TilePoint = { ...focusCreature.pos };
-
-      const keyInputDelta = {x: 0, y: 0, z: 0};
-      if (state.keys[KEYS.W]) {
-        keyInputDelta.y -= 1;
-      } else if (state.keys[KEYS.S]) {
-        keyInputDelta.y += 1;
-      }
-      if (state.keys[KEYS.A]) {
-        keyInputDelta.x -= 1;
-      } else if (state.keys[KEYS.D]) {
-        keyInputDelta.x += 1;
-      }
-
-      if (state.destination && state.destination.z !== focusCreature.pos.z) {
-        invalidateDestination();
-      }
-
-      if (!equalPoints(keyInputDelta, {x: 0, y: 0, z: 0})) {
-        dest = { ...focusCreature.pos };
-        dest.x += keyInputDelta.x;
-        dest.y += keyInputDelta.y;
-        invalidateDestination();
-      } else if (state.destination) {
-        dest = state.pathToDestination.splice(0, 1)[0];
-      }
-
-      if (dest && !equalPoints(dest, focusCreature.pos)) {
-        const itemToMoveTo = client.context.map.getItem(dest);
-        if (itemToMoveTo && Content.getMetaItem(itemToMoveTo.type).class === 'Container') {
-          Helper.openContainer(dest);
-        }
-
-        if (client.context.map.walkable(dest)) {
-          if (!state.selectedView.creatureId) selectView(undefined);
-          ContextMenu.close();
-          state.lastMove = performance.now();
-          god.wire.send('move', dest);
-          client.eventEmitter.emit('PlayerMove');
-          if (state.destination && equalPoints(state.destination, dest)) {
-            invalidateDestination();
-          }
-
-          delete state.mouse.tile;
-        } else {
-          // TODO - repath.
-          invalidateDestination();
-        }
-      }
-    }
-
     this.containers.topLayer.removeChildren();
 
     // Draw item being moved.
@@ -863,6 +813,8 @@ class Game {
 
     this.containers.world.x = -focusPos.x * 32 + Math.floor(this.app.view.width / 2);
     this.containers.world.y = -focusPos.y * 32 + Math.floor(this.app.view.height / 2);
+
+    this.modules.forEach((clientModule) => clientModule.onTick());
   }
 }
 
@@ -871,12 +823,15 @@ document.addEventListener('DOMContentLoaded', () => {
   god.game = game;
 
   const moduleClasses = [
+    MovementClientModule,
     SettingsClientModule,
     SkillsClientModule,
   ];
   for (const moduleClass of moduleClasses) {
     game.addModule(new moduleClass(game, client));
   }
+
+  game.addActionCreator(globalActionCreator);
 
   game.start();
   // @ts-ignore
