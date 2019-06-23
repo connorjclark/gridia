@@ -37,7 +37,7 @@ class MovementClientModule extends ClientModule {
     if (!focusCreature) return;
     if (this.game.client.context.map.width === 0) return;
 
-    if (focusCreature && performance.now() - this.lastMove > 400) {
+    if (focusCreature && performance.now() - this.lastMove > 300) {
       let dest: TilePoint = { ...focusCreature.pos };
 
       const keyInputDelta = {x: 0, y: 0, z: 0};
@@ -59,6 +59,10 @@ class MovementClientModule extends ClientModule {
 
       if (this.followCreature) {
         this.pathToDestination = findPath(this.game.client.context.map, focusPos, this.followCreature.pos);
+      } else if (this.pathToDestination) {
+        // re-calc
+        const destination = this.pathToDestination[this.pathToDestination.length - 1];
+        this.pathToDestination = findPath(this.game.client.context.map, focusPos, destination);
       }
 
       if (!equalPoints(keyInputDelta, {x: 0, y: 0, z: 0})) {
@@ -81,9 +85,6 @@ class MovementClientModule extends ClientModule {
           this.game.client.wire.send('move', dest);
           this.game.client.eventEmitter.emit('PlayerMove');
           delete this.game.state.mouse.tile;
-        } else if (!this.followCreature) {
-          // TODO - repath.
-          this.invalidateDestination();
         }
       }
     }
