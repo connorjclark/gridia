@@ -57,6 +57,7 @@ class MovementClientModule extends ClientModule {
         this.invalidateDestination();
       }
 
+      // TODO: only re-calc if path is obstructed.
       if (this.followCreature) {
         this.pathToDestination = findPath(this.game.client.context.map, focusPos, this.followCreature.pos);
       } else if (this.pathToDestination) {

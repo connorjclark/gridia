@@ -16,7 +16,9 @@ export function findPath(map: WorldMap, from: TilePoint, to: TilePoint) {
   }
 
   function estimate(a: TilePoint, b: TilePoint) {
-    return dist(a, b);
+    // this prioritizes movement to get to the correct x or y coord as soon
+    // as possible.
+    return Math.pow(Math.abs(b.x - a.x), 1.1) + Math.pow(Math.abs(b.y - a.y), 1.1);
   }
 
   function build() {
