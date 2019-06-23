@@ -201,7 +201,7 @@ export function makeItemContainerWindow(container: Container) {
     // the tool changes, should re-render the selected item panel.
     set selectedIndex(selectedIndex: number) {
       this._selectedIndex = selectedIndex;
-      god.client.eventEmitter.emit('containerWindowSelectedIndexChanged');
+      god.game.client.eventEmitter.emit('containerWindowSelectedIndexChanged');
     },
     get selectedIndex() { return this._selectedIndex; },
   };
@@ -219,7 +219,7 @@ export function makeItemContainerWindow(container: Container) {
         loc: { x: index, y: 0, z: 0 },
         item: container.items[index],
       };
-      god.client.eventEmitter.emit('ItemMoveBegin', evt);
+      god.game.client.eventEmitter.emit('ItemMoveBegin', evt);
     })
     .on('mousemove', (e: PIXI.interaction.InteractionEvent) => {
       if (e.target !== window.contents) {
@@ -241,27 +241,27 @@ export function makeItemContainerWindow(container: Container) {
           source: container.id,
           loc: { x: containerWindow.mouseOverIndex, y: 0, z: 0 },
         };
-        god.client.eventEmitter.emit('ItemMoveEnd', evt);
+        god.game.client.eventEmitter.emit('ItemMoveEnd', evt);
       }
       if (mouseDownIndex === containerWindow.mouseOverIndex) {
         containerWindow.selectedIndex = mouseDownIndex;
       }
     });
 
-  if (container.id !== god.client.containerId) {
-    god.client.eventEmitter.on('PlayerMove', close);
+  if (container.id !== god.game.client.containerId) {
+    god.game.client.eventEmitter.on('PlayerMove', close);
   }
 
   function close() {
-    god.client.eventEmitter.removeListener('PlayerMove', close);
+    god.game.client.eventEmitter.removeListener('PlayerMove', close);
     god.game.removeWindow(containerWindow);
     containerWindows.delete(container.id);
-    god.client.context.containers.delete(container.id);
+    god.game.client.context.containers.delete(container.id);
   }
 
   function draw() {
     // Hack: b/c container is requested multiple times, 'container' reference can get stale.
-    container = god.client.context.containers.get(container.id);
+    container = god.game.client.context.containers.get(container.id);
     window.contents.removeChildren();
     for (const [i, item] of container.items.entries()) {
       const itemSprite = makeItemSprite(item ? item : { type: 0, quantity: 1 });
@@ -304,10 +304,10 @@ export function makeUsageWindow(tool: Item, focus: Item, usages: ItemUse[], loc:
       Helper.useTool(loc, index);
     });
 
-  god.client.eventEmitter.on('PlayerMove', close);
+  god.game.client.eventEmitter.on('PlayerMove', close);
 
   function close() {
-    god.client.eventEmitter.removeListener('PlayerMove', close);
+    god.game.client.eventEmitter.removeListener('PlayerMove', close);
     god.game.removeWindow(usageWindow);
   }
 

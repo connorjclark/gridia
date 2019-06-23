@@ -11,7 +11,7 @@ export function usageExists(tool: number, focus: number) {
 }
 
 export function useHand(loc: TilePoint) {
-  god.client.wire.send('use', {
+  god.game.client.wire.send('use', {
     toolIndex: -1,
     loc,
   });
@@ -20,7 +20,7 @@ export function useHand(loc: TilePoint) {
 export function useTool(loc: TilePoint, usageIndex?: number) {
   const toolIndex = getSelectedToolIndex();
   const tool = getSelectedTool();
-  const focus = god.client.context.map.getItem(loc) || {type: 0, quantity: 0};
+  const focus = god.game.client.context.map.getItem(loc) || {type: 0, quantity: 0};
   const usages = Content.getItemUses(tool.type, focus.type);
 
   if (usages.length === 0) {
@@ -28,7 +28,7 @@ export function useTool(loc: TilePoint, usageIndex?: number) {
   }
 
   if (usages.length === 1 || usageIndex !== undefined) {
-    god.client.wire.send('use', {
+    god.game.client.wire.send('use', {
       toolIndex,
       loc,
       usageIndex,
@@ -41,29 +41,29 @@ export function useTool(loc: TilePoint, usageIndex?: number) {
 // TODO: add tests checking that subscribed containers are updated in all clients.
 // TODO: don't keep requesting container if already open.
 export function openContainer(loc: TilePoint) {
-  god.client.wire.send('requestContainer', {
+  god.game.client.wire.send('requestContainer', {
     loc,
   });
 }
 
 export function closeContainer(containerId: number) {
-  god.client.wire.send('closeContainer', {
+  god.game.client.wire.send('closeContainer', {
     containerId,
   });
 }
 
 export function getZ() {
-  const focusCreature = god.client.context.getCreature(god.client.creatureId);
+  const focusCreature = god.game.client.context.getCreature(god.game.client.creatureId);
   return focusCreature ? focusCreature.pos.z : 0;
 }
 
 export function getSelectedTool() {
-  const inventoryWindow = Draw.getContainerWindow(god.client.containerId);
+  const inventoryWindow = Draw.getContainerWindow(god.game.client.containerId);
   return inventoryWindow.itemsContainer.items[inventoryWindow.selectedIndex];
 }
 
 export function getSelectedToolIndex() {
-  const inventoryWindow = Draw.getContainerWindow(god.client.containerId);
+  const inventoryWindow = Draw.getContainerWindow(god.game.client.containerId);
   return inventoryWindow.selectedIndex;
 }
 

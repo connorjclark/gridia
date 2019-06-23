@@ -15,7 +15,6 @@ import SkillsClientModule from './modules/skills-module';
 const PIXISound: typeof import('pixi-sound') = require('pixi-sound').default;
 
 const client = new Client();
-god.client = client;
 client.PIXI = PIXI;
 client.PIXISound = PIXISound;
 

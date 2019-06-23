@@ -36,7 +36,7 @@ const ContextMenu = {
     contextMenuEl.style.top = screen.y + 'px';
 
     contextMenuEl.innerHTML = '';
-    const tile = god.client.context.map.getTile(loc);
+    const tile = god.game.client.context.map.getTile(loc);
     const actions = god.game.getActionsFor(tile, loc);
     actions.push({
       type: 'cancel',
@@ -63,9 +63,10 @@ const ContextMenu = {
 function renderSelectedView() {
   const el = Helper.find('.selected-view');
   const state = god.game.state;
-  const tile = state.selectedView.tile ? god.client.context.map.getTile(state.selectedView.tile) : null;
+  const tile = state.selectedView.tile ? god.game.client.context.map.getTile(state.selectedView.tile) : null;
   const item = tile ? tile.item : null;
-  const creature = state.selectedView.creatureId ? god.client.context.getCreature(state.selectedView.creatureId) : null;
+  const creature =
+    state.selectedView.creatureId ? god.game.client.context.getCreature(state.selectedView.creatureId) : null;
 
   let data: Record<string, string>;
   let meta;
@@ -139,10 +140,10 @@ function globalOnActionHandler(e: GameActionEvent) {
   if (loc) {
     switch (type) {
       case 'pickup':
-        god.client.wire.send('moveItem', {
+        god.game.client.wire.send('moveItem', {
           fromSource: 0,
           from: loc,
-          toSource: god.client.containerId,
+          toSource: god.game.client.containerId,
         });
         break;
       case 'use-hand':
@@ -172,8 +173,8 @@ function globalOnActionHandler(e: GameActionEvent) {
 
 function selectView(loc?: TilePoint) {
   if (loc) {
-    const creature = god.client.context.map.getTile(loc).creature;
-    if (creature && creature.id !== god.client.creatureId) {
+    const creature = god.game.client.context.map.getTile(loc).creature;
+    if (creature && creature.id !== god.game.client.creatureId) {
       god.game.state.selectedView.creatureId = creature.id;
       god.game.state.selectedView.tile = null;
     } else {
