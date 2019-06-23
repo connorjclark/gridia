@@ -1,8 +1,8 @@
 import { OutlineFilter } from '@pixi/filter-outline';
 import Container from '../container';
 import * as Content from '../content';
+import { game } from '../game-singleton';
 import * as Utils from '../utils';
-import god from './god';
 import * as Helper from './helper';
 
 type ContainerWindow = ReturnType<typeof makeItemContainerWindow>;
@@ -201,7 +201,7 @@ export function makeItemContainerWindow(container: Container) {
     // the tool changes, should re-render the selected item panel.
     set selectedIndex(selectedIndex: number) {
       this._selectedIndex = selectedIndex;
-      god.game.client.eventEmitter.emit('containerWindowSelectedIndexChanged');
+      game.client.eventEmitter.emit('containerWindowSelectedIndexChanged');
     },
     get selectedIndex() { return this._selectedIndex; },
   };
@@ -219,7 +219,7 @@ export function makeItemContainerWindow(container: Container) {
         loc: { x: index, y: 0, z: 0 },
         item: container.items[index],
       };
-      god.game.client.eventEmitter.emit('ItemMoveBegin', evt);
+      game.client.eventEmitter.emit('ItemMoveBegin', evt);
     })
     .on('mousemove', (e: PIXI.interaction.InteractionEvent) => {
       if (e.target !== window.contents) {
@@ -241,27 +241,27 @@ export function makeItemContainerWindow(container: Container) {
           source: container.id,
           loc: { x: containerWindow.mouseOverIndex, y: 0, z: 0 },
         };
-        god.game.client.eventEmitter.emit('ItemMoveEnd', evt);
+        game.client.eventEmitter.emit('ItemMoveEnd', evt);
       }
       if (mouseDownIndex === containerWindow.mouseOverIndex) {
         containerWindow.selectedIndex = mouseDownIndex;
       }
     });
 
-  if (container.id !== god.game.client.containerId) {
-    god.game.client.eventEmitter.on('PlayerMove', close);
+  if (container.id !== game.client.containerId) {
+    game.client.eventEmitter.on('PlayerMove', close);
   }
 
   function close() {
-    god.game.client.eventEmitter.removeListener('PlayerMove', close);
-    god.game.removeWindow(containerWindow);
+    game.client.eventEmitter.removeListener('PlayerMove', close);
+    game.removeWindow(containerWindow);
     containerWindows.delete(container.id);
-    god.game.client.context.containers.delete(container.id);
+    game.client.context.containers.delete(container.id);
   }
 
   function draw() {
     // Hack: b/c container is requested multiple times, 'container' reference can get stale.
-    container = god.game.client.context.containers.get(container.id);
+    container = game.client.context.containers.get(container.id);
     window.contents.removeChildren();
     for (const [i, item] of container.items.entries()) {
       const itemSprite = makeItemSprite(item ? item : { type: 0, quantity: 1 });
@@ -273,7 +273,7 @@ export function makeItemContainerWindow(container: Container) {
       window.contents.addChild(itemSprite);
     }
 
-    if (containerWindow.mouseOverIndex !== null && god.game.state.mouse.state === 'down') {
+    if (containerWindow.mouseOverIndex !== null && game.state.mouse.state === 'down') {
       const mouseHighlight = makeHighlight(0xffff00, 0.3);
       mouseHighlight.x = 32 * containerWindow.mouseOverIndex;
       mouseHighlight.y = 0;
@@ -285,7 +285,7 @@ export function makeItemContainerWindow(container: Container) {
 
   // TODO: take actual positions of windows into account.
   window.container.y = (containerWindows.size - 1) * 50;
-  god.game.addWindow(containerWindow);
+  game.addWindow(containerWindow);
   return containerWindow;
 }
 
@@ -304,11 +304,11 @@ export function makeUsageWindow(tool: Item, focus: Item, usages: ItemUse[], loc:
       Helper.useTool(loc, index);
     });
 
-  god.game.client.eventEmitter.on('PlayerMove', close);
+  game.client.eventEmitter.on('PlayerMove', close);
 
   function close() {
-    god.game.client.eventEmitter.removeListener('PlayerMove', close);
-    god.game.removeWindow(usageWindow);
+    game.client.eventEmitter.removeListener('PlayerMove', close);
+    game.removeWindow(usageWindow);
   }
 
   function draw() {
@@ -325,7 +325,7 @@ export function makeUsageWindow(tool: Item, focus: Item, usages: ItemUse[], loc:
   }
 
   window.container.x = window.container.y = 40;
-  god.game.addWindow(usageWindow);
+  game.addWindow(usageWindow);
   return usageWindow;
 }
 
@@ -343,7 +343,7 @@ export function makeItemSprite(item: Item) {
     if (meta.animations.length === 1) {
       texture = meta.animations[0];
     } else if (meta.animations.length > 1) {
-      const index = Math.floor((god.game.state.elapsedFrames * (60 / 1000)) % meta.animations.length);
+      const index = Math.floor((game.state.elapsedFrames * (60 / 1000)) % meta.animations.length);
       texture = meta.animations[index];
     }
   }

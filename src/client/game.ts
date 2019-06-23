@@ -1,12 +1,12 @@
 import {OutlineFilter} from '@pixi/filter-outline';
 import { MINE, WATER } from '../constants';
 import * as Content from '../content';
+import { game } from '../game-singleton';
 import {equalPoints, worldToTile as _worldToTile} from '../utils';
 import Client from './client';
 import ClientModule from './client-module';
 import { connect, openAndConnectToServerInMemory } from './connect-to-server';
 import * as Draw from './draw';
-import god from './god';
 import * as Helper from './helper';
 import KEYS from './keys';
 import { getMineFloor, getWaterFloor } from './template-draw';
@@ -36,8 +36,8 @@ const ContextMenu = {
     contextMenuEl.style.top = screen.y + 'px';
 
     contextMenuEl.innerHTML = '';
-    const tile = god.game.client.context.map.getTile(loc);
-    const actions = god.game.getActionsFor(tile, loc);
+    const tile = game.client.context.map.getTile(loc);
+    const actions = game.getActionsFor(tile, loc);
     actions.push({
       type: 'cancel',
       innerText: 'Cancel',
@@ -62,11 +62,11 @@ const ContextMenu = {
 
 function renderSelectedView() {
   const el = Helper.find('.selected-view');
-  const state = god.game.state;
-  const tile = state.selectedView.tile ? god.game.client.context.map.getTile(state.selectedView.tile) : null;
+  const state = game.state;
+  const tile = state.selectedView.tile ? game.client.context.map.getTile(state.selectedView.tile) : null;
   const item = tile ? tile.item : null;
   const creature =
-    state.selectedView.creatureId ? god.game.client.context.getCreature(state.selectedView.creatureId) : null;
+    state.selectedView.creatureId ? game.client.context.getCreature(state.selectedView.creatureId) : null;
 
   let data: Record<string, string>;
   let meta;
@@ -103,14 +103,14 @@ function renderSelectedView() {
   const actionsEl = Helper.find('.selected-view--actions', el);
   actionsEl.innerHTML = 'Actions:';
 
-  const actions = tile ? god.game.getActionsFor(tile, god.game.state.selectedView.tile) : [];
+  const actions = tile ? game.getActionsFor(tile, game.state.selectedView.tile) : [];
   for (const action of actions) {
     const actionEl = document.createElement('button');
     actionEl.classList.add('action');
     actionEl.innerText = action.innerText;
     actionEl.dataset.action = JSON.stringify(action);
-    if (creature) actionEl.dataset.creatureId = String(god.game.state.selectedView.creatureId);
-    else actionEl.dataset.loc = JSON.stringify(god.game.state.selectedView.tile);
+    if (creature) actionEl.dataset.creatureId = String(game.state.selectedView.creatureId);
+    else actionEl.dataset.loc = JSON.stringify(game.state.selectedView.tile);
     actionEl.title = action.title;
     actionsEl.appendChild(actionEl);
   }
@@ -140,10 +140,10 @@ function globalOnActionHandler(e: GameActionEvent) {
   if (loc) {
     switch (type) {
       case 'pickup':
-        god.game.client.wire.send('moveItem', {
+        game.client.wire.send('moveItem', {
           fromSource: 0,
           from: loc,
-          toSource: god.game.client.containerId,
+          toSource: game.client.containerId,
         });
         break;
       case 'use-hand':
@@ -162,8 +162,8 @@ function globalOnActionHandler(e: GameActionEvent) {
     switch (type) {
       case 'follow':
         // TODO path should update as creature moves.
-        // god.game.state.pathToDestination = findPath(client.context.map, focusPos, creature.pos);
-        // god.game.state.destination = creature.pos;
+        // game.state.pathToDestination = findPath(client.context.map, focusPos, creature.pos);
+        // game.state.destination = creature.pos;
         break;
       default:
         console.error('unknown action type', type);
@@ -173,17 +173,17 @@ function globalOnActionHandler(e: GameActionEvent) {
 
 function selectView(loc?: TilePoint) {
   if (loc) {
-    const creature = god.game.client.context.map.getTile(loc).creature;
-    if (creature && creature.id !== god.game.client.creatureId) {
-      god.game.state.selectedView.creatureId = creature.id;
-      god.game.state.selectedView.tile = null;
+    const creature = game.client.context.map.getTile(loc).creature;
+    if (creature && creature.id !== game.client.creatureId) {
+      game.state.selectedView.creatureId = creature.id;
+      game.state.selectedView.tile = null;
     } else {
-      god.game.state.selectedView.tile = loc;
-      god.game.state.selectedView.creatureId = null;
+      game.state.selectedView.tile = loc;
+      game.state.selectedView.creatureId = null;
     }
   } else {
-    god.game.state.selectedView.tile = null;
-    god.game.state.selectedView.creatureId = null;
+    game.state.selectedView.tile = null;
+    game.state.selectedView.creatureId = null;
   }
 
   renderSelectedView();
@@ -195,8 +195,8 @@ function worldToTile(pw: ScreenPoint) {
 
 function mouseToWorld(pm: ScreenPoint): ScreenPoint {
   return {
-    x: pm.x + god.game.state.viewport.x,
-    y: pm.y + god.game.state.viewport.y,
+    x: pm.x + game.state.viewport.x,
+    y: pm.y + game.state.viewport.y,
   };
 }
 

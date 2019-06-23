@@ -1,9 +1,8 @@
 import * as PIXI from 'pixi.js';
 import * as Content from '../content';
+import { game, makeGame } from '../game-singleton';
 import { worldToTile as _worldToTile } from '../utils';
 import Client from './client';
-import Game from './game';
-import god from './god';
 import * as Helper from './helper';
 import MovementClientModule from './modules/movement-module';
 import SettingsClientModule from './modules/settings-module';
@@ -58,7 +57,7 @@ function globalActionCreator(tile: Tile, loc: TilePoint): GameAction[] {
     });
   }
 
-  if (god.game.state.selectedView.tile) {
+  if (game.state.selectedView.tile) {
     const tool = Helper.getSelectedTool();
     if (tool && Helper.usageExists(tool.type, meta.id)) {
       actions.push({
@@ -73,8 +72,9 @@ function globalActionCreator(tile: Tile, loc: TilePoint): GameAction[] {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const game = new Game(client);
-  god.game = game;
+  const gameSingleton = makeGame(client);
+  // @ts-ignore
+  window.Gridia.game = gameSingleton;
 
   const moduleClasses = [
     MovementClientModule,
@@ -82,12 +82,9 @@ document.addEventListener('DOMContentLoaded', () => {
     SkillsClientModule,
   ];
   for (const moduleClass of moduleClasses) {
-    game.addModule(new moduleClass(game));
+    gameSingleton.addModule(new moduleClass(gameSingleton));
   }
+  gameSingleton.addActionCreator(globalActionCreator);
 
-  game.addActionCreator(globalActionCreator);
-
-  game.start();
-  // @ts-ignore
-  window.Gridia.game = game;
+  gameSingleton.start();
 });

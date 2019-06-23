@@ -3,7 +3,6 @@ import { findPath } from '../../path-finding';
 import { equalPoints } from '../../utils';
 import ClientModule from '../client-module';
 import Game from '../game';
-import god from '../god';
 import * as Helper from '../helper';
 import KEYS from '../keys';
 
@@ -12,7 +11,6 @@ class MovementClientModule extends ClientModule {
   protected pathToDestination: TilePoint[];
   protected lastMove: number = performance.now();
 
-  // TODO Game type.
   constructor(game: Game) {
     super(game);
     this.onAction = this.onAction.bind(this);
