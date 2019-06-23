@@ -139,7 +139,7 @@ function globalOnActionHandler(e: GameActionEvent) {
   if (loc) {
     switch (type) {
       case 'pickup':
-        god.wire.send('moveItem', {
+        god.client.wire.send('moveItem', {
           fromSource: 0,
           from: loc,
           toSource: god.client.containerId,
@@ -251,13 +251,13 @@ class Game {
     }
 
     if (connectOverSocket) {
-      god.wire = await connect(this.client, 9001);
+      this.client.wire = await connect(this.client, 9001);
     } else {
       const serverAndWire = openAndConnectToServerInMemory(this.client, {
         dummyDelay: 20,
         verbose: true,
       });
-      god.wire = serverAndWire.clientToServerWire;
+      this.client.wire = serverAndWire.clientToServerWire;
       // @ts-ignore debugging.
       Gridia.server = serverAndWire.server;
 
@@ -482,7 +482,7 @@ class Game {
 
       // Shift to pick up item.
       if (e.keyCode === KEYS.SHIFT && god.state.selectedView.tile) {
-        god.wire.send('moveItem', {
+        this.client.wire.send('moveItem', {
           fromSource: 0,
           from: god.state.selectedView.tile,
           toSource: this.client.containerId,
@@ -497,7 +497,7 @@ class Game {
 
       // T to toggle z.
       if (e.key === 't') {
-        god.wire.send('move', {
+        this.client.wire.send('move', {
           ...focusCreature.pos,
           z: 1 - focusCreature.pos.z,
         });
@@ -527,7 +527,7 @@ class Game {
       const to = e.loc;
       const toSource = e.source;
       if (!(fromSource === toSource && equalPoints(from, to))) {
-        god.wire.send('moveItem', {
+        this.client.wire.send('moveItem', {
           from,
           fromSource,
           to,

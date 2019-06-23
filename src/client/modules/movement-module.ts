@@ -75,7 +75,7 @@ class MovementClientModule extends ClientModule {
 
         if (this.game.client.context.map.walkable(dest)) {
           this.lastMove = performance.now();
-          god.wire.send('move', dest);
+          this.game.client.wire.send('move', dest);
           this.game.client.eventEmitter.emit('PlayerMove');
           if (this.destination && equalPoints(this.destination, dest)) {
             this.invalidateDestination();

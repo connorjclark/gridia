@@ -7,7 +7,6 @@ class God {
   public client: Client;
   public game: Game;
   public state: UIState;
-  public wire: ClientToServerWire;
 }
 
 export default new God();

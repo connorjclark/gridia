@@ -11,7 +11,7 @@ export function usageExists(tool: number, focus: number) {
 }
 
 export function useHand(loc: TilePoint) {
-  god.wire.send('use', {
+  god.client.wire.send('use', {
     toolIndex: -1,
     loc,
   });
@@ -28,7 +28,7 @@ export function useTool(loc: TilePoint, usageIndex?: number) {
   }
 
   if (usages.length === 1 || usageIndex !== undefined) {
-    god.wire.send('use', {
+    god.client.wire.send('use', {
       toolIndex,
       loc,
       usageIndex,
@@ -41,13 +41,13 @@ export function useTool(loc: TilePoint, usageIndex?: number) {
 // TODO: add tests checking that subscribed containers are updated in all clients.
 // TODO: don't keep requesting container if already open.
 export function openContainer(loc: TilePoint) {
-  god.wire.send('requestContainer', {
+  god.client.wire.send('requestContainer', {
     loc,
   });
 }
 
 export function closeContainer(containerId: number) {
-  god.wire.send('closeContainer', {
+  god.client.wire.send('closeContainer', {
     containerId,
   });
 }

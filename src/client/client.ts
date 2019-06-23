@@ -6,6 +6,7 @@ interface Settings {
 }
 
 class Client {
+  public wire: ClientToServerWire;
   public PIXI: typeof import('pixi.js');
   public PIXISound: typeof import('pixi-sound');
   // TODO: keep references instead?
