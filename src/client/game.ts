@@ -43,11 +43,13 @@ const ContextMenu = {
       innerText: 'Cancel',
       title: '',
     });
-    actions.push({
-      type: 'move-here',
-      innerText: 'Move Here',
-      title: '',
-    });
+    if (game.client.context.map.walkable(loc)) {
+      actions.push({
+        type: 'move-here',
+        innerText: 'Move Here',
+        title: '',
+      });
+    }
     for (const action of actions) {
       const actionEl = document.createElement('div');
       actionEl.classList.add('action');
