@@ -27,6 +27,8 @@ class SkillsClientModule extends ClientModule {
         this.renderSkills();
       }
     });
+
+    this.renderSkills();
   }
 
   protected renderSkills() {
