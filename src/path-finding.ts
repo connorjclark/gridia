@@ -1,4 +1,4 @@
-import { dist } from './utils';
+import { dist, equalPoints } from './utils';
 import WorldMap from './world-map';
 
 // Does not include the starting tile.
@@ -26,6 +26,7 @@ export function findPath(map: WorldMap, from: TilePoint, to: TilePoint) {
       current = cameFrom.get(current);
       path.push(current);
     }
+    path.pop(); // don't return start.
     return path.reverse().map(decodePoint);
   }
 
@@ -81,7 +82,11 @@ export function findPath(map: WorldMap, from: TilePoint, to: TilePoint) {
         const neighborNode = decodePoint(neighbor);
 
         let neighborG = gScore.get(current) + dist(currentNode, neighborNode);
-        if (!map.walkable(neighborNode)) {
+
+        // If not walkable, set cost as infinite.
+        // Unless it's the destination - even if the destination is not walkable,
+        // allow path to it, so that "follow" creature will work.
+        if (!map.walkable(neighborNode) && !equalPoints(neighborNode, to)) {
           neighborG = Infinity;
         }
 

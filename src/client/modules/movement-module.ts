@@ -7,7 +7,7 @@ import * as Helper from '../helper';
 import KEYS from '../keys';
 
 class MovementClientModule extends ClientModule {
-  protected destination: TilePoint | null;
+  protected followCreature: Creature | null = null;
   protected pathToDestination: TilePoint[];
   protected lastMove: number = performance.now();
 
@@ -52,8 +52,13 @@ class MovementClientModule extends ClientModule {
         keyInputDelta.x += 1;
       }
 
-      if (this.destination && this.destination.z !== focusCreature.pos.z) {
+      const ptd = this.pathToDestination;
+      if (ptd && !this.followCreature && (ptd.length === 0 || ptd[ptd.length - 1].z !== focusCreature.pos.z)) {
         this.invalidateDestination();
+      }
+
+      if (this.followCreature) {
+        this.pathToDestination = findPath(this.game.client.context.map, focusPos, this.followCreature.pos);
       }
 
       if (!equalPoints(keyInputDelta, {x: 0, y: 0, z: 0})) {
@@ -61,7 +66,7 @@ class MovementClientModule extends ClientModule {
         dest.x += keyInputDelta.x;
         dest.y += keyInputDelta.y;
         this.invalidateDestination();
-      } else if (this.destination) {
+      } else if (this.pathToDestination) {
         dest = this.pathToDestination.splice(0, 1)[0];
       }
 
@@ -75,12 +80,8 @@ class MovementClientModule extends ClientModule {
           this.lastMove = performance.now();
           this.game.client.wire.send('move', dest);
           this.game.client.eventEmitter.emit('PlayerMove');
-          if (this.destination && equalPoints(this.destination, dest)) {
-            this.invalidateDestination();
-          }
-
           delete this.game.state.mouse.tile;
-        } else {
+        } else if (!this.followCreature) {
           // TODO - repath.
           this.invalidateDestination();
         }
@@ -91,19 +92,23 @@ class MovementClientModule extends ClientModule {
   public onAction(e: GameActionEvent) {
     const type = e.action.type;
     const {loc} = e;
-    if (type !== 'move-here') return;
 
-    // TODO this is repeated many places.
-    const focusCreature = this.game.client.context.getCreature(this.game.client.creatureId);
-    const focusPos = focusCreature ? focusCreature.pos : { x: 0, y: 0, z: 0 };
+    if (type === 'move-here') {
+      // TODO this is repeated many places.
+      const focusCreature = this.game.client.context.getCreature(this.game.client.creatureId);
+      const focusPos = focusCreature ? focusCreature.pos : { x: 0, y: 0, z: 0 };
 
-    this.pathToDestination = findPath(this.game.client.context.map, focusPos, loc);
-    this.destination = loc;
+      this.pathToDestination = findPath(this.game.client.context.map, focusPos, loc);
+      this.followCreature = null;
+    } else if (type === 'follow') {
+      this.followCreature = e.creature;
+      this.pathToDestination = null;
+    }
   }
 
   protected invalidateDestination() {
-    this.destination = null;
-    this.pathToDestination = [];
+    this.pathToDestination = null;
+    this.followCreature = null;
   }
 }
 

@@ -56,6 +56,7 @@ const ContextMenu = {
       actionEl.innerText = action.innerText;
       actionEl.dataset.action = JSON.stringify(action);
       actionEl.dataset.loc = JSON.stringify(loc);
+      if (tile.creature) actionEl.dataset.creatureId = String(tile.creature.id);
       actionEl.title = action.title;
       contextMenuEl.appendChild(actionEl);
     }

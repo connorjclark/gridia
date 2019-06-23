@@ -300,7 +300,10 @@ const setCreature: S2C<SetCreatureParams> = (client, creatureUpdate) => {
 
   if (creatureUpdate.pos && !equalPoints(previousPos, creatureUpdate.pos)) {
     delete client.context.map.getTile(previousPos).creature;
-    client.context.setCreature(creatureUpdate);
+    creature.pos = creatureUpdate.pos;
+    creature.image = creatureUpdate.image;
+    creature.name = creatureUpdate.name;
+    client.context.map.getTile(creature.pos).creature = creature;
   }
 
   // WIP partial update needs work.
