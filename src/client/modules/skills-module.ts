@@ -8,7 +8,7 @@ class SkillsClientModule extends ClientModule {
   public onStart() {
     this.panel = Helper.find('.panel--skills');
 
-    this.client.eventEmitter.on('message', (e) => {
+    this.game.client.eventEmitter.on('message', (e) => {
       // TODO improve type checking.
       if (e.type === 'initialize') {
         this.renderSkills();
@@ -33,11 +33,11 @@ class SkillsClientModule extends ClientModule {
     const skillsEl = Helper.find('.skills', this.panel);
     skillsEl.innerHTML = '';
 
-    const sortedByName = [...this.client.skills.keys()].sort(
+    const sortedByName = [...this.game.client.skills.keys()].sort(
       (a, b) => Content.getSkill(a).name.localeCompare(Content.getSkill(b).name));
     for (const skillId of sortedByName) {
       const skill = Content.getSkill(skillId);
-      const xp = this.client.skills.get(skillId);
+      const xp = this.game.client.skills.get(skillId);
       const skillEl = document.createElement('div');
       skillEl.classList.add('skill');
       skillEl.innerText = `${skill.name} (${xp})`;

@@ -1,7 +1,6 @@
 import * as Content from '../../content';
 import { findPath } from '../../path-finding';
 import { equalPoints } from '../../utils';
-import Client from '../client';
 import ClientModule from '../client-module';
 import god from '../god';
 import * as Helper from '../helper';
@@ -13,13 +12,13 @@ class MovementClientModule extends ClientModule {
   protected lastMove: number = performance.now();
 
   // TODO Game type.
-  constructor(game: any, client: Client) {
-    super(game, client);
+  constructor(game: any) {
+    super(game);
     this.onAction = this.onAction.bind(this);
   }
 
   public onStart() {
-    this.client.eventEmitter.on('Action', this.onAction);
+    this.game.client.eventEmitter.on('Action', this.onAction);
     this.game.addActionCreator((tile) => {
       if (tile.creature) {
         return {
@@ -32,12 +31,12 @@ class MovementClientModule extends ClientModule {
   }
 
   public onTick() {
-    const focusCreature = this.client.context.getCreature(this.client.creatureId);
+    const focusCreature = this.game.client.context.getCreature(this.game.client.creatureId);
     const focusPos = focusCreature ? focusCreature.pos : { x: 0, y: 0, z: 0 };
     const z = focusPos.z;
 
     if (!focusCreature) return;
-    if (this.client.context.map.width === 0) return;
+    if (this.game.client.context.map.width === 0) return;
 
     if (focusCreature && performance.now() - this.lastMove > 200) {
       let dest: TilePoint = { ...focusCreature.pos };
@@ -68,15 +67,15 @@ class MovementClientModule extends ClientModule {
       }
 
       if (dest && !equalPoints(dest, focusCreature.pos)) {
-        const itemToMoveTo = this.client.context.map.getItem(dest);
+        const itemToMoveTo = this.game.client.context.map.getItem(dest);
         if (itemToMoveTo && Content.getMetaItem(itemToMoveTo.type).class === 'Container') {
           Helper.openContainer(dest);
         }
 
-        if (this.client.context.map.walkable(dest)) {
+        if (this.game.client.context.map.walkable(dest)) {
           this.lastMove = performance.now();
           god.wire.send('move', dest);
-          this.client.eventEmitter.emit('PlayerMove');
+          this.game.client.eventEmitter.emit('PlayerMove');
           if (this.destination && equalPoints(this.destination, dest)) {
             this.invalidateDestination();
           }
@@ -96,10 +95,10 @@ class MovementClientModule extends ClientModule {
     if (type !== 'move-here') return;
 
     // TODO this is repeated many places.
-    const focusCreature = this.client.context.getCreature(this.client.creatureId);
+    const focusCreature = this.game.client.context.getCreature(this.game.client.creatureId);
     const focusPos = focusCreature ? focusCreature.pos : { x: 0, y: 0, z: 0 };
 
-    this.pathToDestination = findPath(this.client.context.map, focusPos, loc);
+    this.pathToDestination = findPath(this.game.client.context.map, focusPos, loc);
     this.destination = loc;
   }
 
