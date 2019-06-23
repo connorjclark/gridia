@@ -37,7 +37,7 @@ class MovementClientModule extends ClientModule {
     if (!focusCreature) return;
     if (this.game.client.context.map.width === 0) return;
 
-    if (focusCreature && performance.now() - this.lastMove > 200) {
+    if (focusCreature && performance.now() - this.lastMove > 400) {
       let dest: TilePoint = { ...focusCreature.pos };
 
       const keyInputDelta = {x: 0, y: 0, z: 0};
