@@ -37,7 +37,7 @@ const ContextMenu = {
 
     contextMenuEl.innerHTML = '';
     const tile = god.client.context.map.getTile(loc);
-    const actions: GameAction[] = god.game.getActionsFor(tile, loc);
+    const actions = god.game.getActionsFor(tile, loc);
     actions.push({
       type: 'cancel',
       innerText: 'Cancel',
@@ -102,8 +102,7 @@ function renderSelectedView() {
   const actionsEl = Helper.find('.selected-view--actions', el);
   actionsEl.innerHTML = 'Actions:';
 
-  // TODO: remove explicit type when god.game is typed
-  const actions: GameAction[] = tile ? god.game.getActionsFor(tile, god.state.selectedView.tile) : [];
+  const actions = tile ? god.game.getActionsFor(tile, god.state.selectedView.tile) : [];
   for (const action of actions) {
     const actionEl = document.createElement('button');
     actionEl.classList.add('action');
@@ -201,6 +200,7 @@ function mouseToWorld(pm: ScreenPoint): ScreenPoint {
 }
 
 class Game {
+  public keys: Record<number, boolean> = {};
   protected app: PIXI.Application;
   protected canvasesEl: HTMLElement;
   protected containers: Record<string, PIXI.Container> = {};
@@ -208,7 +208,6 @@ class Game {
   protected itemMovingState: ItemMoveEvent = null;
   protected mouseHasMovedSinceItemMoveBegin = false;
   protected modules: ClientModule[] = [];
-  protected keys: Record<number, boolean> = {};
   protected actionCreators: GameActionCreator[] = [];
 
   constructor(public client: Client) {}

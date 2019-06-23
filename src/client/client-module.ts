@@ -1,7 +1,7 @@
-import Client from './client';
+import Game from './game';
 
 abstract class ClientModule {
-  constructor(public game: any) {}
+  constructor(public game: Game) {}
 
   public onStart() {
     // empty

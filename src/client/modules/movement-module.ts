@@ -2,6 +2,7 @@ import * as Content from '../../content';
 import { findPath } from '../../path-finding';
 import { equalPoints } from '../../utils';
 import ClientModule from '../client-module';
+import Game from '../game';
 import god from '../god';
 import * as Helper from '../helper';
 import KEYS from '../keys';
@@ -12,7 +13,7 @@ class MovementClientModule extends ClientModule {
   protected lastMove: number = performance.now();
 
   // TODO Game type.
-  constructor(game: any) {
+  constructor(game: Game) {
     super(game);
     this.onAction = this.onAction.bind(this);
   }
@@ -22,9 +23,9 @@ class MovementClientModule extends ClientModule {
     this.game.addActionCreator((tile) => {
       if (tile.creature) {
         return {
+          type: 'follow',
           innerText: 'Follow',
           title: 'Follow',
-          action: 'follow',
         };
       }
     });
