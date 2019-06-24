@@ -16030,6 +16030,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "Damage",
     "walkable": true
   },
   {
@@ -16043,6 +16044,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "Monster",
     "walkable": true
   },
   {
@@ -16069,6 +16071,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "Warp",
     "walkable": true
   },
   {
@@ -16082,6 +16085,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "Trigger",
     "walkable": true
   },
   {
@@ -16095,6 +16099,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "Hero",
     "walkable": true
   },
   {
@@ -16108,6 +16113,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "Nova",
     "walkable": true
   },
   {
@@ -16121,6 +16127,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "Ice",
     "walkable": true
   },
   {
@@ -16134,6 +16141,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "Blind",
     "walkable": true
   },
   {
@@ -16147,6 +16155,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "Heal",
     "walkable": true
   },
   {
@@ -16160,6 +16169,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "Revive",
     "walkable": true
   },
   {
@@ -16181,6 +16191,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "ItemTransform",
     "walkable": true
   },
   {
@@ -16194,6 +16205,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "Warp",
     "walkable": true
   },
   {
@@ -16207,6 +16219,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "Trigger",
     "walkable": true
   },
   {
@@ -16220,6 +16233,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "Trigger",
     "walkable": true
   },
   {
@@ -16470,6 +16484,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "Warp",
     "walkable": true
   },
   {
@@ -19044,6 +19059,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "Attune",
     "walkable": true
   },
   {
@@ -22450,6 +22466,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "Text",
     "walkable": true
   },
   {
@@ -22822,6 +22839,7 @@
     "moveable": true,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "ItemTransform",
     "walkable": true
   },
   {
@@ -23711,6 +23729,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "Mana",
     "walkable": true
   },
   {
@@ -24926,6 +24945,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "History",
     "walkable": true
   },
   {
@@ -25607,6 +25627,7 @@
     "moveable": false,
     "rarity": 1,
     "stackable": false,
+    "trapEffect": "Warp",
     "walkable": true
   },
   {

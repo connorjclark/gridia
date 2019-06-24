@@ -363,7 +363,7 @@ export default class Server {
       }
     }
 
-    // Handle stairs.
+    // Handle stairs and warps.
     for (const state of Object.values(this.creatureStates)) {
       const creature = state.creature;
       if (state.warped) continue;
@@ -377,6 +377,16 @@ export default class Server {
           newPos = {...creature.pos, z: creature.pos.z + 1};
         } else if (meta.class === 'CaveUp' && this.context.map.walkable({...creature.pos, z: creature.pos.z - 1})) {
           newPos = {...creature.pos, z: creature.pos.z - 1};
+        } else if (meta.trapEffect === 'Warp' && this.context.map.walkable(item.warpTo)) {
+          newPos = {...item.warpTo};
+          this.broadcast('animation', {
+            ...creature.pos,
+            key: 'WarpOut',
+          });
+          this.broadcast('animation', {
+            ...item.warpTo,
+            key: 'WarpIn',
+          });
         }
 
         if (newPos) {

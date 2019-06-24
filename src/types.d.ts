@@ -22,6 +22,7 @@ interface Item {
   quantity: number;
   growth?: number;
   containerId?: number;
+  warpTo?: TilePoint;
 }
 
 interface Creature {
@@ -71,6 +72,7 @@ interface MetaItem {
   rarity: number;
   stackable: boolean;
   walkable: boolean;
+  trapEffect: 'Warp';
 }
 
 interface ItemUse {

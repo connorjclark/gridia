@@ -110,6 +110,12 @@ export default function mapgen(width: number, height: number, depth: number, bar
       type: Content.getRandomMetaItemOfClass('Container').id,
       quantity: 1,
     };
+
+    map.getTile({x: 9, y: 9, z: 0}).item = {
+      type: Content.getMetaItemByName('Warp Portal').id,
+      quantity: 1,
+      warpTo: {x: 3, y: 1, z: 0},
+    };
   }
 
   return map;

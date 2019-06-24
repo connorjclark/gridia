@@ -183,6 +183,7 @@ function parseItemsIni() {
     'rarity',
     'stackable',
     'walkable',
+    'trapEffect',
   ];
   for (const item of items) {
     filterProperties(item, whitelist);
