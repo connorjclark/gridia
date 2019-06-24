@@ -61,7 +61,7 @@ type ClientToServerWire = Wire<
 interface MetaItem {
   id: number;
   name: string;
-  class: 'Normal' | 'Ore' | 'CaveDown' | 'CaveUp' | 'Container';
+  class: 'Normal' | 'Ore' | 'CaveDown' | 'CaveUp' | 'Container' | 'Ball';
   animations: number[];
   burden: number;
   growthDelta: number;

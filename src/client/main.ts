@@ -57,6 +57,14 @@ function globalActionCreator(tile: Tile, loc: TilePoint): GameAction[] {
     });
   }
 
+  if (meta.class === 'Ball') {
+    actions.push({
+      type: 'throw',
+      innerText: 'Throw ball',
+      title: 'Throw ball',
+    });
+  }
+
   const tool = Helper.getSelectedTool();
   if (tool && Helper.usageExists(tool.type, meta.id)) {
     actions.push({
@@ -102,6 +110,9 @@ function globalOnActionHandler(e: GameActionEvent) {
       client.wire.send('tame', {
         creatureId: creature.id,
       });
+      break;
+    case 'throw':
+      // TODO
       break;
   }
 }
