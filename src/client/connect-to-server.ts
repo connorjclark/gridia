@@ -4,8 +4,8 @@ import ClientConnection from '../server/client-connection';
 import Server from '../server/server';
 import { ServerContext } from '../server/server-context';
 import WorldMap from '../world-map';
-import Client from './client';
 import createDebugWorldMap from '../world-map-debug';
+import Client from './client';
 
 function createClientWorldMap(wire: ClientToServerWire) {
   const map = new WorldMap();

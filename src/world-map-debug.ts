@@ -1,6 +1,6 @@
 import * as Content from './content';
-import WorldMap from "./world-map";
-import mapgen from "./mapgen";
+import mapgen from './mapgen';
+import WorldMap from './world-map';
 
 export default function createDebugWorldMap() {
   const worldMap = new WorldMap();
