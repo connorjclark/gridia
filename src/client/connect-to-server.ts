@@ -8,7 +8,7 @@ import WorldMap from '../world-map';
 import Client from './client';
 
 function createClientWorldMap(wire: ClientToServerWire) {
-  const map = new WorldMap(0, 0, 0);
+  const map = new WorldMap();
   map.loader = (sectorPoint) => {
     wire.send('requestSector', sectorPoint);
     return map.createEmptySector(); // temporary until server sends something
@@ -72,9 +72,12 @@ export function openAndConnectToServerInMemory(client: Client, opts: OpenAndConn
     }
   }
 
+  const worldMap = new WorldMap();
+  worldMap.addPartition(0, mapgen(100, 100, 2, false));
+
   const { dummyDelay, verbose, context } = opts;
   const server = new Server({
-    context: context ? context : new ServerContext(mapgen(100, 100, 2, false)),
+    context: context ? context : new ServerContext(worldMap),
     verbose,
   });
 

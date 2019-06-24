@@ -52,6 +52,11 @@ export function closeContainer(containerId: number) {
   });
 }
 
+export function getW() {
+  const focusCreature = game.client.context.getCreature(game.client.creatureId);
+  return focusCreature ? focusCreature.pos.w : 0;
+}
+
 export function getZ() {
   const focusCreature = game.client.context.getCreature(game.client.creatureId);
   return focusCreature ? focusCreature.pos.z : 0;

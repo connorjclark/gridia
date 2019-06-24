@@ -216,7 +216,7 @@ export function makeItemContainerWindow(container: Container) {
       mouseDownIndex = index;
       const evt: ItemMoveEvent = {
         source: container.id,
-        loc: { x: index, y: 0, z: 0 },
+        loc: { w: 0, x: index, y: 0, z: 0 },
         item: container.items[index],
       };
       game.client.eventEmitter.emit('ItemMoveBegin', evt);
@@ -239,7 +239,7 @@ export function makeItemContainerWindow(container: Container) {
       if (containerWindow.mouseOverIndex !== null) {
         const evt: ItemMoveEvent = {
           source: container.id,
-          loc: { x: containerWindow.mouseOverIndex, y: 0, z: 0 },
+          loc: { w: 0, x: containerWindow.mouseOverIndex, y: 0, z: 0 },
         };
         game.client.eventEmitter.emit('ItemMoveEnd', evt);
       }

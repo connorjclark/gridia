@@ -8,6 +8,7 @@ import ClientConnection from './server/client-connection';
 import Server from './server/server';
 import { ServerContext } from './server/server-context';
 import { randInt } from './utils';
+import WorldMap from './world-map';
 
 interface ServerOptions {
   port: number;
@@ -26,7 +27,9 @@ async function startServer(options: ServerOptions) {
     context = await ServerContext.load(serverData);
   } else {
     fs.mkdirSync(serverData);
-    context = new ServerContext(mapgen(100, 100, 2, false));
+    const worldMap = new WorldMap();
+    worldMap.addPartition(0, mapgen(100, 100, 2, false));
+    context = new ServerContext(worldMap);
     context.setServerDir(serverData);
     await context.save();
   }
@@ -80,7 +83,7 @@ async function startServer(options: ServerOptions) {
   setInterval(() => {
     if (server.clientConnections.length > 0) {
       if (Object.keys(server.creatureStates).length < 5) {
-        const pos = {x: randInt(0, 30), y: randInt(0, 30), z: 0};
+        const pos = {w: 0, x: randInt(0, 30), y: randInt(0, 30), z: 0};
         if (server.context.map.walkable(pos)) {
           server.makeCreatureFromTemplate(randInt(1, 100), pos);
         }

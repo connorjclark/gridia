@@ -1,21 +1,21 @@
 import { dist, equalPoints } from './utils';
-import WorldMap from './world-map';
+import WorldMapPartition from './world-map-partition';
 
 // Does not include the starting tile.
-export function findPath(map: WorldMap, from: TilePoint, to: TilePoint) {
-  function encodePoint(loc: TilePoint) {
-    return loc.x + loc.y * map.width + loc.z * map.width * map.height;
+export function findPath(partition: WorldMapPartition, from: PartitionPoint, to: PartitionPoint) {
+  function encodePoint(loc: PartitionPoint) {
+    return loc.x + loc.y * partition.width + loc.z * partition.width * partition.height;
   }
 
-  function decodePoint(encoded: number): TilePoint {
+  function decodePoint(encoded: number): PartitionPoint {
     return {
-      x: encoded % map.width,
-      y: Math.floor((encoded % (map.width * map.height)) / map.width),
-      z: Math.floor(encoded / (map.width * map.height)),
+      x: encoded % partition.width,
+      y: Math.floor((encoded % (partition.width * partition.height)) / partition.width),
+      z: Math.floor(encoded / (partition.width * partition.height)),
     };
   }
 
-  function estimate(a: TilePoint, b: TilePoint) {
+  function estimate(a: PartitionPoint, b: PartitionPoint) {
     // this prioritizes movement to get to the correct x or y coord as soon
     // as possible.
     return Math.pow(Math.abs(b.x - a.x), 1.1) + Math.pow(Math.abs(b.y - a.y), 1.1);
@@ -79,7 +79,7 @@ export function findPath(map: WorldMap, from: TilePoint, to: TilePoint) {
     for (let dx = -1; dx <= 1; dx++) {
       for (let dy = -1; dy <= 1; dy++) {
         if (dx === 0 && dy === 0) continue;
-        const neighbor = current + dx + dy * map.width;
+        const neighbor = current + dx + dy * partition.width;
         if (seen.has(neighbor)) continue;
         const neighborNode = decodePoint(neighbor);
 
@@ -88,7 +88,7 @@ export function findPath(map: WorldMap, from: TilePoint, to: TilePoint) {
         // If not walkable, set cost as infinite.
         // Unless it's the destination - even if the destination is not walkable,
         // allow path to it, so that "follow" creature will work.
-        if (!map.walkable(neighborNode) && !equalPoints(neighborNode, to)) {
+        if (!partition.walkable(neighborNode) && !equalPoints(neighborNode, to)) {
           neighborG = Infinity;
         }
 

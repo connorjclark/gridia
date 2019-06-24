@@ -7,12 +7,13 @@ import * as fs from '../iso-fs';
 import Player from '../player';
 import { equalPoints, worldToSector } from '../utils';
 import WorldMap from '../world-map';
+import WorldMapPartition from '../world-map-partition';
 import Server from './server';
 
 export class ServerContext extends Context {
   public static async load(serverDir: string) {
     const meta = JSON.parse(await fs.readFile(path.join(serverDir, 'meta.json'), 'utf-8'));
-    const map = new WorldMap(meta.width, meta.height, meta.depth);
+    const map = new WorldMap();
     const context = new ServerContext(map);
     context.setServerDir(serverDir);
 
@@ -25,6 +26,13 @@ export class ServerContext extends Context {
     context.nextContainerId = meta.nextContainerId;
     context.nextCreatureId = meta.nextCreatureId;
     context.nextPlayerId = meta.nextPlayerId;
+
+    // Just load all the partitions for now.
+    const partitionIds = (await fs.readdir(context.sectorDir)).map(Number);
+    for (const w of partitionIds) {
+      const partitionMeta = JSON.parse(await fs.readFile(context.partitionMetaPath(w), 'utf-8'));
+      map.initPartition(w, partitionMeta.width, partitionMeta.height, partitionMeta.depth);
+    }
 
     return context;
   }
@@ -112,22 +120,11 @@ export class ServerContext extends Context {
     await fs.mkdir(this.playerDir, {recursive: true});
     await fs.mkdir(this.sectorDir, {recursive: true});
 
-    const meta = {
-      width: this.map.width,
-      height: this.map.height,
-      depth: this.map.depth,
-      nextContainerId: this.nextContainerId,
-      nextCreatureId: this.nextCreatureId,
-      nextPlayerId: this.nextPlayerId,
-    };
-    await fs.writeFile(this.metaPath(), JSON.stringify(meta, null, 2));
+    await this.saveMeta();
 
-    for (let sx = 0; sx < this.map.sectors.length; sx++) {
-      for (let sy = 0; sy < this.map.sectors[0].length; sy++) {
-        for (let sz = 0; sz < this.map.sectors[0][0].length; sz++) {
-          await this.saveSector({x: sx, y: sy, z: sz});
-        }
-      }
+    for (const [w, partition] of this.map.getPartitions().entries()) {
+      await fs.mkdir(this.partitionPath(w));
+      await this.savePartition(w, partition);
     }
 
     for (const container of this.containers.values()) {
@@ -140,16 +137,50 @@ export class ServerContext extends Context {
     await fs.writeFile(this.creaturesPath(), JSON.stringify(npcs, null, 2));
   }
 
+  protected async saveMeta() {
+    const meta = {
+      nextContainerId: this.nextContainerId,
+      nextCreatureId: this.nextCreatureId,
+      nextPlayerId: this.nextPlayerId,
+    };
+    await fs.writeFile(this.metaPath(), JSON.stringify(meta, null, 2));
+  }
+
+  protected async savePartition(w: number, partition: WorldMapPartition) {
+    const meta = {
+      width: partition.width,
+      height: partition.height,
+      depth: partition.depth,
+    };
+    await fs.writeFile(this.partitionMetaPath(w), JSON.stringify(meta, null, 2));
+
+    for (let sx = 0; sx < partition.sectors.length; sx++) {
+      for (let sy = 0; sy < partition.sectors[0].length; sy++) {
+        for (let sz = 0; sz < partition.sectors[0][0].length; sz++) {
+          await this.saveSector({w, x: sx, y: sy, z: sz});
+        }
+      }
+    }
+  }
+
   protected metaPath() {
     return path.join(this.serverDir, 'meta.json');
   }
 
-  protected creaturesPath() {
-    return path.join(this.serverDir, 'creatures.json');
+  protected partitionPath(w: number) {
+    return path.join(this.sectorDir, `${w}`);
+  }
+
+  protected partitionMetaPath(w: number) {
+    return path.join(this.partitionPath(w), 'meta.json');
   }
 
   protected sectorPath(sectorPoint: TilePoint) {
-    return path.join(this.sectorDir, `${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}.json`);
+    return path.join(this.partitionPath(sectorPoint.w), `${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}.json`);
+  }
+
+  protected creaturesPath() {
+    return path.join(this.serverDir, 'creatures.json');
   }
 
   protected containerPath(id: number) {

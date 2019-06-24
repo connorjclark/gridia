@@ -1,66 +1,53 @@
 import { SECTOR_SIZE } from './constants';
-import * as Content from './content';
-import { matrix, worldToSector } from './utils';
+import WorldMapPartition from './world-map-partition';
 
 export default class WorldMap {
-  public width: number;
-  public height: number;
-  public depth: number;
-  public sectors: Array<Array<Array<Sector | null>>>; // (Sector | null)[][][]
+  public partitions = new Map<number, WorldMapPartition>();
   public loader: (sectorPoint: TilePoint) => Sector;
 
-  constructor(width: number, height: number, depth: number) {
-    this.width = width;
-    this.height = height;
-    this.depth = depth;
-    this.sectors = matrix(width / SECTOR_SIZE, height / SECTOR_SIZE, depth);
+  public addPartition(w: number, partition: WorldMapPartition) {
+    this.partitions.set(w, partition);
   }
 
-  // TODO - can this be removed?
-  public init(width: number, height: number, depth: number) {
-    this.width = width;
-    this.height = height;
-    this.depth = depth;
-    this.sectors = matrix(width / SECTOR_SIZE, height / SECTOR_SIZE, depth);
+  public initPartition(w: number, width: number, height: number, depth: number) {
+    const partition = new WorldMapPartition(width, height, depth);
+    // TODO: refactor sector requesting / loading.
+    partition.loader = (sectorPoint: PartitionPoint) => {
+      return this.loader({w, ...sectorPoint});
+    };
+    this.partitions.set(w, partition);
+  }
+
+  public getPartition(w: number) {
+    return this.partitions.get(w);
+  }
+
+  public getPartitions() {
+    return this.partitions;
   }
 
   public inBounds(point: TilePoint): boolean {
-    return point.x >= 0 && point.y >= 0 && point.x < this.width && point.y < this.height &&
-      point.z >= 0 && point.z < this.depth;
+    return this.getPartition(point.w).inBounds(point);
   }
 
   public walkable(point: TilePoint): boolean {
-    if (!this.inBounds(point)) return false;
-
-    const tile = this.getTile(point);
-    if (tile.creature) return false;
-    if (tile.item && !Content.getMetaItem(tile.item.type).walkable) return false;
-
-    return true;
+    return this.getPartition(point.w).walkable(point);
   }
 
   public getSector(sectorPoint: TilePoint): Sector {
-    let sector: Sector | null = this.sectors[sectorPoint.x][sectorPoint.y][sectorPoint.z];
-    if (!sector) {
-      sector = this.sectors[sectorPoint.x][sectorPoint.y][sectorPoint.z] = this.loader(sectorPoint);
-    }
-    return sector;
+    return this.getPartition(sectorPoint.w).getSector(sectorPoint);
   }
 
   public getTile(point: TilePoint): Tile {
-    if (!this.inBounds(point)) return { floor: 0 };
-
-    const sector = this.getSector(worldToSector(point, SECTOR_SIZE));
-    return sector[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE];
+    return this.getPartition(point.w).getTile(point);
   }
 
   public setTile(point: TilePoint, tile: Tile) {
-    const sector = this.getSector(worldToSector(point, SECTOR_SIZE));
-    sector[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE] = tile;
+    return this.getPartition(point.w).setTile(point, tile);
   }
 
   public getItem(point: TilePoint) {
-    return this.getTile(point).item;
+    return this.getPartition(point.w).getItem(point);
   }
 
   public createEmptySector() {

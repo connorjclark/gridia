@@ -5,15 +5,18 @@
 //     };
 //   }
 
-export function worldToTile(pw: ScreenPoint, z: number): TilePoint {
+// TODO rename these 'world's to 'stage'?
+export function worldToTile(w: number, pw: ScreenPoint, z: number): TilePoint {
   return {
+    w,
     x: Math.floor(pw.x / 32),
     y: Math.floor(pw.y / 32),
     z,
   };
 }
 
-export function worldToSector(ps: TilePoint, SECTOR_SIZE: number): TilePoint {
+// TODO rename these 'world's to 'partition'?
+export function worldToSector(ps: PartitionPoint, SECTOR_SIZE: number): PartitionPoint {
   return {
     x: Math.floor(ps.x / SECTOR_SIZE),
     y: Math.floor(ps.y / SECTOR_SIZE),
@@ -25,13 +28,15 @@ export function maxDiff(p1: TilePoint, p2: TilePoint): number {
   return Math.max(Math.abs(p1.x - p2.x), Math.abs(p1.y - p2.y));
 }
 
-export function dist(p1: TilePoint, p2: TilePoint): number {
+export function dist(p1: PartitionPoint, p2: PartitionPoint): number {
   return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
 }
 
-export function equalPoints(p1?: TilePoint, p2?: TilePoint) {
+export function equalPoints(p1?: TilePoint | PartitionPoint, p2?: TilePoint | PartitionPoint) {
   if (!p1 && !p2) return true;
   if (!p1 || !p2) return false;
+  // @ts-ignore - ignore `w` if either parameter is a partition point
+  if (typeof p1.w !== 'undefined' && typeof p2.w !== 'undefined' && p1.w !== p2.w) return false;
   return p1.x === p2.x && p1.y === p2.y && p1.z === p2.z;
 }
 

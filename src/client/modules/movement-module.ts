@@ -8,7 +8,7 @@ import KEYS from '../keys';
 
 class MovementClientModule extends ClientModule {
   protected followCreature: Creature | null = null;
-  protected pathToDestination: TilePoint[];
+  protected pathToDestination: PartitionPoint[];
   protected lastMove: number = performance.now();
 
   constructor(game: Game) {
@@ -31,11 +31,12 @@ class MovementClientModule extends ClientModule {
 
   public onTick() {
     const focusCreature = this.game.client.context.getCreature(this.game.client.creatureId);
-    const focusPos = focusCreature ? focusCreature.pos : { x: 0, y: 0, z: 0 };
-    const z = focusPos.z;
+    const focusPos = focusCreature ? focusCreature.pos : { w: 0, x: 0, y: 0, z: 0 };
+    const w = focusPos.w;
+    const partition = this.game.client.context.map.getPartition(w);
 
     if (!focusCreature) return;
-    if (this.game.client.context.map.width === 0) return;
+    // if (this.game.client.context.map.width === 0) return;
 
     if (focusCreature && performance.now() - this.lastMove > 300) {
       let dest: TilePoint = { ...focusCreature.pos };
@@ -52,18 +53,24 @@ class MovementClientModule extends ClientModule {
         keyInputDelta.x += 1;
       }
 
-      const ptd = this.pathToDestination;
-      if (ptd && !this.followCreature && (ptd.length === 0 || ptd[ptd.length - 1].z !== focusCreature.pos.z)) {
+      const lastInPath = this.pathToDestination && this.pathToDestination.length > 0
+        ? this.pathToDestination[this.pathToDestination.length - 1]
+        : null;
+      if (lastInPath && !this.followCreature && lastInPath.z !== focusCreature.pos.z) {
+        this.invalidateDestination();
+      }
+
+      if (this.followCreature &&
+        (this.followCreature.pos.w !== focusPos.w || this.followCreature.pos.z !== focusPos.z)) {
         this.invalidateDestination();
       }
 
       // TODO: only re-calc if path is obstructed.
       if (this.followCreature) {
-        this.pathToDestination = findPath(this.game.client.context.map, focusPos, this.followCreature.pos);
-      } else if (this.pathToDestination) {
+        this.pathToDestination = findPath(partition, focusPos, this.followCreature.pos);
+      } else if (lastInPath) {
         // re-calc
-        const destination = this.pathToDestination[this.pathToDestination.length - 1];
-        this.pathToDestination = findPath(this.game.client.context.map, focusPos, destination);
+        this.pathToDestination = findPath(partition, focusPos, lastInPath);
       }
 
       if (!equalPoints(keyInputDelta, {x: 0, y: 0, z: 0})) {
@@ -72,7 +79,7 @@ class MovementClientModule extends ClientModule {
         dest.y += keyInputDelta.y;
         this.invalidateDestination();
       } else if (this.pathToDestination) {
-        dest = this.pathToDestination.splice(0, 1)[0];
+        dest = { w, ...this.pathToDestination.splice(0, 1)[0]};
       }
 
       if (dest && !equalPoints(dest, focusCreature.pos)) {
@@ -96,11 +103,13 @@ class MovementClientModule extends ClientModule {
     const {loc} = e;
 
     if (type === 'move-here') {
-      // TODO this is repeated many places.
+      // TODO this is repeated many places. move to game properties.
       const focusCreature = this.game.client.context.getCreature(this.game.client.creatureId);
-      const focusPos = focusCreature ? focusCreature.pos : { x: 0, y: 0, z: 0 };
+      const focusPos = focusCreature ? focusCreature.pos : { w: 0, x: 0, y: 0, z: 0 };
+      const w = focusPos.w;
+      const partition = this.game.client.context.map.getPartition(w);
 
-      this.pathToDestination = findPath(this.game.client.context.map, focusPos, loc);
+      this.pathToDestination = findPath(partition, focusPos, loc);
       this.followCreature = null;
     } else if (type === 'follow') {
       this.followCreature = e.creature;

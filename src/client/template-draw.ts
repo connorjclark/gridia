@@ -1,20 +1,21 @@
 import { MINE, WATER } from '../constants';
-import WorldMap from '../world-map';
+import WorldMapPartition from '../world-map-partition';
 
-export function getWaterFloor(map: WorldMap, point: TilePoint) {
-  const templateIndex = useTemplate(map, 0, WATER, point);
+export function getWaterFloor(partition: WorldMapPartition, point: PartitionPoint) {
+  const templateIndex = useTemplate(partition, 0, WATER, point);
   return templateIndex;
 }
 
-export function getMineFloor(map: WorldMap, point: TilePoint) {
-  const templateIndex = useTemplate(map, 1, MINE, point);
+export function getMineFloor(partition: WorldMapPartition, point: PartitionPoint) {
+  const templateIndex = useTemplate(partition, 1, MINE, point);
   return templateIndex;
 }
 
 // generalize
 // this is only for floors right now
 // more uses?
-function useTemplate(map: WorldMap, templateId: number, typeToMatch: number, { x, y, z }: TilePoint) {
+function useTemplate(partition: WorldMapPartition, templateId: number, typeToMatch: number, loc: PartitionPoint) {
+  const { x, y, z } = loc;
   // const width = client.world.width;
   // const height = client.world.height;
   // const xl = x == 0 ? width - 1 : x - 1;
@@ -26,11 +27,11 @@ function useTemplate(map: WorldMap, templateId: number, typeToMatch: number, { x
   const yu = y + 1;
   const yd = y - 1;
 
-  function getTileOrFake(pos: TilePoint): Partial<{ floor: number }> {
-    if (!map.inBounds(pos)) {
+  function getTileOrFake(pos: PartitionPoint): Partial<{ floor: number }> {
+    if (!partition.inBounds(pos)) {
       return { floor: typeToMatch };
     }
-    return map.getTile(pos);
+    return partition.getTile(pos);
   }
 
   const below = getTileOrFake({ x, y: yu, z }).floor === typeToMatch;

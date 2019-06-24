@@ -1,4 +1,11 @@
 interface TilePoint {
+  w: number; // world index
+  x: number;
+  y: number;
+  z: number;
+}
+
+interface PartitionPoint {
   x: number;
   y: number;
   z: number;

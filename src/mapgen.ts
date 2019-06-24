@@ -1,9 +1,9 @@
 import * as assert from 'assert';
 import {MINE, SECTOR_SIZE} from './constants';
 import * as Content from './content';
-import WorldMap from './world-map';
+import WorldMapPartition from './world-map-partition';
 
-export default function mapgen(width: number, height: number, depth: number, bare: boolean) {
+export default function mapgen(width: number, height: number, depth: number, bare: boolean): WorldMapPartition {
   assert.ok(width % SECTOR_SIZE === 0);
   assert.ok(height % SECTOR_SIZE === 0);
   assert.ok(width < 1000);
@@ -13,7 +13,7 @@ export default function mapgen(width: number, height: number, depth: number, bar
   const treeType = Content.getMetaItemByName('Pine Tree').id;
   const flowerType = Content.getMetaItemByName('Cut Red Rose').id;
 
-  const map = new WorldMap(width, height, depth);
+  const map = new WorldMapPartition(width, height, depth);
 
   // tslint:disable-next-line: prefer-for-of
   for (let sx = 0; sx < map.sectors.length; sx++) {
@@ -114,7 +114,7 @@ export default function mapgen(width: number, height: number, depth: number, bar
     map.getTile({x: 9, y: 9, z: 0}).item = {
       type: Content.getMetaItemByName('Warp Portal').id,
       quantity: 1,
-      warpTo: {x: 3, y: 1, z: 0},
+      warpTo: {w: 0, x: 3, y: 1, z: 0},
     };
   }
 

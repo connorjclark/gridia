@@ -10,6 +10,7 @@ import mapgen from '../src/mapgen';
 import Server from '../src/server/server';
 import { ServerContext } from '../src/server/server-context';
 import { equalItems } from '../src/utils';
+import WorldMap from '../src/world-map';
 
 let client: Client;
 let server: Server;
@@ -19,10 +20,13 @@ let wire: ClientToServerWire;
 
 beforeEach(() => {
   client = new Client();
+  const worldMap = new WorldMap();
+  const partition = mapgen(20, 20, 1, true);
+  worldMap.addPartition(0, partition);
   const serverAndWire = openAndConnectToServerInMemory(client, {
     dummyDelay: 0,
     verbose: false,
-    context: new ServerContext(mapgen(20, 20, 1, true)),
+    context: new ServerContext(worldMap),
   });
   wire = serverAndWire.clientToServerWire;
   server = serverAndWire.server;
@@ -39,7 +43,7 @@ beforeEach(() => {
   client.PIXISound = {play: () => {}, exists: () => false};
 
   // Make client make initial request for the sector, so that partial updates are tested later.
-  client.context.map.getTile({x: 0, y: 0, z: 0});
+  partition.getTile({x: 0, y: 0, z: 0});
   server.consumeAllMessages();
 });
 
@@ -95,13 +99,13 @@ describe('move', () => {
   let creature;
   beforeEach(() => {
     creature = server.context.getCreature(client.creatureId);
-    server.moveCreature(creature, {x: 5, y: 5, z: 0});
+    server.moveCreature(creature, {w: 0, x: 5, y: 5, z: 0});
     server.consumeAllMessages();
   });
 
   it('player can move to open space', () => {
-    const from = {x: 5, y: 5, z: 0};
-    const to = {x: 6, y: 5, z: 0};
+    const from = {w: 0, x: 5, y: 5, z: 0};
+    const to = {w: 0, x: 6, y: 5, z: 0};
 
     assertCreatureAt(from, creature.id);
     wire.send('move', to);
@@ -109,8 +113,8 @@ describe('move', () => {
   });
 
   it('player can move to walkable item', () => {
-    const from = {x: 5, y: 5, z: 0};
-    const to = {x: 6, y: 5, z: 0};
+    const from = {w: 0, x: 5, y: 5, z: 0};
+    const to = {w: 0, x: 6, y: 5, z: 0};
     setItem(to, { type: 1, quantity: Content.getMetaItemByName('Cut Red Rose').id });
 
     assertCreatureAt(from, creature.id);
@@ -119,8 +123,8 @@ describe('move', () => {
   });
 
   it('player can not move to unwalkable item', () => {
-    const from = {x: 5, y: 5, z: 0};
-    const to = {x: 6, y: 5, z: 0};
+    const from = {w: 0, x: 5, y: 5, z: 0};
+    const to = {w: 0, x: 6, y: 5, z: 0};
     setItem(to, { type: Content.getMetaItemByName('Granite Wall').id, quantity: 1 });
 
     assertCreatureAt(from, creature.id);
@@ -152,8 +156,8 @@ describe('move', () => {
   // });
 
   it('player can move to mine wall with pickaxe in inventory', () => {
-    const from = {x: 5, y: 5, z: 0};
-    const to = {x: 6, y: 5, z: 0};
+    const from = {w: 0, x: 5, y: 5, z: 0};
+    const to = {w: 0, x: 6, y: 5, z: 0};
     setFloor(to, MINE);
 
     assertCreatureAt(from, creature.id);
@@ -167,8 +171,8 @@ describe('moveItem', () => {
   assert(Content.getMetaItem(1).moveable);
 
   it('move item', () => {
-    const from = { x: 0, y: 0, z: 0 };
-    const to = { x: 1, y: 0, z: 0 };
+    const from = { w: 0, x: 0, y: 0, z: 0 };
+    const to = { w: 0, x: 1, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 10 });
 
@@ -184,8 +188,8 @@ describe('moveItem', () => {
   });
 
   it('fail to move item to non-empty tile', () => {
-    const from = { x: 0, y: 0, z: 0 };
-    const to = { x: 1, y: 0, z: 0 };
+    const from = { w: 0, x: 0, y: 0, z: 0 };
+    const to = { w: 0, x: 1, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
     setItem(to, { type: 2, quantity: 1 });
@@ -202,8 +206,8 @@ describe('moveItem', () => {
   });
 
   it('move stackable item', () => {
-    const from = { x: 0, y: 0, z: 0 };
-    const to = { x: 1, y: 0, z: 0 };
+    const from = { w: 0, x: 0, y: 0, z: 0 };
+    const to = { w: 0, x: 1, y: 0, z: 0 };
     const gold = Content.getMetaItemByName('Gold');
 
     setItem(from, { type: gold.id, quantity: 1 });
@@ -221,14 +225,14 @@ describe('moveItem', () => {
   });
 
   it('move item from container to world', () => {
-    const to = { x: 0, y: 0, z: 0 };
+    const to = { w: 0, x: 0, y: 0, z: 0 };
 
     const container = server.context.makeContainer();
     container.items[0] = { type: 1, quantity: 1 };
     wire.send('requestContainer', { containerId: container.id });
 
     wire.send('moveItem', {
-      from: {x: 0, y: 0, z: 0},
+      from: {w: 0, x: 0, y: 0, z: 0},
       fromSource: container.id,
       to,
       toSource: 0,
@@ -239,7 +243,7 @@ describe('moveItem', () => {
   });
 
   it('move item from world to container', () => {
-    const from = { x: 0, y: 0, z: 0 };
+    const from = { w: 0, x: 0, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
     const container = server.context.makeContainer();
@@ -248,7 +252,7 @@ describe('moveItem', () => {
     wire.send('moveItem', {
       from,
       fromSource: 0,
-      to: { x: 0, y: 0, z: 0 },
+      to: { w: 0, x: 0, y: 0, z: 0 },
       toSource: container.id,
     });
 
@@ -257,7 +261,7 @@ describe('moveItem', () => {
   });
 
   it('move item from world to container: no "to" places in first open slot', () => {
-    const from = { x: 0, y: 0, z: 0 };
+    const from = { w: 0, x: 0, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
     const container = server.context.makeContainer();
@@ -277,7 +281,7 @@ describe('moveItem', () => {
   });
 
   it('move item from world to container: no "to" places in first open slot - stacks', () => {
-    const from = { x: 0, y: 0, z: 0 };
+    const from = { w: 0, x: 0, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
     const container = server.context.makeContainer();
@@ -312,7 +316,7 @@ describe('use', () => {
 
   it('cut down tree', () => {
     const toolIndex = 0;
-    const loc = { x: 0, y: 0, z: 0 };
+    const loc = { w: 0, x: 0, y: 0, z: 0 };
 
     setItem(loc, { type: Content.getMetaItemByName('Pine Tree').id, quantity: 1 });
 
@@ -328,7 +332,7 @@ describe('use', () => {
 
   it('plant a seed', () => {
     const toolIndex = 4;
-    const loc = { x: 0, y: 0, z: 0 };
+    const loc = { w: 0, x: 0, y: 0, z: 0 };
 
     setItem(loc, { type: Content.getMetaItemByName('Ploughed Ground').id, quantity: 1 });
 
@@ -346,7 +350,7 @@ describe('use', () => {
 
   it('cook food', () => {
     const toolIndex = 0;
-    const loc = { x: 0, y: 0, z: 0 };
+    const loc = { w: 0, x: 0, y: 0, z: 0 };
 
     setItemInContainer(container.id, toolIndex, {
       type: Content.getMetaItemByName('Un-Cooked Large Ribs').id,
@@ -373,7 +377,7 @@ describe('use', () => {
   });
 
   it('closing/opening chest retains container id', () => {
-    const loc = { x: 0, y: 0, z: 0 };
+    const loc = { w: 0, x: 0, y: 0, z: 0 };
 
     setItem(loc, { type: Content.getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123 });
 

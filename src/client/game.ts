@@ -163,7 +163,7 @@ function selectView(loc?: TilePoint) {
 }
 
 function worldToTile(pw: ScreenPoint) {
-  return _worldToTile(pw, Helper.getZ());
+  return _worldToTile(Helper.getW(), pw, Helper.getZ());
 }
 
 function mouseToWorld(pm: ScreenPoint): ScreenPoint {
@@ -225,7 +225,7 @@ class Game {
     this.client.eventEmitter.on('message', (e) => {
       // TODO improve type checking.
       if (e.type === 'setItem') {
-        const loc = {x: e.args.x, y: e.args.y, z: e.args.z};
+        const loc = {w: e.args.w, x: e.args.x, y: e.args.y, z: e.args.z};
         if (equalPoints(loc, this.state.selectedView.tile)) {
           selectView(this.state.selectedView.tile);
         }
@@ -545,11 +545,13 @@ class Game {
     this.state.elapsedFrames = (this.state.elapsedFrames + 1) % 60000;
 
     const focusCreature = this.client.context.getCreature(this.client.creatureId);
-    const focusPos = focusCreature ? focusCreature.pos : { x: 0, y: 0, z: 0 };
+    const focusPos = focusCreature ? focusCreature.pos : { w: 0, x: 0, y: 0, z: 0 };
+    const w = focusPos.w;
     const z = focusPos.z;
+    const partition = this.client.context.map.getPartition(w);
 
     if (!focusCreature) return;
-    if (this.client.context.map.width === 0) return;
+    if (partition.width === 0) return;
 
     // Make container windows.
     for (const [id, container] of this.client.context.containers.entries()) {
@@ -588,14 +590,14 @@ class Game {
     this.containers.floorLayer.removeChildren();
     for (let x = startTileX; x <= endTileX; x++) {
       for (let y = startTileY; y <= endTileY; y++) {
-        const floor = this.client.context.map.getTile({ x, y, z }).floor;
+        const floor = partition.getTile({ x, y, z }).floor;
 
         let sprite;
         if (floor === WATER) {
-          const template = getWaterFloor(this.client.context.map, { x, y, z });
+          const template = getWaterFloor(partition, { x, y, z });
           sprite = new PIXI.Sprite(Draw.getTexture.templates(template));
         } else if (floor === MINE) {
-          const template = getMineFloor(this.client.context.map, { x, y, z });
+          const template = getMineFloor(partition, { x, y, z });
           sprite = new PIXI.Sprite(Draw.getTexture.templates(template));
         } else {
           sprite = new PIXI.Sprite(Draw.getTexture.floors(floor));
@@ -649,7 +651,7 @@ class Game {
     this.containers.itemAndCreatureLayer.removeChildren();
     for (let x = startTileX; x <= endTileX; x++) {
       for (let y = startTileY; y <= endTileY; y++) {
-        const tile = this.client.context.map.getTile({ x, y, z });
+        const tile = partition.getTile({ x, y, z });
         if (tile.item) {
           const itemSprite = Draw.makeItemSprite(tile.item);
           itemSprite.x = x * 32;

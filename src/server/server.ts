@@ -3,7 +3,8 @@ import { findPath } from '../path-finding';
 import performance from '../performance';
 import Player from '../player';
 import { ClientToServerProtocol } from '../protocol';
-import { equalPoints, maxDiff, randInt } from '../utils';
+import { maxDiff, randInt } from '../utils';
+import WorldMapPartition from '../world-map-partition';
 import ClientConnection from './client-connection';
 import { ServerContext } from './server-context';
 
@@ -32,7 +33,7 @@ export default class Server {
     // True if last movement was a warp. Prevents infinite stairs.
     warped: boolean;
     home: TilePoint;
-    path: TilePoint[] | null;
+    path: PartitionPoint[] | null;
   }> = {};
   public players = new Map<number, Player>();
 
@@ -101,7 +102,7 @@ export default class Server {
     player.creature = this.registerCreature({
       id: this.context.nextCreatureId++,
       name: 'Player',
-      pos: {x: randInt(0, 10), y: randInt(0, 10), z: 0},
+      pos: {w: 0, x: randInt(0, 10), y: randInt(0, 10), z: 0},
       image: randInt(0, 10),
       isPlayer: true,
     });
@@ -122,10 +123,15 @@ export default class Server {
     clientConnection.send('initialize', {
       creatureId: player.creature.id,
       containerId: clientConnection.container.id,
-      width: this.context.map.width,
-      height: this.context.map.height,
-      depth: this.context.map.depth,
       skills: [...player.skills.entries()],
+    });
+    const w = player.creature.pos.w;
+    const partition = this.context.map.getPartition(w);
+    clientConnection.send('initializePartition', {
+      w,
+      x: partition.width,
+      y: partition.height,
+      z: partition.depth,
     });
     clientConnection.send('setCreature', player.creature);
     clientConnection.send('container', this.context.getContainer(clientConnection.container.id));
@@ -197,9 +203,11 @@ export default class Server {
 
   public findNearest(loc: TilePoint, range: number, includeTargetLocation: boolean,
                      predicate: (tile: Tile) => boolean): TilePoint | null {
-    const test = (l: TilePoint) => {
-      if (!this.context.map.inBounds(l)) return false;
-      return predicate(this.context.map.getTile(l));
+    const w = loc.w;
+    const partition = this.context.map.getPartition(w);
+    const test = (l: PartitionPoint) => {
+      if (!partition.inBounds(l)) return false;
+      return predicate(partition.getTile(l));
     };
 
     const x0 = loc.x;
@@ -210,15 +218,15 @@ export default class Server {
         if (y1 === y0 - offset || y1 === y0 + offset) {
           for (let x1 = x0 - offset; x1 <= offset + x0; x1++) {
             if (test({ x: x1, y: y1, z })) {
-              return { x: x1, y: y1, z };
+              return { w, x: x1, y: y1, z };
             }
           }
         } else {
           if (test({ x: x0 - offset, y: y1, z })) {
-            return { x: x0 - offset, y: y1, z };
+            return { w, x: x0 - offset, y: y1, z };
           }
           if (test({ x: x0 + offset, y: y1, z })) {
-            return { x: x0 + offset, y: y1, z };
+            return { w, x: x0 + offset, y: y1, z };
           }
         }
       }
@@ -261,7 +269,7 @@ export default class Server {
     this.conditionalBroadcast((clientConnection) => {
       return clientConnection.container.id === id || clientConnection.registeredContainers.includes(id);
     })('setItem', {
-      ...{x: index, y: 0, z: 0},
+      ...{w: 0, x: index, y: 0, z: 0},
       source: id,
       item,
     });
@@ -326,6 +334,8 @@ export default class Server {
 
       if (now - state.lastMove > 1500) {
         state.lastMove = now;
+        const w = creature.pos.w;
+        const partition = this.context.map.getPartition(w);
 
         // Always recalc for tamed creatures.
         if (creature.tamedBy) {
@@ -342,19 +352,19 @@ export default class Server {
             const randomDest = {...creature.pos};
             randomDest.x += Math.floor(Math.random() * 6 - 1);
             randomDest.y += Math.floor(Math.random() * 6 - 1);
-            if (this.context.map.walkable(randomDest)) {
+            if (partition.walkable(randomDest)) {
               destination = randomDest;
             }
           } else {
             destination = state.home;
           }
 
-          if (destination) state.path = findPath(this.context.map, creature.pos, destination);
+          if (destination) state.path = findPath(partition, creature.pos, destination);
         }
 
         if (!state.path || state.path.length === 0) return;
-        const newPos = state.path.splice(0, 1)[0];
-        if (this.context.map.walkable(newPos)) {
+        const newPos = { w, ...state.path.splice(0, 1)[0]};
+        if (partition.walkable(newPos)) {
           this.moveCreature(creature, newPos);
         } else {
           // Path has been obstructed - reset pathing.
@@ -399,25 +409,8 @@ export default class Server {
     // TODO: Only load part of the world in memory and simulate growth of inactive areas on load.
     if (this.nextGrowthAt <= now) {
       this.nextGrowthAt += this.growRate;
-      for (let x = 0; x < this.context.map.width; x++) {
-        for (let y = 0; y < this.context.map.height; y++) {
-          const pos = {x, y, z: 0};
-          const item = this.context.map.getItem(pos);
-          if (!item) continue;
-          const meta = Content.getMetaItem(item.type);
-          if (!meta || !meta.growthItem) continue;
-
-          item.growth = (item.growth || 0) + 1;
-          if (item.growth >= meta.growthDelta) {
-            item.type = meta.growthItem;
-            item.growth = 0;
-            this.broadcast('setItem', {
-              ...pos,
-              source: 0,
-              item,
-            });
-          }
-        }
+      for (const [w, partition] of this.context.map.getPartitions().entries()) {
+        this.growPartition(w, partition);
       }
     }
 
@@ -487,6 +480,30 @@ export default class Server {
           max: this.perf.tickDurationMax,
         }),
       });
+    }
+  }
+
+  private growPartition(w: number, partition: WorldMapPartition) {
+    for (let x = 0; x < partition.width; x++) {
+      for (let y = 0; y < partition.height; y++) {
+        const pos = {x, y, z: 0};
+        const item = partition.getItem(pos);
+        if (!item) continue;
+        const meta = Content.getMetaItem(item.type);
+        if (!meta || !meta.growthItem) continue;
+
+        item.growth = (item.growth || 0) + 1;
+        if (item.growth >= meta.growthDelta) {
+          item.type = meta.growthItem;
+          item.growth = 0;
+          this.broadcast('setItem', {
+            ...pos,
+            w,
+            source: 0,
+            item,
+          });
+        }
+      }
     }
   }
 }

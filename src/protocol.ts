@@ -156,18 +156,27 @@ const closeContainer: C2S<CloseContainerParams> = (server, { containerId }) => {
   }
 };
 
+interface RequestPartitionParams { w: number; }
+const requestPartition: C2S<RequestPartitionParams> = (server, {w}) => {
+  const partition = server.context.map.getPartition(w);
+  server.reply('initializePartition', {
+    w,
+    x: partition.width,
+    y: partition.height,
+    z: partition.depth,
+  });
+};
+
 type RequestSectorParams = TilePoint;
-const requestSector: C2S<RequestSectorParams> = (server, { x, y, z }) => {
+const requestSector: C2S<RequestSectorParams> = (server, loc) => {
   const isClose = true; // TODO
-  if (x < 0 || y < 0 || z < 0 || !isClose) {
+  if (loc.x < 0 || loc.y < 0 || loc.z < 0 || !isClose) {
     return false;
   }
 
   server.reply('sector', {
-    x,
-    y,
-    z,
-    tiles: server.context.map.getSector({ x, y, z }),
+    ...loc,
+    tiles: server.context.map.getSector(loc),
   });
 };
 
@@ -243,6 +252,7 @@ export const ClientToServerProtocol = {
   move,
   moveItem,
   requestContainer,
+  requestPartition,
   requestSector,
   tame,
   use,
@@ -251,10 +261,8 @@ export const ClientToServerProtocol = {
 // ServerToClientProtocolFn
 type S2C<T> = (client: Client, data: T) => void;
 
-interface InitializeParams { creatureId: number; containerId: number; width: number;
-  height: number; depth: number; skills: Array<[number, number]>; }
-const initialize: S2C<InitializeParams> = (client, { creatureId, containerId, width, height, depth, skills }) => {
-  client.context.map.init(width, height, depth);
+interface InitializeParams { creatureId: number; containerId: number; skills: Array<[number, number]>; }
+const initialize: S2C<InitializeParams> = (client, { creatureId, containerId, skills }) => {
   client.creatureId = creatureId;
   client.containerId = containerId;
   for (const [skillId, xp] of skills) {
@@ -262,9 +270,14 @@ const initialize: S2C<InitializeParams> = (client, { creatureId, containerId, wi
   }
 };
 
+type InitializePartitionParams = TilePoint;
+const initializePartition: S2C<InitializePartitionParams> = (client, pos) => {
+  client.context.map.initPartition(pos.w, pos.x, pos.y, pos.z);
+};
+
 type SectorParams = TilePoint & { tiles: Sector };
-const sector: S2C<SectorParams> = (client, { x, y, z, tiles }) => {
-  client.context.map.sectors[x][y][z] = tiles;
+const sector: S2C<SectorParams> = (client, { tiles, ...pos }) => {
+  client.context.map.getPartition(pos.w).sectors[pos.x][pos.y][pos.z] = tiles;
 
   for (const row of tiles) {
     for (const tile of row) {
@@ -281,18 +294,18 @@ const container: S2C<ContainerParams> = (client, container) => {
 };
 
 type SetFloorParams = TilePoint & { floor: number };
-const setFloor: S2C<SetFloorParams> = (client, { x, y, z, floor }) => {
-  client.context.map.getTile({ x, y, z }).floor = floor;
+const setFloor: S2C<SetFloorParams> = (client, { floor, ...loc }) => {
+  client.context.map.getTile(loc).floor = floor;
 };
 
 type SetItemParams = TilePoint & { source: number, item?: Item };
-const setItem: S2C<SetItemParams> = (client, { x, y, z, source, item }) => {
+const setItem: S2C<SetItemParams> = (client, { source, item, ...loc }) => {
   if (source === ItemSourceWorld) {
-    client.context.map.getTile({ x, y, z }).item = item;
+    client.context.map.getTile(loc).item = item;
   } else {
     const container = client.context.containers.get(source);
     if (container) {
-      container.items[x] = item;
+      container.items[loc.x] = item;
     }
   }
 };
@@ -365,6 +378,7 @@ const xp: S2C<XpParams> = (client, { skill, xp }) => {
 
 export const ServerToClientProtocol = {
   initialize,
+  initializePartition,
   sector,
   container,
   setFloor,
