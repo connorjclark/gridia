@@ -52,16 +52,24 @@ const ContextMenu = {
     }
     for (const action of actions) {
       const actionEl = document.createElement('div');
-      actionEl.classList.add('action');
-      actionEl.innerText = action.innerText;
-      actionEl.dataset.action = JSON.stringify(action);
-      actionEl.dataset.loc = JSON.stringify(loc);
-      if (tile.creature) actionEl.dataset.creatureId = String(tile.creature.id);
-      actionEl.title = action.title;
+      addDataToActionEl(actionEl, {
+        action,
+        loc,
+        creature: tile.creature,
+      });
       contextMenuEl.appendChild(actionEl);
     }
   },
 };
+
+function addDataToActionEl(actionEl: HTMLElement, opts: {action: GameAction, loc?: TilePoint, creature?: Creature}) {
+  actionEl.classList.add('action');
+  actionEl.title = opts.action.title;
+  actionEl.innerText = opts.action.innerText;
+  actionEl.dataset.action = JSON.stringify(opts.action);
+  if (opts.loc) actionEl.dataset.loc = JSON.stringify(opts.loc);
+  if (opts.creature) actionEl.dataset.creatureId = String(opts.creature.id);
+}
 
 function renderSelectedView() {
   const el = Helper.find('.selected-view');
@@ -106,15 +114,20 @@ function renderSelectedView() {
   const actionsEl = Helper.find('.selected-view--actions', el);
   actionsEl.innerHTML = 'Actions:';
 
-  const actions = tile ? game.getActionsFor(tile, game.state.selectedView.tile) : [];
+  // If a creature is selected, do not show actions for the item on the tile.
+  let actions = [];
+  if (creature) {
+    actions = game.getActionsFor({item: null, floor: 0, creature}, game.state.selectedView.tile);
+  } else if (tile) {
+    actions = game.getActionsFor(tile, game.state.selectedView.tile);
+  }
   for (const action of actions) {
     const actionEl = document.createElement('button');
-    actionEl.classList.add('action');
-    actionEl.innerText = action.innerText;
-    actionEl.dataset.action = JSON.stringify(action);
-    if (creature) actionEl.dataset.creatureId = String(game.state.selectedView.creatureId);
-    else actionEl.dataset.loc = JSON.stringify(game.state.selectedView.tile);
-    actionEl.title = action.title;
+    addDataToActionEl(actionEl, {
+      action,
+      loc: game.state.selectedView.tile,
+      creature,
+    });
     actionsEl.appendChild(actionEl);
   }
 }
@@ -347,7 +360,7 @@ class Game {
       // @ts-ignore
       const dataset = e.target.dataset;
       const action: GameAction = JSON.parse(dataset.action);
-      const loc: TilePoint = JSON.parse(dataset.loc);
+      const loc: TilePoint = dataset.loc ? JSON.parse(dataset.loc) : null;
       const creatureId = Number(dataset.creatureId);
       const creature = creatureId ? this.client.context.getCreature(creatureId) : null;
       this.client.eventEmitter.emit('Action', {
