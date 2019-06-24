@@ -191,6 +191,7 @@ export default class Server {
   public warpCreature(creature: Creature, pos: TilePoint | null) {
     this.moveCreature(creature, pos);
     this.creatureStates[creature.id].warped = true;
+    this.creatureStates[creature.id].path = null;
   }
 
   public removeCreature(creature: Creature) {
