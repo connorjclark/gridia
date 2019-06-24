@@ -3,12 +3,11 @@ import * as http from 'http';
 import * as https from 'https';
 import {Server as WebSocketServer} from 'ws';
 import * as yargs from 'yargs';
-import mapgen from './mapgen';
 import ClientConnection from './server/client-connection';
 import Server from './server/server';
 import { ServerContext } from './server/server-context';
 import { randInt } from './utils';
-import WorldMap from './world-map';
+import createDebugWorldMap from './world-map-debug';
 
 interface ServerOptions {
   port: number;
@@ -27,8 +26,7 @@ async function startServer(options: ServerOptions) {
     context = await ServerContext.load(serverData);
   } else {
     fs.mkdirSync(serverData);
-    const worldMap = new WorldMap();
-    worldMap.addPartition(0, mapgen(100, 100, 2, false));
+    const worldMap = createDebugWorldMap();
     context = new ServerContext(worldMap);
     context.setServerDir(serverData);
     await context.save();
