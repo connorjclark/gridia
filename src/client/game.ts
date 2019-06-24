@@ -144,49 +144,6 @@ function registerPanelListeners() {
   });
 }
 
-function globalOnActionHandler(e: GameActionEvent) {
-  ContextMenu.close();
-
-  const type = e.action.type;
-  const {loc} = e;
-
-  // Do nothing.
-  if (type === 'cancel') return;
-
-  if (loc) {
-    switch (type) {
-      case 'pickup':
-        game.client.wire.send('moveItem', {
-          fromSource: 0,
-          from: loc,
-          toSource: game.client.containerId,
-        });
-        break;
-      case 'use-hand':
-        Helper.useHand(loc);
-        break;
-      case 'use-tool':
-        Helper.useTool(loc);
-        break;
-      case 'open-container':
-        Helper.openContainer(loc);
-        break;
-      default:
-        // console.error('unknown action type', type);
-    }
-  } else {
-    switch (type) {
-      case 'follow':
-        // TODO path should update as creature moves.
-        // game.state.pathToDestination = findPath(client.context.map, focusPos, creature.pos);
-        // game.state.destination = creature.pos;
-        break;
-      default:
-        console.error('unknown action type', type);
-    }
-  }
-}
-
 function selectView(loc?: TilePoint) {
   if (loc) {
     const creature = game.client.context.map.getTile(loc).creature;
@@ -579,7 +536,7 @@ class Game {
       ContextMenu.close();
     });
 
-    this.client.eventEmitter.on('Action', globalOnActionHandler);
+    this.client.eventEmitter.on('Action', ContextMenu.close);
 
     registerPanelListeners();
   }

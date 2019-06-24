@@ -1,8 +1,9 @@
 import * as Content from '../content';
+import { findPath } from '../path-finding';
 import performance from '../performance';
 import Player from '../player';
 import { ClientToServerProtocol } from '../protocol';
-import { maxDiff, randInt } from '../utils';
+import { equalPoints, maxDiff, randInt } from '../utils';
 import ClientConnection from './client-connection';
 import { ServerContext } from './server-context';
 
@@ -31,7 +32,9 @@ export default class Server {
     // True if last movement was a warp. Prevents infinite stairs.
     warped: boolean;
     home: TilePoint;
+    path: TilePoint[] | null;
   }> = {};
+  public players = new Map<number, Player>();
 
   public reply = ((type, args) => {
     this.outboundMessages.push({
@@ -94,6 +97,7 @@ export default class Server {
     // TODO register/login.
     const player = new Player();
     player.id = this.context.nextPlayerId++;
+    this.players.set(player.id, player);
     player.creature = this.registerCreature({
       id: this.context.nextCreatureId++,
       name: 'Player',
@@ -160,6 +164,7 @@ export default class Server {
       lastMove: performance.now(),
       warped: false,
       home: creature.pos,
+      path: null,
     };
     this.context.setCreature(creature);
     return creature;
@@ -318,13 +323,41 @@ export default class Server {
       const {creature} = state;
       if (creature.isPlayer) continue;
 
-      if (now - state.lastMove > 3000) {
+      if (now - state.lastMove > 1500) {
         state.lastMove = now;
-        const newPos = {...creature.pos};
-        newPos.x += Math.floor(Math.random() * 3 - 1);
-        newPos.y += Math.floor(Math.random() * 3 - 1);
-        if (this.context.map.walkable(newPos) && maxDiff(state.home, newPos) <= 10) {
+
+        // Always recalc for tamed creatures.
+        if (creature.tamedBy) {
+          state.path = null;
+        }
+
+        if (!state.path || state.path.length === 0) {
+          let destination = null;
+          const tamedBy = this.players.get(creature.tamedBy);
+
+          if (tamedBy) {
+            destination = tamedBy.creature.pos;
+          } else if (maxDiff(creature.pos, state.home) <= 10) {
+            const randomDest = {...creature.pos};
+            randomDest.x += Math.floor(Math.random() * 6 - 1);
+            randomDest.y += Math.floor(Math.random() * 6 - 1);
+            if (this.context.map.walkable(randomDest)) {
+              destination = randomDest;
+            }
+          } else {
+            destination = state.home;
+          }
+
+          if (destination) state.path = findPath(this.context.map, creature.pos, destination);
+        }
+
+        if (!state.path || state.path.length === 0) return;
+        const newPos = state.path.splice(0, 1)[0];
+        if (this.context.map.walkable(newPos)) {
           this.moveCreature(creature, newPos);
+        } else {
+          // Path has been obstructed - reset pathing.
+          state.path = null;
         }
       }
     }

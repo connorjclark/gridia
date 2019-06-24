@@ -57,18 +57,53 @@ function globalActionCreator(tile: Tile, loc: TilePoint): GameAction[] {
     });
   }
 
-  if (game.state.selectedView.tile) {
-    const tool = Helper.getSelectedTool();
-    if (tool && Helper.usageExists(tool.type, meta.id)) {
-      actions.push({
-        type: 'use-tool',
-        innerText: `Use ${Content.getMetaItem(tool.type).name}`,
-        title: 'Shortcut: Spacebar',
-      });
-    }
+  const tool = Helper.getSelectedTool();
+  if (tool && Helper.usageExists(tool.type, meta.id)) {
+    actions.push({
+      type: 'use-tool',
+      innerText: `Use ${Content.getMetaItem(tool.type).name}`,
+      title: 'Shortcut: Spacebar',
+    });
+  }
+
+  if (tile.creature) {
+    actions.push({
+      type: 'tame',
+      innerText: 'Tame',
+      title: '',
+    });
   }
 
   return actions;
+}
+
+function globalOnActionHandler(e: GameActionEvent) {
+  const type = e.action.type;
+  const {creature, loc} = e;
+
+  switch (type) {
+    case 'pickup':
+      client.wire.send('moveItem', {
+        fromSource: 0,
+        from: loc,
+        toSource: client.containerId,
+      });
+      break;
+    case 'use-hand':
+      Helper.useHand(loc);
+      break;
+    case 'use-tool':
+      Helper.useTool(loc);
+      break;
+    case 'open-container':
+      Helper.openContainer(loc);
+      break;
+    case 'tame':
+      client.wire.send('tame', {
+        creatureId: creature.id,
+      });
+      break;
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -85,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gameSingleton.addModule(new moduleClass(gameSingleton));
   }
   gameSingleton.addActionCreator(globalActionCreator);
+  client.eventEmitter.on('Action', globalOnActionHandler);
 
   gameSingleton.start();
 });

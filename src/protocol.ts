@@ -171,6 +171,17 @@ const requestSector: C2S<RequestSectorParams> = (server, { x, y, z }) => {
   });
 };
 
+interface TameParams { creatureId: number; }
+const tame: C2S<TameParams> = (server, { creatureId }) => {
+  const creature = server.context.getCreature(creatureId);
+  const isClose = true; // TODO
+  if (!isClose) {
+    return false;
+  }
+
+  if (!creature.tamedBy) creature.tamedBy = server.currentClientConnection.player.id;
+};
+
 interface UseParams { toolIndex: number; loc: TilePoint; usageIndex?: number; }
 const use: C2S<UseParams> = (server, { toolIndex, loc, usageIndex = 0 }) => {
   if (!server.context.map.inBounds(loc)) {
@@ -233,6 +244,7 @@ export const ClientToServerProtocol = {
   moveItem,
   requestContainer,
   requestSector,
+  tame,
   use,
 };
 

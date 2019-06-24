@@ -30,6 +30,7 @@ interface Creature {
   name: string;
   pos: TilePoint;
   isPlayer: boolean;
+  tamedBy?: number; // player id
 }
 
 interface ProtocolDef<T> {
