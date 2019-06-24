@@ -1,3 +1,4 @@
+import * as Content from '../content';
 import { Context } from '../context';
 import mapgen from '../mapgen';
 import { ServerToClientProtocol } from '../protocol';
@@ -74,6 +75,17 @@ export function openAndConnectToServerInMemory(client: Client, opts: OpenAndConn
 
   const worldMap = new WorldMap();
   worldMap.addPartition(0, mapgen(100, 100, 2, false));
+  worldMap.getPartition(0).getTile({x: 7, y: 5, z: 0}).item = {
+    type: Content.getMetaItemByName('Warp Portal').id,
+    quantity: 1,
+    warpTo: {w: 1, x: 5, y: 5, z: 0},
+  };
+  worldMap.addPartition(1, mapgen(20, 20, 1, true));
+  worldMap.getPartition(1).getTile({x: 7, y: 5, z: 0}).item = {
+    type: Content.getMetaItemByName('Warp Portal').id,
+    quantity: 1,
+    warpTo: {w: 0, x: 9, y: 12, z: 0},
+  };
 
   const { dummyDelay, verbose, context } = opts;
   const server = new Server({

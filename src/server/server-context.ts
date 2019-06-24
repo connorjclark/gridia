@@ -122,7 +122,7 @@ export class ServerContext extends Context {
 
     await this.saveMeta();
 
-    for (const [w, partition] of this.map.getPartitions().entries()) {
+    for (const [w, partition] of this.map.getPartitions()) {
       await fs.mkdir(this.partitionPath(w));
       await this.savePartition(w, partition);
     }

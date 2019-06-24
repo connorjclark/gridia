@@ -125,14 +125,15 @@ export default class Server {
       containerId: clientConnection.container.id,
       skills: [...player.skills.entries()],
     });
-    const w = player.creature.pos.w;
-    const partition = this.context.map.getPartition(w);
-    clientConnection.send('initializePartition', {
-      w,
-      x: partition.width,
-      y: partition.height,
-      z: partition.depth,
-    });
+    // TODO need much better loading.
+    for (const [w, partition] of this.context.map.getPartitions()) {
+      clientConnection.send('initializePartition', {
+        w,
+        x: partition.width,
+        y: partition.height,
+        z: partition.depth,
+      });
+    }
     clientConnection.send('setCreature', player.creature);
     clientConnection.send('container', this.context.getContainer(clientConnection.container.id));
 
@@ -409,7 +410,7 @@ export default class Server {
     // TODO: Only load part of the world in memory and simulate growth of inactive areas on load.
     if (this.nextGrowthAt <= now) {
       this.nextGrowthAt += this.growRate;
-      for (const [w, partition] of this.context.map.getPartitions().entries()) {
+      for (const [w, partition] of this.context.map.getPartitions()) {
         this.growPartition(w, partition);
       }
     }
