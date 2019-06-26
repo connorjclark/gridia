@@ -188,10 +188,11 @@ const tame: C2S<TameParams> = (server, { creatureId }) => {
     return false;
   }
 
-  if (!creature.tamedBy) {
-    creature.tamedBy = server.currentClientConnection.player.id;
-    server.broadcastCreatureUpdate(creature);
-  }
+  if (creature.isPlayer) return;
+  if (creature.tamedBy) return;
+
+  creature.tamedBy = server.currentClientConnection.player.id;
+  server.broadcastCreatureUpdate(creature);
 };
 
 interface UseParams { toolIndex: number; loc: TilePoint; usageIndex?: number; }
