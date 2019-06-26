@@ -665,6 +665,13 @@ class Game {
           creatureSprite.y = y * 32;
           this.containers.itemAndCreatureLayer.addChild(creatureSprite);
 
+          if (tile.creature.tamedBy) {
+            const circle = new PIXI.Graphics();
+            circle.lineStyle(2, 0x0000FF);
+            circle.drawCircle(16, 16, 16);
+            creatureSprite.addChild(circle);
+          }
+
           const label = new PIXI.Text(tile.creature.name,
             {fill: 'white', stroke: 'black', strokeThickness: 3, lineJoin: 'round', fontSize: 16});
           label.anchor.x = 0.5;

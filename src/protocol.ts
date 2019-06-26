@@ -188,7 +188,10 @@ const tame: C2S<TameParams> = (server, { creatureId }) => {
     return false;
   }
 
-  if (!creature.tamedBy) creature.tamedBy = server.currentClientConnection.player.id;
+  if (!creature.tamedBy) {
+    creature.tamedBy = server.currentClientConnection.player.id;
+    server.broadcastCreatureUpdate(creature);
+  }
 };
 
 interface UseParams { toolIndex: number; loc: TilePoint; usageIndex?: number; }
@@ -323,11 +326,13 @@ const setCreature: S2C<SetCreatureParams> = (client, creatureUpdate) => {
 
   const previousPos = creature.pos;
 
+  creature.image = creatureUpdate.image;
+  creature.name = creatureUpdate.name;
+  creature.tamedBy = creatureUpdate.tamedBy;
+  creature.pos = creatureUpdate.pos;
+
   if (creatureUpdate.pos && !equalPoints(previousPos, creatureUpdate.pos)) {
     delete client.context.map.getTile(previousPos).creature;
-    creature.pos = creatureUpdate.pos;
-    creature.image = creatureUpdate.image;
-    creature.name = creatureUpdate.name;
     client.context.map.getTile(creature.pos).creature = creature;
   }
 

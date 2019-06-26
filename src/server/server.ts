@@ -184,8 +184,12 @@ export default class Server {
       creature.pos = pos;
       this.context.map.getTile(creature.pos).creature = creature;
     }
-    this.broadcast('setCreature', creature);
+    this.broadcastCreatureUpdate(creature);
     this.creatureStates[creature.id].warped = false;
+  }
+
+  public broadcastCreatureUpdate(creature: Creature) {
+    this.broadcast('setCreature', creature);
   }
 
   public warpCreature(creature: Creature, pos: TilePoint | null) {
