@@ -185,6 +185,8 @@ class Game {
   protected modules: ClientModule[] = [];
   protected actionCreators: GameActionCreator[] = [];
 
+  private _playerCreature: Creature = null;
+
   constructor(public client: Client) {
     this.state = {
       viewport: {
@@ -219,6 +221,14 @@ class Game {
     }
 
     return actions;
+  }
+
+  public getPlayerPosition() {
+    // TODO need to ensure the same object is used for a creature before caching this.
+    this._playerCreature = this.client.context.getCreature(this.client.creatureId);
+    // if (!this._playerCreature) this._playerCreature = this.client.context.getCreature(this.client.creatureId);
+    if (this._playerCreature) return this._playerCreature.pos;
+    return { w: 0, x: 0, y: 0, z: 0 };
   }
 
   public async start() {
@@ -385,8 +395,7 @@ class Game {
       //   }
       // }
 
-      const focusCreature = this.client.context.getCreature(this.client.creatureId);
-      if (focusCreature && equalPoints(this.state.mouse.tile, focusCreature.pos)) {
+      if (equalPoints(this.state.mouse.tile, this.getPlayerPosition())) {
         const evt: ItemMoveEvent = {
           source: this.client.containerId,
         };
@@ -418,8 +427,10 @@ class Game {
     document.onkeyup = (e) => {
       delete this.keys[e.keyCode];
 
-      const focusCreature = this.client.context.getCreature(this.client.creatureId);
-      if (!focusCreature) return;
+      // TODO replace with something better - game loaded / ready.
+      // or just don't register these events until ready?
+      if (!this._playerCreature) return;
+      const focusPos = this.getPlayerPosition();
       const inventoryWindow = Draw.getContainerWindow(this.client.containerId);
 
       // Number keys for selecting tool in inventory.
@@ -455,7 +466,7 @@ class Game {
         } else if (this.state.selectedView.tile) {
           currentCursor = this.state.selectedView.tile;
         } else {
-          currentCursor = { ...focusCreature.pos };
+          currentCursor = { ...focusPos };
         }
 
         currentCursor.x += dx;
@@ -487,8 +498,8 @@ class Game {
       // T to toggle z.
       if (e.key === 't') {
         this.client.wire.send('move', {
-          ...focusCreature.pos,
-          z: 1 - focusCreature.pos.z,
+          ...focusPos,
+          z: 1 - focusPos.z,
         });
       }
     };
@@ -544,13 +555,11 @@ class Game {
   public tick() {
     this.state.elapsedFrames = (this.state.elapsedFrames + 1) % 60000;
 
-    const focusCreature = this.client.context.getCreature(this.client.creatureId);
-    const focusPos = focusCreature ? focusCreature.pos : { w: 0, x: 0, y: 0, z: 0 };
-    const w = focusPos.w;
-    const z = focusPos.z;
+    const focusPos = this.getPlayerPosition();
+    const {w, z} = focusPos;
     const partition = this.client.context.map.getPartition(w);
 
-    if (!focusCreature) return;
+    if (!this._playerCreature) return;
     if (partition.width === 0) return;
 
     // Make container windows.

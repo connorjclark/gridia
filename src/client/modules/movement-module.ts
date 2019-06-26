@@ -31,14 +31,14 @@ class MovementClientModule extends ClientModule {
 
   public onTick() {
     const focusCreature = this.game.client.context.getCreature(this.game.client.creatureId);
-    const focusPos = focusCreature ? focusCreature.pos : { w: 0, x: 0, y: 0, z: 0 };
+    const focusPos = this.game.getPlayerPosition();
     const w = focusPos.w;
     const partition = this.game.client.context.map.getPartition(w);
 
     if (!focusCreature) return;
     // if (this.game.client.context.map.width === 0) return;
 
-    if (focusCreature && performance.now() - this.lastMove > 300) {
+    if (performance.now() - this.lastMove > 300) {
       let dest: TilePoint = { ...focusCreature.pos };
 
       const keyInputDelta = {x: 0, y: 0, z: 0};
@@ -103,11 +103,8 @@ class MovementClientModule extends ClientModule {
     const {loc} = e;
 
     if (type === 'move-here') {
-      // TODO this is repeated many places. move to game properties.
-      const focusCreature = this.game.client.context.getCreature(this.game.client.creatureId);
-      const focusPos = focusCreature ? focusCreature.pos : { w: 0, x: 0, y: 0, z: 0 };
-      const w = focusPos.w;
-      const partition = this.game.client.context.map.getPartition(w);
+      const focusPos = this.game.getPlayerPosition();
+      const partition = this.game.client.context.map.getPartition(focusPos.w);
 
       this.pathToDestination = findPath(partition, focusPos, loc);
       this.followCreature = null;
