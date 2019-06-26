@@ -3,6 +3,7 @@ import * as Content from '../content';
 import { game, makeGame } from '../game-singleton';
 import { worldToTile as _worldToTile } from '../utils';
 import Client from './client';
+import { connect, openAndConnectToServerInMemory } from './connect-to-server';
 import * as Helper from './helper';
 import MovementClientModule from './modules/movement-module';
 import SettingsClientModule from './modules/settings-module';
@@ -117,7 +118,33 @@ function globalOnActionHandler(e: GameActionEvent) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+async function createWire() {
+  let connectOverSocket = !window.location.hostname.includes('localhost');
+  if (window.location.search.includes('socket')) {
+    connectOverSocket = true;
+  } else if (window.location.search.includes('memory')) {
+    connectOverSocket = false;
+  }
+
+  if (connectOverSocket) {
+    client.wire = await connect(client, 9001);
+    return;
+  }
+
+  const serverAndWire = openAndConnectToServerInMemory(client, {
+    dummyDelay: 20,
+    verbose: true,
+  });
+
+  setInterval(() => {
+    serverAndWire.server.tick();
+  }, 50);
+
+  client.wire = serverAndWire.clientToServerWire;
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await createWire();
   const gameSingleton = makeGame(client);
   // @ts-ignore
   window.Gridia.game = gameSingleton;

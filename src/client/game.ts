@@ -5,7 +5,6 @@ import { game } from '../game-singleton';
 import {equalPoints, worldToTile as _worldToTile} from '../utils';
 import Client from './client';
 import ClientModule from './client-module';
-import { connect, openAndConnectToServerInMemory } from './connect-to-server';
 import * as Draw from './draw';
 import * as Helper from './helper';
 import KEYS from './keys';
@@ -239,29 +238,6 @@ class Game {
         }
       }
     });
-
-    let connectOverSocket = !window.location.hostname.includes('localhost');
-    if (window.location.search.includes('socket')) {
-      connectOverSocket = true;
-    } else if (window.location.search.includes('memory')) {
-      connectOverSocket = false;
-    }
-
-    if (connectOverSocket) {
-      this.client.wire = await connect(this.client, 9001);
-    } else {
-      const serverAndWire = openAndConnectToServerInMemory(this.client, {
-        dummyDelay: 20,
-        verbose: true,
-      });
-      this.client.wire = serverAndWire.clientToServerWire;
-      // @ts-ignore debugging.
-      Gridia.server = serverAndWire.server;
-
-      setInterval(() => {
-        serverAndWire.server.tick();
-      }, 50);
-    }
 
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
     this.app = new PIXI.Application();
