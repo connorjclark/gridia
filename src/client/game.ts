@@ -667,7 +667,7 @@ class Game {
 
           if (tile.creature.tamedBy) {
             const circle = new PIXI.Graphics();
-            circle.lineStyle(2, 0x0000FF);
+            circle.lineStyle(1, 0x0000FF);
             circle.drawCircle(16, 16, 16);
             creatureSprite.addChild(circle);
           }
