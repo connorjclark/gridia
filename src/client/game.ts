@@ -224,9 +224,7 @@ class Game {
   }
 
   public getPlayerPosition() {
-    // TODO need to ensure the same object is used for a creature before caching this.
-    this._playerCreature = this.client.context.getCreature(this.client.creatureId);
-    // if (!this._playerCreature) this._playerCreature = this.client.context.getCreature(this.client.creatureId);
+    if (!this._playerCreature) this._playerCreature = this.client.context.getCreature(this.client.creatureId);
     if (this._playerCreature) return this._playerCreature.pos;
     return { w: 0, x: 0, y: 0, z: 0 };
   }

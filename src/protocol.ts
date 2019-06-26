@@ -156,6 +156,14 @@ const closeContainer: C2S<CloseContainerParams> = (server, { containerId }) => {
   }
 };
 
+interface RequestCreatureParams { id: number; }
+const requestCreature: C2S<RequestCreatureParams> = (server, {id}) => {
+  server.reply('setCreature', {
+    partial: false,
+    ...server.context.getCreature(id),
+  });
+};
+
 interface RequestPartitionParams { w: number; }
 const requestPartition: C2S<RequestPartitionParams> = (server, {w}) => {
   const partition = server.context.map.getPartition(w);
@@ -192,7 +200,7 @@ const tame: C2S<TameParams> = (server, { creatureId }) => {
   if (creature.tamedBy) return;
 
   creature.tamedBy = server.currentClientConnection.player.id;
-  server.broadcastCreatureUpdate(creature);
+  server.broadcastPartialCreatureUpdate(creature, ['tamedBy']);
 };
 
 interface UseParams { toolIndex: number; loc: TilePoint; usageIndex?: number; }
@@ -256,6 +264,7 @@ export const ClientToServerProtocol = {
   move,
   moveItem,
   requestContainer,
+  requestCreature,
   requestPartition,
   requestSector,
   tame,
@@ -286,6 +295,10 @@ const sector: S2C<SectorParams> = (client, { tiles, ...pos }) => {
   for (const row of tiles) {
     for (const tile of row) {
       if (tile.creature) {
+        // Do not re-register creature.
+        // TODO: Remove this line creates an issue when player warps to a different sector.
+        if (client.context.getCreature(tile.creature.id)) continue;
+
         client.context.setCreature(tile.creature);
       }
     }
@@ -314,48 +327,28 @@ const setItem: S2C<SetItemParams> = (client, { source, item, ...loc }) => {
   }
 };
 
-// TODO optimize for partial updates. For now, every change (including movement)
-// includes all data for the creature.
-// type SetCreatureParams = Partial<Creature>;
-type SetCreatureParams = Creature;
-const setCreature: S2C<SetCreatureParams> = (client, creatureUpdate) => {
-  const creature = client.context.getCreature(creatureUpdate.id);
+// TODO write test ensuring the creature object stays the same (same reference).
+type SetCreatureParams = {partial: boolean} & Partial<Creature>;
+const setCreature: S2C<SetCreatureParams> = (client, {partial, ...partialCreature}) => {
+  const id = partialCreature.id;
+
+  const creature = client.context.getCreature(id);
   if (!creature) {
-    client.context.setCreature(creatureUpdate);
+    if (partial) {
+      client.wire.send('requestCreature', {id});
+    } else {
+      // @ts-ignore - it's not a partial creature.
+      client.context.setCreature(partialCreature);
+    }
     return;
   }
 
-  const previousPos = creature.pos;
-
-  creature.image = creatureUpdate.image;
-  creature.name = creatureUpdate.name;
-  creature.tamedBy = creatureUpdate.tamedBy;
-  creature.pos = creatureUpdate.pos;
-
-  if (creatureUpdate.pos && !equalPoints(previousPos, creatureUpdate.pos)) {
-    delete client.context.map.getTile(previousPos).creature;
-    client.context.map.getTile(creature.pos).creature = creature;
+  const positionChanged = partialCreature.pos && !equalPoints(creature.pos, partialCreature.pos);
+  if (positionChanged) {
+    delete client.context.map.getTile(creature.pos).creature;
+    client.context.map.getTile(partialCreature.pos).creature = creature;
   }
-
-  // WIP partial update needs work.
-  // const id = creatureUpdate.id;
-  // const creature = client.context.getCreature(id);
-
-  // if (!creature) {
-  //   // @ts-ignore
-  //   client.context.setCreature(creatureUpdate);
-  //   return;
-  // }
-
-  // const prevPos = creature.pos;
-
-  // // Move.
-  // if (creatureUpdate.pos && !equalPoints(prevPos, creatureUpdate.pos)) {
-  //   client.context.map.getTile(prevPos).creature = null;
-  //   client.context.map.getTile(creatureUpdate.pos).creature = creature;
-  // }
-
-  // Object.assign(creature, creatureUpdate);
+  Object.assign(creature, partialCreature);
 };
 
 type AnimationParams = TilePoint & { key: string };

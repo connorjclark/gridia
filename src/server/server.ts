@@ -134,7 +134,7 @@ export default class Server {
         z: partition.depth,
       });
     }
-    clientConnection.send('setCreature', player.creature);
+    clientConnection.send('setCreature', {partial: false, ...player.creature});
     clientConnection.send('container', this.context.getContainer(clientConnection.container.id));
 
     this.clientConnections.push(clientConnection);
@@ -184,12 +184,18 @@ export default class Server {
       creature.pos = pos;
       this.context.map.getTile(creature.pos).creature = creature;
     }
-    this.broadcastCreatureUpdate(creature);
+    this.broadcastPartialCreatureUpdate(creature, ['pos']);
     this.creatureStates[creature.id].warped = false;
   }
 
-  public broadcastCreatureUpdate(creature: Creature) {
-    this.broadcast('setCreature', creature);
+  public broadcastPartialCreatureUpdate(creature: Creature, keys: Array<keyof Creature>) {
+    const partialCreature = {
+      id: creature.id,
+    };
+    for (const key of keys) {
+      partialCreature[key] = creature[key];
+    }
+    this.broadcast('setCreature', {partial: true, ...partialCreature});
   }
 
   public warpCreature(creature: Creature, pos: TilePoint | null) {
