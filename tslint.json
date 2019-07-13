@@ -3,7 +3,9 @@
     "extends": [
         "tslint:recommended"
     ],
-    "jsRules": {},
+    "jsRules": {
+        "object-literal-sort-keys": false
+    },
     "rules": {
         "curly": [true, "ignore-same-line"],
         "object-literal-sort-keys": false,
