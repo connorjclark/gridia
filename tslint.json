@@ -14,7 +14,8 @@
         "one-variable-per-declaration": false,
         "no-console": false,
         "no-var-requires": false,
-        "variable-name": false
+        "variable-name": false,
+        "max-classes-per-file": false
     },
     "rulesDirectory": []
 }

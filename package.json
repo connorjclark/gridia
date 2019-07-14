@@ -23,7 +23,7 @@
     "clean": "rimraf dist",
     "watch": "parcel src/client/index.html -d dist/client --public-url . & nodemon",
     "type-check": "tsc --noEmit",
-    "lint": "tslint -c tslint.json '{src,test,build}/**/*.{ts,js}'",
+    "lint": "tslint -t verbose -c tslint.json '{src,test,build}/**/*.{ts,js}'",
     "test": "yarn lint && yarn type-check && jest"
   },
   "devDependencies": {
