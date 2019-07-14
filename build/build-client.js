@@ -40,9 +40,8 @@ function copyFolderRecursiveSync(source, target) {
 
 async function main() {
   // Initializes a bundler using the entrypoint location and options provided
-  const bundler = new ParcelBundler("src/client/main.ts", {
+  const bundler = new ParcelBundler("src/client/index.html", {
     outDir: "dist/client",
-    outFile: "gridia.js",
     publicUrl: ".",
     minify: false,
   });
@@ -51,7 +50,7 @@ async function main() {
   // Use the events if you're using watch mode as this promise will only trigger once and not for every rebuild
   await bundler.bundle();
 
-  copyFileSync("index.html", path.join("dist", "client"));
+  // copyFileSync("index.html", path.join("dist", "client"));
   copyFolderRecursiveSync("world", path.join("dist", "client"));
 }
 
