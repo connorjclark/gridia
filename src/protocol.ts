@@ -10,6 +10,28 @@ import { equalPoints } from './utils';
 // ClientToServerProtocolFn
 type C2S<T> = (server: Server, data: T) => void;
 
+type AdminSetFloorParams = TilePoint & { floor: number };
+const adminSetFloor: C2S<AdminSetFloorParams> = (server, { floor, ...loc }) => {
+  // TODO admins only.
+
+  if (!server.context.map.inBounds(loc)) {
+    return false;
+  }
+
+  server.setFloor(loc, floor);
+};
+
+type AdminSetItemParams = TilePoint & {item?: Item};
+const adminSetItem: C2S<AdminSetItemParams> = (server, {item, ...loc}) => {
+  // TODO admins only.
+
+  if (!server.context.map.inBounds(loc)) {
+    return false;
+  }
+
+  server.setItem(loc, item);
+};
+
 // moveItem handles movement between anywhere items can be - from the world to a player's
 // container, within a container, from a container to the world, or even between containers.
 // Note, containers have a fixed y value of 0. If "to" is null for a container, no location
@@ -260,6 +282,8 @@ const use: C2S<UseParams> = (server, { toolIndex, loc, usageIndex = 0 }) => {
 };
 
 export const ClientToServerProtocol = {
+  adminSetFloor,
+  adminSetItem,
   closeContainer,
   move,
   moveItem,

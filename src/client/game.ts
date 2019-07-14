@@ -394,6 +394,8 @@ class Game {
 
       const point = worldToTile(mouseToWorld({ x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY }));
       selectView(point);
+
+      this.client.eventEmitter.emit('TileClicked', {...point});
     });
 
     document.onkeydown = (e) => {

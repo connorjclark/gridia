@@ -50,6 +50,10 @@ export class ItemWrapper {
   }
 }
 
+export function getFloors(): number[] {
+  return Array.apply(null, {length: 600}).map(Number.call, Number);
+}
+
 export function getMetaItems(): MetaItem[] {
   return items;
 }

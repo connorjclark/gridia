@@ -264,6 +264,14 @@ export default class Server {
     });
   }
 
+  public setFloor(loc: TilePoint, floor: number) {
+    this.context.map.getTile(loc).floor = floor;
+    this.broadcast('setFloor', {
+      ...loc,
+      floor,
+    });
+  }
+
   public setItem(loc: TilePoint, item?: Item) {
     this.context.map.getTile(loc).item = item;
     this.broadcast('setItem', {
