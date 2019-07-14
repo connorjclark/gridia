@@ -5,6 +5,7 @@ import { worldToTile as _worldToTile } from '../utils';
 import Client from './client';
 import { connect, openAndConnectToServerInMemory } from './connect-to-server';
 import * as Helper from './helper';
+import AdminClientModule from './modules/admin-module';
 import MovementClientModule from './modules/movement-module';
 import SettingsClientModule from './modules/settings-module';
 import SkillsClientModule from './modules/skills-module';
@@ -150,6 +151,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   window.Gridia.game = gameSingleton;
 
   const moduleClasses = [
+    AdminClientModule,
     MovementClientModule,
     SettingsClientModule,
     SkillsClientModule,

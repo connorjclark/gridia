@@ -2775,6 +2775,11 @@ eventemitter3@^2.0.0:
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-2.0.3.tgz#b5e1079b59fb5e1ba2771c0a993be060a58c99ba"
   integrity sha1-teEHm1n7XhuidxwKmTvgYKWMmbo=
 
+eventemitter3@^3.1.0:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.2.tgz#2d3d48f9c346698fce83a85d7d664e98535df6e7"
+  integrity sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==
+
 events@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
@@ -5345,6 +5350,11 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
+penner@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/penner/-/penner-0.1.3.tgz#0b8b482d4e9b39af2f3d7c37592229b8acc29705"
+  integrity sha1-C4tILU6bOa8vPXw3WSIpuKzClwU=
+
 performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
@@ -5372,15 +5382,39 @@ pirates@^4.0.1:
   dependencies:
     node-modules-regexp "^1.0.0"
 
+pixi-ease@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/pixi-ease/-/pixi-ease-1.3.0.tgz#2d58087d7a9d9f5bed7004e1e713839649a74abc"
+  integrity sha512-c2stiNINlF3/hYISJfg2sn/mjOlmcl096FtO3IA7u9iVCIVtRNthy/HAD8wr3EY7930bdLqexaFNR7o8n7d3cQ==
+  dependencies:
+    eventemitter3 "^3.1.0"
+    penner "^0.1.3"
+    yy-angle "^1.3.1"
+    yy-color "^1.1.1"
+
 pixi-gl-core@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/pixi-gl-core/-/pixi-gl-core-1.1.4.tgz#8b4b5c433b31e419bc379dc565ce1b835a91b372"
   integrity sha1-i0tcQzsx5Bm8N53FZc4bg1qRs3I=
 
+pixi-scrollbox@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/pixi-scrollbox/-/pixi-scrollbox-1.6.1.tgz#32f040193ee8bf6e0ab58eb0ead13e4020c914b3"
+  integrity sha512-SOfBAO1zdQ3e28ZlMyKYuDXFk/llJ0WgbaY/zZFiZ1UtTdvZHVk4TsZaKmWkfdioIs0NTiLv3JfqFDb8Kj2gQA==
+  dependencies:
+    pixi-ease "^1.3.0"
+
 pixi-sound@^2.1.3:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/pixi-sound/-/pixi-sound-2.1.3.tgz#1c0e54852ea8db5f90209fc5b6a372af5da325b1"
   integrity sha512-/EfGEWA3AAlVlRh43x0zSh7wXe6+R+D5CNu2ghYpJqmwV3SXRE5ls/xnX4qDsYRahvIjy3aYNlqqmDS0HPp8Gw==
+
+pixi-viewport@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/pixi-viewport/-/pixi-viewport-4.0.1.tgz#6214d693a13c4094e1f6f8bcc3977861195f87f4"
+  integrity sha512-JQUxQhf65BiaboBSk6QntCvAFT2nx1+AHqCbyYT20Qe5JuC7KxrIzElwPivw1bObouYg0AtC9/pthg7Jke6cUQ==
+  dependencies:
+    penner "^0.1.3"
 
 pixi.js@^4.8.5:
   version "4.8.5"
@@ -6489,6 +6523,11 @@ sax@^1.2.4, sax@~1.2.1, sax@~1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
+
+seedrandom@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/seedrandom/-/seedrandom-3.0.1.tgz#eb3dde015bcf55df05a233514e5df44ef9dce083"
+  integrity sha512-1/02Y/rUeU1CJBAGLebiC5Lbo5FnB22gQbIFFYTLkwvp1xdABZJH1sn4ZT1MzXmPpzv+Rf/Lu2NcsLJiK4rcDg==
 
 semver-diff@^2.0.0:
   version "2.1.0"
@@ -7713,3 +7752,22 @@ yn@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/yn/-/yn-3.1.0.tgz#fcbe2db63610361afcc5eb9e0ac91e976d046114"
   integrity sha512-kKfnnYkbTfrAdd0xICNFw7Atm8nKpLcLv9AZGEt+kczL/WQVai4e2V6ZN8U/O+iI6WrNuJjNNOyu4zfhl9D3Hg==
+
+yy-angle@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/yy-angle/-/yy-angle-1.3.1.tgz#996ed0ab1cd521b0ee09eb71e41db503b7a172e4"
+  integrity sha512-A81E2JVWPx6UuHnmNyM0wgyiC+azFW3J1U0+kIZ+HFX7ERXmsPAGo6S8kRTa4WoQUky5wbsn+4orkAA8Am5q5w==
+
+yy-color@^1.1.1:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/yy-color/-/yy-color-1.1.2.tgz#5c98fba33ea53e054f785443d26c6279300e5c00"
+  integrity sha512-xAnFzZ3IPOsoQwKfhEhsq7tfhpNXrXrjeUtoStdwBKgfKdhoJatqLNBvybPYt270pX3LqSdAr1x/M07hxjIHEw==
+  dependencies:
+    yy-random "^1.0.1"
+
+yy-random@^1.0.1:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/yy-random/-/yy-random-1.8.0.tgz#46539c1061050bcd63ce70b7fa902ccc9fb36a2e"
+  integrity sha512-Dk5u4kkp6Hu2yUPXpRT8MWr1gpcSI88jDIMZtxVjj6iPiXbfoUcug2fR8s9WS2E4x8EdUxcOdoFadmViLYAQvA==
+  dependencies:
+    seedrandom "^3.0.1"

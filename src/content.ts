@@ -1,4 +1,6 @@
-// import * as items from '../world/content/items.json';
+// TODO: this json is bundled as JS - but it's much faster to parse
+// JSON at runtime via JSON.parse than as a JS object literal.
+// https://github.com/parcel-bundler/parcel/issues/501
 const items: MetaItem[] = require('../world/content/items.json');
 const itemUses: ItemUse[] = require('../world/content/itemuses.json');
 const animations: Animation[] = require('../world/content/animations.json');
@@ -46,6 +48,10 @@ export class ItemWrapper {
   public clone() {
     return new ItemWrapper(this.type, this.quantity);
   }
+}
+
+export function getMetaItems(): MetaItem[] {
+  return items;
 }
 
 export function getMetaItem(id: number): MetaItem {
