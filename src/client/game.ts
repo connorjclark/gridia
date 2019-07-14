@@ -315,12 +315,16 @@ class Game {
     Helper.find('.contextmenu').addEventListener('click', onActionSelection);
 
     this.canvasesEl.addEventListener('mousemove', (e: MouseEvent) => {
+      const loc = worldToTile(mouseToWorld({ x: e.clientX, y: e.clientY }));
       this.state.mouse = {
         ...this.state.mouse,
         x: e.clientX,
         y: e.clientY,
-        tile: worldToTile(mouseToWorld({ x: e.clientX, y: e.clientY })),
+        tile: loc,
       };
+      if (this.client.context.map.inBounds(loc)) {
+        this.client.eventEmitter.emit('MouseMovedOverTile', {...loc});
+      }
     });
 
     this.canvasesEl.addEventListener('mousedown', (e: MouseEvent) => {
@@ -395,7 +399,7 @@ class Game {
       const point = worldToTile(mouseToWorld({ x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY }));
       selectView(point);
 
-      this.client.eventEmitter.emit('TileClicked', {...point});
+      // this.client.eventEmitter.emit('TileClicked', {...point});
     });
 
     document.onkeydown = (e) => {

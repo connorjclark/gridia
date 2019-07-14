@@ -1,6 +1,7 @@
 import Scrollbox from 'pixi-scrollbox';
 import { DisplayObject, Graphics, Sprite } from 'pixi.js';
 import { getFloors, getMetaItems } from '../../content';
+import { equalItems } from '../../utils';
 import ClientModule from '../client-module';
 import { getTexture, makeDraggableWindow, makeItemSprite } from '../draw';
 import GridContainer from '../pixi/grid-container';
@@ -8,6 +9,7 @@ import TabContainer from '../pixi/tab-container';
 
 class AdminClientModule extends ClientModule {
   private _adminWindow: ReturnType<typeof makeDraggableWindow>;
+  private _selectedContent: {displayObject: DisplayObject; type: string; id: number; } | null;
 
   public onStart() {
     // const panel = Helper.find('.panel--admin');
@@ -17,6 +19,10 @@ class AdminClientModule extends ClientModule {
         this.game.addWindow(this.getAdminWindow());
       } else if (this._adminWindow) {
         this.game.removeWindow(this._adminWindow);
+        if (this._selectedContent) {
+          (this._selectedContent.displayObject as Sprite).removeChildren();
+        }
+        this._selectedContent = null;
       }
     });
   }
@@ -28,9 +34,8 @@ class AdminClientModule extends ClientModule {
     if (this._adminWindow) return this._adminWindow;
 
     const tabs = new TabContainer();
-    let selectedContent: {displayObject: DisplayObject; type: string; id: number; } | null;
 
-    function makeGrid(contentData: Array<[number, DisplayObject]>) {
+    const makeGrid = (contentData: Array<[number, DisplayObject]>) => {
       const displayObjectToMetaIdMap = new WeakMap<DisplayObject, number>();
       const scrollbox = new Scrollbox({boxWidth: 320, boxHeight: 320, scrollbarOffsetVertical: 10});
       const grid = new GridContainer(320);
@@ -43,14 +48,14 @@ class AdminClientModule extends ClientModule {
       grid.layout();
       scrollbox.update();
       return {scrollbox, displayObjectToMetaIdMap};
-    }
+    };
 
     interface MakeContentSelectionTabOpts {
       name: string;
       scrollbox: Scrollbox;
       displayObjectToMetaIdMap: WeakMap<DisplayObject, number>;
     }
-    function makeContentSelectionTab({ name, scrollbox, displayObjectToMetaIdMap }: MakeContentSelectionTabOpts) {
+    const makeContentSelectionTab = ({ name, scrollbox, displayObjectToMetaIdMap }: MakeContentSelectionTabOpts) => {
       tabs.add({
         name,
         contents: scrollbox,
@@ -64,18 +69,18 @@ class AdminClientModule extends ClientModule {
       scrollbox.on('click', (e: PIXI.interaction.InteractionEvent) => {
         const id = displayObjectToMetaIdMap.get(e.target);
         if (id === undefined) return;
-        if (selectedContent) {
-          (selectedContent.displayObject as Sprite).removeChildren();
+        if (this._selectedContent) {
+          (this._selectedContent.displayObject as Sprite).removeChildren();
         }
-        if (selectedContent && selectedContent.displayObject === e.target) {
+        if (this._selectedContent && this._selectedContent.displayObject === e.target) {
           // Unselect.
-          selectedContent = null;
+          this._selectedContent = null;
         } else {
-          selectedContent = {displayObject: e.target, type: name, id};
+          this._selectedContent = {displayObject: e.target, type: name, id};
           (e.target as Sprite).addChild(new Graphics().lineStyle(2, 0xFFFF00).drawRect(0, 0, 32, 32));
         }
       });
-    }
+    };
 
     makeContentSelectionTab({
       name: 'Items',
@@ -92,21 +97,29 @@ class AdminClientModule extends ClientModule {
     adminWindow.contents.addChild(tabs);
     tabs.layout();
 
-    this.game.client.eventEmitter.on('TileClicked', (loc: TilePoint) => {
-      if (!selectedContent) return;
+    // TODO: unregister when tab not active.
+    this.game.client.eventEmitter.on('MouseMovedOverTile', (loc: TilePoint) => {
+      if (!this._selectedContent) return;
+      if (this.game.state.mouse.state !== 'down') return;
 
-      if (selectedContent.type === 'Items') {
-        const item = selectedContent.id !== undefined ? {type: selectedContent.id, quantity: 1} : undefined;
+      if (this._selectedContent.type === 'Items') {
+        const item = this._selectedContent.id !== undefined ? {type: this._selectedContent.id, quantity: 1} : undefined;
+        if (equalItems(this.game.client.context.map.getItem(loc), item)) return;
         this.game.client.wire.send('adminSetItem', {
           ...loc,
           item,
         });
-      } else if (selectedContent.type === 'Floors') {
-        const floor = selectedContent.id;
+        // Set immeditely in client, b/c server will take a while to respond and this prevents sending multiple
+        // messages for the same tile.
+        this.game.client.context.map.getTile(loc).item = item;
+      } else if (this._selectedContent.type === 'Floors') {
+        const floor = this._selectedContent.id;
+        if (this.game.client.context.map.getTile(loc).floor === floor) return;
         this.game.client.wire.send('adminSetFloor', {
           ...loc,
           floor,
         });
+        this.game.client.context.map.getTile(loc).floor = floor;
       }
     });
 
