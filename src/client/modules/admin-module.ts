@@ -98,7 +98,7 @@ class AdminClientModule extends ClientModule {
     tabs.layout();
 
     // TODO: unregister when tab not active.
-    this.game.client.eventEmitter.on('MouseMovedOverTile', (loc: TilePoint) => {
+    const handler = (loc: TilePoint) => {
       if (!this._selectedContent) return;
       if (this.game.state.mouse.state !== 'down') return;
 
@@ -121,7 +121,9 @@ class AdminClientModule extends ClientModule {
         });
         this.game.client.context.map.getTile(loc).floor = floor;
       }
-    });
+    };
+    this.game.client.eventEmitter.on('MouseMovedOverTile', handler);
+    this.game.client.eventEmitter.on('TileClicked', handler);
 
     this._adminWindow = adminWindow;
     return adminWindow;

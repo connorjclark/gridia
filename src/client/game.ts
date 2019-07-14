@@ -396,10 +396,12 @@ class Game {
         return;
       }
 
-      const point = worldToTile(mouseToWorld({ x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY }));
-      selectView(point);
+      const loc = worldToTile(mouseToWorld({ x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY }));
+      selectView(loc);
 
-      // this.client.eventEmitter.emit('TileClicked', {...point});
+      if (this.client.context.map.inBounds(loc)) {
+        this.client.eventEmitter.emit('TileClicked', {...loc});
+      }
     });
 
     document.onkeydown = (e) => {

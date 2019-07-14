@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 import * as Content from '../content';
-import { game, makeGame } from '../game-singleton';
+import { makeGame } from '../game-singleton';
 import { worldToTile as _worldToTile } from '../utils';
 import Client from './client';
 import { connect, openAndConnectToServerInMemory } from './connect-to-server';

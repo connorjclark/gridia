@@ -474,33 +474,33 @@ export default class Server {
     }
     this.outboundMessages = [];
 
-    const tickDuration = performance.now() - now;
-    this.perf.ticks.push({
-      started: now,
-      duration: tickDuration,
-    });
+    // const tickDuration = performance.now() - now;
+    // this.perf.ticks.push({
+    //   started: now,
+    //   duration: tickDuration,
+    // });
 
-    // Send clients perf stats.
-    // TODO just send to admins.
-    if (this.ticks % (20 * 10) === 0) {
-      // ~every 10 seconds @ 50ms / tick.
+    // // Send clients perf stats.
+    // // TODO just send to admins.
+    // if (this.ticks % (20 * 10) === 0) {
+    //   // ~every 10 seconds @ 50ms / tick.
 
-      // Only keep the last 10 seconds of ticks.
-      const cutoff = now - 10 * 1000;
-      const firstValid = this.perf.ticks.findIndex((tick) => tick.started >= cutoff);
-      this.perf.ticks.splice(0, firstValid);
-      this.perf.tickDurationAverage =
-        this.perf.ticks.reduce((acc, cur) => acc + cur.duration, 0) / this.perf.ticks.length;
-      this.perf.tickDurationMax = this.perf.ticks.reduce((acc, cur) => Math.max(acc, cur.duration), 0);
+    //   // Only keep the last 10 seconds of ticks.
+    //   const cutoff = now - 10 * 1000;
+    //   const firstValid = this.perf.ticks.findIndex((tick) => tick.started >= cutoff);
+    //   this.perf.ticks.splice(0, firstValid);
+    //   this.perf.tickDurationAverage =
+    //     this.perf.ticks.reduce((acc, cur) => acc + cur.duration, 0) / this.perf.ticks.length;
+    //   this.perf.tickDurationMax = this.perf.ticks.reduce((acc, cur) => Math.max(acc, cur.duration), 0);
 
-      this.broadcast('log', {
-        msg: JSON.stringify({
-          ticksPerSec: this.perf.ticks.length / 10,
-          avg: this.perf.tickDurationAverage,
-          max: this.perf.tickDurationMax,
-        }),
-      });
-    }
+    //   this.broadcast('log', {
+    //     msg: JSON.stringify({
+    //       ticksPerSec: this.perf.ticks.length / 10,
+    //       avg: this.perf.tickDurationAverage,
+    //       max: this.perf.tickDurationMax,
+    //     }),
+    //   });
+    // }
   }
 
   private growPartition(w: number, partition: WorldMapPartition) {
