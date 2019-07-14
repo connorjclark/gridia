@@ -103,8 +103,11 @@ class AdminClientModule extends ClientModule {
       if (this.game.state.mouse.state !== 'down') return;
 
       if (this._selectedContent.type === 'Items') {
-        const item = this._selectedContent.id !== undefined ? {type: this._selectedContent.id, quantity: 1} : undefined;
-        if (equalItems(this.game.client.context.map.getItem(loc), item)) return;
+        const item = this._selectedContent.id > 0 ? {type: this._selectedContent.id, quantity: 1} : undefined;
+        const currentItem = this.game.client.context.map.getItem(loc);
+        if (equalItems(currentItem, item)) return;
+        // Don't overwrite existing items - must explictly select the "null" item to delete items.
+        if (currentItem && item) return;
         this.game.client.wire.send('adminSetItem', {
           ...loc,
           item,
