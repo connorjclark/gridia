@@ -43,6 +43,7 @@ async function main() {
     outDir: "dist/client",
     publicUrl: ".",
     minify: false,
+    watch: false,
   });
   await bundler.bundle();
   copyFolderRecursiveSync("world", path.join("dist", "client"));
