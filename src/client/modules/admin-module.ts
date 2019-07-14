@@ -29,30 +29,43 @@ class GridContainer extends Container {
   }
 }
 
-class TabContainer extends Container {
-  private _tabs = new Map<string, DisplayObject>();
-  private _currentTab: string;
+interface Tab {
+  name: string;
+  contents: DisplayObject;
+  willShow?: () => void;
+  wasHidden?: () => void;
+}
 
-  public add(tabName: string, contents: DisplayObject) {
-    this._tabs.set(tabName, contents);
+class TabContainer extends Container {
+  private _tabs = new Map<string, Tab>();
+  private _currentTab: Tab;
+
+  public add(tab: Tab) {
+    this._tabs.set(tab.name, tab);
   }
 
   public showTab(tabName: string) {
-    if (this._currentTab === tabName) return;
-    this._currentTab = tabName;
+    if (this._currentTab && this._currentTab.name === tabName) return;
+    const tab = this._tabs.get(tabName);
+    if (!tab) return;
+    if (this._currentTab && this._currentTab.wasHidden) this._currentTab.wasHidden();
+    this._currentTab = tab;
+    if (this._currentTab && this._currentTab.willShow) this._currentTab.willShow();
     this.layout();
   }
 
   public layout() {
+    if (!this._currentTab) {
+      this.showTab(this._tabs.keys().next().value);
+      return;
+    }
+
     this.removeChildren();
-
-    const currentTab = this._currentTab || this._tabs.keys().next().value;
-
     const tabs = new GridContainer(320);
     for (const tabName of this._tabs.keys()) {
       const gfx = new Graphics();
       const text = new Text(tabName);
-      gfx.beginFill(tabName === currentTab ? 0xBDBDBD : 0xffffff);
+      gfx.beginFill(tabName === this._currentTab.name ? 0xBDBDBD : 0xffffff);
       gfx.drawRect(0, 0, text.width, text.height);
       gfx.endFill();
       gfx.addChild(text);
@@ -63,9 +76,8 @@ class TabContainer extends Container {
     tabs.layout();
     this.addChild(tabs);
 
-    const tabToShow = this._tabs.get(currentTab);
-    tabToShow.y = tabs.height;
-    this.addChild(tabToShow);
+    this._currentTab.contents.y = tabs.height;
+    this.addChild(this._currentTab.contents);
   }
 }
 
@@ -87,7 +99,6 @@ class AdminClientModule extends ClientModule {
   // TODO: there are issues with Scrollbox:
   // 1) dragging the scroll bar doesn't work great (it moves too slowly)
   // 2) clicking above where the scrollbar is jumps to that position, but clicking below does nothing
-  // 3) the mouse wheel moves all view ports
   private getAdminWindow() {
     if (this._adminWindow) return this._adminWindow;
 
@@ -104,7 +115,13 @@ class AdminClientModule extends ClientModule {
       }
       grid.layout();
       scrollbox.update();
-      tabs.add('Items', scrollbox);
+      tabs.add({
+        name: 'Items',
+        contents: scrollbox,
+        // https://github.com/davidfig/pixi-viewport/issues/150
+        willShow: () => scrollbox.content.pause = false,
+        wasHidden: () => scrollbox.content.pause = true,
+      });
     }
 
     {
@@ -117,7 +134,12 @@ class AdminClientModule extends ClientModule {
       }
       grid.layout();
       scrollbox.update();
-      tabs.add('Floors', scrollbox);
+      tabs.add({
+        name: 'Floors',
+        contents: scrollbox,
+        willShow: () => scrollbox.content.pause = false,
+        wasHidden: () => scrollbox.content.pause = true,
+      });
     }
 
     const adminWindow = makeDraggableWindow();
