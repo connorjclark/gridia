@@ -186,6 +186,8 @@ class Game {
   protected actionCreators: GameActionCreator[] = [];
 
   private _playerCreature: Creature = null;
+  private _currentHoverItemText =
+    new PIXI.Text('', {fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round'});
 
   constructor(public client: Client) {
     this.state = {
@@ -264,6 +266,10 @@ class Game {
 
     this.app.ticker.add(this.tick.bind(this));
     this.registerListeners();
+
+    this._currentHoverItemText.x = 0;
+    this._currentHoverItemText.y = 0;
+    this.app.stage.addChild(this._currentHoverItemText);
 
     // This makes everything "pop".
     // this.containers.itemAndCreatureLayer.filters = [new OutlineFilter(0.5, 0, 1)];
@@ -710,14 +716,11 @@ class Game {
     const itemUnderMouse = this.state.mouse.tile && this.client.context.map.getItem(this.state.mouse.tile);
     if (itemUnderMouse) {
       const meta = Content.getMetaItem(itemUnderMouse.type);
-      const text = itemUnderMouse.quantity === 1 ? meta.name : `${meta.name} (${itemUnderMouse.quantity})`;
-      const label = new PIXI.Text(text, {fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round'});
-      const { x, y } = mouseToWorld(this.state.mouse);
-      label.anchor.x = 0.5;
-      label.anchor.y = 1;
-      label.x = x;
-      label.y = y - 8;
-      this.containers.topLayer.addChild(label);
+      this._currentHoverItemText.text =
+        itemUnderMouse.quantity === 1 ? meta.name : `${meta.name} (${itemUnderMouse.quantity})`;
+      this._currentHoverItemText.visible = true;
+    } else {
+      this._currentHoverItemText.visible = false;
     }
 
     this.containers.world.x = -focusPos.x * 32 + Math.floor(this.app.view.width / 2);
