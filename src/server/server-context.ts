@@ -110,6 +110,9 @@ export class ServerContext extends Context {
     if (container) return container;
 
     // TODO handle error.
+    // TODO: even tho fs is stubbed in the browser build, parcel sees `readFileSync` and insists
+    // that this be statically analyzable so it can do its bundling. Should create an interface that
+    // doesn't trip up parcel's grepping for `.readFile`... (loadData?)
     container = JSON.parse(fsSync.readFileSync(this.containerPath(id), 'utf-8')) as Container;
     this.containers.set(id, container);
     return container;
