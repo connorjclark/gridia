@@ -10,6 +10,7 @@ class GridContainer extends Container {
     let nextY = 0;
     let maxHeightOfRow = 0;
     for (const child of this.children) {
+      if (!child.visible) continue;
       const {width: childWidth, height: childHeight} = child.getLocalBounds();
       if (nextX + childWidth <= this.maxWidth) {
         maxHeightOfRow = Math.max(maxHeightOfRow, childHeight);

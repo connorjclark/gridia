@@ -5409,12 +5409,33 @@ pixi-sound@^2.1.3:
   resolved "https://registry.yarnpkg.com/pixi-sound/-/pixi-sound-2.1.3.tgz#1c0e54852ea8db5f90209fc5b6a372af5da325b1"
   integrity sha512-/EfGEWA3AAlVlRh43x0zSh7wXe6+R+D5CNu2ghYpJqmwV3SXRE5ls/xnX4qDsYRahvIjy3aYNlqqmDS0HPp8Gw==
 
+pixi-text-input@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/pixi-text-input/-/pixi-text-input-1.0.4.tgz#8e5ec305d260af67177fb05596a9f18b94e43be1"
+  integrity sha512-cGhSvMrCI9biEsN3CaAd88UiawLy25h53ZNave8N2sOf6e5C/oF6kkFNW5Z59lUr7ATIOR7QIINqhB4ByzyaNA==
+  dependencies:
+    pixi.js "^4.8.0"
+
 pixi-viewport@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/pixi-viewport/-/pixi-viewport-4.0.1.tgz#6214d693a13c4094e1f6f8bcc3977861195f87f4"
   integrity sha512-JQUxQhf65BiaboBSk6QntCvAFT2nx1+AHqCbyYT20Qe5JuC7KxrIzElwPivw1bObouYg0AtC9/pthg7Jke6cUQ==
   dependencies:
     penner "^0.1.3"
+
+pixi.js@^4.8.0:
+  version "4.8.8"
+  resolved "https://registry.yarnpkg.com/pixi.js/-/pixi.js-4.8.8.tgz#eb73c94e6ee087fc4566471a20f2357c067f93aa"
+  integrity sha512-wQzuLAWSMfV+x2guL5jZBp37pwCmYXHiTXG7ZWXu4E/5IsC9xozwmOfLeCNEyPzlyucOgxAx/HS+tLqxWPYX7Q==
+  dependencies:
+    bit-twiddle "^1.0.2"
+    earcut "^2.1.4"
+    eventemitter3 "^2.0.0"
+    ismobilejs "^0.5.1"
+    object-assign "^4.0.1"
+    pixi-gl-core "^1.1.4"
+    remove-array-items "^1.0.0"
+    resource-loader "^2.2.3"
 
 pixi.js@^4.8.5:
   version "4.8.5"

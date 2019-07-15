@@ -48,7 +48,7 @@ class TabContainer extends Container {
     tabs.layout();
     this.addChild(tabs);
 
-    this._currentTab.contents.y = tabs.height;
+    this._currentTab.contents.y = tabs.height + 5;
     this.addChild(this._currentTab.contents);
   }
 }

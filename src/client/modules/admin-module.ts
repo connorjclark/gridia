@@ -1,11 +1,14 @@
 import Scrollbox from 'pixi-scrollbox';
-import { DisplayObject, Graphics, Sprite } from 'pixi.js';
-import { getFloors, getMetaItems } from '../../content';
+import { Container, DisplayObject, Graphics, Sprite } from 'pixi.js';
+import { getFloors, getMetaItem, getMetaItems } from '../../content';
 import { equalItems } from '../../utils';
 import ClientModule from '../client-module';
 import { getTexture, makeDraggableWindow, makeItemSprite } from '../draw';
 import GridContainer from '../pixi/grid-container';
 import TabContainer from '../pixi/tab-container';
+
+// This attaches to PIXI namespace: PIXI.TextInput :(
+require('pixi-text-input');
 
 class AdminClientModule extends ClientModule {
   private _adminWindow: ReturnType<typeof makeDraggableWindow>;
@@ -37,7 +40,7 @@ class AdminClientModule extends ClientModule {
 
     const makeGrid = (contentData: Array<[number, DisplayObject]>) => {
       const displayObjectToMetaIdMap = new WeakMap<DisplayObject, number>();
-      const scrollbox = new Scrollbox({boxWidth: 320, boxHeight: 320, scrollbarOffsetVertical: 10});
+      const scrollbox = new Scrollbox({boxWidth: 320, boxHeight: 320, scrollbarOffsetVertical: 10, overflowX: 'none'});
       const grid = new GridContainer(320);
       scrollbox.content.addChild(grid);
       for (const [id, displayObject] of contentData) {
@@ -47,18 +50,62 @@ class AdminClientModule extends ClientModule {
       }
       grid.layout();
       scrollbox.update();
-      return {scrollbox, displayObjectToMetaIdMap};
+
+      const setVisibility = (filter: (id: number) => boolean) => {
+        for (const displayObject of grid.children) {
+          const id = displayObjectToMetaIdMap.get(displayObject);
+          displayObject.visible = filter(id);
+        }
+        grid.layout();
+        scrollbox.update();
+      };
+
+      return {scrollbox, displayObjectToMetaIdMap, setVisibility};
     };
 
     interface MakeContentSelectionTabOpts {
       name: string;
       scrollbox: Scrollbox;
       displayObjectToMetaIdMap: WeakMap<DisplayObject, number>;
+      setVisibility: (filter: (id: number) => boolean) => void;
     }
-    const makeContentSelectionTab = ({ name, scrollbox, displayObjectToMetaIdMap }: MakeContentSelectionTabOpts) => {
+    const makeContentSelectionTab = ({ name, scrollbox, displayObjectToMetaIdMap,
+        setVisibility }: MakeContentSelectionTabOpts) => {
+      let contents = scrollbox;
+
+      // Add a text input filter to the tab contents.
+      if (name === 'Items') {
+        setVisibility((id) => id % 2 === 0);
+        contents = new Container();
+        // @ts-ignore
+        const input = new PIXI.TextInput({
+          input: {
+            fontSize: '25pt',
+            padding: '14px',
+            width: scrollbox.width + 'px',
+            color: '#FFFFFF',
+          },
+        });
+        input.placeholder = 'search for item ...';
+        contents.addChild(input);
+        contents.addChild(scrollbox).y = input.height;
+
+        input.on('input', (text: string) => {
+          const re = new RegExp(text, 'i');
+          setVisibility((id) => {
+            const meta = getMetaItem(id);
+
+            if (meta.name.match(re)) return true;
+            if (meta.class && meta.class.match(re)) return true;
+
+            return false;
+          });
+        });
+      }
+
       tabs.add({
         name,
-        contents: scrollbox,
+        contents,
         // https://github.com/davidfig/pixi-viewport/issues/150
         willShow: () => scrollbox.content.pause = false,
         wasHidden: () => scrollbox.content.pause = true,
