@@ -41,6 +41,6 @@ function copyFolderRecursiveSync(source, target) {
 // Server expected `world` to be in a parent directory.
 copyFolderRecursiveSync("world", "dist");
 
-// tsc outputs the entire `src` folder too ... remove that extra level.
-copyFolderRecursiveSync(path.join("dist", "server", "src"), path.join("dist", "server"));
-rimraf.sync(path.join("dist", "server", "src"));
+// TODO exclude these folder in the tsconfig.
+rimraf.sync(path.join("dist", "server", "client"));
+rimraf.sync(path.join("dist", "server", "convert-rpgwo"));
