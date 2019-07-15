@@ -132,7 +132,7 @@ async function createWire() {
     return;
   }
 
-  const serverAndWire = openAndConnectToServerInMemory(client, {
+  const serverAndWire = await openAndConnectToServerInMemory(client, {
     dummyDelay: 20,
     verbose: true,
   });

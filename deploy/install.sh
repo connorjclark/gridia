@@ -2,7 +2,7 @@
 
 yarn
 yarn clean
-yarn build
+yarn build-prod
 
 # Client
 rsync -ahvz --delete ./dist/client/ /var/www/hoten.cc/public_html/gridia

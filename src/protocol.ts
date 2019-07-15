@@ -4,11 +4,10 @@ import Client from './client/client';
 import { MINE } from './constants';
 import Container from './container';
 import * as Content from './content';
-import Server from './server/server';
 import { equalPoints } from './utils';
 
 // ClientToServerProtocolFn
-type C2S<T> = (server: Server, data: T) => void;
+type C2S<T> = (server: import('./server/server').default, data: T) => void;
 
 type AdminSetFloorParams = TilePoint & { floor: number };
 const adminSetFloor: C2S<AdminSetFloorParams> = (server, { floor, ...loc }) => {

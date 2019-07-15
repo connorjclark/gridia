@@ -1,10 +1,7 @@
 import { Context } from '../context';
 import { ServerToClientProtocol } from '../protocol';
 import ClientConnection from '../server/client-connection';
-import Server from '../server/server';
-import { ServerContext } from '../server/server-context';
 import WorldMap from '../world-map';
-import createDebugWorldMap from '../world-map-debug';
 import Client from './client';
 
 function createClientWorldMap(wire: ClientToServerWire) {
@@ -61,9 +58,11 @@ export async function connect(client: Client, port: number): Promise<ClientToSer
 interface OpenAndConnectToServerInMemoryOpts {
   dummyDelay: number;
   verbose: boolean;
-  context?: ServerContext;
+  context?: import('../server/server-context').ServerContext;
 }
-export function openAndConnectToServerInMemory(client: Client, opts: OpenAndConnectToServerInMemoryOpts) {
+export async function openAndConnectToServerInMemory(client: Client, opts: OpenAndConnectToServerInMemoryOpts) {
+  const {Server, ServerContext, createDebugWorldMap} = await import('./server-in-client-chunk');
+
   function maybeDelay(fn: () => void) {
     if (dummyDelay > 0) {
       setTimeout(fn, dummyDelay);
