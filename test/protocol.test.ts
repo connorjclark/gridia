@@ -18,12 +18,12 @@ let wire: ClientToServerWire;
 
 // TODO would be cool to see these tests while rendering the game.
 
-beforeEach(() => {
+beforeEach(async () => {
   client = new Client();
   const worldMap = new WorldMap();
   const partition = mapgen(20, 20, 1, true);
   worldMap.addPartition(0, partition);
-  const serverAndWire = openAndConnectToServerInMemory(client, {
+  const serverAndWire = await openAndConnectToServerInMemory(client, {
     dummyDelay: 0,
     verbose: false,
     context: new ServerContext(worldMap),
