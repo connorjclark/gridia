@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const rimraf = require("rimraf");
 
 function copyFileSync(source, target) {
   var targetFile = target;
@@ -37,4 +38,9 @@ function copyFolderRecursiveSync(source, target) {
   }
 }
 
+// Server expected `world` to be in a parent directory.
 copyFolderRecursiveSync("world", "dist");
+
+// tsc outputs the entire `src` folder too ... remove that extra level.
+copyFolderRecursiveSync(path.join("dist", "server", "src"), path.join("dist", "server"));
+rimraf.sync(path.join("dist", "server", "src"));

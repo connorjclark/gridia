@@ -18,8 +18,8 @@
   "scripts": {
     "build": "yarn build-client && yarn build-server",
     "build-prod": "NODE_ENV=production yarn build-client && yarn build-server",
-    "build-client": "tsc --outDir dist/server && node build/build-client.js",
-    "build-server": "node build/build-server.js",
+    "build-client": "node build/build-client.js",
+    "build-server": "tsc -p tsconfig.server.json --outDir dist/server && node build/build-server.js",
     "convert": "src/convert-rpgwo/convert.sh",
     "run-server": "node -r source-map-support/register ./dist/server/run-server.js",
     "clean": "rimraf dist",

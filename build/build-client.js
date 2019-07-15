@@ -42,6 +42,7 @@ async function main() {
   const bundler = new ParcelBundler("src/client/index.html", {
     outDir: "dist/client",
     publicUrl: ".",
+    watch: false,
   });
   await bundler.bundle();
   copyFolderRecursiveSync("world", path.join("dist", "client"));
