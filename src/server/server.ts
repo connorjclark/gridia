@@ -137,7 +137,8 @@ export default class Server {
   public removeClient(clientConnection: ClientConnection) {
     this.clientConnections.splice(this.clientConnections.indexOf(clientConnection), 1);
     if (clientConnection.player) {
-      this.moveCreature(clientConnection.player.creature, null);
+      this.removeCreature(clientConnection.player.creature);
+      this.broadcast('animation', {...clientConnection.player.creature.pos, key: 'WarpOut'});
     }
   }
 
@@ -206,7 +207,9 @@ export default class Server {
     if (this.creatureStates[creature.id]) {
       delete this.creatureStates[creature.id];
     }
-    // TODO broadcast removal.
+    this.broadcast('removeCreature', {
+      id: creature.id,
+    });
   }
 
   public findNearest(loc: TilePoint, range: number, includeTargetLocation: boolean,

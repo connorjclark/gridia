@@ -19,4 +19,12 @@ export class Context {
     this.creatures.set(creature.id, creature);
     this.map.getTile(creature.pos).creature = creature;
   }
+
+  public removeCreature(id: number) {
+    const creature = this.creatures.get(id);
+    if (creature) {
+      this.creatures.delete(id);
+      delete this.map.getTile(creature.pos).creature;
+    }
+  }
 }

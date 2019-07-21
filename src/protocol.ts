@@ -395,6 +395,11 @@ const setCreature: S2C<SetCreatureParams> = (client, {partial, ...partialCreatur
   Object.assign(creature, partialCreature);
 };
 
+interface RemoveCreatureParams {id: number}
+const removeCreature: S2C<RemoveCreatureParams> = (client, {id}) => {
+  client.context.removeCreature(id);
+};
+
 type AnimationParams = TilePoint & { key: string };
 const animation: S2C<AnimationParams> = (client, { x, y, z, key }) => {
   const animationData = Content.getAnimation(key);
@@ -426,6 +431,7 @@ export const ServerToClientProtocol = {
   container,
   setFloor,
   setItem,
+  removeCreature,
   setCreature,
   animation,
   log,
