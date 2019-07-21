@@ -44,6 +44,8 @@ async function main() {
     outDir: "dist/client",
     publicUrl: ".",
     watch: dev,
+    // https://github.com/parcel-bundler/parcel/issues/643
+    hmr: false,
     contentHash: !dev,
   });
   await bundler.bundle();

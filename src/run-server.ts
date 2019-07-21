@@ -3,6 +3,7 @@ import * as http from 'http';
 import * as https from 'https';
 import {Server as WebSocketServer} from 'ws';
 import * as yargs from 'yargs';
+import Player from './player';
 import ClientConnection from './server/client-connection';
 import Server from './server/server';
 import { ServerContext } from './server/server-context';
@@ -58,7 +59,7 @@ async function startServer(options: ServerOptions) {
 
   wss.on('connection', (ws) => {
     ws.on('message', (data) => {
-      if (verbose) console.log('got', JSON.parse(data.toString('utf-8')));
+      if (server.verbose) console.log('got', JSON.parse(data.toString('utf-8')));
       clientConnection.messageQueue.push(JSON.parse(data.toString('utf-8')));
     });
 
@@ -71,7 +72,12 @@ async function startServer(options: ServerOptions) {
       ws.send(JSON.stringify({type, args}));
     };
 
-    server.addClient(clientConnection);
+    server.registerPlayer(clientConnection, {
+      player: Object.assign(new Player(), {
+        isAdmin: true,
+        name: '@@@Player',
+      }),
+    });
   });
 
   setInterval(() => {

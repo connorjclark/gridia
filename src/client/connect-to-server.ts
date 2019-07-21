@@ -1,4 +1,5 @@
 import { Context } from '../context';
+import Player from '../player';
 import { ServerToClientProtocol } from '../protocol';
 import ClientConnection from '../server/client-connection';
 import WorldMap from '../world-map';
@@ -109,7 +110,12 @@ export async function openAndConnectToServerInMemory(client: Client, opts: OpenA
   };
   client.context = new Context(createClientWorldMap(wire));
 
-  server.addClient(clientConnection);
+  server.registerPlayer(clientConnection, {
+    player: Object.assign(new Player(), {
+      isAdmin: true,
+      name: '@@@Player',
+    }),
+  });
 
   return { clientToServerWire: wire, server };
 }

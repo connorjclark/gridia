@@ -9,9 +9,15 @@ import ClientConnection from './client-connection';
 import { ServerContext } from './server-context';
 
 // TODO document how the f this works.
+
 interface CtorOpts {
   context: ServerContext;
   verbose: boolean;
+}
+
+interface RegisterOpts {
+  player: Player;
+  // password: string;
 }
 
 export default class Server {
@@ -94,25 +100,22 @@ export default class Server {
     await this.context.save();
   }
 
-  public addClient(clientConnection: ClientConnection) {
-    // TODO register/login.
-    const isAdmin = true;
-    const player = new Player();
+  public registerPlayer(clientConnection: ClientConnection, opts: RegisterOpts) {
+    const {player} = opts;
+
     player.id = this.context.nextPlayerId++;
-    player.isAdmin = isAdmin;
-    this.players.set(player.id, player);
     player.creature = this.registerCreature({
       id: this.context.nextCreatureId++,
-      name: 'Player',
+      name: player.name,
       pos: {w: 0, x: randInt(0, 10), y: randInt(0, 10), z: 0},
       image: randInt(0, 10),
       isPlayer: true,
     });
+
     // Mock xp for now.
     for (const skill of Content.getSkills()) {
       player.skills.set(skill.id, 1);
     }
-    clientConnection.player = player;
 
     clientConnection.container = this.context.makeContainer();
     clientConnection.container.items[0] = { type: Content.getMetaItemByName('Wood Axe').id, quantity: 1 };
@@ -122,25 +125,9 @@ export default class Server {
     clientConnection.container.items[4] = { type: Content.getMetaItemByName('Mana Plant Seeds').id, quantity: 100 };
     clientConnection.container.items[5] = { type: Content.getMetaItemByName('Soccer Ball').id, quantity: 1 };
 
-    clientConnection.send('initialize', {
-      isAdmin,
-      creatureId: player.creature.id,
-      containerId: clientConnection.container.id,
-      skills: [...player.skills.entries()],
-    });
-    // TODO need much better loading.
-    for (const [w, partition] of this.context.map.getPartitions()) {
-      clientConnection.send('initializePartition', {
-        w,
-        x: partition.width,
-        y: partition.height,
-        z: partition.depth,
-      });
-    }
-    clientConnection.send('setCreature', {partial: false, ...player.creature});
-    clientConnection.send('container', this.context.getContainer(clientConnection.container.id));
-
-    this.clientConnections.push(clientConnection);
+    this.players.set(player.id, player);
+    clientConnection.player = player;
+    this.addClient(clientConnection);
   }
 
   public removeClient(clientConnection: ClientConnection) {
@@ -344,6 +331,30 @@ export default class Server {
       skill,
       xp,
     });
+  }
+
+  private addClient(clientConnection: ClientConnection) {
+    const player = clientConnection.player;
+
+    clientConnection.send('initialize', {
+      isAdmin: player.isAdmin,
+      creatureId: player.creature.id,
+      containerId: clientConnection.container.id,
+      skills: [...player.skills.entries()],
+    });
+    // TODO need much better loading.
+    for (const [w, partition] of this.context.map.getPartitions()) {
+      clientConnection.send('initializePartition', {
+        w,
+        x: partition.width,
+        y: partition.height,
+        z: partition.depth,
+      });
+    }
+    clientConnection.send('setCreature', {partial: false, ...player.creature});
+    clientConnection.send('container', this.context.getContainer(clientConnection.container.id));
+
+    this.clientConnections.push(clientConnection);
   }
 
   private tickImpl() {

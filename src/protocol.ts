@@ -297,7 +297,12 @@ export const ClientToServerProtocol = {
 // ServerToClientProtocolFn
 type S2C<T> = (client: Client, data: T) => void;
 
-interface InitializeParams { isAdmin: boolean; creatureId: number; containerId: number; skills: Array<[number, number]>; }
+interface InitializeParams {
+  isAdmin: boolean;
+  creatureId: number;
+  containerId: number;
+  skills: Array<[number, number]>;
+}
 const initialize: S2C<InitializeParams> = (client, { isAdmin, creatureId, containerId, skills }) => {
   client.isAdmin = isAdmin;
   client.creatureId = creatureId;
