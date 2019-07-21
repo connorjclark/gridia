@@ -189,6 +189,7 @@ class Game {
   private _playerCreature: Creature = null;
   private _currentHoverItemText =
     new PIXI.Text('', {fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round'});
+  private _isEditing = false;
 
   constructor(public client: Client) {
     this.state = {
@@ -211,9 +212,7 @@ class Game {
   }
 
   public isEditingMode() {
-    const adminModule = this.modules
-      .find((m) => m.constructor === AdminClientModule.prototype.constructor) as AdminClientModule;
-    return adminModule.isContentSelected();
+    return this._isEditing;
   }
 
   public addActionCreator(actionCreator: GameActionCreator) {
@@ -549,6 +548,10 @@ class Game {
     });
 
     this.client.eventEmitter.on('Action', ContextMenu.close);
+
+    this.client.eventEmitter.on('EditingMode', ({enabled}) => {
+      this._isEditing = enabled;
+    });
 
     registerPanelListeners();
   }
