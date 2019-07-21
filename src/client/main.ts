@@ -12,8 +12,7 @@ import SkillsClientModule from './modules/skills-module';
 
 // pixi-sound needs to load after PIXI. The linter reorders imports in a way
 // that breaks that requirement. So require here.
-// @ts-ignore - https://github.com/pixijs/pixi-sound/issues/99
-const PIXISound: typeof import('pixi-sound') = require('pixi-sound').default;
+const PIXISound: typeof import('pixi-sound').default = require('pixi-sound').default;
 
 const client = new Client();
 client.PIXI = PIXI;
@@ -129,12 +128,13 @@ async function createWire() {
 
   if (connectOverSocket) {
     client.wire = await connect(client, 9001);
+    console.log('For debugging:\nwindow.Gridia.verbose = true;');
     return;
   }
 
   const serverAndWire = await openAndConnectToServerInMemory(client, {
     dummyDelay: 20,
-    verbose: true,
+    verbose: false,
   });
 
   setInterval(() => {
@@ -142,6 +142,9 @@ async function createWire() {
   }, 50);
 
   client.wire = serverAndWire.clientToServerWire;
+  // @ts-ignore
+  window.Gridia.server = serverAndWire.server;
+  console.log('For debugging:\nwindow.Gridia.server.verbose = true;');
 }
 
 document.addEventListener('DOMContentLoaded', async () => {

@@ -27,7 +27,8 @@ export async function connect(client: Client, port: number): Promise<ClientToSer
       }));
     },
     receive(type, args) {
-      if (verbose) console.log('from server', type, args);
+      // @ts-ignore
+      if (window.Gridia.verbose) console.log('from server', type, args);
       const p = ServerToClientProtocol[type];
       // @ts-ignore
       p(client, args);
@@ -97,7 +98,7 @@ export async function openAndConnectToServerInMemory(client: Client, opts: OpenA
       });
     },
     receive(type, args) {
-      if (verbose) console.log('from server', type, args);
+      if (server.verbose) console.log('from server', type, args);
       const p = ServerToClientProtocol[type];
       // @ts-ignore
       p(client, JSON.parse(JSON.stringify(args)));
