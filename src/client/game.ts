@@ -8,6 +8,7 @@ import ClientModule from './client-module';
 import * as Draw from './draw';
 import * as Helper from './helper';
 import KEYS from './keys';
+import AdminClientModule from './modules/admin-module';
 import { getMineFloor, getWaterFloor } from './template-draw';
 
 interface GridiaWindow {
@@ -209,6 +210,12 @@ class Game {
     this.modules.push(clientModule);
   }
 
+  public isEditingMode() {
+    const adminModule = this.modules
+      .find((m) => m.constructor === AdminClientModule.prototype.constructor) as AdminClientModule;
+    return adminModule.isContentSelected();
+  }
+
   public addActionCreator(actionCreator: GameActionCreator) {
     this.actionCreators.push(actionCreator);
   }
@@ -358,6 +365,8 @@ class Game {
     const world = this.containers.world;
     world.interactive = true;
     world.on('mousedown', (e: PIXI.interaction.InteractionEvent) => {
+      if (this.isEditingMode()) return;
+
       // ts - ignore TouchEvent
       if (!('pageX' in e.data.originalEvent)) return;
 
@@ -403,7 +412,10 @@ class Game {
       }
 
       const loc = worldToTile(mouseToWorld({ x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY }));
-      selectView(loc);
+
+      if (!this.isEditingMode()) {
+        selectView(loc);
+      }
 
       if (this.client.context.map.inBounds(loc)) {
         this.client.eventEmitter.emit('TileClicked', {...loc});
@@ -727,6 +739,10 @@ class Game {
     this.containers.world.y = -focusPos.y * 32 + Math.floor(this.app.view.height / 2);
 
     this.modules.forEach((clientModule) => clientModule.onTick());
+
+    if (this.isEditingMode()) {
+      selectView(null);
+    }
   }
 }
 

@@ -30,6 +30,10 @@ class AdminClientModule extends ClientModule {
     });
   }
 
+  public isContentSelected() {
+    return Boolean(this._selectedContent);
+  }
+
   // TODO: there are issues with Scrollbox:
   // 1) dragging the scroll bar doesn't work great (it moves too slowly)
   // 2) clicking above where the scrollbar is jumps to that position, but clicking below does nothing
@@ -95,6 +99,7 @@ class AdminClientModule extends ClientModule {
           setVisibility((id) => {
             const meta = getMetaItem(id);
 
+            if (id === 0) return true;
             if (meta.name.match(re)) return true;
             if (meta.class && meta.class.match(re)) return true;
 
