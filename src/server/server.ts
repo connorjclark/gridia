@@ -96,8 +96,10 @@ export default class Server {
 
   public addClient(clientConnection: ClientConnection) {
     // TODO register/login.
+    const isAdmin = true;
     const player = new Player();
     player.id = this.context.nextPlayerId++;
+    player.isAdmin = isAdmin;
     this.players.set(player.id, player);
     player.creature = this.registerCreature({
       id: this.context.nextCreatureId++,
@@ -121,6 +123,7 @@ export default class Server {
     clientConnection.container.items[5] = { type: Content.getMetaItemByName('Soccer Ball').id, quantity: 1 };
 
     clientConnection.send('initialize', {
+      isAdmin,
       creatureId: player.creature.id,
       containerId: clientConnection.container.id,
       skills: [...player.skills.entries()],

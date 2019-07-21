@@ -11,7 +11,7 @@ type C2S<T> = (server: import('./server/server').default, data: T) => void;
 
 type AdminSetFloorParams = TilePoint & { floor: number };
 const adminSetFloor: C2S<AdminSetFloorParams> = (server, { floor, ...loc }) => {
-  // TODO admins only.
+  if (!server.currentClientConnection.player.isAdmin) return;
 
   if (!server.context.map.inBounds(loc)) {
     return false;
@@ -22,7 +22,7 @@ const adminSetFloor: C2S<AdminSetFloorParams> = (server, { floor, ...loc }) => {
 
 type AdminSetItemParams = TilePoint & {item?: Item};
 const adminSetItem: C2S<AdminSetItemParams> = (server, {item, ...loc}) => {
-  // TODO admins only.
+  if (!server.currentClientConnection.player.isAdmin) return;
 
   if (!server.context.map.inBounds(loc)) {
     return false;
@@ -297,8 +297,9 @@ export const ClientToServerProtocol = {
 // ServerToClientProtocolFn
 type S2C<T> = (client: Client, data: T) => void;
 
-interface InitializeParams { creatureId: number; containerId: number; skills: Array<[number, number]>; }
-const initialize: S2C<InitializeParams> = (client, { creatureId, containerId, skills }) => {
+interface InitializeParams { isAdmin: boolean; creatureId: number; containerId: number; skills: Array<[number, number]>; }
+const initialize: S2C<InitializeParams> = (client, { isAdmin, creatureId, containerId, skills }) => {
+  client.isAdmin = isAdmin;
   client.creatureId = creatureId;
   client.containerId = containerId;
   for (const [skillId, xp] of skills) {

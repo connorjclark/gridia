@@ -9,6 +9,7 @@ class Client {
   public wire: ClientToServerWire;
   public PIXI: typeof import('pixi.js');
   public PIXISound: typeof import('pixi-sound').default;
+  public isAdmin: boolean;
   // TODO: keep references instead?
   public creatureId: number;
   public containerId: number;

@@ -149,16 +149,26 @@ async function createWire() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   await createWire();
+  // Wait for initialize message. Otherwise, `client.isAdmin` wouldn't be set yet.
+  await new Promise((resolve, reject) => {
+    client.eventEmitter.once('message', (e) => {
+      if (e.type === 'initialize') resolve();
+      else reject(`first message should be initialize, but got ${JSON.stringify(e)}`);
+    });
+  });
   const gameSingleton = makeGame(client);
-  // @ts-ignore
-  window.Gridia.game = gameSingleton;
+
+  // TODO: AdminClientModule should create the panel. Until then, manually remove panel.
+  if (!client.isAdmin) {
+    document.querySelector('.panels__tab[data-panel="admin"]').remove();
+  }
 
   const moduleClasses = [
-    AdminClientModule,
+    client.isAdmin ? AdminClientModule : null,
     MovementClientModule,
     SettingsClientModule,
     SkillsClientModule,
-  ];
+  ].filter(Boolean);
   for (const moduleClass of moduleClasses) {
     gameSingleton.addModule(new moduleClass(gameSingleton));
   }
@@ -166,4 +176,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   client.eventEmitter.on('Action', globalOnActionHandler);
 
   gameSingleton.start();
+  // @ts-ignore
+  window.Gridia.game = gameSingleton;
 });
