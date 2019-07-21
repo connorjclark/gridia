@@ -129,6 +129,8 @@ export default class Server {
 
     this.players.set(player.id, player);
     clientConnection.player = player;
+    // Don't bother waiting.
+    this.context.savePlayer(clientConnection.player);
     this.initClient(clientConnection);
   }
 
@@ -479,14 +481,22 @@ export default class Server {
     // performance.clearResourceTimings();
 
     for (const message of this.outboundMessages) {
+      // Send a message to:
+      // 1) a specific client
+      // 2) clients based on a filter
+      // 3) everyone (broadcast)
       if (message.to) {
         message.to.send(message.type, message.args);
       } else if (message.filter) {
         for (const clientConnection of this.clientConnections) {
+          // If connection is not logged in yet, skip.
+          if (!clientConnection.player) continue;
           if (message.filter(clientConnection)) clientConnection.send(message.type, message.args);
         }
       } else {
         for (const clientConnection of this.clientConnections) {
+          // If connection is not logged in yet, skip.
+          if (!clientConnection.player) continue;
           clientConnection.send(message.type, message.args);
         }
       }

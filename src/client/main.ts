@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import * as Content from '../content';
 import { makeGame } from '../game-singleton';
-import { worldToTile as _worldToTile, randInt } from '../utils';
+import { randInt, worldToTile as _worldToTile } from '../utils';
 import Client from './client';
 import { connect, openAndConnectToServerInMemory } from './connect-to-server';
 import * as Helper from './helper';

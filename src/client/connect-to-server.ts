@@ -15,8 +15,6 @@ function createClientWorldMap(wire: ClientToServerWire) {
 }
 
 export async function connect(client: Client, port: number): Promise<ClientToServerWire> {
-  const verbose = true;
-
   const scheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
   const ws = new WebSocket(`${scheme}://${window.location.hostname}:${port}`);
 
