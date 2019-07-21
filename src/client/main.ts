@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import * as Content from '../content';
 import { makeGame } from '../game-singleton';
-import { worldToTile as _worldToTile } from '../utils';
+import { worldToTile as _worldToTile, randInt } from '../utils';
 import Client from './client';
 import { connect, openAndConnectToServerInMemory } from './connect-to-server';
 import * as Helper from './helper';
@@ -151,9 +151,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   await createWire();
 
   const registerBtn = Helper.find('.register-btn');
+  const registerNameEl = Helper.find('#register--name') as HTMLInputElement;
+
+  const parts1 = 'Small Smelly Quick Steely Quiet'.split(' ');
+  const parts2 = 'Jill Stranger Arthur Maz Harlet Worker'.split(' ');
+  registerNameEl.value = parts1[randInt(0, parts1.length)] + ' ' + parts2[randInt(0, parts2.length)];
   registerBtn.addEventListener('click', () => {
     client.wire.send('register', {
-      name: '@@@Player',
+      name: registerNameEl.value,
     });
   });
 

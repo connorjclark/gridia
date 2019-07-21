@@ -155,6 +155,7 @@ const move: C2S<MoveParams> = (server, pos) => {
 interface RegisterParams { name: string; }
 const register: C2S<RegisterParams> = (server, { name }) => {
   if (server.currentClientConnection.player) return;
+  if (name.length > 20) return;
 
   server.registerPlayer(server.currentClientConnection, {
     player: Object.assign(new Player(), {

@@ -128,12 +128,23 @@
       justify-content: center;
       height: 100vh;
     }
+
+    .register--form {
+      background-color: gray;
+      padding: 20px;
+    }
   </style>
 </head>
 
 <body>
   <div class="register">
-    <button class="register-btn">Register</button>
+    <div class="register--form">
+      <div>
+        <label for="register--name">Name</label>
+        <input type="text" name="name" id="register--name" maxlength="20"></label>
+      </div>
+      <button class="register-btn">Register</button>
+    </div>
   </div>
   <div class="game hidden">
     <div id="canvases">
