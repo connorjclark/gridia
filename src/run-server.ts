@@ -72,12 +72,7 @@ async function startServer(options: ServerOptions) {
       ws.send(JSON.stringify({type, args}));
     };
 
-    server.registerPlayer(clientConnection, {
-      player: Object.assign(new Player(), {
-        isAdmin: true,
-        name: '@@@Player',
-      }),
-    });
+    server.clientConnections.push(clientConnection);
   });
 
   setInterval(() => {

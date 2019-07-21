@@ -4,6 +4,7 @@ import Client from './client/client';
 import { MINE } from './constants';
 import Container from './container';
 import * as Content from './content';
+import Player from './player';
 import { equalPoints } from './utils';
 
 // ClientToServerProtocolFn
@@ -151,6 +152,18 @@ const move: C2S<MoveParams> = (server, pos) => {
   server.moveCreature(creature, pos);
 };
 
+interface RegisterParams { name: string; }
+const register: C2S<RegisterParams> = (server, { name }) => {
+  if (server.currentClientConnection.player) return;
+
+  server.registerPlayer(server.currentClientConnection, {
+    player: Object.assign(new Player(), {
+      isAdmin: true,
+      name,
+    }),
+  });
+};
+
 interface RequestContainerParams { containerId?: number; loc?: TilePoint; }
 const requestContainer: C2S<RequestContainerParams> = (server, { containerId, loc }) => {
   if (!containerId && !loc) throw new Error('expected containerId or loc');
@@ -286,6 +299,7 @@ export const ClientToServerProtocol = {
   closeContainer,
   move,
   moveItem,
+  register,
   requestContainer,
   requestCreature,
   requestPartition,

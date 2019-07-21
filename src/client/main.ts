@@ -149,7 +149,15 @@ async function createWire() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   await createWire();
-  // Wait for initialize message. Otherwise, `client.isAdmin` wouldn't be set yet.
+
+  const registerBtn = Helper.find('.register-btn');
+  registerBtn.addEventListener('click', () => {
+    client.wire.send('register', {
+      name: '@@@Player',
+    });
+  });
+
+  // Wait for initialize message. This happens after a successful login.
   await new Promise((resolve, reject) => {
     client.eventEmitter.once('message', (e) => {
       if (e.type === 'initialize') resolve();
@@ -178,4 +186,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   gameSingleton.start();
   // @ts-ignore
   window.Gridia.game = gameSingleton;
+
+  Helper.find('.register').classList.add('hidden');
+  Helper.find('.game').classList.remove('hidden');
 });

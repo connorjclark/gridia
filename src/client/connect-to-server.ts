@@ -86,6 +86,7 @@ export async function openAndConnectToServerInMemory(client: Client, opts: OpenA
       wire.receive(type, args);
     });
   };
+  server.clientConnections.push(clientConnection);
 
   // Make sure to clone args so no objects are accidently shared.
   const wire: ClientToServerWire = {
@@ -109,13 +110,6 @@ export async function openAndConnectToServerInMemory(client: Client, opts: OpenA
     },
   };
   client.context = new Context(createClientWorldMap(wire));
-
-  server.registerPlayer(clientConnection, {
-    player: Object.assign(new Player(), {
-      isAdmin: true,
-      name: '@@@Player',
-    }),
-  });
 
   return { clientToServerWire: wire, server };
 }

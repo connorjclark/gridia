@@ -95,7 +95,9 @@ export default class Server {
 
   public async save() {
     for (const clientConnection of this.clientConnections) {
-      await this.context.savePlayer(clientConnection.player);
+      if (clientConnection.player) {
+        await this.context.savePlayer(clientConnection.player);
+      }
     }
     await this.context.save();
   }
@@ -127,12 +129,14 @@ export default class Server {
 
     this.players.set(player.id, player);
     clientConnection.player = player;
-    this.addClient(clientConnection);
+    this.initClient(clientConnection);
   }
 
   public removeClient(clientConnection: ClientConnection) {
     this.clientConnections.splice(this.clientConnections.indexOf(clientConnection), 1);
-    this.moveCreature(clientConnection.player.creature, null);
+    if (clientConnection.player) {
+      this.moveCreature(clientConnection.player.creature, null);
+    }
   }
 
   public consumeAllMessages() {
@@ -333,7 +337,7 @@ export default class Server {
     });
   }
 
-  private addClient(clientConnection: ClientConnection) {
+  private initClient(clientConnection: ClientConnection) {
     const player = clientConnection.player;
 
     clientConnection.send('initialize', {
@@ -353,8 +357,9 @@ export default class Server {
     }
     clientConnection.send('setCreature', {partial: false, ...player.creature});
     clientConnection.send('container', this.context.getContainer(clientConnection.container.id));
-
-    this.clientConnections.push(clientConnection);
+    setTimeout(() => {
+      this.broadcast('animation', {...player.creature.pos, key: 'WarpIn'});
+    }, 1000);
   }
 
   private tickImpl() {

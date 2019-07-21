@@ -25,6 +25,10 @@
       background-color: darkgrey;
     }
 
+    .hidden {
+      display: none !important;
+    }
+
     #canvases {
       flex-grow: 1;
       height: 75%;
@@ -117,59 +121,71 @@
       background-color: rgb(85, 85, 85);
       color: white;
     }
+
+    .register {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
   </style>
 </head>
 
 <body>
-  <div id="canvases">
-    <!-- <canvas id="glCanvas" height="480"></canvas>
-        <canvas id="ctxText" height="680"></canvas> -->
-    <div class="status-texts"></div>
+  <div class="register">
+    <button class="register-btn">Register</button>
   </div>
-  <div class="ui">
-    <div class="instructions">
-      <!-- <p>Chat:</p>
-            <textarea name="chat" id="chat" cols="30" rows="10">(not implemented)</textarea> -->
-      <a href="https://github.com/connorjclark/gridia-2019-wip">GitHub</a>
-      <pre>
-WASD to move character.
-Number keys / Click to equip tool in inventory.
-Arrow keys to select item in the world.
-Space to use tool on selected item in the world. Alt to use hand.
-To pick up item in the world: shift to pick up selected item, or drag and drop to inventory slot or character.
-      </pre>
+  <div class="game hidden">
+    <div id="canvases">
+      <!-- <canvas id="glCanvas" height="480"></canvas>
+          <canvas id="ctxText" height="680"></canvas> -->
+      <div class="status-texts"></div>
     </div>
-    <div class="panels-container">
-      <div class="panels">
-        <div class="panel panel--selected-view panel--active">
-          <div class="selected-view">
-            <div class="selected-view--actions"></div>
-            <span class="selected-view--details"><!-- insert details here --></span>
+    <div class="ui">
+      <div class="instructions">
+        <!-- <p>Chat:</p>
+              <textarea name="chat" id="chat" cols="30" rows="10">(not implemented)</textarea> -->
+        <a href="https://github.com/connorjclark/gridia-2019-wip">GitHub</a>
+        <pre>
+  WASD to move character.
+  Number keys / Click to equip tool in inventory.
+  Arrow keys to select item in the world.
+  Space to use tool on selected item in the world. Alt to use hand.
+  To pick up item in the world: shift to pick up selected item, or drag and drop to inventory slot or character.
+        </pre>
+      </div>
+      <div class="panels-container">
+        <div class="panels">
+          <div class="panel panel--selected-view panel--active">
+            <div class="selected-view">
+              <div class="selected-view--actions"></div>
+              <span class="selected-view--details"><!-- insert details here --></span>
+            </div>
+          </div>
+          <div class="panel panel--skills">
+            <div class="skills"></div>
+          </div>
+          <div class="panel panel--settings">
+            <div class="settings">
+              <label for="volume">Volume</label>
+              <input type="range" min="0" max="1" step="0.01" id="volume">
+            </div>
+          </div>
+          <div class="panel panel--admin">
+            <div class="admin">
+              Admin panel.
+            </div>
           </div>
         </div>
-        <div class="panel panel--skills">
-          <div class="skills"></div>
-        </div>
-        <div class="panel panel--settings">
-          <div class="settings">
-            <label for="volume">Volume</label>
-            <input type="range" min="0" max="1" step="0.01" id="volume">
-          </div>
-        </div>
-        <div class="panel panel--admin">
-          <div class="admin">
-            Admin panel.
-          </div>
+        <div class="panels__tabs">
+          <div class="panels__tab panels__tab--active" data-panel="selected-view">View</div>
+          <div class="panels__tab" data-panel="skills">Skills</div>
+          <div class="panels__tab" data-panel="settings">Settings</div>
+          <div class="panels__tab" data-panel="admin">Admin</div>
         </div>
       </div>
-      <div class="panels__tabs">
-        <div class="panels__tab panels__tab--active" data-panel="selected-view">View</div>
-        <div class="panels__tab" data-panel="skills">Skills</div>
-        <div class="panels__tab" data-panel="settings">Settings</div>
-        <div class="panels__tab" data-panel="admin">Admin</div>
-      </div>
+      <div class="contextmenu"></div>
     </div>
-    <div class="contextmenu"></div>
   </div>
 </body>
 
