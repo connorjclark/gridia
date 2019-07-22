@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import * as Content from '../content';
 import { makeGame } from '../game-singleton';
+import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
 import { randInt, worldToTile as _worldToTile } from '../utils';
 import Client from './client';
 import { connect, openAndConnectToServerInMemory } from './connect-to-server';
@@ -92,11 +93,11 @@ function globalOnActionHandler(e: GameActionEvent) {
 
   switch (type) {
     case 'pickup':
-      client.wire.send('moveItem', {
+      client.wire.send(ProtocolBuilder.moveItem({
         fromSource: 0,
         from: loc,
         toSource: client.containerId,
-      });
+      }));
       break;
     case 'use-hand':
       Helper.useHand(loc);
@@ -108,9 +109,9 @@ function globalOnActionHandler(e: GameActionEvent) {
       Helper.openContainer(loc);
       break;
     case 'tame':
-      client.wire.send('tame', {
+      client.wire.send(ProtocolBuilder.tame({
         creatureId: creature.id,
-      });
+      }));
       break;
     case 'throw':
       // TODO
@@ -157,9 +158,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   const parts2 = 'Jill Stranger Arthur Maz Harlet Worker'.split(' ');
   registerNameEl.value = parts1[randInt(0, parts1.length)] + ' ' + parts2[randInt(0, parts2.length)];
   registerBtn.addEventListener('click', () => {
-    client.wire.send('register', {
+    client.wire.send(ProtocolBuilder.register({
       name: registerNameEl.value,
-    });
+    }));
   });
 
   // Wait for initialize message. This happens after a successful login.

@@ -2,13 +2,13 @@ import {OutlineFilter} from '@pixi/filter-outline';
 import { MINE, WATER } from '../constants';
 import * as Content from '../content';
 import { game } from '../game-singleton';
+import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
 import {equalPoints, worldToTile as _worldToTile} from '../utils';
 import Client from './client';
 import ClientModule from './client-module';
 import * as Draw from './draw';
 import * as Helper from './helper';
 import KEYS from './keys';
-import AdminClientModule from './modules/admin-module';
 import { getMineFloor, getWaterFloor } from './template-draw';
 
 interface GridiaWindow {
@@ -482,12 +482,12 @@ class Game {
 
       // Shift to pick up item.
       if (e.keyCode === KEYS.SHIFT && this.state.selectedView.tile) {
-        this.client.wire.send('moveItem', {
+        this.client.wire.send(ProtocolBuilder.moveItem({
           fromSource: 0,
           from: this.state.selectedView.tile,
           toSource: this.client.containerId,
           to: null,
-        });
+        }));
       }
 
       // Alt to use hand on item.
@@ -497,10 +497,10 @@ class Game {
 
       // T to toggle z.
       if (e.key === 't') {
-        this.client.wire.send('move', {
+        this.client.wire.send(ProtocolBuilder.move({
           ...focusPos,
           z: 1 - focusPos.z,
-        });
+        }));
       }
     };
 
@@ -527,12 +527,12 @@ class Game {
       const to = e.loc;
       const toSource = e.source;
       if (!(fromSource === toSource && equalPoints(from, to))) {
-        this.client.wire.send('moveItem', {
+        this.client.wire.send(ProtocolBuilder.moveItem({
           from,
           fromSource,
           to,
           toSource,
-        });
+        }));
       }
 
       this.itemMovingState = null;

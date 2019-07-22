@@ -2,7 +2,8 @@ import * as Content from '../content';
 import { findPath } from '../path-finding';
 import performance from '../performance';
 import Player from '../player';
-import { ClientToServerProtocol } from '../protocol';
+import ClientToServerProtocol from '../protocol/client-to-server-protocol';
+import * as ProtocolBuilder from '../protocol/server-to-client-protocol-builder';
 import { maxDiff, randInt } from '../utils';
 import WorldMapPartition from '../world-map-partition';
 import ClientConnection from './client-connection';
@@ -24,8 +25,7 @@ export default class Server {
   public context: ServerContext;
   public clientConnections: ClientConnection[] = [];
   public outboundMessages = [] as Array<{
-    type: keyof typeof import('../protocol')['ServerToClientProtocol'],
-    args: any,
+    message: ServerToClientMessage,
     to?: ClientConnection,
     filter?: (client: ClientConnection) => boolean,
   }>;
@@ -43,21 +43,6 @@ export default class Server {
   }> = {};
   public players = new Map<number, Player>();
 
-  public reply = ((type, args) => {
-    this.outboundMessages.push({
-      to: this.currentClientConnection,
-      type,
-      args,
-    });
-  }) as ServerToClientWire['send'];
-
-  public broadcast = ((type, args) => {
-    this.outboundMessages.push({
-      type,
-      args,
-    });
-  }) as ServerToClientWire['send'];
-
   public verbose: boolean;
 
   // RPGWO does 20 second intervals.
@@ -72,17 +57,27 @@ export default class Server {
     tickDurationMax: 0,
   };
 
+  private _clientToServerProtocol = new ClientToServerProtocol();
+
   constructor(opts: CtorOpts) {
     this.context = opts.context;
     this.verbose = opts.verbose;
   }
 
-  public send(toClient: ClientConnection): ServerToClientWire['send'] {
-    return (type, args) => this.outboundMessages.push({to: toClient, type, args});
+  public reply(message: ServerToClientMessage) {
+    this.outboundMessages.push({to: this.currentClientConnection, message});
   }
 
-  public conditionalBroadcast(filter: (client: ClientConnection) => boolean): ServerToClientWire['send'] {
-    return (type, args) => this.outboundMessages.push({type, args, filter});
+  public broadcast(message: ServerToClientMessage) {
+    this.outboundMessages.push({message});
+  }
+
+  public send(message: ServerToClientMessage, toClient: ClientConnection) {
+    this.outboundMessages.push({to: toClient, message});
+  }
+
+  public conditionalBroadcast(message: ServerToClientMessage, filter: (client: ClientConnection) => boolean) {
+    this.outboundMessages.push({filter, message});
   }
 
   public tick() {
@@ -138,7 +133,10 @@ export default class Server {
     this.clientConnections.splice(this.clientConnections.indexOf(clientConnection), 1);
     if (clientConnection.player) {
       this.removeCreature(clientConnection.player.creature);
-      this.broadcast('animation', {...clientConnection.player.creature.pos, key: 'WarpOut'});
+      this.broadcast(ProtocolBuilder.animation({
+        ...clientConnection.player.creature.pos,
+        key: 'WarpOut',
+      }));
     }
   }
 
@@ -192,7 +190,10 @@ export default class Server {
     for (const key of keys) {
       partialCreature[key] = creature[key];
     }
-    this.broadcast('setCreature', {partial: true, ...partialCreature});
+    this.broadcast(ProtocolBuilder.setCreature({
+      partial: true,
+      ...partialCreature,
+    }));
   }
 
   public warpCreature(creature: Creature, pos: TilePoint | null) {
@@ -207,9 +208,9 @@ export default class Server {
     if (this.creatureStates[creature.id]) {
       delete this.creatureStates[creature.id];
     }
-    this.broadcast('removeCreature', {
+    this.broadcast(ProtocolBuilder.removeCreature({
       id: creature.id,
-    });
+    }));
   }
 
   public findNearest(loc: TilePoint, range: number, includeTargetLocation: boolean,
@@ -256,28 +257,28 @@ export default class Server {
       nearestTile.item = item;
     }
 
-    this.broadcast('setItem', {
+    this.broadcast(ProtocolBuilder.setItem({
       ...nearestLoc,
       source: 0,
       item: nearestTile.item,
-    });
+    }));
   }
 
   public setFloor(loc: TilePoint, floor: number) {
     this.context.map.getTile(loc).floor = floor;
-    this.broadcast('setFloor', {
+    this.broadcast(ProtocolBuilder.setFloor({
       ...loc,
       floor,
-    });
+    }));
   }
 
   public setItem(loc: TilePoint, item?: Item) {
     this.context.map.getTile(loc).item = item;
-    this.broadcast('setItem', {
+    this.broadcast(ProtocolBuilder.setItem({
       ...loc,
       source: 0,
       item,
-    });
+    }));
   }
 
   public setItemInContainer(id: number, index: number, item?: Item) {
@@ -285,12 +286,13 @@ export default class Server {
     if (!container) throw new Error('no container: ' + id);
 
     container.items[index] = item;
-    this.conditionalBroadcast((clientConnection) => {
-      return clientConnection.container.id === id || clientConnection.registeredContainers.includes(id);
-    })('setItem', {
+
+    this.conditionalBroadcast(ProtocolBuilder.setItem({
       ...{w: 0, x: index, y: 0, z: 0},
       source: id,
       item,
+    }), (clientConnection) => {
+      return clientConnection.container.id === id || clientConnection.registeredContainers.includes(id);
     });
   }
 
@@ -336,34 +338,34 @@ export default class Server {
     const newXp = (currentXp || 0) + xp;
     clientConnection.player.skills.set(skill, newXp);
 
-    this.send(clientConnection)('xp', {
+    this.send(ProtocolBuilder.xp({
       skill,
       xp,
-    });
+    }), clientConnection);
   }
 
   private initClient(clientConnection: ClientConnection) {
     const player = clientConnection.player;
 
-    clientConnection.send('initialize', {
+    clientConnection.send(ProtocolBuilder.initialize({
       isAdmin: player.isAdmin,
       creatureId: player.creature.id,
       containerId: clientConnection.container.id,
       skills: [...player.skills.entries()],
-    });
+    }));
     // TODO need much better loading.
     for (const [w, partition] of this.context.map.getPartitions()) {
-      clientConnection.send('initializePartition', {
+      clientConnection.send(ProtocolBuilder.initializePartition({
         w,
         x: partition.width,
         y: partition.height,
         z: partition.depth,
-      });
+      }));
     }
-    clientConnection.send('setCreature', {partial: false, ...player.creature});
-    clientConnection.send('container', this.context.getContainer(clientConnection.container.id));
+    clientConnection.send(ProtocolBuilder.setCreature({partial: false, ...player.creature}));
+    clientConnection.send(ProtocolBuilder.container(this.context.getContainer(clientConnection.container.id)));
     setTimeout(() => {
-      this.broadcast('animation', {...player.creature.pos, key: 'WarpIn'});
+      this.broadcast(ProtocolBuilder.animation({...player.creature.pos, key: 'WarpIn'}));
     }, 1000);
   }
 
@@ -433,14 +435,14 @@ export default class Server {
           newPos = {...creature.pos, z: creature.pos.z - 1};
         } else if (meta.trapEffect === 'Warp' && this.context.map.walkable(item.warpTo)) {
           newPos = {...item.warpTo};
-          this.broadcast('animation', {
+          this.broadcast(ProtocolBuilder.animation({
             ...creature.pos,
             key: 'WarpOut',
-          });
-          this.broadcast('animation', {
+          }));
+          this.broadcast(ProtocolBuilder.animation({
             ...item.warpTo,
             key: 'WarpIn',
-          });
+          }));
         }
 
         if (newPos) {
@@ -467,7 +469,8 @@ export default class Server {
         this.currentClientConnection = clientConnection;
         // performance.mark(`${message.type}-start`);
         try {
-          ClientToServerProtocol[message.type](this, message.args);
+          const onMethodName = 'on' + message.type[0].toUpperCase() + message.type.substr(1);
+          this._clientToServerProtocol[onMethodName](this, message.args);
         } catch (err) {
           // Don't let a bad message kill the message loop.
           console.error(err, message);
@@ -483,24 +486,24 @@ export default class Server {
     // performance.clearMeasures();
     // performance.clearResourceTimings();
 
-    for (const message of this.outboundMessages) {
+    for (const {message, to, filter} of this.outboundMessages) {
       // Send a message to:
       // 1) a specific client
       // 2) clients based on a filter
       // 3) everyone (broadcast)
-      if (message.to) {
-        message.to.send(message.type, message.args);
-      } else if (message.filter) {
+      if (to) {
+        to.send(message);
+      } else if (filter) {
         for (const clientConnection of this.clientConnections) {
           // If connection is not logged in yet, skip.
           if (!clientConnection.player) continue;
-          if (message.filter(clientConnection)) clientConnection.send(message.type, message.args);
+          if (filter(clientConnection)) clientConnection.send(message);
         }
       } else {
         for (const clientConnection of this.clientConnections) {
           // If connection is not logged in yet, skip.
           if (!clientConnection.player) continue;
-          clientConnection.send(message.type, message.args);
+          clientConnection.send(message);
         }
       }
     }
@@ -548,12 +551,12 @@ export default class Server {
         if (item.growth >= meta.growthDelta) {
           item.type = meta.growthItem;
           item.growth = 0;
-          this.broadcast('setItem', {
+          this.broadcast(ProtocolBuilder.setItem({
             ...pos,
             w,
             source: 0,
             item,
-          });
+          }));
         }
       }
     }
