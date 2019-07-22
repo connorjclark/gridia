@@ -3,7 +3,6 @@ import * as http from 'http';
 import * as https from 'https';
 import {Server as WebSocketServer} from 'ws';
 import * as yargs from 'yargs';
-import Player from './player';
 import ClientConnection from './server/client-connection';
 import Server from './server/server';
 import { ServerContext } from './server/server-context';
@@ -68,8 +67,8 @@ async function startServer(options: ServerOptions) {
     });
 
     const clientConnection = new ClientConnection();
-    clientConnection.send = (type, args) => {
-      ws.send(JSON.stringify({type, args}));
+    clientConnection.send = (message) => {
+      ws.send(JSON.stringify(message));
     };
 
     server.clientConnections.push(clientConnection);

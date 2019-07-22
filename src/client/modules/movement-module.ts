@@ -1,5 +1,6 @@
 import * as Content from '../../content';
 import { findPath } from '../../path-finding';
+import * as ProtocolBuilder from '../../protocol/client-to-server-protocol-builder';
 import { equalPoints } from '../../utils';
 import ClientModule from '../client-module';
 import Game from '../game';
@@ -90,7 +91,7 @@ class MovementClientModule extends ClientModule {
 
         if (this.game.client.context.map.walkable(dest)) {
           this.lastMove = performance.now();
-          this.game.client.wire.send('move', dest);
+          this.game.client.wire.send(ProtocolBuilder.move(dest));
           this.game.client.eventEmitter.emit('PlayerMove');
           delete this.game.state.mouse.tile;
         }

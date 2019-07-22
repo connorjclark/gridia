@@ -8,7 +8,7 @@ export default class ClientConnection {
 
   public container: Container;
 
-  public send: WireMethod<typeof import('../protocol')['ServerToClientProtocol']>;
+  public send: (message: ServerToClientMessage) => void;
 
   public registeredContainers = [] as number[];
 

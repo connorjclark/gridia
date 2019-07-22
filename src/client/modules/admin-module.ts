@@ -1,6 +1,7 @@
 import Scrollbox from 'pixi-scrollbox';
 import { Container, DisplayObject, Graphics, Sprite } from 'pixi.js';
 import { getFloors, getMetaItem, getMetaItems } from '../../content';
+import * as ProtocolBuilder from '../../protocol/client-to-server-protocol-builder';
 import { equalItems } from '../../utils';
 import ClientModule from '../client-module';
 import { getTexture, makeDraggableWindow, makeItemSprite } from '../draw';
@@ -172,20 +173,20 @@ class AdminClientModule extends ClientModule {
         if (equalItems(currentItem, item)) return;
         // Don't overwrite existing items - must explictly select the "null" item to delete items.
         if (currentItem && item) return;
-        this.game.client.wire.send('adminSetItem', {
+        this.game.client.wire.send(ProtocolBuilder.adminSetItem({
           ...loc,
           item,
-        });
+        }));
         // Set immeditely in client, b/c server will take a while to respond and this prevents sending multiple
         // messages for the same tile.
         this.game.client.context.map.getTile(loc).item = item;
       } else if (this._selectedContent.type === 'Floors') {
         const floor = this._selectedContent.id;
         if (this.game.client.context.map.getTile(loc).floor === floor) return;
-        this.game.client.wire.send('adminSetFloor', {
+        this.game.client.wire.send(ProtocolBuilder.adminSetFloor({
           ...loc,
           floor,
-        });
+        }));
         this.game.client.context.map.getTile(loc).floor = floor;
       }
     };
