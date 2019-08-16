@@ -1,36 +1,35 @@
 import { Context } from '../context';
-import { ServerToClientProtocol } from '../protocol';
+import ServerToClientProtocol from '../protocol/server-to-client-protocol';
 import { createClientWorldMap } from '../world-map';
 import Client from './client';
 
-export async function connect(client: Client, port: number): Promise<ClientToServerWire> {
-  const verbose = true;
+const protocol = new ServerToClientProtocol();
 
+export async function connect(client: Client, port: number): Promise<ClientToServerWire> {
   const scheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
   const ws = new WebSocket(`${scheme}://${window.location.hostname}:${port}`);
 
   const wire: ClientToServerWire = {
-    send(type, args) {
-      ws.send(JSON.stringify({
-        type,
-        args,
-      }));
+    send(message) {
+      ws.send(JSON.stringify(message));
     },
-    receive(type, args) {
-      if (verbose) console.log('from server', type, args);
-      const p = ServerToClientProtocol[type];
+    receive(message) {
       // @ts-ignore
-      p(client, args);
+      if (window.Gridia.verbose) console.log('from server', message.type, message.args);
+      const onMethodName = 'on' + message.type[0].toUpperCase() + message.type.substr(1);
+      const p = protocol[onMethodName];
+      // @ts-ignore
+      p(client, message.args);
       // Allow for hooks in the main client code. Should
       // only be used for refreshing UI, not updating game state.
-      client.eventEmitter.emit('message', {type, args});
+      client.eventEmitter.emit('message', message);
     },
   };
   client.context = new Context(createClientWorldMap(wire));
 
   ws.addEventListener('message', (e) => {
     const parsed = JSON.parse(e.data);
-    wire.receive(parsed.type, parsed.args);
+    wire.receive(parsed);
   });
 
   await new Promise((resolve, reject) => {
@@ -63,28 +62,26 @@ export async function openAndConnectToServerWorker(client: Client, opts: OpenAnd
 
   // Make sure to clone args so no objects are accidently shared.
   const wire: ClientToServerWire = {
-    send(type, args) {
-      // const p = ServerToClientProtocol[type]
-      serverWorker.postMessage({
-        type,
-        args: JSON.parse(JSON.stringify(args)),
-      });
+    send(message) {
+      const cloned = JSON.parse(JSON.stringify(message));
+      serverWorker.postMessage(cloned);
     },
-    receive(type, args) {
-      if (opts.verbose) console.log('from server', type, args);
-      const p = ServerToClientProtocol[type];
+    receive(message) {
+      const cloned = JSON.parse(JSON.stringify(message));
+      if (opts.verbose) console.log('from server', message.type, message.args);
+      const onMethodName = 'on' + message.type[0].toUpperCase() + message.type.substr(1);
+      const p = protocol[onMethodName];
       // @ts-ignore
-      p(client, JSON.parse(JSON.stringify(args)));
+      p(client, cloned.args);
       // Allow for hooks in the main client code. Should
       // only be used for refreshing UI, not updating game state.
-      client.eventEmitter.emit('message', {type, args});
+      client.eventEmitter.emit('message', cloned);
     },
   };
   client.context = new Context(createClientWorldMap(wire));
 
   serverWorker.onmessage = (message) => {
-    // @ts-ignore
-    wire.receive(message.data.type, message.data.args);
+    wire.receive(message.data);
   };
 
   return { clientToServerWire: wire, serverWorker };

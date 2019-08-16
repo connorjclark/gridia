@@ -6,6 +6,7 @@ import Client from '../src/client/client';
 import { MINE } from '../src/constants';
 import * as Content from '../src/content';
 import mapgen from '../src/mapgen';
+import * as ProtocolBuilder from '../src/protocol/client-to-server-protocol-builder';
 import Server from '../src/server/server';
 import { ServerContext } from '../src/server/server-context';
 import { equalItems } from '../src/utils';
@@ -37,6 +38,10 @@ beforeEach(async () => {
     originalFn(...args);
     server.consumeAllMessages();
   };
+
+  wire.send(ProtocolBuilder.register({
+    name: 'test-user',
+  }));
 
   // @ts-ignore
   // tslint:disable-next-line: no-empty
@@ -108,7 +113,7 @@ describe('move', () => {
     const to = {w: 0, x: 6, y: 5, z: 0};
 
     assertCreatureAt(from, creature.id);
-    wire.send('move', to);
+    wire.send(ProtocolBuilder.move(to));
     assertCreatureAt(to, creature.id);
   });
 
@@ -118,7 +123,7 @@ describe('move', () => {
     setItem(to, { type: 1, quantity: Content.getMetaItemByName('Cut Red Rose').id });
 
     assertCreatureAt(from, creature.id);
-    wire.send('move', to);
+    wire.send(ProtocolBuilder.move(to));
     assertCreatureAt(to, creature.id);
   });
 
@@ -128,7 +133,7 @@ describe('move', () => {
     setItem(to, { type: Content.getMetaItemByName('Granite Wall').id, quantity: 1 });
 
     assertCreatureAt(from, creature.id);
-    wire.send('move', to);
+    wire.send(ProtocolBuilder.move(to));
     assertCreatureAt(from, creature.id);
   });
 
@@ -140,7 +145,7 @@ describe('move', () => {
   //   assertCreatureAt(to, otherCreature.id);
 
   //   assertCreatureAt(from, creature.id);
-  //   wire.send('move', to);
+  //   wire.send(ProtocolBuilder.move(to));
   //   assertCreatureAt(from, creature.id);
   // });
 
@@ -151,7 +156,7 @@ describe('move', () => {
   //   setFloor(to, MINE);
 
   //   assertCreatureAt(from, creature.id);
-  //   wire.send('move', to);
+  //   wire.send(ProtocolBuilder.move(to));
   //   assertCreatureAt(from, creature.id);
   // });
 
@@ -161,7 +166,7 @@ describe('move', () => {
     setFloor(to, MINE);
 
     assertCreatureAt(from, creature.id);
-    wire.send('move', to);
+    wire.send(ProtocolBuilder.move(to));
     assertCreatureAt(to, creature.id);
   });
 });
@@ -176,12 +181,12 @@ describe('moveItem', () => {
 
     setItem(from, { type: 1, quantity: 10 });
 
-    wire.send('moveItem', {
+    wire.send(ProtocolBuilder.moveItem({
       from,
       fromSource: 0,
       to,
       toSource: 0,
-    });
+    }));
 
     assertItemInWorld(from, undefined);
     assertItemInWorld(to, { type: 1, quantity: 10 });
@@ -194,12 +199,12 @@ describe('moveItem', () => {
     setItem(from, { type: 1, quantity: 1 });
     setItem(to, { type: 2, quantity: 1 });
 
-    wire.send('moveItem', {
+    wire.send(ProtocolBuilder.moveItem({
       from,
       fromSource: 0,
       to,
       toSource: 0,
-    });
+    }));
 
     assertItemInWorld(from, { type: 1, quantity: 1 });
     assertItemInWorld(to, { type: 2, quantity: 1 });
@@ -213,12 +218,12 @@ describe('moveItem', () => {
     setItem(from, { type: gold.id, quantity: 1 });
     setItem(to, { type: gold.id, quantity: 2 });
 
-    wire.send('moveItem', {
+    wire.send(ProtocolBuilder.moveItem({
       from,
       fromSource: 0,
       to,
       toSource: 0,
-    });
+    }));
 
     assertItemInWorld(from, undefined);
     assertItemInWorld(to, { type: gold.id, quantity: 3 });
@@ -229,14 +234,14 @@ describe('moveItem', () => {
 
     const container = server.context.makeContainer();
     container.items[0] = { type: 1, quantity: 1 };
-    wire.send('requestContainer', { containerId: container.id });
+    wire.send(ProtocolBuilder.requestContainer({ containerId: container.id }));
 
-    wire.send('moveItem', {
+    wire.send(ProtocolBuilder.moveItem({
       from: {w: 0, x: 0, y: 0, z: 0},
       fromSource: container.id,
       to,
       toSource: 0,
-    });
+    }));
 
     assertItemInWorld(to, { type: 1, quantity: 1 });
     assertItemInContainer(container.id, 0, undefined);
@@ -247,14 +252,14 @@ describe('moveItem', () => {
 
     setItem(from, { type: 1, quantity: 1 });
     const container = server.context.makeContainer();
-    wire.send('requestContainer', { containerId: container.id });
+    wire.send(ProtocolBuilder.requestContainer({ containerId: container.id }));
 
-    wire.send('moveItem', {
+    wire.send(ProtocolBuilder.moveItem({
       from,
       fromSource: 0,
       to: { w: 0, x: 0, y: 0, z: 0 },
       toSource: container.id,
-    });
+    }));
 
     assertItemInWorld(from, undefined);
     assertItemInContainer(container.id, 0, { type: 1, quantity: 1 });
@@ -268,13 +273,13 @@ describe('moveItem', () => {
     container.items[0] = { type: 2, quantity: 1 };
     container.items[1] = { type: 2, quantity: 1 };
     container.items[3] = { type: 2, quantity: 1 };
-    wire.send('requestContainer', { containerId: container.id });
+    wire.send(ProtocolBuilder.requestContainer({ containerId: container.id }));
 
-    wire.send('moveItem', {
+    wire.send(ProtocolBuilder.moveItem({
       from,
       fromSource: 0,
       toSource: container.id,
-    });
+    }));
 
     assertItemInWorld(from, undefined);
     assertItemInContainer(container.id, 2, { type: 1, quantity: 1 });
@@ -289,13 +294,13 @@ describe('moveItem', () => {
     container.items[1] = { type: 2, quantity: 1 };
     container.items[2] = { type: 1, quantity: 2 };
     container.items[3] = { type: 2, quantity: 1 };
-    wire.send('requestContainer', { containerId: container.id });
+    wire.send(ProtocolBuilder.requestContainer({ containerId: container.id }));
 
-    wire.send('moveItem', {
+    wire.send(ProtocolBuilder.moveItem({
       from,
       fromSource: 0,
       toSource: container.id,
-    });
+    }));
 
     assertItemInWorld(from, undefined);
     assertItemInContainer(container.id, 2, { type: 1, quantity: 3 });
@@ -320,10 +325,10 @@ describe('use', () => {
 
     setItem(loc, { type: Content.getMetaItemByName('Pine Tree').id, quantity: 1 });
 
-    wire.send('use', {
+    wire.send(ProtocolBuilder.use({
       toolIndex,
       loc,
-    });
+    }));
 
     assertItemInWorld(loc, { type: Content.getMetaItemByName('Pine Tree Stump').id, quantity: 1 });
     assertItemInWorldNear(loc, { type: Content.getMetaItemByName('Small Branches').id, quantity: 6 });
@@ -336,10 +341,10 @@ describe('use', () => {
 
     setItem(loc, { type: Content.getMetaItemByName('Ploughed Ground').id, quantity: 1 });
 
-    wire.send('use', {
+    wire.send(ProtocolBuilder.use({
       toolIndex,
       loc,
-    });
+    }));
 
     assertItemInWorld(loc, { type: Content.getMetaItemByName('Mana Plant Seeded Ground').id, quantity: 1 });
     assertItemInContainer(container.id, toolIndex, {
@@ -359,10 +364,10 @@ describe('use', () => {
     setItemInContainer(container.id, toolIndex + 1, undefined);
     setItem(loc, { type: Content.getMetaItemByName('Large Camp Fire').id, quantity: 1 });
 
-    wire.send('use', {
+    wire.send(ProtocolBuilder.use({
       toolIndex,
       loc,
-    });
+    }));
 
     assertItemInWorld(loc, { type: Content.getMetaItemByName('Large Camp Fire').id, quantity: 1 });
     assertItemInContainer(container.id, toolIndex, {
@@ -381,17 +386,17 @@ describe('use', () => {
 
     setItem(loc, { type: Content.getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123 });
 
-    wire.send('use', {
+    wire.send(ProtocolBuilder.use({
       toolIndex: -1,
       loc,
-    });
+    }));
 
     assertItemInWorld(loc, { type: Content.getMetaItemByName('Wooden Box').id, quantity: 1, containerId: 123 });
 
-    wire.send('use', {
+    wire.send(ProtocolBuilder.use({
       toolIndex: -1,
       loc,
-    });
+    }));
 
     assertItemInWorld(loc, { type: Content.getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123 });
   });

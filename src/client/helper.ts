@@ -1,5 +1,6 @@
 import * as Content from '../content';
 import { game } from '../game-singleton';
+import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
 import * as Draw from './draw';
 
 export function canUseHand(itemType: number) {
@@ -11,10 +12,10 @@ export function usageExists(tool: number, focus: number) {
 }
 
 export function useHand(loc: TilePoint) {
-  game.client.wire.send('use', {
+  game.client.wire.send(ProtocolBuilder.use({
     toolIndex: -1,
     loc,
-  });
+  }));
 }
 
 export function useTool(loc: TilePoint, usageIndex?: number) {
@@ -28,11 +29,11 @@ export function useTool(loc: TilePoint, usageIndex?: number) {
   }
 
   if (usages.length === 1 || usageIndex !== undefined) {
-    game.client.wire.send('use', {
+    game.client.wire.send(ProtocolBuilder.use({
       toolIndex,
       loc,
       usageIndex,
-    });
+    }));
   } else {
     Draw.makeUsageWindow(tool, focus, usages, loc);
   }
@@ -41,15 +42,15 @@ export function useTool(loc: TilePoint, usageIndex?: number) {
 // TODO: add tests checking that subscribed containers are updated in all clients.
 // TODO: don't keep requesting container if already open.
 export function openContainer(loc: TilePoint) {
-  game.client.wire.send('requestContainer', {
+  game.client.wire.send(ProtocolBuilder.requestContainer({
     loc,
-  });
+  }));
 }
 
 export function closeContainer(containerId: number) {
-  game.client.wire.send('closeContainer', {
+  game.client.wire.send(ProtocolBuilder.closeContainer({
     containerId,
-  });
+  }));
 }
 
 export function getW() {

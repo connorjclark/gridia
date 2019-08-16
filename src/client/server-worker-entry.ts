@@ -24,14 +24,14 @@ function start() {
   });
 
   clientConnection = new ClientConnection();
-  clientConnection.send = (type, args) => {
+  clientConnection.send = (message) => {
     maybeDelay(() => {
       // @ts-ignore
-      self.postMessage({type, args});
+      self.postMessage(message);
     });
   };
 
-  server.addClient(clientConnection);
+  server.clientConnections.push(clientConnection);
 
   setInterval(() => {
     server.tick();

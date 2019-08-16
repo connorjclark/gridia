@@ -12,7 +12,7 @@
     "yargs": "^13.2.2"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "engineStrict": true,
   "scripts": {
@@ -23,7 +23,7 @@
     "convert": "src/convert-rpgwo/convert.sh",
     "run-server": "node -r source-map-support/register ./dist/server/run-server.js",
     "clean": "rimraf dist",
-    "watch": "parcel src/client/index.html -d dist/client --public-url . & nodemon",
+    "watch": "concurrently --kill-others --names Server,Client,Static --prefix name nodemon \"node build/build-client.js --dev\" \"http-server dist/client -c-1\"",
     "type-check": "tsc --noEmit",
     "lint": "tslint -t verbose -c tslint.json '{src,test,build}/**/*.{ts,js}'",
     "test": "yarn lint && yarn type-check && jest"
@@ -32,6 +32,8 @@
     "@types/jest": "^24.0.11",
     "@types/pixi.js": "^4.8.6",
     "@types/ws": "^6.0.1",
+    "concurrently": "^4.1.1",
+    "http-server": "^0.11.1",
     "jest": "^24.7.1",
     "nodemon": "^1.18.11",
     "ts-jest": "^24.0.2",

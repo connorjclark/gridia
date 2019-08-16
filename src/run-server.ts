@@ -58,7 +58,7 @@ async function startServer(options: ServerOptions) {
 
   wss.on('connection', (ws) => {
     ws.on('message', (data) => {
-      if (verbose) console.log('got', JSON.parse(data.toString('utf-8')));
+      if (server.verbose) console.log('got', JSON.parse(data.toString('utf-8')));
       clientConnection.messageQueue.push(JSON.parse(data.toString('utf-8')));
     });
 
@@ -67,11 +67,11 @@ async function startServer(options: ServerOptions) {
     });
 
     const clientConnection = new ClientConnection();
-    clientConnection.send = (type, args) => {
-      ws.send(JSON.stringify({type, args}));
+    clientConnection.send = (message) => {
+      ws.send(JSON.stringify(message));
     };
 
-    server.addClient(clientConnection);
+    server.clientConnections.push(clientConnection);
   });
 
   setInterval(() => {

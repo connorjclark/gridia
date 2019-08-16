@@ -2,6 +2,7 @@ import {OutlineFilter} from '@pixi/filter-outline';
 import { MINE, WATER } from '../constants';
 import * as Content from '../content';
 import { game } from '../game-singleton';
+import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
 import {equalPoints, worldToTile as _worldToTile} from '../utils';
 import Client from './client';
 import ClientModule from './client-module';
@@ -188,6 +189,7 @@ class Game {
   private _playerCreature: Creature = null;
   private _currentHoverItemText =
     new PIXI.Text('', {fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round'});
+  private _isEditing = false;
 
   constructor(public client: Client) {
     this.state = {
@@ -207,6 +209,10 @@ class Game {
 
   public addModule(clientModule: ClientModule) {
     this.modules.push(clientModule);
+  }
+
+  public isEditingMode() {
+    return this._isEditing;
   }
 
   public addActionCreator(actionCreator: GameActionCreator) {
@@ -358,6 +364,8 @@ class Game {
     const world = this.containers.world;
     world.interactive = true;
     world.on('mousedown', (e: PIXI.interaction.InteractionEvent) => {
+      if (this.isEditingMode()) return;
+
       // ts - ignore TouchEvent
       if (!('pageX' in e.data.originalEvent)) return;
 
@@ -403,7 +411,10 @@ class Game {
       }
 
       const loc = worldToTile(mouseToWorld({ x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY }));
-      selectView(loc);
+
+      if (!this.isEditingMode()) {
+        selectView(loc);
+      }
 
       if (this.client.context.map.inBounds(loc)) {
         this.client.eventEmitter.emit('TileClicked', {...loc});
@@ -471,12 +482,12 @@ class Game {
 
       // Shift to pick up item.
       if (e.keyCode === KEYS.SHIFT && this.state.selectedView.tile) {
-        this.client.wire.send('moveItem', {
+        this.client.wire.send(ProtocolBuilder.moveItem({
           fromSource: 0,
           from: this.state.selectedView.tile,
           toSource: this.client.containerId,
           to: null,
-        });
+        }));
       }
 
       // Alt to use hand on item.
@@ -486,10 +497,10 @@ class Game {
 
       // T to toggle z.
       if (e.key === 't') {
-        this.client.wire.send('move', {
+        this.client.wire.send(ProtocolBuilder.move({
           ...focusPos,
           z: 1 - focusPos.z,
-        });
+        }));
       }
     };
 
@@ -516,12 +527,12 @@ class Game {
       const to = e.loc;
       const toSource = e.source;
       if (!(fromSource === toSource && equalPoints(from, to))) {
-        this.client.wire.send('moveItem', {
+        this.client.wire.send(ProtocolBuilder.moveItem({
           from,
           fromSource,
           to,
           toSource,
-        });
+        }));
       }
 
       this.itemMovingState = null;
@@ -537,6 +548,10 @@ class Game {
     });
 
     this.client.eventEmitter.on('Action', ContextMenu.close);
+
+    this.client.eventEmitter.on('EditingMode', ({enabled}) => {
+      this._isEditing = enabled;
+    });
 
     registerPanelListeners();
   }
@@ -727,6 +742,10 @@ class Game {
     this.containers.world.y = -focusPos.y * 32 + Math.floor(this.app.view.height / 2);
 
     this.modules.forEach((clientModule) => clientModule.onTick());
+
+    if (this.isEditingMode()) {
+      selectView(null);
+    }
   }
 }
 

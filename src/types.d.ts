@@ -41,30 +41,18 @@ interface Creature {
   tamedBy?: number; // player id
 }
 
-interface ProtocolDef<T> {
-  // check?(context: P, args: T): boolean
-  apply(context, args: T): void;
+type ServerToClientMessage = import('./protocol/gen/server-to-client-protocol-builder').Message;
+type ClientToServerMessage = import('./protocol/gen/client-to-server-protocol-builder').Message;
+
+interface ServerToClientWire {
+  receive(message: ClientToServerMessage): void;
+  send(message: ServerToClientMessage): void;
 }
 
-type WireMap = Record<string, (...args: any[]) => void>;
-
-type WireMethod<P extends WireMap> =
-  <T extends keyof P>(type: T, args: Parameters<P[T]>[1]) => void;
-
-interface Wire<Input extends WireMap, Output extends WireMap> {
-  receive: WireMethod<Input>;
-  send: WireMethod<Output>;
+interface ClientToServerWire {
+  receive(message: ServerToClientMessage): void;
+  send(message: ClientToServerMessage): void;
 }
-
-type ServerToClientWire = Wire<
-  typeof import('./protocol')['ClientToServerProtocol'],
-  typeof import('./protocol')['ServerToClientProtocol']
->;
-
-type ClientToServerWire = Wire<
-  typeof import('./protocol')['ServerToClientProtocol'],
-  typeof import('./protocol')['ClientToServerProtocol']
->;
 
 interface MetaItem {
   id: number;
@@ -151,6 +139,10 @@ interface GameActionEvent {
   loc: TilePoint;
   creature: Creature;
 }
+
+// https://stackoverflow.com/a/49397693
+type NoMethodKeys<T> = ({[P in keyof T]: T[P] extends Function ? never : P })[keyof T];
+type NoMethods<T> = Pick<T, NoMethodKeys<T>>;
 
 interface OpenAndConnectToServerOpts {
   dummyDelay: number;

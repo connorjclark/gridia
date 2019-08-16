@@ -1,7 +1,8 @@
 import * as PIXI from 'pixi.js';
 import * as Content from '../content';
 import { makeGame } from '../game-singleton';
-import { worldToTile as _worldToTile } from '../utils';
+import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
+import { randInt, worldToTile as _worldToTile } from '../utils';
 import Client from './client';
 import { connect, openAndConnectToServerWorker } from './connect-to-server';
 import * as Helper from './helper';
@@ -12,8 +13,7 @@ import SkillsClientModule from './modules/skills-module';
 
 // pixi-sound needs to load after PIXI. The linter reorders imports in a way
 // that breaks that requirement. So require here.
-// @ts-ignore - https://github.com/pixijs/pixi-sound/issues/99
-const PIXISound: typeof import('pixi-sound') = require('pixi-sound').default;
+const PIXISound: typeof import('pixi-sound').default = require('pixi-sound').default;
 
 const client = new Client();
 client.PIXI = PIXI;
@@ -93,11 +93,11 @@ function globalOnActionHandler(e: GameActionEvent) {
 
   switch (type) {
     case 'pickup':
-      client.wire.send('moveItem', {
+      client.wire.send(ProtocolBuilder.moveItem({
         fromSource: 0,
         from: loc,
         toSource: client.containerId,
-      });
+      }));
       break;
     case 'use-hand':
       Helper.useHand(loc);
@@ -109,9 +109,9 @@ function globalOnActionHandler(e: GameActionEvent) {
       Helper.openContainer(loc);
       break;
     case 'tame':
-      client.wire.send('tame', {
+      client.wire.send(ProtocolBuilder.tame({
         creatureId: creature.id,
-      });
+      }));
       break;
     case 'throw':
       // TODO
@@ -129,29 +129,56 @@ async function createWire() {
 
   if (connectOverSocket) {
     client.wire = await connect(client, 9001);
+    console.log('For debugging:\nwindow.Gridia.verbose = true;');
     return;
   }
 
   const serverAndWire = await openAndConnectToServerWorker(client, {
     dummyDelay: 20,
-    verbose: true,
+    verbose: false,
   });
 
   client.wire = serverAndWire.clientToServerWire;
+  // @ts-ignore
+  window.Gridia.server = serverAndWire.server;
+  console.log('For debugging:\nwindow.Gridia.server.verbose = true;');
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
   await createWire();
+
+  const registerBtn = Helper.find('.register-btn');
+  const registerNameEl = Helper.find('#register--name') as HTMLInputElement;
+
+  const parts1 = 'Small Smelly Quick Steely Quiet'.split(' ');
+  const parts2 = 'Jill Stranger Arthur Maz Harlet Worker'.split(' ');
+  registerNameEl.value = parts1[randInt(0, parts1.length)] + ' ' + parts2[randInt(0, parts2.length)];
+  registerBtn.addEventListener('click', () => {
+    client.wire.send(ProtocolBuilder.register({
+      name: registerNameEl.value,
+    }));
+  });
+
+  // Wait for initialize message. This happens after a successful login.
+  await new Promise((resolve, reject) => {
+    client.eventEmitter.once('message', (e) => {
+      if (e.type === 'initialize') resolve();
+      else reject(`first message should be initialize, but got ${JSON.stringify(e)}`);
+    });
+  });
   const gameSingleton = makeGame(client);
-  // @ts-ignore
-  window.Gridia.game = gameSingleton;
+
+  // TODO: AdminClientModule should create the panel. Until then, manually remove panel.
+  if (!client.isAdmin) {
+    document.querySelector('.panels__tab[data-panel="admin"]').remove();
+  }
 
   const moduleClasses = [
-    AdminClientModule,
+    client.isAdmin ? AdminClientModule : null,
     MovementClientModule,
     SettingsClientModule,
     SkillsClientModule,
-  ];
+  ].filter(Boolean);
   for (const moduleClass of moduleClasses) {
     gameSingleton.addModule(new moduleClass(gameSingleton));
   }
@@ -159,4 +186,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   client.eventEmitter.on('Action', globalOnActionHandler);
 
   gameSingleton.start();
+  // @ts-ignore
+  window.Gridia.game = gameSingleton;
+
+  Helper.find('.register').classList.add('hidden');
+  Helper.find('.game').classList.remove('hidden');
 });

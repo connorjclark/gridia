@@ -1,4 +1,5 @@
 import { SECTOR_SIZE } from './constants';
+import * as ProtocolBuilder from './protocol/client-to-server-protocol-builder';
 import WorldMapPartition from './world-map-partition';
 
 export default class WorldMap {
@@ -69,7 +70,7 @@ export default class WorldMap {
 export function createClientWorldMap(wire: ClientToServerWire) {
   const map = new WorldMap();
   map.loader = (sectorPoint) => {
-    wire.send('requestSector', sectorPoint);
+    wire.send(ProtocolBuilder.requestSector(sectorPoint));
     return map.createEmptySector(); // temporary until server sends something
   };
   return map;

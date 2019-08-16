@@ -39,10 +39,14 @@ function copyFolderRecursiveSync(source, target) {
 }
 
 async function main() {
+  const dev = process.argv[2] === "--dev";
   const bundler = new ParcelBundler("src/client/index.html", {
     outDir: "dist/client",
     publicUrl: ".",
-    watch: false,
+    watch: dev,
+    // https://github.com/parcel-bundler/parcel/issues/643
+    hmr: false,
+    contentHash: !dev,
   });
   await bundler.bundle();
   copyFolderRecursiveSync("world", path.join("dist", "client"));
