@@ -6,7 +6,11 @@ nvm install 12
 
 yarn
 yarn clean
-yarn build-prod
+
+# Parcel hangs on yarn build-client.
+# See https://github.com/parcel-bundler/parcel/issues/3416
+sed -i 's/warmWorkers: true/warmWorkers: false/' ./node_modules/@parcel/workers/src/WorkerFarm.js
+PARCEL_WORKERS=1 yarn build-prod
 
 # Client
 rsync -ahvz --delete ./dist/client/ /var/www/hoten.cc/public_html/gridia
