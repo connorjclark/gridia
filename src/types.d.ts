@@ -151,3 +151,9 @@ interface GameActionEvent {
   loc: TilePoint;
   creature: Creature;
 }
+
+interface OpenAndConnectToServerOpts {
+  dummyDelay: number;
+  verbose: boolean;
+  context?: import('./server/server-context').ServerContext;
+}

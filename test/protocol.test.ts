@@ -3,7 +3,6 @@
 
 import * as assert from 'assert';
 import Client from '../src/client/client';
-import { openAndConnectToServerInMemory } from '../src/client/connect-to-server';
 import { MINE } from '../src/constants';
 import * as Content from '../src/content';
 import mapgen from '../src/mapgen';
@@ -11,6 +10,7 @@ import Server from '../src/server/server';
 import { ServerContext } from '../src/server/server-context';
 import { equalItems } from '../src/utils';
 import WorldMap from '../src/world-map';
+import { openAndConnectToServerInMemory } from './server-in-memory';
 
 let client: Client;
 let server: Server;

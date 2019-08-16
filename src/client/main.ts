@@ -3,7 +3,7 @@ import * as Content from '../content';
 import { makeGame } from '../game-singleton';
 import { worldToTile as _worldToTile } from '../utils';
 import Client from './client';
-import { connect, openAndConnectToServerInMemory } from './connect-to-server';
+import { connect, openAndConnectToServerWorker } from './connect-to-server';
 import * as Helper from './helper';
 import AdminClientModule from './modules/admin-module';
 import MovementClientModule from './modules/movement-module';
@@ -121,9 +121,9 @@ function globalOnActionHandler(e: GameActionEvent) {
 
 async function createWire() {
   let connectOverSocket = !window.location.hostname.includes('localhost');
-  if (window.location.search.includes('socket')) {
+  if (window.location.search.includes('server')) {
     connectOverSocket = true;
-  } else if (window.location.search.includes('memory')) {
+  } else if (window.location.search.includes('worker')) {
     connectOverSocket = false;
   }
 
@@ -132,14 +132,10 @@ async function createWire() {
     return;
   }
 
-  const serverAndWire = await openAndConnectToServerInMemory(client, {
+  const serverAndWire = await openAndConnectToServerWorker(client, {
     dummyDelay: 20,
     verbose: true,
   });
-
-  setInterval(() => {
-    serverAndWire.server.tick();
-  }, 50);
 
   client.wire = serverAndWire.clientToServerWire;
 }

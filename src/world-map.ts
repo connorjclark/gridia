@@ -66,6 +66,15 @@ export default class WorldMap {
   }
 }
 
+export function createClientWorldMap(wire: ClientToServerWire) {
+  const map = new WorldMap();
+  map.loader = (sectorPoint) => {
+    wire.send('requestSector', sectorPoint);
+    return map.createEmptySector(); // temporary until server sends something
+  };
+  return map;
+}
+
 /* tslint:disable-next-line */
 // export class ClientWorldMap extends WorldMap {
 //   constructor(width: number, height: number, depth: number, private wire: ClientToServerWire) {

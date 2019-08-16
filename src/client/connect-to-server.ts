@@ -1,17 +1,7 @@
 import { Context } from '../context';
 import { ServerToClientProtocol } from '../protocol';
-import ClientConnection from '../server/client-connection';
-import WorldMap from '../world-map';
+import { createClientWorldMap } from '../world-map';
 import Client from './client';
-
-function createClientWorldMap(wire: ClientToServerWire) {
-  const map = new WorldMap();
-  map.loader = (sectorPoint) => {
-    wire.send('requestSector', sectorPoint);
-    return map.createEmptySector(); // temporary until server sends something
-  };
-  return map;
-}
 
 export async function connect(client: Client, port: number): Promise<ClientToServerWire> {
   const verbose = true;
@@ -55,49 +45,33 @@ export async function connect(client: Client, port: number): Promise<ClientToSer
   return wire;
 }
 
-interface OpenAndConnectToServerInMemoryOpts {
-  dummyDelay: number;
-  verbose: boolean;
-  context?: import('../server/server-context').ServerContext;
-}
-export async function openAndConnectToServerInMemory(client: Client, opts: OpenAndConnectToServerInMemoryOpts) {
-  const {Server, ServerContext, createDebugWorldMap} = await import('./server-in-client-chunk');
+export async function openAndConnectToServerWorker(client: Client, opts: OpenAndConnectToServerOpts) {
+  const serverWorker = new Worker('server-worker-entry.ts');
 
-  function maybeDelay(fn: () => void) {
-    if (dummyDelay > 0) {
-      setTimeout(fn, dummyDelay);
-    } else {
-      fn();
-    }
-  }
-
-  const worldMap = createDebugWorldMap();
-  const { dummyDelay, verbose, context } = opts;
-  const server = new Server({
-    context: context ? context : new ServerContext(worldMap),
-    verbose,
+  serverWorker.postMessage({
+    type: 'worker_init',
+    opts,
   });
 
-  const clientConnection = new ClientConnection();
-  clientConnection.send = (type, args) => {
-    maybeDelay(() => {
-      wire.receive(type, args);
-    });
-  };
+  await new Promise((resolve, reject) => {
+    serverWorker.onmessage = (e) =>  {
+      if (e.data !== 'ack') reject('unexpected data on init');
+      delete serverWorker.onmessage;
+      resolve();
+    };
+  });
 
   // Make sure to clone args so no objects are accidently shared.
   const wire: ClientToServerWire = {
     send(type, args) {
       // const p = ServerToClientProtocol[type]
-      maybeDelay(() => {
-        clientConnection.messageQueue.push({
-          type,
-          args: JSON.parse(JSON.stringify(args)),
-        });
+      serverWorker.postMessage({
+        type,
+        args: JSON.parse(JSON.stringify(args)),
       });
     },
     receive(type, args) {
-      if (verbose) console.log('from server', type, args);
+      if (opts.verbose) console.log('from server', type, args);
       const p = ServerToClientProtocol[type];
       // @ts-ignore
       p(client, JSON.parse(JSON.stringify(args)));
@@ -108,7 +82,10 @@ export async function openAndConnectToServerInMemory(client: Client, opts: OpenA
   };
   client.context = new Context(createClientWorldMap(wire));
 
-  server.addClient(clientConnection);
+  serverWorker.onmessage = (message) => {
+    // @ts-ignore
+    wire.receive(message.data.type, message.data.args);
+  };
 
-  return { clientToServerWire: wire, server };
+  return { clientToServerWire: wire, serverWorker };
 }
