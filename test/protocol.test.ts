@@ -39,6 +39,8 @@ beforeEach(async () => {
     server.consumeAllMessages();
   };
 
+  server.context.savePlayer = () => Promise.resolve();
+
   wire.send(ProtocolBuilder.register({
     name: 'test-user',
   }));
