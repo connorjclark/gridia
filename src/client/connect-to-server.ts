@@ -63,19 +63,17 @@ export async function openAndConnectToServerWorker(client: Client, opts: OpenAnd
   // Make sure to clone args so no objects are accidently shared.
   const wire: ClientToServerWire = {
     send(message) {
-      const cloned = JSON.parse(JSON.stringify(message));
-      serverWorker.postMessage(cloned);
+      serverWorker.postMessage(message);
     },
     receive(message) {
-      const cloned = JSON.parse(JSON.stringify(message));
       if (opts.verbose) console.log('from server', message.type, message.args);
       const onMethodName = 'on' + message.type[0].toUpperCase() + message.type.substr(1);
       const p = protocol[onMethodName];
       // @ts-ignore
-      p(client, cloned.args);
+      p(client, message.args);
       // Allow for hooks in the main client code. Should
       // only be used for refreshing UI, not updating game state.
-      client.eventEmitter.emit('message', cloned);
+      client.eventEmitter.emit('message', message);
     },
   };
   client.context = new Context(createClientWorldMap(wire));
