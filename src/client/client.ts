@@ -2,13 +2,14 @@ import { EventEmitter } from 'events';
 import { Context } from '../context';
 import ServerToClientProtocol from '../protocol/server-to-client-protocol';
 import { Message } from '../protocol/server-to-client-protocol-builder';
+import { Connection } from './connection';
 
 interface Settings {
   volume: number;
 }
 
 class Client {
-  public wire: ClientToServerWire;
+  public connection: Connection;
   public PIXI: typeof import('pixi.js');
   public PIXISound: typeof import('pixi-sound').default;
   public isAdmin: boolean;

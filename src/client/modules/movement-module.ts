@@ -91,7 +91,7 @@ class MovementClientModule extends ClientModule {
 
         if (this.game.client.context.map.walkable(dest)) {
           this.lastMove = performance.now();
-          this.game.client.wire.send(ProtocolBuilder.move(dest));
+          this.game.client.connection.send(ProtocolBuilder.move(dest));
           this.game.client.eventEmitter.emit('PlayerMove');
           delete this.game.state.mouse.tile;
         }

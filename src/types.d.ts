@@ -44,14 +44,6 @@ interface Creature {
 type ServerToClientMessage = import('./protocol/gen/server-to-client-protocol-builder').Message;
 type ClientToServerMessage = import('./protocol/gen/client-to-server-protocol-builder').Message;
 
-interface ServerToClientWire {
-  send(message: ServerToClientMessage): void;
-}
-
-interface ClientToServerWire {
-  send(message: ClientToServerMessage): void;
-}
-
 interface MetaItem {
   id: number;
   name: string;

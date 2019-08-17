@@ -64,7 +64,7 @@ export default class ServerToClientProtocol implements Protocol.ServerToClientPr
     const creature = client.context.getCreature(id);
     if (!creature) {
       if (partial) {
-        client.wire.send(ProtocolBuilder.requestCreature({id}));
+        client.connection.send(ProtocolBuilder.requestCreature({id}));
       } else {
         // @ts-ignore - it's not a partial creature.
         client.context.setCreature(partialCreature);

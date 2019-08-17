@@ -1,3 +1,4 @@
+import { Connection } from './client/connection';
 import { SECTOR_SIZE } from './constants';
 import * as ProtocolBuilder from './protocol/client-to-server-protocol-builder';
 import WorldMapPartition from './world-map-partition';
@@ -67,30 +68,11 @@ export default class WorldMap {
   }
 }
 
-export function createClientWorldMap(wire: ClientToServerWire) {
+export function createClientWorldMap(connection: Connection) {
   const map = new WorldMap();
   map.loader = (sectorPoint) => {
-    wire.send(ProtocolBuilder.requestSector(sectorPoint));
+    connection.send(ProtocolBuilder.requestSector(sectorPoint));
     return map.createEmptySector(); // temporary until server sends something
   };
   return map;
 }
-
-/* tslint:disable-next-line */
-// export class ClientWorldMap extends WorldMap {
-//   constructor(width: number, height: number, depth: number, private wire: ClientToServerWire) {
-//     super(width, height, depth);
-//   }
-
-//   public load(point: TilePoint): Sector {
-//     this.wire.send('requestSector', point);
-//     return this.createEmptySector(); // temporary until server sends something
-//   }
-// }
-
-// export class ServerWorldMap extends WorldMap {
-//   public load(point: TilePoint): Sector {
-//     this.wire.send('requestSector', point);
-//     return this.createEmptySector(); // temporary until server sends something
-//   }
-// }

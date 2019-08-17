@@ -3,6 +3,7 @@
 
 import * as assert from 'assert';
 import Client from '../src/client/client';
+import { Connection } from '../src/client/connection';
 import { MINE } from '../src/constants';
 import * as Content from '../src/content';
 import mapgen from '../src/mapgen';
@@ -15,7 +16,7 @@ import { openAndConnectToServerInMemory } from './server-in-memory';
 
 let client: Client;
 let server: Server;
-let wire: ClientToServerWire;
+let connection: Connection;
 
 // TODO would be cool to see these tests while rendering the game.
 
@@ -24,24 +25,24 @@ beforeEach(async () => {
   const worldMap = new WorldMap();
   const partition = mapgen(20, 20, 1, true);
   worldMap.addPartition(0, partition);
-  const serverAndWire = await openAndConnectToServerInMemory(client, {
+  const serverAndConnection = await openAndConnectToServerInMemory(client, {
     dummyDelay: 0,
     verbose: false,
     context: new ServerContext(worldMap),
   });
-  wire = serverAndWire.clientToServerWire;
-  server = serverAndWire.server;
+  connection = serverAndConnection.connection;
+  server = serverAndConnection.server;
 
   // Immediately process messages.
-  const originalFn = wire.send;
-  wire.send = (...args) => {
+  const originalFn = connection.send.bind(connection);
+  connection.send = (...args) => {
     originalFn(...args);
     server.consumeAllMessages();
   };
 
   server.context.savePlayer = () => Promise.resolve();
 
-  wire.send(ProtocolBuilder.register({
+  connection.send(ProtocolBuilder.register({
     name: 'test-user',
   }));
 
@@ -115,7 +116,7 @@ describe('move', () => {
     const to = {w: 0, x: 6, y: 5, z: 0};
 
     assertCreatureAt(from, creature.id);
-    wire.send(ProtocolBuilder.move(to));
+    connection.send(ProtocolBuilder.move(to));
     assertCreatureAt(to, creature.id);
   });
 
@@ -125,7 +126,7 @@ describe('move', () => {
     setItem(to, { type: 1, quantity: Content.getMetaItemByName('Cut Red Rose').id });
 
     assertCreatureAt(from, creature.id);
-    wire.send(ProtocolBuilder.move(to));
+    connection.send(ProtocolBuilder.move(to));
     assertCreatureAt(to, creature.id);
   });
 
@@ -135,7 +136,7 @@ describe('move', () => {
     setItem(to, { type: Content.getMetaItemByName('Granite Wall').id, quantity: 1 });
 
     assertCreatureAt(from, creature.id);
-    wire.send(ProtocolBuilder.move(to));
+    connection.send(ProtocolBuilder.move(to));
     assertCreatureAt(from, creature.id);
   });
 
@@ -147,7 +148,7 @@ describe('move', () => {
   //   assertCreatureAt(to, otherCreature.id);
 
   //   assertCreatureAt(from, creature.id);
-  //   wire.send(ProtocolBuilder.move(to));
+  //   connection.send(ProtocolBuilder.move(to));
   //   assertCreatureAt(from, creature.id);
   // });
 
@@ -158,7 +159,7 @@ describe('move', () => {
   //   setFloor(to, MINE);
 
   //   assertCreatureAt(from, creature.id);
-  //   wire.send(ProtocolBuilder.move(to));
+  //   connection.send(ProtocolBuilder.move(to));
   //   assertCreatureAt(from, creature.id);
   // });
 
@@ -168,7 +169,7 @@ describe('move', () => {
     setFloor(to, MINE);
 
     assertCreatureAt(from, creature.id);
-    wire.send(ProtocolBuilder.move(to));
+    connection.send(ProtocolBuilder.move(to));
     assertCreatureAt(to, creature.id);
   });
 });
@@ -183,7 +184,7 @@ describe('moveItem', () => {
 
     setItem(from, { type: 1, quantity: 10 });
 
-    wire.send(ProtocolBuilder.moveItem({
+    connection.send(ProtocolBuilder.moveItem({
       from,
       fromSource: 0,
       to,
@@ -201,7 +202,7 @@ describe('moveItem', () => {
     setItem(from, { type: 1, quantity: 1 });
     setItem(to, { type: 2, quantity: 1 });
 
-    wire.send(ProtocolBuilder.moveItem({
+    connection.send(ProtocolBuilder.moveItem({
       from,
       fromSource: 0,
       to,
@@ -220,7 +221,7 @@ describe('moveItem', () => {
     setItem(from, { type: gold.id, quantity: 1 });
     setItem(to, { type: gold.id, quantity: 2 });
 
-    wire.send(ProtocolBuilder.moveItem({
+    connection.send(ProtocolBuilder.moveItem({
       from,
       fromSource: 0,
       to,
@@ -236,9 +237,9 @@ describe('moveItem', () => {
 
     const container = server.context.makeContainer();
     container.items[0] = { type: 1, quantity: 1 };
-    wire.send(ProtocolBuilder.requestContainer({ containerId: container.id }));
+    connection.send(ProtocolBuilder.requestContainer({ containerId: container.id }));
 
-    wire.send(ProtocolBuilder.moveItem({
+    connection.send(ProtocolBuilder.moveItem({
       from: {w: 0, x: 0, y: 0, z: 0},
       fromSource: container.id,
       to,
@@ -254,9 +255,9 @@ describe('moveItem', () => {
 
     setItem(from, { type: 1, quantity: 1 });
     const container = server.context.makeContainer();
-    wire.send(ProtocolBuilder.requestContainer({ containerId: container.id }));
+    connection.send(ProtocolBuilder.requestContainer({ containerId: container.id }));
 
-    wire.send(ProtocolBuilder.moveItem({
+    connection.send(ProtocolBuilder.moveItem({
       from,
       fromSource: 0,
       to: { w: 0, x: 0, y: 0, z: 0 },
@@ -275,9 +276,9 @@ describe('moveItem', () => {
     container.items[0] = { type: 2, quantity: 1 };
     container.items[1] = { type: 2, quantity: 1 };
     container.items[3] = { type: 2, quantity: 1 };
-    wire.send(ProtocolBuilder.requestContainer({ containerId: container.id }));
+    connection.send(ProtocolBuilder.requestContainer({ containerId: container.id }));
 
-    wire.send(ProtocolBuilder.moveItem({
+    connection.send(ProtocolBuilder.moveItem({
       from,
       fromSource: 0,
       toSource: container.id,
@@ -296,9 +297,9 @@ describe('moveItem', () => {
     container.items[1] = { type: 2, quantity: 1 };
     container.items[2] = { type: 1, quantity: 2 };
     container.items[3] = { type: 2, quantity: 1 };
-    wire.send(ProtocolBuilder.requestContainer({ containerId: container.id }));
+    connection.send(ProtocolBuilder.requestContainer({ containerId: container.id }));
 
-    wire.send(ProtocolBuilder.moveItem({
+    connection.send(ProtocolBuilder.moveItem({
       from,
       fromSource: 0,
       toSource: container.id,
@@ -327,7 +328,7 @@ describe('use', () => {
 
     setItem(loc, { type: Content.getMetaItemByName('Pine Tree').id, quantity: 1 });
 
-    wire.send(ProtocolBuilder.use({
+    connection.send(ProtocolBuilder.use({
       toolIndex,
       loc,
     }));
@@ -343,7 +344,7 @@ describe('use', () => {
 
     setItem(loc, { type: Content.getMetaItemByName('Ploughed Ground').id, quantity: 1 });
 
-    wire.send(ProtocolBuilder.use({
+    connection.send(ProtocolBuilder.use({
       toolIndex,
       loc,
     }));
@@ -366,7 +367,7 @@ describe('use', () => {
     setItemInContainer(container.id, toolIndex + 1, undefined);
     setItem(loc, { type: Content.getMetaItemByName('Large Camp Fire').id, quantity: 1 });
 
-    wire.send(ProtocolBuilder.use({
+    connection.send(ProtocolBuilder.use({
       toolIndex,
       loc,
     }));
@@ -388,14 +389,14 @@ describe('use', () => {
 
     setItem(loc, { type: Content.getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123 });
 
-    wire.send(ProtocolBuilder.use({
+    connection.send(ProtocolBuilder.use({
       toolIndex: -1,
       loc,
     }));
 
     assertItemInWorld(loc, { type: Content.getMetaItemByName('Wooden Box').id, quantity: 1, containerId: 123 });
 
-    wire.send(ProtocolBuilder.use({
+    connection.send(ProtocolBuilder.use({
       toolIndex: -1,
       loc,
     }));

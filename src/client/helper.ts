@@ -12,7 +12,7 @@ export function usageExists(tool: number, focus: number) {
 }
 
 export function useHand(loc: TilePoint) {
-  game.client.wire.send(ProtocolBuilder.use({
+  game.client.connection.send(ProtocolBuilder.use({
     toolIndex: -1,
     loc,
   }));
@@ -29,7 +29,7 @@ export function useTool(loc: TilePoint, usageIndex?: number) {
   }
 
   if (usages.length === 1 || usageIndex !== undefined) {
-    game.client.wire.send(ProtocolBuilder.use({
+    game.client.connection.send(ProtocolBuilder.use({
       toolIndex,
       loc,
       usageIndex,
@@ -42,13 +42,13 @@ export function useTool(loc: TilePoint, usageIndex?: number) {
 // TODO: add tests checking that subscribed containers are updated in all clients.
 // TODO: don't keep requesting container if already open.
 export function openContainer(loc: TilePoint) {
-  game.client.wire.send(ProtocolBuilder.requestContainer({
+  game.client.connection.send(ProtocolBuilder.requestContainer({
     loc,
   }));
 }
 
 export function closeContainer(containerId: number) {
-  game.client.wire.send(ProtocolBuilder.closeContainer({
+  game.client.connection.send(ProtocolBuilder.closeContainer({
     containerId,
   }));
 }

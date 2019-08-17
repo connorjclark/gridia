@@ -93,7 +93,7 @@ function globalOnActionHandler(e: GameActionEvent) {
 
   switch (type) {
     case 'pickup':
-      client.wire.send(ProtocolBuilder.moveItem({
+      client.connection.send(ProtocolBuilder.moveItem({
         fromSource: 0,
         from: loc,
         toSource: client.containerId,
@@ -109,7 +109,7 @@ function globalOnActionHandler(e: GameActionEvent) {
       Helper.openContainer(loc);
       break;
     case 'tame':
-      client.wire.send(ProtocolBuilder.tame({
+      client.connection.send(ProtocolBuilder.tame({
         creatureId: creature.id,
       }));
       break;
@@ -119,7 +119,7 @@ function globalOnActionHandler(e: GameActionEvent) {
   }
 }
 
-async function createWire() {
+async function createConnection() {
   let connectOverSocket = !window.location.hostname.includes('localhost');
   if (window.location.search.includes('server')) {
     connectOverSocket = true;
@@ -128,25 +128,25 @@ async function createWire() {
   }
 
   if (connectOverSocket) {
-    client.wire = await connect(client, 9001);
+    client.connection = await connect(client, 9001);
     console.log('For debugging:\nwindow.Gridia.verbose = true;');
     return;
   }
 
-  const serverAndWire = await openAndConnectToServerWorker(client, {
+  const connection = await openAndConnectToServerWorker(client, {
     dummyDelay: 20,
     verbose: false,
   });
 
-  client.wire = serverAndWire.clientToServerWire;
+  client.connection = connection;
   // @ts-ignore
-  window.Gridia.server = serverAndWire.server;
+  window.Gridia.serverWorker = connection._worker;
   // TODO: this doesn't work anymore.
   // console.log('For debugging:\nwindow.Gridia.server.verbose = true;');
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await createWire();
+  await createConnection();
 
   const registerBtn = Helper.find('.register-btn');
   const registerNameEl = Helper.find('#register--name') as HTMLInputElement;
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const parts2 = 'Jill Stranger Arthur Maz Harlet Worker'.split(' ');
   registerNameEl.value = parts1[randInt(0, parts1.length)] + ' ' + parts2[randInt(0, parts2.length)];
   registerBtn.addEventListener('click', () => {
-    client.wire.send(ProtocolBuilder.register({
+    client.connection.send(ProtocolBuilder.register({
       name: registerNameEl.value,
     }));
   });

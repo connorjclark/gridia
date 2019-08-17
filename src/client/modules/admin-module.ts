@@ -173,7 +173,7 @@ class AdminClientModule extends ClientModule {
         if (equalItems(currentItem, item)) return;
         // Don't overwrite existing items - must explictly select the "null" item to delete items.
         if (currentItem && item) return;
-        this.game.client.wire.send(ProtocolBuilder.adminSetItem({
+        this.game.client.connection.send(ProtocolBuilder.adminSetItem({
           ...loc,
           item,
         }));
@@ -183,7 +183,7 @@ class AdminClientModule extends ClientModule {
       } else if (this._selectedContent.type === 'Floors') {
         const floor = this._selectedContent.id;
         if (this.game.client.context.map.getTile(loc).floor === floor) return;
-        this.game.client.wire.send(ProtocolBuilder.adminSetFloor({
+        this.game.client.connection.send(ProtocolBuilder.adminSetFloor({
           ...loc,
           floor,
         }));

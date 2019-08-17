@@ -483,7 +483,7 @@ class Game {
 
       // Shift to pick up item.
       if (e.keyCode === KEYS.SHIFT && this.state.selectedView.tile) {
-        this.client.wire.send(ProtocolBuilder.moveItem({
+        this.client.connection.send(ProtocolBuilder.moveItem({
           fromSource: 0,
           from: this.state.selectedView.tile,
           toSource: this.client.containerId,
@@ -498,7 +498,7 @@ class Game {
 
       // T to toggle z.
       if (e.key === 't') {
-        this.client.wire.send(ProtocolBuilder.move({
+        this.client.connection.send(ProtocolBuilder.move({
           ...focusPos,
           z: 1 - focusPos.z,
         }));
@@ -528,7 +528,7 @@ class Game {
       const to = e.loc;
       const toSource = e.source;
       if (!(fromSource === toSource && equalPoints(from, to))) {
-        this.client.wire.send(ProtocolBuilder.moveItem({
+        this.client.connection.send(ProtocolBuilder.moveItem({
           from,
           fromSource,
           to,
