@@ -45,12 +45,10 @@ type ServerToClientMessage = import('./protocol/gen/server-to-client-protocol-bu
 type ClientToServerMessage = import('./protocol/gen/client-to-server-protocol-builder').Message;
 
 interface ServerToClientWire {
-  receive(message: ClientToServerMessage): void;
   send(message: ServerToClientMessage): void;
 }
 
 interface ClientToServerWire {
-  receive(message: ServerToClientMessage): void;
   send(message: ClientToServerMessage): void;
 }
 

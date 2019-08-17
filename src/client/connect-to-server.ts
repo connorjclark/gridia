@@ -1,9 +1,6 @@
 import { Context } from '../context';
-import ServerToClientProtocol from '../protocol/server-to-client-protocol';
 import { createClientWorldMap } from '../world-map';
 import Client from './client';
-
-const protocol = new ServerToClientProtocol();
 
 export async function connect(client: Client, port: number): Promise<ClientToServerWire> {
   const scheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
@@ -13,23 +10,11 @@ export async function connect(client: Client, port: number): Promise<ClientToSer
     send(message) {
       ws.send(JSON.stringify(message));
     },
-    receive(message) {
-      // @ts-ignore
-      if (window.Gridia.verbose) console.log('from server', message.type, message.args);
-      const onMethodName = 'on' + message.type[0].toUpperCase() + message.type.substr(1);
-      const p = protocol[onMethodName];
-      // @ts-ignore
-      p(client, message.args);
-      // Allow for hooks in the main client code. Should
-      // only be used for refreshing UI, not updating game state.
-      client.eventEmitter.emit('message', message);
-    },
   };
   client.context = new Context(createClientWorldMap(wire));
 
   ws.addEventListener('message', (e) => {
-    const parsed = JSON.parse(e.data);
-    wire.receive(parsed);
+    client.eventEmitter.emit('message', JSON.parse(e.data));
   });
 
   await new Promise((resolve, reject) => {
@@ -65,21 +50,11 @@ export async function openAndConnectToServerWorker(client: Client, opts: OpenAnd
     send(message) {
       serverWorker.postMessage(message);
     },
-    receive(message) {
-      if (opts.verbose) console.log('from server', message.type, message.args);
-      const onMethodName = 'on' + message.type[0].toUpperCase() + message.type.substr(1);
-      const p = protocol[onMethodName];
-      // @ts-ignore
-      p(client, message.args);
-      // Allow for hooks in the main client code. Should
-      // only be used for refreshing UI, not updating game state.
-      client.eventEmitter.emit('message', message);
-    },
   };
   client.context = new Context(createClientWorldMap(wire));
 
   serverWorker.onmessage = (message) => {
-    wire.receive(message.data);
+    client.eventEmitter.emit('message', message.data);
   };
 
   return { clientToServerWire: wire, serverWorker };

@@ -238,6 +238,7 @@ class Game {
   }
 
   public async start() {
+    // Should only be used for refreshing UI, not updating game state.
     this.client.eventEmitter.on('message', (e) => {
       // TODO improve type checking.
       if (e.type === 'setItem') {

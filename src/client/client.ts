@@ -1,5 +1,7 @@
 import { EventEmitter } from 'events';
 import { Context } from '../context';
+import ServerToClientProtocol from '../protocol/server-to-client-protocol';
+import { Message } from '../protocol/server-to-client-protocol-builder';
 
 interface Settings {
   volume: number;
@@ -20,6 +22,20 @@ class Client {
   };
   // skill id -> xp
   public skills: Map<number, number> = new Map();
+
+  private _protocol = new ServerToClientProtocol();
+
+  constructor() {
+    this.eventEmitter.on('message', this.handleMessageFromServer.bind(this));
+  }
+
+  public handleMessageFromServer(message: Message) {
+    // if (opts.verbose) console.log('from server', message.type, message.args);
+    const onMethodName = 'on' + message.type[0].toUpperCase() + message.type.substr(1);
+    const p = this._protocol[onMethodName];
+    // @ts-ignore
+    p(this, message.args);
+  }
 }
 
 export default Client;

@@ -3,16 +3,14 @@
 
 import Client from '../src/client/client';
 import { Context } from '../src/context';
-import ServerToClientProtocol from '../src/protocol/server-to-client-protocol';
 import ClientConnection from '../src/server/client-connection';
 import Server from '../src/server/server';
 import { ServerContext } from '../src/server/server-context';
 import { createClientWorldMap } from '../src/world-map';
 import createDebugWorldMap from '../src/world-map-debug';
 
-const protocol = new ServerToClientProtocol();
-
 // This was used before workers, but now it's just for jest tests.
+// Clone messages so that mutations aren't depended on accidentally.
 export async function openAndConnectToServerInMemory(client: Client, opts: OpenAndConnectToServerOpts) {
   function maybeDelay(fn: () => void) {
     if (dummyDelay > 0) {
@@ -32,11 +30,11 @@ export async function openAndConnectToServerInMemory(client: Client, opts: OpenA
   const clientConnection = new ClientConnection();
   clientConnection.send = (message) => {
     maybeDelay(() => {
-      wire.receive(message);
+      const cloned = JSON.parse(JSON.stringify(message));
+      client.eventEmitter.emit('message', cloned);
     });
   };
 
-  // Make sure to clone args so no objects are accidently shared.
   const wire: ClientToServerWire = {
     send(message) {
       const cloned = JSON.parse(JSON.stringify(message));
@@ -44,21 +42,10 @@ export async function openAndConnectToServerInMemory(client: Client, opts: OpenA
         clientConnection.messageQueue.push(cloned);
       });
     },
-    receive(message) {
-      // @ts-ignore
-      if (opts.verbose) console.log('from server', message.type, message.args);
-      const onMethodName = 'on' + message.type[0].toUpperCase() + message.type.substr(1);
-      const p = protocol[onMethodName];
-      const cloned = JSON.parse(JSON.stringify(message));
-      // @ts-ignore
-      p(client, cloned.args);
-      // Allow for hooks in the main client code. Should
-      // only be used for refreshing UI, not updating game state.
-      client.eventEmitter.emit('message', cloned);
-    },
   };
   client.context = new Context(createClientWorldMap(wire));
 
+  // TODO: why is this needed?
   server.clientConnections.push(clientConnection);
 
   return { clientToServerWire: wire, server };

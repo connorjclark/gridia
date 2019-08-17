@@ -141,7 +141,8 @@ async function createWire() {
   client.wire = serverAndWire.clientToServerWire;
   // @ts-ignore
   window.Gridia.server = serverAndWire.server;
-  console.log('For debugging:\nwindow.Gridia.server.verbose = true;');
+  // TODO: this doesn't work anymore.
+  // console.log('For debugging:\nwindow.Gridia.server.verbose = true;');
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
