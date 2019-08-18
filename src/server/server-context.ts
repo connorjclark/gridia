@@ -1,4 +1,3 @@
-import * as fsSync from 'fs';
 import * as path from 'path';
 import { SECTOR_SIZE } from '../constants';
 import Container from '../container';
@@ -53,13 +52,14 @@ export class ServerContext extends Context {
     this.sectorDir = path.join(serverDir, 'sectors');
   }
 
-  public loadSector(server: Server, sectorPoint: TilePoint): Sector {
-    const sector: Sector = JSON.parse(fsSync.readFileSync(this.sectorPath(sectorPoint), 'utf-8'));
+  public async loadSector(server: Server, sectorPoint: TilePoint) {
+    const data = await fs.readFile(this.sectorPath(sectorPoint));
+    const sector: Sector = JSON.parse(data);
 
     // Set creatures (all of which are always loaded in memory) to the sector (of which only active areas are loaded).
     // Kinda lame, I guess.
     // Run on next tick, so that loadSector is not called recursively.
-    setImmediate(() => {
+    Promise.resolve().then(() => {
       for (const creature of this.creatures.values()) {
         if (equalPoints(sectorPoint, worldToSector(creature.pos, SECTOR_SIZE))) {
           server.registerCreature(creature);

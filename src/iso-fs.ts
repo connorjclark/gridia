@@ -45,12 +45,23 @@ async function workerReadFile(path: string) {
 }
 
 async function workerReadDir(path: string) {
+  if (!path.endsWith('/')) path += '/';
+
   const db = await getDb();
-  return db.getAll(defaultStore, IDBKeyRange.bound(path, `${path}/zzz`));
+  // This is pretty hacky.
+  const keysInAlphaRange = (await db.getAllKeys(defaultStore, IDBKeyRange.bound(path, `${path}zzz`)))
+    .map((k) => k.toString());
+  return keysInAlphaRange.filter((key) => {
+    if (key === path) return false;
+
+    const nextSep = key.indexOf('/', path.length);
+    if (nextSep === -1 || nextSep === path.length - 1) return true;
+    return false;
+  }).map((key) => key.replace(new RegExp('^' + path), ''));
 }
 
 export const exists = isNode ? nodeExists : workerExists;
 export const writeFile = isNode ? nodeWriteFile : workerWriteFile;
 export const readFile = isNode ? nodeReadFile : workerReadFile;
-export const mkdir = isNode ? fs.promises.mkdir : () => Promise.resolve();
+export const mkdir = isNode ? fs.promises.mkdir : (path: string) => workerWriteFile(path, '');
 export const readdir = isNode ? fs.promises.readdir : workerReadDir;

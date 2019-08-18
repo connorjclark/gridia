@@ -8,7 +8,6 @@ export async function startServer(options: ServerOptions) {
   const {serverData, verbose} = options;
 
   let context: ServerContext;
-  debugger;
   if (await fs.exists(serverData)) {
     context = await ServerContext.load(serverData);
   } else {
@@ -25,8 +24,14 @@ export async function startServer(options: ServerOptions) {
   });
 
   // This cyclical dependency between Server and WorldMap could be improved.
-  context.map.loader = (sectorPoint) => {
-    return context.loadSector(server, sectorPoint);
+  context.map.loader = (pos) => {
+    // Loading from disk must be async, but the map loader must be sync.
+    // So, return a temporary sector and replace when done reading from disk.
+    context.loadSector(server, pos).then((tiles) => {
+      context.map.getPartition(pos.w).sectors[pos.x][pos.y][pos.z] = tiles;
+    });
+
+    return context.map.createEmptySector();
   };
 
   setInterval(() => {
