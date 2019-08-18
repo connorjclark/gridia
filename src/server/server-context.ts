@@ -12,12 +12,12 @@ import Server from './server';
 
 export class ServerContext extends Context {
   public static async load(serverDir: string) {
-    const meta = JSON.parse(await fs.readFile(path.join(serverDir, 'meta.json'), 'utf-8'));
+    const meta = JSON.parse(await fs.readFile(path.join(serverDir, 'meta.json')));
     const map = new WorldMap();
     const context = new ServerContext(map);
     context.setServerDir(serverDir);
 
-    const creatures = JSON.parse(await fs.readFile(context.creaturesPath(), 'utf-8'));
+    const creatures = JSON.parse(await fs.readFile(context.creaturesPath()));
     for (const creature of creatures) {
       context.creatures.set(creature.id, creature);
       // Purposefully do not set creature on tile, as that would load the sector.
@@ -30,7 +30,7 @@ export class ServerContext extends Context {
     // Just load all the partitions for now.
     const partitionIds = (await fs.readdir(context.sectorDir)).map(Number);
     for (const w of partitionIds) {
-      const partitionMeta = JSON.parse(await fs.readFile(context.partitionMetaPath(w), 'utf-8'));
+      const partitionMeta = JSON.parse(await fs.readFile(context.partitionMetaPath(w)));
       map.initPartition(w, partitionMeta.width, partitionMeta.height, partitionMeta.depth);
     }
 
