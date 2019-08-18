@@ -23,7 +23,7 @@ export async function connect(client: Client, port: number): Promise<Connection>
 }
 
 export async function openAndConnectToServerWorker(client: Client, opts: OpenAndConnectToServerOpts) {
-  const serverWorker = new Worker('server-worker-entry.ts');
+  const serverWorker = new Worker('../server/run-worker.ts');
 
   serverWorker.postMessage({
     type: 'worker_init',

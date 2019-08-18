@@ -134,8 +134,19 @@ interface GameActionEvent {
 type NoMethodKeys<T> = ({[P in keyof T]: T[P] extends Function ? never : P })[keyof T];
 type NoMethods<T> = Pick<T, NoMethodKeys<T>>;
 
-interface OpenAndConnectToServerOpts {
-  dummyDelay: number;
+interface ServerOptions {
+  serverData: string;
   verbose: boolean;
-  context?: import('./server/server-context').ServerContext;
+}
+
+interface CLIOptions extends ServerOptions {
+  port: number;
+  ssl?: {
+    cert: string;
+    key: string;
+  };
+}
+
+interface OpenAndConnectToServerOpts extends ServerOptions {
+  dummyDelay: number;
 }

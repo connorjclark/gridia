@@ -134,6 +134,7 @@ async function createConnection() {
   }
 
   const connection = await openAndConnectToServerWorker(client, {
+    serverData: '/',
     dummyDelay: 20,
     verbose: false,
   });

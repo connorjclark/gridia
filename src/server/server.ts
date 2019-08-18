@@ -148,6 +148,7 @@ export default class Server {
 
   public makeCreatureFromTemplate(creatureType: number, pos: TilePoint): Creature {
     const template = Content.getMonsterTemplate(creatureType);
+    if (!template) return; // TODO
 
     const creature = {
       id: this.context.nextCreatureId++,

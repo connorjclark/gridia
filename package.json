@@ -22,7 +22,7 @@
     "build-client": "node build/build-client.js",
     "build-server": "tsc -p tsconfig.server.json --outDir dist/server && node build/build-server.js",
     "convert": "src/convert-rpgwo/convert.sh",
-    "run-server": "node -r source-map-support/register ./dist/server/run-server.js",
+    "run-server": "node -r source-map-support/register ./dist/server/server/run.js",
     "clean": "rimraf dist",
     "watch": "concurrently --kill-others --names Server,Client,Static --prefix name nodemon \"node build/build-client.js --dev\" \"http-server dist/client -c-1\"",
     "type-check": "tsc --noEmit",
