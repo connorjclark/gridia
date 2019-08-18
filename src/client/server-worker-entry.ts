@@ -1,3 +1,4 @@
+import * as fs from '../iso-fs';
 import ClientConnection from '../server/client-connection';
 import Server from '../server/server';
 import { ServerContext } from '../server/server-context';
@@ -15,11 +16,23 @@ function maybeDelay(fn: () => void) {
   }
 }
 
-function start() {
-  const worldMap = createDebugWorldMap();
-  const { verbose, context } = opts;
+async function start() {
+  // TODO: this is duplicated in `run-server.ts`
+  const serverData = '/';
+  let context: ServerContext;
+  if (await fs.exists(serverData)) {
+    context = await ServerContext.load(serverData);
+  } else {
+    await fs.mkdir(serverData);
+    const worldMap = createDebugWorldMap();
+    context = new ServerContext(worldMap);
+    context.setServerDir(serverData);
+    await context.save();
+  }
+
+  const { verbose } = opts;
   server = new Server({
-    context: context ? context : new ServerContext(worldMap),
+    context,
     verbose,
   });
 
@@ -36,12 +49,17 @@ function start() {
   setInterval(() => {
     server.tick();
   }, 50);
+
+  setInterval(async () => {
+    await server.save();
+  }, 1000 * 60 * 5);
+  server.save();
 }
 
-self.addEventListener('message', (e) => {
+self.addEventListener('message', async (e) => {
   if (e.data.type === 'worker_init') {
     opts = e.data.opts;
-    start();
+    await start();
     // @ts-ignore
     self.postMessage('ack');
   } else {

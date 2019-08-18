@@ -3,15 +3,8 @@ import { IDBPDatabase, openDB } from 'idb';
 
 const isNode = typeof process !== 'undefined' && typeof process.release !== 'undefined';
 
-let dbPromise: Promise<IDBPDatabase>;
-function getDb() {
-  if (!dbPromise) { dbPromise = openDB('gridia', 1, {
-    upgrade(db) {
-      db.createObjectStore('keyval');
-    },
-  });
-  }
-  return dbPromise;
+function nodeExists(path: string): Promise<boolean> {
+  return new Promise((resolve) => fs.exists(path, resolve));
 }
 
 function nodeWriteFile(path: string, data: string) {
@@ -22,19 +15,41 @@ function nodeReadFile(path: string) {
   return fs.promises.readFile(path, 'utf-8');
 }
 
+const dbName = 'gridia';
+const defaultStore = 'local-world';
+let dbPromise: Promise<IDBPDatabase>;
+function getDb() {
+  if (!dbPromise) {
+    dbPromise = openDB(dbName, 1, {
+      upgrade(db) {
+        db.createObjectStore(defaultStore);
+      },
+    });
+  }
+  return dbPromise;
+}
+
+async function workerExists(path: string): Promise<boolean> {
+  const db = await getDb();
+  return typeof await db.get(defaultStore, path) !== 'undefined';
+}
+
 async function workerWriteFile(path: string, data: string) {
-  const db = await dbPromise;
-  await db.put('keyval', data, path);
+  const db = await getDb();
+  await db.put(defaultStore, data, path);
 }
 
 async function workerReadFile(path: string) {
-  return (await dbPromise).get('keyval', path);
+  const db = await getDb();
+  return db.get(defaultStore, path);
 }
 
 async function workerReadDir(path: string) {
-  return (await dbPromise).getAll('keyval', IDBKeyRange.bound(path, `${path}/zzz`));
+  const db = await getDb();
+  return db.getAll(defaultStore, IDBKeyRange.bound(path, `${path}/zzz`));
 }
 
+export const exists = isNode ? nodeExists : workerExists;
 export const writeFile = isNode ? nodeWriteFile : workerWriteFile;
 export const readFile = isNode ? nodeReadFile : workerReadFile;
 export const mkdir = isNode ? fs.promises.mkdir : () => Promise.resolve();
