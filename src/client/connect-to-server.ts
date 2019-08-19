@@ -40,9 +40,9 @@ export async function openAndConnectToServerWorker(client: Client, opts: OpenAnd
 
   const connection = new WorkerConnection(serverWorker);
 
-  serverWorker.onmessage = (message) => {
-    client.eventEmitter.emit('message', message.data);
-  };
+  connection.setOnMessage((message) => {
+    client.eventEmitter.emit('message', message);
+  });
 
   client.context = new Context(createClientWorldMap(connection));
   return connection;

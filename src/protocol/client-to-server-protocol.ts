@@ -53,7 +53,7 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
     });
   }
 
-  public onRequestContainer(server: Server, { containerId, loc }: Protocol.RequestContainerParams): void {
+  public async onRequestContainer(server: Server, { containerId, loc }: Protocol.RequestContainerParams) {
     if (!containerId && !loc) throw new Error('expected containerId or loc');
 
     if (!containerId) {
@@ -67,7 +67,7 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
     }
 
     server.currentClientConnection.registeredContainers.push(containerId);
-    server.reply(ProtocolBuilder.container(server.context.getContainer(containerId)));
+    server.reply(ProtocolBuilder.container(await server.context.getContainer(containerId)));
   }
 
   public onCloseContainer(server: Server, { containerId }: Protocol.CloseContainerParams): void {
@@ -94,15 +94,17 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
     }));
   }
 
-  public onRequestSector(server: Server, { ...loc }: Protocol.RequestSectorParams): void {
+  public async onRequestSector(server: Server, { ...loc }: Protocol.RequestSectorParams) {
     const isClose = true; // TODO
     if (loc.x < 0 || loc.y < 0 || loc.z < 0 || !isClose) {
       return;
     }
 
+    const tiles = await server.ensureSectorLoaded(loc);
+
     server.reply(ProtocolBuilder.sector({
       ...loc,
-      tiles: server.context.map.getSector(loc),
+      tiles,
     }));
   }
 
@@ -200,8 +202,8 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
   // Note, containers have a fixed y value of 0. If "to" is null for a container, no location
   // is specified and the item will be place in the first viable slot.
   // TODO - better name than "source"? Maybe just generalize to "Container" where 0 refers to world?
-  public onMoveItem(server: Server, { from, fromSource, to, toSource }: Protocol.MoveItemParams): void {
-    function boundsCheck(source: number, loc?: TilePoint) {
+  public async onMoveItem(server: Server, { from, fromSource, to, toSource }: Protocol.MoveItemParams) {
+    async function boundsCheck(source: number, loc?: TilePoint) {
       if (source === ItemSourceWorld) {
         if (!loc) throw new Error('invariant violated');
         return server.context.map.inBounds(loc);
@@ -209,18 +211,19 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
         // No location specified, so no way it could be out of bounds.
         if (!loc) return true;
 
-        const container = server.context.getContainer(source);
+        const container = await server.context.getContainer(source);
         if (!container) return false;
         return loc.x < container.items.length;
       }
     }
 
-    function getItem(source: number, loc?: TilePoint) {
+    async function getItem(source: number, loc?: TilePoint) {
       if (!loc) return;
       if (source === ItemSourceWorld) {
         return server.context.map.getItem(loc);
       } else {
-        return server.context.getContainer(source).items[loc.x];
+        const container = await server.context.getContainer(source);
+        return container.items[loc.x];
       }
     }
 
@@ -242,9 +245,9 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
       return;
     }
 
-    const fromItem = getItem(fromSource, from);
+    const fromItem = await getItem(fromSource, from);
 
-    let toItem = getItem(toSource, to);
+    let toItem = await getItem(toSource, to);
 
     // if (!server.inView(from) || !server.inView(to)) {
     //   return

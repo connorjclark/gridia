@@ -1,10 +1,11 @@
+import { SECTOR_SIZE } from '../constants';
 import * as Content from '../content';
 import { findPath } from '../path-finding';
 import performance from '../performance';
 import Player from '../player';
 import ClientToServerProtocol from '../protocol/client-to-server-protocol';
 import * as ProtocolBuilder from '../protocol/server-to-client-protocol-builder';
-import { maxDiff, randInt } from '../utils';
+import { maxDiff, randInt, worldToSector } from '../utils';
 import WorldMapPartition from '../world-map-partition';
 import ClientConnection from './client-connection';
 import { ServerContext } from './server-context';
@@ -80,9 +81,9 @@ export default class Server {
     this.outboundMessages.push({filter, message});
   }
 
-  public tick() {
+  public async tick() {
     try {
-      this.tickImpl();
+      await this.tickImpl();
     } catch (err) {
       console.error(err);
     }
@@ -97,14 +98,19 @@ export default class Server {
     await this.context.save();
   }
 
-  public registerPlayer(clientConnection: ClientConnection, opts: RegisterOpts) {
+  public async registerPlayer(clientConnection: ClientConnection, opts: RegisterOpts) {
     const {player} = opts;
+
+    const pos = {w: 0, x: randInt(0, 10), y: randInt(0, 10), z: 0};
+
+    // Make sure sector is loaded. Prevents hidden creature (race condition, happens often in worker).
+    await this.ensureSectorLoadedForPoint(pos);
 
     player.id = this.context.nextPlayerId++;
     player.creature = this.registerCreature({
       id: this.context.nextCreatureId++,
       name: player.name,
-      pos: {w: 0, x: randInt(0, 10), y: randInt(0, 10), z: 0},
+      pos,
       image: randInt(0, 10),
       isPlayer: true,
     });
@@ -126,7 +132,7 @@ export default class Server {
     clientConnection.player = player;
     // Don't bother waiting.
     this.context.savePlayer(clientConnection.player);
-    this.initClient(clientConnection);
+    await this.initClient(clientConnection);
   }
 
   public removeClient(clientConnection: ClientConnection) {
@@ -140,9 +146,9 @@ export default class Server {
     }
   }
 
-  public consumeAllMessages() {
+  public async consumeAllMessages() {
     while (this.clientConnections.some((c) => c.hasMessage()) || this.outboundMessages.length) {
-      this.tick();
+      await this.tick();
     }
   }
 
@@ -197,7 +203,8 @@ export default class Server {
     }));
   }
 
-  public warpCreature(creature: Creature, pos: TilePoint | null) {
+  public async warpCreature(creature: Creature, pos: TilePoint | null) {
+    if (pos) await this.ensureSectorLoadedForPoint(pos);
     this.moveCreature(creature, pos);
     this.creatureStates[creature.id].warped = true;
     this.creatureStates[creature.id].path = null;
@@ -345,7 +352,16 @@ export default class Server {
     }), clientConnection);
   }
 
-  private initClient(clientConnection: ClientConnection) {
+  public ensureSectorLoaded(sectorPoint: TilePoint) {
+    return this.context.map.getPartition(sectorPoint.w).getSectorAsync(sectorPoint);
+  }
+
+  public ensureSectorLoadedForPoint(loc: TilePoint) {
+    const sectorPoint = worldToSector(loc, SECTOR_SIZE);
+    return this.ensureSectorLoaded({w: loc.w, ...sectorPoint});
+  }
+
+  private async initClient(clientConnection: ClientConnection) {
     const player = clientConnection.player;
 
     clientConnection.send(ProtocolBuilder.initialize({
@@ -364,13 +380,13 @@ export default class Server {
       }));
     }
     clientConnection.send(ProtocolBuilder.setCreature({partial: false, ...player.creature}));
-    clientConnection.send(ProtocolBuilder.container(this.context.getContainer(clientConnection.container.id)));
+    clientConnection.send(ProtocolBuilder.container(await this.context.getContainer(clientConnection.container.id)));
     setTimeout(() => {
       this.broadcast(ProtocolBuilder.animation({...player.creature.pos, key: 'WarpIn'}));
     }, 1000);
   }
 
-  private tickImpl() {
+  private async tickImpl() {
     const now = performance.now();
     this.ticks++;
 
@@ -447,7 +463,7 @@ export default class Server {
         }
 
         if (newPos) {
-          this.warpCreature(creature, newPos);
+          await this.warpCreature(creature, newPos);
         }
       }
     }
@@ -471,7 +487,9 @@ export default class Server {
         // performance.mark(`${message.type}-start`);
         try {
           const onMethodName = 'on' + message.type[0].toUpperCase() + message.type.substr(1);
-          this._clientToServerProtocol[onMethodName](this, message.args);
+          const ret = this._clientToServerProtocol[onMethodName](this, message.args);
+          // TODO: some message handlers are async ... is that bad?
+          if (ret) await ret;
         } catch (err) {
           // Don't let a bad message kill the message loop.
           console.error(err, message);

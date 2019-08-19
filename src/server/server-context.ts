@@ -58,14 +58,11 @@ export class ServerContext extends Context {
 
     // Set creatures (all of which are always loaded in memory) to the sector (of which only active areas are loaded).
     // Kinda lame, I guess.
-    // Run on next tick, so that loadSector is not called recursively.
-    Promise.resolve().then(() => {
-      for (const creature of this.creatures.values()) {
-        if (equalPoints(sectorPoint, worldToSector(creature.pos, SECTOR_SIZE))) {
-          server.registerCreature(creature);
-        }
+    for (const creature of this.creatures.values()) {
+      if (equalPoints(sectorPoint, worldToSector(creature.pos, SECTOR_SIZE))) {
+        server.registerCreature(creature);
       }
-    });
+    }
 
     return sector;
   }
@@ -105,7 +102,7 @@ export class ServerContext extends Context {
   }
 
   // TODO defer to loader like sector is?
-  public getContainer(id: number) {
+  public async getContainer(id: number) {
     let container = this.containers.get(id);
     if (container) return container;
 
@@ -113,7 +110,7 @@ export class ServerContext extends Context {
     // TODO: even tho fs is stubbed in the browser build, parcel sees `readFileSync` and insists
     // that this be statically analyzable so it can do its bundling. Should create an interface that
     // doesn't trip up parcel's grepping for `.readFile`... (loadData?)
-    container = JSON.parse(fsSync.readFileSync(this.containerPath(id), 'utf-8')) as Container;
+    container = JSON.parse(await fs.readFile(this.containerPath(id))) as Container;
     this.containers.set(id, container);
     return container;
   }

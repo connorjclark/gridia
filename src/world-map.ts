@@ -5,7 +5,7 @@ import WorldMapPartition from './world-map-partition';
 
 export default class WorldMap {
   public partitions = new Map<number, WorldMapPartition>();
-  public loader: (sectorPoint: TilePoint) => Sector;
+  public loader: (sectorPoint: TilePoint) => Promise<Sector>;
 
   public addPartition(w: number, partition: WorldMapPartition) {
     this.partitions.set(w, partition);
@@ -70,7 +70,7 @@ export default class WorldMap {
 
 export function createClientWorldMap(connection: Connection) {
   const map = new WorldMap();
-  map.loader = (sectorPoint) => {
+  map.loader = async (sectorPoint) => {
     connection.send(ProtocolBuilder.requestSector(sectorPoint));
     return map.createEmptySector(); // temporary until server sends something
   };

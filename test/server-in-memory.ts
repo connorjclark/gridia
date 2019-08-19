@@ -24,7 +24,10 @@ class MemoryConnection extends Connection {
 
 // This was used before workers, but now it's just for jest tests.
 // Clone messages so that mutations aren't depended on accidentally.
-export async function openAndConnectToServerInMemory(client: Client, opts: OpenAndConnectToServerOpts) {
+export async function openAndConnectToServerInMemory(
+  client: Client,
+  opts: OpenAndConnectToServerOpts & {context: ServerContext}) {
+
   const worldMap = createDebugWorldMap();
   const { verbose, context } = opts;
   const server = new Server({
