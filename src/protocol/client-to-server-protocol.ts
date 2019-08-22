@@ -55,6 +55,7 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
 
   public async onRequestContainer(server: Server, { containerId, loc }: Protocol.RequestContainerParams) {
     if (!containerId && !loc) throw new Error('expected containerId or loc');
+    if (containerId && loc) throw new Error('expected only one of containerId or loc');
 
     if (!containerId) {
       const item = server.context.map.getItem(loc);

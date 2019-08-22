@@ -30,7 +30,7 @@ export interface RegisterParams {
 
 export interface RequestContainerParams {
   containerId?: number;
-  loc: TilePoint;
+  loc?: TilePoint;
 }
 
 export interface RequestCreatureParams {

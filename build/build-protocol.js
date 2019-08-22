@@ -35,7 +35,7 @@ const clientToServerRawData = {
   requestContainer: {
     params: [
       {name: "containerId", type: "number", optional: true},
-      {name: "loc", type: "TilePoint"},
+      {name: "loc", type: "TilePoint", optional: true},
     ],
   },
   closeContainer: {
