@@ -7,7 +7,7 @@ class WorldMapPartition {
   public height: number;
   public depth: number;
   public sectors: Array<Array<Array<Sector | null>>>; // (Sector | null)[][][]
-  public loader: (sectorPoint: PartitionPoint) => Promise<Sector>;
+  public loader?: (sectorPoint: PartitionPoint) => Promise<Sector>;
   private _sectorLoadPromises = new Map<string, Promise<Sector>>();
 
   constructor(width: number, height: number, depth: number) {
@@ -96,6 +96,7 @@ class WorldMapPartition {
   }
 
   private _loadSector(sectorPoint: PartitionPoint) {
+    if (!this.loader) throw new Error('loader not set');
     const key = JSON.stringify(sectorPoint);
     const sectorLoadPromise = this.loader(sectorPoint).then((tiles) => {
       this.sectors[sectorPoint.x][sectorPoint.y][sectorPoint.z] = tiles;
