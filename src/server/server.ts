@@ -152,7 +152,7 @@ export default class Server {
     }
   }
 
-  public makeCreatureFromTemplate(creatureType: number, pos: TilePoint): Creature {
+  public makeCreatureFromTemplate(creatureType: number, pos: TilePoint) {
     const template = Content.getMonsterTemplate(creatureType);
     if (!template) return; // TODO
 
@@ -304,6 +304,7 @@ export default class Server {
     });
   }
 
+  // TODO: make "item" required, and use "setItemInContainer" to set null items.
   public addItemToContainer(id: number, index?: number, item?: Item) {
     const container = this.context.containers.get(id);
     if (!container) throw new Error('no container: ' + id);
@@ -318,7 +319,8 @@ export default class Server {
         if (firstOpenSlot === null && !container.items[i]) {
           firstOpenSlot = i;
         }
-        if (firstStackableSlot === null && container.items[i] && container.items[i].type === item.type) {
+        const containerItem = container.items[i];
+        if (item && containerItem && containerItem.type === item.type) {
           firstStackableSlot = i;
           break;
         }
@@ -407,7 +409,7 @@ export default class Server {
 
         if (!state.path || state.path.length === 0) {
           let destination = null;
-          const tamedBy = this.players.get(creature.tamedBy);
+          const tamedBy = creature.tamedBy && this.players.get(creature.tamedBy);
 
           if (tamedBy) {
             destination = tamedBy.creature.pos;
@@ -450,7 +452,7 @@ export default class Server {
           newPos = {...creature.pos, z: creature.pos.z + 1};
         } else if (meta.class === 'CaveUp' && this.context.map.walkable({...creature.pos, z: creature.pos.z - 1})) {
           newPos = {...creature.pos, z: creature.pos.z - 1};
-        } else if (meta.trapEffect === 'Warp' && this.context.map.walkable(item.warpTo)) {
+        } else if (meta.trapEffect === 'Warp' && item.warpTo  && this.context.map.walkable(item.warpTo)) {
           newPos = {...item.warpTo};
           this.broadcast(ProtocolBuilder.animation({
             ...creature.pos,

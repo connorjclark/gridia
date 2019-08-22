@@ -64,7 +64,9 @@ export function getMetaItem(id: number): MetaItem {
 
 export function getMetaItemByName(name: string): MetaItem {
   const lowerCaseName = name.toLowerCase();
-  return items.find((item) => Boolean(item && item.name.toLowerCase() === lowerCaseName));
+  const result = items.find((item) => Boolean(item && item.name.toLowerCase() === lowerCaseName));
+  if (!result) throw new Error(`could not find item: ${name}`);
+  return result;
 }
 
 export function getItemUses(tool: number, focus: number) {

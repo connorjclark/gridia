@@ -57,14 +57,18 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
     if (!containerId && !loc) throw new Error('expected containerId or loc');
     if (containerId && loc) throw new Error('expected only one of containerId or loc');
 
-    if (!containerId) {
+    if (!containerId && loc) {
       const item = server.context.map.getItem(loc);
-      containerId = server.context.getContainerIdFromItem(item);
+      if (item) containerId = server.context.getContainerIdFromItem(item);
     }
 
     const isClose = true; // TODO
     if (!isClose) {
       return;
+    }
+
+    if (!containerId) {
+      throw new Error('could not find container');
     }
 
     server.currentClientConnection.registeredContainers.push(containerId);
@@ -258,8 +262,8 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
     if (toItem && Content.getMetaItem(toItem.type).class === 'Container') {
       // Dragging to a container.
       toSource = server.context.getContainerIdFromItem(toItem);
-      to = null;
-      toItem = null;
+      to = undefined;
+      toItem = undefined;
     }
     if (toItem && fromItem.type !== toItem.type) return;
 

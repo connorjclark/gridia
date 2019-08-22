@@ -25,6 +25,7 @@ export function findPath(partition: WorldMapPartition, from: PartitionPoint, to:
     const path = [toEncoded];
     let current = toEncoded;
     while (cameFrom.has(current)) {
+      // @ts-ignore
       current = cameFrom.get(current);
       path.push(current);
     }
