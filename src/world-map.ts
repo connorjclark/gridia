@@ -41,6 +41,10 @@ export default class WorldMap {
     return this.getPartition(point.w).walkable(point);
   }
 
+  public walkableAsync(point: TilePoint): Promise<boolean> {
+    return this.getPartition(point.w).walkableAsync(point);
+  }
+
   public getSector(sectorPoint: TilePoint): Sector {
     return this.getPartition(sectorPoint.w).getSector(sectorPoint);
   }

@@ -40,6 +40,11 @@ class WorldMapPartition {
     return true;
   }
 
+  public async walkableAsync(point: PartitionPoint): Promise<boolean> {
+    await this.getSectorAsync(worldToSector(point, SECTOR_SIZE));
+    return this.walkable(point);
+  }
+
   public getSector(sectorPoint: PartitionPoint): Sector {
     let sector: Sector | null = this.sectors[sectorPoint.x][sectorPoint.y][sectorPoint.z];
     if (!sector) {

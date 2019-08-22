@@ -443,16 +443,17 @@ export default class Server {
       const creature = state.creature;
       if (state.warped) continue;
 
-      const item = this.context.map.getItem(creature.pos);
+      const map = this.context.map;
+      const item = map.getItem(creature.pos);
       if (item) {
         const meta = Content.getMetaItem(item.type);
 
         let newPos = null;
-        if (meta.class === 'CaveDown' && this.context.map.walkable({...creature.pos, z: creature.pos.z + 1})) {
+        if (meta.class === 'CaveDown' && await map.walkableAsync({...creature.pos, z: creature.pos.z + 1})) {
           newPos = {...creature.pos, z: creature.pos.z + 1};
-        } else if (meta.class === 'CaveUp' && this.context.map.walkable({...creature.pos, z: creature.pos.z - 1})) {
+        } else if (meta.class === 'CaveUp' && await map.walkableAsync({...creature.pos, z: creature.pos.z - 1})) {
           newPos = {...creature.pos, z: creature.pos.z - 1};
-        } else if (meta.trapEffect === 'Warp' && item.warpTo  && this.context.map.walkable(item.warpTo)) {
+        } else if (meta.trapEffect === 'Warp' && item.warpTo && await map.walkableAsync(item.warpTo)) {
           newPos = {...item.warpTo};
           this.broadcast(ProtocolBuilder.animation({
             ...creature.pos,
