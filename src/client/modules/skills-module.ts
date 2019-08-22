@@ -1,13 +1,17 @@
 import * as Content from '../../content';
 import ClientModule from '../client-module';
+import Game from '../game';
 import * as Helper from '../helper';
 
 class SkillsClientModule extends ClientModule {
   protected panel: HTMLElement;
 
-  public onStart() {
+  constructor(game: Game) {
+    super(game);
     this.panel = Helper.find('.panel--skills');
+  }
 
+  public onStart() {
     this.game.client.eventEmitter.on('message', (e) => {
       // TODO improve type checking.
       if (e.type === 'initialize') {

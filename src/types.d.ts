@@ -91,10 +91,15 @@ interface Monster {
   image: number;
 }
 
-interface ItemMoveEvent {
+interface ItemMoveBeginEvent {
+  source: number;
+  loc: TilePoint;
+  item?: Item;
+}
+
+interface ItemMoveEndEvent {
   source: number;
   loc?: TilePoint;
-  item?: Item;
 }
 
 interface UIState {

@@ -115,9 +115,9 @@ function renderSelectedView() {
   actionsEl.innerHTML = 'Actions:';
 
   // If a creature is selected, do not show actions for the item on the tile.
-  let actions = [];
+  let actions: GameAction[] = [];
   if (creature) {
-    actions = game.getActionsFor({item: null, floor: 0, creature}, game.state.selectedView.tile);
+    actions = game.getActionsFor({floor: 0, creature}, game.state.selectedView.tile);
   } else if (tile) {
     actions = game.getActionsFor(tile, game.state.selectedView.tile);
   }
@@ -145,7 +145,7 @@ function registerPanelListeners() {
   });
 }
 
-function selectView(loc?: TilePoint) {
+function selectView(loc: TilePoint | null) {
   if (loc) {
     const creature = game.client.context.map.getTile(loc).creature;
     if (creature && creature.id !== game.client.creatureId) {
@@ -181,7 +181,7 @@ class Game {
   protected canvasesEl: HTMLElement;
   protected containers: Record<string, PIXI.Container> = {};
   protected windows: GridiaWindow[] = [];
-  protected itemMovingState: ItemMoveEvent = null;
+  protected itemMovingState: ItemMoveBeginEvent | null = null;
   protected mouseHasMovedSinceItemMoveBegin = false;
   protected modules: ClientModule[] = [];
   protected actionCreators: GameActionCreator[] = [];
@@ -241,7 +241,7 @@ class Game {
     // Should only be used for refreshing UI, not updating game state.
     this.client.eventEmitter.on('message', (e) => {
       // TODO improve type checking.
-      if (e.type === 'setItem') {
+      if (e.type === 'setItem' && this.state.selectedView.tile) {
         const loc = {w: e.args.w, x: e.args.x, y: e.args.y, z: e.args.z};
         if (equalPoints(loc, this.state.selectedView.tile)) {
           selectView(this.state.selectedView.tile);
@@ -252,7 +252,7 @@ class Game {
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
     this.app = new PIXI.Application();
 
-    this.canvasesEl = document.body.querySelector('#canvases');
+    this.canvasesEl = Helper.find('#canvases');
     this.canvasesEl.appendChild(this.app.view);
 
     PIXI.loader
@@ -390,12 +390,12 @@ class Game {
       // }
 
       if (equalPoints(this.state.mouse.tile, this.getPlayerPosition())) {
-        const evt: ItemMoveEvent = {
+        const evt: ItemMoveEndEvent = {
           source: this.client.containerId,
         };
         this.client.eventEmitter.emit('ItemMoveEnd', evt);
       } else if (this.state.mouse.tile) {
-        const evt: ItemMoveEvent = {
+        const evt: ItemMoveEndEvent = {
           source: 0,
           loc: this.state.mouse.tile,
         };
@@ -435,7 +435,7 @@ class Game {
       const inventoryWindow = Draw.getContainerWindow(this.client.containerId);
 
       // Number keys for selecting tool in inventory.
-      if (e.keyCode >= KEYS.ZERO && e.keyCode <= KEYS.NINE) {
+      if (inventoryWindow && e.keyCode >= KEYS.ZERO && e.keyCode <= KEYS.NINE) {
         const num = e.keyCode - KEYS.ZERO;
 
         // 1234567890
@@ -487,7 +487,6 @@ class Game {
           fromSource: 0,
           from: this.state.selectedView.tile,
           toSource: this.client.containerId,
-          to: null,
         }));
       }
 
@@ -513,14 +512,14 @@ class Game {
     window.addEventListener('resize', resize);
     resize();
 
-    this.client.eventEmitter.on('ItemMoveBegin', (e: ItemMoveEvent) => {
+    this.client.eventEmitter.on('ItemMoveBegin', (e: ItemMoveBeginEvent) => {
       this.itemMovingState = e;
       this.mouseHasMovedSinceItemMoveBegin = false;
       world.once('mousemove', () => {
         this.mouseHasMovedSinceItemMoveBegin = true;
       });
     });
-    this.client.eventEmitter.on('ItemMoveEnd', (e: ItemMoveEvent) => {
+    this.client.eventEmitter.on('ItemMoveEnd', (e: ItemMoveEndEvent) => {
       if (!this.itemMovingState) return;
 
       const from = this.itemMovingState.loc;

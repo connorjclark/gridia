@@ -214,7 +214,7 @@ export function makeItemContainerWindow(container: Container) {
       const index = Math.floor(x / 32);
       if (!container.items[index]) return;
       mouseDownIndex = index;
-      const evt: ItemMoveEvent = {
+      const evt: ItemMoveBeginEvent = {
         source: container.id,
         loc: { w: 0, x: index, y: 0, z: 0 },
         item: container.items[index],
@@ -237,7 +237,7 @@ export function makeItemContainerWindow(container: Container) {
     })
     .on('mouseup', (e: PIXI.interaction.InteractionEvent) => {
       if (containerWindow.mouseOverIndex !== null) {
-        const evt: ItemMoveEvent = {
+        const evt: ItemMoveBeginEvent = {
           source: container.id,
           loc: { w: 0, x: containerWindow.mouseOverIndex, y: 0, z: 0 },
         };
