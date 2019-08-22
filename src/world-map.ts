@@ -5,7 +5,7 @@ import WorldMapPartition from './world-map-partition';
 
 export default class WorldMap {
   public partitions = new Map<number, WorldMapPartition>();
-  public loader: (sectorPoint: TilePoint) => Promise<Sector>;
+  public loader?: (sectorPoint: TilePoint) => Promise<Sector>;
 
   public addPartition(w: number, partition: WorldMapPartition) {
     this.partitions.set(w, partition);
@@ -15,13 +15,18 @@ export default class WorldMap {
     const partition = new WorldMapPartition(width, height, depth);
     // TODO: refactor sector requesting / loading.
     partition.loader = (sectorPoint: PartitionPoint) => {
+      if (!this.loader) throw new Error('loader not set');
       return this.loader({w, ...sectorPoint});
     };
     this.partitions.set(w, partition);
   }
 
   public getPartition(w: number) {
-    return this.partitions.get(w);
+    const partition = this.partitions.get(w);
+    // Currently, all partitions are always loaded, so the following error should
+    // never happen.
+    if (!partition) throw new Error(`unknown partition for: ${w}`);
+    return partition;
   }
 
   public getPartitions() {
