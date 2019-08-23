@@ -138,23 +138,17 @@ export function makeDraggableWindow() {
   let downAt = null;
   let startingPosition = null;
   const onDragBegin = (e: PIXI.interaction.InteractionEvent) => {
-    // ts - ignore TouchEvent
-    if (!('pageX' in e.data.originalEvent)) return;
-
     // Only drag from the border.
     if (e.target !== border) return;
 
     dragging = true;
-    downAt = { x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY };
+    downAt = { x: e.data.global.x, y: e.data.global.y };
     startingPosition = { x: container.x, y: container.y };
   };
   const onDrag = (e: PIXI.interaction.InteractionEvent) => {
-    // ts - ignore TouchEvent
-    if (!('pageX' in e.data.originalEvent)) return;
-
     if (dragging) {
-      container.x = startingPosition.x + e.data.originalEvent.pageX - downAt.x;
-      container.y = startingPosition.y + e.data.originalEvent.pageY - downAt.y;
+      container.x = startingPosition.x + e.data.global.x - downAt.x;
+      container.y = startingPosition.y + e.data.global.y - downAt.y;
 
       const size = getCanvasSize();
       container.x = Utils.clamp(container.x, 0, size.width - container.width);
@@ -174,10 +168,10 @@ export function makeDraggableWindow() {
     border.drawRect(0, 0, contents.width + 2 * borderSize, contents.height + 2 * borderSize);
   }
 
-  container.on('mousedown', onDragBegin)
-    .on('mousemove', onDrag)
-    .on('mouseup', onDragEnd)
-    .on('mouseupoutside', onDragEnd);
+  container.on('pointerdown', onDragBegin)
+    .on('pointermove', onDrag)
+    .on('pointerup', onDragEnd)
+    .on('pointerupoutside', onDragEnd);
 
   // TODO better names
   const window = {
@@ -209,7 +203,7 @@ export function makeItemContainerWindow(container: Container) {
   let mouseDownIndex: number;
 
   window.contents
-    .on('mousedown', (e: PIXI.interaction.InteractionEvent) => {
+    .on('pointerdown', (e: PIXI.interaction.InteractionEvent) => {
       const x = e.data.getLocalPosition(e.target).x;
       const index = Math.floor(x / 32);
       if (!container.items[index]) return;
@@ -221,7 +215,7 @@ export function makeItemContainerWindow(container: Container) {
       };
       game.client.eventEmitter.emit('ItemMoveBegin', evt);
     })
-    .on('mousemove', (e: PIXI.interaction.InteractionEvent) => {
+    .on('pointermove', (e: PIXI.interaction.InteractionEvent) => {
       if (e.target !== window.contents) {
         containerWindow.mouseOverIndex = null;
         return;
@@ -235,7 +229,7 @@ export function makeItemContainerWindow(container: Container) {
         containerWindow.mouseOverIndex = null;
       }
     })
-    .on('mouseup', (e: PIXI.interaction.InteractionEvent) => {
+    .on('pointerup', (e: PIXI.interaction.InteractionEvent) => {
       if (containerWindow.mouseOverIndex !== null) {
         const evt: ItemMoveBeginEvent = {
           source: container.id,
@@ -297,7 +291,7 @@ export function makeUsageWindow(tool: Item, focus: Item, usages: ItemUse[], loc:
   };
 
   window.contents
-    .on('mousedown', (e: PIXI.interaction.InteractionEvent) => {
+    .on('pointerdown', (e: PIXI.interaction.InteractionEvent) => {
       const {x, y} = e.data.getLocalPosition(e.target);
       const index = Math.floor(x / 32) + Math.floor(y / 32) * 10;
       close();

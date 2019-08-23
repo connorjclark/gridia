@@ -42,7 +42,7 @@ class TabContainer extends Container {
       gfx.endFill();
       gfx.addChild(text);
       gfx.interactive = true;
-      gfx.on('click', () => this.showTab(tabName));
+      gfx.on('pointerdown', () => this.showTab(tabName));
       tabs.addChild(gfx);
     }
     tabs.layout();

@@ -327,7 +327,7 @@ class Game {
     Helper.find('.selected-view--actions').addEventListener('click', onActionSelection);
     Helper.find('.contextmenu').addEventListener('click', onActionSelection);
 
-    this.canvasesEl.addEventListener('mousemove', (e: MouseEvent) => {
+    this.canvasesEl.addEventListener('pointermove', (e: MouseEvent) => {
       const loc = worldToTile(mouseToWorld({ x: e.clientX, y: e.clientY }));
       this.state.mouse = {
         ...this.state.mouse,
@@ -340,7 +340,7 @@ class Game {
       }
     });
 
-    this.canvasesEl.addEventListener('mousedown', (e: MouseEvent) => {
+    this.canvasesEl.addEventListener('pointerdown', (e: MouseEvent) => {
       this.state.mouse = {
         ...this.state.mouse,
         state: 'down',
@@ -348,7 +348,7 @@ class Game {
       };
     });
 
-    this.canvasesEl.addEventListener('mouseup', (e: MouseEvent) => {
+    this.canvasesEl.addEventListener('pointerup', (e: MouseEvent) => {
       this.state.mouse = {
         ...this.state.mouse,
         state: 'up',
@@ -364,13 +364,10 @@ class Game {
 
     const world = this.containers.world;
     world.interactive = true;
-    world.on('mousedown', (e: PIXI.interaction.InteractionEvent) => {
+    world.on('pointerdown', (e: PIXI.interaction.InteractionEvent) => {
       if (this.isEditingMode()) return;
 
-      // ts - ignore TouchEvent
-      if (!('pageX' in e.data.originalEvent)) return;
-
-      const point = worldToTile(mouseToWorld({ x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY }));
+      const point = worldToTile(mouseToWorld({ x: e.data.global.x, y: e.data.global.y }));
       if (!this.client.context.map.inBounds(point)) return;
       const item = this.client.context.map.getItem(point);
       if (!item || !item.type) return;
@@ -381,14 +378,7 @@ class Game {
         item,
       });
     });
-    world.on('mouseup', (e: PIXI.interaction.InteractionEvent) => {
-      // if (!itemMovingState) {
-      //   const point = worldToTile(e.data.getLocalPosition(world));
-      //   if (client.context.map.inBounds(point)) {
-      //     client.context.map.getTile(point).floor = ++client.context.map.getTile(point).floor % 10;
-      //   }
-      // }
-
+    world.on('pointerup', (e: PIXI.interaction.InteractionEvent) => {
       if (equalPoints(this.state.mouse.tile, this.getPlayerPosition())) {
         const evt: ItemMoveEndEvent = {
           source: this.client.containerId,
@@ -402,16 +392,13 @@ class Game {
         this.client.eventEmitter.emit('ItemMoveEnd', evt);
       }
     });
-    world.on('click', (e: PIXI.interaction.InteractionEvent) => {
-      // ts - ignore TouchEvent
-      if (!('pageX' in e.data.originalEvent)) return;
-
+    world.on('pointerdown', (e: PIXI.interaction.InteractionEvent) => {
       if (ContextMenu.isOpen()) {
         ContextMenu.close();
         return;
       }
 
-      const loc = worldToTile(mouseToWorld({ x: e.data.originalEvent.pageX, y: e.data.originalEvent.pageY }));
+      const loc = worldToTile(mouseToWorld({ x: e.data.global.x, y: e.data.global.y }));
 
       if (!this.isEditingMode()) {
         selectView(loc);
