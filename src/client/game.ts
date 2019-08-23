@@ -362,6 +362,23 @@ class Game {
       ContextMenu.openForTile(mouse, tile);
     });
 
+    let longTouchTimer = null;
+    this.canvasesEl.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      if (longTouchTimer) return;
+      longTouchTimer = setTimeout(() => {
+        const mouse = { x: e.targetTouches.item(0).pageX, y: e.targetTouches.item(0).pageY };
+        const tile = worldToTile(mouseToWorld(mouse));
+        ContextMenu.openForTile(mouse, tile);
+        longTouchTimer = null;
+      }, 1000);
+    }, false);
+    this.canvasesEl.addEventListener('touchend', () => {
+      if (!longTouchTimer) return;
+      clearInterval(longTouchTimer);
+      longTouchTimer = null;
+    }, false);
+
     const world = this.containers.world;
     world.interactive = true;
     world.on('pointerdown', (e: PIXI.interaction.InteractionEvent) => {
