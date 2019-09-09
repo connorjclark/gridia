@@ -146,7 +146,7 @@ describe('Check for memory leaks', () => {
     detect(memory);
   });
 
-  it('in game', async () => {
+  it.skip('in game', async () => {
     await page.waitFor(2000);
     await page.$eval('.register--form input', (input: HTMLInputElement) => input.value = '');
     await page.type('.register--form input', 'player');
