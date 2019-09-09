@@ -563,6 +563,8 @@ class Game {
   public tick() {
     this.state.elapsedFrames = (this.state.elapsedFrames + 1) % 60000;
 
+    Draw.sweepTexts();
+
     const focusPos = this.getPlayerPosition();
     const {w, z} = focusPos;
     const partition = this.client.context.map.getPartition(w);
@@ -689,8 +691,8 @@ class Game {
             creatureSprite.addChild(circle);
           }
 
-          const label = new PIXI.Text(tile.creature.name,
-            {fill: 'white', stroke: 'black', strokeThickness: 3, lineJoin: 'round', fontSize: 16});
+          const label = Draw.text(`creature${tile.creature.id}`, tile.creature.name, {
+            fill: 'white', stroke: 'black', strokeThickness: 3, lineJoin: 'round', fontSize: 16});
           label.anchor.x = 0.5;
           label.anchor.y = 1;
           creatureSprite.addChild(label);
@@ -750,6 +752,14 @@ class Game {
     if (this.isEditingMode()) {
       selectView(null);
     }
+  }
+
+  public isOnStage(displayObject: PIXI.DisplayObject) {
+    let parent = displayObject.parent;
+    while (parent.parent) {
+      parent = parent.parent;
+    }
+    return parent === this.app.stage;
   }
 }
 

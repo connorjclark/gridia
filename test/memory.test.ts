@@ -36,8 +36,8 @@ async function collect(page: puppeteer.Page, numSamples: number, duration: numbe
     // This is expensive.
     if (QUERY) {
       const prototypes = [
-        'PIXI.Texture.prototype',
         'PIXI.Rectangle.prototype',
+        'PIXI.Texture.prototype',
         'PIXI.Sprite.prototype',
       ];
       for (const prototype of prototypes) {
@@ -146,7 +146,7 @@ describe('Check for memory leaks', () => {
     detect(memory);
   });
 
-  it.skip('in game', async () => {
+  it('in game', async () => {
     await page.waitFor(2000);
     await page.$eval('.register--form input', (input: HTMLInputElement) => input.value = '');
     await page.type('.register--form input', 'player');

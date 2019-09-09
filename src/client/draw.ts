@@ -346,7 +346,7 @@ export function makeItemSprite(item: Item) {
   sprite.anchor.y = (imgHeight - 1) / imgHeight;
 
   if (item.quantity !== 1) {
-    const qty = new PIXI.Text(item.quantity.toString(), {
+    const qty = text(undefined, item.quantity.toString(), {
       fontSize: 14,
       stroke: 0xffffff,
       strokeThickness: 4,
@@ -354,4 +354,40 @@ export function makeItemSprite(item: Item) {
     sprite.addChild(qty);
   }
   return sprite;
+}
+
+// Re-using Text objects avoids tons of expensive object allocations.
+const TEXTS = {
+  map: new Map<string, PIXI.Text>(),
+  noId: [],
+  pool: [],
+};
+export function text(id: string | undefined, message: string, style: PIXI.TextStyleOptions): PIXI.Text {
+  let textDisplay = TEXTS.map.get(id);
+  if (textDisplay) {
+    textDisplay.text = message;
+  } else {
+    if (TEXTS.pool.length) {
+      textDisplay = TEXTS.pool.pop();
+      textDisplay.text = message;
+      textDisplay.style = new PIXI.TextStyle(style);
+    } else {
+      textDisplay = new PIXI.Text(message, style);
+    }
+    if (id) TEXTS.map.set(id, textDisplay);
+    else TEXTS.noId.push(textDisplay);
+  }
+  return textDisplay;
+}
+
+export function sweepTexts() {
+  const stillOnStage = [];
+  for (const textDisplay of TEXTS.noId) {
+    if (game.isOnStage(textDisplay)) {
+      stillOnStage.push(textDisplay);
+    } else {
+      TEXTS.pool.push(textDisplay);
+    }
+  }
+  TEXTS.noId = stillOnStage;
 }
