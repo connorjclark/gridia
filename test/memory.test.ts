@@ -2,13 +2,15 @@ import { ChildProcess, spawn } from 'child_process';
 import * as puppeteer from 'puppeteer';
 
 const DEBUG = Boolean(process.env.DEBUG);
+const QUERY = Boolean(process.env.QUERY);
 
-jest.setTimeout(100 * 1000);
+jest.setTimeout((QUERY ? 200 : 100) * 1000);
 
 interface MemorySample {
   JSHeapUsedSize: number;
   additionalMemory: number;
   additionalMemoryPercentage: number;
+  objectCounts: Record<string, number>;
 }
 
 interface Memory {
@@ -24,11 +26,32 @@ async function collect(page: puppeteer.Page, numSamples: number, duration: numbe
     const metrics = await page.metrics();
     const additionalMemory = metrics.JSHeapUsedSize - baselineMetrics.JSHeapUsedSize;
     const additionalMemoryPercentage = additionalMemory / baselineMetrics.JSHeapUsedSize;
-    samples.push({
+    const sample: MemorySample = {
       JSHeapUsedSize: metrics.JSHeapUsedSize,
       additionalMemory,
       additionalMemoryPercentage,
-    });
+      objectCounts: {},
+    };
+
+    // This is expensive.
+    if (QUERY) {
+      const prototypes = [
+        'PIXI.Texture.prototype',
+        'PIXI.Rectangle.prototype',
+        'PIXI.Sprite.prototype',
+      ];
+      for (const prototype of prototypes) {
+        // tslint:disable-next-line: no-eval
+        const prototypeHandle = await page.evaluateHandle((p) => eval(p), prototype);
+        const objectsHandle = await page.queryObjects(prototypeHandle);
+        const count = await page.evaluate((objects) => objects.length, objectsHandle);
+        await prototypeHandle.dispose();
+        await objectsHandle.dispose();
+        sample.objectCounts[prototype.replace(/\./g,  '_') + '_count'] = count;
+      }
+    }
+
+    samples.push(sample);
     await page.waitFor(duration);
   }
 
@@ -49,13 +72,14 @@ function detect(memory: Memory) {
   if (!passed || warn || DEBUG) {
     const tabularData = memory.samples.map((m) => {
       const truncatedPercentage = Math.round(m.additionalMemoryPercentage * 100);
-      const JSHeapUsedSize = Math.round(m.JSHeapUsedSize / 1024);
-      const additionalMemory = `${m.additionalMemory >= 0 ? '+' : ''}${Math.round(m.additionalMemory / 1024)}%`;
-      const additionalMemoryPercentage = `${m.additionalMemoryPercentage >= 0 ? '+' : ''}${truncatedPercentage}%`;
+      const JSHeapUsedSize = `${Math.round(m.JSHeapUsedSize / 1024)}`;
+      const additionalMemory = `${Math.round(m.additionalMemory / 1024)}`;
+      const additionalMemoryPercentage = `${truncatedPercentage}`;
       return {
-        'JSHeapUsedSize (KB)': JSHeapUsedSize.toString().padStart(8, ' '),
-        '+/- baseline': additionalMemory.toString().padStart(8, ' '),
-        '%': additionalMemoryPercentage.toString().padStart(4, ' '),
+        'JSHeapUsedSize (KB)': JSHeapUsedSize.padStart(8, ' '),
+        '+/- baseline': additionalMemory.padStart(8, ' '),
+        '%': additionalMemoryPercentage.padStart(4, ' '),
+        ...m.objectCounts,
       };
     });
     console.log('baseline:');
