@@ -346,7 +346,7 @@ export function makeItemSprite(item: Item) {
   sprite.anchor.y = (imgHeight - 1) / imgHeight;
 
   if (item.quantity !== 1) {
-    const qty = text(undefined, item.quantity.toString(), {
+    const qty = text(item.quantity.toString(), {
       fontSize: 14,
       stroke: 0xffffff,
       strokeThickness: 4,
@@ -359,16 +359,22 @@ export function makeItemSprite(item: Item) {
 // Re-using Text objects avoids tons of expensive object allocations.
 const TEXTS = {
   map: new Map<string, PIXI.Text>(),
-  noId: [],
-  pool: [],
+  noId: [] as PIXI.Text[],
+  pool: [] as PIXI.Text[],
 };
-export function text(id: string | undefined, message: string, style: PIXI.TextStyleOptions): PIXI.Text {
-  let textDisplay = TEXTS.map.get(id);
+export function pooledText(id: string, message: string, style: PIXI.TextStyleOptions): PIXI.Text {
+  return _text(id, message, style);
+}
+export function text(message: string, style: PIXI.TextStyleOptions): PIXI.Text {
+  return _text(undefined, message, style);
+}
+function _text(id: string | undefined, message: string, style: PIXI.TextStyleOptions): PIXI.Text {
+  let textDisplay = id && TEXTS.map.get(id);
   if (textDisplay) {
     textDisplay.text = message;
   } else {
-    if (TEXTS.pool.length) {
-      textDisplay = TEXTS.pool.pop();
+    textDisplay = TEXTS.pool.pop();
+    if (textDisplay) {
       textDisplay.text = message;
       textDisplay.style = new PIXI.TextStyle(style);
     } else {

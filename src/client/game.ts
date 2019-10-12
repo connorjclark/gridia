@@ -691,7 +691,7 @@ class Game {
             creatureSprite.addChild(circle);
           }
 
-          const label = Draw.text(`creature${tile.creature.id}`, tile.creature.name, {
+          const label = Draw.pooledText(`creature${tile.creature.id}`, tile.creature.name, {
             fill: 'white', stroke: 'black', strokeThickness: 3, lineJoin: 'round', fontSize: 16});
           label.anchor.x = 0.5;
           label.anchor.y = 1;
