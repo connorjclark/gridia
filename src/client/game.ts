@@ -239,12 +239,18 @@ class Game {
 
   public async start() {
     // Should only be used for refreshing UI, not updating game state.
-    this.client.eventEmitter.on('message', (e) => {
-      // TODO improve type checking.
+    this.client.eventEmitter.on('message', (e: import('../protocol/server-to-client-protocol-builder').Message) => {
+      // Update the selected view, if the item there changed.
       if (e.type === 'setItem' && this.state.selectedView.tile) {
         const loc = {w: e.args.w, x: e.args.x, y: e.args.y, z: e.args.z};
         if (equalPoints(loc, this.state.selectedView.tile)) {
           selectView(this.state.selectedView.tile);
+        }
+      }
+      if (e.type === 'setCreature' && this.state.selectedView.creatureId) {
+        const creature = this.client.context.getCreature(this.state.selectedView.creatureId);
+        if (creature.id === e.args.id) {
+          selectView(creature.pos);
         }
       }
     });

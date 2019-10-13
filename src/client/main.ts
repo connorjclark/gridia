@@ -76,7 +76,7 @@ function globalActionCreator(tile: Tile, loc: TilePoint): GameAction[] {
     });
   }
 
-  if (tile.creature) {
+  if (tile.creature && !tile.creature.tamedBy) {
     actions.push({
       type: 'tame',
       innerText: 'Tame',
@@ -129,6 +129,7 @@ async function createConnection() {
 
   if (connectOverSocket) {
     client.connection = await connect(client, 9001);
+    // TODO: better 'verbose' / logging (make a logger class).
     console.log('For debugging:\nwindow.Gridia.verbose = true;');
     return;
   }
