@@ -5,6 +5,7 @@ import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder'
 import { randInt, worldToTile as _worldToTile } from '../utils';
 import Client from './client';
 import { connect, openAndConnectToServerWorker } from './connect-to-server';
+import { GameActionEvent } from './event-emitter';
 import * as Helper from './helper';
 import AdminClientModule from './modules/admin-module';
 import MovementClientModule from './modules/movement-module';

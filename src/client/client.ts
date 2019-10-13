@@ -1,8 +1,8 @@
-import { EventEmitter } from 'events';
 import { Context } from '../context';
 import ServerToClientProtocol from '../protocol/server-to-client-protocol';
 import { Message } from '../protocol/server-to-client-protocol-builder';
 import { Connection } from './connection';
+import EventEmitter from './event-emitter';
 
 interface Settings {
   volume: number;

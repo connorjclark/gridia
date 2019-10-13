@@ -133,12 +133,6 @@ interface GameAction {
 
 type GameActionCreator = (tile: Tile, loc: TilePoint) => GameAction[] | GameAction | undefined;
 
-interface GameActionEvent {
-  action: GameAction;
-  loc: TilePoint;
-  creature: Creature;
-}
-
 // https://stackoverflow.com/a/49397693
 type NoMethodKeys<T> = ({[P in keyof T]: T[P] extends Function ? never : P })[keyof T];
 type NoMethods<T> = Pick<T, NoMethodKeys<T>>;

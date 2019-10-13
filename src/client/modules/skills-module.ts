@@ -13,7 +13,6 @@ class SkillsClientModule extends ClientModule {
 
   public onStart() {
     this.game.client.eventEmitter.on('message', (e) => {
-      // TODO improve type checking.
       if (e.type === 'initialize') {
         this.renderSkills();
       }

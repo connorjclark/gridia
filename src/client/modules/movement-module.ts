@@ -3,6 +3,7 @@ import { findPath } from '../../path-finding';
 import * as ProtocolBuilder from '../../protocol/client-to-server-protocol-builder';
 import { equalPoints } from '../../utils';
 import ClientModule from '../client-module';
+import { GameActionEvent } from '../event-emitter';
 import Game from '../game';
 import * as Helper from '../helper';
 import KEYS from '../keys';

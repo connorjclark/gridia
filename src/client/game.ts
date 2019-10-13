@@ -253,7 +253,7 @@ class Game {
 
   public async start() {
     // Should only be used for refreshing UI, not updating game state.
-    this.client.eventEmitter.on('message', (e: import('../protocol/server-to-client-protocol-builder').Message) => {
+    this.client.eventEmitter.on('message', (e) => {
       // Update the selected view, if the item there changed.
       if (e.type === 'setItem' && this.state.selectedView.tile) {
         const loc = {w: e.args.w, x: e.args.x, y: e.args.y, z: e.args.z};
@@ -342,7 +342,7 @@ class Game {
         action,
         loc,
         creature,
-      } as GameActionEvent);
+      });
     };
     Helper.find('.selected-view--actions').addEventListener('click', onActionSelection);
     Helper.find('.contextmenu').addEventListener('click', onActionSelection);
