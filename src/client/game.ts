@@ -69,10 +69,14 @@ function addDataToActionEl(actionEl: HTMLElement, opts: {action: GameAction, loc
 function renderSelectedView() {
   const el = Helper.find('.selected-view');
   const state = game.state;
-  const tile = state.selectedView.tile ? game.client.context.map.getTile(state.selectedView.tile) : null;
-  const item = tile ? tile.item : null;
   const creature =
     state.selectedView.creatureId ? game.client.context.getCreature(state.selectedView.creatureId) : null;
+
+  let tile: Tile;
+  if (creature) tile = game.client.context.map.getTile(creature.pos);
+  else if (state.selectedView.tile) tile = game.client.context.map.getTile(state.selectedView.tile);
+
+  const item = tile ? tile.item : null;
 
   let data: Record<string, string>;
   let meta;
@@ -109,21 +113,29 @@ function renderSelectedView() {
   const actionsEl = Helper.find('.selected-view--actions', el);
   actionsEl.innerHTML = 'Actions:';
 
-  // If a creature is selected, do not show actions for the item on the tile.
-  let actions: GameAction[] = [];
-  if (creature) {
-    actions = game.getActionsFor({floor: 0, creature}, game.state.selectedView.tile);
-  } else if (tile) {
-    actions = game.getActionsFor(tile, game.state.selectedView.tile);
-  }
-  for (const action of actions) {
-    const actionEl = document.createElement('button');
-    addDataToActionEl(actionEl, {
-      action,
-      loc: game.state.selectedView.tile,
-      creature,
-    });
-    actionsEl.appendChild(actionEl);
+  if (tile) {
+    // Clone tile so properties can be removed as needed.
+    // Also prevents action creators from modifying important data.
+    const clonedTile = JSON.parse(JSON.stringify(tile));
+
+    if (clonedTile && clonedTile.creature && clonedTile.creature.id === game.client.creatureId) {
+      // Don't allow actions on self.
+      clonedTile.creature = undefined;
+    } else if (creature) {
+      // If a creature is selected, do not show actions for the item on the tile.
+      clonedTile.item = undefined;
+    }
+
+    const actions = game.getActionsFor(clonedTile, game.state.selectedView.tile);
+    for (const action of actions) {
+      const actionEl = document.createElement('button');
+      addDataToActionEl(actionEl, {
+        action,
+        loc: game.state.selectedView.tile,
+        creature,
+      });
+      actionsEl.appendChild(actionEl);
+    }
   }
 }
 

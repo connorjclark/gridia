@@ -76,7 +76,7 @@ function globalActionCreator(tile: Tile, loc: TilePoint): GameAction[] {
     });
   }
 
-  if (tile.creature && !tile.creature.tamedBy) {
+  if (tile.creature && !tile.creature.tamedBy && !tile.creature.isPlayer) {
     actions.push({
       type: 'tame',
       innerText: 'Tame',
