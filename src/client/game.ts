@@ -603,8 +603,8 @@ class Game {
           // Draw so width and height are set.
           containerWindow.draw();
           const size = Draw.getCanvasSize();
-          containerWindow.pixiContainer.x = size.width / 2 - containerWindow.pixiContainer.width / 2;
-          containerWindow.pixiContainer.y = size.height - containerWindow.pixiContainer.height;
+          containerWindow.pixiContainer.x = (size.width - containerWindow.width) / 2;
+          containerWindow.pixiContainer.y = size.height - containerWindow.height;
         }
       }
     }

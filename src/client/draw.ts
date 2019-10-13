@@ -39,11 +39,19 @@ export class GridiaWindow {
   }
 
   public draw() {
+    if (this._onDraw) this._onDraw();
     this.border.clear();
     this.border.beginFill(0, 0.2);
     this.border.lineStyle(this.borderSize, 0, 1, 0);
     this.border.drawRect(0, 0, this.contents.width + 2 * this.borderSize, this.contents.height + 2 * this.borderSize);
-    if (this._onDraw) this._onDraw();
+  }
+
+  get width() {
+    return this.pixiContainer.width - this.borderSize;
+  }
+
+  get height() {
+    return this.pixiContainer.height - this.borderSize;
   }
 
   private _onDragBegin(e: PIXI.interaction.InteractionEvent) {
@@ -60,8 +68,8 @@ export class GridiaWindow {
     this.pixiContainer.y = this._draggingState.startingPosition.y + e.data.global.y - this._draggingState.downAt.y;
 
     const size = getCanvasSize();
-    this.pixiContainer.x = Utils.clamp(this.pixiContainer.x, 0, size.width - this.pixiContainer.width);
-    this.pixiContainer.y = Utils.clamp(this.pixiContainer.y, 0, size.height - this.pixiContainer.height);
+    this.pixiContainer.x = Utils.clamp(this.pixiContainer.x, 0, size.width - this.width);
+    this.pixiContainer.y = Utils.clamp(this.pixiContainer.y, 0, size.height - this.height);
   }
 
   private _onDragEnd() {
