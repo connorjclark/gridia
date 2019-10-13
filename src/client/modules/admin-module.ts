@@ -5,7 +5,7 @@ import TextInput from '../../lib/TextInput';
 import * as ProtocolBuilder from '../../protocol/client-to-server-protocol-builder';
 import { equalItems } from '../../utils';
 import ClientModule from '../client-module';
-import { getTexture, GridiaWindow, makeDraggableWindow, makeItemSprite } from '../draw';
+import { getTexture, GridiaWindow, makeItemSprite } from '../draw';
 import GridContainer from '../pixi/grid-container';
 import TabContainer from '../pixi/tab-container';
 
@@ -173,7 +173,7 @@ class AdminClientModule extends ClientModule {
       ...makeGrid(getFloors().map((id) => [id, new Sprite(getTexture.floors(id))])),
     });
 
-    const adminWindow = makeDraggableWindow();
+    const adminWindow = new GridiaWindow();
     adminWindow.contents.addChild(tabs);
     tabs.layout();
 
