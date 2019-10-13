@@ -109,17 +109,19 @@ describe('Check for memory leaks', () => {
       childProcess.stdout.on('data', (data) => {
         if (data.toString().includes('Server started')) resolve();
       });
+      childProcess.on('close', reject);
       childProcess.on('error', reject);
       childProcesses.push(childProcess);
-    });
+    }).catch(() => process.exit(1));
     await new Promise((resolve, reject) => {
       const childProcess = spawn('yarn', ['run-static-server']);
       childProcess.stdout.on('data', (data) => {
         if (data.toString().includes('Available on')) resolve();
       });
+      childProcess.on('close', reject);
       childProcess.on('error', reject);
       childProcesses.push(childProcess);
-    });
+    }).catch(() => process.exit(1));
   });
 
   afterAll(async () => {
