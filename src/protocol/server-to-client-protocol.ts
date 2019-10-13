@@ -41,7 +41,7 @@ export default class ServerToClientProtocol implements Protocol.ServerToClientPr
 
   public onRemoveCreature(client: Client, { id }: Protocol.RemoveCreatureParams): void {
     client.context.removeCreature(id);
-    }
+  }
 
   public onSector(client: Client, { tiles, ...pos }: Protocol.SectorParams): void {
     client.context.map.getPartition(pos.w).sectors[pos.x][pos.y][pos.z] = tiles;
@@ -91,7 +91,7 @@ export default class ServerToClientProtocol implements Protocol.ServerToClientPr
     } else {
       const container = client.context.containers.get(source);
       if (container) {
-        container.items[loc.x] = item;
+        container.items[loc.x] = item || null;
       }
     }
   }

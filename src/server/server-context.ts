@@ -110,7 +110,8 @@ export class ServerContext extends Context {
     // TODO: even tho fs is stubbed in the browser build, parcel sees `readFileSync` and insists
     // that this be statically analyzable so it can do its bundling. Should create an interface that
     // doesn't trip up parcel's grepping for `.readFile`... (loadData?)
-    container = JSON.parse(await fs.readFile(this.containerPath(id))) as Container;
+    const items = JSON.parse(await fs.readFile(this.containerPath(id))) as Array<Item|null>;
+    container = new Container(id, items);
     this.containers.set(id, container);
     return container;
   }

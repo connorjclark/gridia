@@ -72,7 +72,8 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
     }
 
     server.currentClientConnection.registeredContainers.push(containerId);
-    server.reply(ProtocolBuilder.container(await server.context.getContainer(containerId)));
+    const container = await server.context.getContainer(containerId);
+    server.reply(ProtocolBuilder.container(container));
   }
 
   public onCloseContainer(server: Server, { containerId }: Protocol.CloseContainerParams): void {

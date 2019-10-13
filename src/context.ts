@@ -3,8 +3,8 @@ import WorldMap from './world-map';
 
 export class Context {
   public map: WorldMap;
-  public creatures: Map<number, Creature> = new Map();
-  public containers: Map<number, Container> = new Map();
+  public creatures = new Map<number, Creature>();
+  public containers = new Map<number, Container>();
 
   constructor(map: WorldMap) {
     this.map = map;

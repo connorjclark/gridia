@@ -11,11 +11,6 @@ import * as Helper from './helper';
 import KEYS from './keys';
 import { getMineFloor, getWaterFloor } from './template-draw';
 
-interface GridiaWindow {
-  container: PIXI.Container;
-  draw: () => void;
-}
-
 const ContextMenu = {
   get() {
     return Helper.find('.contextmenu');
@@ -182,7 +177,7 @@ class Game {
   protected app: PIXI.Application;
   protected canvasesEl: HTMLElement;
   protected containers: Record<string, PIXI.Container> = {};
-  protected windows: GridiaWindow[] = [];
+  protected windows: Draw.GridiaWindow[] = [];
   protected itemMovingState?: ItemMoveBeginEvent;
   protected mouseHasMovedSinceItemMoveBegin = false;
   protected modules: ClientModule[] = [];
@@ -263,7 +258,7 @@ class Game {
     PIXI.loader
       .add(Object.values(Draw.getImageResourceKeys()))
       .add(Draw.getSfxResourceKeys())
-      .on('progress', (loader, resource) => console.log('loading ' + loader.progress + '%'))
+      // .on('progress', (loader, resource) => console.log('loading ' + loader.progress + '%'))
       .load(this.onLoad.bind(this));
   }
 
@@ -302,14 +297,14 @@ class Game {
     }, 1000 * 10);
   }
 
-  public addWindow(window: GridiaWindow) {
+  public addWindow(window: Draw.GridiaWindow) {
     this.windows.push(window);
-    this.app.stage.addChild(window.container);
+    this.app.stage.addChild(window.pixiContainer);
   }
 
-  public removeWindow(window: GridiaWindow) {
+  public removeWindow(window: Draw.GridiaWindow) {
     this.windows.splice(this.windows.indexOf(window), 1);
-    this.app.stage.removeChild(window.container);
+    this.app.stage.removeChild(window.pixiContainer);
   }
 
   public registerListeners() {
@@ -588,8 +583,8 @@ class Game {
           // Draw so width and height are set.
           containerWindow.draw();
           const size = Draw.getCanvasSize();
-          containerWindow.container.x = size.width / 2 - containerWindow.container.width / 2;
-          containerWindow.container.y = size.height - containerWindow.container.height;
+          containerWindow.pixiContainer.x = size.width / 2 - containerWindow.pixiContainer.width / 2;
+          containerWindow.pixiContainer.y = size.height - containerWindow.pixiContainer.height;
         }
       }
     }

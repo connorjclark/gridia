@@ -22,7 +22,7 @@ class Client {
     volume: process.env.NODE_ENV === 'production' ? 0.6 : 0,
   };
   // skill id -> xp
-  public skills: Map<number, number> = new Map();
+  public skills = new Map<number, number>();
 
   private _protocol = new ServerToClientProtocol();
 

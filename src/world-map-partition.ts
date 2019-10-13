@@ -60,7 +60,6 @@ class WorldMapPartition {
   public async getSectorAsync(sectorPoint: PartitionPoint) {
     const key = JSON.stringify(sectorPoint);
     const sectorPromise = this._sectorLoadPromises.get(key);
-    // debugger;
     if (sectorPromise) return sectorPromise;
 
     const sector: Sector | null = this.sectors[sectorPoint.x][sectorPoint.y][sectorPoint.z];

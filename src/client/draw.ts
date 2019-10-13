@@ -5,7 +5,45 @@ import { game } from '../game-singleton';
 import * as Utils from '../utils';
 import * as Helper from './helper';
 
-type ContainerWindow = ReturnType<typeof makeItemContainerWindow>;
+export class GridiaWindow {
+  public pixiContainer: PIXI.Container;
+  public contents: PIXI.Container;
+  private _onDraw?: () => void;
+
+  constructor(pixiContainer: PIXI.Container) {
+    this.pixiContainer = pixiContainer;
+    this.contents = new PIXI.Container();
+  }
+
+  public setOnDraw(onDraw: () => void) {
+    this._onDraw = onDraw;
+  }
+
+  public draw() {
+    if (this._onDraw) this._onDraw();
+  }
+}
+
+export class ContainerWindow extends GridiaWindow {
+  public itemsContainer: Container;
+  public mouseOverIndex?: number;
+  protected _selectedIndex = 0;
+
+  constructor(pixiContainer: PIXI.Container, itemsContainer: Container) {
+    super(pixiContainer);
+    this.itemsContainer = itemsContainer;
+  }
+
+  // Selected item actions are based off currently selected tool. If
+  // the tool changes, should re-render the selected item panel.
+  set selectedIndex(selectedIndex: number) {
+    this._selectedIndex = selectedIndex;
+    game.client.eventEmitter.emit('containerWindowSelectedIndexChanged');
+  }
+
+  get selectedIndex() { return this._selectedIndex; }
+}
+
 const containerWindows = new Map<number, ContainerWindow>();
 
 const ResourceKeys: Record<string, string[]> = {
@@ -101,7 +139,7 @@ export const getTexture = {
 
 export function hasContainerWindow(containerId: number) {
   return containerWindows.has(containerId);
-  }
+}
 
 export function getContainerWindow(containerId: number) {
   return containerWindows.get(containerId);
@@ -118,21 +156,28 @@ export function getCanvasSize() {
   return {width: canvasesEl.clientWidth, height: canvasesEl.clientHeight};
 }
 
-export function makeDraggableWindow() {
+export function makeDraggableWindow(): GridiaWindow {
   const borderSize = 10;
 
   const container = new PIXI.Container();
   container.interactive = true;
-
   const border = new PIXI.Graphics();
   border.interactive = true;
   container.addChild(border);
 
-  const contents = new PIXI.Container();
+  const window = new GridiaWindow(container);
+  const contents = window.contents;
   contents.interactive = true;
   contents.x = borderSize;
   contents.y = borderSize;
   container.addChild(contents);
+
+  window.setOnDraw(() => {
+    border.clear();
+    border.beginFill(0, 0.2);
+    border.lineStyle(borderSize, 0, 1, 0);
+    border.drawRect(0, 0, contents.width + 2 * borderSize, contents.height + 2 * borderSize);
+  });
 
   let dragging = false;
   let downAt = null;
@@ -161,44 +206,17 @@ export function makeDraggableWindow() {
     startingPosition = null;
   };
 
-  function draw() {
-    border.clear();
-    border.beginFill(0, 0.2);
-    border.lineStyle(borderSize, 0, 1, 0);
-    border.drawRect(0, 0, contents.width + 2 * borderSize, contents.height + 2 * borderSize);
-  }
-
   container.on('pointerdown', onDragBegin)
     .on('pointermove', onDrag)
     .on('pointerup', onDragEnd)
     .on('pointerupoutside', onDragEnd);
 
-  // TODO better names
-  const window = {
-    container,
-    contents,
-    draw,
-  };
-
   return window;
 }
 
-export function makeItemContainerWindow(container: Container) {
+export function makeItemContainerWindow(container: Container): ContainerWindow {
   const window = makeDraggableWindow();
-  const containerWindow = {
-    container: window.container,
-    draw,
-    itemsContainer: container,
-    mouseOverIndex: null,
-    _selectedIndex: 0,
-    // Selected item actions are based off currently selected tool. If
-    // the tool changes, should re-render the selected item panel.
-    set selectedIndex(selectedIndex: number) {
-      this._selectedIndex = selectedIndex;
-      game.client.eventEmitter.emit('containerWindowSelectedIndexChanged');
-    },
-    get selectedIndex() { return this._selectedIndex; },
-  };
+  const containerWindow = new ContainerWindow(window.pixiContainer, container);
 
   let mouseDownIndex: number;
 
@@ -211,13 +229,13 @@ export function makeItemContainerWindow(container: Container) {
       const evt: ItemMoveBeginEvent = {
         source: container.id,
         loc: { w: 0, x: index, y: 0, z: 0 },
-        item: container.items[index],
+        item: container.items[index] || undefined,
       };
       game.client.eventEmitter.emit('ItemMoveBegin', evt);
     })
     .on('pointermove', (e: PIXI.interaction.InteractionEvent) => {
       if (e.target !== window.contents) {
-        containerWindow.mouseOverIndex = null;
+        containerWindow.mouseOverIndex = undefined;
         return;
       }
 
@@ -226,11 +244,11 @@ export function makeItemContainerWindow(container: Container) {
       if (index >= 0 && index < container.items.length) {
         containerWindow.mouseOverIndex = index;
       } else {
-        containerWindow.mouseOverIndex = null;
+        containerWindow.mouseOverIndex = undefined;
       }
     })
     .on('pointerup', (e: PIXI.interaction.InteractionEvent) => {
-      if (containerWindow.mouseOverIndex !== null) {
+      if (containerWindow.mouseOverIndex !== undefined) {
         const evt: ItemMoveBeginEvent = {
           source: container.id,
           loc: { w: 0, x: containerWindow.mouseOverIndex, y: 0, z: 0 },
@@ -253,11 +271,11 @@ export function makeItemContainerWindow(container: Container) {
     game.client.context.containers.delete(container.id);
   }
 
-  function draw() {
+  containerWindow.setOnDraw(() => {
     // Hack: b/c container is requested multiple times, 'container' reference can get stale.
-    container = game.client.context.containers.get(container.id);
+    const containerRef = game.client.context.containers.get(container.id);
     window.contents.removeChildren();
-    for (const [i, item] of container.items.entries()) {
+    for (const [i, item] of containerRef.items.entries()) {
       const itemSprite = makeItemSprite(item ? item : { type: 0, quantity: 1 });
       itemSprite.x = i * 32;
       itemSprite.y = 0;
@@ -275,20 +293,29 @@ export function makeItemContainerWindow(container: Container) {
     }
 
     window.draw();
-  }
+  });
 
   // TODO: take actual positions of windows into account.
-  window.container.y = (containerWindows.size - 1) * 50;
+  window.pixiContainer.y = (containerWindows.size - 1) * 50;
   game.addWindow(containerWindow);
   return containerWindow;
 }
 
-export function makeUsageWindow(tool: Item, focus: Item, usages: ItemUse[], loc: TilePoint) {
+export function makeUsageWindow(tool: Item, focus: Item, usages: ItemUse[], loc: TilePoint): GridiaWindow {
   const window = makeDraggableWindow();
-  const usageWindow = {
-    container: window.container,
-    draw,
-  };
+
+  window.setOnDraw(() => {
+    window.contents.removeChildren();
+    for (const [i, usage] of usages.entries()) {
+      const item = usage.products[0];
+      const itemSprite = makeItemSprite(item);
+      itemSprite.x = (i % 10) * 32;
+      itemSprite.y = Math.floor(i / 10) * 32;
+      window.contents.addChild(itemSprite);
+    }
+
+    window.draw();
+  });
 
   window.contents
     .on('pointerdown', (e: PIXI.interaction.InteractionEvent) => {
@@ -302,25 +329,12 @@ export function makeUsageWindow(tool: Item, focus: Item, usages: ItemUse[], loc:
 
   function close() {
     game.client.eventEmitter.removeListener('PlayerMove', close);
-    game.removeWindow(usageWindow);
+    game.removeWindow(window);
   }
 
-  function draw() {
-    window.contents.removeChildren();
-    for (const [i, usage] of usages.entries()) {
-      const item = usage.products[0];
-      const itemSprite = makeItemSprite(item);
-      itemSprite.x = (i % 10) * 32;
-      itemSprite.y = Math.floor(i / 10) * 32;
-      window.contents.addChild(itemSprite);
-    }
-
-    window.draw();
-  }
-
-  window.container.x = window.container.y = 40;
-  game.addWindow(usageWindow);
-  return usageWindow;
+  window.pixiContainer.x = window.pixiContainer.y = 40;
+  game.addWindow(window);
+  return window;
 }
 
 export function makeHighlight(color: number, alpha: number) {
