@@ -268,6 +268,10 @@ export function makeItemContainerWindow(container: Container): ContainerWindow {
   window.setOnDraw(() => {
     // Hack: b/c container is requested multiple times, 'container' reference can get stale.
     const containerRef = game.client.context.containers.get(container.id);
+    if (!containerRef) {
+      console.warn('undefined containerRef');
+      return;
+    }
     window.contents.removeChildren();
     for (const [i, item] of containerRef.items.entries()) {
       const itemSprite = makeItemSprite(item ? item : { type: 0, quantity: 1 });

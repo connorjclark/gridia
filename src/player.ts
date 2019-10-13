@@ -4,5 +4,5 @@ export default class Player {
   public name;
   public creature: Creature;
   // skill id -> xp
-  public skills: Map<number, number> = new Map();
+  public skills = new Map<number, number>();
 }

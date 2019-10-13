@@ -58,5 +58,5 @@ const argv = yargs
 const {sslCert, sslKey, ...mostOfArgs} = argv;
 main({
   ...mostOfArgs,
-  ssl: argv.sslCert ? {cert: sslCert, key: sslKey} : undefined,
+  ssl: sslKey && sslCert ? {cert: sslCert, key: sslKey} : undefined,
 });

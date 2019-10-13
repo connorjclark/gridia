@@ -4,7 +4,7 @@
 import Client from '../src/client/client';
 import { Connection } from '../src/client/connection';
 import { Context } from '../src/context';
-import { Message } from '../src/protocol/server-to-client-protocol-builder';
+import { Message as MessageToServer } from '../src/protocol/client-to-server-protocol-builder';
 import ClientConnection from '../src/server/client-connection';
 import Server from '../src/server/server';
 import { ServerContext } from '../src/server/server-context';
@@ -16,7 +16,7 @@ class MemoryConnection extends Connection {
     super();
   }
 
-  public send(message: Message) {
+  public send(message: MessageToServer) {
     const cloned = JSON.parse(JSON.stringify(message));
     this._clientConnection.messageQueue.push(cloned);
   }
