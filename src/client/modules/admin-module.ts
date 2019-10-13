@@ -1,15 +1,13 @@
-import Scrollbox from 'pixi-scrollbox';
+import {Scrollbox} from 'pixi-scrollbox';
 import { Container, DisplayObject, Graphics, Sprite } from 'pixi.js';
 import { getFloors, getMetaItem, getMetaItems } from '../../content';
+import TextInput from '../../lib/TextInput';
 import * as ProtocolBuilder from '../../protocol/client-to-server-protocol-builder';
 import { equalItems } from '../../utils';
 import ClientModule from '../client-module';
 import { getTexture, GridiaWindow, makeDraggableWindow, makeItemSprite } from '../draw';
 import GridContainer from '../pixi/grid-container';
 import TabContainer from '../pixi/tab-container';
-
-// This attaches to PIXI namespace: PIXI.TextInput :(
-require('pixi-text-input');
 
 interface SelectedContent {
   displayObject: DisplayObject;
@@ -56,7 +54,7 @@ class AdminClientModule extends ClientModule {
     const tabs = new TabContainer();
 
     const makeGrid = (contentData: Array<[number, DisplayObject]>) => {
-      const displayObjectToMetaIdMap = new WeakMap<DisplayObject, number>();
+      const displayObjectToMetaIdMap = new Map<DisplayObject, number>();
       const scrollbox = new Scrollbox({boxWidth: 320, boxHeight: 320, scrollbarOffsetVertical: 10, overflowX: 'none'});
       const grid = new GridContainer(320);
       scrollbox.content.addChild(grid);
@@ -83,7 +81,7 @@ class AdminClientModule extends ClientModule {
     interface MakeContentSelectionTabOpts {
       name: string;
       scrollbox: Scrollbox;
-      displayObjectToMetaIdMap: WeakMap<DisplayObject, number>;
+      displayObjectToMetaIdMap: Map<DisplayObject, number>;
       setVisibility: (filter: (id: number) => boolean) => void;
     }
     const makeContentSelectionTab = ({ name, scrollbox, displayObjectToMetaIdMap,
@@ -94,8 +92,7 @@ class AdminClientModule extends ClientModule {
       if (name === 'Items') {
         setVisibility((id) => id % 2 === 0);
         contents = new Container();
-        // @ts-ignore
-        const input = new PIXI.TextInput({
+        const input = new TextInput({
           input: {
             fontSize: '25pt',
             padding: '14px',
@@ -131,18 +128,36 @@ class AdminClientModule extends ClientModule {
 
       scrollbox.content.pause = true;
       scrollbox.interactive = true;
-      scrollbox.on('pointerup', (e: PIXI.interaction.InteractionEvent) => {
-        const id = displayObjectToMetaIdMap.get(e.target);
+      scrollbox.on('click', (e: PIXI.interaction.InteractionEvent) => {
+        // TODO: v5 broke this
+        // const target = e.target;
+        // const id = displayObjectToMetaIdMap.get(target);
+
+        const pos1 = e.data.getLocalPosition(scrollbox.content);
+        let id;
+        let target;
+        for (const [displayObject, _id] of displayObjectToMetaIdMap.entries()) {
+          if (!displayObject.visible) continue;
+          const pos2 = {x: displayObject.x, y: displayObject.y};
+          const bounds = displayObject.getBounds();
+          if (pos1.x >= pos2.x && pos1.x < pos2.x + bounds.width &&
+              pos1.y >= pos2.y && pos1.y < pos2.y + bounds.height) {
+            id = _id;
+            target = displayObject;
+            break;
+          }
+        }
+
         if (id === undefined) return;
         if (this._selectedContent) {
           (this._selectedContent.displayObject as Sprite).removeChildren();
         }
-        if (this._selectedContent && this._selectedContent.displayObject === e.target) {
+        if (this._selectedContent && this._selectedContent.displayObject === target) {
           // Unselect.
           this.setSelectedContent(undefined);
         } else {
-          this.setSelectedContent({displayObject: e.target, type: name, id});
-          (e.target as Sprite).addChild(new Graphics().lineStyle(2, 0xFFFF00).drawRect(0, 0, 32, 32));
+          this.setSelectedContent({displayObject: target, type: name, id});
+          (target as Sprite).addChild(new Graphics().lineStyle(2, 0xFFFF00).drawRect(0, 0, 32, 32));
         }
       });
     };
@@ -155,7 +170,7 @@ class AdminClientModule extends ClientModule {
 
     makeContentSelectionTab({
       name: 'Floors',
-      ...makeGrid(getFloors().map((id) => [id, new PIXI.Sprite(getTexture.floors(id))])),
+      ...makeGrid(getFloors().map((id) => [id, new Sprite(getTexture.floors(id))])),
     });
 
     const adminWindow = makeDraggableWindow();

@@ -1,4 +1,5 @@
 import {OutlineFilter} from '@pixi/filter-outline';
+import * as PIXI from 'pixi.js';
 import { MINE, WATER } from '../constants';
 import * as Content from '../content';
 import { game } from '../game-singleton';
@@ -274,7 +275,7 @@ class Game {
     this.canvasesEl = Helper.find('#canvases');
     this.canvasesEl.appendChild(this.app.view);
 
-    PIXI.loader
+    PIXI.Loader.shared
       .add(Object.values(Draw.getImageResourceKeys()))
       .add(Draw.getSfxResourceKeys())
       // .on('progress', (loader, resource) => console.log('loading ' + loader.progress + '%'))

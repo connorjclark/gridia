@@ -1,4 +1,5 @@
 import { OutlineFilter } from '@pixi/filter-outline';
+import * as PIXI from 'pixi.js';
 import Container from '../container';
 import * as Content from '../content';
 import { game } from '../game-singleton';
@@ -122,7 +123,7 @@ function makeTextureCache(resourceType: string) {
     const textureIndex = Math.floor(type / 100);
     const resourceKey = ResourceKeys[resourceType][textureIndex];
     texture = new PIXI.Texture(
-      PIXI.loader.resources[resourceKey].texture.baseTexture,
+      PIXI.Loader.shared.resources[resourceKey].texture.baseTexture,
       new PIXI.Rectangle((type % 10) * 32, Math.floor((type % 100) / 10) * 32, tilesWidth * 32, tilesHeight * 32),
     );
     textureCache.set(type, texture);
@@ -191,12 +192,12 @@ export function makeDraggableWindow(): GridiaWindow {
   };
   const onDrag = (e: PIXI.interaction.InteractionEvent) => {
     if (draggingState) {
-      container.x = draggingState.startingPosition.x + e.data.global.x - draggingState.downAt.x;
-      container.y = draggingState.startingPosition.y + e.data.global.y - draggingState.downAt.y;
+      window.pixiContainer.x = draggingState.startingPosition.x + e.data.global.x - draggingState.downAt.x;
+      window.pixiContainer.y = draggingState.startingPosition.y + e.data.global.y - draggingState.downAt.y;
 
       const size = getCanvasSize();
-      container.x = Utils.clamp(container.x, 0, size.width - container.width);
-      container.y = Utils.clamp(container.y, 0, size.height - container.height);
+      window.pixiContainer.x = Utils.clamp(window.pixiContainer.x, 0, size.width - window.pixiContainer.width);
+      window.pixiContainer.y = Utils.clamp(window.pixiContainer.y, 0, size.height - window.pixiContainer.height);
     }
   };
   const onDragEnd = () => {
@@ -373,13 +374,13 @@ const TEXTS = {
   noId: [] as PIXI.Text[],
   pool: [] as PIXI.Text[],
 };
-export function pooledText(id: string, message: string, style: PIXI.TextStyleOptions): PIXI.Text {
+export function pooledText(id: string, message: string, style: Partial<PIXI.TextStyle>): PIXI.Text {
   return _text(id, message, style);
 }
-export function text(message: string, style: PIXI.TextStyleOptions): PIXI.Text {
+export function text(message: string, style: Partial<PIXI.TextStyle>): PIXI.Text {
   return _text(undefined, message, style);
 }
-function _text(id: string | undefined, message: string, style: PIXI.TextStyleOptions): PIXI.Text {
+function _text(id: string | undefined, message: string, style: Partial<PIXI.TextStyle>): PIXI.Text {
   let textDisplay = id && TEXTS.map.get(id);
   if (textDisplay) {
     textDisplay.text = message;
