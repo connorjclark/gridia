@@ -179,21 +179,20 @@ export function makeDraggableWindow(): GridiaWindow {
     border.drawRect(0, 0, contents.width + 2 * borderSize, contents.height + 2 * borderSize);
   });
 
-  let dragging = false;
-  let downAt = null;
-  let startingPosition = null;
+  let draggingState: {downAt: Point2, startingPosition: Point2} | undefined;
   const onDragBegin = (e: PIXI.interaction.InteractionEvent) => {
     // Only drag from the border.
     if (e.target !== border) return;
 
-    dragging = true;
-    downAt = { x: e.data.global.x, y: e.data.global.y };
-    startingPosition = { x: container.x, y: container.y };
+    draggingState = {
+      startingPosition: { x: container.x, y: container.y },
+      downAt: { x: e.data.global.x, y: e.data.global.y },
+    };
   };
   const onDrag = (e: PIXI.interaction.InteractionEvent) => {
-    if (dragging) {
-      container.x = startingPosition.x + e.data.global.x - downAt.x;
-      container.y = startingPosition.y + e.data.global.y - downAt.y;
+    if (draggingState) {
+      container.x = draggingState.startingPosition.x + e.data.global.x - draggingState.downAt.x;
+      container.y = draggingState.startingPosition.y + e.data.global.y - draggingState.downAt.y;
 
       const size = getCanvasSize();
       container.x = Utils.clamp(container.x, 0, size.width - container.width);
@@ -201,9 +200,7 @@ export function makeDraggableWindow(): GridiaWindow {
     }
   };
   const onDragEnd = () => {
-    dragging = false;
-    downAt = null;
-    startingPosition = null;
+    draggingState = undefined;
   };
 
   container.on('pointerdown', onDragBegin)
@@ -285,7 +282,7 @@ export function makeItemContainerWindow(container: Container): ContainerWindow {
       window.contents.addChild(itemSprite);
     }
 
-    if (containerWindow.mouseOverIndex !== null && game.state.mouse.state === 'down') {
+    if (containerWindow.mouseOverIndex !== undefined && game.state.mouse.state === 'down') {
       const mouseHighlight = makeHighlight(0xffff00, 0.3);
       mouseHighlight.x = 32 * containerWindow.mouseOverIndex;
       mouseHighlight.y = 0;

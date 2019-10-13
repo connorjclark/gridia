@@ -1,20 +1,24 @@
-interface TilePoint {
-  w: number; // world index
+interface Point2 {
+  x: number;
+  y: number;
+}
+
+interface Point3 {
   x: number;
   y: number;
   z: number;
 }
 
-interface PartitionPoint {
+interface Point4 {
+  w: number;
   x: number;
   y: number;
   z: number;
 }
 
-interface ScreenPoint {
-  x: number;
-  y: number;
-}
+type ScreenPoint = Point2;
+type PartitionPoint = Point3;
+type TilePoint = Point4; // `w` is world index
 
 interface Tile {
   floor: number;
