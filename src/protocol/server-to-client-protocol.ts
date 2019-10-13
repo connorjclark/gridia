@@ -10,6 +10,7 @@ export default class ServerToClientProtocol implements Protocol.ServerToClientPr
   public onAnimation(client: Client, { key, ...loc }: Protocol.AnimationParams): void {
     const animationData = Content.getAnimation(key);
     if (!animationData) throw new Error('no animation found: ' + key);
+    if (client.settings.volume === 0) return;
     for (const frame of animationData.frames) {
       if (frame.sound && client.PIXISound.exists(frame.sound)) {
         client.PIXISound.play(frame.sound, {volume: client.settings.volume});

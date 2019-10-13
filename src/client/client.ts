@@ -19,7 +19,7 @@ class Client {
   public context: Context;
   public eventEmitter = new EventEmitter();
   public settings: Settings = {
-    volume: 0.6,
+    volume: process.env.NODE_ENV === 'production' ? 0.6 : 0,
   };
   // skill id -> xp
   public skills: Map<number, number> = new Map();
