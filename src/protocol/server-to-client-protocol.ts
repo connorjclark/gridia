@@ -1,3 +1,4 @@
+import PIXISound from 'pixi-sound';
 import Client from '../client/client';
 import Container from '../container';
 import * as Content from '../content';
@@ -12,8 +13,8 @@ export default class ServerToClientProtocol implements Protocol.ServerToClientPr
     if (!animationData) throw new Error('no animation found: ' + key);
     if (client.settings.volume === 0) return;
     for (const frame of animationData.frames) {
-      if (frame.sound && client.PIXISound.exists(frame.sound)) {
-        client.PIXISound.play(frame.sound, {volume: client.settings.volume});
+      if (frame.sound && PIXISound.exists(frame.sound)) {
+        PIXISound.play(frame.sound, {volume: client.settings.volume});
       }
     }
   }

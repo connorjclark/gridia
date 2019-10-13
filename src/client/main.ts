@@ -1,4 +1,3 @@
-import * as PIXI from 'pixi.js';
 import * as Content from '../content';
 import { makeGame } from '../game-singleton';
 import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
@@ -12,13 +11,7 @@ import MovementClientModule from './modules/movement-module';
 import SettingsClientModule from './modules/settings-module';
 import SkillsClientModule from './modules/skills-module';
 
-// pixi-sound needs to load after PIXI. The linter reorders imports in a way
-// that breaks that requirement. So require here.
-const PIXISound: typeof import('pixi-sound').default = require('pixi-sound').default;
-
 const client = new Client();
-client.PIXI = PIXI;
-client.PIXISound = PIXISound;
 
 // @ts-ignore - for debugging
 window.Gridia = {
