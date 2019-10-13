@@ -4,7 +4,7 @@ import { getFloors, getMetaItem, getMetaItems } from '../../content';
 import * as ProtocolBuilder from '../../protocol/client-to-server-protocol-builder';
 import { equalItems } from '../../utils';
 import ClientModule from '../client-module';
-import { getTexture, makeDraggableWindow, makeItemSprite } from '../draw';
+import { getTexture, GridiaWindow, makeDraggableWindow, makeItemSprite } from '../draw';
 import GridContainer from '../pixi/grid-container';
 import TabContainer from '../pixi/tab-container';
 
@@ -18,8 +18,8 @@ interface SelectedContent {
 }
 
 class AdminClientModule extends ClientModule {
-  private _adminWindow: ReturnType<typeof makeDraggableWindow>;
-  private _selectedContent: SelectedContent | null;
+  private _adminWindow?: GridiaWindow;
+  private _selectedContent?: SelectedContent;
 
   public onStart() {
     // const panel = Helper.find('.panel--admin');
@@ -32,15 +32,15 @@ class AdminClientModule extends ClientModule {
         if (this._selectedContent) {
           (this._selectedContent.displayObject as Sprite).removeChildren();
         }
-        this.setSelectedContent(null);
+        this.setSelectedContent(undefined);
       }
     });
   }
 
-  private setSelectedContent(selectedContent: SelectedContent | null) {
-    if (Boolean(this._selectedContent) && !Boolean(selectedContent)) {
+  private setSelectedContent(selectedContent?: SelectedContent) {
+    if (this._selectedContent && !selectedContent) {
       this.game.client.eventEmitter.emit('EditingMode', {enabled: false});
-    } else if (!Boolean(this._selectedContent) && Boolean(selectedContent)) {
+    } else if (!this._selectedContent && selectedContent) {
       this.game.client.eventEmitter.emit('EditingMode', {enabled: true});
     }
 
@@ -50,7 +50,7 @@ class AdminClientModule extends ClientModule {
   // TODO: there are issues with Scrollbox:
   // 1) dragging the scroll bar doesn't work great (it moves too slowly)
   // 2) clicking above where the scrollbar is jumps to that position, but clicking below does nothing
-  private getAdminWindow() {
+  private getAdminWindow(): GridiaWindow {
     if (this._adminWindow) return this._adminWindow;
 
     const tabs = new TabContainer();
@@ -71,7 +71,7 @@ class AdminClientModule extends ClientModule {
       const setVisibility = (filter: (id: number) => boolean) => {
         for (const displayObject of grid.children) {
           const id = displayObjectToMetaIdMap.get(displayObject);
-          displayObject.visible = filter(id);
+          displayObject.visible = id ? filter(id) : true;
         }
         grid.layout();
         scrollbox.update();
@@ -131,7 +131,7 @@ class AdminClientModule extends ClientModule {
 
       scrollbox.content.pause = true;
       scrollbox.interactive = true;
-      scrollbox.on('pointerdown', (e: PIXI.interaction.InteractionEvent) => {
+      scrollbox.on('pointerup', (e: PIXI.interaction.InteractionEvent) => {
         const id = displayObjectToMetaIdMap.get(e.target);
         if (id === undefined) return;
         if (this._selectedContent) {
@@ -139,7 +139,7 @@ class AdminClientModule extends ClientModule {
         }
         if (this._selectedContent && this._selectedContent.displayObject === e.target) {
           // Unselect.
-          this.setSelectedContent(null);
+          this.setSelectedContent(undefined);
         } else {
           this.setSelectedContent({displayObject: e.target, type: name, id});
           (e.target as Sprite).addChild(new Graphics().lineStyle(2, 0xFFFF00).drawRect(0, 0, 32, 32));
