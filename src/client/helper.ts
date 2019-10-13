@@ -18,9 +18,17 @@ export function useHand(loc: TilePoint) {
   }));
 }
 
+/**
+ * Uses selected tool on item at `loc`.
+ * If there are multiple options for the usage, and `usageIndex` is not provided,
+ * a dialog box is shown to choose.
+ * @param loc
+ * @param usageIndex
+ */
 export function useTool(loc: TilePoint, usageIndex?: number) {
   const toolIndex = getSelectedToolIndex();
   const tool = getSelectedTool();
+  if (!tool || toolIndex < 0) throw new Error('expected tool');
   const focus = game.client.context.map.getItem(loc) || {type: 0, quantity: 0};
   const usages = Content.getItemUses(tool.type, focus.type);
 
@@ -65,12 +73,12 @@ export function getZ() {
 
 export function getSelectedTool() {
   const inventoryWindow = Draw.getContainerWindow(game.client.containerId);
-  return inventoryWindow.itemsContainer.items[inventoryWindow.selectedIndex];
+  return inventoryWindow?.itemsContainer.items[inventoryWindow.selectedIndex] ?? undefined;
 }
 
 export function getSelectedToolIndex() {
   const inventoryWindow = Draw.getContainerWindow(game.client.containerId);
-  return inventoryWindow.selectedIndex;
+  return inventoryWindow?.selectedIndex ?? -1;
 }
 
 export function find(query: string, node?: Element): HTMLElement {

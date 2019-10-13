@@ -8,8 +8,8 @@ import * as Helper from '../helper';
 import KEYS from '../keys';
 
 class MovementClientModule extends ClientModule {
-  protected followCreature: Creature | null = null;
-  protected pathToDestination: PartitionPoint[];
+  protected followCreature?: Creature;
+  protected pathToDestination?: PartitionPoint[];
   protected lastMove: number = performance.now();
 
   constructor(game: Game) {
@@ -108,16 +108,16 @@ class MovementClientModule extends ClientModule {
       const partition = this.game.client.context.map.getPartition(focusPos.w);
 
       this.pathToDestination = findPath(partition, focusPos, loc);
-      this.followCreature = null;
+      this.followCreature = undefined;
     } else if (type === 'follow') {
       this.followCreature = e.creature;
-      this.pathToDestination = null;
+      this.pathToDestination = undefined;
     }
   }
 
   protected invalidateDestination() {
-    this.pathToDestination = null;
-    this.followCreature = null;
+    this.pathToDestination = undefined;
+    this.followCreature = undefined;
   }
 }
 

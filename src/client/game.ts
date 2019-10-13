@@ -145,21 +145,23 @@ function registerPanelListeners() {
   });
 }
 
-function selectView(loc: TilePoint | null) {
-  if (loc) {
-    const creature = game.client.context.map.getTile(loc).creature;
-    if (creature && creature.id !== game.client.creatureId) {
-      game.state.selectedView.creatureId = creature.id;
-      game.state.selectedView.tile = null;
-    } else {
-      game.state.selectedView.tile = loc;
-      game.state.selectedView.creatureId = null;
-    }
+function selectView(loc: TilePoint) {
+  const creature = game.client.context.map.getTile(loc).creature;
+  if (creature && creature.id !== game.client.creatureId) {
+    // TODO: change selectedView to {tile, loc}
+    game.state.selectedView.creatureId = creature.id;
+    game.state.selectedView.tile = undefined;
   } else {
-    game.state.selectedView.tile = null;
-    game.state.selectedView.creatureId = null;
+    game.state.selectedView.tile = loc;
+    game.state.selectedView.creatureId = undefined;
   }
 
+  renderSelectedView();
+}
+
+function clearSelectedView() {
+  game.state.selectedView.tile = undefined;
+  game.state.selectedView.creatureId = undefined;
   renderSelectedView();
 }
 
@@ -181,7 +183,7 @@ class Game {
   protected canvasesEl: HTMLElement;
   protected containers: Record<string, PIXI.Container> = {};
   protected windows: GridiaWindow[] = [];
-  protected itemMovingState: ItemMoveBeginEvent | null = null;
+  protected itemMovingState?: ItemMoveBeginEvent;
   protected mouseHasMovedSinceItemMoveBegin = false;
   protected modules: ClientModule[] = [];
   protected actionCreators: GameActionCreator[] = [];
@@ -219,11 +221,14 @@ class Game {
     this.actionCreators.push(actionCreator);
   }
 
-  public getActionsFor(tile: Tile, loc: TilePoint): GameAction[] {
+  // TODO: No action creators use `loc` - remove?
+  public getActionsFor(tile: Tile, loc: TilePoint, opts?: {onlyCreature: boolean}): GameAction[] {
     const actions = [];
+    // https://github.com/microsoft/TypeScript/issues/34109
+    const tileToUse = (opts?.onlyCreature) ? {creature: tile.creature, floor: 0} : tile;
 
     for (const actionCreator of this.actionCreators) {
-      const action = actionCreator(tile, loc);
+      const action = actionCreator(tileToUse, loc);
       if (Array.isArray(action)) actions.push(...action);
       else if (action) actions.push(action);
     }
@@ -312,8 +317,8 @@ class Game {
       if (!(e.target instanceof HTMLElement)) return;
       if (!e.target.classList.contains('action')) return;
 
-      // @ts-ignore
       const dataset = e.target.dataset;
+      // @ts-ignore
       const action: GameAction = JSON.parse(dataset.action);
       const loc: TilePoint = dataset.loc ? JSON.parse(dataset.loc) : null;
       const creatureId = Number(dataset.creatureId);
@@ -539,7 +544,7 @@ class Game {
         }));
       }
 
-      this.itemMovingState = null;
+      this.itemMovingState = undefined;
     });
 
     this.client.eventEmitter.on('containerWindowSelectedIndexChanged', () => {
@@ -547,7 +552,7 @@ class Game {
     });
 
     this.client.eventEmitter.on('PlayerMove', () => {
-      if (!this.state.selectedView.creatureId) selectView(undefined);
+      if (!this.state.selectedView.creatureId) clearSelectedView();
       ContextMenu.close();
     });
 
@@ -750,7 +755,7 @@ class Game {
     this.modules.forEach((clientModule) => clientModule.onTick());
 
     if (this.isEditingMode()) {
-      selectView(null);
+      clearSelectedView();
     }
   }
 
