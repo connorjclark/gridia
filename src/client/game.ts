@@ -67,16 +67,16 @@ function addDataToActionEl(actionEl: HTMLElement, opts: {action: GameAction, loc
 }
 
 function renderSelectedView() {
-  const el = Helper.find('.selected-view');
   const state = game.state;
-  const creature =
-    state.selectedView.creatureId ? game.client.context.getCreature(state.selectedView.creatureId) : null;
 
-  let tile: Tile;
+  let creature;
+  if (state.selectedView.creatureId) creature = game.client.context.getCreature(state.selectedView.creatureId);
+
+  let tile;
   if (creature) tile = game.client.context.map.getTile(creature.pos);
   else if (state.selectedView.tile) tile = game.client.context.map.getTile(state.selectedView.tile);
 
-  const item = tile ? tile.item : null;
+  const item = tile?.item;
 
   let data: Record<string, string>;
   let meta;
@@ -101,6 +101,7 @@ function renderSelectedView() {
     };
   }
 
+  const el = Helper.find('.selected-view');
   const detailsEl = Helper.find('.selected-view--details', el);
   detailsEl.innerHTML = '';
   for (const [key, value] of Object.entries(data)) {
@@ -195,7 +196,7 @@ class Game {
   protected modules: ClientModule[] = [];
   protected actionCreators: GameActionCreator[] = [];
 
-  private _playerCreature: Creature = null;
+  private _playerCreature?: Creature;
   private _currentHoverItemText =
     new PIXI.Text('', {fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round'});
   private _isEditing = false;
