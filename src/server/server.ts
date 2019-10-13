@@ -293,7 +293,7 @@ export default class Server {
     const container = this.context.containers.get(id);
     if (!container) throw new Error('no container: ' + id);
 
-    container.items[index] = item;
+    container.items[index] = item || null;
 
     this.conditionalBroadcast(ProtocolBuilder.setItem({
       ...{w: 0, x: index, y: 0, z: 0},

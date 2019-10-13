@@ -247,7 +247,7 @@ describe('moveItem', () => {
     }));
 
     assertItemInWorld(to, { type: 1, quantity: 1 });
-    assertItemInContainer(container.id, 0, undefined);
+    assertItemInContainer(container.id, 0, null);
   });
 
   it('move item from world to container', async () => {
