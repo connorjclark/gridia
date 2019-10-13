@@ -19,7 +19,7 @@ class MovementClientModule extends ClientModule {
   }
 
   public onStart() {
-    this.game.client.eventEmitter.on('Action', this.onAction);
+    this.game.client.eventEmitter.on('action', this.onAction);
     this.game.addActionCreator((tile) => {
       if (tile.creature) {
         return {
@@ -93,7 +93,7 @@ class MovementClientModule extends ClientModule {
         if (this.game.client.context.map.walkable(dest)) {
           this.lastMove = performance.now();
           this.game.client.connection.send(ProtocolBuilder.move(dest));
-          this.game.client.eventEmitter.emit('PlayerMove');
+          this.game.client.eventEmitter.emit('playerMove');
           delete this.game.state.mouse.tile;
         }
       }

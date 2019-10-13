@@ -37,9 +37,9 @@ class AdminClientModule extends ClientModule {
 
   private setSelectedContent(selectedContent?: SelectedContent) {
     if (this._selectedContent && !selectedContent) {
-      this.game.client.eventEmitter.emit('EditingMode', {enabled: false});
+      this.game.client.eventEmitter.emit('editingMode', {enabled: false});
     } else if (!this._selectedContent && selectedContent) {
-      this.game.client.eventEmitter.emit('EditingMode', {enabled: true});
+      this.game.client.eventEmitter.emit('editingMode', {enabled: true});
     }
 
     this._selectedContent = selectedContent;
@@ -205,8 +205,8 @@ class AdminClientModule extends ClientModule {
         this.game.client.context.map.getTile(loc).floor = floor;
       }
     };
-    this.game.client.eventEmitter.on('MouseMovedOverTile', handler);
-    this.game.client.eventEmitter.on('TileClicked', handler);
+    this.game.client.eventEmitter.on('mouseMovedOverTile', handler);
+    this.game.client.eventEmitter.on('tileClicked', handler);
 
     this._adminWindow = adminWindow;
     return adminWindow;

@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     gameSingleton.addModule(new moduleClass(gameSingleton));
   }
   gameSingleton.addActionCreator(globalActionCreator);
-  client.eventEmitter.on('Action', globalOnActionHandler);
+  client.eventEmitter.on('action', globalOnActionHandler);
 
   gameSingleton.start();
   // @ts-ignore

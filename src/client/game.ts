@@ -338,7 +338,7 @@ class Game {
       const loc: TilePoint = dataset.loc ? JSON.parse(dataset.loc) : null;
       const creatureId = Number(dataset.creatureId);
       const creature = creatureId ? this.client.context.getCreature(creatureId) : null;
-      this.client.eventEmitter.emit('Action', {
+      this.client.eventEmitter.emit('action', {
         action,
         loc,
         creature,
@@ -356,7 +356,7 @@ class Game {
         tile: loc,
       };
       if (this.client.context.map.inBounds(loc)) {
-        this.client.eventEmitter.emit('MouseMovedOverTile', {...loc});
+        this.client.eventEmitter.emit('mouseMovedOverTile', {...loc});
       }
     });
 
@@ -409,7 +409,7 @@ class Game {
       const item = this.client.context.map.getItem(point);
       if (!item || !item.type) return;
 
-      this.client.eventEmitter.emit('ItemMoveBegin', {
+      this.client.eventEmitter.emit('itemMoveBegin', {
         source: 0,
         loc: this.state.mouse.tile,
         item,
@@ -420,13 +420,13 @@ class Game {
         const evt: ItemMoveEndEvent = {
           source: this.client.containerId,
         };
-        this.client.eventEmitter.emit('ItemMoveEnd', evt);
+        this.client.eventEmitter.emit('itemMoveEnd', evt);
       } else if (this.state.mouse.tile) {
         const evt: ItemMoveEndEvent = {
           source: 0,
           loc: this.state.mouse.tile,
         };
-        this.client.eventEmitter.emit('ItemMoveEnd', evt);
+        this.client.eventEmitter.emit('itemMoveEnd', evt);
       }
     });
     world.on('pointerdown', (e: PIXI.interaction.InteractionEvent) => {
@@ -442,7 +442,7 @@ class Game {
       }
 
       if (this.client.context.map.inBounds(loc)) {
-        this.client.eventEmitter.emit('TileClicked', {...loc});
+        this.client.eventEmitter.emit('tileClicked', {...loc});
       }
     });
 
@@ -536,14 +536,14 @@ class Game {
     window.addEventListener('resize', resize);
     resize();
 
-    this.client.eventEmitter.on('ItemMoveBegin', (e: ItemMoveBeginEvent) => {
+    this.client.eventEmitter.on('itemMoveBegin', (e: ItemMoveBeginEvent) => {
       this.itemMovingState = e;
       this.mouseHasMovedSinceItemMoveBegin = false;
       world.once('mousemove', () => {
         this.mouseHasMovedSinceItemMoveBegin = true;
       });
     });
-    this.client.eventEmitter.on('ItemMoveEnd', (e: ItemMoveEndEvent) => {
+    this.client.eventEmitter.on('itemMoveEnd', (e: ItemMoveEndEvent) => {
       if (!this.itemMovingState) return;
 
       const from = this.itemMovingState.loc;
@@ -566,14 +566,14 @@ class Game {
       renderSelectedView();
     });
 
-    this.client.eventEmitter.on('PlayerMove', () => {
+    this.client.eventEmitter.on('playerMove', () => {
       if (!this.state.selectedView.creatureId) clearSelectedView();
       ContextMenu.close();
     });
 
-    this.client.eventEmitter.on('Action', ContextMenu.close);
+    this.client.eventEmitter.on('action', ContextMenu.close);
 
-    this.client.eventEmitter.on('EditingMode', ({enabled}) => {
+    this.client.eventEmitter.on('editingMode', ({enabled}) => {
       this._isEditing = enabled;
     });
 

@@ -225,7 +225,7 @@ export function makeItemContainerWindow(container: Container): ContainerWindow {
         loc: { w: 0, x: index, y: 0, z: 0 },
         item: container.items[index] || undefined,
       };
-      game.client.eventEmitter.emit('ItemMoveBegin', evt);
+      game.client.eventEmitter.emit('itemMoveBegin', evt);
     })
     .on('pointermove', (e: PIXI.interaction.InteractionEvent) => {
       if (e.target !== window.contents) {
@@ -247,7 +247,7 @@ export function makeItemContainerWindow(container: Container): ContainerWindow {
           source: container.id,
           loc: { w: 0, x: window.mouseOverIndex, y: 0, z: 0 },
         };
-        game.client.eventEmitter.emit('ItemMoveEnd', evt);
+        game.client.eventEmitter.emit('itemMoveEnd', evt);
       }
       if (mouseDownIndex === window.mouseOverIndex) {
         window.selectedIndex = mouseDownIndex;
@@ -255,11 +255,11 @@ export function makeItemContainerWindow(container: Container): ContainerWindow {
     });
 
   if (container.id !== game.client.containerId) {
-    game.client.eventEmitter.on('PlayerMove', close);
+    game.client.eventEmitter.on('playerMove', close);
   }
 
   function close() {
-    game.client.eventEmitter.removeListener('PlayerMove', close);
+    game.client.eventEmitter.removeListener('playerMove', close);
     game.removeWindow(window);
     containerWindows.delete(container.id);
     game.client.context.containers.delete(container.id);
@@ -315,10 +315,10 @@ export function makeUsageWindow(tool: Item, focus: Item, usages: ItemUse[], loc:
       Helper.useTool(loc, index);
     });
 
-  game.client.eventEmitter.on('PlayerMove', close);
+  game.client.eventEmitter.on('playerMove', close);
 
   function close() {
-    game.client.eventEmitter.removeListener('PlayerMove', close);
+    game.client.eventEmitter.removeListener('playerMove', close);
     game.removeWindow(window);
   }
 

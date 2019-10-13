@@ -8,16 +8,16 @@ export interface GameActionEvent {
 }
 
 interface Events {
-  panelFocusChanged: {panelName: string};
-  message: import('../protocol/server-to-client-protocol-builder').Message;
-  Action: GameActionEvent;
-  MouseMovedOverTile: TilePoint;
-  ItemMoveBegin: ItemMoveBeginEvent;
-  ItemMoveEnd: ItemMoveEndEvent;
-  TileClicked: TilePoint;
+  action: GameActionEvent;
   containerWindowSelectedIndexChanged: void;
-  PlayerMove: void;
-  EditingMode: {enabled: boolean};
+  editingMode: {enabled: boolean};
+  itemMoveBegin: ItemMoveBeginEvent;
+  itemMoveEnd: ItemMoveEndEvent;
+  message: import('../protocol/server-to-client-protocol-builder').Message;
+  mouseMovedOverTile: TilePoint;
+  panelFocusChanged: {panelName: string};
+  playerMove: void;
+  tileClicked: TilePoint;
 }
 
 const TypedEventEmitter: new() => StrictEventEmitter<EventEmitter, Events> = EventEmitter;
