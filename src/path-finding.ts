@@ -60,7 +60,7 @@ export function findPath(partition: WorldMapPartition, from: PartitionPoint, to:
 
     // Select open node with the lowest f-score.
     // TODO: priority queue.
-    let current: number;
+    let current = -1;
     let min = Infinity;
     for (const node of open) {
       if (min > fScore.get(node)) {
@@ -69,7 +69,7 @@ export function findPath(partition: WorldMapPartition, from: PartitionPoint, to:
       }
     }
 
-    if (current === toEncoded) {
+    if (current === -1 || current === toEncoded) {
       break;
     }
 

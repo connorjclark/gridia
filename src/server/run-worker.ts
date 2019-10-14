@@ -2,7 +2,7 @@ import ClientConnection from './client-connection';
 import { startServer } from './create-server';
 import Server from './server';
 
-let opts;
+let opts: OpenAndConnectToServerOpts;
 let server: Server;
 let clientConnection: ClientConnection;
 

@@ -63,5 +63,5 @@ async function workerReadDir(path: string) {
 export const exists = isNode ? nodeExists : workerExists;
 export const writeFile = isNode ? nodeWriteFile : workerWriteFile;
 export const readFile = isNode ? nodeReadFile : workerReadFile;
-export const mkdir = isNode ? fs.promises.mkdir : (path: string) => workerWriteFile(path, '');
+export const mkdir = isNode ? fs.promises.mkdir : (path: string, opts?: any) => workerWriteFile(path, '');
 export const readdir = isNode ? fs.promises.readdir : workerReadDir;
