@@ -7,6 +7,17 @@ export interface GameActionEvent {
   creature: Creature;
 }
 
+export interface ItemMoveBeginEvent {
+  source: number;
+  loc: TilePoint;
+  item?: Item;
+}
+
+export interface ItemMoveEndEvent {
+  source: number;
+  loc?: TilePoint;
+}
+
 interface Events {
   action: GameActionEvent;
   containerWindowSelectedIndexChanged: void;

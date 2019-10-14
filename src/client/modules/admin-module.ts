@@ -155,7 +155,7 @@ class AdminClientModule extends ClientModule {
         if (this._selectedContent && this._selectedContent.displayObject === target) {
           // Unselect.
           this.setSelectedContent(undefined);
-        } else {
+        } else if (target) {
           this.setSelectedContent({displayObject: target, type: name, id});
           (target as Sprite).addChild(new Graphics().lineStyle(2, 0xFFFF00).drawRect(0, 0, 32, 32));
         }

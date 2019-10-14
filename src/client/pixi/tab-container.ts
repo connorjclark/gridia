@@ -10,7 +10,7 @@ interface Tab {
 
 class TabContainer extends Container {
   private _tabs = new Map<string, Tab>();
-  private _currentTab: Tab;
+  private _currentTab?: Tab;
 
   public add(tab: Tab) {
     this._tabs.set(tab.name, tab);

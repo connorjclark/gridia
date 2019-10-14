@@ -4,6 +4,7 @@ import Container from '../container';
 import * as Content from '../content';
 import { game } from '../game-singleton';
 import * as Utils from '../utils';
+import { ItemMoveBeginEvent } from './event-emitter';
 import * as Helper from './helper';
 
 export class GridiaWindow {

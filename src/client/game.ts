@@ -8,6 +8,7 @@ import * as Utils from '../utils';
 import Client from './client';
 import ClientModule from './client-module';
 import * as Draw from './draw';
+import { ItemMoveBeginEvent, ItemMoveEndEvent } from './event-emitter';
 import * as Helper from './helper';
 import KEYS from './keys';
 import { getMineFloor, getWaterFloor } from './template-draw';
@@ -337,7 +338,7 @@ class Game {
       const action: GameAction = JSON.parse(dataset.action);
       const loc: TilePoint = dataset.loc ? JSON.parse(dataset.loc) : null;
       const creatureId = Number(dataset.creatureId);
-      const creature = creatureId ? this.client.context.getCreature(creatureId) : null;
+      const creature = this.client.context.getCreature(creatureId);
       this.client.eventEmitter.emit('action', {
         action,
         loc,

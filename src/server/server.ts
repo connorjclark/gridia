@@ -191,10 +191,11 @@ export default class Server {
   }
 
   public broadcastPartialCreatureUpdate(creature: Creature, keys: Array<keyof Creature>) {
-    const partialCreature = {
+    const partialCreature: Partial<Creature> = {
       id: creature.id,
     };
     for (const key of keys) {
+      // @ts-ignore
       partialCreature[key] = creature[key];
     }
     this.broadcast(ProtocolBuilder.setCreature({
