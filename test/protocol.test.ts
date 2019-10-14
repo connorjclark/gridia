@@ -1,6 +1,8 @@
 // tslint:disable-next-line: no-reference
 /// <reference path="../src/types.d.ts" />
 
+jest.mock('pixi-sound', () => ({}));
+
 import * as assert from 'assert';
 import Client from '../src/client/client';
 import { Connection } from '../src/client/connection';
