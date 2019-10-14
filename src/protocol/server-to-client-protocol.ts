@@ -62,6 +62,8 @@ export default class ServerToClientProtocol implements Protocol.ServerToClientPr
 
   public onSetCreature(client: Client, { partial, ...partialCreature }: Protocol.SetCreatureParams): void {
     const id = partialCreature.id;
+    // TODO: fix in types?
+    if (!id) throw new Error('id must exist');
 
     const creature = client.context.getCreature(id);
     if (!creature) {
@@ -74,8 +76,8 @@ export default class ServerToClientProtocol implements Protocol.ServerToClientPr
       return;
     }
 
-    const positionChanged = partialCreature.pos && !equalPoints(creature.pos, partialCreature.pos);
-    if (positionChanged) {
+    // Check if position changed.
+    if (partialCreature.pos && !equalPoints(creature.pos, partialCreature.pos)) {
       delete client.context.map.getTile(creature.pos).creature;
       client.context.map.getTile(partialCreature.pos).creature = creature;
     }

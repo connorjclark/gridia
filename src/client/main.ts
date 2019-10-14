@@ -167,15 +167,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // TODO: AdminClientModule should create the panel. Until then, manually remove panel.
   if (!client.isAdmin) {
-    document.querySelector('.panels__tab[data-panel="admin"]').remove();
+    Helper.find('.panels__tab[data-panel="admin"]').remove();
   }
 
   const moduleClasses = [
-    client.isAdmin ? AdminClientModule : null,
     MovementClientModule,
     SettingsClientModule,
     SkillsClientModule,
-  ].filter(Boolean);
+  ];
+  if (client.isAdmin) moduleClasses.push(AdminClientModule);
   for (const moduleClass of moduleClasses) {
     gameSingleton.addModule(new moduleClass(gameSingleton));
   }
