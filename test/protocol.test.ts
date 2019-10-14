@@ -37,7 +37,7 @@ beforeEach(async () => {
     serverData: '/', // ?
     dummyDelay: 0,
     verbose: false,
-    context: new ServerContext(worldMap),
+    context: new ServerContext(worldMap, ''),
   });
   connection = serverAndConnection.connection;
   server = serverAndConnection.server;
