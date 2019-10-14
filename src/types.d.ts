@@ -142,3 +142,5 @@ interface CLIOptions extends ServerOptions {
 interface OpenAndConnectToServerOpts extends ServerOptions {
   dummyDelay: number;
 }
+
+declare module 'pixi-scrollbox';

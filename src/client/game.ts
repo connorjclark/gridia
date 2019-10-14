@@ -148,7 +148,7 @@ function registerPanelListeners() {
     Helper.find('.panel--active').classList.toggle('panel--active');
 
     const targetEl = e.target as HTMLElement;
-    const panelName = targetEl.dataset.panel;
+    const panelName = targetEl.dataset.panel as string;
     targetEl.classList.toggle('panels__tab--active');
     Helper.find('.panel--' + panelName).classList.toggle('panel--active');
     game.client.eventEmitter.emit('panelFocusChanged', {panelName});

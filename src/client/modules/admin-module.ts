@@ -1,7 +1,7 @@
 import {Scrollbox} from 'pixi-scrollbox';
 import { Container, DisplayObject, Graphics, Sprite } from 'pixi.js';
 import { getFloors, getMetaItem, getMetaItems } from '../../content';
-import TextInput from '../../lib/TextInput';
+import TextInput from '../../lib/text-input';
 import * as ProtocolBuilder from '../../protocol/client-to-server-protocol-builder';
 import * as Utils from '../../utils';
 import ClientModule from '../client-module';
@@ -80,7 +80,7 @@ class AdminClientModule extends ClientModule {
 
     interface MakeContentSelectionTabOpts {
       name: string;
-      scrollbox: Scrollbox;
+      scrollbox: typeof Scrollbox;
       displayObjectToMetaIdMap: Map<DisplayObject, number>;
       setVisibility: (filter: (id: number) => boolean) => void;
     }
