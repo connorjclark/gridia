@@ -39,7 +39,7 @@ async function workerWriteFile(path: string, data: string) {
   await db.put(defaultStore, data, path);
 }
 
-async function workerReadFile(path: string) {
+async function workerReadFile(path: string): Promise<string> {
   const db = await getDb();
   return db.get(defaultStore, path);
 }

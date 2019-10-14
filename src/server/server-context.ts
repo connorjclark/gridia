@@ -13,8 +13,7 @@ export class ServerContext extends Context {
   public static async load(serverDir: string) {
     const meta = JSON.parse(await fs.readFile(path.join(serverDir, 'meta.json')));
     const map = new WorldMap();
-    const context = new ServerContext(map);
-    context.setServerDir(serverDir);
+    const context = new ServerContext(map, serverDir);
 
     const creatures = JSON.parse(await fs.readFile(context.creaturesPath()));
     for (const creature of creatures) {
@@ -45,7 +44,8 @@ export class ServerContext extends Context {
   public playerDir: string;
   public sectorDir: string;
 
-  public setServerDir(serverDir: string) {
+  constructor(map: WorldMap, serverDir: string) {
+    super(map);
     this.serverDir = serverDir;
     this.containerDir = path.join(serverDir, 'containers');
     this.playerDir = path.join(serverDir, 'players');
@@ -158,7 +158,11 @@ export class ServerContext extends Context {
     for (let sx = 0; sx < partition.sectors.length; sx++) {
       for (let sy = 0; sy < partition.sectors[0].length; sy++) {
         for (let sz = 0; sz < partition.sectors[0][0].length; sz++) {
-          await this.saveSector({w, x: sx, y: sy, z: sz});
+          // Only save if the sector is loaded.
+          // TODO: There's gotta be a nasty race condition here.
+          if (partition.sectors[sx][sy][sz]) {
+            await this.saveSector({w, x: sx, y: sy, z: sz});
+          }
         }
       }
     }

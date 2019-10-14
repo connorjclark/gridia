@@ -13,8 +13,7 @@ export async function startServer(options: ServerOptions) {
   } else {
     await fs.mkdir(serverData);
     const worldMap = createDebugWorldMap();
-    context = new ServerContext(worldMap);
-    context.setServerDir(serverData);
+    context = new ServerContext(worldMap, serverData);
     await context.save();
   }
 
