@@ -1,7 +1,7 @@
 import * as Content from '../content';
 import { makeGame } from '../game-singleton';
 import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
-import { randInt, worldToTile as _worldToTile } from '../utils';
+import * as Utils from '../utils';
 import Client from './client';
 import { connect, openAndConnectToServerWorker } from './connect-to-server';
 import { GameActionEvent } from './event-emitter';
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const parts1 = 'Small Smelly Quick Steely Quiet'.split(' ');
   const parts2 = 'Jill Stranger Arthur Maz Harlet Worker'.split(' ');
-  registerNameEl.value = parts1[randInt(0, parts1.length)] + ' ' + parts2[randInt(0, parts2.length)];
+  registerNameEl.value = parts1[Utils.randInt(0, parts1.length)] + ' ' + parts2[Utils.randInt(0, parts2.length)];
   registerBtn.addEventListener('click', () => {
     client.connection.send(ProtocolBuilder.register({
       name: registerNameEl.value,

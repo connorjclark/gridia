@@ -12,7 +12,7 @@ import mapgen from '../src/mapgen';
 import * as ProtocolBuilder from '../src/protocol/client-to-server-protocol-builder';
 import Server from '../src/server/server';
 import { ServerContext } from '../src/server/server-context';
-import { equalItems } from '../src/utils';
+import * as Utils from '../src/utils';
 import WorldMap from '../src/world-map';
 import { openAndConnectToServerInMemory } from './server-in-memory';
 
@@ -83,7 +83,7 @@ function assertItemInWorld(location: TilePoint, item: Item) {
 }
 
 function assertItemInWorldNear(location: TilePoint, item: Item) {
-  const point = server.findNearest(location, 10, true, (tile) => equalItems(tile.item, item));
+  const point = server.findNearest(location, 10, true, (tile) => Utils.equalItems(tile.item, item));
   assert(point);
   expect(client.context.map.getItem(point)).toEqual(item);
 }

@@ -1,4 +1,4 @@
-import { dist, equalPoints } from './utils';
+import * as Utils from './utils';
 import WorldMapPartition from './world-map-partition';
 
 // Does not include the starting tile.
@@ -84,12 +84,12 @@ export function findPath(partition: WorldMapPartition, from: PartitionPoint, to:
         if (seen.has(neighbor)) continue;
         const neighborNode = decodePoint(neighbor);
 
-        let neighborG = gScore.get(current) + dist(currentNode, neighborNode);
+        let neighborG = gScore.get(current) + Utils.dist(currentNode, neighborNode);
 
         // If not walkable, set cost as infinite.
         // Unless it's the destination - even if the destination is not walkable,
         // allow path to it, so that "follow" creature will work.
-        if (!partition.walkable(neighborNode) && !equalPoints(neighborNode, to)) {
+        if (!partition.walkable(neighborNode) && !Utils.equalPoints(neighborNode, to)) {
           neighborG = Infinity;
         }
 

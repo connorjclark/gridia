@@ -1,7 +1,7 @@
 import * as Content from '../../content';
 import { findPath } from '../../path-finding';
 import * as ProtocolBuilder from '../../protocol/client-to-server-protocol-builder';
-import { equalPoints } from '../../utils';
+import * as Utils from '../../utils';
 import ClientModule from '../client-module';
 import { GameActionEvent } from '../event-emitter';
 import Game from '../game';
@@ -75,7 +75,7 @@ class MovementClientModule extends ClientModule {
         this.pathToDestination = findPath(partition, focusPos, lastInPath);
       }
 
-      if (!equalPoints(keyInputDelta, {x: 0, y: 0, z: 0})) {
+      if (!Utils.equalPoints(keyInputDelta, {x: 0, y: 0, z: 0})) {
         dest = { ...focusCreature.pos };
         dest.x += keyInputDelta.x;
         dest.y += keyInputDelta.y;
@@ -84,7 +84,7 @@ class MovementClientModule extends ClientModule {
         dest = { w, ...this.pathToDestination.splice(0, 1)[0]};
       }
 
-      if (dest && !equalPoints(dest, focusCreature.pos)) {
+      if (dest && !Utils.equalPoints(dest, focusCreature.pos)) {
         const itemToMoveTo = this.game.client.context.map.getItem(dest);
         if (itemToMoveTo && Content.getMetaItem(itemToMoveTo.type).class === 'Container') {
           Helper.openContainer(dest);

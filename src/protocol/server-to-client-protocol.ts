@@ -2,7 +2,7 @@ import PIXISound from 'pixi-sound';
 import Client from '../client/client';
 import Container from '../container';
 import * as Content from '../content';
-import { equalPoints } from '../utils';
+import * as Utils from '../utils';
 import { ItemSourceWorld } from './client-to-server-protocol';
 import * as ProtocolBuilder from './client-to-server-protocol-builder';
 import * as Protocol from './gen/server-to-client-protocol';
@@ -77,7 +77,7 @@ export default class ServerToClientProtocol implements Protocol.ServerToClientPr
     }
 
     // Check if position changed.
-    if (partialCreature.pos && !equalPoints(creature.pos, partialCreature.pos)) {
+    if (partialCreature.pos && !Utils.equalPoints(creature.pos, partialCreature.pos)) {
       delete client.context.map.getTile(creature.pos).creature;
       client.context.map.getTile(partialCreature.pos).creature = creature;
     }

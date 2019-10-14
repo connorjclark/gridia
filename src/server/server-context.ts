@@ -4,7 +4,7 @@ import Container from '../container';
 import { Context } from '../context';
 import * as fs from '../iso-fs';
 import Player from '../player';
-import { equalPoints, worldToSector } from '../utils';
+import * as Utils from '../utils';
 import WorldMap from '../world-map';
 import WorldMapPartition from '../world-map-partition';
 import Server from './server';
@@ -59,7 +59,7 @@ export class ServerContext extends Context {
     // Set creatures (all of which are always loaded in memory) to the sector (of which only active areas are loaded).
     // Kinda lame, I guess.
     for (const creature of this.creatures.values()) {
-      if (equalPoints(sectorPoint, worldToSector(creature.pos, SECTOR_SIZE))) {
+      if (Utils.equalPoints(sectorPoint, Utils.worldToSector(creature.pos, SECTOR_SIZE))) {
         server.registerCreature(creature);
       }
     }

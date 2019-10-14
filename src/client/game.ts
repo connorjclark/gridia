@@ -4,7 +4,7 @@ import { MINE, WATER } from '../constants';
 import * as Content from '../content';
 import { game } from '../game-singleton';
 import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
-import {equalPoints, worldToTile as _worldToTile} from '../utils';
+import * as Utils from '../utils';
 import Client from './client';
 import ClientModule from './client-module';
 import * as Draw from './draw';
@@ -175,7 +175,7 @@ function clearSelectedView() {
 }
 
 function worldToTile(pw: ScreenPoint) {
-  return _worldToTile(Helper.getW(), pw, Helper.getZ());
+  return Utils.worldToTile(Helper.getW(), pw, Helper.getZ());
 }
 
 function mouseToWorld(pm: ScreenPoint): ScreenPoint {
@@ -257,7 +257,7 @@ class Game {
       // Update the selected view, if the item there changed.
       if (e.type === 'setItem' && this.state.selectedView.tile) {
         const loc = {w: e.args.w, x: e.args.x, y: e.args.y, z: e.args.z};
-        if (equalPoints(loc, this.state.selectedView.tile)) {
+        if (Utils.equalPoints(loc, this.state.selectedView.tile)) {
           selectView(this.state.selectedView.tile);
         }
       }
@@ -416,7 +416,7 @@ class Game {
       });
     });
     world.on('pointerup', (e: PIXI.interaction.InteractionEvent) => {
-      if (equalPoints(this.state.mouse.tile, this.getPlayerPosition())) {
+      if (Utils.equalPoints(this.state.mouse.tile, this.getPlayerPosition())) {
         const evt: ItemMoveEndEvent = {
           source: this.client.containerId,
         };
@@ -550,7 +550,7 @@ class Game {
       const fromSource = this.itemMovingState.source;
       const to = e.loc;
       const toSource = e.source;
-      if (!(fromSource === toSource && equalPoints(from, to))) {
+      if (!(fromSource === toSource && Utils.equalPoints(from, to))) {
         this.client.connection.send(ProtocolBuilder.moveItem({
           from,
           fromSource,

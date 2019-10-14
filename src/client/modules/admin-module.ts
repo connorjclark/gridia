@@ -3,7 +3,7 @@ import { Container, DisplayObject, Graphics, Sprite } from 'pixi.js';
 import { getFloors, getMetaItem, getMetaItems } from '../../content';
 import TextInput from '../../lib/TextInput';
 import * as ProtocolBuilder from '../../protocol/client-to-server-protocol-builder';
-import { equalItems } from '../../utils';
+import * as Utils from '../../utils';
 import ClientModule from '../client-module';
 import { getTexture, GridiaWindow, makeItemSprite } from '../draw';
 import GridContainer from '../pixi/grid-container';
@@ -185,7 +185,7 @@ class AdminClientModule extends ClientModule {
       if (this._selectedContent.type === 'Items') {
         const item = this._selectedContent.id > 0 ? {type: this._selectedContent.id, quantity: 1} : undefined;
         const currentItem = this.game.client.context.map.getItem(loc);
-        if (equalItems(currentItem, item)) return;
+        if (Utils.equalItems(currentItem, item)) return;
         // Don't overwrite existing items - must explictly select the "null" item to delete items.
         if (currentItem && item) return;
         this.game.client.connection.send(ProtocolBuilder.adminSetItem({

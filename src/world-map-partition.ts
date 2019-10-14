@@ -1,6 +1,6 @@
 import { SECTOR_SIZE } from './constants';
 import * as Content from './content';
-import { matrix, worldToSector } from './utils';
+import * as Utils from './utils';
 
 class WorldMapPartition {
   public width: number;
@@ -14,7 +14,7 @@ class WorldMapPartition {
     this.width = width;
     this.height = height;
     this.depth = depth;
-    this.sectors = matrix(width / SECTOR_SIZE, height / SECTOR_SIZE, depth);
+    this.sectors = Utils.matrix(width / SECTOR_SIZE, height / SECTOR_SIZE, depth);
   }
 
   // TODO - can this be removed?
@@ -22,7 +22,7 @@ class WorldMapPartition {
     this.width = width;
     this.height = height;
     this.depth = depth;
-    this.sectors = matrix(width / SECTOR_SIZE, height / SECTOR_SIZE, depth);
+    this.sectors = Utils.matrix(width / SECTOR_SIZE, height / SECTOR_SIZE, depth);
   }
 
   public inBounds(point: PartitionPoint): boolean {
@@ -41,7 +41,7 @@ class WorldMapPartition {
   }
 
   public async walkableAsync(point: PartitionPoint): Promise<boolean> {
-    await this.getSectorAsync(worldToSector(point, SECTOR_SIZE));
+    await this.getSectorAsync(Utils.worldToSector(point, SECTOR_SIZE));
     return this.walkable(point);
   }
 
@@ -71,12 +71,12 @@ class WorldMapPartition {
   public getTile(point: PartitionPoint): Tile {
     if (!this.inBounds(point)) return { floor: 0 };
 
-    const sector = this.getSector(worldToSector(point, SECTOR_SIZE));
+    const sector = this.getSector(Utils.worldToSector(point, SECTOR_SIZE));
     return sector[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE];
   }
 
   public setTile(point: PartitionPoint, tile: Tile) {
-    const sector = this.getSector(worldToSector(point, SECTOR_SIZE));
+    const sector = this.getSector(Utils.worldToSector(point, SECTOR_SIZE));
     sector[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE] = tile;
   }
 

@@ -1,7 +1,7 @@
 import * as fs from '../iso-fs';
 import Server from '../server/server';
 import { ServerContext } from '../server/server-context';
-import { randInt } from '../utils';
+import * as Utils from '../utils';
 import createDebugWorldMap from '../world-map-debug';
 
 export async function startServer(options: ServerOptions) {
@@ -35,9 +35,9 @@ export async function startServer(options: ServerOptions) {
   setInterval(() => {
     if (server.clientConnections.length > 0) {
       if (Object.keys(server.creatureStates).length < 5) {
-        const pos = {w: 0, x: randInt(0, 30), y: randInt(0, 30), z: 0};
+        const pos = {w: 0, x: Utils.randInt(0, 30), y: Utils.randInt(0, 30), z: 0};
         if (server.context.map.walkable(pos)) {
-          server.makeCreatureFromTemplate(randInt(1, 100), pos);
+          server.makeCreatureFromTemplate(Utils.randInt(1, 100), pos);
         }
       }
     } else {

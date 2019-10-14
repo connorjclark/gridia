@@ -2,7 +2,7 @@ import { MINE } from '../constants';
 import * as Content from '../content';
 import Player from '../player';
 import Server from '../server/server';
-import { equalPoints } from '../utils';
+import * as Utils from '../utils';
 import * as Protocol from './gen/client-to-server-protocol';
 import * as ProtocolBuilder from './server-to-client-protocol-builder';
 
@@ -247,7 +247,7 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
     }
 
     // Ignore if moving to same location.
-    if (fromSource === toSource && equalPoints(from, to)) {
+    if (fromSource === toSource && Utils.equalPoints(from, to)) {
       return;
     }
 

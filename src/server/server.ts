@@ -5,7 +5,7 @@ import performance from '../performance';
 import Player from '../player';
 import ClientToServerProtocol from '../protocol/client-to-server-protocol';
 import * as ProtocolBuilder from '../protocol/server-to-client-protocol-builder';
-import { maxDiff, randInt, worldToSector } from '../utils';
+import * as Utils from '../utils';
 import WorldMapPartition from '../world-map-partition';
 import ClientConnection from './client-connection';
 import { ServerContext } from './server-context';
@@ -101,7 +101,7 @@ export default class Server {
   public async registerPlayer(clientConnection: ClientConnection, opts: RegisterOpts) {
     const {player} = opts;
 
-    const pos = {w: 0, x: randInt(0, 10), y: randInt(0, 10), z: 0};
+    const pos = {w: 0, x: Utils.randInt(0, 10), y: Utils.randInt(0, 10), z: 0};
 
     // Make sure sector is loaded. Prevents hidden creature (race condition, happens often in worker).
     await this.ensureSectorLoadedForPoint(pos);
@@ -111,7 +111,7 @@ export default class Server {
       id: this.context.nextCreatureId++,
       name: player.name,
       pos,
-      image: randInt(0, 10),
+      image: Utils.randInt(0, 10),
       isPlayer: true,
     });
 
@@ -359,7 +359,7 @@ export default class Server {
   }
 
   public ensureSectorLoadedForPoint(loc: TilePoint) {
-    const sectorPoint = worldToSector(loc, SECTOR_SIZE);
+    const sectorPoint = Utils.worldToSector(loc, SECTOR_SIZE);
     return this.ensureSectorLoaded({w: loc.w, ...sectorPoint});
   }
 
@@ -413,7 +413,7 @@ export default class Server {
 
           if (tamedBy) {
             destination = tamedBy.creature.pos;
-          } else if (maxDiff(creature.pos, state.home) <= 10) {
+          } else if (Utils.maxDiff(creature.pos, state.home) <= 10) {
             const randomDest = {...creature.pos};
             randomDest.x += Math.floor(Math.random() * 6 - 1);
             randomDest.y += Math.floor(Math.random() * 6 - 1);
