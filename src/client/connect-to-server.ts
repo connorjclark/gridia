@@ -1,9 +1,9 @@
 import { Context } from '../context';
 import { createClientWorldMap } from '../world-map';
 import Client from './client';
-import { Connection, WebSocketConnection, WorkerConnection } from './connection';
+import { WebSocketConnection, WorkerConnection } from './connection';
 
-export async function connect(client: Client, port: number): Promise<Connection> {
+export async function connect(port: number): Promise<Client> {
   const scheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
   const ws = new WebSocket(`${scheme}://${window.location.hostname}:${port}`);
   await new Promise((resolve, reject) => {
@@ -18,11 +18,12 @@ export async function connect(client: Client, port: number): Promise<Connection>
   connection.setOnMessage((message) => {
     client.eventEmitter.emit('message', message);
   });
-  client.context = new Context(createClientWorldMap(connection));
-  return connection;
+  const context = new Context(createClientWorldMap(connection));
+  const client = new Client(connection, context);
+  return client;
 }
 
-export async function openAndConnectToServerWorker(client: Client, opts: OpenAndConnectToServerOpts) {
+export async function openAndConnectToServerWorker(opts: OpenAndConnectToServerOpts): Promise<Client> {
   const serverWorker = new Worker('../server/run-worker.ts');
 
   serverWorker.postMessage({
@@ -39,11 +40,10 @@ export async function openAndConnectToServerWorker(client: Client, opts: OpenAnd
   });
 
   const connection = new WorkerConnection(serverWorker);
-
   connection.setOnMessage((message) => {
     client.eventEmitter.emit('message', message);
   });
-
-  client.context = new Context(createClientWorldMap(connection));
-  return connection;
+  const context = new Context(createClientWorldMap(connection));
+  const client = new Client(connection, context);
+  return client;
 }

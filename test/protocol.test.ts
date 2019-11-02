@@ -29,18 +29,18 @@ async function send(message) {
 }
 
 beforeEach(async () => {
-  client = new Client();
   const worldMap = new WorldMap();
   const partition = mapgen(20, 20, 1, true);
   worldMap.addPartition(0, partition);
-  const serverAndConnection = await openAndConnectToServerInMemory(client, {
+  const memoryServerData = await openAndConnectToServerInMemory({
     serverData: '/', // ?
     dummyDelay: 0,
     verbose: false,
-    context: new ServerContext(worldMap, ''),
+    serverContext: new ServerContext(worldMap, ''),
   });
-  connection = serverAndConnection.connection;
-  server = serverAndConnection.server;
+  client = memoryServerData.client;
+  connection = client.connection;
+  server = memoryServerData.server;
 
   server.context.savePlayer = () => Promise.resolve();
 

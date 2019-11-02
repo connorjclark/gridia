@@ -9,12 +9,10 @@ interface Settings {
 }
 
 class Client {
-  public connection: Connection;
-  public isAdmin: boolean;
+  public isAdmin = false;
   // TODO: keep references instead?
-  public creatureId: number;
-  public containerId: number;
-  public context: Context;
+  public creatureId = 0;
+  public containerId = 0;
   public eventEmitter = new EventEmitter();
   public settings: Settings = {
     volume: process.env.NODE_ENV === 'production' ? 0.6 : 0,
@@ -24,15 +22,15 @@ class Client {
 
   private _protocol = new ServerToClientProtocol();
 
-  constructor() {
+  constructor(public connection: Connection, public context: Context) {
     this.eventEmitter.on('message', this.handleMessageFromServer.bind(this));
   }
 
   public handleMessageFromServer(message: Message) {
     // if (opts.verbose) console.log('from server', message.type, message.args);
     const onMethodName = 'on' + message.type[0].toUpperCase() + message.type.substr(1);
-    const p = this._protocol[onMethodName];
     // @ts-ignore
+    const p = this._protocol[onMethodName];
     p(this, message.args);
   }
 }

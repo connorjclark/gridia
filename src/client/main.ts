@@ -11,19 +11,6 @@ import MovementClientModule from './modules/movement-module';
 import SettingsClientModule from './modules/settings-module';
 import SkillsClientModule from './modules/skills-module';
 
-const client = new Client();
-
-// @ts-ignore - for debugging
-window.Gridia = {
-  client,
-  item(itemType: number) {
-    console.log(Content.getMetaItem(itemType));
-    console.log('tool', Content.getItemUsesForTool(itemType));
-    console.log('focus', Content.getItemUsesForFocus(itemType));
-    console.log('product', Content.getItemUsesForProduct(itemType));
-  },
-};
-
 function globalActionCreator(tile: Tile, loc: TilePoint): GameAction[] {
   const item = tile.item;
   const meta = Content.getMetaItem(item ? item.type : 0);
@@ -81,7 +68,7 @@ function globalActionCreator(tile: Tile, loc: TilePoint): GameAction[] {
   return actions;
 }
 
-function globalOnActionHandler(e: GameActionEvent) {
+function globalOnActionHandler(client: Client, e: GameActionEvent) {
   const type = e.action.type;
   const {creature, loc} = e;
 
@@ -113,7 +100,7 @@ function globalOnActionHandler(e: GameActionEvent) {
   }
 }
 
-async function createConnection() {
+function createClient() {
   let connectOverSocket = !window.location.hostname.includes('localhost');
   if (window.location.search.includes('server')) {
     connectOverSocket = true;
@@ -122,27 +109,39 @@ async function createConnection() {
   }
 
   if (connectOverSocket) {
-    client.connection = await connect(client, 9001);
-    // TODO: better 'verbose' / logging (make a logger class).
-    console.log('For debugging:\nwindow.Gridia.verbose = true;');
-    return;
+    return connect(9001);
   }
 
-  const connection = await openAndConnectToServerWorker(client, {
+  return openAndConnectToServerWorker({
     serverData: '/',
     dummyDelay: 20,
     verbose: false,
   });
+}
 
-  client.connection = connection;
+function setupDebugging(client: Client) {
   // @ts-ignore
-  window.Gridia.serverWorker = connection._worker;
+  window.Gridia = {
+    client,
+    item(itemType: number) {
+      console.log(Content.getMetaItem(itemType));
+      console.log('tool', Content.getItemUsesForTool(itemType));
+      console.log('focus', Content.getItemUsesForFocus(itemType));
+      console.log('product', Content.getItemUsesForProduct(itemType));
+    },
+  };
+
+  // TODO: better 'verbose' / logging (make a logger class).
+  console.log('For debugging:\nwindow.Gridia.verbose = true;');
+  // @ts-ignore
+  window.Gridia.serverWorker = client.connection._worker;
   // TODO: this doesn't work anymore.
   // console.log('For debugging:\nwindow.Gridia.server.verbose = true;');
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await createConnection();
+  const client = await createClient();
+  setupDebugging(client);
 
   const registerBtn = Helper.find('.register-btn');
   const registerNameEl = Helper.find('#register--name') as HTMLInputElement;
@@ -180,7 +179,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     gameSingleton.addModule(new moduleClass(gameSingleton));
   }
   gameSingleton.addActionCreator(globalActionCreator);
-  client.eventEmitter.on('action', globalOnActionHandler);
+  client.eventEmitter.on('action', globalOnActionHandler.bind(globalOnActionHandler, client));
 
   gameSingleton.start();
   // @ts-ignore
