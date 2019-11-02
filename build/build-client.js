@@ -52,4 +52,4 @@ async function main() {
   copyFolderRecursiveSync("world", path.join("dist", "client"));
 }
 
-main();
+main().catch(console.error);
