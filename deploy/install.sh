@@ -2,7 +2,8 @@
 
 NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-nvm install 12
+NODE_VERSION=$(node -e 'console.log(require("./package.json").engines.node)')
+nvm install $NODE_VERSION
 
 set -ex
 
