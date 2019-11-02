@@ -234,8 +234,7 @@ class Game {
   // TODO: No action creators use `loc` - remove?
   public getActionsFor(tile: Tile, loc: TilePoint, opts?: {onlyCreature: boolean}): GameAction[] {
     const actions = [];
-    // https://github.com/microsoft/TypeScript/issues/34109
-    const tileToUse = (opts?.onlyCreature) ? {creature: tile.creature, floor: 0} : tile;
+    const tileToUse = opts?.onlyCreature ? {creature: tile.creature, floor: 0} : tile;
 
     for (const actionCreator of this.actionCreators) {
       const action = actionCreator(tileToUse, loc);
