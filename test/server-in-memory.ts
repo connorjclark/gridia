@@ -9,7 +9,6 @@ import ClientConnection from '../src/server/client-connection';
 import Server from '../src/server/server';
 import { ServerContext } from '../src/server/server-context';
 import { createClientWorldMap } from '../src/world-map';
-import createDebugWorldMap from '../src/world-map-debug';
 
 class MemoryConnection extends Connection {
   constructor(private _clientConnection: ClientConnection) {
@@ -27,10 +26,9 @@ class MemoryConnection extends Connection {
 export async function openAndConnectToServerInMemory(
   opts: OpenAndConnectToServerOpts & {serverContext: ServerContext}) {
 
-  const worldMap = createDebugWorldMap();
   const { verbose, serverContext } = opts;
   const server = new Server({
-    context: serverContext ? serverContext : new ServerContext(worldMap),
+    context: serverContext,
     verbose,
   });
 
