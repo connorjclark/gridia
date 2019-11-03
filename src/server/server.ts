@@ -499,6 +499,7 @@ export default class Server {
         // performance.mark(`${message.type}-start`);
         try {
           const onMethodName = 'on' + message.type[0].toUpperCase() + message.type.substr(1);
+          // @ts-ignore
           const ret = this._clientToServerProtocol[onMethodName](this, message.args);
           // TODO: some message handlers are async ... is that bad?
           if (ret) await ret;

@@ -3,7 +3,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "target": "ES2018",
-    // "strict": true,
+    "strict": true,
     "diagnostics": true,
     "sourceMap": true,
     "allowJs": true,

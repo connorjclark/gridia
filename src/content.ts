@@ -51,7 +51,9 @@ export class ItemWrapper {
 }
 
 export function getFloors(): number[] {
-  return Array.apply(null, {length: 600}).map(Number.call, Number);
+  const floors = new Array(600);
+  for (let i = 0; i < floors.length; i++) floors[i] = i;
+  return floors;
 }
 
 export function getMetaItems(): MetaItem[] {

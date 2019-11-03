@@ -192,8 +192,8 @@ function mouseToWorld(pm: ScreenPoint): ScreenPoint {
 class Game {
   public state: UIState;
   public keys: Record<number, boolean> = {};
-  protected app: PIXI.Application;
-  protected canvasesEl: HTMLElement;
+  protected app = new PIXI.Application();
+  protected canvasesEl = Helper.find('#canvases');
   protected containers: Record<string, PIXI.Container> = {};
   protected windows: Draw.GridiaWindow[] = [];
   protected itemMovingState?: ItemMoveBeginEvent;
@@ -220,6 +220,8 @@ class Game {
       elapsedFrames: 0,
       selectedView: {},
     };
+
+    PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
   }
 
   public addModule(clientModule: ClientModule) {
@@ -272,10 +274,6 @@ class Game {
       }
     });
 
-    PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
-    this.app = new PIXI.Application();
-
-    this.canvasesEl = Helper.find('#canvases');
     this.canvasesEl.appendChild(this.app.view);
 
     PIXI.Loader.shared
@@ -385,12 +383,15 @@ class Game {
       ContextMenu.openForTile(mouse, tile);
     });
 
+    // TODO: touch doesn't really work well.
     let longTouchTimer: NodeJS.Timeout | null = null;
     this.canvasesEl.addEventListener('touchstart', (e) => {
       e.preventDefault();
       if (longTouchTimer) return;
       longTouchTimer = setTimeout(() => {
-        const mouse = { x: e.targetTouches.item(0).pageX, y: e.targetTouches.item(0).pageY };
+        const touch = e.targetTouches.item(0);
+        if (!touch) return;
+        const mouse = { x: touch.pageX, y: touch.pageY };
         const tile = worldToTile(mouseToWorld(mouse));
         ContextMenu.openForTile(mouse, tile);
         longTouchTimer = null;

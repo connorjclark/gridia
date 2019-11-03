@@ -10,8 +10,8 @@ export class Context {
     this.map = map;
   }
 
-  // TODO how to handle when creature does not exist?
   public getCreature(id: number): Creature {
+    // @ts-ignore: how to handle when creature does not exist?
     return this.creatures.get(id);
   }
 
