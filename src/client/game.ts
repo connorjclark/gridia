@@ -382,7 +382,7 @@ class Game {
       ContextMenu.openForTile(mouse, tile);
     });
 
-    let longTouchTimer = null;
+    let longTouchTimer: NodeJS.Timeout | null = null;
     this.canvasesEl.addEventListener('touchstart', (e) => {
       e.preventDefault();
       if (longTouchTimer) return;
@@ -408,6 +408,7 @@ class Game {
       if (!this.client.context.map.inBounds(point)) return;
       const item = this.client.context.map.getItem(point);
       if (!item || !item.type) return;
+      if (!this.state.mouse.tile) return;
 
       this.client.eventEmitter.emit('itemMoveBegin', {
         source: 0,
@@ -733,7 +734,7 @@ class Game {
 
     // Draw highlight over selected view.
     const selectedViewLoc = this.state.selectedView.creatureId ?
-    this.client.context.getCreature(this.state.selectedView.creatureId).pos :
+      this.client.context.getCreature(this.state.selectedView.creatureId).pos :
       this.state.selectedView.tile;
     if (selectedViewLoc) {
       const highlight = Draw.makeHighlight(0xffff00, 0.2);
@@ -744,7 +745,7 @@ class Game {
       // If item is the selected view, draw selected tool if usable.
       if (!this.state.selectedView.creatureId) {
         const tool = Helper.getSelectedTool();
-        const selectedItem = this.client.context.map.getItem(this.state.selectedView.tile);
+        const selectedItem = this.client.context.map.getItem(selectedViewLoc);
         if (tool && selectedItem && Helper.usageExists(tool.type, selectedItem.type)) {
           const itemSprite = Draw.makeItemSprite({type: tool.type, quantity: 1});
           itemSprite.anchor.x = itemSprite.anchor.y = 0.5;
