@@ -1,15 +1,15 @@
 import { MINE } from '../constants';
 import * as Content from '../content';
-import Player from '../player';
 import Server from '../server/server';
 import * as Utils from '../utils';
-import * as Protocol from './gen/client-to-server-protocol';
+import IClientToServerProtocol from './gen/client-to-server-protocol';
 import * as ProtocolBuilder from './server-to-client-protocol-builder';
+import Params = ClientToServerProtocol.Params;
 
 export const ItemSourceWorld = 0;
 
-export default class ClientToServerProtocol implements Protocol.ClientToServerProtocol {
-  public onMove(server: Server, { ...loc }: Protocol.MoveParams): void {
+export default class ClientToServerProtocol implements IClientToServerProtocol {
+  public onMove(server: Server, { ...loc }: Params.Move): void {
     if (!server.context.map.inBounds(loc)) {
       return;
     }
@@ -41,7 +41,7 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
     server.moveCreature(creature, loc);
   }
 
-  public onRegister(server: Server, { name }: Protocol.RegisterParams): void {
+  public onRegister(server: Server, { name }: Params.Register): void {
     if (server.currentClientConnection.player) return;
     if (name.length > 20) return;
 
@@ -50,7 +50,7 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
     });
   }
 
-  public async onRequestContainer(server: Server, { containerId, loc }: Protocol.RequestContainerParams) {
+  public async onRequestContainer(server: Server, { containerId, loc }: Params.RequestContainer) {
     if (!containerId && !loc) throw new Error('expected containerId or loc');
     if (containerId && loc) throw new Error('expected only one of containerId or loc');
 
@@ -73,21 +73,21 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
     server.reply(ProtocolBuilder.container(container));
   }
 
-  public onCloseContainer(server: Server, { containerId }: Protocol.CloseContainerParams): void {
+  public onCloseContainer(server: Server, { containerId }: Params.CloseContainer): void {
     const index = server.currentClientConnection.registeredContainers.indexOf(containerId);
     if (index !== -1) {
       server.currentClientConnection.registeredContainers.splice(index, 1);
     }
   }
 
-  public onRequestCreature(server: Server, { id }: Protocol.RequestCreatureParams): void {
+  public onRequestCreature(server: Server, { id }: Params.RequestCreature): void {
     server.reply(ProtocolBuilder.setCreature({
       partial: false,
       ...server.context.getCreature(id),
     }));
   }
 
-  public onRequestPartition(server: Server, { w }: Protocol.RequestPartitionParams): void {
+  public onRequestPartition(server: Server, { w }: Params.RequestPartition): void {
     const partition = server.context.map.getPartition(w);
     server.reply(ProtocolBuilder.initializePartition({
       w,
@@ -97,7 +97,7 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
     }));
   }
 
-  public async onRequestSector(server: Server, { ...loc }: Protocol.RequestSectorParams) {
+  public async onRequestSector(server: Server, { ...loc }: Params.RequestSector) {
     const isClose = true; // TODO
     if (loc.x < 0 || loc.y < 0 || loc.z < 0 || !isClose) {
       return;
@@ -111,7 +111,7 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
     }));
   }
 
-  public onTame(server: Server, { creatureId }: Protocol.TameParams): void {
+  public onTame(server: Server, { creatureId }: Params.Tame): void {
     const creature = server.context.getCreature(creatureId);
     const isClose = true; // TODO
     if (!isClose) {
@@ -125,7 +125,7 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
     server.broadcastPartialCreatureUpdate(creature, ['tamedBy']);
   }
 
-  public onUse(server: Server, { toolIndex, loc, usageIndex }: Protocol.UseParams): void {
+  public onUse(server: Server, { toolIndex, loc, usageIndex }: Params.Use): void {
     if (!server.context.map.inBounds(loc)) {
       return;
     }
@@ -180,7 +180,7 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
     }
   }
 
-  public onAdminSetFloor(server: Server, { floor, ...loc }: Protocol.AdminSetFloorParams): void {
+  public onAdminSetFloor(server: Server, { floor, ...loc }: Params.AdminSetFloor): void {
     if (!server.currentClientConnection.player.isAdmin) return;
 
     if (!server.context.map.inBounds(loc)) {
@@ -190,7 +190,7 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
     server.setFloor(loc, floor);
   }
 
-  public onAdminSetItem(server: Server, { item, ...loc }: Protocol.AdminSetItemParams): void {
+  public onAdminSetItem(server: Server, { item, ...loc }: Params.AdminSetItem): void {
     if (!server.currentClientConnection.player.isAdmin) return;
 
     if (!server.context.map.inBounds(loc)) {
@@ -205,7 +205,7 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
   // Note, containers have a fixed y value of 0. If "to" is null for a container, no location
   // is specified and the item will be place in the first viable slot.
   // TODO - better name than "source"? Maybe just generalize to "Container" where 0 refers to world?
-  public async onMoveItem(server: Server, { from, fromSource, to, toSource }: Protocol.MoveItemParams) {
+  public async onMoveItem(server: Server, { from, fromSource, to, toSource }: Params.MoveItem) {
     async function boundsCheck(source: number, loc?: TilePoint) {
       if (source === ItemSourceWorld) {
         if (!loc) throw new Error('invariant violated');

@@ -5,10 +5,11 @@ import * as Content from '../content';
 import * as Utils from '../utils';
 import { ItemSourceWorld } from './client-to-server-protocol';
 import * as ProtocolBuilder from './client-to-server-protocol-builder';
-import * as Protocol from './gen/server-to-client-protocol';
+import IServerToClientProtocol from './gen/server-to-client-protocol';
+import Params = ServerToClientProtocol.Params;
 
-export default class ServerToClientProtocol implements Protocol.ServerToClientProtocol {
-  public onAnimation(client: Client, { key, ...loc }: Protocol.AnimationParams): void {
+export default class ServerToClientProtocol implements IServerToClientProtocol {
+  public onAnimation(client: Client, { key, ...loc }: Params.Animation): void {
     const animationData = Content.getAnimation(key);
     if (!animationData) throw new Error('no animation found: ' + key);
     if (client.settings.volume === 0) return;
@@ -19,11 +20,11 @@ export default class ServerToClientProtocol implements Protocol.ServerToClientPr
     }
   }
 
-  public onContainer(client: Client, { ...container }: Protocol.ContainerParams): void {
+  public onContainer(client: Client, { ...container }: Params.Container): void {
     client.context.containers.set(container.id, new Container(container.id, container.items));
   }
 
-  public onInitialize(client: Client, { isAdmin, creatureId, containerId, skills }: Protocol.InitializeParams): void {
+  public onInitialize(client: Client, { isAdmin, creatureId, containerId, skills }: Params.Initialize): void {
     client.isAdmin = isAdmin;
     client.creatureId = creatureId;
     client.containerId = containerId;
@@ -32,19 +33,19 @@ export default class ServerToClientProtocol implements Protocol.ServerToClientPr
     }
   }
 
-  public onInitializePartition(client: Client, { ...pos }: Protocol.InitializePartitionParams): void {
+  public onInitializePartition(client: Client, { ...pos }: Params.InitializePartition): void {
     client.context.map.initPartition(pos.w, pos.x, pos.y, pos.z);
   }
 
-  public onLog(client: Client, { msg }: Protocol.LogParams): void {
+  public onLog(client: Client, { msg }: Params.Log): void {
     console.log(msg);
   }
 
-  public onRemoveCreature(client: Client, { id }: Protocol.RemoveCreatureParams): void {
+  public onRemoveCreature(client: Client, { id }: Params.RemoveCreature): void {
     client.context.removeCreature(id);
   }
 
-  public onSector(client: Client, { tiles, ...pos }: Protocol.SectorParams): void {
+  public onSector(client: Client, { tiles, ...pos }: Params.Sector): void {
     client.context.map.getPartition(pos.w).sectors[pos.x][pos.y][pos.z] = tiles;
 
     for (const row of tiles) {
@@ -60,7 +61,7 @@ export default class ServerToClientProtocol implements Protocol.ServerToClientPr
     }
   }
 
-  public onSetCreature(client: Client, { partial, ...partialCreature }: Protocol.SetCreatureParams): void {
+  public onSetCreature(client: Client, { partial, ...partialCreature }: Params.SetCreature): void {
     const id = partialCreature.id;
     // TODO: fix in types?
     if (!id) throw new Error('id must exist');
@@ -84,11 +85,11 @@ export default class ServerToClientProtocol implements Protocol.ServerToClientPr
     Object.assign(creature, partialCreature);
   }
 
-  public onSetFloor(client: Client, { floor, ...loc }: Protocol.SetFloorParams): void {
+  public onSetFloor(client: Client, { floor, ...loc }: Params.SetFloor): void {
     client.context.map.getTile(loc).floor = floor;
   }
 
-  public onSetItem(client: Client, { item, source, ...loc }: Protocol.SetItemParams): void {
+  public onSetItem(client: Client, { item, source, ...loc }: Params.SetItem): void {
     if (source === ItemSourceWorld) {
       client.context.map.getTile(loc).item = item;
     } else {
@@ -99,7 +100,7 @@ export default class ServerToClientProtocol implements Protocol.ServerToClientPr
     }
   }
 
-  public onXp(client: Client, { skill, xp }: Protocol.XpParams): void {
+  public onXp(client: Client, { skill, xp }: Params.Xp): void {
     const currentXp = client.skills.get(skill) || 0;
     client.skills.set(skill, currentXp + xp);
   }
