@@ -313,8 +313,7 @@ export default class Server {
     });
   }
 
-  // TODO: make "item" required, and use "setItemInContainer" to set null items.
-  public addItemToContainer(id: number, index?: number, item?: Item) {
+  public addItemToContainer(id: number, index: number | undefined, item: Item) {
     const container = this.context.containers.get(id);
     if (!container) throw new Error('no container: ' + id);
 
@@ -329,7 +328,7 @@ export default class Server {
           firstOpenSlot = i;
         }
         const containerItem = container.items[i];
-        if (item && containerItem && containerItem.type === item.type) {
+        if (containerItem && containerItem.type === item.type) {
           firstStackableSlot = i;
           break;
         }
@@ -337,6 +336,7 @@ export default class Server {
 
       if (firstStackableSlot !== null) {
         index = firstStackableSlot;
+        // @ts-ignore: verified to exist
         item.quantity += container.items[firstStackableSlot].quantity;
       } else if (firstOpenSlot !== null) {
         index = firstOpenSlot;

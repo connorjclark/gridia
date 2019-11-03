@@ -230,12 +230,20 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
       }
     }
 
-    function setItem(source: number, loc?: TilePoint, item?: Item) {
+    function setItem(source: number, loc: TilePoint | undefined, item: Item) {
       if (source === ItemSourceWorld) {
         if (!loc) throw new Error('invariant violated');
         server.setItem(loc, item);
       } else {
-        server.addItemToContainer(source, loc ? loc.x : undefined, item);
+        server.addItemToContainer(source, loc?.x, item);
+      }
+    }
+
+    function clearItem(source: number, loc: TilePoint) {
+      if (source === ItemSourceWorld) {
+        server.setItem(loc, undefined);
+      } else {
+        server.setItemInContainer(source, loc.x, undefined);
       }
     }
 
@@ -278,7 +286,7 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
       fromItem.quantity += toItem.quantity;
     }
 
-    setItem(fromSource, from, undefined);
+    clearItem(fromSource, from);
     setItem(toSource, to, fromItem);
 
     // TODO queue changes and send to all clients.
