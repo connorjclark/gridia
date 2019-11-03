@@ -18,7 +18,7 @@ interface CtorOpts {
 }
 
 interface RegisterOpts {
-  player: Player;
+  name: string;
   // password: string;
 }
 
@@ -99,9 +99,17 @@ export default class Server {
   }
 
   public async registerPlayer(clientConnection: ClientConnection, opts: RegisterOpts) {
-    const {player} = opts;
-
     const pos = {w: 0, x: Utils.randInt(0, 10), y: Utils.randInt(0, 10), z: 0};
+    const creature = this.registerCreature({
+      id: this.context.nextCreatureId++,
+      name: opts.name,
+      pos,
+      image: Utils.randInt(0, 10),
+      isPlayer: true,
+    });
+
+    const player = new Player(creature);
+    player.name = opts.name;
 
     // Make sure sector is loaded. Prevents hidden creature (race condition, happens often in worker).
     await this.ensureSectorLoadedForPoint(pos);

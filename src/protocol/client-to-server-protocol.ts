@@ -46,10 +46,7 @@ export default class ClientToServerProtocol implements Protocol.ClientToServerPr
     if (name.length > 20) return;
 
     server.registerPlayer(server.currentClientConnection, {
-      player: Object.assign(new Player(), {
-        isAdmin: true,
-        name,
-      }),
+      name,
     });
   }
 
