@@ -11,8 +11,8 @@ let skills: Skill[] = [];
 // Until then, we do this hack to at least cut the content data out
 // of the web client code. Parcel 2 will support this.
 
-// Only the node server entry uses this.
-export function loadContentFromDisk() {
+// Only the node server entry / tests uses this.
+function loadContentFromDisk() {
   // Make the path dynamically so parcel doesn't bundle the data.
   const prefix = '../world/content';
 
@@ -37,6 +37,10 @@ export async function loadContentFromNetwork() {
     fetch('world/content/skills.json').then((r) => r.json()),
   ]);
   prepareData();
+}
+
+if (typeof process !== 'undefined' && process.release && process.release.name === 'node') {
+  loadContentFromDisk();
 }
 
 function prepareData() {

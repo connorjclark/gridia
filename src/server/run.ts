@@ -3,12 +3,9 @@ import * as http from 'http';
 import * as https from 'https';
 import {Server as WebSocketServer} from 'ws';
 import * as yargs from 'yargs';
-import * as Content from '../content';
 import ClientConnection from './client-connection';
 import { startServer } from './create-server';
 import Server from './server';
-
-Content.loadContentFromDisk();
 
 async function main(options: CLIOptions) {
   const {port, ssl} = options;
