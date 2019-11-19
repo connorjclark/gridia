@@ -1,15 +1,58 @@
 // TODO: this json is bundled as JS - but it's much faster to parse
 // JSON at runtime via JSON.parse than as a JS object literal.
 // https://github.com/parcel-bundler/parcel/issues/501
-const items: MetaItem[] = require('../world/content/items.json');
-const itemUses: ItemUse[] = require('../world/content/itemuses.json');
-const animations: Animation[] = require('../world/content/animations.json');
-const monsters: Monster[] = require('../world/content/monsters.json');
-const skills: Skill[] = require('../world/content/skills.json');
+let items: MetaItem[] = [];
+let itemUses: ItemUse[] = [];
+let animations: Animation[] = [];
+let monsters: Monster[] = [];
+let skills: Skill[] = [];
 
-for (const animation of animations) {
-  for (const frame of animation.frames) {
-    if (frame.sound) frame.sound = frame.sound.toLowerCase();
+// Parcel doesn't support dynamic imports for workers yet.
+// Until then, we do this hack to at least cut the content data out
+// of the web client code. Parcel 2 will support this.
+
+// Only the node server entry uses this.
+export function loadContentFromDisk() {
+  // Make the path dynamically so parcel doesn't bundle the data.
+  const prefix = '../world/content';
+
+  [items, itemUses, animations, monsters, skills] = [
+    require(`${prefix}/items.json`),
+    require(`${prefix}/itemuses.json`),
+    require(`${prefix}/animations.json`),
+    require(`${prefix}/monsters.json`),
+    require(`${prefix}/skills.json`),
+  ];
+  prepareData();
+}
+
+// Web client and worker entry uses this.
+export async function loadContentFromNetwork() {
+  // @ts-ignore
+  [items, itemUses, animations, monsters, skills] = await Promise.all([
+    fetch('world/content/items.json').then((r) => r.json()),
+    fetch('world/content/itemuses.json').then((r) => r.json()),
+    fetch('world/content/animations.json').then((r) => r.json()),
+    fetch('world/content/monsters.json').then((r) => r.json()),
+    fetch('world/content/skills.json').then((r) => r.json()),
+  ]);
+  prepareData();
+}
+
+function prepareData() {
+  for (const animation of animations) {
+    for (const frame of animation.frames) {
+      if (frame.sound) frame.sound = frame.sound.toLowerCase();
+    }
+  }
+
+  for (const use of itemUses) {
+    // @ts-ignore
+    use.toolName = getName(use.tool);
+    // @ts-ignore
+    use.focusName = getName(use.focus);
+    // @ts-ignore
+    use.productNames = use.products.map((product) => getName(product.type));
   }
 }
 
@@ -17,14 +60,6 @@ for (const animation of animations) {
 function getName(id: number) {
   if (id === -1) return 'Hand';
   return getMetaItem(id).name;
-}
-for (const use of itemUses) {
-  // @ts-ignore
-  use.toolName = getName(use.tool);
-  // @ts-ignore
-  use.focusName = getName(use.focus);
-  // @ts-ignore
-  use.productNames = use.products.map((product) => getName(product.type));
 }
 
 export class ItemWrapper {

@@ -155,6 +155,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }));
   });
 
+  await Content.loadContentFromNetwork();
+
   // Wait for initialize message. This happens after a successful login.
   await new Promise((resolve, reject) => {
     client.eventEmitter.once('message', (e) => {

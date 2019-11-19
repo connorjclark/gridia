@@ -1,3 +1,4 @@
+import * as Content from '../content';
 import * as fs from '../iso-fs';
 import Server from '../server/server';
 import { ServerContext } from '../server/server-context';

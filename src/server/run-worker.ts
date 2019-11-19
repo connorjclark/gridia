@@ -1,3 +1,4 @@
+import * as Content from '../content';
 import ClientConnection from './client-connection';
 import { startServer } from './create-server';
 import Server from './server';
@@ -15,6 +16,8 @@ function maybeDelay(fn: () => void) {
 }
 
 async function start() {
+  await Content.loadContentFromNetwork();
+
   clientConnection = new ClientConnection();
   clientConnection.send = (message) => {
     maybeDelay(() => {
