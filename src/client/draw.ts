@@ -14,7 +14,7 @@ export class GridiaWindow {
   public contents: PIXI.Container;
   private _onDraw?: () => void;
 
-  private _draggingState?: {downAt: Point2, startingPosition: Point2};
+  private _draggingState?: { downAt: Point2, startingPosition: Point2 };
 
   constructor() {
     this.pixiContainer = new PIXI.Container();
@@ -119,10 +119,10 @@ for (let i = 0; i < 27; i++) {
   ResourceKeys.items.push(`./world/items/items${i}.png`);
 }
 
-function convertToPixiLoaderEntries(keys: Record<string, string>): Array<{key: string, url: string}> {
+function convertToPixiLoaderEntries(keys: Record<string, string>): Array<{ key: string, url: string }> {
   const entries = [];
   for (const [key, url] of Object.entries(keys)) {
-    entries.push({key: key.toLowerCase(), url});
+    entries.push({ key: key.toLowerCase(), url });
   }
   return entries;
 }
@@ -207,7 +207,7 @@ export function getCanvasSize() {
   const canvasesEl = Helper.find('#canvases');
   // BoundingClientRect includes the border - which we don't want.
   // It causes an ever-increasing canvas on window resize.
-  return {width: canvasesEl.clientWidth, height: canvasesEl.clientHeight};
+  return { width: canvasesEl.clientWidth, height: canvasesEl.clientHeight };
 }
 
 export function makeItemContainerWindow(container: Container): ContainerWindow {
@@ -314,7 +314,7 @@ export function makeUsageWindow(tool: Item, focus: Item, usages: ItemUse[], loc:
 
   window.contents
     .on('pointerdown', (e: PIXI.interaction.InteractionEvent) => {
-      const {x, y} = e.data.getLocalPosition(e.target);
+      const { x, y } = e.data.getLocalPosition(e.target);
       const index = Math.floor(x / 32) + Math.floor(y / 32) * 10;
       close();
       Helper.useTool(loc, index);
@@ -339,7 +339,7 @@ export function makeHighlight(color: number, alpha: number) {
   return highlight;
 }
 
-export function makeItemSprite(item: Item) {
+export function makeItemTemplate(item: Item) {
   const meta = Content.getMetaItem(item.type);
   let texture = 1;
   if (meta.animations) {
@@ -351,16 +351,24 @@ export function makeItemSprite(item: Item) {
     }
   }
   const imgHeight = meta.imageHeight || 1;
-  const sprite = new PIXI.Sprite(getTexture.items(texture, 1, imgHeight));
-  sprite.anchor.y = (imgHeight - 1) / imgHeight;
+  return getTexture.items(texture, 1, imgHeight);
+}
 
+export function makeItemQuantity(quantity: number) {
+  return text(quantity.toString(), {
+    fontSize: 14,
+    stroke: 0xffffff,
+    strokeThickness: 4,
+  });
+}
+
+export function makeItemSprite(item: Item) {
+  const tex = makeItemTemplate(item);
+  const sprite = new PIXI.Sprite(tex);
+  // TODO: something like this would allow for tall item in inventory. but unclear if that is a good idea.
+  // sprite.anchor.y = (imgHeight - 1) / imgHeight;
   if (item.quantity !== 1) {
-    const qty = text(item.quantity.toString(), {
-      fontSize: 14,
-      stroke: 0xffffff,
-      strokeThickness: 4,
-    });
-    sprite.addChild(qty);
+    sprite.addChild(makeItemQuantity(item.quantity));
   }
   return sprite;
 }

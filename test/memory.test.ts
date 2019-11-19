@@ -2,6 +2,7 @@ import { ChildProcess, spawn } from 'child_process';
 import * as puppeteer from 'puppeteer';
 
 const DEBUG = Boolean(process.env.DEBUG);
+const CI = Boolean(process.env.CI);
 const QUERY = Boolean(process.env.QUERY);
 
 jest.setTimeout((QUERY ? 200 : 100) * 1000);
@@ -148,7 +149,10 @@ describe('Check for memory leaks', () => {
     detect(memory);
   });
 
-  it.skip('in game', async () => {
+  it('in game', async () => {
+    // Takes too long, so just run if debugging.
+    if (!DEBUG) return;
+
     await page.waitFor(2000);
     await page.$eval('.register--form input', (input: HTMLInputElement) => input.value = '');
     await page.type('.register--form input', 'player');

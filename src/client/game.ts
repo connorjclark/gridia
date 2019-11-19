@@ -194,7 +194,8 @@ class Game {
   public keys: Record<number, boolean> = {};
   protected app = new PIXI.Application();
   protected canvasesEl = Helper.find('#canvases');
-  protected containers: Record<string, PIXI.Container> = {};
+  protected world = new PIXI.Container();
+  protected layers: Record<string, PIXI.Graphics> = {};
   protected windows: Draw.GridiaWindow[] = [];
   protected itemMovingState?: ItemMoveBeginEvent;
   protected mouseHasMovedSinceItemMoveBegin = false;
@@ -284,11 +285,11 @@ class Game {
   }
 
   public onLoad() {
-    const world = this.containers.world = new PIXI.Container();
+    const world = this.world = new PIXI.Container();
     this.app.stage.addChild(world);
-    world.addChild(this.containers.floorLayer = new PIXI.Container());
-    world.addChild(this.containers.itemAndCreatureLayer = new PIXI.Container());
-    world.addChild(this.containers.topLayer = new PIXI.Container());
+    world.addChild(this.layers.floorLayer = new PIXI.Graphics());
+    world.addChild(this.layers.itemAndCreatureLayer = new PIXI.Graphics());
+    world.addChild(this.layers.topLayer = new PIXI.Graphics());
 
     this.modules.forEach((clientModule) => clientModule.onStart());
 
@@ -304,17 +305,17 @@ class Game {
   }
 
   public trip() {
-    const filtersBefore = this.containers.itemAndCreatureLayer.filters;
+    const filtersBefore = this.layers.itemAndCreatureLayer.filters;
     const filter = new OutlineFilter(0, 0, 1);
     const start = performance.now();
-    this.containers.itemAndCreatureLayer.filters = [filter];
+    this.layers.itemAndCreatureLayer.filters = [filter];
     const handle = setInterval(() => {
       const multiplier = 0.5 + Math.cos((performance.now() - start) / 1000) / 2;
       filter.thickness = 2 + multiplier * 3;
     }, 100);
     setTimeout(() => {
       clearInterval(handle);
-      this.containers.itemAndCreatureLayer.filters = filtersBefore;
+      this.layers.itemAndCreatureLayer.filters = filtersBefore;
     }, 1000 * 10);
   }
 
@@ -403,9 +404,8 @@ class Game {
       longTouchTimer = null;
     }, false);
 
-    const world = this.containers.world;
-    world.interactive = true;
-    world.on('pointerdown', (e: PIXI.interaction.InteractionEvent) => {
+    this.world.interactive = true;
+    this.world.on('pointerdown', (e: PIXI.interaction.InteractionEvent) => {
       if (this.isEditingMode()) return;
 
       const point = worldToTile(mouseToWorld({ x: e.data.global.x, y: e.data.global.y }));
@@ -420,7 +420,7 @@ class Game {
         item,
       });
     });
-    world.on('pointerup', (e: PIXI.interaction.InteractionEvent) => {
+    this.world.on('pointerup', (e: PIXI.interaction.InteractionEvent) => {
       if (Utils.equalPoints(this.state.mouse.tile, this.getPlayerPosition())) {
         const evt: ItemMoveEndEvent = {
           source: this.client.containerId,
@@ -434,7 +434,7 @@ class Game {
         this.client.eventEmitter.emit('itemMoveEnd', evt);
       }
     });
-    world.on('pointerdown', (e: PIXI.interaction.InteractionEvent) => {
+    this.world.on('pointerdown', (e: PIXI.interaction.InteractionEvent) => {
       if (ContextMenu.isOpen()) {
         ContextMenu.close();
         return;
@@ -544,7 +544,7 @@ class Game {
     this.client.eventEmitter.on('itemMoveBegin', (e: ItemMoveBeginEvent) => {
       this.itemMovingState = e;
       this.mouseHasMovedSinceItemMoveBegin = false;
-      world.once('mousemove', () => {
+      this.world.once('mousemove', () => {
         this.mouseHasMovedSinceItemMoveBegin = true;
       });
     });
@@ -631,109 +631,94 @@ class Game {
     const endTileX = startTileX + tilesWidth;
     const endTileY = startTileY + tilesHeight;
 
-    this.containers.floorLayer.removeChildren();
+    this.layers.floorLayer.clear();
     for (let x = startTileX; x <= endTileX; x++) {
       for (let y = startTileY; y <= endTileY; y++) {
         const floor = partition.getTile({ x, y, z }).floor;
 
-        let sprite;
+        let template;
         if (floor === WATER) {
-          const template = getWaterFloor(partition, { x, y, z });
-          sprite = new PIXI.Sprite(Draw.getTexture.templates(template));
+          const templateIdx = getWaterFloor(partition, { x, y, z });
+          template = Draw.getTexture.templates(templateIdx);
         } else if (floor === MINE) {
-          const template = getMineFloor(partition, { x, y, z });
-          sprite = new PIXI.Sprite(Draw.getTexture.templates(template));
+          const templateIdx = getMineFloor(partition, { x, y, z });
+          template = Draw.getTexture.templates(templateIdx);
         } else {
-          sprite = new PIXI.Sprite(Draw.getTexture.floors(floor));
+          template = Draw.getTexture.floors(floor);
         }
 
-        sprite.x = x * 32;
-        sprite.y = y * 32;
-        this.containers.floorLayer.addChild(sprite);
+        this.layers.floorLayer
+          .beginTextureFill(template)
+          .drawRect(x * 32, y * 32, 32, 32)
+          .endFill();
       }
     }
 
-    // TODO don't recreate all these sprites every frame. First pass here, but it's
-    // is overcomplicated and not worth using yet.
-    // const floorSpritesToRemove = new Set(Object.keys(floorLayer2.pointToSprite));
-    // for (let x = startTileX; x <= endTileX; x++) {
-    //   for (let y = startTileY; y <= endTileY; y++) {
-    //     function makeSprite() {
-    //       let sprite;
-    //       if (floor === 1) {
-    //         const template = getWaterFloor({ x, y });
-    //         sprite = new PIXI.Sprite(getTexture.templates(template));
-    //       } else {
-    //         sprite = new PIXI.Sprite(getTexture.floors(floor));
-    //       }
-
-    //       sprite.x = x * 32;
-    //       sprite.y = y * 32;
-    //       floorLayer2.layer.addChild(sprite);
-    //       floorLayer2.pointToSprite[`${x},${y}`] = {sprite, floor}
-    //       return sprite;
-    //     }
-
-    //     const floor = client.world.getTile({ x, y }).floor;
-
-    //     const currentSprite = floorLayer2.pointToSprite[`${x},${y}`];
-    //     if (currentSprite) {
-    //       floorSpritesToRemove.delete(`${x},${y}`);
-    //       if (floor === currentSprite.floor) {
-    //         continue;
-    //       }
-    //     }
-
-    //     makeSprite();
-    //   }
-    // }
-    // for (const key of floorSpritesToRemove) {
-    //   floorLayer2.pointToSprite[key].sprite.destroy();
-    //   delete floorLayer2.pointToSprite[key];
-    // }
-
-    this.containers.itemAndCreatureLayer.removeChildren();
+    this.layers.itemAndCreatureLayer.clear();
+    this.layers.itemAndCreatureLayer.removeChildren();
     for (let x = startTileX; x <= endTileX; x++) {
       for (let y = startTileY; y <= endTileY; y++) {
         const tile = partition.getTile({ x, y, z });
         if (tile.item) {
-          const itemSprite = Draw.makeItemSprite(tile.item);
-          itemSprite.x = x * 32;
-          itemSprite.y = y * 32;
-          this.containers.itemAndCreatureLayer.addChild(itemSprite);
+          const template = Draw.makeItemTemplate(tile.item);
+          this.layers.itemAndCreatureLayer
+            .beginTextureFill(template)
+            .drawRect(x * 32, y * 32, 32, 32)
+            .endFill();
+
+          if (tile.item.quantity !== 1) {
+            const qty = Draw.makeItemQuantity(tile.item.quantity);
+            // Wrap in a container because text field are memoized and so their
+            // x,y values should never be modified.
+            const ctn = new PIXI.Container();
+            ctn.addChild(qty);
+            ctn.x = x * 32;
+            ctn.y = y * 32;
+            this.layers.itemAndCreatureLayer.addChild(ctn);
+          }
         }
 
         if (tile.creature) {
-          const creatureSprite = new PIXI.Sprite(Draw.getTexture.creatures(tile.creature.image - 1));
-          creatureSprite.x = x * 32;
-          creatureSprite.y = y * 32;
-          this.containers.itemAndCreatureLayer.addChild(creatureSprite);
+          const template = Draw.getTexture.creatures(tile.creature.image - 1);
+          this.layers.itemAndCreatureLayer
+            .beginTextureFill(template)
+            .drawRect(x * 32, y * 32, 32, 32)
+            .endFill();
 
           if (tile.creature.tamedBy) {
-            const circle = new PIXI.Graphics();
-            circle.lineStyle(1, 0x0000FF);
-            circle.drawCircle(16, 16, 16);
-            creatureSprite.addChild(circle);
+            this.layers.itemAndCreatureLayer
+              .lineStyle(1, 0x0000FF)
+              .drawCircle(x * 32 + 16, y * 32 + 16, 16)
+              .lineStyle();
           }
 
-          const label = Draw.pooledText(`creature${tile.creature.id}`, tile.creature.name, {
-            fill: 'white', stroke: 'black', strokeThickness: 3, lineJoin: 'round', fontSize: 16});
-          label.anchor.x = 0.5;
-          label.anchor.y = 1;
-          creatureSprite.addChild(label);
+          // const label = Draw.pooledText(`creature${tile.creature.id}`, tile.creature.name, {
+          //   fill: 'white', stroke: 'black', strokeThickness: 3, lineJoin: 'round', fontSize: 16});
+          // label.anchor.x = 0.5;
+          // label.anchor.y = 1;
+          // creatureSprite.addChild(label);
         }
       }
     }
 
-    this.containers.topLayer.removeChildren();
+    this.layers.topLayer.clear();
+    this.layers.topLayer.removeChildren();
 
     // Draw item being moved.
     if (this.itemMovingState && this.mouseHasMovedSinceItemMoveBegin && this.itemMovingState.item) {
+      // TODO: why doesn't this work?
+      // const template = Draw.makeItemTemplate(this.itemMovingState.item);
+      // const { x, y } = mouseToWorld(this.state.mouse);
+      // this.layers.topLayer
+      //   .beginTextureFill(template)
+      //   .drawRect(x, y, 32, 32)
+      //   .endFill();
+
       const itemSprite = Draw.makeItemSprite(this.itemMovingState.item);
       const { x, y } = mouseToWorld(this.state.mouse);
       itemSprite.x = x - 16;
       itemSprite.y = y - 16;
-      this.containers.topLayer.addChild(itemSprite);
+      this.layers.topLayer.addChild(itemSprite);
     }
 
     // Draw highlight over selected view.
@@ -744,7 +729,7 @@ class Game {
       const highlight = Draw.makeHighlight(0xffff00, 0.2);
       highlight.x = selectedViewLoc.x * 32;
       highlight.y = selectedViewLoc.y * 32;
-      this.containers.topLayer.addChild(highlight);
+      this.layers.topLayer.addChild(highlight);
 
       // If item is the selected view, draw selected tool if usable.
       if (!this.state.selectedView.creatureId) {
@@ -769,8 +754,8 @@ class Game {
       this._currentHoverItemText.visible = false;
     }
 
-    this.containers.world.x = -focusPos.x * 32 + Math.floor(this.app.view.width / 2);
-    this.containers.world.y = -focusPos.y * 32 + Math.floor(this.app.view.height / 2);
+    this.world.x = -focusPos.x * 32 + Math.floor(this.app.view.width / 2);
+    this.world.y = -focusPos.y * 32 + Math.floor(this.app.view.height / 2);
 
     this.modules.forEach((clientModule) => clientModule.onTick());
 
@@ -781,7 +766,7 @@ class Game {
 
   public isOnStage(displayObject: PIXI.DisplayObject) {
     let parent = displayObject.parent;
-    while (parent.parent) {
+    while (parent && parent.parent) {
       parent = parent.parent;
     }
     return parent === this.app.stage;
