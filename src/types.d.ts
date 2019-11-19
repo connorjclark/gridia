@@ -99,6 +99,7 @@ interface UIState {
   viewport: {
     x: number;
     y: number;
+    scale: number;
   };
   mouse: {
     x: number;

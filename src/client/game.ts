@@ -1,4 +1,4 @@
-import {OutlineFilter} from '@pixi/filter-outline';
+import { OutlineFilter } from '@pixi/filter-outline';
 import * as PIXI from 'pixi.js';
 import { MINE, WATER } from '../constants';
 import * as Content from '../content';
@@ -59,7 +59,7 @@ const ContextMenu = {
   },
 };
 
-function addDataToActionEl(actionEl: HTMLElement, opts: {action: GameAction, loc?: TilePoint, creature?: Creature}) {
+function addDataToActionEl(actionEl: HTMLElement, opts: { action: GameAction, loc?: TilePoint, creature?: Creature }) {
   actionEl.classList.add('action');
   actionEl.title = opts.action.title;
   actionEl.innerText = opts.action.innerText;
@@ -154,7 +154,7 @@ function registerPanelListeners() {
     const panelName = targetEl.dataset.panel as string;
     targetEl.classList.toggle('panels__tab--active');
     Helper.find('.panel--' + panelName).classList.toggle('panel--active');
-    game.client.eventEmitter.emit('panelFocusChanged', {panelName});
+    game.client.eventEmitter.emit('panelFocusChanged', { panelName });
   });
 }
 
@@ -184,8 +184,8 @@ function worldToTile(pw: ScreenPoint) {
 
 function mouseToWorld(pm: ScreenPoint): ScreenPoint {
   return {
-    x: pm.x + game.state.viewport.x,
-    y: pm.y + game.state.viewport.y,
+    x: (pm.x + game.state.viewport.x) / game.state.viewport.scale,
+    y: (pm.y + game.state.viewport.y) / game.state.viewport.scale,
   };
 }
 
@@ -204,7 +204,7 @@ class Game {
 
   private _playerCreature?: Creature;
   private _currentHoverItemText =
-    new PIXI.Text('', {fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round'});
+    new PIXI.Text('', { fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round' });
   private _isEditing = false;
 
   constructor(public client: Client) {
@@ -212,6 +212,7 @@ class Game {
       viewport: {
         x: 0,
         y: 0,
+        scale: 1,
       },
       mouse: {
         x: 0,
@@ -238,9 +239,9 @@ class Game {
   }
 
   // TODO: No action creators use `loc` - remove?
-  public getActionsFor(tile: Tile, loc: TilePoint, opts?: {onlyCreature: boolean}): GameAction[] {
+  public getActionsFor(tile: Tile, loc: TilePoint, opts?: { onlyCreature: boolean }): GameAction[] {
     const actions = [];
-    const tileToUse = opts?.onlyCreature ? {creature: tile.creature, floor: 0} : tile;
+    const tileToUse = opts?.onlyCreature ? { creature: tile.creature, floor: 0 } : tile;
 
     for (const actionCreator of this.actionCreators) {
       const action = actionCreator(tileToUse, loc);
@@ -262,7 +263,7 @@ class Game {
     this.client.eventEmitter.on('message', (e) => {
       // Update the selected view, if the item there changed.
       if (e.type === 'setItem' && this.state.selectedView.tile) {
-        const loc = {w: e.args.w, x: e.args.x, y: e.args.y, z: e.args.z};
+        const loc = { w: e.args.w, x: e.args.x, y: e.args.y, z: e.args.z };
         if (Utils.equalPoints(loc, this.state.selectedView.tile)) {
           selectView(this.state.selectedView.tile);
         }
@@ -358,7 +359,7 @@ class Game {
         tile: loc,
       };
       if (this.client.context.map.inBounds(loc)) {
-        this.client.eventEmitter.emit('mouseMovedOverTile', {...loc});
+        this.client.eventEmitter.emit('mouseMovedOverTile', { ...loc });
       }
     });
 
@@ -447,7 +448,7 @@ class Game {
       }
 
       if (this.client.context.map.inBounds(loc)) {
-        this.client.eventEmitter.emit('tileClicked', {...loc});
+        this.client.eventEmitter.emit('tileClicked', { ...loc });
       }
     });
 
@@ -537,6 +538,8 @@ class Game {
     const resize = () => {
       const size = Draw.getCanvasSize();
       this.app.renderer.resize(size.width, size.height);
+      this.state.viewport.scale =
+        navigator.userAgent.includes('Mobile') || navigator.userAgent.includes('Android') ? 2 : 1;
     };
     window.addEventListener('resize', resize);
     resize();
@@ -578,7 +581,7 @@ class Game {
 
     this.client.eventEmitter.on('action', ContextMenu.close);
 
-    this.client.eventEmitter.on('editingMode', ({enabled}) => {
+    this.client.eventEmitter.on('editingMode', ({ enabled }) => {
       this._isEditing = enabled;
     });
 
@@ -591,7 +594,7 @@ class Game {
     Draw.sweepTexts();
 
     const focusPos = this.getPlayerPosition();
-    const {w, z} = focusPos;
+    const { w, z } = focusPos;
     const partition = this.client.context.map.getPartition(w);
 
     if (!this._playerCreature) return;
@@ -619,15 +622,18 @@ class Game {
       window.draw();
     }
 
-    this.state.viewport = {
-      x: focusPos.x * 32 - this.app.view.width / 2,
-      y: focusPos.y * 32 - this.app.view.height / 2,
-    };
+    const TILE_SIZE = this.state.viewport.scale * 32;
+    this.world.scale.x = this.world.scale.y = this.state.viewport.scale;
+    this.world.x = -focusPos.x * TILE_SIZE + Math.floor(this.app.view.width / 2);
+    this.world.y = -focusPos.y * TILE_SIZE + Math.floor(this.app.view.height / 2);
 
-    const tilesWidth = Math.ceil(this.app.view.width / 32);
-    const tilesHeight = Math.ceil(this.app.view.height / 32);
-    const startTileX = Math.floor(this.state.viewport.x / 32);
-    const startTileY = Math.floor(this.state.viewport.y / 32);
+    this.state.viewport.x = focusPos.x * TILE_SIZE - this.app.view.width / 2;
+    this.state.viewport.y = focusPos.y * TILE_SIZE - this.app.view.height / 2;
+
+    const tilesWidth = Math.ceil(this.app.view.width / TILE_SIZE);
+    const tilesHeight = Math.ceil(this.app.view.height / TILE_SIZE);
+    const startTileX = Math.floor(this.state.viewport.x / TILE_SIZE);
+    const startTileY = Math.floor(this.state.viewport.y / TILE_SIZE);
     const endTileX = startTileX + tilesWidth;
     const endTileY = startTileY + tilesHeight;
 
@@ -736,7 +742,7 @@ class Game {
         const tool = Helper.getSelectedTool();
         const selectedItem = this.client.context.map.getItem(selectedViewLoc);
         if (tool && selectedItem && Helper.usageExists(tool.type, selectedItem.type)) {
-          const itemSprite = Draw.makeItemSprite({type: tool.type, quantity: 1});
+          const itemSprite = Draw.makeItemSprite({ type: tool.type, quantity: 1 });
           itemSprite.anchor.x = itemSprite.anchor.y = 0.5;
           highlight.addChild(itemSprite);
         }
@@ -753,9 +759,6 @@ class Game {
     } else {
       this._currentHoverItemText.visible = false;
     }
-
-    this.world.x = -focusPos.x * 32 + Math.floor(this.app.view.width / 2);
-    this.world.y = -focusPos.y * 32 + Math.floor(this.app.view.height / 2);
 
     this.modules.forEach((clientModule) => clientModule.onTick());
 
