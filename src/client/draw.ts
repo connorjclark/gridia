@@ -127,6 +127,45 @@ function convertToPixiLoaderEntries(keys: Record<string, string>): Array<{ key: 
   return entries;
 }
 
+// This is a hacky way to lazily load resources.
+
+const loadQueue: string[] = [];
+const loader = PIXI.Loader.shared;
+const isLoadingResourceKey = new Set<string>();
+const isResourceLoaded = new Set<string>();
+
+function processLoadQueue() {
+  if (!loadQueue.length) return;
+  if (loader.loading) return;
+
+  const queue = [...loadQueue];
+  loadQueue.splice(0, loadQueue.length);
+
+  loader.add(queue).load((_, resources) => {
+    for (const resource of Object.values(resources)) {
+      if (!resource) continue;
+      isLoadingResourceKey.delete(resource.name);
+      isResourceLoaded.add(resource.name);
+    }
+    processLoadQueue();
+  });
+}
+
+function hasResourceLoaded(key: string) {
+  return isResourceLoaded.has(key);
+  // The below doesn't work well - sometimes results in textures never showing. idk why
+  // return loader.resources[key] && loader.resources[key].isComplete && loader.resources[key].texture;
+}
+
+function loadResource(key: string) {
+  if (isLoadingResourceKey.has(key)) return;
+  isLoadingResourceKey.add(key);
+  loadQueue.push(key);
+  setInterval(processLoadQueue, 1);
+}
+
+// End hack.
+
 const SfxKeys = {
   beep: './world/sound/sfx/rpgwo/beep.WAV',
   BlowArrow: './world/sound/sfx/rpgwo/BlowArrow.WAV',
@@ -175,6 +214,12 @@ function makeTextureCache(resourceType: string) {
 
     const textureIndex = Math.floor(type / 100);
     const resourceKey = ResourceKeys[resourceType][textureIndex];
+
+    if (!hasResourceLoaded(resourceKey)) {
+      loadResource(resourceKey);
+      return PIXI.Texture.EMPTY;
+    }
+
     texture = new PIXI.Texture(
       PIXI.Loader.shared.resources[resourceKey].texture.baseTexture,
       new PIXI.Rectangle((type % 10) * 32, Math.floor((type % 100) / 10) * 32, tilesWidth * 32, tilesHeight * 32),

@@ -129,6 +129,7 @@ function setupDebugging(client: Client) {
       console.log('focus', Content.getItemUsesForFocus(itemType));
       console.log('product', Content.getItemUsesForProduct(itemType));
     },
+    PIXI: require('pixi.js'),
   };
 
   // TODO: better 'verbose' / logging (make a logger class).

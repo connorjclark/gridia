@@ -279,9 +279,7 @@ class Game {
     this.canvasesEl.appendChild(this.app.view);
 
     PIXI.Loader.shared
-      .add(Object.values(Draw.getImageResourceKeys()))
-      .add(Draw.getSfxResourceKeys())
-      // .on('progress', (loader, resource) => console.log('loading ' + loader.progress + '%'))
+      .add(Draw.getSfxResourceKeys()) // TODO lazy load
       .load(this.onLoad.bind(this));
   }
 
@@ -653,10 +651,12 @@ class Game {
           template = Draw.getTexture.floors(floor);
         }
 
-        this.layers.floorLayer
-          .beginTextureFill(template)
-          .drawRect(x * 32, y * 32, 32, 32)
-          .endFill();
+        if (template !== PIXI.Texture.EMPTY) {
+          this.layers.floorLayer
+            .beginTextureFill(template)
+            .drawRect(x * 32, y * 32, 32, 32)
+            .endFill();
+        }
       }
     }
 
@@ -667,35 +667,39 @@ class Game {
         const tile = partition.getTile({ x, y, z });
         if (tile.item) {
           const template = Draw.makeItemTemplate(tile.item);
-          this.layers.itemAndCreatureLayer
-            .beginTextureFill(template)
-            .drawRect(x * 32, y * 32, 32, 32)
-            .endFill();
+          if (template !== PIXI.Texture.EMPTY) {
+            this.layers.itemAndCreatureLayer
+              .beginTextureFill(template)
+              .drawRect(x * 32, y * 32, 32, 32)
+              .endFill();
 
-          if (tile.item.quantity !== 1) {
-            const qty = Draw.makeItemQuantity(tile.item.quantity);
-            // Wrap in a container because text field are memoized and so their
-            // x,y values should never be modified.
-            const ctn = new PIXI.Container();
-            ctn.addChild(qty);
-            ctn.x = x * 32;
-            ctn.y = y * 32;
-            this.layers.itemAndCreatureLayer.addChild(ctn);
+            if (tile.item.quantity !== 1) {
+              const qty = Draw.makeItemQuantity(tile.item.quantity);
+              // Wrap in a container because text field are memoized and so their
+              // x,y values should never be modified.
+              const ctn = new PIXI.Container();
+              ctn.addChild(qty);
+              ctn.x = x * 32;
+              ctn.y = y * 32;
+              this.layers.itemAndCreatureLayer.addChild(ctn);
+            }
           }
         }
 
         if (tile.creature) {
-          const template = Draw.getTexture.creatures(tile.creature.image - 1);
-          this.layers.itemAndCreatureLayer
-            .beginTextureFill(template)
-            .drawRect(x * 32, y * 32, 32, 32)
-            .endFill();
-
-          if (tile.creature.tamedBy) {
+          const template = Draw.getTexture.creatures(tile.creature.image);
+          if (template !== PIXI.Texture.EMPTY) {
             this.layers.itemAndCreatureLayer
-              .lineStyle(1, 0x0000FF)
-              .drawCircle(x * 32 + 16, y * 32 + 16, 16)
-              .lineStyle();
+              .beginTextureFill(template)
+              .drawRect(x * 32, y * 32, 32, 32)
+              .endFill();
+
+            if (tile.creature.tamedBy) {
+              this.layers.itemAndCreatureLayer
+                .lineStyle(1, 0x0000FF)
+                .drawCircle(x * 32 + 16, y * 32 + 16, 16)
+                .lineStyle();
+            }
           }
 
           // const label = Draw.pooledText(`creature${tile.creature.id}`, tile.creature.name, {

@@ -110,6 +110,7 @@ export default class Server {
 
     const player = new Player(creature);
     player.name = opts.name;
+    player.isAdmin = true; // everyone is an admin, for now.
 
     // Make sure sector is loaded. Prevents hidden creature (race condition, happens often in worker).
     await this.ensureSectorLoadedForPoint(pos);
