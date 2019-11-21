@@ -553,10 +553,9 @@ class Game {
 
     // resize the canvas to fill browser window dynamically
     const resize = () => {
-      const size = Draw.getCanvasSize();
-      this.app.renderer.resize(size.width, size.height);
-      this.state.viewport.scale =
-        navigator.userAgent.includes('Mobile') || navigator.userAgent.includes('Android') ? 2 : 1;
+      this.app.renderer.resize(window.innerWidth, window.innerHeight - Helper.find('.ui').clientHeight);
+      // this.state.viewport.scale =
+      //   navigator.userAgent.includes('Mobile') || navigator.userAgent.includes('Android') ? 2 : 1;
     };
     window.addEventListener('resize', resize);
     resize();
