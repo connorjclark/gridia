@@ -11,6 +11,7 @@ import * as Draw from './draw';
 import { ItemMoveBeginEvent, ItemMoveEndEvent } from './event-emitter';
 import * as Helper from './helper';
 import KEYS from './keys';
+import LazyResourceLoader from './lazy-resource-loader';
 import { getMineFloor, getWaterFloor } from './template-draw';
 
 const ContextMenu = {
@@ -192,6 +193,7 @@ function mouseToWorld(pm: ScreenPoint): ScreenPoint {
 class Game {
   public state: UIState;
   public keys: Record<number, boolean> = {};
+  public loader = new LazyResourceLoader();
   protected app = new PIXI.Application();
   protected canvasesEl = Helper.find('#canvases');
   protected world = new PIXI.Container();
