@@ -93,7 +93,6 @@ function detect(memory: Memory) {
   }
 }
 
-// This is basic, just loading the game and letting it idle.
 describe('Check for memory leaks', () => {
   let browser: puppeteer.Browser;
   let page: puppeteer.Page;
@@ -149,6 +148,7 @@ describe('Check for memory leaks', () => {
     detect(memory);
   });
 
+  // This is basic, just loading the game and letting it idle.
   it('in game', async () => {
     // Takes too long, so just run if debugging.
     if (!DEBUG) return;
