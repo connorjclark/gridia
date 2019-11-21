@@ -2,6 +2,7 @@ import PIXISound from 'pixi-sound';
 import Client from '../client/client';
 import Container from '../container';
 import * as Content from '../content';
+import { game } from '../game-singleton';
 import * as Utils from '../utils';
 import { ItemSourceWorld } from './client-to-server-protocol';
 import * as ProtocolBuilder from './client-to-server-protocol-builder';
@@ -10,14 +11,7 @@ import Params = ServerToClientProtocol.Params;
 
 export default class ServerToClientProtocol implements IServerToClientProtocol {
   public onAnimation(client: Client, { key, ...loc }: Params.Animation): void {
-    const animationData = Content.getAnimation(key);
-    if (!animationData) throw new Error('no animation found: ' + key);
-    if (client.settings.volume === 0) return;
-    for (const frame of animationData.frames) {
-      if (frame.sound && PIXISound.exists(frame.sound)) {
-        PIXISound.play(frame.sound, {volume: client.settings.volume});
-      }
-    }
+    // handled by game.ts
   }
 
   public onContainer(client: Client, { ...container }: Params.Container): void {

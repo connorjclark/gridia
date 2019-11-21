@@ -1,4 +1,5 @@
 import { OutlineFilter } from '@pixi/filter-outline';
+import PIXISound from 'pixi-sound';
 import * as PIXI from 'pixi.js';
 import { MINE, WATER } from '../constants';
 import * as Content from '../content';
@@ -11,7 +12,7 @@ import * as Draw from './draw';
 import { ItemMoveBeginEvent, ItemMoveEndEvent } from './event-emitter';
 import * as Helper from './helper';
 import KEYS from './keys';
-import LazyResourceLoader from './lazy-resource-loader';
+import LazyResourceLoader, { SfxResources } from './lazy-resource-loader';
 import { getMineFloor, getWaterFloor } from './template-draw';
 
 const ContextMenu = {
@@ -276,13 +277,20 @@ class Game {
           selectView(creature.pos);
         }
       }
+      if (e.type === 'animation') {
+        const animationData = Content.getAnimation(e.args.key);
+        if (!animationData) throw new Error('no animation found: ' + e.args.key);
+        if (this.client.settings.volume === 0) return;
+        for (const frame of animationData.frames) {
+          if (frame.sound) this.playSound(frame.sound);
+        }
+      }
     });
 
     this.canvasesEl.appendChild(this.app.view);
 
-    PIXI.Loader.shared
-      .add(Draw.getSfxResourceKeys()) // TODO lazy load
-      .load(this.onLoad.bind(this));
+    // ?
+    setTimeout(() => this.onLoad(), 1000);
   }
 
   public onLoad() {
@@ -303,6 +311,15 @@ class Game {
 
     // This makes everything "pop".
     // this.containers.itemAndCreatureLayer.filters = [new OutlineFilter(0.5, 0, 1)];
+  }
+
+  public async playSound(name: string) {
+    // @ts-ignore
+    const resourceKey: string = SfxResources[name];
+    if (!this.loader.hasResourceLoaded(resourceKey)) {
+      await this.loader.loadResource(resourceKey);
+    }
+    PIXISound.play(resourceKey, {volume: this.client.settings.volume});
   }
 
   public trip() {

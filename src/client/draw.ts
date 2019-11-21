@@ -6,6 +6,7 @@ import { game } from '../game-singleton';
 import * as Utils from '../utils';
 import { ItemMoveBeginEvent } from './event-emitter';
 import * as Helper from './helper';
+import { ImageResources } from './lazy-resource-loader';
 
 export class GridiaWindow {
   public pixiContainer: PIXI.Container;
@@ -100,75 +101,6 @@ export class ContainerWindow extends GridiaWindow {
 
 const containerWindows = new Map<number, ContainerWindow>();
 
-const ResourceKeys: Record<string, string[]> = {
-  creatures: [],
-  floors: [],
-  items: [],
-  templates: [
-    './world/templates/templates0.png',
-  ],
-};
-
-for (let i = 0; i < 8; i++) {
-  ResourceKeys.creatures.push(`./world/player/player${i}.png`);
-}
-for (let i = 0; i < 6; i++) {
-  ResourceKeys.floors.push(`./world/floors/floors${i}.png`);
-}
-for (let i = 0; i < 27; i++) {
-  ResourceKeys.items.push(`./world/items/items${i}.png`);
-}
-
-function convertToPixiLoaderEntries(keys: Record<string, string>): Array<{ key: string, url: string }> {
-  const entries = [];
-  for (const [key, url] of Object.entries(keys)) {
-    entries.push({ key: key.toLowerCase(), url });
-  }
-  return entries;
-}
-
-// This is a hacky way to lazily load resources.
-
-// End hack.
-
-const SfxKeys = {
-  beep: './world/sound/sfx/rpgwo/beep.WAV',
-  BlowArrow: './world/sound/sfx/rpgwo/BlowArrow.WAV',
-  bombtiq: './world/sound/sfx/rpgwo/bombtiq.wav',
-  bubble: './world/sound/sfx/rpgwo/bubble.wav',
-  burning: './world/sound/sfx/rpgwo/burning.wav',
-  CaneSwish: './world/sound/sfx/rpgwo/CaneSwish.wav',
-  CarpentryHammer: './world/sound/sfx/rpgwo/CarpentryHammer.wav',
-  criket: './world/sound/sfx/rpgwo/criket.wav',
-  Crossbow: './world/sound/sfx/rpgwo/Crossbow.wav',
-  diescream: './world/sound/sfx/rpgwo/diescream.wav',
-  digi_plink: './world/sound/sfx/rcptones/digi_plink.wav',
-  door: './world/sound/sfx/rpgwo/door.wav',
-  fishing: './world/sound/sfx/rpgwo/fishing.wav',
-  harry: './world/sound/sfx/rpgwo/harry.wav',
-  havenmayor: './world/sound/sfx/rpgwo/havenmayor.wav',
-  heal: './world/sound/sfx/ff6/heal.wav',
-  hiccup: './world/sound/sfx/rpgwo/hiccup.wav',
-  ice: './world/sound/sfx/rpgwo/ice.WAV',
-  pop_drip: './world/sound/sfx/rcptones/pop_drip.wav',
-  punch: './world/sound/sfx/rpgwo/punch.wav',
-  roll: './world/sound/sfx/zelda/roll.wav',
-  Saw: './world/sound/sfx/rpgwo/Saw.wav',
-  ShovelDig: './world/sound/sfx/rpgwo/ShovelDig.wav',
-  smithinghammer: './world/sound/sfx/rpgwo/smithinghammer.wav',
-  sparkly: './world/sound/sfx/rpgwo/sparkly.wav',
-  warp: './world/sound/sfx/rpgwo/warp.wav',
-  woodcutting: './world/sound/sfx/ryanconway/woodcutting.wav',
-};
-const SfxResourceKeys = convertToPixiLoaderEntries(SfxKeys);
-
-export function getImageResourceKeys() {
-  return ResourceKeys;
-}
-export function getSfxResourceKeys() {
-  return SfxResourceKeys;
-}
-
 function makeTextureCache(resourceType: string) {
   const textureCache = new Map<number, PIXI.Texture>();
   return (type: number, tilesWidth = 1, tilesHeight = 1) => {
@@ -178,7 +110,7 @@ function makeTextureCache(resourceType: string) {
     }
 
     const textureIndex = Math.floor(type / 100);
-    const resourceKey = ResourceKeys[resourceType][textureIndex];
+    const resourceKey = ImageResources[resourceType][textureIndex];
 
     if (!game.loader.hasResourceLoaded(resourceKey)) {
       game.loader.loadResource(resourceKey);
