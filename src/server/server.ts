@@ -100,6 +100,10 @@ export default class Server {
 
   public async registerPlayer(clientConnection: ClientConnection, opts: RegisterOpts) {
     const pos = {w: 0, x: Utils.randInt(0, 10), y: Utils.randInt(0, 10), z: 0};
+
+    // Make sure sector is loaded. Prevents hidden creature (race condition, happens often in worker).
+    await this.ensureSectorLoadedForPoint(pos);
+
     const creature = this.registerCreature({
       id: this.context.nextCreatureId++,
       name: opts.name,
@@ -112,17 +116,8 @@ export default class Server {
     player.name = opts.name;
     player.isAdmin = true; // everyone is an admin, for now.
 
-    // Make sure sector is loaded. Prevents hidden creature (race condition, happens often in worker).
-    await this.ensureSectorLoadedForPoint(pos);
-
     player.id = this.context.nextPlayerId++;
-    player.creature = this.registerCreature({
-      id: this.context.nextCreatureId++,
-      name: player.name,
-      pos,
-      image: Utils.randInt(0, 10),
-      isPlayer: true,
-    });
+    player.creature = creature;
 
     // Mock xp for now.
     for (const skill of Content.getSkills()) {
