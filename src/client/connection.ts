@@ -10,10 +10,10 @@ function debug(prefix: string , msg: any) {
   if (window.Gridia.debugn instanceof RegExp && window.Gridia.debugn.test(msg.type)) return;
 
   const json = JSON.stringify(msg.args);
-  const prefixColor = prefix === '<-' ? 'blue' : 'green';
+  const prefixColor = prefix === '<-' ? 'darkblue' : 'darkgreen';
   const args = [
-    `%c ${prefix}`,
-    `background: #222; color: ${prefixColor}`,
+    `%c${prefix}`,
+    `background: ${prefixColor}; color: white`,
     msg.type,
   ];
   if (json.length > 60) {
@@ -38,8 +38,10 @@ export class WebSocketConnection extends Connection {
   constructor(private _ws: WebSocket) {
     super();
     _ws.addEventListener('message', (e) => {
-      debug('<-', e.data);
-      if (this._onMessage) this._onMessage(JSON.parse(e.data));
+      if (!this._onMessage) return;
+      const data = JSON.parse(e.data);
+      debug('<-', data);
+      this._onMessage(data);
     });
   }
 
