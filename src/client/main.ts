@@ -133,7 +133,12 @@ function setupDebugging(client: Client) {
   };
 
   // TODO: better 'verbose' / logging (make a logger class).
-  console.log('For debugging:\nwindow.Gridia.verbose = true;');
+  console.log([
+    'For debugging:',
+    'window.Gridia.debug = true',
+    'window.Gridia.debug = /move/',
+    'window.Gridia.debugn = /setCreature/',
+  ].join('\n'));
   // @ts-ignore
   window.Gridia.serverWorker = client.connection._worker;
   // TODO: this doesn't work anymore.
