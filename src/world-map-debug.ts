@@ -5,7 +5,7 @@ import WorldMap from './world-map';
 export default function createDebugWorldMap() {
   const worldMap = new WorldMap();
 
-  const defaultPartition = mapgen(100, 100, 2, false);
+  const defaultPartition = mapgen(200, 200, 2, false);
   defaultPartition.getTile({x: 7, y: 5, z: 0}).item = {
     type: Content.getMetaItemByName('Warp Portal').id,
     quantity: 1,

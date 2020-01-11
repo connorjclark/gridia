@@ -99,7 +99,13 @@ export default class Server {
   }
 
   public async registerPlayer(clientConnection: ClientConnection, opts: RegisterOpts) {
-    const pos = {w: 0, x: Utils.randInt(0, 10), y: Utils.randInt(0, 10), z: 0};
+    const {width, height} = this.context.map.getPartition(0);
+    const pos = {
+      w: 0,
+      x: Utils.randInt(width / 2 - 10, width / 2 + 10),
+      y: Utils.randInt(height / 2 - 10, height / 2 + 10),
+      z: 0,
+    };
 
     // Make sure sector is loaded. Prevents hidden creature (race condition, happens often in worker).
     await this.ensureSectorLoadedForPoint(pos);
