@@ -1,6 +1,5 @@
-import * as Content from '../content';
 import * as fs from '../iso-fs';
-import { save } from '../lib/map-generator/map-image-saver';
+import { makeMapImage } from '../lib/map-generator/map-image-maker';
 import Server from '../server/server';
 import { ServerContext } from '../server/server-context';
 import * as Utils from '../utils';
@@ -21,7 +20,8 @@ export async function startServer(options: ServerOptions) {
     // Only save images in Node server.
     if (global.node) {
       for (let i = 0; i < maps.length; i++) {
-        save(maps[i].mapGenResult, `${serverData}/misc/map${i}.svg`);
+        const canvas = makeMapImage(maps[i].mapGenResult);
+        fs.writeFile(`${serverData}/misc/map${i}.svg`, canvas.toBuffer().toString());
       }
     }
   }

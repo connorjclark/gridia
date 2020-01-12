@@ -1,5 +1,4 @@
 import { CanvasRenderingContext2D, createCanvas } from 'canvas';
-import * as fs from 'fs';
 import { Corner, MapGenerationResult } from './map-generator';
 
 function findCoastPaths(mapGenResult: MapGenerationResult) {
@@ -84,7 +83,7 @@ function getColor(biome: string) {
   return 'black';
 }
 
-export function save(mapGenResult: MapGenerationResult, outFilePath: string) {
+export function makeMapImage(mapGenResult: MapGenerationResult) {
   const { width, height } = mapGenResult.options;
 
   const canvas = createCanvas(width, height, 'svg');
@@ -130,6 +129,5 @@ export function save(mapGenResult: MapGenerationResult, outFilePath: string) {
     ctx.closePath();
   }
 
-  const svg = canvas.toBuffer().toString();
-  fs.writeFileSync(outFilePath, svg);
+  return canvas;
 }

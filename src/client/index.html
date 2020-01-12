@@ -2,7 +2,7 @@
 
 <head>
   <title>Gridia</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0,  minimum-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <script src="./main.ts"></script>
   <style>
     * {
@@ -152,6 +152,20 @@
       <label for="start--server-location">Server Location</label>
       <input type="text" name="server-location" id="start--server-location"></label>
       <button class="start--connect-btn">Connect</button>
+    </div>
+  </div>
+
+  <div class="map-select hidden">
+    <div class="map-list"></div>
+
+    <div class="generate">
+      <!-- <label>
+        Server Location
+        <input type="text" name="server-location" id="start--server-location"></label>
+      </label> -->
+
+      <button class="generate--refresh-btn">Refresh</button>
+      <div class="generate--preview"></div>
     </div>
   </div>
 

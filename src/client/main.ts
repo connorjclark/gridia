@@ -1,5 +1,7 @@
 import * as Content from '../content';
 import { makeGame } from '../game-singleton';
+import { makeMapImage } from '../lib/map-generator/map-image-maker';
+import mapgen from '../mapgen';
 import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
 import * as Utils from '../utils';
 import Client from './client';
@@ -45,9 +47,9 @@ class Scene {
 }
 
 class StartScene extends Scene {
-  public localBtn: HTMLElement;
-  public connectBtn: HTMLElement;
-  public serverLocationInput: HTMLInputElement;
+  private localBtn: HTMLElement;
+  private connectBtn: HTMLElement;
+  private serverLocationInput: HTMLInputElement;
 
   constructor() {
     super(Helper.find('.start'));
@@ -61,10 +63,7 @@ class StartScene extends Scene {
   }
 
   public async onClickLocalBtn() {
-    // TODO
-    controller.client = await createClientForLocal();
-    await waitForClientReady(controller.client);
-    controller.showScene(new RegisterScene());
+    controller.showScene(new MapSelectScene());
   }
 
   public async onClickConnectBtn() {
@@ -86,9 +85,42 @@ class StartScene extends Scene {
   }
 }
 
+class MapSelectScene extends Scene {
+  private refreshBtn: HTMLElement;
+  private previewEl: HTMLElement;
+
+  private map: ReturnType<typeof mapgen> | null = null;
+
+  constructor() {
+    super(Helper.find('.map-select'));
+    this.refreshBtn = Helper.find('.generate--refresh-btn', this.element);
+    this.previewEl = Helper.find('.generate--preview', this.element);
+    this.onClickRefreshBtn = this.onClickRefreshBtn.bind(this);
+  }
+
+  public async onClickRefreshBtn() {
+    // TODO: spin up server worker and do mapgen there.
+    this.map = mapgen(500, 500, 1, false);
+
+    this.previewEl.innerHTML = '';
+    // @ts-ignore
+    this.previewEl.append(makeMapImage(this.map.mapGenResult));
+  }
+
+  public onShow() {
+    super.onShow();
+    this.refreshBtn.addEventListener('click', this.onClickRefreshBtn);
+  }
+
+  public onHide() {
+    super.onHide();
+    this.refreshBtn.removeEventListener('click', this.onClickRefreshBtn);
+  }
+}
+
 class RegisterScene extends Scene {
-  public registerBtn: HTMLElement;
-  public nameInput: HTMLInputElement;
+  private registerBtn: HTMLElement;
+  private nameInput: HTMLInputElement;
 
   constructor() {
     super(Helper.find('.register'));
@@ -238,7 +270,6 @@ function createClientForLocal() {
 
 async function waitForClientReady(client: Client) {
   setupDebugging(client);
-  await Content.loadContentFromNetwork();
 }
 
 function setupDebugging(client: Client) {
@@ -295,6 +326,7 @@ async function startGame(client: Client) {
 }
 
 const controller = new MainController();
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  await Content.loadContentFromNetwork();
   controller.showScene(new StartScene());
 });

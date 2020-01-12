@@ -1,7 +1,8 @@
 // For testing.
 
+import * as fs from 'fs';
 import { generate } from './map-generator';
-import { save } from './map-image-saver';
+import { makeMapImage } from './map-image-maker';
 
 const mapGenResult = generate({
   width: 400,
@@ -17,4 +18,5 @@ const mapGenResult = generate({
   },
 });
 
-save(mapGenResult, 'test.svg');
+const svg = makeMapImage(mapGenResult).toBuffer().toString();
+fs.writeFileSync('test.svg', svg);
