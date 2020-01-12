@@ -3,9 +3,9 @@ import { createClientWorldMap } from '../world-map';
 import Client from './client';
 import { WebSocketConnection, WorkerConnection } from './connection';
 
-export async function connect(port: number): Promise<Client> {
+export async function connect(hostname: string, port: number): Promise<Client> {
   const scheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
-  const ws = new WebSocket(`${scheme}://${window.location.hostname}:${port}`);
+  const ws = new WebSocket(`${scheme}://${hostname}:${port}`);
   await new Promise((resolve, reject) => {
     ws.addEventListener('open', resolve);
     ws.addEventListener('close', reject);

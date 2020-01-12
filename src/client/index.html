@@ -143,7 +143,19 @@
 </head>
 
 <body>
-  <div class="register">
+  <div class="start hidden">
+    <div>
+      <button class="start--local-btn">Local / Single Player</button>
+    </div>
+
+    <div>
+      <label for="start--server-location">Server Location</label>
+      <input type="text" name="server-location" id="start--server-location"></label>
+      <button class="start--connect-btn">Connect</button>
+    </div>
+  </div>
+
+  <div class="register hidden">
     <div class="register--form">
       <div>
         <label for="register--name">Name</label>
@@ -152,6 +164,7 @@
       <button class="register-btn">Register</button>
     </div>
   </div>
+
   <div class="game hidden">
     <div id="canvases">
       <!-- <canvas id="glCanvas" height="480"></canvas>
