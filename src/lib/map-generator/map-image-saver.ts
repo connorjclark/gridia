@@ -93,7 +93,7 @@ export function save(mapGenResult: MapGenerationResult, outFilePath: string) {
   ctx.strokeRect(0, 0, width, height);
 
   // Fill polygons.
-  for (const polygon of mapGenResult.polygons.values()) {
+  for (const polygon of mapGenResult.polygons) {
     const color = getColor(polygon.center.biome);
 
     ctx.beginPath();

@@ -8,7 +8,7 @@ export type MapGenerationResult = ReturnType<typeof generate>;
 export interface Context {
   options: GenerateOptions;
   random: () => number;
-  polygons: Map<Point, Polygon>;
+  polygons: Polygon[];
   corners: Corner[];
 }
 
@@ -61,7 +61,7 @@ function squarePartition(size: number, rand: number, ctx: Context) {
   if (rand > 0.5 || rand < 0) throw new Error();
   const { width, height } = ctx.options;
 
-  const polygons = new Map<Point, Polygon>();
+  const polygons: Polygon[] = [];
   const corners = new Map<string, Corner>();
 
   function add<T>(arr: T[], item: T) {
@@ -127,7 +127,7 @@ function squarePartition(size: number, rand: number, ctx: Context) {
       add(square.corners[i].adjacent, before);
       add(square.corners[i].adjacent, after);
     }
-    polygons.set(square.center, square);
+    polygons.push(square);
   }
 
   let y = 0;
@@ -182,7 +182,7 @@ function setWater(ctx: Context) {
     throw new Error(`invalid water strategy ${ctx.options.waterStrategy.type}`);
   }
 
-  for (const polygon of ctx.polygons.values()) {
+  for (const polygon of ctx.polygons) {
     polygon.center.water = isWaterFilter(polygon.center);
   }
 
@@ -195,7 +195,7 @@ function setOceanCoastAndLand(ctx: Context) {
   const queue: Polygon[] = [];
 
   const LAKE_THRESHOLD = 0.3;
-  for (const polygon of ctx.polygons.values()) {
+  for (const polygon of ctx.polygons) {
     if (polygon.corners.some((c) => c.border)) {
       polygon.center.border = true;
       polygon.center.ocean = true;
@@ -219,7 +219,7 @@ function setOceanCoastAndLand(ctx: Context) {
     }
   }
 
-  for (const polygon of ctx.polygons.values()) {
+  for (const polygon of ctx.polygons) {
     polygon.center.coast =
       polygon.adjacent.some((p) => p.center.ocean) && polygon.adjacent.some((p) => !p.center.water);
   }
@@ -281,7 +281,7 @@ function setElevation(ctx: Context) {
     corner.elevation = x;
   });
 
-  for (const polygon of ctx.polygons.values()) {
+  for (const polygon of ctx.polygons) {
     polygon.center.elevation = polygon.corners.reduce((acc, cur) => acc + cur.elevation, 0) / polygon.corners.length;
   }
 }
@@ -382,7 +382,7 @@ function setMoisture(ctx: Context) {
     corner.moisture = i / (landCorners.length - 1);
   });
 
-  for (const polygon of ctx.polygons.values()) {
+  for (const polygon of ctx.polygons) {
     polygon.center.moisture = polygon.corners.reduce((acc, cur) => acc + cur.moisture, 0) / polygon.corners.length;
   }
 }
@@ -514,7 +514,7 @@ function rasterize(ctx: Context) {
     }
   };
 
-  const polygons = [...ctx.polygons.values()];
+  const polygons = [...ctx.polygons];
 
   for (let i = 0; i < polygons.length; i++) {
     const polygon = polygons[i];
@@ -562,7 +562,7 @@ export function generate(options: GenerateOptions) {
   const ctx = {
     options,
     random: Math.random,
-    polygons: null as unknown as Map<Point, Polygon>,
+    polygons: [] as Polygon[],
     corners: null as unknown as Corner[],
   };
   const { partitionStrategy } = options;
@@ -585,7 +585,7 @@ export function generate(options: GenerateOptions) {
   createRivers(ctx);
   setMoisture(ctx);
 
-  for (const polygon of ctx.polygons.values()) {
+  for (const polygon of ctx.polygons) {
     polygon.center.biome = getBiome(polygon.center);
   }
 

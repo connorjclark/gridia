@@ -37,6 +37,7 @@ export default function mapgen(width: number, height: number, depth: number, bar
   const treeType = Content.getMetaItemByName('Pine Tree').id;
   const flowerType = Content.getMetaItemByName('Cut Red Rose').id;
 
+  const map = new WorldMapPartition(width, height, depth);
   const mapGenResult = generate({
     width,
     height,
@@ -50,9 +51,6 @@ export default function mapgen(width: number, height: number, depth: number, bar
       radius: 0.9,
     },
   });
-  const polygons = [...mapGenResult.polygons.values()];
-
-  const map = new WorldMapPartition(width, height, depth);
 
   // tslint:disable-next-line: prefer-for-of
   for (let sx = 0; sx < map.sectors.length; sx++) {
@@ -77,7 +75,7 @@ export default function mapgen(width: number, height: number, depth: number, bar
 
           if (z === 0) {
             // floor = 100 + ((x + y) % 10) * 20;
-            const polygon = polygons[mapGenResult.raster[x][y] - 1];
+            const polygon = mapGenResult.polygons[mapGenResult.raster[x][y] - 1];
             if (polygon) {
               floor = biomeToFloor(polygon.center.biome);
             } else {
