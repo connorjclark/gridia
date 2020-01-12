@@ -1,11 +1,9 @@
 import * as Content from '../content';
 import { makeGame } from '../game-singleton';
-import { makeMapImage } from '../lib/map-generator/map-image-maker';
-import mapgen from '../mapgen';
 import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
 import * as Utils from '../utils';
 import Client from './client';
-import { connect, openAndConnectToServerWorker } from './connect-to-server';
+import { connect, connectToServerWorker } from './connect-to-server';
 import { GameActionEvent } from './event-emitter';
 import * as Helper from './helper';
 import AdminClientModule from './modules/admin-module';
@@ -16,11 +14,29 @@ import SkillsClientModule from './modules/skills-module';
 class MainController {
   private scene: Scene | null = null;
   private client_: Client | null = null;
+  private worker_: Worker | null = null;
 
   public showScene(newScreen: Scene) {
     if (this.scene) this.scene.onHide();
     this.scene = newScreen;
     this.scene.onShow();
+  }
+
+  public async loadWorker() {
+    if (this.worker_) return;
+    this.worker_ = new Worker('../server/run-worker.ts');
+
+    this.worker.postMessage({
+      type: 'worker_init',
+    });
+
+    await new Promise((resolve, reject) => {
+      this.worker.onmessage = (e) =>  {
+        if (e.data !== 'ack') reject('unexpected data on init');
+        delete this.worker.onmessage;
+        resolve();
+      };
+    });
   }
 
   get client() {
@@ -30,6 +46,15 @@ class MainController {
 
   set client(client: Client) {
     this.client_ = client;
+  }
+
+  get worker() {
+    if (!this.worker_) throw new Error('missing worker');
+    return this.worker_;
+  }
+
+  set worker(worker: Worker) {
+    this.worker_ = worker;
   }
 }
 
@@ -63,12 +88,12 @@ class StartScene extends Scene {
   }
 
   public async onClickLocalBtn() {
+    await controller.loadWorker();
     controller.showScene(new MapSelectScene());
   }
 
   public async onClickConnectBtn() {
     controller.client = await createClientForServer(this.serverLocationInput.value);
-    await waitForClientReady(controller.client);
     controller.showScene(new RegisterScene());
   }
 
@@ -87,34 +112,75 @@ class StartScene extends Scene {
 
 class MapSelectScene extends Scene {
   private refreshBtn: HTMLElement;
+  private selectBtn: HTMLElement;
   private previewEl: HTMLElement;
-
-  private map: ReturnType<typeof mapgen> | null = null;
+  private loadingPreview = false;
 
   constructor() {
     super(Helper.find('.map-select'));
     this.refreshBtn = Helper.find('.generate--refresh-btn', this.element);
+    this.selectBtn = Helper.find('.generate--select-btn', this.element);
     this.previewEl = Helper.find('.generate--preview', this.element);
     this.onClickRefreshBtn = this.onClickRefreshBtn.bind(this);
+    this.onClickSelectBtn = this.onClickSelectBtn.bind(this);
   }
 
   public async onClickRefreshBtn() {
-    // TODO: spin up server worker and do mapgen there.
-    this.map = mapgen(500, 500, 1, false);
+    if (this.loadingPreview) return;
+    this.loadingPreview = true;
+
+    const canvas = document.createElement('canvas') as HTMLCanvasElement;
+    const offscreen = canvas.transferControlToOffscreen();
+
+    // @ts-ignore
+    controller.worker.postMessage({
+      type: 'worker_mapgen',
+      canvas: offscreen,
+      width: 200,
+      height: 200,
+      depth: 1,
+      bare: false,
+    }, [offscreen]);
+
+    await new Promise((resolve) => {
+      controller.worker.onmessage = (e) =>  {
+        delete controller.worker.onmessage;
+        resolve();
+      };
+    }).finally(() => this.loadingPreview = false);
 
     this.previewEl.innerHTML = '';
-    // @ts-ignore
-    this.previewEl.append(makeMapImage(this.map.mapGenResult));
+    this.previewEl.append(canvas);
   }
+
+  public async onClickSelectBtn() {
+    controller.client = await connectToServerWorker(controller.worker, {
+      useMapPreview: true,
+      serverData: '/',
+      dummyDelay: 20,
+      verbose: false,
+    });
+    controller.showScene(new RegisterScene());
+  }
+
+  // public async onMapSelected() {
+  //   controller.client = await connectToServerWorker(controller.worker, {
+  //     serverData: '/',
+  //     dummyDelay: 20,
+  //     verbose: false,
+  //   });
+  // }
 
   public onShow() {
     super.onShow();
     this.refreshBtn.addEventListener('click', this.onClickRefreshBtn);
+    this.selectBtn.addEventListener('click', this.onClickSelectBtn);
   }
 
   public onHide() {
     super.onHide();
     this.refreshBtn.removeEventListener('click', this.onClickRefreshBtn);
+    this.selectBtn.removeEventListener('click', this.onClickSelectBtn);
   }
 }
 
@@ -260,22 +326,10 @@ function createClientForServer(hostnameAndPort: string) {
   return connect(hostname, Number(port));
 }
 
-function createClientForLocal() {
-  return openAndConnectToServerWorker({
-    serverData: '/',
-    dummyDelay: 20,
-    verbose: false,
-  });
-}
-
-async function waitForClientReady(client: Client) {
-  setupDebugging(client);
-}
-
-function setupDebugging(client: Client) {
+function setupDebugging() {
   // @ts-ignore
   window.Gridia = {
-    client,
+    controller,
     item(itemType: number) {
       console.log(Content.getMetaItem(itemType));
       console.log('tool', Content.getItemUsesForTool(itemType));
@@ -292,8 +346,6 @@ function setupDebugging(client: Client) {
     'window.Gridia.debug = /move/',
     'window.Gridia.debugn = /setCreature/',
   ].join('\n'));
-  // @ts-ignore
-  window.Gridia.serverWorker = client.connection._worker;
   // TODO: this doesn't work anymore.
   // console.log('For debugging:\nwindow.Gridia.server.verbose = true;');
 }
@@ -327,6 +379,7 @@ async function startGame(client: Client) {
 
 const controller = new MainController();
 document.addEventListener('DOMContentLoaded', async () => {
+  setupDebugging();
   await Content.loadContentFromNetwork();
   controller.showScene(new StartScene());
 });

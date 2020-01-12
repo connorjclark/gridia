@@ -23,23 +23,21 @@ export async function connect(hostname: string, port: number): Promise<Client> {
   return client;
 }
 
-export async function openAndConnectToServerWorker(opts: OpenAndConnectToServerOpts): Promise<Client> {
-  const serverWorker = new Worker('../server/run-worker.ts');
-
-  serverWorker.postMessage({
-    type: 'worker_init',
+export async function connectToServerWorker(worker: Worker, opts: ServerWorkerOpts): Promise<Client> {
+  worker.postMessage({
+    type: 'worker_load',
     opts,
   });
 
   await new Promise((resolve, reject) => {
-    serverWorker.onmessage = (e) =>  {
-      if (e.data !== 'ack') reject('unexpected data on init');
-      delete serverWorker.onmessage;
+    worker.onmessage = (e) =>  {
+      if (e.data !== 'ack') reject('unexpected data on load');
+      delete worker.onmessage;
       resolve();
     };
   });
 
-  const connection = new WorkerConnection(serverWorker);
+  const connection = new WorkerConnection(worker);
   connection.setOnMessage((message) => {
     client.eventEmitter.emit('message', message);
   });

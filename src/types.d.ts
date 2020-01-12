@@ -146,8 +146,9 @@ interface CLIOptions extends ServerOptions {
   };
 }
 
-interface OpenAndConnectToServerOpts extends ServerOptions {
+interface ServerWorkerOpts extends ServerOptions {
   dummyDelay: number;
+  useMapPreview?: boolean;
 }
 
 declare module 'pixi-scrollbox';

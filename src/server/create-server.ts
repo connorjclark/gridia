@@ -12,7 +12,6 @@ export async function startServer(options: ServerOptions) {
   if (await fs.exists(serverData)) {
     context = await ServerContext.load(serverData);
   } else {
-    await fs.mkdir(serverData);
     const {world, maps} = createDebugWorldMap();
     context = new ServerContext(world, serverData);
     await context.save();

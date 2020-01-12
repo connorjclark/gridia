@@ -119,6 +119,7 @@ export class ServerContext extends Context {
   }
 
   public async save() {
+    await fs.mkdir(this.serverDir, {recursive: true});
     await fs.mkdir(this.containerDir, {recursive: true});
     await fs.mkdir(this.playerDir, {recursive: true});
     await fs.mkdir(this.sectorDir, {recursive: true});
