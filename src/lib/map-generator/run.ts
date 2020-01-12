@@ -1,7 +1,7 @@
 // For testing.
 
 import { createCanvas } from 'canvas';
-import { generate } from './map-generator';
+import { Corner, generate } from './map-generator';
 
 const width = 400;
 const height = 400;
@@ -13,6 +13,10 @@ const { polygons, corners } = generate({
     type: 'square',
     size: 15,
     rand: 0.5,
+  },
+  waterStrategy: {
+    type: 'radial',
+    radius: 0.9,
   },
 });
 
@@ -27,7 +31,7 @@ function getColor(biome: string) {
   if (biome === 'DESERT_SHRUBLAND') return 'tan';
   if (biome === 'GRASSLAND') return 'lightgreen';
   if (biome === 'LAKE') return 'lightblue';
-  if (biome === 'OCEAN') return 'darkblue';
+  if (biome === 'OCEAN') return 'blue';
   if (biome === 'SCORCHED') return 'darkgrey';
   if (biome === 'SHRUBLAND') return 'lightbrown';
   if (biome === 'SNOW') return 'silver';
@@ -69,21 +73,67 @@ function getRivers() {
   return result.sort((a, b) => b.length - a.length);
 }
 
+// Fill polygons.
 for (const polygon of polygons.values()) {
   const color = getColor(polygon.center.biome);
 
   ctx.beginPath();
-  ctx.strokeStyle = ctx.fillStyle = color;
+  ctx.fillStyle = color;
+  ctx.strokeStyle = 'black';
+  ctx.lineWidth = 0.25;
   for (const corner of polygon.corners) {
     ctx.lineTo(corner.x, corner.y);
   }
-  ctx.stroke();
-  ctx.fill();
   ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+}
+
+// Draw lines.
+
+function findCoastPaths() {
+  const paths: Corner[][] = [];
+  const seen = new Set<Corner>();
+  let currentPath: Corner[] = [];
+
+  for (const corner of corners.filter((c) => c.coast)) {
+    let cur = corner;
+    while (!seen.has(cur)) {
+      seen.add(cur);
+      currentPath.push(cur);
+
+      const next = cur.adjacent.find((c) => c.coast && !seen.has(c));
+      if (!next) break;
+      cur = next;
+    }
+
+    if (currentPath.length) {
+      paths.push(currentPath);
+      currentPath = [];
+    }
+  }
+
+  return paths;
+}
+
+function drawPath(path: Corner[]) {
+  ctx.beginPath();
+  for (const {x, y} of path) {
+    ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+  ctx.stroke();
+}
+
+ctx.strokeStyle = 'black';
+ctx.lineWidth = 3;
+for (const path of findCoastPaths()) {
+  drawPath(path);
 }
 
 const rivers = getRivers();
 
+ctx.lineWidth = 2;
 for (const river of rivers.slice(0, 15)) {
   let c: typeof corners[0] | undefined = river.start;
 

@@ -185,6 +185,10 @@ export default function mapgen(width: number, height: number, depth: number, bar
       size: 15,
       rand: 0.5,
     },
+    waterStrategy: {
+      type: 'radial',
+      radius: 0.9,
+    },
   });
   const raster = rasterize(ctx);
   const polygons = [...ctx.polygons.values()];

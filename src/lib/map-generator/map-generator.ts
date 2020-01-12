@@ -52,6 +52,7 @@ interface GenerateOptions {
   height: number;
   seed?: string;
   partitionStrategy: { type: 'square', size: number, rand?: number };
+  waterStrategy: {type: 'radial', radius: number};
 }
 
 function squarePartition(size: number, rand: number, ctx: Context) {
@@ -144,7 +145,7 @@ function squarePartition(size: number, rand: number, ctx: Context) {
       }
     }
 
-    if (rand && corner.x !== 0 && corner.x !== width && corner.y !== 0 && corner.y !== width) {
+    if (rand && corner.x !== 0 && corner.x !== width && corner.y !== 0 && corner.y !== height) {
       corner.x = corner.x + size * rand * (0.5 - ctx.random());
       corner.y = corner.y + size * rand * (0.5 - ctx.random());
     }
@@ -166,8 +167,18 @@ function setBorder(ctx: Context) {
 
 function setWater(ctx: Context) {
   const { width, height } = ctx.options;
-  const isWaterFilter = ({ x, y }: Point) =>
-    Math.sqrt(Math.pow(x / width - 0.5, 2) + Math.pow(y / height - 0.5, 2)) > 0.4;
+
+  let isWaterFilter;
+  if (ctx.options.waterStrategy.type === 'radial') {
+    isWaterFilter = ({ x, y }: Point) => {
+      const dx = Math.abs(x - width / 2);
+      const dy = Math.abs(y - height / 2);
+      const dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+      return dist > ctx.options.waterStrategy.radius * Math.min(width, height) / 2;
+    };
+  } else {
+    throw new Error(`invalid water strategy ${ctx.options.waterStrategy.type}`);
+  }
 
   for (const polygon of ctx.polygons.values()) {
     polygon.center.water = isWaterFilter(polygon.center);
