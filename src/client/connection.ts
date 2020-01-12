@@ -32,6 +32,8 @@ export abstract class Connection {
   }
 
   public abstract send(message: MessageToServer): void;
+
+  public abstract close(): void;
 }
 
 export class WebSocketConnection extends Connection {
@@ -43,11 +45,22 @@ export class WebSocketConnection extends Connection {
       debug('<-', data);
       this._onMessage(data);
     });
+
+    _ws.addEventListener('close', this.onClose);
   }
 
   public send(message: MessageToServer) {
     debug('->', message);
     this._ws.send(JSON.stringify(message));
+  }
+
+  public close() {
+    this._ws.removeEventListener('close', this.onClose);
+    this._ws.close();
+  }
+
+  private onClose() {
+    window.document.body.innerText = 'Lost connection to server. Please refresh.';
   }
 }
 
@@ -63,5 +76,9 @@ export class WorkerConnection extends Connection {
   public send(message: MessageToServer) {
     debug('->', message);
     this._worker.postMessage(message);
+  }
+
+  public close() {
+    delete this._worker.onmessage;
   }
 }

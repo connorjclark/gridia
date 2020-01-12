@@ -12,14 +12,23 @@ import SettingsClientModule from './modules/settings-module';
 import SkillsClientModule from './modules/skills-module';
 
 class MainController {
-  private scene: Scene | null = null;
+  private scenes: Scene[] = [];
   private client_: Client | null = null;
   private worker_: Worker | null = null;
 
-  public showScene(newScreen: Scene) {
-    if (this.scene) this.scene.onHide();
-    this.scene = newScreen;
-    this.scene.onShow();
+  public pushScene(newScene: Scene) {
+    if (this.currentScene) this.currentScene.onHide();
+    this.scenes.push(newScene);
+    newScene.onShow();
+  }
+
+  public popScene() {
+    if (this.currentScene) {
+      this.currentScene.onHide();
+      this.currentScene.onDestroy();
+      this.scenes.pop();
+    }
+    this.currentScene.onShow();
   }
 
   public async loadWorker() {
@@ -39,6 +48,10 @@ class MainController {
     });
   }
 
+  get currentScene() {
+    return this.scenes[this.scenes.length - 1];
+  }
+
   get client() {
     if (!this.client_) throw new Error('missing client');
     return this.client_;
@@ -46,6 +59,11 @@ class MainController {
 
   set client(client: Client) {
     this.client_ = client;
+  }
+
+  public destoryClient() {
+    this.client_?.connection.close();
+    this.client_ = null;
   }
 
   get worker() {
@@ -69,6 +87,10 @@ class Scene {
   public onHide() {
     this.element.classList.add('hidden');
   }
+
+  public onDestroy() {
+    // Empty.
+  }
 }
 
 class StartScene extends Scene {
@@ -89,12 +111,12 @@ class StartScene extends Scene {
 
   public async onClickLocalBtn() {
     await controller.loadWorker();
-    controller.showScene(new MapSelectScene());
+    controller.pushScene(new MapSelectScene());
   }
 
   public async onClickConnectBtn() {
     controller.client = await createClientForServer(this.serverLocationInput.value);
-    controller.showScene(new RegisterScene());
+    controller.pushScene(new RegisterScene());
   }
 
   public onShow() {
@@ -151,6 +173,7 @@ class MapSelectScene extends Scene {
 
     this.previewEl.innerHTML = '';
     this.previewEl.append(canvas);
+    this.selectBtn.classList.remove('hidden');
   }
 
   public async onClickSelectBtn() {
@@ -160,7 +183,7 @@ class MapSelectScene extends Scene {
       dummyDelay: 20,
       verbose: false,
     });
-    controller.showScene(new RegisterScene());
+    controller.pushScene(new RegisterScene());
   }
 
   // public async onMapSelected() {
@@ -175,6 +198,9 @@ class MapSelectScene extends Scene {
     super.onShow();
     this.refreshBtn.addEventListener('click', this.onClickRefreshBtn);
     this.selectBtn.addEventListener('click', this.onClickSelectBtn);
+    this.loadingPreview = false;
+    this.previewEl.innerHTML = '';
+    this.selectBtn.classList.add('hidden');
   }
 
   public onHide() {
@@ -224,11 +250,22 @@ class RegisterScene extends Scene {
     super.onHide();
     this.registerBtn.removeEventListener('click', this.onClickRegisterBtn);
   }
+
+  public onDestroy() {
+    controller.destoryClient();
+  }
 }
 
 class GameScene extends Scene {
   constructor() {
     super(Helper.find('.game'));
+  }
+
+  public onShow() {
+    super.onShow();
+
+    // Once in game, too complicated to go back. For now, must refresh the page.
+    Helper.find('.scene-controller').classList.add('hidden');
   }
 }
 
@@ -374,12 +411,17 @@ async function startGame(client: Client) {
   // @ts-ignore
   window.Gridia.game = gameSingleton;
 
-  controller.showScene(new GameScene());
+  controller.pushScene(new GameScene());
 }
 
 const controller = new MainController();
 document.addEventListener('DOMContentLoaded', async () => {
   setupDebugging();
   await Content.loadContentFromNetwork();
-  controller.showScene(new StartScene());
+  controller.pushScene(new StartScene());
+
+  const backBtn = Helper.find('.scene-controller--back-btn');
+  backBtn.addEventListener('click', () => {
+    controller.popScene();
+  });
 });

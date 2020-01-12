@@ -10,9 +10,6 @@ export async function connect(hostname: string, port: number): Promise<Client> {
     ws.addEventListener('open', resolve);
     ws.addEventListener('close', reject);
   });
-  ws.addEventListener('close', () => {
-    window.document.body.innerText = 'Lost connection to server. Please refresh.';
-  });
 
   const connection = new WebSocketConnection(ws);
   connection.setOnMessage((message) => {
