@@ -4,20 +4,21 @@
         "tslint:recommended"
     ],
     "jsRules": {
-        "object-literal-sort-keys": false,
-        "no-console": false
+        "no-console": false,
+        "object-literal-sort-keys": false
     },
     "rules": {
+        "ban-types": false,
         "curly": [true, "ignore-same-line"],
-        "object-literal-sort-keys": false,
-        "quotemark": [true, "single"],
         "interface-name": [true, "never-prefix"],
-        "one-variable-per-declaration": false,
-        "no-console": false,
-        "no-var-requires": false,
-        "variable-name": false,
         "max-classes-per-file": false,
-        "ban-types": false
+        "no-console": false,
+        "no-namespace": false,
+        "no-var-requires": false,
+        "object-literal-sort-keys": false,
+        "one-variable-per-declaration": false,
+        "quotemark": [true, "single"],
+        "variable-name": false
     },
     "rulesDirectory": [],
     "linterOptions": {

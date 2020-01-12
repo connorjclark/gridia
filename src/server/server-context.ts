@@ -43,6 +43,7 @@ export class ServerContext extends Context {
   public containerDir: string;
   public playerDir: string;
   public sectorDir: string;
+  public miscDir: string;
 
   constructor(map: WorldMap, serverDir: string) {
     super(map);
@@ -50,6 +51,7 @@ export class ServerContext extends Context {
     this.containerDir = path.join(serverDir, 'containers');
     this.playerDir = path.join(serverDir, 'players');
     this.sectorDir = path.join(serverDir, 'sectors');
+    this.miscDir = path.join(serverDir, 'misc');
   }
 
   public async loadSector(server: Server, sectorPoint: TilePoint) {
@@ -120,6 +122,7 @@ export class ServerContext extends Context {
     await fs.mkdir(this.containerDir, {recursive: true});
     await fs.mkdir(this.playerDir, {recursive: true});
     await fs.mkdir(this.sectorDir, {recursive: true});
+    await fs.mkdir(this.miscDir, {recursive: true});
 
     await this.saveMeta();
 

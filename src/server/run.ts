@@ -8,6 +8,8 @@ import { startServer } from './create-server';
 import Server from './server';
 
 async function main(options: CLIOptions) {
+  global.node = true;
+
   const {port, ssl} = options;
   let server: Server;
 

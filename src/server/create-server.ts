@@ -1,5 +1,6 @@
 import * as Content from '../content';
 import * as fs from '../iso-fs';
+import { save } from '../lib/map-generator/map-image-saver';
 import Server from '../server/server';
 import { ServerContext } from '../server/server-context';
 import * as Utils from '../utils';
@@ -13,9 +14,16 @@ export async function startServer(options: ServerOptions) {
     context = await ServerContext.load(serverData);
   } else {
     await fs.mkdir(serverData);
-    const worldMap = createDebugWorldMap();
-    context = new ServerContext(worldMap, serverData);
+    const {world, maps} = createDebugWorldMap();
+    context = new ServerContext(world, serverData);
     await context.save();
+
+    // Only save images in Node server.
+    if (global.node) {
+      for (let i = 0; i < maps.length; i++) {
+        save(maps[i].mapGenResult, `${serverData}/misc/map${i}.svg`);
+      }
+    }
   }
 
   const server = new Server({

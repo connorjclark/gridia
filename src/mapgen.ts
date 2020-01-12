@@ -27,7 +27,7 @@ function biomeToFloor(biome: string) {
   return 0;
 }
 
-export default function mapgen(width: number, height: number, depth: number, bare: boolean): WorldMapPartition {
+export default function mapgen(width: number, height: number, depth: number, bare: boolean) {
   assert.ok(width % SECTOR_SIZE === 0);
   assert.ok(height % SECTOR_SIZE === 0);
   assert.ok(width <= 1000);
@@ -166,5 +166,8 @@ export default function mapgen(width: number, height: number, depth: number, bar
     };
   }
 
-  return map;
+  return {
+    partition: map,
+    mapGenResult,
+  };
 }

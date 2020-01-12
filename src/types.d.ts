@@ -1,3 +1,9 @@
+declare namespace NodeJS  {
+  interface Global {
+    node: boolean;
+  }
+}
+
 interface Point2 {
   x: number;
   y: number;
