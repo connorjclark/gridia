@@ -24,7 +24,8 @@ function biomeToFloor(biome: string) {
   // if (biome === 'TROPICAL_RAIN_FOREST') return 'darkgreen';
   // if (biome === 'TROPICAL_SEASONAL_FOREST') return 'green';
 
-  return 0;
+  // TODO
+  return 200;
 }
 
 export default function mapgen(width: number, height: number, depth: number, bare: boolean) {
