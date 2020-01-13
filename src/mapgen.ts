@@ -34,10 +34,17 @@ function biomeToFloor(biome: string) {
 // }
 
 // TODO: refactor
-type MapGenOptions = (({bare: false} & GenerateOptions) | ({bare: true} & Omit<GenerateOptions, 'partitionStrategy'|'waterStrategy'>)) & {depth: number};
+type MapGenOptions = (
+  ({ bare: false } & GenerateOptions) |
+  ({ bare: true } & Omit<GenerateOptions, 'partitionStrategy' | 'waterStrategy'>)
+) & { depth: number };
+
+export function makeBareMap() {
+  // TODO
+}
 
 export default function mapgen(opts: MapGenOptions) {
-  const {width, height, depth, bare} = opts;
+  const { width, height, depth, bare } = opts;
 
   assert.ok(width % SECTOR_SIZE === 0);
   assert.ok(height % SECTOR_SIZE === 0);
@@ -51,7 +58,20 @@ export default function mapgen(opts: MapGenOptions) {
   const map = new WorldMapPartition(width, height, depth);
 
   let mapGenResult;
-  if (!opts.bare) {
+  if (opts.bare) {
+    mapGenResult = generate({
+      ...opts,
+      // Doesn't matter.
+      partitionStrategy: {
+        type: 'square',
+        size: width,
+      },
+      waterStrategy: {
+        type: 'radial',
+        radius: 0,
+      },
+    });
+  } else {
     mapGenResult = generate(opts);
   }
 
@@ -68,7 +88,7 @@ export default function mapgen(opts: MapGenOptions) {
     for (let y = 0; y < height; y++) {
       for (let z = 0; z < depth; z++) {
         const loc = { x, y, z };
-        if (!mapGenResult) {
+        if (bare) {
           map.setTile(loc, {
             floor: z ? MINE : 100,
           });

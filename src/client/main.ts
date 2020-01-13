@@ -133,6 +133,7 @@ class StartScene extends Scene {
   }
 }
 
+// TODO: load saved map.
 class MapSelectScene extends Scene {
   private refreshBtn: HTMLElement;
   private selectBtn: HTMLElement;
