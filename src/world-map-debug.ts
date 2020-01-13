@@ -7,11 +7,22 @@ export default function createDebugWorldMap() {
   const world = new WorldMap();
   const width = 200;
   const height = 200;
+  const depth = 2;
 
-  const defaultMap = mapgen(width, height, 2, false);
+  const partitionStrategy = {
+    type: 'square',
+    size: 15,
+    rand: 0.5,
+  } as const;
+  const waterStrategy = {
+    type: 'radial',
+    radius: 0.9,
+  } as const;
+
+  const defaultMap = mapgen({width, height, depth, partitionStrategy, waterStrategy, bare: false});
   world.addPartition(0, defaultMap.partition);
 
-  const smallMap = mapgen(20, 20, 1, true);
+  const smallMap = mapgen({width: 20, height: 20, depth: 1, bare: true});
   world.addPartition(1, smallMap.partition);
 
   // middle defaultMap <-> topleft defaultMap

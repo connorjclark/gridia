@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import { MINE, SECTOR_SIZE, WATER } from './constants';
 import * as Content from './content';
-import { generate } from './lib/map-generator/map-generator';
+import { generate, GenerateOptions } from './lib/map-generator/map-generator';
 import WorldMapPartition from './world-map-partition';
 
 function biomeToFloor(biome: string) {
@@ -28,7 +28,17 @@ function biomeToFloor(biome: string) {
   return 200;
 }
 
-export default function mapgen(width: number, height: number, depth: number, bare: boolean) {
+// interface MapGenOptions_ extends GenerateOptions {
+//   depth: number;
+//   bare: boolean;
+// }
+
+// TODO: refactor
+type MapGenOptions = (({bare: false} & GenerateOptions) | ({bare: true} & Omit<GenerateOptions, 'partitionStrategy'|'waterStrategy'>)) & {depth: number};
+
+export default function mapgen(opts: MapGenOptions) {
+  const {width, height, depth, bare} = opts;
+
   assert.ok(width % SECTOR_SIZE === 0);
   assert.ok(height % SECTOR_SIZE === 0);
   assert.ok(width <= 1000);
@@ -39,19 +49,11 @@ export default function mapgen(width: number, height: number, depth: number, bar
   const flowerType = Content.getMetaItemByName('Cut Red Rose').id;
 
   const map = new WorldMapPartition(width, height, depth);
-  const mapGenResult = generate({
-    width,
-    height,
-    partitionStrategy: {
-      type: 'square',
-      size: 15,
-      rand: 0.5,
-    },
-    waterStrategy: {
-      type: 'radial',
-      radius: 0.9,
-    },
-  });
+
+  let mapGenResult;
+  if (!opts.bare) {
+    mapGenResult = generate(opts);
+  }
 
   // tslint:disable-next-line: prefer-for-of
   for (let sx = 0; sx < map.sectors.length; sx++) {
@@ -66,7 +68,7 @@ export default function mapgen(width: number, height: number, depth: number, bar
     for (let y = 0; y < height; y++) {
       for (let z = 0; z < depth; z++) {
         const loc = { x, y, z };
-        if (bare) {
+        if (!mapGenResult) {
           map.setTile(loc, {
             floor: z ? MINE : 100,
           });

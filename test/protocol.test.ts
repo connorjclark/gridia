@@ -30,7 +30,7 @@ async function send(message) {
 
 beforeEach(async () => {
   const worldMap = new WorldMap();
-  const partition = mapgen(20, 20, 1, true).partition;
+  const partition = mapgen({width: 20, height: 20, depth: 1, bare: true}).partition;
   worldMap.addPartition(0, partition);
   const memoryServerData = await openAndConnectToServerInMemory({
     serverData: '/', // ?

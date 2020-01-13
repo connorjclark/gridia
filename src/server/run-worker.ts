@@ -49,8 +49,7 @@ self.addEventListener('message', async (e) => {
     // @ts-ignore
     self.postMessage('ack');
   } else if (e.data.type === 'worker_mapgen') {
-    const {width, height, depth, bare} = e.data;
-    mapPreview = mapgen(width, height, depth, bare);
+    mapPreview = mapgen(e.data);
 
     // @ts-ignore: Hack to make canvas-node use the given OffscreenCanvas.
     global.document = {

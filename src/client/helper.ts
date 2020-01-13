@@ -85,6 +85,14 @@ export function find(query: string, node?: Element): HTMLElement {
   if (!node) node = document.body;
   const result = node.querySelector(query);
   if (!result) throw new Error(`no elements matching ${query}`);
+  // ?
   if (!(result instanceof HTMLElement)) throw new Error('expected HTMLElement');
+  return result;
+}
+
+export function findAll(query: string, node?: Element): Element[] {
+  if (!node) node = document.body;
+  const result = [...node.querySelectorAll(query)];
+  if (!result.length) throw new Error(`no elements matching ${query}`);
   return result;
 }

@@ -49,7 +49,7 @@ export interface Polygon {
   adjacent: Polygon[];
 }
 
-interface GenerateOptions {
+export interface GenerateOptions {
   width: number;
   height: number;
   seed?: string;

@@ -10,6 +10,7 @@ import AdminClientModule from './modules/admin-module';
 import MovementClientModule from './modules/movement-module';
 import SettingsClientModule from './modules/settings-module';
 import SkillsClientModule from './modules/skills-module';
+import { createMapSelectForm, getMapGenOpts } from './scenes/map-select-scene';
 
 class MainController {
   private scenes: Scene[] = [];
@@ -40,7 +41,7 @@ class MainController {
     });
 
     await new Promise((resolve, reject) => {
-      this.worker.onmessage = (e) =>  {
+      this.worker.onmessage = (e) => {
         if (e.data !== 'ack') reject('unexpected data on init');
         delete this.worker.onmessage;
         resolve();
@@ -136,6 +137,7 @@ class MapSelectScene extends Scene {
   private refreshBtn: HTMLElement;
   private selectBtn: HTMLElement;
   private previewEl: HTMLElement;
+  private inputFormEl: HTMLElement;
   private loadingPreview = false;
 
   constructor() {
@@ -143,8 +145,11 @@ class MapSelectScene extends Scene {
     this.refreshBtn = Helper.find('.generate--refresh-btn', this.element);
     this.selectBtn = Helper.find('.generate--select-btn', this.element);
     this.previewEl = Helper.find('.generate--preview', this.element);
+    this.inputFormEl = Helper.find('.generate--input-form', this.element);
     this.onClickRefreshBtn = this.onClickRefreshBtn.bind(this);
     this.onClickSelectBtn = this.onClickSelectBtn.bind(this);
+
+    createMapSelectForm(this.inputFormEl);
   }
 
   public async onClickRefreshBtn() {
@@ -153,19 +158,18 @@ class MapSelectScene extends Scene {
 
     const canvas = document.createElement('canvas') as HTMLCanvasElement;
     const offscreen = canvas.transferControlToOffscreen();
+    const opts = getMapGenOpts(this.inputFormEl);
 
     // @ts-ignore
     controller.worker.postMessage({
       type: 'worker_mapgen',
       canvas: offscreen,
-      width: 200,
-      height: 200,
-      depth: 1,
+      ...opts,
       bare: false,
     }, [offscreen]);
 
     await new Promise((resolve) => {
-      controller.worker.onmessage = (e) =>  {
+      controller.worker.onmessage = (e) => {
         delete controller.worker.onmessage;
         resolve();
       };
@@ -272,7 +276,7 @@ class GameScene extends Scene {
 function globalActionCreator(tile: Tile, loc: TilePoint): GameAction[] {
   const item = tile.item;
   const meta = Content.getMetaItem(item ? item.type : 0);
-  const actions = [] as Array<{innerText: string, title: string, type: string}>;
+  const actions = [] as Array<{ innerText: string, title: string, type: string }>;
 
   if (item && meta.moveable) {
     actions.push({
@@ -328,7 +332,7 @@ function globalActionCreator(tile: Tile, loc: TilePoint): GameAction[] {
 
 function globalOnActionHandler(client: Client, e: GameActionEvent) {
   const type = e.action.type;
-  const {creature, loc} = e;
+  const { creature, loc } = e;
 
   switch (type) {
     case 'pickup':
