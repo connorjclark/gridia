@@ -8,9 +8,9 @@ const mapGenResult = generate({
   width: 400,
   height: 400,
   partitionStrategy: {
-    type: 'square',
-    size: 15,
-    rand: 0.5,
+    type: 'voronoi',
+    points: 300,
+    relaxations: 5,
   },
   waterStrategy: {
     type: 'radial',

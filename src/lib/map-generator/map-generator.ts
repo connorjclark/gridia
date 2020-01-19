@@ -3,6 +3,8 @@
 
 // tslint:disable no-shadowed-variable
 
+import { Delaunay } from 'd3-delaunay';
+
 export type MapGenerationResult = ReturnType<typeof generate>;
 
 export interface Context {
@@ -49,18 +51,37 @@ export interface Polygon {
   adjacent: Polygon[];
 }
 
+interface SquarePartitionStrategy {
+  type: 'square';
+  size: number;
+  rand?: number;
+}
+
+interface VoronoiPartitionStrategy {
+  type: 'voronoi';
+  points: number;
+  relaxations: number;
+}
+
 export interface GenerateOptions {
   width: number;
   height: number;
   seed?: string;
-  partitionStrategy: { type: 'square', size: number, rand?: number };
+  partitionStrategy: SquarePartitionStrategy | VoronoiPartitionStrategy;
   waterStrategy: { type: 'radial', radius: number };
 }
 
-function squarePartition(size: number, rand: number, ctx: Context) {
-  if (rand > 0.5 || rand < 0) throw new Error();
-  const { width, height } = ctx.options;
+interface GeomPoint {
+  x: number;
+  y: number;
+}
 
+interface GeomPolygon {
+  center: GeomPoint;
+  corners: GeomPoint[];
+}
+
+function makePolygons(geomPolygons: GeomPolygon[]) {
   const polygons: Polygon[] = [];
   const corners = new Map<string, Corner>();
 
@@ -107,38 +128,25 @@ function squarePartition(size: number, rand: number, ctx: Context) {
     };
   }
 
-  function square(x: number, y: number) {
-    const square = {
-      center: center(x + size / 2, y + size / 2),
-      corners: [
-        corner(x, y),
-        corner(x + size, y),
-        corner(x + size, y + size),
-        corner(x, y + size),
-      ],
+  function polygon(geomPolygon: GeomPolygon) {
+    const polygon = {
+      center: center(geomPolygon.center.x, geomPolygon.center.y),
+      corners: geomPolygon.corners.map((geomPoint) => corner(geomPoint.x, geomPoint.y)),
       adjacent: [],
     };
-    for (const corner of square.corners) {
-      add(corner.polygons, square);
+    for (const corner of polygon.corners) {
+      add(corner.polygons, polygon);
     }
-    for (let i = 0; i < square.corners.length; i++) {
-      const before = square.corners[i === 0 ? square.corners.length - 1 : i - 1];
-      const after = square.corners[i === square.corners.length - 1 ? 0 : i + 1];
-      add(square.corners[i].adjacent, before);
-      add(square.corners[i].adjacent, after);
+    for (let i = 0; i < polygon.corners.length; i++) {
+      const before = polygon.corners[i === 0 ? polygon.corners.length - 1 : i - 1];
+      const after = polygon.corners[i === polygon.corners.length - 1 ? 0 : i + 1];
+      add(polygon.corners[i].adjacent, before);
+      add(polygon.corners[i].adjacent, after);
     }
-    polygons.push(square);
+    polygons.push(polygon);
   }
 
-  let y = 0;
-  while (y < height) {
-    let x = 0;
-    while (x < width) {
-      square(Math.min(x, width), Math.min(y, height));
-      x += size;
-    }
-    y += size;
-  }
+  geomPolygons.forEach(polygon);
 
   for (const corner of corners.values()) {
     for (const p1 of corner.polygons) {
@@ -146,7 +154,43 @@ function squarePartition(size: number, rand: number, ctx: Context) {
         if (p1 !== p2) add(p1.adjacent, p2);
       }
     }
+  }
 
+  return { polygons, corners: [...corners.values()] };
+}
+
+function squarePartition(partitionStrategy: SquarePartitionStrategy, ctx: Context) {
+  const { width, height } = ctx.options;
+  const { size, rand = 0 } = partitionStrategy;
+
+  if (rand > 0.5 || rand < 0) throw new Error();
+
+  const geomPolygons = [];
+
+  let y = 0;
+  while (y < height) {
+    let x = 0;
+    while (x < width) {
+      const x0 = Math.min(x, width);
+      const y0 = Math.min(y, height);
+      geomPolygons.push({
+        center: { x: x0 + size / 2, y: y0 + size / 2 },
+        corners: [
+          { x: x0, y: y0 },
+          { x: x0 + size, y: y0 },
+          { x: x0 + size, y: y0 + size },
+          { x: x0, y: y0 + size },
+        ],
+      });
+
+      x += size;
+    }
+    y += size;
+  }
+
+  const { corners, polygons } = makePolygons(geomPolygons);
+
+  for (const corner of corners) {
     if (rand && corner.x !== 0 && corner.x !== width && corner.y !== 0 && corner.y !== height) {
       corner.x = corner.x + size * rand * (0.5 - ctx.random());
       corner.y = corner.y + size * rand * (0.5 - ctx.random());
@@ -155,7 +199,47 @@ function squarePartition(size: number, rand: number, ctx: Context) {
     corner.y = Math.min(corner.y, height);
   }
 
-  return { polygons, corners: [...corners.values()] };
+  return { polygons, corners };
+}
+
+function voronoiPartition(partitionStrategy: VoronoiPartitionStrategy, ctx: Context) {
+  const { width, height } = ctx.options;
+  const { points: numPoints, relaxations } = partitionStrategy;
+
+  const points = Float64Array.from({length: numPoints * 2}, (_, i) => ctx.random() * (i % 2 === 0 ? width : height));
+  const delaunay = new Delaunay(points);
+  const voronoi = delaunay.voronoi([0, 0, width, height]);
+
+  // https://observablehq.com/@mbostock/lloyds-algorithm
+  for (let j = 0; j < relaxations; j++) {
+    for (let i = 0; i < numPoints; i++) {
+      const cell = voronoi.cellPolygon(i);
+      if (!cell) continue;
+      const centroid = require('d3-polygon').polygonCentroid(cell);
+
+      points[i * 2] = centroid[0];
+      points[i * 2 + 1] = centroid[1];
+
+      // @ts-ignore
+      voronoi.update();
+    }
+  }
+
+  const geomPolygons = [];
+  for (let i = 0; i < numPoints; i++) {
+    const polygon = voronoi.cellPolygon(i);
+    const cx = delaunay.points[i * 2];
+    const cy = delaunay.points[i * 2 + 1];
+    geomPolygons.push({
+      center: {x: cx, y: cy},
+      corners: polygon.map((p) => {
+        return {x: p[0], y: p[1]};
+      }),
+    });
+  }
+
+  const { corners, polygons } = makePolygons(geomPolygons);
+  return { polygons, corners };
 }
 
 function setBorder(ctx: Context) {
@@ -569,7 +653,11 @@ export function generate(options: GenerateOptions) {
 
   // Partition into polygons.
   if (partitionStrategy.type === 'square') {
-    const partitionResult = squarePartition(partitionStrategy.size, partitionStrategy.rand || 0, ctx);
+    const partitionResult = squarePartition(partitionStrategy, ctx);
+    ctx.polygons = partitionResult.polygons;
+    ctx.corners = partitionResult.corners;
+  } else if (partitionStrategy.type === 'voronoi') {
+    const partitionResult = voronoiPartition(partitionStrategy, ctx);
     ctx.polygons = partitionResult.polygons;
     ctx.corners = partitionResult.corners;
   } else {

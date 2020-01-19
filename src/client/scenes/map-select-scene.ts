@@ -26,6 +26,23 @@ const squareInputFormData: InputFormData = {
   },
 };
 
+const voronoiInputFormData: InputFormData = {
+  points: {
+    type: 'number',
+    min: 1,
+    value: 500,
+    max: 5000,
+    step: 1,
+  },
+  relaxations: {
+    type: 'number',
+    min: 0,
+    value: 3,
+    max: 100,
+    step: 1,
+  },
+};
+
 const radialInputFormData: InputFormData = {
   radius: {
     type: 'number',
@@ -58,6 +75,10 @@ const inputFormData: RootInputFormData = {
     max: 5,
   },
   partitionStrategy: [
+    {
+      name: 'voronoi',
+      data: voronoiInputFormData,
+    },
     {
       name: 'square',
       data: squareInputFormData,
