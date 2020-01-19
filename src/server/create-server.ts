@@ -12,14 +12,14 @@ export async function startServer(options: ServerOptions) {
   if (await fs.exists(serverData)) {
     context = await ServerContext.load(serverData);
   } else {
-    const {world, maps} = createDebugWorldMap();
+    const {world, mapGenData} = createDebugWorldMap();
     context = new ServerContext(world, serverData);
     await context.save();
 
     // Only save images in Node server.
     if (global.node) {
-      for (let i = 0; i < maps.length; i++) {
-        const canvas = makeMapImage(maps[i].mapGenResult);
+      for (let i = 0; i < mapGenData.length; i++) {
+        const canvas = makeMapImage(mapGenData[i]);
         fs.writeFile(`${serverData}/misc/map${i}.svg`, canvas.toBuffer().toString());
       }
     }

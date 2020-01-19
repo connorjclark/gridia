@@ -1,6 +1,5 @@
 import * as assert from 'assert';
 import { MINE, SECTOR_SIZE, WATER } from './constants';
-import * as Content from './content';
 import { generate, GenerateOptions } from './lib/map-generator/map-generator';
 import WorldMapPartition from './world-map-partition';
 
@@ -28,52 +27,18 @@ function biomeToFloor(biome: string) {
   return 200;
 }
 
-// interface MapGenOptions_ extends GenerateOptions {
-//   depth: number;
-//   bare: boolean;
-// }
-
-// TODO: refactor
-type MapGenOptions = (
-  ({ bare: false } & GenerateOptions) |
-  ({ bare: true } & Omit<GenerateOptions, 'partitionStrategy' | 'waterStrategy'>)
-) & { depth: number };
-
-export function makeBareMap() {
-  // TODO
-}
-
-export default function mapgen(opts: MapGenOptions) {
-  const { width, height, depth, bare } = opts;
-
+function sanityCheck(width: number, height: number, depth: number) {
   assert.ok(width % SECTOR_SIZE === 0);
   assert.ok(height % SECTOR_SIZE === 0);
   assert.ok(width <= 1000);
   assert.ok(height <= 1000);
   assert.ok(depth < 5);
+}
 
-  const treeType = Content.getMetaItemByName('Pine Tree').id;
-  const flowerType = Content.getMetaItemByName('Cut Red Rose').id;
+export function makeBareMap(width: number, height: number, depth: number) {
+  sanityCheck(width, height, depth);
 
   const map = new WorldMapPartition(width, height, depth);
-
-  let mapGenResult;
-  if (opts.bare) {
-    mapGenResult = generate({
-      ...opts,
-      // Doesn't matter.
-      partitionStrategy: {
-        type: 'square',
-        size: width,
-      },
-      waterStrategy: {
-        type: 'radial',
-        radius: 0,
-      },
-    });
-  } else {
-    mapGenResult = generate(opts);
-  }
 
   // tslint:disable-next-line: prefer-for-of
   for (let sx = 0; sx < map.sectors.length; sx++) {
@@ -88,103 +53,62 @@ export default function mapgen(opts: MapGenOptions) {
     for (let y = 0; y < height; y++) {
       for (let z = 0; z < depth; z++) {
         const loc = { x, y, z };
-        if (bare) {
-          map.setTile(loc, {
-            floor: z ? MINE : 100,
-          });
-        } else {
-          let floor = 0;
-          let item;
-
-          if (z === 0) {
-            // floor = 100 + ((x + y) % 10) * 20;
-            const polygon = mapGenResult.polygons[mapGenResult.raster[x][y] - 1];
-            if (polygon) {
-              floor = biomeToFloor(polygon.center.biome);
-            } else {
-              // TODO ?
-              // console.warn({x, y, val: raster[x][y]});
-              floor = 0;
-            }
-            // floor = 100 + (raster[x][y] % 10) * 20;
-
-            if (x === y) {
-              item = {
-                type: treeType,
-                quantity: 1,
-              };
-            }
-
-            if (x === y - 1) {
-              item = {
-                type: flowerType,
-                quantity: 1,
-              };
-            }
-          } else {
-            floor = Math.random() > 0.2 ? MINE : 19;
-          }
-
-          map.setTile(loc, {
-            floor,
-            item,
-          });
-        }
+        map.setTile(loc, {
+          floor: z ? MINE : 100,
+        });
       }
     }
   }
 
-  if (!bare) {
-    // Item playground.
-    const itemUsesGroupedByTool = new Map<number, ItemUse[]>();
-    for (const use of require('../world/content/itemuses.json') as ItemUse[]) {
-      let arr = itemUsesGroupedByTool.get(use.tool);
-      if (!arr) {
-        itemUsesGroupedByTool.set(use.tool, arr = []);
+  return map;
+}
+
+interface MapGenOptions extends GenerateOptions {
+  depth: number;
+}
+
+export default function mapgen(opts: MapGenOptions) {
+  const { width, height, depth } = opts;
+  sanityCheck(width, height, depth);
+
+  const map = new WorldMapPartition(width, height, depth);
+  const mapGenResult = generate(opts);
+
+  // tslint:disable-next-line: prefer-for-of
+  for (let sx = 0; sx < map.sectors.length; sx++) {
+    for (let sy = 0; sy < map.sectors[0].length; sy++) {
+      for (let sz = 0; sz < map.sectors[0][0].length; sz++) {
+        map.sectors[sx][sy][sz] = map.createEmptySector();
       }
-      arr.push(use);
     }
-    let i = 0;
-    for (const [tool, uses] of Array.from(itemUsesGroupedByTool.entries()).sort(([_, a], [__, b]) => {
-      return b.length - a.length;
-    }).slice(0, 30)) {
-      const startX = 25;
-      const y = i * 3;
-      map.getTile({ x: startX, y, z: 0 }).item = { type: tool, quantity: 1 };
-      const focusItems = [...new Set(uses.map((u) => u.focus))];
-      for (let j = 0; j < focusItems.length; j++) {
-        map.getTile({ x: startX + j + 2, y, z: 0 }).item = { type: focusItems[j], quantity: 1 };
+  }
+
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+      for (let z = 0; z < depth; z++) {
+        const loc = { x, y, z };
+        let floor = 0;
+
+        if (z === 0) {
+          // floor = 100 + ((x + y) % 10) * 20;
+          const polygon = mapGenResult.polygons[mapGenResult.raster[x][y] - 1];
+          if (polygon) {
+            floor = biomeToFloor(polygon.center.biome);
+          } else {
+            // TODO ?
+            // console.warn({x, y, val: raster[x][y]});
+            floor = 0;
+          }
+          // floor = 100 + (raster[x][y] % 10) * 20;
+        } else {
+          floor = Math.random() > 0.2 ? MINE : 19;
+        }
+
+        map.setTile(loc, {
+          floor,
+        });
       }
-      i++;
     }
-
-    // Some stairs.
-    const loc = { x: 5, y: 5, z: 0 };
-    map.getTile({ ...loc, z: 1 }).floor = map.getTile(loc).floor = 10;
-    map.getTile({ ...loc, z: 1 }).item = {
-      type: Content.getMetaItemByName('Royal Stairs Up').id,
-      quantity: 1,
-    };
-    map.getTile(loc).item = {
-      type: Content.getMetaItemByName('Royal Stairs Down').id,
-      quantity: 1,
-    };
-
-    // Chests to test containers.
-    map.getTile({ x: 8, y: 8, z: 0 }).item = {
-      type: Content.getRandomMetaItemOfClass('Container').id,
-      quantity: 1,
-    };
-    map.getTile({ x: 9, y: 8, z: 0 }).item = {
-      type: Content.getRandomMetaItemOfClass('Container').id,
-      quantity: 1,
-    };
-
-    map.getTile({ x: 9, y: 9, z: 0 }).item = {
-      type: Content.getMetaItemByName('Warp Portal').id,
-      quantity: 1,
-      warpTo: { w: 0, x: 3, y: 1, z: 0 },
-    };
   }
 
   return {
