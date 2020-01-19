@@ -1,3 +1,4 @@
+import { getMonsterTemplateByName } from '../content';
 import * as fs from '../iso-fs';
 import { makeMapImage } from '../lib/map-generator/map-image-maker';
 import Server from '../server/server';
@@ -6,13 +7,13 @@ import * as Utils from '../utils';
 import createDebugWorldMap from '../world-map-debug';
 
 export async function startServer(options: ServerOptions) {
-  const {serverData, verbose} = options;
+  const { serverData, verbose } = options;
 
   let context: ServerContext;
   if (await fs.exists(serverData)) {
     context = await ServerContext.load(serverData);
   } else {
-    const {world, mapGenData} = createDebugWorldMap();
+    const { world, mapGenData } = createDebugWorldMap();
     context = new ServerContext(world, serverData);
     await context.save();
 
@@ -30,6 +31,8 @@ export async function startServer(options: ServerOptions) {
     verbose,
   });
 
+  const { width, height } = context.map.getPartition(0);
+
   // This cyclical dependency between Server and WorldMap could be improved.
   context.map.loader = (pos) => {
     return context.loadSector(server, pos);
@@ -40,15 +43,18 @@ export async function startServer(options: ServerOptions) {
   }, 50);
 
   setInterval(() => {
+    const COW = getMonsterTemplateByName('Cow');
     if (server.clientConnections.length > 0) {
       if (Object.keys(server.creatureStates).length < 5) {
-        const pos = {w: 0, x: Utils.randInt(0, 30), y: Utils.randInt(0, 30), z: 0};
+        const x = Utils.randInt(width / 2 - 5, width / 2 + 5);
+        const y = Utils.randInt(height / 2 - 5, height / 2 + 5);
+        const pos = { w: 0, x, y, z: 0 };
         if (server.context.map.walkable(pos)) {
-          server.makeCreatureFromTemplate(Utils.randInt(1, 100), pos);
+          server.makeCreatureFromTemplate(COW, pos);
         }
       }
     } else {
-      for (const {creature} of Object.values(server.creatureStates)) {
+      for (const { creature } of Object.values(server.creatureStates)) {
         server.removeCreature(creature);
       }
     }

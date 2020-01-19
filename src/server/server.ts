@@ -162,8 +162,8 @@ export default class Server {
     }
   }
 
-  public makeCreatureFromTemplate(creatureType: number, pos: TilePoint) {
-    const template = Content.getMonsterTemplate(creatureType);
+  public makeCreatureFromTemplate(creatureType: number|Monster, pos: TilePoint) {
+    const template = typeof creatureType === 'number' ? Content.getMonsterTemplate(creatureType) : creatureType;
     if (!template) return; // TODO
 
     const creature = {
@@ -172,6 +172,7 @@ export default class Server {
       name: template.name,
       pos,
       isPlayer: false,
+      roam: template.roam,
     };
 
     this.registerCreature(creature);
@@ -408,7 +409,7 @@ export default class Server {
       const {creature} = state;
       if (creature.isPlayer) continue;
 
-      if (now - state.lastMove > 1500) {
+      if (now - state.lastMove > 5000) {
         state.lastMove = now;
         const w = creature.pos.w;
         const partition = this.context.map.getPartition(w);
@@ -424,10 +425,10 @@ export default class Server {
 
           if (tamedBy) {
             destination = tamedBy.creature.pos;
-          } else if (Utils.maxDiff(creature.pos, state.home) <= 10) {
-            const randomDest = {...creature.pos};
-            randomDest.x += Math.floor(Math.random() * 6 - 1);
-            randomDest.y += Math.floor(Math.random() * 6 - 1);
+          } else if (creature.roam) {
+            const randomDest = {...state.home};
+            randomDest.x += Utils.randInt(-creature.roam, creature.roam);
+            randomDest.y += Utils.randInt(-creature.roam, creature.roam);
             if (partition.walkable(randomDest)) {
               destination = randomDest;
             }
@@ -435,7 +436,9 @@ export default class Server {
             destination = state.home;
           }
 
-          if (destination) state.path = findPath(partition, creature.pos, destination);
+          if (destination && !Utils.equalPoints(destination, state.home)) {
+            state.path = findPath(partition, creature.pos, destination);
+          }
         }
 
         if (!state.path || state.path.length === 0) return;

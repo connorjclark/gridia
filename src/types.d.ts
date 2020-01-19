@@ -49,6 +49,7 @@ interface Creature {
   pos: TilePoint;
   isPlayer: boolean;
   tamedBy?: number; // player id
+  roam?: number;
 }
 
 type ServerToClientMessage = import('./protocol/gen/server-to-client-protocol-builder').Message;
@@ -99,6 +100,7 @@ interface Monster {
   id: number;
   name: string;
   image: number;
+  roam?: number;
 }
 
 interface UIState {

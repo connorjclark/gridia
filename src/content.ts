@@ -58,6 +58,13 @@ function prepareData() {
     // @ts-ignore
     use.productNames = use.products.map((product) => getName(product.type));
   }
+
+  for (const monster of monsters) {
+    if (monster) monster.image -= 1;
+  }
+
+  // @ts-ignore
+  // globalThis.GridiaContent = {items, itemUses, animations, monsters, skills};
 }
 
 // Add name properties for readability in the console.
@@ -155,6 +162,12 @@ export function getAnimation(key: string) {
 
 export function getMonsterTemplate(id: number) {
   return monsters[id];
+}
+
+export function getMonsterTemplateByName(name: string) {
+  const result = monsters.find((m) => m && m.name === name);
+  if (!result) throw new Error(`could not find monster: ${name}`);
+  return result;
 }
 
 export function getSkills() {

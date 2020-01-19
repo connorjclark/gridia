@@ -8,7 +8,7 @@ import Client from '../src/client/client';
 import { Connection } from '../src/client/connection';
 import { MINE } from '../src/constants';
 import * as Content from '../src/content';
-import mapgen, { makeBareMap } from '../src/mapgen';
+import { makeBareMap } from '../src/mapgen';
 import * as ProtocolBuilder from '../src/protocol/client-to-server-protocol-builder';
 import Server from '../src/server/server';
 import { ServerContext } from '../src/server/server-context';
