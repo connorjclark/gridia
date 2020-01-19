@@ -8,7 +8,7 @@ import Client from '../src/client/client';
 import { Connection } from '../src/client/connection';
 import { MINE } from '../src/constants';
 import * as Content from '../src/content';
-import mapgen from '../src/mapgen';
+import mapgen, { makeBareMap } from '../src/mapgen';
 import * as ProtocolBuilder from '../src/protocol/client-to-server-protocol-builder';
 import Server from '../src/server/server';
 import { ServerContext } from '../src/server/server-context';
@@ -30,7 +30,7 @@ async function send(message) {
 
 beforeEach(async () => {
   const worldMap = new WorldMap();
-  const partition = mapgen({width: 20, height: 20, depth: 1, bare: true}).partition;
+  const partition = makeBareMap(20, 20, 1);
   worldMap.addPartition(0, partition);
   const memoryServerData = await openAndConnectToServerInMemory({
     serverData: '/', // ?
