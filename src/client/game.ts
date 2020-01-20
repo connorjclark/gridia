@@ -285,6 +285,13 @@ class Game {
           if (frame.sound) this.playSound(frame.sound);
         }
       }
+
+      if (e.type === 'chat') {
+        const chatTextarea = Helper.find('.chat-area') as HTMLTextAreaElement;
+        const isMaxScroll = (chatTextarea.scrollTop + chatTextarea.offsetHeight) >= chatTextarea.scrollHeight;
+        chatTextarea.value += `${e.args.from}: ${e.args.message}\n`;
+        if (isMaxScroll) chatTextarea.scrollTop = chatTextarea.scrollHeight;
+      }
     });
 
     this.canvasesEl.appendChild(this.app.view);
@@ -319,7 +326,7 @@ class Game {
     if (!this.loader.hasResourceLoaded(resourceKey)) {
       await this.loader.loadResource(resourceKey);
     }
-    PIXISound.play(resourceKey, {volume: this.client.settings.volume});
+    PIXISound.play(resourceKey, { volume: this.client.settings.volume });
   }
 
   public trip() {
@@ -469,10 +476,13 @@ class Game {
       }
     });
 
-    document.onkeydown = (e) => {
+    const canvases = Helper.find('#canvases');
+    canvases.focus();
+    canvases.addEventListener('keydown', (e) => {
       this.keys[e.keyCode] = true;
-    };
-    document.onkeyup = (e) => {
+    });
+
+    canvases.addEventListener('keyup', (e) => {
       delete this.keys[e.keyCode];
 
       // TODO replace with something better - game loaded / ready.
@@ -549,7 +559,7 @@ class Game {
           z: 1 - focusPos.z,
         }));
       }
-    };
+    });
 
     // resize the canvas to fill browser window dynamically
     const resize = () => {
@@ -599,6 +609,21 @@ class Game {
 
     this.client.eventEmitter.on('editingMode', ({ enabled }) => {
       this._isEditing = enabled;
+    });
+
+    const chatInput = Helper.find('.chat-input') as HTMLInputElement;
+    const chatForm = Helper.find('.chat-form');
+    const chatTextarea = Helper.find('.chat-area');
+    chatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!chatInput.value) return;
+
+      this.client.connection.send(ProtocolBuilder.chat({
+        to: 'global',
+        message: chatInput.value,
+      }));
+      chatInput.value = '';
+      chatTextarea.scrollTop = chatTextarea.scrollHeight;
     });
 
     registerPanelListeners();

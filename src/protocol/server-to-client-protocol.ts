@@ -1,8 +1,5 @@
-import PIXISound from 'pixi-sound';
 import Client from '../client/client';
 import Container from '../container';
-import * as Content from '../content';
-import { game } from '../game-singleton';
 import * as Utils from '../utils';
 import { ItemSourceWorld } from './client-to-server-protocol';
 import * as ProtocolBuilder from './client-to-server-protocol-builder';
@@ -97,5 +94,9 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
   public onXp(client: Client, { skill, xp }: Params.Xp): void {
     const currentXp = client.skills.get(skill) || 0;
     client.skills.set(skill, currentXp + xp);
+  }
+
+  public onChat(client: Client, { from, to, message }: Params.Chat): void {
+    // handled by game.ts
   }
 }

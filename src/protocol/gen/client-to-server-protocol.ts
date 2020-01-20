@@ -15,4 +15,5 @@ export default interface IClientToServerProtocol {
     onRequestSector(server: Server, { ...loc }: ClientToServerProtocol.Params.RequestSector): void;
     onTame(server: Server, { creatureId }: ClientToServerProtocol.Params.Tame): void;
     onUse(server: Server, { toolIndex, loc, usageIndex }: ClientToServerProtocol.Params.Use): void;
+    onChat(server: Server, { to, message }: ClientToServerProtocol.Params.Chat): void;
 }

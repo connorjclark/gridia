@@ -57,6 +57,11 @@ declare namespace ClientToServerProtocol {
       loc: TilePoint;
       usageIndex?: number;
     }
+
+    interface Chat {
+      to: string;
+      message: string;
+    }
   }
 }
 
@@ -109,6 +114,12 @@ declare namespace ServerToClientProtocol {
     interface Xp {
       skill: number;
       xp: number;
+    }
+
+    interface Chat {
+      from: string;
+      to: string;
+      message: string;
     }
   }
 }

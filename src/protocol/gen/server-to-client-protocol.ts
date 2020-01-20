@@ -14,4 +14,5 @@ export default interface IServerToClientProtocol {
     onSetFloor(client: Client, { floor, ...loc }: ServerToClientProtocol.Params.SetFloor): void;
     onSetItem(client: Client, { item, source, ...loc }: ServerToClientProtocol.Params.SetItem): void;
     onXp(client: Client, { skill, xp }: ServerToClientProtocol.Params.Xp): void;
+    onChat(client: Client, { from, to, message }: ServerToClientProtocol.Params.Chat): void;
 }

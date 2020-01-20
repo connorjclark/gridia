@@ -44,8 +44,12 @@ type XpMessage = {
     type: "xp";
     args: ServerToClientProtocol.Params.Xp;
 };
+type ChatMessage = {
+    type: "chat";
+    args: ServerToClientProtocol.Params.Chat;
+};
 
-export type Message = AnimationMessage | ContainerMessage | InitializeMessage | InitializePartitionMessage | LogMessage | RemoveCreatureMessage | SectorMessage | SetCreatureMessage | SetFloorMessage | SetItemMessage | XpMessage;
+export type Message = AnimationMessage | ContainerMessage | InitializeMessage | InitializePartitionMessage | LogMessage | RemoveCreatureMessage | SectorMessage | SetCreatureMessage | SetFloorMessage | SetItemMessage | XpMessage | ChatMessage;
 
 export function animation({ key, ...loc }: ServerToClientProtocol.Params.Animation): AnimationMessage {
     return { type: "animation", args: arguments[0] };
@@ -79,4 +83,7 @@ export function setItem({ item, source, ...loc }: ServerToClientProtocol.Params.
 }
 export function xp({ skill, xp }: ServerToClientProtocol.Params.Xp): XpMessage {
     return { type: "xp", args: arguments[0] };
+}
+export function chat({ from, to, message }: ServerToClientProtocol.Params.Chat): ChatMessage {
+    return { type: "chat", args: arguments[0] };
 }

@@ -35,6 +35,7 @@
       height: 75%;
       position: relative;
       border: 1px solid black;
+      outline: none;
     }
 
     .status-texts {
@@ -45,9 +46,11 @@
       color: yellow;
       padding: 5px;
     }
+
     .status-text {
       transition: 2s ease-in-out;
     }
+
     .status-text--remove {
       transform: translate(0, -100px);
       opacity: 0;
@@ -72,11 +75,20 @@
       padding: 10px;
     }
 
-    .instructions {
+    .chat {
       width: 50%;
+      margin: 0 10px;
+    }
+    .chat textarea {
+      width: 100%;
+      height: 20vh;
+      resize: none;
+    }
+    .chat-submit {
+      margin-left: 10px;
     }
 
-    .instructions pre {
+    .help pre {
       word-wrap: break-word;
       white-space: pre-wrap;
     }
@@ -96,27 +108,33 @@
     .panels-container {
       width: 50%;
     }
+
     .panels {
       border: black solid 1px;
       padding: 2px;
       height: 20vh;
       overflow-y: scroll;
     }
+
     .panel {
       display: none;
     }
+
     .panel--active {
       display: block;
     }
+
     .panels__tabs {
       display: flex;
       margin: 5px 0;
     }
+
     .panels__tab {
       margin-right: 3px;
       padding: 0 3px;
       border: black solid 1px;
     }
+
     .panels__tab--active {
       background-color: rgb(85, 85, 85);
       color: white;
@@ -138,6 +156,13 @@
       .instructions {
         display: none;
       }
+    }
+
+    .flex {
+      display: flex;
+    }
+    .flex-grow {
+      flex-grow: 1;
     }
   </style>
 </head>
@@ -181,30 +206,26 @@
   </div>
 
   <div class="game hidden">
-    <div id="canvases">
+    <div id="canvases" tabindex="0">
       <!-- <canvas id="glCanvas" height="480"></canvas>
           <canvas id="ctxText" height="680"></canvas> -->
       <div class="status-texts"></div>
     </div>
     <div class="ui">
-      <div class="instructions">
-        <!-- <p>Chat:</p>
-              <textarea name="chat" id="chat" cols="30" rows="10">(not implemented)</textarea> -->
-        <a href="https://github.com/connorjclark/gridia-2019-wip">GitHub</a>
-        <pre>
-  WASD to move character.
-  Number keys / Click to equip tool in inventory.
-  Arrow keys to select item in the world.
-  Space to use tool on selected item in the world. Alt to use hand.
-  To pick up item in the world: shift to pick up selected item, or drag and drop to inventory slot or character.
-        </pre>
+      <div class="chat">
+        <textarea class="chat-area" tabindex="-1" readonly></textarea>
+        <form class="flex chat-form">
+          <input class="flex-grow chat-input" type="text">
+          <input class="chat-submit" type="submit">
+        </form>
       </div>
       <div class="panels-container">
         <div class="panels">
           <div class="panel panel--selected-view panel--active">
             <div class="selected-view">
               <div class="selected-view--actions"></div>
-              <span class="selected-view--details"><!-- insert details here --></span>
+              <span class="selected-view--details">
+                <!-- insert details here --></span>
             </div>
           </div>
           <div class="panel panel--skills">
@@ -221,12 +242,25 @@
               Admin panel.
             </div>
           </div>
+          <div class="panel panel--help">
+            <div class="help">
+              <a href="https://github.com/connorjclark/gridia-2019-wip">GitHub</a>
+              <pre>
+WASD to move character.
+Number keys / Click to equip tool in inventory.
+Arrow keys to select item in the world.
+Space to use tool on selected item in the world. Alt to use hand.
+To pick up item in the world: shift to pick up selected item, or drag and drop to inventory slot or character.
+              </pre>
+            </div>
+          </div>
         </div>
         <div class="panels__tabs">
           <div class="panels__tab panels__tab--active" data-panel="selected-view">View</div>
           <div class="panels__tab" data-panel="skills">Skills</div>
           <div class="panels__tab" data-panel="settings">Settings</div>
           <div class="panels__tab" data-panel="admin">Admin</div>
+          <div class="panels__tab" data-panel="help">Help</div>
         </div>
       </div>
       <div class="contextmenu"></div>

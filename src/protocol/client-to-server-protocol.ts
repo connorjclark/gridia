@@ -293,4 +293,8 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     // context.queueTileChange(from)
     // context.queueTileChange(to)
   }
+
+  public onChat(server: Server, { to, message }: Params.Chat): void {
+    server.broadcast(ProtocolBuilder.chat({from: server.currentClientConnection.player.name, to, message}));
+  }
 }

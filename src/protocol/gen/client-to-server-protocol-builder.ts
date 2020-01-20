@@ -48,8 +48,12 @@ type UseMessage = {
     type: "use";
     args: ClientToServerProtocol.Params.Use;
 };
+type ChatMessage = {
+    type: "chat";
+    args: ClientToServerProtocol.Params.Chat;
+};
 
-export type Message = AdminSetFloorMessage | AdminSetItemMessage | CloseContainerMessage | MoveMessage | MoveItemMessage | RegisterMessage | RequestContainerMessage | RequestCreatureMessage | RequestPartitionMessage | RequestSectorMessage | TameMessage | UseMessage;
+export type Message = AdminSetFloorMessage | AdminSetItemMessage | CloseContainerMessage | MoveMessage | MoveItemMessage | RegisterMessage | RequestContainerMessage | RequestCreatureMessage | RequestPartitionMessage | RequestSectorMessage | TameMessage | UseMessage | ChatMessage;
 
 export function adminSetFloor({ floor, ...loc }: ClientToServerProtocol.Params.AdminSetFloor): AdminSetFloorMessage {
     return { type: "adminSetFloor", args: arguments[0] };
@@ -86,4 +90,7 @@ export function tame({ creatureId }: ClientToServerProtocol.Params.Tame): TameMe
 }
 export function use({ toolIndex, loc, usageIndex }: ClientToServerProtocol.Params.Use): UseMessage {
     return { type: "use", args: arguments[0] };
+}
+export function chat({ to, message }: ClientToServerProtocol.Params.Chat): ChatMessage {
+    return { type: "chat", args: arguments[0] };
 }
