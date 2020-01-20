@@ -22,6 +22,66 @@ interface RegisterOpts {
   // password: string;
 }
 
+// State that clients don't need and shouldn't have.
+// Also isn't serialized - this state is transient.
+class CreatureState {
+  public mode: string[] = [];
+  public nextTick = performance.now();
+  // True if last movement was a warp. Prevents infinite stairs.
+  public warped = false;
+  public home: TilePoint;
+  public path: PartitionPoint[] = [];
+
+  constructor(public creature: Creature) {
+    this.home = creature.pos;
+  }
+
+  public pop() {
+    if (this.mode.length) this.mode.pop();
+  }
+
+  public goto(partition: WorldMapPartition, destination: TilePoint) {
+    if (Utils.equalPoints(destination, this.creature.pos)) return;
+    if (destination.w !== this.creature.pos.w) return;
+    this.path = findPath(partition, this.creature.pos, destination);
+  }
+
+  public tick(server: Server, now: number) {
+    if (now < this.nextTick) return;
+    const duration = [400, 750, 1000, 1500, 3500, 5000][Utils.clamp(this.creature.speed, 0, 5)];
+    this.nextTick = now + duration;
+
+    const w = this.creature.pos.w;
+    const partition = server.context.map.getPartition(w);
+
+    if (this.path.length) {
+      const newPos = { w, ...this.path.splice(0, 1)[0] };
+      if (partition.walkable(newPos)) {
+        server.moveCreature(this.creature, newPos);
+      } else {
+        // Path has been obstructed - reset pathing.
+        this.path = [];
+      }
+    }
+
+    const mode = this.mode.length ? this.mode[this.mode.length - 1] : 'idle';
+    if (mode === 'idle') {
+      const tamedBy = this.creature.tamedBy && server.players.get(this.creature.tamedBy);
+      if (tamedBy) {
+        // Always recalc for tamed creatures.
+        this.goto(partition, tamedBy.creature.pos);
+      } else if (this.path.length === 0 && this.creature.roam) {
+        const randomDest = { ...this.home };
+        randomDest.x += Utils.randInt(-this.creature.roam, this.creature.roam);
+        randomDest.y += Utils.randInt(-this.creature.roam, this.creature.roam);
+        if (partition.walkable(randomDest)) this.goto(partition, randomDest);
+      }
+    } else {
+      this.pop();
+    }
+  }
+}
+
 export default class Server {
   public context: ServerContext;
   public clientConnections: ClientConnection[] = [];
@@ -32,16 +92,7 @@ export default class Server {
   }>;
   // @ts-ignore: this is always defined when accessed.
   public currentClientConnection: ClientConnection;
-  // State that clients don't need and shouldn't have.
-  // Also isn't serialized - this state is transient.
-  public creatureStates: Record<number, {
-    creature: Creature;
-    lastMove: number;
-    // True if last movement was a warp. Prevents infinite stairs.
-    warped: boolean;
-    home: TilePoint;
-    path: PartitionPoint[] | null;
-  }> = {};
+  public creatureStates: Record<number, CreatureState> = {};
   public players = new Map<number, Player>();
 
   public verbose: boolean;
@@ -53,7 +104,7 @@ export default class Server {
   private ticks = 0;
 
   private perf = {
-    ticks: [] as Array<{started: number, duration: number}>,
+    ticks: [] as Array<{ started: number, duration: number }>,
     tickDurationAverage: 0,
     tickDurationMax: 0,
   };
@@ -66,19 +117,19 @@ export default class Server {
   }
 
   public reply(message: ServerToClientMessage) {
-    this.outboundMessages.push({to: this.currentClientConnection, message});
+    this.outboundMessages.push({ to: this.currentClientConnection, message });
   }
 
   public broadcast(message: ServerToClientMessage) {
-    this.outboundMessages.push({message});
+    this.outboundMessages.push({ message });
   }
 
   public send(message: ServerToClientMessage, toClient: ClientConnection) {
-    this.outboundMessages.push({to: toClient, message});
+    this.outboundMessages.push({ to: toClient, message });
   }
 
   public conditionalBroadcast(message: ServerToClientMessage, filter: (client: ClientConnection) => boolean) {
-    this.outboundMessages.push({filter, message});
+    this.outboundMessages.push({ filter, message });
   }
 
   public async tick() {
@@ -99,7 +150,7 @@ export default class Server {
   }
 
   public async registerPlayer(clientConnection: ClientConnection, opts: RegisterOpts) {
-    const {width, height} = this.context.map.getPartition(0);
+    const { width, height } = this.context.map.getPartition(0);
     const pos = {
       w: 0,
       x: Utils.randInt(width / 2 - 10, width / 2 + 10),
@@ -116,6 +167,7 @@ export default class Server {
       pos,
       image: Utils.randInt(0, 10),
       isPlayer: true,
+      speed: 2,
     });
 
     const player = new Player(creature);
@@ -162,7 +214,7 @@ export default class Server {
     }
   }
 
-  public makeCreatureFromTemplate(creatureType: number|Monster, pos: TilePoint) {
+  public makeCreatureFromTemplate(creatureType: number | Monster, pos: TilePoint) {
     const template = typeof creatureType === 'number' ? Content.getMonsterTemplate(creatureType) : creatureType;
     if (!template) return; // TODO
 
@@ -173,6 +225,7 @@ export default class Server {
       pos,
       isPlayer: false,
       roam: template.roam,
+      speed: template.speed,
     };
 
     this.registerCreature(creature);
@@ -180,13 +233,7 @@ export default class Server {
   }
 
   public registerCreature(creature: Creature): Creature {
-    this.creatureStates[creature.id] = {
-      creature,
-      lastMove: performance.now(),
-      warped: false,
-      home: creature.pos,
-      path: null,
-    };
+    this.creatureStates[creature.id] = new CreatureState(creature);
     this.context.setCreature(creature);
     return creature;
   }
@@ -219,7 +266,7 @@ export default class Server {
     if (pos) await this.ensureSectorLoadedForPoint(pos);
     this.moveCreature(creature, pos);
     this.creatureStates[creature.id].warped = true;
-    this.creatureStates[creature.id].path = null;
+    this.creatureStates[creature.id].path = [];
   }
 
   public removeCreature(creature: Creature) {
@@ -308,7 +355,7 @@ export default class Server {
     container.items[index] = item || null;
 
     this.conditionalBroadcast(ProtocolBuilder.setItem({
-      ...{w: 0, x: index, y: 0, z: 0},
+      ...{ w: 0, x: index, y: 0, z: 0 },
       source: id,
       item,
     }), (clientConnection) => {
@@ -372,7 +419,7 @@ export default class Server {
 
   public ensureSectorLoadedForPoint(loc: TilePoint) {
     const sectorPoint = Utils.worldToSector(loc, SECTOR_SIZE);
-    return this.ensureSectorLoaded({w: loc.w, ...sectorPoint});
+    return this.ensureSectorLoaded({ w: loc.w, ...sectorPoint });
   }
 
   private async initClient(clientConnection: ClientConnection) {
@@ -393,10 +440,10 @@ export default class Server {
         z: partition.depth,
       }));
     }
-    clientConnection.send(ProtocolBuilder.setCreature({partial: false, ...player.creature}));
+    clientConnection.send(ProtocolBuilder.setCreature({ partial: false, ...player.creature }));
     clientConnection.send(ProtocolBuilder.container(await this.context.getContainer(clientConnection.container.id)));
     setTimeout(() => {
-      this.broadcast(ProtocolBuilder.animation({...player.creature.pos, key: 'WarpIn'}));
+      this.broadcast(ProtocolBuilder.animation({ ...player.creature.pos, key: 'WarpIn' }));
     }, 1000);
   }
 
@@ -406,50 +453,8 @@ export default class Server {
 
     // Handle creatures.
     for (const state of Object.values(this.creatureStates)) {
-      const {creature} = state;
-      if (creature.isPlayer) continue;
-
-      if (now - state.lastMove > 5000) {
-        state.lastMove = now;
-        const w = creature.pos.w;
-        const partition = this.context.map.getPartition(w);
-
-        // Always recalc for tamed creatures.
-        if (creature.tamedBy) {
-          state.path = null;
-        }
-
-        if (!state.path || state.path.length === 0) {
-          let destination = null;
-          const tamedBy = creature.tamedBy && this.players.get(creature.tamedBy);
-
-          if (tamedBy) {
-            destination = tamedBy.creature.pos;
-          } else if (creature.roam) {
-            const randomDest = {...state.home};
-            randomDest.x += Utils.randInt(-creature.roam, creature.roam);
-            randomDest.y += Utils.randInt(-creature.roam, creature.roam);
-            if (partition.walkable(randomDest)) {
-              destination = randomDest;
-            }
-          } else {
-            destination = state.home;
-          }
-
-          if (destination && !Utils.equalPoints(destination, state.home)) {
-            state.path = findPath(partition, creature.pos, destination);
-          }
-        }
-
-        if (!state.path || state.path.length === 0) return;
-        const newPos = { w, ...state.path.splice(0, 1)[0]};
-        if (partition.walkable(newPos)) {
-          this.moveCreature(creature, newPos);
-        } else {
-          // Path has been obstructed - reset pathing.
-          state.path = null;
-        }
-      }
+      if (state.creature.isPlayer) continue;
+      state.tick(this, now);
     }
 
     // Handle stairs and warps.
@@ -463,12 +468,12 @@ export default class Server {
         const meta = Content.getMetaItem(item.type);
 
         let newPos = null;
-        if (meta.class === 'CaveDown' && await map.walkableAsync({...creature.pos, z: creature.pos.z + 1})) {
-          newPos = {...creature.pos, z: creature.pos.z + 1};
-        } else if (meta.class === 'CaveUp' && await map.walkableAsync({...creature.pos, z: creature.pos.z - 1})) {
-          newPos = {...creature.pos, z: creature.pos.z - 1};
+        if (meta.class === 'CaveDown' && await map.walkableAsync({ ...creature.pos, z: creature.pos.z + 1 })) {
+          newPos = { ...creature.pos, z: creature.pos.z + 1 };
+        } else if (meta.class === 'CaveUp' && await map.walkableAsync({ ...creature.pos, z: creature.pos.z - 1 })) {
+          newPos = { ...creature.pos, z: creature.pos.z - 1 };
         } else if (meta.trapEffect === 'Warp' && item.warpTo && await map.walkableAsync(item.warpTo)) {
-          newPos = {...item.warpTo};
+          newPos = { ...item.warpTo };
           this.broadcast(ProtocolBuilder.animation({
             ...creature.pos,
             key: 'WarpOut',
@@ -523,7 +528,7 @@ export default class Server {
     // performance.clearMeasures();
     // performance.clearResourceTimings();
 
-    for (const {message, to, filter} of this.outboundMessages) {
+    for (const { message, to, filter } of this.outboundMessages) {
       // Send a message to:
       // 1) a specific client
       // 2) clients based on a filter
@@ -578,7 +583,7 @@ export default class Server {
   private growPartition(w: number, partition: WorldMapPartition) {
     for (let x = 0; x < partition.width; x++) {
       for (let y = 0; y < partition.height; y++) {
-        const pos = {x, y, z: 0};
+        const pos = { x, y, z: 0 };
         const item = partition.getItem(pos);
         if (!item) continue;
         const meta = Content.getMetaItem(item.type);

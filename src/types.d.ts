@@ -50,6 +50,7 @@ interface Creature {
   isPlayer: boolean;
   tamedBy?: number; // player id
   roam?: number;
+  speed: number;
 }
 
 type ServerToClientMessage = import('./protocol/gen/server-to-client-protocol-builder').Message;
@@ -100,6 +101,7 @@ interface Monster {
   id: number;
   name: string;
   image: number;
+  speed: number;
   roam?: number;
 }
 

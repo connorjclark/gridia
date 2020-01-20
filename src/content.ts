@@ -60,7 +60,10 @@ function prepareData() {
   }
 
   for (const monster of monsters) {
-    if (monster) monster.image -= 1;
+    if (!monster) continue;
+
+    monster.image -= 1;
+    if (monster.speed === undefined) monster.speed = 2;
   }
 
   // @ts-ignore
