@@ -195,8 +195,8 @@ function squarePartition(partitionStrategy: SquarePartitionStrategy, ctx: Contex
       corner.x = corner.x + size * rand * (0.5 - ctx.random());
       corner.y = corner.y + size * rand * (0.5 - ctx.random());
     }
-    corner.x = Math.min(corner.x, width);
-    corner.y = Math.min(corner.y, height);
+    corner.x = Math.min(corner.x, width - 1);
+    corner.y = Math.min(corner.y, height - 1);
   }
 
   return { polygons, corners };
@@ -206,7 +206,7 @@ function voronoiPartition(partitionStrategy: VoronoiPartitionStrategy, ctx: Cont
   const { width, height } = ctx.options;
   const { points: numPoints, relaxations } = partitionStrategy;
 
-  const points = Float64Array.from({length: numPoints * 2}, (_, i) => ctx.random() * (i % 2 === 0 ? width : height));
+  const points = Float64Array.from({ length: numPoints * 2 }, (_, i) => ctx.random() * (i % 2 === 0 ? width : height));
   const delaunay = new Delaunay(points);
   const voronoi = delaunay.voronoi([0, 0, width, height]);
 
@@ -231,14 +231,22 @@ function voronoiPartition(partitionStrategy: VoronoiPartitionStrategy, ctx: Cont
     const cx = delaunay.points[i * 2];
     const cy = delaunay.points[i * 2 + 1];
     geomPolygons.push({
-      center: {x: cx, y: cy},
+      center: { x: cx, y: cy },
       corners: polygon.map((p) => {
-        return {x: p[0], y: p[1]};
+        return { x: p[0], y: p[1] };
       }),
     });
   }
 
   const { corners, polygons } = makePolygons(geomPolygons);
+  for (const corner of corners) {
+    corner.x = Math.min(Math.round(corner.x), width - 1);
+    corner.y = Math.min(Math.round(corner.y), height - 1);
+  }
+  for (const polygon of polygons) {
+    polygon.center.x = Math.min(Math.round(polygon.center.x), width - 1);
+    polygon.center.y = Math.min(Math.round(polygon.center.y), height - 1);
+  }
   return { polygons, corners };
 }
 
@@ -379,7 +387,7 @@ function setDownslope(ctx: Context) {
     if (min !== corner) corner.downslope = min;
   }
 
-  for (const corner of ctx.corners.sort((a, b) => b.elevation - a.elevation)) {
+  for (const corner of [...ctx.corners].sort((a, b) => b.elevation - a.elevation)) {
     if (!corner.downslope) continue;
     corner.downslope.upslope = corner;
   }
@@ -502,108 +510,52 @@ function getBiome(p: Center) {
   }
 }
 
+function makeArray(size: number, maxValue: number) {
+  if (maxValue < 2 ** 8) return new Uint8Array(size);
+  if (maxValue < 2 ** 16) return new Uint16Array(size);
+  if (maxValue < 2 ** 32) return new Uint32Array(size);
+  return new Array(size).map(() => 0);
+}
+
 function rasterize(ctx: Context) {
-  const raster: Uint8Array[] = [];
+  const raster: Array<{[n: number]: number}> = [];
   for (let x = 0; x < ctx.options.width; x++) {
-    raster.push(new Uint8Array(ctx.options.height));
+    raster.push(makeArray(ctx.options.height, ctx.polygons.length));
   }
 
   const pixel = (x: number, y: number, value: number) => {
-    x = Math.floor(x);
-    y = Math.floor(y);
-    if (x >= 0 && x < ctx.options.width && y >= 0 && y < ctx.options.height) {
-      raster[Math.floor(x)][Math.floor(y)] = value;
+    x = Math.round(x);
+    y = Math.round(y);
+    if (x >= 0 && x < ctx.options.width && y >= 0 && y < ctx.options.height && !raster[x][y]) {
+      raster[x][y] = value;
     }
   };
 
-  // http://www.javascriptteacher.com/bresenham-line-drawing-algorithm.html
-  const line = (x1: number, y1: number, x2: number, y2: number, value: number) => {
-    // Iterators, counters required by algorithm
-    let x, y, dx, dy, dx1, dy1, px, py, xe, ye, i;
+  function line(x0: number, y0: number, x1: number, y1: number, value: number) {
+    x0 = Math.round(x0);
+    y0 = Math.round(y0);
+    x1 = Math.round(x1);
+    y1 = Math.round(y1);
 
-    // Calculate line deltas
-    dx = x2 - x1;
-    dy = y2 - y1;
+    const dx = Math.abs(x1 - x0);
+    const dy = Math.abs(y1 - y0);
+    const sx = (x0 < x1) ? 1 : -1;
+    const sy = (y0 < y1) ? 1 : -1;
+    let err = dx - dy;
 
-    // Create a positive copy of deltas (makes iterating easier)
-    dx1 = Math.abs(dx);
-    dy1 = Math.abs(dy);
+    while (true) {
+      pixel(x0, y0, value);
 
-    // Calculate error intervals for both axis
-    px = 2 * dy1 - dx1;
-    py = 2 * dx1 - dy1;
-
-    // The line is X-axis dominant
-    if (dy1 <= dx1) {
-
-      // Line is drawn left to right
-      if (dx >= 0) {
-        x = x1; y = y1; xe = x2;
-      } else { // Line is drawn right to left (swap ends)
-        x = x2; y = y2; xe = x1;
-      }
-
-      pixel(x, y, value); // Draw first pixel
-
-      // Rasterize the line
-      for (i = 0; x < xe; i++) {
-        x = x + 1;
-
-        // Deal with octants...
-        if (px < 0) {
-          px = px + 2 * dy1;
-        } else {
-          if ((dx < 0 && dy < 0) || (dx > 0 && dy > 0)) {
-            y = y + 1;
-          } else {
-            y = y - 1;
-          }
-          px = px + 2 * (dy1 - dx1);
-        }
-
-        // Draw pixel from line span at currently rasterized position
-        pixel(x, y, value);
-      }
-
-    } else { // The line is Y-axis dominant
-
-      // Line is drawn bottom to top
-      if (dy >= 0) {
-        x = x1; y = y1; ye = y2;
-      } else { // Line is drawn top to bottom
-        x = x2; y = y2; ye = y1;
-      }
-
-      pixel(x, y, value); // Draw first pixel
-
-      // Rasterize the line
-      for (i = 0; y < ye; i++) {
-        y = y + 1;
-
-        // Deal with octants...
-        if (py <= 0) {
-          py = py + 2 * dx1;
-        } else {
-          if ((dx < 0 && dy < 0) || (dx > 0 && dy > 0)) {
-            x = x + 1;
-          } else {
-            x = x - 1;
-          }
-          py = py + 2 * (dx1 - dy1);
-        }
-
-        // Draw pixel from line span at currently rasterized position
-        pixel(x, y, value);
-      }
+      if ((x0 === x1) && (y0 === y1)) break;
+      const e2 = 2 * err;
+      if (e2 > -dy) { err -= dy; x0 += sx; }
+      if (e2 < dx) { err += dx; y0 += sy; }
     }
-  };
+  }
 
-  const polygons = [...ctx.polygons];
-
-  for (let i = 0; i < polygons.length; i++) {
-    const polygon = polygons[i];
-
-    // Outline.
+  // Outline.
+  for (let i = 0; i < ctx.polygons.length; i++) {
+    const polygon = ctx.polygons[i];
     for (let j = 0; j < polygon.corners.length; j++) {
       const corner = polygon.corners[j];
       const nextCorner = polygon.corners[j === polygon.corners.length - 1 ? 0 : j + 1];
@@ -611,8 +563,11 @@ function rasterize(ctx: Context) {
       pixel(corner.x, corner.y, i + 1);
       pixel(nextCorner.x, nextCorner.y, i + 1);
     }
+  }
 
-    // Fill.
+  // Fill.
+  for (let i = 0; i < ctx.polygons.length; i++) {
+    const polygon = ctx.polygons[i];
     const seen = new Set<string>();
     const queue: Array<{ x: number, y: number }> = [];
     const add = (x: number, y: number) => {

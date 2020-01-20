@@ -32,7 +32,7 @@ function findRivers(mapGenResult: MapGenerationResult) {
   let currentRiverStart;
 
   const starts = mapGenResult.corners
-    .filter((c) => !c.upslope && !c.coast)
+    .filter((c) => !c.upslope && !c.coast && c.river)
     .sort((a, b) => b.elevation - a.elevation);
   for (const corner of starts) {
     if (seen.has(corner)) continue;

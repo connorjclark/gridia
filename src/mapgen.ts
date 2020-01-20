@@ -7,7 +7,7 @@ function biomeToFloor(biome: string) {
   if (biome === 'BARE') return 49;
   if (biome === 'BEACH') return 44;
   if (biome === 'LAKE') return WATER;
-  if (biome === 'OCEAN') return 5;
+  if (biome === 'OCEAN') return WATER;
   if (biome === 'SNOW') return 42;
   if (biome === 'TUNDRA') return 300;
 
@@ -91,9 +91,12 @@ export default function mapgen(opts: MapGenOptions) {
 
         if (z === 0) {
           // floor = 100 + ((x + y) % 10) * 20;
-          const polygon = mapGenResult.polygons[mapGenResult.raster[x][y] - 1];
+          const polygonIndex = mapGenResult.raster[x][y] - 1;
+          const polygon = mapGenResult.polygons[polygonIndex];
           if (polygon) {
             floor = biomeToFloor(polygon.center.biome);
+            // const dist = (Math.abs(width / 2 - x) + Math.abs(height / 2 - y)) / (width / 2 + height / 2);
+            // floor = 100 + (Math.round(dist * 10)) * 20;
           } else {
             // TODO ?
             // console.warn({x, y, val: raster[x][y]});
@@ -101,7 +104,7 @@ export default function mapgen(opts: MapGenOptions) {
           }
           // floor = 100 + (raster[x][y] % 10) * 20;
         } else {
-          floor = Math.random() > 0.2 ? MINE : 19;
+          floor = mapGenResult.random() > 0.2 ? MINE : 19;
         }
 
         map.setTile(loc, {

@@ -1,5 +1,3 @@
-// The following might have been a mistake.
-
 import * as Helper from '../helper';
 
 type InputData = Record<string, string | number | boolean>;

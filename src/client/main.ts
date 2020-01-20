@@ -151,6 +151,7 @@ class MapSelectScene extends Scene {
     this.onClickSelectBtn = this.onClickSelectBtn.bind(this);
 
     createMapSelectForm(this.inputFormEl);
+    this.onClickRefreshBtn();
   }
 
   public async onClickRefreshBtn() {
