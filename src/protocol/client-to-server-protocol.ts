@@ -26,7 +26,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
         ...loc,
         floor: 19,
       }));
-      server.addItemNear(loc, {type: Content.getRandomMetaItemOfClass('Ore').id, quantity: 1});
+      server.addItemNear(loc, { type: Content.getRandomMetaItemOfClass('Ore').id, quantity: 1 });
       server.broadcast(ProtocolBuilder.animation({
         ...loc,
         key: 'MiningSound',
@@ -146,7 +146,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
       tool: new Content.ItemWrapper(tool.type, tool.quantity).remove(use.toolQuantityConsumed || 0).raw(),
       focus: new Content.ItemWrapper(focus.type, focus.quantity).remove(use.focusQuantityConsumed || 0).raw(),
       successTool: use.successTool !== undefined ? new Content.ItemWrapper(use.successTool, 1).raw() : null,
-      products: use.products.map((product) => ({...product})) as Item[],
+      products: use.products.map((product) => ({ ...product })) as Item[],
     };
     if (focus.containerId && usageResult.products.length) {
       usageResult.products[0].containerId = focus.containerId;
@@ -295,6 +295,53 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
   }
 
   public onChat(server: Server, { to, message }: Params.Chat): void {
-    server.broadcast(ProtocolBuilder.chat({from: server.currentClientConnection.player.name, to, message}));
+    if (message.startsWith('/')) {
+      const [command, ...args] = message.substring(1).split(' ');
+
+      const commands = {
+        warp() {
+          const destination = { ...server.currentClientConnection.player.creature.pos };
+          if (args.length === 2) {
+            destination.x = Number(args[0]);
+            destination.y = Number(args[1]);
+          } else if (args.length === 3) {
+            destination.x = Number(args[0]);
+            destination.y = Number(args[1]);
+            destination.z = Number(args[2]);
+          } else if (args.length === 4) {
+            destination.w = Number(args[0]);
+            destination.x = Number(args[1]);
+            destination.y = Number(args[2]);
+            destination.z = Number(args[3]);
+          } else {
+            return 'incorrect number of arguments';
+          }
+
+          if (!server.context.map.inBounds(destination)) {
+            return 'out of bounds';
+          }
+
+          if (!server.context.map.walkable(destination)) {
+            // Don't check this?
+            return 'not walkable';
+          }
+
+          server.warpCreature(server.currentClientConnection.player.creature, destination);
+        }
+      };
+
+      // @ts-ignore
+      const commandFn = commands[command];
+      if (commandFn) {
+        const error = commandFn();
+        if (error) {
+          server.reply(ProtocolBuilder.chat({ from: 'SERVER', to, message: `error: ${error}` }))
+        }
+      } else {
+        server.reply(ProtocolBuilder.chat({ from: 'SERVER', to, message: `unknown command: ${message}` }))
+      }
+    } else {
+      server.broadcast(ProtocolBuilder.chat({ from: server.currentClientConnection.player.name, to, message }));
+    }
   }
 }
