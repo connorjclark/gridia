@@ -28,7 +28,8 @@ export class ServerContext extends Context {
     // Just load all the partitions for now.
     const partitionIds = (await fs.readdir(context.sectorDir)).map(Number);
     for (const w of partitionIds) {
-      const partitionMeta = JSON.parse(await fs.readFile(context.partitionMetaPath(w)));
+      const partitionPath = context.partitionMetaPath(w);
+      const partitionMeta = JSON.parse(await fs.readFile(partitionPath));
       map.initPartition(w, partitionMeta.width, partitionMeta.height, partitionMeta.depth);
     }
 

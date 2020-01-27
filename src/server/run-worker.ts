@@ -1,4 +1,5 @@
 import * as Content from '../content';
+import * as fs from '../iso-fs';
 import { makeMapImage } from '../lib/map-generator/map-image-maker';
 import mapgen from '../mapgen';
 import WorldMap from '../world-map';
@@ -48,6 +49,11 @@ self.addEventListener('message', async (e) => {
     await Content.loadContentFromNetwork();
     // @ts-ignore
     self.postMessage('ack');
+  } else if (e.data.type === 'worker_listmaps') {
+    const mapNames = await fs.readdir('/');
+
+    // @ts-ignore
+    self.postMessage({mapNames});
   } else if (e.data.type === 'worker_mapgen') {
     mapPreview = mapgen(e.data);
 

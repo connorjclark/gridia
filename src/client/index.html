@@ -152,6 +152,16 @@
       padding: 20px;
     }
 
+    .map-list {
+      list-style-type: none;
+    }
+    .map-list--item {
+      margin: 20px;
+    }
+    .map-list--item:hover {
+      background-color: #cccca9;
+    }
+
     @media only screen and (max-width: 800px) {
       .instructions {
         display: none;
@@ -185,11 +195,11 @@
   </div>
 
   <div class="map-select hidden">
-    <div class="map-list"></div>
+    <ul class="map-list"></ul>
 
     <div class="generate">
       <div class="generate--input-form"></div>
-      <button class="generate--refresh-btn">Refresh</button>
+      <button class="generate--refresh-btn">Generate map</button>
       <button class="generate--select-btn">Select</button>
       <div class="generate--preview"></div>
     </div>

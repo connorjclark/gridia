@@ -133,8 +133,8 @@ class StartScene extends Scene {
   }
 }
 
-// TODO: load saved map.
 class MapSelectScene extends Scene {
+  private mapListEl: HTMLElement;
   private refreshBtn: HTMLElement;
   private selectBtn: HTMLElement;
   private previewEl: HTMLElement;
@@ -143,15 +143,39 @@ class MapSelectScene extends Scene {
 
   constructor() {
     super(Helper.find('.map-select'));
+    this.mapListEl = Helper.find('.map-list');
     this.refreshBtn = Helper.find('.generate--refresh-btn', this.element);
     this.selectBtn = Helper.find('.generate--select-btn', this.element);
     this.previewEl = Helper.find('.generate--preview', this.element);
     this.inputFormEl = Helper.find('.generate--input-form', this.element);
     this.onClickRefreshBtn = this.onClickRefreshBtn.bind(this);
     this.onClickSelectBtn = this.onClickSelectBtn.bind(this);
+    this.onSelectMap = this.onSelectMap.bind(this);
 
     createMapSelectForm(this.inputFormEl);
-    this.onClickRefreshBtn();
+  }
+
+  public async renderMapSelection() {
+    this.mapListEl.innerHTML = '';
+
+    // @ts-ignore
+    controller.worker.postMessage({
+      type: 'worker_listmaps',
+    });
+    const mapNames: string[] = await new Promise((resolve) => {
+      controller.worker.onmessage = (e) => {
+        delete controller.worker.onmessage;
+        resolve(e.data.mapNames);
+      };
+    });
+
+    for (const name of mapNames) {
+      const mapEl = document.createElement('li');
+      mapEl.classList.add('map-list--item');
+      mapEl.setAttribute('data-name', name);
+      mapEl.innerText = name;
+      this.mapListEl.append(mapEl);
+    }
   }
 
   public async onClickRefreshBtn() {
@@ -185,7 +209,20 @@ class MapSelectScene extends Scene {
   public async onClickSelectBtn() {
     controller.client = await connectToServerWorker(controller.worker, {
       useMapPreview: true,
-      serverData: '/',
+      serverData: `/default-world-${this.mapListEl.childElementCount}`,
+      dummyDelay: 20,
+      verbose: false,
+    });
+    controller.pushScene(new RegisterScene());
+  }
+
+  public async onSelectMap(e: Event) {
+    // TODO: this is annoying.
+    if (!(e.target instanceof HTMLElement)) return;
+
+    const name = e.target.getAttribute('data-name') || '';
+    controller.client = await connectToServerWorker(controller.worker, {
+      serverData: `/${name}`,
       dummyDelay: 20,
       verbose: false,
     });
@@ -204,15 +241,18 @@ class MapSelectScene extends Scene {
     super.onShow();
     this.refreshBtn.addEventListener('click', this.onClickRefreshBtn);
     this.selectBtn.addEventListener('click', this.onClickSelectBtn);
+    this.mapListEl.addEventListener('click', this.onSelectMap);
     this.loadingPreview = false;
     this.previewEl.innerHTML = '';
     this.selectBtn.classList.add('hidden');
+    this.renderMapSelection();
   }
 
   public onHide() {
     super.onHide();
     this.refreshBtn.removeEventListener('click', this.onClickRefreshBtn);
     this.selectBtn.removeEventListener('click', this.onClickSelectBtn);
+    this.mapListEl.removeEventListener('click', this.onSelectMap);
   }
 }
 
