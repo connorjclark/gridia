@@ -4,7 +4,7 @@ declare namespace NodeJS  {
   }
 }
 
-type Array3D<T> = Array<Array<Array<T>>>;
+type Array3D<T> = T[][][];
 
 interface Point2 {
   x: number;
