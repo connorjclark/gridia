@@ -110,6 +110,10 @@ class WorldMapPartition {
     this._sectorLoadPromises.set(key, sectorLoadPromise);
     return sectorLoadPromise;
   }
+
+  private _clear() {
+    this.sectors = Utils.matrix(this.width / SECTOR_SIZE, this.height / SECTOR_SIZE, this.depth);
+  }
 }
 
 export default WorldMapPartition;

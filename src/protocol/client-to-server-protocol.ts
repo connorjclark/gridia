@@ -327,7 +327,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
           }
 
           server.warpCreature(server.currentClientConnection.player.creature, destination);
-        }
+        },
       };
 
       // @ts-ignore
@@ -335,10 +335,10 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
       if (commandFn) {
         const error = commandFn();
         if (error) {
-          server.reply(ProtocolBuilder.chat({ from: 'SERVER', to, message: `error: ${error}` }))
+          server.reply(ProtocolBuilder.chat({ from: 'SERVER', to, message: `error: ${error}` }));
         }
       } else {
-        server.reply(ProtocolBuilder.chat({ from: 'SERVER', to, message: `unknown command: ${message}` }))
+        server.reply(ProtocolBuilder.chat({ from: 'SERVER', to, message: `unknown command: ${message}` }));
       }
     } else {
       server.broadcast(ProtocolBuilder.chat({ from: server.currentClientConnection.player.name, to, message }));
