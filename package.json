@@ -15,7 +15,7 @@
     "yargs": "^13.2.2"
   },
   "engines": {
-    "node": "12.13.0"
+    "node": "12.13.1"
   },
   "engineStrict": true,
   "scripts": {
