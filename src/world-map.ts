@@ -9,16 +9,16 @@ export default class WorldMap {
 
   public addPartition(w: number, partition: WorldMapPartition) {
     this.partitions.set(w, partition);
+    partition.loader = (sectorPoint: PartitionPoint) => {
+      if (!this.loader) throw new Error('loader not set');
+      return this.loader({w, ...sectorPoint});
+    };
   }
 
   public initPartition(w: number, width: number, height: number, depth: number) {
     const partition = new WorldMapPartition(width, height, depth);
     // TODO: refactor sector requesting / loading.
-    partition.loader = (sectorPoint: PartitionPoint) => {
-      if (!this.loader) throw new Error('loader not set');
-      return this.loader({w, ...sectorPoint});
-    };
-    this.partitions.set(w, partition);
+    this.addPartition(w, partition);
   }
 
   public getPartition(w: number) {
