@@ -46,10 +46,10 @@ class WorldMapPartition {
   }
 
   public getSector(sectorPoint: PartitionPoint): Sector {
-    let sector: Sector | null = this.sectors[sectorPoint.x][sectorPoint.y][sectorPoint.z];
+    let sector = this.sectors[sectorPoint.x][sectorPoint.y][sectorPoint.z];
     if (!sector) {
       // Sector loading must be async, but querying sector data is always sync.
-      // Return an empty, unwalkable sector while the real sector is loaded.
+      // Return an empty sector while the real sector is loaded.
       sector = this.sectors[sectorPoint.x][sectorPoint.y][sectorPoint.z] = this.createEmptySector();
       this._loadSector(sectorPoint);
     }
@@ -58,13 +58,6 @@ class WorldMapPartition {
 
   // Waits for real sector to load, if not loaded yet.
   public async getSectorAsync(sectorPoint: PartitionPoint) {
-    const key = JSON.stringify(sectorPoint);
-    const sectorPromise = this._sectorLoadPromises.get(key);
-    if (sectorPromise) return sectorPromise;
-
-    const sector: Sector | null = this.sectors[sectorPoint.x][sectorPoint.y][sectorPoint.z];
-    if (sector) return sector;
-
     return this._loadSector(sectorPoint);
   }
 
@@ -102,9 +95,11 @@ class WorldMapPartition {
   private _loadSector(sectorPoint: PartitionPoint) {
     if (!this.loader) throw new Error('loader not set');
     const key = JSON.stringify(sectorPoint);
-    const sectorLoadPromise = this.loader(sectorPoint).then((tiles) => {
+    let sectorLoadPromise = this._sectorLoadPromises.get(key);
+    if (sectorLoadPromise) return sectorLoadPromise;
+
+    sectorLoadPromise = this.loader(sectorPoint).then((tiles) => {
       this.sectors[sectorPoint.x][sectorPoint.y][sectorPoint.z] = tiles;
-      this._sectorLoadPromises.delete(key);
       return tiles;
     });
     this._sectorLoadPromises.set(key, sectorLoadPromise);
@@ -113,6 +108,7 @@ class WorldMapPartition {
 
   private _clear() {
     this.sectors = Utils.matrix(this.width / SECTOR_SIZE, this.height / SECTOR_SIZE, this.depth);
+    this._sectorLoadPromises = new Map();
   }
 }
 
