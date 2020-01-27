@@ -32,6 +32,7 @@ beforeEach(async () => {
   const worldMap = new WorldMap();
   const partition = makeBareMap(20, 20, 1);
   worldMap.addPartition(0, partition);
+  partition.loader = async () => partition.createEmptySector();
   const memoryServerData = await openAndConnectToServerInMemory({
     serverData: '/', // ?
     dummyDelay: 0,

@@ -6,7 +6,7 @@ class WorldMapPartition {
   public width: number;
   public height: number;
   public depth: number;
-  public sectors: Array<Array<Array<Sector | null>>>; // (Sector | null)[][][]
+  public sectors: Array3D<Sector | null>;
   public loader?: (sectorPoint: PartitionPoint) => Promise<Sector>;
   private _sectorLoadPromises = new Map<string, Promise<Sector>>();
 
@@ -18,12 +18,12 @@ class WorldMapPartition {
   }
 
   // TODO - can this be removed?
-  public init(width: number, height: number, depth: number) {
-    this.width = width;
-    this.height = height;
-    this.depth = depth;
-    this.sectors = Utils.matrix(width / SECTOR_SIZE, height / SECTOR_SIZE, depth);
-  }
+  // public init(width: number, height: number, depth: number) {
+  //   this.width = width;
+  //   this.height = height;
+  //   this.depth = depth;
+  //   this.sectors = Utils.matrix(width / SECTOR_SIZE, height / SECTOR_SIZE, depth);
+  // }
 
   public inBounds(point: PartitionPoint): boolean {
     return point.x >= 0 && point.y >= 0 && point.x < this.width && point.y < this.height &&

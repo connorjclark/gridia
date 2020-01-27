@@ -4,6 +4,8 @@ declare namespace NodeJS  {
   }
 }
 
+type Array3D<T> = Array<Array<Array<T>>>;
+
 interface Point2 {
   x: number;
   y: number;
