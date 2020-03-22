@@ -444,22 +444,21 @@ class Game {
       if (!item || !item.type) return;
       if (!this.state.mouse.tile) return;
 
+      Utils.ItemLocation.World(this.state.mouse.tile);
       this.client.eventEmitter.emit('itemMoveBegin', {
-        source: Source.World,
-        loc: this.state.mouse.tile,
+        location: Utils.ItemLocation.World(this.state.mouse.tile),
         item,
       });
     });
     this.world.on('pointerup', (e: PIXI.interaction.InteractionEvent) => {
       if (Utils.equalPoints(this.state.mouse.tile, this.getPlayerPosition())) {
         const evt: ItemMoveEndEvent = {
-          source: this.client.containerId,
+          location: Utils.ItemLocation.Container(this.client.containerId),
         };
         this.client.eventEmitter.emit('itemMoveEnd', evt);
       } else if (this.state.mouse.tile) {
         const evt: ItemMoveEndEvent = {
-          source: Source.World,
-          loc: this.state.mouse.tile,
+          location: Utils.ItemLocation.World(this.state.mouse.tile),
         };
         this.client.eventEmitter.emit('itemMoveEnd', evt);
       }
@@ -546,9 +545,8 @@ class Game {
       // Shift to pick up item.
       if (e.keyCode === KEYS.SHIFT && this.state.selectedView.tile) {
         this.client.connection.send(ProtocolBuilder.moveItem({
-          fromSource: Source.World,
-          from: this.state.selectedView.tile,
-          toSource: this.client.containerId,
+          from: Utils.ItemLocation.World(this.state.selectedView.tile),
+          to: Utils.ItemLocation.Container(this.client.containerId),
         }));
       }
 
@@ -585,16 +583,12 @@ class Game {
     this.client.eventEmitter.on('itemMoveEnd', (e: ItemMoveEndEvent) => {
       if (!this.itemMovingState) return;
 
-      const from = this.itemMovingState.loc;
-      const fromSource = this.itemMovingState.source;
-      const to = e.loc;
-      const toSource = e.source;
-      if (!(fromSource === toSource && Utils.equalPoints(from, to))) {
+      const from = this.itemMovingState.location;
+      const to = e.location;
+      if (!Utils.ItemLocation.Equal(from, to)) {
         this.client.connection.send(ProtocolBuilder.moveItem({
           from,
-          fromSource,
           to,
-          toSource,
         }));
       }
 

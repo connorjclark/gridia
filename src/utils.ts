@@ -1,3 +1,5 @@
+import { Source } from './constants';
+
 // export function mouseToWorld(pm: TilePoint): TilePoint {
 //     return {
 //       x: pm.x + state.viewport.x,
@@ -75,6 +77,31 @@ export function randInt(min: number, max: number) {
 export function assert(val: any) {
   if (!val) throw new Error('assertion failed');
 }
+
+export const ItemLocation = {
+  World(loc: TilePoint): ItemLocation {
+    return {
+      source: 'world',
+      loc,
+    };
+  },
+  Container(containerId: number, index?: number): ItemLocation {
+    return {
+      source: 'container',
+      id: containerId,
+      index,
+    };
+  },
+  Equal(location1: ItemLocation, location2: ItemLocation) {
+    if (location1.source === 'container' && location2.source === 'container') {
+      return location1.index === location2.index && location1.source === location2.source;
+    }
+    if (location1.source === 'world' && location2.source === 'world') {
+      return equalPoints(location1.loc, location2.loc);
+    }
+    return false;
+  },
+};
 
 //   export function tileToScreen(pt: TilePoint): TilePoint {
 //     return {

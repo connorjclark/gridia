@@ -6,7 +6,7 @@ jest.mock('pixi-sound', () => ({}));
 import * as assert from 'assert';
 import Client from '../src/client/client';
 import { Connection } from '../src/client/connection';
-import { MINE, Source } from '../src/constants';
+import { MINE } from '../src/constants';
 import * as Content from '../src/content';
 import { makeBareMap } from '../src/mapgen';
 import * as ProtocolBuilder from '../src/protocol/client-to-server-protocol-builder';
@@ -188,10 +188,8 @@ describe('moveItem', () => {
     setItem(from, { type: 1, quantity: 10 });
 
     await send(ProtocolBuilder.moveItem({
-      from,
-      fromSource: Source.World,
-      to,
-      toSource: Source.World,
+      from: Utils.ItemLocation.World(from),
+      to: Utils.ItemLocation.World(to),
     }));
 
     assertItemInWorld(from, undefined);
@@ -206,10 +204,8 @@ describe('moveItem', () => {
     setItem(to, { type: 2, quantity: 1 });
 
     await send(ProtocolBuilder.moveItem({
-      from,
-      fromSource: Source.World,
-      to,
-      toSource: Source.World,
+      from: Utils.ItemLocation.World(from),
+      to: Utils.ItemLocation.World(to),
     }));
 
     assertItemInWorld(from, { type: 1, quantity: 1 });
@@ -225,10 +221,8 @@ describe('moveItem', () => {
     setItem(to, { type: gold.id, quantity: 2 });
 
     await send(ProtocolBuilder.moveItem({
-      from,
-      fromSource: Source.World,
-      to,
-      toSource: Source.World,
+      from: Utils.ItemLocation.World(from),
+      to: Utils.ItemLocation.World(to),
     }));
 
     assertItemInWorld(from, undefined);
@@ -243,10 +237,8 @@ describe('moveItem', () => {
     await send(ProtocolBuilder.requestContainer({ containerId: container.id }));
 
     await send(ProtocolBuilder.moveItem({
-      from: {w: 0, x: 0, y: 0, z: 0},
-      fromSource: container.id,
-      to,
-      toSource: Source.World,
+      from: Utils.ItemLocation.Container(container.id, 0),
+      to: Utils.ItemLocation.World(to),
     }));
 
     assertItemInWorld(to, { type: 1, quantity: 1 });
@@ -261,17 +253,15 @@ describe('moveItem', () => {
     await send(ProtocolBuilder.requestContainer({ containerId: container.id }));
 
     await send(ProtocolBuilder.moveItem({
-      from,
-      fromSource: Source.World,
-      to: { w: 0, x: 0, y: 0, z: 0 },
-      toSource: container.id,
+      from: Utils.ItemLocation.World(from),
+      to: Utils.ItemLocation.Container(container.id, 0),
     }));
 
     assertItemInWorld(from, undefined);
     assertItemInContainer(container.id, 0, { type: 1, quantity: 1 });
   });
 
-  it('move item from world to container: no "to" places in first open slot', async () => {
+  it('move item from world to container: no "index" places in first open slot', async () => {
     const from = { w: 0, x: 0, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
@@ -282,16 +272,15 @@ describe('moveItem', () => {
     await send(ProtocolBuilder.requestContainer({ containerId: container.id }));
 
     await send(ProtocolBuilder.moveItem({
-      from,
-      fromSource: Source.World,
-      toSource: container.id,
+      from: Utils.ItemLocation.World(from),
+      to: Utils.ItemLocation.Container(container.id),
     }));
 
     assertItemInWorld(from, undefined);
     assertItemInContainer(container.id, 2, { type: 1, quantity: 1 });
   });
 
-  it('move item from world to container: no "to" places in first open slot - stacks', async () => {
+  it('move item from world to container: no "index" places in first open slot - stacks', async () => {
     const from = { w: 0, x: 0, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
@@ -303,8 +292,7 @@ describe('moveItem', () => {
     await send(ProtocolBuilder.requestContainer({ containerId: container.id }));
 
     await send(ProtocolBuilder.moveItem({
-      from,
-      fromSource: Source.World,
+      from: Utils.ItemLocation.World(from),
       toSource: container.id,
     }));
 

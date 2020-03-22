@@ -78,7 +78,7 @@ export function setCreature({ partial, ...creature }: ServerToClientProtocol.Par
 export function setFloor({ floor, ...loc }: ServerToClientProtocol.Params.SetFloor): SetFloorMessage {
     return { type: "setFloor", args: arguments[0] };
 }
-export function setItem({ item, source, ...loc }: ServerToClientProtocol.Params.SetItem): SetItemMessage {
+export function setItem({ location, item }: ServerToClientProtocol.Params.SetItem): SetItemMessage {
     return { type: "setItem", args: arguments[0] };
 }
 export function xp({ skill, xp }: ServerToClientProtocol.Params.Xp): XpMessage {

@@ -6,8 +6,6 @@ import IClientToServerProtocol from './gen/client-to-server-protocol';
 import * as ProtocolBuilder from './server-to-client-protocol-builder';
 import Params = ClientToServerProtocol.Params;
 
-export const ItemSourceWorld = 0;
-
 export default class ClientToServerProtocol implements IClientToServerProtocol {
   public onMove(server: Server, { ...loc }: Params.Move): void {
     if (!server.context.map.inBounds(loc)) {
@@ -159,8 +157,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     server.setItemInContainer(inventory.id, toolIndex, usageResult.tool);
     server.context.map.getTile(loc).item = usageResult.focus;
     server.broadcast(ProtocolBuilder.setItem({
-      ...loc,
-      source: Source.World,
+      location: Utils.ItemLocation.World(loc),
       item: usageResult.focus,
     }));
     for (const product of usageResult.products) {
@@ -202,63 +199,63 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
 
   // moveItem handles movement between anywhere items can be - from the world to a player's
   // container, within a container, from a container to the world, or even between containers.
-  // Note, containers have a fixed y value of 0. If "to" is null for a container, no location
-  // is specified and the item will be place in the first viable slot.
-  // TODO - better name than "source"? Maybe just generalize to "Container" where 0 refers to world?
-  public async onMoveItem(server: Server, { from, fromSource, to, toSource }: Params.MoveItem) {
-    async function boundsCheck(source: number, loc?: TilePoint) {
-      if (source === ItemSourceWorld) {
-        if (!loc) throw new Error('invariant violated');
-        return server.context.map.inBounds(loc);
+  // If "to" is null for a container, no location is specified and the item will be place in the first viable slot.
+  public async onMoveItem(server: Server, { from, to }: Params.MoveItem) {
+    async function boundsCheck(location: ItemLocation) {
+      if (location.source === 'world') {
+        if (!location.loc) throw new Error('invariant violated');
+        return server.context.map.inBounds(location.loc);
       } else {
         // No location specified, so no way it could be out of bounds.
-        if (!loc) return true;
+        if (!location.index) return true;
 
-        const container = await server.context.getContainer(source);
+        const container = await server.context.getContainer(location.id);
         if (!container) return false;
-        return loc.x < container.items.length;
+        return location.index < container.items.length;
       }
     }
 
-    async function getItem(source: number, loc?: TilePoint) {
-      if (!loc) return;
-      if (source === ItemSourceWorld) {
-        return server.context.map.getItem(loc);
+    async function getItem(location: ItemLocation) {
+      if (location.source === 'world') {
+        if (!location.loc) return;
+        return server.context.map.getItem(location.loc);
       } else {
-        const container = await server.context.getContainer(source);
-        return container.items[loc.x];
+        if (location.index === undefined) return;
+        const container = await server.context.getContainer(location.id);
+        return container.items[location.index];
       }
     }
 
-    function setItem(source: number, loc: TilePoint | undefined, item: Item) {
-      if (source === ItemSourceWorld) {
-        if (!loc) throw new Error('invariant violated');
-        server.setItem(loc, item);
+    function setItem(location: ItemLocation, item: Item) {
+      if (location.source === 'world') {
+        if (!location.loc) throw new Error('invariant violated');
+        server.setItem(location.loc, item);
       } else {
-        server.addItemToContainer(source, loc?.x, item);
+        server.addItemToContainer(location.id, location.index, item);
       }
     }
 
-    function clearItem(source: number, loc: TilePoint) {
-      if (source === ItemSourceWorld) {
-        server.setItem(loc, undefined);
+    function clearItem(location: ItemLocation) {
+      if (location.source === 'world') {
+        server.setItem(location.loc, undefined);
       } else {
-        server.setItemInContainer(source, loc.x, undefined);
+        if (location.index === undefined) throw new Error('invariant violated');
+        server.setItemInContainer(location.id, location.index, undefined);
       }
-    }
-
-    if (!boundsCheck(fromSource, from) || !boundsCheck(toSource, to)) {
-      return;
     }
 
     // Ignore if moving to same location.
-    if (fromSource === toSource && Utils.equalPoints(from, to)) {
+    if (Utils.ItemLocation.Equal(from, to)) {
       return;
     }
 
-    const fromItem = await getItem(fromSource, from);
+    if (!boundsCheck(from) || !boundsCheck(to)) {
+      return;
+    }
 
-    let toItem = await getItem(toSource, to);
+    const fromItem = await getItem(from);
+
+    let toItem = await getItem(to);
 
     // if (!server.inView(from) || !server.inView(to)) {
     //   return
@@ -267,8 +264,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     if (!fromItem) return;
     if (toItem && Content.getMetaItem(toItem.type).class === 'Container') {
       // Dragging to a container.
-      toSource = server.context.getContainerIdFromItem(toItem);
-      to = undefined;
+      to = { source: 'container', id: server.context.getContainerIdFromItem(toItem) };
       toItem = undefined;
     }
     if (toItem && fromItem.type !== toItem.type) return;
@@ -278,7 +274,9 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     }
 
     // Prevent container-ception.
-    if (Content.getMetaItem(fromItem.type).class === 'Container' && toSource === fromItem.containerId) {
+
+    if (Content.getMetaItem(fromItem.type).class === 'Container' && to.source === 'container'
+      && to.id === fromItem.containerId) {
       return;
     }
 
@@ -286,8 +284,8 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
       fromItem.quantity += toItem.quantity;
     }
 
-    clearItem(fromSource, from);
-    setItem(toSource, to, fromItem);
+    clearItem(from);
+    setItem(to, fromItem);
 
     // TODO queue changes and send to all clients.
     // context.queueTileChange(from)

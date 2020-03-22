@@ -12,7 +12,7 @@ export default interface IServerToClientProtocol {
     onSector(client: Client, { tiles, ...loc }: ServerToClientProtocol.Params.Sector): void;
     onSetCreature(client: Client, { partial, ...creature }: ServerToClientProtocol.Params.SetCreature): void;
     onSetFloor(client: Client, { floor, ...loc }: ServerToClientProtocol.Params.SetFloor): void;
-    onSetItem(client: Client, { item, source, ...loc }: ServerToClientProtocol.Params.SetItem): void;
+    onSetItem(client: Client, { location, item }: ServerToClientProtocol.Params.SetItem): void;
     onXp(client: Client, { skill, xp }: ServerToClientProtocol.Params.Xp): void;
     onChat(client: Client, { from, to, message }: ServerToClientProtocol.Params.Chat): void;
 }

@@ -60,7 +60,7 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
     const creature = client.context.getCreature(id);
     if (!creature) {
       if (partial) {
-        client.connection.send(ProtocolBuilder.requestCreature({id}));
+        client.connection.send(ProtocolBuilder.requestCreature({ id }));
       } else {
         // @ts-ignore - it's not a partial creature.
         client.context.setCreature(partialCreature);
@@ -80,13 +80,15 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
     client.context.map.getTile(loc).floor = floor;
   }
 
-  public onSetItem(client: Client, { item, source, ...loc }: Params.SetItem): void {
-    if (source === ItemSourceWorld) {
-      client.context.map.getTile(loc).item = item;
+  public onSetItem(client: Client, { location, item }: Params.SetItem): void {
+    if (location.source === 'world') {
+      client.context.map.getTile(location.loc).item = item;
     } else {
-      const container = client.context.containers.get(source);
+      if (location.index === undefined) throw new Error('invariant violated');
+
+      const container = client.context.containers.get(location.id);
       if (container) {
-        container.items[loc.x] = item || null;
+        container.items[location.index] = item || null;
       }
     }
   }

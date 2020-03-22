@@ -163,9 +163,9 @@ export function makeItemContainerWindow(container: Container): ContainerWindow {
       const index = Math.floor(x / 32);
       if (!container.items[index]) return;
       mouseDownIndex = index;
+
       const evt: ItemMoveBeginEvent = {
-        source: container.id,
-        loc: { w: 0, x: index, y: 0, z: 0 },
+        location: Utils.ItemLocation.Container(container.id, index),
         item: container.items[index] || undefined,
       };
       game.client.eventEmitter.emit('itemMoveBegin', evt);
@@ -187,8 +187,7 @@ export function makeItemContainerWindow(container: Container): ContainerWindow {
     .on('pointerup', (e: PIXI.interaction.InteractionEvent) => {
       if (window.mouseOverIndex !== undefined) {
         const evt: ItemMoveBeginEvent = {
-          source: container.id,
-          loc: { w: 0, x: window.mouseOverIndex, y: 0, z: 0 },
+          location: Utils.ItemLocation.Container(container.id, window.mouseOverIndex),
         };
         game.client.eventEmitter.emit('itemMoveEnd', evt);
       }

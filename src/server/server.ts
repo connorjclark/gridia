@@ -1,4 +1,4 @@
-import { SECTOR_SIZE, Source } from '../constants';
+import { SECTOR_SIZE } from '../constants';
 import * as Content from '../content';
 import { findPath } from '../path-finding';
 import performance from '../performance';
@@ -325,8 +325,7 @@ export default class Server {
     }
 
     this.broadcast(ProtocolBuilder.setItem({
-      ...nearestLoc,
-      source: Source.World,
+      location: Utils.ItemLocation.World(nearestLoc),
       item: nearestTile.item,
     }));
   }
@@ -342,8 +341,7 @@ export default class Server {
   public setItem(loc: TilePoint, item?: Item) {
     this.context.map.getTile(loc).item = item;
     this.broadcast(ProtocolBuilder.setItem({
-      ...loc,
-      source: Source.World,
+      location: Utils.ItemLocation.World(loc),
       item,
     }));
   }
@@ -355,8 +353,7 @@ export default class Server {
     container.items[index] = item || null;
 
     this.conditionalBroadcast(ProtocolBuilder.setItem({
-      ...{ w: 0, x: index, y: 0, z: 0 },
-      source: id,
+      location: Utils.ItemLocation.Container(id, index),
       item,
     }), (clientConnection) => {
       return clientConnection.container.id === id || clientConnection.registeredContainers.includes(id);
@@ -594,9 +591,7 @@ export default class Server {
           item.type = meta.growthItem;
           item.growth = 0;
           this.broadcast(ProtocolBuilder.setItem({
-            ...pos,
-            w,
-            source: Source.World,
+            location: Utils.ItemLocation.World({...pos, w}),
             item,
           }));
         }

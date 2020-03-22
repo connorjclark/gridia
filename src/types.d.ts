@@ -34,6 +34,16 @@ interface Tile {
   creature?: Creature;
 }
 
+/** Either a world location or from a container. */
+type ItemLocation = {
+  source: 'world';
+  loc: TilePoint;
+} | {
+  source: 'container';
+  id: number;
+  index?: number;
+};
+
 type Sector = Tile[][];
 
 interface Item {

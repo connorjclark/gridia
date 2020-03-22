@@ -8,16 +8,12 @@ export interface GameActionEvent {
 }
 
 export interface ItemMoveBeginEvent {
-  /** 0 represents the world. Positive integers represent a container id. */
-  source: number;
-  /** Either a world location (source = 0) or loc.x is equal to index in container. */
-  loc: TilePoint;
+  location: ItemLocation;
   item?: Item;
 }
 
 export interface ItemMoveEndEvent {
-  source: number;
-  loc?: TilePoint;
+  location: ItemLocation;
 }
 
 interface Events {

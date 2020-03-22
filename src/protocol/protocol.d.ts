@@ -22,10 +22,8 @@ declare namespace ClientToServerProtocol {
     }
 
     interface MoveItem {
-      from: TilePoint;
-      fromSource: number;
-      to?: TilePoint;
-      toSource: number;
+      from: ItemLocation;
+      to: ItemLocation;
     }
 
     interface Register {
@@ -106,9 +104,9 @@ declare namespace ServerToClientProtocol {
       floor: number;
     }
 
-    interface SetItem extends TilePoint {
+    interface SetItem {
+      location: ItemLocation;
       item?: Item;
-      source: number;
     }
 
     interface Xp {
