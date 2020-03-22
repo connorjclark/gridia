@@ -13,7 +13,17 @@ import SettingsClientModule from './modules/settings-module';
 import SkillsClientModule from './modules/skills-module';
 import { createMapSelectForm, getMapGenOpts } from './scenes/map-select-scene';
 
-const QUICK = window.location.search.includes('quick');
+function parseQuery(queryString: string) {
+  const query: Record<string, any> = {};
+  const pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
+  for (const pair of pairs) {
+    const [key, value] = pair.split('=', 2);
+    query[decodeURIComponent(key)] = decodeURIComponent(value || '');
+  }
+  return query;
+}
+
+const qs = parseQuery(window.location.search);
 
 class MainController {
   private scenes: Scene[] = [];
@@ -500,7 +510,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupDebugging();
   await Content.loadContentFromNetwork();
 
-  if (QUICK) {
+  if (qs.quick === 'server') {
+    controller.pushScene(new StartScene());
+    await (controller.currentScene as StartScene).onClickConnectBtn();
+    await (controller.currentScene as RegisterScene).onClickRegisterBtn();
+  } else if (qs.quick === 'local') {
     await controller.loadWorker();
     const mapNames = await getMapNames();
     if (!mapNames.includes('quick-default')) {
