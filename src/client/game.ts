@@ -1,7 +1,7 @@
 import { OutlineFilter } from '@pixi/filter-outline';
 import PIXISound from 'pixi-sound';
 import * as PIXI from 'pixi.js';
-import { MINE, WATER } from '../constants';
+import { MINE, Source, WATER } from '../constants';
 import * as Content from '../content';
 import { game } from '../game-singleton';
 import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
@@ -256,9 +256,14 @@ class Game {
   }
 
   public getPlayerPosition() {
-    if (!this._playerCreature) this._playerCreature = this.client.context.getCreature(this.client.creatureId);
-    if (this._playerCreature) return this._playerCreature.pos;
+    const creature = this.getPlayerCreature();
+    if (creature) return creature.pos;
     return { w: 0, x: 0, y: 0, z: 0 };
+  }
+
+  public getPlayerCreature() {
+    if (!this._playerCreature) this._playerCreature = this.client.context.getCreature(this.client.creatureId);
+    return this._playerCreature;
   }
 
   public async start() {
@@ -440,7 +445,7 @@ class Game {
       if (!this.state.mouse.tile) return;
 
       this.client.eventEmitter.emit('itemMoveBegin', {
-        source: 0,
+        source: Source.World,
         loc: this.state.mouse.tile,
         item,
       });
@@ -453,7 +458,7 @@ class Game {
         this.client.eventEmitter.emit('itemMoveEnd', evt);
       } else if (this.state.mouse.tile) {
         const evt: ItemMoveEndEvent = {
-          source: 0,
+          source: Source.World,
           loc: this.state.mouse.tile,
         };
         this.client.eventEmitter.emit('itemMoveEnd', evt);
@@ -541,7 +546,7 @@ class Game {
       // Shift to pick up item.
       if (e.keyCode === KEYS.SHIFT && this.state.selectedView.tile) {
         this.client.connection.send(ProtocolBuilder.moveItem({
-          fromSource: 0,
+          fromSource: Source.World,
           from: this.state.selectedView.tile,
           toSource: this.client.containerId,
         }));
@@ -603,6 +608,7 @@ class Game {
     this.client.eventEmitter.on('playerMove', () => {
       if (!this.state.selectedView.creatureId) clearSelectedView();
       ContextMenu.close();
+      this.getPossibleUsages();
     });
 
     this.client.eventEmitter.on('action', ContextMenu.close);
@@ -627,6 +633,32 @@ class Game {
     });
 
     registerPanelListeners();
+  }
+
+  public getPossibleUsages() {
+    // If item is selected in world, only return usages that use that item as the focus.
+    // Else show all usages possible using any tool on any item in inventory or nearby in the world.
+    // If a usage is possible with distinct items (example: standing near many trees with an axe),
+    // only the first instance will be recorded.
+    const possibleUsageActions = [];
+    const inventory = this.client.context.containers.get(this.client.containerId);
+    if (!inventory) return;
+
+    inventory.forEach((tool, toolIndex) => {
+      const possibleUses = Content.getItemUsesForTool(tool.type);
+      for (const use of possibleUses) {
+        const possibleFocusFromInventory = inventory.items.some((item) => item?.type === use.focus);
+        const possibleFocusFromWorld = null;
+        if (possibleFocusFromInventory || possibleFocusFromWorld) {
+          possibleUsageActions.push({
+            toolIndex: inventory.items.indexOf(tool),
+            use,
+          });
+        }
+      }
+    });
+    console.log({ possibleUsageActions });
+    return possibleUsageActions;
   }
 
   public tick() {

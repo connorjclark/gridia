@@ -8,4 +8,12 @@ export default class Container {
     }
     return false;
   }
+
+  public forEach(fn: (value: Item, index: number, array: Array<Item | null>) => void) {
+    for (let i = 0; i < this.items.length; i++) {
+      const item = this.items[i];
+      if (!item) continue;
+      fn(item, i, this.items);
+    }
+  }
 }

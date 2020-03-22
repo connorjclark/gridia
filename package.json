@@ -23,6 +23,7 @@
     "build-prod": "NODE_ENV=production yarn build-client && yarn build-server",
     "build-client": "node build/build-client.js",
     "build-server": "tsc -p tsconfig.server.json --outDir dist/server && node build/build-server.js",
+    "build-server-watch": "tsc -p tsconfig.server.json --outDir dist/server ; node build/build-server.js",
     "convert": "src/convert-rpgwo/convert.sh",
     "run-server": "node -r source-map-support/register ./dist/server/server/run.js",
     "run-static-server": "http-server dist/client -c-1",

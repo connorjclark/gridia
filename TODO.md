@@ -5,6 +5,7 @@
 * Merchants
 * Wear images
 * Registration
+* Crafting (show options on what can be made using items / environment)
 
 # Combat
 
@@ -26,3 +27,7 @@ Click to engage
 * Line of sight
 * Rooftops https://www.youtube.com/watch?v=SEpFCazng7o
 
+# Code health
+
+* Better worker communication
+* map name / serverDir

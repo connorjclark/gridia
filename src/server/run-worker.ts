@@ -1,8 +1,9 @@
 import * as Content from '../content';
 import * as fs from '../iso-fs';
 import { makeMapImage } from '../lib/map-generator/map-image-maker';
-import mapgen from '../mapgen';
+import mapgen, { makeBareMap } from '../mapgen';
 import WorldMap from '../world-map';
+import WorldMapPartition from '../world-map-partition';
 import ClientConnection from './client-connection';
 import { startServer } from './create-server';
 import Server from './server';
@@ -11,7 +12,9 @@ import { ServerContext } from './server-context';
 let opts: ServerWorkerOpts;
 let server: Server;
 let clientConnection: ClientConnection;
-let mapPreview: ReturnType<typeof mapgen> | null = null;
+
+let mapPreviewPartition: WorldMapPartition | null = null;
+let mapPreviewGenData: ReturnType<typeof mapgen>['mapGenResult'] | null = null;
 
 function maybeDelay(fn: () => void) {
   if (opts.dummyDelay > 0) {
@@ -21,17 +24,16 @@ function maybeDelay(fn: () => void) {
   }
 }
 
+async function saveMapGen(name: string) {
+  if (!mapPreviewPartition) throw new Error('missing mapPreviewPartition');
+
+  const world = new WorldMap();
+  world.addPartition(0, mapPreviewPartition);
+  const context = new ServerContext(world, name);
+  await context.save();
+}
+
 async function start() {
-  // TODO: make this its own message.
-  if (opts.useMapPreview) {
-    if (!mapPreview) throw new Error('missing mapPreview');
-
-    const world = new WorldMap();
-    world.addPartition(0, mapPreview.partition);
-    const context = new ServerContext(world, opts.serverData);
-    await context.save();
-  }
-
   clientConnection = new ClientConnection();
   clientConnection.send = (message) => {
     maybeDelay(() => {
@@ -55,18 +57,30 @@ self.addEventListener('message', async (e) => {
     // @ts-ignore
     self.postMessage({mapNames});
   } else if (e.data.type === 'worker_mapgen') {
-    mapPreview = mapgen(e.data);
+    if (e.data.bare) {
+      mapPreviewPartition = makeBareMap(e.data.width, e.data.height, e.data.depth);
+    } else {
+      const mapGenResult = mapgen(e.data);
+      mapPreviewPartition = mapGenResult.partition;
+      mapPreviewGenData = mapGenResult.mapGenResult;
+    }
 
-    // @ts-ignore: Hack to make canvas-node use the given OffscreenCanvas.
-    global.document = {
-      createElement() {
-        return e.data.canvas;
-      },
-    };
+    if (mapPreviewGenData && e.data.canvas) {
+      // @ts-ignore: Hack to make canvas-node use the given OffscreenCanvas.
+      global.document = {
+        createElement() {
+          return e.data.canvas;
+        },
+      };
 
-    // This draws to the OffscreenCanvas.
-    makeMapImage(mapPreview.mapGenResult);
+      // This draws to the OffscreenCanvas.
+      makeMapImage(mapPreviewGenData);
+    }
 
+    // @ts-ignore
+    self.postMessage('ack');
+  } else if (e.data.type === 'worker_savemapgen') {
+    saveMapGen(e.data.name);
     // @ts-ignore
     self.postMessage('ack');
   } else if (e.data.type === 'worker_load') {

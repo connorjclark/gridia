@@ -1,4 +1,4 @@
-import { MINE } from '../constants';
+import { MINE, Source } from '../constants';
 import * as Content from '../content';
 import Server from '../server/server';
 import * as Utils from '../utils';
@@ -160,7 +160,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     server.context.map.getTile(loc).item = usageResult.focus;
     server.broadcast(ProtocolBuilder.setItem({
       ...loc,
-      source: 0,
+      source: Source.World,
       item: usageResult.focus,
     }));
     for (const product of usageResult.products) {

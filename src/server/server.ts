@@ -1,4 +1,4 @@
-import { SECTOR_SIZE } from '../constants';
+import { SECTOR_SIZE, Source } from '../constants';
 import * as Content from '../content';
 import { findPath } from '../path-finding';
 import performance from '../performance';
@@ -326,7 +326,7 @@ export default class Server {
 
     this.broadcast(ProtocolBuilder.setItem({
       ...nearestLoc,
-      source: 0,
+      source: Source.World,
       item: nearestTile.item,
     }));
   }
@@ -343,7 +343,7 @@ export default class Server {
     this.context.map.getTile(loc).item = item;
     this.broadcast(ProtocolBuilder.setItem({
       ...loc,
-      source: 0,
+      source: Source.World,
       item,
     }));
   }
@@ -596,7 +596,7 @@ export default class Server {
           this.broadcast(ProtocolBuilder.setItem({
             ...pos,
             w,
-            source: 0,
+            source: Source.World,
             item,
           }));
         }

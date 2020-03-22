@@ -6,7 +6,7 @@ jest.mock('pixi-sound', () => ({}));
 import * as assert from 'assert';
 import Client from '../src/client/client';
 import { Connection } from '../src/client/connection';
-import { MINE } from '../src/constants';
+import { MINE, Source } from '../src/constants';
 import * as Content from '../src/content';
 import { makeBareMap } from '../src/mapgen';
 import * as ProtocolBuilder from '../src/protocol/client-to-server-protocol-builder';
@@ -189,9 +189,9 @@ describe('moveItem', () => {
 
     await send(ProtocolBuilder.moveItem({
       from,
-      fromSource: 0,
+      fromSource: Source.World,
       to,
-      toSource: 0,
+      toSource: Source.World,
     }));
 
     assertItemInWorld(from, undefined);
@@ -207,9 +207,9 @@ describe('moveItem', () => {
 
     await send(ProtocolBuilder.moveItem({
       from,
-      fromSource: 0,
+      fromSource: Source.World,
       to,
-      toSource: 0,
+      toSource: Source.World,
     }));
 
     assertItemInWorld(from, { type: 1, quantity: 1 });
@@ -226,9 +226,9 @@ describe('moveItem', () => {
 
     await send(ProtocolBuilder.moveItem({
       from,
-      fromSource: 0,
+      fromSource: Source.World,
       to,
-      toSource: 0,
+      toSource: Source.World,
     }));
 
     assertItemInWorld(from, undefined);
@@ -246,7 +246,7 @@ describe('moveItem', () => {
       from: {w: 0, x: 0, y: 0, z: 0},
       fromSource: container.id,
       to,
-      toSource: 0,
+      toSource: Source.World,
     }));
 
     assertItemInWorld(to, { type: 1, quantity: 1 });
@@ -262,7 +262,7 @@ describe('moveItem', () => {
 
     await send(ProtocolBuilder.moveItem({
       from,
-      fromSource: 0,
+      fromSource: Source.World,
       to: { w: 0, x: 0, y: 0, z: 0 },
       toSource: container.id,
     }));
@@ -283,7 +283,7 @@ describe('moveItem', () => {
 
     await send(ProtocolBuilder.moveItem({
       from,
-      fromSource: 0,
+      fromSource: Source.World,
       toSource: container.id,
     }));
 
@@ -304,7 +304,7 @@ describe('moveItem', () => {
 
     await send(ProtocolBuilder.moveItem({
       from,
-      fromSource: 0,
+      fromSource: Source.World,
       toSource: container.id,
     }));
 

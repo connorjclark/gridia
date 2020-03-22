@@ -1,3 +1,4 @@
+import { Source } from '../constants';
 import * as Content from '../content';
 import { makeGame } from '../game-singleton';
 import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
@@ -11,6 +12,8 @@ import MovementClientModule from './modules/movement-module';
 import SettingsClientModule from './modules/settings-module';
 import SkillsClientModule from './modules/skills-module';
 import { createMapSelectForm, getMapGenOpts } from './scenes/map-select-scene';
+
+const QUICK = window.location.search.includes('quick');
 
 class MainController {
   private scenes: Scene[] = [];
@@ -162,12 +165,7 @@ class MapSelectScene extends Scene {
     controller.worker.postMessage({
       type: 'worker_listmaps',
     });
-    const mapNames: string[] = await new Promise((resolve) => {
-      controller.worker.onmessage = (e) => {
-        delete controller.worker.onmessage;
-        resolve(e.data.mapNames);
-      };
-    });
+    const mapNames = await getMapNames();
 
     for (const name of mapNames) {
       const mapEl = document.createElement('li');
@@ -185,21 +183,7 @@ class MapSelectScene extends Scene {
     const canvas = document.createElement('canvas') as HTMLCanvasElement;
     const offscreen = canvas.transferControlToOffscreen();
     const opts = getMapGenOpts(this.inputFormEl);
-
-    // @ts-ignore
-    controller.worker.postMessage({
-      type: 'worker_mapgen',
-      canvas: offscreen,
-      ...opts,
-      bare: false,
-    }, [offscreen]);
-
-    await new Promise((resolve) => {
-      controller.worker.onmessage = (e) => {
-        delete controller.worker.onmessage;
-        resolve();
-      };
-    }).finally(() => this.loadingPreview = false);
+    await generateMap(opts, offscreen).finally(() => this.loadingPreview = false);
 
     this.previewEl.innerHTML = '';
     this.previewEl.append(canvas);
@@ -207,9 +191,10 @@ class MapSelectScene extends Scene {
   }
 
   public async onClickSelectBtn() {
+    const name = `/default-world-${this.mapListEl.childElementCount}`;
+    await saveGeneratedMap(name);
     controller.client = await connectToServerWorker(controller.worker, {
-      useMapPreview: true,
-      serverData: `/default-world-${this.mapListEl.childElementCount}`,
+      serverData: name,
       dummyDelay: 20,
       verbose: false,
     });
@@ -221,21 +206,8 @@ class MapSelectScene extends Scene {
     if (!(e.target instanceof HTMLElement)) return;
 
     const name = e.target.getAttribute('data-name') || '';
-    controller.client = await connectToServerWorker(controller.worker, {
-      serverData: `/${name}`,
-      dummyDelay: 20,
-      verbose: false,
-    });
-    controller.pushScene(new RegisterScene());
+    loadMap(name);
   }
-
-  // public async onMapSelected() {
-  //   controller.client = await connectToServerWorker(controller.worker, {
-  //     serverData: '/',
-  //     dummyDelay: 20,
-  //     verbose: false,
-  //   });
-  // }
 
   public onShow() {
     super.onShow();
@@ -379,7 +351,7 @@ function globalOnActionHandler(client: Client, e: GameActionEvent) {
   switch (type) {
     case 'pickup':
       client.connection.send(ProtocolBuilder.moveItem({
-        fromSource: 0,
+        fromSource: Source.World,
         from: loc,
         toSource: client.containerId,
       }));
@@ -439,6 +411,64 @@ function setupDebugging() {
   // console.log('For debugging:\nwindow.Gridia.server.verbose = true;');
 }
 
+async function getMapNames() {
+  // @ts-ignore
+  controller.worker.postMessage({
+    type: 'worker_listmaps',
+  });
+  const mapNames: string[] = await new Promise((resolve) => {
+    controller.worker.onmessage = (e) => {
+      delete controller.worker.onmessage;
+      resolve(e.data.mapNames);
+    };
+  });
+  return mapNames;
+}
+
+async function loadMap(name: string) {
+  controller.client = await connectToServerWorker(controller.worker, {
+    serverData: `/${name}`,
+    dummyDelay: 20,
+    verbose: false,
+  });
+  controller.pushScene(new RegisterScene());
+}
+
+async function generateMap(opts: any, offscreenCanvas?: OffscreenCanvas) {
+  // @ts-ignore
+  const transfer: PostMessageOptions = [];
+  // @ts-ignore
+  if (offscreenCanvas) transfer.push(offscreenCanvas);
+
+  controller.worker.postMessage({
+    type: 'worker_mapgen',
+    canvas: offscreenCanvas,
+    ...opts,
+  }, transfer);
+
+  await new Promise((resolve) => {
+    controller.worker.onmessage = (e) => {
+      delete controller.worker.onmessage;
+      resolve();
+    };
+  });
+}
+
+async function saveGeneratedMap(name: string) {
+  // @ts-ignore
+  controller.worker.postMessage({
+    type: 'worker_savemapgen',
+    name,
+  });
+
+  await new Promise((resolve) => {
+    controller.worker.onmessage = (e) => {
+      delete controller.worker.onmessage;
+      resolve();
+    };
+  });
+}
+
 async function startGame(client: Client) {
   const gameSingleton = makeGame(client);
 
@@ -470,7 +500,24 @@ const controller = new MainController();
 document.addEventListener('DOMContentLoaded', async () => {
   setupDebugging();
   await Content.loadContentFromNetwork();
-  controller.pushScene(new StartScene());
+
+  if (QUICK) {
+    await controller.loadWorker();
+    const mapNames = await getMapNames();
+    if (!mapNames.includes('quick-default')) {
+      await generateMap({
+        bare: true,
+        width: 100,
+        height: 100,
+        depth: 1,
+      });
+      await saveGeneratedMap('/quick-default');
+    }
+    await loadMap('/quick-default');
+    controller.pushScene(new RegisterScene());
+  } else {
+    controller.pushScene(new StartScene());
+  }
 
   const backBtn = Helper.find('.scene-controller--back-btn');
   backBtn.addEventListener('click', () => {
