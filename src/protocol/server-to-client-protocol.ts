@@ -1,7 +1,6 @@
 import Client from '../client/client';
 import Container from '../container';
 import * as Utils from '../utils';
-import { ItemSourceWorld } from './client-to-server-protocol';
 import * as ProtocolBuilder from './client-to-server-protocol-builder';
 import IServerToClientProtocol from './gen/server-to-client-protocol';
 import Params = ServerToClientProtocol.Params;

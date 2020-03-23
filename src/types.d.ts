@@ -1,4 +1,4 @@
-declare namespace NodeJS  {
+declare namespace NodeJS {
   interface Global {
     node: boolean;
   }
@@ -43,6 +43,12 @@ type ItemLocation = {
   id: number;
   index?: number;
 };
+
+interface PossibleUsage {
+  toolIndex: number;
+  use: ItemUse;
+  focusLocation: ItemLocation;
+}
 
 type Sector = Tile[][];
 
@@ -92,7 +98,7 @@ interface ItemUse {
   toolQuantityConsumed: number;
   focusQuantityConsumed: number;
   successTool?: number;
-  products: Array<{type: number, quantity: number}>;
+  products: Array<{ type: number, quantity: number }>;
   skill?: string;
   skillSuccessXp?: number;
 }
@@ -146,7 +152,7 @@ interface GameAction {
 type GameActionCreator = (tile: Tile, loc: TilePoint) => GameAction[] | GameAction | undefined;
 
 // https://stackoverflow.com/a/49397693
-type NoMethodKeys<T> = ({[P in keyof T]: T[P] extends Function ? never : P })[keyof T];
+type NoMethodKeys<T> = ({ [P in keyof T]: T[P] extends Function ? never : P })[keyof T];
 type NoMethods<T> = Pick<T, NoMethodKeys<T>>;
 
 interface ServerOptions {

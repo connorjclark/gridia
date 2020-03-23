@@ -1,7 +1,7 @@
 import { OutlineFilter } from '@pixi/filter-outline';
 import PIXISound from 'pixi-sound';
 import * as PIXI from 'pixi.js';
-import { MINE, Source, WATER } from '../constants';
+import { MINE, WATER } from '../constants';
 import * as Content from '../content';
 import { game } from '../game-singleton';
 import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
@@ -204,6 +204,7 @@ class Game {
   protected mouseHasMovedSinceItemMoveBegin = false;
   protected modules: ClientModule[] = [];
   protected actionCreators: GameActionCreator[] = [];
+  protected possibleUsagesWindow: Draw.PossibleUsagesWindow = new Draw.PossibleUsagesWindow();
 
   private _playerCreature?: Creature;
   private _currentHoverItemText =
@@ -270,12 +271,20 @@ class Game {
     // Should only be used for refreshing UI, not updating game state.
     this.client.eventEmitter.on('message', (e) => {
       // Update the selected view, if the item there changed.
-      if (e.type === 'setItem' && this.state.selectedView.tile) {
-        const loc = { w: e.args.w, x: e.args.x, y: e.args.y, z: e.args.z };
-        if (Utils.equalPoints(loc, this.state.selectedView.tile)) {
-          selectView(this.state.selectedView.tile);
+      if (e.type === 'setItem') {
+        let shouldUpdateUsages = false;
+        if (e.args.location.source === 'container') shouldUpdateUsages = true;
+        else if (Utils.maxDiff(this.getPlayerPosition(), e.args.location.loc) <= 1) shouldUpdateUsages = true;
+        if (shouldUpdateUsages) this.possibleUsagesWindow.setPossibleUsages(this.getPossibleUsages());
+
+        if (e.args.location.source === 'world' && this.state.selectedView.tile) {
+          const loc = e.args.location.loc;
+          if (Utils.equalPoints(loc, this.state.selectedView.tile)) {
+            selectView(this.state.selectedView.tile);
+          }
         }
       }
+
       if (e.type === 'setCreature' && this.state.selectedView.creatureId) {
         const creature = this.client.context.getCreature(this.state.selectedView.creatureId);
         if (creature.id === e.args.id) {
@@ -323,6 +332,15 @@ class Game {
 
     // This makes everything "pop".
     // this.containers.itemAndCreatureLayer.filters = [new OutlineFilter(0.5, 0, 1)];
+
+    this.possibleUsagesWindow.pixiContainer.y = 32 * 2;
+    this.possibleUsagesWindow.setOnSelectUsage((possibleUsage) => {
+      this.client.connection.send(ProtocolBuilder.use({
+        toolIndex: possibleUsage.toolIndex,
+        location: possibleUsage.focusLocation,
+      }));
+    });
+    this.addWindow(this.possibleUsagesWindow);
   }
 
   public async playSound(name: string) {
@@ -599,10 +617,10 @@ class Game {
       renderSelectedView();
     });
 
-    this.client.eventEmitter.on('playerMove', () => {
+    this.client.eventEmitter.on('playerMove', (e) => {
       if (!this.state.selectedView.creatureId) clearSelectedView();
       ContextMenu.close();
-      this.getPossibleUsages();
+      this.possibleUsagesWindow.setPossibleUsages(this.getPossibleUsages(e.to));
     });
 
     this.client.eventEmitter.on('action', ContextMenu.close);
@@ -629,29 +647,55 @@ class Game {
     registerPanelListeners();
   }
 
-  public getPossibleUsages() {
+  public getPossibleUsages(center?: TilePoint): PossibleUsage[] {
+    center = center || this.getPlayerCreature().pos;
+
     // If item is selected in world, only return usages that use that item as the focus.
     // Else show all usages possible using any tool on any item in inventory or nearby in the world.
     // If a usage is possible with distinct items (example: standing near many trees with an axe),
     // only the first instance will be recorded.
-    const possibleUsageActions = [];
+    const possibleUsageActions: PossibleUsage[] = [];
     const inventory = this.client.context.containers.get(this.client.containerId);
-    if (!inventory) return;
+    if (!inventory) return [];
+
+    const nearbyItems: Array<{ loc: TilePoint, item?: Item }> = [];
+    this.client.context.map.forEach(center, 1, (loc, tile) => {
+      nearbyItems.push({ loc, item: tile.item });
+    });
 
     inventory.forEach((tool, toolIndex) => {
       const possibleUses = Content.getItemUsesForTool(tool.type);
       for (const use of possibleUses) {
-        const possibleFocusFromInventory = inventory.items.some((item) => item?.type === use.focus);
-        const possibleFocusFromWorld = null;
-        if (possibleFocusFromInventory || possibleFocusFromWorld) {
+
+        // Only record one, if any, from inventory.
+        const possibleFocusFromInventory = inventory.items.find((item) => item?.type === use.focus);
+        // TODO: dont yet support focus items being in inventory.
+        if (possibleFocusFromInventory && false) {
           possibleUsageActions.push({
-            toolIndex: inventory.items.indexOf(tool),
+            toolIndex,
             use,
+            focusLocation: Utils.ItemLocation.Container(
+              this.client.containerId, inventory.items.indexOf(possibleFocusFromInventory)),
+          });
+        }
+
+        for (const nearbyItem of nearbyItems) {
+          if (nearbyItem.item?.type !== use.focus) continue;
+          possibleUsageActions.push({
+            toolIndex,
+            use,
+            focusLocation: Utils.ItemLocation.World(nearbyItem.loc),
           });
         }
       }
     });
-    console.log({ possibleUsageActions });
+
+    // The implicit sort depends on where the player happens to be, and is unstable.
+    // Use some arbirtary sorting to keep the results more stable.
+    possibleUsageActions.sort((a, b) => {
+      return b.use.tool - a.use.tool;
+    });
+
     return possibleUsageActions;
   }
 
@@ -675,16 +719,13 @@ class Game {
 
         // Inventory.
         if (id === this.client.containerId) {
-          // Draw so width and height are set.
-          containerWindow.draw();
-          const size = Draw.getCanvasSize();
-          containerWindow.pixiContainer.x = (size.width - containerWindow.width) / 2;
-          containerWindow.pixiContainer.y = size.height - containerWindow.height;
+          containerWindow.pixiContainer.y = 0;
         }
       }
     }
 
     // Draw windows.
+    // TODO: This is probably a lot of wasted cycles. UI should be more reactive.
     for (const window of this.windows) {
       window.draw();
     }

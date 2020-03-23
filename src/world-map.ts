@@ -11,7 +11,7 @@ export default class WorldMap {
     this.partitions.set(w, partition);
     partition.loader = (sectorPoint: PartitionPoint) => {
       if (!this.loader) throw new Error('loader not set');
-      return this.loader({w, ...sectorPoint});
+      return this.loader({ w, ...sectorPoint });
     };
   }
 
@@ -74,6 +74,20 @@ export default class WorldMap {
     }
 
     return tiles;
+  }
+
+  public forEach(center: TilePoint, radius: number, fn: (loc: TilePoint, tile: Tile) => void) {
+    const startX = Math.max(0, center.x - radius);
+    const startY = Math.max(0, center.y - radius);
+    const endX = Math.min(this.getPartition(center.w).width, center.x + radius);
+    const endY = Math.min(this.getPartition(center.w).height, center.y + radius);
+
+    for (let x = startX; x <= endX; x++) {
+      for (let y = startY; y <= endY; y++) {
+        const loc = { ...center, x, y };
+        fn(loc, this.getTile(loc));
+      }
+    }
   }
 }
 

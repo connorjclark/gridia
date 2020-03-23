@@ -1,6 +1,7 @@
 import * as Content from '../content';
 import { game } from '../game-singleton';
 import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
+import * as Utils from '../utils';
 import * as Draw from './draw';
 
 export function canUseHand(itemType: number) {
@@ -14,7 +15,7 @@ export function usageExists(tool: number, focus: number) {
 export function useHand(loc: TilePoint) {
   game.client.connection.send(ProtocolBuilder.use({
     toolIndex: -1,
-    loc,
+    location: Utils.ItemLocation.World(loc),
   }));
 }
 
@@ -39,7 +40,7 @@ export function useTool(loc: TilePoint, usageIndex?: number) {
   if (usages.length === 1 || usageIndex !== undefined) {
     game.client.connection.send(ProtocolBuilder.use({
       toolIndex,
-      loc,
+      location: Utils.ItemLocation.World(loc),
       usageIndex,
     }));
   } else {

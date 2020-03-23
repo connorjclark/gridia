@@ -88,7 +88,7 @@ export function requestSector({ ...loc }: ClientToServerProtocol.Params.RequestS
 export function tame({ creatureId }: ClientToServerProtocol.Params.Tame): TameMessage {
     return { type: "tame", args: arguments[0] };
 }
-export function use({ toolIndex, loc, usageIndex }: ClientToServerProtocol.Params.Use): UseMessage {
+export function use({ toolIndex, location, usageIndex }: ClientToServerProtocol.Params.Use): UseMessage {
     return { type: "use", args: arguments[0] };
 }
 export function chat({ to, message }: ClientToServerProtocol.Params.Chat): ChatMessage {

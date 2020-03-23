@@ -52,7 +52,7 @@ declare namespace ClientToServerProtocol {
 
     interface Use {
       toolIndex: number;
-      loc: TilePoint;
+      location: ItemLocation;
       usageIndex?: number;
     }
 

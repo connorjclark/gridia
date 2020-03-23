@@ -1,4 +1,4 @@
-import { MINE, Source } from '../constants';
+import { MINE } from '../constants';
 import * as Content from '../content';
 import Server from '../server/server';
 import * as Utils from '../utils';
@@ -123,7 +123,12 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     server.broadcastPartialCreatureUpdate(creature, ['tamedBy']);
   }
 
-  public onUse(server: Server, { toolIndex, loc, usageIndex }: Params.Use): void {
+  public onUse(server: Server, { toolIndex, location, usageIndex }: Params.Use): void {
+    if (location.source === 'container') {
+      return; // TODO
+    }
+    const loc = location.loc;
+
     if (!server.context.map.inBounds(loc)) {
       return;
     }

@@ -99,6 +99,50 @@ export class ContainerWindow extends GridiaWindow {
   get selectedIndex() { return this._selectedIndex; }
 }
 
+export class PossibleUsagesWindow extends GridiaWindow {
+  private _possibleUsagesGrouped: Map<ItemUse, PossibleUsage[]> = new Map();
+  private _onSelectUsage?: (possibleUsage: PossibleUsage) => void;
+
+  constructor() {
+    super();
+
+    this.contents.on('pointerup', (e: PIXI.interaction.InteractionEvent) => {
+      if (!this._onSelectUsage) return;
+
+      const y = e.data.getLocalPosition(e.target).y;
+      const index = Math.floor(y / 32);
+      // TODO: Choose which possible usage, somehow.
+      const possibleUsage = [...this._possibleUsagesGrouped.values()][index][0];
+      if (possibleUsage) this._onSelectUsage(possibleUsage);
+    });
+  }
+
+  public setPossibleUsages(possibleUsages: PossibleUsage[]) {
+    // Group by usage.
+    this._possibleUsagesGrouped.clear();
+    for (const possibleUsage of possibleUsages) {
+      const group = this._possibleUsagesGrouped.get(possibleUsage.use) || [];
+      group.push(possibleUsage);
+      this._possibleUsagesGrouped.set(possibleUsage.use, group);
+    }
+
+    this.contents.removeChildren();
+    for (const possibleUsagesGroup of this._possibleUsagesGrouped.values()) {
+      const i = this.contents.children.length;
+      const possibleUsage = possibleUsagesGroup[0];
+      const item = possibleUsage.use.products[0];
+      const itemSprite = makeItemSprite(item);
+      itemSprite.x = 0;
+      itemSprite.y = i * 32;
+      this.contents.addChild(itemSprite);
+    }
+  }
+
+  public setOnSelectUsage(fn: (possibleUsage: PossibleUsage) => void) {
+    this._onSelectUsage = fn;
+  }
+}
+
 const containerWindows = new Map<number, ContainerWindow>();
 
 function makeTextureCache(resourceType: string) {
