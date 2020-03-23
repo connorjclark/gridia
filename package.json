@@ -6,13 +6,16 @@
     "idb": "^4.0.4",
     "parcel-bundler": "^1.11.0",
     "pixi-scrollbox": "^2.1.1",
-    "pixi-sound": "^3.0.3",
+    "pixi-sound": "^3.0.4",
     "pixi-viewport": "^4.3.1",
-    "pixi.js": "^5.1.5",
+    "pixi.js": "^5.2.1",
     "source-map-support": "^0.5.12",
     "strict-event-emitter-types": "^2.0.0",
     "ws": "*",
     "yargs": "^13.2.2"
+  },
+  "resolutions": {
+    "pixi-sound/@pixi/loaders": "5.2.1"
   },
   "engines": {
     "node": "12.13.1"

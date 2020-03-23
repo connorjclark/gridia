@@ -763,7 +763,7 @@ class Game {
 
         if (template !== PIXI.Texture.EMPTY) {
           this.layers.floorLayer
-            .beginTextureFill(template)
+            .beginTextureFill({texture: template})
             .drawRect(x * 32, y * 32, 32, 32)
             .endFill();
         }
@@ -779,7 +779,7 @@ class Game {
           const template = Draw.makeItemTemplate(tile.item);
           if (template !== PIXI.Texture.EMPTY) {
             this.layers.itemAndCreatureLayer
-              .beginTextureFill(template)
+              .beginTextureFill({texture: template})
               .drawRect(x * 32, y * 32, 32, 32)
               .endFill();
 
@@ -800,7 +800,7 @@ class Game {
           const template = Draw.getTexture.creatures(tile.creature.image);
           if (template !== PIXI.Texture.EMPTY) {
             this.layers.itemAndCreatureLayer
-              .beginTextureFill(template)
+              .beginTextureFill({texture: template})
               .drawRect(x * 32, y * 32, 32, 32)
               .endFill();
 
