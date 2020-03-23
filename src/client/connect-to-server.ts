@@ -2,6 +2,7 @@ import { Context } from '../context';
 import { createClientWorldMap } from '../world-map';
 import Client from './client';
 import { WebSocketConnection, WorkerConnection } from './connection';
+import { ServerWorker } from './server-worker';
 
 export async function connect(hostname: string, port: number): Promise<Client> {
   const scheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
@@ -20,21 +21,9 @@ export async function connect(hostname: string, port: number): Promise<Client> {
   return client;
 }
 
-export async function connectToServerWorker(worker: Worker, opts: ServerWorkerOpts): Promise<Client> {
-  worker.postMessage({
-    type: 'worker_load',
-    opts,
-  });
-
-  await new Promise((resolve, reject) => {
-    worker.onmessage = (e) =>  {
-      if (e.data !== 'ack') reject('unexpected data on load');
-      delete worker.onmessage;
-      resolve();
-    };
-  });
-
-  const connection = new WorkerConnection(worker);
+export async function connectToServerWorker(serverWorker: ServerWorker, opts: ServerWorkerOpts): Promise<Client> {
+  await serverWorker.startServer(opts);
+  const connection = new WorkerConnection(serverWorker.worker);
   connection.setOnMessage((message) => {
     client.eventEmitter.emit('message', message);
   });

@@ -5,6 +5,7 @@
 * Merchants
 * Wear images
 * Registration
+* Link to help.md on GH in game.
 
 # Combat
 
@@ -28,5 +29,4 @@ Click to engage
 
 # Code health
 
-* Better worker communication
 * map name / serverDir

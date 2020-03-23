@@ -11,6 +11,7 @@ import MovementClientModule from './modules/movement-module';
 import SettingsClientModule from './modules/settings-module';
 import SkillsClientModule from './modules/skills-module';
 import { createMapSelectForm, getMapGenOpts } from './scenes/map-select-scene';
+import { ServerWorker } from './server-worker';
 
 function parseQuery(queryString: string) {
   const query: Record<string, any> = {};
@@ -27,7 +28,7 @@ const qs = parseQuery(window.location.search);
 class MainController {
   private scenes: Scene[] = [];
   private client_: Client | null = null;
-  private worker_: Worker | null = null;
+  private serverWorker_: ServerWorker | null = null;
 
   public pushScene(newScene: Scene) {
     if (this.currentScene) this.currentScene.onHide();
@@ -45,20 +46,9 @@ class MainController {
   }
 
   public async loadWorker() {
-    if (this.worker_) return;
-    this.worker_ = new Worker('../server/run-worker.ts');
-
-    this.worker.postMessage({
-      type: 'worker_init',
-    });
-
-    await new Promise((resolve, reject) => {
-      this.worker.onmessage = (e) => {
-        if (e.data !== 'ack') reject('unexpected data on init');
-        delete this.worker.onmessage;
-        resolve();
-      };
-    });
+    if (this.serverWorker_) return;
+    this.serverWorker_ = new ServerWorker();
+    await this.serverWorker_.init();
   }
 
   get currentScene() {
@@ -79,13 +69,13 @@ class MainController {
     this.client_ = null;
   }
 
-  get worker() {
-    if (!this.worker_) throw new Error('missing worker');
-    return this.worker_;
+  get serverWorker() {
+    if (!this.serverWorker_) throw new Error('missing server worker');
+    return this.serverWorker_;
   }
 
-  set worker(worker: Worker) {
-    this.worker_ = worker;
+  set serverWorker(worker: ServerWorker) {
+    this.serverWorker_ = worker;
   }
 }
 
@@ -170,12 +160,7 @@ class MapSelectScene extends Scene {
   public async renderMapSelection() {
     this.mapListEl.innerHTML = '';
 
-    // @ts-ignore
-    controller.worker.postMessage({
-      type: 'worker_listmaps',
-    });
     const mapNames = await getMapNames();
-
     for (const name of mapNames) {
       const mapEl = document.createElement('li');
       mapEl.classList.add('map-list--item');
@@ -201,8 +186,8 @@ class MapSelectScene extends Scene {
 
   public async onClickSelectBtn() {
     const name = `/default-world-${this.mapListEl.childElementCount}`;
-    await saveGeneratedMap(name);
-    controller.client = await connectToServerWorker(controller.worker, {
+    await controller.serverWorker.saveGeneratedMap({name});
+    controller.client = await connectToServerWorker(controller.serverWorker, {
       serverData: name,
       dummyDelay: 20,
       verbose: false,
@@ -420,21 +405,12 @@ function setupDebugging() {
 }
 
 async function getMapNames() {
-  // @ts-ignore
-  controller.worker.postMessage({
-    type: 'worker_listmaps',
-  });
-  const mapNames: string[] = await new Promise((resolve) => {
-    controller.worker.onmessage = (e) => {
-      delete controller.worker.onmessage;
-      resolve(e.data.mapNames);
-    };
-  });
+  const {mapNames} = await controller.serverWorker.listMaps();
   return mapNames;
 }
 
 async function loadMap(name: string) {
-  controller.client = await connectToServerWorker(controller.worker, {
+  controller.client = await connectToServerWorker(controller.serverWorker, {
     serverData: `/${name}`,
     dummyDelay: 20,
     verbose: false,
@@ -443,37 +419,9 @@ async function loadMap(name: string) {
 }
 
 async function generateMap(opts: any, offscreenCanvas?: OffscreenCanvas) {
-  // @ts-ignore
-  const transfer: PostMessageOptions = [];
-  // @ts-ignore
-  if (offscreenCanvas) transfer.push(offscreenCanvas);
-
-  controller.worker.postMessage({
-    type: 'worker_mapgen',
-    canvas: offscreenCanvas,
+  await controller.serverWorker.generateMap({
     ...opts,
-  }, transfer);
-
-  await new Promise((resolve) => {
-    controller.worker.onmessage = (e) => {
-      delete controller.worker.onmessage;
-      resolve();
-    };
-  });
-}
-
-async function saveGeneratedMap(name: string) {
-  // @ts-ignore
-  controller.worker.postMessage({
-    type: 'worker_savemapgen',
-    name,
-  });
-
-  await new Promise((resolve) => {
-    controller.worker.onmessage = (e) => {
-      delete controller.worker.onmessage;
-      resolve();
-    };
+    canvas: offscreenCanvas,
   });
 }
 
@@ -523,7 +471,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         height: 100,
         depth: 1,
       });
-      await saveGeneratedMap('/quick-default');
+      controller.serverWorker.saveGeneratedMap({name: '/quick-default'});
     }
     await loadMap('/quick-default');
     controller.pushScene(new RegisterScene());

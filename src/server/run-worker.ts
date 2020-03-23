@@ -5,7 +5,7 @@ import mapgen, { makeBareMap } from '../mapgen';
 import WorldMap from '../world-map';
 import WorldMapPartition from '../world-map-partition';
 import ClientConnection from './client-connection';
-import { startServer } from './create-server';
+import { startServer as _startServer } from './create-server';
 import Server from './server';
 import { ServerContext } from './server-context';
 
@@ -33,7 +33,45 @@ async function saveMapGen(name: string) {
   await context.save();
 }
 
-async function start() {
+async function init() {
+  await Content.loadContentFromNetwork();
+}
+
+async function listMaps() {
+  const mapNames = await fs.readdir('/');
+  return { mapNames };
+}
+
+interface GenerateMapArgs { bare: boolean; width: number; height: number; depth: number; canvas?: OffscreenCanvas; }
+async function generateMap(args: GenerateMapArgs) {
+  if (args.bare) {
+    mapPreviewPartition = makeBareMap(args.width, args.height, args.depth);
+  } else {
+    // @ts-ignore: TODO
+    const mapGenResult = mapgen(args);
+    mapPreviewPartition = mapGenResult.partition;
+    mapPreviewGenData = mapGenResult.mapGenResult;
+  }
+
+  if (mapPreviewGenData && args.canvas) {
+    // @ts-ignore: Hack to make canvas-node use the given OffscreenCanvas.
+    global.document = {
+      createElement() {
+        return args.canvas;
+      },
+    };
+
+    // This draws to the OffscreenCanvas.
+    makeMapImage(mapPreviewGenData);
+  }
+}
+
+async function saveGeneratedMap(args: { name: string }) {
+  await saveMapGen(args.name);
+}
+
+async function startServer(args: ServerWorkerOpts) {
+  opts = args; // :(
   clientConnection = new ClientConnection();
   clientConnection.send = (message) => {
     maybeDelay(() => {
@@ -42,55 +80,32 @@ async function start() {
     });
   };
 
-  server = await startServer(opts);
+  server = await _startServer(args);
   server.clientConnections.push(clientConnection);
 }
 
+export const RpcMap = {
+  init,
+  listMaps,
+  generateMap,
+  saveGeneratedMap,
+  startServer,
+};
+
 self.addEventListener('message', async (e) => {
-  if (e.data.type === 'worker_init') {
-    await Content.loadContentFromNetwork();
+  if (e.data.type === 'rpc') {
     // @ts-ignore
-    self.postMessage('ack');
-  } else if (e.data.type === 'worker_listmaps') {
-    const mapNames = await fs.readdir('/');
-
+    const result = await RpcMap[e.data.method](e.data.args);
     // @ts-ignore
-    self.postMessage({mapNames});
-  } else if (e.data.type === 'worker_mapgen') {
-    if (e.data.bare) {
-      mapPreviewPartition = makeBareMap(e.data.width, e.data.height, e.data.depth);
-    } else {
-      const mapGenResult = mapgen(e.data);
-      mapPreviewPartition = mapGenResult.partition;
-      mapPreviewGenData = mapGenResult.mapGenResult;
-    }
-
-    if (mapPreviewGenData && e.data.canvas) {
-      // @ts-ignore: Hack to make canvas-node use the given OffscreenCanvas.
-      global.document = {
-        createElement() {
-          return e.data.canvas;
-        },
-      };
-
-      // This draws to the OffscreenCanvas.
-      makeMapImage(mapPreviewGenData);
-    }
-
-    // @ts-ignore
-    self.postMessage('ack');
-  } else if (e.data.type === 'worker_savemapgen') {
-    saveMapGen(e.data.name);
-    // @ts-ignore
-    self.postMessage('ack');
-  } else if (e.data.type === 'worker_load') {
-    opts = e.data.opts;
-    await start();
-    // @ts-ignore
-    self.postMessage('ack');
-  } else {
-    maybeDelay(() => {
-      clientConnection.messageQueue.push(e.data);
+    self.postMessage({
+      rpc: e.data.id,
+      result,
     });
+
+    return;
   }
+
+  maybeDelay(() => {
+    clientConnection.messageQueue.push(e.data);
+  });
 }, false);
