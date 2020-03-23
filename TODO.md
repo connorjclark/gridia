@@ -5,7 +5,6 @@
 * Merchants
 * Wear images
 * Registration
-* Crafting (show options on what can be made using items / environment)
 
 # Combat
 

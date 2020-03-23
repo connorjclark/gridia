@@ -171,6 +171,7 @@ function selectView(loc: TilePoint) {
     game.state.selectedView.creatureId = undefined;
   }
 
+  game.updatePossibleUsages();
   renderSelectedView();
 }
 
@@ -275,7 +276,7 @@ class Game {
         let shouldUpdateUsages = false;
         if (e.args.location.source === 'container') shouldUpdateUsages = true;
         else if (Utils.maxDiff(this.getPlayerPosition(), e.args.location.loc) <= 1) shouldUpdateUsages = true;
-        if (shouldUpdateUsages) this.possibleUsagesWindow.setPossibleUsages(this.getPossibleUsages());
+        if (shouldUpdateUsages) this.updatePossibleUsages();
 
         if (e.args.location.source === 'world' && this.state.selectedView.tile) {
           const loc = e.args.location.loc;
@@ -615,12 +616,13 @@ class Game {
 
     this.client.eventEmitter.on('containerWindowSelectedIndexChanged', () => {
       renderSelectedView();
+      this.updatePossibleUsages();
     });
 
     this.client.eventEmitter.on('playerMove', (e) => {
       if (!this.state.selectedView.creatureId) clearSelectedView();
       ContextMenu.close();
-      this.possibleUsagesWindow.setPossibleUsages(this.getPossibleUsages(e.to));
+      this.updatePossibleUsages(e.to);
     });
 
     this.client.eventEmitter.on('action', ContextMenu.close);
@@ -647,26 +649,39 @@ class Game {
     registerPanelListeners();
   }
 
+  public updatePossibleUsages(center?: TilePoint) {
+    this.possibleUsagesWindow.setPossibleUsages(this.getPossibleUsages(center));
+  }
+
+  // TODO: better comment. maybe some bullet points. mhm.
+  // If item is selected in world, only return usages that use that item as the focus.
+  // Else show all usages possible using any tool on any item in inventory or nearby in the world.
+  // If a usage is possible with distinct items (example: standing near many trees with an axe),
+  // only the first instance will be recorded.
+  // If a tool in the inventory is selected, filter results to just usages that use that tool.
+  // If a an item in the world is selected, filter results to just usages that use that tool.
   public getPossibleUsages(center?: TilePoint): PossibleUsage[] {
     center = center || this.getPlayerCreature().pos;
+    const selectedTool = Helper.getSelectedTool();
+    const selectedTile = this.state.selectedView.tile;
 
-    // If item is selected in world, only return usages that use that item as the focus.
-    // Else show all usages possible using any tool on any item in inventory or nearby in the world.
-    // If a usage is possible with distinct items (example: standing near many trees with an axe),
-    // only the first instance will be recorded.
     const possibleUsageActions: PossibleUsage[] = [];
     const inventory = this.client.context.containers.get(this.client.containerId);
     if (!inventory) return [];
 
     const nearbyItems: Array<{ loc: TilePoint, item?: Item }> = [];
     this.client.context.map.forEach(center, 1, (loc, tile) => {
+      // If a tile is selected, limit results to usages on that tile.
+      if (selectedTile && !Utils.equalPoints(selectedTile, loc)) return;
+
       nearbyItems.push({ loc, item: tile.item });
     });
 
     inventory.forEach((tool, toolIndex) => {
+      if (selectedTool && selectedTool !== tool) return;
+
       const possibleUses = Content.getItemUsesForTool(tool.type);
       for (const use of possibleUses) {
-
         // TODO: dont yet support focus items being in inventory.
         // Only record one, if any, from inventory.
         // const possibleFocusFromInventory = inventory.items.find((item) => item?.type === use.focus);
@@ -763,7 +778,7 @@ class Game {
 
         if (template !== PIXI.Texture.EMPTY) {
           this.layers.floorLayer
-            .beginTextureFill({texture: template})
+            .beginTextureFill({ texture: template })
             .drawRect(x * 32, y * 32, 32, 32)
             .endFill();
         }
@@ -779,7 +794,7 @@ class Game {
           const template = Draw.makeItemTemplate(tile.item);
           if (template !== PIXI.Texture.EMPTY) {
             this.layers.itemAndCreatureLayer
-              .beginTextureFill({texture: template})
+              .beginTextureFill({ texture: template })
               .drawRect(x * 32, y * 32, 32, 32)
               .endFill();
 
@@ -800,7 +815,7 @@ class Game {
           const template = Draw.getTexture.creatures(tile.creature.image);
           if (template !== PIXI.Texture.EMPTY) {
             this.layers.itemAndCreatureLayer
-              .beginTextureFill({texture: template})
+              .beginTextureFill({ texture: template })
               .drawRect(x * 32, y * 32, 32, 32)
               .endFill();
 

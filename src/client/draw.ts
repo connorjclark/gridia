@@ -82,7 +82,7 @@ export class GridiaWindow {
 export class ContainerWindow extends GridiaWindow {
   public itemsContainer: Container;
   public mouseOverIndex?: number;
-  protected _selectedIndex = 0;
+  protected _selectedIndex: number | null = null;
 
   constructor(itemsContainer: Container) {
     super();
@@ -91,7 +91,10 @@ export class ContainerWindow extends GridiaWindow {
 
   // Selected item actions are based off currently selected tool. If
   // the tool changes, should re-render the selected item panel.
-  set selectedIndex(selectedIndex: number) {
+  set selectedIndex(selectedIndex: number|null) {
+    // If already selected, then unselect.
+    if (this._selectedIndex === selectedIndex) selectedIndex = null;
+
     this._selectedIndex = selectedIndex;
     game.client.eventEmitter.emit('containerWindowSelectedIndexChanged');
   }
@@ -130,11 +133,14 @@ export class PossibleUsagesWindow extends GridiaWindow {
     for (const possibleUsagesGroup of this._possibleUsagesGrouped.values()) {
       const i = this.contents.children.length;
       const possibleUsage = possibleUsagesGroup[0];
-      const item = possibleUsage.use.products[0];
-      const itemSprite = makeItemSprite(item);
-      itemSprite.x = 0;
-      itemSprite.y = i * 32;
-      this.contents.addChild(itemSprite);
+      const products = possibleUsage.use.products.filter((p) => p.type);
+      if (possibleUsage.use.successTool) products.unshift({ type: possibleUsage.use.successTool, quantity: 1 });
+      for (const [j, product] of products.entries()) {
+        const itemSprite = makeItemSprite(product);
+        itemSprite.x = j * 32;
+        itemSprite.y = i * 32;
+        this.contents.addChild(itemSprite);
+      }
     }
   }
 

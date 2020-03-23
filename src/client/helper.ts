@@ -29,7 +29,12 @@ export function useHand(loc: TilePoint) {
 export function useTool(loc: TilePoint, usageIndex?: number) {
   const toolIndex = getSelectedToolIndex();
   const tool = getSelectedTool();
-  if (!tool || toolIndex < 0) throw new Error('expected tool');
+  if (!tool || toolIndex < 0) {
+    // TODO: Remove this special case.
+    useHand(loc);
+    return;
+  }
+
   const focus = game.client.context.map.getItem(loc) || {type: 0, quantity: 0};
   const usages = Content.getItemUses(tool.type, focus.type);
 
@@ -74,7 +79,10 @@ export function getZ() {
 
 export function getSelectedTool() {
   const inventoryWindow = Draw.getContainerWindow(game.client.containerId);
-  return inventoryWindow?.itemsContainer.items[inventoryWindow.selectedIndex] ?? undefined;
+  if (!inventoryWindow) return undefined;
+  const selectedIndex = inventoryWindow.selectedIndex;
+  if (selectedIndex === null) return undefined;
+  return inventoryWindow.itemsContainer.items[selectedIndex] ?? undefined;
 }
 
 export function getSelectedToolIndex() {
