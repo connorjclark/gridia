@@ -90,7 +90,6 @@ class LazyResourceLoader {
 
     PIXI.Loader.shared.add(queue).load((_, resources) => {
       for (const resource of Object.values(resources)) {
-        console.log(resource);
         if (!resource) continue;
 
         const resolve = this.loadingResourcePromise.get(resource.name)?.resolve;
