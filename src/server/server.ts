@@ -265,6 +265,8 @@ export default class Server {
   }
 
   public async warpCreature(creature: Creature, pos: TilePoint | null) {
+    if (pos && !this.context.map.inBounds(pos)) return;
+
     if (pos) await this.ensureSectorLoadedForPoint(pos);
     this.moveCreature(creature, pos);
     this.creatureStates[creature.id].warped = true;
@@ -467,24 +469,27 @@ export default class Server {
         const meta = Content.getMetaItem(item.type);
 
         let newPos = null;
-        if (meta.class === 'CaveDown' && await map.walkableAsync({ ...creature.pos, z: creature.pos.z + 1 })) {
+        let playWarpSound = false;
+        if (meta.class === 'CaveDown') {
           newPos = { ...creature.pos, z: creature.pos.z + 1 };
-        } else if (meta.class === 'CaveUp' && await map.walkableAsync({ ...creature.pos, z: creature.pos.z - 1 })) {
+        } else if (meta.class === 'CaveUp') {
           newPos = { ...creature.pos, z: creature.pos.z - 1 };
-        } else if (meta.trapEffect === 'Warp' && item.warpTo && await map.walkableAsync(item.warpTo)) {
+        } else if (meta.trapEffect === 'Warp' && item.warpTo) {
           newPos = { ...item.warpTo };
+          playWarpSound = true;
+        }
+        if (!newPos || !map.inBounds(newPos) || !await map.walkableAsync(newPos)) continue;
+
+        await this.warpCreature(creature, newPos);
+        if (playWarpSound) {
           this.broadcast(ProtocolBuilder.animation({
             ...creature.pos,
             key: 'WarpOut',
           }));
           this.broadcast(ProtocolBuilder.animation({
-            ...item.warpTo,
+            ...newPos,
             key: 'WarpIn',
           }));
-        }
-
-        if (newPos) {
-          await this.warpCreature(creature, newPos);
         }
       }
     }
@@ -593,7 +598,7 @@ export default class Server {
           item.type = meta.growthItem;
           item.growth = 0;
           this.broadcast(ProtocolBuilder.setItem({
-            location: Utils.ItemLocation.World({...pos, w}),
+            location: Utils.ItemLocation.World({ ...pos, w }),
             item,
           }));
         }
