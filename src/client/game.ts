@@ -667,17 +667,17 @@ class Game {
       const possibleUses = Content.getItemUsesForTool(tool.type);
       for (const use of possibleUses) {
 
-        // Only record one, if any, from inventory.
-        const possibleFocusFromInventory = inventory.items.find((item) => item?.type === use.focus);
         // TODO: dont yet support focus items being in inventory.
-        if (possibleFocusFromInventory && false) {
-          possibleUsageActions.push({
-            toolIndex,
-            use,
-            focusLocation: Utils.ItemLocation.Container(
-              this.client.containerId, inventory.items.indexOf(possibleFocusFromInventory)),
-          });
-        }
+        // Only record one, if any, from inventory.
+        // const possibleFocusFromInventory = inventory.items.find((item) => item?.type === use.focus);
+        // if (possibleFocusFromInventory) {
+        //   possibleUsageActions.push({
+        //     toolIndex,
+        //     use,
+        //     focusLocation: Utils.ItemLocation.Container(
+        //       this.client.containerId, inventory.items.indexOf(possibleFocusFromInventory)),
+        //   });
+        // }
 
         for (const nearbyItem of nearbyItems) {
           if (nearbyItem.item?.type !== use.focus) continue;
