@@ -1,6 +1,8 @@
 // tslint:disable-next-line: no-reference
 /// <reference path="../src/types.d.ts" />
 
+// TODO: add test/ to tsconfig
+
 jest.mock('pixi-sound', () => ({}));
 
 import * as assert from 'assert';
@@ -293,7 +295,7 @@ describe('moveItem', () => {
 
     await send(ProtocolBuilder.moveItem({
       from: Utils.ItemLocation.World(from),
-      toSource: container.id,
+      to: Utils.ItemLocation.Container(container.id),
     }));
 
     assertItemInWorld(from, undefined);
@@ -321,7 +323,7 @@ describe('use', () => {
 
     await send(ProtocolBuilder.use({
       toolIndex,
-      loc,
+      location: Utils.ItemLocation.World(loc),
     }));
 
     assertItemInWorld(loc, { type: Content.getMetaItemByName('Pine Tree Stump').id, quantity: 1 });
@@ -337,7 +339,7 @@ describe('use', () => {
 
     await send(ProtocolBuilder.use({
       toolIndex,
-      loc,
+      location: Utils.ItemLocation.World(loc),
     }));
 
     assertItemInWorld(loc, { type: Content.getMetaItemByName('Mana Plant Seeded Ground').id, quantity: 1 });
@@ -360,7 +362,7 @@ describe('use', () => {
 
     await send(ProtocolBuilder.use({
       toolIndex,
-      loc,
+      location: Utils.ItemLocation.World(loc),
     }));
 
     assertItemInWorld(loc, { type: Content.getMetaItemByName('Large Camp Fire').id, quantity: 1 });
@@ -382,14 +384,14 @@ describe('use', () => {
 
     await send(ProtocolBuilder.use({
       toolIndex: -1,
-      loc,
+      location: Utils.ItemLocation.World(loc),
     }));
 
     assertItemInWorld(loc, { type: Content.getMetaItemByName('Wooden Box').id, quantity: 1, containerId: 123 });
 
     await send(ProtocolBuilder.use({
       toolIndex: -1,
-      loc,
+      location: Utils.ItemLocation.World(loc),
     }));
 
     assertItemInWorld(loc, { type: Content.getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123 });
