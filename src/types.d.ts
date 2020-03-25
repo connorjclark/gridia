@@ -173,4 +173,16 @@ interface ServerWorkerOpts extends ServerOptions {
   useMapPreview?: boolean;
 }
 
-declare module 'pixi-scrollbox';
+declare module 'pixi-scrollbox' {
+  class Scrollbox {
+    public content: PIXI.Container;
+    constructor(...args: any[]);
+    public update(): void;
+  }
+}
+
+declare namespace PIXI {
+  // const PIXISound: any;
+  let Scrollbox: typeof import('pixi-scrollbox').Scrollbox;
+  let OutlineFilter: typeof import('@pixi/filter-outline').OutlineFilter;
+}

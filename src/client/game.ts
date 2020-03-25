@@ -1,6 +1,3 @@
-import { OutlineFilter } from '@pixi/filter-outline';
-import PIXISound from 'pixi-sound';
-import * as PIXI from 'pixi.js';
 import { MINE, WATER } from '../constants';
 import * as Content from '../content';
 import { game } from '../game-singleton';
@@ -350,22 +347,22 @@ class Game {
     if (!this.loader.hasResourceLoaded(resourceKey)) {
       await this.loader.loadResource(resourceKey);
     }
-    PIXISound.play(resourceKey, { volume: this.client.settings.volume });
+    PIXI.sound.play(resourceKey, { volume: this.client.settings.volume });
   }
 
   public trip() {
-    const filtersBefore = this.layers.itemAndCreatureLayer.filters;
-    const filter = new OutlineFilter(0, 0, 1);
-    const start = performance.now();
-    this.layers.itemAndCreatureLayer.filters = [filter];
-    const handle = setInterval(() => {
-      const multiplier = 0.5 + Math.cos((performance.now() - start) / 1000) / 2;
-      filter.thickness = 2 + multiplier * 3;
-    }, 100);
-    setTimeout(() => {
-      clearInterval(handle);
-      this.layers.itemAndCreatureLayer.filters = filtersBefore;
-    }, 1000 * 10);
+    // const filtersBefore = this.layers.itemAndCreatureLayer.filters;
+    // const filter = new OutlineFilter(0, 0, 1);
+    // const start = performance.now();
+    // this.layers.itemAndCreatureLayer.filters = [filter];
+    // const handle = setInterval(() => {
+    //   const multiplier = 0.5 + Math.cos((performance.now() - start) / 1000) / 2;
+    //   filter.thickness = 2 + multiplier * 3;
+    // }, 100);
+    // setTimeout(() => {
+    //   clearInterval(handle);
+    //   this.layers.itemAndCreatureLayer.filters = filtersBefore;
+    // }, 1000 * 10);
   }
 
   public addWindow(window: Draw.GridiaWindow) {

@@ -1,5 +1,3 @@
-import * as PIXI from 'pixi.js';
-
 export const ImageResources: Record<string, string[]> = {
   creatures: [],
   floors: [],

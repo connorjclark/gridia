@@ -6,9 +6,6 @@
 * Wear images
 * Registration
 * Link to help.md on GH in game.
-* Shim PIXI (it's 84% of the code and doesnt change much)
-* * https://github.com/parcel-bundler/parcel/pull/4072
-* * requires updating to parcel 2 (in beta)
 
 # Combat
 

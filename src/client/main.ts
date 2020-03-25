@@ -384,7 +384,6 @@ function setupDebugging() {
       console.log('focus', Content.getItemUsesForFocus(itemType));
       console.log('product', Content.getItemUsesForProduct(itemType));
     },
-    PIXI: require('pixi.js'),
     clearMapCaches() {
       for (const partition of controller.client?.context.map.getPartitions().values()) {
         // @ts-ignore

@@ -1,5 +1,3 @@
-import { OutlineFilter } from '@pixi/filter-outline';
-import * as PIXI from 'pixi.js';
 import Container from '../container';
 import * as Content from '../content';
 import { game } from '../game-singleton';
@@ -270,7 +268,7 @@ export function makeItemContainerWindow(container: Container): ContainerWindow {
       itemSprite.x = i * 32;
       itemSprite.y = 0;
       if (window.selectedIndex === i) {
-        itemSprite.filters = [new OutlineFilter(1, 0xFFFF00, 1)];
+        itemSprite.filters = [new PIXI.OutlineFilter(1, 0xFFFF00, 1)];
       }
       window.contents.addChild(itemSprite);
     }

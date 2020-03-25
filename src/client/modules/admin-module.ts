@@ -1,5 +1,3 @@
-import {Scrollbox} from 'pixi-scrollbox';
-import { Container, DisplayObject, Graphics, Sprite } from 'pixi.js';
 import { getFloors, getMetaItem, getMetaItems } from '../../content';
 import TextInput from '../../lib/text-input';
 import * as ProtocolBuilder from '../../protocol/client-to-server-protocol-builder';
@@ -10,7 +8,7 @@ import GridContainer from '../pixi/grid-container';
 import TabContainer from '../pixi/tab-container';
 
 interface SelectedContent {
-  displayObject: DisplayObject;
+  displayObject: PIXI.DisplayObject;
   type: string;
   id: number;
 }
@@ -28,7 +26,7 @@ class AdminClientModule extends ClientModule {
       } else if (this._adminWindow) {
         this.game.removeWindow(this._adminWindow);
         if (this._selectedContent) {
-          (this._selectedContent.displayObject as Sprite).removeChildren();
+          (this._selectedContent.displayObject as PIXI.Sprite).removeChildren();
         }
         this.setSelectedContent(undefined);
       }
@@ -53,9 +51,10 @@ class AdminClientModule extends ClientModule {
 
     const tabs = new TabContainer();
 
-    const makeGrid = (contentData: Array<[number, DisplayObject]>) => {
-      const displayObjectToMetaIdMap = new Map<DisplayObject, number>();
-      const scrollbox = new Scrollbox({boxWidth: 320, boxHeight: 320, scrollbarOffsetVertical: 10, overflowX: 'none'});
+    const makeGrid = (contentData: Array<[number, PIXI.DisplayObject]>) => {
+      const displayObjectToMetaIdMap = new Map<PIXI.DisplayObject, number>();
+      const scrollbox =
+        new PIXI.Scrollbox({boxWidth: 320, boxHeight: 320, scrollbarOffsetVertical: 10, overflowX: 'none'});
       const grid = new GridContainer(320);
       scrollbox.content.addChild(grid);
       for (const [id, displayObject] of contentData) {
@@ -80,8 +79,8 @@ class AdminClientModule extends ClientModule {
 
     interface MakeContentSelectionTabOpts {
       name: string;
-      scrollbox: typeof Scrollbox;
-      displayObjectToMetaIdMap: Map<DisplayObject, number>;
+      scrollbox: any;
+      displayObjectToMetaIdMap: Map<PIXI.DisplayObject, number>;
       setVisibility: (filter: (id: number) => boolean) => void;
     }
     const makeContentSelectionTab = ({ name, scrollbox, displayObjectToMetaIdMap,
@@ -91,7 +90,7 @@ class AdminClientModule extends ClientModule {
       // Add a text input filter to the tab contents.
       if (name === 'Items') {
         setVisibility((id) => id % 2 === 0);
-        contents = new Container();
+        contents = new PIXI.Container();
         const input = new TextInput({
           input: {
             fontSize: '25pt',
@@ -150,14 +149,14 @@ class AdminClientModule extends ClientModule {
 
         if (id === undefined) return;
         if (this._selectedContent) {
-          (this._selectedContent.displayObject as Sprite).removeChildren();
+          (this._selectedContent.displayObject as PIXI.Sprite).removeChildren();
         }
         if (this._selectedContent && this._selectedContent.displayObject === target) {
           // Unselect.
           this.setSelectedContent(undefined);
         } else if (target) {
           this.setSelectedContent({displayObject: target, type: name, id});
-          (target as Sprite).addChild(new Graphics().lineStyle(2, 0xFFFF00).drawRect(0, 0, 32, 32));
+          (target as PIXI.Sprite).addChild(new PIXI.Graphics().lineStyle(2, 0xFFFF00).drawRect(0, 0, 32, 32));
         }
       });
     };
@@ -170,7 +169,7 @@ class AdminClientModule extends ClientModule {
 
     makeContentSelectionTab({
       name: 'Floors',
-      ...makeGrid(getFloors().map((id) => [id, new Sprite(getTexture.floors(id))])),
+      ...makeGrid(getFloors().map((id) => [id, new PIXI.Sprite(getTexture.floors(id))])),
     });
 
     const adminWindow = new GridiaWindow();

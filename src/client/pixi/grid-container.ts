@@ -1,6 +1,6 @@
-import { Container } from 'pixi.js';
+// import { Container } from 'pixi.js';
 
-class GridContainer extends Container {
+class GridContainer extends PIXI.Container {
   constructor(public maxWidth: number, public padding: number = 0) {
     super();
   }

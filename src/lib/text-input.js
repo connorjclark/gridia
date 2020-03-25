@@ -1,7 +1,5 @@
 /* tslint:disable */
 
-const PIXI = require('pixi.js');
-
 // https://github.com/Mwni/PIXI.TextInput/blob/master/src/PIXI.TextInput.js
 // https://github.com/Mwni/PIXI.TextInput/issues/13
 

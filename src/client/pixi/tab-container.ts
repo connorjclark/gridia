@@ -1,14 +1,14 @@
-import { Container, DisplayObject, Graphics, Text } from 'pixi.js';
+// import { Container, DisplayObject, Graphics, Text } from 'pixi.js';
 import GridContainer from './grid-container';
 
 interface Tab {
   name: string;
-  contents: DisplayObject;
+  contents: PIXI.DisplayObject;
   willShow?: () => void;
   wasHidden?: () => void;
 }
 
-class TabContainer extends Container {
+class TabContainer extends PIXI.Container {
   private _tabs = new Map<string, Tab>();
   private _currentTab?: Tab;
 
@@ -35,8 +35,8 @@ class TabContainer extends Container {
     this.removeChildren();
     const tabs = new GridContainer(320);
     for (const tabName of this._tabs.keys()) {
-      const gfx = new Graphics();
-      const text = new Text(tabName);
+      const gfx = new PIXI.Graphics();
+      const text = new PIXI.Text(tabName);
       gfx.beginFill(tabName === this._currentTab.name ? 0xBDBDBD : 0xffffff);
       gfx.drawRect(0, 0, text.width, text.height);
       gfx.endFill();
