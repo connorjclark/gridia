@@ -17,14 +17,6 @@ class WorldMapPartition {
     this.sectors = Utils.matrix(width / SECTOR_SIZE, height / SECTOR_SIZE, depth);
   }
 
-  // TODO - can this be removed?
-  // public init(width: number, height: number, depth: number) {
-  //   this.width = width;
-  //   this.height = height;
-  //   this.depth = depth;
-  //   this.sectors = Utils.matrix(width / SECTOR_SIZE, height / SECTOR_SIZE, depth);
-  // }
-
   public inBounds(point: PartitionPoint): boolean {
     return point.x >= 0 && point.y >= 0 && point.x < this.width && point.y < this.height &&
       point.z >= 0 && point.z < this.depth;

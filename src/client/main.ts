@@ -284,7 +284,7 @@ class GameScene extends Scene {
 function globalActionCreator(tile: Tile, loc: TilePoint): GameAction[] {
   const item = tile.item;
   const meta = Content.getMetaItem(item ? item.type : 0);
-  const actions = [] as Array<{ innerText: string, title: string, type: string }>;
+  const actions: GameAction[] = [];
 
   if (item && meta.moveable) {
     actions.push({

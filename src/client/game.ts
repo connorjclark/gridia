@@ -79,7 +79,7 @@ function renderSelectedView() {
   } else if (state.selectedView.tile) {
     tilePos = state.selectedView.tile;
   }
-  const tile = tilePos ? game.client.context.map.getTile(tilePos) : null;
+  const tile = tilePos && game.client.context.map.getTile(tilePos);
   const item = tile?.item;
 
   let data: Record<string, string>;
@@ -118,11 +118,11 @@ function renderSelectedView() {
   const actionsEl = Helper.find('.selected-view--actions', el);
   actionsEl.innerHTML = 'Actions:';
 
-  if (!tilePos) return;
+  if (!tilePos || !tile) return;
 
   // Clone tile so properties can be removed as needed.
   // Also prevents action creators from modifying important data.
-  const clonedTile = JSON.parse(JSON.stringify(tile));
+  const clonedTile: Tile = JSON.parse(JSON.stringify(tile));
 
   if (clonedTile && clonedTile.creature && clonedTile.creature.id === game.client.creatureId) {
     // Don't allow actions on self.
@@ -202,7 +202,7 @@ class Game {
   protected mouseHasMovedSinceItemMoveBegin = false;
   protected modules: ClientModule[] = [];
   protected actionCreators: GameActionCreator[] = [];
-  protected possibleUsagesWindow: Draw.PossibleUsagesWindow = new Draw.PossibleUsagesWindow();
+  protected possibleUsagesWindow = new Draw.PossibleUsagesWindow();
 
   private _playerCreature?: Creature;
   private _currentHoverItemText =
@@ -309,7 +309,7 @@ class Game {
     this.canvasesEl.appendChild(this.app.view);
 
     // ?
-    setTimeout(() => this.onLoad(), 1000);
+    setTimeout(() => this.onLoad());
   }
 
   public onLoad() {
