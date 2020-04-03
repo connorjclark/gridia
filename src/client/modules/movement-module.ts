@@ -32,7 +32,7 @@ class MovementClientModule extends ClientModule {
   }
 
   public onTick() {
-    const focusCreature = this.game.client.context.getCreature(this.game.client.creatureId);
+    const focusCreature = this.game.client.creature;
     const focusPos = this.game.getPlayerPosition();
     const w = focusPos.w;
     const partition = this.game.client.context.map.getPartition(w);

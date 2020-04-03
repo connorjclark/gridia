@@ -10,7 +10,6 @@ interface Settings {
 
 class Client {
   public isAdmin = false;
-  // TODO: keep references instead?
   public creatureId = 0;
   public containerId = 0;
   public eventEmitter = new EventEmitter();
@@ -32,6 +31,14 @@ class Client {
     // @ts-ignore
     const p = this._protocol[onMethodName];
     p(this, message.args);
+  }
+
+  get creature() {
+    return this.context.getCreature(this.creatureId);
+  }
+
+  get inventory() {
+    return this.context.containers.get(this.containerId);
   }
 }
 

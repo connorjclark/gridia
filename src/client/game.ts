@@ -261,7 +261,7 @@ class Game {
   }
 
   public getPlayerCreature() {
-    if (!this._playerCreature) this._playerCreature = this.client.context.getCreature(this.client.creatureId);
+    if (!this._playerCreature) this._playerCreature = this.client.creature;
     return this._playerCreature;
   }
 
@@ -663,7 +663,7 @@ class Game {
     const selectedTile = this.state.selectedView.tile;
 
     const possibleUsageActions: PossibleUsage[] = [];
-    const inventory = this.client.context.containers.get(this.client.containerId);
+    const inventory = this.client.inventory;
     if (!inventory) return [];
 
     const nearbyItems: Array<{ loc: TilePoint, item?: Item }> = [];
