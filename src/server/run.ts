@@ -27,6 +27,8 @@ async function main(options: CLIOptions) {
   });
   webserver.listen(port);
 
+  server = await startServer(options);
+
   wss.on('connection', (ws) => {
     ws.on('message', (data) => {
       if (server.verbose) console.log('got', JSON.parse(data.toString('utf-8')));
@@ -45,7 +47,6 @@ async function main(options: CLIOptions) {
     server.clientConnections.push(clientConnection);
   });
 
-  server = await startServer(options);
   return server;
 }
 
