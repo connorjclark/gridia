@@ -32,8 +32,11 @@ class CreatureState {
   public home: TilePoint;
   public path: PartitionPoint[] = [];
 
-  public attackingCreatureId = 0;
+  // For attacking.
+  public targetCreature: CreatureState | null = null;
   public nextAttack = 0;
+
+  public enemyCreatures: CreatureState[] = [];
 
   constructor(public creature: Creature) {
     this.home = creature.pos;
@@ -54,6 +57,15 @@ class CreatureState {
     this._handleAttack(server, now);
   }
 
+  public respondToCreatureRemoval(creature: Creature) {
+    if (this.targetCreature?.creature === creature) {
+      this.targetCreature = null;
+    }
+
+    const index = this.enemyCreatures.findIndex((enemy) => enemy.creature === creature);
+    if (index !== -1) this.enemyCreatures.splice(index, 1);
+  }
+
   private _handleMovement(server: Server, now: number) {
     if (this.creature.isPlayer) return;
     if (now < this.nextMovement) return;
@@ -62,6 +74,27 @@ class CreatureState {
 
     const w = this.creature.pos.w;
     const partition = server.context.map.getPartition(w);
+
+    // Target the closest enemy.
+    if (this.enemyCreatures.length && !this.targetCreature) {
+      let closestEnemy: CreatureState | null = null;
+      let closestDist = Number.MAX_VALUE;
+      for (const enemy of this.enemyCreatures) {
+        if (!enemy) continue;
+        if (enemy.creature.pos.w !== w) continue;
+
+        const dist = Utils.dist(enemy.creature.pos, this.creature.pos);
+        if (!closestEnemy || closestDist > dist) {
+          closestEnemy = enemy;
+          closestDist = dist;
+        }
+      }
+
+      if (closestEnemy) {
+        this.targetCreature = closestEnemy;
+        this.path = [];
+      }
+    }
 
     if (this.path.length) {
       const newPos = { w, ...this.path.splice(0, 1)[0] };
@@ -79,6 +112,8 @@ class CreatureState {
       if (tamedBy) {
         // Always recalc for tamed creatures.
         this.goto(partition, tamedBy.creature.pos);
+      } else if (this.targetCreature) {
+        this.goto(partition, this.targetCreature.creature.pos);
       } else if (this.path.length === 0 && this.creature.roam) {
         const randomDest = { ...this.home };
         randomDest.x += Utils.randInt(-this.creature.roam, this.creature.roam);
@@ -91,16 +126,13 @@ class CreatureState {
   }
 
   private _handleAttack(server: Server, now: number) {
-    if (!this.attackingCreatureId || now < this.nextAttack) return;
+    if (!this.targetCreature || now < this.nextAttack) return;
     this.nextAttack = now + 1000;
 
-    const victim = server.context.getCreature(this.attackingCreatureId);
-    if (!victim) {
-      this.attackingCreatureId = 0;
-      return;
+    if (!this.targetCreature.enemyCreatures.includes(this)) {
+      this.targetCreature.enemyCreatures.push(this);
     }
-
-    server.modifyCreatureLife(this.creature, victim, -10);
+    server.modifyCreatureLife(this.creature, this.targetCreature.creature, -10);
   }
 }
 
@@ -190,7 +222,7 @@ export default class Server {
       image: Utils.randInt(0, 10),
       isPlayer: true,
       speed: 2,
-      life: 10,
+      life: 1000,
     });
 
     const player = new Player(creature);
@@ -300,10 +332,12 @@ export default class Server {
   public modifyCreatureLife(actor: Creature, creature: Creature, delta: number) {
     creature.life += delta;
 
-    this.broadcast(ProtocolBuilder.animation({
-      ...creature.pos,
-      key: 'Attack',
-    }));
+    if (delta < 0) {
+      this.broadcast(ProtocolBuilder.animation({
+        ...creature.pos,
+        key: 'Attack',
+      }));
+    }
 
     if (creature.life <= 0) {
       this.removeCreature(creature);
@@ -317,9 +351,15 @@ export default class Server {
   public removeCreature(creature: Creature) {
     delete this.context.map.getTile(creature.pos).creature;
     this.context.creatures.delete(creature.id);
-    if (this.creatureStates[creature.id]) {
+
+    const creatureState = this.creatureStates[creature.id];
+    if (creatureState) {
+      for (const state of Object.values(this.creatureStates)) {
+        state.respondToCreatureRemoval(creature);
+      }
       delete this.creatureStates[creature.id];
     }
+
     this.broadcast(ProtocolBuilder.removeCreature({
       id: creature.id,
     }));
