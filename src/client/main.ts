@@ -480,7 +480,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         height: 100,
         depth: 1,
       });
-      controller.serverWorker.saveGeneratedMap({name: '/quick-default'});
+      await controller.serverWorker.saveGeneratedMap({name: '/quick-default'});
     }
     // TODO: improve server dir / map name mismatch.
     await loadMap('quick-default');
