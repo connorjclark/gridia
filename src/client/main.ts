@@ -472,8 +472,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     await (controller.currentScene as RegisterScene).onClickRegisterBtn();
   } else if (qs.quick === 'local') {
     await controller.loadWorker();
+
     const mapNames = await getMapNames();
-    if (!mapNames.includes('quick-default')) {
+    if (!qs.map && !mapNames.includes('quick-default')) {
       await generateMap({
         bare: true,
         width: 100,
@@ -483,7 +484,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       await controller.serverWorker.saveGeneratedMap({name: '/quick-default'});
     }
     // TODO: improve server dir / map name mismatch.
-    await loadMap('quick-default');
+    await loadMap(qs.map || 'quick-default');
     controller.pushScene(new RegisterScene());
   } else {
     controller.pushScene(new StartScene());
