@@ -3,7 +3,7 @@
 // https://github.com/parcel-bundler/parcel/issues/501
 let items: MetaItem[] = [];
 let itemUses: ItemUse[] = [];
-let animations: Animation[] = [];
+let animations: GridiaAnimation[] = [];
 let monsters: Monster[] = [];
 let skills: Skill[] = [];
 

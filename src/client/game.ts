@@ -210,6 +210,9 @@ class Game {
     new PIXI.Text('', { fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round' });
   private _isEditing = false;
 
+  private _animations:
+    Array<{frames: GridiaAnimation['frames'], loc: TilePoint, frame: number, nextFrameAt: number}> = [];
+
   constructor(public client: Client) {
     this.state = {
       viewport: {
@@ -297,10 +300,7 @@ class Game {
       if (e.type === 'animation') {
         const animationData = Content.getAnimation(e.args.key);
         if (!animationData) throw new Error('no animation found: ' + e.args.key);
-        if (this.client.settings.volume === 0) return;
-        for (const frame of animationData.frames) {
-          if (frame.sound) this.playSound(frame.sound);
-        }
+        this.addAnimation(animationData, e.args);
       }
 
       if (e.type === 'chat') {
@@ -347,12 +347,21 @@ class Game {
   }
 
   public async playSound(name: string) {
+    if (this.client.settings.volume === 0) return;
+
     // @ts-ignore
     const resourceKey: string = SfxResources[name];
     if (!this.loader.hasResourceLoaded(resourceKey)) {
       await this.loader.loadResource(resourceKey);
     }
     PIXI.sound.play(resourceKey, { volume: this.client.settings.volume });
+  }
+
+  public addAnimation(animation: GridiaAnimation, loc: TilePoint) {
+    this._animations.push({frames: animation.frames, loc, frame: 0, nextFrameAt: performance.now() + 100});
+    if (animation.frames[0].sound) {
+      this.playSound(animation.frames[0].sound);
+    }
   }
 
   public trip() {
@@ -859,6 +868,29 @@ class Game {
 
     this.layers.topLayer.clear();
     this.layers.topLayer.removeChildren();
+
+    const now = performance.now();
+    for (const animation of this._animations) {
+      if (now >= animation.nextFrameAt) {
+        animation.nextFrameAt = now + 100;
+        animation.frame += 1;
+
+        if (animation.frame >= animation.frames.length) {
+          this._animations.splice(this._animations.indexOf(animation), 1);
+          continue;
+        }
+
+        if (animation.frames[animation.frame].sound) {
+          this.playSound(animation.frames[animation.frame].sound);
+        }
+      }
+
+      const template = Draw.getTexture.animations(animation.frames[animation.frame].sprite);
+      this.layers.topLayer
+        .beginTextureFill({ texture: template })
+        .drawRect(animation.loc.x * 32, animation.loc.y * 32, 32, 32)
+        .endFill();
+    }
 
     // Draw item being moved.
     if (this.itemMovingState && this.mouseHasMovedSinceItemMoveBegin && this.itemMovingState.item) {

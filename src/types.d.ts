@@ -109,10 +109,11 @@ interface Skill {
   name: string;
 }
 
-interface Animation {
+interface GridiaAnimation {
   name: string;
   frames: Array<{
     sound: string;
+    sprite: number;
   }>;
 }
 

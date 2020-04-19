@@ -175,6 +175,7 @@ function makeTextureCache(resourceType: string) {
 }
 
 export const getTexture = {
+  animations: makeTextureCache('animations'),
   creatures: makeTextureCache('creatures'),
   floors: makeTextureCache('floors'),
   items: makeTextureCache('items'),

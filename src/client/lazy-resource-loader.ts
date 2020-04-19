@@ -1,4 +1,5 @@
 export const ImageResources: Record<string, string[]> = {
+  animations: [],
   creatures: [],
   floors: [],
   items: [],
@@ -15,6 +16,9 @@ for (let i = 0; i < 6; i++) {
 }
 for (let i = 0; i < 27; i++) {
   ImageResources.items.push(`./world/items/items${i}.png`);
+}
+for (let i = 0; i < 2; i++) {
+  ImageResources.animations.push(`./world/animations/animations${i}.png`);
 }
 
 export const SfxResources = {
