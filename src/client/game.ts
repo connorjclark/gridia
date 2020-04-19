@@ -11,6 +11,7 @@ import * as Helper from './helper';
 import KEYS from './keys';
 import LazyResourceLoader, { SfxResources } from './lazy-resource-loader';
 import { getMineFloor, getWaterFloor } from './template-draw';
+import { OutlineFilter } from '@pixi/filter-outline';
 
 const ContextMenu = {
   get() {
@@ -628,6 +629,11 @@ class Game {
       this._isEditing = enabled;
     });
 
+    // this.client.eventEmitter.on('mouseMovedOverTile', (loc) => {
+    //  const tile = this.client.context.map.getTile(loc);
+    //  if (!tile.creature) return;
+    // });
+
     const chatInput = Helper.find('.chat-input') as HTMLInputElement;
     const chatForm = Helper.find('.chat-form');
     const chatTextarea = Helper.find('.chat-area');
@@ -811,17 +817,31 @@ class Game {
         if (tile.creature) {
           const template = Draw.getTexture.creatures(tile.creature.image);
           if (template !== PIXI.Texture.EMPTY) {
-            this.layers.itemAndCreatureLayer
+            const creatureGfx = new PIXI.Graphics();
+            creatureGfx.x = x * 32;
+            creatureGfx.y = y * 32;
+
+            creatureGfx
               .beginTextureFill({ texture: template })
-              .drawRect(x * 32, y * 32, 32, 32)
+              .drawRect(0, 0, 32, 32)
               .endFill();
 
             if (tile.creature.tamedBy) {
-              this.layers.itemAndCreatureLayer
+              creatureGfx
                 .lineStyle(1, 0x0000FF)
-                .drawCircle(x * 32 + 16, y * 32 + 16, 16)
+                .drawCircle(16, 16, 16)
                 .lineStyle();
             }
+
+            if (tile.creature !== this._playerCreature && Utils.equalPoints(this.state.mouse.tile, tile.creature.pos)) {
+              const GRAY = 0x606060;
+              const BLUE = 0x000088;
+              const RED = 0x880000;
+              const color = [GRAY, BLUE, RED][tile.creature.id % 3]; // TODO: base on enemy/neutral/good
+              creatureGfx.filters = [new OutlineFilter(2, color, 1)];
+            }
+
+            this.layers.itemAndCreatureLayer.addChild(creatureGfx);
           }
 
           // const label = Draw.pooledText(`creature${tile.creature.id}`, tile.creature.name, {
