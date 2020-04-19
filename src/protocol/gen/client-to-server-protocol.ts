@@ -13,7 +13,7 @@ export default interface IClientToServerProtocol {
     onRequestCreature(server: Server, { id }: ClientToServerProtocol.Params.RequestCreature): void;
     onRequestPartition(server: Server, { w }: ClientToServerProtocol.Params.RequestPartition): void;
     onRequestSector(server: Server, { ...loc }: ClientToServerProtocol.Params.RequestSector): void;
-    onTame(server: Server, { creatureId }: ClientToServerProtocol.Params.Tame): void;
+    onCreatureAction(server: Server, { creatureId, type }: ClientToServerProtocol.Params.CreatureAction): void;
     onUse(server: Server, { toolIndex, location, usageIndex }: ClientToServerProtocol.Params.Use): void;
     onChat(server: Server, { to, message }: ClientToServerProtocol.Params.Chat): void;
 }

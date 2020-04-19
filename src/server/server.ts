@@ -26,11 +26,14 @@ interface RegisterOpts {
 // Also isn't serialized - this state is transient.
 class CreatureState {
   public mode: string[] = [];
-  public nextTick = performance.now();
+  public nextMovement = 0;
   // True if last movement was a warp. Prevents infinite stairs.
   public warped = false;
   public home: TilePoint;
   public path: PartitionPoint[] = [];
+
+  public attackingCreatureId = 0;
+  public nextAttack = 0;
 
   constructor(public creature: Creature) {
     this.home = creature.pos;
@@ -47,9 +50,15 @@ class CreatureState {
   }
 
   public tick(server: Server, now: number) {
-    if (now < this.nextTick) return;
+    this._handleMovement(server, now);
+    this._handleAttack(server, now);
+  }
+
+  private _handleMovement(server: Server, now: number) {
+    if (this.creature.isPlayer) return;
+    if (now < this.nextMovement) return;
     const duration = [400, 750, 1000, 1500, 3500, 5000][Utils.clamp(this.creature.speed, 0, 5)];
-    this.nextTick = now + duration;
+    this.nextMovement = now + duration;
 
     const w = this.creature.pos.w;
     const partition = server.context.map.getPartition(w);
@@ -79,6 +88,19 @@ class CreatureState {
     } else {
       this.pop();
     }
+  }
+
+  private _handleAttack(server: Server, now: number) {
+    if (!this.attackingCreatureId || now < this.nextAttack) return;
+    this.nextAttack = now + 1000;
+
+    const victim = server.context.getCreature(this.attackingCreatureId);
+    if (!victim) {
+      this.attackingCreatureId = 0;
+      return;
+    }
+
+    server.modifyCreatureLife(this.creature, victim, -10);
   }
 }
 
@@ -168,6 +190,7 @@ export default class Server {
       image: Utils.randInt(0, 10),
       isPlayer: true,
       speed: 2,
+      life: 10,
     });
 
     const player = new Player(creature);
@@ -228,6 +251,7 @@ export default class Server {
       isPlayer: false,
       roam: template.roam,
       speed: template.speed,
+      life: template.life,
     };
 
     this.registerCreature(creature);
@@ -271,6 +295,23 @@ export default class Server {
     this.moveCreature(creature, pos);
     this.creatureStates[creature.id].warped = true;
     this.creatureStates[creature.id].path = [];
+  }
+
+  public modifyCreatureLife(actor: Creature, creature: Creature, delta: number) {
+    creature.life += delta;
+
+    this.broadcast(ProtocolBuilder.animation({
+      ...creature.pos,
+      key: 'Attack',
+    }));
+
+    if (creature.life <= 0) {
+      this.removeCreature(creature);
+      this.broadcast(ProtocolBuilder.animation({
+        ...creature.pos,
+        key: 'diescream',
+      }));
+    }
   }
 
   public removeCreature(creature: Creature) {
@@ -454,7 +495,6 @@ export default class Server {
 
     // Handle creatures.
     for (const state of Object.values(this.creatureStates)) {
-      if (state.creature.isPlayer) continue;
       state.tick(this, now);
     }
 

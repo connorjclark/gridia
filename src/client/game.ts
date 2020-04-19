@@ -1,3 +1,4 @@
+import { OutlineFilter } from '@pixi/filter-outline';
 import { MINE, WATER } from '../constants';
 import * as Content from '../content';
 import { game } from '../game-singleton';
@@ -11,7 +12,6 @@ import * as Helper from './helper';
 import KEYS from './keys';
 import LazyResourceLoader, { SfxResources } from './lazy-resource-loader';
 import { getMineFloor, getWaterFloor } from './template-draw';
-import { OutlineFilter } from '@pixi/filter-outline';
 
 const ContextMenu = {
   get() {
@@ -289,6 +289,10 @@ class Game {
         if (creature.id === e.args.id) {
           selectView(creature.pos);
         }
+      }
+      if (e.type === 'removeCreature' && e.args.id === this.state.selectedView.creatureId) {
+        delete this.state.selectedView.creatureId;
+        clearSelectedView();
       }
       if (e.type === 'animation') {
         const animationData = Content.getAnimation(e.args.key);

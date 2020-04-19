@@ -327,11 +327,19 @@ function globalActionCreator(tile: Tile, loc: TilePoint): GameAction[] {
     });
   }
 
+  if (tile.creature && !tile.creature.isPlayer) {
+    actions.push({
+      type: 'attack',
+      innerText: 'Attack',
+      title: 'Attack',
+    });
+  }
+
   if (tile.creature && !tile.creature.tamedBy && !tile.creature.isPlayer) {
     actions.push({
       type: 'tame',
       innerText: 'Tame',
-      title: '',
+      title: 'Tame',
     });
   }
 
@@ -358,9 +366,11 @@ function globalOnActionHandler(client: Client, e: GameActionEvent) {
     case 'open-container':
       Helper.openContainer(loc);
       break;
+    case 'attack':
     case 'tame':
-      client.connection.send(ProtocolBuilder.tame({
+      client.connection.send(ProtocolBuilder.creatureAction({
         creatureId: creature.id,
+        type,
       }));
       break;
     case 'throw':

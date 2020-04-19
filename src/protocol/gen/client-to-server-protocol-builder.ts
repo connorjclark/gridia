@@ -40,9 +40,9 @@ type RequestSectorMessage = {
     type: "requestSector";
     args: ClientToServerProtocol.Params.RequestSector;
 };
-type TameMessage = {
-    type: "tame";
-    args: ClientToServerProtocol.Params.Tame;
+type CreatureActionMessage = {
+    type: "creatureAction";
+    args: ClientToServerProtocol.Params.CreatureAction;
 };
 type UseMessage = {
     type: "use";
@@ -53,7 +53,7 @@ type ChatMessage = {
     args: ClientToServerProtocol.Params.Chat;
 };
 
-export type Message = AdminSetFloorMessage | AdminSetItemMessage | CloseContainerMessage | MoveMessage | MoveItemMessage | RegisterMessage | RequestContainerMessage | RequestCreatureMessage | RequestPartitionMessage | RequestSectorMessage | TameMessage | UseMessage | ChatMessage;
+export type Message = AdminSetFloorMessage | AdminSetItemMessage | CloseContainerMessage | MoveMessage | MoveItemMessage | RegisterMessage | RequestContainerMessage | RequestCreatureMessage | RequestPartitionMessage | RequestSectorMessage | CreatureActionMessage | UseMessage | ChatMessage;
 
 export function adminSetFloor({ floor, ...loc }: ClientToServerProtocol.Params.AdminSetFloor): AdminSetFloorMessage {
     return { type: "adminSetFloor", args: arguments[0] };
@@ -85,8 +85,8 @@ export function requestPartition({ w }: ClientToServerProtocol.Params.RequestPar
 export function requestSector({ ...loc }: ClientToServerProtocol.Params.RequestSector): RequestSectorMessage {
     return { type: "requestSector", args: arguments[0] };
 }
-export function tame({ creatureId }: ClientToServerProtocol.Params.Tame): TameMessage {
-    return { type: "tame", args: arguments[0] };
+export function creatureAction({ creatureId, type }: ClientToServerProtocol.Params.CreatureAction): CreatureActionMessage {
+    return { type: "creatureAction", args: arguments[0] };
 }
 export function use({ toolIndex, location, usageIndex }: ClientToServerProtocol.Params.Use): UseMessage {
     return { type: "use", args: arguments[0] };

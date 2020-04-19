@@ -46,8 +46,9 @@ declare namespace ClientToServerProtocol {
     interface RequestSector extends TilePoint {
     }
 
-    interface Tame {
+    interface CreatureAction {
       creatureId: number;
+      type: 'attack' | 'tame'
     }
 
     interface Use {

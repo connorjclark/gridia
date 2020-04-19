@@ -109,7 +109,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     }));
   }
 
-  public onTame(server: Server, { creatureId }: Params.Tame): void {
+  public onCreatureAction(server: Server, { creatureId, type }: Params.CreatureAction): void {
     const creature = server.context.getCreature(creatureId);
     const isClose = true; // TODO
     if (!isClose) {
@@ -117,10 +117,16 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     }
 
     if (creature.isPlayer) return;
-    if (creature.tamedBy) return;
 
-    creature.tamedBy = server.currentClientConnection.player.id;
-    server.broadcastPartialCreatureUpdate(creature, ['tamedBy']);
+    if (type === 'attack') {
+      server.creatureStates[server.currentClientConnection.player.creature.id].attackingCreatureId = creatureId;
+    }
+
+    if (type === 'tame') {
+      if (creature.tamedBy) return;
+      creature.tamedBy = server.currentClientConnection.player.id;
+      server.broadcastPartialCreatureUpdate(creature, ['tamedBy']);
+    }
   }
 
   public onUse(server: Server, { toolIndex, location, usageIndex }: Params.Use): void {
