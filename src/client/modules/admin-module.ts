@@ -46,7 +46,7 @@ class AdminClientModule extends ClientModule {
   // TODO: there are issues with Scrollbox:
   // 1) dragging the scroll bar doesn't work great (it moves too slowly)
   // 2) clicking above where the scrollbar is jumps to that position, but clicking below does nothing
-  private async getAdminWindow(): GridiaWindow {
+  private async getAdminWindow(): Promise<GridiaWindow> {
     if (this._adminWindow) return this._adminWindow;
 
     const tabs = new TabContainer();
