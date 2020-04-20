@@ -320,7 +320,7 @@ class CreatureState {
 
     // @ts-ignore
     this.plannedActions = result.path.map((p) => p.edge && p.edge.action).filter(Boolean).reverse();
-    console.log(this.plannedActions.map((a) => a.name).reverse());
+    // console.log(this.plannedActions.map((a) => a.name).reverse());
   }
 
   private _handleMovement(server: Server, now: number) {
@@ -577,10 +577,6 @@ export default class Server {
     this.creatureStates[creature.id].warped = false;
   }
 
-  public modifyCreatureFood(creature: Creature, delta: number) {
-
-  }
-
   public broadcastPartialCreatureUpdate(creature: Creature, keys: Array<keyof Creature>) {
     const partialCreature: Partial<Creature> = {
       id: creature.id,
@@ -799,6 +795,8 @@ export default class Server {
         z: partition.depth,
       }));
     }
+    // TODO: remove this line since "register creature" does the same. but removing breaks tests ...
+    clientConnection.send(ProtocolBuilder.setCreature({ partial: false, ...player.creature }));
     clientConnection.send(ProtocolBuilder.container(await this.context.getContainer(clientConnection.container.id)));
     setTimeout(() => {
       this.broadcast(ProtocolBuilder.animation({ ...player.creature.pos, key: 'WarpIn' }));
