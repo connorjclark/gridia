@@ -71,6 +71,7 @@ interface Creature {
   speed: number;
   life: number;
   food: number;
+  eat_grass: boolean;
 }
 
 type ServerToClientMessage = import('./protocol/gen/server-to-client-protocol-builder').Message;
@@ -125,6 +126,7 @@ interface Monster {
   speed: number;
   life: number;
   roam?: number;
+  eat_grass: boolean;
 }
 
 interface UIState {

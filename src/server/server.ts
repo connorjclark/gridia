@@ -95,7 +95,7 @@ class CreatureState {
   }
 
   public tick(server: Server, now: number) {
-    if (!this.goals.length && this.creature.name === 'Cow') {
+    if (!this.goals.length && this.creature.eat_grass) {
       if (this.creature.food <= 10) {
         this.addGoal({
           desiredEffect: 'food',
@@ -228,7 +228,7 @@ class CreatureState {
       },
     ];
 
-    if (this.creature.name === 'Cow') {
+    if (this.creature.eat_grass) {
       actions.push(...[
         {
           name: 'EatGrass',
@@ -318,6 +318,7 @@ class CreatureState {
       return;
     }
 
+    // @ts-ignore
     this.plannedActions = result.path.map((p) => p.edge && p.edge.action).filter(Boolean).reverse();
     console.log(this.plannedActions.map((a) => a.name).reverse());
   }
@@ -489,6 +490,7 @@ export default class Server {
       speed: 2,
       life: 1000,
       food: 100,
+      eat_grass: false,
     });
 
     const player = new Player(creature);
@@ -551,6 +553,7 @@ export default class Server {
       speed: template.speed,
       life: template.life,
       food: 10,
+      eat_grass: template.eat_grass,
     };
 
     this.registerCreature(creature);
@@ -860,6 +863,8 @@ export default class Server {
     if (this.nextHungerAt <= now) {
       this.nextHungerAt += this.hungerRate;
       for (const creature of this.context.creatures.values()) {
+        if (!creature.eat_grass) return; // TODO: let all creature experience hunger pain.
+
         if (creature.food <= 0) {
           // TODO: reduce stamina instead?
           this.modifyCreatureLife(null, creature, -10);
