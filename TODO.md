@@ -30,3 +30,34 @@ Click to engage
 # Code health
 
 * map name / serverDir
+
+# AI
+
+GOAP: http://alumni.media.mit.edu/~jorkin/goap.html
+
+Cow
+Goal: ReduceHunger
+Priority: 10
+Goal: Wander
+Priority: 1
+
+Action: EatGrass
+P: on grass
+E: -hunger
+
+Action: FindGrass
+P: none
+E: on grass
+
+
+Goblin
+Goal: KillCreature
+Priority: 10
+
+Action: MeleeAttack
+P: near creature
+E: KillCreature
+
+Attack villager, they pick up nearby sword.
+  Make AttackUnarmed higher cost than AttackArmed + PickupWeapon
+Startle room of goblins, they run to grab various weapons and attack.

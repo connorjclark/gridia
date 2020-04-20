@@ -88,6 +88,8 @@ function renderSelectedView() {
   if (creature) {
     data = {
       name: creature.name,
+      life: String(creature.life),
+      food: String(creature.food),
     };
   } else if (item) {
     meta = Content.getMetaItem(item.type);

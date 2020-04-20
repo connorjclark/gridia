@@ -70,6 +70,7 @@ interface Creature {
   roam?: number;
   speed: number;
   life: number;
+  food: number;
 }
 
 type ServerToClientMessage = import('./protocol/gen/server-to-client-protocol-builder').Message;

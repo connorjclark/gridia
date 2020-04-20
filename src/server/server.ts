@@ -22,6 +22,18 @@ interface RegisterOpts {
   // password: string;
 }
 
+interface Goal {
+  desiredEffect: string;
+  priority: number;
+}
+
+interface Action {
+  name: string;
+  cost: number;
+  preconditions: string[];
+  effects: string[];
+}
+
 // State that clients don't need and shouldn't have.
 // Also isn't serialized - this state is transient.
 class CreatureState {
@@ -31,12 +43,17 @@ class CreatureState {
   public warped = false;
   public home: TilePoint;
   public path: PartitionPoint[] = [];
+  public idleUntil: number = 0;
 
   // For attacking.
   public targetCreature: CreatureState | null = null;
   public nextAttack = 0;
 
   public enemyCreatures: CreatureState[] = [];
+
+  // GOAP
+  public goals: Goal[] = [];
+  public plannedActions: Action[] = [];
 
   constructor(public creature: Creature) {
     this.home = creature.pos;
@@ -52,9 +69,109 @@ class CreatureState {
     this.path = findPath(partition, this.creature.pos, destination);
   }
 
+  public idle(time: number) {
+    this.idleUntil = performance.now() + time;
+  }
+
+  public addGoal(newGoal: Goal) {
+    for (const goal of this.goals) {
+      if (goal.desiredEffect === newGoal.desiredEffect) {
+        goal.priority = newGoal.priority;
+        this._createPlan();
+        return;
+      }
+    }
+
+    this.goals.push(newGoal);
+    this._createPlan(); // TODO: Skip if the plan wouldn't change?
+  }
+
   public tick(server: Server, now: number) {
     this._handleMovement(server, now);
     this._handleAttack(server, now);
+
+    if (this.idleUntil) {
+      if (now < this.idleUntil) {
+        return;
+      }
+      this.idleUntil = 0;
+    }
+
+    if (!this.goals.length && this.creature.name === 'Cow' && this.creature.food <= 10) {
+      this.addGoal({
+        desiredEffect: 'ReduceHunger',
+        priority: 10,
+      });
+      this.goals.push({
+        desiredEffect: 'Wander',
+        priority: 1,
+      });
+    }
+
+    if (this.plannedActions.length) {
+      const w = this.creature.pos.w;
+      const partition = server.context.map.getPartition(w);
+
+      const currentAction = this.plannedActions[this.plannedActions.length - 1];
+      const isGrass = (floor: number) => floor >= 110 && floor < 300;
+      const isOnGrass = () => isGrass(server.context.map.getTile(this.creature.pos).floor);
+
+      const passesPreconditons = currentAction.preconditions.every((precondition) => {
+        if (precondition === 'ongrass') {
+          return isOnGrass();
+        }
+
+        throw new Error('unexpected precondition ' + precondition);
+      });
+      if (!passesPreconditons) {
+        this.plannedActions = [];
+        return;
+      }
+
+      if (currentAction.name === 'Wander') {
+        if (this.path.length) return;
+
+        const randomDest = { ...this.creature.pos };
+        randomDest.x += Utils.randInt(-1, 1) * 3;
+        randomDest.y += Utils.randInt(-1, 1) * 3;
+        this.goto(partition, randomDest);
+      }
+
+      if (currentAction.name === 'FindGrass') {
+        if (isOnGrass()) {
+          this.plannedActions.pop();
+          return;
+        }
+
+        if (this.path.length) return;
+
+        // If there is grass nearby, go there.
+        const loc = server.findNearest(this.creature.pos, 8, true,
+          (tile, l) => server.context.map.walkable(l) && isGrass(tile.floor));
+        if (loc) {
+          this.goto(partition, loc);
+          return;
+        }
+
+        // Else just move somewhere else.
+        const randomDest = { ...this.creature.pos };
+        randomDest.x += Utils.randInt(-1, 1) * 8;
+        randomDest.y += Utils.randInt(-1, 1) * 8;
+        this.goto(partition, randomDest);
+      }
+
+      if (currentAction.name === 'EatGrass') {
+        if (this.creature.food >= 100) {
+          this.plannedActions.pop();
+          return;
+        }
+
+        this.creature.food += 10;
+        // TODO: better abstraction for floors / grass.
+        server.setFloor(this.creature.pos, server.context.map.getTile(this.creature.pos).floor - 20);
+        this.idle(1000 * 10);
+      }
+    }
   }
 
   public respondToCreatureRemoval(creature: Creature) {
@@ -64,6 +181,36 @@ class CreatureState {
 
     const index = this.enemyCreatures.findIndex((enemy) => enemy.creature === creature);
     if (index !== -1) this.enemyCreatures.splice(index, 1);
+  }
+
+  private _createPlan() {
+    this.idleUntil = 0;
+    this.path = [];
+
+    const currentGoal = this.goals.reduce((acc, cur) => acc.priority >= cur.priority ? acc : cur);
+
+    // Find plan.
+    const actions: Action[] = [
+      {
+        name: 'EatGrass',
+        cost: 1,
+        preconditions: ['ongrass'],
+        effects: ['ReduceHunger'],
+      },
+      {
+        name: 'FindGrass',
+        cost: 1,
+        preconditions: [],
+        effects: ['ongrass'],
+      },
+    ];
+
+    // TODO: graph search.
+    if (currentGoal.desiredEffect === 'ReduceHunger') {
+      this.plannedActions = actions;
+    } else if (currentGoal.desiredEffect === 'KillCreature') {
+      this.plannedActions = [];
+    }
   }
 
   private _handleMovement(server: Server, now: number) {
@@ -93,6 +240,10 @@ class CreatureState {
       if (closestEnemy) {
         this.targetCreature = closestEnemy;
         this.path = [];
+        this.addGoal({
+          desiredEffect: 'KillCreature',
+          priority: 100,
+        });
       }
     }
 
@@ -106,23 +257,23 @@ class CreatureState {
       }
     }
 
-    const mode = this.mode.length ? this.mode[this.mode.length - 1] : 'idle';
-    if (mode === 'idle') {
-      const tamedBy = this.creature.tamedBy && server.players.get(this.creature.tamedBy);
-      if (tamedBy) {
-        // Always recalc for tamed creatures.
-        this.goto(partition, tamedBy.creature.pos);
-      } else if (this.targetCreature) {
-        this.goto(partition, this.targetCreature.creature.pos);
-      } else if (this.path.length === 0 && this.creature.roam) {
-        const randomDest = { ...this.home };
-        randomDest.x += Utils.randInt(-this.creature.roam, this.creature.roam);
-        randomDest.y += Utils.randInt(-this.creature.roam, this.creature.roam);
-        if (partition.walkable(randomDest)) this.goto(partition, randomDest);
-      }
-    } else {
-      this.pop();
-    }
+    // const mode = this.mode.length ? this.mode[this.mode.length - 1] : 'idle';
+    // if (mode === 'idle') {
+    //   const tamedBy = this.creature.tamedBy && server.players.get(this.creature.tamedBy);
+    //   if (tamedBy) {
+    //     // Always recalc for tamed creatures.
+    //     this.goto(partition, tamedBy.creature.pos);
+    //   } else if (this.targetCreature) {
+    //     this.goto(partition, this.targetCreature.creature.pos);
+    //   } else if (this.path.length === 0 && this.creature.roam) {
+    //     const randomDest = { ...this.home };
+    //     randomDest.x += Utils.randInt(-this.creature.roam, this.creature.roam);
+    //     randomDest.y += Utils.randInt(-this.creature.roam, this.creature.roam);
+    //     if (partition.walkable(randomDest)) this.goto(partition, randomDest);
+    //   }
+    // } else {
+    //   this.pop();
+    // }
   }
 
   private _handleAttack(server: Server, now: number) {
@@ -154,6 +305,9 @@ export default class Server {
   // RPGWO does 20 second intervals.
   private growRate = 20 * 1000;
   private nextGrowthAt = performance.now() + this.growRate;
+
+  private hungerRate = 60 * 1000;
+  private nextHungerAt = performance.now() + this.hungerRate;
 
   private ticks = 0;
 
@@ -223,6 +377,7 @@ export default class Server {
       isPlayer: true,
       speed: 2,
       life: 1000,
+      food: 100,
     });
 
     const player = new Player(creature);
@@ -284,6 +439,7 @@ export default class Server {
       roam: template.roam,
       speed: template.speed,
       life: template.life,
+      food: 10,
     };
 
     this.registerCreature(creature);
@@ -293,6 +449,7 @@ export default class Server {
   public registerCreature(creature: Creature): Creature {
     this.creatureStates[creature.id] = new CreatureState(creature);
     this.context.setCreature(creature);
+    this.broadcast(ProtocolBuilder.setCreature({ partial: false, ...creature }));
     return creature;
   }
 
@@ -304,6 +461,10 @@ export default class Server {
     }
     this.broadcastPartialCreatureUpdate(creature, ['pos']);
     this.creatureStates[creature.id].warped = false;
+  }
+
+  public modifyCreatureFood(creature: Creature, delta: number) {
+
   }
 
   public broadcastPartialCreatureUpdate(creature: Creature, keys: Array<keyof Creature>) {
@@ -329,8 +490,10 @@ export default class Server {
     this.creatureStates[creature.id].path = [];
   }
 
-  public modifyCreatureLife(actor: Creature, creature: Creature, delta: number) {
+  public modifyCreatureLife(actor: Creature | null, creature: Creature, delta: number) {
     creature.life += delta;
+
+    this.broadcast(ProtocolBuilder.setCreature({partial: true, id: creature.id, life: creature.life}));
 
     if (delta < 0) {
       this.broadcast(ProtocolBuilder.animation({
@@ -366,12 +529,12 @@ export default class Server {
   }
 
   public findNearest(loc: TilePoint, range: number, includeTargetLocation: boolean,
-                     predicate: (tile: Tile) => boolean): TilePoint | null {
+                     predicate: (tile: Tile, loc: TilePoint) => boolean): TilePoint | null {
     const w = loc.w;
     const partition = this.context.map.getPartition(w);
-    const test = (l: PartitionPoint) => {
+    const test = (l: TilePoint) => {
       if (!partition.inBounds(l)) return false;
-      return predicate(partition.getTile(l));
+      return predicate(partition.getTile(l), l);
     };
 
     const x0 = loc.x;
@@ -381,15 +544,15 @@ export default class Server {
       for (let y1 = y0 - offset; y1 <= offset + y0; y1++) {
         if (y1 === y0 - offset || y1 === y0 + offset) {
           for (let x1 = x0 - offset; x1 <= offset + x0; x1++) {
-            if (test({ x: x1, y: y1, z })) {
+            if (test({ w, x: x1, y: y1, z })) {
               return { w, x: x1, y: y1, z };
             }
           }
         } else {
-          if (test({ x: x0 - offset, y: y1, z })) {
+          if (test({ w, x: x0 - offset, y: y1, z })) {
             return { w, x: x0 - offset, y: y1, z };
           }
-          if (test({ x: x0 + offset, y: y1, z })) {
+          if (test({ w, x: x0 + offset, y: y1, z })) {
             return { w, x: x0 + offset, y: y1, z };
           }
         }
@@ -522,7 +685,6 @@ export default class Server {
         z: partition.depth,
       }));
     }
-    clientConnection.send(ProtocolBuilder.setCreature({ partial: false, ...player.creature }));
     clientConnection.send(ProtocolBuilder.container(await this.context.getContainer(clientConnection.container.id)));
     setTimeout(() => {
       this.broadcast(ProtocolBuilder.animation({ ...player.creature.pos, key: 'WarpIn' }));
@@ -580,6 +742,19 @@ export default class Server {
       this.nextGrowthAt += this.growRate;
       for (const [w, partition] of this.context.map.getPartitions()) {
         this.growPartition(w, partition);
+      }
+    }
+
+    // Handle hunger.
+    if (this.nextHungerAt <= now) {
+      this.nextHungerAt += this.hungerRate;
+      for (const creature of this.context.creatures.values()) {
+        if (creature.food <= 0) {
+          // TODO: reduce stamina instead?
+          this.modifyCreatureLife(null, creature, -10);
+        } else {
+          creature.food -= 1;
+        }
       }
     }
 
