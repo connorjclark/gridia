@@ -20,9 +20,9 @@ class AdminClientModule extends ClientModule {
   public onStart() {
     // const panel = Helper.find('.panel--admin');
 
-    this.game.client.eventEmitter.on('panelFocusChanged', ({ panelName }) => {
+    this.game.client.eventEmitter.on('panelFocusChanged', async ({ panelName }) => {
       if (panelName === 'admin') {
-        this.game.addWindow(this.getAdminWindow());
+        this.game.addWindow(await this.getAdminWindow());
       } else if (this._adminWindow) {
         this.game.removeWindow(this._adminWindow);
         if (this._selectedContent) {
@@ -46,7 +46,7 @@ class AdminClientModule extends ClientModule {
   // TODO: there are issues with Scrollbox:
   // 1) dragging the scroll bar doesn't work great (it moves too slowly)
   // 2) clicking above where the scrollbar is jumps to that position, but clicking below does nothing
-  private getAdminWindow(): GridiaWindow {
+  private async getAdminWindow(): GridiaWindow {
     if (this._adminWindow) return this._adminWindow;
 
     const tabs = new TabContainer();
@@ -160,6 +160,9 @@ class AdminClientModule extends ClientModule {
         }
       });
     };
+
+    // Must first load all the image resources.
+    await this.game.loader.loadAllImageResources();
 
     makeContentSelectionTab({
       name: 'Items',

@@ -83,6 +83,17 @@ class LazyResourceLoader {
     return promiseAndResolve.promise;
   }
 
+  public loadAllImageResources() {
+    const keys = [];
+    for (const resources of Object.values(ImageResources)) {
+      for (const key of resources) {
+        if (this.isResourceLoaded.has(key)) continue;
+        keys.push(key);
+      }
+    }
+    return Promise.all(keys.map((key) => this.loadResource(key)));
+  }
+
   private processLoadQueue() {
     if (!this.loadQueue.length) return;
     if (PIXI.Loader.shared.loading) return;
