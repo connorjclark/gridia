@@ -25,6 +25,7 @@ interface RegisterOpts {
 interface Goal {
   desiredEffect: string;
   priority: number;
+  satisfied(server: Server, creatureState: CreatureState): boolean;
 }
 
 interface Action {
@@ -33,6 +34,8 @@ interface Action {
   preconditions: string[];
   effects: string[];
 }
+
+const isGrass = (floor: number) => floor >= 110 && floor < 300;
 
 // State that clients don't need and shouldn't have.
 // Also isn't serialized - this state is transient.
@@ -53,7 +56,10 @@ class CreatureState {
 
   // GOAP
   public goals: Goal[] = [];
+  public currentGoal: Goal | null = null;
   public plannedActions: Action[] = [];
+
+  private _shouldRecreatePlan = false;
 
   constructor(public creature: Creature) {
     this.home = creature.pos;
@@ -76,17 +82,38 @@ class CreatureState {
   public addGoal(newGoal: Goal) {
     for (const goal of this.goals) {
       if (goal.desiredEffect === newGoal.desiredEffect) {
-        goal.priority = newGoal.priority;
-        this._createPlan();
+        if (goal.priority !== newGoal.priority) {
+          goal.priority = newGoal.priority;
+          this._shouldRecreatePlan = true;
+        }
         return;
       }
     }
 
     this.goals.push(newGoal);
-    this._createPlan(); // TODO: Skip if the plan wouldn't change?
+    this._shouldRecreatePlan = true;
   }
 
   public tick(server: Server, now: number) {
+    if (!this.goals.length && this.creature.name === 'Cow') {
+      if (this.creature.food <= 10) {
+        this.addGoal({
+          desiredEffect: 'food',
+          priority: 10,
+          satisfied: (_, creatureState) => creatureState.creature.food >= 100,
+        });
+      }
+    }
+
+    if (this.currentGoal && this.currentGoal.satisfied(server, this)) {
+      this.goals.splice(this.goals.indexOf(this.currentGoal), 1);
+      this._shouldRecreatePlan = true;
+    }
+    if (!this.plannedActions.length) {
+      this._shouldRecreatePlan = true;
+    }
+    if (this._shouldRecreatePlan) this._createPlan(server);
+
     this._handleMovement(server, now);
     this._handleAttack(server, now);
 
@@ -97,80 +124,72 @@ class CreatureState {
       this.idleUntil = 0;
     }
 
-    if (!this.goals.length && this.creature.name === 'Cow' && this.creature.food <= 10) {
-      this.addGoal({
-        desiredEffect: 'ReduceHunger',
-        priority: 10,
-      });
-      this.goals.push({
-        desiredEffect: 'Wander',
-        priority: 1,
-      });
+    const w = this.creature.pos.w;
+    const partition = server.context.map.getPartition(w);
+
+    if (!this.goals.length) {
+      // Just wander baby.
+      if (this.path.length) return;
+
+      const randomDest = { ...this.creature.pos };
+      randomDest.x += Utils.randInt(-1, 1) * 3;
+      randomDest.y += Utils.randInt(-1, 1) * 3;
+      // TODO: use creature.roam to anchor to home.
+      this.goto(partition, randomDest);
     }
 
-    if (this.plannedActions.length) {
-      const w = this.creature.pos.w;
-      const partition = server.context.map.getPartition(w);
+    if (!this.plannedActions.length) return;
 
-      const currentAction = this.plannedActions[this.plannedActions.length - 1];
-      const isGrass = (floor: number) => floor >= 110 && floor < 300;
-      const isOnGrass = () => isGrass(server.context.map.getTile(this.creature.pos).floor);
+    const currentAction = this.plannedActions[this.plannedActions.length - 1];
+    const isOnGrass = () => isGrass(server.context.map.getTile(this.creature.pos).floor);
 
-      const passesPreconditons = currentAction.preconditions.every((precondition) => {
-        if (precondition === 'ongrass') {
-          return isOnGrass();
-        }
+    const passesPreconditons = currentAction.preconditions.every((precondition) => {
+      if (precondition === 'ongrass') {
+        return isOnGrass();
+      }
 
-        throw new Error('unexpected precondition ' + precondition);
-      });
-      if (!passesPreconditons) {
-        this.plannedActions = [];
+      throw new Error('unexpected precondition ' + precondition);
+    });
+    if (!passesPreconditons) {
+      this.plannedActions = [];
+      this._shouldRecreatePlan = true;
+      return;
+    }
+
+    if (currentAction.name === 'FindGrass') {
+      if (isOnGrass()) {
+        this.plannedActions.pop();
         return;
       }
 
-      if (currentAction.name === 'Wander') {
-        if (this.path.length) return;
+      if (this.path.length) return;
 
-        const randomDest = { ...this.creature.pos };
-        randomDest.x += Utils.randInt(-1, 1) * 3;
-        randomDest.y += Utils.randInt(-1, 1) * 3;
-        this.goto(partition, randomDest);
+      // If there is grass nearby, go there.
+      const loc = server.findNearest(this.creature.pos, 8, true,
+        (tile, l) => server.context.map.walkable(l) && isGrass(tile.floor));
+      if (loc) {
+        this.goto(partition, loc);
+        return;
       }
 
-      if (currentAction.name === 'FindGrass') {
-        if (isOnGrass()) {
-          this.plannedActions.pop();
-          return;
-        }
+      // Else just move somewhere else.
+      const randomDest = { ...this.creature.pos };
+      randomDest.x += Utils.randInt(-1, 1) * 8;
+      randomDest.y += Utils.randInt(-1, 1) * 8;
+      this.goto(partition, randomDest);
+    }
 
-        if (this.path.length) return;
-
-        // If there is grass nearby, go there.
-        const loc = server.findNearest(this.creature.pos, 8, true,
-          (tile, l) => server.context.map.walkable(l) && isGrass(tile.floor));
-        if (loc) {
-          this.goto(partition, loc);
-          return;
-        }
-
-        // Else just move somewhere else.
-        const randomDest = { ...this.creature.pos };
-        randomDest.x += Utils.randInt(-1, 1) * 8;
-        randomDest.y += Utils.randInt(-1, 1) * 8;
-        this.goto(partition, randomDest);
+    if (currentAction.name === 'EatGrass') {
+      if (this.creature.food >= 100) {
+        this.plannedActions.pop();
+        return;
       }
 
-      if (currentAction.name === 'EatGrass') {
-        if (this.creature.food >= 100) {
-          this.plannedActions.pop();
-          return;
-        }
-
-        this.creature.food += 10;
-        // TODO: better abstraction for floors / grass.
-        server.setFloor(this.creature.pos, server.context.map.getTile(this.creature.pos).floor - 20);
-        this.idle(1000 * 10);
-      }
+      // TODO: tune these numbers. Maybe 3 full grass tiles / cow / day?
+      this.creature.food += 10;
+      // TODO: better abstraction for floors / grass.
+      server.setFloor(this.creature.pos, server.context.map.getTile(this.creature.pos).floor - 20);
+      this.idle(1000 * 10);
     }
   }
 
@@ -183,34 +202,124 @@ class CreatureState {
     if (index !== -1) this.enemyCreatures.splice(index, 1);
   }
 
-  private _createPlan() {
+  private _createPlan(server: Server) {
+    this._shouldRecreatePlan = false;
+    this.plannedActions = [];
+    this.currentGoal = null;
+    if (!this.goals.length) return;
+
+    this.currentGoal = this.goals.reduce((acc, cur) => acc.priority >= cur.priority ? acc : cur);
     this.idleUntil = 0;
     this.path = [];
-
-    const currentGoal = this.goals.reduce((acc, cur) => acc.priority >= cur.priority ? acc : cur);
 
     // Find plan.
     const actions: Action[] = [
       {
-        name: 'EatGrass',
-        cost: 1,
-        preconditions: ['ongrass'],
-        effects: ['ReduceHunger'],
+        name: 'UnarmedMeleeAttack',
+        cost: 10,
+        preconditions: ['neartarget'],
+        effects: ['killcreature'],
       },
       {
-        name: 'FindGrass',
+        name: 'FollowTarget',
         cost: 1,
         preconditions: [],
-        effects: ['ongrass'],
+        effects: ['neartarget'],
       },
     ];
 
-    // TODO: graph search.
-    if (currentGoal.desiredEffect === 'ReduceHunger') {
-      this.plannedActions = actions;
-    } else if (currentGoal.desiredEffect === 'KillCreature') {
-      this.plannedActions = [];
+    if (this.creature.name === 'Cow') {
+      actions.push(...[
+        {
+          name: 'EatGrass',
+          cost: 1,
+          preconditions: ['ongrass'],
+          effects: ['food'],
+        },
+        {
+          name: 'FindGrass',
+          cost: 1,
+          preconditions: [],
+          effects: ['ongrass'],
+        },
+      ]);
     }
+
+    const adjList: Record<string, string[]> = {};
+    const cost: Record<string, number> = {};
+    for (const action of actions) {
+      adjList[action.name] = actions.filter((a) => a.preconditions.every((p) => p in a.effects)).map((a) => a.name);
+      cost[action.name] = action.cost;
+    }
+
+    const initialState: string[] = [];
+    const preconditions = new Set<string>();
+    for (const action of actions) {
+      for (const precondition of action.preconditions) {
+        preconditions.add(precondition);
+      }
+    }
+    for (const precondition of preconditions) {
+      let satisfied = false;
+      if (precondition === 'ongrass') {
+        satisfied = isGrass(server.context.map.getTile(this.creature.pos).floor);
+      }
+      if (precondition === 'neartarget' && this.targetCreature) {
+        satisfied = Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos) <= 1;
+      }
+      if (satisfied) initialState.push(precondition);
+    }
+    initialState.sort();
+
+    const desiredState = [this.currentGoal.desiredEffect];
+
+    // Nodes are the state of the world from the creatures perspective.
+    // Edges are actions that move the state from one to another (removing/adding an effect).
+    // TODO: A regressive search (start at the desired goal and find a path to the initial state)
+    //       is supposed to be more performant.
+    const aStar = require('./plan.js');
+    const result = aStar({
+      start: initialState,
+      isEnd(state: string[]) {
+        return desiredState.every((s) => state.includes(s));
+      },
+      edges(state: string[]) {
+        const edges = [];
+        for (const action of actions) {
+          // An outbound edge is an action that adds an effect not already in this state.
+          // All preconditions must apply.
+          if (action.preconditions.every((p) => state.includes(p))) {
+            const missingEffects = action.effects.filter((e) => !state.includes(e));
+            for (const effect of missingEffects) {
+              const newState = [...state, effect];
+              edges.push({
+                action,
+                data: newState.sort(),
+              });
+              // console.log(`[${state.join(',')}] -> ${action.name} -> [${newState.join(',')}]`);
+            }
+          }
+        }
+
+        return edges;
+      },
+      distance(state1: string[], state2: string[], edge: any) {
+        return edge.action.cost;
+      },
+      heuristic(state: string[]) {
+        return state.length - initialState.length;
+      },
+      hash(state: string[]) {
+        return state.join(',');
+      },
+    });
+
+    if (result.status !== 'success') {
+      return;
+    }
+
+    this.plannedActions = result.path.map((p) => p.edge && p.edge.action).filter(Boolean).reverse();
+    console.log(this.plannedActions.map((a) => a.name).reverse());
   }
 
   private _handleMovement(server: Server, now: number) {
@@ -243,6 +352,8 @@ class CreatureState {
         this.addGoal({
           desiredEffect: 'KillCreature',
           priority: 100,
+          // TODO
+          satisfied: () => closestEnemy ? closestEnemy.creature.life <= 0 : true,
         });
       }
     }
@@ -344,7 +455,7 @@ export default class Server {
     try {
       await this.tickImpl();
     } catch (err) {
-      console.error(err);
+      throw err;
     }
   }
 

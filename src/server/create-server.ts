@@ -45,7 +45,7 @@ export async function startServer(options: ServerOptions) {
   setInterval(() => {
     const COW = getMonsterTemplateByName('Cow');
     if (server.clientConnections.length > 0) {
-      if (Object.keys(server.creatureStates).length < 5) {
+      if (Object.keys(server.creatureStates).length < 2) {
         const x = Utils.randInt(width / 2 - 5, width / 2 + 5);
         const y = Utils.randInt(height / 2 - 5, height / 2 + 5);
         const pos = { w: 0, x, y, z: 0 };

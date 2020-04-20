@@ -1431,6 +1431,20 @@
   resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-12.0.12.tgz#45dd1d0638e8c8f153e87d296907659296873916"
   integrity sha512-SOhuU4wNBxhhTHxYaiG5NY4HBhDIDnJF60GU+2LqHAdKKer86//e4yg69aENCtQ04n0ovz+tq2YPME5t5yp4pw==
 
+Set@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/Set/-/Set-0.4.1.tgz#8385587be9863e49d2ffd7a85e1a1e4b11633ca6"
+  integrity sha1-g4VYe+mGPknS/9eoXhoeSxFjPKY=
+
+a-star@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/a-star/-/a-star-0.2.0.tgz#a1423c830c3bf9a259d490bfbf2710e792f044f9"
+  integrity sha1-oUI8gww7+aJZ1JC/vycQ55LwRPk=
+  dependencies:
+    Set "^0.4.1"
+    dict "^1.4.0"
+    heap "^0.2.3"
+
 abab@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.0.tgz#aba0ab4c5eee2d4c79d3487d85450fb2376ebb0f"
@@ -2803,6 +2817,11 @@ detect-newline@^2.1.0:
   resolved "https://registry.yarnpkg.com/detect-newline/-/detect-newline-2.1.0.tgz#f41f1c10be4b00e87b5f13da680759f2c5bfd3e2"
   integrity sha1-9B8cEL5LAOh7XxPaaAdZ8sW/0+I=
 
+dict@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/dict/-/dict-1.4.0.tgz#83d87d57cf0c4ac0d834608448b10a6e23bbfea0"
+  integrity sha1-g9h9V88MSsDYNGCESLEKbiO7/qA=
+
 diff-sequences@^24.3.0:
   version "24.3.0"
   resolved "https://registry.yarnpkg.com/diff-sequences/-/diff-sequences-24.3.0.tgz#0f20e8a1df1abddaf4d9c226680952e64118b975"
@@ -3596,6 +3615,11 @@ he@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
+
+heap@^0.2.3:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/heap/-/heap-0.2.6.tgz#087e1f10b046932fc8594dd9e6d378afc9d1e5ac"
+  integrity sha1-CH4fELBGky/IWU3Z5tN4r8nR5aw=
 
 hex-color-regex@^1.1.0:
   version "1.1.0"
