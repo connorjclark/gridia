@@ -340,7 +340,7 @@ export default class CreatureState {
 
     // @ts-ignore
     this.plannedActions = result.path.map((p) => p.edge && p.edge.action).filter(Boolean).reverse();
-    console.log(this.plannedActions.map((a) => a.name).reverse());
+    // console.log(this.plannedActions.map((a) => a.name).reverse());
   }
 
   private _handleMovement(server: Server, now: number) {

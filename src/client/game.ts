@@ -830,15 +830,17 @@ class Game {
         }
 
         if (tile.creature) {
-          const template = Draw.getTexture.creatures(tile.creature.image);
+          const width = tile.creature.imagetype || 1;
+          const height = tile.creature.imagetype || 1;
+          const template = Draw.getTexture.creatures(tile.creature.image, width, height);
           if (template !== PIXI.Texture.EMPTY) {
             const creatureGfx = new PIXI.Graphics();
             creatureGfx.x = x * 32;
-            creatureGfx.y = y * 32;
+            creatureGfx.y = (y - height + 1) * 32;
 
             creatureGfx
               .beginTextureFill({ texture: template })
-              .drawRect(0, 0, 32, 32)
+              .drawRect(0, 0, width * 32, height * 32)
               .endFill();
 
             if (tile.creature.tamedBy) {

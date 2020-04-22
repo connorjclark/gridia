@@ -339,7 +339,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
           server.warpCreature(server.currentClientConnection.player.creature, destination);
         },
         spawn() {
-          const name = args[0];
+          const name = args.join(' ');
           const template = Content.getMonsterTemplateByName(name);
           const loc = server.findNearest(server.currentClientConnection.player.creature.pos, 10, true,
             (_, l) => server.context.map.walkable(l));
