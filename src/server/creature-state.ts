@@ -40,6 +40,22 @@ const Facts: Record<string, Fact> = {
 
 // TODO: Tame follow
 const Actions: Record<string, Action> = {
+  Wander: {
+    name: 'Wander',
+    cost: 100,
+    preconditions: [],
+    effects: ['wander'],
+    tick(server) {
+      // Just wander baby.
+      if (this.path.length) return;
+
+      const randomDest = { ...this.creature.pos };
+      randomDest.x += Utils.randInt(-1, 1) * 3;
+      randomDest.y += Utils.randInt(-1, 1) * 3;
+      // TODO: use creature.roam to anchor to home.
+      this.goto(randomDest);
+    },
+  },
   UnarmedMeleeAttack: {
     name: 'UnarmedMeleeAttack',
     cost: 10,
@@ -51,7 +67,7 @@ const Actions: Record<string, Action> = {
     cost: 1,
     preconditions: [],
     effects: ['near-target'],
-    tick() {
+    tick(server) {
       if (!this.targetCreature) return false;
       if (this.targetCreature.creature.pos.w !== this.creature.pos.w) return false;
       // TODO: Follow through stairs.
@@ -145,6 +161,16 @@ export default class CreatureState {
       this._actions.push(Actions.FindGrass);
       this._actions.push(Actions.EatGrass);
     }
+
+    if (this.creature.roam || 0 > 0) { // TODO :/
+      // This goal and the wander effect only exists to enact the Wander action.
+      // Maybe there should be a simpler way to define a one-off like this.
+      this.addGoal({
+        desiredEffect: 'wander',
+        priority: 1,
+        satisfied() { return false; },
+      });
+    }
   }
 
   public pop() {
@@ -209,14 +235,7 @@ export default class CreatureState {
     this.partition = server.context.map.getPartition(this.creature.pos.w);
 
     if (!this.goals.length) {
-      // Just wander baby.
-      if (this.path.length) return;
-
-      const randomDest = { ...this.creature.pos };
-      randomDest.x += Utils.randInt(-1, 1) * 3;
-      randomDest.y += Utils.randInt(-1, 1) * 3;
-      // TODO: use creature.roam to anchor to home.
-      this.goto(randomDest);
+      return;
     }
 
     if (!this.plannedActions.length) return;
@@ -321,7 +340,7 @@ export default class CreatureState {
 
     // @ts-ignore
     this.plannedActions = result.path.map((p) => p.edge && p.edge.action).filter(Boolean).reverse();
-    // console.log(this.plannedActions.map((a) => a.name).reverse());
+    console.log(this.plannedActions.map((a) => a.name).reverse());
   }
 
   private _handleMovement(server: Server, now: number) {
