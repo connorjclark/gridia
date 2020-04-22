@@ -234,7 +234,7 @@ class RegisterScene extends Scene {
 
     const parts1 = 'Small Smelly Quick Steely Quiet'.split(' ');
     const parts2 = 'Jill Stranger Arthur Maz Harlet Worker'.split(' ');
-    this.nameInput.value = parts1[Utils.randInt(0, parts1.length)] + ' ' + parts2[Utils.randInt(0, parts2.length)];
+    this.nameInput.value = parts1[Utils.randInt(0, parts1.length - 1)] + ' ' + parts2[Utils.randInt(0, parts2.length - 1)];
   }
 
   public async onClickRegisterBtn() {
