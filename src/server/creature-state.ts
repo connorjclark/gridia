@@ -165,6 +165,7 @@ export default class CreatureState {
     if (this.creature.roam || 0 > 0) { // TODO :/
       // This goal and the wander effect only exists to enact the Wander action.
       // Maybe there should be a simpler way to define a one-off like this.
+      this._actions.push(Actions.Wander);
       this.addGoal({
         desiredEffect: 'wander',
         priority: 1,
