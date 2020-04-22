@@ -57,7 +57,7 @@ beforeEach(async () => {
 
   // Make client make initial request for the sector, so that partial updates are tested later.
   partition.getTile({x: 0, y: 0, z: 0});
-  server.consumeAllMessages();
+  await server.consumeAllMessages();
 });
 
 function clone<T>(obj: T): T {

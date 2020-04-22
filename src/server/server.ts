@@ -94,20 +94,17 @@ export default class Server {
 
   public async registerPlayer(clientConnection: ClientConnection, opts: RegisterOpts) {
     const { width, height } = this.context.map.getPartition(0);
-    const pos = {
-      w: 0,
-      x: Utils.randInt(width / 2 - 10, width / 2 + 10),
-      y: Utils.randInt(height / 2 - 10, height / 2 + 10),
-      z: 0,
-    };
 
+    const center = {w: 0, x: Math.round(width / 2), y: Math.round(height / 2), z: 0};
     // Make sure sector is loaded. Prevents hidden creature (race condition, happens often in worker).
-    await this.ensureSectorLoadedForPoint(pos);
+    await this.ensureSectorLoadedForPoint(center);
+    const spawnLoc = this.findNearest(center, 10, true, (_, loc) => this.context.map.walkable(loc)) || center;
+    await this.ensureSectorLoadedForPoint(spawnLoc);
 
     const creature = this.registerCreature({
       id: this.context.nextCreatureId++,
       name: opts.name,
-      pos,
+      pos: spawnLoc,
       image: Utils.randInt(0, 10),
       isPlayer: true,
       speed: 2,
