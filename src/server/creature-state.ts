@@ -68,12 +68,17 @@ const Actions: Record<string, Action> = {
     preconditions: [],
     effects: ['near-target'],
     tick(server) {
-      if (!this.targetCreature) return false;
-      if (this.targetCreature.creature.pos.w !== this.creature.pos.w) return false;
-      // TODO: Follow through stairs.
-      if (this.targetCreature.creature.pos.z !== this.creature.pos.z) return false;
+      // TODO: This overloading feels wrong.
+      const creatureToFollow =
+        this.targetCreature?.creature || (this.creature.tamedBy && server.players.get(this.creature.tamedBy)?.creature);
 
-      this.goto(this.targetCreature.creature.pos);
+      if (!creatureToFollow) return false;
+      if (creatureToFollow.pos.w !== this.creature.pos.w) return false;
+      // TODO: Follow through stairs.
+      if (creatureToFollow.pos.z !== this.creature.pos.z) return false;
+
+      this.goto(creatureToFollow.pos);
+      this.idle(2000); // Throttle how often pathfinding runs.
     },
   },
   EatGrass: {
@@ -212,6 +217,14 @@ export default class CreatureState {
           satisfied() { return this.creature.food >= 100; },
         });
       }
+    }
+
+    if (this.creature.tamedBy) {
+      this.addGoal({
+        desiredEffect: 'near-target',
+        priority: 10,
+        satisfied() { return false; },
+      });
     }
 
     if (this.currentGoal && this.currentGoal.satisfied.call(this, server)) {
