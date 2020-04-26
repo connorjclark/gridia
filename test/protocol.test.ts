@@ -3,8 +3,6 @@
 
 // TODO: add test/ to tsconfig
 
-jest.mock('pixi-sound', () => ({}));
-
 import * as assert from 'assert';
 import Client from '../src/client/client';
 import { Connection } from '../src/client/connection';
@@ -61,7 +59,7 @@ beforeEach(async () => {
 });
 
 function clone<T>(obj: T): T {
-  if (obj === undefined) return obj;
+  if (obj === undefined) return;
   return JSON.parse(JSON.stringify(obj));
 }
 
@@ -108,6 +106,16 @@ function assertCreatureAt(location: TilePoint, creatureId: number) {
   expect(client.context.map.getTile(location).creature).toEqual(creature);
 }
 
+assert(Content.getMetaItemByName('Cut Red Rose').walkable);
+function getWalkableItem(): Item {
+  return { type: Content.getMetaItemByName('Cut Red Rose').id, quantity: 1 };
+}
+
+assert(!Content.getMetaItemByName('Granite Wall').walkable);
+function getUnwalkableItem(): Item {
+  return { type: Content.getMetaItemByName('Granite Wall').id, quantity: 1 };
+}
+
 describe('move', () => {
   let creature;
   beforeEach(() => {
@@ -128,7 +136,7 @@ describe('move', () => {
   it('player can move to walkable item', async () => {
     const from = {w: 0, x: 5, y: 5, z: 0};
     const to = {w: 0, x: 6, y: 5, z: 0};
-    setItem(to, { type: 1, quantity: Content.getMetaItemByName('Cut Red Rose').id });
+    setItem(to, getWalkableItem());
 
     assertCreatureAt(from, creature.id);
     await send(ProtocolBuilder.move(to));
@@ -138,40 +146,40 @@ describe('move', () => {
   it('player can not move to unwalkable item', async () => {
     const from = {w: 0, x: 5, y: 5, z: 0};
     const to = {w: 0, x: 6, y: 5, z: 0};
-    setItem(to, { type: Content.getMetaItemByName('Granite Wall').id, quantity: 1 });
+    setItem(to, getUnwalkableItem());
 
     assertCreatureAt(from, creature.id);
     await send(ProtocolBuilder.move(to));
     assertCreatureAt(from, creature.id);
   });
 
-  // TODO broadcast new creatures.
-  // it('player can not move where other creature is', () => {
-  //   const from = {x: 5, y: 5, z: 0};
-  //   const to = {x: 6, y: 5, z: 0};
-  //   const otherCreature = server.makeCreature(to);
-  //   assertCreatureAt(to, otherCreature.id);
+  it('player can not move where other creature is', async () => {
+    const from = {w: 0, x: 5, y: 5, z: 0};
+    const to = {w: 0, x: 6, y: 5, z: 0};
+    const otherCreature = server.makeCreatureFromTemplate(1, to);
+    server.consumeAllMessages();
+    assertCreatureAt(to, otherCreature.id);
 
-  //   assertCreatureAt(from, creature.id);
-  //   send(ProtocolBuilder.move(to));
-  //   assertCreatureAt(from, creature.id);
-  // });
+    assertCreatureAt(from, creature.id);
+    await send(ProtocolBuilder.move(to));
+    assertCreatureAt(from, creature.id);
+  });
 
-  // TODO refactor "server.makeCreature" to not give items.
-  // it('player can not move to mine wall without pickaxe in inventory', () => {
-  //   const from = {x: 5, y: 5, z: 0};
-  //   const to = {x: 6, y: 5, z: 0};
-  //   setFloor(to, MINE);
+  it('player can not move to mine wall without pickaxe in inventory', async () => {
+    const from = {w: 0, x: 5, y: 5, z: 0};
+    const to = {w: 0, x: 6, y: 5, z: 0};
+    setFloor(to, MINE);
 
-  //   assertCreatureAt(from, creature.id);
-  //   send(ProtocolBuilder.move(to));
-  //   assertCreatureAt(from, creature.id);
-  // });
+    assertCreatureAt(from, creature.id);
+    send(ProtocolBuilder.move(to));
+    assertCreatureAt(from, creature.id);
+  });
 
   it('player can move to mine wall with pickaxe in inventory', async () => {
     const from = {w: 0, x: 5, y: 5, z: 0};
     const to = {w: 0, x: 6, y: 5, z: 0};
     setFloor(to, MINE);
+    setItemInContainer(client.containerId, 0, {type: Content.getMetaItemByName('Pick').id, quantity: 1});
 
     assertCreatureAt(from, creature.id);
     await send(ProtocolBuilder.move(to));
@@ -307,18 +315,14 @@ describe('use', () => {
   let container;
 
   beforeEach(() => {
-    assert(server.clientConnections[0]);
     container = server.clientConnections[0].container;
-    // TODO don't rely on this hardcoded.
-    assert.equal(Content.getMetaItemByName('Wood Axe').id, container.items[0].type);
-    assert.equal(Content.getMetaItemByName('Mana Plant Seeds').id, container.items[4].type);
-    assert.equal(100, container.items[4].quantity);
   });
 
   it('cut down tree', async () => {
     const toolIndex = 0;
     const loc = { w: 0, x: 0, y: 0, z: 0 };
 
+    setItemInContainer(client.containerId, 0, {type: Content.getMetaItemByName('Wood Axe').id, quantity: 1});
     setItem(loc, { type: Content.getMetaItemByName('Pine Tree').id, quantity: 1 });
 
     await send(ProtocolBuilder.use({
@@ -332,9 +336,10 @@ describe('use', () => {
   });
 
   it('plant a seed', async () => {
-    const toolIndex = 4;
+    const toolIndex = 1;
     const loc = { w: 0, x: 0, y: 0, z: 0 };
 
+    setItemInContainer(client.containerId, 1, {type: Content.getMetaItemByName('Mana Plant Seeds').id, quantity: 100});
     setItem(loc, { type: Content.getMetaItemByName('Ploughed Ground').id, quantity: 1 });
 
     await send(ProtocolBuilder.use({
