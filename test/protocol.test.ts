@@ -49,10 +49,6 @@ beforeEach(async () => {
     name: 'test-user',
   }));
 
-  // @ts-ignore
-  // tslint:disable-next-line: no-empty
-  client.PIXISound = {play: () => {}, exists: () => false};
-
   // Make client make initial request for the sector, so that partial updates are tested later.
   partition.getTile({x: 0, y: 0, z: 0});
   await server.consumeAllMessages();
