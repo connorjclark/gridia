@@ -1,5 +1,4 @@
 import { getFloors, getMetaItem, getMetaItems } from '../../content';
-import TextInput from '../../lib/text-input';
 import * as ProtocolBuilder from '../../protocol/client-to-server-protocol-builder';
 import * as Utils from '../../utils';
 import ClientModule from '../client-module';
@@ -91,7 +90,7 @@ class AdminClientModule extends ClientModule {
       if (name === 'Items') {
         setVisibility((id) => id % 2 === 0);
         contents = new PIXI.Container();
-        const input = new TextInput({
+        const input = new PIXI.TextInput({
           input: {
             fontSize: '25pt',
             padding: '14px',
@@ -103,7 +102,7 @@ class AdminClientModule extends ClientModule {
         contents.addChild(input);
         contents.addChild(scrollbox).y = input.height;
 
-        input.on('input', (text: string) => {
+        input.on('input', (text) => {
           const re = new RegExp(text, 'i');
           setVisibility((id) => {
             const meta = getMetaItem(id);

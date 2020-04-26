@@ -8,6 +8,7 @@
     "parcel-bundler": "^1.11.0",
     "pixi-scrollbox": "^2.1.1",
     "pixi-sound": "^3.0.4",
+    "pixi-text-input": "^1.0.5",
     "pixi-viewport": "^4.3.1",
     "pixi.js": "^5.2.1",
     "source-map-support": "^0.5.12",

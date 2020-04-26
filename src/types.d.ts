@@ -189,8 +189,20 @@ declare module 'pixi-scrollbox' {
   }
 }
 
+declare module 'pixi-text-input' {
+  class TextInput {
+    public placeholder: string;
+    public height: number;
+    constructor(styles: any);
+    public on(event: string, cb: (text: string) => void): any;
+  }
+
+  export default TextInput;
+}
+
 declare namespace PIXI {
   // const PIXISound: any;
   let Scrollbox: typeof import('pixi-scrollbox').Scrollbox;
   let OutlineFilter: typeof import('@pixi/filter-outline').OutlineFilter;
+  let TextInput: typeof import('pixi-text-input').default;
 }
