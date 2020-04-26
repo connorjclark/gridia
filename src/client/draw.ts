@@ -47,11 +47,11 @@ export class GridiaWindow {
   }
 
   get width() {
-    return this.pixiContainer.width - this.borderSize;
+    return this.pixiContainer.width;
   }
 
   get height() {
-    return this.pixiContainer.height - this.borderSize;
+    return this.pixiContainer.height;
   }
 
   private _onDragBegin(e: PIXI.interaction.InteractionEvent) {

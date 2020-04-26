@@ -331,14 +331,12 @@ class Game {
     this.app.ticker.add(this.tick.bind(this));
     this.registerListeners();
 
-    this._currentHoverItemText.x = 0;
-    this._currentHoverItemText.y = 0;
     this.app.stage.addChild(this._currentHoverItemText);
 
     // This makes everything "pop".
     // this.containers.itemAndCreatureLayer.filters = [new OutlineFilter(0.5, 0, 1)];
 
-    this.possibleUsagesWindow.pixiContainer.y = 32 * 2;
+    this.possibleUsagesWindow.pixiContainer.y = 0;
     this.possibleUsagesWindow.setOnSelectUsage((possibleUsage) => {
       this.client.connection.send(ProtocolBuilder.use({
         toolIndex: possibleUsage.toolIndex,
@@ -752,7 +750,8 @@ class Game {
 
         // Inventory.
         if (id === this.client.containerId) {
-          containerWindow.pixiContainer.y = 0;
+          containerWindow.draw();
+          containerWindow.pixiContainer.y = this.app.view.height - containerWindow.height - containerWindow.borderSize;
         }
       }
     }
@@ -935,13 +934,17 @@ class Game {
       }
     }
 
-    // Draw name of item under mouse.
+    // Draw name of item.
     const itemUnderMouse = this.state.mouse.tile && this.client.context.map.getItem(this.state.mouse.tile);
     if (itemUnderMouse) {
       const meta = Content.getMetaItem(itemUnderMouse.type);
       this._currentHoverItemText.text =
         itemUnderMouse.quantity === 1 ? meta.name : `${meta.name} (${itemUnderMouse.quantity})`;
       this._currentHoverItemText.visible = true;
+      this._currentHoverItemText.anchor.x = 1;
+      this._currentHoverItemText.anchor.y = 1;
+      this._currentHoverItemText.x = this.app.view.width - 10;
+      this._currentHoverItemText.y = this.app.view.height;
     } else {
       this._currentHoverItemText.visible = false;
     }
