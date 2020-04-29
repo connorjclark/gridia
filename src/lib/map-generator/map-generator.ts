@@ -63,12 +63,24 @@ interface VoronoiPartitionStrategy {
   relaxations: number;
 }
 
+interface RadialWaterStrategy {
+  type: 'radial';
+  radius: number;
+}
+
+interface PerlinWaterStrategy {
+  type: 'perlin';
+  // 0-1, higher means more water.
+  percentage: number;
+}
+
 export interface GenerateOptions {
   width: number;
   height: number;
   seed?: string;
   partitionStrategy: SquarePartitionStrategy | VoronoiPartitionStrategy;
-  waterStrategy: { type: 'radial', radius: number };
+  waterStrategy: RadialWaterStrategy | PerlinWaterStrategy;
+  borderIsAlwaysWater: boolean;
 }
 
 interface GeomPoint {
@@ -255,23 +267,36 @@ function setBorder(ctx: Context) {
 
   for (const corner of ctx.corners) {
     const { x, y } = corner;
-    corner.border = x === 0 || y === 0 || x === width || y === height;
+    corner.border = x === 0 || y === 0 || x === width - 1 || y === height - 1;
   }
 }
 
 function setWater(ctx: Context) {
   const { width, height } = ctx.options;
 
-  let isWaterFilter;
-  if (ctx.options.waterStrategy.type === 'radial') {
-    isWaterFilter = ({ x, y }: Point) => {
+  let isWaterFilter: ({ x, y }: Point) => boolean;
+  const waterStrategy = ctx.options.waterStrategy;
+  if (waterStrategy.type === 'radial') {
+    isWaterFilter = ({ x, y }) => {
       const dx = Math.abs(x - width / 2);
       const dy = Math.abs(y - height / 2);
       const dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-      return dist > ctx.options.waterStrategy.radius * Math.min(width, height) / 2;
+      return dist > waterStrategy.radius * Math.min(width, height) / 2;
     };
+  } else if (waterStrategy.type === 'perlin') {
+    const noise: number[] = require('../perlin/perlin').generatePerlinNoise2({
+      width: ctx.options.width,
+      height: ctx.options.height,
+      octaves: 6,
+      persistence: 0.5,
+    });
+
+    const index = Math.floor(waterStrategy.percentage * noise.length);
+    const threshold = [...noise].sort((a, b) => b - a)[index] || -Infinity;
+    isWaterFilter = ({ x, y }) => noise[x + y * ctx.options.width] > threshold;
   } else {
-    throw new Error(`invalid water strategy ${ctx.options.waterStrategy.type}`);
+    // @ts-ignore
+    throw new Error(`invalid water strategy ${waterStrategy.type}`);
   }
 
   for (const polygon of ctx.polygons) {
@@ -290,8 +315,10 @@ function setOceanCoastAndLand(ctx: Context) {
   for (const polygon of ctx.polygons) {
     if (polygon.corners.some((c) => c.border)) {
       polygon.center.border = true;
-      polygon.center.ocean = true;
-      polygon.center.water = true;
+      if (ctx.options.borderIsAlwaysWater) {
+        polygon.center.ocean = true;
+        polygon.center.water = true;
+      }
       queue.push(polygon);
     }
 

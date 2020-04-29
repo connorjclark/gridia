@@ -41,6 +41,16 @@ const voronoiInputFormData: InputFormData = {
   },
 };
 
+const perlinInputFormData: InputFormData = {
+  percentage: {
+    type: 'number',
+    min: 0,
+    value: 0.2,
+    max: 1,
+    step: 0.1,
+  },
+};
+
 const radialInputFormData: InputFormData = {
   radius: {
     type: 'number',
@@ -84,10 +94,18 @@ const inputFormData: RootInputFormData = {
   ],
   waterStrategy: [
     {
+      name: 'perlin',
+      data: perlinInputFormData,
+    },
+    {
       name: 'radial',
       data: radialInputFormData,
     },
   ],
+  borderIsAlwaysWater: {
+    type: 'checkbox',
+    value: false,
+  },
 };
 
 export function createMapSelectForm(inputFormEl: HTMLElement) {
@@ -95,6 +113,8 @@ export function createMapSelectForm(inputFormEl: HTMLElement) {
     const inputEl = document.createElement('input');
     inputEl.classList.add(`generate--${name}-input`);
     inputEl.setAttribute('name', name);
+    // @ts-ignore
+    inputEl.setAttribute('type', data.type);
     inputEl.setAttribute('id', group ? `${group}-${name}` : name);
     for (const [key, value] of Object.entries(data)) {
       if (key === 'checked' && typeof value === 'boolean') {
@@ -167,7 +187,11 @@ export function getMapGenOpts(inputFormEl: HTMLElement) {
   const opts: Record<string, number | string | object> = {};
 
   const set = (obj: any, name: string, inputEl: HTMLInputElement) => {
-    obj[name] = inputEl.type === 'number' ? Number(inputEl.value) : inputEl.value;
+    let value: number | string | boolean = inputEl.value;
+    if (inputEl.type === 'number') value = Number(inputEl.value);
+    else if (inputEl.type === 'checkbox') value = inputEl.checked;
+    else value = inputEl.value;
+    obj[name] = value;
   };
 
   for (const [name, data] of Object.entries(inputFormData)) {

@@ -84,7 +84,7 @@ function addDebugStuff(map: WorldMapPartition) {
 }
 
 export default function createDebugWorldMap() {
-  // TODO: standardize naming for map, world map, parititon, etc.
+  // TODO: standardize naming for map, world map, partiton, etc.
   const world = new WorldMap();
   const width = 1000;
   const height = 1000;
@@ -96,11 +96,11 @@ export default function createDebugWorldMap() {
     relaxations: 5,
   } as const;
   const waterStrategy = {
-    type: 'radial',
-    radius: 0.9,
+    type: 'perlin',
+    percentage: 0.3,
   } as const;
 
-  const defaultMap = mapgen({ width, height, depth, partitionStrategy, waterStrategy });
+  const defaultMap = mapgen({ width, height, depth, partitionStrategy, waterStrategy, borderIsAlwaysWater: false });
   addDebugStuff(defaultMap.partition);
   world.addPartition(0, defaultMap.partition);
 

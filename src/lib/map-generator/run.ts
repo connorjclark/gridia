@@ -22,6 +22,7 @@ const mapGenResult = generate({
     type: 'radial',
     radius: 0.9,
   },
+  borderIsAlwaysWater: false,
 });
 
 fs.mkdirSync('mapgen-temp', {recursive: true});
