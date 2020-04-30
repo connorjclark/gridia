@@ -137,7 +137,6 @@ class StartScene extends Scene {
 
 class MapSelectScene extends Scene {
   private mapListEl: HTMLElement;
-  private refreshBtn: HTMLElement;
   private selectBtn: HTMLElement;
   private previewEl: HTMLElement;
   private inputFormEl: HTMLElement;
@@ -146,11 +145,10 @@ class MapSelectScene extends Scene {
   constructor() {
     super(Helper.find('.map-select'));
     this.mapListEl = Helper.find('.map-list');
-    this.refreshBtn = Helper.find('.generate--refresh-btn', this.element);
     this.selectBtn = Helper.find('.generate--select-btn', this.element);
     this.previewEl = Helper.find('.generate--preview', this.element);
     this.inputFormEl = Helper.find('.generate--input-form', this.element);
-    this.onClickRefreshBtn = this.onClickRefreshBtn.bind(this);
+    this.onFormChange = this.onFormChange.bind(this);
     this.onClickSelectBtn = this.onClickSelectBtn.bind(this);
     this.onSelectMap = this.onSelectMap.bind(this);
 
@@ -170,14 +168,16 @@ class MapSelectScene extends Scene {
     }
   }
 
-  public async onClickRefreshBtn() {
+  public async onFormChange() {
     if (this.loadingPreview) return;
     this.loadingPreview = true;
 
     const canvas = document.createElement('canvas') as HTMLCanvasElement;
     const offscreen = canvas.transferControlToOffscreen();
     const opts = getMapGenOpts(this.inputFormEl);
-    await generateMap(opts, offscreen).finally(() => this.loadingPreview = false);
+    const seeds = await generateMap(opts, offscreen).finally(() => this.loadingPreview = false);
+    // @ts-ignore
+    Helper.find('.generate--seeds-input').value = Object.entries(seeds).map(([k, v]) => `${k}=${v}`).join(',');
 
     this.previewEl.innerHTML = '';
     this.previewEl.append(canvas);
@@ -205,18 +205,19 @@ class MapSelectScene extends Scene {
 
   public onShow() {
     super.onShow();
-    this.refreshBtn.addEventListener('click', this.onClickRefreshBtn);
+    this.inputFormEl.addEventListener('change', this.onFormChange);
     this.selectBtn.addEventListener('click', this.onClickSelectBtn);
     this.mapListEl.addEventListener('click', this.onSelectMap);
     this.loadingPreview = false;
     this.previewEl.innerHTML = '';
     this.selectBtn.classList.add('hidden');
     this.renderMapSelection();
+    this.onFormChange();
   }
 
   public onHide() {
     super.onHide();
-    this.refreshBtn.removeEventListener('click', this.onClickRefreshBtn);
+    this.inputFormEl.removeEventListener('change', this.onFormChange);
     this.selectBtn.removeEventListener('click', this.onClickSelectBtn);
     this.mapListEl.removeEventListener('click', this.onSelectMap);
   }
@@ -429,7 +430,7 @@ async function loadMap(name: string) {
 }
 
 async function generateMap(opts: any, offscreenCanvas?: OffscreenCanvas) {
-  await controller.serverWorker.generateMap({
+  return await controller.serverWorker.generateMap({
     ...opts,
     canvas: offscreenCanvas,
   });

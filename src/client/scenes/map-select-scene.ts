@@ -61,6 +61,7 @@ const radialInputFormData: InputFormData = {
   },
 };
 
+// TODO: improve.
 const inputFormData: RootInputFormData = {
   width: {
     type: 'number',
@@ -105,6 +106,10 @@ const inputFormData: RootInputFormData = {
   borderIsAlwaysWater: {
     type: 'checkbox',
     value: false,
+  },
+  seeds: {
+    type: 'string',
+    value: '',
   },
 };
 
@@ -211,6 +216,13 @@ export function getMapGenOpts(inputFormEl: HTMLElement) {
     } else {
       set(opts, name, Helper.find('#' + name, inputFormEl) as HTMLInputElement);
     }
+  }
+
+  const seedsString = opts.seeds as string;
+  const seeds = opts.seeds = {} as {[id: string]: number};
+  for (const seed of seedsString.split(',')) {
+    const [k, v] = seed.split('=');
+    if (k) seeds[k] = Number(v);
   }
 
   return opts;

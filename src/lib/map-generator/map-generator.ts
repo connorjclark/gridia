@@ -4,13 +4,15 @@
 // tslint:disable no-shadowed-variable
 
 import { Delaunay } from 'd3-delaunay';
+import SeedRandom from 'seedrandom';
 import * as Perlin from '../perlin/perlin';
 
 export type MapGenerationResult = ReturnType<typeof generate>;
 
 export interface Context {
   options: GenerateOptions;
-  random: () => number;
+  makeRandom: (id: string) => () => number;
+  randoms: {[id: string]: () => number};
   polygons: Polygon[];
   corners: Corner[];
 }
@@ -78,7 +80,7 @@ interface PerlinWaterStrategy {
 export interface GenerateOptions {
   width: number;
   height: number;
-  seed?: string;
+  seeds?: {[id: string]: number};
   partitionStrategy: SquarePartitionStrategy | VoronoiPartitionStrategy;
   waterStrategy: RadialWaterStrategy | PerlinWaterStrategy;
   borderIsAlwaysWater: boolean;
@@ -175,6 +177,7 @@ function makePolygons(geomPolygons: GeomPolygon[]) {
 function squarePartition(partitionStrategy: SquarePartitionStrategy, ctx: Context) {
   const { width, height } = ctx.options;
   const { size, rand = 0 } = partitionStrategy;
+  const random = ctx.randoms.partition;
 
   if (rand > 0.5 || rand < 0) throw new Error();
 
@@ -205,11 +208,9 @@ function squarePartition(partitionStrategy: SquarePartitionStrategy, ctx: Contex
 
   for (const corner of corners) {
     if (rand && corner.x !== 0 && corner.x !== width && corner.y !== 0 && corner.y !== height) {
-      corner.x = corner.x + size * rand * (0.5 - ctx.random());
-      corner.y = corner.y + size * rand * (0.5 - ctx.random());
+      corner.x = corner.x + size * rand * (0.5 - random());
+      corner.y = corner.y + size * rand * (0.5 - random());
     }
-    corner.x = Math.min(corner.x, width - 1);
-    corner.y = Math.min(corner.y, height - 1);
   }
 
   return { polygons, corners };
@@ -218,8 +219,9 @@ function squarePartition(partitionStrategy: SquarePartitionStrategy, ctx: Contex
 function voronoiPartition(partitionStrategy: VoronoiPartitionStrategy, ctx: Context) {
   const { width, height } = ctx.options;
   const { points: numPoints, relaxations } = partitionStrategy;
+  const random = ctx.randoms.partition;
 
-  const points = Float64Array.from({ length: numPoints * 2 }, (_, i) => ctx.random() * (i % 2 === 0 ? width : height));
+  const points = Float64Array.from({ length: numPoints * 2 }, (_, i) => random() * (i % 2 === 0 ? width : height));
   const delaunay = new Delaunay(points);
   const voronoi = delaunay.voronoi([0, 0, width, height]);
 
@@ -251,16 +253,7 @@ function voronoiPartition(partitionStrategy: VoronoiPartitionStrategy, ctx: Cont
     });
   }
 
-  const { corners, polygons } = makePolygons(geomPolygons);
-  for (const corner of corners) {
-    corner.x = Math.min(Math.round(corner.x), width - 1);
-    corner.y = Math.min(Math.round(corner.y), height - 1);
-  }
-  for (const polygon of polygons) {
-    polygon.center.x = Math.min(Math.round(polygon.center.x), width - 1);
-    polygon.center.y = Math.min(Math.round(polygon.center.y), height - 1);
-  }
-  return { polygons, corners };
+  return makePolygons(geomPolygons);
 }
 
 function setBorder(ctx: Context) {
@@ -274,6 +267,7 @@ function setBorder(ctx: Context) {
 
 function setWater(ctx: Context) {
   const { width, height } = ctx.options;
+  const random = ctx.randoms.water;
 
   let isWaterFilter: ({ x, y }: Point) => boolean;
   const waterStrategy = ctx.options.waterStrategy;
@@ -285,7 +279,7 @@ function setWater(ctx: Context) {
       return dist > waterStrategy.radius * Math.min(width, height) / 2;
     };
   } else if (waterStrategy.type === 'perlin') {
-    Perlin.init(ctx.random);
+    Perlin.init(random);
     const noise: number[] = Perlin.generatePerlinNoise({
       width: ctx.options.width,
       height: ctx.options.height,
@@ -458,8 +452,10 @@ function setWatershed(ctx: Context) {
 }
 
 function createRivers(ctx: Context) {
+  const random = ctx.randoms.rivers;
+
   for (let i = 0; i < ctx.options.width * ctx.options.height / 2; i++) {
-    let corner: Corner | undefined = ctx.corners[Math.floor(ctx.corners.length * ctx.random())];
+    let corner: Corner | undefined = ctx.corners[Math.floor(ctx.corners.length * random())];
     if (corner.ocean || corner.elevation < 0.3 || corner.elevation > 0.9) continue;
 
     while (corner && !corner.coast) {
@@ -627,10 +623,25 @@ function rasterize(ctx: Context) {
 }
 
 export function generate(options: GenerateOptions) {
-  const ctx = {
+  const seeds = options.seeds ? {...options.seeds} : {};
+  function makeRandom(id: string) {
+    if (options.seeds && options.seeds[id] !== undefined) {
+      return SeedRandom(String(options.seeds[id]));
+    }
+
+    const seed = seeds[id] = Math.round(Math.random() * 100000);
+    return SeedRandom(String(seed));
+  }
+
+  const ctx: Context = {
     options,
-    random: Math.random,
-    polygons: [] as Polygon[],
+    makeRandom,
+    randoms: {
+      partition: makeRandom('partition'),
+      rivers: makeRandom('rivers'),
+      water: makeRandom('water'),
+    },
+    polygons: [],
     corners: null as unknown as Corner[],
   };
   const { partitionStrategy } = options;
@@ -648,6 +659,16 @@ export function generate(options: GenerateOptions) {
     throw new Error();
   }
 
+  // Ensure all corners and centers are integers.
+  for (const corner of ctx.corners) {
+    corner.x = Math.min(Math.round(corner.x), options.width - 1);
+    corner.y = Math.min(Math.round(corner.y), options.height - 1);
+  }
+  for (const polygon of ctx.polygons) {
+    polygon.center.x = Math.min(Math.round(polygon.center.x), options.width - 1);
+    polygon.center.y = Math.min(Math.round(polygon.center.y), options.height - 1);
+  }
+
   setBorder(ctx);
   setWater(ctx);
   setOceanCoastAndLand(ctx);
@@ -663,6 +684,6 @@ export function generate(options: GenerateOptions) {
 
   const raster = rasterize(ctx);
 
-  const mapGenResult = { ...ctx, raster };
+  const mapGenResult = { ...ctx, raster, seeds };
   return mapGenResult;
 }

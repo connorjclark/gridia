@@ -73,6 +73,7 @@ export default function mapgen(opts: MapGenOptions) {
 
   const map = new WorldMapPartition(width, height, depth);
   const mapGenResult = generate(opts);
+  const random = mapGenResult.makeRandom('mines');
 
   // tslint:disable-next-line: prefer-for-of
   for (let sx = 0; sx < map.sectors.length; sx++) {
@@ -104,7 +105,7 @@ export default function mapgen(opts: MapGenOptions) {
           }
           // floor = 100 + (raster[x][y] % 10) * 20;
         } else {
-          floor = mapGenResult.random() > 0.2 ? MINE : 19;
+          floor = random() > 0.2 ? MINE : 19;
         }
 
         map.setTile(loc, {

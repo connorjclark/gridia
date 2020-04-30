@@ -42,7 +42,9 @@ async function listMaps() {
   return { mapNames };
 }
 
-interface GenerateMapArgs { bare: boolean; width: number; height: number; depth: number; canvas?: OffscreenCanvas; }
+interface GenerateMapArgs {
+  bare: boolean; width: number; height: number; depth: number; seeds: {[id: string]: number};
+  canvas?: OffscreenCanvas; }
 async function generateMap(args: GenerateMapArgs) {
   if (args.bare) {
     mapPreviewPartition = makeBareMap(args.width, args.height, args.depth);
@@ -64,6 +66,8 @@ async function generateMap(args: GenerateMapArgs) {
     // This draws to the OffscreenCanvas.
     makeMapImage(mapPreviewGenData);
   }
+
+  return mapPreviewGenData?.seeds ?? {};
 }
 
 async function saveGeneratedMap(args: { name: string }) {
