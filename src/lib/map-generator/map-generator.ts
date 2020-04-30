@@ -4,6 +4,7 @@
 // tslint:disable no-shadowed-variable
 
 import { Delaunay } from 'd3-delaunay';
+import * as Perlin from '../perlin/perlin';
 
 export type MapGenerationResult = ReturnType<typeof generate>;
 
@@ -284,10 +285,11 @@ function setWater(ctx: Context) {
       return dist > waterStrategy.radius * Math.min(width, height) / 2;
     };
   } else if (waterStrategy.type === 'perlin') {
-    const noise: number[] = require('../perlin/perlin').generatePerlinNoise2({
+    Perlin.init(ctx.random);
+    const noise: number[] = Perlin.generatePerlinNoise({
       width: ctx.options.width,
       height: ctx.options.height,
-      octaves: 6,
+      octaves: 3,
       persistence: 0.5,
     });
 
