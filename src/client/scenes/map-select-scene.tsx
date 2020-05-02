@@ -37,11 +37,11 @@ type FormState = typeof DEFAULT_MAP_FORM_STATE;
 
 export function createMapSelectForm(inputFormEl: HTMLElement, state: FormState, onStateUpdate: (state: FormState) => void) {
   const Input = (props: any) => {
-    return <span class='input-group'>
+    return <Fragment>
       <label>{props.children || props.name}</label>
       <input {...props}></input>
       {props.type === 'range' && props.value}
-    </span>
+    </Fragment>
   };
 
   class MapSelectForm extends Component<any, FormState> {
@@ -58,16 +58,16 @@ export function createMapSelectForm(inputFormEl: HTMLElement, state: FormState, 
         if (choice === 'voronoi') {
           const { points, relaxations } = options[choice];
           return <div>
-            <Input onInput={linkState(this, `${statePrefix}.points`)} name="points" type={'number'} min={1} value={points} max={5000} step={50}></Input>
-            <Input onInput={linkState(this, `${statePrefix}.relaxations`)} name="relaxations" type={'number'} min={0} value={relaxations} max={100} step={1}></Input>
+            <Input onInput={linkState(this, `${statePrefix}.points`)} name="points" type={'range'} min={1} value={points} max={5000} step={50}></Input>
+            <Input onInput={linkState(this, `${statePrefix}.relaxations`)} name="relaxations" type={'range'} min={0} value={relaxations} max={10} step={1}></Input>
           </div>
         }
 
         if (choice === 'square') {
           const { size, rand } = options[choice];
           return <div>
-            <Input onInput={linkState(this, `${statePrefix}.size`)} name="size" type={'number'} min={1} value={size} max={100} step={5}></Input>
-            <Input onInput={linkState(this, `${statePrefix}.rand`)} name="rand" type={'number'} min={0} value={rand} max={0.5} step={0.1}></Input>
+            <Input onInput={linkState(this, `${statePrefix}.size`)} name="size" type={'range'} min={1} value={size} max={100} step={5}></Input>
+            <Input onInput={linkState(this, `${statePrefix}.rand`)} name="rand" type={'range'} min={0} value={rand} max={0.5} step={0.1}></Input>
           </div>
         }
 
@@ -80,14 +80,14 @@ export function createMapSelectForm(inputFormEl: HTMLElement, state: FormState, 
         if (choice === 'perlin') {
           const { percentage } = options[choice];
           return <div>
-            <Input onInput={linkState(this, `${statePrefix}.percentage`)} name="percentage" type={'number'} min={0} value={percentage} max={1} step={0.1}></Input>
+            <Input onInput={linkState(this, `${statePrefix}.percentage`)} name="percentage" type={'range'} min={0} value={percentage} max={1} step={0.1}></Input>
           </div>
         }
 
         if (choice === 'radial') {
           const { radius } = options[choice];
           return <div>
-            <Input onInput={linkState(this, `${statePrefix}.radius`)} name="radius" type={'number'} min={0} value={radius} max={1} step={0.1}></Input>
+            <Input onInput={linkState(this, `${statePrefix}.radius`)} name="radius" type={'range'} min={0} value={radius} max={1} step={0.1}></Input>
           </div>
         }
 
@@ -105,12 +105,14 @@ export function createMapSelectForm(inputFormEl: HTMLElement, state: FormState, 
         </div>
 
         <div>
+          <label for="partitionStrategy">Partition Strategy</label>
           <Input onInput={linkState(this, 'partitionStrategy.choice', 'target.value')} type={'radio'} name="partitionStrategy" value={'voronoi'} checked={state.partitionStrategy.choice === 'voronoi'}>Voronoi</Input>
           <Input onInput={linkState(this, 'partitionStrategy.choice', 'target.value')} type={'radio'} name="partitionStrategy" value={'square'} checked={state.partitionStrategy.choice === 'square'}>Square</Input>
           <PartitionStrategy {...state.partitionStrategy}></PartitionStrategy>
         </div>
 
         <div>
+          <label for="waterStrategy">Water Strategy</label>
           <Input onInput={linkState(this, 'waterStrategy.choice', 'target.value')} type={'radio'} name="waterStrategy" value={'perlin'} checked={state.waterStrategy.choice === 'perlin'}>Perlin</Input>
           <Input onInput={linkState(this, 'waterStrategy.choice', 'target.value')} type={'radio'} name="waterStrategy" value={'radial'} checked={state.waterStrategy.choice === 'radial'}>Radial</Input>
           <WaterStrategy {...state.waterStrategy}></WaterStrategy>

@@ -213,6 +213,7 @@ class MapSelectScene extends Scene {
       this.mapFormState = state;
       this.generateMap();
     });
+    this.generateMap();
   }
 
   public onHide() {
