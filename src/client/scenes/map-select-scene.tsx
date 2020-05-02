@@ -53,19 +53,21 @@ export function createMapSelectForm(inputFormEl: HTMLElement, state: FormState, 
 
     render(props: any, state: FormState) {
       const PartitionStrategy = (({ choice, options }: FormState['partitionStrategy']) => {
+        const statePrefix = `partitionStrategy.options.${choice}`;
+
         if (choice === 'voronoi') {
           const { points, relaxations } = options[choice];
           return <div>
-            <Input onInput={linkState(this, 'partitionStrategy.options.voronoi.points')} name="points" type={'number'} min={1} value={points} max={5000} step={50}></Input>
-            <Input onInput={linkState(this, 'partitionStrategy.options.voronoi.relaxations')} name="relaxations" type={'number'} min={0} value={relaxations} max={100} step={1}></Input>
+            <Input onInput={linkState(this, `${statePrefix}.points`)} name="points" type={'number'} min={1} value={points} max={5000} step={50}></Input>
+            <Input onInput={linkState(this, `${statePrefix}.relaxations`)} name="relaxations" type={'number'} min={0} value={relaxations} max={100} step={1}></Input>
           </div>
         }
 
         if (choice === 'square') {
           const { size, rand } = options[choice];
           return <div>
-            <Input onInput={linkState(this, 'partitionStrategy.options.square.size')} name="size" type={'number'} min={1} value={size} max={100} step={5}></Input>
-            <Input onInput={linkState(this, 'partitionStrategy.options.square.rand')} name="rand" type={'number'} min={0} value={rand} max={1} step={0.1}></Input>
+            <Input onInput={linkState(this, `${statePrefix}.size`)} name="size" type={'number'} min={1} value={size} max={100} step={5}></Input>
+            <Input onInput={linkState(this, `${statePrefix}.rand`)} name="rand" type={'number'} min={0} value={rand} max={0.5} step={0.1}></Input>
           </div>
         }
 
@@ -73,17 +75,19 @@ export function createMapSelectForm(inputFormEl: HTMLElement, state: FormState, 
       });
 
       const WaterStrategy = (({ choice, options }: FormState['waterStrategy']) => {
+        const statePrefix = `waterStrategy.options.${choice}`;
+
         if (choice === 'perlin') {
           const { percentage } = options[choice];
           return <div>
-            <Input onInput={linkState(this, 'partitionStrategy.options.perlin.percentage')} name="percentage" type={'number'} min={0} value={percentage} max={1} step={0.1}></Input>
+            <Input onInput={linkState(this, `${statePrefix}.percentage`)} name="percentage" type={'number'} min={0} value={percentage} max={1} step={0.1}></Input>
           </div>
         }
 
         if (choice === 'radial') {
           const { radius } = options[choice];
           return <div>
-            <Input onInput={linkState(this, 'partitionStrategy.options.radial.radius')} name="radius" type={'number'} min={0} value={radius} max={1} step={0.1}></Input>
+            <Input onInput={linkState(this, `${statePrefix}.radius`)} name="radius" type={'number'} min={0} value={radius} max={1} step={0.1}></Input>
           </div>
         }
 
@@ -136,7 +140,8 @@ export function stateToMapGenOptions(data: any) {
         // @ts-ignore
         handle(value.options[value.choice], dest[key]);
       } else {
-        dest[key] = value;
+        // coerce to number, because linkState saves number values as strings.
+        dest[key] = Number.isNaN(Number(value)) ? value : Number(value);
       }
     }
   }
