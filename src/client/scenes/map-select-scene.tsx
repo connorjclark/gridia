@@ -76,14 +76,14 @@ export function createMapSelectForm(inputFormEl: HTMLElement, state: FormState, 
         if (choice === 'perlin') {
           const { percentage } = options[choice];
           return <div>
-            <Input onInput={linkState(this, 'partitionStrategy.options.voronoi.percentage')} name="percentage" type={'number'} min={0} value={percentage} max={1} step={0.1}></Input>
+            <Input onInput={linkState(this, 'partitionStrategy.options.perlin.percentage')} name="percentage" type={'number'} min={0} value={percentage} max={1} step={0.1}></Input>
           </div>
         }
 
         if (choice === 'radial') {
           const { radius } = options[choice];
           return <div>
-            <Input onInput={linkState(this, 'partitionStrategy.options.square.radius')} name="radius" type={'number'} min={0} value={radius} max={1} step={0.1}></Input>
+            <Input onInput={linkState(this, 'partitionStrategy.options.radial.radius')} name="radius" type={'number'} min={0} value={radius} max={1} step={0.1}></Input>
           </div>
         }
 
