@@ -7,8 +7,6 @@
   <script src="./main.ts"></script>
   <style>
     * {
-      padding: 0;
-      margin: 0;
       user-select: none;
     }
 
@@ -19,12 +17,17 @@
     }
 
     body {
+      margin: 0;
       overflow-x: hidden;
       overflow-y: hidden;
       width: 100%;
       display: flex;
       flex-direction: column;
       background-color: darkgrey;
+    }
+
+    button {
+      margin: 5px;
     }
 
     .hidden {
@@ -181,6 +184,7 @@
       flex-grow: 1;
     }
   </style>
+  <link rel="stylesheet" href="styles/buttons.css">
 </head>
 
 <body>
@@ -190,13 +194,13 @@
 
   <div class="start hidden">
     <div>
-      <button class="start--local-btn">Local / Single Player</button>
+      <button class="blue start--local-btn">Local / Single Player</button>
     </div>
 
     <div>
       <label for="start--server-location">Server Location</label>
       <input type="text" name="server-location" id="start--server-location"></label>
-      <button class="start--connect-btn">Connect</button>
+      <button class="blue start--connect-btn">Connect</button>
     </div>
   </div>
 
