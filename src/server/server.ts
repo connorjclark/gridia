@@ -95,7 +95,7 @@ export default class Server {
   public async registerPlayer(clientConnection: ClientConnection, opts: RegisterOpts) {
     const { width, height } = this.context.map.getPartition(0);
 
-    const center = {w: 0, x: Math.round(width / 2), y: Math.round(height / 2), z: 0};
+    const center = {w: 0, x: Math.round(width / 2), y: Math.round(height / 2) + 3, z: 0};
     // Make sure sector is loaded. Prevents hidden creature (race condition, happens often in worker).
     await this.ensureSectorLoadedForPoint(center);
     const spawnLoc = this.findNearest(center, 10, true, (_, loc) => this.context.map.walkable(loc)) || center;

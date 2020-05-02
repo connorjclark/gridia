@@ -101,7 +101,7 @@ export class ContainerWindow extends GridiaWindow {
 }
 
 export class PossibleUsagesWindow extends GridiaWindow {
-  private _possibleUsagesGrouped: Map<ItemUse, PossibleUsage[]> = new Map();
+  private _possibleUsagesGrouped: PossibleUsage[][] = [];
   private _onSelectUsage?: (possibleUsage: PossibleUsage) => void;
 
   constructor() {
@@ -113,24 +113,26 @@ export class PossibleUsagesWindow extends GridiaWindow {
       const y = e.data.getLocalPosition(e.target).y;
       const index = Math.floor(y / 32);
       // TODO: Choose which possible usage, somehow.
-      const possibleUsage = [...this._possibleUsagesGrouped.values()][index][0];
+      const possibleUsage = this._possibleUsagesGrouped[index][0];
       if (possibleUsage) this._onSelectUsage(possibleUsage);
     });
   }
 
   public setPossibleUsages(possibleUsages: PossibleUsage[]) {
     // Group by usage.
-    this._possibleUsagesGrouped.clear();
+    const possibleUsagesGroupedMap = new Map<ItemUse, PossibleUsage[]>();
     for (const possibleUsage of possibleUsages) {
-      const group = this._possibleUsagesGrouped.get(possibleUsage.use) || [];
+      const group = possibleUsagesGroupedMap.get(possibleUsage.use) || [];
       group.push(possibleUsage);
-      this._possibleUsagesGrouped.set(possibleUsage.use, group);
+      possibleUsagesGroupedMap.set(possibleUsage.use, group);
     }
+    this._possibleUsagesGrouped = [...possibleUsagesGroupedMap.values()];
 
     this.contents.removeChildren();
-    for (const possibleUsagesGroup of this._possibleUsagesGrouped.values()) {
-      const i = this.contents.children.length;
+    for (let i = 0; i < this._possibleUsagesGrouped.length; i++) {
+      const possibleUsagesGroup = this._possibleUsagesGrouped[i];
       const possibleUsage = possibleUsagesGroup[0];
+
       const products = possibleUsage.use.products.filter((p) => p.type);
       if (possibleUsage.use.successTool) products.unshift({ type: possibleUsage.use.successTool, quantity: 1 });
       for (const [j, product] of products.entries()) {
