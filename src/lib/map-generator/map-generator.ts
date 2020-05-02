@@ -4,8 +4,12 @@
 // tslint:disable no-shadowed-variable
 
 import { Delaunay } from 'd3-delaunay';
-import SeedRandom from 'seedrandom';
+import SeedRandomBrowser from 'seedrandom';
+import * as SeedRandomNode from 'seedrandom';
 import * as Perlin from '../perlin/perlin';
+
+// For some reason, different imports are needed for browser/node.
+const SeedRandom = SeedRandomBrowser || SeedRandomNode;
 
 export type MapGenerationResult = ReturnType<typeof generate>;
 
