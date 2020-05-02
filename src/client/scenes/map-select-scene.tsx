@@ -1,5 +1,6 @@
 import { render, h, Component, Fragment } from 'preact';
 import linkState from 'linkstate';
+import { randInt } from '../../utils';
 
 export const DEFAULT_MAP_FORM_STATE = {
   width: 200,
@@ -30,12 +31,16 @@ export const DEFAULT_MAP_FORM_STATE = {
       },
     },
   },
-  seeds: {} as { [type: string]: number },
+  seeds: {
+    partition: randInt(1, 10000),
+    rivers: randInt(1, 10000),
+    water: randInt(1, 10000),
+  },
 };
 
 type FormState = typeof DEFAULT_MAP_FORM_STATE;
 
-export function createMapSelectForm(inputFormEl: HTMLElement, state: FormState, onStateUpdate: (state: FormState) => void) {
+export function createMapSelectForm(inputFormEl: HTMLElement, onStateUpdate: (state: FormState) => void) {
   const Input = (props: any) => {
     return <Fragment>
       <label>{props.children || props.name}</label>
@@ -45,10 +50,14 @@ export function createMapSelectForm(inputFormEl: HTMLElement, state: FormState, 
   };
 
   class MapSelectForm extends Component<any, FormState> {
-    state = state // oh god.
+    state = DEFAULT_MAP_FORM_STATE
 
-    componentWillUpdate(props: any, state: FormState) {
-      props.onUpdate(state);
+    componentDidMount() {
+      this.props.onUpdate(stateToMapGenOptions(this.state));
+    }
+    
+    componentDidUpdate(props: any) {
+      props.onUpdate(stateToMapGenOptions(this.state));
     }
 
     render(props: any, state: FormState) {
@@ -131,7 +140,7 @@ export function createMapSelectForm(inputFormEl: HTMLElement, state: FormState, 
   render(<MapSelectForm onUpdate={onStateUpdate}></MapSelectForm>, inputFormEl);
 }
 
-export function stateToMapGenOptions(data: any) {
+function stateToMapGenOptions(data: any) {
   const options = {} as any;
 
   function handle(src: any, dest: any) {

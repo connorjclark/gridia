@@ -10,7 +10,7 @@ import AdminClientModule from './modules/admin-module';
 import MovementClientModule from './modules/movement-module';
 import SettingsClientModule from './modules/settings-module';
 import SkillsClientModule from './modules/skills-module';
-import { createMapSelectForm, DEFAULT_MAP_FORM_STATE, stateToMapGenOptions } from './scenes/map-select-scene';
+import { createMapSelectForm } from './scenes/map-select-scene';
 import { ServerWorker } from './server-worker';
 
 function parseQuery(queryString: string) {
@@ -141,7 +141,6 @@ class MapSelectScene extends Scene {
   private previewEl: HTMLElement;
   private inputFormEl: HTMLElement;
   private loadingPreview = false;
-  private mapFormState = JSON.parse(JSON.stringify(DEFAULT_MAP_FORM_STATE));
 
   constructor() {
     super(Helper.find('.map-select'));
@@ -167,15 +166,13 @@ class MapSelectScene extends Scene {
     }
   }
 
-  public async generateMap() {
+  public async generateMap(opts: any) {
     if (this.loadingPreview) return;
     this.loadingPreview = true;
 
     const canvas = document.createElement('canvas') as HTMLCanvasElement;
     const offscreen = canvas.transferControlToOffscreen();
-    const opts = stateToMapGenOptions(this.mapFormState);
-    const seeds = await generateMap(opts, offscreen).finally(() => this.loadingPreview = false);
-    this.mapFormState.seeds = seeds;
+    await generateMap(opts, offscreen).finally(() => this.loadingPreview = false);
 
     this.previewEl.innerHTML = '';
     this.previewEl.append(canvas);
@@ -209,11 +206,7 @@ class MapSelectScene extends Scene {
     this.previewEl.innerHTML = '';
     this.selectBtn.classList.add('hidden');
     this.renderMapSelection();
-    createMapSelectForm(this.inputFormEl, this.mapFormState, (state) => {
-      this.mapFormState = state;
-      this.generateMap();
-    });
-    this.generateMap();
+    createMapSelectForm(this.inputFormEl, this.generateMap.bind(this));
   }
 
   public onHide() {
@@ -429,8 +422,8 @@ async function loadMap(name: string) {
   controller.pushScene(new RegisterScene());
 }
 
-async function generateMap(opts: any, offscreenCanvas?: OffscreenCanvas) {
-  return await controller.serverWorker.generateMap({
+function generateMap(opts: any, offscreenCanvas?: OffscreenCanvas) {
+  return controller.serverWorker.generateMap({
     ...opts,
     canvas: offscreenCanvas,
   });
