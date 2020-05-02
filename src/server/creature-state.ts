@@ -1,4 +1,5 @@
 import { findPath } from '../path-finding';
+import performance from '../performance';
 import * as Utils from '../utils';
 import WorldMapPartition from '../world-map-partition';
 import Server from './server';
