@@ -66,8 +66,6 @@ async function generateMap(args: GenerateMapArgs) {
     // This draws to the OffscreenCanvas.
     makeMapImage(mapPreviewGenData);
   }
-
-  return mapPreviewGenData?.seeds ?? {};
 }
 
 async function saveGeneratedMap(args: { name: string }) {

@@ -10,7 +10,7 @@ import AdminClientModule from './modules/admin-module';
 import MovementClientModule from './modules/movement-module';
 import SettingsClientModule from './modules/settings-module';
 import SkillsClientModule from './modules/skills-module';
-import { createMapSelectForm, getMapGenOpts } from './scenes/map-select-scene';
+import { createMapSelectForm } from './scenes/map-select-scene';
 import { ServerWorker } from './server-worker';
 
 function parseQuery(queryString: string) {
@@ -148,11 +148,9 @@ class MapSelectScene extends Scene {
     this.selectBtn = Helper.find('.generate--select-btn', this.element);
     this.previewEl = Helper.find('.generate--preview', this.element);
     this.inputFormEl = Helper.find('.generate--input-form', this.element);
-    this.onFormChange = this.onFormChange.bind(this);
+    this.generateMap = this.generateMap.bind(this);
     this.onClickSelectBtn = this.onClickSelectBtn.bind(this);
     this.onSelectMap = this.onSelectMap.bind(this);
-
-    createMapSelectForm(this.inputFormEl);
   }
 
   public async renderMapSelection() {
@@ -168,16 +166,13 @@ class MapSelectScene extends Scene {
     }
   }
 
-  public async onFormChange() {
+  public async generateMap(opts: any) {
     if (this.loadingPreview) return;
     this.loadingPreview = true;
 
     const canvas = document.createElement('canvas') as HTMLCanvasElement;
     const offscreen = canvas.transferControlToOffscreen();
-    const opts = getMapGenOpts(this.inputFormEl);
-    const seeds = await generateMap(opts, offscreen).finally(() => this.loadingPreview = false);
-    // @ts-ignore
-    Helper.find('.generate--seeds-input').value = Object.entries(seeds).map(([k, v]) => `${k}=${v}`).join(',');
+    await generateMap(opts, offscreen).finally(() => this.loadingPreview = false);
 
     this.previewEl.innerHTML = '';
     this.previewEl.append(canvas);
@@ -205,19 +200,17 @@ class MapSelectScene extends Scene {
 
   public onShow() {
     super.onShow();
-    this.inputFormEl.addEventListener('change', this.onFormChange);
     this.selectBtn.addEventListener('click', this.onClickSelectBtn);
     this.mapListEl.addEventListener('click', this.onSelectMap);
     this.loadingPreview = false;
     this.previewEl.innerHTML = '';
     this.selectBtn.classList.add('hidden');
     this.renderMapSelection();
-    this.onFormChange();
+    createMapSelectForm(this.inputFormEl, this.generateMap.bind(this));
   }
 
   public onHide() {
     super.onHide();
-    this.inputFormEl.removeEventListener('change', this.onFormChange);
     this.selectBtn.removeEventListener('click', this.onClickSelectBtn);
     this.mapListEl.removeEventListener('click', this.onSelectMap);
   }
@@ -429,8 +422,8 @@ async function loadMap(name: string) {
   controller.pushScene(new RegisterScene());
 }
 
-async function generateMap(opts: any, offscreenCanvas?: OffscreenCanvas) {
-  return await controller.serverWorker.generateMap({
+function generateMap(opts: any, offscreenCanvas?: OffscreenCanvas) {
+  return controller.serverWorker.generateMap({
     ...opts,
     canvas: offscreenCanvas,
   });
