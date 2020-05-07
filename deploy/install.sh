@@ -13,7 +13,7 @@ yarn build-prod
 
 # Client
 # TODO: Setup webserver too.
-rsync -ahvz --delete ./dist/client/ /var/www/hoten.cc/public_html/gridia
+rsync -ahvz --delete ./dist/client/ /var/www/hoten.cc/public_html/gridia/play
 
 # Server
 
