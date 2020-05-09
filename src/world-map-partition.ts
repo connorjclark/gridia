@@ -84,6 +84,38 @@ class WorldMapPartition {
     return tiles;
   }
 
+  public *getIteratorForArea(start: Point3, width: number, height: number) {
+    start = {
+      x: Utils.clamp(start.x, 0, this.width),
+      y: Utils.clamp(start.y, 0, this.height),
+      z: start.z,
+    };
+    if (start.x + width >= this.width) width = this.width - start.x;
+    if (start.y + height >= this.height) height = this.height - start.y;
+
+    // Do some caching for current sector.
+    let currentSector;
+
+    const cur = { ...start };
+    for (let x = 0; x < width; x++) {
+      currentSector = null;
+      cur.y = start.y;
+
+      for (let y = 0; y < height; y++) {
+        if ((cur.y % SECTOR_SIZE === 0) || (cur.y % SECTOR_SIZE === SECTOR_SIZE - 1)) currentSector = null;
+
+        if (!currentSector) currentSector = this.getSector(Utils.worldToSector(cur, SECTOR_SIZE));
+        if (currentSector) {
+          yield { pos: cur, tile: currentSector[cur.x % SECTOR_SIZE][cur.y % SECTOR_SIZE] };
+        }
+
+        cur.y++;
+      }
+
+      cur.x++;
+    }
+  }
+
   private _loadSector(sectorPoint: PartitionPoint) {
     if (!this.loader) throw new Error('loader not set');
     const key = JSON.stringify(sectorPoint);

@@ -731,6 +731,7 @@ class Game {
   }
 
   public tick() {
+    const now = performance.now();
     this.state.elapsedFrames = (this.state.elapsedFrames + 1) % 60000;
 
     Draw.sweepTexts();
@@ -780,101 +781,96 @@ class Game {
     const endTileY = startTileY + tilesHeight;
 
     this.layers.floorLayer.clear();
-    for (let x = startTileX; x <= endTileX; x++) {
-      for (let y = startTileY; y <= endTileY; y++) {
-        const floor = partition.getTile({ x, y, z }).floor;
-
-        let template;
-        if (floor === WATER) {
-          const templateIdx = getWaterFloor(partition, { x, y, z });
-          template = Draw.getTexture.templates(templateIdx);
-        } else if (floor === MINE) {
-          const templateIdx = getMineFloor(partition, { x, y, z });
-          template = Draw.getTexture.templates(templateIdx);
-        } else {
-          template = Draw.getTexture.floors(floor);
-        }
-
-        if (template !== PIXI.Texture.EMPTY) {
-          this.layers.floorLayer
-            .beginTextureFill({ texture: template })
-            .drawRect(x * GFX_SIZE, y * GFX_SIZE, GFX_SIZE, GFX_SIZE)
-            .endFill();
-        }
-      }
-    }
 
     this.layers.itemAndCreatureLayer.clear();
     this.layers.itemAndCreatureLayer.removeChildren();
-    for (let x = startTileX; x <= endTileX; x++) {
-      for (let y = startTileY; y <= endTileY; y++) {
-        const tile = partition.getTile({ x, y, z });
-        if (tile.item) {
-          const template = Draw.makeItemTemplate(tile.item);
-          if (template !== PIXI.Texture.EMPTY) {
-            this.layers.itemAndCreatureLayer
-              .beginTextureFill({ texture: template })
-              .drawRect(x * GFX_SIZE, y * GFX_SIZE, GFX_SIZE, GFX_SIZE)
-              .endFill();
 
-            if (tile.item.quantity !== 1) {
-              const qty = Draw.makeItemQuantity(tile.item.quantity);
-              // Wrap in a container because text field are memoized and so their
-              // x,y values should never be modified.
-              const ctn = new PIXI.Container();
-              ctn.addChild(qty);
-              ctn.x = x * GFX_SIZE;
-              ctn.y = y * GFX_SIZE;
-              this.layers.itemAndCreatureLayer.addChild(ctn);
-            }
+    const start = { x: startTileX, y: startTileY, z };
+    for (const { pos, tile } of partition.getIteratorForArea(start, tilesWidth + 1, tilesHeight + 1)) {
+      const { x, y } = pos;
+      let template;
+
+      if (tile.floor === WATER) {
+        const templateIdx = getWaterFloor(partition, pos);
+        template = Draw.getTexture.templates(templateIdx);
+      } else if (tile.floor === MINE) {
+        const templateIdx = getMineFloor(partition, pos);
+        template = Draw.getTexture.templates(templateIdx);
+      } else {
+        template = Draw.getTexture.floors(tile.floor);
+      }
+
+      if (template !== PIXI.Texture.EMPTY) {
+        this.layers.floorLayer
+          .beginTextureFill({ texture: template })
+          .drawRect(x * GFX_SIZE, y * GFX_SIZE, GFX_SIZE, GFX_SIZE)
+          .endFill();
+      }
+
+      if (tile.item) {
+        template = Draw.makeItemTemplate(tile.item);
+        if (template !== PIXI.Texture.EMPTY) {
+          this.layers.itemAndCreatureLayer
+            .beginTextureFill({ texture: template })
+            .drawRect(x * GFX_SIZE, y * GFX_SIZE, GFX_SIZE, GFX_SIZE)
+            .endFill();
+
+          if (tile.item.quantity !== 1) {
+            const qty = Draw.makeItemQuantity(tile.item.quantity);
+            // Wrap in a container because text field are memoized and so their
+            // x,y values should never be modified.
+            const ctn = new PIXI.Container();
+            ctn.addChild(qty);
+            ctn.x = x * GFX_SIZE;
+            ctn.y = y * GFX_SIZE;
+            this.layers.itemAndCreatureLayer.addChild(ctn);
           }
         }
+      }
 
-        if (tile.creature) {
-          const width = tile.creature.imagetype || 1;
-          const height = tile.creature.imagetype || 1;
-          const template = Draw.getTexture.creatures(tile.creature.image, width, height);
-          if (template !== PIXI.Texture.EMPTY) {
-            const creatureGfx = new PIXI.Graphics();
-            creatureGfx.x = x * GFX_SIZE;
-            creatureGfx.y = (y - height + 1) * GFX_SIZE;
+      if (tile.creature) {
+        const width = tile.creature.imagetype || 1;
+        const height = tile.creature.imagetype || 1;
+        template = Draw.getTexture.creatures(tile.creature.image, width, height);
+        if (template !== PIXI.Texture.EMPTY) {
+          const creatureGfx = new PIXI.Graphics();
+          creatureGfx.x = x * GFX_SIZE;
+          creatureGfx.y = (y - height + 1) * GFX_SIZE;
 
+          creatureGfx
+            .beginTextureFill({ texture: template })
+            .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
+            .endFill();
+
+          if (tile.creature.tamedBy) {
             creatureGfx
-              .beginTextureFill({ texture: template })
-              .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
-              .endFill();
-
-            if (tile.creature.tamedBy) {
-              creatureGfx
-                .lineStyle(1, 0x0000FF)
-                .drawCircle(GFX_SIZE / 2, GFX_SIZE / 2, GFX_SIZE / 2)
-                .lineStyle();
-            }
-
-            if (tile.creature !== this._playerCreature && Utils.equalPoints(this.state.mouse.tile, tile.creature.pos)) {
-              const GRAY = 0x606060;
-              const BLUE = 0x000088;
-              const RED = 0x880000;
-              const color = [GRAY, BLUE, RED][tile.creature.id % 3]; // TODO: base on enemy/neutral/good
-              creatureGfx.filters = [new OutlineFilter(2, color, 1)];
-            }
-
-            this.layers.itemAndCreatureLayer.addChild(creatureGfx);
+              .lineStyle(1, 0x0000FF)
+              .drawCircle(GFX_SIZE / 2, GFX_SIZE / 2, GFX_SIZE / 2)
+              .lineStyle();
           }
 
-          // const label = Draw.pooledText(`creature${tile.creature.id}`, tile.creature.name, {
-          //   fill: 'white', stroke: 'black', strokeThickness: 3, lineJoin: 'round', fontSize: 16});
-          // label.anchor.x = 0.5;
-          // label.anchor.y = 1;
-          // creatureSprite.addChild(label);
+          if (tile.creature !== this._playerCreature && Utils.equalPoints(this.state.mouse.tile, tile.creature.pos)) {
+            const GRAY = 0x606060;
+            const BLUE = 0x000088;
+            const RED = 0x880000;
+            const color = [GRAY, BLUE, RED][tile.creature.id % 3]; // TODO: base on enemy/neutral/good
+            creatureGfx.filters = [new OutlineFilter(2, color, 1)];
+          }
+
+          this.layers.itemAndCreatureLayer.addChild(creatureGfx);
         }
+
+        // const label = Draw.pooledText(`creature${tile.creature.id}`, tile.creature.name, {
+        //   fill: 'white', stroke: 'black', strokeThickness: 3, lineJoin: 'round', fontSize: 16});
+        // label.anchor.x = 0.5;
+        // label.anchor.y = 1;
+        // creatureSprite.addChild(label);
       }
     }
 
     this.layers.topLayer.clear();
     this.layers.topLayer.removeChildren();
 
-    const now = performance.now();
     for (const animation of this._animations) {
       if (now >= animation.nextFrameAt) {
         animation.nextFrameAt = now + 100;
