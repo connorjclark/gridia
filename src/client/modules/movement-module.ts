@@ -35,12 +35,11 @@ class MovementClientModule extends ClientModule {
     });
   }
 
-  public onTick() {
+  public onTick(now: number) {
     const focusCreature = this.game.client.creature;
     const focusPos = this.game.getPlayerPosition();
     const w = focusPos.w;
     const partition = this.game.client.context.map.getPartition(w);
-    const now = performance.now(); // TODO should be passed in.
 
     if (!focusCreature) return;
     // if (this.game.client.context.map.width === 0) return;

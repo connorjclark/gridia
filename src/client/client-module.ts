@@ -7,7 +7,7 @@ abstract class ClientModule {
     // empty
   }
 
-  public onTick() {
+  public onTick(now: number) {
     // empty
   }
 }

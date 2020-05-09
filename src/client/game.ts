@@ -951,7 +951,9 @@ class Game {
       this._currentHoverItemText.visible = false;
     }
 
-    this.modules.forEach((clientModule) => clientModule.onTick());
+    for (const clientModule of this.modules) {
+      clientModule.onTick(now);
+    }
 
     if (this.isEditingMode()) {
       clearSelectedView();
