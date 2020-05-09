@@ -766,11 +766,11 @@ class Game {
     const GFX_SCREEN_SIZE = this.state.viewport.scale * GFX_SIZE;
 
     this.world.scale.x = this.world.scale.y = this.state.viewport.scale;
-    this.world.x = -focusPos.x * GFX_SCREEN_SIZE + Math.floor(this.app.view.width / 2);
-    this.world.y = -focusPos.y * GFX_SCREEN_SIZE + Math.floor(this.app.view.height / 2);
+    this.world.x = -this.client.clientFocusPosition.x * GFX_SCREEN_SIZE + Math.floor(this.app.view.width / 2);
+    this.world.y = -this.client.clientFocusPosition.y * GFX_SCREEN_SIZE + Math.floor(this.app.view.height / 2);
 
-    this.state.viewport.x = focusPos.x * GFX_SCREEN_SIZE - this.app.view.width / 2;
-    this.state.viewport.y = focusPos.y * GFX_SCREEN_SIZE - this.app.view.height / 2;
+    this.state.viewport.x = this.client.clientFocusPosition.x * GFX_SCREEN_SIZE - this.app.view.width / 2;
+    this.state.viewport.y = this.client.clientFocusPosition.y * GFX_SCREEN_SIZE - this.app.view.height / 2;
 
     const tilesWidth = Math.ceil(this.app.view.width / GFX_SCREEN_SIZE);
     const tilesHeight = Math.ceil(this.app.view.height / GFX_SCREEN_SIZE);

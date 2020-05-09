@@ -8,10 +8,14 @@ import Game from '../game';
 import * as Helper from '../helper';
 import KEYS from '../keys';
 
+const MOVEMENT_DURATION = 200;
+
 class MovementClientModule extends ClientModule {
   protected followCreature?: Creature;
   protected pathToDestination?: PartitionPoint[];
-  protected lastMove: number = performance.now();
+  protected canMoveAgainAt: number = 0;
+  protected movementDirection: Point2 | null = null;
+  protected movementFrom: Point4 | null = null;
 
   constructor(game: Game) {
     super(game);
@@ -36,11 +40,14 @@ class MovementClientModule extends ClientModule {
     const focusPos = this.game.getPlayerPosition();
     const w = focusPos.w;
     const partition = this.game.client.context.map.getPartition(w);
+    const now = performance.now(); // TODO should be passed in.
 
     if (!focusCreature) return;
     // if (this.game.client.context.map.width === 0) return;
 
-    if (performance.now() - this.lastMove > 300) {
+    if (now >= this.canMoveAgainAt) {
+      this.game.client.clientFocusPosition = {...focusPos};
+
       let dest: TilePoint = { ...focusCreature.pos };
 
       const keyInputDelta = {x: 0, y: 0, z: 0};
@@ -91,12 +98,24 @@ class MovementClientModule extends ClientModule {
         }
 
         if (this.game.client.context.map.walkable(dest)) {
-          this.lastMove = performance.now();
+          this.canMoveAgainAt = now + MOVEMENT_DURATION;
+          this.movementDirection = {
+            x: Utils.clamp(dest.x - focusPos.x, -1, 1),
+            y: Utils.clamp(dest.y - focusPos.y, -1, 1),
+          };
+          this.movementFrom = {...focusPos};
           this.game.client.connection.send(ProtocolBuilder.move(dest));
           this.game.client.eventEmitter.emit('playerMove', {from: focusCreature.pos, to: dest});
           delete this.game.state.mouse.tile;
         }
       }
+    } else {
+      if (!this.movementDirection || !this.movementFrom) return;
+
+      const dt = now - (this.canMoveAgainAt - MOVEMENT_DURATION);
+      const ratio = dt / MOVEMENT_DURATION;
+      this.game.client.clientFocusPosition.x = this.movementFrom.x +  this.movementDirection.x * ratio;
+      this.game.client.clientFocusPosition.y =  this.movementFrom.y + this.movementDirection.y * ratio;
     }
   }
 

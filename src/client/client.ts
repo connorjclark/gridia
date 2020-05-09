@@ -11,6 +11,8 @@ interface Settings {
 class Client {
   public isAdmin = false;
   public creatureId = 0;
+  public clientFocusPosition: Point4 = {w: 0, x: 0, y: 0, z: 0};
+
   public containerId = 0;
   public eventEmitter = new EventEmitter();
   public settings: Settings = {
