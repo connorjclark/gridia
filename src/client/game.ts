@@ -1,5 +1,5 @@
 import { OutlineFilter } from '@pixi/filter-outline';
-import { MINE, WATER } from '../constants';
+import { GFX_SIZE, MINE, WATER } from '../constants';
 import * as Content from '../content';
 import { game } from '../game-singleton';
 import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
@@ -762,18 +762,20 @@ class Game {
       window.draw();
     }
 
-    const TILE_SIZE = this.state.viewport.scale * 32;
+    // Size of tile on screen.
+    const GFX_SCREEN_SIZE = this.state.viewport.scale * GFX_SIZE;
+
     this.world.scale.x = this.world.scale.y = this.state.viewport.scale;
-    this.world.x = -focusPos.x * TILE_SIZE + Math.floor(this.app.view.width / 2);
-    this.world.y = -focusPos.y * TILE_SIZE + Math.floor(this.app.view.height / 2);
+    this.world.x = -focusPos.x * GFX_SCREEN_SIZE + Math.floor(this.app.view.width / 2);
+    this.world.y = -focusPos.y * GFX_SCREEN_SIZE + Math.floor(this.app.view.height / 2);
 
-    this.state.viewport.x = focusPos.x * TILE_SIZE - this.app.view.width / 2;
-    this.state.viewport.y = focusPos.y * TILE_SIZE - this.app.view.height / 2;
+    this.state.viewport.x = focusPos.x * GFX_SCREEN_SIZE - this.app.view.width / 2;
+    this.state.viewport.y = focusPos.y * GFX_SCREEN_SIZE - this.app.view.height / 2;
 
-    const tilesWidth = Math.ceil(this.app.view.width / TILE_SIZE);
-    const tilesHeight = Math.ceil(this.app.view.height / TILE_SIZE);
-    const startTileX = Math.floor(this.state.viewport.x / TILE_SIZE);
-    const startTileY = Math.floor(this.state.viewport.y / TILE_SIZE);
+    const tilesWidth = Math.ceil(this.app.view.width / GFX_SCREEN_SIZE);
+    const tilesHeight = Math.ceil(this.app.view.height / GFX_SCREEN_SIZE);
+    const startTileX = Math.floor(this.state.viewport.x / GFX_SCREEN_SIZE);
+    const startTileY = Math.floor(this.state.viewport.y / GFX_SCREEN_SIZE);
     const endTileX = startTileX + tilesWidth;
     const endTileY = startTileY + tilesHeight;
 
@@ -796,7 +798,7 @@ class Game {
         if (template !== PIXI.Texture.EMPTY) {
           this.layers.floorLayer
             .beginTextureFill({ texture: template })
-            .drawRect(x * 32, y * 32, 32, 32)
+            .drawRect(x * GFX_SIZE, y * GFX_SIZE, GFX_SIZE, GFX_SIZE)
             .endFill();
         }
       }
@@ -812,7 +814,7 @@ class Game {
           if (template !== PIXI.Texture.EMPTY) {
             this.layers.itemAndCreatureLayer
               .beginTextureFill({ texture: template })
-              .drawRect(x * 32, y * 32, 32, 32)
+              .drawRect(x * GFX_SIZE, y * GFX_SIZE, GFX_SIZE, GFX_SIZE)
               .endFill();
 
             if (tile.item.quantity !== 1) {
@@ -821,8 +823,8 @@ class Game {
               // x,y values should never be modified.
               const ctn = new PIXI.Container();
               ctn.addChild(qty);
-              ctn.x = x * 32;
-              ctn.y = y * 32;
+              ctn.x = x * GFX_SIZE;
+              ctn.y = y * GFX_SIZE;
               this.layers.itemAndCreatureLayer.addChild(ctn);
             }
           }
@@ -834,18 +836,18 @@ class Game {
           const template = Draw.getTexture.creatures(tile.creature.image, width, height);
           if (template !== PIXI.Texture.EMPTY) {
             const creatureGfx = new PIXI.Graphics();
-            creatureGfx.x = x * 32;
-            creatureGfx.y = (y - height + 1) * 32;
+            creatureGfx.x = x * GFX_SIZE;
+            creatureGfx.y = (y - height + 1) * GFX_SIZE;
 
             creatureGfx
               .beginTextureFill({ texture: template })
-              .drawRect(0, 0, width * 32, height * 32)
+              .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
               .endFill();
 
             if (tile.creature.tamedBy) {
               creatureGfx
                 .lineStyle(1, 0x0000FF)
-                .drawCircle(16, 16, 16)
+                .drawCircle(GFX_SIZE / 2, GFX_SIZE / 2, GFX_SIZE / 2)
                 .lineStyle();
             }
 
@@ -891,7 +893,7 @@ class Game {
       const template = Draw.getTexture.animations(animation.frames[animation.frame].sprite);
       this.layers.topLayer
         .beginTextureFill({ texture: template })
-        .drawRect(animation.loc.x * 32, animation.loc.y * 32, 32, 32)
+        .drawRect(animation.loc.x * GFX_SIZE, animation.loc.y * GFX_SIZE, GFX_SIZE, GFX_SIZE)
         .endFill();
     }
 
@@ -902,13 +904,13 @@ class Game {
       // const { x, y } = mouseToWorld(this.state.mouse);
       // this.layers.topLayer
       //   .beginTextureFill(template)
-      //   .drawRect(x, y, 32, 32)
+      //   .drawRect(x, y, GFX_SIZE, GFX_SIZE)
       //   .endFill();
 
       const itemSprite = Draw.makeItemSprite(this.itemMovingState.item);
       const { x, y } = mouseToWorld(this.state.mouse);
-      itemSprite.x = x - 16;
-      itemSprite.y = y - 16;
+      itemSprite.x = x - GFX_SIZE / 2;
+      itemSprite.y = y - GFX_SIZE / 2;
       this.layers.topLayer.addChild(itemSprite);
     }
 
@@ -918,8 +920,8 @@ class Game {
       this.state.selectedView.tile;
     if (selectedViewLoc) {
       const highlight = Draw.makeHighlight(0xffff00, 0.2);
-      highlight.x = selectedViewLoc.x * 32;
-      highlight.y = selectedViewLoc.y * 32;
+      highlight.x = selectedViewLoc.x * GFX_SIZE;
+      highlight.y = selectedViewLoc.y * GFX_SIZE;
       this.layers.topLayer.addChild(highlight);
 
       // If item is the selected view, draw selected tool if usable.
@@ -943,7 +945,7 @@ class Game {
       this._currentHoverItemText.visible = true;
       this._currentHoverItemText.anchor.x = 1;
       this._currentHoverItemText.anchor.y = 1;
-      this._currentHoverItemText.x = this.app.view.width - 10;
+      this._currentHoverItemText.x = this.app.view.width - GFX_SIZE * 0.3;
       this._currentHoverItemText.y = this.app.view.height;
     } else {
       this._currentHoverItemText.visible = false;

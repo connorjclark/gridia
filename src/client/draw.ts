@@ -1,3 +1,4 @@
+import { GFX_SIZE } from '../constants';
 import Container from '../container';
 import * as Content from '../content';
 import { game } from '../game-singleton';
@@ -111,7 +112,7 @@ export class PossibleUsagesWindow extends GridiaWindow {
       if (!this._onSelectUsage) return;
 
       const y = e.data.getLocalPosition(e.target).y;
-      const index = Math.floor(y / 32);
+      const index = Math.floor(y / GFX_SIZE);
       // TODO: Choose which possible usage, somehow.
       const possibleUsage = this._possibleUsagesGrouped[index][0];
       if (possibleUsage) this._onSelectUsage(possibleUsage);
@@ -137,8 +138,8 @@ export class PossibleUsagesWindow extends GridiaWindow {
       if (possibleUsage.use.successTool) products.unshift({ type: possibleUsage.use.successTool, quantity: 1 });
       for (const [j, product] of products.entries()) {
         const itemSprite = makeItemSprite(product);
-        itemSprite.x = j * 32;
-        itemSprite.y = i * 32;
+        itemSprite.x = j * GFX_SIZE;
+        itemSprite.y = i * GFX_SIZE;
         this.contents.addChild(itemSprite);
       }
     }
@@ -167,10 +168,9 @@ function makeTextureCache(resourceType: string) {
       return PIXI.Texture.EMPTY;
     }
 
-    texture = new PIXI.Texture(
-      PIXI.Loader.shared.resources[resourceKey].texture.baseTexture,
-      new PIXI.Rectangle((type % 10) * 32, Math.floor((type % 100) / 10) * 32, tilesWidth * 32, tilesHeight * 32),
-    );
+    const rect = new PIXI.Rectangle(
+      (type % 10) * GFX_SIZE, Math.floor((type % 100) / 10) * GFX_SIZE, tilesWidth * GFX_SIZE, tilesHeight * GFX_SIZE);
+    texture = new PIXI.Texture(PIXI.Loader.shared.resources[resourceKey].texture.baseTexture, rect);
     textureCache.set(type, texture);
     return texture;
   };
@@ -211,7 +211,7 @@ export function makeItemContainerWindow(container: Container): ContainerWindow {
   window.contents
     .on('pointerdown', (e: PIXI.interaction.InteractionEvent) => {
       const x = e.data.getLocalPosition(e.target).x;
-      const index = Math.floor(x / 32);
+      const index = Math.floor(x / GFX_SIZE);
       if (!container.items[index]) return;
       mouseDownIndex = index;
 
@@ -228,7 +228,7 @@ export function makeItemContainerWindow(container: Container): ContainerWindow {
       }
 
       const x = e.data.getLocalPosition(e.target).x;
-      const index = Math.floor(x / 32);
+      const index = Math.floor(x / GFX_SIZE);
       if (index >= 0 && index < container.items.length) {
         window.mouseOverIndex = index;
       } else {
@@ -268,7 +268,7 @@ export function makeItemContainerWindow(container: Container): ContainerWindow {
     window.contents.removeChildren();
     for (const [i, item] of containerRef.items.entries()) {
       const itemSprite = makeItemSprite(item ? item : { type: 0, quantity: 1 });
-      itemSprite.x = i * 32;
+      itemSprite.x = i * GFX_SIZE;
       itemSprite.y = 0;
       if (window.selectedIndex === i) {
         itemSprite.filters = [new PIXI.OutlineFilter(1, 0xFFFF00, 1)];
@@ -278,7 +278,7 @@ export function makeItemContainerWindow(container: Container): ContainerWindow {
 
     if (window.mouseOverIndex !== undefined && game.state.mouse.state === 'down') {
       const mouseHighlight = makeHighlight(0xffff00, 0.3);
-      mouseHighlight.x = 32 * window.mouseOverIndex;
+      mouseHighlight.x = GFX_SIZE * window.mouseOverIndex;
       mouseHighlight.y = 0;
       window.contents.addChild(mouseHighlight);
     }
@@ -298,8 +298,8 @@ export function makeUsageWindow(tool: Item, focus: Item, usages: ItemUse[], loc:
     for (const [i, usage] of usages.entries()) {
       const item = usage.products[0];
       const itemSprite = makeItemSprite(item);
-      itemSprite.x = (i % 10) * 32;
-      itemSprite.y = Math.floor(i / 10) * 32;
+      itemSprite.x = (i % 10) * GFX_SIZE;
+      itemSprite.y = Math.floor(i / 10) * GFX_SIZE;
       window.contents.addChild(itemSprite);
     }
   });
@@ -307,7 +307,7 @@ export function makeUsageWindow(tool: Item, focus: Item, usages: ItemUse[], loc:
   window.contents
     .on('pointerdown', (e: PIXI.interaction.InteractionEvent) => {
       const { x, y } = e.data.getLocalPosition(e.target);
-      const index = Math.floor(x / 32) + Math.floor(y / 32) * 10;
+      const index = Math.floor(x / GFX_SIZE) + Math.floor(y / GFX_SIZE) * 10;
       close();
       Helper.useTool(loc, index);
     });
@@ -327,7 +327,7 @@ export function makeUsageWindow(tool: Item, focus: Item, usages: ItemUse[], loc:
 export function makeHighlight(color: number, alpha: number) {
   const highlight = new PIXI.Graphics();
   highlight.beginFill(color, alpha);
-  highlight.drawRect(0, 0, 32, 32);
+  highlight.drawRect(0, 0, GFX_SIZE, GFX_SIZE);
   return highlight;
 }
 

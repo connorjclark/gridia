@@ -1,3 +1,4 @@
+import { GFX_SIZE } from '../../constants';
 import { getFloors, getMetaItem, getMetaItems } from '../../content';
 import * as ProtocolBuilder from '../../protocol/client-to-server-protocol-builder';
 import * as Utils from '../../utils';
@@ -155,7 +156,10 @@ class AdminClientModule extends ClientModule {
           this.setSelectedContent(undefined);
         } else if (target) {
           this.setSelectedContent({displayObject: target, type: name, id});
-          (target as PIXI.Sprite).addChild(new PIXI.Graphics().lineStyle(2, 0xFFFF00).drawRect(0, 0, 32, 32));
+          (target as PIXI.Sprite)
+            .addChild(
+              new PIXI.Graphics().lineStyle(2, 0xFFFF00).drawRect(0, 0, GFX_SIZE, GFX_SIZE),
+            );
         }
       });
     };

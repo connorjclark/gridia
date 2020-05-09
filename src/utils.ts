@@ -5,12 +5,14 @@
 //     };
 //   }
 
+import { GFX_SIZE } from './constants';
+
 // TODO rename these 'world's to 'stage'?
 export function worldToTile(w: number, pw: ScreenPoint, z: number): TilePoint {
   return {
     w,
-    x: Math.floor(pw.x / 32),
-    y: Math.floor(pw.y / 32),
+    x: Math.floor(pw.x / GFX_SIZE),
+    y: Math.floor(pw.y / GFX_SIZE),
     z,
   };
 }
@@ -105,7 +107,7 @@ export const ItemLocation = {
 
 //   export function tileToScreen(pt: TilePoint): TilePoint {
 //     return {
-//       x: pt.x * 32 - state.viewport.x,
-//       y: pt.y * 32 - state.viewport.y,
+//       x: pt.x * GFX_SIZE - state.viewport.x,
+//       y: pt.y * GFX_SIZE - state.viewport.y,
 //     }
 //   }
