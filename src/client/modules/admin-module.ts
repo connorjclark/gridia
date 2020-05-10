@@ -51,7 +51,7 @@ class AdminClientModule extends ClientModule {
 
     const tabs = new TabContainer();
 
-    const makeGrid = (contentData: Array<[number, PIXI.DisplayObject]>) => {
+    const makeGrid = (contentData: Array<[number, PIXI.Sprite]>) => {
       const displayObjectToMetaIdMap = new Map<PIXI.DisplayObject, number>();
       const scrollbox =
         new PIXI.Scrollbox({boxWidth: 320, boxHeight: 320, scrollbarOffsetVertical: 10, overflowX: 'none'});

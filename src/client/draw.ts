@@ -356,12 +356,21 @@ export function makeItemQuantity(quantity: number) {
 
 export function makeItemSprite(item: Item) {
   const tex = makeItemTemplate(item);
-  const sprite = new PIXI.Sprite(tex);
+
+  let sprite;
+  if (tex.height > GFX_SIZE) {
+    sprite = new PIXI.Sprite();
+    sprite.addChild(new PIXI.Sprite(tex)).y = GFX_SIZE - tex.height;
+  } else {
+    sprite = new PIXI.Sprite(tex);
+  }
+
   // TODO: something like this would allow for tall item in inventory. but unclear if that is a good idea.
   // sprite.anchor.y = (imgHeight - 1) / imgHeight;
   if (item.quantity !== 1) {
     sprite.addChild(makeItemQuantity(item.quantity));
   }
+
   return sprite;
 }
 
@@ -375,14 +384,14 @@ export function makeItemSprite2(item: Item) {
     }
 
     if (meta.animations.length === 1) {
-      const texture = getTexture.items(meta.animations[0]);
+      const texture = getTexture.items(meta.animations[0], 1, meta.imageHeight || 1);
       if (texture === PIXI.Texture.EMPTY) return null;
       return new PIXI.Sprite(texture);
     }
 
     const textures = [];
     for (const frame of meta.animations) {
-      const texture = getTexture.items(frame);
+      const texture = getTexture.items(frame, 1, meta.imageHeight || 1);
       if (texture === PIXI.Texture.EMPTY) return null;
       textures.push(texture);
     }
@@ -393,12 +402,72 @@ export function makeItemSprite2(item: Item) {
     return anim;
   }
 
-  const sprite = make();
-  if (sprite && item.quantity !== 1) {
-    sprite.addChild(makeItemQuantity(item.quantity));
+  let sprite = make();
+  if (!sprite) return;
+
+  if (sprite.texture.height > GFX_SIZE) {
+    const wrapperSprite = new PIXI.Sprite();
+    wrapperSprite.addChild(sprite).y = sprite.texture.height - GFX_SIZE;
+    sprite = wrapperSprite;
   }
+
+  if (item.quantity !== 1) {
+    const label = makeItemQuantity(item.quantity);
+    sprite.addChild(label);
+  }
+
   return sprite;
 }
+
+// TODO delete?
+// abstract class SpriteTileMap extends PIXI.Container {
+//   protected positionToSpriteMap = new Map<string, {pos: Point2, sprite: PIXI.Sprite, hash: string}>();
+
+//   constructor(protected tileSize: number) {
+//     super();
+//   }
+
+//   abstract getHash(tile: Tile): string;
+//   abstract makeSprite(tile: Tile): PIXI.Sprite | null;
+
+//   set(pos: Point2, tile: Tile) {
+//     const key = `${pos.x},${pos.y}`;
+//     const data = this.positionToSpriteMap.get(key);
+//     const hash = this.getHash(tile);
+//     const isInvalid = !data || data.hash !== hash;
+//     if (!isInvalid) return;
+
+//     if (data) this.removeChild(data.sprite);
+//     const sprite = this.makeSprite(tile);
+//     if (!sprite) return;
+
+//     sprite.x = pos.x * this.tileSize;
+//     sprite.y = pos.y * this.tileSize;
+//     this.addChild(sprite);
+//     this.positionToSpriteMap.set(key, {pos, sprite, hash});
+//   }
+
+//   invalidateOutsideRegion(start: Point2, width: number, height: number) {
+//     const end = {x: start.x + width, y: start.y + height};
+//     for (const [key, {pos, sprite}] of this.positionToSpriteMap.entries()) {
+//       const inBounds = pos.x >= start.x && pos.x <= end.x && pos.y >= start.y && pos.y <= end.y;
+//       if (inBounds) continue;
+//       this.positionToSpriteMap.delete(key);
+//       this.removeChild(sprite);
+//     }
+//   }
+// }
+
+// export class ItemTileMap extends SpriteTileMap {
+//   getHash(tile: Tile): string {
+//     if (!tile.item) return '';
+//     return `${tile.item.type},${tile.item.quantity}`
+//   }
+//   makeSprite(tile: Tile): PIXI.Sprite | null {
+//     if (!tile.item) return null;
+//     return makeItemSprite2(tile.item);
+//   }
+// }
 
 // Re-using Text objects avoids tons of expensive object allocations.
 const TEXTS = {

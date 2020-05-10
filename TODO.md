@@ -21,11 +21,21 @@ Click to engage
 * hide names unless click on creature
 * hover to show grey / blue highlight on enemy (neutral / good)
 
+# Art
+
+Come up with an artsyle. I like this: https://imgur.com/r/pixelart/kNFhhpW 16x16 tiles, but tiles can be slightly taller.
+Simplify things. Don't need so many "grass" floors.
+Player character is animated, up/down/left/right perspectives. Monsters are just a single front perspective, or maybe left/right.
+Floor terrain transitions.
+Fix the inventory / toolbar in one spot.
+
 # Environment
 
 * Day / Night
 * Line of sight
 * Rooftops https://www.youtube.com/watch?v=SEpFCazng7o
+* Personal islands? like AC.
+* Warp -> see preview of destination.
 
 # Code health
 
@@ -61,3 +71,11 @@ E: KillCreature
 Attack villager, they pick up nearby sword.
   Make AttackUnarmed higher cost than AttackArmed + PickupWeapon
 Startle room of goblins, they run to grab various weapons and attack.
+
+# Misc
+
+Question: Cary hot soup through town, deliver.
+
+Pick up materials (gems, silk, wood). In order to use, costs environment points (flora, fauna, earth). Study a tree -> get flora. 
+
+Can't dig down unless you own the land.
