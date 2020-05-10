@@ -63,7 +63,7 @@ interface Item {
 interface Creature {
   id: number;
   image: number;
-  imagetype?: number;
+  image_type?: number;
   name: string;
   pos: TilePoint;
   isPlayer: boolean;
@@ -124,7 +124,7 @@ interface Monster {
   id: number;
   name: string;
   image: number;
-  imagetype?: number;
+  image_type?: number;
   speed: number;
   life: number;
   roam?: number;

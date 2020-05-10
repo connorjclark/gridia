@@ -168,7 +168,7 @@ export default class Server {
     const creature = {
       id: this.context.nextCreatureId++,
       image: template.image,
-      imagetype: template.imagetype,
+      image_type: template.image_type,
       name: template.name,
       pos,
       isPlayer: false,

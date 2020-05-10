@@ -383,17 +383,17 @@ class Game {
   }
 
   public trip() {
-    // const filtersBefore = this.layers.itemAndCreatureLayer.filters;
+    // const filtersBefore = this.layers.itemAndCreature.filters;
     // const filter = new OutlineFilter(0, 0, 1);
     // const start = performance.now();
-    // this.layers.itemAndCreatureLayer.filters = [filter];
+    // this.layers.itemAndCreature.filters = [filter];
     // const handle = setInterval(() => {
     //   const multiplier = 0.5 + Math.cos((performance.now() - start) / 1000) / 2;
     //   filter.thickness = 2 + multiplier * 3;
     // }, 100);
     // setTimeout(() => {
     //   clearInterval(handle);
-    //   this.layers.itemAndCreatureLayer.filters = filtersBefore;
+    //   this.layers.itemAndCreature.filters = filtersBefore;
     // }, 1000 * 10);
   }
 
@@ -855,7 +855,7 @@ class Game {
       // if (tile.item) {
       //   template = Draw.makeItemTemplate(tile.item);
       //   if (template !== PIXI.Texture.EMPTY) {
-      //     this.layers.itemAndCreatureLayer
+      //     this.layers.itemAndCreature
       //       .beginTextureFill({ texture: template })
       //       .drawRect(x * GFX_SIZE, y * GFX_SIZE, GFX_SIZE, GFX_SIZE)
       //       .endFill();
@@ -868,14 +868,14 @@ class Game {
       //       ctn.addChild(qty);
       //       ctn.x = x * GFX_SIZE;
       //       ctn.y = y * GFX_SIZE;
-      //       this.layers.itemAndCreatureLayer.addChild(ctn);
+      //       this.layers.itemAndCreature.addChild(ctn);
       //     }
       //   }
       // }
 
       if (tile.creature) {
-        const width = tile.creature.imagetype || 1;
-        const height = tile.creature.imagetype || 1;
+        const width = tile.creature.image_type || 1;
+        const height = tile.creature.image_type || 1;
         texture = Draw.getTexture.creatures(tile.creature.image, width, height);
         if (texture !== PIXI.Texture.EMPTY) {
           const creatureGfx = new PIXI.Graphics();
@@ -917,9 +917,6 @@ class Game {
       }
     }
 
-    this.layers.topLayer.clear();
-    this.layers.topLayer.removeChildren();
-
     for (const animation of this._animations) {
       if (now >= animation.nextFrameAt) {
         animation.nextFrameAt = now + 100;
@@ -947,7 +944,7 @@ class Game {
       // TODO: why doesn't this work?
       // const template = Draw.makeItemTemplate(this.itemMovingState.item);
       // const { x, y } = mouseToWorld(this.state.mouse);
-      // this.layers.topLayer
+      // this.layers.top
       //   .beginTextureFill(template)
       //   .drawRect(x, y, GFX_SIZE, GFX_SIZE)
       //   .endFill();

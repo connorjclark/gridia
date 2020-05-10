@@ -407,7 +407,7 @@ export function makeItemSprite2(item: Item) {
 
   if (sprite.texture.height > GFX_SIZE) {
     const wrapperSprite = new PIXI.Sprite();
-    wrapperSprite.addChild(sprite).y = sprite.texture.height - GFX_SIZE;
+    wrapperSprite.addChild(sprite).y = GFX_SIZE - sprite.texture.height;
     sprite = wrapperSprite;
   }
 
