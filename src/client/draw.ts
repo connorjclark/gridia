@@ -365,6 +365,41 @@ export function makeItemSprite(item: Item) {
   return sprite;
 }
 
+// Returns null if some texture is not loaded yet, so that it doesn't get cached.
+export function makeItemSprite2(item: Item) {
+  function make() {
+    const meta = Content.getMetaItem(item.type);
+
+    if (!meta.animations) {
+      return new PIXI.Sprite();
+    }
+
+    if (meta.animations.length === 1) {
+      const texture = getTexture.items(meta.animations[0]);
+      if (texture === PIXI.Texture.EMPTY) return null;
+      return new PIXI.Sprite(texture);
+    }
+
+    const textures = [];
+    for (const frame of meta.animations) {
+      const texture = getTexture.items(frame);
+      if (texture === PIXI.Texture.EMPTY) return null;
+      textures.push(texture);
+    }
+
+    const anim = new PIXI.AnimatedSprite(textures, true);
+    anim.animationSpeed = 0.1;
+    anim.play();
+    return anim;
+  }
+
+  const sprite = make();
+  if (sprite && item.quantity !== 1) {
+    sprite.addChild(makeItemQuantity(item.quantity));
+  }
+  return sprite;
+}
+
 // Re-using Text objects avoids tons of expensive object allocations.
 const TEXTS = {
   map: new Map<string, PIXI.Text>(),

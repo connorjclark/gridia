@@ -1,4 +1,3 @@
-import { OutlineFilter } from '@pixi/filter-outline';
 import { GFX_SIZE, MINE, WATER } from '../constants';
 import * as Content from '../content';
 import { game } from '../game-singleton';
@@ -12,6 +11,24 @@ import * as Helper from './helper';
 import KEYS from './keys';
 import LazyResourceLoader, { SfxResources } from './lazy-resource-loader';
 import { getMineFloor, getWaterFloor } from './template-draw';
+
+// WIP playing with shaders.
+const fragmentCode = `
+varying vec2 vTextureCoord;
+
+uniform sampler2D uSampler;
+precision mediump float;
+uniform float time;
+
+void main(){
+  vec4 red = vec4(sin(time),0.0,0.0,1.0);
+  gl_FragColor = red * texture2D(uSampler, vTextureCoord);
+}
+`;
+const uniforms = {
+  time: 0,
+};
+const testFilter = new PIXI.Filter('', fragmentCode , uniforms);
 
 const ContextMenu = {
   get() {
@@ -206,6 +223,7 @@ class Game {
   protected modules: ClientModule[] = [];
   protected actionCreators: GameActionCreator[] = [];
   protected possibleUsagesWindow = new Draw.PossibleUsagesWindow();
+  protected spriteCache = new Map<string, {sprite: PIXI.Sprite, hash: string}>();
 
   private _playerCreature?: Creature;
   private _currentHoverItemText =
@@ -736,6 +754,10 @@ class Game {
 
     Draw.sweepTexts();
 
+    if (this.state.elapsedFrames % 1000 === 0) {
+      this.spriteCache.clear();
+    }
+
     const focusPos = this.getPlayerPosition();
     const { w, z } = focusPos;
     const partition = this.client.context.map.getPartition(w);
@@ -777,8 +799,6 @@ class Game {
     const tilesHeight = Math.ceil(this.app.view.height / GFX_SCREEN_SIZE);
     const startTileX = Math.floor(this.state.viewport.x / GFX_SCREEN_SIZE);
     const startTileY = Math.floor(this.state.viewport.y / GFX_SCREEN_SIZE);
-    const endTileX = startTileX + tilesWidth;
-    const endTileY = startTileY + tilesHeight;
 
     this.layers.floorLayer.clear();
 
@@ -807,26 +827,51 @@ class Game {
           .endFill();
       }
 
-      if (tile.item) {
-        template = Draw.makeItemTemplate(tile.item);
-        if (template !== PIXI.Texture.EMPTY) {
-          this.layers.itemAndCreatureLayer
-            .beginTextureFill({ texture: template })
-            .drawRect(x * GFX_SIZE, y * GFX_SIZE, GFX_SIZE, GFX_SIZE)
-            .endFill();
+      // TODO: still working out the most performant way to render.
+      const itemSpriteKey = `item${w},${x},${y},${z}`;
+      const itemSpriteHash = !tile.item ? '' : `${tile.item.type},${tile.item.quantity}`;
+      let cachedSprite = this.spriteCache.get(itemSpriteKey);
+      if (cachedSprite && (!tile.item || itemSpriteHash !== cachedSprite.hash)) {
+        this.spriteCache.delete(itemSpriteKey);
+        cachedSprite = undefined;
+      }
 
-          if (tile.item.quantity !== 1) {
-            const qty = Draw.makeItemQuantity(tile.item.quantity);
-            // Wrap in a container because text field are memoized and so their
-            // x,y values should never be modified.
-            const ctn = new PIXI.Container();
-            ctn.addChild(qty);
-            ctn.x = x * GFX_SIZE;
-            ctn.y = y * GFX_SIZE;
-            this.layers.itemAndCreatureLayer.addChild(ctn);
-          }
+      if (!cachedSprite && tile.item) {
+        const sprite = Draw.makeItemSprite2(tile.item);
+        if (sprite) {
+          sprite.x = x * GFX_SIZE;
+          sprite.y = y * GFX_SIZE;
+          cachedSprite = {
+            sprite,
+            hash: itemSpriteHash,
+          };
+          this.spriteCache.set(itemSpriteKey, cachedSprite);
         }
       }
+      if (cachedSprite) {
+        this.layers.itemAndCreatureLayer.addChild(cachedSprite.sprite);
+      }
+
+      // if (tile.item) {
+      //   template = Draw.makeItemTemplate(tile.item);
+      //   if (template !== PIXI.Texture.EMPTY) {
+      //     this.layers.itemAndCreatureLayer
+      //       .beginTextureFill({ texture: template })
+      //       .drawRect(x * GFX_SIZE, y * GFX_SIZE, GFX_SIZE, GFX_SIZE)
+      //       .endFill();
+
+      //     if (tile.item.quantity !== 1) {
+      //       const qty = Draw.makeItemQuantity(tile.item.quantity);
+      //       // Wrap in a container because text field are memoized and so their
+      //       // x,y values should never be modified.
+      //       const ctn = new PIXI.Container();
+      //       ctn.addChild(qty);
+      //       ctn.x = x * GFX_SIZE;
+      //       ctn.y = y * GFX_SIZE;
+      //       this.layers.itemAndCreatureLayer.addChild(ctn);
+      //     }
+      //   }
+      // }
 
       if (tile.creature) {
         const width = tile.creature.imagetype || 1;
@@ -834,6 +879,7 @@ class Game {
         template = Draw.getTexture.creatures(tile.creature.image, width, height);
         if (template !== PIXI.Texture.EMPTY) {
           const creatureGfx = new PIXI.Graphics();
+          const filters = [];
           creatureGfx.x = x * GFX_SIZE;
           creatureGfx.y = (y - height + 1) * GFX_SIZE;
 
@@ -854,9 +900,12 @@ class Game {
             const BLUE = 0x000088;
             const RED = 0x880000;
             const color = [GRAY, BLUE, RED][tile.creature.id % 3]; // TODO: base on enemy/neutral/good
-            creatureGfx.filters = [new OutlineFilter(2, color, 1)];
+            filters.push(new PIXI.OutlineFilter(2, color, 1));
           }
 
+          uniforms.time = now / 1000;
+          // filters.push(testFilter);
+          if (filters) creatureGfx.filters = filters;
           this.layers.itemAndCreatureLayer.addChild(creatureGfx);
         }
 
