@@ -808,21 +808,21 @@ class Game {
     const start = { x: startTileX, y: startTileY, z };
     for (const { pos, tile } of partition.getIteratorForArea(start, tilesWidth + 1, tilesHeight + 1)) {
       const { x, y } = pos;
-      let template;
+      let texture;
 
       if (tile.floor === WATER) {
         const templateIdx = getWaterFloor(partition, pos);
-        template = Draw.getTexture.templates(templateIdx);
+        texture = Draw.getTexture.templates(templateIdx);
       } else if (tile.floor === MINE) {
         const templateIdx = getMineFloor(partition, pos);
-        template = Draw.getTexture.templates(templateIdx);
+        texture = Draw.getTexture.templates(templateIdx);
       } else {
-        template = Draw.getTexture.floors(tile.floor);
+        texture = Draw.getTexture.floors(tile.floor);
       }
 
-      if (template !== PIXI.Texture.EMPTY) {
+      if (texture !== PIXI.Texture.EMPTY) {
         this.layers.floorLayer
-          .beginTextureFill({ texture: template })
+          .beginTextureFill({ texture })
           .drawRect(x * GFX_SIZE, y * GFX_SIZE, GFX_SIZE, GFX_SIZE)
           .endFill();
       }
@@ -876,15 +876,15 @@ class Game {
       if (tile.creature) {
         const width = tile.creature.imagetype || 1;
         const height = tile.creature.imagetype || 1;
-        template = Draw.getTexture.creatures(tile.creature.image, width, height);
-        if (template !== PIXI.Texture.EMPTY) {
+        texture = Draw.getTexture.creatures(tile.creature.image, width, height);
+        if (texture !== PIXI.Texture.EMPTY) {
           const creatureGfx = new PIXI.Graphics();
           const filters = [];
           creatureGfx.x = x * GFX_SIZE;
           creatureGfx.y = (y - height + 1) * GFX_SIZE;
 
           creatureGfx
-            .beginTextureFill({ texture: template })
+            .beginTextureFill({ texture })
             .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
             .endFill();
 
