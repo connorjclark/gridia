@@ -800,6 +800,15 @@ class Game {
     const startTileX = Math.floor(this.state.viewport.x / GFX_SCREEN_SIZE);
     const startTileY = Math.floor(this.state.viewport.y / GFX_SCREEN_SIZE);
 
+    // Transient graphics objects must be destroyed to prevent memory leaks.
+    for (const layer of Object.values(this.layers)) {
+      for (const child of layer.children) {
+        if (child instanceof PIXI.Graphics) {
+          child.destroy();
+        }
+      }
+    }
+
     this.layers.floorLayer.clear();
     this.layers.floorLayer.removeChildren();
 
