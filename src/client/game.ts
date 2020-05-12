@@ -801,6 +801,10 @@ class Game {
     const startTileY = Math.floor(this.state.viewport.y / GFX_SCREEN_SIZE);
 
     this.layers.floorLayer.clear();
+    this.layers.floorLayer.removeChildren();
+
+    this.layers.topLayer.clear();
+    this.layers.topLayer.removeChildren();
 
     this.layers.itemAndCreatureLayer.clear();
     this.layers.itemAndCreatureLayer.removeChildren();
