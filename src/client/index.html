@@ -185,6 +185,15 @@
     }
   </style>
   <link rel="stylesheet" href="styles/buttons.css">
+
+  <script>
+    if (process.env.NODE_ENV === 'production') {
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-40937100-4', 'auto');
+      ga('send', 'pageview');
+    }
+  </script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
 </head>
 
 <body>
