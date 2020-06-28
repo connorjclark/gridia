@@ -133,7 +133,7 @@ describe('Check for memory leaks', () => {
 
   beforeEach(async () => {
     page = await browser.newPage();
-    await page.goto('http://localhost:8080', {waitUntil: 'networkidle0'});
+    await page.goto('http://localhost:8080?quick=server', {waitUntil: 'networkidle0'});
   });
 
   afterEach(async () => {
