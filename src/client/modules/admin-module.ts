@@ -127,7 +127,7 @@ class AdminClientModule extends ClientModule {
 
       scrollbox.content.pause = true;
       scrollbox.interactive = true;
-      scrollbox.on('click', (e: PIXI.interaction.InteractionEvent) => {
+      scrollbox.on('click', (e: PIXI.InteractionEvent) => {
         // TODO: v5 broke this
         // const target = e.target;
         // const id = displayObjectToMetaIdMap.get(target);

@@ -483,7 +483,7 @@ class Game {
     }, false);
 
     this.world.interactive = true;
-    this.world.on('pointerdown', (e: PIXI.interaction.InteractionEvent) => {
+    this.world.on('pointerdown', (e: PIXI.InteractionEvent) => {
       if (this.isEditingMode()) return;
 
       const point = worldToTile(mouseToWorld({ x: e.data.global.x, y: e.data.global.y }));
@@ -498,7 +498,7 @@ class Game {
         item,
       });
     });
-    this.world.on('pointerup', (e: PIXI.interaction.InteractionEvent) => {
+    this.world.on('pointerup', (e: PIXI.InteractionEvent) => {
       if (Utils.equalPoints(this.state.mouse.tile, this.getPlayerPosition())) {
         const evt: ItemMoveEndEvent = {
           location: Utils.ItemLocation.Container(this.client.containerId),
@@ -511,7 +511,7 @@ class Game {
         this.client.eventEmitter.emit('itemMoveEnd', evt);
       }
     });
-    this.world.on('pointerdown', (e: PIXI.interaction.InteractionEvent) => {
+    this.world.on('pointerdown', (e: PIXI.InteractionEvent) => {
       if (ContextMenu.isOpen()) {
         ContextMenu.close();
         return;

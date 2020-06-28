@@ -55,14 +55,14 @@ export class GridiaWindow {
     return this.pixiContainer.height;
   }
 
-  private _onDragBegin(e: PIXI.interaction.InteractionEvent) {
+  private _onDragBegin(e: PIXI.InteractionEvent) {
     this._draggingState = {
       startingPosition: { x: this.pixiContainer.x, y: this.pixiContainer.y },
       downAt: { x: e.data.global.x, y: e.data.global.y },
     };
   }
 
-  private _onDrag(e: PIXI.interaction.InteractionEvent) {
+  private _onDrag(e: PIXI.InteractionEvent) {
     if (!this._draggingState) return;
 
     this.pixiContainer.x = this._draggingState.startingPosition.x + e.data.global.x - this._draggingState.downAt.x;
@@ -108,7 +108,7 @@ export class PossibleUsagesWindow extends GridiaWindow {
   constructor() {
     super();
 
-    this.contents.on('pointerup', (e: PIXI.interaction.InteractionEvent) => {
+    this.contents.on('pointerup', (e: PIXI.InteractionEvent) => {
       if (!this._onSelectUsage) return;
 
       const y = e.data.getLocalPosition(e.target).y;
@@ -209,7 +209,7 @@ export function makeItemContainerWindow(container: Container): ContainerWindow {
   let mouseDownIndex: number;
 
   window.contents
-    .on('pointerdown', (e: PIXI.interaction.InteractionEvent) => {
+    .on('pointerdown', (e: PIXI.InteractionEvent) => {
       const x = e.data.getLocalPosition(e.target).x;
       const index = Math.floor(x / GFX_SIZE);
       if (!container.items[index]) return;
@@ -221,7 +221,7 @@ export function makeItemContainerWindow(container: Container): ContainerWindow {
       };
       game.client.eventEmitter.emit('itemMoveBegin', evt);
     })
-    .on('pointermove', (e: PIXI.interaction.InteractionEvent) => {
+    .on('pointermove', (e: PIXI.InteractionEvent) => {
       if (e.target !== window.contents) {
         window.mouseOverIndex = undefined;
         return;
@@ -235,7 +235,7 @@ export function makeItemContainerWindow(container: Container): ContainerWindow {
         window.mouseOverIndex = undefined;
       }
     })
-    .on('pointerup', (e: PIXI.interaction.InteractionEvent) => {
+    .on('pointerup', (e: PIXI.InteractionEvent) => {
       if (window.mouseOverIndex !== undefined) {
         const evt: ItemMoveBeginEvent = {
           location: Utils.ItemLocation.Container(container.id, window.mouseOverIndex),
@@ -305,7 +305,7 @@ export function makeUsageWindow(tool: Item, focus: Item, usages: ItemUse[], loc:
   });
 
   window.contents
-    .on('pointerdown', (e: PIXI.interaction.InteractionEvent) => {
+    .on('pointerdown', (e: PIXI.InteractionEvent) => {
       const { x, y } = e.data.getLocalPosition(e.target);
       const index = Math.floor(x / GFX_SIZE) + Math.floor(y / GFX_SIZE) * 10;
       close();
