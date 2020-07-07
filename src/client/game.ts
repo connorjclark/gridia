@@ -500,15 +500,13 @@ class Game {
     });
     this.world.on('pointerup', (e: PIXI.InteractionEvent) => {
       if (Utils.equalPoints(this.state.mouse.tile, this.getPlayerPosition())) {
-        const evt: ItemMoveEndEvent = {
+        this.client.eventEmitter.emit('itemMoveEnd', {
           location: Utils.ItemLocation.Container(this.client.containerId),
-        };
-        this.client.eventEmitter.emit('itemMoveEnd', evt);
+        });
       } else if (this.state.mouse.tile) {
-        const evt: ItemMoveEndEvent = {
+        this.client.eventEmitter.emit('itemMoveEnd', {
           location: Utils.ItemLocation.World(this.state.mouse.tile),
-        };
-        this.client.eventEmitter.emit('itemMoveEnd', evt);
+        });
       }
     });
     this.world.on('pointerdown', (e: PIXI.InteractionEvent) => {

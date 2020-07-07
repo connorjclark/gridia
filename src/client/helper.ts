@@ -23,8 +23,6 @@ export function useHand(loc: TilePoint) {
  * Uses selected tool on item at `loc`.
  * If there are multiple options for the usage, and `usageIndex` is not provided,
  * a dialog box is shown to choose.
- * @param loc
- * @param usageIndex
  */
 export function useTool(loc: TilePoint, usageIndex?: number) {
   const toolIndex = getSelectedToolIndex();

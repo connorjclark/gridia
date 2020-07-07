@@ -14,13 +14,11 @@ import { createMapSelectForm } from './scenes/map-select-scene';
 import { ServerWorker } from './server-worker';
 
 function parseQuery(queryString: string) {
-  const query: Record<string, any> = {};
-  const pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
-  for (const pair of pairs) {
-    const [key, value] = pair.split('=', 2);
-    query[decodeURIComponent(key)] = decodeURIComponent(value || '');
-  }
-  return query;
+  const params = new URLSearchParams(queryString ? queryString.substr(1) : '');
+  return {
+    map: params.get('map'),
+    quick: params.get('quick'),
+  };
 }
 
 const qs = parseQuery(window.location.search);

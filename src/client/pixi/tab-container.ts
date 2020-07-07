@@ -1,4 +1,3 @@
-// import { Container, DisplayObject, Graphics, Text } from 'pixi.js';
 import GridContainer from './grid-container';
 
 interface Tab {
