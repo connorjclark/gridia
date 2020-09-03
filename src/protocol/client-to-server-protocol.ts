@@ -1,10 +1,11 @@
 import { MINE } from '../constants';
 import * as Content from '../content';
+import Params = ClientToServerProtocol.Params;
+import * as CommandParser from '../lib/command-parser';
 import Server from '../server/server';
 import * as Utils from '../utils';
 import IClientToServerProtocol from './gen/client-to-server-protocol';
 import * as ProtocolBuilder from './server-to-client-protocol-builder';
-import Params = ClientToServerProtocol.Params;
 
 export default class ClientToServerProtocol implements IClientToServerProtocol {
   public onMove(server: Server, { ...loc }: Params.Move): void {
@@ -306,58 +307,86 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
 
   public onChat(server: Server, { to, message }: Params.Chat): void {
     if (message.startsWith('/')) {
-      const [command, ...args] = message.substring(1).split(' ');
+      const parsedCommand = CommandParser.parseCommand(message.substring(1));
 
-      const commands = {
-        warp() {
-          const destination = { ...server.currentClientConnection.player.creature.pos };
-          if (args.length === 2) {
-            destination.x = Number(args[0]);
-            destination.y = Number(args[1]);
-          } else if (args.length === 3) {
-            destination.x = Number(args[0]);
-            destination.y = Number(args[1]);
-            destination.z = Number(args[2]);
-          } else if (args.length === 4) {
-            destination.w = Number(args[0]);
-            destination.x = Number(args[1]);
-            destination.y = Number(args[2]);
-            destination.z = Number(args[3]);
-          } else {
-            return 'incorrect number of arguments';
-          }
+      const COMMANDS: Record<string, CommandParser.Command> = {
+        warp: {
+          args: [
+            {name: 'c0', type: 'number'},
+            {name: 'c1', type: 'number'},
+            {name: 'c2', type: 'number', optional: true},
+            {name: 'c3', type: 'number', optional: true},
+          ],
+          do(args: {c0: number, c1: number, c2?: number, c3?: number}) {
+            const destination = { ...server.currentClientConnection.player.creature.pos };
+            if (args.c2 !== undefined && args.c3 !== undefined) {
+              destination.w = args.c3;
+              destination.x = args.c0;
+              destination.y = args.c1;
+              destination.z = args.c2;
+            } else if (args.c2 !== undefined) {
+              destination.x = args.c0;
+              destination.y = args.c1;
+              destination.z = args.c2;
+            } else {
+              destination.x = args.c0;
+              destination.y = args.c1;
+            }
 
-          if (!server.context.map.inBounds(destination)) {
-            return 'out of bounds';
-          }
+            if (!server.context.map.inBounds(destination)) {
+              return 'out of bounds';
+            }
 
-          if (!server.context.map.walkable(destination)) {
-            // Don't check this?
-            return 'not walkable';
-          }
+            if (!server.context.map.walkable(destination)) {
+              // Don't check this?
+              return 'not walkable';
+            }
 
-          server.warpCreature(server.currentClientConnection.player.creature, destination);
+            server.warpCreature(server.currentClientConnection.player.creature, destination);
+          },
         },
-        spawn() {
-          const name = args.join(' ');
-          const template = Content.getMonsterTemplateByName(name);
-          const loc = server.findNearest(server.currentClientConnection.player.creature.pos, 10, true,
-            (_, l) => server.context.map.walkable(l));
-          if (template && loc) {
-            server.makeCreatureFromTemplate(template, loc);
-          }
+        spawn: {
+          args: [
+            {name: 'monster', type: 'string'},
+          ],
+          do(args: {name: string}) {
+            const template = Content.getMonsterTemplateByName(args.name);
+            const loc = server.findNearest(server.currentClientConnection.player.creature.pos, 10, true,
+              (_, l) => server.context.map.walkable(l));
+            if (template && loc) {
+              server.makeCreatureFromTemplate(template, loc);
+            }
+          },
+        },
+        help: {
+          args: [],
+          do() {
+            let messageBody = 'Commands:\n';
+            for (const [commandName, data] of Object.entries(COMMANDS)) {
+              const args = data.args.map((a) => `${a.name} [${a.type}${a.optional ? '?' : ''}]`).join(' ');
+              messageBody += `/${commandName} ${args}\n`;
+            }
+            server.reply(ProtocolBuilder.chat({ from: 'SERVER', to, message: messageBody }));
+          },
         },
       };
 
       // @ts-ignore
-      const commandFn = commands[command];
-      if (commandFn) {
-        const error = commandFn();
-        if (error) {
-          server.reply(ProtocolBuilder.chat({ from: 'SERVER', to, message: `error: ${error}` }));
-        }
-      } else {
+      const command = COMMANDS[parsedCommand.commandName];
+      if (!command) {
         server.reply(ProtocolBuilder.chat({ from: 'SERVER', to, message: `unknown command: ${message}` }));
+        return;
+      }
+
+      const parsedArgs = CommandParser.parseArgs(parsedCommand.argsString, command.args);
+      if ('error' in parsedArgs) {
+        server.reply(ProtocolBuilder.chat({ from: 'SERVER', to, message: `error: ${parsedArgs.error}` }));
+        return;
+      }
+
+      const maybeError = command.do(parsedArgs);
+      if (maybeError) {
+        server.reply(ProtocolBuilder.chat({ from: 'SERVER', to, message: `error: ${maybeError}` }));
       }
     } else {
       server.broadcast(ProtocolBuilder.chat({ from: server.currentClientConnection.player.name, to, message }));
