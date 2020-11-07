@@ -3,7 +3,7 @@ import ClientModule from '../client-module';
 import Game from '../game';
 import * as Helper from '../helper';
 
-class SkillsClientModule extends ClientModule {
+class SkillsModule extends ClientModule {
   protected panel: HTMLElement;
 
   constructor(game: Game) {
@@ -51,4 +51,4 @@ class SkillsClientModule extends ClientModule {
   }
 }
 
-export default SkillsClientModule;
+export default SkillsModule;

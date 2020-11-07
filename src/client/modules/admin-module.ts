@@ -13,7 +13,7 @@ interface SelectedContent {
   id: number;
 }
 
-class AdminClientModule extends ClientModule {
+class AdminModule extends ClientModule {
   private _adminWindow?: GridiaWindow;
   private _selectedContent?: SelectedContent;
 
@@ -218,4 +218,4 @@ class AdminClientModule extends ClientModule {
   }
 }
 
-export default AdminClientModule;
+export default AdminModule;

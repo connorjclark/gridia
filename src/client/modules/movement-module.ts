@@ -10,7 +10,7 @@ import KEYS from '../keys';
 
 const MOVEMENT_DURATION = 200;
 
-class MovementClientModule extends ClientModule {
+class MovementModule extends ClientModule {
   protected followCreature?: Creature;
   protected pathToDestination?: PartitionPoint[];
   protected canMoveAgainAt: number = 0;
@@ -140,4 +140,4 @@ class MovementClientModule extends ClientModule {
   }
 }
 
-export default MovementClientModule;
+export default MovementModule;

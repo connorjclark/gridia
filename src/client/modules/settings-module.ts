@@ -2,7 +2,7 @@ import Client from '../client';
 import ClientModule from '../client-module';
 import * as Helper from '../helper';
 
-class SettingsClientModule extends ClientModule {
+class SettingsModule extends ClientModule {
   public onStart() {
     const panel = Helper.find('.panel--settings');
 
@@ -20,4 +20,4 @@ class SettingsClientModule extends ClientModule {
   }
 }
 
-export default SettingsClientModule;
+export default SettingsModule;

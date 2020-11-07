@@ -6,10 +6,6 @@ import Client from './client';
 import { connect, connectToServerWorker } from './connect-to-server';
 import { GameActionEvent } from './event-emitter';
 import * as Helper from './helper';
-import AdminClientModule from './modules/admin-module';
-import MovementClientModule from './modules/movement-module';
-import SettingsClientModule from './modules/settings-module';
-import SkillsClientModule from './modules/skills-module';
 import { createMapSelectForm } from './scenes/map-select-scene';
 import { ServerWorker } from './server-worker';
 
@@ -430,20 +426,6 @@ function generateMap(opts: any, offscreenCanvas?: OffscreenCanvas) {
 async function startGame(client: Client) {
   const gameSingleton = makeGame(client);
 
-  // TODO: AdminClientModule should create the panel. Until then, manually remove panel.
-  if (!client.isAdmin) {
-    Helper.find('.panels__tab[data-panel="admin"]').remove();
-  }
-
-  const moduleClasses = [
-    MovementClientModule,
-    SettingsClientModule,
-    SkillsClientModule,
-  ];
-  if (client.isAdmin) moduleClasses.push(AdminClientModule);
-  for (const moduleClass of moduleClasses) {
-    gameSingleton.addModule(new moduleClass(gameSingleton));
-  }
   gameSingleton.addActionCreator(globalActionCreator);
   client.eventEmitter.on('action', globalOnActionHandler.bind(globalOnActionHandler, client));
 
