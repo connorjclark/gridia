@@ -587,7 +587,7 @@ export default class Server {
     this.ticks++;
     if (this.ticks % this.resetTickRate === 0) this.ticks = 0;
 
-    const measureTiming = false; // Set to true to debug performance.
+    const measureTiming = !false; // Set to true to debug performance.
     let perfTick: PerfTick | undefined;
     if (measureTiming) perfTick = { started: performance.now(), duration: 0, sections: [] };
 
@@ -635,52 +635,46 @@ export default class Server {
   }
 
   private growPartition(w: number, partition: WorldMapPartition) {
-    for (let x = 0; x < partition.width; x++) {
-      for (let y = 0; y < partition.height; y++) {
-        const pos = { x, y, z: 0 };
-        const item = partition.getItem(pos);
-        if (!item) continue;
-        const meta = Content.getMetaItem(item.type);
-        if (!meta || !meta.growthItem) continue;
+    // TODO: test which is faster?: iterate directly, iterate with getIteratorForArea, or iterate directly on partition.sectors
+    // TODO: Should really find a way to break up growth over multiple ticks.
 
-        item.growth = (item.growth || 0) + 1;
-        if (item.growth >= meta.growthDelta) {
-          item.type = meta.growthItem;
-          item.growth = 0;
-          this.broadcast(ProtocolBuilder.setItem({
-            location: Utils.ItemLocation.World({ ...pos, w }),
-            item,
-          }));
-        }
-      }
+    for (const { pos, tile } of partition.getIteratorForArea({ x: 0, y: 0, z: 0 }, partition.width, partition.height)) {
+      if (pos.z !== 0) continue; // TODO. No reason. lol.
+
+      if (!tile.item) continue;
+
+      const meta = Content.getMetaItem(tile.item.type);
+      if (!meta || !meta.growthItem) continue;
+
+      tile.item.growth = (tile.item.growth || 0) + 1;
+      if (tile.item.growth < meta.growthDelta) continue;
+
+      tile.item.type = meta.growthItem;
+      tile.item.growth = 0;
+      this.broadcast(ProtocolBuilder.setItem({
+        location: Utils.ItemLocation.World({ ...pos, w }),
+        item: tile.item,
+      }));
     }
+
+    // for (let x = 0; x < partition.width; x++) {
+    //   for (let y = 0; y < partition.height; y++) {
+    //     const pos = { x, y, z: 0 };
+    //     const item = partition.getItem(pos);
+    //     if (!item) continue;
+    //     const meta = Content.getMetaItem(item.type);
+    //     if (!meta || !meta.growthItem) continue;
+
+    //     item.growth = (item.growth || 0) + 1;
+    //     if (item.growth >= meta.growthDelta) {
+    //       item.type = meta.growthItem;
+    //       item.growth = 0;
+    //       this.broadcast(ProtocolBuilder.setItem({
+    //         location: Utils.ItemLocation.World({ ...pos, w }),
+    //         item,
+    //       }));
+    //     }
+    //   }
+    // }
   }
 }
-
-// const context = new ServerProtocolContext()
-// context.world = new ServerWorldContext()
-// let outboundMessages = [];
-// const clients: Client[] = []
-
-// function tick() {
-//   for (const client of clients) {
-//     // only read one message from a client at a time
-//     const message = client.getMessage()
-//     if (message) {
-//       console.log('from client', message.type, message.args)
-//       context.client = client
-//       protocol[message.type].apply(context, message.args)
-//     }
-//   }
-
-//   for (const message of outboundMessages) {
-//     if (message.to) {
-//       message.to.send(message.type, message.args)
-//     } else {
-//       for (const client of clients) {
-//         client.send(message.type, message.args)
-//       }
-//     }
-//   }
-//   outboundMessages = []
-// }
