@@ -28,7 +28,7 @@ void main(){
 const uniforms = {
   time: 0,
 };
-const testFilter = new PIXI.Filter('', fragmentCode , uniforms);
+const testFilter = new PIXI.Filter('', fragmentCode, uniforms);
 
 const ContextMenu = {
   get() {
@@ -85,85 +85,6 @@ function addDataToActionEl(actionEl: HTMLElement, opts: { action: GameAction, lo
   if (opts.creature) actionEl.dataset.creatureId = String(opts.creature.id);
 }
 
-function renderSelectedView() {
-  const state = game.state;
-
-  let creature;
-  if (state.selectedView.creatureId) creature = game.client.context.getCreature(state.selectedView.creatureId);
-
-  let tilePos;
-  if (creature) {
-    tilePos = creature.pos;
-  } else if (state.selectedView.tile) {
-    tilePos = state.selectedView.tile;
-  }
-  const tile = tilePos && game.client.context.map.getTile(tilePos);
-  const item = tile?.item;
-
-  let data: Record<string, string>;
-  let meta;
-  if (creature) {
-    data = {
-      name: creature.name,
-      life: String(creature.life),
-      food: String(creature.food),
-    };
-  } else if (item) {
-    meta = Content.getMetaItem(item.type);
-    data = {
-      name: meta.name,
-      quantity: String(item.quantity),
-      burden: String(item.quantity * meta.burden),
-      misc: JSON.stringify(meta, null, 2),
-    };
-  } else {
-    data = {
-      name: '-',
-      quantity: '0',
-      burden: '0',
-      misc: '',
-    };
-  }
-
-  const el = Helper.find('.selected-view');
-  const detailsEl = Helper.find('.selected-view--details', el);
-  detailsEl.innerHTML = '';
-  for (const [key, value] of Object.entries(data)) {
-    const detailEl = document.createElement('div');
-    detailEl.classList.add('.selected-view--detail', `.selected-view--detail-${key}`);
-    detailEl.textContent = `${key[0].toUpperCase() + key.substr(1)}: ${value}`;
-    detailsEl.appendChild(detailEl);
-  }
-
-  const actionsEl = Helper.find('.selected-view--actions', el);
-  actionsEl.innerHTML = 'Actions:';
-
-  if (!tilePos || !tile) return;
-
-  // Clone tile so properties can be removed as needed.
-  // Also prevents action creators from modifying important data.
-  const clonedTile: Tile = JSON.parse(JSON.stringify(tile));
-
-  if (clonedTile && clonedTile.creature && clonedTile.creature.id === game.client.creatureId) {
-    // Don't allow actions on self.
-    clonedTile.creature = undefined;
-  } else if (creature) {
-    // If a creature is selected, do not show actions for the item on the tile.
-    clonedTile.item = undefined;
-  }
-
-  const actions = game.getActionsFor(clonedTile, tilePos);
-  for (const action of actions) {
-    const actionEl = document.createElement('button');
-    addDataToActionEl(actionEl, {
-      action,
-      loc: game.state.selectedView.tile,
-      creature,
-    });
-    actionsEl.appendChild(actionEl);
-  }
-}
-
 function registerPanelListeners() {
   Helper.find('.panels__tabs').addEventListener('click', (e) => {
     Helper.find('.panels__tab--active').classList.toggle('panels__tab--active');
@@ -177,27 +98,6 @@ function registerPanelListeners() {
   });
 }
 
-function selectView(loc: TilePoint) {
-  const creature = game.client.context.map.getTile(loc).creature;
-  if (creature && creature.id !== game.client.creatureId) {
-    // TODO: change selectedView to {tile, loc}
-    game.state.selectedView.creatureId = creature.id;
-    game.state.selectedView.tile = undefined;
-  } else {
-    game.state.selectedView.tile = loc;
-    game.state.selectedView.creatureId = undefined;
-  }
-
-  game.updatePossibleUsages();
-  renderSelectedView();
-}
-
-function clearSelectedView() {
-  game.state.selectedView.tile = undefined;
-  game.state.selectedView.creatureId = undefined;
-  renderSelectedView();
-}
-
 function worldToTile(pw: ScreenPoint) {
   return Utils.worldToTile(Helper.getW(), pw, Helper.getZ());
 }
@@ -209,10 +109,115 @@ function mouseToWorld(pm: ScreenPoint): ScreenPoint {
   };
 }
 
+class SelectedViewController {
+  public selectView(loc: TilePoint) {
+    const creature = game.client.context.map.getTile(loc).creature;
+    if (creature && creature.id !== game.client.creatureId) {
+      // TODO: change selectedView to {tile, loc}
+      game.state.selectedView.creatureId = creature.id;
+      game.state.selectedView.tile = undefined;
+    } else {
+      game.state.selectedView.tile = loc;
+      game.state.selectedView.creatureId = undefined;
+    }
+
+    game.updatePossibleUsages();
+    this.renderSelectedView();
+  }
+
+  public clearSelectedView() {
+    game.state.selectedView.tile = undefined;
+    game.state.selectedView.creatureId = undefined;
+    this.renderSelectedView();
+  }
+
+  renderSelectedView() {
+    const state = game.state;
+
+    let creature;
+    if (state.selectedView.creatureId) creature = game.client.context.getCreature(state.selectedView.creatureId);
+
+    let tilePos;
+    if (creature) {
+      tilePos = creature.pos;
+    } else if (state.selectedView.tile) {
+      tilePos = state.selectedView.tile;
+    }
+    const tile = tilePos && game.client.context.map.getTile(tilePos);
+    const item = tile?.item;
+
+    let data: Record<string, string>;
+    let meta;
+    if (creature) {
+      data = {
+        name: creature.name,
+        life: String(creature.life),
+        food: String(creature.food),
+      };
+    } else if (item) {
+      meta = Content.getMetaItem(item.type);
+      data = {
+        name: meta.name,
+        quantity: String(item.quantity),
+        burden: String(item.quantity * meta.burden),
+        misc: JSON.stringify(meta, null, 2),
+      };
+    } else {
+      data = {
+        name: '-',
+        quantity: '0',
+        burden: '0',
+        misc: '',
+      };
+    }
+
+    const el = Helper.find('.selected-view');
+    const detailsEl = Helper.find('.selected-view--details', el);
+    detailsEl.innerHTML = '';
+    for (const [key, value] of Object.entries(data)) {
+      const detailEl = document.createElement('div');
+      detailEl.classList.add('.selected-view--detail', `.selected-view--detail-${key}`);
+      detailEl.textContent = `${key[0].toUpperCase() + key.substr(1)}: ${value}`;
+      detailsEl.appendChild(detailEl);
+    }
+
+    const actionsEl = Helper.find('.selected-view--actions', el);
+    actionsEl.innerHTML = 'Actions:';
+
+    if (!tilePos || !tile) return;
+
+    // Clone tile so properties can be removed as needed.
+    // Also prevents action creators from modifying important data.
+    const clonedTile: Tile = JSON.parse(JSON.stringify(tile));
+
+    if (clonedTile && clonedTile.creature && clonedTile.creature.id === game.client.creatureId) {
+      // Don't allow actions on self.
+      clonedTile.creature = undefined;
+    } else if (creature) {
+      // If a creature is selected, do not show actions for the item on the tile.
+      clonedTile.item = undefined;
+    }
+
+    const actions = state.selectedView.actions = game.getActionsFor(clonedTile, tilePos);
+    for (const action of actions) {
+      const actionEl = document.createElement('button');
+      addDataToActionEl(actionEl, {
+        action,
+        loc: game.state.selectedView.tile,
+        creature,
+      });
+      actionsEl.appendChild(actionEl);
+    }
+  }
+}
+
 class Game {
   public state: UIState;
   public keys: Record<number, boolean> = {};
   public loader = new LazyResourceLoader();
+  public controllers = {
+    selectedView: new SelectedViewController(),
+  };
   protected app = new PIXI.Application();
   protected canvasesEl = Helper.find('#canvases');
   protected world = new PIXI.Container();
@@ -223,7 +228,7 @@ class Game {
   protected modules: ClientModule[] = [];
   protected actionCreators: GameActionCreator[] = [];
   protected possibleUsagesWindow = new Draw.PossibleUsagesWindow();
-  protected spriteCache = new Map<string, {sprite: PIXI.Sprite, hash: string}>();
+  protected spriteCache = new Map<string, { sprite: PIXI.Sprite, hash: string }>();
 
   private _playerCreature?: Creature;
   private _currentHoverItemText =
@@ -231,7 +236,7 @@ class Game {
   private _isEditing = false;
 
   private _animations:
-    Array<{frames: GridiaAnimation['frames'], loc: TilePoint, frame: number, nextFrameAt: number}> = [];
+    Array<{ frames: GridiaAnimation['frames'], loc: TilePoint, frame: number, nextFrameAt: number }> = [];
 
   constructor(public client: Client) {
     this.state = {
@@ -246,7 +251,9 @@ class Game {
         state: '',
       },
       elapsedFrames: 0,
-      selectedView: {},
+      selectedView: {
+        actions: [],
+      },
     };
 
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
@@ -302,7 +309,7 @@ class Game {
         if (e.args.location.source === 'world' && this.state.selectedView.tile) {
           const loc = e.args.location.loc;
           if (Utils.equalPoints(loc, this.state.selectedView.tile)) {
-            selectView(this.state.selectedView.tile);
+            this.controllers.selectedView.selectView(this.state.selectedView.tile);
           }
         }
       }
@@ -310,12 +317,12 @@ class Game {
       if (e.type === 'setCreature' && this.state.selectedView.creatureId) {
         const creature = this.client.context.getCreature(this.state.selectedView.creatureId);
         if (creature.id === e.args.id) {
-          selectView(creature.pos);
+          this.controllers.selectedView.selectView(creature.pos);
         }
       }
       if (e.type === 'removeCreature' && e.args.id === this.state.selectedView.creatureId) {
         delete this.state.selectedView.creatureId;
-        clearSelectedView();
+        this.controllers.selectedView.clearSelectedView();
       }
       if (e.type === 'animation') {
         const animationData = Content.getAnimation(e.args.key);
@@ -376,7 +383,7 @@ class Game {
   }
 
   public addAnimation(animation: GridiaAnimation, loc: TilePoint) {
-    this._animations.push({frames: animation.frames, loc, frame: 0, nextFrameAt: performance.now() + 100});
+    this._animations.push({ frames: animation.frames, loc, frame: 0, nextFrameAt: performance.now() + 100 });
     if (animation.frames[0].sound) {
       this.playSound(animation.frames[0].sound);
     }
@@ -518,7 +525,7 @@ class Game {
       const loc = worldToTile(mouseToWorld({ x: e.data.global.x, y: e.data.global.y }));
 
       if (!this.isEditingMode()) {
-        selectView(loc);
+        this.controllers.selectedView.selectView(loc);
       }
 
       if (this.client.context.map.inBounds(loc)) {
@@ -579,8 +586,8 @@ class Game {
 
         currentCursor.x += dx;
         currentCursor.y += dy;
-        selectView(currentCursor);
-        renderSelectedView();
+        this.controllers.selectedView.selectView(currentCursor);
+        this.controllers.selectedView.renderSelectedView();
       }
 
       // Space bar to use tool.
@@ -642,12 +649,12 @@ class Game {
     });
 
     this.client.eventEmitter.on('containerWindowSelectedIndexChanged', () => {
-      renderSelectedView();
+      this.controllers.selectedView.renderSelectedView();
       this.updatePossibleUsages();
     });
 
     this.client.eventEmitter.on('playerMove', (e) => {
-      if (!this.state.selectedView.creatureId) clearSelectedView();
+      if (!this.state.selectedView.creatureId) this.controllers.selectedView.clearSelectedView();
       ContextMenu.close();
       this.updatePossibleUsages(e.to);
     });
@@ -1009,7 +1016,7 @@ class Game {
     }
 
     if (this.isEditingMode()) {
-      clearSelectedView();
+      this.controllers.selectedView.clearSelectedView();
     }
   }
 

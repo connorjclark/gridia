@@ -147,6 +147,7 @@ interface UIState {
   selectedView: {
     tile?: TilePoint;
     creatureId?: number;
+    actions: GameAction[];
   };
   elapsedFrames: number;
 }

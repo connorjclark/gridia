@@ -74,7 +74,7 @@ Startle room of goblins, they run to grab various weapons and attack.
 
 # Misc
 
-Question: Cary hot soup through town, deliver.
+Question: Carry hot soup through town, deliver.
 
 Pick up materials (gems, silk, wood). In order to use, costs environment points (flora, fauna, earth). Study a tree -> get flora. 
 
