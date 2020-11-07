@@ -509,25 +509,21 @@ export default class Server {
     // Handle growth.
     // TODO: Only load part of the world in memory and simulate growth of inactive areas on load.
     this.registerTickSection('growth', this.growthRate, () => {
-      if (this.ticks % this.growthRate === 0) {
-        for (const [w, partition] of this.context.map.getPartitions()) {
-          this.growPartition(w, partition);
-        }
+      for (const [w, partition] of this.context.map.getPartitions()) {
+        this.growPartition(w, partition);
       }
     });
 
     // Handle hunger.
     this.registerTickSection('hunger', this.hungerRate, () => {
-      if (this.ticks % this.hungerRate === 0) {
-        for (const creature of this.context.creatures.values()) {
-          if (!creature.eat_grass) return; // TODO: let all creature experience hunger pain.
+      for (const creature of this.context.creatures.values()) {
+        if (!creature.eat_grass) return; // TODO: let all creature experience hunger pain.
 
-          if (creature.food <= 0) {
-            // TODO: reduce stamina instead?
-            this.modifyCreatureLife(null, creature, -10);
-          } else {
-            creature.food -= 1;
-          }
+        if (creature.food <= 0) {
+          // TODO: reduce stamina instead?
+          this.modifyCreatureLife(null, creature, -10);
+        } else {
+          creature.food -= 1;
         }
       }
     });
