@@ -22,11 +22,11 @@ interface RegisterOpts {
   // password: string;
 }
 
-type PerfTick = {
+interface PerfTick {
   started: number;
   duration: number;
   sections: Array<{ name: string, duration: number }>;
-};
+}
 
 export default class Server {
   public context: ServerContext;
@@ -292,7 +292,7 @@ export default class Server {
   }
 
   public findNearest(loc: TilePoint, range: number, includeTargetLocation: boolean,
-    predicate: (tile: Tile, loc: TilePoint) => boolean): TilePoint | null {
+                     predicate: (tile: Tile, loc: TilePoint) => boolean): TilePoint | null {
     const w = loc.w;
     const partition = this.context.map.getPartition(w);
     const test = (l: TilePoint) => {

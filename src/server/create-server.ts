@@ -38,7 +38,7 @@ export async function startServer(options: ServerOptions) {
     return context.loadSector(server, pos);
   };
 
-  setInterval(() => {
+  server.registerTickSection('cows', Utils.RATE({ seconds: 1 }), () => {
     const COW = getMonsterTemplateByName('Cow');
     if (server.clientConnections.length > 0) {
       if (Object.keys(server.creatureStates).length < 2) {
@@ -54,11 +54,11 @@ export async function startServer(options: ServerOptions) {
         server.removeCreature(creature);
       }
     }
-  }, 1000);
+  });
 
-  setInterval(async () => {
+  server.registerTickSection('save', Utils.RATE({ minutes: 5 }), async () => {
     await server.save();
-  }, 1000 * 60 * 5);
+  });
 
   server.start();
 
