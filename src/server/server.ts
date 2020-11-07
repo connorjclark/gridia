@@ -587,7 +587,7 @@ export default class Server {
     this.ticks++;
     if (this.ticks % this.resetTickRate === 0) this.ticks = 0;
 
-    const measureTiming = !false; // Set to true to debug performance.
+    const measureTiming = false; // Set to true to debug performance.
     let perfTick: PerfTick | undefined;
     if (measureTiming) perfTick = { started: performance.now(), duration: 0, sections: [] };
 
