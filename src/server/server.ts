@@ -37,12 +37,10 @@ export default class Server {
 
   public verbose: boolean;
 
-  // RPGWO does 20 second intervals.
-  private growRate = 20 * 1000;
-  private nextGrowthAt = performance.now() + this.growRate;
-
-  private hungerRate = 60 * 1000;
-  private nextHungerAt = performance.now() + this.hungerRate;
+  private resetTickRate = Utils.RATE({ days: 10 });
+  // RPGWO does 20 second growth intervals.
+  private growthRate = Utils.RATE({ seconds: 20 });
+  private hungerRate = Utils.RATE({ minutes: 1 });
 
   private ticks = 0;
 
@@ -53,6 +51,11 @@ export default class Server {
   };
 
   private _clientToServerProtocol = new ClientToServerProtocol();
+
+  private tickTimeoutHandle?: NodeJS.Timeout;
+
+  private lastTickTime = 0;
+  private unprocessedTickTime = 0;
 
   constructor(opts: CtorOpts) {
     this.context = opts.context;
@@ -75,11 +78,29 @@ export default class Server {
     this.outboundMessages.push({ filter, message });
   }
 
+  public start() {
+    this.tickTimeoutHandle = setInterval(() => {
+      this.tick();
+    }, 10);
+  }
+
+  public stop() {
+    if (this.tickTimeoutHandle) clearInterval(this.tickTimeoutHandle);
+    this.tickTimeoutHandle = undefined;
+  }
+
   public async tick() {
-    try {
-      await this.tickImpl();
-    } catch (err) {
-      throw err;
+    const now = performance.now();
+    this.unprocessedTickTime += now - this.lastTickTime;
+    this.lastTickTime = now;
+
+    while (this.unprocessedTickTime >= Utils.TICK_DURATION) {
+      this.unprocessedTickTime -= Utils.TICK_DURATION;
+      try {
+        await this.tickImpl();
+      } catch (err) {
+        throw err;
+      }
     }
   }
 
@@ -95,7 +116,7 @@ export default class Server {
   public async registerPlayer(clientConnection: ClientConnection, opts: RegisterOpts) {
     const { width, height } = this.context.map.getPartition(0);
 
-    const center = {w: 0, x: Math.round(width / 2), y: Math.round(height / 2) + 3, z: 0};
+    const center = { w: 0, x: Math.round(width / 2), y: Math.round(height / 2) + 3, z: 0 };
     // Make sure sector is loaded. Prevents hidden creature (race condition, happens often in worker).
     await this.ensureSectorLoadedForPoint(center);
     const spawnLoc = this.findNearest(center, 10, true, (_, loc) => this.context.map.walkable(loc)) || center;
@@ -226,7 +247,7 @@ export default class Server {
   public modifyCreatureLife(actor: Creature | null, creature: Creature, delta: number) {
     creature.life += delta;
 
-    this.broadcast(ProtocolBuilder.setCreature({partial: true, id: creature.id, life: creature.life}));
+    this.broadcast(ProtocolBuilder.setCreature({ partial: true, id: creature.id, life: creature.life }));
 
     if (delta < 0) {
       this.broadcast(ProtocolBuilder.animation({
@@ -427,12 +448,12 @@ export default class Server {
   }
 
   private async tickImpl() {
-    const now = performance.now();
     this.ticks++;
+    if (this.ticks % this.resetTickRate === 0) this.ticks = 0;
 
     // Handle creatures.
     for (const state of Object.values(this.creatureStates)) {
-      state.tick(this, now);
+      state.tick(this);
     }
 
     // Handle stairs and warps.
@@ -473,16 +494,14 @@ export default class Server {
 
     // Handle growth.
     // TODO: Only load part of the world in memory and simulate growth of inactive areas on load.
-    if (this.nextGrowthAt <= now) {
-      this.nextGrowthAt += this.growRate;
+    if (this.ticks % this.growthRate === 0) {
       for (const [w, partition] of this.context.map.getPartitions()) {
         this.growPartition(w, partition);
       }
     }
 
     // Handle hunger.
-    if (this.nextHungerAt <= now) {
-      this.nextHungerAt += this.hungerRate;
+    if (this.ticks % this.hungerRate === 0) {
       for (const creature of this.context.creatures.values()) {
         if (!creature.eat_grass) return; // TODO: let all creature experience hunger pain.
 

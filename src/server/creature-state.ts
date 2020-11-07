@@ -1,5 +1,4 @@
 import { findPath } from '../path-finding';
-import performance from '../performance';
 import * as Utils from '../utils';
 import WorldMapPartition from '../world-map-partition';
 import Server from './server';
@@ -31,8 +30,8 @@ const Facts: Record<string, Fact> = {
     return isGrass(server.context.map.getTile(this.creature.pos).floor);
   },
   'near-target'(server) {
-   if (!this.targetCreature) return false;
-   return Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos) <= 1;
+    if (!this.targetCreature) return false;
+    return Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos) <= 1;
   },
   'kill-creature'(server) {
     return !Boolean(this.targetCreature); // ?
@@ -132,21 +131,21 @@ const Actions: Record<string, Action> = {
 // Also isn't serialized - this state is transient.
 export default class CreatureState {
   public mode: string[] = [];
-  public nextMovement = 0;
   // True if last movement was a warp. Prevents infinite stairs.
   public warped = false;
   public home: TilePoint;
   public path: PartitionPoint[] = [];
-  public idleUntil: number = 0;
 
   // For attacking.
   public targetCreature: CreatureState | null = null;
-  public nextAttack = 0;
 
   public enemyCreatures: CreatureState[] = [];
 
   // @ts-ignore
   public partition: WorldMapPartition;
+  private ticksUntilNotIdle = 0;
+  private ticksUntilNextMovement = 0;
+  private ticksUntilNextAttack = 0;
 
   // GOAP
   private _actions: Action[];
@@ -191,7 +190,7 @@ export default class CreatureState {
   }
 
   public idle(time: number) {
-    this.idleUntil = performance.now() + time;
+    this.ticksUntilNotIdle = Utils.RATE({ ms: time });
   }
 
   public addGoal(newGoal: Goal) {
@@ -209,7 +208,11 @@ export default class CreatureState {
     this._shouldRecreatePlan = true;
   }
 
-  public tick(server: Server, now: number) {
+  public tick(server: Server) {
+    if (this.ticksUntilNextAttack > 0) this.ticksUntilNextAttack--;
+    if (this.ticksUntilNextMovement > 0) this.ticksUntilNextMovement--;
+    if (this.ticksUntilNotIdle > 0) this.ticksUntilNotIdle--;
+
     if (!this.goals.length && this.creature.eat_grass) {
       if (this.creature.food <= 10) {
         this.addGoal({
@@ -237,15 +240,10 @@ export default class CreatureState {
     }
     if (this._shouldRecreatePlan) this._createPlan(server);
 
-    this._handleMovement(server, now);
-    this._handleAttack(server, now);
+    this._handleMovement(server);
+    this._handleAttack(server);
 
-    if (this.idleUntil) {
-      if (now < this.idleUntil) {
-        return;
-      }
-      this.idleUntil = 0;
-    }
+    if (this.ticksUntilNotIdle > 0) return;
 
     this.partition = server.context.map.getPartition(this.creature.pos.w);
 
@@ -288,7 +286,7 @@ export default class CreatureState {
     if (!this.goals.length) return;
 
     this.currentGoal = this.goals.reduce((acc, cur) => acc.priority >= cur.priority ? acc : cur);
-    this.idleUntil = 0;
+    this.ticksUntilNotIdle = 0;
     this.path = [];
 
     // Find plan.
@@ -358,11 +356,13 @@ export default class CreatureState {
     // console.log(this.plannedActions.map((a) => a.name).reverse());
   }
 
-  private _handleMovement(server: Server, now: number) {
+  private _handleMovement(server: Server) {
     if (this.creature.isPlayer) return;
-    if (now < this.nextMovement) return;
-    const duration = [400, 750, 1000, 1500, 3500, 5000][Utils.clamp(this.creature.speed, 0, 5)];
-    this.nextMovement = now + duration;
+    if (this.ticksUntilNextMovement > 0) return;
+
+    const durationThresholds = [400, 750, 1000, 1500, 3500, 5000];
+    const durationInMs = durationThresholds[Utils.clamp(this.creature.speed, 0, durationThresholds.length)];
+    this.ticksUntilNextMovement = Utils.RATE({ ms: durationInMs });
 
     const w = this.creature.pos.w;
     const partition = server.context.map.getPartition(w);
@@ -405,11 +405,11 @@ export default class CreatureState {
     }
   }
 
-  private _handleAttack(server: Server, now: number) {
-    if (!this.targetCreature || now < this.nextAttack) return;
+  private _handleAttack(server: Server) {
+    if (!this.targetCreature || this.ticksUntilNextAttack > 0) return;
     // Range check.
     if (Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos) > 1) return;
-    this.nextAttack = now + 1000;
+    this.ticksUntilNextAttack = Utils.RATE({ seconds: 1 });
 
     if (!this.targetCreature.enemyCreatures.includes(this)) {
       this.targetCreature.enemyCreatures.push(this);

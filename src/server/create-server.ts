@@ -39,10 +39,6 @@ export async function startServer(options: ServerOptions) {
   };
 
   setInterval(() => {
-    server.tick();
-  }, 50);
-
-  setInterval(() => {
     const COW = getMonsterTemplateByName('Cow');
     if (server.clientConnections.length > 0) {
       if (Object.keys(server.creatureStates).length < 2) {
@@ -63,6 +59,8 @@ export async function startServer(options: ServerOptions) {
   setInterval(async () => {
     await server.save();
   }, 1000 * 60 * 5);
+
+  server.start();
 
   console.log('Server started.');
   return server;

@@ -111,9 +111,9 @@ class Game {
   public loader = new LazyResourceLoader();
   public modules = {
     movement: new MovementModule(this),
+    selectedView: new SelectedViewModule(this),
     settings: new SettingsModule(this),
     skills: new SkillsModule(this),
-    selectedView: new SelectedViewModule(this),
     usage: new UsageModule(this),
   };
   protected app = new PIXI.Application();
