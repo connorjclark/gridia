@@ -38,26 +38,32 @@ export async function startServer(options: ServerOptions) {
     return context.loadSector(server, pos);
   };
 
-  server.registerTickSection('cows', Utils.RATE({ seconds: 1 }), () => {
-    const COW = getMonsterTemplateByName('Cow');
-    if (server.clientConnections.length > 0) {
-      if (Object.keys(server.creatureStates).length < 2) {
-        const x = Utils.randInt(width / 2 - 5, width / 2 + 5);
-        const y = Utils.randInt(height / 2 - 5, height / 2 + 5);
-        const pos = { w: 0, x, y, z: 0 };
-        if (server.context.map.walkable(pos)) {
-          server.makeCreatureFromTemplate(COW, pos);
+  server.taskRunner.registerTickSection({
+    description: 'cows',
+    rate: Utils.RATE({ seconds: 1 }),
+    fn: () => {
+      const COW = getMonsterTemplateByName('Cow');
+      if (server.clientConnections.length > 0) {
+        if (Object.keys(server.creatureStates).length < 2) {
+          const x = Utils.randInt(width / 2 - 5, width / 2 + 5);
+          const y = Utils.randInt(height / 2 - 5, height / 2 + 5);
+          const pos = { w: 0, x, y, z: 0 };
+          if (server.context.map.walkable(pos)) {
+            server.makeCreatureFromTemplate(COW, pos);
+          }
+        }
+      } else {
+        for (const { creature } of Object.values(server.creatureStates)) {
+          server.removeCreature(creature);
         }
       }
-    } else {
-      for (const { creature } of Object.values(server.creatureStates)) {
-        server.removeCreature(creature);
-      }
-    }
+    },
   });
 
-  server.registerTickSection('save', Utils.RATE({ minutes: 5 }), async () => {
-    await server.save();
+  server.taskRunner.registerTickSection({
+    description: 'save',
+    rate: Utils.RATE({ minutes: 5 }),
+    fn: () => server.save(),
   });
 
   server.start();

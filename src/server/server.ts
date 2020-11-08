@@ -9,6 +9,7 @@ import WorldMapPartition from '../world-map-partition';
 import ClientConnection from './client-connection';
 import CreatureState from './creature-state';
 import { ServerContext } from './server-context';
+import TaskRunner from './task-runner';
 
 // TODO document how the f this works.
 
@@ -20,12 +21,6 @@ interface CtorOpts {
 interface RegisterOpts {
   name: string;
   // password: string;
-}
-
-interface PerfTick {
-  started: number;
-  duration: number;
-  sections: Array<{ name: string, duration: number }>;
 }
 
 export default class Server {
@@ -43,18 +38,11 @@ export default class Server {
 
   public verbose: boolean;
 
-  private resetTickRate = Utils.RATE({ days: 10 });
+  public taskRunner = new TaskRunner();
+
   // RPGWO does 20 second growth intervals.
   private growthRate = Utils.RATE({ seconds: 20 });
   private hungerRate = Utils.RATE({ minutes: 1 });
-
-  private ticks = 0;
-
-  private perf = {
-    ticks: [] as PerfTick[],
-    tickDurationAverage: 0,
-    tickDurationMax: 0,
-  };
 
   private _clientToServerProtocol = new ClientToServerProtocol();
 
@@ -62,8 +50,6 @@ export default class Server {
 
   private lastTickTime = 0;
   private unprocessedTickTime = 0;
-
-  private tickSections = [] as Array<{ description: string, rate: number, fn: (this: Server) => Promise<void> | void }>;
 
   constructor(opts: CtorOpts) {
     this.context = opts.context;
@@ -106,7 +92,7 @@ export default class Server {
     while (this.unprocessedTickTime >= Utils.TICK_DURATION) {
       this.unprocessedTickTime -= Utils.TICK_DURATION;
       try {
-        await this.tickImpl();
+        await this.taskRunner.tick();
       } catch (err) {
         throw err;
       }
@@ -430,10 +416,6 @@ export default class Server {
     return this.ensureSectorLoaded({ w: loc.w, ...sectorPoint });
   }
 
-  public registerTickSection(description: string, rate: number, fn: (this: Server) => Promise<void> | void) {
-    this.tickSections.push({ description, rate, fn });
-  }
-
   private async initClient(clientConnection: ClientConnection) {
     const player = clientConnection.player;
 
@@ -462,183 +444,186 @@ export default class Server {
 
   private setupTickSections() {
     // Handle creatures.
-    this.registerTickSection('creature states', 1, () => {
-      for (const state of Object.values(this.creatureStates)) {
-        state.tick(this);
-      }
+    this.taskRunner.registerTickSection({
+      description: 'creature states',
+      fn: () => {
+        for (const state of Object.values(this.creatureStates)) {
+          state.tick(this);
+        }
+      },
     });
 
     // Handle stairs and warps.
-    this.registerTickSection('stairs and warps', 1, async () => {
-      for (const state of Object.values(this.creatureStates)) {
-        const creature = state.creature;
-        if (state.warped) continue;
+    this.taskRunner.registerTickSection({
+      description: 'stairs and warps',
+      fn: async () => {
+        for (const state of Object.values(this.creatureStates)) {
+          const creature = state.creature;
+          if (state.warped) continue;
 
-        const map = this.context.map;
-        const item = map.getItem(creature.pos);
-        if (item) {
-          const meta = Content.getMetaItem(item.type);
+          const map = this.context.map;
+          const item = map.getItem(creature.pos);
+          if (item) {
+            const meta = Content.getMetaItem(item.type);
 
-          let newPos = null;
-          let playWarpSound = false;
-          if (meta.class === 'CaveDown') {
-            newPos = { ...creature.pos, z: creature.pos.z + 1 };
-          } else if (meta.class === 'CaveUp') {
-            newPos = { ...creature.pos, z: creature.pos.z - 1 };
-          } else if (meta.trapEffect === 'Warp' && item.warpTo) {
-            newPos = { ...item.warpTo };
-            playWarpSound = true;
-          }
-          if (!newPos || !map.inBounds(newPos) || !await map.walkableAsync(newPos)) continue;
+            let newPos = null;
+            let playWarpSound = false;
+            if (meta.class === 'CaveDown') {
+              newPos = { ...creature.pos, z: creature.pos.z + 1 };
+            } else if (meta.class === 'CaveUp') {
+              newPos = { ...creature.pos, z: creature.pos.z - 1 };
+            } else if (meta.trapEffect === 'Warp' && item.warpTo) {
+              newPos = { ...item.warpTo };
+              playWarpSound = true;
+            }
+            if (!newPos || !map.inBounds(newPos) || !await map.walkableAsync(newPos)) continue;
 
-          await this.warpCreature(creature, newPos);
-          if (playWarpSound) {
-            this.broadcast(ProtocolBuilder.animation({
-              ...creature.pos,
-              key: 'WarpOut',
-            }));
-            this.broadcast(ProtocolBuilder.animation({
-              ...newPos,
-              key: 'WarpIn',
-            }));
+            await this.warpCreature(creature, newPos);
+            if (playWarpSound) {
+              this.broadcast(ProtocolBuilder.animation({
+                ...creature.pos,
+                key: 'WarpOut',
+              }));
+              this.broadcast(ProtocolBuilder.animation({
+                ...newPos,
+                key: 'WarpIn',
+              }));
+            }
           }
         }
-      }
+      },
     });
 
     // Handle growth.
     // TODO: Only load part of the world in memory and simulate growth of inactive areas on load.
-    this.registerTickSection('growth', this.growthRate, () => {
-      for (const [w, partition] of this.context.map.getPartitions()) {
-        this.growPartition(w, partition);
-      }
+    const server = this;
+    this.taskRunner.registerTickSection({
+      description: 'growth',
+      rate: this.growthRate,
+      *generator() {
+        for (const [w, partition] of server.context.map.getPartitions()) {
+          yield* server.growPartition(w, partition);
+        }
+      },
     });
 
     // Handle hunger.
-    this.registerTickSection('hunger', this.hungerRate, () => {
-      for (const creature of this.context.creatures.values()) {
-        if (!creature.eat_grass) return; // TODO: let all creature experience hunger pain.
+    this.taskRunner.registerTickSection({
+      description: 'hunger',
+      rate: this.hungerRate,
+      fn: () => {
+        for (const creature of this.context.creatures.values()) {
+          if (!creature.eat_grass) return; // TODO: let all creature experience hunger pain.
 
-        if (creature.food <= 0) {
-          // TODO: reduce stamina instead?
-          this.modifyCreatureLife(null, creature, -10);
-        } else {
-          creature.food -= 1;
+          if (creature.food <= 0) {
+            // TODO: reduce stamina instead?
+            this.modifyCreatureLife(null, creature, -10);
+          } else {
+            creature.food -= 1;
+          }
         }
-      }
+      },
     });
 
     // Handle messages.
-    this.registerTickSection('messages', 1, async () => {
-      for (const clientConnection of this.clientConnections) {
-        // only read one message from a client at a time
-        const message = clientConnection.getMessage();
-        if (!message) continue;
+    this.taskRunner.registerTickSection({
+      description: 'messages',
+      fn: async () => {
+        for (const clientConnection of this.clientConnections) {
+          // only read one message from a client at a time
+          const message = clientConnection.getMessage();
+          if (!message) continue;
 
-        if (this.verbose) console.log('from client', message.type, message.args);
-        this.currentClientConnection = clientConnection;
-        // performance.mark(`${message.type}-start`);
-        try {
-          const onMethodName = 'on' + message.type[0].toUpperCase() + message.type.substr(1);
-          // @ts-ignore
-          const ret = this._clientToServerProtocol[onMethodName](this, message.args);
-          // TODO: some message handlers are async ... is that bad?
-          if (ret) await ret;
-        } catch (err) {
-          // Don't let a bad message kill the message loop.
-          console.error(err, message);
-        }
-        // performance.mark(`${message.type}-end`);
-        // performance.measure(message.type, `${message.type}-start`, `${message.type}-end`);
-      }
-
-      // TODO stream marks somewhere, and pull in isomorphic node/browser performance.
-      // console.log(performance.getEntries());
-      // performance.clearMarks();
-      // performance.clearMeasures();
-      // performance.clearResourceTimings();
-
-      for (const { message, to, filter } of this.outboundMessages) {
-        // Send a message to:
-        // 1) a specific client
-        // 2) clients based on a filter
-        // 3) everyone (broadcast)
-        if (to) {
-          to.send(message);
-        } else if (filter) {
-          for (const clientConnection of this.clientConnections) {
-            // If connection is not logged in yet, skip.
-            if (!clientConnection.player) continue;
-            if (filter(clientConnection)) clientConnection.send(message);
+          if (this.verbose) console.log('from client', message.type, message.args);
+          this.currentClientConnection = clientConnection;
+          // performance.mark(`${message.type}-start`);
+          try {
+            const onMethodName = 'on' + message.type[0].toUpperCase() + message.type.substr(1);
+            // @ts-ignore
+            const ret = this._clientToServerProtocol[onMethodName](this, message.args);
+            // TODO: some message handlers are async ... is that bad?
+            if (ret) await ret;
+          } catch (err) {
+            // Don't let a bad message kill the message loop.
+            console.error(err, message);
           }
-        } else {
-          for (const clientConnection of this.clientConnections) {
-            // If connection is not logged in yet, skip.
-            if (!clientConnection.player) continue;
-            clientConnection.send(message);
+          // performance.mark(`${message.type}-end`);
+          // performance.measure(message.type, `${message.type}-start`, `${message.type}-end`);
+        }
+
+        // TODO stream marks somewhere, and pull in isomorphic node/browser performance.
+        // console.log(performance.getEntries());
+        // performance.clearMarks();
+        // performance.clearMeasures();
+        // performance.clearResourceTimings();
+
+        for (const { message, to, filter } of this.outboundMessages) {
+          // Send a message to:
+          // 1) a specific client
+          // 2) clients based on a filter
+          // 3) everyone (broadcast)
+          if (to) {
+            to.send(message);
+          } else if (filter) {
+            for (const clientConnection of this.clientConnections) {
+              // If connection is not logged in yet, skip.
+              if (!clientConnection.player) continue;
+              if (filter(clientConnection)) clientConnection.send(message);
+            }
+          } else {
+            for (const clientConnection of this.clientConnections) {
+              // If connection is not logged in yet, skip.
+              if (!clientConnection.player) continue;
+              clientConnection.send(message);
+            }
           }
         }
-      }
-      this.outboundMessages = [];
+        this.outboundMessages = [];
+      },
+    });
+
+    this.taskRunner.registerTickSection({
+      description: 'tick performance',
+      rate: Utils.RATE({ seconds: 10 }),
+      fn: () => {
+        if (!this.taskRunner.debugMeasureTiming) return;
+
+        const perf = this.taskRunner.perf;
+
+        // Only keep the last 10 seconds of ticks.
+        const cutoff = performance.now() - 10 * 1000;
+        const firstValid = perf.ticks.findIndex((tick) => tick.started >= cutoff);
+        perf.ticks.splice(0, firstValid);
+        perf.tickDurationAverage =
+          perf.ticks.reduce((acc, cur) => acc + cur.duration, 0) / perf.ticks.length;
+        perf.tickDurationMax = perf.ticks.reduce((acc, cur) => Math.max(acc, cur.duration), 0);
+        const lastTick = perf.ticks[perf.ticks.length - 1];
+        const secondsRange = (lastTick.started + lastTick.duration - perf.ticks[0].started) / 1000;
+        const ticksPerSec = perf.ticks.length / secondsRange;
+        const longestTick = perf.ticks.reduce((longest, cur) => {
+          if (longest.duration > cur.duration) return longest;
+          return cur;
+        });
+
+        // Send clients perf stats.
+        const msg = JSON.stringify({
+          ticksPerSec,
+          avgDurationMs: perf.tickDurationAverage,
+          maxDurationMs: perf.tickDurationMax,
+          longestTick,
+        }, null, 2);
+        this.broadcast(ProtocolBuilder.log({ msg }));
+      },
     });
   }
 
-  private async tickImpl() {
-    this.ticks++;
-    if (this.ticks % this.resetTickRate === 0) this.ticks = 0;
-
-    const measureTiming = false; // Set to true to debug performance.
-    let perfTick: PerfTick | undefined;
-    if (measureTiming) perfTick = { started: performance.now(), duration: 0, sections: [] };
-
-    for (const { description, rate, fn } of this.tickSections) {
-      if (this.ticks % rate !== 0) continue;
-      if (!perfTick) {
-        await fn.call(this);
-      } else {
-        const now = performance.now();
-        await fn.call(this);
-        const duration = performance.now() - now;
-        perfTick.sections.push({ name: description, duration });
-      }
-    }
-
-    if (perfTick) {
-      perfTick.duration = performance.now() - perfTick.started;
-      this.perf.ticks.push(perfTick);
-    }
-
-    if (perfTick && this.ticks % Utils.RATE({ seconds: 10 }) === 0) {
-      // Only keep the last 10 seconds of ticks.
-      const cutoff = performance.now() - 10 * 1000;
-      const firstValid = this.perf.ticks.findIndex((tick) => tick.started >= cutoff);
-      this.perf.ticks.splice(0, firstValid);
-      this.perf.tickDurationAverage =
-        this.perf.ticks.reduce((acc, cur) => acc + cur.duration, 0) / this.perf.ticks.length;
-      this.perf.tickDurationMax = this.perf.ticks.reduce((acc, cur) => Math.max(acc, cur.duration), 0);
-      const lastTick = this.perf.ticks[this.perf.ticks.length - 1];
-      const secondsRange = (lastTick.started + lastTick.duration - this.perf.ticks[0].started) / 1000;
-      const ticksPerSec = this.perf.ticks.length / secondsRange;
-
-      // Send clients perf stats.
-      const msg = JSON.stringify({
-        ticksPerSec,
-        avgDurationMs: this.perf.tickDurationAverage,
-        maxDurationMs: this.perf.tickDurationMax,
-        longestTick: this.perf.ticks.reduce((longest, cur) => {
-          if (longest.duration > cur.duration) return longest;
-          return cur;
-        }),
-      }, null, 2);
-      this.broadcast(ProtocolBuilder.log({ msg }));
-    }
-  }
-
-  private growPartition(w: number, partition: WorldMapPartition) {
+  private *growPartition(w: number, partition: WorldMapPartition) {
     // TODO: test which is faster?: iterate directly, iterate with getIteratorForArea, or iterate directly on partition.sectors
-    // TODO: Should really find a way to break up growth over multiple ticks.
 
+    let i = 0;
     for (const { pos, tile } of partition.getIteratorForArea({ x: 0, y: 0, z: 0 }, partition.width, partition.height)) {
+      if (++i % 1000 === 0) yield;
+
       if (pos.z !== 0) continue; // TODO. No reason. lol.
 
       if (!tile.item) continue;
