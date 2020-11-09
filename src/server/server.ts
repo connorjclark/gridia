@@ -594,7 +594,8 @@ export default class Server {
   }
 
   private *growPartition(w: number, partition: WorldMapPartition) {
-    // TODO: test which is faster?: iterate directly, iterate with getIteratorForArea, or iterate directly on partition.sectors
+    // TODO: test which is faster?
+    // iterate directly, iterate with getIteratorForArea, or iterate directly on partition.sectors ?
 
     let i = 0;
     for (const { pos, tile } of partition.getIteratorForArea({ x: 0, y: 0, z: 0 }, partition.width, partition.height)) {

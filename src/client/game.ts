@@ -17,23 +17,57 @@ import SkillsModule from './modules/skills-module';
 import UsageModule from './modules/usage-module';
 import { getMineFloor, getWaterFloor } from './template-draw';
 
-// WIP playing with shaders.
-const fragmentCode = `
-varying vec2 vTextureCoord;
+// WIP lighting shaders.
 
-uniform sampler2D uSampler;
-precision mediump float;
-uniform float time;
+const vertexCode = `#version 300 es
+in vec2 aVertexPosition;
+in vec2 aTextureCoord;
 
-void main(){
-  vec4 red = vec4(sin(time),0.0,0.0,1.0);
-  gl_FragColor = red * texture2D(uSampler, vTextureCoord);
+uniform mat3 projectionMatrix;
+
+out vec2 vTextureCoord;
+
+void main(void){
+  gl_Position = vec4((projectionMatrix * vec3(aVertexPosition, 1.0)).xy, 0.0, 1.0);
+  vTextureCoord = aTextureCoord;
 }
 `;
+
+// // http://alex-charlton.com/posts/Dithering_on_the_GPU/
+const fragmentCode = `#version 300 es
+
+precision mediump float;
+
+uniform sampler2D uSampler;
+in vec2 vTextureCoord;
+uniform float time;
+out vec4 fragColor;
+
+const int indexMatrix4x4[16] = int[](0,  8,  2,  10,
+                                    12, 4,  14, 6,
+                                    3,  11, 1,  9,
+                                    15, 7,  13, 5);
+void main () {
+  vec4 sampled_color = texture(uSampler, vTextureCoord);
+
+  int x = int(gl_FragCoord.x) % 4;
+  int y = int(gl_FragCoord.y) % 4;
+  float val = float(indexMatrix4x4[(x + y * 4)]) / 16.0;
+
+  float threshold = 0.0 + float(int(time) % 15);
+  if (val >= threshold / 16.0) {
+    fragColor = sampled_color;
+  } else {
+    fragColor = vec4(0,0,0,1);
+  }
+}
+`;
+
 const uniforms = {
   time: 0,
+  // color: 0xFF0000,
 };
-const testFilter = new PIXI.Filter('', fragmentCode, uniforms);
+const testFilter = new PIXI.Filter(vertexCode, fragmentCode, uniforms);
 
 const ContextMenu = {
   get() {
@@ -250,6 +284,9 @@ class Game {
     world.addChild(this.layers.floorLayer = new PIXI.Graphics());
     world.addChild(this.layers.itemAndCreatureLayer = new PIXI.Graphics());
     world.addChild(this.layers.topLayer = new PIXI.Graphics());
+
+    // this.world.filters = [];
+    // this.world.filters.push(testFilter);
 
     for (const module of Object.values(this.modules)) {
       module.onStart();
