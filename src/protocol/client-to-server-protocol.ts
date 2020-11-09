@@ -80,9 +80,15 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
   }
 
   public onRequestCreature(server: Server, { id }: Params.RequestCreature): void {
+    const creature = server.context.getCreature(id);
+    if (!creature) {
+      console.error('client requested invalid creature:', id);
+      return;
+    }
+
     server.reply(ProtocolBuilder.setCreature({
       partial: false,
-      ...server.context.getCreature(id),
+      ...creature,
     }));
   }
 

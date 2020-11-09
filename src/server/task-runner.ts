@@ -1,9 +1,16 @@
 import performance from '../performance';
-import * as Utils from '../utils';
+
+interface Rate {
+  days?: number;
+  hours?: number;
+  minutes?: number;
+  seconds?: number;
+  ms?: number;
+}
 
 interface TickSectionBase {
   description: string;
-  rate?: number;
+  rate?: Rate;
 }
 
 type TickSection = TickSectionBase & (
@@ -19,28 +26,73 @@ interface PerfTick {
 
 export default class TaskRunner {
   public debugMeasureTiming = false;
-
   public perf = {
     ticks: [] as PerfTick[],
     tickDurationAverage: 0,
     tickDurationMax: 0,
   };
-
   private tickSections: TickSection[] = [];
-
   private ticks = 0;
+  private resetTickRate: Rate = { days: 10 };
+  private tickTimeoutHandle?: NodeJS.Timeout;
+  private lastTickTime = 0;
+  private unprocessedTickTime = 0;
 
-  private resetTickRate = Utils.RATE({ days: 10 });
+  constructor(private tickDuration: number) {
+  }
+
+  public start() {
+    this.tickTimeoutHandle = setInterval(() => {
+      this.tick();
+    }, 10);
+  }
+
+  public stop() {
+    if (this.tickTimeoutHandle) clearInterval(this.tickTimeoutHandle);
+    this.tickTimeoutHandle = undefined;
+  }
 
   public async tick() {
+    const now = performance.now();
+    this.unprocessedTickTime += now - this.lastTickTime;
+    this.lastTickTime = now;
+
+    while (this.unprocessedTickTime >= this.tickDuration) {
+      this.unprocessedTickTime -= this.tickDuration;
+      try {
+        await this.tickImpl();
+      } catch (err) {
+        throw err;
+      }
+    }
+  }
+
+  public registerTickSection(section: TickSection) {
+    this.tickSections.push(section);
+  }
+
+  public registerForNextTick(options: Exclude<TickSection, 'rate'>) {
+    this.registerTickSection({ ...options, rate: { ms: 0 } });
+  }
+
+  public rateToTicks({ days = 0, hours = 0, minutes = 0, seconds = 0, ms = 0 }) {
+    let ms_ = ms;
+    ms_ += seconds * 1000;
+    ms_ += minutes * 1000 * 60;
+    ms_ += hours * 1000 * 60 * 60;
+    ms_ += days * 1000 * 60 * 60 * 24;
+    return Math.floor(ms_ / this.tickDuration);
+  }
+
+  private async tickImpl() {
     this.ticks++;
-    if (this.ticks % this.resetTickRate === 0) this.ticks = 0;
+    if (this.rateMatchesCurrentTick(this.resetTickRate)) this.ticks = 0;
 
     let perfTick: PerfTick | undefined;
     if (this.debugMeasureTiming) perfTick = { started: performance.now(), duration: 0, sections: [] };
 
     for (const section of [...this.tickSections]) {
-      if (section.rate !== undefined && section.rate > 1 && this.ticks % section.rate !== 0) continue;
+      if (section.rate !== undefined && !this.rateMatchesCurrentTick(section.rate)) continue;
 
       if (!perfTick) {
         await this.handleTickSection(section);
@@ -61,12 +113,10 @@ export default class TaskRunner {
     }
   }
 
-  public registerTickSection(section: TickSection) {
-    this.tickSections.push(section);
-  }
-
-  public registerForNextTick(options: Exclude<TickSection, 'rate'>) {
-    this.registerTickSection({ ...options, rate: 0 });
+  private rateMatchesCurrentTick(rate: Rate) {
+    const ticks = this.rateToTicks(rate);
+    if (ticks === 0) return true;
+    return this.ticks % ticks === 0;
   }
 
   private async handleTickSection(section: TickSection) {
@@ -85,7 +135,7 @@ export default class TaskRunner {
 
     const start = performance.now();
     while (!it.next().done) {
-      if (performance.now() - start > Utils.TICK_DURATION * 0.5) {
+      if (performance.now() - start > this.tickDuration * 0.5) {
         this.registerForNextTick({ ...section, generator: it });
         break;
       }

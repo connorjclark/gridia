@@ -35,21 +35,10 @@ export default class Server {
   public currentClientConnection: ClientConnection;
   public creatureStates: Record<number, CreatureState> = {};
   public players = new Map<number, Player>();
-
   public verbose: boolean;
-
-  public taskRunner = new TaskRunner();
-
-  // RPGWO does 20 second growth intervals.
-  private growthRate = Utils.RATE({ seconds: 20 });
-  private hungerRate = Utils.RATE({ minutes: 1 });
+  public taskRunner = new TaskRunner(50);
 
   private _clientToServerProtocol = new ClientToServerProtocol();
-
-  private tickTimeoutHandle?: NodeJS.Timeout;
-
-  private lastTickTime = 0;
-  private unprocessedTickTime = 0;
 
   constructor(opts: CtorOpts) {
     this.context = opts.context;
@@ -74,29 +63,15 @@ export default class Server {
   }
 
   public start() {
-    this.tickTimeoutHandle = setInterval(() => {
-      this.tick();
-    }, 10);
+    this.taskRunner.start();
   }
 
   public stop() {
-    if (this.tickTimeoutHandle) clearInterval(this.tickTimeoutHandle);
-    this.tickTimeoutHandle = undefined;
+    this.taskRunner.stop();
   }
 
   public async tick() {
-    const now = performance.now();
-    this.unprocessedTickTime += now - this.lastTickTime;
-    this.lastTickTime = now;
-
-    while (this.unprocessedTickTime >= Utils.TICK_DURATION) {
-      this.unprocessedTickTime -= Utils.TICK_DURATION;
-      try {
-        await this.taskRunner.tick();
-      } catch (err) {
-        throw err;
-      }
-    }
+    await this.taskRunner.tick();
   }
 
   public async save() {
@@ -499,7 +474,8 @@ export default class Server {
     const server = this;
     this.taskRunner.registerTickSection({
       description: 'growth',
-      rate: this.growthRate,
+      // RPGWO does 20 second growth intervals.
+      rate: { seconds: 20 },
       *generator() {
         for (const [w, partition] of server.context.map.getPartitions()) {
           yield* server.growPartition(w, partition);
@@ -510,7 +486,7 @@ export default class Server {
     // Handle hunger.
     this.taskRunner.registerTickSection({
       description: 'hunger',
-      rate: this.hungerRate,
+      rate: { minutes: 1 },
       fn: () => {
         for (const creature of this.context.creatures.values()) {
           if (!creature.eat_grass) return; // TODO: let all creature experience hunger pain.
@@ -584,7 +560,7 @@ export default class Server {
 
     this.taskRunner.registerTickSection({
       description: 'tick performance',
-      rate: Utils.RATE({ seconds: 10 }),
+      rate: { seconds: 10 },
       fn: () => {
         if (!this.taskRunner.debugMeasureTiming) return;
 

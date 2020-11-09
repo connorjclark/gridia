@@ -78,7 +78,7 @@ const Actions: Record<string, Action> = {
       if (creatureToFollow.pos.z !== this.creature.pos.z) return false;
 
       this.goto(creatureToFollow.pos);
-      this.idle(2000); // Throttle how often pathfinding runs.
+      this.idle(server, 2000); // Throttle how often pathfinding runs.
     },
   },
   EatGrass: {
@@ -95,7 +95,7 @@ const Actions: Record<string, Action> = {
       this.creature.food += 10;
       // TODO: better abstraction for floors / grass.
       server.setFloor(this.creature.pos, server.context.map.getTile(this.creature.pos).floor - 20);
-      this.idle(1000 * 10);
+      this.idle(server, 1000 * 10);
     },
   },
   FindGrass: {
@@ -189,8 +189,8 @@ export default class CreatureState {
     this.path = findPath(this.partition, this.creature.pos, destination);
   }
 
-  public idle(time: number) {
-    this.ticksUntilNotIdle = Utils.RATE({ ms: time });
+  public idle(server: Server, time: number) {
+    this.ticksUntilNotIdle = server.taskRunner.rateToTicks({ ms: time });
   }
 
   public addGoal(newGoal: Goal) {
@@ -362,7 +362,7 @@ export default class CreatureState {
 
     const durationThresholds = [400, 750, 1000, 1500, 3500, 5000];
     const durationInMs = durationThresholds[Utils.clamp(this.creature.speed, 0, durationThresholds.length)];
-    this.ticksUntilNextMovement = Utils.RATE({ ms: durationInMs });
+    this.ticksUntilNextMovement = server.taskRunner.rateToTicks({ ms: durationInMs });
 
     const w = this.creature.pos.w;
     const partition = server.context.map.getPartition(w);
@@ -407,10 +407,11 @@ export default class CreatureState {
 
   private _handleAttack(server: Server) {
     if (!this.targetCreature || this.ticksUntilNextAttack > 0) return;
+
     // Range check.
     if (Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos) > 1) return;
-    this.ticksUntilNextAttack = Utils.RATE({ seconds: 1 });
 
+    this.ticksUntilNextAttack = server.taskRunner.rateToTicks({ seconds: 1 });
     if (!this.targetCreature.enemyCreatures.includes(this)) {
       this.targetCreature.enemyCreatures.push(this);
     }

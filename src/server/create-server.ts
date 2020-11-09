@@ -40,7 +40,7 @@ export async function startServer(options: ServerOptions) {
 
   server.taskRunner.registerTickSection({
     description: 'cows',
-    rate: Utils.RATE({ seconds: 1 }),
+    rate: { seconds: 1 },
     fn: () => {
       const COW = getMonsterTemplateByName('Cow');
       if (server.clientConnections.length > 0) {
@@ -62,7 +62,7 @@ export async function startServer(options: ServerOptions) {
 
   server.taskRunner.registerTickSection({
     description: 'save',
-    rate: Utils.RATE({ minutes: 5 }),
+    rate: { minutes: 5 },
     fn: () => server.save(),
   });
 

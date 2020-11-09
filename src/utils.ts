@@ -105,16 +105,6 @@ export const ItemLocation = {
   },
 };
 
-export const TICK_DURATION = 50;
-export function RATE({ days = 0, hours = 0, minutes = 0, seconds = 0, ms = 0 }) {
-  let ms_ = ms;
-  ms_ += seconds * 1000;
-  ms_ += minutes * 1000 * 60;
-  ms_ += hours * 1000 * 60 * 60;
-  ms_ += days * 1000 * 60 * 60 * 24;
-  return Math.floor(ms_ / TICK_DURATION);
-}
-
 //   export function tileToScreen(pt: TilePoint): TilePoint {
 //     return {
 //       x: pt.x * GFX_SIZE - state.viewport.x,
