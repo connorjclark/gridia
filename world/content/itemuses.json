@@ -3518,7 +3518,7 @@
       }
     ],
     "skillSuccessXp": 50,
-    "successTool": 3133,
+    "successTool": 327,
     "toolQuantityConsumed": 1
   },
   {
@@ -3533,7 +3533,7 @@
       }
     ],
     "skillSuccessXp": 50,
-    "successTool": 327,
+    "successTool": 3133,
     "toolQuantityConsumed": 1
   },
   {
@@ -7055,19 +7055,6 @@
     "skill": "Masonry",
     "products": [
       {
-        "type": 339,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 30,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
         "type": 10,
         "quantity": 1
       }
@@ -7081,11 +7068,11 @@
     "skill": "Masonry",
     "products": [
       {
-        "type": 506,
+        "type": 339,
         "quantity": 1
       }
     ],
-    "skillSuccessXp": 50,
+    "skillSuccessXp": 30,
     "toolQuantityConsumed": 1
   },
   {
@@ -7094,397 +7081,7 @@
     "skill": "Masonry",
     "products": [
       {
-        "type": 505,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 504,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 503,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 502,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 501,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 500,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 223,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 224,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 222,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 242,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 241,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 221,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 220,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 218,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 219,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 217,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 216,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 516,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 515,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 514,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 513,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 215,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 210,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 214,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 212,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 512,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 511,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 510,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 509,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 508,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 270,
-    "focus": 0,
-    "skill": "Masonry",
-    "products": [
-      {
-        "type": 507,
+        "type": 211,
         "quantity": 1
       }
     ],
@@ -7510,7 +7107,410 @@
     "skill": "Masonry",
     "products": [
       {
-        "type": 211,
+        "type": 210,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 212,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 214,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 215,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 216,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 217,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 219,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 218,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 220,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 221,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 222,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 224,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 223,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 500,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 501,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 502,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 503,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 504,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 505,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 506,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 507,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 508,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 509,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 510,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 511,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 512,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 513,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 514,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 515,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 516,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 241,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 270,
+    "focus": 0,
+    "skill": "Masonry",
+    "products": [
+      {
+        "type": 242,
         "quantity": 1
       }
     ],
@@ -10654,7 +10654,21 @@
     "focus": 0,
     "skill": "LockSmith",
     "products": [],
+    "skillSuccessXp": 30
+  },
+  {
+    "tool": 396,
+    "focus": 0,
+    "skill": "LockSmith",
+    "products": [],
     "skillSuccessXp": 60
+  },
+  {
+    "tool": 396,
+    "focus": 0,
+    "skill": "LockSmith",
+    "products": [],
+    "skillSuccessXp": 90
   },
   {
     "tool": 396,
@@ -10668,7 +10682,7 @@
     "focus": 0,
     "skill": "LockSmith",
     "products": [],
-    "skillSuccessXp": 90
+    "skillSuccessXp": 30
   },
   {
     "tool": 396,
@@ -10682,35 +10696,7 @@
     "focus": 0,
     "skill": "LockSmith",
     "products": [],
-    "skillSuccessXp": 30
-  },
-  {
-    "tool": 396,
-    "focus": 0,
-    "skill": "LockSmith",
-    "products": [],
-    "skillSuccessXp": 30
-  },
-  {
-    "tool": 396,
-    "focus": 0,
-    "skill": "LockSmith",
-    "products": [],
     "skillSuccessXp": 90
-  },
-  {
-    "tool": 396,
-    "focus": 0,
-    "skill": "LockSmith",
-    "products": [],
-    "skillSuccessXp": 60
-  },
-  {
-    "tool": 396,
-    "focus": 0,
-    "skill": "LockSmith",
-    "products": [],
-    "skillSuccessXp": 30
   },
   {
     "tool": 396,
@@ -10724,7 +10710,14 @@
     "focus": 0,
     "skill": "LockSmith",
     "products": [],
-    "skillSuccessXp": 120
+    "skillSuccessXp": 30
+  },
+  {
+    "tool": 396,
+    "focus": 0,
+    "skill": "LockSmith",
+    "products": [],
+    "skillSuccessXp": 60
   },
   {
     "tool": 396,
@@ -10735,17 +10728,10 @@
   },
   {
     "tool": 396,
-    "focus": 248,
+    "focus": 0,
     "skill": "LockSmith",
     "products": [],
-    "skillSuccessXp": 60
-  },
-  {
-    "tool": 396,
-    "focus": 248,
-    "skill": "LockSmith",
-    "products": [],
-    "skillSuccessXp": 90
+    "skillSuccessXp": 120
   },
   {
     "tool": 396,
@@ -10759,7 +10745,28 @@
     "focus": 248,
     "skill": "LockSmith",
     "products": [],
+    "skillSuccessXp": 60
+  },
+  {
+    "tool": 396,
+    "focus": 248,
+    "skill": "LockSmith",
+    "products": [],
+    "skillSuccessXp": 90
+  },
+  {
+    "tool": 396,
+    "focus": 248,
+    "skill": "LockSmith",
+    "products": [],
     "skillSuccessXp": 120
+  },
+  {
+    "tool": 396,
+    "focus": 257,
+    "skill": "LockSmith",
+    "products": [],
+    "skillSuccessXp": 30
   },
   {
     "tool": 396,
@@ -10780,14 +10787,33 @@
     "focus": 257,
     "skill": "LockSmith",
     "products": [],
+    "skillSuccessXp": 120
+  },
+  {
+    "tool": 396,
+    "focus": 777,
+    "skill": "LockSmith",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 903,
+        "quantity": 1
+      }
+    ],
     "skillSuccessXp": 30
   },
   {
     "tool": 396,
-    "focus": 257,
+    "focus": 777,
     "skill": "LockSmith",
-    "products": [],
-    "skillSuccessXp": 120
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 903,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 60
   },
   {
     "tool": 396,
@@ -10810,58 +10836,6 @@
     "products": [
       {
         "type": 903,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 60
-  },
-  {
-    "tool": 396,
-    "focus": 777,
-    "skill": "LockSmith",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 903,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 120
-  },
-  {
-    "tool": 396,
-    "focus": 777,
-    "skill": "LockSmith",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 903,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 30
-  },
-  {
-    "tool": 396,
-    "focus": 778,
-    "skill": "LockSmith",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 904,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 90
-  },
-  {
-    "tool": 396,
-    "focus": 778,
-    "skill": "LockSmith",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 904,
         "quantity": 1
       }
     ],
@@ -10895,6 +10869,32 @@
   },
   {
     "tool": 396,
+    "focus": 778,
+    "skill": "LockSmith",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 904,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 90
+  },
+  {
+    "tool": 396,
+    "focus": 778,
+    "skill": "LockSmith",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 904,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 120
+  },
+  {
+    "tool": 396,
     "focus": 779,
     "skill": "LockSmith",
     "focusQuantityConsumed": 1,
@@ -10904,7 +10904,20 @@
         "quantity": 1
       }
     ],
-    "skillSuccessXp": 120
+    "skillSuccessXp": 30
+  },
+  {
+    "tool": 396,
+    "focus": 779,
+    "skill": "LockSmith",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 905,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 60
   },
   {
     "tool": 396,
@@ -10930,16 +10943,16 @@
         "quantity": 1
       }
     ],
-    "skillSuccessXp": 60
+    "skillSuccessXp": 120
   },
   {
     "tool": 396,
-    "focus": 779,
+    "focus": 780,
     "skill": "LockSmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 905,
+        "type": 906,
         "quantity": 1
       }
     ],
@@ -10970,19 +10983,6 @@
       }
     ],
     "skillSuccessXp": 90
-  },
-  {
-    "tool": 396,
-    "focus": 780,
-    "skill": "LockSmith",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 906,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 30
   },
   {
     "tool": 396,
@@ -11073,7 +11073,7 @@
         "quantity": 1
       }
     ],
-    "skillSuccessXp": 120
+    "skillSuccessXp": 60
   },
   {
     "tool": 396,
@@ -11099,7 +11099,7 @@
         "quantity": 1
       }
     ],
-    "skillSuccessXp": 60
+    "skillSuccessXp": 120
   },
   {
     "tool": 396,
@@ -11164,6 +11164,19 @@
         "quantity": 1
       }
     ],
+    "skillSuccessXp": 30
+  },
+  {
+    "tool": 396,
+    "focus": 784,
+    "skill": "LockSmith",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 910,
+        "quantity": 1
+      }
+    ],
     "skillSuccessXp": 60
   },
   {
@@ -11194,12 +11207,12 @@
   },
   {
     "tool": 396,
-    "focus": 784,
+    "focus": 785,
     "skill": "LockSmith",
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 910,
+        "type": 911,
         "quantity": 1
       }
     ],
@@ -11229,33 +11242,20 @@
         "quantity": 1
       }
     ],
-    "skillSuccessXp": 120
-  },
-  {
-    "tool": 396,
-    "focus": 785,
-    "skill": "LockSmith",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 911,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 30
-  },
-  {
-    "tool": 396,
-    "focus": 785,
-    "skill": "LockSmith",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 911,
-        "quantity": 1
-      }
-    ],
     "skillSuccessXp": 90
+  },
+  {
+    "tool": 396,
+    "focus": 785,
+    "skill": "LockSmith",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 911,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 120
   },
   {
     "tool": 396,
@@ -11366,7 +11366,7 @@
     "focus": 1671,
     "skill": "LockSmith",
     "products": [],
-    "skillSuccessXp": 120
+    "skillSuccessXp": 30
   },
   {
     "tool": 396,
@@ -11380,21 +11380,14 @@
     "focus": 1671,
     "skill": "LockSmith",
     "products": [],
-    "skillSuccessXp": 30
+    "skillSuccessXp": 90
   },
   {
     "tool": 396,
     "focus": 1671,
     "skill": "LockSmith",
     "products": [],
-    "skillSuccessXp": 90
-  },
-  {
-    "tool": 396,
-    "focus": 1673,
-    "skill": "LockSmith",
-    "products": [],
-    "skillSuccessXp": 90
+    "skillSuccessXp": 120
   },
   {
     "tool": 396,
@@ -11408,21 +11401,28 @@
     "focus": 1673,
     "skill": "LockSmith",
     "products": [],
-    "skillSuccessXp": 120
+    "skillSuccessXp": 60
   },
   {
     "tool": 396,
     "focus": 1673,
     "skill": "LockSmith",
     "products": [],
-    "skillSuccessXp": 60
+    "skillSuccessXp": 90
+  },
+  {
+    "tool": 396,
+    "focus": 1673,
+    "skill": "LockSmith",
+    "products": [],
+    "skillSuccessXp": 120
   },
   {
     "tool": 396,
     "focus": 1909,
     "skill": "LockSmith",
     "products": [],
-    "skillSuccessXp": 120
+    "skillSuccessXp": 30
   },
   {
     "tool": 396,
@@ -11443,7 +11443,7 @@
     "focus": 1909,
     "skill": "LockSmith",
     "products": [],
-    "skillSuccessXp": 30
+    "skillSuccessXp": 120
   },
   {
     "tool": 397,
@@ -11669,11 +11669,11 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 1598,
+        "type": 345,
         "quantity": 1
       }
     ],
-    "skillSuccessXp": 75
+    "skillSuccessXp": 30
   },
   {
     "tool": 405,
@@ -11682,33 +11682,7 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 272,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 40
-  },
-  {
-    "tool": 405,
-    "focus": 344,
-    "skill": "Tailor",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1597,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 100
-  },
-  {
-    "tool": 405,
-    "focus": 344,
-    "skill": "Tailor",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 788,
+        "type": 15,
         "quantity": 1
       }
     ],
@@ -11738,7 +11712,7 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 15,
+        "type": 788,
         "quantity": 1
       }
     ],
@@ -11751,11 +11725,37 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 345,
+        "type": 1597,
         "quantity": 1
       }
     ],
-    "skillSuccessXp": 30
+    "skillSuccessXp": 100
+  },
+  {
+    "tool": 405,
+    "focus": 344,
+    "skill": "Tailor",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1598,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 75
+  },
+  {
+    "tool": 405,
+    "focus": 344,
+    "skill": "Tailor",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 272,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 40
   },
   {
     "tool": 405,
@@ -11807,12 +11807,8 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 0,
+        "type": 16,
         "quantity": 1
-      },
-      {
-        "type": 1263,
-        "quantity": 2
       }
     ],
     "skillSuccessXp": 100
@@ -11837,24 +11833,11 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 16,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 100
-  },
-  {
-    "tool": 405,
-    "focus": 443,
-    "skill": "Tailor",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
         "type": 0,
         "quantity": 1
       },
       {
-        "type": 1265,
+        "type": 1263,
         "quantity": 2
       }
     ],
@@ -11888,6 +11871,23 @@
   },
   {
     "tool": 405,
+    "focus": 443,
+    "skill": "Tailor",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 0,
+        "quantity": 1
+      },
+      {
+        "type": 1265,
+        "quantity": 2
+      }
+    ],
+    "skillSuccessXp": 100
+  },
+  {
+    "tool": 405,
     "focus": 470,
     "skill": "Tailor",
     "focusQuantityConsumed": 1,
@@ -11898,6 +11898,19 @@
       }
     ],
     "skillSuccessXp": 50
+  },
+  {
+    "tool": 405,
+    "focus": 820,
+    "skill": "Tailor",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1099,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 30
   },
   {
     "tool": 405,
@@ -11918,16 +11931,16 @@
   },
   {
     "tool": 405,
-    "focus": 820,
+    "focus": 824,
     "skill": "Tailor",
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 1099,
+        "type": 1599,
         "quantity": 1
       }
     ],
-    "skillSuccessXp": 30
+    "skillSuccessXp": 50
   },
   {
     "tool": 405,
@@ -11936,11 +11949,15 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 1829,
+        "type": 0,
         "quantity": 1
+      },
+      {
+        "type": 1663,
+        "quantity": 4
       }
     ],
-    "skillSuccessXp": 70
+    "skillSuccessXp": 50
   },
   {
     "tool": 405,
@@ -11979,15 +11996,11 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 0,
+        "type": 1232,
         "quantity": 1
-      },
-      {
-        "type": 1663,
-        "quantity": 4
       }
     ],
-    "skillSuccessXp": 50
+    "skillSuccessXp": 30
   },
   {
     "tool": 405,
@@ -11996,11 +12009,11 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 1397,
+        "type": 1234,
         "quantity": 1
       }
     ],
-    "skillSuccessXp": 50
+    "skillSuccessXp": 30
   },
   {
     "tool": 405,
@@ -12022,20 +12035,7 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 1232,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 30
-  },
-  {
-    "tool": 405,
-    "focus": 824,
-    "skill": "Tailor",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1599,
+        "type": 1397,
         "quantity": 1
       }
     ],
@@ -12048,11 +12048,11 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 1234,
+        "type": 1829,
         "quantity": 1
       }
     ],
-    "skillSuccessXp": 30
+    "skillSuccessXp": 70
   },
   {
     "tool": 405,
@@ -12117,7 +12117,7 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 2110,
+        "type": 2108,
         "quantity": 1
       }
     ],
@@ -12130,7 +12130,7 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 2108,
+        "type": 2110,
         "quantity": 1
       }
     ],
@@ -12791,18 +12791,8 @@
     "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
-    "successMessage": "You make a Bone Wand.",
-    "successTool": 446,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 435,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 75,
-    "successMessage": "You make a Bone Dagger.",
-    "successTool": 1204,
+    "successMessage": "You make a Bone Scythe.",
+    "successTool": 110,
     "toolQuantityConsumed": 1
   },
   {
@@ -12821,8 +12811,18 @@
     "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 75,
-    "successMessage": "You make a Bone Scythe.",
-    "successTool": 110,
+    "successMessage": "You make a Bone Dagger.",
+    "successTool": 1204,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 435,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 75,
+    "successMessage": "You make a Bone Wand.",
+    "successTool": 446,
     "toolQuantityConsumed": 1
   },
   {
@@ -15366,20 +15366,6 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 1084,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 824,
-    "focus": 71,
-    "skill": "Tailor",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
         "type": 1081,
         "quantity": 1
       }
@@ -15417,6 +15403,20 @@
   },
   {
     "tool": 824,
+    "focus": 71,
+    "skill": "Tailor",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1084,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 824,
     "focus": 256,
     "skill": "Tailor",
     "focusQuantityConsumed": 1,
@@ -15442,412 +15442,6 @@
     ],
     "skillSuccessXp": 50,
     "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 114,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 80
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1658,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 80
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1659,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 80
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 3142,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 80
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 3144,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 80
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1772,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 80
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 440,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 75
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1211,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 100
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1467,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1468,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1469,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1470,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1471,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1472,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1770,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 80
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1768,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 80
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1903,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 150
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1766,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 80
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1662,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 80
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1904,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 150
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1661,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 80
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 488,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 120
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 480,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 140
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1780,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 80
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 3086,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 2387,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 150
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1778,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 80
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1776,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 80
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1774,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 80
   },
   {
     "tool": 826,
@@ -16383,20 +15977,6 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 1905,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 190
-  },
-  {
-    "tool": 826,
-    "focus": 406,
-    "skill": "Carpentry",
-    "animation": "CarpentryHammerSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
         "type": 390,
         "quantity": 1
       }
@@ -16565,11 +16145,431 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
+        "type": 1658,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 80
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1659,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 80
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 3142,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 80
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 3144,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 80
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 114,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 80
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 440,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 75
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1211,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 100
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1467,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1468,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1469,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1470,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1471,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1472,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
         "type": 1678,
         "quantity": 1
       }
     ],
     "skillSuccessXp": 90
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 480,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 140
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 488,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 120
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1661,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 80
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1662,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 80
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1766,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 80
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1768,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 80
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1770,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 80
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1772,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 80
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1774,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 80
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1776,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 80
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1778,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 80
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1780,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 80
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1903,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 150
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1904,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 150
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1905,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 190
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 3086,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50
+  },
+  {
+    "tool": 826,
+    "focus": 406,
+    "skill": "Carpentry",
+    "animation": "CarpentryHammerSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 2387,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 150
   },
   {
     "tool": 833,
@@ -16911,121 +16911,6 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 317,
-        "quantity": 1
-      },
-      {
-        "type": 271,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 100
-  },
-  {
-    "tool": 900,
-    "focus": 4,
-    "skill": "Masonry",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 549,
-        "quantity": 1
-      },
-      {
-        "type": 271,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 100
-  },
-  {
-    "tool": 900,
-    "focus": 4,
-    "skill": "Masonry",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 548,
-        "quantity": 1
-      },
-      {
-        "type": 271,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 100
-  },
-  {
-    "tool": 900,
-    "focus": 4,
-    "skill": "Masonry",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 546,
-        "quantity": 1
-      },
-      {
-        "type": 271,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 100
-  },
-  {
-    "tool": 900,
-    "focus": 4,
-    "skill": "Masonry",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 140,
-        "quantity": 1
-      },
-      {
-        "type": 271,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 100
-  },
-  {
-    "tool": 900,
-    "focus": 4,
-    "skill": "Masonry",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 482,
-        "quantity": 1
-      },
-      {
-        "type": 271,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 100
-  },
-  {
-    "tool": 900,
-    "focus": 4,
-    "skill": "Masonry",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1932,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 20
-  },
-  {
-    "tool": 900,
-    "focus": 4,
-    "skill": "Masonry",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
         "type": 382,
         "quantity": 1
       },
@@ -17060,6 +16945,125 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
+        "type": 315,
+        "quantity": 1
+      },
+      {
+        "type": 271,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 100
+  },
+  {
+    "tool": 900,
+    "focus": 4,
+    "skill": "Masonry",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 317,
+        "quantity": 1
+      },
+      {
+        "type": 271,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 100
+  },
+  {
+    "tool": 900,
+    "focus": 4,
+    "skill": "Masonry",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 140,
+        "quantity": 1
+      },
+      {
+        "type": 271,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 100
+  },
+  {
+    "tool": 900,
+    "focus": 4,
+    "skill": "Masonry",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 546,
+        "quantity": 1
+      },
+      {
+        "type": 271,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 100
+  },
+  {
+    "tool": 900,
+    "focus": 4,
+    "skill": "Masonry",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 548,
+        "quantity": 1
+      },
+      {
+        "type": 271,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 100
+  },
+  {
+    "tool": 900,
+    "focus": 4,
+    "skill": "Masonry",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 549,
+        "quantity": 1
+      },
+      {
+        "type": 271,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 100
+  },
+  {
+    "tool": 900,
+    "focus": 4,
+    "skill": "Masonry",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 482,
+        "quantity": 1
+      },
+      {
+        "type": 271,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 100
+  },
+  {
+    "tool": 900,
+    "focus": 4,
+    "skill": "Masonry",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
         "type": 1909,
         "quantity": 1
       },
@@ -17077,15 +17081,11 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 315,
-        "quantity": 1
-      },
-      {
-        "type": 271,
+        "type": 1932,
         "quantity": 1
       }
     ],
-    "skillSuccessXp": 100
+    "skillSuccessXp": 20
   },
   {
     "tool": 900,
@@ -17094,7 +17094,7 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 137,
+        "type": 270,
         "quantity": 1
       },
       {
@@ -17102,7 +17102,8 @@
         "quantity": 1
       }
     ],
-    "skillSuccessXp": 25
+    "skillSuccessXp": 25,
+    "successMessage": "You chisel out some bricks."
   },
   {
     "tool": 900,
@@ -17128,7 +17129,7 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 270,
+        "type": 137,
         "quantity": 1
       },
       {
@@ -17136,8 +17137,7 @@
         "quantity": 1
       }
     ],
-    "skillSuccessXp": 25,
-    "successMessage": "You chisel out some bricks."
+    "skillSuccessXp": 25
   },
   {
     "tool": 900,
@@ -18532,34 +18532,6 @@
   {
     "tool": 902,
     "focus": 0,
-    "skill": "Fishing",
-    "animation": "ShovelDig",
-    "products": [
-      {
-        "type": 1002,
-        "quantity": 5
-      }
-    ],
-    "skillSuccessXp": 25,
-    "successMessage": "You dig up some worms."
-  },
-  {
-    "tool": 902,
-    "focus": 0,
-    "skill": "Farming",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 0,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 20,
-    "successMessage": "You smooth the land."
-  },
-  {
-    "tool": 902,
-    "focus": 0,
     "skill": "Mining",
     "animation": "ShovelDig",
     "products": [
@@ -18570,6 +18542,20 @@
     ],
     "skillSuccessXp": 30,
     "successMessage": "You dig up some dirt."
+  },
+  {
+    "tool": 902,
+    "focus": 0,
+    "skill": "Fishing",
+    "animation": "ShovelDig",
+    "products": [
+      {
+        "type": 1002,
+        "quantity": 5
+      }
+    ],
+    "skillSuccessXp": 25,
+    "successMessage": "You dig up some worms."
   },
   {
     "tool": 902,
@@ -18612,6 +18598,20 @@
     ],
     "skillSuccessXp": 70,
     "successMessage": "You dig a well."
+  },
+  {
+    "tool": 902,
+    "focus": 0,
+    "skill": "Farming",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 0,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 20,
+    "successMessage": "You smooth the land."
   },
   {
     "tool": 902,
@@ -20075,49 +20075,6 @@
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
-    "skillSuccessXp": 350,
-    "successTool": 2181,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 941,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 764,
-        "quantity": 4
-      }
-    ],
-    "skillSuccessXp": 260,
-    "successMessage": "You make armor.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 941,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 250,
-    "successMessage": "You make a zircon sword.",
-    "successTool": 1897,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 941,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 200,
-    "successMessage": "You make a zircon Mace.",
-    "successTool": 1896,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 941,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
     "skillSuccessXp": 150,
     "successTool": 919,
     "toolQuantityConsumed": 1
@@ -20147,38 +20104,6 @@
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
-    "skillSuccessXp": 400,
-    "successTool": 2183,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 941,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 375,
-    "successTool": 2182,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 941,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 28,
-        "quantity": 2
-      }
-    ],
-    "skillSuccessXp": 140,
-    "successMessage": "You make some zircon orbs.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 941,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
     "skillSuccessXp": 230,
     "successMessage": "You make armor.",
     "successTool": 523,
@@ -20192,15 +20117,6 @@
     "skillSuccessXp": 245,
     "successMessage": "You make armor.",
     "successTool": 524,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 941,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 200,
-    "successTool": 1564,
     "toolQuantityConsumed": 1
   },
   {
@@ -20237,14 +20153,10 @@
     "tool": 941,
     "focus": 140,
     "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 763,
-        "quantity": 4
-      }
-    ],
-    "skillSuccessXp": 245,
+    "products": [],
+    "skillSuccessXp": 260,
     "successMessage": "You make armor.",
+    "successTool": 740,
     "toolQuantityConsumed": 1
   },
   {
@@ -20265,70 +20177,98 @@
     "tool": 941,
     "focus": 140,
     "skill": "Blacksmith",
-    "products": [],
+    "products": [
+      {
+        "type": 763,
+        "quantity": 4
+      }
+    ],
+    "skillSuccessXp": 245,
+    "successMessage": "You make armor.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 941,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 764,
+        "quantity": 4
+      }
+    ],
     "skillSuccessXp": 260,
     "successMessage": "You make armor.",
-    "successTool": 740,
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 942,
+    "tool": 941,
     "focus": 140,
     "skill": "Blacksmith",
     "products": [
       {
-        "type": 766,
-        "quantity": 4
+        "type": 28,
+        "quantity": 2
       }
     ],
-    "skillSuccessXp": 290,
-    "successMessage": "You make armor.",
+    "skillSuccessXp": 140,
+    "successMessage": "You make some zircon orbs.",
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 942,
+    "tool": 941,
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
-    "skillSuccessXp": 475,
-    "successTool": 2186,
+    "skillSuccessXp": 200,
+    "successTool": 1564,
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 942,
+    "tool": 941,
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
-    "skillSuccessXp": 450,
-    "successTool": 2185,
+    "skillSuccessXp": 250,
+    "successMessage": "You make a zircon sword.",
+    "successTool": 1897,
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 942,
+    "tool": 941,
     "focus": 140,
     "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 867,
-        "quantity": 4
-      }
-    ],
-    "skillSuccessXp": 160,
-    "successMessage": "You make some wands.",
+    "products": [],
+    "skillSuccessXp": 200,
+    "successMessage": "You make a zircon Mace.",
+    "successTool": 1896,
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 942,
+    "tool": 941,
     "focus": 140,
     "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 767,
-        "quantity": 4
-      }
-    ],
-    "skillSuccessXp": 305,
-    "successMessage": "You make armor.",
+    "products": [],
+    "skillSuccessXp": 350,
+    "successTool": 2181,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 941,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 375,
+    "successTool": 2182,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 941,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 400,
+    "successTool": 2183,
     "toolQuantityConsumed": 1
   },
   {
@@ -20375,38 +20315,6 @@
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
-    "skillSuccessXp": 425,
-    "successTool": 2184,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 942,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 765,
-        "quantity": 4
-      }
-    ],
-    "skillSuccessXp": 275,
-    "successMessage": "You make armor.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 942,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 250,
-    "successTool": 1565,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 942,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
     "skillSuccessXp": 275,
     "successMessage": "You make armor.",
     "successTool": 741,
@@ -20436,10 +20344,102 @@
     "tool": 942,
     "focus": 140,
     "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 765,
+        "quantity": 4
+      }
+    ],
+    "skillSuccessXp": 275,
+    "successMessage": "You make armor.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 942,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 766,
+        "quantity": 4
+      }
+    ],
+    "skillSuccessXp": 290,
+    "successMessage": "You make armor.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 942,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 767,
+        "quantity": 4
+      }
+    ],
+    "skillSuccessXp": 305,
+    "successMessage": "You make armor.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 942,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 867,
+        "quantity": 4
+      }
+    ],
+    "skillSuccessXp": 160,
+    "successMessage": "You make some wands.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 942,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 250,
+    "successTool": 1565,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 942,
+    "focus": 140,
+    "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 300,
     "successMessage": "You make a weapon.",
     "successTool": 1898,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 942,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 425,
+    "successTool": 2184,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 942,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 450,
+    "successTool": 2185,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 942,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 475,
+    "successTool": 2186,
     "toolQuantityConsumed": 1
   },
   {
@@ -20449,55 +20449,6 @@
     "products": [],
     "skillSuccessXp": 50,
     "successTool": 925,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 943,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 50,
-    "successTool": 1560,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 943,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 100,
-    "successTool": 2171,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 943,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 75,
-    "successTool": 2170,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 943,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 50,
-    "successTool": 2169,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 943,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1665,
-        "quantity": 4
-      }
-    ],
-    "skillSuccessXp": 50,
     "toolQuantityConsumed": 1
   },
   {
@@ -20518,32 +20469,6 @@
     "skillSuccessXp": 65,
     "successMessage": "You make armor.",
     "successTool": 518,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 943,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1115,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 943,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 817,
-        "quantity": 2
-      }
-    ],
-    "skillSuccessXp": 50,
     "toolQuantityConsumed": 1
   },
   {
@@ -20574,6 +20499,127 @@
     "skillSuccessXp": 65,
     "successMessage": "You make armor.",
     "successTool": 733,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 943,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 80,
+    "successMessage": "You make armor.",
+    "successTool": 734,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 943,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 756,
+        "quantity": 4
+      }
+    ],
+    "skillSuccessXp": 50,
+    "successMessage": "You make armor.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 943,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 757,
+        "quantity": 4
+      }
+    ],
+    "skillSuccessXp": 65,
+    "successMessage": "You make armor.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 943,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 758,
+        "quantity": 4
+      }
+    ],
+    "skillSuccessXp": 80,
+    "successMessage": "You make armor.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 943,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 50,
+    "successMessage": "You make a tool.",
+    "successTool": 299,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 943,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 50,
+    "successMessage": "You make a tool.",
+    "successTool": 290,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 943,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 50,
+    "successMessage": "You make some alembics.",
+    "successTool": 129,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 943,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 37,
+        "quantity": 4
+      }
+    ],
+    "skillSuccessXp": 100,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 943,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1115,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 943,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 817,
+        "quantity": 2
+      }
+    ],
+    "skillSuccessXp": 50,
     "toolQuantityConsumed": 1
   },
   {
@@ -20613,18 +20659,7 @@
     "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
-    "successMessage": "You make some alembics.",
-    "successTool": 129,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 943,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 80,
-    "successMessage": "You make armor.",
-    "successTool": 734,
+    "successTool": 366,
     "toolQuantityConsumed": 1
   },
   {
@@ -20633,7 +20668,20 @@
     "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 50,
-    "successTool": 366,
+    "successTool": 1560,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 943,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1665,
+        "quantity": 4
+      }
+    ],
+    "skillSuccessXp": 50,
     "toolQuantityConsumed": 1
   },
   {
@@ -20649,28 +20697,9 @@
     "tool": 943,
     "focus": 140,
     "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 756,
-        "quantity": 4
-      }
-    ],
+    "products": [],
     "skillSuccessXp": 50,
-    "successMessage": "You make armor.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 943,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 757,
-        "quantity": 4
-      }
-    ],
-    "skillSuccessXp": 65,
-    "successMessage": "You make armor.",
+    "successTool": 2169,
     "toolQuantityConsumed": 1
   },
   {
@@ -20678,72 +20707,17 @@
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
-    "skillSuccessXp": 50,
-    "successMessage": "You make a tool.",
-    "successTool": 290,
+    "skillSuccessXp": 75,
+    "successTool": 2170,
     "toolQuantityConsumed": 1
   },
   {
     "tool": 943,
     "focus": 140,
     "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 37,
-        "quantity": 4
-      }
-    ],
+    "products": [],
     "skillSuccessXp": 100,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 943,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 758,
-        "quantity": 4
-      }
-    ],
-    "skillSuccessXp": 80,
-    "successMessage": "You make armor.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 943,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 50,
-    "successMessage": "You make a tool.",
-    "successTool": 299,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 944,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 779,
-        "quantity": 10
-      }
-    ],
-    "skillSuccessXp": 30,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 944,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1704,
-        "quantity": 5
-      }
-    ],
-    "skillSuccessXp": 50,
+    "successTool": 2171,
     "toolQuantityConsumed": 1
   },
   {
@@ -20753,20 +20727,6 @@
     "products": [],
     "skillSuccessXp": 75,
     "successTool": 928,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 944,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1821,
-        "quantity": 2
-      }
-    ],
-    "skillSuccessXp": 95,
-    "successMessage": "You make Coffee Pot.",
     "toolQuantityConsumed": 1
   },
   {
@@ -20827,29 +20787,6 @@
     "skillSuccessXp": 125,
     "successMessage": "You make armor.",
     "successTool": 746,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 944,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1822,
-        "quantity": 5
-      }
-    ],
-    "skillSuccessXp": 95,
-    "successMessage": "You make Coffee Cups.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 944,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 50,
-    "successTool": 1936,
     "toolQuantityConsumed": 1
   },
   {
@@ -20939,11 +20876,11 @@
     "skill": "Blacksmith",
     "products": [
       {
-        "type": 3029,
-        "quantity": 2
+        "type": 779,
+        "quantity": 10
       }
     ],
-    "skillSuccessXp": 50,
+    "skillSuccessXp": 30,
     "toolQuantityConsumed": 1
   },
   {
@@ -20970,33 +20907,6 @@
       }
     ],
     "skillSuccessXp": 30,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 944,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 125,
-    "successTool": 2172,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 944,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 150,
-    "successTool": 2173,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 944,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 175,
-    "successTool": 2174,
     "toolQuantityConsumed": 1
   },
   {
@@ -21162,16 +21072,102 @@
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 945,
+    "tool": 944,
     "focus": 140,
     "skill": "Blacksmith",
     "products": [
       {
-        "type": 280,
-        "quantity": 4
+        "type": 3029,
+        "quantity": 2
       }
     ],
-    "skillSuccessXp": 30,
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 944,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1704,
+        "quantity": 5
+      }
+    ],
+    "skillSuccessXp": 50,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 944,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1822,
+        "quantity": 5
+      }
+    ],
+    "skillSuccessXp": 95,
+    "successMessage": "You make Coffee Cups.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 944,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1821,
+        "quantity": 2
+      }
+    ],
+    "skillSuccessXp": 95,
+    "successMessage": "You make Coffee Pot.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 944,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 50,
+    "successTool": 1936,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 944,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 125,
+    "successTool": 2172,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 944,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 150,
+    "successTool": 2173,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 944,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 175,
+    "successTool": 2174,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 100,
+    "successTool": 931,
     "toolQuantityConsumed": 1
   },
   {
@@ -21180,11 +21176,46 @@
     "skill": "Blacksmith",
     "products": [
       {
-        "type": 281,
+        "type": 21,
         "quantity": 2
       }
     ],
     "skillSuccessXp": 30,
+    "successMessage": "You make a Dagger.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 22,
+        "quantity": 2
+      }
+    ],
+    "skillSuccessXp": 40,
+    "successMessage": "You make a Long Knife.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 50,
+    "successMessage": "You make a short sword.",
+    "successTool": 31,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 40,
+    "successMessage": "You make a Cooking Pan.",
+    "successTool": 1708,
     "toolQuantityConsumed": 1
   },
   {
@@ -21193,7 +21224,68 @@
     "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 70,
-    "successTool": 839,
+    "successMessage": "You make a Cookie Cutter.",
+    "successTool": 1718,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 80,
+    "successMessage": "You make a Baking Sheet.",
+    "successTool": 1720,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 80,
+    "successMessage": "You make a long sword.",
+    "successTool": 32,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 110,
+    "successMessage": "You make a broad sword.",
+    "successTool": 33,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 140,
+    "successMessage": "You make a great sword.",
+    "successTool": 36,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 30,
+    "successMessage": "You make Brass Knuckles.",
+    "successTool": 90,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 50,
+    "successMessage": "You make a Claw.",
+    "successTool": 91,
     "toolQuantityConsumed": 1
   },
   {
@@ -21202,7 +21294,7 @@
     "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
-    "successTool": 840,
+    "successTool": 1525,
     "toolQuantityConsumed": 1
   },
   {
@@ -21210,8 +21302,9 @@
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
-    "skillSuccessXp": 100,
-    "successTool": 125,
+    "skillSuccessXp": 50,
+    "successMessage": "You make a staff.",
+    "successTool": 1280,
     "toolQuantityConsumed": 1
   },
   {
@@ -21219,9 +21312,131 @@
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
-    "skillSuccessXp": 130,
+    "skillSuccessXp": 140,
+    "successMessage": "You make Chain Armor.",
+    "successTool": 14,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 155,
+    "successMessage": "You make some armor.",
+    "successTool": 13,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 170,
+    "successMessage": "You make some armor.",
+    "successTool": 12,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 140,
+    "successMessage": "You make Chain Armor.",
+    "successTool": 731,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 155,
+    "successMessage": "You make some armor.",
+    "successTool": 730,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 170,
+    "successMessage": "You make some armor.",
+    "successTool": 729,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 755,
+        "quantity": 4
+      }
+    ],
+    "skillSuccessXp": 140,
+    "successMessage": "You make Chain Armor.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 754,
+        "quantity": 4
+      }
+    ],
+    "skillSuccessXp": 155,
+    "successMessage": "You make some armor.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 753,
+        "quantity": 4
+      }
+    ],
+    "skillSuccessXp": 170,
+    "successMessage": "You make some armor.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 50,
     "successMessage": "You make a head.",
-    "successTool": 679,
+    "successTool": 674,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 70,
+    "successMessage": "You make a head.",
+    "successTool": 675,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 110,
+    "successMessage": "You make a head.",
+    "successTool": 676,
     "toolQuantityConsumed": 1
   },
   {
@@ -21230,138 +21445,8 @@
     "skill": "Blacksmith",
     "products": [],
     "skillSuccessXp": 100,
-    "successTool": 361,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 95,
-        "quantity": 40
-      }
-    ],
-    "skillSuccessXp": 30,
-    "successMessage": "You make some daggers.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1352,
-        "quantity": 40
-      }
-    ],
-    "skillSuccessXp": 30,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 98,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 50,
-    "successMessage": "You make some axes.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 75,
-    "successTool": 268,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 20,
-    "successTool": 338,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 50,
-    "successTool": 845,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 100,
-    "successTool": 847,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 150,
-    "successTool": 849,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 100,
-    "successTool": 1156,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 150,
-    "successTool": 1158,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 200,
-    "successTool": 1160,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 100,
-    "successTool": 1562,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 100,
-    "successTool": 841,
+    "successMessage": "You make a scythe.",
+    "successTool": 46,
     "toolQuantityConsumed": 1
   },
   {
@@ -21378,9 +21463,38 @@
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
+    "skillSuccessXp": 100,
+    "successTool": 841,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
     "skillSuccessXp": 50,
     "successMessage": "You make a head.",
     "successTool": 677,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 80,
+    "successMessage": "You make a head.",
+    "successTool": 678,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 130,
+    "successMessage": "You make a head.",
+    "successTool": 679,
     "toolQuantityConsumed": 1
   },
   {
@@ -21554,344 +21668,6 @@
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
-    "skillSuccessXp": 100,
-    "successMessage": "You make a scythe.",
-    "successTool": 46,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 110,
-    "successMessage": "You make a head.",
-    "successTool": 676,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 70,
-    "successMessage": "You make a head.",
-    "successTool": 675,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 3066,
-        "quantity": 4
-      }
-    ],
-    "skillSuccessXp": 50,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 50,
-    "successMessage": "You make a head.",
-    "successTool": 674,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 753,
-        "quantity": 4
-      }
-    ],
-    "skillSuccessXp": 170,
-    "successMessage": "You make some armor.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 754,
-        "quantity": 4
-      }
-    ],
-    "skillSuccessXp": 155,
-    "successMessage": "You make some armor.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 755,
-        "quantity": 4
-      }
-    ],
-    "skillSuccessXp": 140,
-    "successMessage": "You make Chain Armor.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 170,
-    "successMessage": "You make some armor.",
-    "successTool": 729,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 155,
-    "successMessage": "You make some armor.",
-    "successTool": 730,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 140,
-    "successMessage": "You make Chain Armor.",
-    "successTool": 731,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 170,
-    "successMessage": "You make some armor.",
-    "successTool": 12,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 155,
-    "successMessage": "You make some armor.",
-    "successTool": 13,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 140,
-    "successMessage": "You make Chain Armor.",
-    "successTool": 14,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 50,
-    "successMessage": "You make a staff.",
-    "successTool": 1280,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 100,
-    "successTool": 1525,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 50,
-    "successMessage": "You make a Claw.",
-    "successTool": 91,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 30,
-    "successMessage": "You make Brass Knuckles.",
-    "successTool": 90,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 140,
-    "successMessage": "You make a great sword.",
-    "successTool": 36,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 110,
-    "successMessage": "You make a broad sword.",
-    "successTool": 33,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 80,
-    "successMessage": "You make a long sword.",
-    "successTool": 32,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 80,
-    "successMessage": "You make a Baking Sheet.",
-    "successTool": 1720,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 70,
-    "successMessage": "You make a Cookie Cutter.",
-    "successTool": 1718,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 40,
-    "successMessage": "You make a Cooking Pan.",
-    "successTool": 1708,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 50,
-    "successMessage": "You make a short sword.",
-    "successTool": 31,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 22,
-        "quantity": 2
-      }
-    ],
-    "skillSuccessXp": 40,
-    "successMessage": "You make a Long Knife.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 21,
-        "quantity": 2
-      }
-    ],
-    "skillSuccessXp": 30,
-    "successMessage": "You make a Dagger.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 80,
-    "successMessage": "You make a head.",
-    "successTool": 678,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 100,
-    "successTool": 931,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 250,
-    "successTool": 2177,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 225,
-    "successTool": 2176,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 200,
-    "successTool": 2175,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 945,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
     "skillSuccessXp": 50,
     "successTool": 808,
     "toolQuantityConsumed": 1
@@ -21928,227 +21704,227 @@
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 946,
+    "tool": 945,
     "focus": 140,
     "skill": "Blacksmith",
     "products": [
       {
-        "type": 1441,
-        "quantity": 20
+        "type": 280,
+        "quantity": 4
       }
     ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
+    "skillSuccessXp": 30,
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 946,
+    "tool": 945,
     "focus": 140,
     "skill": "Blacksmith",
     "products": [
       {
-        "type": 1200,
-        "quantity": 20
+        "type": 281,
+        "quantity": 2
       }
     ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
+    "skillSuccessXp": 30,
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 946,
+    "tool": 945,
     "focus": 140,
     "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1186,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
+    "products": [],
+    "skillSuccessXp": 70,
+    "successTool": 839,
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 946,
+    "tool": 945,
     "focus": 140,
     "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1185,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
+    "products": [],
+    "skillSuccessXp": 100,
+    "successTool": 840,
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 946,
+    "tool": 945,
     "focus": 140,
     "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1184,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
+    "products": [],
+    "skillSuccessXp": 100,
+    "successTool": 125,
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 946,
+    "tool": 945,
     "focus": 140,
     "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1183,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
+    "products": [],
+    "skillSuccessXp": 100,
+    "successTool": 361,
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 946,
+    "tool": 945,
     "focus": 140,
     "skill": "Blacksmith",
     "products": [
       {
-        "type": 1182,
-        "quantity": 20
+        "type": 95,
+        "quantity": 40
       }
     ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
+    "skillSuccessXp": 30,
+    "successMessage": "You make some daggers.",
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 946,
+    "tool": 945,
     "focus": 140,
     "skill": "Blacksmith",
     "products": [
       {
-        "type": 1181,
-        "quantity": 20
+        "type": 1352,
+        "quantity": 40
       }
     ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
+    "skillSuccessXp": 30,
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 946,
+    "tool": 945,
     "focus": 140,
     "skill": "Blacksmith",
     "products": [
       {
-        "type": 1180,
+        "type": 98,
         "quantity": 20
       }
     ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
+    "skillSuccessXp": 50,
+    "successMessage": "You make some axes.",
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 946,
+    "tool": 945,
     "focus": 140,
     "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1179,
-        "quantity": 20
-      }
-    ],
+    "products": [],
     "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
+    "successTool": 268,
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 946,
+    "tool": 945,
     "focus": 140,
     "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1178,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
+    "products": [],
+    "skillSuccessXp": 20,
+    "successTool": 338,
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 946,
+    "tool": 945,
     "focus": 140,
     "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1177,
-        "quantity": 20
-      }
-    ],
+    "products": [],
+    "skillSuccessXp": 50,
+    "successTool": 845,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 100,
+    "successTool": 847,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
     "skillSuccessXp": 150,
-    "successMessage": "You make some runes.",
+    "successTool": 849,
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 946,
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 100,
+    "successTool": 1156,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 150,
+    "successTool": 1158,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 200,
+    "successTool": 1160,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 100,
+    "successTool": 1562,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 945,
     "focus": 140,
     "skill": "Blacksmith",
     "products": [
       {
-        "type": 1176,
-        "quantity": 20
+        "type": 3066,
+        "quantity": 4
       }
     ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
+    "skillSuccessXp": 50,
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 946,
+    "tool": 945,
     "focus": 140,
     "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1175,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
+    "products": [],
+    "skillSuccessXp": 200,
+    "successTool": 2175,
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 946,
+    "tool": 945,
     "focus": 140,
     "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1188,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
+    "products": [],
+    "skillSuccessXp": 225,
+    "successTool": 2176,
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 946,
+    "tool": 945,
     "focus": 140,
     "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1189,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
+    "products": [],
+    "skillSuccessXp": 250,
+    "successTool": 2177,
     "toolQuantityConsumed": 1
   },
   {
@@ -22338,6 +22114,216 @@
     "skill": "Blacksmith",
     "products": [
       {
+        "type": 1175,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1176,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1177,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 150,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1178,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1179,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1180,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1181,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1182,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1183,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1184,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1185,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1186,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1187,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1188,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1189,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
         "type": 1190,
         "quantity": 20
       }
@@ -22394,175 +22380,7 @@
     "skill": "Blacksmith",
     "products": [
       {
-        "type": 1440,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 946,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 3116,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 946,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1324,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 946,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1323,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 946,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1322,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 946,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1321,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 946,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1320,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 175,
-    "successMessage": "You make some runes.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 946,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1319,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 946,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1318,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 946,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1199,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 946,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1198,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 75,
-    "successMessage": "You make some runes.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 946,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1197,
-        "quantity": 20
-      }
-    ],
-    "skillSuccessXp": 225,
-    "successMessage": "You make some runes.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 946,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 1196,
+        "type": 1194,
         "quantity": 20
       }
     ],
@@ -22590,7 +22408,7 @@
     "skill": "Blacksmith",
     "products": [
       {
-        "type": 1194,
+        "type": 1196,
         "quantity": 20
       }
     ],
@@ -22604,7 +22422,189 @@
     "skill": "Blacksmith",
     "products": [
       {
-        "type": 1187,
+        "type": 1197,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 225,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1198,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1199,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1200,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1318,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1319,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1320,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 175,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1321,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1322,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1323,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 3116,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1440,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1441,
+        "quantity": 20
+      }
+    ],
+    "skillSuccessXp": 75,
+    "successMessage": "You make some runes.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 946,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 1324,
         "quantity": 20
       }
     ],
@@ -22625,55 +22625,116 @@
     "tool": 947,
     "focus": 140,
     "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 300,
-    "successTool": 2179,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 947,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 325,
-    "successTool": 2180,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 947,
-    "focus": 140,
-    "skill": "Blacksmith",
     "products": [
       {
-        "type": 2234,
-        "quantity": 10
-      }
-    ],
-    "skillSuccessXp": 120,
-    "successMessage": "You make some gold arrow heads.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 947,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 125,
-    "successTool": 1563,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 947,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 151,
-        "quantity": 5
+        "type": 316,
+        "quantity": 100
       }
     ],
     "skillSuccessXp": 50,
-    "successMessage": "You make gold chalice.",
+    "successMessage": "You make gold coins.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 947,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 185,
+    "successMessage": "You make armor.",
+    "successTool": 532,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 947,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 200,
+    "successMessage": "You make armor.",
+    "successTool": 533,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 947,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 215,
+    "successMessage": "You make armor.",
+    "successTool": 534,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 947,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 185,
+    "successMessage": "You make armor.",
+    "successTool": 747,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 947,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 235,
+    "successMessage": "You make armor.",
+    "successTool": 748,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 947,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 215,
+    "successMessage": "You make armor.",
+    "successTool": 749,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 947,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 771,
+        "quantity": 4
+      }
+    ],
+    "skillSuccessXp": 185,
+    "successMessage": "You make armor.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 947,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 772,
+        "quantity": 4
+      }
+    ],
+    "skillSuccessXp": 200,
+    "successMessage": "You make armor.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 947,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 773,
+        "quantity": 4
+      }
+    ],
+    "skillSuccessXp": 215,
+    "successMessage": "You make armor.",
     "toolQuantityConsumed": 1
   },
   {
@@ -22696,12 +22757,35 @@
     "skill": "Blacksmith",
     "products": [
       {
-        "type": 773,
-        "quantity": 4
+        "type": 151,
+        "quantity": 5
       }
     ],
-    "skillSuccessXp": 215,
-    "successMessage": "You make armor.",
+    "skillSuccessXp": 50,
+    "successMessage": "You make gold chalice.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 947,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 125,
+    "successTool": 1563,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 947,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [
+      {
+        "type": 2234,
+        "quantity": 10
+      }
+    ],
+    "skillSuccessXp": 120,
+    "successMessage": "You make some gold arrow heads.",
     "toolQuantityConsumed": 1
   },
   {
@@ -22717,14 +22801,9 @@
     "tool": 947,
     "focus": 140,
     "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 771,
-        "quantity": 4
-      }
-    ],
-    "skillSuccessXp": 185,
-    "successMessage": "You make armor.",
+    "products": [],
+    "skillSuccessXp": 300,
+    "successTool": 2179,
     "toolQuantityConsumed": 1
   },
   {
@@ -22732,87 +22811,8 @@
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
-    "skillSuccessXp": 215,
-    "successMessage": "You make armor.",
-    "successTool": 749,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 947,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 235,
-    "successMessage": "You make armor.",
-    "successTool": 748,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 947,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 185,
-    "successMessage": "You make armor.",
-    "successTool": 747,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 947,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 215,
-    "successMessage": "You make armor.",
-    "successTool": 534,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 947,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 200,
-    "successMessage": "You make armor.",
-    "successTool": 533,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 947,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 185,
-    "successMessage": "You make armor.",
-    "successTool": 532,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 947,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 316,
-        "quantity": 100
-      }
-    ],
-    "skillSuccessXp": 50,
-    "successMessage": "You make gold coins.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 947,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [
-      {
-        "type": 772,
-        "quantity": 4
-      }
-    ],
-    "skillSuccessXp": 200,
-    "successMessage": "You make armor.",
+    "skillSuccessXp": 325,
+    "successTool": 2180,
     "toolQuantityConsumed": 1
   },
   {
@@ -22829,9 +22829,9 @@
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
-    "skillSuccessXp": 250,
-    "successMessage": "You make a hessite sword.",
-    "successTool": 1895,
+    "skillSuccessXp": 320,
+    "successMessage": "You make armor.",
+    "successTool": 535,
     "toolQuantityConsumed": 1
   },
   {
@@ -22839,9 +22839,39 @@
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
-    "skillSuccessXp": 250,
-    "successMessage": "You make a hessite mace.",
-    "successTool": 1899,
+    "skillSuccessXp": 335,
+    "successMessage": "You make armor.",
+    "successTool": 536,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 948,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 350,
+    "successMessage": "You make armor.",
+    "successTool": 537,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 948,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 320,
+    "successMessage": "You make armor.",
+    "successTool": 750,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 948,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 335,
+    "successMessage": "You make armor.",
+    "successTool": 751,
     "toolQuantityConsumed": 1
   },
   {
@@ -22866,16 +22896,6 @@
     ],
     "skillSuccessXp": 320,
     "successMessage": "You make armor.",
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 948,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 335,
-    "successMessage": "You make armor.",
-    "successTool": 751,
     "toolQuantityConsumed": 1
   },
   {
@@ -22934,8 +22954,9 @@
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
-    "skillSuccessXp": 550,
-    "successTool": 2189,
+    "skillSuccessXp": 250,
+    "successMessage": "You make a hessite mace.",
+    "successTool": 1899,
     "toolQuantityConsumed": 1
   },
   {
@@ -22943,8 +22964,9 @@
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
-    "skillSuccessXp": 525,
-    "successTool": 2188,
+    "skillSuccessXp": 250,
+    "successMessage": "You make a hessite sword.",
+    "successTool": 1895,
     "toolQuantityConsumed": 1
   },
   {
@@ -22961,9 +22983,8 @@
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
-    "skillSuccessXp": 335,
-    "successMessage": "You make armor.",
-    "successTool": 536,
+    "skillSuccessXp": 525,
+    "successTool": 2188,
     "toolQuantityConsumed": 1
   },
   {
@@ -22971,29 +22992,8 @@
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
-    "skillSuccessXp": 320,
-    "successMessage": "You make armor.",
-    "successTool": 750,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 948,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 350,
-    "successMessage": "You make armor.",
-    "successTool": 537,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 948,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 320,
-    "successMessage": "You make armor.",
-    "successTool": 535,
+    "skillSuccessXp": 550,
+    "successTool": 2189,
     "toolQuantityConsumed": 1
   },
   {
@@ -23747,6 +23747,30 @@
     "focus": 0,
     "skill": "LockSmith",
     "products": [],
+    "skillSuccessXp": 75,
+    "successMessage": "You pick the lock."
+  },
+  {
+    "tool": 1013,
+    "focus": 0,
+    "skill": "LockSmith",
+    "products": [],
+    "skillSuccessXp": 125,
+    "successMessage": "You pick the lock."
+  },
+  {
+    "tool": 1013,
+    "focus": 0,
+    "skill": "LockSmith",
+    "products": [],
+    "skillSuccessXp": 175,
+    "successMessage": "You pick the lock."
+  },
+  {
+    "tool": 1013,
+    "focus": 0,
+    "skill": "LockSmith",
+    "products": [],
     "skillSuccessXp": 225,
     "successMessage": "You pick the lock."
   },
@@ -23787,6 +23811,14 @@
     "focus": 0,
     "skill": "LockSmith",
     "products": [],
+    "skillSuccessXp": 75,
+    "successMessage": "You pick the lock."
+  },
+  {
+    "tool": 1013,
+    "focus": 0,
+    "skill": "LockSmith",
+    "products": [],
     "skillSuccessXp": 125,
     "successMessage": "You pick the lock."
   },
@@ -23796,22 +23828,6 @@
     "skill": "LockSmith",
     "products": [],
     "skillSuccessXp": 175,
-    "successMessage": "You pick the lock."
-  },
-  {
-    "tool": 1013,
-    "focus": 0,
-    "skill": "LockSmith",
-    "products": [],
-    "skillSuccessXp": 125,
-    "successMessage": "You pick the lock."
-  },
-  {
-    "tool": 1013,
-    "focus": 0,
-    "skill": "LockSmith",
-    "products": [],
-    "skillSuccessXp": 75,
     "successMessage": "You pick the lock."
   },
   {
@@ -23820,30 +23836,6 @@
     "skill": "LockSmith",
     "products": [],
     "skillSuccessXp": 225,
-    "successMessage": "You pick the lock."
-  },
-  {
-    "tool": 1013,
-    "focus": 0,
-    "skill": "LockSmith",
-    "products": [],
-    "skillSuccessXp": 175,
-    "successMessage": "You pick the lock."
-  },
-  {
-    "tool": 1013,
-    "focus": 0,
-    "skill": "LockSmith",
-    "products": [],
-    "skillSuccessXp": 75,
-    "successMessage": "You pick the lock."
-  },
-  {
-    "tool": 1013,
-    "focus": 248,
-    "skill": "LockSmith",
-    "products": [],
-    "skillSuccessXp": 125,
     "successMessage": "You pick the lock."
   },
   {
@@ -23859,7 +23851,7 @@
     "focus": 248,
     "skill": "LockSmith",
     "products": [],
-    "skillSuccessXp": 225,
+    "skillSuccessXp": 125,
     "successMessage": "You pick the lock."
   },
   {
@@ -23872,10 +23864,10 @@
   },
   {
     "tool": 1013,
-    "focus": 257,
+    "focus": 248,
     "skill": "LockSmith",
     "products": [],
-    "skillSuccessXp": 125,
+    "skillSuccessXp": 225,
     "successMessage": "You pick the lock."
   },
   {
@@ -23891,7 +23883,7 @@
     "focus": 257,
     "skill": "LockSmith",
     "products": [],
-    "skillSuccessXp": 225,
+    "skillSuccessXp": 125,
     "successMessage": "You pick the lock."
   },
   {
@@ -23904,18 +23896,10 @@
   },
   {
     "tool": 1013,
-    "focus": 1671,
+    "focus": 257,
     "skill": "LockSmith",
     "products": [],
     "skillSuccessXp": 225,
-    "successMessage": "You pick the lock."
-  },
-  {
-    "tool": 1013,
-    "focus": 1671,
-    "skill": "LockSmith",
-    "products": [],
-    "skillSuccessXp": 175,
     "successMessage": "You pick the lock."
   },
   {
@@ -23932,6 +23916,30 @@
     "skill": "LockSmith",
     "products": [],
     "skillSuccessXp": 125,
+    "successMessage": "You pick the lock."
+  },
+  {
+    "tool": 1013,
+    "focus": 1671,
+    "skill": "LockSmith",
+    "products": [],
+    "skillSuccessXp": 175,
+    "successMessage": "You pick the lock."
+  },
+  {
+    "tool": 1013,
+    "focus": 1671,
+    "skill": "LockSmith",
+    "products": [],
+    "skillSuccessXp": 225,
+    "successMessage": "You pick the lock."
+  },
+  {
+    "tool": 1013,
+    "focus": 1673,
+    "skill": "LockSmith",
+    "products": [],
+    "skillSuccessXp": 75,
     "successMessage": "You pick the lock."
   },
   {
@@ -23960,10 +23968,18 @@
   },
   {
     "tool": 1013,
-    "focus": 1673,
+    "focus": 1909,
     "skill": "LockSmith",
     "products": [],
     "skillSuccessXp": 75,
+    "successMessage": "You pick the lock."
+  },
+  {
+    "tool": 1013,
+    "focus": 1909,
+    "skill": "LockSmith",
+    "products": [],
+    "skillSuccessXp": 125,
     "successMessage": "You pick the lock."
   },
   {
@@ -23980,22 +23996,6 @@
     "skill": "LockSmith",
     "products": [],
     "skillSuccessXp": 225,
-    "successMessage": "You pick the lock."
-  },
-  {
-    "tool": 1013,
-    "focus": 1909,
-    "skill": "LockSmith",
-    "products": [],
-    "skillSuccessXp": 75,
-    "successMessage": "You pick the lock."
-  },
-  {
-    "tool": 1013,
-    "focus": 1909,
-    "skill": "LockSmith",
-    "products": [],
-    "skillSuccessXp": 125,
     "successMessage": "You pick the lock."
   },
   {
@@ -25081,15 +25081,11 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 0,
+        "type": 1707,
         "quantity": 1
-      },
-      {
-        "type": 58,
-        "quantity": 4
       }
     ],
-    "skillSuccessXp": 50
+    "skillSuccessXp": 75
   },
   {
     "tool": 1068,
@@ -25103,8 +25099,8 @@
         "quantity": 1
       },
       {
-        "type": 65,
-        "quantity": 4
+        "type": 88,
+        "quantity": 10
       }
     ],
     "skillSuccessXp": 25
@@ -25117,7 +25113,21 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 816,
+        "type": 812,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 75
+  },
+  {
+    "tool": 1068,
+    "focus": 406,
+    "skill": "Fletching",
+    "animation": "SawSound",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 813,
         "quantity": 1
       }
     ],
@@ -25145,7 +25155,7 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 813,
+        "type": 816,
         "quantity": 1
       }
     ],
@@ -25159,25 +25169,33 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 274,
+        "type": 0,
         "quantity": 1
+      },
+      {
+        "type": 65,
+        "quantity": 4
       }
     ],
-    "skillSuccessXp": 50
+    "skillSuccessXp": 25
   },
   {
     "tool": 1068,
     "focus": 406,
-    "skill": "Fletching",
+    "skill": "Carpentry",
     "animation": "SawSound",
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 812,
+        "type": 0,
         "quantity": 1
+      },
+      {
+        "type": 58,
+        "quantity": 4
       }
     ],
-    "skillSuccessXp": 75
+    "skillSuccessXp": 50
   },
   {
     "tool": 1068,
@@ -25205,25 +25223,21 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 0,
+        "type": 274,
         "quantity": 1
-      },
-      {
-        "type": 88,
-        "quantity": 10
       }
     ],
-    "skillSuccessXp": 25
+    "skillSuccessXp": 50
   },
   {
     "tool": 1068,
-    "focus": 406,
-    "skill": "Carpentry",
+    "focus": 437,
+    "skill": "Fletching",
     "animation": "SawSound",
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 1707,
+        "type": 1105,
         "quantity": 1
       }
     ],
@@ -25238,20 +25252,6 @@
     "products": [
       {
         "type": 1154,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 75
-  },
-  {
-    "tool": 1068,
-    "focus": 437,
-    "skill": "Fletching",
-    "animation": "SawSound",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1105,
         "quantity": 1
       }
     ],
@@ -25982,6 +25982,14 @@
   {
     "tool": 1120,
     "focus": 0,
+    "products": [],
+    "successMessage": "You fill the bucket with water.",
+    "successTool": 1121,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1120,
+    "focus": 0,
     "skill": "Farming",
     "products": [
       {
@@ -25991,14 +25999,6 @@
     ],
     "skillSuccessXp": 50,
     "successMessage": "You milk the cow."
-  },
-  {
-    "tool": 1120,
-    "focus": 0,
-    "products": [],
-    "successMessage": "You fill the bucket with water.",
-    "successTool": 1121,
-    "toolQuantityConsumed": 1
   },
   {
     "tool": 1120,
@@ -27104,8 +27104,8 @@
     "focus": 124,
     "skill": "Alchemy",
     "products": [],
-    "skillSuccessXp": 60,
-    "successTool": 991,
+    "skillSuccessXp": 40,
+    "successTool": 990,
     "toolQuantityConsumed": 1
   },
   {
@@ -27113,8 +27113,8 @@
     "focus": 124,
     "skill": "Alchemy",
     "products": [],
-    "skillSuccessXp": 40,
-    "successTool": 990,
+    "skillSuccessXp": 60,
+    "successTool": 991,
     "toolQuantityConsumed": 1
   },
   {
@@ -28278,139 +28278,9 @@
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
-    "skillSuccessXp": 350,
-    "successMessage": "You make a weapon.",
-    "successTool": 1893,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1466,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 350,
-    "successMessage": "You make a weapon.",
-    "successTool": 269,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1466,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 350,
-    "successMessage": "You make a weapon.",
-    "successTool": 259,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1466,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
     "skillSuccessXp": 365,
     "successMessage": "You make armor.",
     "successTool": 18,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1466,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 350,
-    "successMessage": "You make a weapon.",
-    "successTool": 155,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1466,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 350,
-    "successMessage": "You make a shield.",
-    "successTool": 86,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1466,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 350,
-    "successMessage": "You make a wand.",
-    "successTool": 77,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1466,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 350,
-    "successMessage": "You make a weapon.",
-    "successTool": 1153,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1466,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 350,
-    "successMessage": "You make a weapon.",
-    "successTool": 368,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1466,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 350,
-    "successMessage": "You make a weapon.",
-    "successTool": 359,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1466,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 350,
-    "successMessage": "You make a weapon.",
-    "successTool": 358,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1466,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 350,
-    "successMessage": "You make a weapon.",
-    "successTool": 1474,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1466,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 350,
-    "successMessage": "You make a weapon.",
-    "successTool": 1475,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1466,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 350,
-    "successMessage": "You make a weapon.",
-    "successTool": 369,
     "toolQuantityConsumed": 1
   },
   {
@@ -28431,6 +28301,136 @@
     "skillSuccessXp": 350,
     "successMessage": "You make a weapon.",
     "successTool": 34,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1466,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 350,
+    "successMessage": "You make a wand.",
+    "successTool": 77,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1466,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 350,
+    "successMessage": "You make a shield.",
+    "successTool": 86,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1466,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 350,
+    "successMessage": "You make a weapon.",
+    "successTool": 155,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1466,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 350,
+    "successMessage": "You make a weapon.",
+    "successTool": 259,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1466,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 350,
+    "successMessage": "You make a weapon.",
+    "successTool": 269,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1466,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 350,
+    "successMessage": "You make a weapon.",
+    "successTool": 358,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1466,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 350,
+    "successMessage": "You make a weapon.",
+    "successTool": 359,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1466,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 350,
+    "successMessage": "You make a weapon.",
+    "successTool": 368,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1466,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 350,
+    "successMessage": "You make a weapon.",
+    "successTool": 369,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1466,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 350,
+    "successMessage": "You make a weapon.",
+    "successTool": 1893,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1466,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 350,
+    "successMessage": "You make a weapon.",
+    "successTool": 1153,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1466,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 350,
+    "successMessage": "You make a weapon.",
+    "successTool": 1474,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1466,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 350,
+    "successMessage": "You make a weapon.",
+    "successTool": 1475,
     "toolQuantityConsumed": 1
   },
   {
@@ -28514,8 +28514,8 @@
     "focus": 124,
     "skill": "Cooking",
     "products": [],
-    "skillSuccessXp": 90,
-    "successTool": 1521,
+    "skillSuccessXp": 70,
+    "successTool": 1043,
     "toolQuantityConsumed": 1
   },
   {
@@ -28523,8 +28523,8 @@
     "focus": 124,
     "skill": "Cooking",
     "products": [],
-    "skillSuccessXp": 70,
-    "successTool": 1043,
+    "skillSuccessXp": 90,
+    "successTool": 1521,
     "toolQuantityConsumed": 1
   },
   {
@@ -28550,22 +28550,13 @@
     "focus": 3126,
     "skill": "Cooking",
     "products": [],
-    "skillSuccessXp": 90,
-    "successTool": 1521,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1519,
-    "focus": 3126,
-    "skill": "Cooking",
-    "products": [],
     "skillSuccessXp": 70,
     "successTool": 1043,
     "toolQuantityConsumed": 1
   },
   {
-    "tool": 1520,
-    "focus": 124,
+    "tool": 1519,
+    "focus": 3126,
     "skill": "Cooking",
     "products": [],
     "skillSuccessXp": 90,
@@ -28579,6 +28570,15 @@
     "products": [],
     "skillSuccessXp": 70,
     "successTool": 1075,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1520,
+    "focus": 124,
+    "skill": "Cooking",
+    "products": [],
+    "skillSuccessXp": 90,
+    "successTool": 1521,
     "toolQuantityConsumed": 1
   },
   {
@@ -28762,8 +28762,8 @@
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
-    "skillSuccessXp": 240,
-    "successTool": 1534,
+    "skillSuccessXp": 200,
+    "successTool": 1530,
     "toolQuantityConsumed": 1
   },
   {
@@ -28782,16 +28782,6 @@
     "products": [],
     "skillSuccessXp": 220,
     "successTool": 1527,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1537,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 100,
-    "successMessage": "You make the weapon.",
-    "successTool": 3156,
     "toolQuantityConsumed": 1
   },
   {
@@ -28819,6 +28809,15 @@
     "products": [],
     "skillSuccessXp": 220,
     "successTool": 1535,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1537,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 240,
+    "successTool": 1534,
     "toolQuantityConsumed": 1
   },
   {
@@ -29004,8 +29003,18 @@
     "focus": 140,
     "skill": "Blacksmith",
     "products": [],
-    "skillSuccessXp": 200,
-    "successTool": 1530,
+    "skillSuccessXp": 150,
+    "successTool": 1568,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1537,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 100,
+    "successMessage": "You make the weapon.",
+    "successTool": 3156,
     "toolQuantityConsumed": 1
   },
   {
@@ -29015,15 +29024,6 @@
     "products": [],
     "skillSuccessXp": 200,
     "successTool": 2388,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1537,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 150,
-    "successTool": 1568,
     "toolQuantityConsumed": 1
   },
   {
@@ -29701,7 +29701,76 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
+        "type": 1680,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 90
+  },
+  {
+    "tool": 1699,
+    "focus": 1698,
+    "skill": "Carpentry",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1669,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 90,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1699,
+    "focus": 1698,
+    "skill": "Carpentry",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
         "type": 1684,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 90,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1699,
+    "focus": 1698,
+    "skill": "Carpentry",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1679,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 90,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1699,
+    "focus": 1698,
+    "skill": "Carpentry",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1677,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 90,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1699,
+    "focus": 1698,
+    "skill": "Carpentry",
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1668,
         "quantity": 1
       }
     ],
@@ -29720,24 +29789,6 @@
       }
     ],
     "skillSuccessXp": 90,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1699,
-    "focus": 1698,
-    "skill": "Carpentry",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 0,
-        "quantity": 1
-      },
-      {
-        "type": 1676,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 50,
     "toolQuantityConsumed": 1
   },
   {
@@ -29831,7 +29882,7 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 1679,
+        "type": 1687,
         "quantity": 1
       }
     ],
@@ -29902,66 +29953,15 @@
     "focusQuantityConsumed": 1,
     "products": [
       {
-        "type": 1687,
+        "type": 0,
         "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 90,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1699,
-    "focus": 1698,
-    "skill": "Carpentry",
-    "focusQuantityConsumed": 1,
-    "products": [
+      },
       {
-        "type": 1677,
+        "type": 1676,
         "quantity": 1
       }
     ],
-    "skillSuccessXp": 90,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1699,
-    "focus": 1698,
-    "skill": "Carpentry",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1668,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 90,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1699,
-    "focus": 1698,
-    "skill": "Carpentry",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1680,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 90
-  },
-  {
-    "tool": 1699,
-    "focus": 1698,
-    "skill": "Carpentry",
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1669,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 90,
+    "skillSuccessXp": 50,
     "toolQuantityConsumed": 1
   },
   {
@@ -30280,6 +30280,15 @@
     "tool": 1809,
     "focus": 140,
     "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 400,
+    "successTool": 1808,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1809,
+    "focus": 140,
+    "skill": "Blacksmith",
     "animation": "BSHammerSound",
     "products": [],
     "skillSuccessXp": 400,
@@ -30304,15 +30313,6 @@
     "products": [],
     "skillSuccessXp": 400,
     "successTool": 1812,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1809,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 400,
-    "successTool": 1808,
     "toolQuantityConsumed": 1
   },
   {
@@ -30859,22 +30859,7 @@
     "skill": "Jewelry Making",
     "products": [
       {
-        "type": 1933,
-        "quantity": 1
-      }
-    ],
-    "skillSuccessXp": 200,
-    "successMessage": "You make the UnSet Engagement Ring.",
-    "successTool": 3095,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 1935,
-    "focus": 1932,
-    "skill": "Jewelry Making",
-    "products": [
-      {
-        "type": 1931,
+        "type": 1930,
         "quantity": 4
       },
       {
@@ -30910,7 +30895,7 @@
     "skill": "Jewelry Making",
     "products": [
       {
-        "type": 1930,
+        "type": 1931,
         "quantity": 4
       },
       {
@@ -30920,6 +30905,21 @@
     ],
     "skillSuccessXp": 75,
     "successMessage": "You make some blank jewlery.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 1935,
+    "focus": 1932,
+    "skill": "Jewelry Making",
+    "products": [
+      {
+        "type": 1933,
+        "quantity": 1
+      }
+    ],
+    "skillSuccessXp": 200,
+    "successMessage": "You make the UnSet Engagement Ring.",
+    "successTool": 3095,
     "toolQuantityConsumed": 1
   },
   {
@@ -32577,6 +32577,16 @@
     "products": [],
     "skillSuccessXp": 550,
     "successMessage": "You make the armor.",
+    "successTool": 2225,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 2228,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 550,
+    "successMessage": "You make the armor.",
     "successTool": 2226,
     "toolQuantityConsumed": 1
   },
@@ -32588,16 +32598,6 @@
     "skillSuccessXp": 550,
     "successMessage": "You make the armor.",
     "successTool": 2227,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 2228,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 550,
-    "successMessage": "You make the armor.",
-    "successTool": 2225,
     "toolQuantityConsumed": 1
   },
   {
@@ -34816,86 +34816,6 @@
     "products": [],
     "skillSuccessXp": 400,
     "successMessage": "You make a weapon.",
-    "successTool": 3112,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 3103,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 400,
-    "successMessage": "You make a weapon.",
-    "successTool": 3109,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 3103,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 400,
-    "successMessage": "You make a weapon.",
-    "successTool": 3115,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 3103,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 400,
-    "successMessage": "You make a weapon.",
-    "successTool": 3114,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 3103,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 400,
-    "successMessage": "You make a weapon.",
-    "successTool": 3111,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 3103,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 400,
-    "successMessage": "You make a weapon.",
-    "successTool": 3108,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 3103,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 400,
-    "successMessage": "You make a weapon.",
-    "successTool": 3110,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 3103,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 400,
-    "successMessage": "You make a weapon.",
-    "successTool": 3113,
-    "toolQuantityConsumed": 1
-  },
-  {
-    "tool": 3103,
-    "focus": 140,
-    "skill": "Blacksmith",
-    "products": [],
-    "skillSuccessXp": 400,
-    "successMessage": "You make a weapon.",
     "successTool": 3105,
     "toolQuantityConsumed": 1
   },
@@ -34927,6 +34847,86 @@
     "skillSuccessXp": 400,
     "successMessage": "You make a weapon.",
     "successTool": 3107,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 3103,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 400,
+    "successMessage": "You make a weapon.",
+    "successTool": 3108,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 3103,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 400,
+    "successMessage": "You make a weapon.",
+    "successTool": 3109,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 3103,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 400,
+    "successMessage": "You make a weapon.",
+    "successTool": 3110,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 3103,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 400,
+    "successMessage": "You make a weapon.",
+    "successTool": 3111,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 3103,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 400,
+    "successMessage": "You make a weapon.",
+    "successTool": 3112,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 3103,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 400,
+    "successMessage": "You make a weapon.",
+    "successTool": 3113,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 3103,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 400,
+    "successMessage": "You make a weapon.",
+    "successTool": 3114,
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 3103,
+    "focus": 140,
+    "skill": "Blacksmith",
+    "products": [],
+    "skillSuccessXp": 400,
+    "successMessage": "You make a weapon.",
+    "successTool": 3115,
     "toolQuantityConsumed": 1
   },
   {

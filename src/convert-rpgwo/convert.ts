@@ -1,17 +1,26 @@
-// WIP. Current Gridia content files are the result of a long-lost Java converter.
+/// <reference types="../types" />
 
 import * as fs from 'fs';
 import * as path from 'path';
 
+// lol esmodules.
+const __dirname = path.join(path.dirname(decodeURI(new URL(import .meta.url).pathname))).replace(/^\\([A-Z]:\\)/, '$1');
+
+function loadContent(name: string) {
+  return JSON.parse(fs.readFileSync(`${__dirname}/../../world/content/${name}`, 'utf-8'));
+}
+
 // Just for self-referential lookups - Can't use '../content.ts' b/c it loads data from disk,
 // not what was just parsed.
 const state = {
-  items: [],
+  items: [] as MetaItem[],
 };
 
 function getMetaItemByName(name: string) {
   const lowerCaseName = name.toLowerCase();
-  return state.items.find((item) => Boolean(item && item.name.toLowerCase() === lowerCaseName));
+  const meta = state.items.find((item) => Boolean(item && item.name.toLowerCase() === lowerCaseName));
+  if (!meta) throw new Error('no ' + name);
+  return meta;
 }
 
 function loadIni(type: string) {
@@ -44,10 +53,10 @@ function loosenum(val: string) {
   return parseFloat(val);
 }
 
-function printUniqueKeys(objects) {
+function printUniqueKeys(objects: any[]) {
   const keys = new Set();
   for (const object of objects) {
-    for ( const key of Object.keys(object)) {
+    for (const key of Object.keys(object)) {
       keys.add(key);
     }
   }
@@ -58,16 +67,16 @@ function camelCase(str: string) {
   return str[0].toLowerCase() + str.substring(1);
 }
 
-function filterProperties(object: any, whitelist: string[]) {
+function filterProperties(object: any, allowlist: string[]) {
   for (const key of Object.keys(object)) {
-    if (!whitelist.includes(key)) {
+    if (!allowlist.includes(key)) {
       delete object[key];
     }
   }
 }
 
-function sortObject(object, explicitOrder) {
-  const sorted = {};
+function sortObject(object: any, explicitOrder: string[]) {
+  const sorted: any = {};
 
   const keys = Object.keys(object).sort((a, b) => {
     const orderA = explicitOrder.indexOf(a);
@@ -118,12 +127,13 @@ function parseItemsIni() {
   // TODO: consider putting defaults on the first item,
   // and making every MetaItem.prototype = that first item.
   // would make items.json much smaller.
-  const defaults = {
+  const defaults: Partial<MetaItem> = {
     burden: 10000,
     moveable: true,
     rarity: 1,
     stackable: false,
     walkable: true,
+    light: 0,
   };
   const items = [];
 
@@ -137,6 +147,7 @@ function parseItemsIni() {
       items.push(currentItem);
     } else if (!currentItem) {
       // defaults come first.
+      // @ts-ignore
       defaults[camelCase(key.replace('default', ''))] = value;
     } else if (key.match(/^animation/i)) {
       currentItem.animations = currentItem.animations || [];
@@ -147,6 +158,8 @@ function parseItemsIni() {
       currentItem.imageHeight = forcenum(value) + 1;
     } else if (key.match(/^BlockMovement/i)) {
       currentItem.walkable = (value || '1') !== '1';
+    } else if (key.match(/^OpenSightLine/i)) {
+      currentItem.blocksLight = false;
     } else {
       // Most properties are unchanged, except for being camelCase.
       const camelCaseKey = camelCase(key);
@@ -160,7 +173,17 @@ function parseItemsIni() {
         convertedValue = true;
       }
 
+      // @ts-ignore
       currentItem[camelCaseKey] = convertedValue;
+    }
+  }
+
+  // Only un-walkable items block light, unless 'OpenSightLine' was used.
+  for (const item of items) {
+    if (!item.walkable && !('blocksLight' in item)) {
+      item.blocksLight = true;
+    } else {
+      item.blocksLight = false;
     }
   }
 
@@ -170,7 +193,7 @@ function parseItemsIni() {
   // printUniqueKeys(items);
 
   // Only save properties that Gridia utilizes.
-  const whitelist = [
+  const allowlist = [
     'animations',
     'burden',
     'class',
@@ -184,9 +207,11 @@ function parseItemsIni() {
     'stackable',
     'walkable',
     'trapEffect',
+    'light',
+    'blocksLight',
   ];
   for (const item of items) {
-    filterProperties(item, whitelist);
+    filterProperties(item, allowlist);
   }
 
   return items;
@@ -195,21 +220,22 @@ function parseItemsIni() {
 function parseItemUsagesIni() {
   const usagesIni = loadIni('itemuse');
 
-  const defaults = {
+  const defaults: Partial<ItemUse> = {
     // burden: 10000,
     // moveable: true,
     // stackable: false,
     // walkable: true,
   };
-  const usages = [];
+  const usages: ItemUse[] = [];
 
-  let currentUsage;
+  let currentUsage: Partial<ItemUse> = {};
   for (const [key, value] of usagesIni) {
     if (key.match(/^itemuse$/i)) {
       currentUsage = {
         ...defaults,
         products: [],
       };
+      // @ts-ignore
       usages.push(currentUsage);
     } else if (key.match(/^itemtool$/i)) {
       currentUsage.tool = parseItemId(value);
@@ -223,14 +249,17 @@ function parseItemUsagesIni() {
       currentUsage.toolQuantityConsumed = 1;
     } else if (key.match(/^successitemqty/i)) {
       const index = forcenum(key.replace(/successitemqty/i, '')) - 1;
+      // @ts-ignore
       currentUsage.products[index].quantity = forcenum(value);
     } else if (key.match(/^successitem/i)) {
       const index = forcenum(key.replace(/successitem/i, '')) - 1;
+      // @ts-ignore
       currentUsage.products[index] = {
         type: parseItemId(value),
         quantity: 1,
       };
     } else if (key.match(/^successfocus$/i)) {
+      // @ts-ignore
       currentUsage.successFocus = {
         type: parseItemId(value),
         quantity: 1,
@@ -240,14 +269,15 @@ function parseItemUsagesIni() {
       currentUsage.successMessage = value;
     } else if (key.match(/^skill$/i)) {
       // Normalize skill name.
-      const skills = require('../../world/content/skills.json');
+      const skills = loadContent('skills.json');
       if (value === 'Leather') currentUsage.skill = 'Tailor';
+      // @ts-ignore
       else currentUsage.skill = skills.find((skill) => skill.name.toLowerCase() === value.toLowerCase()).name;
     } else if (key.match(/^skillxpsuccess$/i)) {
       currentUsage.skillSuccessXp = forcenum(value);
     } else if (key.match(/^animation$/i)) {
       // TODO remove when animations are converted.
-      const animations = require('../../world/content/animations');
+      const animations = loadContent('animations.json');
       currentUsage.animation = animations[forcenum(value) - 1].name;
     } else {
       // Most properties are unchanged, except for being camelCase.
@@ -262,11 +292,13 @@ function parseItemUsagesIni() {
         convertedValue = true;
       }
 
+      // @ts-ignore
       currentUsage[camelCaseKey] = convertedValue;
     }
   }
 
   for (const usage of usages) {
+    // @ts-ignore
     if (usage.successFocus) usage.products.unshift(usage.successFocus);
     usage.products = usage.products.filter(Boolean);
 
@@ -280,7 +312,7 @@ function parseItemUsagesIni() {
   // printUniqueKeys(usages);
 
   // Only save properties that Gridia utilizes.
-  const whitelist = [
+  const allowlist = [
     'animation',
     'focus',
     'focusQuantityConsumed',
@@ -293,12 +325,14 @@ function parseItemUsagesIni() {
     'toolQuantityConsumed',
   ];
   for (const usage of usages) {
-    filterProperties(usage, whitelist);
+    filterProperties(usage, allowlist);
   }
 
   if (process.env.DEBUG === '1') {
     for (const usage of usages) {
+      // @ts-ignore
       if (usage.tool >= 0) usage.tool_ = state.items[usage.tool].name;
+      // @ts-ignore
       if (usage.focus >= 0) usage.focus_ = state.items[usage.focus].name;
     }
   }
@@ -331,6 +365,7 @@ function parseSkillsIni() {
         convertedValue = true;
       }
 
+      // @ts-ignore
       currentSkill[camelCaseKey] = convertedValue;
     }
   }
@@ -338,12 +373,12 @@ function parseSkillsIni() {
   // printUniqueKeys(skills);
 
   // Only save properties that Gridia utilizes.
-  const whitelist = [
+  const allowlist = [
     'id',
     'name',
   ];
   for (const skill of skills) {
-    filterProperties(skill, whitelist);
+    filterProperties(skill, allowlist);
   }
 
   return skills;
@@ -363,28 +398,42 @@ function fillGaps(objects: any[], make: (id: number) => any) {
 }
 
 function convertItems() {
-  const items = [
+  let items = [
     {
       id: 0,
       name: 'Nothing',
       class: 'Normal',
       burden: 0,
       walkable: true,
+      light: 0,
       moveable: true,
       stackable: false,
+      blocksLight: false,
     },
     ...parseItemsIni(),
   ];
 
-  const explicitOrder = ['id', 'name', 'class'];
-  return fillGaps(items, (id: number) => ({
+  items = fillGaps(items, (id: number) => ({
     id,
     name: 'Unknown',
     burden: 0,
     walkable: true,
+    light: 0,
     moveable: true,
     stackable: false,
-  })).map((item) => sortObject(item, explicitOrder));
+  }));
+
+  items.push({
+    id: items.length,
+    name: 'Mine',
+    class: 'Normal',
+    walkable: false,
+    moveable: false,
+    blocksLight: true,
+  });
+
+  const explicitOrder = ['id', 'name', 'class'];
+  return items.map((item) => sortObject(item, explicitOrder));
 }
 
 function convertItemUsages() {

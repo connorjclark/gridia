@@ -2,19 +2,17 @@ import { MINE, WATER } from '../constants';
 import WorldMapPartition from '../world-map-partition';
 
 export function getWaterFloor(partition: WorldMapPartition, point: PartitionPoint) {
-  const templateIndex = useTemplate(partition, 0, WATER, point);
+  const templateIndex = useTemplate(partition, 0, WATER, point, 'floor');
   return templateIndex;
 }
 
-export function getMineFloor(partition: WorldMapPartition, point: PartitionPoint) {
-  const templateIndex = useTemplate(partition, 1, MINE, point);
+export function getMineItem(partition: WorldMapPartition, point: PartitionPoint) {
+  const templateIndex = useTemplate(partition, 1, MINE, point, 'item');
   return templateIndex;
 }
 
-// generalize
-// this is only for floors right now
-// more uses?
-function useTemplate(partition: WorldMapPartition, templateId: number, typeToMatch: number, loc: PartitionPoint) {
+function useTemplate(partition: WorldMapPartition, templateId: number,
+                     typeToMatch: number, loc: PartitionPoint, match: 'item' | 'floor') {
   const { x, y, z } = loc;
   // const width = client.world.width;
   // const height = client.world.height;
@@ -27,17 +25,21 @@ function useTemplate(partition: WorldMapPartition, templateId: number, typeToMat
   const yu = y + 1;
   const yd = y - 1;
 
-  function getTileOrFake(pos: PartitionPoint): Partial<{ floor: number }> {
+  function matches(pos: PartitionPoint) {
     if (!partition.inBounds(pos)) {
-      return { floor: typeToMatch };
+      return true;
     }
-    return partition.getTile(pos);
+
+    const tile = partition.getTile(pos);
+    if (match === 'floor') return tile.floor === typeToMatch;
+
+    return tile.item?.type === typeToMatch;
   }
 
-  const below = getTileOrFake({ x, y: yu, z }).floor === typeToMatch;
-  const above = getTileOrFake({ x, y: yd, z }).floor === typeToMatch;
-  const left = getTileOrFake({ x: xl, y, z }).floor === typeToMatch;
-  const right = getTileOrFake({ x: xr, y, z }).floor === typeToMatch;
+  const below = matches({ x, y: yu, z });
+  const above = matches({ x, y: yd, z });
+  const left = matches({ x: xl, y, z });
+  const right = matches({ x: xr, y, z });
 
   const offset = templateId * 50;
   let v = (above ? 1 : 0) + (below ? 2 : 0) + (left ? 4 : 0) + (right ? 8 : 0);
@@ -50,10 +52,10 @@ function useTemplate(partition: WorldMapPartition, templateId: number, typeToMat
   // ^ nov 2014
   // update: just copied this again here in dec 2018
 
-  const downleft = getTileOrFake({ x: xl, y: yu, z }).floor === typeToMatch;
-  const downright = getTileOrFake({ x: xr, y: yu, z }).floor === typeToMatch;
-  const upleft = getTileOrFake({ x: xl, y: yd, z }).floor === typeToMatch;
-  const upright = getTileOrFake({ x: xr, y: yd, z }).floor === typeToMatch;
+  const downleft = matches({ x: xl, y: yu, z });
+  const downright = matches({ x: xr, y: yu, z });
+  const upleft = matches({ x: xl, y: yd, z });
+  const upright = matches({ x: xr, y: yd, z });
 
   if (v === 15) {
     if (!upleft) {

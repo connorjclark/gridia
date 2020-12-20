@@ -21,7 +21,7 @@ for (let i = 0; i < 2; i++) {
   ImageResources.animations.push(`./world/animations/animations${i}.png`);
 }
 
-export const SfxResources = {
+export const SfxResources: Record<string, string> = {
   beep: './world/sound/sfx/rpgwo/beep.WAV',
   blowarrow: './world/sound/sfx/rpgwo/BlowArrow.WAV',
   bombtiq: './world/sound/sfx/rpgwo/bombtiq.wav',
@@ -38,6 +38,7 @@ export const SfxResources = {
   harry: './world/sound/sfx/rpgwo/harry.wav',
   havenmayor: './world/sound/sfx/rpgwo/havenmayor.wav',
   heal: './world/sound/sfx/ff6/heal.wav',
+  magic: './world/sound/sfx/paid/magic.wav',
   hiccup: './world/sound/sfx/rpgwo/hiccup.wav',
   ice: './world/sound/sfx/rpgwo/ice.WAV',
   pop_drip: './world/sound/sfx/rcptones/pop_drip.wav',

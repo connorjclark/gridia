@@ -4,6 +4,7 @@ declare namespace NodeJS {
   }
 }
 
+type Array2D<T> = T[][];
 type Array3D<T> = T[][][];
 
 interface Point2 {
@@ -88,6 +89,8 @@ interface MetaItem {
   growthItem: number;
   imageHeight: number;
   moveable: boolean;
+  light: number;
+  blocksLight: boolean;
   rarity: number;
   stackable: boolean;
   walkable: boolean;
@@ -115,8 +118,8 @@ interface Skill {
 interface GridiaAnimation {
   name: string;
   frames: Array<{
-    sound: string;
     sprite: number;
+    sound?: string;
   }>;
 }
 
@@ -132,11 +135,6 @@ interface Monster {
 }
 
 interface UIState {
-  viewport: {
-    x: number;
-    y: number;
-    scale: number;
-  };
   mouse: {
     x: number;
     y: number;

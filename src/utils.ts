@@ -104,10 +104,3 @@ export const ItemLocation = {
     return false;
   },
 };
-
-//   export function tileToScreen(pt: TilePoint): TilePoint {
-//     return {
-//       x: pt.x * GFX_SIZE - state.viewport.x,
-//       y: pt.y * GFX_SIZE - state.viewport.y,
-//     }
-//   }

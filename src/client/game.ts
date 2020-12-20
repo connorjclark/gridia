@@ -1,6 +1,7 @@
-import { GFX_SIZE, MINE, WATER } from '../constants';
+import { GFX_SIZE } from '../constants';
 import * as Content from '../content';
 import { game } from '../game-singleton';
+import { calcStraightLine } from '../lib/line';
 import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
 import * as Utils from '../utils';
 import Client from './client';
@@ -15,7 +16,7 @@ import SelectedViewModule from './modules/selected-view-module';
 import SettingsModule from './modules/settings-module';
 import SkillsModule from './modules/skills-module';
 import UsageModule from './modules/usage-module';
-import { getMineFloor, getWaterFloor } from './template-draw';
+import { WorldContainer } from './world-container';
 
 // WIP lighting shaders.
 
@@ -133,10 +134,7 @@ function worldToTile(pw: ScreenPoint) {
 }
 
 function mouseToWorld(pm: ScreenPoint): ScreenPoint {
-  return {
-    x: (pm.x + game.state.viewport.x) / game.state.viewport.scale,
-    y: (pm.y + game.state.viewport.y) / game.state.viewport.scale,
-  };
+  return game.worldContainer.toLocal(pm);
 }
 
 class Game {
@@ -150,10 +148,11 @@ class Game {
     skills: new SkillsModule(this),
     usage: new UsageModule(this),
   };
+
+  public worldContainer: WorldContainer;
   protected app = new PIXI.Application();
   protected canvasesEl = Helper.find('#canvases');
   protected world = new PIXI.Container();
-  protected layers: Record<string, PIXI.Graphics> = {};
   protected windows: Draw.GridiaWindow[] = [];
   protected itemMovingState?: ItemMoveBeginEvent;
   protected mouseHasMovedSinceItemMoveBegin = false;
@@ -165,16 +164,10 @@ class Game {
     new PIXI.Text('', { fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round' });
   private _isEditing = false;
 
-  private _animations:
-    Array<{ frames: GridiaAnimation['frames'], loc: TilePoint, frame: number, nextFrameAt: number }> = [];
+  private _soundCache: Record<string, PIXI.sound.Sound> = {};
 
   constructor(public client: Client) {
     this.state = {
-      viewport: {
-        x: 0,
-        y: 0,
-        scale: 1,
-      },
       mouse: {
         x: 0,
         y: 0,
@@ -185,6 +178,8 @@ class Game {
         actions: [],
       },
     };
+
+    this.worldContainer = new WorldContainer(client.context.map);
 
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
@@ -281,9 +276,8 @@ class Game {
   public onLoad() {
     const world = this.world = new PIXI.Container();
     this.app.stage.addChild(world);
-    world.addChild(this.layers.floorLayer = new PIXI.Graphics());
-    world.addChild(this.layers.itemAndCreatureLayer = new PIXI.Graphics());
-    world.addChild(this.layers.topLayer = new PIXI.Graphics());
+
+    world.addChild(this.worldContainer);
 
     // this.world.filters = [];
     // this.world.filters.push(testFilter);
@@ -300,23 +294,26 @@ class Game {
     // This makes everything "pop".
     // this.containers.itemAndCreatureLayer.filters = [new OutlineFilter(0.5, 0, 1)];
   }
-
   public async playSound(name: string) {
     if (this.client.settings.volume === 0) return;
 
-    // @ts-ignore
-    const resourceKey: string = SfxResources[name];
-    if (!this.loader.hasResourceLoaded(resourceKey)) {
-      await this.loader.loadResource(resourceKey);
+    if (!this._soundCache[name]) {
+      const resourceKey = SfxResources[name];
+      this._soundCache[name] = PIXI.sound.Sound.from(resourceKey);
     }
-    PIXI.sound.play(resourceKey, { volume: this.client.settings.volume });
+
+    this._soundCache[name].play({ volume: this.client.settings.volume });
   }
 
   public addAnimation(animation: GridiaAnimation, loc: TilePoint) {
-    this._animations.push({ frames: animation.frames, loc, frame: 0, nextFrameAt: performance.now() + 100 });
-    if (animation.frames[0].sound) {
-      this.playSound(animation.frames[0].sound);
-    }
+    this.worldContainer.animationController.addAnimation({
+      location: loc,
+      tint: 0,
+      alpha: 1,
+      decay: 0.1,
+      light: 4,
+      frames: animation.frames,
+    });
   }
 
   public trip() {
@@ -461,6 +458,21 @@ class Game {
       if (this.client.context.map.inBounds(loc)) {
         this.client.eventEmitter.emit('tileClicked', { ...loc });
       }
+
+      // Temporary.
+      const graphics = Math.random() > 0.5 ? { graphic: 60, graphicFrames: 10 } : { graphic: 80, graphicFrames: 5 };
+      const frames: GridiaAnimation['frames'] = [...Array(graphics.graphicFrames)].map((_, i) => {
+        return { sprite: graphics.graphic + i };
+      });
+      frames[0].sound = 'magic';
+
+      this.worldContainer.animationController.addEmitter({
+        tint: 0x000055,
+        path: calcStraightLine(this.worldContainer.camera.focus, loc).reverse(),
+        light: 4,
+        offshootRate: 0.2,
+        frames,
+      });
     });
 
     const canvases = Helper.find('#canvases');
@@ -549,8 +561,6 @@ class Game {
     // resize the canvas to fill browser window dynamically
     const resize = () => {
       this.app.renderer.resize(window.innerWidth, window.innerHeight - Helper.find('.ui').clientHeight);
-      // this.state.viewport.scale =
-      //   navigator.userAgent.includes('Mobile') || navigator.userAgent.includes('Android') ? 2 : 1;
     };
     window.addEventListener('resize', resize);
     resize();
@@ -654,106 +664,37 @@ class Game {
       window.draw();
     }
 
-    // Size of tile on screen.
-    const GFX_SCREEN_SIZE = this.state.viewport.scale * GFX_SIZE;
+    const tilesWidth = Math.ceil(this.app.view.width / GFX_SIZE);
+    const tilesHeight = Math.ceil(this.app.view.height / GFX_SIZE);
 
-    this.world.scale.x = this.world.scale.y = this.state.viewport.scale;
-    this.world.x = -this.client.clientFocusPosition.x * GFX_SCREEN_SIZE + Math.floor(this.app.view.width / 2);
-    this.world.y = -this.client.clientFocusPosition.y * GFX_SCREEN_SIZE + Math.floor(this.app.view.height / 2);
+    this.worldContainer.camera.width = tilesWidth;
+    this.worldContainer.camera.height = tilesHeight;
+    this.worldContainer.camera.adjustFocus(this.getPlayerPosition());
+    this.worldContainer.tick();
 
-    this.state.viewport.x = this.client.clientFocusPosition.x * GFX_SCREEN_SIZE - this.app.view.width / 2;
-    this.state.viewport.y = this.client.clientFocusPosition.y * GFX_SCREEN_SIZE - this.app.view.height / 2;
+    const startTileX = this.worldContainer.camera.left;
+    const startTileY = this.worldContainer.camera.top;
 
-    const tilesWidth = Math.ceil(this.app.view.width / GFX_SCREEN_SIZE);
-    const tilesHeight = Math.ceil(this.app.view.height / GFX_SCREEN_SIZE);
-    const startTileX = Math.floor(this.state.viewport.x / GFX_SCREEN_SIZE);
-    const startTileY = Math.floor(this.state.viewport.y / GFX_SCREEN_SIZE);
+    // These layers are constantly cleared and redrawn in the game loop.
+    const layersManagedByGameLoop = [
+      this.worldContainer.layers.top,
+      this.worldContainer.layers.creatures,
+    ];
 
     // Transient graphics objects must be destroyed to prevent memory leaks.
-    for (const layer of Object.values(this.layers)) {
+    for (const layer of layersManagedByGameLoop) {
       for (const child of layer.children) {
         if (child instanceof PIXI.Graphics) {
           child.destroy();
         }
       }
+      layer.removeChildren();
     }
-
-    this.layers.floorLayer.clear();
-    this.layers.floorLayer.removeChildren();
-
-    this.layers.topLayer.clear();
-    this.layers.topLayer.removeChildren();
-
-    this.layers.itemAndCreatureLayer.clear();
-    this.layers.itemAndCreatureLayer.removeChildren();
 
     const start = { x: startTileX, y: startTileY, z };
     for (const { pos, tile } of partition.getIteratorForArea(start, tilesWidth + 1, tilesHeight + 1)) {
       const { x, y } = pos;
       let texture;
-
-      if (tile.floor === WATER) {
-        const templateIdx = getWaterFloor(partition, pos);
-        texture = Draw.getTexture.templates(templateIdx);
-      } else if (tile.floor === MINE) {
-        const templateIdx = getMineFloor(partition, pos);
-        texture = Draw.getTexture.templates(templateIdx);
-      } else {
-        texture = Draw.getTexture.floors(tile.floor);
-      }
-
-      if (texture !== PIXI.Texture.EMPTY) {
-        this.layers.floorLayer
-          .beginTextureFill({ texture })
-          .drawRect(x * GFX_SIZE, y * GFX_SIZE, GFX_SIZE, GFX_SIZE)
-          .endFill();
-      }
-
-      // TODO: still working out the most performant way to render.
-      const itemSpriteKey = `item${w},${x},${y},${z}`;
-      const itemSpriteHash = !tile.item ? '' : `${tile.item.type},${tile.item.quantity}`;
-      let cachedSprite = this.spriteCache.get(itemSpriteKey);
-      if (cachedSprite && (!tile.item || itemSpriteHash !== cachedSprite.hash)) {
-        this.spriteCache.delete(itemSpriteKey);
-        cachedSprite = undefined;
-      }
-
-      if (!cachedSprite && tile.item) {
-        const sprite = Draw.makeItemSprite2(tile.item);
-        if (sprite) {
-          sprite.x = x * GFX_SIZE;
-          sprite.y = y * GFX_SIZE;
-          cachedSprite = {
-            sprite,
-            hash: itemSpriteHash,
-          };
-          this.spriteCache.set(itemSpriteKey, cachedSprite);
-        }
-      }
-      if (cachedSprite) {
-        this.layers.itemAndCreatureLayer.addChild(cachedSprite.sprite);
-      }
-
-      // if (tile.item) {
-      //   template = Draw.makeItemTemplate(tile.item);
-      //   if (template !== PIXI.Texture.EMPTY) {
-      //     this.layers.itemAndCreature
-      //       .beginTextureFill({ texture: template })
-      //       .drawRect(x * GFX_SIZE, y * GFX_SIZE, GFX_SIZE, GFX_SIZE)
-      //       .endFill();
-
-      //     if (tile.item.quantity !== 1) {
-      //       const qty = Draw.makeItemQuantity(tile.item.quantity);
-      //       // Wrap in a container because text field are memoized and so their
-      //       // x,y values should never be modified.
-      //       const ctn = new PIXI.Container();
-      //       ctn.addChild(qty);
-      //       ctn.x = x * GFX_SIZE;
-      //       ctn.y = y * GFX_SIZE;
-      //       this.layers.itemAndCreature.addChild(ctn);
-      //     }
-      //   }
-      // }
 
       if (tile.creature) {
         const width = tile.creature.image_type || 1;
@@ -788,7 +729,7 @@ class Game {
           uniforms.time = now / 1000;
           // filters.push(testFilter);
           if (filters) creatureGfx.filters = filters;
-          this.layers.itemAndCreatureLayer.addChild(creatureGfx);
+          this.worldContainer.layers.creatures.addChild(creatureGfx);
         }
 
         // const label = Draw.pooledText(`creature${tile.creature.id}`, tile.creature.name, {
@@ -799,43 +740,13 @@ class Game {
       }
     }
 
-    for (const animation of this._animations) {
-      if (now >= animation.nextFrameAt) {
-        animation.nextFrameAt = now + 100;
-        animation.frame += 1;
-
-        if (animation.frame >= animation.frames.length) {
-          this._animations.splice(this._animations.indexOf(animation), 1);
-          continue;
-        }
-
-        if (animation.frames[animation.frame].sound) {
-          this.playSound(animation.frames[animation.frame].sound);
-        }
-      }
-
-      const template = Draw.getTexture.animations(animation.frames[animation.frame].sprite);
-      this.layers.topLayer
-        .beginTextureFill({ texture: template })
-        .drawRect(animation.loc.x * GFX_SIZE, animation.loc.y * GFX_SIZE, GFX_SIZE, GFX_SIZE)
-        .endFill();
-    }
-
     // Draw item being moved.
     if (this.itemMovingState && this.mouseHasMovedSinceItemMoveBegin && this.itemMovingState.item) {
-      // TODO: why doesn't this work?
-      // const template = Draw.makeItemTemplate(this.itemMovingState.item);
-      // const { x, y } = mouseToWorld(this.state.mouse);
-      // this.layers.top
-      //   .beginTextureFill(template)
-      //   .drawRect(x, y, GFX_SIZE, GFX_SIZE)
-      //   .endFill();
-
       const itemSprite = Draw.makeItemSprite(this.itemMovingState.item);
       const { x, y } = mouseToWorld(this.state.mouse);
       itemSprite.x = x - GFX_SIZE / 2;
       itemSprite.y = y - GFX_SIZE / 2;
-      this.layers.topLayer.addChild(itemSprite);
+      this.worldContainer.layers.top.addChild(itemSprite);
     }
 
     // Draw highlight over selected view.
@@ -846,7 +757,7 @@ class Game {
       const highlight = Draw.makeHighlight(0xffff00, 0.2);
       highlight.x = selectedViewLoc.x * GFX_SIZE;
       highlight.y = selectedViewLoc.y * GFX_SIZE;
-      this.layers.topLayer.addChild(highlight);
+      this.worldContainer.layers.top.addChild(highlight);
 
       // If item is the selected view, draw selected tool if usable.
       if (!this.state.selectedView.creatureId) {

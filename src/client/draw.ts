@@ -331,6 +331,12 @@ export function makeHighlight(color: number, alpha: number) {
   return highlight;
 }
 
+export function makeAnimationSprite(animationIndices: number[]) {
+  const textures = animationIndices.map((index) => getTexture.animations(index));
+  const anim = new PIXI.AnimatedSprite(textures);
+  return anim;
+}
+
 export function makeItemTemplate(item: Item) {
   const meta = Content.getMetaItem(item.type);
   let texture = 1;

@@ -89,6 +89,7 @@ export default function mapgen(opts: MapGenOptions) {
       for (let z = 0; z < depth; z++) {
         const loc = { x, y, z };
         let floor = 0;
+        let item;
 
         if (z === 0) {
           // floor = 100 + ((x + y) % 10) * 20;
@@ -105,11 +106,13 @@ export default function mapgen(opts: MapGenOptions) {
           }
           // floor = 100 + (raster[x][y] % 10) * 20;
         } else {
-          floor = random() > 0.2 ? MINE : 19;
+          floor = 19;
+          if (random() > 0.2) item = { type: MINE, quantity: 1 };
         }
 
         map.setTile(loc, {
           floor,
+          item,
         });
       }
     }
