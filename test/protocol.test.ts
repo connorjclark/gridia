@@ -116,10 +116,10 @@ function getUnwalkableItem(): Item {
 
 describe('move', () => {
   let creature;
-  beforeEach(() => {
+  beforeEach(async () => {
     creature = server.context.getCreature(client.creatureId);
     server.moveCreature(creature, {w: 0, x: 5, y: 5, z: 0});
-    server.consumeAllMessages();
+    await server.consumeAllMessages();
   });
 
   it('player can move to open space', async () => {
@@ -155,7 +155,7 @@ describe('move', () => {
     const from = {w: 0, x: 5, y: 5, z: 0};
     const to = {w: 0, x: 6, y: 5, z: 0};
     const otherCreature = server.makeCreatureFromTemplate(1, to);
-    server.consumeAllMessages();
+    await server.consumeAllMessages();
     assertCreatureAt(to, otherCreature.id);
 
     assertCreatureAt(from, creature.id);
