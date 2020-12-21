@@ -40,7 +40,7 @@ export function makeBareMap(width: number, height: number, depth: number) {
 
   const map = new WorldMapPartition(width, height, depth);
 
-  // tslint:disable-next-line: prefer-for-of
+  // eslint-disable-next-line @typescript-eslint/prefer-for-of
   for (let sx = 0; sx < map.sectors.length; sx++) {
     for (let sy = 0; sy < map.sectors[0].length; sy++) {
       for (let sz = 0; sz < map.sectors[0][0].length; sz++) {
@@ -75,7 +75,7 @@ export default function mapgen(opts: MapGenOptions) {
   const mapGenResult = generate(opts);
   const random = mapGenResult.makeRandom('mines');
 
-  // tslint:disable-next-line: prefer-for-of
+  // eslint-disable-next-line @typescript-eslint/prefer-for-of
   for (let sx = 0; sx < map.sectors.length; sx++) {
     for (let sy = 0; sy < map.sectors[0].length; sy++) {
       for (let sz = 0; sz < map.sectors[0][0].length; sz++) {

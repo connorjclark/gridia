@@ -1,5 +1,5 @@
 class GridContainer extends PIXI.Container {
-  constructor(public maxWidth: number, public padding: number = 0) {
+  public constructor(public maxWidth: number, public padding: number = 0) {
     super();
   }
 

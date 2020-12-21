@@ -10,7 +10,7 @@ class WorldMapPartition {
   public loader?: (sectorPoint: PartitionPoint) => Promise<Sector>;
   private _sectorLoadPromises = new Map<string, Promise<Sector>>();
 
-  constructor(width: number, height: number, depth: number) {
+  public constructor(width: number, height: number, depth: number) {
     this.width = width;
     this.height = height;
     this.depth = depth;
@@ -132,7 +132,7 @@ class WorldMapPartition {
 
   private _clear() {
     this.sectors = Utils.matrix(this.width / SECTOR_SIZE, this.height / SECTOR_SIZE, this.depth);
-    this._sectorLoadPromises = new Map();
+    this._sectorLoadPromises.clear();
   }
 }
 

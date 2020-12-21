@@ -45,7 +45,7 @@ async function listMaps() {
 interface GenerateMapArgs {
   bare: boolean; width: number; height: number; depth: number; seeds: {[id: string]: number};
   canvas?: OffscreenCanvas; }
-async function generateMap(args: GenerateMapArgs) {
+function generateMap(args: GenerateMapArgs) {
   if (args.bare) {
     mapPreviewPartition = makeBareMap(args.width, args.height, args.depth);
   } else {
@@ -66,6 +66,8 @@ async function generateMap(args: GenerateMapArgs) {
     // This draws to the OffscreenCanvas.
     makeMapImage(mapPreviewGenData);
   }
+
+  return Promise.resolve();
 }
 
 async function saveGeneratedMap(args: { name: string }) {
@@ -95,12 +97,16 @@ export const RpcMap = {
 };
 
 self.addEventListener('message', async (e) => {
+  // eslint-disable-next-line
   if (e.data.type === 'rpc') {
     // @ts-ignore
+    // eslint-disable-next-line
     const result = await RpcMap[e.data.method](e.data.args);
     // @ts-ignore
     self.postMessage({
+      // eslint-disable-next-line
       rpc: e.data.id,
+      // eslint-disable-next-line
       result,
     });
 

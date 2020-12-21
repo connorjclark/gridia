@@ -10,6 +10,25 @@ import WorldMapPartition from '../world-map-partition';
 import Server from './server';
 
 export class ServerContext extends Context {
+  public nextContainerId = 1;
+  public nextCreatureId = 1;
+  public nextPlayerId = 1;
+
+  public serverDir: string;
+  public containerDir: string;
+  public playerDir: string;
+  public sectorDir: string;
+  public miscDir: string;
+
+  public constructor(map: WorldMap, serverDir: string) {
+    super(map);
+    this.serverDir = serverDir;
+    this.containerDir = path.join(serverDir, 'containers');
+    this.playerDir = path.join(serverDir, 'players');
+    this.sectorDir = path.join(serverDir, 'sectors');
+    this.miscDir = path.join(serverDir, 'misc');
+  }
+
   public static async load(serverDir: string) {
     const meta = JSON.parse(await fs.readFile(path.join(serverDir, 'meta.json')));
     const map = new WorldMap();
@@ -36,28 +55,10 @@ export class ServerContext extends Context {
     return context;
   }
 
-  public nextContainerId = 1;
-  public nextCreatureId = 1;
-  public nextPlayerId = 1;
-
-  public serverDir: string;
-  public containerDir: string;
-  public playerDir: string;
-  public sectorDir: string;
-  public miscDir: string;
-
-  constructor(map: WorldMap, serverDir: string) {
-    super(map);
-    this.serverDir = serverDir;
-    this.containerDir = path.join(serverDir, 'containers');
-    this.playerDir = path.join(serverDir, 'players');
-    this.sectorDir = path.join(serverDir, 'sectors');
-    this.miscDir = path.join(serverDir, 'misc');
-  }
 
   public async loadSector(server: Server, sectorPoint: TilePoint) {
     const data = await fs.readFile(this.sectorPath(sectorPoint));
-    const sector: Sector = JSON.parse(data);
+    const sector = JSON.parse(data) as Sector;
 
     // Set creatures (all of which are always loaded in memory) to the sector (of which only active areas are loaded).
     // Kinda lame, I guess.
@@ -73,9 +74,7 @@ export class ServerContext extends Context {
   public async saveSector(sectorPoint: TilePoint) {
     const sector = this.map.getSector(sectorPoint);
     // Don't save creatures.
-    const data = sector.map((tiles) => tiles.map((tile) => {
-      return {floor: tile.floor, item: tile.item};
-    }));
+    const data = sector.map((tiles) => tiles.map((tile) => ({floor: tile.floor, item: tile.item})));
     const json = JSON.stringify(data, null, 2);
     await fs.writeFile(this.sectorPath(sectorPoint), json);
   }

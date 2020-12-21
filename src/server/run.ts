@@ -5,13 +5,11 @@ import {Server as WebSocketServer} from 'ws';
 import * as yargs from 'yargs';
 import ClientConnection from './client-connection';
 import { startServer } from './create-server';
-import Server from './server';
 
 async function main(options: CLIOptions) {
   global.node = true;
 
   const {port, ssl} = options;
-  let server: Server;
 
   let webserver;
   if (ssl) {
@@ -27,7 +25,7 @@ async function main(options: CLIOptions) {
   });
   webserver.listen(port);
 
-  server = await startServer(options);
+  const server = await startServer(options);
 
   wss.on('connection', (ws) => {
     ws.on('message', (data) => {
@@ -35,7 +33,7 @@ async function main(options: CLIOptions) {
       clientConnection.messageQueue.push(JSON.parse(data.toString('utf-8')));
     });
 
-    ws.on('close', (data) => {
+    ws.on('close', () => {
       server.removeClient(clientConnection);
     });
 
@@ -59,7 +57,7 @@ const argv = yargs
   .parse();
 
 const {sslCert, sslKey, ...mostOfArgs} = argv;
-main({
+void main({
   ...mostOfArgs,
   ssl: sslKey && sslCert ? {cert: sslCert, key: sslKey} : undefined,
 });

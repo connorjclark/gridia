@@ -29,13 +29,13 @@ interface Emitter {
   frames?: GridiaAnimation['frames'];
 }
 
-type LightResult = Array2D<{ light: number, tint?: number, alpha?: number }>;
+type LightResult = Array2D<{ light: number; tint?: number; alpha?: number }>;
 
 class WorldAnimationController {
   public emitters: Emitter[] = [];
   public animations: Animation[] = [];
 
-  constructor(private worldContainer: WorldContainer) { }
+  public constructor(private worldContainer: WorldContainer) { }
 
   public addEmitter(emitter: Emitter) {
     // Don't emit sounds for every animation created. Instead,
@@ -44,22 +44,18 @@ class WorldAnimationController {
     if (emitter.frames) {
       this.addAnimation({
         location: { ...this.worldContainer.camera.focus, ...emitter.path[0] },
-        frames: emitter.frames.map((frame) => {
-          return {
-            sprite: 0,
-            sound: frame.sound,
-          };
-        }),
+        frames: emitter.frames.map((frame) => ({
+          sprite: 0,
+          sound: frame.sound,
+        })),
         tint: 0,
         alpha: 0,
         decay: 0,
         light: 0,
       });
-      emitter.frames = emitter.frames.map((frame) => {
-        return {
-          sprite: frame.sprite,
-        };
-      });
+      emitter.frames = emitter.frames.map((frame) => ({
+        sprite: frame.sprite,
+      }));
     }
 
     this.emitters.push(emitter);
@@ -140,11 +136,12 @@ class Camera {
     return this.top + this.height;
   }
 
-  constructor(private worldContainer: WorldContainer) { }
+  public constructor(private worldContainer: WorldContainer) { }
 
   /**
    * Adjusts `camera.left` and `camera.top` if necessary to maintain `camera.edgeBoundary` constraint.
    * If new camera focus is much different from previous, center the camera on the new focus location.
+   *
    * @param loc New location of camera focus (example: player location).
    */
   public adjustFocus(loc: Point4) {
@@ -210,7 +207,7 @@ export class WorldContainer extends PIXI.Container {
 
   private tiles = new Map<string, Tile>();
 
-  constructor(public map: WorldMap) {
+  public constructor(public map: WorldMap) {
     super();
 
     this.interactive = true;
@@ -336,7 +333,7 @@ class Tile {
 
   private animationSprites = new WeakMap<Animation, PIXI.Sprite>();
 
-  constructor(public readonly loc: Point4, private worldContainer: WorldContainer) {
+  public constructor(public readonly loc: Point4, private worldContainer: WorldContainer) {
     this.tint = new PIXI.Graphics();
     this.tint.alpha = 0;
     this.tint.beginFill(0xFFFFFF);
@@ -511,7 +508,7 @@ function realLighting(focusLoc: Point2, worldContainer: WorldContainer): LightRe
 
   new Visibility(blocksLight, setVisible_LOS, getDistance).Compute(focusLoc, 100);
 
-  const lightSources: Array<{ x: number, y: number, power: number, tint?: number, alpha?: number }> = [];
+  const lightSources: Array<{ x: number; y: number; power: number; tint?: number; alpha?: number }> = [];
   worldContainer.forEachInCamera((tile, loc) => {
     const item = worldContainer.map.getItem(loc);
     const meta = item && Content.getMetaItem(item.type);

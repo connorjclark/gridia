@@ -37,7 +37,7 @@ export abstract class Connection {
 }
 
 export class WebSocketConnection extends Connection {
-  constructor(private _ws: WebSocket) {
+  public constructor(private _ws: WebSocket) {
     super();
     _ws.addEventListener('message', (e) => {
       if (!this._onMessage) return;
@@ -65,7 +65,7 @@ export class WebSocketConnection extends Connection {
 }
 
 export class WorkerConnection extends Connection {
-  constructor(private _worker: Worker) {
+  public constructor(private _worker: Worker) {
     super();
     _worker.onmessage = (e) => {
       debug('<-', e.data);

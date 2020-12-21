@@ -1,9 +1,10 @@
 // http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation/
 // https://github.com/amitp/mapgen2/blob/4394df0e04101dbbdc36ee1e61ad7d62446bb3f1/Map.as
 
-// tslint:disable no-shadowed-variable
+/* eslint-disable no-shadow */
 
 import { Delaunay } from 'd3-delaunay';
+import d3 from 'd3-polygon';
 import SeedRandomBrowser from 'seedrandom';
 import * as SeedRandomNode from 'seedrandom';
 import * as Perlin from '../perlin/perlin';
@@ -119,7 +120,7 @@ function makePolygons(geomPolygons: GeomPolygon[]) {
       y,
       polygons: [],
       adjacent: [],
-      watershed: null as any,
+      watershed: null as unknown as Corner,
       watershed_size: 0,
       border: false,
       water: false,
@@ -234,7 +235,7 @@ function voronoiPartition(partitionStrategy: VoronoiPartitionStrategy, ctx: Cont
     for (let i = 0; i < numPoints; i++) {
       const cell = voronoi.cellPolygon(i);
       if (!cell) continue;
-      const centroid = require('d3-polygon').polygonCentroid(cell);
+      const centroid = d3.polygonCentroid(cell as any);
 
       points[i * 2] = centroid[0];
       points[i * 2 + 1] = centroid[1];
@@ -251,9 +252,7 @@ function voronoiPartition(partitionStrategy: VoronoiPartitionStrategy, ctx: Cont
     const cy = delaunay.points[i * 2 + 1];
     geomPolygons.push({
       center: { x: cx, y: cy },
-      corners: polygon.map((p) => {
-        return { x: p[0], y: p[1] };
-      }),
+      corners: polygon.map((p) => ({ x: p[0], y: p[1] })),
     });
   }
 
@@ -577,8 +576,8 @@ function rasterize(ctx: Context) {
 
       if ((x0 === x1) && (y0 === y1)) break;
       const e2 = 2 * err;
-      if (e2 > -dy) { err -= dy; x0 += sx; }
-      if (e2 < dx) { err += dx; y0 += sy; }
+      if (e2 > -dy) err -= dy; x0 += sx;
+      if (e2 < dx) err += dx; y0 += sy;
     }
   }
 
@@ -598,14 +597,14 @@ function rasterize(ctx: Context) {
   for (let i = 0; i < ctx.polygons.length; i++) {
     const polygon = ctx.polygons[i];
     const seen = new Set<string>();
-    const queue: Array<{ x: number, y: number }> = [];
+    const queue: Array<{ x: number; y: number }> = [];
     const add = (x: number, y: number) => {
       if (x < 0 || x >= ctx.options.width || y < 0 || y >= ctx.options.height) return;
       if (raster[x][y]) return;
-      if (seen.has(x + ',' + y)) return;
+      if (seen.has(`${x},${y}`)) return;
 
       queue.push({ x, y });
-      seen.add(x + ',' + y);
+      seen.add(`${x},${y}`);
     };
 
     add(Math.round(polygon.center.x), Math.round(polygon.center.y));

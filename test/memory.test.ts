@@ -2,7 +2,6 @@ import { ChildProcess, spawn } from 'child_process';
 import * as puppeteer from 'puppeteer';
 
 const DEBUG = Boolean(process.env.DEBUG);
-const CI = Boolean(process.env.CI);
 const QUERY = Boolean(process.env.QUERY);
 
 jest.setTimeout((QUERY ? 200 : 100) * 1000);
@@ -42,13 +41,14 @@ async function collect(page: puppeteer.Page, numSamples: number, duration: numbe
         'PIXI.Sprite.prototype',
       ];
       for (const prototype of prototypes) {
-        // tslint:disable-next-line: no-eval
+        /* eslint-disable */
         const prototypeHandle = await page.evaluateHandle((p) => eval(p), prototype);
         const objectsHandle = await page.queryObjects(prototypeHandle);
         const count = await page.evaluate((objects) => objects.length, objectsHandle);
         await prototypeHandle.dispose();
         await objectsHandle.dispose();
         sample.objectCounts[prototype.replace(/\./g,  '_') + '_count'] = count;
+        /* eslint-enable */
       }
     }
 
@@ -68,7 +68,7 @@ function detect(memory: Memory) {
   const warn = passed && memory.last.additionalMemory > 0;
 
   if (warn) {
-    console.warn(`slight increase in memory`);
+    console.warn('slight increase in memory');
   }
   if (!passed || warn || DEBUG) {
     const tabularData = memory.samples.map((m) => {
@@ -105,8 +105,8 @@ describe('Check for memory leaks', () => {
 
     console.warn('make sure to have run yarn build');
     await new Promise((resolve, reject) => {
-      const childProcess = spawn('yarn', ['run-server']);
-      childProcess.stdout.on('data', (data) => {
+      const childProcess = spawn('yarn', ['run-server']);
+      childProcess.stdout.on('data', (data: Buffer) => {
         if (data.toString().includes('Server started')) resolve();
       });
       childProcess.on('close', reject);
@@ -114,8 +114,8 @@ describe('Check for memory leaks', () => {
       childProcesses.push(childProcess);
     }).catch(() => process.exit(1));
     await new Promise((resolve, reject) => {
-      const childProcess = spawn('yarn', ['run-static-server']);
-      childProcess.stdout.on('data', (data) => {
+      const childProcess = spawn('yarn', ['run-static-server']);
+      childProcess.stdout.on('data', (data: Buffer) => {
         if (data.toString().includes('Available on')) resolve();
       });
       childProcess.on('close', reject);
@@ -154,7 +154,7 @@ describe('Check for memory leaks', () => {
     if (!DEBUG) return;
 
     await page.waitFor(2000);
-    await page.$eval('.register--form input', (input: HTMLInputElement) => input.value = '');
+    await page.$eval('.register--form input', (input) => (input as HTMLInputElement).value = '');
     await page.type('.register--form input', 'player');
     await page.waitForSelector('.register-btn');
     await page.click('.register-btn');

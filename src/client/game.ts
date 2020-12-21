@@ -68,6 +68,7 @@ const uniforms = {
   time: 0,
   // color: 0xFF0000,
 };
+// eslint-disable-next-line
 const testFilter = new PIXI.Filter(vertexCode, fragmentCode, uniforms);
 
 const ContextMenu = {
@@ -86,8 +87,8 @@ const ContextMenu = {
   openForTile(screen: ScreenPoint, loc: TilePoint) {
     const contextMenuEl = ContextMenu.get();
     contextMenuEl.style.display = 'block';
-    contextMenuEl.style.left = screen.x + 'px';
-    contextMenuEl.style.top = screen.y + 'px';
+    contextMenuEl.style.left = `${screen.x}px`;
+    contextMenuEl.style.top = `${screen.y}px`;
 
     contextMenuEl.innerHTML = '';
     const tile = game.client.context.map.getTile(loc);
@@ -157,16 +158,16 @@ class Game {
   protected itemMovingState?: ItemMoveBeginEvent;
   protected mouseHasMovedSinceItemMoveBegin = false;
   protected actionCreators: GameActionCreator[] = [];
-  protected spriteCache = new Map<string, { sprite: PIXI.Sprite, hash: string }>();
+  protected spriteCache = new Map<string, { sprite: PIXI.Sprite; hash: string }>();
 
   private _playerCreature?: Creature;
   private _currentHoverItemText =
-    new PIXI.Text('', { fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round' });
+  new PIXI.Text('', { fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round' });
   private _isEditing = false;
 
   private _soundCache: Record<string, PIXI.sound.Sound> = {};
 
-  constructor(public client: Client) {
+  public constructor(public client: Client) {
     this.state = {
       mouse: {
         x: 0,
@@ -225,7 +226,7 @@ class Game {
     return this._playerCreature;
   }
 
-  public async start() {
+  public start() {
     // Should only be used for refreshing UI, not updating game state.
     this.client.eventEmitter.on('message', (e) => {
       // Update the selected view, if the item there changed.
@@ -294,7 +295,7 @@ class Game {
     // This makes everything "pop".
     // this.containers.itemAndCreatureLayer.filters = [new OutlineFilter(0.5, 0, 1)];
   }
-  public async playSound(name: string) {
+  public playSound(name: string) {
     if (this.client.settings.volume === 0) return;
 
     if (!this._soundCache[name]) {
@@ -302,7 +303,7 @@ class Game {
       this._soundCache[name] = PIXI.sound.Sound.from(resourceKey);
     }
 
-    this._soundCache[name].play({ volume: this.client.settings.volume });
+    void this._soundCache[name].play({ volume: this.client.settings.volume });
   }
 
   public addAnimation(animation: GridiaAnimation, loc: TilePoint) {
@@ -348,10 +349,11 @@ class Game {
 
       const dataset = e.target.dataset;
       // @ts-ignore
-      const action: GameAction = JSON.parse(dataset.action);
-      const loc: TilePoint = dataset.loc ? JSON.parse(dataset.loc) : null;
+      const action = JSON.parse(dataset.action) as GameAction;
+      const loc = dataset.loc ? JSON.parse(dataset.loc) as TilePoint : null;
       const creatureId = Number(dataset.creatureId);
       const creature = this.client.context.getCreature(creatureId);
+      // @ts-ignore TODO
       this.client.eventEmitter.emit('action', {
         action,
         loc,
@@ -374,7 +376,7 @@ class Game {
       }
     });
 
-    this.canvasesEl.addEventListener('pointerdown', (e: MouseEvent) => {
+    this.canvasesEl.addEventListener('pointerdown', () => {
       this.state.mouse = {
         ...this.state.mouse,
         state: 'down',
@@ -382,7 +384,7 @@ class Game {
       };
     });
 
-    this.canvasesEl.addEventListener('pointerup', (e: MouseEvent) => {
+    this.canvasesEl.addEventListener('pointerup', () => {
       this.state.mouse = {
         ...this.state.mouse,
         state: 'up',
@@ -432,7 +434,7 @@ class Game {
         item,
       });
     });
-    this.world.on('pointerup', (e: PIXI.InteractionEvent) => {
+    this.world.on('pointerup', () => {
       if (Utils.equalPoints(this.state.mouse.tile, this.getPlayerPosition())) {
         this.client.eventEmitter.emit('itemMoveEnd', {
           location: Utils.ItemLocation.Container(this.client.containerId),
@@ -461,9 +463,8 @@ class Game {
 
       // Temporary.
       const graphics = Math.random() > 0.5 ? { graphic: 60, graphicFrames: 10 } : { graphic: 80, graphicFrames: 5 };
-      const frames: GridiaAnimation['frames'] = [...Array(graphics.graphicFrames)].map((_, i) => {
-        return { sprite: graphics.graphic + i };
-      });
+      const frames: GridiaAnimation['frames'] =
+        Utils.emptyArray(graphics.graphicFrames).map((_, i) => ({ sprite: graphics.graphic + i }));
       frames[0].sound = 'magic';
 
       this.worldContainer.animationController.addEmitter({
@@ -598,7 +599,7 @@ class Game {
       this.modules.usage.updatePossibleUsages(e.to);
     });
 
-    this.client.eventEmitter.on('action', ContextMenu.close);
+    this.client.eventEmitter.on('action', () => ContextMenu.close());
 
     this.client.eventEmitter.on('editingMode', ({ enabled }) => {
       this._isEditing = enabled;
@@ -803,7 +804,7 @@ class Game {
     return parent === this.app.stage;
   }
 
-  public addDataToActionEl(actionEl: HTMLElement, opts: { action: GameAction, loc?: TilePoint, creature?: Creature }) {
+  public addDataToActionEl(actionEl: HTMLElement, opts: { action: GameAction; loc?: TilePoint; creature?: Creature }) {
     actionEl.classList.add('action');
     actionEl.title = opts.action.title;
     actionEl.innerText = opts.action.innerText;

@@ -15,7 +15,7 @@ export function calcStraightLine(start: Point2, end: Point2) {
   coordinatesArray.push({ x: x1, y: y1 });
   // Main loop
   while (!((x1 === x2) && (y1 === y2))) {
-    // tslint:disable-next-line
+    // eslint-disable-next-line
     const e2 = err << 1;
     if (e2 > -dy) {
       err -= dy;

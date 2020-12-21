@@ -25,7 +25,7 @@ interface Events {
   message: import('../protocol/server-to-client-protocol-builder').Message;
   mouseMovedOverTile: TilePoint;
   panelFocusChanged: {panelName: string};
-  playerMove: {from: TilePoint, to: TilePoint};
+  playerMove: {from: TilePoint; to: TilePoint};
   tileClicked: TilePoint;
 }
 

@@ -5,5 +5,5 @@ export default class Player {
   // skill id -> xp
   public skills = new Map<number, number>();
 
-  constructor(public creature: Creature) {}
+  public constructor(public creature: Creature) {}
 }

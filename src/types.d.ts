@@ -105,7 +105,7 @@ interface ItemUse {
   toolQuantityConsumed: number;
   focusQuantityConsumed: number;
   successTool?: number;
-  products: Array<{ type: number, quantity: number }>;
+  products: Array<{ type: number; quantity: number }>;
   skill?: string;
   skillSuccessXp?: number;
 }
@@ -183,7 +183,7 @@ interface ServerWorkerOpts extends ServerOptions {
 declare module 'pixi-scrollbox' {
   class Scrollbox {
     public content: PIXI.Container;
-    constructor(...args: any[]);
+    public constructor(...args: any[]);
     public update(): void;
   }
 }
@@ -192,7 +192,7 @@ declare module 'pixi-text-input' {
   class TextInput {
     public placeholder: string;
     public height: number;
-    constructor(styles: any);
+    public constructor(styles: any);
     public on(event: string, cb: (text: string) => void): any;
   }
 

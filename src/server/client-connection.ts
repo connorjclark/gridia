@@ -4,7 +4,7 @@ import Player from '../player';
 // TODO: this whole thing smells.
 
 export default class ClientConnection {
-  public messageQueue: any[] = [];
+  public messageQueue: Array<{type: string; args: Object}> = [];
 
   // @ts-ignore
   public player: Player;
@@ -17,7 +17,7 @@ export default class ClientConnection {
 
   public registeredContainers = [] as number[];
 
-  public getMessage(): any {
+  public getMessage() {
     return this.messageQueue.shift();
   }
 

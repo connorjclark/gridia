@@ -93,9 +93,9 @@ export default class WorldMap {
 
 export function createClientWorldMap(connection: Connection) {
   const map = new WorldMap();
-  map.loader = async (sectorPoint) => {
+  map.loader = (sectorPoint) => {
     connection.send(ProtocolBuilder.requestSector(sectorPoint));
-    return map.createEmptySector(); // temporary until server sends something
+    return Promise.resolve(map.createEmptySector()); // temporary until server sends something
   };
   return map;
 }

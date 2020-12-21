@@ -1,12 +1,13 @@
 import Game from './game';
 
 abstract class ClientModule {
-  constructor(public game: Game) {}
+  public constructor(public game: Game) {}
 
   public onStart() {
     // empty
   }
 
+  // eslint-disable-next-line
   public onTick(now: number) {
     // empty
   }

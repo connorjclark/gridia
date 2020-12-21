@@ -55,14 +55,14 @@ export function clamp(val: number, min: number, max: number) {
 // 3d matrix
 // TODO: this doesn't seem properly typed.
 export function matrix<T>(x: number, y: number, z: number, val?: T): T[][][] {
-  const m = Array(x);
+  const m = Array(x) as T[][][];
 
   for (let i = 0; i < x; i++) {
-    m[i] = Array(y);
+    m[i] = Array(y) as T[][];
     for (let j = 0; j < y; j++) {
-      m[i][j] = Array(z);
+      m[i][j] = Array(z) as T[];
       for (let k = 0; k < z; k++) {
-        m[i][j][k] = val;
+        m[i][j][k] = val as T;
       }
     }
   }
@@ -74,6 +74,11 @@ export function randInt(min: number, max: number) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+export function emptyArray(n: number) {
+  // eslint-disable-next-line
+  return [...Array(n)];
 }
 
 export function assert(val: any) {

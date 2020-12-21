@@ -1,5 +1,7 @@
 /// <reference types="../types" />
 
+/* eslint-disable */
+
 import * as fs from 'fs';
 import * as path from 'path';
 

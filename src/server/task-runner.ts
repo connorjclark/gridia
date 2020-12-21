@@ -21,7 +21,7 @@ type TickSection = TickSectionBase & (
 interface PerfTick {
   started: number;
   duration: number;
-  sections: Array<{ name: string, duration: number }>;
+  sections: Array<{ name: string; duration: number }>;
 }
 
 export default class TaskRunner {
@@ -38,7 +38,7 @@ export default class TaskRunner {
   private lastTickTime = 0;
   private unprocessedTickTime = 0;
 
-  constructor(private tickDuration: number) {
+  public constructor(private tickDuration: number) {
   }
 
   public start() {

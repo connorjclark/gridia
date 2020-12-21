@@ -14,9 +14,9 @@ export class GridiaWindow {
   public contents: PIXI.Container;
   private _onDraw?: () => void;
 
-  private _draggingState?: { downAt: Point2, startingPosition: Point2 };
+  private _draggingState?: { downAt: Point2; startingPosition: Point2 };
 
-  constructor() {
+  public constructor() {
     this.pixiContainer = new PIXI.Container();
     this.border = new PIXI.Graphics();
     this.border.interactive = true;
@@ -47,11 +47,11 @@ export class GridiaWindow {
     this.border.drawRect(0, 0, this.contents.width + 2 * this.borderSize, this.contents.height + 2 * this.borderSize);
   }
 
-  get width() {
+  public get width() {
     return this.pixiContainer.width;
   }
 
-  get height() {
+  public get height() {
     return this.pixiContainer.height;
   }
 
@@ -83,14 +83,14 @@ export class ContainerWindow extends GridiaWindow {
   public mouseOverIndex?: number;
   protected _selectedIndex: number | null = null;
 
-  constructor(itemsContainer: Container) {
+  public constructor(itemsContainer: Container) {
     super();
     this.itemsContainer = itemsContainer;
   }
 
   // Selected item actions are based off currently selected tool. If
   // the tool changes, should re-render the selected item panel.
-  set selectedIndex(selectedIndex: number|null) {
+  public set selectedIndex(selectedIndex: number|null) {
     // If already selected, then unselect.
     if (this._selectedIndex === selectedIndex) selectedIndex = null;
 
@@ -98,14 +98,16 @@ export class ContainerWindow extends GridiaWindow {
     game.client.eventEmitter.emit('containerWindowSelectedIndexChanged');
   }
 
-  get selectedIndex() { return this._selectedIndex; }
+  public get selectedIndex() {
+    return this._selectedIndex;
+  }
 }
 
 export class PossibleUsagesWindow extends GridiaWindow {
   private _possibleUsagesGrouped: PossibleUsage[][] = [];
   private _onSelectUsage?: (possibleUsage: PossibleUsage) => void;
 
-  constructor() {
+  public constructor() {
     super();
 
     this.contents.on('pointerup', (e: PIXI.InteractionEvent) => {
@@ -235,7 +237,7 @@ export function makeItemContainerWindow(container: Container): ContainerWindow {
         window.mouseOverIndex = undefined;
       }
     })
-    .on('pointerup', (e: PIXI.InteractionEvent) => {
+    .on('pointerup', () => {
       if (window.mouseOverIndex !== undefined) {
         const evt: ItemMoveBeginEvent = {
           location: Utils.ItemLocation.Container(container.id, window.mouseOverIndex),

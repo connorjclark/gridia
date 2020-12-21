@@ -84,7 +84,7 @@ class AdminModule extends ClientModule {
       setVisibility: (filter: (id: number) => boolean) => void;
     }
     const makeContentSelectionTab = ({ name, scrollbox, displayObjectToMetaIdMap,
-        setVisibility }: MakeContentSelectionTabOpts) => {
+      setVisibility }: MakeContentSelectionTabOpts) => {
       let contents = scrollbox;
 
       // Add a text input filter to the tab contents.

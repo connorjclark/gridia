@@ -77,7 +77,7 @@ function getName(id: number) {
 }
 
 export class ItemWrapper {
-  constructor(public type: number, public quantity: number) { }
+  public constructor(public type: number, public quantity: number) { }
 
   public raw(): Item | undefined {
     if (this.type === 0) return;
@@ -133,9 +133,7 @@ export function getItemUsesForFocus(focus: number) {
 }
 
 export function getItemUsesForProduct(type: number) {
-  return itemUses.filter((item) => {
-    return item.successTool === type || item.products.some((product) => product.type === type);
-  });
+  return itemUses.filter((item) => item.successTool === type || item.products.some((product) => product.type === type));
 }
 
 function getMetaItemsOfClass(itemClass: MetaItem['class']): MetaItem[] {

@@ -6,7 +6,7 @@ import * as Helper from '../helper';
 class SkillsModule extends ClientModule {
   protected panel: HTMLElement;
 
-  constructor(game: Game) {
+  public constructor(game: Game) {
     super(game);
     this.panel = Helper.find('.panel--skills');
   }

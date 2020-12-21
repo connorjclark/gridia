@@ -11,7 +11,7 @@ import { ServerContext } from '../src/server/server-context';
 import { createClientWorldMap } from '../src/world-map';
 
 class MemoryConnection extends Connection {
-  constructor(private _clientConnection: ClientConnection) {
+  public constructor(private _clientConnection: ClientConnection) {
     super();
   }
 
@@ -19,11 +19,17 @@ class MemoryConnection extends Connection {
     const cloned = JSON.parse(JSON.stringify(message));
     this._clientConnection.messageQueue.push(cloned);
   }
+
+  public close() {
+    // Do nothing.
+  }
 }
+
+type OpenAndConnectToServerOpts = any; // ?what
 
 // This was used before workers, but now it's just for jest tests.
 // Clone messages so that mutations aren't depended on accidentally.
-export async function openAndConnectToServerInMemory(
+export function openAndConnectToServerInMemory(
   opts: OpenAndConnectToServerOpts & {serverContext: ServerContext}) {
 
   const { verbose, serverContext } = opts;

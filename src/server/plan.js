@@ -1,4 +1,4 @@
-// tslint:disable
+/* eslint-disable */
 // https://github.com/andrewrk/node-astar
 // TODO: Make a generic astar (path-finding.ts).
 
@@ -6,8 +6,6 @@ var assert = require('assert')
   , StringSet = require('Set')
   , Heap = require('heap')
   , dict = require('dict')
-
-module.exports = aStar;
 
 function aStar(params) {
   // assert.ok(params.start !== undefined);
@@ -119,3 +117,5 @@ function defaultHash(node) {
 function heapComparator(a, b) {
   return a.f - b.f;
 }
+
+module.exports = aStar;

@@ -13,11 +13,11 @@ const MOVEMENT_DURATION = 200;
 class MovementModule extends ClientModule {
   protected followCreature?: Creature;
   protected pathToDestination?: PartitionPoint[];
-  protected canMoveAgainAt: number = 0;
+  protected canMoveAgainAt = 0;
   protected movementDirection: Point2 | null = null;
   protected movementFrom: Point4 | null = null;
 
-  constructor(game: Game) {
+  public constructor(game: Game) {
     super(game);
     this.onAction = this.onAction.bind(this);
   }

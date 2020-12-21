@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import Client from '../client/client';
 import Container from '../container';
 import * as Utils from '../utils';

@@ -19,7 +19,7 @@ class UsageModule extends ClientModule {
     this.game.addWindow(this.possibleUsagesWindow);
   }
 
-  public onTick(now: number) {
+  public onTick() {
     // empty.
   }
 
@@ -45,7 +45,7 @@ class UsageModule extends ClientModule {
     const inventory = game.client.inventory;
     if (!inventory) return [];
 
-    const nearbyItems: Array<{ loc: TilePoint, item?: Item }> = [];
+    const nearbyItems: Array<{ loc: TilePoint; item?: Item }> = [];
     game.client.context.map.forEach(center, 1, (loc, tile) => {
       // If a tile is selected, limit results to usages on that tile.
       if (selectedTile && !Utils.equalPoints(selectedTile, loc)) return;
@@ -83,9 +83,7 @@ class UsageModule extends ClientModule {
 
     // The implicit sort depends on where the player happens to be, and is unstable.
     // Use some arbirtary sorting to keep the results more stable.
-    possibleUsageActions.sort((a, b) => {
-      return b.use.tool - a.use.tool;
-    });
+    possibleUsageActions.sort((a, b) => b.use.tool - a.use.tool);
 
     return possibleUsageActions;
   }

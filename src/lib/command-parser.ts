@@ -1,5 +1,5 @@
 export interface Command {
-  args: Array<{name: string, type: string, optional?: boolean}>;
+  args: Array<{name: string; type: string; optional?: boolean}>;
   do(args: any): string|void;
 }
 
@@ -22,8 +22,8 @@ export function parseArgs(input: string, args: Command['args']) {
       result[arg.name] = Number(tokens[i]);
     } else if (arg.type === 'string') {
       let str = tokens[i];
-      if (str[0] === `'` && str[str.length - 1] === `'`) str = str.substr(1, str.length - 2);
-      else if (str[0] === `"` && str[str.length - 1] === `"`) str = str.substr(1, str.length - 2);
+      if (str[0] === '\'' && str[str.length - 1] === '\'') str = str.substr(1, str.length - 2);
+      else if (str[0] === '"' && str[str.length - 1] === '"') str = str.substr(1, str.length - 2);
       result[arg.name] = str;
     }
   }

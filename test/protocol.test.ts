@@ -3,6 +3,8 @@
 
 // TODO: add test/ to tsconfig
 
+// @ts-nocheck
+
 import * as assert from 'assert';
 import Client from '../src/client/client';
 import { Connection } from '../src/client/connection';
@@ -32,8 +34,8 @@ beforeEach(async () => {
   const worldMap = new WorldMap();
   const partition = makeBareMap(20, 20, 1);
   worldMap.addPartition(0, partition);
-  partition.loader = async () => partition.createEmptySector(); // :(
-  const memoryServerData = await openAndConnectToServerInMemory({
+  partition.loader = () => Promise.resolve(partition.createEmptySector()); // :(
+  const memoryServerData = openAndConnectToServerInMemory({
     serverData: '/', // ?
     dummyDelay: 0,
     verbose: false,
@@ -56,7 +58,7 @@ beforeEach(async () => {
 
 function clone<T>(obj: T): T {
   if (obj === undefined) return;
-  return JSON.parse(JSON.stringify(obj));
+  return JSON.parse(JSON.stringify(obj)) as T;
 }
 
 function setItem(location: TilePoint, item: Item) {
@@ -167,7 +169,7 @@ describe('move', () => {
     setFloor(to, MINE);
 
     assertCreatureAt(from, creature.id);
-    send(ProtocolBuilder.move(to));
+    await send(ProtocolBuilder.move(to));
     assertCreatureAt(from, creature.id);
   });
 

@@ -1,4 +1,4 @@
-// tslint:disable
+/* eslint-disable */
 // https://flafla2.github.io/2014/08/09/perlinnoise.html
 // https://gpfault.net/posts/perlin-noise.txt.html
 // https://stackoverflow.com/a/12964860

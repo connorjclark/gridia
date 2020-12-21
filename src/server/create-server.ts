@@ -34,9 +34,7 @@ export async function startServer(options: ServerOptions) {
   const { width, height } = context.map.getPartition(0);
 
   // This cyclical dependency between Server and WorldMap could be improved.
-  context.map.loader = (pos) => {
-    return context.loadSector(server, pos);
-  };
+  context.map.loader = (pos) => context.loadSector(server, pos);
 
   server.taskRunner.registerTickSection({
     description: 'cows',

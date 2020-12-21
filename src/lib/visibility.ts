@@ -1,7 +1,7 @@
 // http://www.adammil.net/blog/v125_Roguelike_Vision_Algorithms.html
 // Adam Milazzo
 
-/* tslint:disable */
+/* eslint-disable */
 
 interface Point2 { x: number; y: number; }
 

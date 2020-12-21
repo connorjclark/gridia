@@ -41,9 +41,10 @@ function addDebugStuff(map: WorldMapPartition) {
     arr.push(use);
   }
   let i = 0;
-  for (const [tool, uses] of Array.from(itemUsesGroupedByTool.entries()).sort(([_, a], [__, b]) => {
-    return b.length - a.length;
-  }).slice(0, 30)) {
+  const itemUsesSample = Array.from(itemUsesGroupedByTool.entries())
+    .sort(([_, a], [__, b]) => b.length - a.length)
+    .slice(0, 30);
+  for (const [tool, uses] of itemUsesSample) {
     const startX = 25;
     const y = i * 3;
     map.getTile({ x: startX, y, z: 0 }).item = { type: tool, quantity: 1 };

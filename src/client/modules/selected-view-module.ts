@@ -5,7 +5,7 @@ import * as Helper from '../helper';
 class SelectedViewModule extends ClientModule {
   protected followCreature?: Creature;
   protected pathToDestination?: PartitionPoint[];
-  protected canMoveAgainAt: number = 0;
+  protected canMoveAgainAt = 0;
   protected movementDirection: Point2 | null = null;
   protected movementFrom: Point4 | null = null;
 
@@ -13,7 +13,7 @@ class SelectedViewModule extends ClientModule {
     // empty.
   }
 
-  public onTick(now: number) {
+  public onTick() {
     // empty.
   }
 

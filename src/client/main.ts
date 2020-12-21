@@ -45,16 +45,16 @@ class MainController {
     await this.serverWorker_.init();
   }
 
-  get currentScene() {
+  public get currentScene() {
     return this.scenes[this.scenes.length - 1];
   }
 
-  get client() {
+  public get client() {
     if (!this.client_) throw new Error('missing client');
     return this.client_;
   }
 
-  set client(client: Client) {
+  public set client(client: Client) {
     this.client_ = client;
   }
 
@@ -63,18 +63,18 @@ class MainController {
     this.client_ = null;
   }
 
-  get serverWorker() {
+  public get serverWorker() {
     if (!this.serverWorker_) throw new Error('missing server worker');
     return this.serverWorker_;
   }
 
-  set serverWorker(worker: ServerWorker) {
+  public set serverWorker(worker: ServerWorker) {
     this.serverWorker_ = worker;
   }
 }
 
 class Scene {
-  constructor(public element: HTMLElement) {
+  public constructor(public element: HTMLElement) {
   }
 
   public onShow() {
@@ -95,7 +95,7 @@ class StartScene extends Scene {
   private connectBtn: HTMLElement;
   private serverLocationInput: HTMLInputElement;
 
-  constructor() {
+  public constructor() {
     super(Helper.find('.start'));
     this.localBtn = Helper.find('.start--local-btn', this.element);
     this.connectBtn = Helper.find('.start--connect-btn', this.element);
@@ -136,7 +136,7 @@ class MapSelectScene extends Scene {
   private inputFormEl: HTMLElement;
   private loadingPreview = false;
 
-  constructor() {
+  public constructor() {
     super(Helper.find('.map-select'));
     this.mapListEl = Helper.find('.map-list');
     this.selectBtn = Helper.find('.generate--select-btn', this.element);
@@ -164,7 +164,7 @@ class MapSelectScene extends Scene {
     if (this.loadingPreview) return;
     this.loadingPreview = true;
 
-    const canvas = document.createElement('canvas') as HTMLCanvasElement;
+    const canvas = document.createElement('canvas') ;
     const offscreen = canvas.transferControlToOffscreen();
     await generateMap(opts, offscreen).finally(() => this.loadingPreview = false);
 
@@ -184,7 +184,7 @@ class MapSelectScene extends Scene {
     controller.pushScene(new RegisterScene());
   }
 
-  public async onSelectMap(e: Event) {
+  public onSelectMap(e: Event) {
     // TODO: this is annoying.
     if (!(e.target instanceof HTMLElement)) return;
 
@@ -214,7 +214,7 @@ class RegisterScene extends Scene {
   private registerBtn: HTMLElement;
   private nameInput: HTMLInputElement;
 
-  constructor() {
+  public constructor() {
     super(Helper.find('.register'));
     this.registerBtn = Helper.find('.register-btn', this.element);
     this.nameInput = Helper.find('#register--name', this.element) as HTMLInputElement;
@@ -258,7 +258,7 @@ class RegisterScene extends Scene {
 }
 
 class GameScene extends Scene {
-  constructor() {
+  public constructor() {
     super(Helper.find('.game'));
   }
 
@@ -270,7 +270,7 @@ class GameScene extends Scene {
   }
 }
 
-function globalActionCreator(tile: Tile, loc: TilePoint): GameAction[] {
+function globalActionCreator(tile: Tile, _loc: TilePoint): GameAction[] {
   const item = tile.item;
   const meta = Content.getMetaItem(item ? item.type : 0);
   const actions: GameAction[] = [];
@@ -340,31 +340,31 @@ function globalOnActionHandler(client: Client, e: GameActionEvent) {
   const { creature, loc } = e;
 
   switch (type) {
-    case 'pickup':
-      client.connection.send(ProtocolBuilder.moveItem({
-        from: Utils.ItemLocation.World(loc),
-        to: Utils.ItemLocation.Container(client.containerId),
-      }));
-      break;
-    case 'use-hand':
-      Helper.useHand(loc);
-      break;
-    case 'use-tool':
-      Helper.useTool(loc);
-      break;
-    case 'open-container':
-      Helper.openContainer(loc);
-      break;
-    case 'attack':
-    case 'tame':
-      client.connection.send(ProtocolBuilder.creatureAction({
-        creatureId: creature.id,
-        type,
-      }));
-      break;
-    case 'throw':
-      // TODO
-      break;
+  case 'pickup':
+    client.connection.send(ProtocolBuilder.moveItem({
+      from: Utils.ItemLocation.World(loc),
+      to: Utils.ItemLocation.Container(client.containerId),
+    }));
+    break;
+  case 'use-hand':
+    Helper.useHand(loc);
+    break;
+  case 'use-tool':
+    Helper.useTool(loc);
+    break;
+  case 'open-container':
+    Helper.openContainer(loc);
+    break;
+  case 'attack':
+  case 'tame':
+    client.connection.send(ProtocolBuilder.creatureAction({
+      creatureId: creature.id,
+      type,
+    }));
+    break;
+  case 'throw':
+    // TODO
+    break;
   }
 }
 
@@ -423,7 +423,7 @@ function generateMap(opts: any, offscreenCanvas?: OffscreenCanvas) {
   });
 }
 
-async function startGame(client: Client) {
+function startGame(client: Client) {
   const gameSingleton = makeGame(client);
 
   gameSingleton.addActionCreator(globalActionCreator);

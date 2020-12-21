@@ -23,7 +23,7 @@ class Client {
 
   private _protocol = new ServerToClientProtocol();
 
-  constructor(public connection: Connection, public context: Context) {
+  public constructor(public connection: Connection, public context: Context) {
     this.eventEmitter.on('message', this.handleMessageFromServer.bind(this));
   }
 
@@ -35,11 +35,11 @@ class Client {
     p(this, message.args);
   }
 
-  get creature() {
+  public get creature() {
     return this.context.getCreature(this.creatureId);
   }
 
-  get inventory() {
+  public get inventory() {
     return this.context.containers.get(this.containerId);
   }
 }

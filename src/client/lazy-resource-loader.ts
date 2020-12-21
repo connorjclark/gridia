@@ -64,7 +64,7 @@ function createPromiseAndResolve() {
 
 class LazyResourceLoader {
   private loadQueue: string[] = [];
-  private loadingResourcePromise = new Map<string, {promise: Promise<void>, resolve: Function}>();
+  private loadingResourcePromise = new Map<string, {promise: Promise<void>; resolve: Function}>();
   private isResourceLoaded = new Set<string>();
 
   public hasResourceLoaded(key: string) {

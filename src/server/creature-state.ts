@@ -2,6 +2,8 @@ import { findPath } from '../path-finding';
 import * as Utils from '../utils';
 import WorldMapPartition from '../world-map-partition';
 import Server from './server';
+// @ts-ignore
+import * as aStar from './plan.js';
 
 interface Goal {
   desiredEffect: string;
@@ -29,11 +31,11 @@ const Facts: Record<string, Fact> = {
   'on-grass'(server) {
     return isGrass(server.context.map.getTile(this.creature.pos).floor);
   },
-  'near-target'(server) {
+  'near-target'() {
     if (!this.targetCreature) return false;
     return Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos) <= 1;
   },
-  'kill-creature'(server) {
+  'kill-creature'() {
     return !Boolean(this.targetCreature); // ?
   },
 };
@@ -45,7 +47,7 @@ const Actions: Record<string, Action> = {
     cost: 100,
     preconditions: [],
     effects: ['wander'],
-    tick(server) {
+    tick() {
       // Just wander baby.
       if (this.path.length) return;
 
@@ -155,7 +157,7 @@ export default class CreatureState {
 
   private _shouldRecreatePlan = false;
 
-  constructor(public creature: Creature) {
+  public constructor(public creature: Creature) {
     this.home = creature.pos;
     this._actions = [
       Actions.UnarmedMeleeAttack,
@@ -174,7 +176,9 @@ export default class CreatureState {
       this.addGoal({
         desiredEffect: 'wander',
         priority: 1,
-        satisfied() { return false; },
+        satisfied() {
+          return false;
+        },
       });
     }
   }
@@ -218,7 +222,9 @@ export default class CreatureState {
         this.addGoal({
           desiredEffect: 'food',
           priority: 10,
-          satisfied() { return this.creature.food >= 100; },
+          satisfied() {
+            return this.creature.food >= 100;
+          },
         });
       }
     }
@@ -227,7 +233,9 @@ export default class CreatureState {
       this.addGoal({
         desiredEffect: 'near-target',
         priority: 10,
-        satisfied() { return false; },
+        satisfied() {
+          return false;
+        },
       });
     }
 
@@ -310,7 +318,6 @@ export default class CreatureState {
     // Edges are actions that move the state from one to another (removing/adding an effect).
     // TODO: A regressive search (start at the desired goal and find a path to the initial state)
     //       is supposed to be more performant.
-    const aStar = require('./plan.js');
     const result = aStar({
       start: initialState,
       isEnd(state: string[]) {
@@ -336,7 +343,7 @@ export default class CreatureState {
 
         return edges;
       },
-      distance(state1: string[], state2: string[], edge: any) {
+      distance(state1: string[], state2: string[], edge: {action: Action; data: string[]}) {
         return edge.action.cost;
       },
       heuristic(state: string[]) {

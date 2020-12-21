@@ -11,7 +11,7 @@ export class ServerWorker {
   private _rpcCallbacks = new Map<number, (...args: any) => void>();
   private _nextRpcId = 1;
 
-  constructor() {
+  public constructor() {
     this.worker.onmessage = (e) => {
       if (!e.data.rpc) throw new Error('unexpected message from server worker');
 

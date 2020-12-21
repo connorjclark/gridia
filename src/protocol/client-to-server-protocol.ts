@@ -1,11 +1,11 @@
 import { MINE } from '../constants';
 import * as Content from '../content';
-import Params = ClientToServerProtocol.Params;
 import * as CommandParser from '../lib/command-parser';
 import Server from '../server/server';
 import * as Utils from '../utils';
 import IClientToServerProtocol from './gen/client-to-server-protocol';
 import * as ProtocolBuilder from './server-to-client-protocol-builder';
+import Params = ClientToServerProtocol.Params;
 
 export default class ClientToServerProtocol implements IClientToServerProtocol {
   public onMove(server: Server, { ...loc }: Params.Move): void {
@@ -323,7 +323,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
             {name: 'c2', type: 'number', optional: true},
             {name: 'c3', type: 'number', optional: true},
           ],
-          do(args: {c0: number, c1: number, c2?: number, c3?: number}) {
+          do(args: {c0: number; c1: number; c2?: number; c3?: number}) {
             const destination = { ...server.currentClientConnection.player.creature.pos };
             if (args.c2 !== undefined && args.c3 !== undefined) {
               destination.w = args.c3;

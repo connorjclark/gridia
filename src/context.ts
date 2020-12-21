@@ -2,12 +2,10 @@ import Container from './container';
 import WorldMap from './world-map';
 
 export class Context {
-  public map: WorldMap;
   public creatures = new Map<number, Creature>();
   public containers = new Map<number, Container>();
 
-  constructor(map: WorldMap) {
-    this.map = map;
+  public constructor(public map: WorldMap) {
   }
 
   public getCreature(id: number): Creature {

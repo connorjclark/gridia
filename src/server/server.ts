@@ -27,9 +27,9 @@ export default class Server {
   public context: ServerContext;
   public clientConnections: ClientConnection[] = [];
   public outboundMessages = [] as Array<{
-    message: ServerToClientMessage,
-    to?: ClientConnection,
-    filter?: (client: ClientConnection) => boolean,
+    message: ServerToClientMessage;
+    to?: ClientConnection;
+    filter?: (client: ClientConnection) => boolean;
   }>;
   // @ts-ignore: this is always defined when accessed.
   public currentClientConnection: ClientConnection;
@@ -40,7 +40,7 @@ export default class Server {
 
   private _clientToServerProtocol = new ClientToServerProtocol();
 
-  constructor(opts: CtorOpts) {
+  public constructor(opts: CtorOpts) {
     this.context = opts.context;
     this.verbose = opts.verbose;
     this.setupTickSections();
@@ -253,7 +253,7 @@ export default class Server {
   }
 
   public findNearest(loc: TilePoint, range: number, includeTargetLocation: boolean,
-                     predicate: (tile: Tile, loc: TilePoint) => boolean): TilePoint | null {
+                     predicate: (tile: Tile, loc2: TilePoint) => boolean): TilePoint | null {
     const w = loc.w;
     const partition = this.context.map.getPartition(w);
     const test = (l: TilePoint) => {
@@ -320,21 +320,20 @@ export default class Server {
 
   public setItemInContainer(id: number, index: number, item?: Item) {
     const container = this.context.containers.get(id);
-    if (!container) throw new Error('no container: ' + id);
+    if (!container) throw new Error(`no container: ${id}`);
 
     container.items[index] = item || null;
 
     this.conditionalBroadcast(ProtocolBuilder.setItem({
       location: Utils.ItemLocation.Container(id, index),
       item,
-    }), (clientConnection) => {
-      return clientConnection.container.id === id || clientConnection.registeredContainers.includes(id);
-    });
+    }), (clientConnection) =>
+      clientConnection.container.id === id || clientConnection.registeredContainers.includes(id));
   }
 
   public addItemToContainer(id: number, index: number | undefined, item: Item) {
     const container = this.context.containers.get(id);
-    if (!container) throw new Error('no container: ' + id);
+    if (!container) throw new Error(`no container: ${id}`);
 
     // If index is not specified, pick one:
     // Pick the first slot of the same item type, if stackable.
@@ -516,6 +515,7 @@ export default class Server {
           try {
             const onMethodName = 'on' + message.type[0].toUpperCase() + message.type.substr(1);
             // @ts-ignore
+            // eslint-disable-next-line
             const ret = this._clientToServerProtocol[onMethodName](this, message.args);
             // TODO: some message handlers are async ... is that bad?
             if (ret) await ret;
