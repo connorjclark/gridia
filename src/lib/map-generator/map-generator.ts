@@ -4,7 +4,7 @@
 /* eslint-disable no-shadow */
 
 import { Delaunay } from 'd3-delaunay';
-import d3 from 'd3-polygon';
+import * as d3 from 'd3-polygon';
 import SeedRandomBrowser from 'seedrandom';
 import * as SeedRandomNode from 'seedrandom';
 import * as Perlin from '../perlin/perlin';
@@ -576,8 +576,14 @@ function rasterize(ctx: Context) {
 
       if ((x0 === x1) && (y0 === y1)) break;
       const e2 = 2 * err;
-      if (e2 > -dy) err -= dy; x0 += sx;
-      if (e2 < dx) err += dx; y0 += sy;
+      if (e2 > -dy) {
+        err -= dy;
+        x0 += sx;
+      }
+      if (e2 < dx) {
+        err += dx;
+        y0 += sy;
+      }
     }
   }
 
