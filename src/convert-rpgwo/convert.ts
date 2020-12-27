@@ -4,6 +4,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import {execFileSync} from 'child_process';
 
 // lol esmodules.
 const __dirname = path.join(path.dirname(decodeURI(new URL(import .meta.url).pathname))).replace(/^\\([A-Z]:\\)/, '$1');
@@ -476,6 +477,34 @@ function convertSkills() {
   return skills.map((usage) => sortObject(usage, explicitOrder));
 }
 
+function convertFloors() {
+  const floors = loadContent('floors.json');
+  for (const floor of floors) {
+    // Water.
+    if (floor.id === 1) {
+      floor.color = 'ADBCE6';
+      continue;
+    }
+
+    const imageName = `world/floors/floors${Math.floor(floor.id / 100)}.png`;
+    const x = (floor.id % 10) * 32;
+    const y = Math.floor((floor.id % 100) / 10) * 32;
+    const args = [
+      'convert',
+      imageName,
+      ...`-crop 32x32+${x}+${y} +repage`.split(' '),
+      ...'-resize 1x1 txt:-'.split(' '),
+    ];
+    const output = execFileSync('magick', args, {encoding: 'utf-8'});
+    // # ImageMagick pixel enumeration: 1,1,255,srgb
+    // 0,0: (80.0724,126.613,38.5971)  #507F27  srgb(31.4009%,49.6523%,15.1361%)
+    const hex = output.split('#')[2].substr(0, 6);
+    floor.color = hex;
+  }
+
+  return floors;
+}
+
 function run() {
   const items = state.items = convertItems();
   const itemsPath = path.join(__dirname, '..', '..', 'world', 'content', 'items.json');
@@ -491,5 +520,10 @@ function run() {
   const skillsPath = path.join(__dirname, '..', '..', 'world', 'content', 'skills.json');
   fs.writeFileSync(skillsPath, JSON.stringify(skills, null, 2));
   console.log('saved ' + skillsPath);
+
+  const floors = convertFloors();
+  const floorsPath = path.join(__dirname, '..', '..', 'world', 'content', 'floors.json');
+  fs.writeFileSync(floorsPath, JSON.stringify(floors, null, 2));
+  console.log('saved ' + floorsPath);
 }
 run();

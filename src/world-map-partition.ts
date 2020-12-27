@@ -48,6 +48,10 @@ class WorldMapPartition {
     return sector;
   }
 
+  public getSectorIfLoaded(sectorPoint: PartitionPoint): Sector | null {
+    return this.sectors[sectorPoint.x][sectorPoint.y][sectorPoint.z];
+  }
+
   // Waits for real sector to load, if not loaded yet.
   public async getSectorAsync(sectorPoint: PartitionPoint) {
     return this._loadSector(sectorPoint);

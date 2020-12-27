@@ -318,25 +318,25 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
       const COMMANDS: Record<string, CommandParser.Command> = {
         warp: {
           args: [
-            {name: 'c0', type: 'number'},
-            {name: 'c1', type: 'number'},
-            {name: 'c2', type: 'number', optional: true},
-            {name: 'c3', type: 'number', optional: true},
+            {name: 'x', type: 'number'},
+            {name: 'y', type: 'number'},
+            {name: 'z', type: 'number', optional: true},
+            {name: 'map', type: 'number', optional: true},
           ],
-          do(args: {c0: number; c1: number; c2?: number; c3?: number}) {
+          do(args: {x: number; y: number; z?: number; map?: number}) {
             const destination = { ...server.currentClientConnection.player.creature.pos };
-            if (args.c2 !== undefined && args.c3 !== undefined) {
-              destination.w = args.c3;
-              destination.x = args.c0;
-              destination.y = args.c1;
-              destination.z = args.c2;
-            } else if (args.c2 !== undefined) {
-              destination.x = args.c0;
-              destination.y = args.c1;
-              destination.z = args.c2;
+            if (args.z !== undefined && args.map !== undefined) {
+              destination.w = args.map;
+              destination.x = args.x;
+              destination.y = args.y;
+              destination.z = args.z;
+            } else if (args.z !== undefined) {
+              destination.x = args.x;
+              destination.y = args.y;
+              destination.z = args.z;
             } else {
-              destination.x = args.c0;
-              destination.y = args.c1;
+              destination.x = args.x;
+              destination.y = args.y;
             }
 
             if (!server.context.map.inBounds(destination)) {
@@ -368,7 +368,8 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
           args: [],
           do() {
             let messageBody = 'Commands:\n';
-            for (const [commandName, data] of Object.entries(COMMANDS)) {
+            const sortedCommands = Object.entries(COMMANDS).sort((a, b) => a[0].localeCompare(b[0]));
+            for (const [commandName, data] of sortedCommands) {
               const args = data.args.map((a) => `${a.name} [${a.type}${a.optional ? '?' : ''}]`).join(' ');
               messageBody += `/${commandName} ${args}\n`;
             }

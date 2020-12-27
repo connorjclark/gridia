@@ -1,6 +1,7 @@
 // TODO: this json is bundled as JS - but it's much faster to parse
 // JSON at runtime via JSON.parse than as a JS object literal.
 // https://github.com/parcel-bundler/parcel/issues/501
+let floors: MetaFloor[] = [];
 let items: MetaItem[] = [];
 let itemUses: ItemUse[] = [];
 let animations: GridiaAnimation[] = [];
@@ -9,14 +10,15 @@ let skills: Skill[] = [];
 
 // Parcel doesn't support dynamic imports for workers yet.
 // Until then, we do this hack to at least cut the content data out
-// of the web client code. Parcel 2 will support this.
+// of the web client bundle. Parcel 2 will support this.
 
 // Only the node server entry / tests uses this.
 function loadContentFromDisk() {
   // Make the path dynamically so parcel doesn't bundle the data.
   const prefix = '../world/content';
 
-  [items, itemUses, animations, monsters, skills] = [
+  [floors, items, itemUses, animations, monsters, skills] = [
+    require(`${prefix}/floors.json`),
     require(`${prefix}/items.json`),
     require(`${prefix}/itemuses.json`),
     require(`${prefix}/animations.json`),
@@ -29,7 +31,8 @@ function loadContentFromDisk() {
 // Web client and worker entry uses this.
 export async function loadContentFromNetwork() {
   // @ts-ignore
-  [items, itemUses, animations, monsters, skills] = await Promise.all([
+  [floors, items, itemUses, animations, monsters, skills] = await Promise.all([
+    fetch('world/content/floors.json').then((r) => r.json()),
     fetch('world/content/items.json').then((r) => r.json()),
     fetch('world/content/itemuses.json').then((r) => r.json()),
     fetch('world/content/animations.json').then((r) => r.json()),
@@ -99,9 +102,7 @@ export class ItemWrapper {
   }
 }
 
-export function getFloors(): number[] {
-  const floors = new Array(600);
-  for (let i = 0; i < floors.length; i++) floors[i] = i;
+export function getFloors() {
   return floors;
 }
 

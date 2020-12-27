@@ -144,6 +144,10 @@
       color: white;
     }
 
+    .panel--map .map {
+      height: 100%;
+    }
+
     .register {
       display: flex;
       align-items: center;
@@ -259,6 +263,10 @@
           <div class="panel panel--skills">
             <div class="skills"></div>
           </div>
+          <div class="panel panel--map">
+            <canvas class="map"></canvas>
+            <span class="location"></span>
+          </div>
           <div class="panel panel--settings">
             <div class="settings">
               <label for="volume">Volume</label>
@@ -286,6 +294,7 @@ To pick up item in the world: shift to pick up selected item, or drag and drop t
         <div class="panels__tabs">
           <div class="panels__tab panels__tab--active" data-panel="selected-view">View</div>
           <div class="panels__tab" data-panel="skills">Skills</div>
+          <div class="panels__tab" data-panel="map">Map</div>
           <div class="panels__tab" data-panel="settings">Settings</div>
           <div class="panels__tab" data-panel="admin">Admin</div>
           <div class="panels__tab" data-panel="help">Help</div>

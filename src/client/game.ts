@@ -17,6 +17,7 @@ import SettingsModule from './modules/settings-module';
 import SkillsModule from './modules/skills-module';
 import UsageModule from './modules/usage-module';
 import { WorldContainer } from './world-container';
+import MapModule from './modules/map-module';
 
 // WIP lighting shaders.
 
@@ -146,6 +147,7 @@ class Game {
     movement: new MovementModule(this),
     selectedView: new SelectedViewModule(this),
     settings: new SettingsModule(this),
+    map: new MapModule(this),
     skills: new SkillsModule(this),
     usage: new UsageModule(this),
   };

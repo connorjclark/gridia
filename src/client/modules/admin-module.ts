@@ -175,7 +175,7 @@ class AdminModule extends ClientModule {
 
     makeContentSelectionTab({
       name: 'Floors',
-      ...makeGrid(getFloors().map((id) => [id, new PIXI.Sprite(getTexture.floors(id))])),
+      ...makeGrid(getFloors().map((floor) => [floor.id, new PIXI.Sprite(getTexture.floors(floor.id))])),
     });
 
     const adminWindow = new GridiaWindow();
