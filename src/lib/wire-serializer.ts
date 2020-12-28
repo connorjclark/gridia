@@ -2,7 +2,8 @@ import * as serialijse from 'serialijse';
 import Player, {TilesSeenLog} from '../player';
 import Container from '../container';
 
-export function registerClass(klass: any, name?: string, serializeFn?: Function, deserializeFn?: Function) {
+// Name is required because minimization can break things.
+export function registerClass(klass: any, name: string, serializeFn?: Function, deserializeFn?: Function) {
   // @ts-ignore
   serialijse.declarePersistable(klass, name, serializeFn, deserializeFn);
 }
@@ -31,6 +32,6 @@ function dataToMap(context: any, object_id: any, data: { e: string }) {
 }
 registerClass(Map, 'Map', mapToData, dataToMap);
 
-registerClass(Player);
-registerClass(TilesSeenLog);
-registerClass(Container);
+registerClass(Player, 'Player');
+registerClass(TilesSeenLog, 'TilesSeenLog');
+registerClass(Container, 'Container');
