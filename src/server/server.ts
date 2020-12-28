@@ -117,6 +117,7 @@ export default class Server {
     }
 
     clientConnection.container = this.context.makeContainer();
+    player.containerId = clientConnection.container.id;
     if (opts.name !== 'test-user') {
       clientConnection.container.items[0] = { type: Content.getMetaItemByName('Wood Axe').id, quantity: 1 };
       clientConnection.container.items[1] = { type: Content.getMetaItemByName('Fire Starter').id, quantity: 1 };
@@ -394,7 +395,7 @@ export default class Server {
     const player = clientConnection.player;
 
     clientConnection.send(ProtocolBuilder.initialize({
-      player,
+      player: player.toSerializable(),
     }));
     // TODO need much better loading.
     for (const [w, partition] of this.context.map.getPartitions()) {

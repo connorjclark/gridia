@@ -46,9 +46,9 @@ class TilesSeenLog {
   }
 }
 
-function objToMap(obj: any) {
+function entriesToMap(entries: any[]) {
   const map = new Map();
-  for (const [key, value] of Object.entries(obj || {})) {
+  for (const [key, value] of entries || []) {
     map.set(key, value);
   }
   return map;
@@ -75,8 +75,8 @@ export default class Player {
       // @ts-ignore
       player[key] = value;
     }
-    player.skills = objToMap(data.skills);
-    player.tilesSeenLog.seen = objToMap(data.seen);
+    player.skills = entriesToMap(data.skills);
+    player.tilesSeenLog.seen = entriesToMap(data.seen);
 
     return player;
   }

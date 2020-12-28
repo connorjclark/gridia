@@ -13,10 +13,6 @@ class SkillsModule extends ClientModule {
 
   public onStart() {
     this.game.client.eventEmitter.on('message', (e) => {
-      if (e.type === 'initialize') {
-        this.renderSkills();
-      }
-
       if (e.type === 'xp') {
         const statusTextEl = document.createElement('div');
         statusTextEl.classList.add('status-text');
