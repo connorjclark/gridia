@@ -34,7 +34,7 @@ function addDebugStuff(map: WorldMapPartition) {
   // Item playground.
   // TODO: this is making the worker bundle include itemuses.json.
   const itemUsesGroupedByTool = new Map<number, ItemUse[]>();
-  for (const use of require('../world/content/itemuses.json') as ItemUse[]) {
+  for (const use of Content.getAllItemUses()) {
     let arr = itemUsesGroupedByTool.get(use.tool);
     if (!arr) {
       itemUsesGroupedByTool.set(use.tool, arr = []);

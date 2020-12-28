@@ -121,6 +121,10 @@ export function getMetaItemByName(name: string): MetaItem {
   return result;
 }
 
+export function getAllItemUses() {
+  return itemUses;
+}
+
 export function getItemUses(tool: number, focus: number) {
   return itemUses.filter((item) => item.tool === tool && item.focus === focus);
 }
