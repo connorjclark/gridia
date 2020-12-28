@@ -76,10 +76,7 @@ declare namespace ServerToClientProtocol {
     }
 
     interface Initialize {
-      isAdmin: boolean;
-      creatureId: number;
-      containerId: number;
-      skills: Array<[number, number]>;
+      player: Player;
     }
 
     interface InitializePartition extends TilePoint {

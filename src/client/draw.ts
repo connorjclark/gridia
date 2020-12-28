@@ -249,7 +249,7 @@ export function makeItemContainerWindow(container: Container): ContainerWindow {
       }
     });
 
-  if (container.id !== game.client.containerId) {
+  if (container.id !== game.client.player.containerId) {
     game.client.eventEmitter.on('playerMove', close);
   }
 

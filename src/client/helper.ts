@@ -76,15 +76,17 @@ export function getZ() {
 }
 
 export function getSelectedTool() {
-  const inventoryWindow = Draw.getContainerWindow(game.client.containerId);
-  if (!inventoryWindow) return undefined;
+  const inventoryWindow = Draw.getContainerWindow(game.client.player.containerId);
+  if (!inventoryWindow) return;
+
   const selectedIndex = inventoryWindow.selectedIndex;
-  if (selectedIndex === null) return undefined;
+  if (selectedIndex === null) return;
+
   return inventoryWindow.itemsContainer.items[selectedIndex] ?? undefined;
 }
 
 export function getSelectedToolIndex() {
-  const inventoryWindow = Draw.getContainerWindow(game.client.containerId);
+  const inventoryWindow = Draw.getContainerWindow(game.client.player.containerId);
   return inventoryWindow?.selectedIndex ?? -1;
 }
 

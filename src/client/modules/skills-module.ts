@@ -38,11 +38,11 @@ class SkillsModule extends ClientModule {
     const skillsEl = Helper.find('.skills', this.panel);
     skillsEl.innerHTML = '';
 
-    const sortedByName = [...this.game.client.skills.keys()].sort(
+    const sortedByName = [...this.game.client.player.skills.keys()].sort(
       (a, b) => Content.getSkill(a).name.localeCompare(Content.getSkill(b).name));
     for (const skillId of sortedByName) {
       const skill = Content.getSkill(skillId);
-      const xp = this.game.client.skills.get(skillId);
+      const xp = this.game.client.player.skills.get(skillId);
       const skillEl = document.createElement('div');
       skillEl.classList.add('skill');
       skillEl.innerText = `${skill.name} (${xp})`;

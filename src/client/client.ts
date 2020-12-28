@@ -1,6 +1,7 @@
 import { Context } from '../context';
 import ServerToClientProtocol from '../protocol/server-to-client-protocol';
 import { Message } from '../protocol/server-to-client-protocol-builder';
+import Player from '../player';
 import { Connection } from './connection';
 import EventEmitter from './event-emitter';
 
@@ -9,17 +10,13 @@ interface Settings {
 }
 
 class Client {
-  public isAdmin = false;
-  public creatureId = 0;
-  public clientFocusPosition: Point4 = {w: 0, x: 0, y: 0, z: 0};
+  // @ts-ignore set later.
+  public player: Player;
 
-  public containerId = 0;
   public eventEmitter = new EventEmitter();
   public settings: Settings = {
     volume: process.env.NODE_ENV === 'production' ? 0.6 : 0,
   };
-  // skill id -> xp
-  public skills = new Map<number, number>();
 
   private _protocol = new ServerToClientProtocol();
 
@@ -36,11 +33,11 @@ class Client {
   }
 
   public get creature() {
-    return this.context.getCreature(this.creatureId);
+    return this.context.getCreature(this.player.creature.id);
   }
 
   public get inventory() {
-    return this.context.containers.get(this.containerId);
+    return this.context.containers.get(this.player.containerId);
   }
 }
 

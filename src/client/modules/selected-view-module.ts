@@ -20,7 +20,7 @@ class SelectedViewModule extends ClientModule {
   public selectView(loc: TilePoint) {
     const game = this.game;
     const creature = game.client.context.map.getTile(loc).creature;
-    if (creature && creature.id !== game.client.creatureId) {
+    if (creature && creature.id !== game.client.player.creature.id) {
       // TODO: change selectedView to {tile, loc}
       game.state.selectedView.creatureId = creature.id;
       game.state.selectedView.tile = undefined;
@@ -100,7 +100,7 @@ class SelectedViewModule extends ClientModule {
     // Also prevents action creators from modifying important data.
     const clonedTile: Tile = JSON.parse(JSON.stringify(tile));
 
-    if (clonedTile && clonedTile.creature && clonedTile.creature.id === game.client.creatureId) {
+    if (clonedTile && clonedTile.creature && clonedTile.creature.id === game.client.player.creature.id) {
       // Don't allow actions on self.
       clonedTile.creature = undefined;
     } else if (creature) {

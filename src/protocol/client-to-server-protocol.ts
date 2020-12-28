@@ -353,7 +353,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
         },
         spawn: {
           args: [
-            {name: 'monster', type: 'string'},
+            {name: 'name', type: 'string'},
           ],
           do(args: {name: string}) {
             const template = Content.getMonsterTemplateByName(args.name);

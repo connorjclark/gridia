@@ -186,7 +186,7 @@ class Game {
 
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
-    if (client.isAdmin) {
+    if (client.player.isAdmin) {
       // @ts-ignore
       this.modules.admin = new AdminModule(this);
     } else {
@@ -439,7 +439,7 @@ class Game {
     this.world.on('pointerup', () => {
       if (Utils.equalPoints(this.state.mouse.tile, this.getPlayerPosition())) {
         this.client.eventEmitter.emit('itemMoveEnd', {
-          location: Utils.ItemLocation.Container(this.client.containerId),
+          location: Utils.ItemLocation.Container(this.client.player.containerId),
         });
       } else if (this.state.mouse.tile) {
         this.client.eventEmitter.emit('itemMoveEnd', {
@@ -491,7 +491,7 @@ class Game {
       // or just don't register these events until ready?
       if (!this._playerCreature) return;
       const focusPos = this.getPlayerPosition();
-      const inventoryWindow = Draw.getContainerWindow(this.client.containerId);
+      const inventoryWindow = Draw.getContainerWindow(this.client.player.containerId);
 
       // Number keys for selecting tool in inventory.
       if (inventoryWindow && e.keyCode >= KEYS.ZERO && e.keyCode <= KEYS.NINE) {
@@ -543,7 +543,7 @@ class Game {
       if (e.keyCode === KEYS.SHIFT && this.state.selectedView.tile) {
         this.client.connection.send(ProtocolBuilder.moveItem({
           from: Utils.ItemLocation.World(this.state.selectedView.tile),
-          to: Utils.ItemLocation.Container(this.client.containerId),
+          to: Utils.ItemLocation.Container(this.client.player.containerId),
         }));
       }
 
@@ -654,7 +654,7 @@ class Game {
         Draw.setContainerWindow(id, containerWindow);
 
         // Inventory.
-        if (id === this.client.containerId) {
+        if (id === this.client.player.containerId) {
           containerWindow.draw();
           containerWindow.pixiContainer.y = this.app.view.height - containerWindow.height - containerWindow.borderSize;
         }

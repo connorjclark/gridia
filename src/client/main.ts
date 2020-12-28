@@ -343,7 +343,7 @@ function globalOnActionHandler(client: Client, e: GameActionEvent) {
   case 'pickup':
     client.connection.send(ProtocolBuilder.moveItem({
       from: Utils.ItemLocation.World(loc),
-      to: Utils.ItemLocation.Container(client.containerId),
+      to: Utils.ItemLocation.Container(client.player.containerId),
     }));
     break;
   case 'use-hand':

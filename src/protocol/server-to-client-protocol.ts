@@ -3,6 +3,7 @@
 import Client from '../client/client';
 import Container from '../container';
 import * as Utils from '../utils';
+import Player from '../player';
 import * as ProtocolBuilder from './client-to-server-protocol-builder';
 import IServerToClientProtocol from './gen/server-to-client-protocol';
 import Params = ServerToClientProtocol.Params;
@@ -16,13 +17,8 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
     client.context.containers.set(container.id, new Container(container.id, container.items));
   }
 
-  public onInitialize(client: Client, { isAdmin, creatureId, containerId, skills }: Params.Initialize): void {
-    client.isAdmin = isAdmin;
-    client.creatureId = creatureId;
-    client.containerId = containerId;
-    for (const [skillId, xp] of skills) {
-      client.skills.set(skillId, xp);
-    }
+  public onInitialize(client: Client, { player }: Params.Initialize): void {
+    client.player = Player.fromJson(player);
   }
 
   public onInitializePartition(client: Client, { ...pos }: Params.InitializePartition): void {
@@ -95,8 +91,8 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
   }
 
   public onXp(client: Client, { skill, xp }: Params.Xp): void {
-    const currentXp = client.skills.get(skill) || 0;
-    client.skills.set(skill, currentXp + xp);
+    const currentXp = client.player.skills.get(skill) || 0;
+    client.player.skills.set(skill, currentXp + xp);
   }
 
   public onChat(client: Client, { from, to, message }: Params.Chat): void {

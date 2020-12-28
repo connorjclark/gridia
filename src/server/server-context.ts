@@ -80,12 +80,7 @@ export class ServerContext extends Context {
   }
 
   public async savePlayer(player: Player) {
-    const data = {
-      id: player.id,
-      creature: player.creature,
-      skills: [...player.skills.entries()],
-    };
-    const json = JSON.stringify(data, null, 2);
+    const json = JSON.stringify(player.toSerializable(), null, 2);
     await fs.writeFile(this.playerPath(player.id), json);
   }
 

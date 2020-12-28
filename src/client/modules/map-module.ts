@@ -20,6 +20,12 @@ class MapModule extends ClientModule {
     if (!context) throw new Error('could not make context');
 
     this.context = context;
+
+    this.game.client.eventEmitter.on('playerMove', () => {
+      this.game.worldContainer.forEachInCamera((_, loc) => {
+        this.game.client.player.tilesSeenLog.markSeen(this.game.client.context.map, loc);
+      });
+    });
   }
 
   public onTick(now: number) {
@@ -58,12 +64,13 @@ class MapModule extends ClientModule {
         const sector = partition.getSectorIfLoaded(Utils.worldToSector(loc, SECTOR_SIZE));
         if (!sector) continue;
 
-        // TODO: track if tile has been seen.
+        const mark = this.game.client.player.tilesSeenLog.getMark(this.game.client.context.map, loc);
+        if (!mark) continue;
 
-        const { floor, item } = sector[loc.x % SECTOR_SIZE][loc.y % SECTOR_SIZE];
+        const { floor, walkable } = mark;
 
         let color;
-        if (item && !Content.getMetaItem(item.type).walkable) {
+        if (!walkable) {
           color = 'black';
         } else {
           color = '#' + floors[floor].color;

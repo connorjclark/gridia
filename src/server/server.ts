@@ -394,10 +394,7 @@ export default class Server {
     const player = clientConnection.player;
 
     clientConnection.send(ProtocolBuilder.initialize({
-      isAdmin: player.isAdmin,
-      creatureId: player.creature.id,
-      containerId: clientConnection.container.id,
-      skills: [...player.skills.entries()],
+      player,
     }));
     // TODO need much better loading.
     for (const [w, partition] of this.context.map.getPartitions()) {
