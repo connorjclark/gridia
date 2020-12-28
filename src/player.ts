@@ -70,6 +70,9 @@ export default class Player {
 
     for (const [key, value] of Object.entries(data)) {
       // @ts-ignore
+      if (player[key] instanceof Object) continue;
+
+      // @ts-ignore
       player[key] = value;
     }
     player.skills = objToMap(data.skills);
