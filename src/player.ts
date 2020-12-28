@@ -8,7 +8,7 @@ interface TileSeenLogData {
   walkable: boolean;
 }
 
-class TilesSeenLog {
+export class TilesSeenLog {
   // w,x,y,z partition -> data
   public seen = new Map<string, Array2D<TileSeenLogData | null>>();
 
@@ -46,14 +46,6 @@ class TilesSeenLog {
   }
 }
 
-function entriesToMap(entries: any[]) {
-  const map = new Map();
-  for (const [key, value] of entries || []) {
-    map.set(key, value);
-  }
-  return map;
-}
-
 export default class Player {
   public id = 0;
   public containerId = 0;
@@ -64,28 +56,4 @@ export default class Player {
   public tilesSeenLog = new TilesSeenLog();
 
   public constructor(public creature: Creature) { }
-
-  public static fromJson(data: any) {
-    const player = new Player(data.creature);
-
-    for (const [key, value] of Object.entries(data)) {
-      // @ts-ignore
-      if (player[key] instanceof Object) continue;
-
-      // @ts-ignore
-      player[key] = value;
-    }
-    player.skills = entriesToMap(data.skills);
-    player.tilesSeenLog.seen = entriesToMap(data.seen);
-
-    return player;
-  }
-
-  public toSerializable() {
-    return {
-      ...this,
-      skills: [...this.skills.entries()],
-      tilesSeenLog: [...this.tilesSeenLog.seen.entries()],
-    };
-  }
 }

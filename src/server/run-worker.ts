@@ -1,4 +1,5 @@
 import * as Content from '../content';
+import * as WireSerializer from '../lib/wire-serializer';
 import * as fs from '../iso-fs';
 import { makeMapImage } from '../lib/map-generator/map-image-maker';
 import mapgen, { makeBareMap } from '../mapgen';
@@ -80,7 +81,7 @@ async function startServer(args: ServerWorkerOpts) {
   clientConnection.send = (message) => {
     maybeDelay(() => {
       // @ts-ignore
-      self.postMessage(message);
+      self.postMessage(WireSerializer.serialize(message));
     });
   };
 
@@ -114,6 +115,6 @@ self.addEventListener('message', async (e) => {
   }
 
   maybeDelay(() => {
-    clientConnection.messageQueue.push(e.data);
+    clientConnection.messageQueue.push(WireSerializer.deserialize(e.data));
   });
 }, false);

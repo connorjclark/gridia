@@ -395,7 +395,7 @@ export default class Server {
     const player = clientConnection.player;
 
     clientConnection.send(ProtocolBuilder.initialize({
-      player: player.toSerializable(),
+      player,
     }));
     // TODO need much better loading.
     for (const [w, partition] of this.context.map.getPartitions()) {

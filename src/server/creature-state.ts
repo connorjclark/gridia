@@ -2,8 +2,7 @@ import { findPath } from '../path-finding';
 import * as Utils from '../utils';
 import WorldMapPartition from '../world-map-partition';
 import Server from './server';
-// @ts-ignore
-import * as aStar from './plan.js';
+import aStar from './plan';
 
 interface Goal {
   desiredEffect: string;
@@ -343,7 +342,7 @@ export default class CreatureState {
 
         return edges;
       },
-      distance(state1: string[], state2: string[], edge: {action: Action; data: string[]}) {
+      distance(state1: string[], state2: string[], edge: { action: Action; data: string[] }) {
         return edge.action.cost;
       },
       heuristic(state: string[]) {

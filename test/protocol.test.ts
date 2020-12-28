@@ -117,7 +117,7 @@ function getUnwalkableItem(): Item {
 describe('move', () => {
   let creature;
   beforeEach(async () => {
-    creature = server.context.getCreature(client.creatureId);
+    creature = server.context.getCreature(client.player.creature.id);
     server.moveCreature(creature, {w: 0, x: 5, y: 5, z: 0});
     await server.consumeAllMessages();
   });
@@ -177,7 +177,7 @@ describe('move', () => {
     const from = {w: 0, x: 5, y: 5, z: 0};
     const to = {w: 0, x: 6, y: 5, z: 0};
     setFloor(to, MINE);
-    setItemInContainer(client.containerId, 0, {type: Content.getMetaItemByName('Pick').id, quantity: 1});
+    setItemInContainer(client.player.containerId, 0, {type: Content.getMetaItemByName('Pick').id, quantity: 1});
 
     assertCreatureAt(from, creature.id);
     await send(ProtocolBuilder.move(to));
@@ -320,7 +320,7 @@ describe('use', () => {
     const toolIndex = 0;
     const loc = { w: 0, x: 0, y: 0, z: 0 };
 
-    setItemInContainer(client.containerId, 0, {type: Content.getMetaItemByName('Wood Axe').id, quantity: 1});
+    setItemInContainer(client.player.containerId, 0, {type: Content.getMetaItemByName('Wood Axe').id, quantity: 1});
     setItem(loc, { type: Content.getMetaItemByName('Pine Tree').id, quantity: 1 });
 
     await send(ProtocolBuilder.use({
@@ -337,7 +337,10 @@ describe('use', () => {
     const toolIndex = 1;
     const loc = { w: 0, x: 0, y: 0, z: 0 };
 
-    setItemInContainer(client.containerId, 1, {type: Content.getMetaItemByName('Mana Plant Seeds').id, quantity: 100});
+    setItemInContainer(client.player.containerId, 1, {
+      type: Content.getMetaItemByName('Mana Plant Seeds').id,
+      quantity: 100,
+    });
     setItem(loc, { type: Content.getMetaItemByName('Ploughed Ground').id, quantity: 1 });
 
     await send(ProtocolBuilder.use({

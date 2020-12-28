@@ -2,6 +2,7 @@
 /// <reference path="../src/types.d.ts" />
 
 import Client from '../src/client/client';
+import * as WireSerializer from '../src/lib/wire-serializer';
 import { Connection } from '../src/client/connection';
 import { Context } from '../src/context';
 import { Message as MessageToServer } from '../src/protocol/client-to-server-protocol-builder';
@@ -16,7 +17,7 @@ class MemoryConnection extends Connection {
   }
 
   public send(message: MessageToServer) {
-    const cloned = JSON.parse(JSON.stringify(message));
+    const cloned = WireSerializer.deserialize<MessageToServer>(WireSerializer.serialize(message));
     this._clientConnection.messageQueue.push(cloned);
   }
 
@@ -30,7 +31,7 @@ type OpenAndConnectToServerOpts = any; // ?what
 // This was used before workers, but now it's just for jest tests.
 // Clone messages so that mutations aren't depended on accidentally.
 export function openAndConnectToServerInMemory(
-  opts: OpenAndConnectToServerOpts & {serverContext: ServerContext}) {
+  opts: OpenAndConnectToServerOpts & { serverContext: ServerContext }) {
 
   const { verbose, serverContext } = opts;
   const server = new Server({
@@ -40,7 +41,7 @@ export function openAndConnectToServerInMemory(
 
   const clientConnection = new ClientConnection();
   clientConnection.send = (message) => {
-    const cloned = JSON.parse(JSON.stringify(message));
+    const cloned = WireSerializer.deserialize<any>(WireSerializer.serialize(message));
     client.eventEmitter.emit('message', cloned);
   };
   // TODO: why is this needed?
@@ -48,7 +49,7 @@ export function openAndConnectToServerInMemory(
 
   const connection = new MemoryConnection(clientConnection);
   connection.setOnMessage((message) => {
-    const cloned = JSON.parse(JSON.stringify(message));
+    const cloned = WireSerializer.deserialize<MessageToServer>(WireSerializer.serialize(message));
     clientConnection.messageQueue.push(cloned);
   });
 

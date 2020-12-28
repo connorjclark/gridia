@@ -18,7 +18,7 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
   }
 
   public onInitialize(client: Client, { player }: Params.Initialize): void {
-    client.player = Player.fromJson(player);
+    client.player = player;
   }
 
   public onInitializePartition(client: Client, { ...pos }: Params.InitializePartition): void {

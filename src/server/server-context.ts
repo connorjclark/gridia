@@ -7,6 +7,7 @@ import Player from '../player';
 import * as Utils from '../utils';
 import WorldMap from '../world-map';
 import WorldMapPartition from '../world-map-partition';
+import * as WireSerializer from '../lib/wire-serializer';
 import Server from './server';
 
 export class ServerContext extends Context {
@@ -80,7 +81,7 @@ export class ServerContext extends Context {
   }
 
   public async savePlayer(player: Player) {
-    const json = JSON.stringify(player.toSerializable(), null, 2);
+    const json = WireSerializer.serialize(player);
     await fs.writeFile(this.playerPath(player.id), json);
   }
 

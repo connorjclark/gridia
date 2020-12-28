@@ -1,5 +1,6 @@
 import { Message as MessageToServer } from '../protocol/client-to-server-protocol-builder';
 import { Message as MessageToClient } from '../protocol/server-to-client-protocol-builder';
+import * as WireSerializer from '../lib/wire-serializer';
 
 function debug(prefix: string , msg: any) {
   // @ts-ignore
@@ -41,7 +42,8 @@ export class WebSocketConnection extends Connection {
     super();
     _ws.addEventListener('message', (e) => {
       if (!this._onMessage) return;
-      const data = JSON.parse(e.data);
+
+      const data = WireSerializer.deserialize<any>(e.data);
       debug('<-', data);
       this._onMessage(data);
     });
@@ -51,7 +53,7 @@ export class WebSocketConnection extends Connection {
 
   public send(message: MessageToServer) {
     debug('->', message);
-    this._ws.send(JSON.stringify(message));
+    this._ws.send(WireSerializer.serialize(message));
   }
 
   public close() {
@@ -68,14 +70,15 @@ export class WorkerConnection extends Connection {
   public constructor(private _worker: Worker) {
     super();
     _worker.onmessage = (e) => {
-      debug('<-', e.data);
-      if (this._onMessage) this._onMessage(e.data);
+      const data = WireSerializer.deserialize<any>(e.data);
+      debug('<-', data);
+      if (this._onMessage) this._onMessage(data);
     };
   }
 
   public send(message: MessageToServer) {
     debug('->', message);
-    this._worker.postMessage(message);
+    this._worker.postMessage(WireSerializer.serialize(message));
   }
 
   public close() {

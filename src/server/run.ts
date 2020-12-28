@@ -1,15 +1,16 @@
 import * as fs from 'fs';
 import * as http from 'http';
 import * as https from 'https';
-import {Server as WebSocketServer} from 'ws';
+import { Server as WebSocketServer } from 'ws';
 import * as yargs from 'yargs';
+import * as WireSerializer from '../lib/wire-serializer';
 import ClientConnection from './client-connection';
 import { startServer } from './create-server';
 
 async function main(options: CLIOptions) {
   global.node = true;
 
-  const {port, ssl} = options;
+  const { port, ssl } = options;
 
   let webserver;
   if (ssl) {
@@ -29,8 +30,9 @@ async function main(options: CLIOptions) {
 
   wss.on('connection', (ws) => {
     ws.on('message', (data) => {
-      if (server.verbose) console.log('got', JSON.parse(data.toString('utf-8')));
-      clientConnection.messageQueue.push(JSON.parse(data.toString('utf-8')));
+      const message = WireSerializer.deserialize<any>(data.toString('utf-8'));
+      if (server.verbose) console.log('got', message);
+      clientConnection.messageQueue.push(message);
     });
 
     ws.on('close', () => {
@@ -39,7 +41,7 @@ async function main(options: CLIOptions) {
 
     const clientConnection = new ClientConnection();
     clientConnection.send = (message) => {
-      ws.send(JSON.stringify(message));
+      ws.send(WireSerializer.serialize(message));
     };
 
     server.clientConnections.push(clientConnection);
@@ -56,8 +58,8 @@ const argv = yargs
   .default('serverData', 'server-data')
   .parse();
 
-const {sslCert, sslKey, ...mostOfArgs} = argv;
+const { sslCert, sslKey, ...mostOfArgs } = argv;
 void main({
   ...mostOfArgs,
-  ssl: sslKey && sslCert ? {cert: sslCert, key: sslKey} : undefined,
+  ssl: sslKey && sslCert ? { cert: sslCert, key: sslKey } : undefined,
 });

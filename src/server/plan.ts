@@ -1,13 +1,18 @@
+// @ts-nocheck
+
+import * as  assert from 'assert';
+import * as dict_ from 'dict';
+import * as Heap_ from 'heap';
+
+// ?
+const Heap = Heap_.default || Heap_;
+const dict = dict_.default || dict_;
+
 /* eslint-disable */
 // https://github.com/andrewrk/node-astar
 // TODO: Make a generic astar (path-finding.ts).
 
-var assert = require('assert')
-  , StringSet = require('Set')
-  , Heap = require('heap')
-  , dict = require('dict')
-
-function aStar(params) {
+export default function aStar(params) {
   // assert.ok(params.start !== undefined);
   // assert.ok(params.isEnd !== undefined);
   // assert.ok(params.neighbor);
@@ -25,7 +30,7 @@ function aStar(params) {
   var bestNode = startNode;
   startNode.f = startNode.h;
   // leave .parent undefined
-  var closedDataSet = new StringSet();
+  var closedDataSet = new Set();
   var openHeap = new Heap(heapComparator);
   var openDataMap = dict();
   openHeap.push(startNode);
@@ -55,7 +60,7 @@ function aStar(params) {
     for (var i = 0; i < edges.length; i++) {
       var edge = edges[i];
       var neighborData = edge.data;
-      if (closedDataSet.contains(hash(neighborData))) {
+      if (closedDataSet.has(hash(neighborData))) {
         // skip closed neighbors
         continue;
       }
@@ -102,11 +107,11 @@ function aStar(params) {
 function reconstructPath(node) {
   if (node.parent !== undefined) {
     var pathSoFar = reconstructPath(node.parent);
-    pathSoFar.push({data: node.data, edge: node.edge});
+    pathSoFar.push({ data: node.data, edge: node.edge });
     return pathSoFar;
   } else {
     // this is the starting node
-    return [{data: node.data}];
+    return [{ data: node.data }];
   }
 }
 
@@ -117,5 +122,3 @@ function defaultHash(node) {
 function heapComparator(a, b) {
   return a.f - b.f;
 }
-
-module.exports = aStar;
