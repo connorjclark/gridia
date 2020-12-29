@@ -10,7 +10,7 @@ class MyCar {
     return `I am a ${this.color} car.`;
   }
 }
-WireSerializer.registerClass(MyCar);
+WireSerializer.registerClass(MyCar, 'MyCar');
 
 function roundTrip<T>(object: T) {
   const result = WireSerializer.deserialize<T>(WireSerializer.serialize(object));

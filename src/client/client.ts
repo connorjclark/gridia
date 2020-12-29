@@ -4,19 +4,14 @@ import { Message } from '../protocol/server-to-client-protocol-builder';
 import Player from '../player';
 import { Connection } from './connection';
 import EventEmitter from './event-emitter';
-
-interface Settings {
-  volume: number;
-}
+import { getDefaultSettings } from './modules/settings-module';
 
 class Client {
   // @ts-ignore set later.
   public player: Player;
 
   public eventEmitter = new EventEmitter();
-  public settings: Settings = {
-    volume: process.env.NODE_ENV === 'production' ? 0.6 : 0,
-  };
+  public settings = getDefaultSettings();
 
   private _protocol = new ServerToClientProtocol();
 

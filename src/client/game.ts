@@ -675,6 +675,8 @@ class Game {
     this.worldContainer.camera.adjustFocus(this.getPlayerPosition());
     this.worldContainer.tick();
 
+    this.worldContainer.layers.grid.alpha = this.client.settings.showGrid ? 1 : 0;
+
     const startTileX = this.worldContainer.camera.left;
     const startTileY = this.worldContainer.camera.top;
 

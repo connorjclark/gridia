@@ -33,7 +33,7 @@ export function useTool(loc: TilePoint, usageIndex?: number) {
     return;
   }
 
-  const focus = game.client.context.map.getItem(loc) || {type: 0, quantity: 0};
+  const focus = game.client.context.map.getItem(loc) || { type: 0, quantity: 0 };
   const usages = Content.getItemUses(tool.type, focus.type);
 
   if (usages.length === 0) {
@@ -104,4 +104,27 @@ export function findAll(query: string, node?: Element): Element[] {
   const result = [...node.querySelectorAll(query)];
   if (!result.length) throw new Error(`no elements matching ${query}`);
   return result;
+}
+
+type HTMLElementByTagName = HTMLElementTagNameMap & { [id: string]: HTMLElement };
+
+export function createElement<T extends string>(name: T, className?: string, attrs: Record<string, string> = {}) {
+  const element = document.createElement(name);
+  if (className) {
+    element.className = className;
+  }
+  Object.keys(attrs).forEach((key) => {
+    const value = attrs[key];
+    if (typeof value !== 'undefined') {
+      element.setAttribute(key, value);
+    }
+  });
+  return element as HTMLElementByTagName[T];
+}
+
+export function createChildOf<T extends string>(
+  parentElem: Element, elementName: T, className?: string, attrs?: Record<string, string>) {
+  const element = createElement(elementName, className, attrs);
+  parentElem.appendChild(element);
+  return element;
 }
