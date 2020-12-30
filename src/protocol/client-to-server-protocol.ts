@@ -123,7 +123,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
       return;
     }
 
-    if (creature.isPlayer) return;
+    if (!creature || creature.isPlayer) return;
 
     if (type === 'attack') {
       server.creatureStates[server.currentClientConnection.player.creature.id].targetCreature =
