@@ -139,6 +139,74 @@ function mouseToWorld(pm: ScreenPoint): ScreenPoint {
   return game.worldContainer.toLocal(pm);
 }
 
+class CreatureSprite extends PIXI.Sprite {
+  public constructor(public creature: Creature) {
+    super();
+  }
+
+  public get tileWidth() {
+    return this.creature.image_type || 1;
+  }
+
+  public get tileHeight() {
+    return this.creature.image_type || 1;
+  }
+
+  public tick() {
+    if (this.children.length === 0) {
+      this.drawCreature();
+      return;
+    }
+
+    const isPlayer = this.creature.id === game.client.player.creature.id;
+    if (!isPlayer && Utils.equalPoints(game.state.mouse.tile, this.creature.pos)) {
+      const GRAY = 0x606060;
+      const BLUE = 0x000088;
+      const RED = 0x880000;
+      const color = [GRAY, BLUE, RED][this.creature.id % 3]; // TODO: base on enemy/neutral/good
+      this.setOutline(color);
+    } else {
+      this.setOutline();
+    }
+  }
+
+  private drawCreature() {
+    const width = this.tileWidth;
+    const height = this.tileHeight;
+    const texture = Draw.getTexture.creatures(this.creature.image, width, height);
+    if (texture === PIXI.Texture.EMPTY) return;
+
+    const creatureGfx = new PIXI.Graphics();
+
+    creatureGfx
+      .beginTextureFill({ texture })
+      .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
+      .endFill();
+
+    if (this.creature.tamedBy) {
+      creatureGfx
+        .lineStyle(1, 0x0000FF)
+        .drawCircle(GFX_SIZE / 2, GFX_SIZE / 2, GFX_SIZE / 2)
+        .lineStyle();
+    }
+
+    // uniforms.time = now / 1000;
+    // filters.push(testFilter);
+
+    this.removeChildren();
+    this.addChild(creatureGfx);
+  }
+
+  private setOutline(color?: number) {
+    const gfx = this.children[0] as PIXI.Graphics;
+    const filters = [];
+    if (color !== undefined) {
+      filters.push(new PIXI.OutlineFilter(2, color, 1));
+    }
+    gfx.filters = filters;
+  }
+}
+
 class Game {
   public state: UIState;
   public keys: Record<number, boolean> = {};
@@ -160,7 +228,8 @@ class Game {
   protected itemMovingState?: ItemMoveBeginEvent;
   protected mouseHasMovedSinceItemMoveBegin = false;
   protected actionCreators: GameActionCreator[] = [];
-  protected spriteCache = new Map<string, { sprite: PIXI.Sprite; hash: string }>();
+
+  protected creatureSprites = new Map<number, CreatureSprite>();
 
   private _playerCreature?: Creature;
   private _currentHoverItemText =
@@ -636,10 +705,6 @@ class Game {
 
     Draw.sweepTexts();
 
-    if (this.state.elapsedFrames % 1000 === 0) {
-      this.spriteCache.clear();
-    }
-
     const focusPos = this.getPlayerPosition();
     const { w, z } = focusPos;
     const partition = this.client.context.map.getPartition(w);
@@ -683,7 +748,6 @@ class Game {
     // These layers are constantly cleared and redrawn in the game loop.
     const layersManagedByGameLoop = [
       this.worldContainer.layers.top,
-      this.worldContainer.layers.creatures,
     ];
 
     // Transient graphics objects must be destroyed to prevent memory leaks.
@@ -696,47 +760,26 @@ class Game {
       layer.removeChildren();
     }
 
+    const creatureSpritesNotSeen = new Set([...this.creatureSprites.keys()]);
+
     const start = { x: startTileX, y: startTileY, z };
     for (const { pos, tile } of partition.getIteratorForArea(start, tilesWidth + 1, tilesHeight + 1)) {
       const { x, y } = pos;
-      let texture;
 
       // TODO: don't make creature sprites on every tick.
       if (tile.creature) {
-        const width = tile.creature.image_type || 1;
-        const height = tile.creature.image_type || 1;
-        texture = Draw.getTexture.creatures(tile.creature.image, width, height);
-        if (texture !== PIXI.Texture.EMPTY) {
-          const creatureGfx = new PIXI.Graphics();
-          const filters = [];
-          creatureGfx.x = x * GFX_SIZE;
-          creatureGfx.y = (y - height + 1) * GFX_SIZE;
+        creatureSpritesNotSeen.delete(tile.creature.id);
 
-          creatureGfx
-            .beginTextureFill({ texture })
-            .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
-            .endFill();
-
-          if (tile.creature.tamedBy) {
-            creatureGfx
-              .lineStyle(1, 0x0000FF)
-              .drawCircle(GFX_SIZE / 2, GFX_SIZE / 2, GFX_SIZE / 2)
-              .lineStyle();
-          }
-
-          if (tile.creature !== this._playerCreature && Utils.equalPoints(this.state.mouse.tile, tile.creature.pos)) {
-            const GRAY = 0x606060;
-            const BLUE = 0x000088;
-            const RED = 0x880000;
-            const color = [GRAY, BLUE, RED][tile.creature.id % 3]; // TODO: base on enemy/neutral/good
-            filters.push(new PIXI.OutlineFilter(2, color, 1));
-          }
-
-          uniforms.time = now / 1000;
-          // filters.push(testFilter);
-          if (filters) creatureGfx.filters = filters;
-          this.worldContainer.layers.creatures.addChild(creatureGfx);
+        let creatureSprite = this.creatureSprites.get(tile.creature.id);
+        if (!creatureSprite) {
+          creatureSprite = new CreatureSprite(tile.creature);
+          this.creatureSprites.set(tile.creature.id, creatureSprite);
+          this.worldContainer.layers.creatures.addChild(creatureSprite);
         }
+
+        creatureSprite.x = x * GFX_SIZE;
+        creatureSprite.y = (y - creatureSprite.tileHeight + 1) * GFX_SIZE;
+        creatureSprite.tick();
 
         // const label = Draw.pooledText(`creature${tile.creature.id}`, tile.creature.name, {
         //   fill: 'white', stroke: 'black', strokeThickness: 3, lineJoin: 'round', fontSize: 16});
@@ -744,6 +787,15 @@ class Game {
         // label.anchor.y = 1;
         // creatureSprite.addChild(label);
       }
+    }
+
+    for (const id of creatureSpritesNotSeen) {
+      const creatureSprite = this.creatureSprites.get(id);
+      if (!creatureSprite) continue;
+
+      this.creatureSprites.delete(id);
+      if (creatureSprite.parent) creatureSprite.parent.removeChild(creatureSprite);
+      creatureSprite.destroy();
     }
 
     // Draw item being moved.
