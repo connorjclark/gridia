@@ -210,15 +210,16 @@ export class WorldContainer extends PIXI.Container {
   public constructor(public map: WorldMap) {
     super();
 
-    this.interactive = true;
+    this.layers.items = this.layers.creatures;
+    this.layers.items.sortableChildren = true;
+
     this.drawGrid();
     for (const layer of Object.values(this.layers)) {
       this.addChild(layer);
     }
-    this.addListeners();
 
-    this.layers.creatures.sortableChildren = true;
-    this.layers.items.sortableChildren = true;
+    this.interactive = true;
+    this.addListeners();
   }
 
   public tick() {

@@ -183,6 +183,7 @@ class CreatureSprite extends PIXI.Sprite {
       .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
       .endFill();
 
+    // TODO fix this.
     if (this.creature.tamedBy) {
       creatureGfx
         .lineStyle(1, 0x0000FF)
@@ -779,6 +780,8 @@ class Game {
 
         creatureSprite.x = x * GFX_SIZE;
         creatureSprite.y = (y - creatureSprite.tileHeight + 1) * GFX_SIZE;
+        // Ensure creature is always over an item on the same tile.
+        creatureSprite.zIndex = y + 0.1;
         creatureSprite.tick();
 
         // const label = Draw.pooledText(`creature${tile.creature.id}`, tile.creature.name, {
