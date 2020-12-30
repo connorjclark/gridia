@@ -1,4 +1,3 @@
-import Client from '../client';
 import ClientModule from '../client-module';
 import * as Helper from '../helper';
 

@@ -216,6 +216,9 @@ export class WorldContainer extends PIXI.Container {
       this.addChild(layer);
     }
     this.addListeners();
+
+    this.layers.creatures.sortableChildren = true;
+    this.layers.items.sortableChildren = true;
   }
 
   public tick() {
@@ -446,6 +449,7 @@ class Tile {
     this.item = sprite;
     this.item.x = this.loc.x * GFX_SIZE;
     this.item.y = this.loc.y * GFX_SIZE;
+    this.item.zIndex = this.loc.y;
     container.addChild(this.item);
   }
 

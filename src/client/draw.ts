@@ -410,13 +410,18 @@ export function makeItemSprite2(item: Item) {
     return anim;
   }
 
-  let sprite = make();
+  const sprite = make();
   if (!sprite) return;
 
+  // TODO: fix layering...
+  // if (sprite.texture.height > GFX_SIZE) {
+  //   const wrapperSprite = new PIXI.Sprite();
+  //   console.log(sprite.texture.height);
+  //   wrapperSprite.addChild(sprite).y = GFX_SIZE - sprite.texture.height;
+  //   sprite = wrapperSprite;
+  // }
   if (sprite.texture.height > GFX_SIZE) {
-    const wrapperSprite = new PIXI.Sprite();
-    wrapperSprite.addChild(sprite).y = GFX_SIZE - sprite.texture.height;
-    sprite = wrapperSprite;
+    sprite.anchor.y = 0.5;
   }
 
   if (item.quantity !== 1) {

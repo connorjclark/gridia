@@ -701,6 +701,7 @@ class Game {
       const { x, y } = pos;
       let texture;
 
+      // TODO: don't make creature sprites on every tick.
       if (tile.creature) {
         const width = tile.creature.image_type || 1;
         const height = tile.creature.image_type || 1;
