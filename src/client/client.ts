@@ -4,14 +4,15 @@ import { Message } from '../protocol/server-to-client-protocol-builder';
 import Player from '../player';
 import { Connection } from './connection';
 import EventEmitter from './event-emitter';
-import { getDefaultSettings } from './modules/settings-module';
+import { Settings } from './modules/settings-module';
 
 class Client {
   // @ts-ignore set later.
   public player: Player;
 
   public eventEmitter = new EventEmitter();
-  public settings = getDefaultSettings();
+  // @ts-ignore set later.
+  public settings: Settings = {};
 
   private _protocol = new ServerToClientProtocol();
 

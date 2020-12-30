@@ -1,7 +1,7 @@
 import ClientModule from '../client-module';
 import * as Helper from '../helper';
 
-interface Settings {
+export interface Settings {
   showGrid: boolean;
   volume: number;
 }

@@ -13,7 +13,7 @@ import LazyResourceLoader, { SfxResources } from './lazy-resource-loader';
 import AdminModule from './modules/admin-module';
 import MovementModule from './modules/movement-module';
 import SelectedViewModule from './modules/selected-view-module';
-import SettingsModule from './modules/settings-module';
+import SettingsModule, { getDefaultSettings } from './modules/settings-module';
 import SkillsModule from './modules/skills-module';
 import UsageModule from './modules/usage-module';
 import { WorldContainer } from './world-container';
@@ -299,6 +299,8 @@ class Game {
   }
 
   public start() {
+    this.client.settings = getDefaultSettings();
+
     // Should only be used for refreshing UI, not updating game state.
     this.client.eventEmitter.on('message', (e) => {
       // Update the selected view, if the item there changed.
