@@ -753,14 +753,11 @@ class Game {
       this.worldContainer.layers.top,
     ];
 
-    // Transient graphics objects must be destroyed to prevent memory leaks.
+    // Transient display objects must be destroyed to prevent memory leaks.
     for (const layer of layersManagedByGameLoop) {
       for (const child of layer.children) {
-        if (child instanceof PIXI.Graphics) {
-          child.destroy();
-        }
+        child.destroy();
       }
-      layer.removeChildren();
     }
 
     const creatureSpritesNotSeen = new Set([...this.creatureSprites.keys()]);
@@ -799,7 +796,6 @@ class Game {
       if (!creatureSprite) continue;
 
       this.creatureSprites.delete(id);
-      if (creatureSprite.parent) creatureSprite.parent.removeChild(creatureSprite);
       creatureSprite.destroy();
     }
 

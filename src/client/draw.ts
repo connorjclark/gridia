@@ -7,6 +7,18 @@ import { ItemMoveBeginEvent } from './event-emitter';
 import * as Helper from './helper';
 import { ImageResources } from './lazy-resource-loader';
 
+function destroyChildren(displayObject: PIXI.Container) {
+  if (displayObject.children.length === 0) return;
+
+  for (const child of [...displayObject.children]) {
+    // if (child instanceof PIXI.Container) {
+    // child.destroy({children: true});
+    // } else {
+    child.destroy();
+    // }
+  }
+}
+
 export class GridiaWindow {
   public pixiContainer: PIXI.Container;
   public border: PIXI.Graphics;
@@ -90,7 +102,7 @@ export class ContainerWindow extends GridiaWindow {
 
   // Selected item actions are based off currently selected tool. If
   // the tool changes, should re-render the selected item panel.
-  public set selectedIndex(selectedIndex: number|null) {
+  public set selectedIndex(selectedIndex: number | null) {
     // If already selected, then unselect.
     if (this._selectedIndex === selectedIndex) selectedIndex = null;
 
@@ -131,7 +143,8 @@ export class PossibleUsagesWindow extends GridiaWindow {
     }
     this._possibleUsagesGrouped = [...possibleUsagesGroupedMap.values()];
 
-    this.contents.removeChildren();
+    destroyChildren(this.contents);
+
     for (let i = 0; i < this._possibleUsagesGrouped.length; i++) {
       const possibleUsagesGroup = this._possibleUsagesGrouped[i];
       const possibleUsage = possibleUsagesGroup[0];
@@ -267,7 +280,9 @@ export function makeItemContainerWindow(container: Container): ContainerWindow {
       console.warn('undefined containerRef');
       return;
     }
-    window.contents.removeChildren();
+
+    destroyChildren(window.contents);
+
     for (const [i, item] of containerRef.items.entries()) {
       const itemSprite = makeItemSprite(item ? item : { type: 0, quantity: 1 });
       itemSprite.x = i * GFX_SIZE;
@@ -296,7 +311,8 @@ export function makeUsageWindow(tool: Item, focus: Item, usages: ItemUse[], loc:
   const window = new GridiaWindow();
 
   window.setOnDraw(() => {
-    window.contents.removeChildren();
+    destroyChildren(window.contents);
+
     for (const [i, usage] of usages.entries()) {
       const item = usage.products[0];
       const itemSprite = makeItemSprite(item);
