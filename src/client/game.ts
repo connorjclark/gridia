@@ -194,7 +194,7 @@ class CreatureSprite extends PIXI.Sprite {
     // uniforms.time = now / 1000;
     // filters.push(testFilter);
 
-    this.removeChildren();
+    Draw.destroyChildren(this);
     this.addChild(creatureGfx);
   }
 

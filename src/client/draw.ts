@@ -7,7 +7,7 @@ import { ItemMoveBeginEvent } from './event-emitter';
 import * as Helper from './helper';
 import { ImageResources } from './lazy-resource-loader';
 
-function destroyChildren(displayObject: PIXI.Container) {
+export function destroyChildren(displayObject: PIXI.Container) {
   if (displayObject.children.length === 0) return;
 
   for (const child of [...displayObject.children]) {

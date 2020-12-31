@@ -75,7 +75,7 @@ class WorldAnimationController {
         if (sound) game.playSound(sound);
       };
       sprite.onFrameChange();
-      sprite.onComplete = () => container.removeChild(sprite);
+      sprite.onComplete = () => sprite.destroy();
 
       const container = this.worldContainer.layers.animations;
       container.addChild(sprite);
@@ -295,7 +295,7 @@ export class WorldContainer extends PIXI.Container {
   }
 
   private drawGrid() {
-    while (this.layers.grid.children.length) this.layers.grid.removeChildAt(0);
+    Draw.destroyChildren(this.layers.grid);
 
     const { width, height } = this.camera;
 
@@ -318,7 +318,7 @@ export class WorldContainer extends PIXI.Container {
       if (w === this.camera.focus.w && z === this.camera.focus.z &&
         x >= this.camera.left && x <= this.camera.right && y >= this.camera.top && y <= this.camera.bottom) continue;
 
-      tile.remove();
+      tile.destroy();
       this.tiles.delete(key);
     }
   }
@@ -355,13 +355,17 @@ class Tile {
     worldContainer.layers.light.addChild(this.light);
   }
 
-  public remove() {
-    if (this.floor) this.worldContainer.layers.floors.removeChild(this.floor);
-    if (this.item) this.worldContainer.layers.items.removeChild(this.item);
-    this.worldContainer.layers.tint.removeChild(this.tint);
-    this.worldContainer.layers.light.removeChild(this.light);
+  public destroy() {
+    if (this.floor) this.floor.destroy();
+    this.floor = undefined;
+
+    if (this.item) this.item.destroy();
+    this.item = undefined;
+
+    this.tint.destroy();
+    this.light.destroy();
     for (const sprite of Object.values(this.animationSprites)) {
-      this.worldContainer.layers.animations.removeChild(sprite);
+      sprite.destroy();
     }
   }
 
@@ -386,7 +390,7 @@ class Tile {
 
   public redrawFloor() {
     const container = this.worldContainer.layers.floors;
-    if (this.floor) container.removeChild(this.floor);
+    if (this.floor) this.floor.destroy();
 
     let texture;
     if (this.floorValue === WATER) {
@@ -429,7 +433,7 @@ class Tile {
 
   public redrawItem() {
     const container = this.worldContainer.layers.items;
-    if (this.item) container.removeChild(this.item);
+    if (this.item) this.item.destroy();
     if (!this.itemValue) return;
 
     let sprite;
