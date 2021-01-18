@@ -36115,7 +36115,6 @@
   {
     "id": 2378,
     "name": "Sulfur Ore",
-    "class": "Ore",
     "animations": [
       2238
     ],
@@ -36130,7 +36129,6 @@
   {
     "id": 2379,
     "name": "Phosphorous Ore",
-    "class": "Ore",
     "animations": [
       2239
     ],

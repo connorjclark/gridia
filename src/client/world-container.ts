@@ -7,8 +7,9 @@ import WorldMap from '../world-map';
 import * as Draw from './draw';
 import { getMineItem, getWaterFloor } from './template-draw';
 
+const MAX_LIGHT_POWER = 6;
 // TODO
-let ambientLight = 4;
+let ambientLight = MAX_LIGHT_POWER;
 
 interface Animation {
   location: Point4;
@@ -62,7 +63,7 @@ class WorldAnimationController {
   }
 
   public addAnimation(animation: Animation) {
-    this.animations.push(animation);
+    if (animation.tint) this.animations.push(animation);
 
     if (animation.frames) {
       const sprite = Draw.makeAnimationSprite(animation.frames.map((frame) => frame.sprite));
@@ -256,7 +257,7 @@ export class WorldContainer extends PIXI.Container {
   public computeLight() {
     const lights = realLighting(this.camera.focus, this);
 
-    for (const animation of [...this.animationController.animations]) {
+    for (const animation of this.animationController.animations) {
       const x = animation.location.x - this.camera.left;
       const y = animation.location.y - this.camera.top;
       if (x < 0 || y < 0 || x >= this.camera.width || y >= this.camera.height) continue;
@@ -286,7 +287,7 @@ export class WorldContainer extends PIXI.Container {
   private addListeners() {
     document.addEventListener('keyup', (e) => {
       if (e.key === 'l') {
-        ambientLight = (ambientLight + 1) % 7;
+        ambientLight = (ambientLight + 1) % (MAX_LIGHT_POWER + 1);
         this.computeLight();
         console.log({ ambientLight });
         return;
@@ -390,7 +391,10 @@ class Tile {
 
   public redrawFloor() {
     const container = this.worldContainer.layers.floors;
-    if (this.floor) this.floor.destroy();
+    if (this.floor) {
+      this.floor.destroy();
+      this.floor = undefined;
+    }
 
     let texture;
     if (this.floorValue === WATER) {
@@ -433,7 +437,10 @@ class Tile {
 
   public redrawItem() {
     const container = this.worldContainer.layers.items;
-    if (this.item) this.item.destroy();
+    if (this.item) {
+      this.item.destroy();
+      this.item = undefined;
+    }
     if (!this.itemValue) return;
 
     let sprite;
@@ -573,7 +580,6 @@ function realLighting(focusLoc: Point2, worldContainer: WorldContainer): LightRe
 
   // Convert from light number to alpha value.
   const MIN_LIGHT = 0.05;
-  const MAX_LIGHT_POWER = 6;
   for (let x = 0; x < cameraWidth; x++) {
     for (let y = 0; y < cameraHeight; y++) {
       const { light } = lights[x][y];

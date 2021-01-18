@@ -435,6 +435,11 @@ function convertItems() {
     blocksLight: true,
   });
 
+  // gfx are bad, so just remove from mining class for now.
+  for (const item of items.filter(item => item.name === 'Sulfur Ore' || item.name === 'Phosphorous Ore')) {
+    item.class = undefined;
+  }
+
   const explicitOrder = ['id', 'name', 'class'];
   return items.map((item) => sortObject(item, explicitOrder));
 }

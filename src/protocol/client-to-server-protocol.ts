@@ -13,24 +13,20 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
       return;
     }
 
-    if (!server.context.map.walkable(loc)) return;
-
-    if (server.context.map.getTile(loc).floor === MINE) {
+    if (server.context.map.getTile(loc).item?.type === MINE) {
       const container = server.currentClientConnection.container;
       const playerHasPick = container.hasItem(Content.getMetaItemByName('Pick').id);
       if (!playerHasPick) return;
 
-      server.context.map.getTile(loc).floor = 19;
-      server.broadcast(ProtocolBuilder.setFloor({
-        ...loc,
-        floor: 19,
-      }));
-      server.addItemNear(loc, { type: Content.getRandomMetaItemOfClass('Ore').id, quantity: 1 });
+      const minedItem = { type: Content.getRandomMetaItemOfClass('Ore').id, quantity: 1 };
+      server.setItem(loc, minedItem);
       server.broadcast(ProtocolBuilder.animation({
         ...loc,
         key: 'MiningSound',
       }));
     }
+
+    if (!server.context.map.walkable(loc)) return;
 
     // if (!server.inView(loc)) {
     //   return false

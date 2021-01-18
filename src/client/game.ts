@@ -381,12 +381,18 @@ class Game {
   }
 
   public addAnimation(animation: GridiaAnimation, loc: TilePoint) {
+    // TODO
+    let light = 0;
+    if (['WarpIn', 'WarpOut', 'LevelUp', 'Lightning', 'Burning'].includes(animation.name)) {
+      light = 4;
+    }
+
     this.worldContainer.animationController.addAnimation({
       location: loc,
       tint: 0,
       alpha: 1,
       decay: 0.1,
-      light: 4,
+      light,
       frames: animation.frames,
     });
   }

@@ -7,6 +7,7 @@ import { GameActionEvent } from '../event-emitter';
 import Game from '../game';
 import * as Helper from '../helper';
 import KEYS from '../keys';
+import { MINE } from '../../constants';
 
 const MOVEMENT_DURATION = 200;
 
@@ -94,7 +95,12 @@ class MovementModule extends ClientModule {
         Helper.openContainer(dest);
       }
 
-      if (this.game.client.context.map.walkable(dest)) {
+      let attemptToMine = false;
+      if (itemToMoveTo && Content.getMetaItem(itemToMoveTo.type).id === MINE) {
+        attemptToMine = true;
+      }
+
+      if (attemptToMine || this.game.client.context.map.walkable(dest)) {
         this.canMoveAgainAt = now + MOVEMENT_DURATION;
         this.movementDirection = {
           x: Utils.clamp(dest.x - focusPos.x, -1, 1),
