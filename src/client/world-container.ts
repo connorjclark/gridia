@@ -9,7 +9,7 @@ import { getMineItem, getWaterFloor } from './template-draw';
 
 const MAX_LIGHT_POWER = 6;
 // TODO
-let ambientLight = MAX_LIGHT_POWER;
+let ambientLight = 2;
 
 interface Animation {
   location: Point4;
@@ -255,7 +255,7 @@ export class WorldContainer extends PIXI.Container {
   }
 
   public computeLight() {
-    const lights = realLighting(this.camera.focus, this);
+    const lights = realLighting(this.camera.focus, this, game.client.settings.lightMode);
 
     for (const animation of this.animationController.animations) {
       const x = animation.location.x - this.camera.left;
@@ -480,7 +480,7 @@ class Tile {
 // ...
 
 // TODO: color blending.
-function realLighting(focusLoc: Point2, worldContainer: WorldContainer): LightResult {
+function realLighting(focusLoc: Point2, worldContainer: WorldContainer, lightMode: number): LightResult {
   const cameraWidth = worldContainer.camera.width;
   const cameraHeight = worldContainer.camera.height;
 
@@ -578,19 +578,31 @@ function realLighting(focusLoc: Point2, worldContainer: WorldContainer): LightRe
     new Visibility(blocksLight, setVisible_Light, getDistance).Compute({ x, y }, power * 5);
   }
 
-  // Convert from light number to alpha value.
-  const MIN_LIGHT = 0.05;
+  // TODO
+  let MAX_LIGHT_ALPHA = 0;
+  let HIDE_NOT_VISIBLE = false;
+  switch (lightMode) {
+  case 1:
+    MAX_LIGHT_ALPHA = 0.95;
+    HIDE_NOT_VISIBLE = true;
+    break;
+  case 2:
+    MAX_LIGHT_ALPHA = 1;
+    HIDE_NOT_VISIBLE = true;
+    break;
+  }
+
   for (let x = 0; x < cameraWidth; x++) {
     for (let y = 0; y < cameraHeight; y++) {
-      const { light } = lights[x][y];
-      let alpha = 0;
-      if (light >= MAX_LIGHT_POWER) alpha = 0;
-      else alpha = 1 - light / MAX_LIGHT_POWER;
+      let { light } = lights[x][y];
+      light = Utils.clamp(light, 0, MAX_LIGHT_POWER);
+      if (HIDE_NOT_VISIBLE && !visible[x][y]) light = 0;
 
-      lights[x][y].light = Math.min(alpha, 1 - MIN_LIGHT);
+      // Convert from light number to alpha value ... for some reason ...
+      light = 1 - light / MAX_LIGHT_POWER;
+      light = Utils.clamp(light, 0, MAX_LIGHT_ALPHA);
 
-      // TODO: toggle to actually 100% block visiblity (no min. ambient light)
-      // if (!visible[x][y]) lights[x][y].light = Math.max(lights[x][y].light, 0.9);
+      lights[x][y].light = light;
     }
   }
 

@@ -4,6 +4,7 @@ import * as Helper from '../helper';
 export interface Settings {
   showGrid: boolean;
   volume: number;
+  lightMode: number;
 }
 
 type SettingKey = keyof Settings;
@@ -21,6 +22,14 @@ const Settings: Record<SettingKey, any> = {
     label: 'Show Grid',
     type: 'boolean',
     default: true,
+  },
+  lightMode: {
+    label: 'Light Mode',
+    type: 'number',
+    default: 2,
+    min: 0,
+    max: 2,
+    step: 1,
   },
 };
 
