@@ -71,10 +71,10 @@ function setItemInContainer(id: number, index: number, item: Item) {
   client.context.containers.get(id).items[index] = clone(item);
 }
 
-function setFloor(location: TilePoint, floor: number) {
-  server.context.map.getTile(location).floor = floor;
-  client.context.map.getTile(location).floor = floor;
-}
+// function setFloor(location: TilePoint, floor: number) {
+//   server.context.map.getTile(location).floor = floor;
+//   client.context.map.getTile(location).floor = floor;
+// }
 
 function assertItemInWorld(location: TilePoint, item: Item) {
   expect(server.context.map.getItem(location)).toEqual(item);
@@ -166,7 +166,7 @@ describe('move', () => {
   it('player can not move to mine wall without pickaxe in inventory', async () => {
     const from = {w: 0, x: 5, y: 5, z: 0};
     const to = {w: 0, x: 6, y: 5, z: 0};
-    setFloor(to, MINE);
+    setItem(to, {type: MINE});
 
     assertCreatureAt(from, creature.id);
     await send(ProtocolBuilder.move(to));
@@ -176,7 +176,7 @@ describe('move', () => {
   it('player can move to mine wall with pickaxe in inventory', async () => {
     const from = {w: 0, x: 5, y: 5, z: 0};
     const to = {w: 0, x: 6, y: 5, z: 0};
-    setFloor(to, MINE);
+    setItem(to, {type: MINE});
     setItemInContainer(client.player.containerId, 0, {type: Content.getMetaItemByName('Pick').id, quantity: 1});
 
     assertCreatureAt(from, creature.id);
