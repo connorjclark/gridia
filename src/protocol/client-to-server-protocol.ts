@@ -20,10 +20,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
 
       const minedItem = { type: Content.getRandomMetaItemOfClass('Ore').id, quantity: 1 };
       server.setItem(loc, minedItem);
-      server.broadcast(ProtocolBuilder.animation({
-        ...loc,
-        key: 'MiningSound',
-      }));
+      server.broadcastAnimation(loc, 'MiningSound');
     }
 
     if (!server.context.map.walkable(loc)) return;
@@ -180,10 +177,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     }
 
     if (use.animation) {
-      server.broadcast(ProtocolBuilder.animation({
-        ...loc,
-        key: use.animation,
-      }));
+      server.broadcastAnimation(loc, use.animation);
     }
 
     if (use.skill && use.skillSuccessXp) {

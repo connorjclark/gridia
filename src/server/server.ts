@@ -63,6 +63,19 @@ export default class Server {
     this.outboundMessages.push({ filter, message });
   }
 
+  public broadcastInRange(message: ServerToClientMessage, loc: TilePoint, range: number) {
+    this.conditionalBroadcast(message, (client) => {
+      const loc2 = client.player.creature.pos;
+      if (loc2.z !== loc.z || loc2.w !== loc.w) return false;
+
+      return Utils.dist(loc, loc2) <= range;
+    });
+  }
+
+  public broadcastAnimation(pos: TilePoint, name: string) {
+    this.broadcastInRange(ProtocolBuilder.animation({ ...pos, key: name }), pos, 30);
+  }
+
   public start() {
     this.taskRunner.start();
   }
@@ -143,10 +156,7 @@ export default class Server {
     this.clientConnections.splice(this.clientConnections.indexOf(clientConnection), 1);
     if (clientConnection.player) {
       this.removeCreature(clientConnection.player.creature);
-      this.broadcast(ProtocolBuilder.animation({
-        ...clientConnection.player.creature.pos,
-        key: 'WarpOut',
-      }));
+      this.broadcastAnimation(clientConnection.player.creature.pos, 'WarpOut');
     }
   }
 
@@ -225,18 +235,12 @@ export default class Server {
     this.broadcast(ProtocolBuilder.setCreature({ partial: true, id: creature.id, life: creature.life }));
 
     if (delta < 0) {
-      this.broadcast(ProtocolBuilder.animation({
-        ...creature.pos,
-        key: 'Attack',
-      }));
+      this.broadcastAnimation(creature.pos, 'Attack');
     }
 
     if (creature.life <= 0) {
       this.removeCreature(creature);
-      this.broadcast(ProtocolBuilder.animation({
-        ...creature.pos,
-        key: 'diescream',
-      }));
+      this.broadcastAnimation(creature.pos, 'diescream');
     }
   }
 
@@ -436,7 +440,7 @@ export default class Server {
     clientConnection.send(ProtocolBuilder.container(await this.context.getContainer(clientConnection.container.id)));
     this.updateCreatureLight(clientConnection);
     setTimeout(() => {
-      this.broadcast(ProtocolBuilder.animation({ ...player.creature.pos, key: 'WarpIn' }));
+      this.broadcastAnimation(player.creature.pos, 'WarpIn');
     }, 1000);
   }
 
@@ -476,17 +480,11 @@ export default class Server {
             }
             if (!newPos || !map.inBounds(newPos) || !await map.walkableAsync(newPos)) continue;
 
-            await this.warpCreature(creature, newPos);
             if (playWarpSound) {
-              this.broadcast(ProtocolBuilder.animation({
-                ...creature.pos,
-                key: 'WarpOut',
-              }));
-              this.broadcast(ProtocolBuilder.animation({
-                ...newPos,
-                key: 'WarpIn',
-              }));
+              this.broadcastAnimation(creature.pos, 'WarpOut');
+              this.broadcastAnimation(newPos, 'WarpIn');
             }
+            await this.warpCreature(creature, newPos);
           }
         }
       },
