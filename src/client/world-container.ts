@@ -596,10 +596,14 @@ function realLighting(focusLoc: Point3, worldContainer: WorldContainer, lightMod
   let HIDE_NOT_VISIBLE = false;
   switch (lightMode) {
   case 1:
-    MAX_LIGHT_ALPHA = 0.95;
+    MAX_LIGHT_ALPHA = 0.7;
     HIDE_NOT_VISIBLE = true;
     break;
   case 2:
+    MAX_LIGHT_ALPHA = 0.95;
+    HIDE_NOT_VISIBLE = true;
+    break;
+  case 3:
     MAX_LIGHT_ALPHA = 1;
     HIDE_NOT_VISIBLE = true;
     break;

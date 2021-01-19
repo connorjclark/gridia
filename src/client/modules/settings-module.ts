@@ -26,9 +26,9 @@ const Settings: Record<SettingKey, any> = {
   lightMode: {
     label: 'Light Mode',
     type: 'number',
-    default: 2,
+    default: 3,
     min: 0,
-    max: 2,
+    max: 3,
     step: 1,
   },
 };
