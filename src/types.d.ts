@@ -74,6 +74,7 @@ interface Creature {
   life: number;
   food: number;
   eat_grass: boolean;
+  light: number;
 }
 
 type ServerToClientMessage = import('./protocol/gen/server-to-client-protocol-builder').Message;

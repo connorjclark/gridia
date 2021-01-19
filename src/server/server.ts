@@ -102,6 +102,7 @@ export default class Server {
       life: 1000,
       food: 100,
       eat_grass: false,
+      light: 0,
     });
 
     const player = new Player(creature);
@@ -127,6 +128,7 @@ export default class Server {
       clientConnection.container.items[5] = { type: Content.getMetaItemByName('Soccer Ball').id, quantity: 1 };
       clientConnection.container.items[6] = { type: Content.getMetaItemByName('Saw').id, quantity: 1 };
       clientConnection.container.items[7] = { type: Content.getMetaItemByName('Hammer and Nails').id, quantity: 1 };
+      clientConnection.container.items[7] = { type: Content.getMetaItemByName('Lit Torch').id, quantity: 1 };
     }
 
     this.players.set(player.id, player);
@@ -169,6 +171,7 @@ export default class Server {
       life: template.life,
       food: 10,
       eat_grass: template.eat_grass,
+      light: 0,
     };
 
     this.registerCreature(creature);
@@ -319,10 +322,22 @@ export default class Server {
     }));
   }
 
+  public updateCreatureLight(client: ClientConnection) {
+    const light = client.container.items.reduce((acc, cur) => {
+      if (!cur) return acc;
+      return Math.max(acc, Content.getMetaItem(cur.type).light);
+    }, 0);
+    if (light === client.player.creature.light) return;
+
+    client.player.creature.light = light;
+    this.broadcastPartialCreatureUpdate(client.player.creature, ['light']);
+  }
+
   public setItemInContainer(id: number, index: number, item?: Item) {
     const container = this.context.containers.get(id);
     if (!container) throw new Error(`no container: ${id}`);
 
+    const prevItem = container.items[index];
     container.items[index] = item || null;
 
     this.conditionalBroadcast(ProtocolBuilder.setItem({
@@ -330,6 +345,14 @@ export default class Server {
       item,
     }), (clientConnection) =>
       clientConnection.container.id === id || clientConnection.registeredContainers.includes(id));
+
+    // TODO: should light sources be equippable and only set creature light then?
+    if ((prevItem && Content.getMetaItem(prevItem.type).light) || (item && Content.getMetaItem(item.type).light)) {
+      const client = this.clientConnections.find((c) => c.container.id === id);
+      if (!client) return;
+
+      this.updateCreatureLight(client);
+    }
   }
 
   public addItemToContainer(id: number, index: number | undefined, item: Item) {
@@ -409,6 +432,7 @@ export default class Server {
     // TODO: remove this line since "register creature" does the same. but removing breaks tests ...
     clientConnection.send(ProtocolBuilder.setCreature({ partial: false, ...player.creature }));
     clientConnection.send(ProtocolBuilder.container(await this.context.getContainer(clientConnection.container.id)));
+    this.updateCreatureLight(clientConnection);
     setTimeout(() => {
       this.broadcast(ProtocolBuilder.animation({ ...player.creature.pos, key: 'WarpIn' }));
     }, 1000);

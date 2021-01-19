@@ -526,19 +526,32 @@ function realLighting(focusLoc: Point2, worldContainer: WorldContainer, lightMod
 
   const lightSources: Array<{ x: number; y: number; power: number; tint?: number; alpha?: number }> = [];
   worldContainer.forEachInCamera((tile, loc) => {
-    const item = worldContainer.map.getItem(loc);
-    const meta = item && Content.getMetaItem(item.type);
-    if (!meta || !meta.light) return;
+    const {item, creature} = worldContainer.map.getTile(loc);
 
-    lightSources.push({
-      x: loc.x,
-      y: loc.y,
-      tint: 0x550000,
-      // TODO: makes torches look odd in full daylight. Maybe will be ok after color blending.
-      // power: 6 + Math.sin(performance.now() / 500) * 0.5,
-      power: 5.5 + Math.sin(performance.now() / 500) * 0.5,
-      alpha: 0.3 + Math.sin(performance.now() / 500) * 0.05,
-    });
+    const meta = item && Content.getMetaItem(item.type);
+    if (meta && meta.light) {
+      lightSources.push({
+        x: loc.x,
+        y: loc.y,
+        tint: 0x550000,
+        // TODO: makes torches look odd in full daylight. Maybe will be ok after color blending.
+        // power: 6 + Math.sin(performance.now() / 500) * 0.5,
+        power: meta.light + Math.sin(performance.now() / 500) * 0.5,
+        alpha: 0.3 + Math.sin(performance.now() / 500) * 0.05,
+      });
+    }
+
+    if (creature && creature.light) {
+      lightSources.push({
+        x: loc.x,
+        y: loc.y,
+        // tint: 0x000000,
+        // TODO: makes torches look odd in full daylight. Maybe will be ok after color blending.
+        // power: 6 + Math.sin(performance.now() / 500) * 0.5,
+        power: creature.light + Math.sin(performance.now() / 500) * 0.5,
+        alpha: 0.3 + Math.sin(performance.now() / 500) * 0.05,
+      });
+    }
   });
 
   for (const animation of worldContainer.animationController.animations) {
