@@ -5,7 +5,8 @@ NVM_DIR="$HOME/.nvm"
 NODE_VERSION=$(node -e 'console.log(require("./package.json").engines.node)')
 nvm use $NODE_VERSION
 
-node /root/gridia/gridia-2019-wip/dist/server/server/run.js \
+cd /root/gridia/gridia-2019-wip
+node -r source-map-support/register dist/server/server/run.js \
   --ssl-cert /etc/letsencrypt/live/hoten.cc/fullchain.pem \
   --ssl-key /etc/letsencrypt/live/hoten.cc/privkey.pem \
   --verbose
