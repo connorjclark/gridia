@@ -6,6 +6,7 @@ import ClientToServerProtocol from '../protocol/client-to-server-protocol';
 import * as ProtocolBuilder from '../protocol/server-to-client-protocol-builder';
 import * as Utils from '../utils';
 import WorldMapPartition from '../world-map-partition';
+import { WorldTime } from '../world-time';
 import ClientConnection from './client-connection';
 import CreatureState from './creature-state';
 import { ServerContext } from './server-context';
@@ -38,7 +39,9 @@ export default class Server {
   public verbose: boolean;
   public taskRunner = new TaskRunner(50);
 
-  private _time = 12;
+  public secondsPerWorldTick = 20;
+  public ticksPerWorldDay = 24 * 60 * 60 / this.secondsPerWorldTick / 8;
+  public time = new WorldTime(this.ticksPerWorldDay, this.ticksPerWorldDay / 2);
   private _clientToServerProtocol = new ClientToServerProtocol();
 
   public constructor(opts: CtorOpts) {
@@ -419,13 +422,35 @@ export default class Server {
     return this.ensureSectorLoaded({ w: loc.w, ...sectorPoint });
   }
 
+  public advanceTime(ticks: number) {
+    // const ticks = gameHours * (this.ticksPerWorldDay / 24);
+    this.time.epoch += ticks;
+    this.broadcast(ProtocolBuilder.time({epoch: this.time.epoch}));
+
+    // TODO
+    // for (let i = 0; i < ticks; i++) {
+    //   for (const [w, partition] of this.context.map.getPartitions()) {
+    //     Array.from(this.growPartition(w, partition));
+    //   }
+    // }
+  }
+
   private async initClient(clientConnection: ClientConnection) {
     const player = clientConnection.player;
 
     clientConnection.send(ProtocolBuilder.initialize({
       player,
+      secondsPerWorldTick: this.secondsPerWorldTick,
+      ticksPerWorldDay: this.ticksPerWorldDay,
     }));
-    clientConnection.send(ProtocolBuilder.time({time: this._time}));
+    clientConnection.send(ProtocolBuilder.time({epoch: this.time.epoch}));
+
+    clientConnection.send(ProtocolBuilder.chat({
+      from: 'World',
+      to: '', // TODO
+      message: `The time is ${this.time.toString()}`,
+    }));
+
     // TODO need much better loading.
     for (const [w, partition] of this.context.map.getPartitions()) {
       clientConnection.send(ProtocolBuilder.initializePartition({
@@ -490,19 +515,43 @@ export default class Server {
       },
     });
 
-    // Handle growth.
+    // Handle time.
     // TODO: Only load part of the world in memory and simulate growth of inactive areas on load.
     const server = this;
     this.taskRunner.registerTickSection({
-      description: 'growth',
+      description: 'time',
       // RPGWO does 20 second growth intervals.
-      rate: { seconds: 20 },
+      rate: { seconds: this.secondsPerWorldTick },
       *generator() {
+        server.time.epoch += 1;
+
         for (const [w, partition] of server.context.map.getPartitions()) {
           yield* server.growPartition(w, partition);
         }
       },
     });
+
+    this.taskRunner.registerTickSection({
+      description: 'sync time',
+      rate: {minutes: 1},
+      fn: () => {
+        server.broadcast(ProtocolBuilder.time({epoch: server.time.epoch}));
+      },
+    });
+
+    // Handle time.
+    // let lastTimeSync = this._epochTicks;
+    // this.taskRunner.registerTickSection({
+    //   description: 'day/night',
+    //   rate: { minutes: 1 },
+    //   fn: () => {
+    //     this._time += this._realTimeToGameTimeRatio;
+    //     if (this._time - lastTimeSync > 60) {
+    //       this.broadcast(ProtocolBuilder.time({time: this._time}));
+    //       lastTimeSync = this._time;
+    //     }
+    //   },
+    // });
 
     // Handle hunger.
     this.taskRunner.registerTickSection({
@@ -519,16 +568,6 @@ export default class Server {
             creature.food -= 1;
           }
         }
-      },
-    });
-
-    // Handle day/night.
-    this.taskRunner.registerTickSection({
-      description: 'day/night',
-      rate: { minutes: 10 },
-      fn: () => {
-        this._time = (this._time + 1) % 24;
-        this.broadcast(ProtocolBuilder.time({time: this._time}));
       },
     });
 

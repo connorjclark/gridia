@@ -1,5 +1,6 @@
 export interface Command {
   args: Array<{name: string; type: string; optional?: boolean}>;
+  help?: string;
   do(args: any): string|void;
 }
 

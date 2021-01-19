@@ -17,8 +17,10 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
     client.context.containers.set(container.id, new Container(container.id, container.items));
   }
 
-  public onInitialize(client: Client, { player }: Params.Initialize): void {
+  public onInitialize(client: Client, { player, secondsPerWorldTick, ticksPerWorldDay }: Params.Initialize): void {
     client.player = player;
+    client.secondsPerWorldTick = secondsPerWorldTick;
+    client.ticksPerWorldDay = ticksPerWorldDay;
   }
 
   public onInitializePartition(client: Client, { ...pos }: Params.InitializePartition): void {
@@ -99,7 +101,7 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
     // handled by game.ts
   }
 
-  public onTime(client: Client, { time }: Params.Time): void {
+  public onTime(client: Client, { epoch }: Params.Time): void {
     // handled by game.ts
   }
 }

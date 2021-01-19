@@ -10,6 +10,9 @@ class Client {
   // @ts-ignore set later.
   public player: Player;
 
+  public secondsPerWorldTick = 0;
+  public ticksPerWorldDay = 0;
+
   public eventEmitter = new EventEmitter();
   // @ts-ignore set later.
   public settings: Settings = {};

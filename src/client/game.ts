@@ -4,6 +4,7 @@ import { game } from '../game-singleton';
 import { calcStraightLine } from '../lib/line';
 import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
 import * as Utils from '../utils';
+import { WorldTime } from '../world-time';
 import Client from './client';
 import * as Draw from './draw';
 import { ItemMoveBeginEvent, ItemMoveEndEvent } from './event-emitter';
@@ -239,6 +240,9 @@ class Game {
 
   private _soundCache: Record<string, PIXI.sound.Sound> = {};
 
+  private _lastSyncedEpoch = 0;
+  private _lastSyncedRealTime = 0;
+
   public constructor(public client: Client) {
     this.state = {
       mouse: {
@@ -263,6 +267,12 @@ class Game {
       // TODO: AdminClientModule should create the panel. Until then, manually remove panel.
       Helper.find('.panels__tab[data-panel="admin"]').remove();
     }
+  }
+
+  public get worldTime() {
+    const realSecondsSinceLastSync = (Date.now() - this._lastSyncedRealTime) / 1000;
+    const epoch = this._lastSyncedEpoch + realSecondsSinceLastSync / this.client.secondsPerWorldTick;
+    return new WorldTime(this.client.ticksPerWorldDay, epoch).time;
   }
 
   public isEditingMode() {
@@ -339,17 +349,8 @@ class Game {
       }
 
       if (e.type === 'time') {
-        // Hand-picked values.
-        const light = [
-          0, 0, 0, 0, // 12AM
-          0, 1, 2, 3, // 4AM
-          4, 5, 6, 6, // 8AM
-          7, 7, 7, 7, // 12PM
-          6, 5, 5, 4, // 4PM
-          4, 3, 2, 1, // 8PM
-        ][e.args.time];
-        this.worldContainer.ambientLight = light;
-        this.addToChat(`World: The time is ${e.args.time.toString().padStart(2, '0')}00.`);
+        this._lastSyncedEpoch = e.args.epoch;
+        this._lastSyncedRealTime = Date.now();
       }
     });
 
@@ -754,6 +755,17 @@ class Game {
 
     const tilesWidth = Math.ceil(this.app.view.width / GFX_SIZE);
     const tilesHeight = Math.ceil(this.app.view.height / GFX_SIZE);
+
+    // Hand-picked values.
+    const light = [
+      0, 0, 0, 0, // 12AM
+      0, 1, 2, 3, // 4AM
+      4, 5, 6, 6, // 8AM
+      7, 7, 7, 7, // 12PM
+      6, 5, 5, 4, // 4PM
+      4, 3, 2, 1, // 8PM
+    ][this.worldTime.hour];
+    this.worldContainer.ambientLight = light;
 
     this.worldContainer.camera.width = tilesWidth;
     this.worldContainer.camera.height = tilesHeight;

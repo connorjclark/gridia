@@ -91,6 +91,6 @@ export function xp({ skill, xp }: ServerToClientProtocol.Params.Xp): XpMessage {
 export function chat({ from, to, message }: ServerToClientProtocol.Params.Chat): ChatMessage {
     return { type: "chat", args: arguments[0] };
 }
-export function time({ time }: ServerToClientProtocol.Params.Time): TimeMessage {
+export function time({ epoch }: ServerToClientProtocol.Params.Time): TimeMessage {
     return { type: "time", args: arguments[0] };
 }

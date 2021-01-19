@@ -354,6 +354,25 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
             }
           },
         },
+        time: {
+          args: [],
+          do() {
+            server.currentClientConnection.send(ProtocolBuilder.chat({
+              from: 'World',
+              to: '', // TODO
+              message: `The time is ${server.time.toString()}`,
+            }));
+          },
+        },
+        advanceTime: {
+          args: [
+            {name: 'ticks', type: 'number'},
+          ],
+          help: `1 hour=${server.ticksPerWorldDay / 24}`,
+          do(args: {ticks: number}) {
+            server.advanceTime(args.ticks);
+          },
+        },
         help: {
           args: [],
           do() {
@@ -362,6 +381,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
             for (const [commandName, data] of sortedCommands) {
               const args = data.args.map((a) => `${a.name} [${a.type}${a.optional ? '?' : ''}]`).join(' ');
               messageBody += `/${commandName} ${args}\n`;
+              if (data.help) messageBody += `  ${data.help}\n`;
             }
             server.reply(ProtocolBuilder.chat({ from: 'SERVER', to, message: messageBody }));
           },

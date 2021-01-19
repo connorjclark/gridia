@@ -77,6 +77,8 @@ declare namespace ServerToClientProtocol {
 
     interface Initialize {
       player: Player;
+      secondsPerWorldTick: number;
+      ticksPerWorldDay: number;
     }
 
     interface InitializePartition extends TilePoint {
@@ -119,7 +121,7 @@ declare namespace ServerToClientProtocol {
     }
 
     interface Time {
-      time: number;
+      epoch: number;
     }
   }
 }
