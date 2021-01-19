@@ -98,4 +98,8 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
   public onChat(client: Client, { from, to, message }: Params.Chat): void {
     // handled by game.ts
   }
+
+  public onTime(client: Client, { time }: Params.Time): void {
+    // handled by game.ts
+  }
 }

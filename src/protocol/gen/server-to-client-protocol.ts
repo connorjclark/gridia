@@ -15,4 +15,5 @@ export default interface IServerToClientProtocol {
     onSetItem(client: Client, { location, item }: ServerToClientProtocol.Params.SetItem): void;
     onXp(client: Client, { skill, xp }: ServerToClientProtocol.Params.Xp): void;
     onChat(client: Client, { from, to, message }: ServerToClientProtocol.Params.Chat): void;
+    onTime(client: Client, { time }: ServerToClientProtocol.Params.Time): void;
 }

@@ -117,5 +117,9 @@ declare namespace ServerToClientProtocol {
       to: string;
       message: string;
     }
+
+    interface Time {
+      time: number;
+    }
   }
 }

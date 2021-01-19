@@ -38,6 +38,7 @@ export default class Server {
   public verbose: boolean;
   public taskRunner = new TaskRunner(50);
 
+  private _time = 12;
   private _clientToServerProtocol = new ClientToServerProtocol();
 
   public constructor(opts: CtorOpts) {
@@ -420,6 +421,7 @@ export default class Server {
     clientConnection.send(ProtocolBuilder.initialize({
       player,
     }));
+    clientConnection.send(ProtocolBuilder.time({time: this._time}));
     // TODO need much better loading.
     for (const [w, partition] of this.context.map.getPartitions()) {
       clientConnection.send(ProtocolBuilder.initializePartition({
@@ -519,6 +521,16 @@ export default class Server {
             creature.food -= 1;
           }
         }
+      },
+    });
+
+    // Handle day/night.
+    this.taskRunner.registerTickSection({
+      description: 'day/night',
+      rate: { minutes: 10 },
+      fn: () => {
+        this._time = (this._time + 1) % 24;
+        this.broadcast(ProtocolBuilder.time({time: this._time}));
       },
     });
 

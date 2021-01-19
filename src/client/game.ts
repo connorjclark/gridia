@@ -335,10 +335,21 @@ class Game {
       }
 
       if (e.type === 'chat') {
-        const chatTextarea = Helper.find('.chat-area') as HTMLTextAreaElement;
-        const isMaxScroll = (chatTextarea.scrollTop + chatTextarea.offsetHeight) >= chatTextarea.scrollHeight;
-        chatTextarea.value += `${e.args.from}: ${e.args.message}\n`;
-        if (isMaxScroll) chatTextarea.scrollTop = chatTextarea.scrollHeight;
+        this.addToChat(`${e.args.from}: ${e.args.message}`);
+      }
+
+      if (e.type === 'time') {
+        // Hand-picked values.
+        const light = [
+          0, 0, 0, 0, // 12AM
+          0, 1, 2, 3, // 4AM
+          4, 5, 6, 6, // 8AM
+          7, 7, 7, 7, // 12PM
+          6, 5, 5, 4, // 4PM
+          4, 3, 2, 1, // 8PM
+        ][e.args.time];
+        this.worldContainer.ambientLight = light;
+        this.addToChat(`World: The time is ${e.args.time.toString().padStart(2, '0')}00.`);
       }
     });
 
@@ -875,6 +886,13 @@ class Game {
     actionEl.dataset.action = JSON.stringify(opts.action);
     if (opts.loc) actionEl.dataset.loc = JSON.stringify(opts.loc);
     if (opts.creature) actionEl.dataset.creatureId = String(opts.creature.id);
+  }
+
+  private addToChat(line: string) {
+    const chatTextarea = Helper.find('.chat-area') as HTMLTextAreaElement;
+    const isMaxScroll = (chatTextarea.scrollTop + chatTextarea.offsetHeight) >= chatTextarea.scrollHeight;
+    chatTextarea.value += `${line}\n`;
+    if (isMaxScroll) chatTextarea.scrollTop = chatTextarea.scrollHeight;
   }
 }
 

@@ -8,8 +8,6 @@ import * as Draw from './draw';
 import { getMineItem, getWaterFloor } from './template-draw';
 
 const MAX_LIGHT_POWER = 6;
-// TODO
-let ambientLight = 2;
 
 interface Animation {
   location: Point4;
@@ -206,6 +204,8 @@ export class WorldContainer extends PIXI.Container {
 
   public animationController = new WorldAnimationController(this);
 
+  public ambientLight = 0;
+
   private tiles = new Map<string, Tile>();
 
   public constructor(public map: WorldMap) {
@@ -287,9 +287,9 @@ export class WorldContainer extends PIXI.Container {
   private addListeners() {
     document.addEventListener('keyup', (e) => {
       if (e.key === 'l') {
-        ambientLight = (ambientLight + 1) % (MAX_LIGHT_POWER + 1);
+        this.ambientLight = (this.ambientLight + 1) % (MAX_LIGHT_POWER + 1);
         this.computeLight();
-        console.log({ ambientLight });
+        console.log({ ambientLight: this.ambientLight });
         return;
       }
     });
@@ -480,7 +480,7 @@ class Tile {
 // ...
 
 // TODO: color blending.
-function realLighting(focusLoc: Point2, worldContainer: WorldContainer, lightMode: number): LightResult {
+function realLighting(focusLoc: Point3, worldContainer: WorldContainer, lightMode: number): LightResult {
   const cameraWidth = worldContainer.camera.width;
   const cameraHeight = worldContainer.camera.height;
 
@@ -496,7 +496,7 @@ function realLighting(focusLoc: Point2, worldContainer: WorldContainer, lightMod
   for (let x = 0; x < cameraWidth; x++) {
     lights[x] = [];
     for (let y = 0; y < cameraHeight; y++) {
-      lights[x][y] = { light: ambientLight };
+      lights[x][y] = { light: focusLoc.z === 0 ? worldContainer.ambientLight : 0 };
     }
   }
 
