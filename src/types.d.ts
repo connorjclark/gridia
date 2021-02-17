@@ -186,14 +186,6 @@ interface ServerWorkerOpts extends ServerOptions {
   useMapPreview?: boolean;
 }
 
-declare module 'pixi-scrollbox' {
-  class Scrollbox {
-    content: PIXI.Container;
-    constructor(...args: any[]);
-    update(): void;
-  }
-}
-
 declare module 'pixi-text-input' {
   class TextInput {
     placeholder: string;
@@ -207,7 +199,6 @@ declare module 'pixi-text-input' {
 
 declare namespace PIXI {
   // const PIXISound: any;
-  let Scrollbox: typeof import('pixi-scrollbox').Scrollbox;
   let OutlineFilter: typeof import('@pixi/filter-outline').OutlineFilter;
   let TextInput: typeof import('pixi-text-input').default;
 }

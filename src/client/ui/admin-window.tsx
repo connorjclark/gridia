@@ -58,7 +58,7 @@ export function makeWindow(adminModule: AdminModule): HTMLElement {
             maxWidth: '32px',
             height: '32px',
           }}
-          onClick={() => adminModule.setSelectedContent({ type: 'Items', id: metaItem.id })}
+          onClick={() => adminModule.setSelectedContent({ type: 'items', id: metaItem.id })}
         ></div>;
       })}
     </div>;
@@ -146,7 +146,6 @@ export function makeWindow(adminModule: AdminModule): HTMLElement {
     setItemClassFilter(itemClass: string) {
       const isSame = itemClass === this.state.selectionFilter.itemClass;
       const newValue = isSame ? '' : itemClass;
-      console.log(newValue);
       this.setState({ ...this.state, selectionFilter: { ...this.state.selectionFilter, itemClass: newValue } });
     }
   }

@@ -6670,13 +6670,6 @@ pirates@^4.0.1:
   dependencies:
     node-modules-regexp "^1.0.0"
 
-pixi-scrollbox@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/pixi-scrollbox/-/pixi-scrollbox-2.1.1.tgz#69d1a9c102ae398dfa8ab2495381ec70f949c40c"
-  integrity sha512-oBA9jRjcziOfLRQ3IBisTNUngBqhY685hNiu4mYc1sLv56Ft77LPNAKJDtWxcqAcWHHf8dR0EVmbvYTpfxHORA==
-  dependencies:
-    penner "^0.1.3"
-
 pixi-sound@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/pixi-sound/-/pixi-sound-3.0.4.tgz#de2b1bfaccf92e8ef4a2352d272e6608f4588eed"
