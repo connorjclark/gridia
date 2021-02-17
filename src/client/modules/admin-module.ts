@@ -19,9 +19,11 @@ class AdminModule extends ClientModule {
       if (panelName === 'admin') {
         await this.init();
         this.getAdminWindow().hidden = false;
+        this.game.worldContainer.camera.centerElasticity = this.game.worldContainer.camera.RIGHT_CENTER_ELASTICITY;
       } else if (this._adminWindow) {
         this.setSelectedContent(undefined);
         this._adminWindow.hidden = true;
+        this.game.worldContainer.camera.centerElasticity = this.game.worldContainer.camera.DEFAULT_CENTER_ELASTICITY;
       }
     });
   }

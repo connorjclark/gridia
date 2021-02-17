@@ -119,14 +119,20 @@ class WorldAnimationController {
 }
 
 class Camera {
+  DEFAULT_CENTER_ELASTICITY = { left: 0.4, right: 0.6, top: 0.4, bottom: 0.6 };
+  RIGHT_CENTER_ELASTICITY = { left: 0.65, right: 0.85, top: 0.4, bottom: 0.6 };
+
   left = 0;
   top = 0;
   width = 0;
   height = 0;
-  // If 0, camera will be centered on player.
-  // TODO: change to "center boundrary".
-  edgeBoundary = 10;
   focus: Point4 = { w: 0, x: 0, y: 0, z: 0 };
+  /**
+   * 0 - 1
+   *
+   * Moving beyond this inner bound will push the camera bounds to track the focus.
+   */
+  centerElasticity = this.DEFAULT_CENTER_ELASTICITY;
 
   get right() {
     return this.left + this.width;
@@ -138,7 +144,7 @@ class Camera {
   constructor(private worldContainer: WorldContainer) { }
 
   /**
-   * Adjusts `camera.left` and `camera.top` if necessary to maintain `camera.edgeBoundary` constraint.
+   * Adjusts `camera.left` and `camera.top` if necessary to maintain `camera.centerElasticity` constraint.
    * If new camera focus is much different from previous, center the camera on the new focus location.
    *
    * @param loc New location of camera focus (example: player location).
@@ -148,26 +154,21 @@ class Camera {
 
     this.focus = { ...loc };
 
-    let edgeBoundary = this.edgeBoundary;
-    if (edgeBoundary >= this.width / 2 || edgeBoundary >= this.height / 2) edgeBoundary = 0;
+    const leftBoundary = Math.round(this.left + this.width * this.centerElasticity.left);
+    const rightBoundary = Math.round(this.left + this.width * this.centerElasticity.right);
+    const topBoundary = Math.round(this.top + this.height * this.centerElasticity.top);
+    const botomBoundary = Math.round(this.top + this.height * this.centerElasticity.bottom);
 
-    if (edgeBoundary) {
-      if (loc.x - this.left < edgeBoundary) {
-        this.left = loc.x - edgeBoundary;
-      } else if (this.width - (loc.x - this.left) - 1 < edgeBoundary) {
-        this.left = edgeBoundary - (this.width - loc.x) + 1;
-      }
+    if (loc.x < leftBoundary) {
+      this.left = loc.x - Math.round(this.width * this.centerElasticity.left);
+    } else if (loc.x > rightBoundary) {
+      this.left = loc.x - Math.round(this.width * this.centerElasticity.right);
+    }
 
-      if (loc.y - this.top < edgeBoundary) {
-        this.top = loc.y - edgeBoundary;
-      } else if (this.height - (loc.y - this.top) - 1 < edgeBoundary) {
-        this.top = edgeBoundary - (this.height - loc.y) + 1;
-      }
-    } else {
-      const centerX = Math.floor(this.width / 2);
-      const centerY = Math.floor(this.height / 2);
-      this.left = loc.x - centerX;
-      this.top = loc.y - centerY;
+    if (loc.y < topBoundary) {
+      this.top = loc.y - Math.round(this.height * this.centerElasticity.top);
+    } else if (loc.y > botomBoundary) {
+      this.top = loc.y - Math.round(this.height * this.centerElasticity.bottom);
     }
 
     const partition = this.worldContainer.map.getPartition(loc.w);
@@ -180,11 +181,12 @@ class Camera {
   }
 
   center() {
-    const edgeBoundary = this.edgeBoundary;
-    this.edgeBoundary = 0;
-    this.adjustFocus(this.focus);
-    this.edgeBoundary = edgeBoundary;
-    this.adjustFocus(this.focus);
+    // TODO is this needed now?
+    // const edgeBoundary = this.edgeBoundary;
+    // this.edgeBoundary = 0;
+    // this.adjustFocus(this.focus);
+    // this.edgeBoundary = edgeBoundary;
+    // this.adjustFocus(this.focus);
   }
 }
 
@@ -526,7 +528,7 @@ function realLighting(focusLoc: Point3, worldContainer: WorldContainer, lightMod
 
   const lightSources: Array<{ x: number; y: number; power: number; tint?: number; alpha?: number }> = [];
   worldContainer.forEachInCamera((tile, loc) => {
-    const {item, creature} = worldContainer.map.getTile(loc);
+    const { item, creature } = worldContainer.map.getTile(loc);
 
     const meta = item && Content.getMetaItem(item.type);
     if (meta && meta.light) {
