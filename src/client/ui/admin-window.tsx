@@ -27,9 +27,10 @@ export function makeWindow(adminModule: AdminModule): HTMLElement {
     { type: 'equal', value: 'None' },
   ]);
 
-  const itemFilters: Array<{ type: string; value: string }> = [];
+  const selectionFilters: Array<{ type: string; value: string }> = [];
+  selectionFilters.push({ type: 'floors', value: 'Floors' });
   for (const itemClass of itemClassesOrdered) {
-    itemFilters.push({ type: 'class', value: itemClass });
+    selectionFilters.push({ type: 'class', value: itemClass });
   }
 
   const Input = (props: any) => {
@@ -40,7 +41,30 @@ export function makeWindow(adminModule: AdminModule): HTMLElement {
     </Fragment>;
   };
 
-  const Selections = (props: { metaItems: MetaItem[] }) => {
+  interface SelectionProps {
+    id: number;
+    type: 'items' | 'floors';
+    backgroundImage: string;
+    x: number;
+    y: number;
+    title: string;
+  }
+  const Selection = (props: SelectionProps) => {
+    return <div
+      class="ui-admin--selection"
+      title={props.title}
+      style={{
+        backgroundImage: props.backgroundImage,
+        backgroundPosition: `-${props.x}px -${props.y}px`,
+        width: '32px',
+        maxWidth: '32px',
+        height: '32px',
+      }}
+      onClick={() => adminModule.setSelectedContent({ type: props.type, id: props.id })}
+    ></div>;
+  };
+
+  const ItemSelections = (props: { metaItems: MetaItem[] }) => {
     return <div class="ui-admin--selections">
       {props.metaItems.map((metaItem) => {
         const animation = metaItem.animations?.[0] || 0;
@@ -48,18 +72,34 @@ export function makeWindow(adminModule: AdminModule): HTMLElement {
         const x = animation % 10;
         const y = Math.floor(animation / 10) % 100;
 
-        return <div
-          class="ui-admin--selection"
+        return <Selection
+          backgroundImage={`url(world/items/items${spritesheetId}.png)`}
           title={metaItem.name}
-          style={{
-            backgroundImage: `url(world/items/items${spritesheetId}.png)`,
-            backgroundPosition: `-${x * 32}px -${y * 32}px`,
-            width: '32px',
-            maxWidth: '32px',
-            height: '32px',
-          }}
-          onClick={() => adminModule.setSelectedContent({ type: 'items', id: metaItem.id })}
-        ></div>;
+          x={x * 32}
+          y={y * 32}
+          id={metaItem.id}
+          type={'items'}
+        ></Selection>;
+      })}
+    </div>;
+  };
+
+  const FloorSelections = (props: { floors: MetaFloor[] }) => {
+    return <div class="ui-admin--selections">
+      {props.floors.map((floor) => {
+        const animation = floor.id;
+        const spritesheetId = Math.floor(animation / 100);
+        const x = animation % 10;
+        const y = Math.floor(animation / 10) % 100;
+
+        return <Selection
+          backgroundImage={`url(world/floors/floors${spritesheetId}.png)`}
+          title={'Floor'}
+          x={x * 32}
+          y={y * 32}
+          id={floor.id}
+          type={'floors'}
+        ></Selection>;
       })}
     </div>;
   };
@@ -70,7 +110,7 @@ export function makeWindow(adminModule: AdminModule): HTMLElement {
       text: string;
       page: number;
     };
-    selected: number;
+    // selected: number; // TODO
   }
   const DEFAULT_STATE: State = {
     selectionFilter: {
@@ -78,7 +118,7 @@ export function makeWindow(adminModule: AdminModule): HTMLElement {
       text: '',
       page: 0,
     },
-    selected: -1,
+    // selected: -1,
   };
 
   function filterMetaItems(itemClass: string, text: string) {
@@ -94,27 +134,39 @@ export function makeWindow(adminModule: AdminModule): HTMLElement {
     state = DEFAULT_STATE;
 
     render(props: any, state: State) {
-      const FilterMenuItems = itemFilters.map((filter) => {
-        if (filter.type === 'class') {
+      const FilterMenuItems = selectionFilters.map((filter) => {
+        let length = 0;
+        if (filter.type === 'floors') {
+          length = Content.getFloors().length;
+        } else {
           const metaItems = filterMetaItems(filter.value, state.selectionFilter.text);
-          const classes = [
-            'ui-admin--filter',
-          ];
-          const nonEmpty = metaItems.length > 0;
-          const enabled = nonEmpty &&
-            (!state.selectionFilter.itemClass || state.selectionFilter.itemClass === filter.value);
-          if (!enabled) classes.push('ui-admin--empty');
-          return <div class={classes.join(' ')} onClick={() => nonEmpty && this.setItemClassFilter(filter.value)}>
-            {filter.value} - {metaItems.length}
-          </div>;
+          length = metaItems.length;
         }
+
+        const classes = [
+          'ui-admin--filter',
+        ];
+        const nonEmpty = length > 0;
+        const enabled = nonEmpty &&
+          (!state.selectionFilter.itemClass || state.selectionFilter.itemClass === filter.value) &&
+          (filter.value !== 'Floors' || state.selectionFilter.itemClass === 'Floors');
+        if (!enabled) classes.push('ui-admin--empty');
+        return <div class={classes.join(' ')} onClick={() => nonEmpty && this.setItemClassFilter(filter.value)}>
+          {filter.value} - {length}
+        </div>;
       });
 
-      const itemsPerPage = 300;
-      const filteredItems = filterMetaItems(state.selectionFilter.itemClass, state.selectionFilter.text);
-      const numPages = Math.ceil(filteredItems.length / itemsPerPage);
-      const startIndex = itemsPerPage * state.selectionFilter.page;
-      const paginatedItems = filteredItems.slice(startIndex, startIndex + itemsPerPage);
+      const isFloors = state.selectionFilter.itemClass === 'Floors';
+      const selectionsPerPage = 300;
+      const filteredItems = isFloors ?
+        Content.getFloors() :
+        filterMetaItems(state.selectionFilter.itemClass, state.selectionFilter.text);
+      const numPages = Math.ceil(filteredItems.length / selectionsPerPage);
+      const startIndex = selectionsPerPage * state.selectionFilter.page;
+      const paginatedItems = filteredItems.slice(startIndex, startIndex + selectionsPerPage);
+      const Selections = isFloors ?
+        <FloorSelections floors={paginatedItems as MetaFloor[]}></FloorSelections> :
+        <ItemSelections metaItems={paginatedItems as MetaItem[]}></ItemSelections>;
 
       return <div class="ui-admin">
         <div>
@@ -124,29 +176,39 @@ export function makeWindow(adminModule: AdminModule): HTMLElement {
           <Input
             name="textFilter"
             type={'text'}
-            onInput={linkState(this, 'selectionFilter.text')}
+            onInput={(e: InputEvent) => {
+              linkState(this, 'selectionFilter.text')(e);
+              this.setPage(0, numPages);
+            }}
             value={state.selectionFilter.text}>
             Name Filter
           </Input>
           <div>
-            <button onClick={() => this.changePage(-1, numPages)}>{'<'}</button>
-            <button onClick={() => this.changePage(1, numPages)}>{'>'}</button>
+            <button onClick={() => this.setPage(state.selectionFilter.page - 1, numPages)}>{'<'}</button>
+            <button onClick={() => this.setPage(state.selectionFilter.page + 1, numPages)}>{'>'}</button>
             page {state.selectionFilter.page + 1} of {numPages}
-            <Selections metaItems={paginatedItems}></Selections>
+            {Selections}
           </div>
         </div>
       </div>;
     }
 
-    changePage(delta: number, numPages: number) {
-      const newPage = Utils.clamp(this.state.selectionFilter.page + delta, 0, numPages - 1);
+    setPage(page: number, numPages: number) {
+      const newPage = Utils.clamp(page, 0, numPages - 1);
       this.setState({ ...this.state, selectionFilter: { ...this.state.selectionFilter, page: newPage } });
     }
 
     setItemClassFilter(itemClass: string) {
       const isSame = itemClass === this.state.selectionFilter.itemClass;
       const newValue = isSame ? '' : itemClass;
-      this.setState({ ...this.state, selectionFilter: { ...this.state.selectionFilter, itemClass: newValue } });
+      this.setState({
+        ...this.state,
+        selectionFilter: {
+          ...this.state.selectionFilter,
+          page: 0,
+          itemClass: newValue,
+        },
+      });
     }
   }
 
