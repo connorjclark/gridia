@@ -4,10 +4,10 @@ import * as ProtocolBuilder from './protocol/client-to-server-protocol-builder';
 import WorldMapPartition from './world-map-partition';
 
 export default class WorldMap {
-  public partitions = new Map<number, WorldMapPartition>();
-  public loader?: (sectorPoint: TilePoint) => Promise<Sector>;
+  partitions = new Map<number, WorldMapPartition>();
+  loader?: (sectorPoint: TilePoint) => Promise<Sector>;
 
-  public addPartition(w: number, partition: WorldMapPartition) {
+  addPartition(w: number, partition: WorldMapPartition) {
     this.partitions.set(w, partition);
     partition.loader = (sectorPoint: PartitionPoint) => {
       if (!this.loader) throw new Error('loader not set');
@@ -15,13 +15,13 @@ export default class WorldMap {
     };
   }
 
-  public initPartition(w: number, width: number, height: number, depth: number) {
+  initPartition(w: number, width: number, height: number, depth: number) {
     const partition = new WorldMapPartition(width, height, depth);
     // TODO: refactor sector requesting / loading.
     this.addPartition(w, partition);
   }
 
-  public getPartition(w: number) {
+  getPartition(w: number) {
     const partition = this.partitions.get(w);
     // Currently, all partitions are always loaded, so the following error should
     // never happen.
@@ -29,39 +29,39 @@ export default class WorldMap {
     return partition;
   }
 
-  public getPartitions() {
+  getPartitions() {
     return this.partitions;
   }
 
-  public inBounds(point: TilePoint): boolean {
+  inBounds(point: TilePoint): boolean {
     return this.getPartition(point.w).inBounds(point);
   }
 
-  public walkable(point: TilePoint): boolean {
+  walkable(point: TilePoint): boolean {
     return this.getPartition(point.w).walkable(point);
   }
 
-  public walkableAsync(point: TilePoint): Promise<boolean> {
+  walkableAsync(point: TilePoint): Promise<boolean> {
     return this.getPartition(point.w).walkableAsync(point);
   }
 
-  public getSector(sectorPoint: TilePoint): Sector {
+  getSector(sectorPoint: TilePoint): Sector {
     return this.getPartition(sectorPoint.w).getSector(sectorPoint);
   }
 
-  public getTile(point: TilePoint): Tile {
+  getTile(point: TilePoint): Tile {
     return this.getPartition(point.w).getTile(point);
   }
 
-  public setTile(point: TilePoint, tile: Tile) {
+  setTile(point: TilePoint, tile: Tile) {
     return this.getPartition(point.w).setTile(point, tile);
   }
 
-  public getItem(point: TilePoint) {
+  getItem(point: TilePoint) {
     return this.getPartition(point.w).getItem(point);
   }
 
-  public createEmptySector() {
+  createEmptySector() {
     const tiles: Tile[][] = [];
 
     for (let x = 0; x < SECTOR_SIZE; x++) {
@@ -76,7 +76,7 @@ export default class WorldMap {
     return tiles;
   }
 
-  public forEach(center: TilePoint, radius: number, fn: (loc: TilePoint, tile: Tile) => void) {
+  forEach(center: TilePoint, radius: number, fn: (loc: TilePoint, tile: Tile) => void) {
     const startX = Math.max(0, center.x - radius);
     const startY = Math.max(0, center.y - radius);
     const endX = Math.min(this.getPartition(center.w).width, center.x + radius);

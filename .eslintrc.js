@@ -43,7 +43,7 @@ module.exports = {
         "@typescript-eslint/explicit-member-accessibility": [
             "error",
             {
-                "accessibility": "explicit"
+                "accessibility": "no-public"
             }
         ],
         "@typescript-eslint/explicit-module-boundary-types": "off",
@@ -139,7 +139,6 @@ module.exports = {
         "@typescript-eslint/type-annotation-spacing": "error",
         "@typescript-eslint/unbound-method": "off",
         "@typescript-eslint/unified-signatures": "error",
-        "arrow-body-style": "error",
         "arrow-parens": [
             "error",
             "always"

@@ -4,9 +4,9 @@
 import * as WireSerializer from '../src/lib/wire-serializer';
 
 class MyCar {
-  public color = 'red';
+  color = 'red';
 
-  public describe() {
+  describe() {
     return `I am a ${this.color} car.`;
   }
 }

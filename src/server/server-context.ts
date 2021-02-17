@@ -11,17 +11,17 @@ import * as WireSerializer from '../lib/wire-serializer';
 import Server from './server';
 
 export class ServerContext extends Context {
-  public nextContainerId = 1;
-  public nextCreatureId = 1;
-  public nextPlayerId = 1;
+  nextContainerId = 1;
+  nextCreatureId = 1;
+  nextPlayerId = 1;
 
-  public serverDir: string;
-  public containerDir: string;
-  public playerDir: string;
-  public sectorDir: string;
-  public miscDir: string;
+  serverDir: string;
+  containerDir: string;
+  playerDir: string;
+  sectorDir: string;
+  miscDir: string;
 
-  public constructor(map: WorldMap, serverDir: string) {
+  constructor(map: WorldMap, serverDir: string) {
     super(map);
     this.serverDir = serverDir;
     this.containerDir = path.join(serverDir, 'containers');
@@ -30,7 +30,7 @@ export class ServerContext extends Context {
     this.miscDir = path.join(serverDir, 'misc');
   }
 
-  public static async load(serverDir: string) {
+  static async load(serverDir: string) {
     const meta = JSON.parse(await fs.readFile(path.join(serverDir, 'meta.json')));
     const map = new WorldMap();
     const context = new ServerContext(map, serverDir);
@@ -56,8 +56,7 @@ export class ServerContext extends Context {
     return context;
   }
 
-
-  public async loadSector(server: Server, sectorPoint: TilePoint) {
+  async loadSector(server: Server, sectorPoint: TilePoint) {
     const data = await fs.readFile(this.sectorPath(sectorPoint));
     const sector = JSON.parse(data) as Sector;
 
@@ -72,7 +71,7 @@ export class ServerContext extends Context {
     return sector;
   }
 
-  public async saveSector(sectorPoint: TilePoint) {
+  async saveSector(sectorPoint: TilePoint) {
     const sector = this.map.getSector(sectorPoint);
     // Don't save creatures.
     const data = sector.map((tiles) => tiles.map((tile) => ({floor: tile.floor, item: tile.item})));
@@ -80,18 +79,18 @@ export class ServerContext extends Context {
     await fs.writeFile(this.sectorPath(sectorPoint), json);
   }
 
-  public async savePlayer(player: Player) {
+  async savePlayer(player: Player) {
     const json = WireSerializer.serialize(player);
     await fs.writeFile(this.playerPath(player.id), json);
   }
 
-  public makeContainer() {
+  makeContainer() {
     const container = new Container(this.nextContainerId++, Array(10).fill(null));
     this.containers.set(container.id, container);
     return container;
   }
 
-  public getContainerIdFromItem(item: Item) {
+  getContainerIdFromItem(item: Item) {
     if (item.containerId) {
       return item.containerId;
     } else {
@@ -100,7 +99,7 @@ export class ServerContext extends Context {
   }
 
   // TODO defer to loader like sector is?
-  public async getContainer(id: number) {
+  async getContainer(id: number) {
     let container = this.containers.get(id);
     if (container) return container;
 
@@ -114,7 +113,7 @@ export class ServerContext extends Context {
     return container;
   }
 
-  public async save() {
+  async save() {
     await fs.mkdir(this.serverDir, {recursive: true});
     await fs.mkdir(this.containerDir, {recursive: true});
     await fs.mkdir(this.playerDir, {recursive: true});

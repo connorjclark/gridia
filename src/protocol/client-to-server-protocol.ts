@@ -8,7 +8,7 @@ import * as ProtocolBuilder from './server-to-client-protocol-builder';
 import Params = ClientToServerProtocol.Params;
 
 export default class ClientToServerProtocol implements IClientToServerProtocol {
-  public onMove(server: Server, { ...loc }: Params.Move): void {
+  onMove(server: Server, { ...loc }: Params.Move): void {
     if (!server.context.map.inBounds(loc)) {
       return;
     }
@@ -33,7 +33,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     server.moveCreature(creature, loc);
   }
 
-  public onRegister(server: Server, { name }: Params.Register): void {
+  onRegister(server: Server, { name }: Params.Register): void {
     if (server.currentClientConnection.player) return;
     if (name.length > 20) return;
 
@@ -42,7 +42,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     });
   }
 
-  public async onRequestContainer(server: Server, { containerId, loc }: Params.RequestContainer) {
+  async onRequestContainer(server: Server, { containerId, loc }: Params.RequestContainer) {
     if (!containerId && !loc) throw new Error('expected containerId or loc');
     if (containerId && loc) throw new Error('expected only one of containerId or loc');
 
@@ -65,14 +65,14 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     server.reply(ProtocolBuilder.container(container));
   }
 
-  public onCloseContainer(server: Server, { containerId }: Params.CloseContainer): void {
+  onCloseContainer(server: Server, { containerId }: Params.CloseContainer): void {
     const index = server.currentClientConnection.registeredContainers.indexOf(containerId);
     if (index !== -1) {
       server.currentClientConnection.registeredContainers.splice(index, 1);
     }
   }
 
-  public onRequestCreature(server: Server, { id }: Params.RequestCreature): void {
+  onRequestCreature(server: Server, { id }: Params.RequestCreature): void {
     const creature = server.context.getCreature(id);
     if (!creature) {
       console.error('client requested invalid creature:', id);
@@ -85,7 +85,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     }));
   }
 
-  public onRequestPartition(server: Server, { w }: Params.RequestPartition): void {
+  onRequestPartition(server: Server, { w }: Params.RequestPartition): void {
     const partition = server.context.map.getPartition(w);
     server.reply(ProtocolBuilder.initializePartition({
       w,
@@ -95,7 +95,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     }));
   }
 
-  public async onRequestSector(server: Server, { ...loc }: Params.RequestSector) {
+  async onRequestSector(server: Server, { ...loc }: Params.RequestSector) {
     const isClose = true; // TODO
     if (loc.x < 0 || loc.y < 0 || loc.z < 0 || !isClose) {
       return;
@@ -109,7 +109,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     }));
   }
 
-  public onCreatureAction(server: Server, { creatureId, type }: Params.CreatureAction): void {
+  onCreatureAction(server: Server, { creatureId, type }: Params.CreatureAction): void {
     const creature = server.context.getCreature(creatureId);
     const isClose = true; // TODO
     if (!isClose) {
@@ -130,7 +130,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     }
   }
 
-  public onUse(server: Server, { toolIndex, location, usageIndex }: Params.Use): void {
+  onUse(server: Server, { toolIndex, location, usageIndex }: Params.Use): void {
     if (location.source === 'container') {
       return; // TODO
     }
@@ -186,7 +186,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     }
   }
 
-  public onAdminSetFloor(server: Server, { floor, ...loc }: Params.AdminSetFloor): void {
+  onAdminSetFloor(server: Server, { floor, ...loc }: Params.AdminSetFloor): void {
     if (!server.currentClientConnection.player.isAdmin) return;
 
     if (!server.context.map.inBounds(loc)) {
@@ -196,7 +196,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     server.setFloor(loc, floor);
   }
 
-  public onAdminSetItem(server: Server, { item, ...loc }: Params.AdminSetItem): void {
+  onAdminSetItem(server: Server, { item, ...loc }: Params.AdminSetItem): void {
     if (!server.currentClientConnection.player.isAdmin) return;
 
     if (!server.context.map.inBounds(loc)) {
@@ -209,7 +209,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
   // moveItem handles movement between anywhere items can be - from the world to a player's
   // container, within a container, from a container to the world, or even between containers.
   // If "to" is null for a container, no location is specified and the item will be place in the first viable slot.
-  public async onMoveItem(server: Server, { from, to }: Params.MoveItem) {
+  async onMoveItem(server: Server, { from, to }: Params.MoveItem) {
     async function boundsCheck(location: ItemLocation) {
       if (location.source === 'world') {
         if (!location.loc) throw new Error('invariant violated');
@@ -301,7 +301,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     // context.queueTileChange(to)
   }
 
-  public onChat(server: Server, { to, message }: Params.Chat): void {
+  onChat(server: Server, { to, message }: Params.Chat): void {
     if (message.startsWith('/')) {
       const parsedCommand = CommandParser.parseCommand(message.substring(1));
 

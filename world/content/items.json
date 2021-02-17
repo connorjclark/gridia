@@ -75,7 +75,7 @@
   {
     "id": 5,
     "name": "Small Granite Rock",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       266
     ],
@@ -120,7 +120,7 @@
   {
     "id": 8,
     "name": "Cut Yellow Rose",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       8
     ],
@@ -302,7 +302,7 @@
   {
     "id": 20,
     "name": "Practice Dagger",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       20
     ],
@@ -317,7 +317,7 @@
   {
     "id": 21,
     "name": "Dagger",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       20
     ],
@@ -332,7 +332,7 @@
   {
     "id": 22,
     "name": "Long Knife",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       21
     ],
@@ -347,7 +347,7 @@
   {
     "id": 23,
     "name": "Phantom Dagger",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       22
     ],
@@ -362,7 +362,7 @@
   {
     "id": 24,
     "name": "Zircon Dagger",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       23
     ],
@@ -377,7 +377,7 @@
   {
     "id": 25,
     "name": "Rommel's Claymore",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       39
     ],
@@ -392,7 +392,7 @@
   {
     "id": 26,
     "name": "Gold Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       29
     ],
@@ -407,7 +407,7 @@
   {
     "id": 27,
     "name": "Worn Gold Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       29
     ],
@@ -422,7 +422,7 @@
   {
     "id": 28,
     "name": "Zircon Orb",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       27
     ],
@@ -452,7 +452,7 @@
   {
     "id": 30,
     "name": "Practice Short Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       30
     ],
@@ -467,7 +467,7 @@
   {
     "id": 31,
     "name": "Short Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       30
     ],
@@ -482,7 +482,7 @@
   {
     "id": 32,
     "name": "Long Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       31
     ],
@@ -497,7 +497,7 @@
   {
     "id": 33,
     "name": "Broad Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       32
     ],
@@ -512,7 +512,7 @@
   {
     "id": 34,
     "name": "Damon Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       33
     ],
@@ -542,7 +542,7 @@
   {
     "id": 36,
     "name": "Great Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       36
     ],
@@ -557,7 +557,7 @@
   {
     "id": 37,
     "name": "Copper Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       35
     ],
@@ -572,7 +572,7 @@
   {
     "id": 38,
     "name": "Worn Copper Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       35
     ],
@@ -596,7 +596,7 @@
   {
     "id": 40,
     "name": "Practice Hand Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       40
     ],
@@ -611,7 +611,7 @@
   {
     "id": 41,
     "name": "Hand Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       40
     ],
@@ -626,7 +626,7 @@
   {
     "id": 42,
     "name": "Battle Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       41
     ],
@@ -641,7 +641,7 @@
   {
     "id": 43,
     "name": "Great Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       42
     ],
@@ -656,7 +656,7 @@
   {
     "id": 44,
     "name": "Molten Blade",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       25
     ],
@@ -671,7 +671,7 @@
   {
     "id": 45,
     "name": "Oak Scythe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       44
     ],
@@ -686,7 +686,7 @@
   {
     "id": 46,
     "name": "Iron Scythe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       45
     ],
@@ -701,7 +701,7 @@
   {
     "id": 47,
     "name": "Onyx Scythe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       46
     ],
@@ -740,7 +740,7 @@
   {
     "id": 50,
     "name": "Practice Club",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       50
     ],
@@ -755,7 +755,7 @@
   {
     "id": 51,
     "name": "Club",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       50
     ],
@@ -770,7 +770,7 @@
   {
     "id": 52,
     "name": "Light Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       51
     ],
@@ -785,7 +785,7 @@
   {
     "id": 53,
     "name": "Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       52
     ],
@@ -809,7 +809,7 @@
   {
     "id": 55,
     "name": "Great Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       37
     ],
@@ -824,7 +824,7 @@
   {
     "id": 56,
     "name": "Spiked Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       38
     ],
@@ -839,7 +839,7 @@
   {
     "id": 57,
     "name": "Wood Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       448
     ],
@@ -854,7 +854,7 @@
   {
     "id": 58,
     "name": "Wood Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       34
     ],
@@ -869,7 +869,7 @@
   {
     "id": 59,
     "name": "Worn Wood Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       34
     ],
@@ -884,7 +884,7 @@
   {
     "id": 60,
     "name": "Practice Spear",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       60
     ],
@@ -899,7 +899,7 @@
   {
     "id": 61,
     "name": "Spear",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       60
     ],
@@ -914,7 +914,7 @@
   {
     "id": 62,
     "name": "Double Spear",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       61
     ],
@@ -929,7 +929,7 @@
   {
     "id": 63,
     "name": "Falcon Spear",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       62
     ],
@@ -944,7 +944,7 @@
   {
     "id": 64,
     "name": "Trident",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       63
     ],
@@ -959,7 +959,7 @@
   {
     "id": 65,
     "name": "Practice Wood Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       34
     ],
@@ -974,7 +974,7 @@
   {
     "id": 66,
     "name": "Grayvyn Trident",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       68
     ],
@@ -989,7 +989,7 @@
   {
     "id": 67,
     "name": "Iron Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       26
     ],
@@ -1004,7 +1004,7 @@
   {
     "id": 68,
     "name": "Worn Iron Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       26
     ],
@@ -1019,7 +1019,7 @@
   {
     "id": 69,
     "name": "Battle Trident",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       64
     ],
@@ -1034,7 +1034,7 @@
   {
     "id": 70,
     "name": "Practice Staff",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       70
     ],
@@ -1049,7 +1049,7 @@
   {
     "id": 71,
     "name": "Staff",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       70
     ],
@@ -1064,7 +1064,7 @@
   {
     "id": 72,
     "name": "Iron-Tip Staff",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       71
     ],
@@ -1088,7 +1088,7 @@
   {
     "id": 74,
     "name": "Staff of Feanor",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       73
     ],
@@ -1103,7 +1103,7 @@
   {
     "id": 75,
     "name": "Grayvyn Spiked Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       38
     ],
@@ -1118,7 +1118,7 @@
   {
     "id": 76,
     "name": "Double Trident",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       69
     ],
@@ -1133,7 +1133,7 @@
   {
     "id": 77,
     "name": "Damon Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       864
     ],
@@ -1148,7 +1148,7 @@
   {
     "id": 78,
     "name": "Pencil",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       865
     ],
@@ -1178,7 +1178,7 @@
   {
     "id": 80,
     "name": "Practice Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       80
     ],
@@ -1193,7 +1193,7 @@
   {
     "id": 81,
     "name": "Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       80
     ],
@@ -1208,7 +1208,7 @@
   {
     "id": 82,
     "name": "Battle Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       81
     ],
@@ -1223,7 +1223,7 @@
   {
     "id": 83,
     "name": "Heavy Battle Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       82
     ],
@@ -1247,7 +1247,7 @@
   {
     "id": 85,
     "name": "Great Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       66
     ],
@@ -1322,7 +1322,7 @@
   {
     "id": 90,
     "name": "Brass Knuckles",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       90
     ],
@@ -1337,7 +1337,7 @@
   {
     "id": 91,
     "name": "Claw",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       91
     ],
@@ -1352,7 +1352,7 @@
   {
     "id": 92,
     "name": "Zircon Claw",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       92
     ],
@@ -1367,7 +1367,7 @@
   {
     "id": 93,
     "name": "Molten Katar",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       93
     ],
@@ -1382,7 +1382,7 @@
   {
     "id": 94,
     "name": "Mailed Fist",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       83
     ],
@@ -1397,7 +1397,7 @@
   {
     "id": 95,
     "name": "Throwing Dagger",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       20
     ],
@@ -1412,7 +1412,7 @@
   {
     "id": 96,
     "name": "Throwing Spear",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       60
     ],
@@ -1442,7 +1442,7 @@
   {
     "id": 98,
     "name": "Throwing Axe",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       40
     ],
@@ -1622,7 +1622,7 @@
   {
     "id": 110,
     "name": "Bone Scythe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       74
     ],
@@ -1751,7 +1751,7 @@
   {
     "id": 119,
     "name": "Zodiac Casting Staff",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       72
     ],
@@ -1766,7 +1766,7 @@
   {
     "id": 120,
     "name": "Farmer's Scythe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       346
     ],
@@ -1796,7 +1796,7 @@
   {
     "id": 122,
     "name": "Wheat Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -1811,7 +1811,7 @@
   {
     "id": 123,
     "name": "Sprouting Wheat",
-    "class": "plant",
+    "class": "Plant",
     "animations": [
       349
     ],
@@ -1933,7 +1933,7 @@
   {
     "id": 131,
     "name": "Corn Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -2060,7 +2060,7 @@
   {
     "id": 139,
     "name": "Drake Dagger",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       688
     ],
@@ -2180,7 +2180,7 @@
   {
     "id": 147,
     "name": "Phobos Staff",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       73
     ],
@@ -2270,7 +2270,7 @@
   {
     "id": 153,
     "name": "Carrot",
-    "class": "food",
+    "class": "Food",
     "animations": [
       57
     ],
@@ -2285,7 +2285,7 @@
   {
     "id": 154,
     "name": "Corn",
-    "class": "food",
+    "class": "Food",
     "animations": [
       58
     ],
@@ -2300,7 +2300,7 @@
   {
     "id": 155,
     "name": "Damon Dagger",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       920
     ],
@@ -2315,7 +2315,7 @@
   {
     "id": 156,
     "name": "Watermelon",
-    "class": "food",
+    "class": "Food",
     "animations": [
       77
     ],
@@ -2330,7 +2330,7 @@
   {
     "id": 157,
     "name": "Pinnaple",
-    "class": "food",
+    "class": "Food",
     "animations": [
       78
     ],
@@ -2345,7 +2345,7 @@
   {
     "id": 158,
     "name": "Red Apple",
-    "class": "food",
+    "class": "Food",
     "animations": [
       79
     ],
@@ -2360,7 +2360,7 @@
   {
     "id": 159,
     "name": "Cooked Leg of Cow",
-    "class": "food",
+    "class": "Food",
     "animations": [
       84
     ],
@@ -2375,7 +2375,7 @@
   {
     "id": 160,
     "name": "Cooked Leg of Lamb",
-    "class": "food",
+    "class": "Food",
     "animations": [
       85
     ],
@@ -2390,7 +2390,7 @@
   {
     "id": 161,
     "name": "Cooked Chicken Leg",
-    "class": "food",
+    "class": "Food",
     "animations": [
       86
     ],
@@ -2405,7 +2405,7 @@
   {
     "id": 162,
     "name": "Sprouting Corn Plant",
-    "class": "plant",
+    "class": "Plant",
     "animations": [
       87
     ],
@@ -2454,7 +2454,7 @@
   {
     "id": 165,
     "name": "Cooked Large Ribs",
-    "class": "food",
+    "class": "Food",
     "animations": [
       94
     ],
@@ -2469,7 +2469,7 @@
   {
     "id": 166,
     "name": "Cooked Medium Ribs",
-    "class": "food",
+    "class": "Food",
     "animations": [
       95
     ],
@@ -2484,7 +2484,7 @@
   {
     "id": 167,
     "name": "Cooked Small Rib",
-    "class": "food",
+    "class": "Food",
     "animations": [
       96
     ],
@@ -2499,7 +2499,7 @@
   {
     "id": 168,
     "name": "Lettuce Sprout",
-    "class": "plant",
+    "class": "Plant",
     "animations": [
       97
     ],
@@ -2548,7 +2548,7 @@
   {
     "id": 171,
     "name": "Red Apple Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -2563,7 +2563,7 @@
   {
     "id": 172,
     "name": "Sprouting Red Apple Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       303
     ],
@@ -2693,7 +2693,7 @@
   {
     "id": 180,
     "name": "Thorn Bush",
-    "class": "plant",
+    "class": "Plant",
     "animations": [
       467
     ],
@@ -2710,7 +2710,7 @@
   {
     "id": 181,
     "name": "Thorn Bush",
-    "class": "plant",
+    "class": "Plant",
     "animations": [
       468
     ],
@@ -2727,7 +2727,7 @@
   {
     "id": 182,
     "name": "Thorn Bush",
-    "class": "plant",
+    "class": "Plant",
     "animations": [
       469
     ],
@@ -2855,7 +2855,7 @@
   {
     "id": 190,
     "name": "Lettuce Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -2870,7 +2870,7 @@
   {
     "id": 191,
     "name": "Lettuce",
-    "class": "food",
+    "class": "Food",
     "animations": [
       533
     ],
@@ -3903,7 +3903,7 @@
   {
     "id": 259,
     "name": "Damon Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       921
     ],
@@ -3918,7 +3918,7 @@
   {
     "id": 260,
     "name": "Ripe Red Apple Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       237
     ],
@@ -3935,7 +3935,7 @@
   {
     "id": 261,
     "name": "Flowering Red Apple Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       257
     ],
@@ -3952,7 +3952,7 @@
   {
     "id": 262,
     "name": "Shedding Red Apple Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       257
     ],
@@ -3969,7 +3969,7 @@
   {
     "id": 263,
     "name": "Dormant Red Apple Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       258
     ],
@@ -3986,7 +3986,7 @@
   {
     "id": 264,
     "name": "Boxwood Bush",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       256
     ],
@@ -4003,7 +4003,7 @@
   {
     "id": 265,
     "name": "Boxwood Bush",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       255
     ],
@@ -4067,7 +4067,7 @@
   {
     "id": 269,
     "name": "Damon Spear",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       922
     ],
@@ -4097,7 +4097,7 @@
   {
     "id": 271,
     "name": "Tiny Granite Rock",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       265
     ],
@@ -4292,7 +4292,7 @@
   {
     "id": 284,
     "name": "Un-Cooked Medium Ribs",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       601
     ],
@@ -4307,7 +4307,7 @@
   {
     "id": 285,
     "name": "Un-Cooked Small Rib",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       602
     ],
@@ -4322,7 +4322,7 @@
   {
     "id": 286,
     "name": "Un-Cooked Leg of Cow",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       603
     ],
@@ -4337,7 +4337,7 @@
   {
     "id": 287,
     "name": "Un-Cooked Leg of Lamb",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       604
     ],
@@ -4352,7 +4352,7 @@
   {
     "id": 288,
     "name": "Un-Cooked Chicken Leg",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       605
     ],
@@ -4367,7 +4367,7 @@
   {
     "id": 289,
     "name": "Side of Beef",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       606
     ],
@@ -4397,7 +4397,7 @@
   {
     "id": 291,
     "name": "Side of Lamb",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       1301
     ],
@@ -4412,7 +4412,7 @@
   {
     "id": 292,
     "name": "Side of Chicken",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       1300
     ],
@@ -4427,7 +4427,7 @@
   {
     "id": 293,
     "name": "Baked Fish",
-    "class": "food",
+    "class": "Food",
     "animations": [
       607
     ],
@@ -4442,7 +4442,7 @@
   {
     "id": 294,
     "name": "Baked Gruppie",
-    "class": "food",
+    "class": "Food",
     "animations": [
       608
     ],
@@ -4457,7 +4457,7 @@
   {
     "id": 295,
     "name": "Lobster",
-    "class": "food",
+    "class": "Food",
     "animations": [
       609
     ],
@@ -4472,7 +4472,7 @@
   {
     "id": 296,
     "name": "Cooked Lobster",
-    "class": "food",
+    "class": "Food",
     "animations": [
       610
     ],
@@ -4487,7 +4487,7 @@
   {
     "id": 297,
     "name": "Sardines",
-    "class": "food",
+    "class": "Food",
     "animations": [
       611
     ],
@@ -4502,7 +4502,7 @@
   {
     "id": 298,
     "name": "Cooked Sardines",
-    "class": "food",
+    "class": "Food",
     "animations": [
       612
     ],
@@ -4802,7 +4802,7 @@
   {
     "id": 318,
     "name": "Elixir of Og",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       324
     ],
@@ -5317,7 +5317,7 @@
   {
     "id": 349,
     "name": "Distilled Water",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       324
     ],
@@ -5455,7 +5455,7 @@
   {
     "id": 358,
     "name": "Damon Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       923
     ],
@@ -5470,7 +5470,7 @@
   {
     "id": 359,
     "name": "Damon Staff",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       924
     ],
@@ -5607,7 +5607,7 @@
   {
     "id": 368,
     "name": "Damon Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       925
     ],
@@ -5622,7 +5622,7 @@
   {
     "id": 369,
     "name": "Damon Claw",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       926
     ],
@@ -6254,7 +6254,7 @@
   {
     "id": 410,
     "name": "Minor Ultima Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1018
     ],
@@ -6269,7 +6269,7 @@
   {
     "id": 411,
     "name": "Minor Stamina Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       308
     ],
@@ -6284,7 +6284,7 @@
   {
     "id": 412,
     "name": "Minor Mana Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       324
     ],
@@ -6299,7 +6299,7 @@
   {
     "id": 413,
     "name": "Minor Life Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       325
     ],
@@ -6374,7 +6374,7 @@
   {
     "id": 418,
     "name": "Minor Cure Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       323
     ],
@@ -6423,7 +6423,7 @@
   {
     "id": 421,
     "name": "Red Rose Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -6472,7 +6472,7 @@
   {
     "id": 424,
     "name": "Blue Rose Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -6521,7 +6521,7 @@
   {
     "id": 427,
     "name": "Yellow Rose Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -6570,7 +6570,7 @@
   {
     "id": 430,
     "name": "Orange Rose Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -6750,7 +6750,7 @@
   {
     "id": 442,
     "name": "Imp Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       34
     ],
@@ -6795,7 +6795,7 @@
   {
     "id": 445,
     "name": "Drake Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       629
     ],
@@ -6810,7 +6810,7 @@
   {
     "id": 446,
     "name": "Bone Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       618
     ],
@@ -6825,7 +6825,7 @@
   {
     "id": 447,
     "name": "Roach Antenae",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       630
     ],
@@ -7185,7 +7185,7 @@
   {
     "id": 471,
     "name": "Golem Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       629
     ],
@@ -8715,7 +8715,7 @@
   {
     "id": 572,
     "name": "Dormant Banana Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       802
     ],
@@ -8732,7 +8732,7 @@
   {
     "id": 573,
     "name": "Flowering Banana Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       802
     ],
@@ -8749,7 +8749,7 @@
   {
     "id": 574,
     "name": "Ripening Banana Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       803
     ],
@@ -8766,7 +8766,7 @@
   {
     "id": 575,
     "name": "Ripe Banana Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       804
     ],
@@ -8783,7 +8783,7 @@
   {
     "id": 576,
     "name": "Banana",
-    "class": "food",
+    "class": "Food",
     "animations": [
       805
     ],
@@ -8798,7 +8798,7 @@
   {
     "id": 577,
     "name": "Banana Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -8978,7 +8978,7 @@
   {
     "id": 589,
     "name": "Minor Strength Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       325
     ],
@@ -8993,7 +8993,7 @@
   {
     "id": 590,
     "name": "Minor Dexterity Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       308
     ],
@@ -9008,7 +9008,7 @@
   {
     "id": 591,
     "name": "Minor Quickness Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       309
     ],
@@ -9023,7 +9023,7 @@
   {
     "id": 592,
     "name": "Minor Intelligence Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       310
     ],
@@ -9038,7 +9038,7 @@
   {
     "id": 593,
     "name": "Minor Wisdom Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1019
     ],
@@ -9053,7 +9053,7 @@
   {
     "id": 594,
     "name": "Minor Sword Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1026
     ],
@@ -9068,7 +9068,7 @@
   {
     "id": 595,
     "name": "Minor Melee Defense Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1027
     ],
@@ -9083,7 +9083,7 @@
   {
     "id": 596,
     "name": "Minor Dagger Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1028
     ],
@@ -9098,7 +9098,7 @@
   {
     "id": 597,
     "name": "Minor Axe Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1029
     ],
@@ -9113,7 +9113,7 @@
   {
     "id": 598,
     "name": "Minor Unarmed Attack Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1030
     ],
@@ -9128,7 +9128,7 @@
   {
     "id": 599,
     "name": "Minor Mace Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1031
     ],
@@ -9143,7 +9143,7 @@
   {
     "id": 600,
     "name": "Orange Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -9224,7 +9224,7 @@
   {
     "id": 605,
     "name": "Dormant Orange Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       257
     ],
@@ -9498,7 +9498,7 @@
   {
     "id": 623,
     "name": "Lemon Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -9513,7 +9513,7 @@
   {
     "id": 624,
     "name": "Lime Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -9528,7 +9528,7 @@
   {
     "id": 625,
     "name": "Sprouting Citrus Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       303
     ],
@@ -9545,7 +9545,7 @@
   {
     "id": 626,
     "name": "Flowering Citrus Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       524
     ],
@@ -9562,7 +9562,7 @@
   {
     "id": 627,
     "name": "Ripe Lime Citrus Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       513
     ],
@@ -9579,7 +9579,7 @@
   {
     "id": 628,
     "name": "Ripe Lemon Citrus Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       512
     ],
@@ -9596,7 +9596,7 @@
   {
     "id": 629,
     "name": "Dormant Citrus Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       523
     ],
@@ -9765,7 +9765,7 @@
   {
     "id": 640,
     "name": "Minor Spear Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1032
     ],
@@ -9780,7 +9780,7 @@
   {
     "id": 641,
     "name": "Minor Staff Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1033
     ],
@@ -9795,7 +9795,7 @@
   {
     "id": 642,
     "name": "Minor Flail Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1034
     ],
@@ -9810,7 +9810,7 @@
   {
     "id": 643,
     "name": "Minor Missle Defense Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1035
     ],
@@ -9825,7 +9825,7 @@
   {
     "id": 644,
     "name": "Minor Bow Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1036
     ],
@@ -9840,7 +9840,7 @@
   {
     "id": 645,
     "name": "Minor Crossbow Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1037
     ],
@@ -9855,7 +9855,7 @@
   {
     "id": 646,
     "name": "Minor Blue Magic Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1038
     ],
@@ -9870,7 +9870,7 @@
   {
     "id": 647,
     "name": "Minor Magic Defense Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1039
     ],
@@ -9885,7 +9885,7 @@
   {
     "id": 648,
     "name": "Minor Mana Conversion Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1040
     ],
@@ -9900,7 +9900,7 @@
   {
     "id": 649,
     "name": "Minor Stealth Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1041
     ],
@@ -9915,7 +9915,7 @@
   {
     "id": 650,
     "name": "Minor Scan Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1042
     ],
@@ -9960,7 +9960,7 @@
   {
     "id": 653,
     "name": "Minor Assess Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1042
     ],
@@ -9975,7 +9975,7 @@
   {
     "id": 654,
     "name": "Minor Scythe Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1043
     ],
@@ -10200,7 +10200,7 @@
   {
     "id": 669,
     "name": "Practice Side of Beef",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       606
     ],
@@ -10665,7 +10665,7 @@
   {
     "id": 700,
     "name": "Major Ultima Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1018
     ],
@@ -10680,7 +10680,7 @@
   {
     "id": 701,
     "name": "Major Stamina Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       308
     ],
@@ -10695,7 +10695,7 @@
   {
     "id": 702,
     "name": "Major Mana Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       324
     ],
@@ -10710,7 +10710,7 @@
   {
     "id": 703,
     "name": "Major Life Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       325
     ],
@@ -10725,7 +10725,7 @@
   {
     "id": 704,
     "name": "Major Cure Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       323
     ],
@@ -10740,7 +10740,7 @@
   {
     "id": 705,
     "name": "Major Strength Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       325
     ],
@@ -10755,7 +10755,7 @@
   {
     "id": 706,
     "name": "Major Dexterity Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       308
     ],
@@ -10770,7 +10770,7 @@
   {
     "id": 707,
     "name": "Major Quickness Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       309
     ],
@@ -10785,7 +10785,7 @@
   {
     "id": 708,
     "name": "Major Intelligence Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       310
     ],
@@ -10800,7 +10800,7 @@
   {
     "id": 709,
     "name": "Major Wisdom Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1019
     ],
@@ -10815,7 +10815,7 @@
   {
     "id": 710,
     "name": "Major Sword Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1026
     ],
@@ -10830,7 +10830,7 @@
   {
     "id": 711,
     "name": "Major Melee Defense Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1027
     ],
@@ -10845,7 +10845,7 @@
   {
     "id": 712,
     "name": "Major Dagger Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1028
     ],
@@ -10860,7 +10860,7 @@
   {
     "id": 713,
     "name": "Major Axe Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1029
     ],
@@ -10875,7 +10875,7 @@
   {
     "id": 714,
     "name": "Major Unarmed Attack Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1030
     ],
@@ -10890,7 +10890,7 @@
   {
     "id": 715,
     "name": "Major Mace Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1031
     ],
@@ -10905,7 +10905,7 @@
   {
     "id": 716,
     "name": "Major Spear Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1032
     ],
@@ -10920,7 +10920,7 @@
   {
     "id": 717,
     "name": "Major Staff Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1033
     ],
@@ -10935,7 +10935,7 @@
   {
     "id": 718,
     "name": "Major Flail Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1034
     ],
@@ -10950,7 +10950,7 @@
   {
     "id": 719,
     "name": "Major Missle Defense Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1035
     ],
@@ -10965,7 +10965,7 @@
   {
     "id": 720,
     "name": "Major Bow Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1036
     ],
@@ -10980,7 +10980,7 @@
   {
     "id": 721,
     "name": "Major Crossbow Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1037
     ],
@@ -10995,7 +10995,7 @@
   {
     "id": 722,
     "name": "Major Blue Magic Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1038
     ],
@@ -11010,7 +11010,7 @@
   {
     "id": 723,
     "name": "Major Magic Defense Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1039
     ],
@@ -11025,7 +11025,7 @@
   {
     "id": 724,
     "name": "Major Mana Conversion Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1040
     ],
@@ -11040,7 +11040,7 @@
   {
     "id": 725,
     "name": "Major Stealth Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1041
     ],
@@ -11055,7 +11055,7 @@
   {
     "id": 726,
     "name": "Major Scan Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1042
     ],
@@ -11070,7 +11070,7 @@
   {
     "id": 727,
     "name": "Major Assess Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1043
     ],
@@ -11085,7 +11085,7 @@
   {
     "id": 728,
     "name": "Major Scythe Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1040
     ],
@@ -12606,7 +12606,7 @@
   {
     "id": 829,
     "name": "Flowering Olive Tree",
-    "class": "plant",
+    "class": "Plant",
     "animations": [
       834
     ],
@@ -12623,7 +12623,7 @@
   {
     "id": 830,
     "name": "Ripe Olive Tree",
-    "class": "plant",
+    "class": "Plant",
     "animations": [
       835
     ],
@@ -12640,7 +12640,7 @@
   {
     "id": 831,
     "name": "Dormant Olive Tree",
-    "class": "plant",
+    "class": "Plant",
     "animations": [
       833
     ],
@@ -12672,7 +12672,7 @@
   {
     "id": 833,
     "name": "Olive Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -12792,7 +12792,7 @@
   {
     "id": 841,
     "name": "Battle Staff",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       960
     ],
@@ -12807,7 +12807,7 @@
   {
     "id": 842,
     "name": "Battle Spear",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       961
     ],
@@ -13182,7 +13182,7 @@
   {
     "id": 867,
     "name": "Titanium Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       973
     ],
@@ -13197,7 +13197,7 @@
   {
     "id": 868,
     "name": "Worn Titanium Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       973
     ],
@@ -13212,7 +13212,7 @@
   {
     "id": 869,
     "name": "Hessite Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       974
     ],
@@ -13227,7 +13227,7 @@
   {
     "id": 870,
     "name": "Worn Hessite Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       974
     ],
@@ -13242,7 +13242,7 @@
   {
     "id": 871,
     "name": "Magnetite Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       975
     ],
@@ -13257,7 +13257,7 @@
   {
     "id": 872,
     "name": "Worn Magnetite Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       975
     ],
@@ -13602,7 +13602,7 @@
   {
     "id": 895,
     "name": "Minor Throwing Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1044
     ],
@@ -13647,7 +13647,7 @@
   {
     "id": 898,
     "name": "Minor Black Magic Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1045
     ],
@@ -14577,7 +14577,7 @@
   {
     "id": 960,
     "name": "Minor White Magic Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1046
     ],
@@ -14622,7 +14622,7 @@
   {
     "id": 963,
     "name": "Minor Red Magic Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1047
     ],
@@ -14667,7 +14667,7 @@
   {
     "id": 966,
     "name": "Minor Trap Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1030
     ],
@@ -14691,7 +14691,7 @@
   {
     "id": 968,
     "name": "Minor Alchemy Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1032
     ],
@@ -14758,7 +14758,7 @@
   {
     "id": 972,
     "name": "Major Throwing Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1034
     ],
@@ -14773,7 +14773,7 @@
   {
     "id": 973,
     "name": "Major Black Magic Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1035
     ],
@@ -14788,7 +14788,7 @@
   {
     "id": 974,
     "name": "Major Alchemy Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1036
     ],
@@ -14803,7 +14803,7 @@
   {
     "id": 975,
     "name": "Major White Magic Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1037
     ],
@@ -14818,7 +14818,7 @@
   {
     "id": 976,
     "name": "Major Red Magic Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1038
     ],
@@ -15103,7 +15103,7 @@
   {
     "id": 995,
     "name": "Major Trap Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1039
     ],
@@ -15157,7 +15157,7 @@
   {
     "id": 999,
     "name": "Minor Blacksmith Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1041
     ],
@@ -15763,7 +15763,7 @@
   {
     "id": 1039,
     "name": "Pumpkin Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -16241,7 +16241,7 @@
   {
     "id": 1072,
     "name": "Dead Gruppie",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       385
     ],
@@ -16567,7 +16567,7 @@
   {
     "id": 1092,
     "name": "Major Blacksmith Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1045
     ],
@@ -16611,7 +16611,7 @@
   {
     "id": 1095,
     "name": "Minor Fletching Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1046
     ],
@@ -16626,7 +16626,7 @@
   {
     "id": 1096,
     "name": "Major Fletching Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1018
     ],
@@ -16731,7 +16731,7 @@
   {
     "id": 1103,
     "name": "Minor Locksmith Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1019
     ],
@@ -16746,7 +16746,7 @@
   {
     "id": 1104,
     "name": "Major Locksmith Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1026
     ],
@@ -16806,7 +16806,7 @@
   {
     "id": 1108,
     "name": "Minor Carpentry Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1027
     ],
@@ -16821,7 +16821,7 @@
   {
     "id": 1109,
     "name": "Major Carpentry Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1028
     ],
@@ -17086,7 +17086,7 @@
   {
     "id": 1126,
     "name": "Fine Arrow",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       464
     ],
@@ -17101,7 +17101,7 @@
   {
     "id": 1127,
     "name": "Fire Arrow",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       465
     ],
@@ -17116,7 +17116,7 @@
   {
     "id": 1128,
     "name": "Ice Arrow",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       466
     ],
@@ -17386,7 +17386,7 @@
   {
     "id": 1146,
     "name": "Fine Bolt",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       867
     ],
@@ -17401,7 +17401,7 @@
   {
     "id": 1147,
     "name": "Fire Bolt",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       868
     ],
@@ -17416,7 +17416,7 @@
   {
     "id": 1148,
     "name": "Ice Bolt",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       869
     ],
@@ -17476,7 +17476,7 @@
   {
     "id": 1152,
     "name": "Damon Bow",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       927
     ],
@@ -17491,7 +17491,7 @@
   {
     "id": 1153,
     "name": "Damon CrossBow",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       928
     ],
@@ -18239,7 +18239,7 @@
   {
     "id": 1202,
     "name": "Ice Dagger",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1083
     ],
@@ -18254,7 +18254,7 @@
   {
     "id": 1203,
     "name": "Fire Dagger",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1084
     ],
@@ -18269,7 +18269,7 @@
   {
     "id": 1204,
     "name": "Bone Dagger",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1085
     ],
@@ -18284,7 +18284,7 @@
   {
     "id": 1205,
     "name": "Shinobou",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1086
     ],
@@ -18344,7 +18344,7 @@
   {
     "id": 1209,
     "name": "Viking Wand",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       1089
     ],
@@ -18405,7 +18405,7 @@
   {
     "id": 1213,
     "name": "Giant Club",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1091
     ],
@@ -18420,7 +18420,7 @@
   {
     "id": 1214,
     "name": "Giant Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1092
     ],
@@ -18938,7 +18938,7 @@
   {
     "id": 1248,
     "name": "Practice Scythe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       44
     ],
@@ -19236,7 +19236,7 @@
   {
     "id": 1268,
     "name": "Distilled Vampire Blood",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1034
     ],
@@ -19314,7 +19314,7 @@
   {
     "id": 1273,
     "name": "Fire Broad Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1172
     ],
@@ -19329,7 +19329,7 @@
   {
     "id": 1274,
     "name": "Fire Great Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1173
     ],
@@ -19344,7 +19344,7 @@
   {
     "id": 1275,
     "name": "Frost Broad Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1176
     ],
@@ -19359,7 +19359,7 @@
   {
     "id": 1276,
     "name": "Frost Great Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1177
     ],
@@ -19374,7 +19374,7 @@
   {
     "id": 1277,
     "name": "Lightning Broad Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1174
     ],
@@ -19389,7 +19389,7 @@
   {
     "id": 1278,
     "name": "Lightning Great Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1175
     ],
@@ -19404,7 +19404,7 @@
   {
     "id": 1279,
     "name": "Heavy Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1184
     ],
@@ -19419,7 +19419,7 @@
   {
     "id": 1280,
     "name": "Iron Staff",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1185
     ],
@@ -19434,7 +19434,7 @@
   {
     "id": 1281,
     "name": "Fire Battle Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1150
     ],
@@ -19449,7 +19449,7 @@
   {
     "id": 1282,
     "name": "Fire Great Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1151
     ],
@@ -19464,7 +19464,7 @@
   {
     "id": 1283,
     "name": "Frost Battle Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1154
     ],
@@ -19479,7 +19479,7 @@
   {
     "id": 1284,
     "name": "Frost Great Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1155
     ],
@@ -19494,7 +19494,7 @@
   {
     "id": 1285,
     "name": "Lightning Battle Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1152
     ],
@@ -19509,7 +19509,7 @@
   {
     "id": 1286,
     "name": "Lightning Great Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1153
     ],
@@ -19524,7 +19524,7 @@
   {
     "id": 1287,
     "name": "Fire Great Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1161
     ],
@@ -19539,7 +19539,7 @@
   {
     "id": 1288,
     "name": "Fire Spiked Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1160
     ],
@@ -19554,7 +19554,7 @@
   {
     "id": 1289,
     "name": "Frost Great Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1165
     ],
@@ -19569,7 +19569,7 @@
   {
     "id": 1290,
     "name": "Frost Spiked Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1164
     ],
@@ -19584,7 +19584,7 @@
   {
     "id": 1291,
     "name": "Lightning Great Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1163
     ],
@@ -19599,7 +19599,7 @@
   {
     "id": 1292,
     "name": "Lightning Spiked Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1162
     ],
@@ -19614,7 +19614,7 @@
   {
     "id": 1293,
     "name": "Fire Spear",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1166
     ],
@@ -19629,7 +19629,7 @@
   {
     "id": 1294,
     "name": "Fire Double Spear",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1180
     ],
@@ -19644,7 +19644,7 @@
   {
     "id": 1295,
     "name": "Frost Spear",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1167
     ],
@@ -19659,7 +19659,7 @@
   {
     "id": 1296,
     "name": "Frost Double Spear",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1181
     ],
@@ -19674,7 +19674,7 @@
   {
     "id": 1297,
     "name": "Lightning Spear",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1168
     ],
@@ -19689,7 +19689,7 @@
   {
     "id": 1298,
     "name": "Lightning Double Spear",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1182
     ],
@@ -19704,7 +19704,7 @@
   {
     "id": 1299,
     "name": "Fire Staff",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1169
     ],
@@ -19719,7 +19719,7 @@
   {
     "id": 1300,
     "name": "Frost Staff",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1170
     ],
@@ -19734,7 +19734,7 @@
   {
     "id": 1301,
     "name": "Lightning Staff",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1171
     ],
@@ -19749,7 +19749,7 @@
   {
     "id": 1302,
     "name": "Fire Battle Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1146
     ],
@@ -19764,7 +19764,7 @@
   {
     "id": 1303,
     "name": "Fire Great Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1147
     ],
@@ -19779,7 +19779,7 @@
   {
     "id": 1304,
     "name": "Frost Battle Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1158
     ],
@@ -19794,7 +19794,7 @@
   {
     "id": 1305,
     "name": "Frost Great Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1159
     ],
@@ -19809,7 +19809,7 @@
   {
     "id": 1306,
     "name": "Lightning Battle Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1156
     ],
@@ -19824,7 +19824,7 @@
   {
     "id": 1307,
     "name": "Lightning Great Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1157
     ],
@@ -19839,7 +19839,7 @@
   {
     "id": 1308,
     "name": "Lightning Arrow",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       1179
     ],
@@ -19869,7 +19869,7 @@
   {
     "id": 1310,
     "name": "Lightning Bolt",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       1189
     ],
@@ -20184,7 +20184,7 @@
   {
     "id": 1331,
     "name": "Fire Long Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1172
     ],
@@ -20199,7 +20199,7 @@
   {
     "id": 1332,
     "name": "Frost Long Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1176
     ],
@@ -20214,7 +20214,7 @@
   {
     "id": 1333,
     "name": "Lightning Long Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1174
     ],
@@ -20229,7 +20229,7 @@
   {
     "id": 1334,
     "name": "Fire Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1150
     ],
@@ -20244,7 +20244,7 @@
   {
     "id": 1335,
     "name": "Frost Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1154
     ],
@@ -20259,7 +20259,7 @@
   {
     "id": 1336,
     "name": "Lightning Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1152
     ],
@@ -20274,7 +20274,7 @@
   {
     "id": 1337,
     "name": "Fire Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1160
     ],
@@ -20289,7 +20289,7 @@
   {
     "id": 1338,
     "name": "Frost Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1164
     ],
@@ -20304,7 +20304,7 @@
   {
     "id": 1339,
     "name": "Lightning Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1162
     ],
@@ -20319,7 +20319,7 @@
   {
     "id": 1340,
     "name": "Fire Short Staff",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1169
     ],
@@ -20334,7 +20334,7 @@
   {
     "id": 1341,
     "name": "Frost Short Staff",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1170
     ],
@@ -20349,7 +20349,7 @@
   {
     "id": 1342,
     "name": "Lightning Short Staff",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1171
     ],
@@ -20364,7 +20364,7 @@
   {
     "id": 1343,
     "name": "Fire Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1146
     ],
@@ -20379,7 +20379,7 @@
   {
     "id": 1344,
     "name": "Frost Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1158
     ],
@@ -20394,7 +20394,7 @@
   {
     "id": 1345,
     "name": "Lightning Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1156
     ],
@@ -20409,7 +20409,7 @@
   {
     "id": 1346,
     "name": "Fire Scythe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1203
     ],
@@ -20424,7 +20424,7 @@
   {
     "id": 1347,
     "name": "Frost Scythe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1204
     ],
@@ -20439,7 +20439,7 @@
   {
     "id": 1348,
     "name": "Lightning Scythe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1205
     ],
@@ -20454,7 +20454,7 @@
   {
     "id": 1349,
     "name": "Fire Shuriken",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       1206
     ],
@@ -20469,7 +20469,7 @@
   {
     "id": 1350,
     "name": "Frost Shuriken",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       1207
     ],
@@ -20484,7 +20484,7 @@
   {
     "id": 1351,
     "name": "Lightning Shuriken",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       1208
     ],
@@ -20499,7 +20499,7 @@
   {
     "id": 1352,
     "name": "Shuriken",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       1209
     ],
@@ -20790,7 +20790,7 @@
   {
     "id": 1371,
     "name": "Sprouting Banana Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       895
     ],
@@ -20807,7 +20807,7 @@
   {
     "id": 1372,
     "name": "Young Banana Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       896
     ],
@@ -20824,7 +20824,7 @@
   {
     "id": 1373,
     "name": "Sprouting Palm Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       895
     ],
@@ -20841,7 +20841,7 @@
   {
     "id": 1374,
     "name": "Young Palm Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       896
     ],
@@ -20943,7 +20943,7 @@
   {
     "id": 1380,
     "name": "Strawberry",
-    "class": "food",
+    "class": "Food",
     "animations": [
       815
     ],
@@ -20958,7 +20958,7 @@
   {
     "id": 1381,
     "name": "Strawberry Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -21075,7 +21075,7 @@
   {
     "id": 1388,
     "name": "Grapes",
-    "class": "food",
+    "class": "Food",
     "animations": [
       825
     ],
@@ -21090,7 +21090,7 @@
   {
     "id": 1389,
     "name": "Grape Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -21120,7 +21120,7 @@
   {
     "id": 1391,
     "name": "Salted Un-Cooked Large Ribs",
-    "class": "food",
+    "class": "Food",
     "animations": [
       600
     ],
@@ -21135,7 +21135,7 @@
   {
     "id": 1392,
     "name": "Salted Un-Cooked Medium Ribs",
-    "class": "food",
+    "class": "Food",
     "animations": [
       601
     ],
@@ -21150,7 +21150,7 @@
   {
     "id": 1393,
     "name": "Salted Un-Cooked Small Rib",
-    "class": "food",
+    "class": "Food",
     "animations": [
       602
     ],
@@ -21165,7 +21165,7 @@
   {
     "id": 1394,
     "name": "Salted Un-Cooked Leg of Cow",
-    "class": "food",
+    "class": "Food",
     "animations": [
       603
     ],
@@ -21180,7 +21180,7 @@
   {
     "id": 1395,
     "name": "Salted Un-Cooked Leg of Lamb",
-    "class": "food",
+    "class": "Food",
     "animations": [
       604
     ],
@@ -21195,7 +21195,7 @@
   {
     "id": 1396,
     "name": "Salted Un-Cooked Chicken Leg",
-    "class": "food",
+    "class": "Food",
     "animations": [
       605
     ],
@@ -21446,7 +21446,7 @@
   {
     "id": 1411,
     "name": "Rasberry",
-    "class": "food",
+    "class": "Food",
     "animations": [
       831
     ],
@@ -21461,7 +21461,7 @@
   {
     "id": 1412,
     "name": "Rasberry Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -21578,7 +21578,7 @@
   {
     "id": 1419,
     "name": "Blueberry",
-    "class": "food",
+    "class": "Food",
     "animations": [
       830
     ],
@@ -21593,7 +21593,7 @@
   {
     "id": 1420,
     "name": "Blueberry Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -21638,7 +21638,7 @@
   {
     "id": 1423,
     "name": "Pinnaple Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -22436,7 +22436,7 @@
   {
     "id": 1474,
     "name": "Damon Scythe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1298
     ],
@@ -23066,7 +23066,7 @@
   {
     "id": 1516,
     "name": "Jerky",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1303
     ],
@@ -23081,7 +23081,7 @@
   {
     "id": 1517,
     "name": "Meat Strips",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       1302
     ],
@@ -23096,7 +23096,7 @@
   {
     "id": 1518,
     "name": "Dried Fruit",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1304
     ],
@@ -23141,7 +23141,7 @@
   {
     "id": 1521,
     "name": "Dried Fish",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1303
     ],
@@ -23156,7 +23156,7 @@
   {
     "id": 1522,
     "name": "Fire Gauntlet",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1316
     ],
@@ -23171,7 +23171,7 @@
   {
     "id": 1523,
     "name": "Frost Gauntlet",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1317
     ],
@@ -23186,7 +23186,7 @@
   {
     "id": 1524,
     "name": "Lightning Gauntlet",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1318
     ],
@@ -23201,7 +23201,7 @@
   {
     "id": 1525,
     "name": "Gauntlet",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1335
     ],
@@ -23396,7 +23396,7 @@
   {
     "id": 1538,
     "name": "Steel Broad Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1319
     ],
@@ -23411,7 +23411,7 @@
   {
     "id": 1539,
     "name": "Steel Great Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1320
     ],
@@ -23426,7 +23426,7 @@
   {
     "id": 1540,
     "name": "Steel Great Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1322
     ],
@@ -23441,7 +23441,7 @@
   {
     "id": 1541,
     "name": "Steel Spiked Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1321
     ],
@@ -23456,7 +23456,7 @@
   {
     "id": 1542,
     "name": "Steel Battle Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1323
     ],
@@ -23471,7 +23471,7 @@
   {
     "id": 1543,
     "name": "Steel Great Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1324
     ],
@@ -23486,7 +23486,7 @@
   {
     "id": 1544,
     "name": "Steel Scythe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1325
     ],
@@ -23501,7 +23501,7 @@
   {
     "id": 1545,
     "name": "Steel Heavy Battle Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1326
     ],
@@ -23516,7 +23516,7 @@
   {
     "id": 1546,
     "name": "Steel Great Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1327
     ],
@@ -23531,7 +23531,7 @@
   {
     "id": 1547,
     "name": "Steel Claw",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1328
     ],
@@ -23546,7 +23546,7 @@
   {
     "id": 1548,
     "name": "Steel Battle Staff",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1330
     ],
@@ -23561,7 +23561,7 @@
   {
     "id": 1549,
     "name": "Steel Battle Spear",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1329
     ],
@@ -23591,7 +23591,7 @@
   {
     "id": 1551,
     "name": "Steel Shuriken",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       1333
     ],
@@ -23606,7 +23606,7 @@
   {
     "id": 1552,
     "name": "Steel Knife",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1336
     ],
@@ -24146,7 +24146,7 @@
   {
     "id": 1588,
     "name": "Blue Backed Spider Egg",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       1337
     ],
@@ -24161,7 +24161,7 @@
   {
     "id": 1589,
     "name": "Red Backed Spider Egg",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       1339
     ],
@@ -24176,7 +24176,7 @@
   {
     "id": 1590,
     "name": "Yellow Backed Spider Egg",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       1338
     ],
@@ -24191,7 +24191,7 @@
   {
     "id": 1591,
     "name": "Chicken Egg",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       1334
     ],
@@ -24251,7 +24251,7 @@
   {
     "id": 1595,
     "name": "New Born Sheep",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       1348
     ],
@@ -24266,7 +24266,7 @@
   {
     "id": 1596,
     "name": "New Born Cow",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       1349
     ],
@@ -24281,7 +24281,7 @@
   {
     "id": 1597,
     "name": "Leather Cloak",
-    "class": "clothechest",
+    "class": "Clothechest",
     "animations": [
       1358
     ],
@@ -24296,7 +24296,7 @@
   {
     "id": 1598,
     "name": "Leather Coat",
-    "class": "clothechest",
+    "class": "Clothechest",
     "animations": [
       1359
     ],
@@ -24311,7 +24311,7 @@
   {
     "id": 1599,
     "name": "Cotton Coat",
-    "class": "clothechest",
+    "class": "Clothechest",
     "animations": [
       1369
     ],
@@ -25331,7 +25331,7 @@
   {
     "id": 1667,
     "name": "Wool Coat",
-    "class": "clothechest",
+    "class": "Clothechest",
     "animations": [
       1382
     ],
@@ -26157,7 +26157,7 @@
   {
     "id": 1722,
     "name": "Cookie",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1574
     ],
@@ -26202,7 +26202,7 @@
   {
     "id": 1725,
     "name": "Red Sweater",
-    "class": "clothechest",
+    "class": "Clothechest",
     "animations": [
       1508
     ],
@@ -26217,7 +26217,7 @@
   {
     "id": 1726,
     "name": "Blue Sweater",
-    "class": "clothechest",
+    "class": "Clothechest",
     "animations": [
       1518
     ],
@@ -26232,7 +26232,7 @@
   {
     "id": 1727,
     "name": "Green Sweater",
-    "class": "clothechest",
+    "class": "Clothechest",
     "animations": [
       1528
     ],
@@ -26551,7 +26551,7 @@
   {
     "id": 1749,
     "name": "Wand of the Dead",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       864
     ],
@@ -27535,7 +27535,7 @@
   {
     "id": 1813,
     "name": "Magma Bow",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1499
     ],
@@ -27601,7 +27601,7 @@
   {
     "id": 1817,
     "name": "Dormant Coffee Tree",
-    "class": "PLANT",
+    "class": "Plant",
     "animations": [
       257
     ],
@@ -27635,7 +27635,7 @@
   {
     "id": 1819,
     "name": "Coffee Beans",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       1460
     ],
@@ -27650,7 +27650,7 @@
   {
     "id": 1820,
     "name": "Ground Coffee",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       1470
     ],
@@ -27665,7 +27665,7 @@
   {
     "id": 1821,
     "name": "Empty Coffee Pot",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       1429
     ],
@@ -27680,7 +27680,7 @@
   {
     "id": 1822,
     "name": "Empty Coffee Cup",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       1459
     ],
@@ -28052,7 +28052,7 @@
   {
     "id": 1846,
     "name": "Gorvor Orb",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       1631
     ],
@@ -29507,7 +29507,7 @@
   {
     "id": 1946,
     "name": "Germ Weed Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29522,7 +29522,7 @@
   {
     "id": 1947,
     "name": "Rye Weed Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29537,7 +29537,7 @@
   {
     "id": 1948,
     "name": "Nightshade Mushroom Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29552,7 +29552,7 @@
   {
     "id": 1949,
     "name": "Orange Blossom Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29567,7 +29567,7 @@
   {
     "id": 1950,
     "name": "Feather Bloom Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29582,7 +29582,7 @@
   {
     "id": 1951,
     "name": "Ruge Mushroom Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29597,7 +29597,7 @@
   {
     "id": 1952,
     "name": "Hayeberry Bush Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29612,7 +29612,7 @@
   {
     "id": 1953,
     "name": "Gold Moss Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29627,7 +29627,7 @@
   {
     "id": 1954,
     "name": "Blue Bell Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29642,7 +29642,7 @@
   {
     "id": 1955,
     "name": "Purple Rain Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29657,7 +29657,7 @@
   {
     "id": 1956,
     "name": "Starburst Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29672,7 +29672,7 @@
   {
     "id": 1957,
     "name": "Masik Vine Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29687,7 +29687,7 @@
   {
     "id": 1958,
     "name": "Fire Weed Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29702,7 +29702,7 @@
   {
     "id": 1959,
     "name": "Gyro Stem Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29717,7 +29717,7 @@
   {
     "id": 1960,
     "name": "Bamboo Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29732,7 +29732,7 @@
   {
     "id": 1961,
     "name": "Sage Grass Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29747,7 +29747,7 @@
   {
     "id": 1962,
     "name": "Bunt Grass Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29762,7 +29762,7 @@
   {
     "id": 1963,
     "name": "Redd Grass Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29777,7 +29777,7 @@
   {
     "id": 1964,
     "name": "Cattails Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29792,7 +29792,7 @@
   {
     "id": 1965,
     "name": "Green Fern Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29807,7 +29807,7 @@
   {
     "id": 1966,
     "name": "Red Fern Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29822,7 +29822,7 @@
   {
     "id": 1967,
     "name": "Clover Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29837,7 +29837,7 @@
   {
     "id": 1968,
     "name": "Zinnia Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29852,7 +29852,7 @@
   {
     "id": 1969,
     "name": "Alyssum Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29867,7 +29867,7 @@
   {
     "id": 1970,
     "name": "Yellow Fern Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29882,7 +29882,7 @@
   {
     "id": 1971,
     "name": "Black Tulip Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29897,7 +29897,7 @@
   {
     "id": 1972,
     "name": "White Tulip Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29912,7 +29912,7 @@
   {
     "id": 1973,
     "name": "Blue Moss Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29927,7 +29927,7 @@
   {
     "id": 1974,
     "name": "Mana Plant Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29942,7 +29942,7 @@
   {
     "id": 1975,
     "name": "Grey Berry Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29957,7 +29957,7 @@
   {
     "id": 1976,
     "name": "Blue Shroom Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29972,7 +29972,7 @@
   {
     "id": 1977,
     "name": "Red Shroom Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -29987,7 +29987,7 @@
   {
     "id": 1978,
     "name": "Cactus Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -30002,7 +30002,7 @@
   {
     "id": 1979,
     "name": "Gyro Vine Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -30017,7 +30017,7 @@
   {
     "id": 1980,
     "name": "Orange Blossom Moss Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -30032,7 +30032,7 @@
   {
     "id": 1981,
     "name": "Jade Shroom Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -30047,7 +30047,7 @@
   {
     "id": 1982,
     "name": "Drak Root Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -31202,7 +31202,7 @@
   {
     "id": 2053,
     "name": "Trolkin Shards",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       379
     ],
@@ -31217,7 +31217,7 @@
   {
     "id": 2054,
     "name": "Trolkin Shards",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       379
     ],
@@ -31232,7 +31232,7 @@
   {
     "id": 2055,
     "name": "Trolkin Shards",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       379
     ],
@@ -31247,7 +31247,7 @@
   {
     "id": 2056,
     "name": "Trolkin Shards",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       379
     ],
@@ -31262,7 +31262,7 @@
   {
     "id": 2057,
     "name": "Trolkin Shards",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       379
     ],
@@ -31277,7 +31277,7 @@
   {
     "id": 2058,
     "name": "Trolkin Shards",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       379
     ],
@@ -31292,7 +31292,7 @@
   {
     "id": 2059,
     "name": "Trolkin Shards",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       379
     ],
@@ -31307,7 +31307,7 @@
   {
     "id": 2060,
     "name": "Trolkin Shards",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       379
     ],
@@ -31322,7 +31322,7 @@
   {
     "id": 2061,
     "name": "Trolkin Shards",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       379
     ],
@@ -31337,7 +31337,7 @@
   {
     "id": 2062,
     "name": "Trolkin Shards",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       379
     ],
@@ -32066,7 +32066,7 @@
   {
     "id": 2111,
     "name": "Dragon Short Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1895
     ],
@@ -32081,7 +32081,7 @@
   {
     "id": 2112,
     "name": "Gremlin Claw",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1896
     ],
@@ -32096,7 +32096,7 @@
   {
     "id": 2113,
     "name": "Gremlin Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1897
     ],
@@ -32111,7 +32111,7 @@
   {
     "id": 2114,
     "name": "Gremlin Maul",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1898
     ],
@@ -32126,7 +32126,7 @@
   {
     "id": 2115,
     "name": "Gremlin Egg Shell",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       1899
     ],
@@ -33278,7 +33278,7 @@
   {
     "id": 2190,
     "name": "Equalizer Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1957,
       1957,
@@ -33432,7 +33432,7 @@
   {
     "id": 2200,
     "name": "Artifact Dagger",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1980
     ],
@@ -33447,7 +33447,7 @@
   {
     "id": 2201,
     "name": "Artifact Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1981
     ],
@@ -33462,7 +33462,7 @@
   {
     "id": 2202,
     "name": "Artifact Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1982
     ],
@@ -33477,7 +33477,7 @@
   {
     "id": 2203,
     "name": "Artifact Scythe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1983
     ],
@@ -33492,7 +33492,7 @@
   {
     "id": 2204,
     "name": "Artifact Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1984
     ],
@@ -33507,7 +33507,7 @@
   {
     "id": 2205,
     "name": "Artifact Trident",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1985
     ],
@@ -33522,7 +33522,7 @@
   {
     "id": 2206,
     "name": "Artifact Staff",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1986
     ],
@@ -33537,7 +33537,7 @@
   {
     "id": 2207,
     "name": "Artifact Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1977
     ],
@@ -33552,7 +33552,7 @@
   {
     "id": 2208,
     "name": "Artifact Claw",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1978
     ],
@@ -33567,7 +33567,7 @@
   {
     "id": 2209,
     "name": "Artifact Bow",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1987
     ],
@@ -33582,7 +33582,7 @@
   {
     "id": 2210,
     "name": "Artifact CrossBow",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1988
     ],
@@ -33612,7 +33612,7 @@
   {
     "id": 2212,
     "name": "Artifact Orb",
-    "class": "wand",
+    "class": "Wand",
     "animations": [
       1989
     ],
@@ -33912,7 +33912,7 @@
   {
     "id": 2232,
     "name": "Magic Arrow",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       2017
     ],
@@ -33957,7 +33957,7 @@
   {
     "id": 2235,
     "name": "Gold Arrow",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       2027
     ],
@@ -33972,7 +33972,7 @@
   {
     "id": 2236,
     "name": "Gold Bolt",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       2028
     ],
@@ -34029,7 +34029,7 @@
   {
     "id": 2240,
     "name": "Statue of UT",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2100
     ],
@@ -34045,7 +34045,7 @@
   {
     "id": 2241,
     "name": "Poison Arrow",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       2102
     ],
@@ -34060,7 +34060,7 @@
   {
     "id": 2242,
     "name": "Test Bow 1",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2103,
       2103,
@@ -34083,7 +34083,7 @@
   {
     "id": 2243,
     "name": "Test Throwing Axe 1",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2106,
       2106,
@@ -34106,7 +34106,7 @@
   {
     "id": 2244,
     "name": "Test armor 1",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2120,
       2120,
@@ -34129,7 +34129,7 @@
   {
     "id": 2245,
     "name": "Test Sword 1",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2115,
       2115,
@@ -34152,7 +34152,7 @@
   {
     "id": 2246,
     "name": "Test Axe 2",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2112,
       2112,
@@ -34175,7 +34175,7 @@
   {
     "id": 2247,
     "name": "Test Scythe 1",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2109,
       2109,
@@ -34198,7 +34198,7 @@
   {
     "id": 2248,
     "name": "Test Wand 1",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2123,
       2123,
@@ -34221,7 +34221,7 @@
   {
     "id": 2249,
     "name": "Test Sword 2",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2126,
       2126,
@@ -34244,7 +34244,7 @@
   {
     "id": 2250,
     "name": "Test Trident 1",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2130,
       2130,
@@ -34267,7 +34267,7 @@
   {
     "id": 2251,
     "name": "Test X-Bow 1",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2133,
       2133,
@@ -34290,7 +34290,7 @@
   {
     "id": 2252,
     "name": "Test Shield 1",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2136,
       2136,
@@ -34313,7 +34313,7 @@
   {
     "id": 2253,
     "name": "Test Shield 2",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2146,
       2146,
@@ -34336,7 +34336,7 @@
   {
     "id": 2254,
     "name": "Test Shield 3",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2156,
       2156,
@@ -34359,7 +34359,7 @@
   {
     "id": 2255,
     "name": "Test Staff 1",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2129,
       2129,
@@ -34382,7 +34382,7 @@
   {
     "id": 2256,
     "name": "Test Staff 2",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2140,
       2140,
@@ -34405,7 +34405,7 @@
   {
     "id": 2257,
     "name": "Test Knife 1",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2143,
       2143,
@@ -34428,7 +34428,7 @@
   {
     "id": 2258,
     "name": "Test Throwing 1",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2150,
       2150,
@@ -34451,7 +34451,7 @@
   {
     "id": 2259,
     "name": "Test Throwing 2",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2153,
       2153,
@@ -34474,7 +34474,7 @@
   {
     "id": 2260,
     "name": "Test Bolt 1",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       2160,
       2160,
@@ -34497,7 +34497,7 @@
   {
     "id": 2261,
     "name": "Test Arrow 1",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       2170,
       2170,
@@ -34945,7 +34945,7 @@
   {
     "id": 2300,
     "name": "Megas Ultima Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1018
     ],
@@ -34960,7 +34960,7 @@
   {
     "id": 2301,
     "name": "Megas Stamina Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       308
     ],
@@ -34975,7 +34975,7 @@
   {
     "id": 2302,
     "name": "Megas Mana Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       324
     ],
@@ -34990,7 +34990,7 @@
   {
     "id": 2303,
     "name": "Megas Life Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       325
     ],
@@ -35005,7 +35005,7 @@
   {
     "id": 2304,
     "name": "Megas Cure Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       323
     ],
@@ -35020,7 +35020,7 @@
   {
     "id": 2305,
     "name": "Gigas Ultima Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1018
     ],
@@ -35035,7 +35035,7 @@
   {
     "id": 2306,
     "name": "Gigas Stamina Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       308
     ],
@@ -35050,7 +35050,7 @@
   {
     "id": 2307,
     "name": "Gigas Mana Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       324
     ],
@@ -35065,7 +35065,7 @@
   {
     "id": 2308,
     "name": "Gigas Life Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       325
     ],
@@ -35080,7 +35080,7 @@
   {
     "id": 2309,
     "name": "Gigas Cure Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       323
     ],
@@ -35095,7 +35095,7 @@
   {
     "id": 2310,
     "name": "Megas Strength Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       325
     ],
@@ -35110,7 +35110,7 @@
   {
     "id": 2311,
     "name": "Megas Dexterity Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       308
     ],
@@ -35125,7 +35125,7 @@
   {
     "id": 2312,
     "name": "Megas Quickness Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       309
     ],
@@ -35140,7 +35140,7 @@
   {
     "id": 2313,
     "name": "Megas Intelligence Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       310
     ],
@@ -35155,7 +35155,7 @@
   {
     "id": 2314,
     "name": "Megas Wisdom Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1019
     ],
@@ -35170,7 +35170,7 @@
   {
     "id": 2315,
     "name": "Gigas Strength Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       325
     ],
@@ -35185,7 +35185,7 @@
   {
     "id": 2316,
     "name": "Gigas Dexterity Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       308
     ],
@@ -35200,7 +35200,7 @@
   {
     "id": 2317,
     "name": "Gigas Quickness Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       309
     ],
@@ -35215,7 +35215,7 @@
   {
     "id": 2318,
     "name": "Gigas Intelligence Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       310
     ],
@@ -35230,7 +35230,7 @@
   {
     "id": 2319,
     "name": "Gigas Wisdom Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1019
     ],
@@ -35245,7 +35245,7 @@
   {
     "id": 2320,
     "name": "Megas Sword Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1026
     ],
@@ -35260,7 +35260,7 @@
   {
     "id": 2321,
     "name": "Megas Melee Defense Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1027
     ],
@@ -35275,7 +35275,7 @@
   {
     "id": 2322,
     "name": "Megas Dagger Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1028
     ],
@@ -35290,7 +35290,7 @@
   {
     "id": 2323,
     "name": "Megas Axe Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1029
     ],
@@ -35305,7 +35305,7 @@
   {
     "id": 2324,
     "name": "Megas Unarmed Attack Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1030
     ],
@@ -35320,7 +35320,7 @@
   {
     "id": 2325,
     "name": "Megas Mace Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1031
     ],
@@ -35335,7 +35335,7 @@
   {
     "id": 2326,
     "name": "Megas Spear Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1032
     ],
@@ -35350,7 +35350,7 @@
   {
     "id": 2327,
     "name": "Megas Staff Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1033
     ],
@@ -35365,7 +35365,7 @@
   {
     "id": 2328,
     "name": "Megas Flail Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1034
     ],
@@ -35380,7 +35380,7 @@
   {
     "id": 2329,
     "name": "Megas Missle Defense Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1035
     ],
@@ -35395,7 +35395,7 @@
   {
     "id": 2330,
     "name": "Megas Bow Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1036
     ],
@@ -35410,7 +35410,7 @@
   {
     "id": 2331,
     "name": "Megas Crossbow Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1037
     ],
@@ -35425,7 +35425,7 @@
   {
     "id": 2332,
     "name": "Megas Blue Magic Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1038
     ],
@@ -35440,7 +35440,7 @@
   {
     "id": 2333,
     "name": "Megas Magic Defense Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1039
     ],
@@ -35455,7 +35455,7 @@
   {
     "id": 2334,
     "name": "Megas Mana Conversion Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1040
     ],
@@ -35470,7 +35470,7 @@
   {
     "id": 2335,
     "name": "Megas Stealth Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1041
     ],
@@ -35485,7 +35485,7 @@
   {
     "id": 2336,
     "name": "Megas Scan Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1042
     ],
@@ -35500,7 +35500,7 @@
   {
     "id": 2337,
     "name": "Megas Assess Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1043
     ],
@@ -35515,7 +35515,7 @@
   {
     "id": 2338,
     "name": "Megas Scythe Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1040
     ],
@@ -35530,7 +35530,7 @@
   {
     "id": 2339,
     "name": "Megas Throwing Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1034
     ],
@@ -35545,7 +35545,7 @@
   {
     "id": 2340,
     "name": "Megas Black Magic Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1035
     ],
@@ -35560,7 +35560,7 @@
   {
     "id": 2341,
     "name": "Megas Alchemy Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1036
     ],
@@ -35575,7 +35575,7 @@
   {
     "id": 2342,
     "name": "Megas White Magic Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1037
     ],
@@ -35590,7 +35590,7 @@
   {
     "id": 2343,
     "name": "Megas Red Magic Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1038
     ],
@@ -35605,7 +35605,7 @@
   {
     "id": 2344,
     "name": "Megas Trap Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1039
     ],
@@ -35620,7 +35620,7 @@
   {
     "id": 2345,
     "name": "Megas Blacksmith Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1045
     ],
@@ -35635,7 +35635,7 @@
   {
     "id": 2346,
     "name": "Megas Fletching Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1018
     ],
@@ -35650,7 +35650,7 @@
   {
     "id": 2347,
     "name": "Megas Locksmith Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1026
     ],
@@ -35665,7 +35665,7 @@
   {
     "id": 2348,
     "name": "Megas Carpentry Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1028
     ],
@@ -35680,7 +35680,7 @@
   {
     "id": 2349,
     "name": "Gigas Sword Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1026
     ],
@@ -35695,7 +35695,7 @@
   {
     "id": 2350,
     "name": "Gigas Melee Defense Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1027
     ],
@@ -35710,7 +35710,7 @@
   {
     "id": 2351,
     "name": "Gigas Dagger Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1028
     ],
@@ -35725,7 +35725,7 @@
   {
     "id": 2352,
     "name": "Gigas Axe Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1029
     ],
@@ -35740,7 +35740,7 @@
   {
     "id": 2353,
     "name": "Gigas Unarmed Attack Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1030
     ],
@@ -35755,7 +35755,7 @@
   {
     "id": 2354,
     "name": "Gigas Mace Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1031
     ],
@@ -35770,7 +35770,7 @@
   {
     "id": 2355,
     "name": "Gigas Spear Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1032
     ],
@@ -35785,7 +35785,7 @@
   {
     "id": 2356,
     "name": "Gigas Staff Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1033
     ],
@@ -35800,7 +35800,7 @@
   {
     "id": 2357,
     "name": "Gigas Flail Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1034
     ],
@@ -35815,7 +35815,7 @@
   {
     "id": 2358,
     "name": "Gigas Missle Defense Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1035
     ],
@@ -35830,7 +35830,7 @@
   {
     "id": 2359,
     "name": "Gigas Bow Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1036
     ],
@@ -35845,7 +35845,7 @@
   {
     "id": 2360,
     "name": "Gigas Crossbow Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1037
     ],
@@ -35860,7 +35860,7 @@
   {
     "id": 2361,
     "name": "Gigas Blue Magic Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1038
     ],
@@ -35875,7 +35875,7 @@
   {
     "id": 2362,
     "name": "Gigas Magic Defense Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1039
     ],
@@ -35890,7 +35890,7 @@
   {
     "id": 2363,
     "name": "Gigas Mana Conversion Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1040
     ],
@@ -35905,7 +35905,7 @@
   {
     "id": 2364,
     "name": "Gigas Stealth Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1041
     ],
@@ -35920,7 +35920,7 @@
   {
     "id": 2365,
     "name": "Gigas Scan Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1042
     ],
@@ -35935,7 +35935,7 @@
   {
     "id": 2366,
     "name": "Gigas Assess Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1043
     ],
@@ -35950,7 +35950,7 @@
   {
     "id": 2367,
     "name": "Gigas Scythe Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1040
     ],
@@ -35965,7 +35965,7 @@
   {
     "id": 2368,
     "name": "Gigas Throwing Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1034
     ],
@@ -35980,7 +35980,7 @@
   {
     "id": 2369,
     "name": "Gigas Black Magic Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1035
     ],
@@ -35995,7 +35995,7 @@
   {
     "id": 2370,
     "name": "Gigas Alchemy Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1036
     ],
@@ -36010,7 +36010,7 @@
   {
     "id": 2371,
     "name": "Gigas White Magic Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1037
     ],
@@ -36025,7 +36025,7 @@
   {
     "id": 2372,
     "name": "Gigas Red Magic Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1038
     ],
@@ -36040,7 +36040,7 @@
   {
     "id": 2373,
     "name": "Gigas Trap Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1039
     ],
@@ -36055,7 +36055,7 @@
   {
     "id": 2374,
     "name": "Gigas Blacksmith Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1045
     ],
@@ -36070,7 +36070,7 @@
   {
     "id": 2375,
     "name": "Gigas Fletching Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1018
     ],
@@ -36085,7 +36085,7 @@
   {
     "id": 2376,
     "name": "Gigas Locksmith Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1026
     ],
@@ -36100,7 +36100,7 @@
   {
     "id": 2377,
     "name": "Gigas Carpentry Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1028
     ],
@@ -42014,7 +42014,7 @@
   {
     "id": 3015,
     "name": "Storm Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1756
     ],
@@ -42119,7 +42119,7 @@
   {
     "id": 3022,
     "name": "Flaming Mailed Fist",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       83
     ],
@@ -42134,7 +42134,7 @@
   {
     "id": 3023,
     "name": "Frost Mailed Fist",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       83
     ],
@@ -42149,7 +42149,7 @@
   {
     "id": 3024,
     "name": "Lightning Mailed Fist",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       83
     ],
@@ -42887,7 +42887,7 @@
   {
     "id": 3073,
     "name": "UT's Fly Swatter",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1790
     ],
@@ -43351,7 +43351,7 @@
   {
     "id": 3104,
     "name": "Zephyrium Dagger",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1873
     ],
@@ -43366,7 +43366,7 @@
   {
     "id": 3105,
     "name": "Zephyrium Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1874
     ],
@@ -43381,7 +43381,7 @@
   {
     "id": 3106,
     "name": "Zephyrium Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1875
     ],
@@ -43396,7 +43396,7 @@
   {
     "id": 3107,
     "name": "Zephyrium Scythe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1876
     ],
@@ -43411,7 +43411,7 @@
   {
     "id": 3108,
     "name": "Zephyrium Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1877
     ],
@@ -43426,7 +43426,7 @@
   {
     "id": 3109,
     "name": "Zephyrium Trident",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1878
     ],
@@ -43441,7 +43441,7 @@
   {
     "id": 3110,
     "name": "Zephyrium Staff",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1879
     ],
@@ -43456,7 +43456,7 @@
   {
     "id": 3111,
     "name": "Zephyrium Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1868
     ],
@@ -43471,7 +43471,7 @@
   {
     "id": 3112,
     "name": "Zephyrium Claw",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1869
     ],
@@ -43486,7 +43486,7 @@
   {
     "id": 3113,
     "name": "Zephyrium Bow",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1880
     ],
@@ -43501,7 +43501,7 @@
   {
     "id": 3114,
     "name": "Zephyrium CrossBow",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       1881
     ],
@@ -43620,7 +43620,7 @@
   {
     "id": 3121,
     "name": "Red Team Food",
-    "class": "food",
+    "class": "Food",
     "animations": [
       85
     ],
@@ -43635,7 +43635,7 @@
   {
     "id": 3122,
     "name": "Blue Team Food",
-    "class": "food",
+    "class": "Food",
     "animations": [
       85
     ],
@@ -43883,7 +43883,7 @@
   {
     "id": 3138,
     "name": "Minor Jeweler Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1969
     ],
@@ -43898,7 +43898,7 @@
   {
     "id": 3139,
     "name": "Major Jeweler Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       1969
     ],
@@ -43913,7 +43913,7 @@
   {
     "id": 3140,
     "name": "Dandelion Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -44017,7 +44017,7 @@
   {
     "id": 3147,
     "name": "Poison Battle Axe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       412
     ],
@@ -44032,7 +44032,7 @@
   {
     "id": 3148,
     "name": "Poison Broad Sword",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       410
     ],
@@ -44047,7 +44047,7 @@
   {
     "id": 3149,
     "name": "Poison Spiked Mace",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       2177
     ],
@@ -44062,7 +44062,7 @@
   {
     "id": 3150,
     "name": "Poison Scythe",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       2179
     ],
@@ -44077,7 +44077,7 @@
   {
     "id": 3151,
     "name": "Poison Claw",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       2174
     ],
@@ -44092,7 +44092,7 @@
   {
     "id": 3152,
     "name": "Poison Battle Staff",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       2173
     ],
@@ -44107,7 +44107,7 @@
   {
     "id": 3153,
     "name": "Poison Battle Spear",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       2169
     ],
@@ -44137,7 +44137,7 @@
   {
     "id": 3155,
     "name": "Poison Bolt",
-    "class": "ammo",
+    "class": "Ammo",
     "animations": [
       2159
     ],
@@ -44152,7 +44152,7 @@
   {
     "id": 3156,
     "name": "Steel Dagger",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       2180
     ],
@@ -44167,7 +44167,7 @@
   {
     "id": 3157,
     "name": "Poison Dagger",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       2175
     ],
@@ -44182,7 +44182,7 @@
   {
     "id": 3158,
     "name": "Poison Great Flail",
-    "class": "weapon",
+    "class": "Weapon",
     "animations": [
       2176
     ],
@@ -44246,7 +44246,7 @@
   {
     "id": 3162,
     "name": "White Rose Seeds",
-    "class": "food",
+    "class": "Food",
     "animations": [
       59
     ],
@@ -44321,7 +44321,7 @@
   {
     "id": 3167,
     "name": "Minor Mining Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       2183
     ],
@@ -44336,7 +44336,7 @@
   {
     "id": 3168,
     "name": "Major Mining Potion",
-    "class": "food",
+    "class": "Food",
     "animations": [
       2184
     ],
@@ -44351,7 +44351,7 @@
   {
     "id": 3169,
     "name": "Reflection Pool",
-    "class": "normal",
+    "class": "Normal",
     "animations": [
       2300
     ],

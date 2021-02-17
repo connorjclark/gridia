@@ -12,7 +12,7 @@ class MapModule extends ClientModule {
   private nextDrawAt = 0;
   private numDraws = 0;
 
-  public onStart() {
+  onStart() {
     this.mapEl = Helper.find('.map', this.panel) as HTMLCanvasElement;
     this.mapEl.width = this.mapEl.height; // TODO: css?
 
@@ -28,7 +28,7 @@ class MapModule extends ClientModule {
     });
   }
 
-  public onTick(now: number) {
+  onTick(now: number) {
     if (!this.panel.classList.contains('panel--active')) return;
 
     const playerLoc = this.game.getPlayerPosition();
@@ -41,7 +41,7 @@ class MapModule extends ClientModule {
     this.numDraws += 1;
   }
 
-  public draw() {
+  draw() {
     if (!this.context || !this.mapEl) throw new Error('could not make context');
 
     this.context.fillStyle = 'grey';

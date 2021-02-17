@@ -25,48 +25,48 @@ interface RegisterOpts {
 }
 
 export default class Server {
-  public context: ServerContext;
-  public clientConnections: ClientConnection[] = [];
-  public outboundMessages = [] as Array<{
+  context: ServerContext;
+  clientConnections: ClientConnection[] = [];
+  outboundMessages = [] as Array<{
     message: ServerToClientMessage;
     to?: ClientConnection;
     filter?: (client: ClientConnection) => boolean;
   }>;
   // @ts-ignore: this is always defined when accessed.
-  public currentClientConnection: ClientConnection;
-  public creatureStates: Record<number, CreatureState> = {};
-  public players = new Map<number, Player>();
-  public verbose: boolean;
-  public taskRunner = new TaskRunner(50);
+  currentClientConnection: ClientConnection;
+  creatureStates: Record<number, CreatureState> = {};
+  players = new Map<number, Player>();
+  verbose: boolean;
+  taskRunner = new TaskRunner(50);
 
-  public secondsPerWorldTick = 20;
-  public ticksPerWorldDay = 24 * 60 * 60 / this.secondsPerWorldTick / 8;
-  public time = new WorldTime(this.ticksPerWorldDay, this.ticksPerWorldDay / 2);
+  secondsPerWorldTick = 20;
+  ticksPerWorldDay = 24 * 60 * 60 / this.secondsPerWorldTick / 8;
+  time = new WorldTime(this.ticksPerWorldDay, this.ticksPerWorldDay / 2);
   private _clientToServerProtocol = new ClientToServerProtocol();
 
-  public constructor(opts: CtorOpts) {
+  constructor(opts: CtorOpts) {
     this.context = opts.context;
     this.verbose = opts.verbose;
     this.setupTickSections();
   }
 
-  public reply(message: ServerToClientMessage) {
+  reply(message: ServerToClientMessage) {
     this.outboundMessages.push({ to: this.currentClientConnection, message });
   }
 
-  public broadcast(message: ServerToClientMessage) {
+  broadcast(message: ServerToClientMessage) {
     this.outboundMessages.push({ message });
   }
 
-  public send(message: ServerToClientMessage, toClient: ClientConnection) {
+  send(message: ServerToClientMessage, toClient: ClientConnection) {
     this.outboundMessages.push({ to: toClient, message });
   }
 
-  public conditionalBroadcast(message: ServerToClientMessage, filter: (client: ClientConnection) => boolean) {
+  conditionalBroadcast(message: ServerToClientMessage, filter: (client: ClientConnection) => boolean) {
     this.outboundMessages.push({ filter, message });
   }
 
-  public broadcastInRange(message: ServerToClientMessage, loc: TilePoint, range: number) {
+  broadcastInRange(message: ServerToClientMessage, loc: TilePoint, range: number) {
     this.conditionalBroadcast(message, (client) => {
       const loc2 = client.player.creature.pos;
       if (loc2.z !== loc.z || loc2.w !== loc.w) return false;
@@ -75,23 +75,23 @@ export default class Server {
     });
   }
 
-  public broadcastAnimation(pos: TilePoint, name: string) {
+  broadcastAnimation(pos: TilePoint, name: string) {
     this.broadcastInRange(ProtocolBuilder.animation({ ...pos, key: name }), pos, 30);
   }
 
-  public start() {
+  start() {
     this.taskRunner.start();
   }
 
-  public stop() {
+  stop() {
     this.taskRunner.stop();
   }
 
-  public async tick() {
+  async tick() {
     await this.taskRunner.tick();
   }
 
-  public async save() {
+  async save() {
     for (const clientConnection of this.clientConnections) {
       if (clientConnection.player) {
         await this.context.savePlayer(clientConnection.player);
@@ -100,7 +100,7 @@ export default class Server {
     await this.context.save();
   }
 
-  public async registerPlayer(clientConnection: ClientConnection, opts: RegisterOpts) {
+  async registerPlayer(clientConnection: ClientConnection, opts: RegisterOpts) {
     const { width, height } = this.context.map.getPartition(0);
 
     const center = { w: 0, x: Math.round(width / 2), y: Math.round(height / 2) + 3, z: 0 };
@@ -155,7 +155,7 @@ export default class Server {
     await this.initClient(clientConnection);
   }
 
-  public removeClient(clientConnection: ClientConnection) {
+  removeClient(clientConnection: ClientConnection) {
     this.clientConnections.splice(this.clientConnections.indexOf(clientConnection), 1);
     if (clientConnection.player) {
       this.removeCreature(clientConnection.player.creature);
@@ -163,13 +163,13 @@ export default class Server {
     }
   }
 
-  public async consumeAllMessages() {
+  async consumeAllMessages() {
     while (this.clientConnections.some((c) => c.hasMessage()) || this.outboundMessages.length) {
       await this.tick();
     }
   }
 
-  public makeCreatureFromTemplate(creatureType: number | Monster, pos: TilePoint) {
+  makeCreatureFromTemplate(creatureType: number | Monster, pos: TilePoint) {
     const template = typeof creatureType === 'number' ? Content.getMonsterTemplate(creatureType) : creatureType;
     if (!template) return; // TODO
 
@@ -192,14 +192,14 @@ export default class Server {
     return creature;
   }
 
-  public registerCreature(creature: Creature): Creature {
+  registerCreature(creature: Creature): Creature {
     this.creatureStates[creature.id] = new CreatureState(creature);
     this.context.setCreature(creature);
     this.broadcast(ProtocolBuilder.setCreature({ partial: false, ...creature }));
     return creature;
   }
 
-  public moveCreature(creature: Creature, pos: TilePoint | null) {
+  moveCreature(creature: Creature, pos: TilePoint | null) {
     delete this.context.map.getTile(creature.pos).creature;
     if (pos) {
       creature.pos = pos;
@@ -209,7 +209,7 @@ export default class Server {
     this.creatureStates[creature.id].warped = false;
   }
 
-  public broadcastPartialCreatureUpdate(creature: Creature, keys: Array<keyof Creature>) {
+  broadcastPartialCreatureUpdate(creature: Creature, keys: Array<keyof Creature>) {
     const partialCreature: Partial<Creature> = {
       id: creature.id,
     };
@@ -223,7 +223,7 @@ export default class Server {
     }));
   }
 
-  public async warpCreature(creature: Creature, pos: TilePoint | null) {
+  async warpCreature(creature: Creature, pos: TilePoint | null) {
     if (pos && !this.context.map.inBounds(pos)) return;
 
     if (pos) await this.ensureSectorLoadedForPoint(pos);
@@ -232,7 +232,7 @@ export default class Server {
     this.creatureStates[creature.id].path = [];
   }
 
-  public modifyCreatureLife(actor: Creature | null, creature: Creature, delta: number) {
+  modifyCreatureLife(actor: Creature | null, creature: Creature, delta: number) {
     creature.life += delta;
 
     this.broadcast(ProtocolBuilder.setCreature({ partial: true, id: creature.id, life: creature.life }));
@@ -247,7 +247,7 @@ export default class Server {
     }
   }
 
-  public removeCreature(creature: Creature) {
+  removeCreature(creature: Creature) {
     delete this.context.map.getTile(creature.pos).creature;
     this.context.creatures.delete(creature.id);
 
@@ -264,8 +264,8 @@ export default class Server {
     }));
   }
 
-  public findNearest(loc: TilePoint, range: number, includeTargetLocation: boolean,
-                     predicate: (tile: Tile, loc2: TilePoint) => boolean): TilePoint | null {
+  findNearest(loc: TilePoint, range: number, includeTargetLocation: boolean,
+              predicate: (tile: Tile, loc2: TilePoint) => boolean): TilePoint | null {
     const w = loc.w;
     const partition = this.context.map.getPartition(w);
     const test = (l: TilePoint) => {
@@ -298,7 +298,7 @@ export default class Server {
     return null;
   }
 
-  public addItemNear(loc: TilePoint, item: Item) {
+  addItemNear(loc: TilePoint, item: Item) {
     const nearestLoc = this.findNearest(loc, 6, true, (tile) => !tile.item || tile.item.type === item.type);
     if (!nearestLoc) return; // TODO what to do in this case?
     const nearestTile = this.context.map.getTile(nearestLoc);
@@ -314,7 +314,7 @@ export default class Server {
     }));
   }
 
-  public setFloor(loc: TilePoint, floor: number) {
+  setFloor(loc: TilePoint, floor: number) {
     this.context.map.getTile(loc).floor = floor;
     this.broadcast(ProtocolBuilder.setFloor({
       ...loc,
@@ -322,7 +322,7 @@ export default class Server {
     }));
   }
 
-  public setItem(loc: TilePoint, item?: Item) {
+  setItem(loc: TilePoint, item?: Item) {
     this.context.map.getTile(loc).item = item;
     this.broadcast(ProtocolBuilder.setItem({
       location: Utils.ItemLocation.World(loc),
@@ -330,7 +330,7 @@ export default class Server {
     }));
   }
 
-  public updateCreatureLight(client: ClientConnection) {
+  updateCreatureLight(client: ClientConnection) {
     const light = client.container.items.reduce((acc, cur) => {
       if (!cur) return acc;
       return Math.max(acc, Content.getMetaItem(cur.type).light);
@@ -341,7 +341,7 @@ export default class Server {
     this.broadcastPartialCreatureUpdate(client.player.creature, ['light']);
   }
 
-  public setItemInContainer(id: number, index: number, item?: Item) {
+  setItemInContainer(id: number, index: number, item?: Item) {
     const container = this.context.containers.get(id);
     if (!container) throw new Error(`no container: ${id}`);
 
@@ -363,7 +363,7 @@ export default class Server {
     }
   }
 
-  public addItemToContainer(id: number, index: number | undefined, item: Item) {
+  addItemToContainer(id: number, index: number | undefined, item: Item) {
     const container = this.context.containers.get(id);
     if (!container) throw new Error(`no container: ${id}`);
 
@@ -402,7 +402,7 @@ export default class Server {
     }
   }
 
-  public grantXp(clientConnection: ClientConnection, skill: number, xp: number) {
+  grantXp(clientConnection: ClientConnection, skill: number, xp: number) {
     const currentXp = clientConnection.player.skills.get(skill);
     const newXp = (currentXp || 0) + xp;
     clientConnection.player.skills.set(skill, newXp);
@@ -413,16 +413,16 @@ export default class Server {
     }), clientConnection);
   }
 
-  public ensureSectorLoaded(sectorPoint: TilePoint) {
+  ensureSectorLoaded(sectorPoint: TilePoint) {
     return this.context.map.getPartition(sectorPoint.w).getSectorAsync(sectorPoint);
   }
 
-  public ensureSectorLoadedForPoint(loc: TilePoint) {
+  ensureSectorLoadedForPoint(loc: TilePoint) {
     const sectorPoint = Utils.worldToSector(loc, SECTOR_SIZE);
     return this.ensureSectorLoaded({ w: loc.w, ...sectorPoint });
   }
 
-  public advanceTime(ticks: number) {
+  advanceTime(ticks: number) {
     // const ticks = gameHours * (this.ticksPerWorldDay / 24);
     this.time.epoch += ticks;
     this.broadcast(ProtocolBuilder.time({epoch: this.time.epoch}));

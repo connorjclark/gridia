@@ -131,19 +131,19 @@ const Actions: Record<string, Action> = {
 // State that clients don't need and shouldn't have.
 // Also isn't serialized - this state is transient.
 export default class CreatureState {
-  public mode: string[] = [];
+  mode: string[] = [];
   // True if last movement was a warp. Prevents infinite stairs.
-  public warped = false;
-  public home: TilePoint;
-  public path: PartitionPoint[] = [];
+  warped = false;
+  home: TilePoint;
+  path: PartitionPoint[] = [];
 
   // For attacking.
-  public targetCreature: CreatureState | null = null;
+  targetCreature: CreatureState | null = null;
 
-  public enemyCreatures: CreatureState[] = [];
+  enemyCreatures: CreatureState[] = [];
 
   // @ts-ignore
-  public partition: WorldMapPartition;
+  partition: WorldMapPartition;
   private ticksUntilNotIdle = 0;
   private ticksUntilNextMovement = 0;
   private ticksUntilNextAttack = 0;
@@ -156,7 +156,7 @@ export default class CreatureState {
 
   private _shouldRecreatePlan = false;
 
-  public constructor(public creature: Creature) {
+  constructor(public creature: Creature) {
     this.home = creature.pos;
     this._actions = [
       Actions.UnarmedMeleeAttack,
@@ -182,21 +182,21 @@ export default class CreatureState {
     }
   }
 
-  public pop() {
+  pop() {
     if (this.mode.length) this.mode.pop();
   }
 
-  public goto(destination: TilePoint) {
+  goto(destination: TilePoint) {
     if (Utils.equalPoints(destination, this.creature.pos)) return;
     if (destination.w !== this.creature.pos.w) return;
     this.path = findPath(this.partition, this.creature.pos, destination);
   }
 
-  public idle(server: Server, time: number) {
+  idle(server: Server, time: number) {
     this.ticksUntilNotIdle = server.taskRunner.rateToTicks({ ms: time });
   }
 
-  public addGoal(newGoal: Goal) {
+  addGoal(newGoal: Goal) {
     for (const goal of this.goals) {
       if (goal.desiredEffect === newGoal.desiredEffect) {
         if (goal.priority !== newGoal.priority) {
@@ -211,7 +211,7 @@ export default class CreatureState {
     this._shouldRecreatePlan = true;
   }
 
-  public tick(server: Server) {
+  tick(server: Server) {
     if (this.ticksUntilNextAttack > 0) this.ticksUntilNextAttack--;
     if (this.ticksUntilNextMovement > 0) this.ticksUntilNextMovement--;
     if (this.ticksUntilNotIdle > 0) this.ticksUntilNotIdle--;
@@ -277,7 +277,7 @@ export default class CreatureState {
     }
   }
 
-  public respondToCreatureRemoval(creature: Creature) {
+  respondToCreatureRemoval(creature: Creature) {
     if (this.targetCreature?.creature === creature) {
       this.targetCreature = null;
     }

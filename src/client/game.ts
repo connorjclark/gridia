@@ -141,19 +141,19 @@ function mouseToWorld(pm: ScreenPoint): ScreenPoint {
 }
 
 class CreatureSprite extends PIXI.Sprite {
-  public constructor(public creature: Creature) {
+  constructor(public creature: Creature) {
     super();
   }
 
-  public get tileWidth() {
+  get tileWidth() {
     return this.creature.image_type || 1;
   }
 
-  public get tileHeight() {
+  get tileHeight() {
     return this.creature.image_type || 1;
   }
 
-  public tick() {
+  tick() {
     if (this.children.length === 0) {
       this.drawCreature();
       return;
@@ -210,10 +210,10 @@ class CreatureSprite extends PIXI.Sprite {
 }
 
 class Game {
-  public state: UIState;
-  public keys: Record<number, boolean> = {};
-  public loader = new LazyResourceLoader();
-  public modules = {
+  state: UIState;
+  keys: Record<number, boolean> = {};
+  loader = new LazyResourceLoader();
+  modules = {
     movement: new MovementModule(this),
     selectedView: new SelectedViewModule(this),
     settings: new SettingsModule(this),
@@ -222,7 +222,7 @@ class Game {
     usage: new UsageModule(this),
   };
 
-  public worldContainer: WorldContainer;
+  worldContainer: WorldContainer;
   protected app = new PIXI.Application();
   protected canvasesEl = Helper.find('#canvases');
   protected world = new PIXI.Container();
@@ -243,7 +243,7 @@ class Game {
   private _lastSyncedEpoch = 0;
   private _lastSyncedRealTime = 0;
 
-  public constructor(public client: Client) {
+  constructor(public client: Client) {
     this.state = {
       mouse: {
         x: 0,
@@ -269,22 +269,22 @@ class Game {
     }
   }
 
-  public get worldTime() {
+  get worldTime() {
     const realSecondsSinceLastSync = (Date.now() - this._lastSyncedRealTime) / 1000;
     const epoch = this._lastSyncedEpoch + realSecondsSinceLastSync / this.client.secondsPerWorldTick;
     return new WorldTime(this.client.ticksPerWorldDay, epoch).time;
   }
 
-  public isEditingMode() {
+  isEditingMode() {
     return this._isEditing;
   }
 
-  public addActionCreator(actionCreator: GameActionCreator) {
+  addActionCreator(actionCreator: GameActionCreator) {
     this.actionCreators.push(actionCreator);
   }
 
   // TODO: No action creators use `loc` - remove?
-  public getActionsFor(tile: Tile, loc: TilePoint, opts?: { onlyCreature: boolean }): GameAction[] {
+  getActionsFor(tile: Tile, loc: TilePoint, opts?: { onlyCreature: boolean }): GameAction[] {
     const actions = [];
     const tileToUse = opts?.onlyCreature ? { creature: tile.creature, floor: 0 } : tile;
 
@@ -297,18 +297,18 @@ class Game {
     return actions;
   }
 
-  public getPlayerPosition() {
+  getPlayerPosition() {
     const creature = this.getPlayerCreature();
     if (creature) return creature.pos;
     return { w: 0, x: 0, y: 0, z: 0 };
   }
 
-  public getPlayerCreature() {
+  getPlayerCreature() {
     if (!this._playerCreature) this._playerCreature = this.client.creature;
     return this._playerCreature;
   }
 
-  public start() {
+  start() {
     this.client.settings = getDefaultSettings();
 
     // Should only be used for refreshing UI, not updating game state.
@@ -360,7 +360,7 @@ class Game {
     setTimeout(() => this.onLoad());
   }
 
-  public onLoad() {
+  onLoad() {
     const world = this.world = new PIXI.Container();
     this.app.stage.addChild(world);
 
@@ -381,7 +381,7 @@ class Game {
     // This makes everything "pop".
     // this.containers.itemAndCreatureLayer.filters = [new OutlineFilter(0.5, 0, 1)];
   }
-  public playSound(name: string) {
+  playSound(name: string) {
     if (this.client.settings.volume === 0) return;
 
     if (!this._soundCache[name]) {
@@ -392,7 +392,7 @@ class Game {
     void this._soundCache[name].play({ volume: this.client.settings.volume });
   }
 
-  public addAnimation(animation: GridiaAnimation, loc: TilePoint) {
+  addAnimation(animation: GridiaAnimation, loc: TilePoint) {
     // TODO
     let light = 0;
     if (['WarpIn', 'WarpOut', 'LevelUp', 'Lightning', 'Burning'].includes(animation.name)) {
@@ -409,7 +409,7 @@ class Game {
     });
   }
 
-  public trip() {
+  trip() {
     // const filtersBefore = this.layers.itemAndCreature.filters;
     // const filter = new OutlineFilter(0, 0, 1);
     // const start = performance.now();
@@ -424,17 +424,17 @@ class Game {
     // }, 1000 * 10);
   }
 
-  public addWindow(window: Draw.GridiaWindow) {
+  addWindow(window: Draw.GridiaWindow) {
     this.windows.push(window);
     this.app.stage.addChild(window.pixiContainer);
   }
 
-  public removeWindow(window: Draw.GridiaWindow) {
+  removeWindow(window: Draw.GridiaWindow) {
     this.windows.splice(this.windows.indexOf(window), 1);
     this.app.stage.removeChild(window.pixiContainer);
   }
 
-  public registerListeners() {
+  registerListeners() {
     const onActionSelection = (e: Event) => {
       if (!(e.target instanceof HTMLElement)) return;
       if (!e.target.classList.contains('action')) return;
@@ -720,7 +720,14 @@ class Game {
     registerPanelListeners();
   }
 
-  public tick() {
+  makeUIWindow() {
+    const el = Helper.createElement('div', 'ui-window');
+    // Helper.createChildOf(el, 'p').textContent = 'Hello World';
+    Helper.find('.game').appendChild(el);
+    return el;
+  }
+
+  tick() {
     const now = performance.now();
     this.state.elapsedFrames = (this.state.elapsedFrames + 1) % 60000;
 
@@ -883,7 +890,7 @@ class Game {
     }
   }
 
-  public isOnStage(displayObject: PIXI.DisplayObject) {
+  isOnStage(displayObject: PIXI.DisplayObject) {
     let parent = displayObject.parent;
     while (parent && parent.parent) {
       parent = parent.parent;
@@ -891,7 +898,7 @@ class Game {
     return parent === this.app.stage;
   }
 
-  public addDataToActionEl(actionEl: HTMLElement, opts: { action: GameAction; loc?: TilePoint; creature?: Creature }) {
+  addDataToActionEl(actionEl: HTMLElement, opts: { action: GameAction; loc?: TilePoint; creature?: Creature }) {
     actionEl.classList.add('action');
     actionEl.title = opts.action.title;
     actionEl.innerText = opts.action.innerText;

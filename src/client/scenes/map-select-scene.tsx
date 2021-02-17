@@ -46,7 +46,7 @@ export function createMapSelectForm(inputFormEl: HTMLElement, onStateUpdate: (st
       <label>{props.children || props.name}</label>
       <input {...props}></input>
       {props.type === 'range' && props.value}
-    </Fragment>
+    </Fragment>;
   };
 
   // Pass `parent` so `linkState` works. Could use `this` if these components were defined inside `MapSelectForm.render`,
@@ -59,7 +59,7 @@ export function createMapSelectForm(inputFormEl: HTMLElement, onStateUpdate: (st
       return <div>
         <Input onInput={linkState(parent, `${statePrefix}.points`)} name="points" type={'range'} min={1} value={points} max={5000} step={50}></Input>
         <Input onInput={linkState(parent, `${statePrefix}.relaxations`)} name="relaxations" type={'range'} min={0} value={relaxations} max={10} step={1}></Input>
-      </div>
+      </div>;
     }
 
     if (choice === 'square') {
@@ -67,7 +67,7 @@ export function createMapSelectForm(inputFormEl: HTMLElement, onStateUpdate: (st
       return <div>
         <Input onInput={linkState(parent, `${statePrefix}.size`)} name="size" type={'range'} min={1} value={size} max={100} step={5}></Input>
         <Input onInput={linkState(parent, `${statePrefix}.rand`)} name="rand" type={'range'} min={0} value={rand} max={0.5} step={0.1}></Input>
-      </div>
+      </div>;
     }
 
     throw new Error();
@@ -80,21 +80,21 @@ export function createMapSelectForm(inputFormEl: HTMLElement, onStateUpdate: (st
       const { percentage } = options[choice];
       return <div>
         <Input onInput={linkState(parent, `${statePrefix}.percentage`)} name="percentage" type={'range'} min={0} value={percentage} max={1} step={0.1}></Input>
-      </div>
+      </div>;
     }
 
     if (choice === 'radial') {
       const { radius } = options[choice];
       return <div>
         <Input onInput={linkState(parent, `${statePrefix}.radius`)} name="radius" type={'range'} min={0} value={radius} max={1} step={0.1}></Input>
-      </div>
+      </div>;
     }
 
     throw new Error();
   });
 
   class MapSelectForm extends Component<any, FormState> {
-    state = DEFAULT_MAP_FORM_STATE
+    state = DEFAULT_MAP_FORM_STATE;
 
     componentDidMount() {
       this.props.onUpdate(stateToMapGenOptions(this.state));
@@ -135,9 +135,9 @@ export function createMapSelectForm(inputFormEl: HTMLElement, onStateUpdate: (st
           const key = `seeds.${name}`;
           return <div>
             <Input onInput={linkState(this, key)} name={key} type={'number'} value={value}></Input>
-          </div>
+          </div>;
         })}
-      </div>
+      </div>;
     }
   }
 

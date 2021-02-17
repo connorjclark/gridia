@@ -31,12 +31,12 @@ interface Emitter {
 type LightResult = Array2D<{ light: number; tint?: number; alpha?: number }>;
 
 class WorldAnimationController {
-  public emitters: Emitter[] = [];
-  public animations: Animation[] = [];
+  emitters: Emitter[] = [];
+  animations: Animation[] = [];
 
-  public constructor(private worldContainer: WorldContainer) { }
+  constructor(private worldContainer: WorldContainer) { }
 
-  public addEmitter(emitter: Emitter) {
+  addEmitter(emitter: Emitter) {
     // Don't emit sounds for every animation created. Instead,
     // create an invisible animation for just the sounds, so that
     // it only plays once.
@@ -60,7 +60,7 @@ class WorldAnimationController {
     this.emitters.push(emitter);
   }
 
-  public addAnimation(animation: Animation) {
+  addAnimation(animation: Animation) {
     if (animation.tint) this.animations.push(animation);
 
     if (animation.frames) {
@@ -83,7 +83,7 @@ class WorldAnimationController {
     }
   }
 
-  public tick() {
+  tick() {
     for (const emitter of [...this.emitters]) {
       const cur = emitter.path.pop();
       if (!cur) {
@@ -119,23 +119,23 @@ class WorldAnimationController {
 }
 
 class Camera {
-  public left = 0;
-  public top = 0;
-  public width = 0;
-  public height = 0;
+  left = 0;
+  top = 0;
+  width = 0;
+  height = 0;
   // If 0, camera will be centered on player.
   // TODO: change to "center boundrary".
-  public edgeBoundary = 10;
-  public focus: Point4 = { w: 0, x: 0, y: 0, z: 0 };
+  edgeBoundary = 10;
+  focus: Point4 = { w: 0, x: 0, y: 0, z: 0 };
 
-  public get right() {
+  get right() {
     return this.left + this.width;
   }
-  public get bottom() {
+  get bottom() {
     return this.top + this.height;
   }
 
-  public constructor(private worldContainer: WorldContainer) { }
+  constructor(private worldContainer: WorldContainer) { }
 
   /**
    * Adjusts `camera.left` and `camera.top` if necessary to maintain `camera.edgeBoundary` constraint.
@@ -143,7 +143,7 @@ class Camera {
    *
    * @param loc New location of camera focus (example: player location).
    */
-  public adjustFocus(loc: Point4) {
+  adjustFocus(loc: Point4) {
     const shouldCenter = this.focus.w !== loc.w || this.focus.z !== loc.z || Utils.dist(loc, this.focus) >= 20;
 
     this.focus = { ...loc };
@@ -179,7 +179,7 @@ class Camera {
     if (shouldCenter) this.center();
   }
 
-  public center() {
+  center() {
     const edgeBoundary = this.edgeBoundary;
     this.edgeBoundary = 0;
     this.adjustFocus(this.focus);
@@ -189,7 +189,7 @@ class Camera {
 }
 
 export class WorldContainer extends PIXI.Container {
-  public layers = {
+  layers = {
     floors: new PIXI.Container(),
     grid: new PIXI.Container(),
     items: new PIXI.Container(),
@@ -200,15 +200,15 @@ export class WorldContainer extends PIXI.Container {
     top: new PIXI.Container(),
   };
 
-  public camera = new Camera(this);
+  camera = new Camera(this);
 
-  public animationController = new WorldAnimationController(this);
+  animationController = new WorldAnimationController(this);
 
-  public ambientLight = 0;
+  ambientLight = 0;
 
   private tiles = new Map<string, Tile>();
 
-  public constructor(public map: WorldMap) {
+  constructor(public map: WorldMap) {
     super();
 
     this.layers.items = this.layers.creatures;
@@ -223,7 +223,7 @@ export class WorldContainer extends PIXI.Container {
     this.addListeners();
   }
 
-  public tick() {
+  tick() {
     this.animationController.tick();
     this.forEachInCamera((tile, loc) => {
       const { item, floor } = this.map.getTile(loc);
@@ -242,7 +242,7 @@ export class WorldContainer extends PIXI.Container {
     this.pruneTiles();
   }
 
-  public forEachInCamera(cb: (tile: Tile, loc: Point4, screenX: number, screenY: number) => void) {
+  forEachInCamera(cb: (tile: Tile, loc: Point4, screenX: number, screenY: number) => void) {
     for (let x = 0; x < this.camera.width; x++) {
       for (let y = 0; y < this.camera.height; y++) {
         const mapX = this.camera.left + x;
@@ -254,7 +254,7 @@ export class WorldContainer extends PIXI.Container {
     }
   }
 
-  public computeLight() {
+  computeLight() {
     const lights = realLighting(this.camera.focus, this, game.client.settings.lightMode);
 
     for (const animation of this.animationController.animations) {
@@ -273,7 +273,7 @@ export class WorldContainer extends PIXI.Container {
     });
   }
 
-  public getTile(loc: Point4) {
+  getTile(loc: Point4) {
     const key = `${loc.w},${loc.x},${loc.y},${loc.z}`;
     let tile = this.tiles.get(key);
     if (!tile) {
@@ -338,7 +338,7 @@ class Tile {
 
   private animationSprites = new WeakMap<Animation, PIXI.Sprite>();
 
-  public constructor(public readonly loc: Point4, private worldContainer: WorldContainer) {
+  constructor(readonly loc: Point4, private worldContainer: WorldContainer) {
     this.tint = new PIXI.Graphics();
     this.tint.alpha = 0;
     this.tint.beginFill(0xFFFFFF);
@@ -356,7 +356,7 @@ class Tile {
     worldContainer.layers.light.addChild(this.light);
   }
 
-  public destroy() {
+  destroy() {
     if (this.floor) this.floor.destroy();
     this.floor = undefined;
 
@@ -370,7 +370,7 @@ class Tile {
     }
   }
 
-  public setFloor(floor: number) {
+  setFloor(floor: number) {
     if (floor === this.floorValue) return;
 
     const shouldRedrawNeighbors = floor === WATER || this.floorValue === WATER;
@@ -389,7 +389,7 @@ class Tile {
     }
   }
 
-  public redrawFloor() {
+  redrawFloor() {
     const container = this.worldContainer.layers.floors;
     if (this.floor) {
       this.floor.destroy();
@@ -416,7 +416,7 @@ class Tile {
     container.addChild(this.floor);
   }
 
-  public setItem(item?: Item) {
+  setItem(item?: Item) {
     if (item === this.itemValue) return;
 
     const shouldRedrawNeighbors = item?.type === MINE || this.itemValue?.type === MINE;
@@ -435,7 +435,7 @@ class Tile {
     }
   }
 
-  public redrawItem() {
+  redrawItem() {
     const container = this.worldContainer.layers.items;
     if (this.item) {
       this.item.destroy();
@@ -465,14 +465,14 @@ class Tile {
     container.addChild(this.item);
   }
 
-  public setTint(tint: number, alpha: number) {
+  setTint(tint: number, alpha: number) {
     if (tint === 0xFFFFFF) this.tint.alpha = 0;
     else this.tint.alpha = alpha;
 
     this.tint.tint = tint;
   }
 
-  public setLight(alpha: number) {
+  setLight(alpha: number) {
     this.light.alpha = alpha;
   }
 }

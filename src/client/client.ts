@@ -8,22 +8,22 @@ import { Settings } from './modules/settings-module';
 
 class Client {
   // @ts-ignore set later.
-  public player: Player;
+  player: Player;
 
-  public secondsPerWorldTick = 0;
-  public ticksPerWorldDay = 0;
+  secondsPerWorldTick = 0;
+  ticksPerWorldDay = 0;
 
-  public eventEmitter = new EventEmitter();
+  eventEmitter = new EventEmitter();
   // @ts-ignore set later.
-  public settings: Settings = {};
+  settings: Settings = {};
 
   private _protocol = new ServerToClientProtocol();
 
-  public constructor(public connection: Connection, public context: Context) {
+  constructor(public connection: Connection, public context: Context) {
     this.eventEmitter.on('message', this.handleMessageFromServer.bind(this));
   }
 
-  public handleMessageFromServer(message: Message) {
+  handleMessageFromServer(message: Message) {
     // if (opts.verbose) console.log('from server', message.type, message.args);
     const onMethodName = 'on' + message.type[0].toUpperCase() + message.type.substr(1);
     // @ts-ignore
@@ -31,11 +31,11 @@ class Client {
     p(this, message.args);
   }
 
-  public get creature() {
+  get creature() {
     return this.context.getCreature(this.player.creature.id);
   }
 
-  public get inventory() {
+  get inventory() {
     return this.context.containers.get(this.player.containerId);
   }
 }

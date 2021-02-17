@@ -80,14 +80,14 @@ function getName(id: number) {
 }
 
 export class ItemWrapper {
-  public constructor(public type: number, public quantity: number) { }
+  constructor(public type: number, public quantity: number) { }
 
-  public raw(): Item | undefined {
+  raw(): Item | undefined {
     if (this.type === 0) return;
     return { type: this.type, quantity: this.quantity };
   }
 
-  public remove(quantity: number) {
+  remove(quantity: number) {
     this.quantity -= quantity;
     if (this.quantity <= 0) {
       this.quantity = 0;
@@ -97,7 +97,7 @@ export class ItemWrapper {
     return this;
   }
 
-  public clone() {
+  clone() {
     return new ItemWrapper(this.type, this.quantity);
   }
 }

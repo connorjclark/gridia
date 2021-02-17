@@ -46,7 +46,7 @@ export function getDefaultSettings() {
 }
 
 class SettingsModule extends ClientModule {
-  public onStart() {
+  onStart() {
     const panel = Helper.find('.panel--settings');
     const settingsEl = Helper.find('.settings', panel);
 

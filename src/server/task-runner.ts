@@ -25,8 +25,8 @@ interface PerfTick {
 }
 
 export default class TaskRunner {
-  public debugMeasureTiming = false;
-  public perf = {
+  debugMeasureTiming = false;
+  perf = {
     ticks: [] as PerfTick[],
     tickDurationAverage: 0,
     tickDurationMax: 0,
@@ -38,21 +38,21 @@ export default class TaskRunner {
   private lastTickTime = 0;
   private unprocessedTickTime = 0;
 
-  public constructor(private tickDuration: number) {
+  constructor(private tickDuration: number) {
   }
 
-  public start() {
+  start() {
     this.tickTimeoutHandle = setInterval(() => {
       this.tick();
     }, 10);
   }
 
-  public stop() {
+  stop() {
     if (this.tickTimeoutHandle) clearInterval(this.tickTimeoutHandle);
     this.tickTimeoutHandle = undefined;
   }
 
-  public async tick() {
+  async tick() {
     const now = performance.now();
     this.unprocessedTickTime += now - this.lastTickTime;
     this.lastTickTime = now;
@@ -67,15 +67,15 @@ export default class TaskRunner {
     }
   }
 
-  public registerTickSection(section: TickSection) {
+  registerTickSection(section: TickSection) {
     this.tickSections.push(section);
   }
 
-  public registerForNextTick(options: Exclude<TickSection, 'rate'>) {
+  registerForNextTick(options: Exclude<TickSection, 'rate'>) {
     this.registerTickSection({ ...options, rate: { ms: 0 } });
   }
 
-  public rateToTicks({ days = 0, hours = 0, minutes = 0, seconds = 0, ms = 0 }) {
+  rateToTicks({ days = 0, hours = 0, minutes = 0, seconds = 0, ms = 0 }) {
     let ms_ = ms;
     ms_ += seconds * 1000;
     ms_ += minutes * 1000 * 60;

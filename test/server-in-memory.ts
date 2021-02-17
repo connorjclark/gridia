@@ -12,16 +12,16 @@ import { ServerContext } from '../src/server/server-context';
 import { createClientWorldMap } from '../src/world-map';
 
 class MemoryConnection extends Connection {
-  public constructor(private _clientConnection: ClientConnection) {
+  constructor(private _clientConnection: ClientConnection) {
     super();
   }
 
-  public send(message: MessageToServer) {
+  send(message: MessageToServer) {
     const cloned = WireSerializer.deserialize<MessageToServer>(WireSerializer.serialize(message));
     this._clientConnection.messageQueue.push(cloned);
   }
 
-  public close() {
+  close() {
     // Do nothing.
   }
 }

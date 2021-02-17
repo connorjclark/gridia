@@ -4,24 +4,24 @@ import Player from '../player';
 // TODO: this whole thing smells.
 
 export default class ClientConnection {
-  public messageQueue: Array<{type: string; args: Object}> = [];
+  messageQueue: Array<{type: string; args: Object}> = [];
 
   // @ts-ignore
-  public player: Player;
+  player: Player;
 
   // @ts-ignore
-  public container: Container;
+  container: Container;
 
   // @ts-ignore
-  public send: (message: ServerToClientMessage) => void;
+  send: (message: ServerToClientMessage) => void;
 
-  public registeredContainers = [] as number[];
+  registeredContainers = [] as number[];
 
-  public getMessage() {
+  getMessage() {
     return this.messageQueue.shift();
   }
 
-  public hasMessage(): boolean {
+  hasMessage(): boolean {
     return this.messageQueue.length > 0;
   }
 }

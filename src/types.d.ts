@@ -88,7 +88,7 @@ interface MetaFloor {
 interface MetaItem {
   id: number;
   name: string;
-  class: 'Normal' | 'Ore' | 'CaveDown' | 'CaveUp' | 'Container' | 'Ball';
+  class: 'Normal' | 'Ore' | 'CaveDown' | 'CaveUp' | 'Container' | 'Ball' | 'Weapon' | 'Ammo' | 'Plant';
   animations: number[];
   burden: number;
   growthDelta: number;
@@ -188,18 +188,18 @@ interface ServerWorkerOpts extends ServerOptions {
 
 declare module 'pixi-scrollbox' {
   class Scrollbox {
-    public content: PIXI.Container;
-    public constructor(...args: any[]);
-    public update(): void;
+    content: PIXI.Container;
+    constructor(...args: any[]);
+    update(): void;
   }
 }
 
 declare module 'pixi-text-input' {
   class TextInput {
-    public placeholder: string;
-    public height: number;
-    public constructor(styles: any);
-    public on(event: string, cb: (text: string) => void): any;
+    placeholder: string;
+    height: number;
+    constructor(styles: any);
+    on(event: string, cb: (text: string) => void): any;
   }
 
   export default TextInput;

@@ -10,9 +10,9 @@ interface TileSeenLogData {
 
 export class TilesSeenLog {
   // w,x,y,z partition -> data
-  public seen = new Map<string, Array2D<TileSeenLogData | null>>();
+  seen = new Map<string, Array2D<TileSeenLogData | null>>();
 
-  public getSectorData(point: TilePoint) {
+  getSectorData(point: TilePoint) {
     const sectorPoint = Utils.worldToSector(point, SECTOR_SIZE);
     const key = `${point.w},${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}`;
     let sector = this.seen.get(key);
@@ -30,7 +30,7 @@ export class TilesSeenLog {
     return sector;
   }
 
-  public markSeen(map: WorldMap, point: TilePoint) {
+  markSeen(map: WorldMap, point: TilePoint) {
     const sector = this.getSectorData(point);
     const tile = map.getTile(point);
     const data = {
@@ -40,20 +40,20 @@ export class TilesSeenLog {
     sector[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE] = data;
   }
 
-  public getMark(map: WorldMap, point: TilePoint) {
+  getMark(map: WorldMap, point: TilePoint) {
     const sector = this.getSectorData(point);
     return sector[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE];
   }
 }
 
 export default class Player {
-  public id = 0;
-  public containerId = 0;
-  public isAdmin = false;
-  public name = '';
+  id = 0;
+  containerId = 0;
+  isAdmin = false;
+  name = '';
   // skill id -> xp
-  public skills = new Map<number, number>();
-  public tilesSeenLog = new TilesSeenLog();
+  skills = new Map<number, number>();
+  tilesSeenLog = new TilesSeenLog();
 
-  public constructor(public creature: Creature) { }
+  constructor(public creature: Creature) { }
 }

@@ -128,3 +128,38 @@ export function createChildOf<T extends string>(
   parentElem.appendChild(element);
   return element;
 }
+
+type PrecedenceMatcher =
+  | { type: 'equal'; value: string };
+function matches(item: string, matcher: PrecedenceMatcher) {
+  if (matcher.type === 'equal') {
+    return item === matcher.value;
+  } else {
+    return false;
+  }
+}
+
+export function sortByPrecedence(items: string[], matchers: PrecedenceMatcher[]) {
+  items.sort((a, b) => {
+    const aMatcherIndex = matchers.findIndex((m) => matches(a, m));
+    const bMatcherIndex = matchers.findIndex((m) => matches(b, m));
+
+    // If neither value has a match, or they are equal, use an alphabetical comparison.
+    if (aMatcherIndex === -1 && bMatcherIndex === -1) {
+      return a.localeCompare(b);
+    }
+
+    // If just one value has a match, it is greater.
+    if (aMatcherIndex === -1 && bMatcherIndex >= 0) {
+      return 1;
+    }
+    if (bMatcherIndex === -1 && aMatcherIndex >= 0) {
+      return -1;
+    }
+
+    // Both values have a match, so do a simple comparison.
+    return aMatcherIndex - bMatcherIndex;
+  });
+
+  return items;
+}

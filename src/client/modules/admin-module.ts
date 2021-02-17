@@ -6,26 +6,38 @@ import ClientModule from '../client-module';
 import { getTexture, GridiaWindow, makeItemSprite } from '../draw';
 import GridContainer from '../pixi/grid-container';
 import TabContainer from '../pixi/tab-container';
+import { makeWindow } from '../ui/admin-window';
 
 interface SelectedContent {
-  displayObject: PIXI.DisplayObject;
-  type: string;
+  displayObject?: PIXI.DisplayObject; // TODO remove
+  type: 'Items' | 'Floors';
   id: number;
 }
 
 class AdminModule extends ClientModule {
   private _adminWindow?: GridiaWindow;
+  private _adminWindowV2?: HTMLElement;
   private _selectedContent?: SelectedContent;
 
-  public onStart() {
+  onStart() {
     // const panel = Helper.find('.panel--admin');
 
     this.game.client.eventEmitter.on('panelFocusChanged', async ({ panelName }) => {
       if (panelName === 'admin') {
-        this.game.addWindow(await this.getAdminWindow());
-      } else if (this._adminWindow) {
-        this.game.removeWindow(this._adminWindow);
-        if (this._selectedContent) {
+        await this.init();
+
+        // TODO: delete v1.
+        const useV2 = !false;
+        if (useV2) {
+          this.getAdminWindowV2();
+          if (this._adminWindowV2) this._adminWindowV2.hidden = false;
+        } else {
+          this.game.addWindow(this.getAdminWindow());
+        }
+      } else if (this._adminWindow || this._adminWindowV2) {
+        if (this._adminWindow) this.game.removeWindow(this._adminWindow);
+        if (this._adminWindowV2) this._adminWindowV2.hidden = true;
+        if (this._selectedContent && this._selectedContent.displayObject) {
           (this._selectedContent.displayObject as PIXI.Sprite).removeChildren();
         }
         this.setSelectedContent(undefined);
@@ -33,7 +45,7 @@ class AdminModule extends ClientModule {
     });
   }
 
-  private setSelectedContent(selectedContent?: SelectedContent) {
+  setSelectedContent(selectedContent?: SelectedContent) {
     if (this._selectedContent && !selectedContent) {
       this.game.client.eventEmitter.emit('editingMode', {enabled: false});
     } else if (!this._selectedContent && selectedContent) {
@@ -43,10 +55,54 @@ class AdminModule extends ClientModule {
     this._selectedContent = selectedContent;
   }
 
+  private async init() {
+    if (this._adminWindow || this._adminWindowV2) return;
+
+    // Must first load all the image resources.
+    await this.game.loader.loadAllImageResources();
+
+    const handler = (loc: TilePoint) => {
+      if (!this._selectedContent) return;
+      if (this.game.state.mouse.state !== 'down') return;
+
+      if (this._selectedContent.type === 'Items') {
+        const item = this._selectedContent.id > 0 ? {type: this._selectedContent.id, quantity: 1} : undefined;
+        const currentItem = this.game.client.context.map.getItem(loc);
+        if (Utils.equalItems(currentItem, item)) return;
+        // Don't overwrite existing items - must explictly select the "null" item to delete items.
+        if (currentItem && item) return;
+        this.game.client.connection.send(ProtocolBuilder.adminSetItem({
+          ...loc,
+          item,
+        }));
+        // Set immeditely in client, b/c server will take a while to respond and this prevents sending multiple
+        // messages for the same tile.
+        this.game.client.context.map.getTile(loc).item = item;
+      } else if (this._selectedContent.type === 'Floors') {
+        const floor = this._selectedContent.id;
+        if (this.game.client.context.map.getTile(loc).floor === floor) return;
+        this.game.client.connection.send(ProtocolBuilder.adminSetFloor({
+          ...loc,
+          floor,
+        }));
+        this.game.client.context.map.getTile(loc).floor = floor;
+      }
+    };
+    this.game.client.eventEmitter.on('mouseMovedOverTile', handler);
+    this.game.client.eventEmitter.on('tileClicked', handler);
+  }
+
+
+  private getAdminWindowV2(): HTMLElement {
+    if (this._adminWindowV2) return this._adminWindowV2;
+    this._adminWindowV2 = makeWindow(this);
+    return this._adminWindowV2;
+  }
+
   // TODO: there are issues with Scrollbox:
   // 1) dragging the scroll bar doesn't work great (it moves too slowly)
   // 2) clicking above where the scrollbar is jumps to that position, but clicking below does nothing
-  private async getAdminWindow(): Promise<GridiaWindow> {
+  private getAdminWindow(): GridiaWindow {
     if (this._adminWindow) return this._adminWindow;
 
     const tabs = new TabContainer();
@@ -155,6 +211,7 @@ class AdminModule extends ClientModule {
           // Unselect.
           this.setSelectedContent(undefined);
         } else if (target) {
+          // @ts-ignore
           this.setSelectedContent({displayObject: target, type: name, id});
           (target as PIXI.Sprite)
             .addChild(
@@ -163,9 +220,6 @@ class AdminModule extends ClientModule {
         }
       });
     };
-
-    // Must first load all the image resources.
-    await this.game.loader.loadAllImageResources();
 
     makeContentSelectionTab({
       name: 'Items',
@@ -181,37 +235,6 @@ class AdminModule extends ClientModule {
     const adminWindow = new GridiaWindow();
     adminWindow.contents.addChild(tabs);
     tabs.layout();
-
-    // TODO: unregister when tab not active.
-    const handler = (loc: TilePoint) => {
-      if (!this._selectedContent) return;
-      if (this.game.state.mouse.state !== 'down') return;
-
-      if (this._selectedContent.type === 'Items') {
-        const item = this._selectedContent.id > 0 ? {type: this._selectedContent.id, quantity: 1} : undefined;
-        const currentItem = this.game.client.context.map.getItem(loc);
-        if (Utils.equalItems(currentItem, item)) return;
-        // Don't overwrite existing items - must explictly select the "null" item to delete items.
-        if (currentItem && item) return;
-        this.game.client.connection.send(ProtocolBuilder.adminSetItem({
-          ...loc,
-          item,
-        }));
-        // Set immeditely in client, b/c server will take a while to respond and this prevents sending multiple
-        // messages for the same tile.
-        this.game.client.context.map.getTile(loc).item = item;
-      } else if (this._selectedContent.type === 'Floors') {
-        const floor = this._selectedContent.id;
-        if (this.game.client.context.map.getTile(loc).floor === floor) return;
-        this.game.client.connection.send(ProtocolBuilder.adminSetFloor({
-          ...loc,
-          floor,
-        }));
-        this.game.client.context.map.getTile(loc).floor = floor;
-      }
-    };
-    this.game.client.eventEmitter.on('mouseMovedOverTile', handler);
-    this.game.client.eventEmitter.on('tileClicked', handler);
 
     this._adminWindow = adminWindow;
     return adminWindow;

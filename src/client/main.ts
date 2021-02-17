@@ -24,13 +24,13 @@ class MainController {
   private client_: Client | null = null;
   private serverWorker_: ServerWorker | null = null;
 
-  public pushScene(newScene: Scene) {
+  pushScene(newScene: Scene) {
     if (this.currentScene) this.currentScene.onHide();
     this.scenes.push(newScene);
     newScene.onShow();
   }
 
-  public popScene() {
+  popScene() {
     if (this.currentScene) {
       this.currentScene.onHide();
       this.currentScene.onDestroy();
@@ -39,53 +39,53 @@ class MainController {
     this.currentScene.onShow();
   }
 
-  public async loadWorker() {
+  async loadWorker() {
     if (this.serverWorker_) return;
     this.serverWorker_ = new ServerWorker();
     await this.serverWorker_.init();
   }
 
-  public get currentScene() {
+  get currentScene() {
     return this.scenes[this.scenes.length - 1];
   }
 
-  public get client() {
+  get client() {
     if (!this.client_) throw new Error('missing client');
     return this.client_;
   }
 
-  public set client(client: Client) {
+  set client(client: Client) {
     this.client_ = client;
   }
 
-  public destoryClient() {
+  destoryClient() {
     this.client_?.connection.close();
     this.client_ = null;
   }
 
-  public get serverWorker() {
+  get serverWorker() {
     if (!this.serverWorker_) throw new Error('missing server worker');
     return this.serverWorker_;
   }
 
-  public set serverWorker(worker: ServerWorker) {
+  set serverWorker(worker: ServerWorker) {
     this.serverWorker_ = worker;
   }
 }
 
 class Scene {
-  public constructor(public element: HTMLElement) {
+  constructor(public element: HTMLElement) {
   }
 
-  public onShow() {
+  onShow() {
     this.element.classList.remove('hidden');
   }
 
-  public onHide() {
+  onHide() {
     this.element.classList.add('hidden');
   }
 
-  public onDestroy() {
+  onDestroy() {
     // Empty.
   }
 }
@@ -95,7 +95,7 @@ class StartScene extends Scene {
   private connectBtn: HTMLElement;
   private serverLocationInput: HTMLInputElement;
 
-  public constructor() {
+  constructor() {
     super(Helper.find('.start'));
     this.localBtn = Helper.find('.start--local-btn', this.element);
     this.connectBtn = Helper.find('.start--connect-btn', this.element);
@@ -106,23 +106,23 @@ class StartScene extends Scene {
     this.serverLocationInput.value = `${window.location.hostname}:9001`;
   }
 
-  public async onClickLocalBtn() {
+  async onClickLocalBtn() {
     await controller.loadWorker();
     controller.pushScene(new MapSelectScene());
   }
 
-  public async onClickConnectBtn() {
+  async onClickConnectBtn() {
     controller.client = await createClientForServer(this.serverLocationInput.value);
     controller.pushScene(new RegisterScene());
   }
 
-  public onShow() {
+  onShow() {
     super.onShow();
     this.localBtn.addEventListener('click', this.onClickLocalBtn);
     this.connectBtn.addEventListener('click', this.onClickConnectBtn);
   }
 
-  public onHide() {
+  onHide() {
     super.onHide();
     this.localBtn.removeEventListener('click', this.onClickLocalBtn);
     this.connectBtn.removeEventListener('click', this.onClickConnectBtn);
@@ -136,7 +136,7 @@ class MapSelectScene extends Scene {
   private inputFormEl: HTMLElement;
   private loadingPreview = false;
 
-  public constructor() {
+  constructor() {
     super(Helper.find('.map-select'));
     this.mapListEl = Helper.find('.map-list');
     this.selectBtn = Helper.find('.generate--select-btn', this.element);
@@ -147,7 +147,7 @@ class MapSelectScene extends Scene {
     this.onSelectMap = this.onSelectMap.bind(this);
   }
 
-  public async renderMapSelection() {
+  async renderMapSelection() {
     this.mapListEl.innerHTML = '';
 
     const mapNames = await getMapNames();
@@ -160,7 +160,7 @@ class MapSelectScene extends Scene {
     }
   }
 
-  public async generateMap(opts: any) {
+  async generateMap(opts: any) {
     if (this.loadingPreview) return;
     this.loadingPreview = true;
 
@@ -173,7 +173,7 @@ class MapSelectScene extends Scene {
     this.selectBtn.classList.remove('hidden');
   }
 
-  public async onClickSelectBtn() {
+  async onClickSelectBtn() {
     const name = `/default-world-${this.mapListEl.childElementCount}`;
     await controller.serverWorker.saveGeneratedMap({name});
     controller.client = await connectToServerWorker(controller.serverWorker, {
@@ -184,7 +184,7 @@ class MapSelectScene extends Scene {
     controller.pushScene(new RegisterScene());
   }
 
-  public onSelectMap(e: Event) {
+  onSelectMap(e: Event) {
     // TODO: this is annoying.
     if (!(e.target instanceof HTMLElement)) return;
 
@@ -192,7 +192,7 @@ class MapSelectScene extends Scene {
     loadMap(name);
   }
 
-  public onShow() {
+  onShow() {
     super.onShow();
     this.selectBtn.addEventListener('click', this.onClickSelectBtn);
     this.mapListEl.addEventListener('click', this.onSelectMap);
@@ -203,7 +203,7 @@ class MapSelectScene extends Scene {
     createMapSelectForm(this.inputFormEl, this.generateMap.bind(this));
   }
 
-  public onHide() {
+  onHide() {
     super.onHide();
     this.selectBtn.removeEventListener('click', this.onClickSelectBtn);
     this.mapListEl.removeEventListener('click', this.onSelectMap);
@@ -214,7 +214,7 @@ class RegisterScene extends Scene {
   private registerBtn: HTMLElement;
   private nameInput: HTMLInputElement;
 
-  public constructor() {
+  constructor() {
     super(Helper.find('.register'));
     this.registerBtn = Helper.find('.register-btn', this.element);
     this.nameInput = Helper.find('#register--name', this.element) as HTMLInputElement;
@@ -226,7 +226,7 @@ class RegisterScene extends Scene {
       parts1[Utils.randInt(0, parts1.length - 1)] + ' ' + parts2[Utils.randInt(0, parts2.length - 1)];
   }
 
-  public async onClickRegisterBtn() {
+  async onClickRegisterBtn() {
     controller.client.connection.send(ProtocolBuilder.register({
       name: this.nameInput.value,
     }));
@@ -242,27 +242,27 @@ class RegisterScene extends Scene {
     startGame(controller.client);
   }
 
-  public onShow() {
+  onShow() {
     super.onShow();
     this.registerBtn.addEventListener('click', this.onClickRegisterBtn);
   }
 
-  public onHide() {
+  onHide() {
     super.onHide();
     this.registerBtn.removeEventListener('click', this.onClickRegisterBtn);
   }
 
-  public onDestroy() {
+  onDestroy() {
     controller.destoryClient();
   }
 }
 
 class GameScene extends Scene {
-  public constructor() {
+  constructor() {
     super(Helper.find('.game'));
   }
 
-  public onShow() {
+  onShow() {
     super.onShow();
 
     // Once in game, too complicated to go back. For now, must refresh the page.

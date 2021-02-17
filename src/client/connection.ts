@@ -28,7 +28,7 @@ function debug(prefix: string , msg: any) {
 export abstract class Connection {
   protected _onMessage?: (message: MessageToClient) => void;
 
-  public setOnMessage(onMessage?: (message: MessageToClient) => void)  {
+  setOnMessage(onMessage?: (message: MessageToClient) => void)  {
     this._onMessage = onMessage;
   }
 
@@ -38,7 +38,7 @@ export abstract class Connection {
 }
 
 export class WebSocketConnection extends Connection {
-  public constructor(private _ws: WebSocket) {
+  constructor(private _ws: WebSocket) {
     super();
     _ws.addEventListener('message', (e) => {
       if (!this._onMessage) return;
@@ -51,12 +51,12 @@ export class WebSocketConnection extends Connection {
     _ws.addEventListener('close', this.onClose);
   }
 
-  public send(message: MessageToServer) {
+  send(message: MessageToServer) {
     debug('->', message);
     this._ws.send(WireSerializer.serialize(message));
   }
 
-  public close() {
+  close() {
     this._ws.removeEventListener('close', this.onClose);
     this._ws.close();
   }
@@ -67,7 +67,7 @@ export class WebSocketConnection extends Connection {
 }
 
 export class WorkerConnection extends Connection {
-  public constructor(private _worker: Worker) {
+  constructor(private _worker: Worker) {
     super();
     _worker.onmessage = (e) => {
       const data = WireSerializer.deserialize<any>(e.data);
@@ -76,12 +76,12 @@ export class WorkerConnection extends Connection {
     };
   }
 
-  public send(message: MessageToServer) {
+  send(message: MessageToServer) {
     debug('->', message);
     this._worker.postMessage(WireSerializer.serialize(message));
   }
 
-  public close() {
+  close() {
     delete this._worker.onmessage;
   }
 }

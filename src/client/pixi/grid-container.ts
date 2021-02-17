@@ -1,9 +1,9 @@
 class GridContainer extends PIXI.Container {
-  public constructor(public maxWidth: number, public padding: number = 0) {
+  constructor(public maxWidth: number, public padding: number = 0) {
     super();
   }
 
-  public layout() {
+  layout() {
     let nextX = 0;
     let nextY = 0;
     let maxHeightOfRow = 0;

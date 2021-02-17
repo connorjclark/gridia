@@ -9,33 +9,33 @@ import IServerToClientProtocol from './gen/server-to-client-protocol';
 import Params = ServerToClientProtocol.Params;
 
 export default class ServerToClientProtocol implements IServerToClientProtocol {
-  public onAnimation(client: Client, { key, ...loc }: Params.Animation): void {
+  onAnimation(client: Client, { key, ...loc }: Params.Animation): void {
     // handled by game.ts
   }
 
-  public onContainer(client: Client, { ...container }: Params.Container): void {
+  onContainer(client: Client, { ...container }: Params.Container): void {
     client.context.containers.set(container.id, new Container(container.id, container.items));
   }
 
-  public onInitialize(client: Client, { player, secondsPerWorldTick, ticksPerWorldDay }: Params.Initialize): void {
+  onInitialize(client: Client, { player, secondsPerWorldTick, ticksPerWorldDay }: Params.Initialize): void {
     client.player = player;
     client.secondsPerWorldTick = secondsPerWorldTick;
     client.ticksPerWorldDay = ticksPerWorldDay;
   }
 
-  public onInitializePartition(client: Client, { ...pos }: Params.InitializePartition): void {
+  onInitializePartition(client: Client, { ...pos }: Params.InitializePartition): void {
     client.context.map.initPartition(pos.w, pos.x, pos.y, pos.z);
   }
 
-  public onLog(client: Client, { msg }: Params.Log): void {
+  onLog(client: Client, { msg }: Params.Log): void {
     console.log(msg);
   }
 
-  public onRemoveCreature(client: Client, { id }: Params.RemoveCreature): void {
+  onRemoveCreature(client: Client, { id }: Params.RemoveCreature): void {
     client.context.removeCreature(id);
   }
 
-  public onSector(client: Client, { tiles, ...pos }: Params.Sector): void {
+  onSector(client: Client, { tiles, ...pos }: Params.Sector): void {
     client.context.map.getPartition(pos.w).sectors[pos.x][pos.y][pos.z] = tiles;
 
     for (const row of tiles) {
@@ -51,7 +51,7 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
     }
   }
 
-  public onSetCreature(client: Client, { partial, ...partialCreature }: Params.SetCreature): void {
+  onSetCreature(client: Client, { partial, ...partialCreature }: Params.SetCreature): void {
     const id = partialCreature.id;
     // TODO: fix in types?
     if (!id) throw new Error('id must exist');
@@ -75,11 +75,11 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
     Object.assign(creature, partialCreature);
   }
 
-  public onSetFloor(client: Client, { floor, ...loc }: Params.SetFloor): void {
+  onSetFloor(client: Client, { floor, ...loc }: Params.SetFloor): void {
     client.context.map.getTile(loc).floor = floor;
   }
 
-  public onSetItem(client: Client, { location, item }: Params.SetItem): void {
+  onSetItem(client: Client, { location, item }: Params.SetItem): void {
     if (location.source === 'world') {
       client.context.map.getTile(location.loc).item = item;
     } else {
@@ -92,16 +92,16 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
     }
   }
 
-  public onXp(client: Client, { skill, xp }: Params.Xp): void {
+  onXp(client: Client, { skill, xp }: Params.Xp): void {
     const currentXp = client.player.skills.get(skill) || 0;
     client.player.skills.set(skill, currentXp + xp);
   }
 
-  public onChat(client: Client, { from, to, message }: Params.Chat): void {
+  onChat(client: Client, { from, to, message }: Params.Chat): void {
     // handled by game.ts
   }
 
-  public onTime(client: Client, { epoch }: Params.Time): void {
+  onTime(client: Client, { epoch }: Params.Time): void {
     // handled by game.ts
   }
 }

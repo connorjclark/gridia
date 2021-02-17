@@ -3,26 +3,26 @@ import * as Content from './content';
 import * as Utils from './utils';
 
 class WorldMapPartition {
-  public width: number;
-  public height: number;
-  public depth: number;
-  public sectors: Array3D<Sector | null>;
-  public loader?: (sectorPoint: PartitionPoint) => Promise<Sector>;
+  width: number;
+  height: number;
+  depth: number;
+  sectors: Array3D<Sector | null>;
+  loader?: (sectorPoint: PartitionPoint) => Promise<Sector>;
   private _sectorLoadPromises = new Map<string, Promise<Sector>>();
 
-  public constructor(width: number, height: number, depth: number) {
+  constructor(width: number, height: number, depth: number) {
     this.width = width;
     this.height = height;
     this.depth = depth;
     this.sectors = Utils.matrix(width / SECTOR_SIZE, height / SECTOR_SIZE, depth);
   }
 
-  public inBounds(point: PartitionPoint): boolean {
+  inBounds(point: PartitionPoint): boolean {
     return point.x >= 0 && point.y >= 0 && point.x < this.width && point.y < this.height &&
       point.z >= 0 && point.z < this.depth;
   }
 
-  public walkable(point: PartitionPoint): boolean {
+  walkable(point: PartitionPoint): boolean {
     if (!this.inBounds(point)) return false;
 
     const tile = this.getTile(point);
@@ -32,12 +32,12 @@ class WorldMapPartition {
     return true;
   }
 
-  public async walkableAsync(point: PartitionPoint): Promise<boolean> {
+  async walkableAsync(point: PartitionPoint): Promise<boolean> {
     await this.getSectorAsync(Utils.worldToSector(point, SECTOR_SIZE));
     return this.walkable(point);
   }
 
-  public getSector(sectorPoint: PartitionPoint): Sector {
+  getSector(sectorPoint: PartitionPoint): Sector {
     let sector = this.sectors[sectorPoint.x][sectorPoint.y][sectorPoint.z];
     if (!sector) {
       // Sector loading must be async, but querying sector data is always sync.
@@ -48,32 +48,32 @@ class WorldMapPartition {
     return sector;
   }
 
-  public getSectorIfLoaded(sectorPoint: PartitionPoint): Sector | null {
+  getSectorIfLoaded(sectorPoint: PartitionPoint): Sector | null {
     return this.sectors[sectorPoint.x][sectorPoint.y][sectorPoint.z];
   }
 
   // Waits for real sector to load, if not loaded yet.
-  public async getSectorAsync(sectorPoint: PartitionPoint) {
+  async getSectorAsync(sectorPoint: PartitionPoint) {
     return this._loadSector(sectorPoint);
   }
 
-  public getTile(point: PartitionPoint): Tile {
+  getTile(point: PartitionPoint): Tile {
     if (!this.inBounds(point)) return { floor: 0 };
 
     const sector = this.getSector(Utils.worldToSector(point, SECTOR_SIZE));
     return sector[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE];
   }
 
-  public setTile(point: PartitionPoint, tile: Tile) {
+  setTile(point: PartitionPoint, tile: Tile) {
     const sector = this.getSector(Utils.worldToSector(point, SECTOR_SIZE));
     sector[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE] = tile;
   }
 
-  public getItem(point: PartitionPoint) {
+  getItem(point: PartitionPoint) {
     return this.getTile(point).item;
   }
 
-  public createEmptySector() {
+  createEmptySector() {
     const tiles: Tile[][] = [];
 
     for (let x = 0; x < SECTOR_SIZE; x++) {
@@ -88,7 +88,7 @@ class WorldMapPartition {
     return tiles;
   }
 
-  public *getIteratorForArea(start: Point3, width: number, height: number) {
+  *getIteratorForArea(start: Point3, width: number, height: number) {
     start = {
       x: Utils.clamp(start.x, 0, this.width),
       y: Utils.clamp(start.y, 0, this.height),

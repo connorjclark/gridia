@@ -9,15 +9,15 @@ class SelectedViewModule extends ClientModule {
   protected movementDirection: Point2 | null = null;
   protected movementFrom: Point4 | null = null;
 
-  public onStart() {
+  onStart() {
     // empty.
   }
 
-  public onTick() {
+  onTick() {
     // empty.
   }
 
-  public selectView(loc: TilePoint) {
+  selectView(loc: TilePoint) {
     const game = this.game;
     const creature = game.client.context.map.getTile(loc).creature;
     if (creature && creature.id !== game.client.player.creature.id) {
@@ -34,13 +34,13 @@ class SelectedViewModule extends ClientModule {
     this.renderSelectedView();
   }
 
-  public clearSelectedView() {
+  clearSelectedView() {
     this.game.state.selectedView.tile = undefined;
     this.game.state.selectedView.creatureId = undefined;
     this.renderSelectedView();
   }
 
-  public renderSelectedView() {
+  renderSelectedView() {
     const game = this.game;
     const state = game.state;
 

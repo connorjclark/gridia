@@ -6,12 +6,12 @@ import * as Helper from '../helper';
 class SkillsModule extends ClientModule {
   protected panel: HTMLElement;
 
-  public constructor(game: Game) {
+  constructor(game: Game) {
     super(game);
     this.panel = Helper.find('.panel--skills');
   }
 
-  public onStart() {
+  onStart() {
     this.game.client.eventEmitter.on('message', (e) => {
       if (e.type === 'xp') {
         const statusTextEl = document.createElement('div');

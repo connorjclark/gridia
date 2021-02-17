@@ -190,6 +190,13 @@ function parseItemsIni() {
     }
   }
 
+  for (const item of items) {
+    // @ts-ignore
+    if (item.class === 'PLANT') item.class = 'Plant';
+    // @ts-ignore
+    if (item.class) item.class = item.class.charAt(0).toUpperCase() + item.class.substr(1);
+  }
+
   // Just in case items are defined out of order.
   items.sort((a, b) => a.id - b.id);
 

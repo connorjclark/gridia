@@ -1,9 +1,9 @@
 import Game from './game';
 
 abstract class ClientModule {
-  public constructor(public game: Game) {}
+  constructor(public game: Game) {}
 
-  public onStart() {
+  onStart() {
     // empty
   }
 

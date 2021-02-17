@@ -11,11 +11,11 @@ class TabContainer extends PIXI.Container {
   private _tabs = new Map<string, Tab>();
   private _currentTab?: Tab;
 
-  public add(tab: Tab) {
+  add(tab: Tab) {
     this._tabs.set(tab.name, tab);
   }
 
-  public showTab(tabName: string) {
+  showTab(tabName: string) {
     if (this._currentTab && this._currentTab.name === tabName) return;
     const tab = this._tabs.get(tabName);
     if (!tab) return;
@@ -25,7 +25,7 @@ class TabContainer extends PIXI.Container {
     this.layout();
   }
 
-  public layout() {
+  layout() {
     if (!this._currentTab) {
       this.showTab(this._tabs.keys().next().value);
       return;

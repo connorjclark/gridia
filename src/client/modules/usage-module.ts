@@ -8,7 +8,7 @@ import * as Helper from '../helper';
 class UsageModule extends ClientModule {
   protected possibleUsagesWindow = new Draw.PossibleUsagesWindow();
 
-  public onStart() {
+  onStart() {
     this.possibleUsagesWindow.pixiContainer.y = 0;
     this.possibleUsagesWindow.setOnSelectUsage((possibleUsage) => {
       this.game.client.connection.send(ProtocolBuilder.use({
@@ -19,11 +19,11 @@ class UsageModule extends ClientModule {
     this.game.addWindow(this.possibleUsagesWindow);
   }
 
-  public onTick() {
+  onTick() {
     // empty.
   }
 
-  public updatePossibleUsages(center?: TilePoint) {
+  updatePossibleUsages(center?: TilePoint) {
     this.possibleUsagesWindow.setPossibleUsages(this.getPossibleUsages(center));
   }
 
@@ -34,7 +34,7 @@ class UsageModule extends ClientModule {
   // only the first instance will be recorded.
   // If a tool in the inventory is selected, filter results to just usages that use that tool.
   // If a an item in the world is selected, filter results to just usages that use that tool.
-  public getPossibleUsages(center?: TilePoint): PossibleUsage[] {
+  getPossibleUsages(center?: TilePoint): PossibleUsage[] {
     const game = this.game;
 
     center = center || game.getPlayerCreature().pos;

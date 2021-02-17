@@ -1,17 +1,17 @@
 import type { RpcMap } from '../server/run-worker';
 
 export class ServerWorker {
-  public worker = new Worker('../server/run-worker.ts');
+  worker = new Worker('../server/run-worker.ts');
 
-  public init = this._createRpc('init') as typeof RpcMap['init'];
-  public listMaps = this._createRpc('listMaps') as typeof RpcMap['listMaps'];
-  public generateMap = this._createRpc('generateMap', 'canvas') as typeof RpcMap['generateMap'];
-  public saveGeneratedMap = this._createRpc('saveGeneratedMap') as typeof RpcMap['saveGeneratedMap'];
-  public startServer = this._createRpc('startServer') as typeof RpcMap['startServer'];
+  init = this._createRpc('init') as typeof RpcMap['init'];
+  listMaps = this._createRpc('listMaps') as typeof RpcMap['listMaps'];
+  generateMap = this._createRpc('generateMap', 'canvas') as typeof RpcMap['generateMap'];
+  saveGeneratedMap = this._createRpc('saveGeneratedMap') as typeof RpcMap['saveGeneratedMap'];
+  startServer = this._createRpc('startServer') as typeof RpcMap['startServer'];
   private _rpcCallbacks = new Map<number, (...args: any) => void>();
   private _nextRpcId = 1;
 
-  public constructor() {
+  constructor() {
     this.worker.onmessage = (e) => {
       if (!e.data.rpc) throw new Error('unexpected message from server worker');
 

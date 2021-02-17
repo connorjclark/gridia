@@ -20,15 +20,15 @@ export function destroyChildren(displayObject: PIXI.Container) {
 }
 
 export class GridiaWindow {
-  public pixiContainer: PIXI.Container;
-  public border: PIXI.Graphics;
-  public borderSize = 10;
-  public contents: PIXI.Container;
+  pixiContainer: PIXI.Container;
+  border: PIXI.Graphics;
+  borderSize = 10;
+  contents: PIXI.Container;
   private _onDraw?: () => void;
 
   private _draggingState?: { downAt: Point2; startingPosition: Point2 };
 
-  public constructor() {
+  constructor() {
     this.pixiContainer = new PIXI.Container();
     this.border = new PIXI.Graphics();
     this.border.interactive = true;
@@ -47,11 +47,11 @@ export class GridiaWindow {
       .on('pointerupoutside', this._onDragEnd.bind(this));
   }
 
-  public setOnDraw(onDraw: () => void) {
+  setOnDraw(onDraw: () => void) {
     this._onDraw = onDraw;
   }
 
-  public draw() {
+  draw() {
     if (this._onDraw) this._onDraw();
     this.border.clear();
     this.border.beginFill(0, 0.2);
@@ -59,11 +59,11 @@ export class GridiaWindow {
     this.border.drawRect(0, 0, this.contents.width + 2 * this.borderSize, this.contents.height + 2 * this.borderSize);
   }
 
-  public get width() {
+  get width() {
     return this.pixiContainer.width;
   }
 
-  public get height() {
+  get height() {
     return this.pixiContainer.height;
   }
 
@@ -91,18 +91,18 @@ export class GridiaWindow {
 }
 
 export class ContainerWindow extends GridiaWindow {
-  public itemsContainer: Container;
-  public mouseOverIndex?: number;
+  itemsContainer: Container;
+  mouseOverIndex?: number;
   protected _selectedIndex: number | null = null;
 
-  public constructor(itemsContainer: Container) {
+  constructor(itemsContainer: Container) {
     super();
     this.itemsContainer = itemsContainer;
   }
 
   // Selected item actions are based off currently selected tool. If
   // the tool changes, should re-render the selected item panel.
-  public set selectedIndex(selectedIndex: number | null) {
+  set selectedIndex(selectedIndex: number | null) {
     // If already selected, then unselect.
     if (this._selectedIndex === selectedIndex) selectedIndex = null;
 
@@ -110,7 +110,7 @@ export class ContainerWindow extends GridiaWindow {
     game.client.eventEmitter.emit('containerWindowSelectedIndexChanged');
   }
 
-  public get selectedIndex() {
+  get selectedIndex() {
     return this._selectedIndex;
   }
 }
@@ -119,7 +119,7 @@ export class PossibleUsagesWindow extends GridiaWindow {
   private _possibleUsagesGrouped: PossibleUsage[][] = [];
   private _onSelectUsage?: (possibleUsage: PossibleUsage) => void;
 
-  public constructor() {
+  constructor() {
     super();
 
     this.contents.on('pointerup', (e: PIXI.InteractionEvent) => {
@@ -133,7 +133,7 @@ export class PossibleUsagesWindow extends GridiaWindow {
     });
   }
 
-  public setPossibleUsages(possibleUsages: PossibleUsage[]) {
+  setPossibleUsages(possibleUsages: PossibleUsage[]) {
     // Group by usage.
     const possibleUsagesGroupedMap = new Map<ItemUse, PossibleUsage[]>();
     for (const possibleUsage of possibleUsages) {
@@ -160,7 +160,7 @@ export class PossibleUsagesWindow extends GridiaWindow {
     }
   }
 
-  public setOnSelectUsage(fn: (possibleUsage: PossibleUsage) => void) {
+  setOnSelectUsage(fn: (possibleUsage: PossibleUsage) => void) {
     this._onSelectUsage = fn;
   }
 }

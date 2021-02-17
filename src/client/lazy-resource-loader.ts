@@ -67,13 +67,13 @@ class LazyResourceLoader {
   private loadingResourcePromise = new Map<string, {promise: Promise<void>; resolve: Function}>();
   private isResourceLoaded = new Set<string>();
 
-  public hasResourceLoaded(key: string) {
+  hasResourceLoaded(key: string) {
     return this.isResourceLoaded.has(key);
     // The below doesn't work well - sometimes results in textures never showing. idk why
     // return loader.resources[key] && loader.resources[key].isComplete && loader.resources[key].texture;
   }
 
-  public loadResource(key: string) {
+  loadResource(key: string) {
     let promiseAndResolve = this.loadingResourcePromise.get(key);
     if (promiseAndResolve) return promiseAndResolve.promise;
 
@@ -84,7 +84,7 @@ class LazyResourceLoader {
     return promiseAndResolve.promise;
   }
 
-  public loadAllImageResources() {
+  loadAllImageResources() {
     const keys = [];
     for (const resources of Object.values(ImageResources)) {
       for (const key of resources) {

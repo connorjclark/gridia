@@ -1,7 +1,7 @@
 export class WorldTime {
-  public constructor(public readonly ticksPerWorldDay: number, public epoch = 0) { }
+  constructor(readonly ticksPerWorldDay: number, public epoch = 0) { }
 
-  public get time() {
+  get time() {
     return {
       epoch: this.epoch,
       day: this.day,
@@ -10,21 +10,21 @@ export class WorldTime {
     };
   }
 
-  public get day() {
+  get day() {
     return Math.floor(this.epoch / this.ticksPerWorldDay);
   }
 
-  public get hour() {
+  get hour() {
     const ticksPerWorldHour = this.ticksPerWorldDay / 24;
     return Math.floor(this.epoch / ticksPerWorldHour) % 24;
   }
 
-  public get minute() {
+  get minute() {
     const ticksPerWorldMinute = this.ticksPerWorldDay / 24 / 60;
     return Math.floor(this.epoch / ticksPerWorldMinute) % 60;
   }
 
-  public toString() {
+  toString() {
     const { day, hour, minute } = this.time;
     const H = hour.toString().padStart(2, '0');
     const M = minute.toString().padStart(2, '0');

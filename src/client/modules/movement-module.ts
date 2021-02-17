@@ -18,12 +18,12 @@ class MovementModule extends ClientModule {
   protected movementDirection: Point2 | null = null;
   protected movementFrom: Point4 | null = null;
 
-  public constructor(game: Game) {
+  constructor(game: Game) {
     super(game);
     this.onAction = this.onAction.bind(this);
   }
 
-  public onStart() {
+  onStart() {
     this.game.client.eventEmitter.on('action', this.onAction);
     this.game.addActionCreator((tile) => {
       if (tile.creature) {
@@ -36,7 +36,7 @@ class MovementModule extends ClientModule {
     });
   }
 
-  public onTick(now: number) {
+  onTick(now: number) {
     const focusCreature = this.game.client.creature;
     const focusPos = this.game.getPlayerPosition();
     const w = focusPos.w;
@@ -114,7 +114,7 @@ class MovementModule extends ClientModule {
     }
   }
 
-  public onAction(e: GameActionEvent) {
+  onAction(e: GameActionEvent) {
     const type = e.action.type;
     const { loc } = e;
 
