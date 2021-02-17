@@ -21,6 +21,7 @@ class AdminModule extends ClientModule {
         this.getAdminWindow().hidden = false;
       } else if (this._adminWindow) {
         this.setSelectedContent(undefined);
+        this._adminWindow.hidden = true;
       }
     });
   }
