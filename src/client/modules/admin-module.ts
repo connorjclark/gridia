@@ -1,7 +1,7 @@
 import * as ProtocolBuilder from '../../protocol/client-to-server-protocol-builder';
 import * as Utils from '../../utils';
 import ClientModule from '../client-module';
-import { makeWindow } from '../ui/admin-window';
+import { makeAdminWindow } from '../ui/admin-window';
 
 interface SelectedContent {
   type: 'items' | 'floors';
@@ -77,7 +77,7 @@ class AdminModule extends ClientModule {
 
   private getAdminWindow() {
     if (this._adminWindow) return this._adminWindow;
-    this._adminWindow = makeWindow(this);
+    this._adminWindow = makeAdminWindow(this);
     return this._adminWindow;
   }
 }

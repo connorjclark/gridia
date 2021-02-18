@@ -2,13 +2,21 @@ import * as Content from '../../content';
 import ClientModule from '../client-module';
 import Game from '../game';
 import * as Helper from '../helper';
+import {makeSkillsWindow} from '../ui/skills-window';
 
 class SkillsModule extends ClientModule {
   protected panel: HTMLElement;
+  protected skillsWindow?: ReturnType<typeof makeSkillsWindow>;
 
   constructor(game: Game) {
     super(game);
     this.panel = Helper.find('.panel--skills');
+  }
+
+  getSkillsWindow() {
+    if (this.skillsWindow) return this.skillsWindow;
+    this.skillsWindow = makeSkillsWindow(this);
+    return this.skillsWindow;
   }
 
   onStart() {
@@ -22,28 +30,31 @@ class SkillsModule extends ClientModule {
         statusTextEl.addEventListener('transitionend', () => statusTextEl.remove());
         Helper.find('.status-texts').appendChild(statusTextEl);
 
-        // This is crap.
-        this.renderSkills();
+        this.getSkillsWindow().setState({skills: this.getSkills()});
       }
     });
 
-    this.renderSkills();
+    this.game.client.eventEmitter.on('panelFocusChanged', ({ panelName }) => {
+      if (panelName === 'skills') {
+        this.getSkillsWindow().el.hidden = false;
+        this.getSkillsWindow().setState({skills: this.getSkills()});
+      } else if (this.skillsWindow) {
+        this.getSkillsWindow().el.hidden = true;
+      }
+    });
   }
 
-  protected renderSkills() {
-    const skillsEl = Helper.find('.skills', this.panel);
-    skillsEl.innerHTML = '';
-
-    const sortedByName = [...this.game.client.player.skills.keys()].sort(
+  getSkills() {
+    const skillIdsSortedByName = [...this.game.client.player.skills.keys()].sort(
       (a, b) => Content.getSkill(a).name.localeCompare(Content.getSkill(b).name));
-    for (const skillId of sortedByName) {
-      const skill = Content.getSkill(skillId);
-      const xp = this.game.client.player.skills.get(skillId);
-      const skillEl = document.createElement('div');
-      skillEl.classList.add('skill');
-      skillEl.innerText = `${skill.name} (${xp})`;
-      skillsEl.appendChild(skillEl);
-    }
+    return skillIdsSortedByName.map((id) => {
+      const skill = Content.getSkill(id);
+      const xp = this.game.client.player.skills.get(id);
+      return {
+        ...skill,
+        xp,
+      };
+    });
   }
 }
 

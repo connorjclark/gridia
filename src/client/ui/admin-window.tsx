@@ -13,7 +13,7 @@ function tryRegex(value: string, flags = '') {
   }
 }
 
-export function makeWindow(adminModule: AdminModule): HTMLElement {
+export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
   const classToMetaItem = new Map<string, MetaItem[]>();
   for (const metaItem of Content.getMetaItems()) {
     const itemClass = metaItem.class || 'None';
