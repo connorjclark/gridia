@@ -112,7 +112,7 @@ const ContextMenu = {
       game.addDataToActionEl(actionEl, {
         action,
         loc,
-        creature: tile.creature,
+        creatureId: tile.creature?.id,
       });
       contextMenuEl.appendChild(actionEl);
     }
@@ -452,7 +452,8 @@ class Game {
         creature,
       });
     };
-    Helper.find('.selected-view--actions').addEventListener('click', onActionSelection);
+    Helper.find('.selected-view--actions').addEventListener('click', onActionSelection); // TODO remove
+    document.body.addEventListener('click', onActionSelection);
     Helper.find('.contextmenu').addEventListener('click', onActionSelection);
 
     this.canvasesEl.addEventListener('pointermove', (e: MouseEvent) => {
@@ -653,7 +654,7 @@ class Game {
 
     // resize the canvas to fill browser window dynamically
     const resize = () => {
-      this.app.renderer.resize(window.innerWidth, window.innerHeight - Helper.find('.ui').clientHeight);
+      this.app.renderer.resize(window.innerWidth, window.innerHeight - Helper.find('.ui-old').clientHeight);
     };
     window.addEventListener('resize', resize);
     resize();
@@ -722,8 +723,7 @@ class Game {
 
   makeUIWindow() {
     const el = Helper.createElement('div', 'ui-window');
-    // Helper.createChildOf(el, 'p').textContent = 'Hello World';
-    Helper.find('.game').appendChild(el);
+    Helper.find('.ui').appendChild(el);
     return el;
   }
 
@@ -898,13 +898,21 @@ class Game {
     return parent === this.app.stage;
   }
 
-  addDataToActionEl(actionEl: HTMLElement, opts: { action: GameAction; loc?: TilePoint; creature?: Creature }) {
+  createDataForActionEl(opts: { action: GameAction; loc?: TilePoint; creatureId?: number }) {
+    return {
+      'data-action': JSON.stringify(opts.action),
+      'data-loc': JSON.stringify(opts.loc),
+      'data-creature-id': opts.creatureId ? String(opts.creatureId) : undefined,
+    };
+  }
+
+  addDataToActionEl(actionEl: HTMLElement, opts: { action: GameAction; loc?: TilePoint; creatureId?: number }) {
     actionEl.classList.add('action');
     actionEl.title = opts.action.title;
     actionEl.innerText = opts.action.innerText;
-    actionEl.dataset.action = JSON.stringify(opts.action);
-    if (opts.loc) actionEl.dataset.loc = JSON.stringify(opts.loc);
-    if (opts.creature) actionEl.dataset.creatureId = String(opts.creature.id);
+    for (const [key, value] of Object.entries(this.createDataForActionEl(opts))) {
+      if (value !== undefined) actionEl.setAttribute(key, value);
+    }
   }
 
   private addToChat(line: string) {

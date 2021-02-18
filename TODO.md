@@ -6,6 +6,7 @@
 * Wear images
 * Registration
 * Link to help.md on GH in game.
+* Fix tame gfx
 
 # Combat
 

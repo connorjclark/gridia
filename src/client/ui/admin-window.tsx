@@ -168,7 +168,7 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
         <FloorSelections floors={paginatedItems as MetaFloor[]}></FloorSelections> :
         <ItemSelections metaItems={paginatedItems as MetaItem[]}></ItemSelections>;
 
-      return <div class="ui-admin">
+      return <div>
         <div>
           {FilterMenuItems}
         </div>
@@ -213,6 +213,7 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
   }
 
   const el = adminModule.game.makeUIWindow();
+  el.classList.add('ui-admin');
   render(<AdminWindow />, el);
   return el;
 }

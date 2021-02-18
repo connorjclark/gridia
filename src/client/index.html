@@ -60,21 +60,7 @@
       opacity: 0;
     }
 
-    /* #glCanvas {
-      position: absolute;
-      left: 0;
-      top: 0;
-    }
-
-    #ctxText {
-      position: absolute;
-      left: 0;
-      top: 0;
-      z-index: 2;
-      pointer-events: none;
-    } */
-
-    .ui {
+    .ui-old {
       display: flex;
       padding: 10px;
     }
@@ -188,14 +174,15 @@
       flex-grow: 1;
     }
 
-    .game {
-      position: relative;
+    .ui {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
     }
 
     .ui-window {
       position: absolute;
-      top: 0;
-      left: 0;
       margin: 10px;
       padding: 3px;
       border: solid 3px gold;
@@ -207,7 +194,7 @@
       max-width: 50%;
     }
 
-    .ui-admin {
+    .ui-admin > div {
       display: flex;
     }
 
@@ -226,6 +213,11 @@
     }
     .ui-admin--selection {
       flex: 1 0 21%;
+    }
+
+    .ui-view {
+      top: 0;
+      right: 0;
     }
   </style>
   <link rel="stylesheet" href="styles/buttons.css">
@@ -279,11 +271,10 @@
 
   <div class="game hidden">
     <div id="canvases" tabindex="0">
-      <!-- <canvas id="glCanvas" height="480"></canvas>
-          <canvas id="ctxText" height="680"></canvas> -->
       <div class="status-texts"></div>
     </div>
-    <div class="ui">
+    <div class="ui"></div>
+    <div class="ui-old">
       <div class="chat">
         <textarea class="chat-area" tabindex="-1" readonly></textarea>
         <form class="flex chat-form">

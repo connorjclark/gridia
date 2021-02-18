@@ -1,6 +1,7 @@
 import * as Content from '../../content';
 import ClientModule from '../client-module';
 import * as Helper from '../helper';
+import { makeViewWindow } from '../ui/view-window';
 
 class SelectedViewModule extends ClientModule {
   protected followCreature?: Creature;
@@ -8,9 +9,23 @@ class SelectedViewModule extends ClientModule {
   protected canMoveAgainAt = 0;
   protected movementDirection: Point2 | null = null;
   protected movementFrom: Point4 | null = null;
+  private viewWindow?: ReturnType<typeof makeViewWindow>;
+
+  getViewWindow() {
+    if (this.viewWindow) return this.viewWindow;
+    this.viewWindow = makeViewWindow(this);
+    return this.viewWindow;
+  }
 
   onStart() {
-    // empty.
+    this.game.client.eventEmitter.on('panelFocusChanged', ({ panelName }) => {
+      if (panelName === 'selected-view') {
+        this.getViewWindow().el.hidden = false;
+        this.getViewWindow().setState({selectedView: this.game.state.selectedView});
+      } else if (this.viewWindow) {
+        this.getViewWindow().el.hidden = true;
+      }
+    });
   }
 
   onTick() {
@@ -114,10 +129,12 @@ class SelectedViewModule extends ClientModule {
       this.game.addDataToActionEl(actionEl, {
         action,
         loc: game.state.selectedView.tile,
-        creature,
+        creatureId: creature?.id,
       });
       actionsEl.appendChild(actionEl);
     }
+
+    this.getViewWindow().setState({selectedView: this.game.state.selectedView, data});
   }
 }
 
