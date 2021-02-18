@@ -171,12 +171,6 @@ class Camera {
       this.top = loc.y - Math.round(this.height * this.centerElasticity.bottom);
     }
 
-    const partition = this.worldContainer.map.getPartition(loc.w);
-    const maxLeft = partition.width - this.width;
-    const maxTop = partition.height - this.height;
-    this.left = Utils.clamp(this.left, 0, maxLeft);
-    this.top = Utils.clamp(this.top, 0, maxTop);
-
     if (shouldCenter) this.center();
   }
 

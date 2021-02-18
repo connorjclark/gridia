@@ -31,6 +31,8 @@ export class TilesSeenLog {
   }
 
   markSeen(map: WorldMap, point: TilePoint) {
+    if (!map.inBounds(point)) return;
+
     const sector = this.getSectorData(point);
     const tile = map.getTile(point);
     const data = {
