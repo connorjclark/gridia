@@ -19,6 +19,7 @@ import SkillsModule from './modules/skills-module';
 import UsageModule from './modules/usage-module';
 import { WorldContainer } from './world-container';
 import MapModule from './modules/map-module';
+import { makeHelpWindow } from './ui/help-window';
 
 // WIP lighting shaders.
 
@@ -119,16 +120,19 @@ const ContextMenu = {
   },
 };
 
+// TODO: remove panels.
 function registerPanelListeners() {
   Helper.find('.panels__tabs').addEventListener('click', (e) => {
-    Helper.find('.panels__tab--active').classList.toggle('panels__tab--active');
-    Helper.find('.panel--active').classList.toggle('panel--active');
+    Helper.maybeFind('.panels__tab--active')?.classList.toggle('panels__tab--active');
+    Helper.maybeFind('.panel--active')?.classList.toggle('panel--active');
 
     const targetEl = e.target as HTMLElement;
     const panelName = targetEl.dataset.panel as string;
+    game.client.eventEmitter.emit('panelFocusChanged', { panelName });
+    if (!panelName) return;
+
     targetEl.classList.toggle('panels__tab--active');
     Helper.find('.panel--' + panelName).classList.toggle('panel--active');
-    game.client.eventEmitter.emit('panelFocusChanged', { panelName });
   });
 }
 
@@ -719,6 +723,16 @@ class Game {
     });
 
     registerPanelListeners();
+
+    let helpWindow: ReturnType<typeof makeHelpWindow>;
+    this.client.eventEmitter.on('panelFocusChanged', ({ panelName }) => {
+      if (panelName === 'help') {
+        if (!helpWindow) helpWindow = makeHelpWindow(this);
+        helpWindow.el.hidden = false;
+      } else if (helpWindow) {
+        helpWindow.el.hidden = true;
+      }
+    });
   }
 
   makeUIWindow() {

@@ -99,6 +99,15 @@ export function find(query: string, node?: Element): HTMLElement {
   return result;
 }
 
+export function maybeFind(query: string, node?: Element): HTMLElement|undefined {
+  if (!node) node = document.body;
+  const result = node.querySelector(query);
+  if (!result) return;
+  // ?
+  if (!(result instanceof HTMLElement)) throw new Error('expected HTMLElement');
+  return result;
+}
+
 export function findAll(query: string, node?: Element): Element[] {
   if (!node) node = document.body;
   const result = [...node.querySelectorAll(query)];
