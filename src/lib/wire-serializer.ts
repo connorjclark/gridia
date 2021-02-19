@@ -1,11 +1,18 @@
 import * as serialijse from 'serialijse';
-import Player, {TilesSeenLog} from '../player';
+import Player, { TilesSeenLog } from '../player';
 import Container from '../container';
 
 // Name is required because minimization can break things.
 export function registerClass(klass: any, name: string, serializeFn?: Function, deserializeFn?: Function) {
+  // The client is minified, so serialzied objects from a server running in a browser worker will be minified.
+  // So don't use a name alias.
+  // @ts-ignore
+  serialijse.declarePersistable(klass, undefined, serializeFn, deserializeFn);
+  // The node server is not minified, so serialized objects from the server will contain the full class name.
   // @ts-ignore
   serialijse.declarePersistable(klass, name, serializeFn, deserializeFn);
+
+  // Pretty sure this is going to hurt me later.
 }
 
 export function serialize(object: any) {

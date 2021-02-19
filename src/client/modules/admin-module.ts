@@ -13,8 +13,6 @@ class AdminModule extends ClientModule {
   private _selectedContent?: SelectedContent;
 
   onStart() {
-    // const panel = Helper.find('.panel--admin');
-
     this.game.client.eventEmitter.on('panelFocusChanged', async ({ panelName }) => {
       if (panelName === 'admin') {
         await this.init();
