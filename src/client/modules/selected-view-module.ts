@@ -17,14 +17,7 @@ class SelectedViewModule extends ClientModule {
   }
 
   onStart() {
-    this.game.client.eventEmitter.on('panelFocusChanged', ({ panelName }) => {
-      if (panelName === 'selected-view') {
-        this.getViewWindow().el.hidden = false;
-        this.getViewWindow().setState({selectedView: this.game.state.selectedView});
-      } else if (this.viewWindow) {
-        this.getViewWindow().el.hidden = true;
-      }
-    });
+    // empty.
   }
 
   onTick() {

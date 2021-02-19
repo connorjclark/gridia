@@ -655,7 +655,7 @@ class Game {
 
     // resize the canvas to fill browser window dynamically
     const resize = () => {
-      this.app.renderer.resize(window.innerWidth, window.innerHeight - Helper.find('.ui-old').clientHeight);
+      this.app.renderer.resize(window.innerWidth, window.innerHeight);
     };
     window.addEventListener('resize', resize);
     resize();
@@ -760,7 +760,9 @@ class Game {
         // Inventory.
         if (id === this.client.player.containerId) {
           containerWindow.draw();
-          containerWindow.pixiContainer.y = this.app.view.height - containerWindow.height - containerWindow.borderSize;
+          containerWindow.pixiContainer.x =
+            (this.app.view.width - containerWindow.width - containerWindow.borderSize) / 2;
+          containerWindow.pixiContainer.y = 0;
         }
       }
     }

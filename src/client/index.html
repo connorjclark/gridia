@@ -60,18 +60,18 @@
       opacity: 0;
     }
 
-    .ui-old {
-      display: flex;
-      padding: 10px;
-    }
-
     .chat {
       width: 50%;
       margin: 0 10px;
+      opacity: 0.5;
+      pointer-events: all;
+    }
+    .chat:hover {
+      opacity: 1;
     }
     .chat textarea {
       width: 100%;
-      height: 20vh;
+      height: 80%;
       resize: none;
     }
     .chat-submit {
@@ -97,6 +97,7 @@
 
     .panels-container {
       width: 50%;
+      pointer-events: all;
     }
 
     .panels__tabs {
@@ -111,11 +112,12 @@
       margin-right: 3px;
       padding: 0 3px;
       border: black solid 1px;
+      background-color: rgb(85, 85, 85);
+      color: white;
     }
 
     .panels__tab--active {
-      background-color: rgb(85, 85, 85);
-      color: white;
+      color: gold;
     }
 
     .register {
@@ -164,6 +166,7 @@
       left: 0;
       width: 100%;
       height: 100%;
+      /* TODO: this pointer event shuffling seems wrong... is there a better way? */
       pointer-events: none;
     }
 
@@ -289,7 +292,24 @@
     </div>
     <div class="ui">
       <div class="grid-container">
-        <div class="bottom"></div>
+        <div class="bottom">
+          <div class="chat">
+            <textarea class="chat-area" tabindex="-1" readonly></textarea>
+            <form class="flex chat-form">
+              <input class="flex-grow chat-input" type="text">
+              <input class="chat-submit" type="submit">
+            </form>
+          </div>
+
+          <div class="panels-container">
+            <div class="panels__tabs">
+              <div class="panels__tab panels__tab--active" data-panel="skills">Skills</div>
+              <div class="panels__tab" data-panel="settings">Settings</div>
+              <div class="panels__tab" data-panel="admin">Admin</div>
+              <div class="panels__tab" data-panel="help">Help</div>
+            </div>
+          </div>
+        </div>
         <div class="center"></div>
         <div class="map"></div>
         <div class="right"></div>
@@ -297,25 +317,7 @@
         <div class="top"></div>
       </div>
     </div>
-    <div class="ui-old">
-      <div class="chat">
-        <textarea class="chat-area" tabindex="-1" readonly></textarea>
-        <form class="flex chat-form">
-          <input class="flex-grow chat-input" type="text">
-          <input class="chat-submit" type="submit">
-        </form>
-      </div>
-      <div class="panels-container">
-        <div class="panels__tabs">
-          <div class="panels__tab panels__tab--active" data-panel="selected-view">View</div>
-          <div class="panels__tab" data-panel="skills">Skills</div>
-          <div class="panels__tab" data-panel="settings">Settings</div>
-          <div class="panels__tab" data-panel="admin">Admin</div>
-          <div class="panels__tab" data-panel="help">Help</div>
-        </div>
-      </div>
-      <div class="contextmenu"></div>
-    </div>
+    <div class="contextmenu"></div>
   </div>
 </body>
 
