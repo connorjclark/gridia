@@ -121,13 +121,17 @@ const ContextMenu = {
 };
 
 // TODO: rename panels cuz they aren't panels anymore.
+let currentPanel = '';
 function registerPanelListeners() {
   Helper.find('.panels__tabs').addEventListener('click', (e) => {
     Helper.maybeFind('.panels__tab--active')?.classList.toggle('panels__tab--active');
 
     const targetEl = e.target as HTMLElement;
-    const panelName = targetEl.dataset.panel as string;
+    let panelName = targetEl.dataset.panel as string;
+    if (panelName === currentPanel) panelName = '';
+
     game.client.eventEmitter.emit('panelFocusChanged', { panelName });
+    currentPanel = panelName;
     if (!panelName) return;
 
     targetEl.classList.toggle('panels__tab--active');
