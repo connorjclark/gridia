@@ -186,19 +186,7 @@ interface ServerWorkerOpts extends ServerOptions {
   useMapPreview?: boolean;
 }
 
-declare module 'pixi-text-input' {
-  class TextInput {
-    placeholder: string;
-    height: number;
-    constructor(styles: any);
-    on(event: string, cb: (text: string) => void): any;
-  }
-
-  export default TextInput;
-}
-
 declare namespace PIXI {
   // const PIXISound: any;
   let OutlineFilter: typeof import('@pixi/filter-outline').OutlineFilter;
-  let TextInput: typeof import('pixi-text-input').default;
 }
