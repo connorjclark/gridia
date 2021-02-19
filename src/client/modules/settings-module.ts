@@ -1,5 +1,5 @@
 import ClientModule from '../client-module';
-import * as Helper from '../helper';
+import { makeSettingsWindow } from '../ui/settings-window';
 
 export interface Settings {
   showGrid: boolean;
@@ -7,37 +7,35 @@ export interface Settings {
   lightMode: number;
 }
 
-type SettingKey = keyof Settings;
-
-const Settings: Record<SettingKey, any> = {
+export const SettingsSchema = {
   volume: {
-    label: 'Volume',
     type: 'number',
+    label: 'Volume',
     default: process.env.NODE_ENV === 'production' ? 0.6 : 0,
     min: 0,
     max: 1,
     step: 0.1,
   },
   showGrid: {
-    label: 'Show Grid',
     type: 'boolean',
+    label: 'Show Grid',
     default: true,
   },
   lightMode: {
-    label: 'Light Mode',
     type: 'number',
+    label: 'Light Mode',
     default: 3,
     min: 0,
     max: 3,
     step: 1,
   },
-};
+} as const;
 
 export function getDefaultSettings() {
   // @ts-ignore
   const settings: Settings = {};
 
-  for (const [id, options] of Object.entries(Settings)) {
+  for (const [id, options] of Object.entries(SettingsSchema)) {
     // @ts-ignore
     settings[id] = options.default;
   }
@@ -46,56 +44,23 @@ export function getDefaultSettings() {
 }
 
 class SettingsModule extends ClientModule {
+  private settingsWindow?: ReturnType<typeof makeSettingsWindow>;
+
+  getSettingsWindow() {
+    if (this.settingsWindow) return this.settingsWindow;
+    this.settingsWindow = makeSettingsWindow(this);
+    return this.settingsWindow;
+  }
+
   onStart() {
-    const panel = Helper.find('.panel--settings');
-    const settingsEl = Helper.find('.settings', panel);
-
-    settingsEl.addEventListener('change', (e) => {
-      if (!(e.target instanceof HTMLInputElement)) return;
-      const settingKey = e.target.attributes.getNamedItem('settingId')?.value as SettingKey;
-      if (!(settingKey in this.game.client.settings)) return;
-
-      const type = Settings[settingKey].type;
-      if (type === 'number') {
-        // @ts-ignore
-        this.game.client.settings[settingKey] = e.target.valueAsNumber;
-      } else if (type === 'boolean') {
-        // @ts-ignore
-        this.game.client.settings[settingKey] = e.target.checked;
+    this.game.client.eventEmitter.on('panelFocusChanged', ({ panelName }) => {
+      if (panelName === 'settings') {
+        this.getSettingsWindow().el.hidden = false;
+        this.getSettingsWindow().setState({settings: this.game.client.settings});
+      } else if (this.settingsWindow) {
+        this.getSettingsWindow().el.hidden = true;
       }
-
-      // TODO: save and load settings.
     });
-
-    for (const [id, options] of Object.entries(Settings)) {
-      const settingEl = Helper.createChildOf(settingsEl, 'div');
-
-      Helper.createChildOf(settingEl, 'label', '', {
-        for: id,
-      }).innerText = options.label;
-
-      // @ts-ignore
-      const value = id in this.game.client.settings ? this.game.client.settings[id] : options.default;
-
-      if (options.type === 'boolean') {
-        const attrs: any = {};
-        if (options.default) attrs.checked = '';
-        Helper.createChildOf(settingEl, 'input', '', {
-          settingId: id,
-          type: 'checkbox',
-          ...attrs,
-        }).innerText = options.label;
-      } else if (options.type === 'number') {
-        Helper.createChildOf(settingEl, 'input', '', {
-          settingId: id,
-          type: 'range',
-          value: String(value),
-          min: String(options.min),
-          max: String(options.max),
-          step: String(options.step),
-        }).innerText = options.label;
-      }
-    }
   }
 }
 
