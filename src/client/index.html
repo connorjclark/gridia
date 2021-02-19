@@ -99,22 +99,10 @@
       width: 50%;
     }
 
-    .panels {
-      border: black solid 1px;
-      padding: 2px;
-      height: 20vh;
-      overflow-y: scroll;
-    }
-
-    .panel {
-      display: none;
-    }
-
-    .panel--active {
-      display: block;
-    }
-
     .panels__tabs {
+      position: absolute;
+      bottom: 0;
+      right: 0;
       display: flex;
       margin: 5px 0;
     }
@@ -128,10 +116,6 @@
     .panels__tab--active {
       background-color: rgb(85, 85, 85);
       color: white;
-    }
-
-    .panel--map .map {
-      height: 100%;
     }
 
     .register {
@@ -322,36 +306,9 @@
         </form>
       </div>
       <div class="panels-container">
-        <div class="panels">
-          <div class="panel panel--selected-view panel--active">
-            <div class="selected-view">
-              <div class="selected-view--actions"></div>
-              <span class="selected-view--details">
-                <!-- insert details here --></span>
-            </div>
-          </div>
-          <div class="panel panel--skills">
-            <div class="skills"></div>
-          </div>
-          <div class="panel panel--map">
-            <canvas class="map"></canvas>
-            <span class="location"></span>
-          </div>
-          <div class="panel panel--settings">
-            <div class="settings"></div>
-          </div>
-          <div class="panel panel--admin">
-            <div class="admin">
-              Admin panel.
-            </div>
-          </div>
-          <div class="panel panel--help">
-          </div>
-        </div>
         <div class="panels__tabs">
           <div class="panels__tab panels__tab--active" data-panel="selected-view">View</div>
           <div class="panels__tab" data-panel="skills">Skills</div>
-          <div class="panels__tab" data-panel="map">Map</div>
           <div class="panels__tab" data-panel="settings">Settings</div>
           <div class="panels__tab" data-panel="admin">Admin</div>
           <div class="panels__tab" data-panel="help">Help</div>

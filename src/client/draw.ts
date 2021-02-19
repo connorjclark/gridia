@@ -100,12 +100,12 @@ export class ContainerWindow extends GridiaWindow {
     this.itemsContainer = itemsContainer;
   }
 
-  // Selected item actions are based off currently selected tool. If
-  // the tool changes, should re-render the selected item panel.
   set selectedIndex(selectedIndex: number | null) {
     // If already selected, then unselect.
     if (this._selectedIndex === selectedIndex) selectedIndex = null;
 
+    // Selected item actions are based off currently selected tool. Fire
+    // an event so the appropriate system can respond to changes.
     this._selectedIndex = selectedIndex;
     game.client.eventEmitter.emit('containerWindowSelectedIndexChanged');
   }

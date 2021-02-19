@@ -1,6 +1,5 @@
 import * as Content from '../../content';
 import ClientModule from '../client-module';
-import * as Helper from '../helper';
 import { makeViewWindow } from '../ui/view-window';
 
 class SelectedViewModule extends ClientModule {
@@ -94,19 +93,6 @@ class SelectedViewModule extends ClientModule {
       };
     }
 
-    const el = Helper.find('.selected-view');
-    const detailsEl = Helper.find('.selected-view--details', el);
-    detailsEl.innerHTML = '';
-    for (const [key, value] of Object.entries(data)) {
-      const detailEl = document.createElement('div');
-      detailEl.classList.add('.selected-view--detail', `.selected-view--detail-${key}`);
-      detailEl.textContent = `${key[0].toUpperCase() + key.substr(1)}: ${value}`;
-      detailsEl.appendChild(detailEl);
-    }
-
-    const actionsEl = Helper.find('.selected-view--actions', el);
-    actionsEl.innerHTML = 'Actions:';
-
     if (!tilePos || !tile) return;
 
     // Clone tile so properties can be removed as needed.
@@ -121,16 +107,7 @@ class SelectedViewModule extends ClientModule {
       clonedTile.item = undefined;
     }
 
-    const actions = state.selectedView.actions = game.getActionsFor(clonedTile, tilePos);
-    for (const action of actions) {
-      const actionEl = document.createElement('button');
-      this.game.addDataToActionEl(actionEl, {
-        action,
-        loc: game.state.selectedView.tile,
-        creatureId: creature?.id,
-      });
-      actionsEl.appendChild(actionEl);
-    }
+    state.selectedView.actions = game.getActionsFor(clonedTile, tilePos);
 
     this.getViewWindow().setState({selectedView: this.game.state.selectedView, data});
     this.getViewWindow().el.hidden = !creature && !item;

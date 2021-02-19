@@ -1,17 +1,10 @@
 import * as Content from '../../content';
 import ClientModule from '../client-module';
-import Game from '../game';
 import * as Helper from '../helper';
 import {makeSkillsWindow} from '../ui/skills-window';
 
 class SkillsModule extends ClientModule {
-  protected panel: HTMLElement;
   protected skillsWindow?: ReturnType<typeof makeSkillsWindow>;
-
-  constructor(game: Game) {
-    super(game);
-    this.panel = Helper.find('.panel--skills');
-  }
 
   getSkillsWindow() {
     if (this.skillsWindow) return this.skillsWindow;

@@ -120,11 +120,10 @@ const ContextMenu = {
   },
 };
 
-// TODO: remove panels.
+// TODO: rename panels cuz they aren't panels anymore.
 function registerPanelListeners() {
   Helper.find('.panels__tabs').addEventListener('click', (e) => {
     Helper.maybeFind('.panels__tab--active')?.classList.toggle('panels__tab--active');
-    Helper.maybeFind('.panel--active')?.classList.toggle('panel--active');
 
     const targetEl = e.target as HTMLElement;
     const panelName = targetEl.dataset.panel as string;
@@ -132,7 +131,6 @@ function registerPanelListeners() {
     if (!panelName) return;
 
     targetEl.classList.toggle('panels__tab--active');
-    Helper.find('.panel--' + panelName).classList.toggle('panel--active');
   });
 }
 
@@ -456,7 +454,6 @@ class Game {
         creature,
       });
     };
-    Helper.find('.selected-view--actions').addEventListener('click', onActionSelection); // TODO remove
     document.body.addEventListener('click', onActionSelection);
     Helper.find('.contextmenu').addEventListener('click', onActionSelection);
 
