@@ -893,7 +893,7 @@ class Game {
       this._currentHoverItemText.anchor.x = 1;
       this._currentHoverItemText.anchor.y = 1;
       this._currentHoverItemText.x = this.app.view.width - GFX_SIZE * 0.3;
-      this._currentHoverItemText.y = this.app.view.height;
+      this._currentHoverItemText.y = this.app.view.height - this._currentHoverItemText.height;
     } else {
       this._currentHoverItemText.visible = false;
     }
