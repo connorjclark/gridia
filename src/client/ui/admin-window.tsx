@@ -212,7 +212,7 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
     }
   }
 
-  const el = adminModule.game.makeUIWindow();
+  const el = adminModule.game.makeUIWindow('center');
   el.classList.add('ui-admin');
   render(<AdminWindow />, el);
   return el;

@@ -735,9 +735,9 @@ class Game {
     });
   }
 
-  makeUIWindow() {
-    const el = Helper.createElement('div', 'ui-window');
-    Helper.find('.ui').appendChild(el);
+  makeUIWindow(gridCell: string) {
+    const cellEl = Helper.find(`.ui .grid-container > .${gridCell}`);
+    const el = Helper.createChildOf(cellEl, 'div', 'ui-window');
     return el;
   }
 

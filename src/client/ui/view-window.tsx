@@ -43,7 +43,7 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
     }
   }
 
-  const el = selectedViewModule.game.makeUIWindow();
+  const el = selectedViewModule.game.makeUIWindow('right');
   el.classList.add('ui-view');
   render(<ViewWindow />, el);
   return { el, setState: (s: State) => setState(s) };

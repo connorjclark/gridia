@@ -85,14 +85,12 @@ class SelectedViewModule extends ClientModule {
         name: meta.name,
         quantity: String(item.quantity),
         burden: String(item.quantity * meta.burden),
-        misc: JSON.stringify(meta, null, 2),
       };
     } else {
       data = {
         name: '-',
         quantity: '0',
         burden: '0',
-        misc: '',
       };
     }
 
@@ -135,6 +133,7 @@ class SelectedViewModule extends ClientModule {
     }
 
     this.getViewWindow().setState({selectedView: this.game.state.selectedView, data});
+    this.getViewWindow().el.hidden = !creature && !item;
   }
 }
 

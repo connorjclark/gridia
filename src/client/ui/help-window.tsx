@@ -17,7 +17,7 @@ export function makeHelpWindow(game: Game) {
     }
   }
 
-  const el = game.makeUIWindow();
+  const el = game.makeUIWindow('center');
   el.classList.add('ui-help');
   render(<HelpWindow />, el);
   return { el };

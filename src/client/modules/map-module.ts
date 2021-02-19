@@ -5,16 +5,18 @@ import * as Content from '../../content';
 import { SECTOR_SIZE } from '../../constants';
 
 class MapModule extends ClientModule {
-  private panel = Helper.find('.panel--map');
   private mapEl?: HTMLCanvasElement;
   private context?: CanvasRenderingContext2D;
+  private mapWindow = this.game.makeUIWindow('map');
 
   private nextDrawAt = 0;
   private numDraws = 0;
 
   onStart() {
-    this.mapEl = Helper.find('.map', this.panel) as HTMLCanvasElement;
+    this.mapWindow.classList.add('ui-map');
+    this.mapEl = Helper.createChildOf(this.mapWindow, 'canvas', 'map');
     this.mapEl.width = this.mapEl.height; // TODO: css?
+    Helper.createChildOf(this.mapWindow, 'div', 'location');
 
     const context = this.mapEl.getContext('2d');
     if (!context) throw new Error('could not make context');
@@ -29,10 +31,8 @@ class MapModule extends ClientModule {
   }
 
   onTick(now: number) {
-    if (!this.panel.classList.contains('panel--active')) return;
-
     const playerLoc = this.game.getPlayerPosition();
-    Helper.find('.location', this.panel).innerText =
+    Helper.find('.location', this.mapWindow).innerText =
       `${playerLoc.x}, ${playerLoc.y}, ${playerLoc.z} (map ${playerLoc.w})`;
 
     if (now < this.nextDrawAt) return;

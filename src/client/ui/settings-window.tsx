@@ -68,8 +68,8 @@ export function makeSettingsWindow(settingsModule: SettingsModule) {
     }
   }
 
-  const el = settingsModule.game.makeUIWindow();
-  el.classList.add('ui-view');
+  const el = settingsModule.game.makeUIWindow('center');
+  el.classList.add('settings-view');
   render(<SettingsWindow />, el);
   return { el, setState: (s: State) => setState(s) };
 }

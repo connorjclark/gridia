@@ -29,7 +29,7 @@ export function makeSkillsWindow(skillsModule: SkillsModule) {
     }
   }
 
-  const el = skillsModule.game.makeUIWindow();
+  const el = skillsModule.game.makeUIWindow('center');
   render(<SkillsWindow />, el);
   return { el, setState: (s: State) => setState(s) };
 }
