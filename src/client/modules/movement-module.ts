@@ -16,7 +16,6 @@ class MovementModule extends ClientModule {
   protected pathToDestination?: PartitionPoint[];
   protected canMoveAgainAt = 0;
   protected movementDirection: Point2 | null = null;
-  protected movementFrom: Point4 | null = null;
 
   constructor(game: Game) {
     super(game);
@@ -106,7 +105,7 @@ class MovementModule extends ClientModule {
           x: Utils.clamp(dest.x - focusPos.x, -1, 1),
           y: Utils.clamp(dest.y - focusPos.y, -1, 1),
         };
-        this.movementFrom = { ...focusPos };
+        // this.game.client.context.map.moveCreature(focusCreature, dest);
         this.game.client.connection.send(ProtocolBuilder.move(dest));
         this.game.client.eventEmitter.emit('playerMove', { from: focusCreature.pos, to: dest });
         delete this.game.state.mouse.tile;

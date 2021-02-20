@@ -89,6 +89,12 @@ export default class WorldMap {
       }
     }
   }
+
+  moveCreature(creature: Creature, loc: TilePoint) {
+    delete this.getTile(creature.pos).creature;
+    creature.pos = loc;
+    this.getTile(creature.pos).creature = creature;
+  }
 }
 
 export function createClientWorldMap(connection: Connection) {

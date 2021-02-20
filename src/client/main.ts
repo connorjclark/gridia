@@ -14,6 +14,7 @@ function parseQuery(queryString: string) {
   return {
     map: params.get('map'),
     quick: params.get('quick'),
+    latency: params.has('latency') ? Number(params.get('latency')) : undefined,
   };
 }
 
@@ -178,7 +179,7 @@ class MapSelectScene extends Scene {
     await controller.serverWorker.saveGeneratedMap({name});
     controller.client = await connectToServerWorker(controller.serverWorker, {
       serverData: name,
-      dummyDelay: 20,
+      dummyDelay: qs.latency ?? 0,
       verbose: false,
     });
     controller.pushScene(new RegisterScene());
@@ -410,7 +411,7 @@ async function getMapNames() {
 async function loadMap(name: string) {
   controller.client = await connectToServerWorker(controller.serverWorker, {
     serverData: `/${name}`,
-    dummyDelay: 20,
+    dummyDelay: qs.latency ?? 0,
     verbose: false,
   });
   controller.pushScene(new RegisterScene());

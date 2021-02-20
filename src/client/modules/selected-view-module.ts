@@ -3,11 +3,6 @@ import ClientModule from '../client-module';
 import { makeViewWindow } from '../ui/view-window';
 
 class SelectedViewModule extends ClientModule {
-  protected followCreature?: Creature;
-  protected pathToDestination?: PartitionPoint[];
-  protected canMoveAgainAt = 0;
-  protected movementDirection: Point2 | null = null;
-  protected movementFrom: Point4 | null = null;
   private viewWindow?: ReturnType<typeof makeViewWindow>;
 
   getViewWindow() {

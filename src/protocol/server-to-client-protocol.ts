@@ -69,8 +69,7 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
 
     // Check if position changed.
     if (partialCreature.pos && !Utils.equalPoints(creature.pos, partialCreature.pos)) {
-      delete client.context.map.getTile(creature.pos).creature;
-      client.context.map.getTile(partialCreature.pos).creature = creature;
+      client.context.map.moveCreature(creature, partialCreature.pos);
     }
     Object.assign(creature, partialCreature);
   }
