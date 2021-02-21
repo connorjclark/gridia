@@ -170,6 +170,18 @@
       pointer-events: none;
     }
 
+    /* always show scrollbars */
+    .ui ::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: 15px;
+    }
+
+    .ui ::-webkit-scrollbar-thumb {
+      /* border-radius: 4px; */
+      background-color: rgba(255, 255, 255, .5);
+      /* box-shadow: 0 0 1px rgba(0, 0, 0, .5); */
+    }
+
     /* https://grid.layoutit.com/?id=9luxXD0 */
     .ui .grid-container {
       display: grid;
@@ -202,7 +214,7 @@
       color: white;
       background-color: rgba(50, 49, 50, 0.7);
       pointer-events: all;
-      overflow: scroll;
+      overflow-y: scroll;
     }
 
     .window--admin > div {
@@ -247,7 +259,6 @@
     .window--container {
       order: 0;
       max-height: 30vh;
-      overflow: scroll;
     }
     .container__slots {
       display: flex;
