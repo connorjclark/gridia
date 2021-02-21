@@ -607,22 +607,6 @@ class Game {
       if (!this._playerCreature) return;
       const focusPos = this.getPlayerPosition();
 
-      // TODO: delete
-      const inventoryWindow2 = Draw.getContainerWindow(this.client.player.containerId);
-
-      // Number keys for selecting tool in inventory.
-      if (inventoryWindow2 && e.keyCode >= KEYS.ZERO && e.keyCode <= KEYS.NINE) {
-        const num = e.keyCode - KEYS.ZERO;
-
-        // 1234567890
-        if (num === 0) {
-          inventoryWindow2.selectedIndex = 9;
-        } else {
-          inventoryWindow2.selectedIndex = num - 1;
-        }
-        inventoryWindow2.draw();
-      }
-
       const inventoryWindow = this.containerWindows.get(this.client.player.containerId);
 
       // Number keys for selecting tool in inventory.
@@ -793,20 +777,6 @@ class Game {
 
     // Make container windows.
     for (const [id, container] of this.client.context.containers.entries()) {
-      // TODO: remove
-      if (!Draw.hasContainerWindow(id)) {
-        const containerWindow2 = Draw.makeItemContainerWindow(container);
-        Draw.setContainerWindow(id, containerWindow2);
-
-        // Inventory.
-        if (id === this.client.player.containerId) {
-          containerWindow2.draw();
-          containerWindow2.pixiContainer.x =
-            (this.app.view.width - containerWindow2.width - containerWindow2.borderSize) / 2;
-          containerWindow2.pixiContainer.y = 0;
-        }
-      }
-
       let containerWindow = this.containerWindows.get(id);
       if (containerWindow) continue;
 

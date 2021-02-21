@@ -76,9 +76,6 @@ export function getZ() {
 }
 
 export function getSelectedTool() {
-  const inventoryWindow = Draw.getContainerWindow(game.client.player.containerId);
-  if (!inventoryWindow) return;
-
   const selectedIndex = game.state.containers[game.client.player.containerId]?.selectedIndex;
   if (selectedIndex === null) return;
 
@@ -87,8 +84,8 @@ export function getSelectedTool() {
 }
 
 export function getSelectedToolIndex() {
-  const inventoryWindow = Draw.getContainerWindow(game.client.player.containerId);
-  return inventoryWindow?.selectedIndex ?? -1;
+  const selectedIndex = game.state.containers[game.client.player.containerId]?.selectedIndex;
+  return selectedIndex ?? -1;
 }
 
 export function find(query: string, node?: Element): HTMLElement {
@@ -100,7 +97,7 @@ export function find(query: string, node?: Element): HTMLElement {
   return result;
 }
 
-export function maybeFind(query: string, node?: Element): HTMLElement|undefined {
+export function maybeFind(query: string, node?: Element): HTMLElement | undefined {
   if (!node) node = document.body;
   const result = node.querySelector(query);
   if (!result) return;

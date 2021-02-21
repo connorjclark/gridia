@@ -1,9 +1,7 @@
 import { GFX_SIZE } from '../constants';
-import Container from '../container';
 import * as Content from '../content';
 import { game } from '../game-singleton';
 import * as Utils from '../utils';
-import { ItemMoveBeginEvent } from './event-emitter';
 import * as Helper from './helper';
 import { ImageResources } from './lazy-resource-loader';
 
@@ -90,31 +88,6 @@ export class GridiaWindow {
   }
 }
 
-export class ContainerWindow extends GridiaWindow {
-  itemsContainer: Container;
-  mouseOverIndex?: number;
-  protected _selectedIndex: number | null = null;
-
-  constructor(itemsContainer: Container) {
-    super();
-    this.itemsContainer = itemsContainer;
-  }
-
-  set selectedIndex(selectedIndex: number | null) {
-    // If already selected, then unselect.
-    if (this._selectedIndex === selectedIndex) selectedIndex = null;
-
-    // Selected item actions are based off currently selected tool. Fire
-    // an event so the appropriate system can respond to changes.
-    this._selectedIndex = selectedIndex;
-    game.client.eventEmitter.emit('containerWindowSelectedIndexChanged');
-  }
-
-  get selectedIndex() {
-    return this._selectedIndex;
-  }
-}
-
 export class PossibleUsagesWindow extends GridiaWindow {
   private _possibleUsagesGrouped: PossibleUsage[][] = [];
   private _onSelectUsage?: (possibleUsage: PossibleUsage) => void;
@@ -165,8 +138,6 @@ export class PossibleUsagesWindow extends GridiaWindow {
   }
 }
 
-const containerWindows = new Map<number, ContainerWindow>();
-
 function makeTextureCache(resourceType: string) {
   const textureCache = new Map<number, PIXI.Texture>();
   return (type: number, tilesWidth = 1, tilesHeight = 1) => {
@@ -199,112 +170,11 @@ export const getTexture = {
   templates: makeTextureCache('templates'),
 };
 
-export function hasContainerWindow(containerId: number) {
-  return containerWindows.has(containerId);
-}
-
-export function getContainerWindow(containerId: number) {
-  return containerWindows.get(containerId);
-}
-
-export function setContainerWindow(containerId: number, containerWindow: ContainerWindow) {
-  containerWindows.set(containerId, containerWindow);
-}
-
 export function getCanvasSize() {
   const canvasesEl = Helper.find('#canvases');
   // BoundingClientRect includes the border - which we don't want.
   // It causes an ever-increasing canvas on window resize.
   return { width: canvasesEl.clientWidth, height: canvasesEl.clientHeight };
-}
-
-export function makeItemContainerWindow(container: Container): ContainerWindow {
-  const window = new ContainerWindow(container);
-
-  let mouseDownIndex: number;
-
-  window.contents
-    .on('pointerdown', (e: PIXI.InteractionEvent) => {
-      const x = e.data.getLocalPosition(e.target).x;
-      const index = Math.floor(x / GFX_SIZE);
-      if (!container.items[index]) return;
-      mouseDownIndex = index;
-
-      const evt: ItemMoveBeginEvent = {
-        location: Utils.ItemLocation.Container(container.id, index),
-        item: container.items[index] || undefined,
-      };
-      game.client.eventEmitter.emit('itemMoveBegin', evt);
-    })
-    .on('pointermove', (e: PIXI.InteractionEvent) => {
-      if (e.target !== window.contents) {
-        window.mouseOverIndex = undefined;
-        return;
-      }
-
-      const x = e.data.getLocalPosition(e.target).x;
-      const index = Math.floor(x / GFX_SIZE);
-      if (index >= 0 && index < container.items.length) {
-        window.mouseOverIndex = index;
-      } else {
-        window.mouseOverIndex = undefined;
-      }
-    })
-    .on('pointerup', () => {
-      if (window.mouseOverIndex !== undefined) {
-        const evt: ItemMoveBeginEvent = {
-          location: Utils.ItemLocation.Container(container.id, window.mouseOverIndex),
-        };
-        game.client.eventEmitter.emit('itemMoveEnd', evt);
-      }
-      if (mouseDownIndex === window.mouseOverIndex) {
-        window.selectedIndex = mouseDownIndex;
-      }
-    });
-
-  if (container.id !== game.client.player.containerId) {
-    game.client.eventEmitter.on('playerMove', close);
-  }
-
-  function close() {
-    game.client.eventEmitter.removeListener('playerMove', close);
-    game.removeWindow(window);
-    containerWindows.delete(container.id);
-    game.client.context.containers.delete(container.id);
-  }
-
-  window.setOnDraw(() => {
-    // Hack: b/c container is requested multiple times, 'container' reference can get stale.
-    const containerRef = game.client.context.containers.get(container.id);
-    if (!containerRef) {
-      console.warn('undefined containerRef');
-      return;
-    }
-
-    destroyChildren(window.contents);
-
-    for (const [i, item] of containerRef.items.entries()) {
-      const itemSprite = makeItemSprite(item ? item : { type: 0, quantity: 1 });
-      itemSprite.x = i * GFX_SIZE;
-      itemSprite.y = 0;
-      if (window.selectedIndex === i) {
-        itemSprite.filters = [new PIXI.OutlineFilter(1, 0xFFFF00, 1)];
-      }
-      window.contents.addChild(itemSprite);
-    }
-
-    if (window.mouseOverIndex !== undefined && game.state.mouse.state === 'down') {
-      const mouseHighlight = makeHighlight(0xffff00, 0.3);
-      mouseHighlight.x = GFX_SIZE * window.mouseOverIndex;
-      mouseHighlight.y = 0;
-      window.contents.addChild(mouseHighlight);
-    }
-  });
-
-  // TODO: take actual positions of windows into account.
-  window.pixiContainer.y = (containerWindows.size - 1) * 50;
-  game.addWindow(window);
-  return window;
 }
 
 export function makeUsageWindow(tool: Item, focus: Item, usages: ItemUse[], loc: TilePoint): GridiaWindow {

@@ -43,6 +43,10 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
       // lol
       game.state.containers[this.state.container.id] = game.state.containers[this.state.container.id] || {};
       game.state.containers[this.state.container.id].selectedIndex = index;
+
+      // Selected item actions are based off currently selected tool. Fire
+      // an event so the appropriate system can respond to changes.
+      game.client.eventEmitter.emit('containerWindowSelectedIndexChanged');
     }
 
     render(props: any, state: State) {
@@ -117,6 +121,20 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
       setSelectedIndex(mouseDownIndex);
     }
   });
+
+  // TODO: closing logic
+  /*
+  if (container.id !== game.client.player.containerId) {
+    game.client.eventEmitter.on('playerMove', close);
+  }
+
+  function close() {
+    game.client.eventEmitter.removeListener('playerMove', close);
+    game.removeWindow(window);
+    containerWindows.delete(container.id);
+    game.client.context.containers.delete(container.id);
+  }
+  */
 
   // TODO: ughhh state management here is crappppp.
   return {
