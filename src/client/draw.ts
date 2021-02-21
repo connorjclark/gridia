@@ -88,56 +88,6 @@ export class GridiaWindow {
   }
 }
 
-export class PossibleUsagesWindow extends GridiaWindow {
-  private _possibleUsagesGrouped: PossibleUsage[][] = [];
-  private _onSelectUsage?: (possibleUsage: PossibleUsage) => void;
-
-  constructor() {
-    super();
-
-    this.contents.on('pointerup', (e: PIXI.InteractionEvent) => {
-      if (!this._onSelectUsage) return;
-
-      const y = e.data.getLocalPosition(e.target).y;
-      const index = Math.floor(y / GFX_SIZE);
-      // TODO: Choose which possible usage, somehow.
-      const possibleUsage = this._possibleUsagesGrouped[index][0];
-      if (possibleUsage) this._onSelectUsage(possibleUsage);
-    });
-  }
-
-  setPossibleUsages(possibleUsages: PossibleUsage[]) {
-    // Group by usage.
-    const possibleUsagesGroupedMap = new Map<ItemUse, PossibleUsage[]>();
-    for (const possibleUsage of possibleUsages) {
-      const group = possibleUsagesGroupedMap.get(possibleUsage.use) || [];
-      group.push(possibleUsage);
-      possibleUsagesGroupedMap.set(possibleUsage.use, group);
-    }
-    this._possibleUsagesGrouped = [...possibleUsagesGroupedMap.values()];
-
-    destroyChildren(this.contents);
-
-    for (let i = 0; i < this._possibleUsagesGrouped.length; i++) {
-      const possibleUsagesGroup = this._possibleUsagesGrouped[i];
-      const possibleUsage = possibleUsagesGroup[0];
-
-      const products = possibleUsage.use.products.filter((p) => p.type);
-      if (possibleUsage.use.successTool) products.unshift({ type: possibleUsage.use.successTool, quantity: 1 });
-      for (const [j, product] of products.entries()) {
-        const itemSprite = makeItemSprite(product);
-        itemSprite.x = j * GFX_SIZE;
-        itemSprite.y = i * GFX_SIZE;
-        this.contents.addChild(itemSprite);
-      }
-    }
-  }
-
-  setOnSelectUsage(fn: (possibleUsage: PossibleUsage) => void) {
-    this._onSelectUsage = fn;
-  }
-}
-
 function makeTextureCache(resourceType: string) {
   const textureCache = new Map<number, PIXI.Texture>();
   return (type: number, tilesWidth = 1, tilesHeight = 1) => {
