@@ -20,6 +20,7 @@ import UsageModule from './modules/usage-module';
 import { WorldContainer } from './world-container';
 import MapModule from './modules/map-module';
 import { makeHelpWindow } from './ui/help-window';
+import { makeContainerWindow } from './ui/container-window';
 
 // WIP lighting shaders.
 
@@ -238,6 +239,7 @@ class Game {
   protected actionCreators: GameActionCreator[] = [];
 
   protected creatureSprites = new Map<number, CreatureSprite>();
+  protected containerWindows = new Map<number, ReturnType<typeof makeContainerWindow>>();
 
   private _playerCreature?: Creature;
   private _currentHoverItemText =
@@ -331,6 +333,11 @@ class Game {
           if (Utils.equalPoints(loc, this.state.selectedView.tile)) {
             this.modules.selectedView.selectView(this.state.selectedView.tile);
           }
+        }
+
+        if (e.args.location.source === 'container' && this.containerWindows.has(e.args.location.id)) {
+          const container = this.client.context.containers.get(e.args.location.id);
+          if (container) this.containerWindows.get(e.args.location.id)?.setState({container});
         }
       }
 
@@ -763,18 +770,28 @@ class Game {
 
     // Make container windows.
     for (const [id, container] of this.client.context.containers.entries()) {
+      // TODO: remove
       if (!Draw.hasContainerWindow(id)) {
-        const containerWindow = Draw.makeItemContainerWindow(container);
-        Draw.setContainerWindow(id, containerWindow);
+        const containerWindow2 = Draw.makeItemContainerWindow(container);
+        Draw.setContainerWindow(id, containerWindow2);
 
         // Inventory.
         if (id === this.client.player.containerId) {
-          containerWindow.draw();
-          containerWindow.pixiContainer.x =
-            (this.app.view.width - containerWindow.width - containerWindow.borderSize) / 2;
-          containerWindow.pixiContainer.y = 0;
+          containerWindow2.draw();
+          containerWindow2.pixiContainer.x =
+            (this.app.view.width - containerWindow2.width - containerWindow2.borderSize) / 2;
+          containerWindow2.pixiContainer.y = 0;
         }
       }
+
+      let containerWindow = this.containerWindows.get(id);
+      if (containerWindow) continue;
+
+      let name;
+      if (id === this.client.player.containerId) name = 'Inventory';
+
+      containerWindow = makeContainerWindow(this, container, name);
+      this.containerWindows.set(id, containerWindow);
     }
 
     // Draw windows.

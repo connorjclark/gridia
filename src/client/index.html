@@ -194,18 +194,14 @@
     .grid-container .top { grid-area: top; }
 
     .window {
-      position: absolute;
       margin: 10px;
+      max-width: 30vw;
       padding: 3px;
       border: solid 3px gold;
       color: white;
       background-color: rgba(50, 49, 50, 0.7);
       pointer-events: all;
       overflow-y: scroll;
-    }
-
-    .window {
-      max-width: 30%;
     }
 
     .window--admin > div {
@@ -226,6 +222,9 @@
     }
     .admin__selection {
       flex: 1 0 21%;
+      display: flex;
+      justify-content: center;
+      max-width: 32px;
     }
     .admin__selection--selected {
       border: 1px solid gold;
@@ -242,6 +241,15 @@
 
     .window--map {
       right: 0;
+    }
+
+    .container__slots {
+      display: flex;
+      max-width: 320px;
+      flex-wrap: wrap;
+    }
+    .container__slot {
+      width: 32px;
     }
   </style>
   <link rel="stylesheet" href="styles/buttons.css">
@@ -310,7 +318,7 @@
 
           <div class="panels-container">
             <div class="panels__tabs">
-              <div class="panels__tab" data-panel="inventory">Inventory</div>
+              <!-- <div class="panels__tab" data-panel="inventory">Inventory</div> -->
               <div class="panels__tab" data-panel="skills">Skills</div>
               <div class="panels__tab" data-panel="settings">Settings</div>
               <div class="panels__tab" data-panel="admin">Admin</div>

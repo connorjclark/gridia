@@ -73,7 +73,7 @@ class AdminModule extends ClientModule {
   private setTile(loc: Point4) {
     if (!this._state?.selected) return;
 
-    if (this._state.selected.type === 'items') {
+    if (this._state.selected.type === 'item') {
       const item = this._state.selected.id > 0 ? { type: this._state.selected.id, quantity: 1 } : undefined;
       const currentItem = this.game.client.context.map.getItem(loc);
       if (Utils.equalItems(currentItem, item)) return;
@@ -87,7 +87,7 @@ class AdminModule extends ClientModule {
       // messages for the same tile.
       // TODO: seems like a bad idea.
       this.game.client.context.map.getTile(loc).item = item;
-    } else if (this._state.selected.type === 'floors') {
+    } else if (this._state.selected.type === 'floor') {
       const floor = this._state.selected.id;
       if (this.game.client.context.map.getTile(loc).floor === floor) return;
       this.game.client.connection.send(ProtocolBuilder.adminSetFloor({

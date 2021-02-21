@@ -4,6 +4,7 @@ import * as Content from '../../content';
 import * as Helper from '../helper';
 import * as Utils from '../../utils';
 import AdminModule from '../modules/admin-module';
+import { Graphic } from './ui-common';
 
 const TOOLS = ['point', 'rectangle'] as const;
 type Tool = typeof TOOLS[number];
@@ -33,14 +34,12 @@ const Input = (props: any) => {
   </Fragment>;
 };
 
-type SelectionType = 'items' | 'floors';
+type SelectionType = 'item' | 'floor';
 
 interface SelectionProps {
-  id: number;
   type: SelectionType;
-  backgroundImage: string;
-  x: number;
-  y: number;
+  id: number;
+  graphicIndex: number;
   title: string;
   selected: boolean;
   onClickSelection: (arg: { type: SelectionType; id: number }) => void;
@@ -54,15 +53,13 @@ const Selection = (props: SelectionProps) => {
   return <div
     class={classes.join(' ')}
     title={props.title}
-    style={{
-      backgroundImage: props.backgroundImage,
-      backgroundPosition: `-${props.x}px -${props.y}px`,
-      width: '32px',
-      maxWidth: '32px',
-      height: '32px',
-    }}
     onClick={() => props.onClickSelection({ type: props.type, id: props.id })}
-  ></div>;
+  >
+    <Graphic
+      type={props.type}
+      index={props.graphicIndex}
+    ></Graphic>
+  </div>;
 };
 
 interface ItemSelectionsProps {
@@ -73,18 +70,12 @@ interface ItemSelectionsProps {
 const ItemSelections = (props: ItemSelectionsProps) => {
   return <div class="admin__selections">
     {props.metaItems.map((metaItem) => {
-      const animation = metaItem.animations?.[0] || 0;
-      const spritesheetId = Math.floor(animation / 100);
-      const x = animation % 10;
-      const y = Math.floor(animation / 10) % 100;
-
+      const graphicIndex = metaItem.animations?.[0] || 0;
       return <Selection
-        backgroundImage={`url(world/items/items${spritesheetId}.png)`}
-        title={metaItem.name}
-        x={x * 32}
-        y={y * 32}
+        type={'item'}
         id={metaItem.id}
-        type={'items'}
+        graphicIndex={graphicIndex}
+        title={metaItem.name}
         selected={props.selectedId === metaItem.id}
         onClickSelection={props.onClickSelection}
       ></Selection>;
@@ -100,18 +91,12 @@ interface FloorSelectionsProps {
 const FloorSelections = (props: FloorSelectionsProps) => {
   return <div class="admin__selections">
     {props.floors.map((floor) => {
-      const animation = floor.id;
-      const spritesheetId = Math.floor(animation / 100);
-      const x = animation % 10;
-      const y = Math.floor(animation / 10) % 100;
-
+      const graphicIndex = floor.id;
       return <Selection
-        backgroundImage={`url(world/floors/floors${spritesheetId}.png)`}
-        title={'Floor'}
-        x={x * 32}
-        y={y * 32}
+        type={'floor'}
         id={floor.id}
-        type={'floors'}
+        graphicIndex={graphicIndex}
+        title={'Floor'}
         selected={props.selectedId === floor.id}
         onClickSelection={props.onClickSelection}
       ></Selection>;
@@ -182,7 +167,7 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
         const enabled = nonEmpty &&
           (!state.selectionFilter.itemClass || state.selectionFilter.itemClass === filter.value) &&
           (filter.value !== 'Floors' || state.selectionFilter.itemClass === 'Floors');
-        if (!enabled) classes.push('admin__empty');
+        if (!enabled) classes.push('admin__filter--empty');
         return <div class={classes.join(' ')} onClick={() => nonEmpty && this.setItemClassFilter(filter.value)}>
           {filter.value} - {length}
         </div>;
@@ -199,11 +184,11 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
       const Selections = isFloors ?
         <FloorSelections
           onClickSelection={this.onClickSelection}
-          selectedId={state.selected?.type === 'floors' ? state.selected?.id : undefined}
+          selectedId={state.selected?.type === 'floor' ? state.selected?.id : undefined}
           floors={paginatedItems as MetaFloor[]}></FloorSelections> :
         <ItemSelections
           onClickSelection={this.onClickSelection}
-          selectedId={state.selected?.type === 'items' ? state.selected?.id : undefined}
+          selectedId={state.selected?.type === 'item' ? state.selected?.id : undefined}
           metaItems={paginatedItems as MetaItem[]}></ItemSelections>;
 
       return <div>
@@ -284,7 +269,7 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
     }
   }
 
-  const el = adminModule.game.makeUIWindow({name: 'admin', cell: 'center'});
+  const el = adminModule.game.makeUIWindow({ name: 'admin', cell: 'center' });
   render(<AdminWindow />, el);
   return el;
 }
