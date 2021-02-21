@@ -333,11 +333,14 @@ class Game {
         else if (Utils.maxDiff(this.getPlayerPosition(), e.args.location.loc) <= 1) shouldUpdateUsages = true;
         if (shouldUpdateUsages) this.modules.usage.updatePossibleUsages();
 
-        if (e.args.location.source === 'world' && this.state.selectedView.tile) {
-          const loc = e.args.location.loc;
-          if (Utils.equalPoints(loc, this.state.selectedView.tile)) {
-            this.modules.selectedView.selectView(this.state.selectedView.tile);
-          }
+        // if (e.args.location.source === 'world' && this.state.selectedView.tile) {
+        //   const loc = e.args.location.loc;
+        //   if (Utils.equalPoints(loc, this.state.selectedView.tile)) {
+        //     this.modules.selectedView.selectView(this.state.selectedView.tile);
+        //   }
+        // }
+        if (Utils.equalLocations(this.state.selectedView.location, e.args.location)) {
+          this.modules.selectedView.selectView(this.state.selectedView.location);
         }
 
         if (e.args.location.source === 'container' && this.containerWindows.has(e.args.location.id)) {
@@ -351,7 +354,7 @@ class Game {
       if (e.type === 'setCreature' && this.state.selectedView.creatureId) {
         const creature = this.client.context.getCreature(this.state.selectedView.creatureId);
         if (creature.id === e.args.id) {
-          this.modules.selectedView.selectView(creature.pos);
+          this.modules.selectedView.selectView(Utils.ItemLocation.World(creature.pos));
         }
       }
       if (e.type === 'removeCreature' && e.args.id === this.state.selectedView.creatureId) {
@@ -560,7 +563,7 @@ class Game {
       const loc = worldToTile(mouseToWorld({ x: e.data.global.x, y: e.data.global.y }));
 
       if (!this.isEditingMode()) {
-        this.modules.selectedView.selectView(loc);
+        this.modules.selectedView.selectView(Utils.ItemLocation.World(loc));
       }
 
       if (this.client.context.map.inBounds(loc)) {
@@ -628,33 +631,33 @@ class Game {
         let currentCursor = null;
         if (this.state.selectedView.creatureId) {
           currentCursor = { ...this.client.context.getCreature(this.state.selectedView.creatureId).pos };
-        } else if (this.state.selectedView.tile) {
-          currentCursor = this.state.selectedView.tile;
+        } else if (this.state.selectedView.location?.source === 'world') {
+          currentCursor = this.state.selectedView.location.loc;
         } else {
           currentCursor = { ...focusPos };
         }
 
         currentCursor.x += dx;
         currentCursor.y += dy;
-        this.modules.selectedView.selectView(currentCursor);
+        this.modules.selectedView.selectView(Utils.ItemLocation.World(currentCursor));
       }
 
       // Space bar to use tool.
-      if (e.keyCode === KEYS.SPACE_BAR && this.state.selectedView.tile) {
-        Helper.useTool(this.state.selectedView.tile);
+      if (e.keyCode === KEYS.SPACE_BAR && this.state.selectedView.location?.source === 'world') {
+        Helper.useTool(this.state.selectedView.location.loc);
       }
 
       // Shift to pick up item.
-      if (e.keyCode === KEYS.SHIFT && this.state.selectedView.tile) {
+      if (e.keyCode === KEYS.SHIFT && this.state.selectedView.location?.source === 'world') {
         this.client.connection.send(ProtocolBuilder.moveItem({
-          from: Utils.ItemLocation.World(this.state.selectedView.tile),
+          from: Utils.ItemLocation.World(this.state.selectedView.location.loc),
           to: Utils.ItemLocation.Container(this.client.player.containerId),
         }));
       }
 
       // Alt to use hand on item.
-      if (e.key === 'Alt' && this.state.selectedView.tile) {
-        Helper.useHand(this.state.selectedView.tile);
+      if (e.key === 'Alt' && this.state.selectedView.location?.source === 'world') {
+        Helper.useHand(this.state.selectedView.location.loc);
       }
 
       // T to toggle z.
@@ -888,7 +891,7 @@ class Game {
     // Draw highlight over selected view.
     const selectedViewLoc = this.state.selectedView.creatureId ?
       this.client.context.getCreature(this.state.selectedView.creatureId).pos :
-      this.state.selectedView.tile;
+      (this.state.selectedView.location?.source === 'world' && this.state.selectedView.location.loc);
     if (selectedViewLoc) {
       const highlight = Draw.makeHighlight(0xffff00, 0.2);
       highlight.x = selectedViewLoc.x * GFX_SIZE;

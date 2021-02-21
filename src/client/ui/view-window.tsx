@@ -25,11 +25,12 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
         </div>
         <div>
           {state.selectedView.actions.map((action) => {
-            const dataset = selectedViewModule.game.createDataForActionEl({
-              action,
-              loc: state.selectedView?.tile,
-              creatureId: state.selectedView?.creatureId,
-            });
+            const dataset = state.selectedView?.location?.source === 'world' ?
+              selectedViewModule.game.createDataForActionEl({
+                action,
+                loc: state.selectedView.location.loc,
+                creatureId: state.selectedView.creatureId,
+              }) : {};
             return <button class='action' title={action.title} {...dataset}>{action.innerText}</button>;
           })}
 
@@ -43,7 +44,7 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
     }
   }
 
-  const el = selectedViewModule.game.makeUIWindow({name: 'view', cell: 'right'});
+  const el = selectedViewModule.game.makeUIWindow({ name: 'view', cell: 'right' });
   render(<ViewWindow />, el);
   return { el, setState: (s: State) => setState(s) };
 }

@@ -149,7 +149,7 @@ interface UIState {
     state: string;
   };
   selectedView: {
-    tile?: TilePoint;
+    location?: ItemLocation;
     creatureId?: number;
     actions: GameAction[];
   };

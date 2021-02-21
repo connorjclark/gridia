@@ -76,7 +76,7 @@ class UsageModule extends ClientModule {
 
     center = center || game.getPlayerCreature().pos;
     const selectedTool = Helper.getSelectedTool();
-    const selectedTile = game.state.selectedView.tile;
+    const selectedTile = game.state.selectedView.location?.source === 'world' && game.state.selectedView.location.loc;
 
     const possibleUsageActions: PossibleUsage[] = [];
     const inventory = game.client.inventory;

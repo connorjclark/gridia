@@ -42,6 +42,15 @@ export function equalPoints(p1?: TilePoint | PartitionPoint, p2?: TilePoint | Pa
   return p1.x === p2.x && p1.y === p2.y && p1.z === p2.z;
 }
 
+export function equalLocations(l1?: ItemLocation, l2?: ItemLocation) {
+  if (!l1 && !l2) return true;
+  if (!l1 || !l2) return false;
+  if (l1.source !== l2.source) return false;
+  if (l1.source === 'world' && l2.source === 'world') return equalPoints(l1.loc, l2.loc);
+  if (l1.source === 'container' && l2.source === 'container') return l1.id === l2.id && l1.index === l2.index;
+  return false;
+}
+
 export function equalItems(i1?: Item, i2?: Item) {
   if (!i1 && !i2) return true;
   if (!i1 || !i2) return false;

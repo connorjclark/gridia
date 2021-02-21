@@ -19,15 +19,18 @@ class SelectedViewModule extends ClientModule {
     // empty.
   }
 
-  selectView(loc: TilePoint) {
+  selectView(location?: ItemLocation) {
     const game = this.game;
-    const creature = game.client.context.map.getTile(loc).creature;
+    let creature;
+    if (location?.source === 'world') {
+      creature = game.client.context.map.getTile(location.loc).creature;
+    }
+
     if (creature && creature.id !== game.client.player.creature.id) {
-      // TODO: change selectedView to {tile, loc}
       game.state.selectedView.creatureId = creature.id;
-      game.state.selectedView.tile = undefined;
+      game.state.selectedView.location = undefined;
     } else {
-      game.state.selectedView.tile = loc;
+      game.state.selectedView.location = location;
       game.state.selectedView.creatureId = undefined;
     }
 
@@ -37,7 +40,7 @@ class SelectedViewModule extends ClientModule {
   }
 
   clearSelectedView() {
-    this.game.state.selectedView.tile = undefined;
+    this.game.state.selectedView.location = undefined;
     this.game.state.selectedView.creatureId = undefined;
     this.renderSelectedView();
   }
@@ -47,16 +50,27 @@ class SelectedViewModule extends ClientModule {
     const state = game.state;
 
     let creature;
-    if (state.selectedView.creatureId) creature = game.client.context.getCreature(state.selectedView.creatureId);
-
+    let tile;
     let tilePos;
+    let item;
+
+    if (state.selectedView.creatureId) {
+      creature = game.client.context.getCreature(state.selectedView.creatureId);
+    }
+
     if (creature) {
       tilePos = creature.pos;
-    } else if (state.selectedView.tile) {
-      tilePos = state.selectedView.tile;
+      tile = game.client.context.map.getTile(creature.pos);
+    } else if (state.selectedView.location?.source === 'world') {
+      tilePos = state.selectedView.location.loc;
+      tile = game.client.context.map.getTile(state.selectedView.location.loc);
+      item = tile?.item;
+    } else if (state.selectedView.location?.source === 'container') {
+      const container = game.client.context.containers.get(state.selectedView.location.id);
+      if (container && state.selectedView.location.index !== undefined) {
+        item = container.items[state.selectedView.location.index];
+      }
     }
-    const tile = tilePos && game.client.context.map.getTile(tilePos);
-    const item = tile?.item;
 
     let data: Record<string, string>;
     let meta;
@@ -81,23 +95,25 @@ class SelectedViewModule extends ClientModule {
       };
     }
 
-    if (!tilePos || !tile) return;
-
     // Clone tile so properties can be removed as needed.
     // Also prevents action creators from modifying important data.
-    const clonedTile: Tile = JSON.parse(JSON.stringify(tile));
+    if (tile && tilePos) {
+      const clonedTile: Tile = JSON.parse(JSON.stringify(tile));
 
-    if (clonedTile && clonedTile.creature && clonedTile.creature.id === game.client.player.creature.id) {
-      // Don't allow actions on self.
-      clonedTile.creature = undefined;
-    } else if (creature) {
-      // If a creature is selected, do not show actions for the item on the tile.
-      clonedTile.item = undefined;
+      if (clonedTile && clonedTile.creature && clonedTile.creature.id === game.client.player.creature.id) {
+        // Don't allow actions on self.
+        clonedTile.creature = undefined;
+      } else if (creature) {
+        // If a creature is selected, do not show actions for the item on the tile.
+        clonedTile.item = undefined;
+      }
+
+      state.selectedView.actions = game.getActionsFor(clonedTile, tilePos);
+    } else {
+      state.selectedView.actions = [];
     }
 
-    state.selectedView.actions = game.getActionsFor(clonedTile, tilePos);
-
-    this.getViewWindow().setState({selectedView: this.game.state.selectedView, data});
+    this.getViewWindow().setState({ selectedView: this.game.state.selectedView, data });
     this.getViewWindow().el.hidden = !creature && !item;
   }
 }
