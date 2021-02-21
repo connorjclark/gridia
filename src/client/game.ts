@@ -234,7 +234,6 @@ class Game {
   protected app = new PIXI.Application();
   protected canvasesEl = Helper.find('#canvases');
   protected world = new PIXI.Container();
-  protected windows: Draw.GridiaWindow[] = [];
   protected itemMovingState?: ItemMoveBeginEvent;
   protected itemMovingGraphic = makeGraphicComponent();
   protected mouseHasMovedSinceItemMoveBegin = false;
@@ -443,16 +442,6 @@ class Game {
     //   clearInterval(handle);
     //   this.layers.itemAndCreature.filters = filtersBefore;
     // }, 1000 * 10);
-  }
-
-  addWindow(window: Draw.GridiaWindow) {
-    this.windows.push(window);
-    this.app.stage.addChild(window.pixiContainer);
-  }
-
-  removeWindow(window: Draw.GridiaWindow) {
-    this.windows.splice(this.windows.indexOf(window), 1);
-    this.app.stage.removeChild(window.pixiContainer);
   }
 
   registerListeners() {
@@ -797,12 +786,6 @@ class Game {
         game.containerWindows.delete(container.id);
         game.client.context.containers.delete(container.id);
       }
-    }
-
-    // Draw windows.
-    // TODO: This is probably a lot of wasted cycles. UI should be more reactive.
-    for (const window of this.windows) {
-      window.draw();
     }
 
     const tilesWidth = Math.ceil(this.app.view.width / GFX_SIZE);

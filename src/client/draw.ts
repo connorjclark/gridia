@@ -1,8 +1,6 @@
 import { GFX_SIZE } from '../constants';
 import * as Content from '../content';
 import { game } from '../game-singleton';
-import * as Utils from '../utils';
-import * as Helper from './helper';
 import { ImageResources } from './lazy-resource-loader';
 
 export function destroyChildren(displayObject: PIXI.Container) {
@@ -14,77 +12,6 @@ export function destroyChildren(displayObject: PIXI.Container) {
     // } else {
     child.destroy();
     // }
-  }
-}
-
-export class GridiaWindow {
-  pixiContainer: PIXI.Container;
-  border: PIXI.Graphics;
-  borderSize = 10;
-  contents: PIXI.Container;
-  private _onDraw?: () => void;
-
-  private _draggingState?: { downAt: Point2; startingPosition: Point2 };
-
-  constructor() {
-    this.pixiContainer = new PIXI.Container();
-    this.border = new PIXI.Graphics();
-    this.border.interactive = true;
-    this.pixiContainer.addChild(this.border);
-
-    this.contents = new PIXI.Container();
-    this.contents.interactive = true;
-    this.contents.x = this.borderSize;
-    this.contents.y = this.borderSize;
-    this.pixiContainer.addChild(this.contents);
-
-    this.border
-      .on('pointerdown', this._onDragBegin.bind(this))
-      .on('pointermove', this._onDrag.bind(this))
-      .on('pointerup', this._onDragEnd.bind(this))
-      .on('pointerupoutside', this._onDragEnd.bind(this));
-  }
-
-  setOnDraw(onDraw: () => void) {
-    this._onDraw = onDraw;
-  }
-
-  draw() {
-    if (this._onDraw) this._onDraw();
-    this.border.clear();
-    this.border.beginFill(0, 0.2);
-    this.border.lineStyle(this.borderSize, 0, 1, 0);
-    this.border.drawRect(0, 0, this.contents.width + 2 * this.borderSize, this.contents.height + 2 * this.borderSize);
-  }
-
-  get width() {
-    return this.pixiContainer.width;
-  }
-
-  get height() {
-    return this.pixiContainer.height;
-  }
-
-  private _onDragBegin(e: PIXI.InteractionEvent) {
-    this._draggingState = {
-      startingPosition: { x: this.pixiContainer.x, y: this.pixiContainer.y },
-      downAt: { x: e.data.global.x, y: e.data.global.y },
-    };
-  }
-
-  private _onDrag(e: PIXI.InteractionEvent) {
-    if (!this._draggingState) return;
-
-    this.pixiContainer.x = this._draggingState.startingPosition.x + e.data.global.x - this._draggingState.downAt.x;
-    this.pixiContainer.y = this._draggingState.startingPosition.y + e.data.global.y - this._draggingState.downAt.y;
-
-    const size = getCanvasSize();
-    this.pixiContainer.x = Utils.clamp(this.pixiContainer.x, 0, size.width - this.width);
-    this.pixiContainer.y = Utils.clamp(this.pixiContainer.y, 0, size.height - this.height);
-  }
-
-  private _onDragEnd() {
-    this._draggingState = undefined;
   }
 }
 
@@ -119,13 +46,6 @@ export const getTexture = {
   items: makeTextureCache('items'),
   templates: makeTextureCache('templates'),
 };
-
-export function getCanvasSize() {
-  const canvasesEl = Helper.find('#canvases');
-  // BoundingClientRect includes the border - which we don't want.
-  // It causes an ever-increasing canvas on window resize.
-  return { width: canvasesEl.clientWidth, height: canvasesEl.clientHeight };
-}
 
 export function makeHighlight(color: number, alpha: number) {
   const highlight = new PIXI.Graphics();

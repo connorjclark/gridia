@@ -2,6 +2,7 @@ import * as Content from '../../content';
 import * as ProtocolBuilder from '../../protocol/client-to-server-protocol-builder';
 import * as Utils from '../../utils';
 import ClientModule from '../client-module';
+import * as Helper from '../helper';
 import { makeUsagesWindow } from '../ui/usages-window';
 import { makePossibleUsagesWindow } from '../ui/possible-usages-window';
 
