@@ -343,8 +343,7 @@ class Game {
         if (e.args.location.source === 'container' && this.containerWindows.has(e.args.location.id)) {
           const container = this.client.context.containers.get(e.args.location.id);
           if (container) {
-            const containerState = this.state.containers[e.args.location.id] || { selectedIndex: null };
-            this.containerWindows.get(e.args.location.id)?.setState({ container, ...containerState });
+            this.containerWindows.get(e.args.location.id)?.setState({ container });
           }
         }
       }

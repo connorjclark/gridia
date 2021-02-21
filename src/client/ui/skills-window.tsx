@@ -2,7 +2,7 @@ import { render, h, Component } from 'preact';
 import SkillsModule from '../modules/skills-module';
 
 export function makeSkillsWindow(skillsModule: SkillsModule) {
-  let setState = (_: State) => {
+  let setState = (_: Partial<State>) => {
     // Do nothing.
   };
   interface State {
@@ -31,5 +31,5 @@ export function makeSkillsWindow(skillsModule: SkillsModule) {
 
   const el = skillsModule.game.makeUIWindow({name: 'skills', cell: 'center'});
   render(<SkillsWindow />, el);
-  return { el, setState: (s: State) => setState(s) };
+  return { el, setState: (s: Partial<State>) => setState(s) };
 }

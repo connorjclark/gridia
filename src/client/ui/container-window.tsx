@@ -6,7 +6,7 @@ import Container from '../../container';
 import { Graphic } from './ui-common';
 
 export function makeContainerWindow(game: Game, container: Container, name?: string) {
-  let setState = (_: State) => {
+  let setState = (_: Partial<State>) => {
     // Do nothing.
   };
 
@@ -37,7 +37,6 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
         index = null;
       }
       this.setState({
-        ...this.state,
         selectedIndex: index,
       });
 
@@ -122,7 +121,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
   // TODO: ughhh state management here is crappppp.
   return {
     el,
-    setState: (s: State) => setState(s),
+    setState: (s: Partial<State>) => setState(s),
     setSelectedIndex: (s: number) => setSelectedIndex(s),
   };
 }

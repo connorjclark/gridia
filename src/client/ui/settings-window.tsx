@@ -3,7 +3,7 @@ import SettingsModule, { SettingsSchema, Settings } from '../modules/settings-mo
 import linkState from '../../lib/link-state';
 
 export function makeSettingsWindow(settingsModule: SettingsModule) {
-  let setState = (_: State) => {
+  let setState = (_: Partial<State>) => {
     // Do nothing.
   };
   interface State {
@@ -70,5 +70,5 @@ export function makeSettingsWindow(settingsModule: SettingsModule) {
 
   const el = settingsModule.game.makeUIWindow({name: 'settings', cell: 'center'});
   render(<SettingsWindow />, el);
-  return { el, setState: (s: State) => setState(s) };
+  return { el, setState: (s: Partial<State>) => setState(s) };
 }

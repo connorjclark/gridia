@@ -229,14 +229,12 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
         selected = undefined;
       }
       this.setState({
-        ...this.state,
         selected,
       }, () => this.updateAdminModule());
     }
 
     onClickTool(tool: Tool) {
       this.setState({
-        ...this.state,
         tool,
       }, () => this.updateAdminModule());
     }
@@ -248,14 +246,13 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
 
     setPage(page: number, numPages: number) {
       const newPage = Utils.clamp(page, 0, numPages - 1);
-      this.setState({ ...this.state, selectionFilter: { ...this.state.selectionFilter, page: newPage } });
+      this.setState({ selectionFilter: { ...this.state.selectionFilter, page: newPage } });
     }
 
     setItemClassFilter(itemClass: string) {
       const isSame = itemClass === this.state.selectionFilter.itemClass;
       const newValue = isSame ? '' : itemClass;
       this.setState({
-        ...this.state,
         selectionFilter: {
           ...this.state.selectionFilter,
           page: 0,

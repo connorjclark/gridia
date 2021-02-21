@@ -38,7 +38,7 @@ export function makeGraphicComponent() {
     graphic?: GraphicProps;
   }
 
-  let setState = (_: GraphicComponentState) => {
+  let setState = (_: Partial<GraphicComponentState>) => {
     // Do nothing.
   };
 
@@ -60,6 +60,6 @@ export function makeGraphicComponent() {
   render(<GraphicComponent />, el);
   return {
     el,
-    setState: (s: GraphicComponentState) => setState(s),
+    setState: (s: Partial<GraphicComponentState>) => setState(s),
   };
 }
