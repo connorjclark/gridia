@@ -2,7 +2,7 @@ import { h, render, Component } from 'preact';
 import * as Helper from '../helper';
 
 interface GraphicProps {
-  type: 'floor' | 'item';
+  type: 'floor' | 'item' | 'creature';
   index: number;
   quantity?: number;
 }
@@ -16,6 +16,8 @@ export const Graphic = (props: GraphicProps) => {
     backgroundImage = `url(world/floors/floors${spritesheetIndex}.png)`;
   } else if (props.type === 'item') {
     backgroundImage = `url(world/items/items${spritesheetIndex}.png)`;
+  } else if (props.type === 'creature') {
+    backgroundImage = `url(world/player/player${spritesheetIndex}.png)`;
   } else {
     throw new Error();
   }

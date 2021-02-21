@@ -112,6 +112,12 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
     game.modules.selectedView.selectView(Utils.ItemLocation.Container(container.id, index));
   });
 
+  el.addEventListener('pointerout', () => {
+    if (game.state.selectedView.location?.source === 'container') {
+      game.modules.selectedView.clearSelectedView();
+    }
+  });
+
   el.addEventListener('pointerup', () => {
     if (mouseOverIndex !== undefined) {
       game.client.eventEmitter.emit('itemMoveEnd', {
