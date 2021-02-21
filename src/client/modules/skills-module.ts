@@ -1,7 +1,7 @@
 import * as Content from '../../content';
 import ClientModule from '../client-module';
 import * as Helper from '../helper';
-import {makeSkillsWindow} from '../ui/skills-window';
+import { makeSkillsWindow } from '../ui/skills-window';
 
 class SkillsModule extends ClientModule {
   protected skillsWindow?: ReturnType<typeof makeSkillsWindow>;
@@ -14,6 +14,8 @@ class SkillsModule extends ClientModule {
 
   onStart() {
     this.game.client.eventEmitter.on('message', (e) => {
+      if (!this.skillsWindow) return;
+
       if (e.type === 'xp') {
         const statusTextEl = document.createElement('div');
         statusTextEl.classList.add('status-text');
@@ -23,14 +25,14 @@ class SkillsModule extends ClientModule {
         statusTextEl.addEventListener('transitionend', () => statusTextEl.remove());
         Helper.find('.status-texts').appendChild(statusTextEl);
 
-        this.getSkillsWindow().setState({skills: this.getSkills()});
+        this.getSkillsWindow().setState({ skills: this.getSkills() });
       }
     });
 
     this.game.client.eventEmitter.on('panelFocusChanged', ({ panelName }) => {
       if (panelName === 'skills') {
         this.getSkillsWindow().el.hidden = false;
-        this.getSkillsWindow().setState({skills: this.getSkills()});
+        this.getSkillsWindow().setState({ skills: this.getSkills() });
       } else if (this.skillsWindow) {
         this.getSkillsWindow().el.hidden = true;
       }
