@@ -2,7 +2,6 @@ import * as Content from '../content';
 import { game } from '../game-singleton';
 import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
 import * as Utils from '../utils';
-import * as Draw from './draw';
 
 export function canUseHand(itemType: number) {
   return usageExists(0, itemType);
@@ -47,7 +46,7 @@ export function useTool(loc: TilePoint, usageIndex?: number) {
       usageIndex,
     }));
   } else {
-    Draw.makeUsageWindow(tool, focus, usages, loc);
+    game.modules.usage.openUsages(usages, loc);
   }
 }
 

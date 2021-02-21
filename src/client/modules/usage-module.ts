@@ -4,9 +4,18 @@ import * as Utils from '../../utils';
 import ClientModule from '../client-module';
 import * as Draw from '../draw';
 import * as Helper from '../helper';
+import { makeUsagesWindow } from '../ui/usages-window';
 
 class UsageModule extends ClientModule {
-  protected possibleUsagesWindow = new Draw.PossibleUsagesWindow();
+  protected currentUsagesLoc?: Point4;
+  protected usagesWindow?: ReturnType<typeof makeUsagesWindow>;
+  protected possibleUsagesWindow = new Draw.PossibleUsagesWindow(); // TODO
+
+  getUsagesWindow() {
+    if (this.usagesWindow) return this.usagesWindow;
+    this.usagesWindow = makeUsagesWindow(this);
+    return this.usagesWindow;
+  }
 
   onStart() {
     this.possibleUsagesWindow.pixiContainer.y = 0;
@@ -17,10 +26,34 @@ class UsageModule extends ClientModule {
       }));
     });
     this.game.addWindow(this.possibleUsagesWindow);
+
+    this.game.client.eventEmitter.on('playerMove', () => {
+      if (this.usagesWindow) {
+        this.usagesWindow.el.hidden = true;
+        this.usagesWindow.setState({ usages: [] });
+      }
+    });
   }
 
   onTick() {
     // empty.
+  }
+
+  openUsages(usages: ItemUse[], loc: TilePoint) {
+    this.currentUsagesLoc = loc;
+    this.getUsagesWindow().setState({ usages });
+    this.getUsagesWindow().el.hidden = false;
+  }
+
+  selectUsage(usageIndex: number) {
+    if (!this.currentUsagesLoc) throw new Error('...');
+
+    Helper.useTool(this.currentUsagesLoc, usageIndex);
+    this.currentUsagesLoc = undefined;
+    if (this.usagesWindow) {
+      this.usagesWindow.setState({ usages: [] });
+      this.usagesWindow.el.hidden = true;
+    }
   }
 
   updatePossibleUsages(center?: TilePoint) {
