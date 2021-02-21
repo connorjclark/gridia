@@ -750,6 +750,7 @@ class Game {
   tick() {
     const now = performance.now();
     this.state.elapsedFrames = (this.state.elapsedFrames + 1) % 60000;
+    const worldTime = this.worldTime;
 
     Draw.sweepTexts();
 
@@ -786,15 +787,19 @@ class Game {
     const tilesHeight = Math.ceil(this.app.view.height / GFX_SIZE);
 
     // Hand-picked values.
-    const light = [
+    const lightData = [
       0, 0, 0, 0, // 12AM
       0, 1, 2, 3, // 4AM
       4, 5, 6, 6, // 8AM
       7, 7, 7, 7, // 12PM
       6, 5, 5, 4, // 4PM
       4, 3, 2, 1, // 8PM
-    ][this.worldTime.hour];
-    this.worldContainer.ambientLight = light;
+    ];
+    const getLight = (hour: number) => lightData[hour % lightData.length];
+
+    const lightThisHour = getLight(worldTime.hour);
+    const lightNextHour = getLight(worldTime.hour + 1);
+    this.worldContainer.ambientLight = lightThisHour + (lightNextHour - lightThisHour) * worldTime.minute / 60;
 
     this.worldContainer.camera.width = tilesWidth;
     this.worldContainer.camera.height = tilesHeight;
