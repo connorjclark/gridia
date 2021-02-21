@@ -470,7 +470,8 @@ class Game {
         tile: loc,
       };
       if (this.client.context.map.inBounds(loc)) {
-        this.client.eventEmitter.emit('mouseMovedOverTile', { ...loc });
+        this.client.eventEmitter.emit('mouseMovedOverTile', { ...loc }); // TODO remove
+        this.client.eventEmitter.emit('pointerMove', { ...loc });
       }
     });
 
@@ -532,7 +533,7 @@ class Game {
         item,
       });
     });
-    this.world.on('pointerup', () => {
+    this.world.on('pointerup', (e: PIXI.InteractionEvent) => {
       if (Utils.equalPoints(this.state.mouse.tile, this.getPlayerPosition())) {
         this.client.eventEmitter.emit('itemMoveEnd', {
           location: Utils.ItemLocation.Container(this.client.player.containerId),
@@ -542,6 +543,9 @@ class Game {
           location: Utils.ItemLocation.World(this.state.mouse.tile),
         });
       }
+
+      const loc = worldToTile(mouseToWorld({ x: e.data.global.x, y: e.data.global.y }));
+      this.client.eventEmitter.emit('pointerUp', { ...loc });
     });
     this.world.on('pointerdown', (e: PIXI.InteractionEvent) => {
       if (ContextMenu.isOpen()) {
@@ -556,7 +560,8 @@ class Game {
       }
 
       if (this.client.context.map.inBounds(loc)) {
-        this.client.eventEmitter.emit('tileClicked', { ...loc });
+        this.client.eventEmitter.emit('tileClicked', { ...loc }); // TODO remove
+        this.client.eventEmitter.emit('pointerDown', { ...loc });
       }
 
       // Temporary.

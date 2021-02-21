@@ -27,6 +27,9 @@ interface Events {
   panelFocusChanged: {panelName: string};
   playerMove: {from: TilePoint; to: TilePoint};
   tileClicked: TilePoint;
+  pointerDown: TilePoint;
+  pointerMove: TilePoint;
+  pointerUp: TilePoint;
 }
 
 const TypedEventEmitter: new() => StrictEventEmitter<EventEmitter, Events> = EventEmitter;

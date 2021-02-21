@@ -5,6 +5,121 @@ import * as Helper from '../helper';
 import * as Utils from '../../utils';
 import AdminModule from '../modules/admin-module';
 
+const TOOLS = ['point', 'rectangle'] as const;
+type Tool = typeof TOOLS[number];
+export interface State {
+  selected?: { type: SelectionType; id: number };
+  selectionFilter: {
+    itemClass: string;
+    text: string;
+    page: number;
+  };
+  tool: Tool;
+}
+const DEFAULT_STATE: State = {
+  selectionFilter: {
+    itemClass: '',
+    text: '',
+    page: 0,
+  },
+  tool: 'point',
+};
+
+const Input = (props: any) => {
+  return <Fragment>
+    <label>{props.children || props.name}</label>
+    <input {...props}></input>
+    {props.type === 'range' && props.value}
+  </Fragment>;
+};
+
+type SelectionType = 'items' | 'floors';
+
+interface SelectionProps {
+  id: number;
+  type: SelectionType;
+  backgroundImage: string;
+  x: number;
+  y: number;
+  title: string;
+  selected: boolean;
+  onClickSelection: (arg: { type: SelectionType; id: number }) => void;
+}
+const Selection = (props: SelectionProps) => {
+  const classes = [
+    'admin__selection',
+  ];
+  if (props.selected) classes.push('admin__selection--selected');
+
+  return <div
+    class={classes.join(' ')}
+    title={props.title}
+    style={{
+      backgroundImage: props.backgroundImage,
+      backgroundPosition: `-${props.x}px -${props.y}px`,
+      width: '32px',
+      maxWidth: '32px',
+      height: '32px',
+    }}
+    onClick={() => props.onClickSelection({ type: props.type, id: props.id })}
+  ></div>;
+};
+
+interface ItemSelectionsProps {
+  metaItems: MetaItem[];
+  selectedId?: number;
+  onClickSelection: (arg: { type: SelectionType; id: number }) => void;
+}
+const ItemSelections = (props: ItemSelectionsProps) => {
+  return <div class="ui-admin--selections">
+    {props.metaItems.map((metaItem) => {
+      const animation = metaItem.animations?.[0] || 0;
+      const spritesheetId = Math.floor(animation / 100);
+      const x = animation % 10;
+      const y = Math.floor(animation / 10) % 100;
+
+      return <Selection
+        backgroundImage={`url(world/items/items${spritesheetId}.png)`}
+        title={metaItem.name}
+        x={x * 32}
+        y={y * 32}
+        id={metaItem.id}
+        type={'items'}
+        selected={props.selectedId === metaItem.id}
+        onClickSelection={props.onClickSelection}
+      ></Selection>;
+    })}
+  </div>;
+};
+
+interface FloorSelectionsProps {
+  floors: MetaFloor[];
+  selectedId?: number;
+  onClickSelection: (arg: { type: SelectionType; id: number }) => void;
+}
+const FloorSelections = (props: FloorSelectionsProps) => {
+  return <div class="ui-admin--selections">
+    {props.floors.map((floor) => {
+      const animation = floor.id;
+      const spritesheetId = Math.floor(animation / 100);
+      const x = animation % 10;
+      const y = Math.floor(animation / 10) % 100;
+
+      return <Selection
+        backgroundImage={`url(world/floors/floors${spritesheetId}.png)`}
+        title={'Floor'}
+        x={x * 32}
+        y={y * 32}
+        id={floor.id}
+        type={'floors'}
+        selected={props.selectedId === floor.id}
+        onClickSelection={props.onClickSelection}
+      ></Selection>;
+    })}
+  </div>;
+};
+
+
 function tryRegex(value: string, flags = '') {
   try {
     return new RegExp(value, flags);
@@ -33,93 +148,6 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
     selectionFilters.push({ type: 'class', value: itemClass });
   }
 
-  const Input = (props: any) => {
-    return <Fragment>
-      <label>{props.children || props.name}</label>
-      <input {...props}></input>
-      {props.type === 'range' && props.value}
-    </Fragment>;
-  };
-
-  interface SelectionProps {
-    id: number;
-    type: 'items' | 'floors';
-    backgroundImage: string;
-    x: number;
-    y: number;
-    title: string;
-  }
-  const Selection = (props: SelectionProps) => {
-    return <div
-      class="ui-admin--selection"
-      title={props.title}
-      style={{
-        backgroundImage: props.backgroundImage,
-        backgroundPosition: `-${props.x}px -${props.y}px`,
-        width: '32px',
-        maxWidth: '32px',
-        height: '32px',
-      }}
-      onClick={() => adminModule.setSelectedContent({ type: props.type, id: props.id })}
-    ></div>;
-  };
-
-  const ItemSelections = (props: { metaItems: MetaItem[] }) => {
-    return <div class="ui-admin--selections">
-      {props.metaItems.map((metaItem) => {
-        const animation = metaItem.animations?.[0] || 0;
-        const spritesheetId = Math.floor(animation / 100);
-        const x = animation % 10;
-        const y = Math.floor(animation / 10) % 100;
-
-        return <Selection
-          backgroundImage={`url(world/items/items${spritesheetId}.png)`}
-          title={metaItem.name}
-          x={x * 32}
-          y={y * 32}
-          id={metaItem.id}
-          type={'items'}
-        ></Selection>;
-      })}
-    </div>;
-  };
-
-  const FloorSelections = (props: { floors: MetaFloor[] }) => {
-    return <div class="ui-admin--selections">
-      {props.floors.map((floor) => {
-        const animation = floor.id;
-        const spritesheetId = Math.floor(animation / 100);
-        const x = animation % 10;
-        const y = Math.floor(animation / 10) % 100;
-
-        return <Selection
-          backgroundImage={`url(world/floors/floors${spritesheetId}.png)`}
-          title={'Floor'}
-          x={x * 32}
-          y={y * 32}
-          id={floor.id}
-          type={'floors'}
-        ></Selection>;
-      })}
-    </div>;
-  };
-
-  interface State {
-    selectionFilter: {
-      itemClass: string;
-      text: string;
-      page: number;
-    };
-    // selected: number; // TODO
-  }
-  const DEFAULT_STATE: State = {
-    selectionFilter: {
-      itemClass: '',
-      text: '',
-      page: 0,
-    },
-    // selected: -1,
-  };
 
   function filterMetaItems(itemClass: string, text: string) {
     let metaItems = classToMetaItem.get(itemClass) || Content.getMetaItems();
@@ -132,6 +160,11 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
 
   class AdminWindow extends Component<any, State> {
     state = DEFAULT_STATE;
+
+    constructor() {
+      super();
+      this.onClickSelection = this.onClickSelection.bind(this);
+    }
 
     render(props: any, state: State) {
       const FilterMenuItems = selectionFilters.map((filter) => {
@@ -165,8 +198,14 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
       const startIndex = selectionsPerPage * state.selectionFilter.page;
       const paginatedItems = filteredItems.slice(startIndex, startIndex + selectionsPerPage);
       const Selections = isFloors ?
-        <FloorSelections floors={paginatedItems as MetaFloor[]}></FloorSelections> :
-        <ItemSelections metaItems={paginatedItems as MetaItem[]}></ItemSelections>;
+        <FloorSelections
+          onClickSelection={this.onClickSelection}
+          selectedId={state.selected?.type === 'floors' ? state.selected?.id : undefined}
+          floors={paginatedItems as MetaFloor[]}></FloorSelections> :
+        <ItemSelections
+          onClickSelection={this.onClickSelection}
+          selectedId={state.selected?.type === 'items' ? state.selected?.id : undefined}
+          metaItems={paginatedItems as MetaItem[]}></ItemSelections>;
 
       return <div>
         <div>
@@ -183,6 +222,14 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
             value={state.selectionFilter.text}>
             Name Filter
           </Input>
+
+          {TOOLS.map((tool) => {
+            return <div
+              class={`admin__tool ${state.tool === tool ? 'admin__tool--selected' : ''}`}
+              onClick={() => this.onClickTool(tool)}
+            >{tool}</div>;
+          })}
+
           <div>
             <button onClick={() => this.setPage(state.selectionFilter.page - 1, numPages)}>{'<'}</button>
             <button onClick={() => this.setPage(state.selectionFilter.page + 1, numPages)}>{'>'}</button>
@@ -191,6 +238,32 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
           </div>
         </div>
       </div>;
+    }
+
+    onClickSelection(selected: { type: SelectionType; id: number }) {
+      if (selected.type === this.state.selected?.type && selected.id === this.state.selected.id) {
+        this.setState({
+          ...this.state,
+          selected: undefined,
+        }, () => this.updateAdminModule());
+      } else {
+        this.setState({
+          ...this.state,
+          selected,
+        }, () => this.updateAdminModule());
+      }
+    }
+
+    onClickTool(tool: Tool) {
+      this.setState({
+        ...this.state,
+        tool,
+      }, () => this.updateAdminModule());
+    }
+
+    // TODO: this all feels very hacky.
+    updateAdminModule() {
+      adminModule.setUIState({ ...this.state });
     }
 
     setPage(page: number, numPages: number) {
