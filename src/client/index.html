@@ -189,7 +189,7 @@
     .grid-container .bottom { grid-area: bottom; }
     .grid-container .center { grid-area: center; }
     .grid-container .map { grid-area: map; }
-    .grid-container .right { grid-area: right; }
+    .grid-container .right { grid-area: right; display: flex; flex-direction: column; }
     .grid-container .left { grid-area: left; }
     .grid-container .top { grid-area: top; }
 
@@ -236,7 +236,7 @@
     }
 
     .window--view {
-      right: 0;
+      order: 1;
     }
 
     .window--map {
@@ -244,6 +244,7 @@
     }
 
     .window--container {
+      order: 0;
       max-height: 30vh;
       overflow: scroll;
     }
