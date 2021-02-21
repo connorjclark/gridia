@@ -301,6 +301,7 @@ export default class Server {
   addItemNear(loc: TilePoint, item: Item) {
     const nearestLoc = this.findNearest(loc, 6, true, (tile) => !tile.item || tile.item.type === item.type);
     if (!nearestLoc) return; // TODO what to do in this case?
+
     const nearestTile = this.context.map.getTile(nearestLoc);
     if (nearestTile.item) {
       nearestTile.item.quantity += item.quantity;

@@ -2,14 +2,13 @@ import * as Content from '../../content';
 import * as ProtocolBuilder from '../../protocol/client-to-server-protocol-builder';
 import * as Utils from '../../utils';
 import ClientModule from '../client-module';
-import * as Draw from '../draw';
-import * as Helper from '../helper';
 import { makeUsagesWindow } from '../ui/usages-window';
+import { makePossibleUsagesWindow } from '../ui/possible-usages-window';
 
 class UsageModule extends ClientModule {
   protected currentUsagesLoc?: Point4;
   protected usagesWindow?: ReturnType<typeof makeUsagesWindow>;
-  protected possibleUsagesWindow = new Draw.PossibleUsagesWindow(); // TODO
+  protected possibleUsagesWindow?: ReturnType<typeof makePossibleUsagesWindow>;
 
   getUsagesWindow() {
     if (this.usagesWindow) return this.usagesWindow;
@@ -17,16 +16,13 @@ class UsageModule extends ClientModule {
     return this.usagesWindow;
   }
 
-  onStart() {
-    this.possibleUsagesWindow.pixiContainer.y = 0;
-    this.possibleUsagesWindow.setOnSelectUsage((possibleUsage) => {
-      this.game.client.connection.send(ProtocolBuilder.use({
-        toolIndex: possibleUsage.toolIndex,
-        location: possibleUsage.focusLocation,
-      }));
-    });
-    this.game.addWindow(this.possibleUsagesWindow);
+  getPossibleUsagesWindow() {
+    if (this.possibleUsagesWindow) return this.possibleUsagesWindow;
+    this.possibleUsagesWindow = makePossibleUsagesWindow(this);
+    return this.possibleUsagesWindow;
+  }
 
+  onStart() {
     this.game.client.eventEmitter.on('playerMove', () => {
       if (this.usagesWindow) {
         this.usagesWindow.el.hidden = true;
@@ -56,8 +52,15 @@ class UsageModule extends ClientModule {
     }
   }
 
+  selectPossibleUsage(possibleUsage: PossibleUsage) {
+    this.game.client.connection.send(ProtocolBuilder.use({
+      toolIndex: possibleUsage.toolIndex,
+      location: possibleUsage.focusLocation,
+    }));
+  }
+
   updatePossibleUsages(center?: TilePoint) {
-    this.possibleUsagesWindow.setPossibleUsages(this.getPossibleUsages(center));
+    this.getPossibleUsagesWindow().setState({ possibleUsages: this.getPossibleUsages(center) });
   }
 
   // TODO: better comment. maybe some bullet points. mhm.
