@@ -7,7 +7,7 @@ import { SECTOR_SIZE } from '../../constants';
 class MapModule extends ClientModule {
   private mapEl?: HTMLCanvasElement;
   private context?: CanvasRenderingContext2D;
-  private mapWindow = this.game.makeUIWindow({name: 'map', cell: 'map'});
+  private mapWindow = this.game.makeUIWindow({ name: 'map', cell: 'map' });
 
   private nextDrawAt = 0;
   private numDraws = 0;
@@ -17,6 +17,7 @@ class MapModule extends ClientModule {
     this.mapEl = Helper.createChildOf(this.mapWindow, 'canvas', 'map');
     this.mapEl.width = this.mapEl.height; // TODO: css?
     Helper.createChildOf(this.mapWindow, 'div', 'location');
+    Helper.createChildOf(this.mapWindow, 'div', 'time');
 
     const context = this.mapEl.getContext('2d');
     if (!context) throw new Error('could not make context');
@@ -34,6 +35,9 @@ class MapModule extends ClientModule {
     const playerLoc = this.game.getPlayerPosition();
     Helper.find('.location', this.mapWindow).innerText =
       `${playerLoc.x}, ${playerLoc.y}, ${playerLoc.z} (map ${playerLoc.w})`;
+
+    const worldTime = this.game.worldTime;
+    Helper.find('.time', this.mapWindow).innerText = `Time: ${worldTime}`;
 
     if (now < this.nextDrawAt) return;
     this.nextDrawAt = now + 500;

@@ -285,7 +285,8 @@ class Game {
   get worldTime() {
     const realSecondsSinceLastSync = (Date.now() - this._lastSyncedRealTime) / 1000;
     const epoch = this._lastSyncedEpoch + realSecondsSinceLastSync / this.client.secondsPerWorldTick;
-    return new WorldTime(this.client.ticksPerWorldDay, epoch).time;
+    // return new WorldTime(this.client.ticksPerWorldDay, epoch).time; // TODO ?
+    return new WorldTime(this.client.ticksPerWorldDay, epoch);
   }
 
   isEditingMode() {
