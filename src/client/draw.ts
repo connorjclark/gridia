@@ -177,41 +177,6 @@ export function getCanvasSize() {
   return { width: canvasesEl.clientWidth, height: canvasesEl.clientHeight };
 }
 
-export function makeUsageWindow(tool: Item, focus: Item, usages: ItemUse[], loc: TilePoint): GridiaWindow {
-  const window = new GridiaWindow();
-
-  window.setOnDraw(() => {
-    destroyChildren(window.contents);
-
-    for (const [i, usage] of usages.entries()) {
-      const item = usage.products[0];
-      const itemSprite = makeItemSprite(item);
-      itemSprite.x = (i % 10) * GFX_SIZE;
-      itemSprite.y = Math.floor(i / 10) * GFX_SIZE;
-      window.contents.addChild(itemSprite);
-    }
-  });
-
-  window.contents
-    .on('pointerdown', (e: PIXI.InteractionEvent) => {
-      const { x, y } = e.data.getLocalPosition(e.target);
-      const index = Math.floor(x / GFX_SIZE) + Math.floor(y / GFX_SIZE) * 10;
-      close();
-      Helper.useTool(loc, index);
-    });
-
-  game.client.eventEmitter.on('playerMove', close);
-
-  function close() {
-    game.client.eventEmitter.removeListener('playerMove', close);
-    game.removeWindow(window);
-  }
-
-  window.pixiContainer.x = window.pixiContainer.y = 40;
-  game.addWindow(window);
-  return window;
-}
-
 export function makeHighlight(color: number, alpha: number) {
   const highlight = new PIXI.Graphics();
   highlight.beginFill(color, alpha);
