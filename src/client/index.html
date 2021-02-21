@@ -181,7 +181,7 @@
         "left center map"
         "left center right"
         "bottom bottom bottom";
-      height: 100%;
+      height: 100vh;
     }
     .grid-container > div {
       /* position: relative; */
@@ -194,14 +194,15 @@
     .grid-container .top { grid-area: top; }
 
     .window {
-      margin: 10px;
+      box-sizing: border-box;
       max-width: 30vw;
+      max-height: 100%;
       padding: 3px;
       border: solid 3px gold;
       color: white;
       background-color: rgba(50, 49, 50, 0.7);
       pointer-events: all;
-      overflow-y: scroll;
+      overflow: scroll;
     }
 
     .window--admin > div {
