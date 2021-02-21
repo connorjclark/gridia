@@ -21,6 +21,7 @@ import { WorldContainer } from './world-container';
 import MapModule from './modules/map-module';
 import { makeHelpWindow } from './ui/help-window';
 import { makeContainerWindow } from './ui/container-window';
+import { makeGraphicComponent } from './ui/ui-common';
 
 // WIP lighting shaders.
 
@@ -235,6 +236,7 @@ class Game {
   protected world = new PIXI.Container();
   protected windows: Draw.GridiaWindow[] = [];
   protected itemMovingState?: ItemMoveBeginEvent;
+  protected itemMovingGraphic = makeGraphicComponent();
   protected mouseHasMovedSinceItemMoveBegin = false;
   protected actionCreators: GameActionCreator[] = [];
 
@@ -266,6 +268,8 @@ class Game {
     };
 
     this.worldContainer = new WorldContainer(client.context.map);
+
+    this.itemMovingGraphic.el.classList.add('moving-item');
 
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
@@ -472,7 +476,7 @@ class Game {
     document.body.addEventListener('click', onActionSelection);
     Helper.find('.contextmenu').addEventListener('click', onActionSelection);
 
-    this.canvasesEl.addEventListener('pointermove', (e: MouseEvent) => {
+    window.document.addEventListener('pointermove', (e: MouseEvent) => {
       const loc = worldToTile(mouseToWorld({ x: e.clientX, y: e.clientY }));
       this.state.mouse = {
         ...this.state.mouse,
@@ -901,11 +905,20 @@ class Game {
 
     // Draw item being moved.
     if (this.itemMovingState && this.mouseHasMovedSinceItemMoveBegin && this.itemMovingState.item) {
-      const itemSprite = Draw.makeItemSprite(this.itemMovingState.item);
-      const { x, y } = mouseToWorld(this.state.mouse);
-      itemSprite.x = x - GFX_SIZE / 2;
-      itemSprite.y = y - GFX_SIZE / 2;
-      this.worldContainer.layers.top.addChild(itemSprite);
+      const metaItem = Content.getMetaItem(this.itemMovingState.item.type);
+      this.itemMovingGraphic.setState({
+        graphic: {
+          type: 'item',
+          index: metaItem.animations[0],
+        },
+      });
+      const { x, y } = this.state.mouse;
+      this.itemMovingGraphic.el.style.left = `${x - GFX_SIZE / 2}px`;
+      this.itemMovingGraphic.el.style.top = `${y - GFX_SIZE / 2}px`;
+    } else {
+      this.itemMovingGraphic.setState({
+        graphic: undefined,
+      });
     }
 
     // Draw highlight over selected view.

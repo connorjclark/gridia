@@ -1,4 +1,5 @@
-import { h } from 'preact';
+import { h, render, Component } from 'preact';
+import * as Helper from '../helper';
 
 interface GraphicProps {
   type: 'floor' | 'item';
@@ -31,3 +32,34 @@ export const Graphic = (props: GraphicProps) => {
     }}
   >{label}</div>;
 };
+
+export function makeGraphicComponent() {
+  interface GraphicComponentState {
+    graphic?: GraphicProps;
+  }
+
+  let setState = (_: GraphicComponentState) => {
+    // Do nothing.
+  };
+
+  class GraphicComponent extends Component {
+    state: GraphicComponentState = {};
+
+    componentDidMount() {
+      setState = this.setState.bind(this);
+    }
+
+    render() {
+      let graphic;
+      if (this.state.graphic) graphic = <Graphic {...this.state.graphic} />;
+      return <div class="graphic">{graphic}</div>;
+    }
+  }
+
+  const el = Helper.createChildOf(Helper.find('.ui'), 'graphic');
+  render(<GraphicComponent />, el);
+  return {
+    el,
+    setState: (s: GraphicComponentState) => setState(s),
+  };
+}
