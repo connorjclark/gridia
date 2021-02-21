@@ -154,6 +154,11 @@ interface UIState {
     actions: GameAction[];
   };
   elapsedFrames: number;
+  containers: {
+    [id: number]: {
+      selectedIndex: number | null;
+    };
+  };
 }
 
 interface GameAction {

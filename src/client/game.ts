@@ -262,6 +262,7 @@ class Game {
       selectedView: {
         actions: [],
       },
+      containers: {},
     };
 
     this.worldContainer = new WorldContainer(client.context.map);
@@ -337,7 +338,10 @@ class Game {
 
         if (e.args.location.source === 'container' && this.containerWindows.has(e.args.location.id)) {
           const container = this.client.context.containers.get(e.args.location.id);
-          if (container) this.containerWindows.get(e.args.location.id)?.setState({container});
+          if (container) {
+            const containerState = this.state.containers[e.args.location.id] || { selectedIndex: null };
+            this.containerWindows.get(e.args.location.id)?.setState({ container, ...containerState });
+          }
         }
       }
 
@@ -599,7 +603,24 @@ class Game {
       // or just don't register these events until ready?
       if (!this._playerCreature) return;
       const focusPos = this.getPlayerPosition();
-      const inventoryWindow = Draw.getContainerWindow(this.client.player.containerId);
+
+      // TODO: delete
+      const inventoryWindow2 = Draw.getContainerWindow(this.client.player.containerId);
+
+      // Number keys for selecting tool in inventory.
+      if (inventoryWindow2 && e.keyCode >= KEYS.ZERO && e.keyCode <= KEYS.NINE) {
+        const num = e.keyCode - KEYS.ZERO;
+
+        // 1234567890
+        if (num === 0) {
+          inventoryWindow2.selectedIndex = 9;
+        } else {
+          inventoryWindow2.selectedIndex = num - 1;
+        }
+        inventoryWindow2.draw();
+      }
+
+      const inventoryWindow = this.containerWindows.get(this.client.player.containerId);
 
       // Number keys for selecting tool in inventory.
       if (inventoryWindow && e.keyCode >= KEYS.ZERO && e.keyCode <= KEYS.NINE) {
@@ -607,11 +628,10 @@ class Game {
 
         // 1234567890
         if (num === 0) {
-          inventoryWindow.selectedIndex = 9;
+          inventoryWindow.setSelectedIndex(9);
         } else {
-          inventoryWindow.selectedIndex = num - 1;
+          inventoryWindow.setSelectedIndex(num - 1);
         }
-        inventoryWindow.draw();
       }
 
       // Arrow keys for selecting tile in world.
@@ -748,7 +768,7 @@ class Game {
     });
   }
 
-  makeUIWindow(opts: {name: string; cell: string}) {
+  makeUIWindow(opts: { name: string; cell: string }) {
     const cellEl = Helper.find(`.ui .grid-container > .${opts.cell}`);
     const el = Helper.createChildOf(cellEl, 'div', `window window--${opts.name}`);
     return el;

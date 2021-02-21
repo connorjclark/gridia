@@ -224,18 +224,14 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
       </div>;
     }
 
-    onClickSelection(selected: { type: SelectionType; id: number }) {
-      if (selected.type === this.state.selected?.type && selected.id === this.state.selected.id) {
-        this.setState({
-          ...this.state,
-          selected: undefined,
-        }, () => this.updateAdminModule());
-      } else {
-        this.setState({
-          ...this.state,
-          selected,
-        }, () => this.updateAdminModule());
+    onClickSelection(selected?: { type: SelectionType; id: number }) {
+      if (selected?.type === this.state.selected?.type && selected?.id === this.state.selected?.id) {
+        selected = undefined;
       }
+      this.setState({
+        ...this.state,
+        selected,
+      }, () => this.updateAdminModule());
     }
 
     onClickTool(tool: Tool) {

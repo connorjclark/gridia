@@ -79,10 +79,11 @@ export function getSelectedTool() {
   const inventoryWindow = Draw.getContainerWindow(game.client.player.containerId);
   if (!inventoryWindow) return;
 
-  const selectedIndex = inventoryWindow.selectedIndex;
+  const selectedIndex = game.state.containers[game.client.player.containerId]?.selectedIndex;
   if (selectedIndex === null) return;
 
-  return inventoryWindow.itemsContainer.items[selectedIndex] ?? undefined;
+  const container = game.client.context.containers.get(game.client.player.containerId);
+  return container?.items[selectedIndex] ?? undefined;
 }
 
 export function getSelectedToolIndex() {
