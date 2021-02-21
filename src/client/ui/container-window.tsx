@@ -122,20 +122,6 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
     }
   });
 
-  // TODO: closing logic
-  /*
-  if (container.id !== game.client.player.containerId) {
-    game.client.eventEmitter.on('playerMove', close);
-  }
-
-  function close() {
-    game.client.eventEmitter.removeListener('playerMove', close);
-    game.removeWindow(window);
-    containerWindows.delete(container.id);
-    game.client.context.containers.delete(container.id);
-  }
-  */
-
   // TODO: ughhh state management here is crappppp.
   return {
     el,

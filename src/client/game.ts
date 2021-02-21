@@ -776,6 +776,7 @@ class Game {
     if (partition.width === 0) return;
 
     // Make container windows.
+    // TODO: move this somewhere else. shouldn't be in update loop...
     for (const [id, container] of this.client.context.containers.entries()) {
       let containerWindow = this.containerWindows.get(id);
       if (containerWindow) continue;
@@ -785,6 +786,16 @@ class Game {
 
       containerWindow = makeContainerWindow(this, container, name);
       this.containerWindows.set(id, containerWindow);
+
+      if (container.id !== game.client.player.containerId) {
+        game.client.eventEmitter.on('playerMove', close);
+      }
+      function close() {
+        containerWindow?.el.remove();
+        game.client.eventEmitter.removeListener('playerMove', close);
+        game.containerWindows.delete(container.id);
+        game.client.context.containers.delete(container.id);
+      }
     }
 
     // Draw windows.
