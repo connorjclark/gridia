@@ -193,7 +193,7 @@
     .grid-container .left { grid-area: left; }
     .grid-container .top { grid-area: top; }
 
-    .ui-window {
+    .window {
       position: absolute;
       margin: 10px;
       padding: 3px;
@@ -204,24 +204,23 @@
       overflow-y: scroll;
     }
 
-    .ui-window {
+    .window {
       max-width: 30%;
     }
 
-    .ui-admin > div {
+    .window--admin > div {
       display: flex;
     }
 
-    .ui-admin--empty {
-      opacity: 0.5;
-    }
-
-    .ui-admin--filter {
+    .admin__filter {
       margin: 5px;
       white-space: nowrap;
     }
+    .admin__filter--empty {
+      opacity: 0.5;
+    }
 
-    .ui-admin--selections {
+    .admin__selections {
       display: flex;
       flex-wrap: wrap;
     }
@@ -237,11 +236,11 @@
       color: gold;
     }
 
-    .ui-view {
+    .window--view {
       right: 0;
     }
 
-    .ui-map {
+    .window--map {
       right: 0;
     }
   </style>
@@ -311,6 +310,7 @@
 
           <div class="panels-container">
             <div class="panels__tabs">
+              <div class="panels__tab" data-panel="inventory">Inventory</div>
               <div class="panels__tab" data-panel="skills">Skills</div>
               <div class="panels__tab" data-panel="settings">Settings</div>
               <div class="panels__tab" data-panel="admin">Admin</div>

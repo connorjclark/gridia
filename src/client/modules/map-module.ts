@@ -7,7 +7,7 @@ import { SECTOR_SIZE } from '../../constants';
 class MapModule extends ClientModule {
   private mapEl?: HTMLCanvasElement;
   private context?: CanvasRenderingContext2D;
-  private mapWindow = this.game.makeUIWindow('map');
+  private mapWindow = this.game.makeUIWindow({name: 'map', cell: 'map'});
 
   private nextDrawAt = 0;
   private numDraws = 0;

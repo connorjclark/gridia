@@ -741,9 +741,9 @@ class Game {
     });
   }
 
-  makeUIWindow(gridCell: string) {
-    const cellEl = Helper.find(`.ui .grid-container > .${gridCell}`);
-    const el = Helper.createChildOf(cellEl, 'div', 'ui-window');
+  makeUIWindow(opts: {name: string; cell: string}) {
+    const cellEl = Helper.find(`.ui .grid-container > .${opts.cell}`);
+    const el = Helper.createChildOf(cellEl, 'div', `window window--${opts.name}`);
     return el;
   }
 

@@ -16,7 +16,7 @@ export function makeSkillsWindow(skillsModule: SkillsModule) {
     }
 
     render(props: any, state: State) {
-      return <div class="ui-skills">
+      return <div>
         <div>
           Skills
         </div>
@@ -29,7 +29,7 @@ export function makeSkillsWindow(skillsModule: SkillsModule) {
     }
   }
 
-  const el = skillsModule.game.makeUIWindow('center');
+  const el = skillsModule.game.makeUIWindow({name: 'skills', cell: 'center'});
   render(<SkillsWindow />, el);
   return { el, setState: (s: State) => setState(s) };
 }

@@ -71,7 +71,7 @@ interface ItemSelectionsProps {
   onClickSelection: (arg: { type: SelectionType; id: number }) => void;
 }
 const ItemSelections = (props: ItemSelectionsProps) => {
-  return <div class="ui-admin--selections">
+  return <div class="admin__selections">
     {props.metaItems.map((metaItem) => {
       const animation = metaItem.animations?.[0] || 0;
       const spritesheetId = Math.floor(animation / 100);
@@ -98,7 +98,7 @@ interface FloorSelectionsProps {
   onClickSelection: (arg: { type: SelectionType; id: number }) => void;
 }
 const FloorSelections = (props: FloorSelectionsProps) => {
-  return <div class="ui-admin--selections">
+  return <div class="admin__selections">
     {props.floors.map((floor) => {
       const animation = floor.id;
       const spritesheetId = Math.floor(animation / 100);
@@ -118,7 +118,6 @@ const FloorSelections = (props: FloorSelectionsProps) => {
     })}
   </div>;
 };
-
 
 function tryRegex(value: string, flags = '') {
   try {
@@ -177,13 +176,13 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
         }
 
         const classes = [
-          'ui-admin--filter',
+          'admin__filter',
         ];
         const nonEmpty = length > 0;
         const enabled = nonEmpty &&
           (!state.selectionFilter.itemClass || state.selectionFilter.itemClass === filter.value) &&
           (filter.value !== 'Floors' || state.selectionFilter.itemClass === 'Floors');
-        if (!enabled) classes.push('ui-admin--empty');
+        if (!enabled) classes.push('admin__empty');
         return <div class={classes.join(' ')} onClick={() => nonEmpty && this.setItemClassFilter(filter.value)}>
           {filter.value} - {length}
         </div>;
@@ -285,8 +284,7 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
     }
   }
 
-  const el = adminModule.game.makeUIWindow('center');
-  el.classList.add('ui-admin');
+  const el = adminModule.game.makeUIWindow({name: 'admin', cell: 'center'});
   render(<AdminWindow />, el);
   return el;
 }
