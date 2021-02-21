@@ -1,5 +1,6 @@
 import { render, h, Component } from 'preact';
 import * as Content from '../../content';
+import * as Helper from '../helper';
 import UsageModule from '../modules/usage-module';
 import { Graphic } from './ui-common';
 
@@ -39,9 +40,13 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
         entries.push(products);
       }
 
+      const selectedTool = Helper.getSelectedTool();
+      let title = 'Possible Usages';
+      if (selectedTool) title += ` (using ${Content.getMetaItem(selectedTool.type).name})`;
+
       return <div>
         <div>
-          {'Possible Usages'}
+          {title}
         </div>
         <div class="possible-usages__usages">
           {entries.map((products, i) => {
