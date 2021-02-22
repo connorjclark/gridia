@@ -27,7 +27,7 @@ systemctl daemon-reload
 systemctl enable gridia
 
 # Delete world.
-rm -rf /root/gridia/gridia-2019-wip/server-data
+# rm -rf /root/gridia/gridia-2019-wip/server-data
 
 # Restart.
 systemctl restart gridia

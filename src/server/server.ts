@@ -435,6 +435,15 @@ export default class Server {
     // }
   }
 
+  getMessageTime() {
+    return `The time is ${this.time.toString()}`;
+  }
+
+  getMessagePlayersOnline() {
+    const players = [...this.players.values()].map((player) => player.name);
+    return `${players.length} players online: ${players.join(', ')}`;
+  }
+
   private async initClient(clientConnection: ClientConnection) {
     const player = clientConnection.player;
 
@@ -448,7 +457,11 @@ export default class Server {
     clientConnection.send(ProtocolBuilder.chat({
       from: 'World',
       to: '', // TODO
-      message: `The time is ${this.time.toString()}`,
+      message: [
+        `Welcome to Gridia, ${player.name}! Type "/help" for a list of chat commands`,
+        this.getMessagePlayersOnline(),
+        this.getMessageTime(),
+      ].join('\n'),
     }));
 
     // TODO need much better loading.

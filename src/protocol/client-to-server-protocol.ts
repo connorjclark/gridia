@@ -386,6 +386,16 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
             }));
           },
         },
+        who: {
+          args: [],
+          do() {
+            server.currentClientConnection.send(ProtocolBuilder.chat({
+              from: 'World',
+              to: '', // TODO
+              message: server.getMessagePlayersOnline(),
+            }));
+          },
+        },
         advanceTime: {
           args: [
             { name: 'ticks', type: 'number' },
