@@ -1614,17 +1614,6 @@
   },
   {
     "tool": 0,
-    "focus": 1880,
-    "focusQuantityConsumed": 1,
-    "products": [
-      {
-        "type": 1878,
-        "quantity": 1
-      }
-    ]
-  },
-  {
-    "tool": 0,
     "focus": 1908,
     "focusQuantityConsumed": 1,
     "products": [
@@ -30831,16 +30820,6 @@
   {
     "tool": 1854,
     "focus": 1872,
-    "products": []
-  },
-  {
-    "tool": 1876,
-    "focus": 1877,
-    "products": []
-  },
-  {
-    "tool": 1876,
-    "focus": 1878,
     "products": []
   },
   {

@@ -47,6 +47,18 @@ if (typeof process !== 'undefined' && process.release && process.release.name ==
 }
 
 function prepareData() {
+  items = items.map((item, i) => {
+    return item || {
+      id: i,
+      name: 'Unknown',
+      burden: 0,
+      walkable: true,
+      light: 0,
+      moveable: true,
+      stackable: false,
+    };
+  });
+
   for (const animation of animations) {
     for (const frame of animation.frames) {
       if (frame.sound) frame.sound = frame.sound.toLowerCase();

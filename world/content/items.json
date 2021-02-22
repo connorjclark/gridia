@@ -584,15 +584,7 @@
     "stackable": false,
     "walkable": true
   },
-  {
-    "id": 39,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 40,
     "name": "Practice Hand Axe",
@@ -728,15 +720,7 @@
     "stackable": false,
     "walkable": true
   },
-  {
-    "id": 49,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 50,
     "name": "Practice Club",
@@ -797,15 +781,7 @@
     "stackable": false,
     "walkable": true
   },
-  {
-    "id": 54,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 55,
     "name": "Great Mace",
@@ -1076,15 +1052,7 @@
     "stackable": false,
     "walkable": true
   },
-  {
-    "id": 73,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 74,
     "name": "Staff of Feanor",
@@ -1235,15 +1203,7 @@
     "stackable": false,
     "walkable": true
   },
-  {
-    "id": 84,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 85,
     "name": "Great Flail",
@@ -1649,15 +1609,7 @@
     "stackable": false,
     "walkable": true
   },
-  {
-    "id": 112,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 113,
     "name": "Bone Armor",
@@ -14679,15 +14631,7 @@
     "stackable": true,
     "walkable": true
   },
-  {
-    "id": 967,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 968,
     "name": "Minor Alchemy Potion",
@@ -15115,15 +15059,7 @@
     "stackable": true,
     "walkable": true
   },
-  {
-    "id": 996,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 997,
     "name": "Grey Berry",
@@ -15214,15 +15150,7 @@
     "stackable": true,
     "walkable": true
   },
-  {
-    "id": 1003,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 1004,
     "name": "Trap",
@@ -15327,15 +15255,7 @@
     "stackable": false,
     "walkable": false
   },
-  {
-    "id": 1010,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 1011,
     "name": "Key",
@@ -15925,15 +15845,7 @@
     "stackable": true,
     "walkable": true
   },
-  {
-    "id": 1050,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 1051,
     "name": "XXX Whisky",
@@ -15979,24 +15891,8 @@
     "stackable": true,
     "walkable": true
   },
-  {
-    "id": 1054,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 1055,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
+  null,
   {
     "id": 1056,
     "name": "Glass",
@@ -16333,15 +16229,7 @@
     "stackable": false,
     "walkable": true
   },
-  {
-    "id": 1078,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 1079,
     "name": "Long Scythe",
@@ -16507,33 +16395,9 @@
     "stackable": false,
     "walkable": true
   },
-  {
-    "id": 1087,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 1088,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 1089,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
+  null,
+  null,
   {
     "id": 1090,
     "name": "Blood",
@@ -18607,15 +18471,7 @@
     "trapEffect": "Revive",
     "walkable": true
   },
-  {
-    "id": 1226,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 1227,
     "name": "Invisible ItemTransform Trap",
@@ -19104,15 +18960,7 @@
     "stackable": false,
     "walkable": false
   },
-  {
-    "id": 1259,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 1260,
     "name": "Open Wooden Box",
@@ -26244,15 +26092,7 @@
     "stackable": false,
     "walkable": true
   },
-  {
-    "id": 1728,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 1729,
     "name": "Mystic Statue",
@@ -26539,15 +26379,7 @@
     "stackable": false,
     "walkable": true
   },
-  {
-    "id": 1748,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 1749,
     "name": "Wand of the Dead",
@@ -28469,24 +28301,8 @@
     "stackable": false,
     "walkable": true
   },
-  {
-    "id": 1874,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 1875,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
+  null,
   {
     "id": 1876,
     "name": "Jail Key",
@@ -28502,66 +28318,10 @@
     "stackable": false,
     "walkable": true
   },
-  {
-    "id": 1877,
-    "name": "Jail Door",
-    "class": "Wall",
-    "animations": [
-      102
-    ],
-    "blocksLight": true,
-    "burden": 1000,
-    "light": 0,
-    "moveable": false,
-    "rarity": 1,
-    "stackable": false,
-    "walkable": false
-  },
-  {
-    "id": 1878,
-    "name": "Jail Door",
-    "class": "Wall",
-    "animations": [
-      105
-    ],
-    "blocksLight": true,
-    "burden": 1000,
-    "light": 0,
-    "moveable": false,
-    "rarity": 1,
-    "stackable": false,
-    "walkable": false
-  },
-  {
-    "id": 1879,
-    "name": "Jail Door",
-    "class": "Wall",
-    "animations": [
-      103
-    ],
-    "blocksLight": false,
-    "burden": 1000,
-    "light": 0,
-    "moveable": false,
-    "rarity": 1,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 1880,
-    "name": "Jail Door",
-    "class": "Wall",
-    "animations": [
-      106
-    ],
-    "blocksLight": false,
-    "burden": 1000,
-    "light": 0,
-    "moveable": false,
-    "rarity": 1,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
+  null,
+  null,
+  null,
   {
     "id": 1881,
     "name": "Frost Blast",
@@ -28607,60 +28367,12 @@
     "stackable": false,
     "walkable": true
   },
-  {
-    "id": 1884,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 1885,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 1886,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 1887,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 1888,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 1889,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
   {
     "id": 1890,
     "name": "Reflection Amulet",
@@ -28679,15 +28391,7 @@
     "stackable": false,
     "walkable": true
   },
-  {
-    "id": 1891,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 1892,
     "name": "Quick Invisible History Trap",
@@ -29446,15 +29150,7 @@
     "stackable": false,
     "walkable": true
   },
-  {
-    "id": 1942,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 1943,
     "name": "Sewer Helmet",
@@ -30983,15 +30679,7 @@
     "stackable": true,
     "walkable": true
   },
-  {
-    "id": 2039,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 2040,
     "name": "Marlin Beak",
@@ -33390,15 +33078,7 @@
     "stackable": false,
     "walkable": true
   },
-  {
-    "id": 2197,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 2198,
     "name": "Open Lever",
@@ -34017,15 +33697,7 @@
     "stackable": false,
     "walkable": true
   },
-  {
-    "id": 2239,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 2240,
     "name": "Statue of UT",
@@ -34517,33 +34189,9 @@
     "stackable": true,
     "walkable": true
   },
-  {
-    "id": 2262,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2263,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2264,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
+  null,
+  null,
   {
     "id": 2265,
     "name": "Bridge Corner",
@@ -34744,204 +34392,28 @@
     "stackable": false,
     "walkable": true
   },
-  {
-    "id": 2278,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2279,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2280,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2281,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2282,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2283,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2284,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2285,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2286,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2287,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2288,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2289,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2290,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2291,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2292,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2293,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2294,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2295,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2296,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2297,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2298,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2299,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
   {
     "id": 2300,
     "name": "Megas Ultima Potion",
@@ -36305,5487 +35777,615 @@
     "stackable": true,
     "walkable": true
   },
-  {
-    "id": 2391,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2392,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2393,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2394,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2395,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2396,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2397,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2398,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2399,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2400,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2401,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2402,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2403,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2404,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2405,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2406,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2407,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2408,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2409,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2410,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2411,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2412,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2413,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2414,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2415,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2416,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2417,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2418,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2419,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2420,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2421,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2422,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2423,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2424,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2425,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2426,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2427,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2428,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2429,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2430,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2431,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2432,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2433,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2434,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2435,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2436,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2437,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2438,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2439,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2440,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2441,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2442,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2443,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2444,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2445,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2446,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2447,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2448,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2449,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2450,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2451,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2452,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2453,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2454,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2455,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2456,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2457,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2458,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2459,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2460,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2461,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2462,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2463,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2464,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2465,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2466,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2467,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2468,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2469,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2470,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2471,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2472,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2473,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2474,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2475,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2476,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2477,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2478,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2479,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2480,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2481,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2482,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2483,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2484,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2485,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2486,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2487,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2488,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2489,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2490,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2491,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2492,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2493,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2494,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2495,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2496,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2497,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2498,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2499,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2500,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2501,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2502,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2503,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2504,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2505,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2506,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2507,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2508,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2509,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2510,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2511,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2512,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2513,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2514,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2515,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2516,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2517,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2518,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2519,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2520,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2521,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2522,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2523,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2524,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2525,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2526,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2527,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2528,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2529,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2530,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2531,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2532,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2533,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2534,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2535,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2536,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2537,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2538,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2539,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2540,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2541,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2542,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2543,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2544,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2545,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2546,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2547,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2548,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2549,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2550,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2551,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2552,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2553,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2554,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2555,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2556,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2557,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2558,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2559,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2560,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2561,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2562,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2563,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2564,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2565,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2566,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2567,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2568,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2569,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2570,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2571,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2572,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2573,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2574,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2575,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2576,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2577,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2578,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2579,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2580,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2581,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2582,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2583,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2584,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2585,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2586,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2587,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2588,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2589,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2590,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2591,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2592,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2593,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2594,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2595,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2596,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2597,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2598,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2599,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2600,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2601,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2602,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2603,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2604,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2605,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2606,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2607,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2608,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2609,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2610,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2611,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2612,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2613,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2614,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2615,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2616,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2617,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2618,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2619,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2620,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2621,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2622,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2623,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2624,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2625,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2626,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2627,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2628,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2629,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2630,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2631,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2632,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2633,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2634,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2635,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2636,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2637,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2638,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2639,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2640,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2641,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2642,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2643,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2644,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2645,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2646,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2647,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2648,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2649,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2650,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2651,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2652,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2653,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2654,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2655,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2656,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2657,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2658,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2659,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2660,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2661,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2662,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2663,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2664,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2665,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2666,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2667,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2668,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2669,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2670,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2671,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2672,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2673,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2674,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2675,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2676,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2677,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2678,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2679,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2680,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2681,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2682,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2683,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2684,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2685,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2686,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2687,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2688,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2689,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2690,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2691,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2692,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2693,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2694,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2695,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2696,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2697,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2698,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2699,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2700,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2701,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2702,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2703,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2704,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2705,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2706,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2707,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2708,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2709,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2710,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2711,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2712,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2713,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2714,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2715,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2716,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2717,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2718,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2719,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2720,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2721,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2722,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2723,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2724,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2725,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2726,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2727,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2728,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2729,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2730,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2731,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2732,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2733,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2734,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2735,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2736,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2737,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2738,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2739,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2740,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2741,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2742,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2743,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2744,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2745,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2746,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2747,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2748,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2749,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2750,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2751,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2752,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2753,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2754,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2755,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2756,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2757,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2758,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2759,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2760,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2761,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2762,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2763,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2764,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2765,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2766,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2767,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2768,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2769,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2770,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2771,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2772,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2773,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2774,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2775,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2776,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2777,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2778,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2779,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2780,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2781,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2782,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2783,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2784,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2785,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2786,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2787,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2788,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2789,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2790,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2791,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2792,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2793,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2794,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2795,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2796,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2797,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2798,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2799,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2800,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2801,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2802,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2803,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2804,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2805,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2806,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2807,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2808,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2809,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2810,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2811,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2812,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2813,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2814,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2815,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2816,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2817,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2818,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2819,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2820,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2821,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2822,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2823,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2824,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2825,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2826,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2827,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2828,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2829,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2830,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2831,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2832,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2833,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2834,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2835,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2836,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2837,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2838,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2839,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2840,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2841,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2842,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2843,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2844,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2845,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2846,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2847,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2848,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2849,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2850,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2851,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2852,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2853,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2854,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2855,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2856,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2857,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2858,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2859,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2860,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2861,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2862,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2863,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2864,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2865,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2866,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2867,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2868,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2869,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2870,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2871,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2872,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2873,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2874,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2875,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2876,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2877,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2878,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2879,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2880,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2881,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2882,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2883,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2884,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2885,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2886,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2887,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2888,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2889,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2890,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2891,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2892,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2893,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2894,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2895,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2896,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2897,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2898,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2899,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2900,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2901,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2902,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2903,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2904,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2905,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2906,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2907,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2908,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2909,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2910,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2911,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2912,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2913,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2914,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2915,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2916,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2917,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2918,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2919,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2920,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2921,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2922,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2923,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2924,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2925,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2926,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2927,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2928,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2929,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2930,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2931,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2932,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2933,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2934,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2935,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2936,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2937,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2938,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2939,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2940,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2941,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2942,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2943,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2944,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2945,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2946,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2947,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2948,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2949,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2950,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2951,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2952,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2953,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2954,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2955,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2956,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2957,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2958,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2959,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2960,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2961,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2962,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2963,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2964,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2965,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2966,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2967,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2968,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2969,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2970,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2971,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2972,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2973,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2974,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2975,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2976,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2977,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2978,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2979,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2980,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2981,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2982,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2983,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2984,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2985,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2986,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2987,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2988,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2989,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2990,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2991,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2992,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2993,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2994,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2995,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2996,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2997,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2998,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 2999,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
   {
     "id": 3000,
     "name": "Invisible Reseting Medium Trap",
@@ -42615,15 +37215,7 @@
     "stackable": false,
     "walkable": false
   },
-  {
-    "id": 3055,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
   {
     "id": 3056,
     "name": "Chocolate Bar",
@@ -44440,42 +39032,10 @@
     "stackable": false,
     "walkable": true
   },
-  {
-    "id": 3175,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 3176,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 3177,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
-  {
-    "id": 3178,
-    "name": "Unknown",
-    "burden": 0,
-    "light": 0,
-    "moveable": true,
-    "stackable": false,
-    "walkable": true
-  },
+  null,
+  null,
+  null,
+  null,
   {
     "id": 3179,
     "name": "Running Beer Fountain",

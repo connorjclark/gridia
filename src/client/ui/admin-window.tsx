@@ -113,8 +113,12 @@ function tryRegex(value: string, flags = '') {
 }
 
 export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
+  const validMetaItems = Content.getMetaItems().filter((item) => item.name !== 'Unknown');
+
   const classToMetaItem = new Map<string, MetaItem[]>();
-  for (const metaItem of Content.getMetaItems()) {
+  for (const metaItem of validMetaItems) {
+    if (metaItem.name === 'Unknown') continue;
+
     const itemClass = metaItem.class || 'None';
     const metaItems = classToMetaItem.get(itemClass) || [];
     metaItems.push(metaItem);
@@ -132,9 +136,8 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
     selectionFilters.push({ type: 'class', value: itemClass });
   }
 
-
   function filterMetaItems(itemClass: string, text: string) {
-    let metaItems = classToMetaItem.get(itemClass) || Content.getMetaItems();
+    let metaItems = classToMetaItem.get(itemClass) || validMetaItems;
     const regex = text && tryRegex(text, 'i');
     if (regex) {
       metaItems = metaItems.filter((item) => item.name.match(regex));

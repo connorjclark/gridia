@@ -17,6 +17,9 @@ function loadContent(name: string) {
 // not what was just parsed.
 const state = {
   items: [] as MetaItem[],
+  floors: [] as MetaFloor[],
+  usages: [] as ItemUse[],
+  skills: [] as Skill[],
 };
 
 function getMetaItemByName(name: string) {
@@ -394,14 +397,17 @@ function parseSkillsIni() {
   return skills;
 }
 
-function fillGaps(objects: any[], make: (id: number) => any) {
+function fillGaps(objects: any[]) {
   const noGaps = [];
 
-  for (const object of objects) {
-    while (object.id !== noGaps.length) {
-      noGaps.push(make(noGaps.length));
+  objects = [...objects];
+
+  while (objects.length) {
+    if (objects[0].id === noGaps.length) {
+      noGaps.push(objects.splice(0, 1)[0]);
+    } else {
+      noGaps.push(null);
     }
-    noGaps.push(object);
   }
 
   return noGaps;
@@ -423,18 +429,8 @@ function convertItems() {
     ...parseItemsIni(),
   ];
 
-  items = fillGaps(items, (id: number) => ({
-    id,
-    name: 'Unknown',
-    burden: 0,
-    walkable: true,
-    light: 0,
-    moveable: true,
-    stackable: false,
-  }));
-
   items.push({
-    id: items.length,
+    id: items[items.length - 1].id + 1,
     name: 'Mine',
     class: 'Normal',
     walkable: false,
@@ -464,7 +460,6 @@ function convertItemUsages() {
   }
 
   for (const closedDoor of state.items.filter(item => item.name.includes('Closed Door'))) {
-    if (closedDoor.id === 1459) debugger;
     const usage = usages.find(u => u.tool === 0 && u.focus === closedDoor.id);
     if (usage) continue;
 
@@ -544,24 +539,47 @@ function convertFloors() {
 }
 
 function run() {
-  const items = state.items = convertItems();
+  state.items = convertItems();
   const itemsPath = path.join(__dirname, '..', '..', 'world', 'content', 'items.json');
-  fs.writeFileSync(itemsPath, JSON.stringify(items, null, 2));
-  console.log('saved ' + itemsPath);
 
-  const usages = convertItemUsages();
+  state.usages = convertItemUsages();
   const usagesPath = path.join(__dirname, '..', '..', 'world', 'content', 'itemuses.json');
-  fs.writeFileSync(usagesPath, JSON.stringify(usages, null, 2));
-  console.log('saved ' + usagesPath);
 
-  const skills = convertSkills();
+  state.skills = convertSkills();
   const skillsPath = path.join(__dirname, '..', '..', 'world', 'content', 'skills.json');
-  fs.writeFileSync(skillsPath, JSON.stringify(skills, null, 2));
-  console.log('saved ' + skillsPath);
 
-  const floors = convertFloors();
+  state.floors = convertFloors();
   const floorsPath = path.join(__dirname, '..', '..', 'world', 'content', 'floors.json');
-  fs.writeFileSync(floorsPath, JSON.stringify(floors, null, 2));
-  console.log('saved ' + floorsPath);
+
+  const removeUsage = (usage: ItemUse) => {
+    const index = state.usages.indexOf(usage);
+    state.usages.splice(index, 1)
+  };
+
+  const removeItem = (item: MetaItem) => {
+    const index = state.items.indexOf(item);
+    state.items.splice(index, 1);
+
+    for (const usage of [...state.usages]) {
+      usage.products = usage.products.filter(p => p.type !== item.id);
+
+      if (usage.focus === item.id || usage.tool === item.id) {
+        removeUsage(usage);
+      }
+    }
+  };
+
+  for (const item of [...state.items]) {
+    if (['Jail Door'].includes(item.name || '')) {
+      removeItem(item);
+    }
+  }
+
+  state.items = fillGaps(state.items);
+
+  fs.writeFileSync(itemsPath, JSON.stringify(state.items, null, 2));
+  fs.writeFileSync(floorsPath, JSON.stringify(state.floors, null, 2));
+  fs.writeFileSync(usagesPath, JSON.stringify(state.usages, null, 2));
+  fs.writeFileSync(skillsPath, JSON.stringify(state.skills, null, 2));
 }
 run();
