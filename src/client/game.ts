@@ -149,6 +149,8 @@ function mouseToWorld(pm: ScreenPoint): ScreenPoint {
 }
 
 class CreatureSprite extends PIXI.Sprite {
+  dirty = false;
+
   constructor(public creature: Creature) {
     super();
   }
@@ -162,8 +164,9 @@ class CreatureSprite extends PIXI.Sprite {
   }
 
   tick() {
-    if (this.children.length === 0) {
+    if (this.children.length === 0 || this.dirty) {
       this.drawCreature();
+      this.dirty = false;
       return;
     }
 
@@ -351,10 +354,17 @@ class Game {
         }
       }
 
-      if (e.type === 'setCreature' && this.state.selectedView.creatureId) {
-        const creature = this.client.context.getCreature(this.state.selectedView.creatureId);
-        if (creature.id === e.args.id) {
-          this.modules.selectedView.selectView(Utils.ItemLocation.World(creature.pos));
+      if (e.type === 'setCreature' && e.args.id) {
+        if (this.state.selectedView.creatureId === e.args.id) {
+          const creature = this.client.context.getCreature(this.state.selectedView.creatureId);
+          if (creature.id === e.args.id) {
+            this.modules.selectedView.selectView(Utils.ItemLocation.World(creature.pos));
+          }
+        }
+
+        const creatureSprite = game.creatureSprites.get(e.args.id);
+        if (creatureSprite) {
+          creatureSprite.dirty = true;
         }
       }
       if (e.type === 'removeCreature' && e.args.id === this.state.selectedView.creatureId) {
