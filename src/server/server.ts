@@ -396,10 +396,9 @@ export default class Server {
 
     if (index !== undefined) {
       this.setItemInContainer(id, index, item);
+      return true;
     } else {
-      // TODO don't let containers grow unbounded.
-      container.items.length += 1;
-      this.setItemInContainer(id, container.items.length - 1, item);
+      return false;
     }
   }
 
@@ -426,7 +425,7 @@ export default class Server {
   advanceTime(ticks: number) {
     // const ticks = gameHours * (this.ticksPerWorldDay / 24);
     this.time.epoch += ticks;
-    this.broadcast(ProtocolBuilder.time({epoch: this.time.epoch}));
+    this.broadcast(ProtocolBuilder.time({ epoch: this.time.epoch }));
 
     // TODO
     // for (let i = 0; i < ticks; i++) {
@@ -444,7 +443,7 @@ export default class Server {
       secondsPerWorldTick: this.secondsPerWorldTick,
       ticksPerWorldDay: this.ticksPerWorldDay,
     }));
-    clientConnection.send(ProtocolBuilder.time({epoch: this.time.epoch}));
+    clientConnection.send(ProtocolBuilder.time({ epoch: this.time.epoch }));
 
     clientConnection.send(ProtocolBuilder.chat({
       from: 'World',
@@ -534,9 +533,9 @@ export default class Server {
 
     this.taskRunner.registerTickSection({
       description: 'sync time',
-      rate: {minutes: 1},
+      rate: { minutes: 1 },
       fn: () => {
-        server.broadcast(ProtocolBuilder.time({epoch: server.time.epoch}));
+        server.broadcast(ProtocolBuilder.time({ epoch: server.time.epoch }));
       },
     });
 

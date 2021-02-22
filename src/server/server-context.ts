@@ -85,7 +85,7 @@ export class ServerContext extends Context {
   }
 
   makeContainer() {
-    const container = new Container(this.nextContainerId++, Array(10).fill(null));
+    const container = new Container(this.nextContainerId++, Array(30).fill(null));
     this.containers.set(container.id, container);
     return container;
   }

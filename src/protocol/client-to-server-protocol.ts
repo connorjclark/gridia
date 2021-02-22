@@ -163,7 +163,9 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     }
 
     if (usageResult.successTool) {
-      server.addItemToContainer(inventory.id, undefined, usageResult.successTool);
+      if (!server.addItemToContainer(inventory.id, undefined, usageResult.successTool)) {
+        server.addItemNear(loc, usageResult.successTool);
+      }
     }
 
     server.setItemInContainer(inventory.id, toolIndex, usageResult.tool);
@@ -239,8 +241,9 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
       if (location.source === 'world') {
         if (!location.loc) throw new Error('invariant violated');
         server.setItem(location.loc, item);
+        return true;
       } else {
-        server.addItemToContainer(location.id, location.index, item);
+        return server.addItemToContainer(location.id, location.index, item);
       }
     }
 
@@ -279,22 +282,41 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     if (toItem && fromItem.type !== toItem.type) return;
 
     if (!Content.getMetaItem(fromItem.type).moveable) {
+      server.reply(ProtocolBuilder.chat({
+        from: 'World',
+        to: '', // TODO
+        message: 'That item is not moveable',
+      }));
       return;
     }
 
     // Prevent container-ception.
-
     if (Content.getMetaItem(fromItem.type).class === 'Container' && to.source === 'container'
       && to.id === fromItem.containerId) {
+      server.reply(ProtocolBuilder.chat({
+        from: 'World',
+        to: '', // TODO
+        message: 'You cannot store a container inside another container',
+      }));
       return;
     }
 
+    const newItem = { ...fromItem };
     if (toItem && toItem.type === fromItem.type) {
-      fromItem.quantity += toItem.quantity;
+      newItem.quantity += toItem.quantity;
+    }
+
+    const success = setItem(to, newItem);
+    if (!success) {
+      server.reply(ProtocolBuilder.chat({
+        from: 'World',
+        to: '', // TODO
+        message: 'The container is full',
+      }));
+      return;
     }
 
     clearItem(from);
-    setItem(to, fromItem);
 
     // TODO queue changes and send to all clients.
     // context.queueTileChange(from)
@@ -308,12 +330,12 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
       const COMMANDS: Record<string, CommandParser.Command> = {
         warp: {
           args: [
-            {name: 'x', type: 'number'},
-            {name: 'y', type: 'number'},
-            {name: 'z', type: 'number', optional: true},
-            {name: 'map', type: 'number', optional: true},
+            { name: 'x', type: 'number' },
+            { name: 'y', type: 'number' },
+            { name: 'z', type: 'number', optional: true },
+            { name: 'map', type: 'number', optional: true },
           ],
-          do(args: {x: number; y: number; z?: number; map?: number}) {
+          do(args: { x: number; y: number; z?: number; map?: number }) {
             const destination = { ...server.currentClientConnection.player.creature.pos };
             if (args.z !== undefined && args.map !== undefined) {
               destination.w = args.map;
@@ -343,9 +365,9 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
         },
         spawn: {
           args: [
-            {name: 'name', type: 'string'},
+            { name: 'name', type: 'string' },
           ],
-          do(args: {name: string}) {
+          do(args: { name: string }) {
             const template = Content.getMonsterTemplateByName(args.name);
             const loc = server.findNearest(server.currentClientConnection.player.creature.pos, 10, true,
               (_, l) => server.context.map.walkable(l));
@@ -366,10 +388,10 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
         },
         advanceTime: {
           args: [
-            {name: 'ticks', type: 'number'},
+            { name: 'ticks', type: 'number' },
           ],
           help: `1 hour=${server.ticksPerWorldDay / 24}`,
-          do(args: {ticks: number}) {
+          do(args: { ticks: number }) {
             server.advanceTime(args.ticks);
           },
         },
