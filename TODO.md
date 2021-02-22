@@ -3,6 +3,8 @@
 * "Reset" button for settings
 * Pick up quantity of item
 * Split stacked items
+* Shift = pick up item below you
+* Max item stacks
 
 ____
 

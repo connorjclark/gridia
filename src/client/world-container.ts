@@ -120,7 +120,7 @@ class WorldAnimationController {
 
 class Camera {
   DEFAULT_CENTER_ELASTICITY = { left: 0.4, right: 0.6, top: 0.4, bottom: 0.6 };
-  RIGHT_CENTER_ELASTICITY = { left: 0.65, right: 0.85, top: 0.4, bottom: 0.6 };
+  RIGHT_CENTER_ELASTICITY = { left: 0.5, right: 0.75, top: 0.4, bottom: 0.6 };
 
   left = 0;
   top = 0;
