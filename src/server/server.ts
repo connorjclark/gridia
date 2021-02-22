@@ -145,7 +145,7 @@ export default class Server {
       clientConnection.container.items[5] = { type: Content.getMetaItemByName('Soccer Ball').id, quantity: 1 };
       clientConnection.container.items[6] = { type: Content.getMetaItemByName('Saw').id, quantity: 1 };
       clientConnection.container.items[7] = { type: Content.getMetaItemByName('Hammer and Nails').id, quantity: 1 };
-      clientConnection.container.items[7] = { type: Content.getMetaItemByName('Lit Torch').id, quantity: 1 };
+      clientConnection.container.items[8] = { type: Content.getMetaItemByName('Lit Torch').id, quantity: 1 };
     }
 
     this.players.set(player.id, player);

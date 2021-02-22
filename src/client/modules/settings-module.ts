@@ -14,7 +14,7 @@ export const SettingsSchema = {
     default: process.env.NODE_ENV === 'production' ? 0.6 : 0,
     min: 0,
     max: 1,
-    step: 0.1,
+    step: 0.01,
   },
   showGrid: {
     type: 'boolean',

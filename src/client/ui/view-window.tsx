@@ -58,12 +58,10 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
           })}
 
           {selectedView.actions.map((action) => {
-            const dataset = selectedView.location?.source === 'world' ?
-              selectedViewModule.game.createDataForActionEl({
-                action,
-                loc: selectedView.location.loc,
-                creatureId: selectedView.creatureId,
-              }) : {};
+            const dataset = selectedViewModule.game.createDataForActionEl({
+              action,
+              creatureId: selectedView.creatureId,
+            });
             return <button class='action' title={action.title} {...dataset}>{action.innerText}</button>;
           })}
         </div>

@@ -876,7 +876,7 @@ class Game {
       this.itemMovingGraphic.setState({
         graphic: {
           type: 'item',
-          index: metaItem.animations[0],
+          index: metaItem.animations?.[0] || 0,
         },
       });
       const { x, y } = this.state.mouse;
