@@ -5,7 +5,7 @@ export function makeHelpWindow(game: Game) {
   class HelpWindow extends Component {
     render() {
       return <div class="help">
-        <a href="https://github.com/connorjclark/gridia-2019-wip">GitHub</a>
+        <a href="https://github.com/connorjclark/gridia-2019-wip" target="_blank">GitHub</a>
         <pre>
           WASD to move character.
           Number keys / Click to equip tool in inventory.
