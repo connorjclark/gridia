@@ -1,16 +1,17 @@
+* Persist Player accounts
+* Persist settings to local storage
+* "Reset" button for settings
 * Pick up quantity of item
 * Split stacked items
 
+____
 
 * Stamina / Health
 * Inventory system
 * Better online networking
-* Better rendering
 * Merchants
 * Wear images
 * Registration
-* Link to help.md on GH in game.
-* Fix tame gfx
 
 # Combat
 
@@ -77,7 +78,7 @@ Attack villager, they pick up nearby sword.
   Make AttackUnarmed higher cost than AttackArmed + PickupWeapon
 Startle room of goblins, they run to grab various weapons and attack.
 
-# Misc
+# Misc / ideas
 
 Question: Carry hot soup through town, deliver.
 
