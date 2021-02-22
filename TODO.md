@@ -1,3 +1,7 @@
+* Pick up quantity of item
+* Split stacked items
+
+
 * Stamina / Health
 * Inventory system
 * Better online networking

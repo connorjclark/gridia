@@ -86,6 +86,7 @@ class SelectedViewModule extends ClientModule {
         name: meta.name,
         quantity: String(item.quantity),
         burden: String(item.quantity * meta.burden),
+        id: String(meta.id),
       };
     } else {
       data = {

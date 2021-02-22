@@ -4,10 +4,10 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import {execFileSync} from 'child_process';
+import { execFileSync } from 'child_process';
 
 // lol esmodules.
-const __dirname = path.join(path.dirname(decodeURI(new URL(import .meta.url).pathname))).replace(/^\\([A-Z]:\\)/, '$1');
+const __dirname = path.join(path.dirname(decodeURI(new URL(import.meta.url).pathname))).replace(/^\\([A-Z]:\\)/, '$1');
 
 function loadContent(name: string) {
   return JSON.parse(fs.readFileSync(`${__dirname}/../../world/content/${name}`, 'utf-8'));
@@ -227,7 +227,7 @@ function parseItemsIni() {
   return items;
 }
 
-function parseItemUsagesIni() {
+function parseItemUsagesIni(): ItemUse[] {
   const usagesIni = loadIni('itemuse');
 
   const defaults: Partial<ItemUse> = {
@@ -463,6 +463,32 @@ function convertItemUsages() {
     }
   }
 
+  for (const closedDoor of state.items.filter(item => item.name.includes('Closed Door'))) {
+    if (closedDoor.id === 1459) debugger;
+    const usage = usages.find(u => u.tool === 0 && u.focus === closedDoor.id);
+    if (usage) continue;
+
+    const openDoor = state.items.find(i => i.id > closedDoor.id && i.name === closedDoor.name.replace('Closed', 'Open'));
+    if (!openDoor) continue;
+
+    usages.push({
+      tool: 0,
+      focus: openDoor.id,
+      products: [{ type: closedDoor.id, quantity: 1 }],
+      successMessage: 'You open the door.',
+      focusQuantityConsumed: 1,
+      toolQuantityConsumed: 1,
+    });
+    usages.push({
+      tool: 0,
+      focus: closedDoor.id,
+      products: [{ type: openDoor.id, quantity: 1 }],
+      successMessage: 'You open the door.',
+      focusQuantityConsumed: 1,
+      toolQuantityConsumed: 1,
+    });
+  }
+
   usages.sort((a, b) => {
     if (a.tool > b.tool) return 1;
     if (a.tool < b.tool) return -1;
@@ -507,7 +533,7 @@ function convertFloors() {
       ...`-crop 32x32+${x}+${y} +repage`.split(' '),
       ...'-resize 1x1 txt:-'.split(' '),
     ];
-    const output = execFileSync('magick', args, {encoding: 'utf-8'});
+    const output = execFileSync('magick', args, { encoding: 'utf-8' });
     // # ImageMagick pixel enumeration: 1,1,255,srgb
     // 0,0: (80.0724,126.613,38.5971)  #507F27  srgb(31.4009%,49.6523%,15.1361%)
     const hex = output.split('#')[2].substr(0, 6);

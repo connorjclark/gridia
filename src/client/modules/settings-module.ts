@@ -5,6 +5,7 @@ export interface Settings {
   showGrid: boolean;
   volume: number;
   lightMode: number;
+  clickMagic: boolean;
 }
 
 export const SettingsSchema = {
@@ -20,6 +21,11 @@ export const SettingsSchema = {
     type: 'boolean',
     label: 'Show Grid',
     default: true,
+  },
+  clickMagic: {
+    type: 'boolean',
+    label: 'Click Magic',
+    default: false,
   },
   lightMode: {
     type: 'number',

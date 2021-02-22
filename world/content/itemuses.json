@@ -992,6 +992,110 @@
   },
   {
     "tool": 0,
+    "focus": 1354,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1356,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1355,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1357,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1356,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1354,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1357,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1355,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1358,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1360,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1359,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1361,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1360,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1358,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1361,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1359,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
     "focus": 1364,
     "skill": "Read Ancient",
     "products": [],
@@ -1096,10 +1200,218 @@
   },
   {
     "tool": 0,
+    "focus": 1448,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1450,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1450,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1448,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1459,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1460,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1460,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1459,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
     "focus": 1461,
     "skill": "Read Ancient",
     "products": [],
     "skillSuccessXp": 50
+  },
+  {
+    "tool": 0,
+    "focus": 1607,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1609,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1609,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1607,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1618,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1619,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1619,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1618,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1626,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1628,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1628,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1626,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1637,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1638,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1638,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1637,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1645,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1647,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1647,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1645,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1656,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1657,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1657,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1656,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
   },
   {
     "tool": 0,
@@ -1247,6 +1559,58 @@
     "tool": 0,
     "focus": 1837,
     "products": []
+  },
+  {
+    "tool": 0,
+    "focus": 1861,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1863,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1863,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1861,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1872,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1873,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
+  },
+  {
+    "tool": 0,
+    "focus": 1873,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 1872,
+        "quantity": 1
+      }
+    ],
+    "successMessage": "You open the door.",
+    "toolQuantityConsumed": 1
   },
   {
     "tool": 0,

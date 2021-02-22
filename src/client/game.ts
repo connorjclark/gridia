@@ -582,18 +582,20 @@ class Game {
       }
 
       // Temporary.
-      const graphics = Math.random() > 0.5 ? { graphic: 60, graphicFrames: 10 } : { graphic: 80, graphicFrames: 5 };
-      const frames: GridiaAnimation['frames'] =
-        Utils.emptyArray(graphics.graphicFrames).map((_, i) => ({ sprite: graphics.graphic + i }));
-      frames[0].sound = 'magic';
+      if (this.client.settings.clickMagic) {
+        const graphics = Math.random() > 0.5 ? { graphic: 60, graphicFrames: 10 } : { graphic: 80, graphicFrames: 5 };
+        const frames: GridiaAnimation['frames'] =
+          Utils.emptyArray(graphics.graphicFrames).map((_, i) => ({ sprite: graphics.graphic + i }));
+        frames[0].sound = 'magic';
 
-      this.worldContainer.animationController.addEmitter({
-        tint: 0x000055,
-        path: calcStraightLine(this.worldContainer.camera.focus, loc).reverse(),
-        light: 4,
-        offshootRate: 0.2,
-        frames,
-      });
+        this.worldContainer.animationController.addEmitter({
+          tint: 0x000055,
+          path: calcStraightLine(this.worldContainer.camera.focus, loc).reverse(),
+          light: 4,
+          offshootRate: 0.2,
+          frames,
+        });
+      }
     });
 
     const canvases = Helper.find('#canvases');
@@ -956,7 +958,7 @@ class Game {
     return {
       'data-action': JSON.stringify(opts.action),
       'data-loc': JSON.stringify(opts.loc),
-      'data-creature-id': opts.creatureId ? String(opts.creatureId) : undefined,
+      'data-creature-id': opts.creatureId ? String(opts.creatureId) : '',
     };
   }
 

@@ -4,6 +4,7 @@ import { Message } from '../protocol/server-to-client-protocol-builder';
 import Player from '../player';
 import { Connection } from './connection';
 import EventEmitter from './event-emitter';
+import { Settings } from './modules/settings-module';
 
 class Client {
   // @ts-ignore set later.
