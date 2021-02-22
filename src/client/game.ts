@@ -571,10 +571,7 @@ class Game {
       }
 
       const loc = worldToTile(mouseToWorld({ x: e.data.global.x, y: e.data.global.y }));
-
-      if (!this.isEditingMode()) {
-        this.modules.selectedView.selectView(Utils.ItemLocation.World(loc));
-      }
+      this.modules.selectedView.selectView(Utils.ItemLocation.World(loc));
 
       if (this.client.context.map.inBounds(loc)) {
         this.client.eventEmitter.emit('tileClicked', { ...loc }); // TODO remove
@@ -939,10 +936,6 @@ class Game {
 
     for (const clientModule of Object.values(this.modules)) {
       clientModule.onTick(now);
-    }
-
-    if (this.isEditingMode()) {
-      this.modules.selectedView.clearSelectedView();
     }
   }
 
