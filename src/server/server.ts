@@ -101,6 +101,10 @@ export default class Server {
   }
 
   async registerPlayer(clientConnection: ClientConnection, opts: RegisterOpts) {
+    if (this.context.playerNamesToIds.has(opts.name)) {
+      // ...
+    }
+
     const { width, height } = this.context.map.getPartition(0);
 
     const center = { w: 0, x: Math.round(width / 2), y: Math.round(height / 2) + 3, z: 0 };
@@ -154,15 +158,18 @@ export default class Server {
     this.context.savePlayer(player);
 
     this.context.playerNamesToIds.set(opts.name, player.id);
-    await this.loginPlayer(clientConnection, opts);
+    await this.loginPlayer(clientConnection, { player, playerId: player.id, password: opts.password });
   }
 
-  async loginPlayer(clientConnection: ClientConnection, opts: { name: string; password: string }) {
-    const playerId = this.context.playerNamesToIds.get(opts.name);
-    if (!playerId) throw new Error('invalid player name');
-    if (!this.context.checkPlayerPassword(playerId, opts.password)) throw new Error('wrong password');
+  async loginPlayer(clientConnection: ClientConnection, opts: { player?: Player; playerId: number; password: string }) {
+    let player;
+    if (opts.player) {
+      player = opts.player;
+    } else {
+      if (!this.context.checkPlayerPassword(opts.playerId, opts.password)) throw new Error('wrong password');
+      player = await this.context.loadPlayer(opts.playerId);
+    }
 
-    const player = await this.context.loadPlayer(playerId);
     player.creature.id = this.context.nextCreatureId++;
     player.creature = this.registerCreature(player.creature);
     clientConnection.container = await this.context.getContainer(player.containerId);

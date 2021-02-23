@@ -5,6 +5,8 @@
 
 // @ts-nocheck
 
+jest.mock('../src/iso-fs');
+
 import * as assert from 'assert';
 import Client from '../src/client/client';
 import { Connection } from '../src/client/connection';
@@ -49,6 +51,7 @@ beforeEach(async () => {
 
   connection.send(ProtocolBuilder.register({
     name: 'test-user',
+    password: '1234567890',
   }));
 
   // Make client make initial request for the sector, so that partial updates are tested later.

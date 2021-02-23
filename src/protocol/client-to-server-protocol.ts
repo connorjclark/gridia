@@ -47,8 +47,11 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
   onLogin(server: Server, { name, password }: Params.Login): void {
     if (server.currentClientConnection.player) return;
 
+    const playerId = server.context.playerNamesToIds.get(name);
+    if (!playerId) throw new Error('invalid player name');
+
     server.loginPlayer(server.currentClientConnection, {
-      name,
+      playerId,
       password,
     });
   }
