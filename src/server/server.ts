@@ -150,8 +150,8 @@ export default class Server {
     }
 
     // Don't bother waiting.
-    this.context.savePlayerPassword(clientConnection.player, opts.password);
-    this.context.savePlayer(clientConnection.player);
+    this.context.savePlayerPassword(player.id, opts.password);
+    this.context.savePlayer(player);
 
     this.context.playerNamesToIds.set(opts.name, player.id);
     await this.loginPlayer(clientConnection, opts);
@@ -163,6 +163,7 @@ export default class Server {
 
     const player = await this.context.loadPlayer(playerId);
 
+    player.creature.id = this.context.nextCreatureId++;
     player.creature = this.registerCreature(player.creature);
     clientConnection.container = await this.context.getContainer(player.containerId);
 

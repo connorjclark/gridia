@@ -89,9 +89,9 @@ export class ServerContext extends Context {
     await fs.writeFile(this.sectorPath(sectorPoint), json);
   }
 
-  async savePlayerPassword(player: Player, password: string) {
+  async savePlayerPassword(playerId: number, password: string) {
     // TODO salt n' pepper.
-    await fs.writeFile(this.playerPasswordPath(player.id), password);
+    await fs.writeFile(this.playerPasswordPath(playerId), password);
   }
 
   async savePlayer(player: Player) {
