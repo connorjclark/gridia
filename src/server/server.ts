@@ -160,9 +160,9 @@ export default class Server {
   async loginPlayer(clientConnection: ClientConnection, opts: { name: string; password: string }) {
     const playerId = this.context.playerNamesToIds.get(opts.name);
     if (!playerId) throw new Error('invalid player name');
+    if (!this.context.checkPlayerPassword(playerId, opts.password)) throw new Error('wrong password');
 
     const player = await this.context.loadPlayer(playerId);
-
     player.creature.id = this.context.nextCreatureId++;
     player.creature = this.registerCreature(player.creature);
     clientConnection.container = await this.context.getContainer(player.containerId);

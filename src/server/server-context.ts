@@ -94,6 +94,10 @@ export class ServerContext extends Context {
     await fs.writeFile(this.playerPasswordPath(playerId), password);
   }
 
+  async checkPlayerPassword(playerId: number, password: string) {
+    return await fs.readFile(this.playerPasswordPath(playerId)) === password;
+  }
+
   async savePlayer(player: Player) {
     const json = WireSerializer.serialize(player);
     await fs.writeFile(this.playerPath(player.id), json);
