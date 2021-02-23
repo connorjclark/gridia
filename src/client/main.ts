@@ -418,22 +418,18 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
 
   // Create an action for every applicable item in inventory that could be used as a tool.
   const inventory = Helper.getInventory();
-  function addToolAction(name: string, index: number) {
-    actions.push({
-      type: 'use-tool',
-      innerText: `Use ${name}`,
-      title: index === Helper.getSelectedToolIndex() ? 'Shortcut: Spacebar' : '',
-      extra: {
-        index,
-      },
-    });
-  }
-  if (Helper.usageExists(0, meta.id)) addToolAction('Hand', -1);
   for (const [index, tool] of Object.entries(inventory.items)) {
     if (!tool) continue;
 
     if (Helper.usageExists(tool.type, meta.id)) {
-      addToolAction(Content.getMetaItem(tool.type).name, Number(index));
+      actions.push({
+        type: 'use-tool',
+        innerText: `Use ${Content.getMetaItem(tool.type).name}`,
+        title: Number(index) === Helper.getSelectedToolIndex() ? 'Shortcut: Spacebar' : '',
+        extra: {
+          index: Number(index),
+        },
+      });
     }
   }
 

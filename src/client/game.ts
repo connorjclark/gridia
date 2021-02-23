@@ -657,7 +657,7 @@ class Game {
 
       // Space bar to use tool.
       if (e.keyCode === KEYS.SPACE_BAR && this.state.selectedView.location?.source === 'world') {
-        Helper.useTool(this.state.selectedView.location.loc);
+        Helper.useTool(this.state.selectedView.location.loc, Helper.getSelectedToolIndex());
       }
 
       // Shift to pick up item.
