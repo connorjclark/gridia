@@ -113,6 +113,9 @@ class StartScene extends Scene {
   }
 
   async onClickConnectBtn() {
+    serverUrl = this.serverLocationInput.value;
+    localStorageData[serverUrl] = localStorageData[serverUrl] || { players: [] };
+
     controller.client = await createClientForServer(this.serverLocationInput.value);
     controller.pushScene(new RegisterScene());
   }
@@ -165,7 +168,7 @@ class MapSelectScene extends Scene {
     if (this.loadingPreview) return;
     this.loadingPreview = true;
 
-    const canvas = document.createElement('canvas') ;
+    const canvas = document.createElement('canvas');
     const offscreen = canvas.transferControlToOffscreen();
     await generateMap(opts, offscreen).finally(() => this.loadingPreview = false);
 
@@ -176,7 +179,7 @@ class MapSelectScene extends Scene {
 
   async onClickSelectBtn() {
     const name = `/default-world-${this.mapListEl.childElementCount}`;
-    await controller.serverWorker.saveGeneratedMap({name});
+    await controller.serverWorker.saveGeneratedMap({ name });
     controller.client = await connectToServerWorker(controller.serverWorker, {
       serverData: name,
       dummyDelay: qs.latency ?? 0,
@@ -211,6 +214,34 @@ class MapSelectScene extends Scene {
   }
 }
 
+interface LocalStorageData {
+  [serverUrl: string]: {
+    players: Array<{ name: string; password: string }>;
+  };
+}
+
+function getLocalStorageData(): LocalStorageData {
+  let data = {};
+
+  const json = localStorage.getItem('gridia-data');
+  if (json) {
+    try {
+      data = JSON.parse(json);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  return data;
+}
+
+function saveLocalStorageData(data: LocalStorageData) {
+  localStorage.setItem('gridia-data', JSON.stringify(data));
+}
+
+let serverUrl = '';
+const localStorageData = getLocalStorageData();
+
 class RegisterScene extends Scene {
   private registerBtn: HTMLElement;
   private nameInput: HTMLInputElement;
@@ -221,17 +252,43 @@ class RegisterScene extends Scene {
     this.nameInput = Helper.find('#register--name', this.element) as HTMLInputElement;
     this.onClickRegisterBtn = this.onClickRegisterBtn.bind(this);
 
+    const playersEl = Helper.find('.register__players', this.element);
+    for (const [i, player] of Object.entries(localStorageData[serverUrl].players)) {
+      const el = Helper.createChildOf(playersEl, 'div', 'register__player');
+      el.textContent = player.name;
+      el.dataset.index = i;
+    }
+    playersEl.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const playerEl = target.closest('.register__player') as HTMLElement;
+      if (!playerEl) return;
+
+      const index = Number(playerEl.dataset.index);
+      const player = localStorageData[serverUrl].players[index];
+      controller.client.connection.send(ProtocolBuilder.login(player));
+      this.waitForInitializeThenStartGame();
+    });
+
     const parts1 = 'Small Smelly Quick Steely Quiet'.split(' ');
     const parts2 = 'Jill Stranger Arthur Maz Harlet Worker'.split(' ');
     this.nameInput.value =
       parts1[Utils.randInt(0, parts1.length - 1)] + ' ' + parts2[Utils.randInt(0, parts2.length - 1)];
   }
 
-  async onClickRegisterBtn() {
+  onClickRegisterBtn() {
+    const name = this.nameInput.value;
+    const password = [...Array(20)].map(() => String.fromCharCode(65 + Math.floor(Math.random() * 52))).join('');
     controller.client.connection.send(ProtocolBuilder.register({
-      name: this.nameInput.value,
+      name,
+      password,
     }));
 
+    localStorageData[serverUrl].players.push({ name, password });
+    saveLocalStorageData(localStorageData);
+    this.waitForInitializeThenStartGame();
+  }
+
+  async waitForInitializeThenStartGame() {
     // Wait for initialize message. This happens after a successful login.
     await new Promise((resolve, reject) => {
       controller.client.eventEmitter.once('message', (e) => {
@@ -404,7 +461,7 @@ function setupDebugging() {
 }
 
 async function getMapNames() {
-  const {mapNames} = await controller.serverWorker.listMaps();
+  const { mapNames } = await controller.serverWorker.listMaps();
   return mapNames;
 }
 
@@ -445,7 +502,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (qs.quick === 'server') {
     controller.pushScene(new StartScene());
     await (controller.currentScene as StartScene).onClickConnectBtn();
-    await (controller.currentScene as RegisterScene).onClickRegisterBtn();
+    (controller.currentScene as RegisterScene).onClickRegisterBtn();
   } else if (qs.quick === 'local') {
     await controller.loadWorker();
 
@@ -457,7 +514,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         height: 100,
         depth: 1,
       });
-      await controller.serverWorker.saveGeneratedMap({name: '/quick-default'});
+      await controller.serverWorker.saveGeneratedMap({ name: '/quick-default' });
     }
     // TODO: improve server dir / map name mismatch.
     await loadMap(qs.map || 'quick-default');

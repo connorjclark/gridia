@@ -33,12 +33,23 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     server.moveCreature(creature, loc);
   }
 
-  onRegister(server: Server, { name }: Params.Register): void {
+  onRegister(server: Server, { name, password }: Params.Register): void {
     if (server.currentClientConnection.player) return;
     if (name.length > 20) return;
+    if (password.length < 8) return;
 
     server.registerPlayer(server.currentClientConnection, {
       name,
+      password,
+    });
+  }
+
+  onLogin(server: Server, { name, password }: Params.Login): void {
+    if (server.currentClientConnection.player) return;
+
+    server.loginPlayer(server.currentClientConnection, {
+      name,
+      password,
     });
   }
 

@@ -8,7 +8,8 @@ export default interface IClientToServerProtocol {
     onCloseContainer(server: Server, { containerId }: ClientToServerProtocol.Params.CloseContainer): void;
     onMove(server: Server, { ...loc }: ClientToServerProtocol.Params.Move): void;
     onMoveItem(server: Server, { from, to }: ClientToServerProtocol.Params.MoveItem): void;
-    onRegister(server: Server, { name }: ClientToServerProtocol.Params.Register): void;
+    onRegister(server: Server, { name, password }: ClientToServerProtocol.Params.Register): void;
+    onLogin(server: Server, { name, password }: ClientToServerProtocol.Params.Login): void;
     onRequestContainer(server: Server, { containerId, loc }: ClientToServerProtocol.Params.RequestContainer): void;
     onRequestCreature(server: Server, { id }: ClientToServerProtocol.Params.RequestCreature): void;
     onRequestPartition(server: Server, { w }: ClientToServerProtocol.Params.RequestPartition): void;

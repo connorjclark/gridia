@@ -1,4 +1,3 @@
-* Persist Player accounts
 * Persist settings to local storage
 * "Reset" button for settings
 * Pick up quantity of item

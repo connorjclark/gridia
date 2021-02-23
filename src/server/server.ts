@@ -21,7 +21,7 @@ interface CtorOpts {
 
 interface RegisterOpts {
   name: string;
-  // password: string;
+  password: string;
 }
 
 export default class Server {
@@ -109,8 +109,9 @@ export default class Server {
     const spawnLoc = this.findNearest(center, 10, true, (_, loc) => this.context.map.walkable(loc)) || center;
     await this.ensureSectorLoadedForPoint(spawnLoc);
 
-    const creature = this.registerCreature({
-      id: this.context.nextCreatureId++,
+    const creature = {
+      // Set later.
+      id: 0,
       name: opts.name,
       pos: spawnLoc,
       image: Utils.randInt(0, 10),
@@ -120,7 +121,7 @@ export default class Server {
       food: 100,
       eat_grass: false,
       light: 0,
-    });
+    };
 
     const player = new Player(creature);
     player.name = opts.name;
@@ -134,24 +135,39 @@ export default class Server {
       player.skills.set(skill.id, 1);
     }
 
-    clientConnection.container = this.context.makeContainer();
-    player.containerId = clientConnection.container.id;
+    const container = this.context.makeContainer();
+    player.containerId = container.id;
     if (opts.name !== 'test-user') {
-      clientConnection.container.items[0] = { type: Content.getMetaItemByName('Wood Axe').id, quantity: 1 };
-      clientConnection.container.items[1] = { type: Content.getMetaItemByName('Fire Starter').id, quantity: 1 };
-      clientConnection.container.items[2] = { type: Content.getMetaItemByName('Pick').id, quantity: 1 };
-      clientConnection.container.items[3] = { type: Content.getMetaItemByName('Plough').id, quantity: 1 };
-      clientConnection.container.items[4] = { type: Content.getMetaItemByName('Mana Plant Seeds').id, quantity: 100 };
-      clientConnection.container.items[5] = { type: Content.getMetaItemByName('Soccer Ball').id, quantity: 1 };
-      clientConnection.container.items[6] = { type: Content.getMetaItemByName('Saw').id, quantity: 1 };
-      clientConnection.container.items[7] = { type: Content.getMetaItemByName('Hammer and Nails').id, quantity: 1 };
-      clientConnection.container.items[8] = { type: Content.getMetaItemByName('Lit Torch').id, quantity: 1 };
+      container.items[0] = { type: Content.getMetaItemByName('Wood Axe').id, quantity: 1 };
+      container.items[1] = { type: Content.getMetaItemByName('Fire Starter').id, quantity: 1 };
+      container.items[2] = { type: Content.getMetaItemByName('Pick').id, quantity: 1 };
+      container.items[3] = { type: Content.getMetaItemByName('Plough').id, quantity: 1 };
+      container.items[4] = { type: Content.getMetaItemByName('Mana Plant Seeds').id, quantity: 100 };
+      container.items[5] = { type: Content.getMetaItemByName('Soccer Ball').id, quantity: 1 };
+      container.items[6] = { type: Content.getMetaItemByName('Saw').id, quantity: 1 };
+      container.items[7] = { type: Content.getMetaItemByName('Hammer and Nails').id, quantity: 1 };
+      container.items[8] = { type: Content.getMetaItemByName('Lit Torch').id, quantity: 1 };
     }
+
+    // Don't bother waiting.
+    this.context.savePlayerPassword(clientConnection.player, opts.password);
+    this.context.savePlayer(clientConnection.player);
+
+    this.context.playerNamesToIds.set(opts.name, player.id);
+    await this.loginPlayer(clientConnection, opts);
+  }
+
+  async loginPlayer(clientConnection: ClientConnection, opts: { name: string; password: string }) {
+    const playerId = this.context.playerNamesToIds.get(opts.name);
+    if (!playerId) throw new Error('invalid player name');
+
+    const player = await this.context.loadPlayer(playerId);
+
+    player.creature = this.registerCreature(player.creature);
+    clientConnection.container = await this.context.getContainer(player.containerId);
 
     this.players.set(player.id, player);
     clientConnection.player = player;
-    // Don't bother waiting.
-    this.context.savePlayer(clientConnection.player);
     await this.initClient(clientConnection);
   }
 

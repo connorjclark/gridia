@@ -119,6 +119,8 @@ class WorldAnimationController {
 }
 
 class Camera {
+  // TODO: is it possible to define multiple regions that the camera shouldn't be in,
+  // defined by open UI windows?
   DEFAULT_CENTER_ELASTICITY = { left: 0.4, right: 0.6, top: 0.4, bottom: 0.6 };
   RIGHT_CENTER_ELASTICITY = { left: 0.5, right: 0.75, top: 0.4, bottom: 0.6 };
 

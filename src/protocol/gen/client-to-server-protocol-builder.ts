@@ -24,6 +24,10 @@ type RegisterMessage = {
     type: "register";
     args: ClientToServerProtocol.Params.Register;
 };
+type LoginMessage = {
+    type: "login";
+    args: ClientToServerProtocol.Params.Login;
+};
 type RequestContainerMessage = {
     type: "requestContainer";
     args: ClientToServerProtocol.Params.RequestContainer;
@@ -53,7 +57,7 @@ type ChatMessage = {
     args: ClientToServerProtocol.Params.Chat;
 };
 
-export type Message = AdminSetFloorMessage | AdminSetItemMessage | CloseContainerMessage | MoveMessage | MoveItemMessage | RegisterMessage | RequestContainerMessage | RequestCreatureMessage | RequestPartitionMessage | RequestSectorMessage | CreatureActionMessage | UseMessage | ChatMessage;
+export type Message = AdminSetFloorMessage | AdminSetItemMessage | CloseContainerMessage | MoveMessage | MoveItemMessage | RegisterMessage | LoginMessage | RequestContainerMessage | RequestCreatureMessage | RequestPartitionMessage | RequestSectorMessage | CreatureActionMessage | UseMessage | ChatMessage;
 
 export function adminSetFloor({ floor, ...loc }: ClientToServerProtocol.Params.AdminSetFloor): AdminSetFloorMessage {
     return { type: "adminSetFloor", args: arguments[0] };
@@ -70,8 +74,11 @@ export function move({ ...loc }: ClientToServerProtocol.Params.Move): MoveMessag
 export function moveItem({ from, to }: ClientToServerProtocol.Params.MoveItem): MoveItemMessage {
     return { type: "moveItem", args: arguments[0] };
 }
-export function register({ name }: ClientToServerProtocol.Params.Register): RegisterMessage {
+export function register({ name, password }: ClientToServerProtocol.Params.Register): RegisterMessage {
     return { type: "register", args: arguments[0] };
+}
+export function login({ name, password }: ClientToServerProtocol.Params.Login): LoginMessage {
+    return { type: "login", args: arguments[0] };
 }
 export function requestContainer({ containerId, loc }: ClientToServerProtocol.Params.RequestContainer): RequestContainerMessage {
     return { type: "requestContainer", args: arguments[0] };

@@ -61,7 +61,7 @@ export function animation({ key, ...loc }: ServerToClientProtocol.Params.Animati
 export function container({ id, items }: ServerToClientProtocol.Params.Container): ContainerMessage {
     return { type: "container", args: arguments[0] };
 }
-export function initialize({ player }: ServerToClientProtocol.Params.Initialize): InitializeMessage {
+export function initialize({ player, secondsPerWorldTick, ticksPerWorldDay }: ServerToClientProtocol.Params.Initialize): InitializeMessage {
     return { type: "initialize", args: arguments[0] };
 }
 export function initializePartition({ ...loc }: ServerToClientProtocol.Params.InitializePartition): InitializePartitionMessage {

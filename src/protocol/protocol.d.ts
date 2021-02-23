@@ -28,6 +28,12 @@ declare namespace ClientToServerProtocol {
 
     interface Register {
       name: string;
+      password: string;
+    }
+
+    interface Login {
+      name: string;
+      password: string;
     }
 
     interface RequestContainer {

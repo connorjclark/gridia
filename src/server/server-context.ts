@@ -14,6 +14,7 @@ export class ServerContext extends Context {
   nextContainerId = 1;
   nextCreatureId = 1;
   nextPlayerId = 1;
+  playerNamesToIds = new Map<string, number>();
 
   serverDir: string;
   containerDir: string;
@@ -53,6 +54,15 @@ export class ServerContext extends Context {
       map.initPartition(w, partitionMeta.width, partitionMeta.height, partitionMeta.depth);
     }
 
+    context.playerNamesToIds.clear();
+    for (const playerPath of await fs.readdir(context.playerDir)) {
+      if (playerPath.includes('password')) continue;
+
+      const json = await fs.readFile(context.playerDir + '/' + playerPath);
+      const player: Player = WireSerializer.deserialize(json);
+      context.playerNamesToIds.set(player.name, player.id);
+    }
+
     return context;
   }
 
@@ -79,9 +89,20 @@ export class ServerContext extends Context {
     await fs.writeFile(this.sectorPath(sectorPoint), json);
   }
 
+  async savePlayerPassword(player: Player, password: string) {
+    // TODO salt n' pepper.
+    await fs.writeFile(this.playerPasswordPath(player.id), password);
+  }
+
   async savePlayer(player: Player) {
     const json = WireSerializer.serialize(player);
     await fs.writeFile(this.playerPath(player.id), json);
+  }
+
+  async loadPlayer(playerId: number) {
+    const json = await fs.readFile(this.playerPath(playerId));
+    const player: Player = WireSerializer.deserialize(json);
+    return player;
   }
 
   makeContainer() {
@@ -193,5 +214,9 @@ export class ServerContext extends Context {
 
   protected playerPath(id: number) {
     return path.join(this.playerDir, `${id}.json`);
+  }
+
+  protected playerPasswordPath(id: number) {
+    return path.join(this.playerDir, `${id}-password.json`);
   }
 }
