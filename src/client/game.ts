@@ -345,7 +345,7 @@ class Game {
         //   }
         // }
         if (this.state.selectedView.location &&
-            Utils.ItemLocation.Equal(this.state.selectedView.location, e.args.location)) {
+          Utils.ItemLocation.Equal(this.state.selectedView.location, e.args.location)) {
           this.modules.selectedView.selectView(this.state.selectedView.location);
         }
 
@@ -468,9 +468,10 @@ class Game {
       const dataset = e.target.dataset;
       // @ts-ignore
       const action = JSON.parse(dataset.action) as GameAction;
-      const location = dataset.location ? JSON.parse(dataset.location) as ItemLocation : null;
+      let location = dataset.location ? JSON.parse(dataset.location) as ItemLocation : null;
       const creatureId = Number(dataset.creatureId);
       const creature = this.client.context.getCreature(creatureId);
+      if (creature && !location) location = Utils.ItemLocation.World(creature.pos);
       if (!location) return;
 
       this.client.eventEmitter.emit('action', {
@@ -480,7 +481,6 @@ class Game {
       });
     };
     document.body.addEventListener('click', onActionSelection);
-    Helper.find('.contextmenu').addEventListener('click', onActionSelection);
 
     window.document.addEventListener('pointermove', (e: MouseEvent) => {
       const loc = worldToTile(mouseToWorld({ x: e.clientX, y: e.clientY }));

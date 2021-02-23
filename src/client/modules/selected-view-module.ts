@@ -99,8 +99,12 @@ class SelectedViewModule extends ClientModule {
 
     // Don't allow actions on self.
     const isSelf = tile?.creature?.id === game.client.player.creature.id;
-    if (state.selectedView.location && !isSelf) {
-      state.selectedView.actions = game.getActionsFor(state.selectedView.location);
+    if (!isSelf) {
+      if (state.selectedView.location) {
+        state.selectedView.actions = game.getActionsFor(state.selectedView.location);
+      } else if (creature) {
+        state.selectedView.actions = game.getActionsFor(ItemLocation.World(creature.pos));
+      }
     }
 
     this.getViewWindow().setState({ selectedView: this.game.state.selectedView, data });

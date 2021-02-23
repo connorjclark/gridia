@@ -271,8 +271,11 @@ class RegisterScene extends Scene {
 
     const parts1 = 'Small Smelly Quick Steely Quiet'.split(' ');
     const parts2 = 'Jill Stranger Arthur Maz Harlet Worker'.split(' ');
-    this.nameInput.value =
-      parts1[Utils.randInt(0, parts1.length - 1)] + ' ' + parts2[Utils.randInt(0, parts2.length - 1)];
+    this.nameInput.value = [
+      parts1[Utils.randInt(0, parts1.length - 1)],
+      parts2[Utils.randInt(0, parts2.length - 1)],
+      Utils.randInt(1, 1000),
+    ].join(' ');
   }
 
   onClickRegisterBtn() {
@@ -345,6 +348,26 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
   const meta = Content.getMetaItem(item ? item.type : 0);
   const actions: GameAction[] = [];
 
+  if (creature) {
+    if (!creature.isPlayer) {
+      actions.push({
+        type: 'attack',
+        innerText: 'Attack',
+        title: 'Attack',
+      });
+    }
+
+    if (!creature.tamedBy && !creature.isPlayer) {
+      actions.push({
+        type: 'tame',
+        innerText: 'Tame',
+        title: 'Tame',
+      });
+    }
+
+    return actions;
+  }
+
   if (item && meta.moveable) {
     if (location.source === 'world') {
       actions.push({
@@ -399,22 +422,6 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
       type: 'use-tool',
       innerText: `Use ${Content.getMetaItem(tool.type).name}`,
       title: 'Shortcut: Spacebar',
-    });
-  }
-
-  if (creature && !creature.isPlayer) {
-    actions.push({
-      type: 'attack',
-      innerText: 'Attack',
-      title: 'Attack',
-    });
-  }
-
-  if (creature && !creature.tamedBy && !creature.isPlayer) {
-    actions.push({
-      type: 'tame',
-      innerText: 'Tame',
-      title: 'Tame',
     });
   }
 
