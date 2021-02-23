@@ -170,6 +170,7 @@ interface GameAction {
   type: string;
   innerText: string;
   title: string;
+  extra?: any;
 }
 
 type GameActionCreator = (location: ItemLocation) => GameAction[] | GameAction | undefined;

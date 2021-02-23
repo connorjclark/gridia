@@ -416,13 +416,25 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
     });
   }
 
-  const tool = Helper.getSelectedTool();
-  if (tool && Helper.usageExists(tool.type, meta.id)) {
+  // Create an action for every applicable item in inventory that could be used as a tool.
+  const inventory = Helper.getInventory();
+  function addToolAction(name: string, index: number) {
     actions.push({
       type: 'use-tool',
-      innerText: `Use ${Content.getMetaItem(tool.type).name}`,
-      title: 'Shortcut: Spacebar',
+      innerText: `Use ${name}`,
+      title: index === Helper.getSelectedToolIndex() ? 'Shortcut: Spacebar' : '',
+      extra: {
+        index,
+      },
     });
+  }
+  if (Helper.usageExists(0, meta.id)) addToolAction('Hand', -1);
+  for (const [index, tool] of Object.entries(inventory.items)) {
+    if (!tool) continue;
+
+    if (Helper.usageExists(tool.type, meta.id)) {
+      addToolAction(Content.getMetaItem(tool.type).name, Number(index));
+    }
   }
 
   return actions;
@@ -450,7 +462,7 @@ function globalOnActionHandler(client: Client, e: GameActionEvent) {
     if (location.source === 'world') Helper.useHand(location.loc);
     break;
   case 'use-tool':
-    if (location.source === 'world') Helper.useTool(location.loc);
+    if (location.source === 'world') Helper.useTool(location.loc, e.action.extra.index);
     break;
   case 'open-container':
     if (location.source === 'world') Helper.openContainer(location.loc);

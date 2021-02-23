@@ -23,10 +23,9 @@ export function useHand(loc: TilePoint) {
  * If there are multiple options for the usage, and `usageIndex` is not provided,
  * a dialog box is shown to choose.
  */
-export function useTool(loc: TilePoint, usageIndex?: number) {
-  const toolIndex = getSelectedToolIndex();
-  const tool = getSelectedTool();
-  if (!tool || toolIndex < 0) {
+export function useTool(loc: TilePoint, toolIndex: number, usageIndex?: number) {
+  const tool = getInventory().items[toolIndex];
+  if (!tool || toolIndex === -1) {
     // TODO: Remove this special case.
     useHand(loc);
     return;
@@ -72,6 +71,12 @@ export function getW() {
 export function getZ() {
   const focusCreature = game.client.creature;
   return focusCreature ? focusCreature.pos.z : 0;
+}
+
+export function getInventory() {
+  const container = game.client.context.containers.get(game.client.player.containerId);
+  if (!container) throw new Error();
+  return container;
 }
 
 export function getSelectedTool() {
