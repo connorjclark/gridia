@@ -84,7 +84,7 @@ export class ServerContext extends Context {
   async saveSector(sectorPoint: TilePoint) {
     const sector = this.map.getSector(sectorPoint);
     // Don't save creatures.
-    const data = sector.map((tiles) => tiles.map((tile) => ({floor: tile.floor, item: tile.item})));
+    const data = sector.map((tiles) => tiles.map((tile) => ({ floor: tile.floor, item: tile.item })));
     const json = JSON.stringify(data, null, 2);
     await fs.writeFile(this.sectorPath(sectorPoint), json);
   }
@@ -128,23 +128,23 @@ export class ServerContext extends Context {
     // TODO: even tho fs is stubbed in the browser build, parcel sees `readFileSync` and insists
     // that this be statically analyzable so it can do its bundling. Should create an interface that
     // doesn't trip up parcel's grepping for `.readFile`... (loadData?)
-    const items = JSON.parse(await fs.readFile(this.containerPath(id))) as Array<Item|null>;
+    const items = JSON.parse(await fs.readFile(this.containerPath(id))) as Array<Item | null>;
     container = new Container(id, items);
     this.containers.set(id, container);
     return container;
   }
 
   async save() {
-    await fs.mkdir(this.serverDir, {recursive: true});
-    await fs.mkdir(this.containerDir, {recursive: true});
-    await fs.mkdir(this.playerDir, {recursive: true});
-    await fs.mkdir(this.sectorDir, {recursive: true});
-    await fs.mkdir(this.miscDir, {recursive: true});
+    await fs.mkdir(this.serverDir, { recursive: true });
+    await fs.mkdir(this.containerDir, { recursive: true });
+    await fs.mkdir(this.playerDir, { recursive: true });
+    await fs.mkdir(this.sectorDir, { recursive: true });
+    await fs.mkdir(this.miscDir, { recursive: true });
 
     await this.saveMeta();
 
     for (const [w, partition] of this.map.getPartitions()) {
-      await fs.mkdir(this.partitionPath(w), {recursive: true});
+      await fs.mkdir(this.partitionPath(w), { recursive: true });
       await this.savePartition(w, partition);
     }
 
@@ -181,7 +181,7 @@ export class ServerContext extends Context {
           // Only save if the sector is loaded.
           // TODO: There's gotta be a nasty race condition here.
           if (partition.sectors[sx][sy][sz]) {
-            await this.saveSector({w, x: sx, y: sy, z: sz});
+            await this.saveSector({ w, x: sx, y: sy, z: sz });
           }
         }
       }

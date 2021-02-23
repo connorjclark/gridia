@@ -71,7 +71,7 @@ export function closeContainer({ containerId }: ClientToServerProtocol.Params.Cl
 export function move({ ...loc }: ClientToServerProtocol.Params.Move): MoveMessage {
     return { type: "move", args: arguments[0] };
 }
-export function moveItem({ from, to }: ClientToServerProtocol.Params.MoveItem): MoveItemMessage {
+export function moveItem({ from, quantity, to }: ClientToServerProtocol.Params.MoveItem): MoveItemMessage {
     return { type: "moveItem", args: arguments[0] };
 }
 export function register({ name, password }: ClientToServerProtocol.Params.Register): RegisterMessage {

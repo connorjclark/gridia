@@ -7,7 +7,7 @@ export default interface IClientToServerProtocol {
     onAdminSetItem(server: Server, { item, ...loc }: ClientToServerProtocol.Params.AdminSetItem): void;
     onCloseContainer(server: Server, { containerId }: ClientToServerProtocol.Params.CloseContainer): void;
     onMove(server: Server, { ...loc }: ClientToServerProtocol.Params.Move): void;
-    onMoveItem(server: Server, { from, to }: ClientToServerProtocol.Params.MoveItem): void;
+    onMoveItem(server: Server, { from, quantity, to }: ClientToServerProtocol.Params.MoveItem): void;
     onRegister(server: Server, { name, password }: ClientToServerProtocol.Params.Register): void;
     onLogin(server: Server, { name, password }: ClientToServerProtocol.Params.Login): void;
     onRequestContainer(server: Server, { containerId, loc }: ClientToServerProtocol.Params.RequestContainer): void;

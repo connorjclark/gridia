@@ -1,5 +1,5 @@
 import * as Content from '../content';
-import { makeGame } from '../game-singleton';
+import { makeGame, game } from '../game-singleton';
 import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
 import * as Utils from '../utils';
 import Client from './client';
@@ -328,16 +328,44 @@ class GameScene extends Scene {
   }
 }
 
-function globalActionCreator(tile: Tile, _loc: TilePoint): GameAction[] {
-  const item = tile.item;
+function globalActionCreator(location: ItemLocation): GameAction[] {
+  let item;
+  let creature;
+  if (location.source === 'world') {
+    const tile = game.client.context.map.getTile(location.loc);
+    item = tile.item;
+    creature = tile.creature;
+  } else {
+    const container = game.client.context.containers.get(location.id);
+    if (!container || location.index === undefined) return [];
+
+    item = container.items[location.index];
+  }
+
   const meta = Content.getMetaItem(item ? item.type : 0);
   const actions: GameAction[] = [];
 
   if (item && meta.moveable) {
+    if (location.source === 'world') {
+      actions.push({
+        type: 'pickup',
+        innerText: 'Pickup',
+        title: 'Shortcut: Shift',
+      });
+    } else if (location.id !== game.client.player.containerId) {
+      actions.push({
+        type: 'pickup',
+        innerText: 'Take',
+        title: '',
+      });
+    }
+  }
+
+  if (item && meta.moveable && meta.stackable && item.quantity > 1) {
     actions.push({
-      type: 'pickup',
-      innerText: 'Pickup',
-      title: 'Shortcut: Shift',
+      type: 'split',
+      innerText: 'Split',
+      title: '',
     });
   }
 
@@ -374,7 +402,7 @@ function globalActionCreator(tile: Tile, _loc: TilePoint): GameAction[] {
     });
   }
 
-  if (tile.creature && !tile.creature.isPlayer) {
+  if (creature && !creature.isPlayer) {
     actions.push({
       type: 'attack',
       innerText: 'Attack',
@@ -382,7 +410,7 @@ function globalActionCreator(tile: Tile, _loc: TilePoint): GameAction[] {
     });
   }
 
-  if (tile.creature && !tile.creature.tamedBy && !tile.creature.isPlayer) {
+  if (creature && !creature.tamedBy && !creature.isPlayer) {
     actions.push({
       type: 'tame',
       innerText: 'Tame',
@@ -395,23 +423,30 @@ function globalActionCreator(tile: Tile, _loc: TilePoint): GameAction[] {
 
 function globalOnActionHandler(client: Client, e: GameActionEvent) {
   const type = e.action.type;
-  const { creature, loc } = e;
+  const { creature, location } = e;
 
   switch (type) {
   case 'pickup':
     client.connection.send(ProtocolBuilder.moveItem({
-      from: Utils.ItemLocation.World(loc),
+      from: location,
+      to: Utils.ItemLocation.Container(client.player.containerId),
+    }));
+    break;
+  case 'split':
+    client.connection.send(ProtocolBuilder.moveItem({
+      from: location,
+      quantity: 1,
       to: Utils.ItemLocation.Container(client.player.containerId),
     }));
     break;
   case 'use-hand':
-    Helper.useHand(loc);
+    if (location.source === 'world') Helper.useHand(location.loc);
     break;
   case 'use-tool':
-    Helper.useTool(loc);
+    if (location.source === 'world') Helper.useTool(location.loc);
     break;
   case 'open-container':
-    Helper.openContainer(loc);
+    if (location.source === 'world') Helper.openContainer(location.loc);
     break;
   case 'attack':
   case 'tame':

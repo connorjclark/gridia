@@ -97,7 +97,7 @@ const ContextMenu = {
 
     contextMenuEl.innerHTML = '';
     const tile = game.client.context.map.getTile(loc);
-    const actions = game.getActionsFor(tile, loc);
+    const actions = game.getActionsFor(Utils.ItemLocation.World(loc));
     actions.push({
       type: 'cancel',
       innerText: 'Cancel',
@@ -114,7 +114,7 @@ const ContextMenu = {
       const actionEl = document.createElement('div');
       game.addDataToActionEl(actionEl, {
         action,
-        loc,
+        location: Utils.ItemLocation.World(loc),
         creatureId: tile.creature?.id,
       });
       contextMenuEl.appendChild(actionEl);
@@ -300,12 +300,14 @@ class Game {
   }
 
   // TODO: No action creators use `loc` - remove?
-  getActionsFor(tile: Tile, loc: TilePoint, opts?: { onlyCreature: boolean }): GameAction[] {
+  // getActionsFor(location: ItemLocation, opts?: { onlyCreature: boolean }): GameAction[] {
+  getActionsFor(location: ItemLocation): GameAction[] {
     const actions = [];
-    const tileToUse = opts?.onlyCreature ? { creature: tile.creature, floor: 0 } : tile;
+    // TODO: fix this.
+    // const tileToUse = opts?.onlyCreature ? { creature: tile.creature, floor: 0 } : tile;
 
     for (const actionCreator of this.actionCreators) {
-      const action = actionCreator(tileToUse, loc);
+      const action = actionCreator(location);
       if (Array.isArray(action)) actions.push(...action);
       else if (action) actions.push(action);
     }
@@ -342,7 +344,8 @@ class Game {
         //     this.modules.selectedView.selectView(this.state.selectedView.tile);
         //   }
         // }
-        if (Utils.equalLocations(this.state.selectedView.location, e.args.location)) {
+        if (this.state.selectedView.location &&
+            Utils.ItemLocation.Equal(this.state.selectedView.location, e.args.location)) {
           this.modules.selectedView.selectView(this.state.selectedView.location);
         }
 
@@ -465,13 +468,14 @@ class Game {
       const dataset = e.target.dataset;
       // @ts-ignore
       const action = JSON.parse(dataset.action) as GameAction;
-      const loc = dataset.loc ? JSON.parse(dataset.loc) as TilePoint : null;
+      const location = dataset.location ? JSON.parse(dataset.location) as ItemLocation : null;
       const creatureId = Number(dataset.creatureId);
       const creature = this.client.context.getCreature(creatureId);
-      // @ts-ignore TODO
+      if (!location) return;
+
       this.client.eventEmitter.emit('action', {
         action,
-        loc,
+        location,
         creature,
       });
     };
@@ -947,15 +951,15 @@ class Game {
     return parent === this.app.stage;
   }
 
-  createDataForActionEl(opts: { action: GameAction; loc?: TilePoint; creatureId?: number }) {
+  createDataForActionEl(opts: { action: GameAction; location?: ItemLocation; creatureId?: number }) {
     return {
       'data-action': JSON.stringify(opts.action),
-      'data-loc': JSON.stringify(opts.loc),
+      'data-location': JSON.stringify(opts.location),
       'data-creature-id': opts.creatureId ? String(opts.creatureId) : '',
     };
   }
 
-  addDataToActionEl(actionEl: HTMLElement, opts: { action: GameAction; loc?: TilePoint; creatureId?: number }) {
+  addDataToActionEl(actionEl: HTMLElement, opts: { action: GameAction; location?: ItemLocation; creatureId?: number }) {
     actionEl.classList.add('action');
     actionEl.title = opts.action.title;
     actionEl.innerText = opts.action.innerText;

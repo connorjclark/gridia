@@ -174,7 +174,11 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     }
 
     if (usageResult.successTool) {
-      if (!server.addItemToContainer(inventory.id, undefined, usageResult.successTool)) {
+      const containerLocation = server.findValidLocationToAddItemToContainer(inventory.id, usageResult.successTool, {
+        allowStacking: true,
+      });
+      if (containerLocation && containerLocation.index !== undefined) {
+        server.setItemInContainer(containerLocation.id, containerLocation.index, usageResult.successTool);
         server.addItemNear(loc, usageResult.successTool);
       }
     }
@@ -222,7 +226,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
   // moveItem handles movement between anywhere items can be - from the world to a player's
   // container, within a container, from a container to the world, or even between containers.
   // If "to" is null for a container, no location is specified and the item will be place in the first viable slot.
-  async onMoveItem(server: Server, { from, to }: Params.MoveItem) {
+  async onMoveItem(server: Server, { from, quantity, to }: Params.MoveItem) {
     async function boundsCheck(location: ItemLocation) {
       if (location.source === 'world') {
         if (!location.loc) throw new Error('invariant violated');
@@ -248,13 +252,35 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
       }
     }
 
+    function findValidLocation(location: ItemLocation, item: Item): ItemLocation | { error: string } {
+      if (location.source === 'world') {
+        return location;
+      }
+
+      if (location.index === undefined) {
+        // Don't allow stacking if this is an item split operation.
+        const allowStacking = quantity === undefined;
+        return server.findValidLocationToAddItemToContainer(location.id, item, { allowStacking }) || {
+          error: 'No possible location for that item in this container.',
+        };
+      } else {
+        if (server.isValidLocationToAddItemInContainer(location.id, location.index, item)) {
+          return location;
+        } else {
+          return {
+            error: 'Not a valid location for that item in this container.',
+          };
+        }
+      }
+    }
+
     function setItem(location: ItemLocation, item: Item) {
       if (location.source === 'world') {
         if (!location.loc) throw new Error('invariant violated');
         server.setItem(location.loc, item);
-        return true;
       } else {
-        return server.addItemToContainer(location.id, location.index, item);
+        if (location.index === undefined) throw new Error('invariant violated');
+        server.setItemInContainer(location.id, location.index, item);
       }
     }
 
@@ -277,19 +303,38 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     }
 
     const fromItem = await getItem(from);
+    if (!fromItem) {
+      return;
+    }
 
-    let toItem = await getItem(to);
+    // Dragging to a container.
+    if (to.source === 'world') {
+      const itemInWorld = await getItem(to);
+      if (itemInWorld && Content.getMetaItem(itemInWorld.type).class === 'Container') {
+        to = { source: 'container', id: server.context.getContainerIdFromItem(itemInWorld) };
+      }
+    }
+
+    const validToLocation = findValidLocation(to, fromItem);
+    if ('error' in validToLocation) {
+      server.reply(ProtocolBuilder.chat({
+        from: 'World',
+        to: '', // TODO
+        message: validToLocation.error,
+      }));
+      return;
+    }
+
+    // Ignore if moving to same location.
+    if (Utils.ItemLocation.Equal(from, validToLocation)) {
+      return;
+    }
 
     // if (!server.inView(from) || !server.inView(to)) {
     //   return
     // }
 
-    if (!fromItem) return;
-    if (toItem && Content.getMetaItem(toItem.type).class === 'Container') {
-      // Dragging to a container.
-      to = { source: 'container', id: server.context.getContainerIdFromItem(toItem) };
-      toItem = undefined;
-    }
+    const toItem = await getItem(validToLocation);
     if (toItem && fromItem.type !== toItem.type) return;
 
     if (!Content.getMetaItem(fromItem.type).moveable) {
@@ -312,22 +357,22 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
       return;
     }
 
-    const newItem = { ...fromItem };
+    const quantityToMove = quantity !== undefined ? quantity : fromItem.quantity;
+    const newItem = {
+      ...fromItem,
+      quantity: quantityToMove,
+    };
     if (toItem && toItem.type === fromItem.type) {
       newItem.quantity += toItem.quantity;
     }
 
-    const success = setItem(to, newItem);
-    if (!success) {
-      server.reply(ProtocolBuilder.chat({
-        from: 'World',
-        to: '', // TODO
-        message: 'The container is full',
-      }));
-      return;
-    }
+    setItem(validToLocation, newItem);
 
-    clearItem(from);
+    if (quantityToMove === fromItem.quantity) {
+      clearItem(from);
+    } else {
+      setItem(from, { ...fromItem, quantity: fromItem.quantity - quantityToMove });
+    }
 
     // TODO queue changes and send to all clients.
     // context.queueTileChange(from)

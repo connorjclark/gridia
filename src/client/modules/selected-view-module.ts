@@ -1,6 +1,7 @@
 import * as Content from '../../content';
 import ClientModule from '../client-module';
 import { makeViewWindow } from '../ui/view-window';
+import { ItemLocation } from '../../utils';
 
 class SelectedViewModule extends ClientModule {
   private viewWindow?: ReturnType<typeof makeViewWindow>;
@@ -51,7 +52,7 @@ class SelectedViewModule extends ClientModule {
 
     let creature;
     let tile;
-    let tilePos;
+    // let tilePos;
     let item;
 
     if (state.selectedView.creatureId) {
@@ -59,10 +60,10 @@ class SelectedViewModule extends ClientModule {
     }
 
     if (creature) {
-      tilePos = creature.pos;
+      // tilePos = creature.pos;
       tile = game.client.context.map.getTile(creature.pos);
     } else if (state.selectedView.location?.source === 'world') {
-      tilePos = state.selectedView.location.loc;
+      // tilePos = state.selectedView.location.loc;
       tile = game.client.context.map.getTile(state.selectedView.location.loc);
       item = tile?.item;
     } else if (state.selectedView.location?.source === 'container') {
@@ -96,22 +97,10 @@ class SelectedViewModule extends ClientModule {
       };
     }
 
-    // Clone tile so properties can be removed as needed.
-    // Also prevents action creators from modifying important data.
-    if (tile && tilePos) {
-      const clonedTile: Tile = JSON.parse(JSON.stringify(tile));
-
-      if (clonedTile && clonedTile.creature && clonedTile.creature.id === game.client.player.creature.id) {
-        // Don't allow actions on self.
-        clonedTile.creature = undefined;
-      } else if (creature) {
-        // If a creature is selected, do not show actions for the item on the tile.
-        clonedTile.item = undefined;
-      }
-
-      state.selectedView.actions = game.getActionsFor(clonedTile, tilePos);
-    } else {
-      state.selectedView.actions = [];
+    // Don't allow actions on self.
+    const isSelf = tile?.creature?.id === game.client.player.creature.id;
+    if (state.selectedView.location && !isSelf) {
+      state.selectedView.actions = game.getActionsFor(state.selectedView.location);
     }
 
     this.getViewWindow().setState({ selectedView: this.game.state.selectedView, data });

@@ -1,5 +1,8 @@
 // TODO: this json is bundled as JS - but it's much faster to parse
 // JSON at runtime via JSON.parse than as a JS object literal.
+
+import { randInt } from './utils';
+
 // https://github.com/parcel-bundler/parcel/issues/501
 let floors: MetaFloor[] = [];
 let items: MetaItem[] = [];
@@ -179,6 +182,11 @@ export function getAnimation(key: string) {
 }
 
 export function getMonsterTemplate(id: number) {
+  return monsters[id];
+}
+
+export function getRandomMonsterTemplate() {
+  const id = randInt(0, monsters.length - 1);
   return monsters[id];
 }
 

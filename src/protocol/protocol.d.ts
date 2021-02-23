@@ -23,6 +23,7 @@ declare namespace ClientToServerProtocol {
 
     interface MoveItem {
       from: ItemLocation;
+      quantity?: number;
       to: ItemLocation;
     }
 

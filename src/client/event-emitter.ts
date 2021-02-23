@@ -3,7 +3,7 @@ import StrictEventEmitter from 'strict-event-emitter-types';
 
 export interface GameActionEvent {
   action: GameAction;
-  loc: TilePoint;
+  location: ItemLocation;
   creature: Creature;
 }
 

@@ -109,14 +109,15 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
     if (index === undefined) return;
 
     mouseOverIndex = index;
-    game.modules.selectedView.selectView(Utils.ItemLocation.Container(container.id, index));
+    // TODO: show selected view temporarily when hovering.
+    // game.modules.selectedView.selectView(Utils.ItemLocation.Container(container.id, index));
   });
 
-  el.addEventListener('pointerout', () => {
-    if (game.state.selectedView.location?.source === 'container') {
-      game.modules.selectedView.clearSelectedView();
-    }
-  });
+  // el.addEventListener('pointerout', () => {
+  //   if (game.state.selectedView.location?.source === 'container') {
+  //     game.modules.selectedView.clearSelectedView();
+  //   }
+  // });
 
   el.addEventListener('pointerup', () => {
     if (mouseOverIndex !== undefined) {
@@ -126,6 +127,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
     }
     if (mouseDownIndex === mouseOverIndex) {
       setSelectedIndex(mouseDownIndex);
+      game.modules.selectedView.selectView(Utils.ItemLocation.Container(container.id, mouseDownIndex));
     }
   });
 

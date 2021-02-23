@@ -35,15 +35,20 @@ interface Tile {
   creature?: Creature;
 }
 
-/** Either a world location or from a container. */
-type ItemLocation = {
+interface WorldLocation {
   source: 'world';
   loc: TilePoint;
-} | {
+}
+
+interface ContainerLocation {
   source: 'container';
   id: number;
   index?: number;
-};
+}
+
+// TODO: rename to Location
+/** Either a world location or from a container. */
+type ItemLocation = WorldLocation | ContainerLocation;
 
 interface PossibleUsage {
   toolIndex: number;
@@ -167,7 +172,7 @@ interface GameAction {
   title: string;
 }
 
-type GameActionCreator = (tile: Tile, loc: TilePoint) => GameAction[] | GameAction | undefined;
+type GameActionCreator = (location: ItemLocation) => GameAction[] | GameAction | undefined;
 
 // https://stackoverflow.com/a/49397693
 type NoMethodKeys<T> = ({ [P in keyof T]: T[P] extends Function ? never : P })[keyof T];

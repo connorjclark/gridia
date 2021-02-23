@@ -380,41 +380,50 @@ export default class Server {
     }
   }
 
-  addItemToContainer(id: number, index: number | undefined, item: Item) {
+  // TODO: move these functions to Container class.
+  isValidLocationToAddItemInContainer(id: number, index: number, item: Item): boolean {
     const container = this.context.containers.get(id);
     if (!container) throw new Error(`no container: ${id}`);
 
-    // If index is not specified, pick one:
+    const isStackable = Content.getMetaItem(item.type).stackable;
+
+    if (!container.items[index]) return true;
+    if (!isStackable) return false;
+    // TODO: check stack limit.
+    return container.items[index]?.type === item.type;
+  }
+
+  findValidLocationToAddItemToContainer(
+    id: number, item: Item, opts: { allowStacking: boolean }): ContainerLocation | undefined {
+    const container = this.context.containers.get(id);
+    if (!container) throw new Error(`no container: ${id}`);
+
+    const isStackable = opts.allowStacking && Content.getMetaItem(item.type).stackable;
+
     // Pick the first slot of the same item type, if stackable.
     // Else, pick the first open slot.
-    if (index === undefined) {
-      let firstOpenSlot = null;
-      let firstStackableSlot = null;
-      for (let i = 0; i < container.items.length; i++) {
-        if (firstOpenSlot === null && !container.items[i]) {
-          firstOpenSlot = i;
-        }
-        const containerItem = container.items[i];
-        if (containerItem && containerItem.type === item.type) {
-          firstStackableSlot = i;
-          break;
-        }
+    let firstOpenSlot = null;
+    let firstStackableSlot = null;
+    for (let i = 0; i < container.items.length; i++) {
+      if (firstOpenSlot === null && !container.items[i]) {
+        firstOpenSlot = i;
       }
-
-      if (firstStackableSlot !== null) {
-        index = firstStackableSlot;
-        // @ts-ignore: verified to exist
-        item.quantity += container.items[firstStackableSlot].quantity;
-      } else if (firstOpenSlot !== null) {
-        index = firstOpenSlot;
+      const containerItem = container.items[i];
+      if (isStackable && containerItem && containerItem.type === item.type) {
+        firstStackableSlot = i;
+        break;
       }
     }
 
+    let index;
+    if (firstStackableSlot !== null) {
+      index = firstStackableSlot;
+    } else if (firstOpenSlot !== null) {
+      index = firstOpenSlot;
+    }
+
     if (index !== undefined) {
-      this.setItemInContainer(id, index, item);
-      return true;
-    } else {
-      return false;
+      return Utils.ItemLocation.Container(id, index);
     }
   }
 

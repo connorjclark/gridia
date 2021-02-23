@@ -24,8 +24,11 @@ class MovementModule extends ClientModule {
 
   onStart() {
     this.game.client.eventEmitter.on('action', this.onAction);
-    this.game.addActionCreator((tile) => {
-      if (tile.creature) {
+    this.game.addActionCreator((location) => {
+      if (location.source !== 'world') return;
+
+      const creature = this.game.client.context.map.getTile(location.loc).creature;
+      if (creature) {
         return {
           type: 'follow',
           innerText: 'Follow',
@@ -115,13 +118,14 @@ class MovementModule extends ClientModule {
 
   onAction(e: GameActionEvent) {
     const type = e.action.type;
-    const { loc } = e;
+    const { location } = e;
+    if (location.source !== 'world') return;
 
     if (type === 'move-here') {
       const focusPos = this.game.getPlayerPosition();
       const partition = this.game.client.context.map.getPartition(focusPos.w);
 
-      this.pathToDestination = findPath(partition, focusPos, loc);
+      this.pathToDestination = findPath(partition, focusPos, location.loc);
       this.followCreature = undefined;
     } else if (type === 'follow') {
       this.followCreature = e.creature;
