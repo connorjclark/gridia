@@ -5,7 +5,7 @@ import linkState from '../../lib/link-state';
 import { Graphic } from './ui-common';
 
 export function makeViewWindow(selectedViewModule: SelectedViewModule) {
-  let setState = (_: State) => {
+  let setState = (_: Partial<State>) => {
     // Do nothing.
   };
   interface State {
@@ -100,5 +100,5 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
 
   const el = selectedViewModule.game.makeUIWindow({ name: 'view', cell: 'right' });
   render(<ViewWindow />, el);
-  return { el, setState: (s: State) => setState(s) };
+  return { el, setState: (s: Partial<State>) => setState(s) };
 }

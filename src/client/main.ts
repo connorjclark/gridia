@@ -458,7 +458,7 @@ function globalOnActionHandler(client: Client, e: GameActionEvent) {
     if (location.source === 'world') Helper.useHand(location.loc);
     break;
   case 'use-tool':
-    if (location.source === 'world') Helper.useTool(location.loc, e.action.extra.index);
+    if (location.source === 'world') Helper.useTool(location.loc, {toolIndex: e.action.extra.index});
     break;
   case 'open-container':
     if (location.source === 'world') Helper.openContainer(location.loc);

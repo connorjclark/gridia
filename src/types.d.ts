@@ -52,6 +52,7 @@ type ItemLocation = WorldLocation | ContainerLocation;
 
 interface PossibleUsage {
   toolIndex: number;
+  usageIndex: number;
   use: ItemUse;
   focusLocation: ItemLocation;
 }

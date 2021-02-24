@@ -145,7 +145,17 @@ export function getItemUses(tool: number, focus: number) {
 }
 
 export function getItemUsesForTool(tool: number) {
-  return itemUses.filter((item) => item.tool === tool);
+  const usagesGroupedByFocus = new Map<number, ItemUse[]>();
+
+  for (const itemUse of itemUses) {
+    if (itemUse.tool === tool) {
+      const usages = usagesGroupedByFocus.get(itemUse.focus) || [];
+      usages.push(itemUse);
+      usagesGroupedByFocus.set(itemUse.focus, usages);
+    }
+  }
+
+  return usagesGroupedByFocus;
 }
 
 export function getItemUsesForFocus(focus: number) {

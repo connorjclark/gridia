@@ -471,7 +471,7 @@ class Game {
       let location = dataset.location ? JSON.parse(dataset.location) as ItemLocation : null;
       const creatureId = Number(dataset.creatureId);
       const creature = this.client.context.getCreature(creatureId);
-      const quantity = dataset.quantity ? Number(dataset.quantity) : undefined,;
+      const quantity = dataset.quantity ? Number(dataset.quantity) : undefined;
       if (creature && !location) location = Utils.ItemLocation.World(creature.pos);
       if (!location) return;
 
@@ -657,9 +657,9 @@ class Game {
         this.modules.selectedView.selectView(Utils.ItemLocation.World(currentCursor));
       }
 
-      // Space bar to use tool.
+      // Space bar to use selected tool.
       if (e.keyCode === KEYS.SPACE_BAR && this.state.selectedView.location?.source === 'world') {
-        Helper.useTool(this.state.selectedView.location.loc, Helper.getSelectedToolIndex());
+        Helper.useTool(this.state.selectedView.location.loc, { toolIndex: Helper.getSelectedToolIndex() });
       }
 
       // Shift to pick up item.

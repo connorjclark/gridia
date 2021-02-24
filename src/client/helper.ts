@@ -23,7 +23,9 @@ export function useHand(loc: TilePoint) {
  * If there are multiple options for the usage, and `usageIndex` is not provided,
  * a dialog box is shown to choose.
  */
-export function useTool(loc: TilePoint, toolIndex: number, usageIndex?: number) {
+export function useTool(loc: TilePoint, opts: { toolIndex: number; usageIndex?: number }) {
+  const { toolIndex, usageIndex } = opts;
+
   const tool = getInventory().items[toolIndex];
   if (!tool || toolIndex === -1) {
     // TODO: Remove this special case.
@@ -45,7 +47,7 @@ export function useTool(loc: TilePoint, toolIndex: number, usageIndex?: number) 
       usageIndex,
     }));
   } else {
-    game.modules.usage.openUsages(usages, loc);
+    game.modules.usage.openUsages(usages, loc, toolIndex);
   }
 }
 

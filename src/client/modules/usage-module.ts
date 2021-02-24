@@ -8,6 +8,7 @@ import { makePossibleUsagesWindow } from '../ui/possible-usages-window';
 
 class UsageModule extends ClientModule {
   protected currentUsagesLoc?: Point4;
+  protected currentUsagesToolIndex?: number;
   protected usagesWindow?: ReturnType<typeof makeUsagesWindow>;
   protected possibleUsagesWindow?: ReturnType<typeof makePossibleUsagesWindow>;
 
@@ -36,17 +37,23 @@ class UsageModule extends ClientModule {
     // empty.
   }
 
-  openUsages(usages: ItemUse[], loc: TilePoint) {
+  openUsages(usages: ItemUse[], loc: TilePoint, toolIndex: number) {
     this.currentUsagesLoc = loc;
+    this.currentUsagesToolIndex = toolIndex;
     this.getUsagesWindow().setState({ usages });
     this.getUsagesWindow().el.hidden = false;
   }
 
   selectUsage(usageIndex: number) {
     if (!this.currentUsagesLoc) throw new Error('...');
+    if (!this.currentUsagesToolIndex) throw new Error('...');
 
-    Helper.useTool(this.currentUsagesLoc, usageIndex);
+    Helper.useTool(this.currentUsagesLoc, {
+      toolIndex: this.currentUsagesToolIndex,
+      usageIndex,
+    });
     this.currentUsagesLoc = undefined;
+    this.currentUsagesToolIndex = undefined;
     if (this.usagesWindow) {
       this.usagesWindow.setState({ usages: [] });
       this.usagesWindow.el.hidden = true;
@@ -56,6 +63,7 @@ class UsageModule extends ClientModule {
   selectPossibleUsage(possibleUsage: PossibleUsage) {
     this.game.client.connection.send(ProtocolBuilder.use({
       toolIndex: possibleUsage.toolIndex,
+      usageIndex: possibleUsage.usageIndex,
       location: possibleUsage.focusLocation,
     }));
   }
@@ -93,8 +101,8 @@ class UsageModule extends ClientModule {
     inventory.forEach((tool, toolIndex) => {
       if (selectedTool && selectedTool !== tool) return;
 
-      const possibleUses = Content.getItemUsesForTool(tool.type);
-      for (const use of possibleUses) {
+      const possibleUsesGroupedByFocus = Content.getItemUsesForTool(tool.type);
+      for (const usages of possibleUsesGroupedByFocus.values()) {
         // TODO: dont yet support focus items being in inventory.
         // Only record one, if any, from inventory.
         // const possibleFocusFromInventory = inventory.items.find((item) => item?.type === use.focus);
@@ -107,13 +115,19 @@ class UsageModule extends ClientModule {
         //   });
         // }
 
-        for (const nearbyItem of nearbyItems) {
-          if (nearbyItem.item?.type !== use.focus) continue;
-          possibleUsageActions.push({
-            toolIndex,
-            use,
-            focusLocation: Utils.ItemLocation.World(nearbyItem.loc),
-          });
+        for (let usageIndex = 0; usageIndex < usages.length; usageIndex += 1) {
+          const use = usages[usageIndex];
+
+          for (const nearbyItem of nearbyItems) {
+            if (nearbyItem.item?.type !== use.focus) continue;
+
+            possibleUsageActions.push({
+              toolIndex,
+              usageIndex: Number(usageIndex),
+              use,
+              focusLocation: Utils.ItemLocation.World(nearbyItem.loc),
+            });
+          }
         }
       }
     });
