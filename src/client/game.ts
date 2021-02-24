@@ -607,6 +607,7 @@ class Game {
       this.keys[e.keyCode] = true;
     });
 
+    // TODO: listen to the document.body
     canvases.addEventListener('keyup', (e) => {
       delete this.keys[e.keyCode];
 
@@ -663,9 +664,16 @@ class Game {
       }
 
       // Shift to pick up item.
-      if (e.keyCode === KEYS.SHIFT && this.state.selectedView.location?.source === 'world') {
+      if (e.keyCode === KEYS.SHIFT) {
+        let location;
+        if (this.state.selectedView.location?.source === 'world') {
+          location = this.state.selectedView.location;
+        } else {
+          location = Utils.ItemLocation.World(this.client.creature.pos);
+        }
+
         this.client.connection.send(ProtocolBuilder.moveItem({
-          from: Utils.ItemLocation.World(this.state.selectedView.location.loc),
+          from: Utils.ItemLocation.World(location.loc),
           to: Utils.ItemLocation.Container(this.client.player.containerId),
         }));
       }
