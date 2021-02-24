@@ -438,7 +438,7 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
 
 function globalOnActionHandler(client: Client, e: GameActionEvent) {
   const type = e.action.type;
-  const { creature, location } = e;
+  const { creature, location, quantity } = e;
 
   switch (type) {
   case 'pickup':
@@ -450,7 +450,7 @@ function globalOnActionHandler(client: Client, e: GameActionEvent) {
   case 'split':
     client.connection.send(ProtocolBuilder.moveItem({
       from: location,
-      quantity: 1,
+      quantity: quantity || 1,
       to: Utils.ItemLocation.Container(client.player.containerId),
     }));
     break;

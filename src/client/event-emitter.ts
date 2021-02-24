@@ -5,6 +5,7 @@ export interface GameActionEvent {
   action: GameAction;
   location: ItemLocation;
   creature: Creature;
+  quantity?: number;
 }
 
 export interface ItemMoveBeginEvent {

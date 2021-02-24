@@ -1,6 +1,7 @@
 import { render, h, Component } from 'preact';
 import SelectedViewModule from '../modules/selected-view-module';
 import * as Content from '../../content';
+import linkState from '../../lib/link-state';
 import { Graphic } from './ui-common';
 
 export function makeViewWindow(selectedViewModule: SelectedViewModule) {
@@ -10,9 +11,12 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
   interface State {
     selectedView?: UIState['selectedView'];
     data?: Record<string, string>;
+    quantity: number;
   }
   class ViewWindow extends Component {
-    state: State = {};
+    state: State = {
+      quantity: 1,
+    };
 
     componentDidMount() {
       setState = this.setState.bind(this);
@@ -44,6 +48,10 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
         if (item) quantity = item.quantity;
       }
 
+      if (quantity > 1 && state.quantity > quantity -1) {
+        this.setState({quantity: quantity - 1});
+      }
+
       return <div>
         <div>
           View
@@ -63,7 +71,27 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
               location: selectedView.location,
               creatureId: selectedView.creatureId,
             });
-            return <button class='action' title={action.title} {...dataset}>{action.innerText}</button>;
+
+            const children = [];
+            if (action.type === 'split') {
+              children.push(
+                <input
+                  type="number"
+                  onInput={linkState(this, 'quantity')}
+                  value={state.quantity}
+                  min="1"
+                  max={quantity - 1}
+                  step="1">
+                </input>
+              );
+              // @ts-ignore
+              dataset['data-quantity'] = state.quantity;
+            }
+
+            return <div>
+              <button class='action' title={action.title} {...dataset}>{action.innerText}</button>
+              {children}
+            </div>;
           })}
         </div>
       </div>;

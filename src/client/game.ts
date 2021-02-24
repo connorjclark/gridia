@@ -471,6 +471,7 @@ class Game {
       let location = dataset.location ? JSON.parse(dataset.location) as ItemLocation : null;
       const creatureId = Number(dataset.creatureId);
       const creature = this.client.context.getCreature(creatureId);
+      const quantity = dataset.quantity ? Number(dataset.quantity) : undefined,;
       if (creature && !location) location = Utils.ItemLocation.World(creature.pos);
       if (!location) return;
 
@@ -478,6 +479,7 @@ class Game {
         action,
         location,
         creature,
+        quantity,
       });
     };
     document.body.addEventListener('click', onActionSelection);

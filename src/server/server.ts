@@ -151,6 +151,7 @@ export default class Server {
       container.items[6] = { type: Content.getMetaItemByName('Saw').id, quantity: 1 };
       container.items[7] = { type: Content.getMetaItemByName('Hammer and Nails').id, quantity: 1 };
       container.items[8] = { type: Content.getMetaItemByName('Lit Torch').id, quantity: 1 };
+      container.items[9] = { type: Content.getMetaItemByName('Wood Planks').id, quantity: 100 };
     }
 
     // Don't bother waiting.
