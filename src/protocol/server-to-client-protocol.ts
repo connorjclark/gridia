@@ -19,6 +19,7 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
 
   onInitialize(client: Client, { player, secondsPerWorldTick, ticksPerWorldDay }: Params.Initialize): void {
     client.player = player;
+    window.player = player;
     client.secondsPerWorldTick = secondsPerWorldTick;
     client.ticksPerWorldDay = ticksPerWorldDay;
   }
@@ -38,14 +39,15 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
   onSector(client: Client, { tiles, ...pos }: Params.Sector): void {
     client.context.map.getPartition(pos.w).sectors[pos.x][pos.y][pos.z] = tiles;
 
+    // Request creature if not in client memory.
     for (const row of tiles) {
       for (const tile of row) {
         if (tile.creature) {
-          // Do not re-register creature.
-          // TODO: Remove this line creates an issue when player warps to a different sector.
-          if (client.context.getCreature(tile.creature.id)) continue;
-
-          client.context.setCreature(tile.creature);
+          if (!client.context.getCreature(tile.creature.id)) {
+            client.connection.send(ProtocolBuilder.requestCreature({ id: tile.creature.id }));
+          }
+          // TODO rethink what's going on here.
+          tile.creature = undefined;
         }
       }
     }

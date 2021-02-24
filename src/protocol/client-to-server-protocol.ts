@@ -464,6 +464,18 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
             server.advanceTime(args.ticks);
           },
         },
+        image: {
+          args: [
+            { name: 'index', type: 'number' },
+            { name: 'type', type: 'number', optional: true },
+          ],
+          do(args: { index: number; type?: number }) {
+            server.currentClientConnection.player.creature.image = args.index;
+            server.currentClientConnection.player.creature.image_type = args.type || 0;
+            server.broadcastPartialCreatureUpdate(
+              server.currentClientConnection.player.creature, ['image', 'image_type']);
+          },
+        },
         help: {
           args: [],
           do() {

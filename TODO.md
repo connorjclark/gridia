@@ -1,3 +1,5 @@
+* Equip items
+* Equipment graphics
 * Persist settings to local storage
 * "Reset" button for settings
 * Max item stacks
@@ -8,7 +10,6 @@ ____
 * Inventory system
 * Better online networking
 * Merchants
-* Wear images
 * Registration
 
 # Combat
