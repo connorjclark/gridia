@@ -7,6 +7,7 @@ import * as ProtocolBuilder from '../protocol/server-to-client-protocol-builder'
 import * as Utils from '../utils';
 import WorldMapPartition from '../world-map-partition';
 import { WorldTime } from '../world-time';
+import Container, { ContainerType } from '../container';
 import ClientConnection from './client-connection';
 import CreatureState from './creature-state';
 import { ServerContext } from './server-context';
@@ -139,7 +140,7 @@ export default class Server {
       player.skills.set(skill.id, 1);
     }
 
-    const container = this.context.makeContainer();
+    const container = this.context.makeContainer(ContainerType.Normal);
     player.containerId = container.id;
     if (opts.name !== 'test-user') {
       container.items[0] = { type: Content.getMetaItemByName('Wood Axe').id, quantity: 1 };
@@ -153,6 +154,10 @@ export default class Server {
       container.items[8] = { type: Content.getMetaItemByName('Lit Torch').id, quantity: 1 };
       container.items[9] = { type: Content.getMetaItemByName('Wood Planks').id, quantity: 100 };
     }
+
+    const equipment = this.context.makeContainer(ContainerType.Equipment, 5);
+    equipment.items[0] = { type: Content.getMetaItemByName('Iron Helmet Plate').id, quantity: 1 };
+    player.equipmentContainerId = equipment.id;
 
     // Don't bother waiting.
     this.context.savePlayerPassword(player.id, opts.password);
@@ -174,6 +179,7 @@ export default class Server {
     player.creature.id = this.context.nextCreatureId++;
     player.creature = this.registerCreature(player.creature);
     clientConnection.container = await this.context.getContainer(player.containerId);
+    clientConnection.equipment = await this.context.getContainer(player.equipmentContainerId);
 
     this.players.set(player.id, player);
     clientConnection.player = player;
@@ -377,8 +383,11 @@ export default class Server {
     this.conditionalBroadcast(ProtocolBuilder.setItem({
       location: Utils.ItemLocation.Container(id, index),
       item,
-    }), (clientConnection) =>
-      clientConnection.container.id === id || clientConnection.registeredContainers.includes(id));
+    }), (clientConnection) => {
+      if (clientConnection.container.id === id) return true;
+      if (clientConnection.equipment.id === id) return true;
+      return clientConnection.registeredContainers.includes(id);
+    });
 
     // TODO: should light sources be equippable and only set creature light then?
     if ((prevItem && Content.getMetaItem(prevItem.type).light) || (item && Content.getMetaItem(item.type).light)) {
@@ -387,6 +396,24 @@ export default class Server {
 
       this.updateCreatureLight(client);
     }
+
+    if (container.type === ContainerType.Equipment) {
+      const creature = [
+        ...this.players.values(),
+      ].find((player) => player.equipmentContainerId === id)?.creature;
+      if (creature) {
+        const getEquipImage = (i: Item | null) => i ? Content.getMetaItem(i.type).equipImage : undefined;
+        creature.imageData = {
+          arms: 0,
+          chest: getEquipImage(container.items[Container.EQUIP_SLOTS.Chest]) || 0,
+          head: getEquipImage(container.items[Container.EQUIP_SLOTS.Head]) || 0,
+          legs: getEquipImage(container.items[Container.EQUIP_SLOTS.Legs]) || 0,
+          shield: getEquipImage(container.items[Container.EQUIP_SLOTS.Shield]),
+          weapon: getEquipImage(container.items[Container.EQUIP_SLOTS.Weapon]),
+        };
+        this.broadcastPartialCreatureUpdate(creature, ['imageData']);
+      }
+    }
   }
 
   // TODO: move these functions to Container class.
@@ -394,12 +421,18 @@ export default class Server {
     const container = this.context.containers.get(id);
     if (!container) throw new Error(`no container: ${id}`);
 
-    const isStackable = Content.getMetaItem(item.type).stackable;
+    const meta = Content.getMetaItem(item.type);
 
-    if (!container.items[index]) return true;
-    if (!isStackable) return false;
-    // TODO: check stack limit.
-    return container.items[index]?.type === item.type;
+    if (container.type === ContainerType.Normal) {
+      if (!container.items[index]) return true;
+      if (!meta.stackable) return false;
+      // TODO: check stack limit.
+      return container.items[index]?.type === item.type;
+    } else if (container.type === ContainerType.Equipment) {
+      return meta.equipSlot !== undefined && Container.EQUIP_SLOTS[meta.equipSlot] === index;
+    }
+
+    return false;
   }
 
   findValidLocationToAddItemToContainer(
@@ -407,7 +440,16 @@ export default class Server {
     const container = this.context.containers.get(id);
     if (!container) throw new Error(`no container: ${id}`);
 
-    const isStackable = opts.allowStacking && Content.getMetaItem(item.type).stackable;
+    const meta = Content.getMetaItem(item.type);
+
+    if (container.type === ContainerType.Equipment) {
+      if (!meta.equipSlot) return;
+      const equipIndex = Container.EQUIP_SLOTS[meta.equipSlot];
+      if (container.items[equipIndex]) return;
+      return Utils.ItemLocation.Container(id, equipIndex);
+    }
+
+    const isStackable = opts.allowStacking && meta.stackable;
 
     // Pick the first slot of the same item type, if stackable.
     // Else, pick the first open slot.
@@ -509,6 +551,7 @@ export default class Server {
     }
     // TODO: remove this line since "register creature" does the same. but removing breaks tests ...
     clientConnection.send(ProtocolBuilder.setCreature({ partial: false, ...player.creature }));
+    clientConnection.send(ProtocolBuilder.container(await this.context.getContainer(clientConnection.equipment.id)));
     clientConnection.send(ProtocolBuilder.container(await this.context.getContainer(clientConnection.container.id)));
     this.updateCreatureLight(clientConnection);
     setTimeout(() => {

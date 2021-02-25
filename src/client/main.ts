@@ -345,6 +345,8 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
     item = container.items[location.index];
   }
 
+  const isInInventory = item && location.source === 'container' && location.id === game.client.player.containerId;
+
   const meta = Content.getMetaItem(item ? item.type : 0);
   const actions: GameAction[] = [];
 
@@ -375,13 +377,21 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
         innerText: 'Pickup',
         title: 'Shortcut: Shift',
       });
-    } else if (location.id !== game.client.player.containerId) {
+    } else if (!isInInventory) {
       actions.push({
         type: 'pickup',
         innerText: 'Take',
         title: '',
       });
     }
+  }
+
+  if (item && meta.equipSlot && isInInventory) {
+    actions.push({
+      type: 'equip',
+      innerText: 'Equip',
+      title: '',
+    });
   }
 
   if (item && meta.moveable && meta.stackable && item.quantity > 1) {
@@ -445,6 +455,12 @@ function globalOnActionHandler(client: Client, e: GameActionEvent) {
     client.connection.send(ProtocolBuilder.moveItem({
       from: location,
       to: Utils.ItemLocation.Container(client.player.containerId),
+    }));
+    break;
+  case 'equip':
+    client.connection.send(ProtocolBuilder.moveItem({
+      from: location,
+      to: Utils.ItemLocation.Container(client.player.equipmentContainerId),
     }));
     break;
   case 'split':

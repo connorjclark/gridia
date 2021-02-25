@@ -286,6 +286,32 @@
       background-color: gold;
     }
 
+    .window--equipment .container__slots {
+      display: grid;
+      grid-template: '. a .'
+                     'b c d'
+                     '. e .';
+      grid-auto-columns: min-content;
+    }
+    .window--equipment .container__slot:nth-child(1) {
+      grid-area: a;
+    }
+    .window--equipment .container__slot:nth-child(2) {
+      grid-area: b;
+    }
+    .window--equipment .container__slot:nth-child(3) {
+      grid-area: c;
+    }
+    .window--equipment .container__slot:nth-child(4) {
+      grid-area: d;
+    }
+    .window--equipment .container__slot:nth-child(5) {
+      grid-area: e;
+    }
+    .window--equipment .container__slot {
+      margin: 5px;
+    }
+
     .usages__usages {
       display: flex;
       flex-wrap: wrap;
@@ -301,15 +327,6 @@
     }
   </style>
   <link rel="stylesheet" href="styles/buttons.css">
-
-  <script>
-    if (process.env.NODE_ENV === 'production') {
-      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-      ga('create', 'UA-40937100-4', 'auto');
-      ga('send', 'pageview');
-    }
-  </script>
-  <script async src='https://www.google-analytics.com/analytics.js'></script>
 </head>
 
 <body>
@@ -387,6 +404,15 @@
     </div>
     <div class="contextmenu"></div>
   </div>
+
+  <script>
+    if (process.env.NODE_ENV === 'production') {
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-40937100-4', 'auto');
+      ga('send', 'pageview');
+    }
+  </script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
 </body>
 
 </html>

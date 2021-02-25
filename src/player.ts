@@ -51,6 +51,7 @@ export class TilesSeenLog {
 export default class Player {
   id = 0;
   containerId = 0;
+  equipmentContainerId = 0;
   isAdmin = false;
   name = '';
   // skill id -> xp

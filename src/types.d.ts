@@ -71,6 +71,14 @@ interface Creature {
   id: number;
   image: number;
   image_type?: number;
+  imageData?: {
+    arms: number;
+    chest: number;
+    head: number;
+    legs: number;
+    shield?: number;
+    weapon?: number;
+  };
   name: string;
   pos: TilePoint;
   isPlayer: boolean;
@@ -94,7 +102,9 @@ interface MetaFloor {
 interface MetaItem {
   id: number;
   name: string;
-  class: 'Normal' | 'Ore' | 'CaveDown' | 'CaveUp' | 'Container' | 'Ball' | 'Weapon' | 'Ammo' | 'Plant';
+  class: 'Normal' | 'Ore' | 'CaveDown' | 'CaveUp' | 'Container' | 'Ball' | 'Weapon' | 'Ammo' | 'Plant' | 'Shield';
+  equipSlot?: 'Head' | 'Weapon' | 'Chest' | 'Shield' | 'Legs';
+  equipImage?: number;
   animations: number[];
   burden: number;
   growthDelta: number;

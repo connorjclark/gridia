@@ -13,6 +13,9 @@ export default class ClientConnection {
   container: Container;
 
   // @ts-ignore
+  equipment: Container;
+
+  // @ts-ignore
   send: (message: ServerToClientMessage) => void;
 
   registeredContainers = [] as number[];

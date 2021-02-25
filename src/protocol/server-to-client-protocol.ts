@@ -3,7 +3,6 @@
 import Client from '../client/client';
 import Container from '../container';
 import * as Utils from '../utils';
-import Player from '../player';
 import * as ProtocolBuilder from './client-to-server-protocol-builder';
 import IServerToClientProtocol from './gen/server-to-client-protocol';
 import Params = ServerToClientProtocol.Params;
@@ -14,12 +13,11 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
   }
 
   onContainer(client: Client, { ...container }: Params.Container): void {
-    client.context.containers.set(container.id, new Container(container.id, container.items));
+    client.context.containers.set(container.id, new Container(container.type, container.id, container.items));
   }
 
   onInitialize(client: Client, { player, secondsPerWorldTick, ticksPerWorldDay }: Params.Initialize): void {
     client.player = player;
-    window.player = player;
     client.secondsPerWorldTick = secondsPerWorldTick;
     client.ticksPerWorldDay = ticksPerWorldDay;
   }

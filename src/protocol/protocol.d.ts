@@ -78,6 +78,7 @@ declare namespace ServerToClientProtocol {
     }
 
     interface Container {
+      type: import('../container').ContainerType;
       id: number;
       items: Array<Item | null>;
     }

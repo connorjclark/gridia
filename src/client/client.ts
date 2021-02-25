@@ -38,6 +38,10 @@ class Client {
   get inventory() {
     return this.context.containers.get(this.player.containerId);
   }
+
+  get equipment() {
+    return this.context.containers.get(this.player.equipmentContainerId);
+  }
 }
 
 export default Client;

@@ -204,13 +204,11 @@ class CreatureSprite extends PIXI.Sprite {
     }
 
     if (this.creature.image >= 0 && this.creature.image <= 4) {
-      const data = {
+      const data = this.creature.imageData || {
         arms: 1,
         head: 5,
         chest: 3,
         legs: 2,
-        shield: 2,
-        weapon: 3,
       };
 
       creatureGfx
@@ -844,11 +842,12 @@ class Game {
 
       let name;
       if (id === this.client.player.containerId) name = 'Inventory';
+      if (id === this.client.player.equipmentContainerId) name = 'Equipment';
 
       containerWindow = makeContainerWindow(this, container, name);
       this.containerWindows.set(id, containerWindow);
 
-      if (container.id !== game.client.player.containerId) {
+      if (![game.client.player.containerId, game.client.player.equipmentContainerId].includes(container.id)) {
         game.client.eventEmitter.on('playerMove', close);
       }
       function close() {

@@ -18,6 +18,7 @@ import Server from '../src/server/server';
 import { ServerContext } from '../src/server/server-context';
 import * as Utils from '../src/utils';
 import WorldMap from '../src/world-map';
+import { ContainerType } from '../src/container';
 import { openAndConnectToServerInMemory } from './server-in-memory';
 
 let client: Client;
@@ -243,7 +244,7 @@ describe('moveItem', () => {
   it('move item from container to world', async () => {
     const to = { w: 0, x: 0, y: 0, z: 0 };
 
-    const container = server.context.makeContainer();
+    const container = server.context.makeContainer(ContainerType.Normal);
     container.items[0] = { type: 1, quantity: 1 };
     await send(ProtocolBuilder.requestContainer({ containerId: container.id }));
 
@@ -260,7 +261,7 @@ describe('moveItem', () => {
     const from = { w: 0, x: 0, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
-    const container = server.context.makeContainer();
+    const container = server.context.makeContainer(ContainerType.Normal);
     await send(ProtocolBuilder.requestContainer({ containerId: container.id }));
 
     await send(ProtocolBuilder.moveItem({
@@ -276,7 +277,7 @@ describe('moveItem', () => {
     const from = { w: 0, x: 0, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
-    const container = server.context.makeContainer();
+    const container = server.context.makeContainer(ContainerType.Normal);
     container.items[0] = { type: 2, quantity: 1 };
     container.items[1] = { type: 2, quantity: 1 };
     container.items[3] = { type: 2, quantity: 1 };
@@ -295,7 +296,7 @@ describe('moveItem', () => {
     const from = { w: 0, x: 0, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
-    const container = server.context.makeContainer();
+    const container = server.context.makeContainer(ContainerType.Normal);
     container.items[0] = { type: 2, quantity: 1 };
     container.items[1] = { type: 2, quantity: 1 };
     container.items[2] = { type: 1, quantity: 2 };

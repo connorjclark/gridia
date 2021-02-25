@@ -1,6 +1,6 @@
 import * as path from 'path';
 import { SECTOR_SIZE } from '../constants';
-import Container from '../container';
+import Container, { ContainerType } from '../container';
 import { Context } from '../context';
 import * as fs from '../iso-fs';
 import Player from '../player';
@@ -109,8 +109,8 @@ export class ServerContext extends Context {
     return player;
   }
 
-  makeContainer() {
-    const container = new Container(this.nextContainerId++, Array(30).fill(null));
+  makeContainer(type: ContainerType, size = 30) {
+    const container = new Container(type, this.nextContainerId++, Array(size).fill(null));
     this.containers.set(container.id, container);
     return container;
   }
@@ -119,7 +119,7 @@ export class ServerContext extends Context {
     if (item.containerId) {
       return item.containerId;
     } else {
-      return item.containerId = this.makeContainer().id;
+      return item.containerId = this.makeContainer(ContainerType.Normal, 10).id;
     }
   }
 
@@ -132,8 +132,11 @@ export class ServerContext extends Context {
     // TODO: even tho fs is stubbed in the browser build, parcel sees `readFileSync` and insists
     // that this be statically analyzable so it can do its bundling. Should create an interface that
     // doesn't trip up parcel's grepping for `.readFile`... (loadData?)
-    const items = JSON.parse(await fs.readFile(this.containerPath(id))) as Array<Item | null>;
-    container = new Container(id, items);
+    const data = JSON.parse(await fs.readFile(this.containerPath(id))) as {
+      type: ContainerType;
+      items: Array<Item | null>;
+    };
+    container = new Container(data.type, id, data.items);
     this.containers.set(id, container);
     return container;
   }
@@ -153,7 +156,7 @@ export class ServerContext extends Context {
     }
 
     for (const container of this.containers.values()) {
-      const json = JSON.stringify(container.items, null, 2);
+      const json = JSON.stringify({type: container.type ,items: container.items}, null, 2);
       await fs.writeFile(this.containerPath(container.id), json);
     }
 

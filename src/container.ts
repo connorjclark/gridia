@@ -1,5 +1,18 @@
+// eslint-disable-next-line no-shadow
+export enum ContainerType {
+  Normal, Equipment,
+}
+
 export default class Container {
-  constructor(public id: number, public items: Array<Item | null>) {
+  static EQUIP_SLOTS = {
+    Head: 0,
+    Weapon: 1,
+    Chest: 2,
+    Shield: 3,
+    Legs: 4,
+  };
+
+  constructor(readonly type: ContainerType, public id: number, public items: Array<Item | null>) {
   }
 
   hasItem(itemType: number) {

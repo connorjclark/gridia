@@ -73,6 +73,10 @@ function camelCase(str: string) {
   return str[0].toLowerCase() + str.substring(1);
 }
 
+function uppercaseFirstLetter(str: string) {
+  return str.charAt(0).toUpperCase() + str.substr(1);
+}
+
 function filterProperties(object: any, allowlist: string[]) {
   for (const key of Object.keys(object)) {
     if (!allowlist.includes(key)) {
@@ -166,6 +170,11 @@ function parseItemsIni() {
       currentItem.walkable = (value || '1') !== '1';
     } else if (key.match(/^OpenSightLine/i)) {
       currentItem.blocksLight = false;
+    } else if (key.match(/^WearImage/i)) {
+      currentItem.equipImage = forcenum(value);
+    } else if (key.match(/^ArmorSpot/i)) {
+      // @ts-ignore
+      currentItem.equipSlot = uppercaseFirstLetter(value);
     } else {
       // Most properties are unchanged, except for being camelCase.
       const camelCaseKey = camelCase(key);
@@ -197,7 +206,12 @@ function parseItemsIni() {
     // @ts-ignore
     if (item.class === 'PLANT') item.class = 'Plant';
     // @ts-ignore
-    if (item.class) item.class = item.class.charAt(0).toUpperCase() + item.class.substr(1);
+    if (item.class) item.class = uppercaseFirstLetter(item.class);
+  }
+
+  for (const item of items) {
+    if (item.class === 'Weapon') item.equipSlot = 'Weapon';
+    if (item.class === 'Shield') item.equipSlot = 'Shield';
   }
 
   // Just in case items are defined out of order.
@@ -222,6 +236,8 @@ function parseItemsIni() {
     'trapEffect',
     'light',
     'blocksLight',
+    'equipSlot',
+    'equipImage',
   ];
   for (const item of items) {
     filterProperties(item, allowlist);
