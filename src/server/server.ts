@@ -176,10 +176,12 @@ export default class Server {
       player = await this.context.loadPlayer(opts.playerId);
     }
 
-    player.creature.id = this.context.nextCreatureId++;
-    player.creature = this.registerCreature(player.creature);
     clientConnection.container = await this.context.getContainer(player.containerId);
     clientConnection.equipment = await this.context.getContainer(player.equipmentContainerId);
+
+    player.creature.id = this.context.nextCreatureId++;
+    player.creature.imageData = this.makeCreatureImageData(clientConnection.equipment);
+    player.creature = this.registerCreature(player.creature);
 
     this.players.set(player.id, player);
     clientConnection.player = player;
@@ -402,18 +404,22 @@ export default class Server {
         ...this.players.values(),
       ].find((player) => player.equipmentContainerId === id)?.creature;
       if (creature) {
-        const getEquipImage = (i: Item | null) => i ? Content.getMetaItem(i.type).equipImage : undefined;
-        creature.imageData = {
-          arms: 0,
-          chest: getEquipImage(container.items[Container.EQUIP_SLOTS.Chest]) || 0,
-          head: getEquipImage(container.items[Container.EQUIP_SLOTS.Head]) || 0,
-          legs: getEquipImage(container.items[Container.EQUIP_SLOTS.Legs]) || 0,
-          shield: getEquipImage(container.items[Container.EQUIP_SLOTS.Shield]),
-          weapon: getEquipImage(container.items[Container.EQUIP_SLOTS.Weapon]),
-        };
+        creature.imageData = this.makeCreatureImageData(container);
         this.broadcastPartialCreatureUpdate(creature, ['imageData']);
       }
     }
+  }
+
+  makeCreatureImageData(container: Container) {
+    const getEquipImage = (i: Item | null) => i ? Content.getMetaItem(i.type).equipImage : undefined;
+    return {
+      arms: 0,
+      chest: getEquipImage(container.items[Container.EQUIP_SLOTS.Chest]) || 0,
+      head: getEquipImage(container.items[Container.EQUIP_SLOTS.Head]) || 0,
+      legs: getEquipImage(container.items[Container.EQUIP_SLOTS.Legs]) || 0,
+      shield: getEquipImage(container.items[Container.EQUIP_SLOTS.Shield]),
+      weapon: getEquipImage(container.items[Container.EQUIP_SLOTS.Weapon]),
+    };
   }
 
   // TODO: move these functions to Container class.

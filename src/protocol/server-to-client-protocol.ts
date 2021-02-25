@@ -49,6 +49,11 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
         }
       }
     }
+
+    // Make sure every creature is in its proper place.
+    for (const creature of client.context.creatures.values()) {
+      client.context.map.getTile(creature.pos).creature = creature;
+    }
   }
 
   onSetCreature(client: Client, { partial, ...partialCreature }: Params.SetCreature): void {

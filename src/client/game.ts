@@ -165,8 +165,7 @@ class CreatureSprite extends PIXI.Sprite {
 
   tick() {
     if (this.children.length === 0 || this.dirty) {
-      this.drawCreature();
-      this.dirty = false;
+      if (this.drawCreature()) this.dirty = false;
       return;
     }
 
@@ -182,20 +181,42 @@ class CreatureSprite extends PIXI.Sprite {
     }
   }
 
+  // Returns false if textures are not loaded yet.
   private drawCreature() {
     const width = this.tileWidth;
     const height = this.tileHeight;
-    const texture = Draw.getTexture.creatures(this.creature.image, width, height);
-    if (texture === PIXI.Texture.EMPTY) return;
+
+    // Load all necessary textures.
+    const textures: Record<string, PIXI.Texture> = {
+      main: Draw.getTexture.creatures(this.creature.image, width, height),
+    };
+
+    if (this.creature.image >= 0 && this.creature.image <= 4) {
+      const data = this.creature.imageData || {
+        arms: 0,
+        head: 0,
+        chest: 0,
+        legs: 0,
+      };
+
+      textures.arms = Draw.getTexture.arms(data.arms);
+      textures.head = Draw.getTexture.head(data.head);
+      textures.chest = Draw.getTexture.chest(data.chest);
+      textures.legs = Draw.getTexture.legs(data.legs);
+      if (data.shield) textures.shield = Draw.getTexture.shield(data.shield);
+      if (data.weapon) textures.weapon = Draw.getTexture.weapon(data.weapon);
+    }
 
     const creatureGfx = new PIXI.Graphics();
+    for (const texture of Object.values(textures)) {
+      if (texture === PIXI.Texture.EMPTY) return false;
 
-    creatureGfx
-      .beginTextureFill({ texture })
-      .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
-      .endFill();
+      creatureGfx
+        .beginTextureFill({ texture })
+        .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
+        .endFill();
+    }
 
-    // TODO fix this.
     if (this.creature.tamedBy) {
       creatureGfx
         .lineStyle(1, 0x0000FF)
@@ -203,54 +224,13 @@ class CreatureSprite extends PIXI.Sprite {
         .lineStyle();
     }
 
-    if (this.creature.image >= 0 && this.creature.image <= 4) {
-      const data = this.creature.imageData || {
-        arms: 1,
-        head: 5,
-        chest: 3,
-        legs: 2,
-      };
-
-      creatureGfx
-        .beginTextureFill({ texture: Draw.getTexture.arms(data.arms) })
-        .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
-        .endFill();
-
-      creatureGfx
-        .beginTextureFill({ texture: Draw.getTexture.head(data.head) })
-        .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
-        .endFill();
-
-      creatureGfx
-        .beginTextureFill({ texture: Draw.getTexture.chest(data.chest) })
-        .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
-        .endFill();
-
-      creatureGfx
-        .beginTextureFill({ texture: Draw.getTexture.legs(data.legs) })
-        .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
-        .endFill();
-
-      if (data.shield) {
-        creatureGfx
-          .beginTextureFill({ texture: Draw.getTexture.shield(data.shield) })
-          .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
-          .endFill();
-      }
-
-      if (data.weapon) {
-        creatureGfx
-          .beginTextureFill({ texture: Draw.getTexture.weapon(data.weapon) })
-          .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
-          .endFill();
-      }
-    }
-
     // uniforms.time = now / 1000;
     // filters.push(testFilter);
 
     Draw.destroyChildren(this);
     this.addChild(creatureGfx);
+
+    return true;
   }
 
   private setOutline(color?: number) {
@@ -408,8 +388,10 @@ class Game {
           }
         }
 
+        const keys = Object.keys(e.args);
+        const justPosUpdate = e.args.pos && keys.length === 3;
         const creatureSprite = game.creatureSprites.get(e.args.id);
-        if (creatureSprite) {
+        if (creatureSprite && !justPosUpdate) {
           creatureSprite.dirty = true;
         }
       }
