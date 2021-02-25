@@ -177,7 +177,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     }
 
     if (usageResult.successTool) {
-      const containerLocation = server.findValidLocationToAddItemToContainer(inventory.id, usageResult.successTool, {
+      const containerLocation = inventory.findValidLocationToAddItemToContainer(usageResult.successTool, {
         allowStacking: true,
       });
       if (containerLocation && containerLocation.index !== undefined) {
@@ -260,14 +260,19 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
         return location;
       }
 
+      const container = server.context.containers.get(location.id);
+      if (!container) {
+        return { error: 'Container does not exist.' };
+      }
+
       if (location.index === undefined) {
         // Don't allow stacking if this is an item split operation.
         const allowStacking = quantity === undefined;
-        return server.findValidLocationToAddItemToContainer(location.id, item, { allowStacking }) || {
+        return container.findValidLocationToAddItemToContainer(item, { allowStacking }) || {
           error: 'No possible location for that item in this container.',
         };
       } else {
-        if (server.isValidLocationToAddItemInContainer(location.id, location.index, item)) {
+        if (container.isValidLocationToAddItemInContainer(location.index, item)) {
           return location;
         } else {
           return {

@@ -422,68 +422,6 @@ export default class Server {
     };
   }
 
-  // TODO: move these functions to Container class.
-  isValidLocationToAddItemInContainer(id: number, index: number, item: Item): boolean {
-    const container = this.context.containers.get(id);
-    if (!container) throw new Error(`no container: ${id}`);
-
-    const meta = Content.getMetaItem(item.type);
-
-    if (container.type === ContainerType.Normal) {
-      if (!container.items[index]) return true;
-      if (!meta.stackable) return false;
-      // TODO: check stack limit.
-      return container.items[index]?.type === item.type;
-    } else if (container.type === ContainerType.Equipment) {
-      return meta.equipSlot !== undefined && Container.EQUIP_SLOTS[meta.equipSlot] === index;
-    }
-
-    return false;
-  }
-
-  findValidLocationToAddItemToContainer(
-    id: number, item: Item, opts: { allowStacking: boolean }): ContainerLocation | undefined {
-    const container = this.context.containers.get(id);
-    if (!container) throw new Error(`no container: ${id}`);
-
-    const meta = Content.getMetaItem(item.type);
-
-    if (container.type === ContainerType.Equipment) {
-      if (!meta.equipSlot) return;
-      const equipIndex = Container.EQUIP_SLOTS[meta.equipSlot];
-      if (container.items[equipIndex]) return;
-      return Utils.ItemLocation.Container(id, equipIndex);
-    }
-
-    const isStackable = opts.allowStacking && meta.stackable;
-
-    // Pick the first slot of the same item type, if stackable.
-    // Else, pick the first open slot.
-    let firstOpenSlot = null;
-    let firstStackableSlot = null;
-    for (let i = 0; i < container.items.length; i++) {
-      if (firstOpenSlot === null && !container.items[i]) {
-        firstOpenSlot = i;
-      }
-      const containerItem = container.items[i];
-      if (isStackable && containerItem && containerItem.type === item.type) {
-        firstStackableSlot = i;
-        break;
-      }
-    }
-
-    let index;
-    if (firstStackableSlot !== null) {
-      index = firstStackableSlot;
-    } else if (firstOpenSlot !== null) {
-      index = firstOpenSlot;
-    }
-
-    if (index !== undefined) {
-      return Utils.ItemLocation.Container(id, index);
-    }
-  }
-
   grantXp(clientConnection: ClientConnection, skill: number, xp: number) {
     const currentXp = clientConnection.player.skills.get(skill);
     const newXp = (currentXp || 0) + xp;
