@@ -203,6 +203,51 @@ class CreatureSprite extends PIXI.Sprite {
         .lineStyle();
     }
 
+    if (this.creature.image >= 0 && this.creature.image <= 4) {
+      const data = {
+        arms: 1,
+        head: 5,
+        chest: 3,
+        legs: 2,
+        shield: 2,
+        weapon: 3,
+      };
+
+      creatureGfx
+        .beginTextureFill({ texture: Draw.getTexture.arms(data.arms) })
+        .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
+        .endFill();
+
+      creatureGfx
+        .beginTextureFill({ texture: Draw.getTexture.head(data.head) })
+        .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
+        .endFill();
+
+      creatureGfx
+        .beginTextureFill({ texture: Draw.getTexture.chest(data.chest) })
+        .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
+        .endFill();
+
+      creatureGfx
+        .beginTextureFill({ texture: Draw.getTexture.legs(data.legs) })
+        .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
+        .endFill();
+
+      if (data.shield) {
+        creatureGfx
+          .beginTextureFill({ texture: Draw.getTexture.shield(data.shield) })
+          .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
+          .endFill();
+      }
+
+      if (data.weapon) {
+        creatureGfx
+          .beginTextureFill({ texture: Draw.getTexture.weapon(data.weapon) })
+          .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
+          .endFill();
+      }
+    }
+
     // uniforms.time = now / 1000;
     // filters.push(testFilter);
 

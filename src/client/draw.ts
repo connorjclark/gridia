@@ -41,10 +41,16 @@ function makeTextureCache(resourceType: string) {
 
 export const getTexture = {
   animations: makeTextureCache('animations'),
+  arms: makeTextureCache('arms'),
+  chest: makeTextureCache('chest'),
   creatures: makeTextureCache('creatures'),
   floors: makeTextureCache('floors'),
+  head: makeTextureCache('head'),
   items: makeTextureCache('items'),
+  legs: makeTextureCache('legs'),
+  shield: makeTextureCache('shield'),
   templates: makeTextureCache('templates'),
+  weapon: makeTextureCache('weapon'),
 };
 
 export function makeHighlight(color: number, alpha: number) {

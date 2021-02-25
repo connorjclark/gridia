@@ -118,7 +118,7 @@ export default class Server {
       id: 0,
       name: opts.name,
       pos: spawnLoc,
-      image: Utils.randInt(0, 10),
+      image: Utils.randInt(0, 4),
       isPlayer: true,
       speed: 2,
       life: 1000,

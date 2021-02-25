@@ -1,8 +1,8 @@
 * Equip items
-* Equipment graphics
 * Persist settings to local storage
 * "Reset" button for settings
 * Max item stacks
+* trash can
 
 ____
 

@@ -1,11 +1,15 @@
 export const ImageResources: Record<string, string[]> = {
   animations: [],
+  arms: [],
+  chest: [],
   creatures: [],
   floors: [],
+  head: [],
   items: [],
-  templates: [
-    './world/templates/templates0.png',
-  ],
+  legs: [],
+  shield: [],
+  templates: ['./world/templates/templates0.png'],
+  weapon: [],
 };
 
 for (let i = 0; i < 8; i++) {
@@ -20,6 +24,26 @@ for (let i = 0; i < 27; i++) {
 for (let i = 0; i < 2; i++) {
   ImageResources.animations.push(`./world/animations/animations${i}.png`);
 }
+
+for (let i = 0; i < 1; i++) {
+  ImageResources.arms.push(`./world/arms/arms${i}.png`);
+}
+for (let i = 0; i < 1; i++) {
+  ImageResources.legs.push(`./world/legs/legs${i}.png`);
+}
+for (let i = 0; i < 1; i++) {
+  ImageResources.chest.push(`./world/chest/chest${i}.png`);
+}
+for (let i = 0; i < 1; i++) {
+  ImageResources.shield.push(`./world/shield/shield${i}.png`);
+}
+for (let i = 0; i < 2; i++) {
+  ImageResources.weapon.push(`./world/weapon/weapon${i}.png`);
+}
+for (let i = 0; i < 2; i++) {
+  ImageResources.head.push(`./world/head/head${i}.png`);
+}
+
 
 export const SfxResources: Record<string, string> = {
   beep: './world/sound/sfx/rpgwo/beep.WAV',
@@ -64,7 +88,7 @@ function createPromiseAndResolve() {
 
 class LazyResourceLoader {
   private loadQueue: string[] = [];
-  private loadingResourcePromise = new Map<string, {promise: Promise<void>; resolve: Function}>();
+  private loadingResourcePromise = new Map<string, { promise: Promise<void>; resolve: Function }>();
   private isResourceLoaded = new Set<string>();
 
   hasResourceLoaded(key: string) {
