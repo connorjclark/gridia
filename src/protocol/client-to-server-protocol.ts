@@ -432,10 +432,15 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
             { name: 'name', type: 'string' },
           ],
           do(args: { name: string }) {
-            const template = Content.getMonsterTemplateByName(args.name);
+            const template = Content.getMonsterTemplateByNameNoError(args.name);
+            if (!template) {
+              server.reply(ProtocolBuilder.chat({ from: 'SERVER', to, message: `No monster named ${args.name}` }));
+              return;
+            }
+
             const loc = server.findNearest(server.currentClientConnection.player.creature.pos, 10, true,
               (_, l) => server.context.map.walkable(l));
-            if (template && loc) {
+            if (loc) {
               server.makeCreatureFromTemplate(template, loc);
             }
           },
