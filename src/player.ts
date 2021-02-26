@@ -8,22 +8,29 @@ interface TileSeenLogData {
   walkable: boolean;
 }
 
+export class SectorTileSeenLogData {
+  tiles: Array2D<TileSeenLogData | null> = [];
+
+  constructor() {
+    for (let x = 0; x < SECTOR_SIZE; x++) {
+      this.tiles[x] = [];
+      for (let y = 0; y < SECTOR_SIZE; y++) {
+        this.tiles[x][y] = null;
+      }
+    }
+  }
+}
+
 export class TilesSeenLog {
   // w,x,y,z partition -> data
-  seen = new Map<string, Array2D<TileSeenLogData | null>>();
+  seen = new Map<string, SectorTileSeenLogData>();
 
   getSectorData(point: TilePoint) {
     const sectorPoint = Utils.worldToSector(point, SECTOR_SIZE);
     const key = `${point.w},${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}`;
     let sector = this.seen.get(key);
     if (!sector) {
-      sector = [];
-      for (let x = 0; x < SECTOR_SIZE; x++) {
-        sector[x] = [];
-        for (let y = 0; y < SECTOR_SIZE; y++) {
-          sector[x][y] = null;
-        }
-      }
+      sector = new SectorTileSeenLogData();
       this.seen.set(key, sector);
     }
 
@@ -39,12 +46,12 @@ export class TilesSeenLog {
       floor: tile.floor,
       walkable: !tile.item || Content.getMetaItem(tile.item.type).walkable,
     };
-    sector[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE] = data;
+    sector.tiles[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE] = data;
   }
 
   getMark(map: WorldMap, point: TilePoint) {
     const sector = this.getSectorData(point);
-    return sector[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE];
+    return sector.tiles[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE];
   }
 }
 

@@ -53,4 +53,17 @@ describe('WireSerializer', () => {
     const clonedCar = clonedMap.get(1)?.car;
     expect(clonedCar && clonedCar.describe()).toBe('I am a blue car.');
   });
+
+  it('object instance with map with complex values in array', () => {
+    const map = new Map<number, { grid: MyCar[][] }>();
+    const object = { map };
+    const car = new MyCar();
+    car.color = 'blue';
+    map.set(1, { grid: [[car]] });
+    console.log(WireSerializer.serialize(object));
+
+    const clonedMap = roundTrip({ object }).object.map;
+    const clonedCar = clonedMap.get(1)?.grid[0][0];
+    expect(clonedCar && clonedCar.describe()).toBe('I am a blue car.');
+  });
 });

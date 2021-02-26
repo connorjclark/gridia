@@ -101,12 +101,17 @@ export class ServerContext extends Context {
   async savePlayer(player: Player) {
     const json = WireSerializer.serialize(player);
     await fs.writeFile(this.playerPath(player.id), json);
+
+    const container = this.containers.get(player.containerId);
+    if (container) await this.saveContainer(container);
+
+    const equipment = this.containers.get(player.equipmentContainerId);
+    if (equipment) await this.saveContainer(equipment);
   }
 
-  async loadPlayer(playerId: number) {
+  async loadPlayer(playerId: number): Promise<Player> {
     const json = await fs.readFile(this.playerPath(playerId));
-    const player: Player = WireSerializer.deserialize(json);
-    return player;
+    return WireSerializer.deserialize(json);
   }
 
   makeContainer(type: ContainerType, size = 30) {
@@ -121,6 +126,11 @@ export class ServerContext extends Context {
     } else {
       return item.containerId = this.makeContainer(ContainerType.Normal, 10).id;
     }
+  }
+
+  async saveContainer(container: Container) {
+    const json = JSON.stringify({ type: container.type, items: container.items }, null, 2);
+    await fs.writeFile(this.containerPath(container.id), json);
   }
 
   // TODO defer to loader like sector is?
@@ -156,8 +166,7 @@ export class ServerContext extends Context {
     }
 
     for (const container of this.containers.values()) {
-      const json = JSON.stringify({type: container.type ,items: container.items}, null, 2);
-      await fs.writeFile(this.containerPath(container.id), json);
+      this.saveContainer(container);
     }
 
     // Player creatures are transient (new creature made for each login), so don't bother saving them.

@@ -1,8 +1,6 @@
 import ClientModule from '../client-module';
-import * as Utils from '../../utils';
 import * as Helper from '../helper';
 import * as Content from '../../content';
-import { SECTOR_SIZE } from '../../constants';
 
 class MapModule extends ClientModule {
   private mapEl?: HTMLCanvasElement;
@@ -64,9 +62,6 @@ class MapModule extends ClientModule {
       for (let y = 0; y < chunk; y++) {
         const loc = { ...playerLoc, x: x + startX, y: y + startY };
         if (!partition.inBounds(loc)) continue;
-
-        const sector = partition.getSectorIfLoaded(Utils.worldToSector(loc, SECTOR_SIZE));
-        if (!sector) continue;
 
         const mark = this.game.client.player.tilesSeenLog.getMark(this.game.client.context.map, loc);
         if (!mark) continue;

@@ -173,7 +173,7 @@ export default class Server {
       player = opts.player;
     } else {
       if (!this.context.checkPlayerPassword(opts.playerId, opts.password)) throw new Error('wrong password');
-      player = await this.context.loadPlayer(opts.playerId);
+      player = this.players.get(opts.playerId) || await this.context.loadPlayer(opts.playerId);
     }
 
     clientConnection.container = await this.context.getContainer(player.containerId);
@@ -545,6 +545,20 @@ export default class Server {
             }
             await this.warpCreature(creature, newPos);
           }
+        }
+      },
+    });
+
+    // Handle tiles seen logs.
+    this.taskRunner.registerTickSection({
+      description: 'tiles seen logs',
+      rate: { seconds: 5 },
+      fn: () => {
+        for (const player of this.players.values()) {
+          server.context.map.forEach(player.creature.pos, 30, (loc) => {
+            player.tilesSeenLog.markSeen(server.context.map, loc);
+          });
+          server.context.savePlayer(player);
         }
       },
     });

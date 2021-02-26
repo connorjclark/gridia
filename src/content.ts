@@ -206,6 +206,11 @@ export function getMonsterTemplateByName(name: string) {
   return result;
 }
 
+// TODO
+export function getMonsterTemplateByNameNoError(name: string) {
+  return monsters.find((m) => m && m.name === name);
+}
+
 export function getSkills() {
   return skills;
 }

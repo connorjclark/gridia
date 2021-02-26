@@ -253,10 +253,12 @@ class RegisterScene extends Scene {
     this.onClickRegisterBtn = this.onClickRegisterBtn.bind(this);
 
     const playersEl = Helper.find('.register__players', this.element);
-    for (const [i, player] of Object.entries(localStorageData[serverUrl].players)) {
-      const el = Helper.createChildOf(playersEl, 'div', 'register__player');
-      el.textContent = player.name;
-      el.dataset.index = i;
+    if (localStorageData[serverUrl]) {
+      for (const [i, player] of Object.entries(localStorageData[serverUrl].players)) {
+        const el = Helper.createChildOf(playersEl, 'div', 'register__player');
+        el.textContent = player.name;
+        el.dataset.index = i;
+      }
     }
     playersEl.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
@@ -286,7 +288,7 @@ class RegisterScene extends Scene {
       password,
     }));
 
-    localStorageData[serverUrl].players.push({ name, password });
+    if (localStorageData[serverUrl]) localStorageData[serverUrl].players.push({ name, password });
     saveLocalStorageData(localStorageData);
     this.waitForInitializeThenStartGame();
   }
