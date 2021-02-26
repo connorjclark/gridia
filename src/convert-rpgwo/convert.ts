@@ -281,12 +281,15 @@ function parseItemUsagesIni(): ItemUse[] {
       // @ts-ignore
       currentUsage.products[index].quantity = forcenum(value);
     } else if (key.match(/^successitem/i)) {
-      const index = forcenum(key.replace(/successitem/i, '')) - 1;
-      // @ts-ignore
-      currentUsage.products[index] = {
-        type: parseItemId(value),
-        quantity: 1,
-      };
+      // Currently don't handle things like <fish>.
+      if (!value.startsWith('<')) {
+        const index = forcenum(key.replace(/successitem/i, '')) - 1;
+        // @ts-ignore
+        currentUsage.products[index] = {
+          type: parseItemId(value),
+          quantity: 1,
+        };
+      }
     } else if (key.match(/^successfocus$/i)) {
       // @ts-ignore
       currentUsage.successFocus = {

@@ -17842,12 +17842,7 @@
     "focus": 0,
     "skill": "Mining",
     "animation": "MiningSound",
-    "products": [
-      {
-        "type": 0,
-        "quantity": 1
-      }
-    ],
+    "products": [],
     "skillSuccessXp": 30,
     "successMessage": "You mine some ore."
   },
@@ -31863,12 +31858,7 @@
     "focus": 0,
     "skill": "Fishing",
     "animation": "Fishing",
-    "products": [
-      {
-        "type": 0,
-        "quantity": 1
-      }
-    ],
+    "products": [],
     "skillSuccessXp": 150,
     "successTool": 1100,
     "toolQuantityConsumed": 1
@@ -31878,12 +31868,7 @@
     "focus": 0,
     "skill": "Fishing",
     "animation": "Fishing",
-    "products": [
-      {
-        "type": 0,
-        "quantity": 1
-      }
-    ],
+    "products": [],
     "skillSuccessXp": 200,
     "successTool": 1101,
     "toolQuantityConsumed": 1
@@ -31925,12 +31910,7 @@
     "focus": 0,
     "skill": "Fishing",
     "animation": "Fishing",
-    "products": [
-      {
-        "type": 0,
-        "quantity": 1
-      }
-    ],
+    "products": [],
     "skillSuccessXp": 150,
     "successTool": 1100,
     "toolQuantityConsumed": 1
@@ -31940,12 +31920,7 @@
     "focus": 0,
     "skill": "Fishing",
     "animation": "Fishing",
-    "products": [
-      {
-        "type": 0,
-        "quantity": 1
-      }
-    ],
+    "products": [],
     "skillSuccessXp": 200,
     "successTool": 1101,
     "toolQuantityConsumed": 1
