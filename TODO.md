@@ -2,6 +2,7 @@
 * "Reset" button for settings
 * Max item stacks
 * trash can
+* selected tool + space (with no selected view) should use the item on tile below player.
 
 ____
 

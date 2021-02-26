@@ -204,6 +204,10 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
       server.broadcastAnimation(loc, use.animation);
     }
 
+    if (use.successFloor) {
+      server.setFloor(loc, use.successFloor);
+    }
+
     if (use.skill && use.skillSuccessXp) {
       const skillUsed = Content.getSkills().find((skill) => skill.name === use.skill);
       if (skillUsed) server.grantXp(server.currentClientConnection, skillUsed.id, use.skillSuccessXp);

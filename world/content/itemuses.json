@@ -7904,6 +7904,7 @@
     "skill": "Masonry",
     "products": [],
     "skillSuccessXp": 25,
+    "successFloor": 3,
     "successMessage": "You pave some road.",
     "toolQuantityConsumed": 1
   },
@@ -12508,6 +12509,7 @@
     "skill": "Carpentry",
     "products": [],
     "skillSuccessXp": 25,
+    "successFloor": 39,
     "successMessage": "You lay some floor.",
     "toolQuantityConsumed": 1
   },
@@ -18889,6 +18891,7 @@
       }
     ],
     "skillSuccessXp": 30,
+    "successFloor": 44,
     "successMessage": "You dig up some dirt."
   },
   {
@@ -24360,6 +24363,7 @@
     "skill": "Masonry",
     "products": [],
     "skillSuccessXp": 25,
+    "successFloor": 44,
     "successMessage": "You pave a path.",
     "toolQuantityConsumed": 1
   },

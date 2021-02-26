@@ -127,6 +127,7 @@ interface ItemUse {
   toolQuantityConsumed: number;
   focusQuantityConsumed: number;
   successTool?: number;
+  successFloor?: number;
   products: Array<{ type: number; quantity: number }>;
   skill?: string;
   skillSuccessXp?: number;

@@ -297,6 +297,15 @@ function parseItemUsagesIni(): ItemUse[] {
         quantity: 1,
       };
       currentUsage.focusQuantityConsumed = 1;
+    } else if (key.match(/^surfaceground$/i)) {
+      // @ts-ignore
+      const num = {
+        1: 44,
+        16: 3,
+        126: 44,
+        133: 39,
+      }[forcenum(value)];
+      if (num) currentUsage.successFloor = num;
     } else if (key.match(/^successmsg$/i)) {
       currentUsage.successMessage = value;
     } else if (key.match(/^skill$/i)) {
@@ -351,6 +360,7 @@ function parseItemUsagesIni(): ItemUse[] {
     'products',
     'skill',
     'skillSuccessXp',
+    'successFloor',
     'successMessage',
     'successTool',
     'tool',
