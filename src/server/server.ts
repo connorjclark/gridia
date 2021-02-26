@@ -80,6 +80,14 @@ export default class Server {
     this.broadcastInRange(ProtocolBuilder.animation({ ...pos, key: name }), pos, 30);
   }
 
+  broadcastChat(message: string) {
+    this.broadcast(ProtocolBuilder.chat({
+      from: 'SERVER',
+      to: 'global',
+      message,
+    }));
+  }
+
   start() {
     this.taskRunner.start();
   }
@@ -186,13 +194,16 @@ export default class Server {
     this.players.set(player.id, player);
     clientConnection.player = player;
     await this.initClient(clientConnection);
+    this.broadcastChat(`${clientConnection.player.name} has entered the world.`);
   }
 
   removeClient(clientConnection: ClientConnection) {
     this.clientConnections.splice(this.clientConnections.indexOf(clientConnection), 1);
     if (clientConnection.player) {
+      this.context.savePlayer(clientConnection.player);
       this.removeCreature(clientConnection.player.creature);
       this.broadcastAnimation(clientConnection.player.creature.pos, 'WarpOut');
+      this.broadcastChat(`${clientConnection.player.name} has left the world.`);
     }
   }
 
