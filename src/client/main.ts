@@ -113,10 +113,9 @@ class StartScene extends Scene {
   }
 
   async onClickConnectBtn() {
-    serverUrl = this.serverLocationInput.value;
-    localStorageData[serverUrl] = localStorageData[serverUrl] || { players: [] };
-
-    controller.client = await createClientForServer(this.serverLocationInput.value);
+    const serverUrl = this.serverLocationInput.value;
+    loadLocalStorageData(`server-${name}`);
+    controller.client = await createClientForServer(serverUrl);
     controller.pushScene(new RegisterScene());
   }
 
@@ -180,6 +179,7 @@ class MapSelectScene extends Scene {
   async onClickSelectBtn() {
     const name = `/default-world-${this.mapListEl.childElementCount}`;
     await controller.serverWorker.saveGeneratedMap({ name });
+    loadLocalStorageData(`worker-${name}`);
     controller.client = await connectToServerWorker(controller.serverWorker, {
       serverData: name,
       dummyDelay: qs.latency ?? 0,
@@ -215,15 +215,19 @@ class MapSelectScene extends Scene {
 }
 
 interface LocalStorageData {
-  [serverUrl: string]: {
-    players: Array<{ name: string; password: string }>;
-  };
+  players: Array<{ name: string; password: string }>;
 }
 
-function getLocalStorageData(): LocalStorageData {
-  let data = {};
+let localStorageKey = '';
+let localStorageData: LocalStorageData;
+function loadLocalStorageData(key: string) {
+  localStorageKey = key;
 
-  const json = localStorage.getItem('gridia-data');
+  let data = {
+    players: [],
+  };
+
+  const json = localStorage.getItem(`local-gridia-data-${key}`);
   if (json) {
     try {
       data = JSON.parse(json);
@@ -232,15 +236,11 @@ function getLocalStorageData(): LocalStorageData {
     }
   }
 
-  return data;
+  localStorageData = data;
 }
-
-function saveLocalStorageData(data: LocalStorageData) {
-  localStorage.setItem('gridia-data', JSON.stringify(data));
+function saveLocalStorageData() {
+  localStorage.setItem(`local-gridia-data-${localStorageKey}`, JSON.stringify(localStorageData));
 }
-
-let serverUrl = '';
-const localStorageData = getLocalStorageData();
 
 class RegisterScene extends Scene {
   private registerBtn: HTMLElement;
@@ -253,12 +253,10 @@ class RegisterScene extends Scene {
     this.onClickRegisterBtn = this.onClickRegisterBtn.bind(this);
 
     const playersEl = Helper.find('.register__players', this.element);
-    if (localStorageData[serverUrl]) {
-      for (const [i, player] of Object.entries(localStorageData[serverUrl].players)) {
-        const el = Helper.createChildOf(playersEl, 'div', 'register__player');
-        el.textContent = player.name;
-        el.dataset.index = i;
-      }
+    for (const [i, player] of Object.entries(localStorageData.players)) {
+      const el = Helper.createChildOf(playersEl, 'div', 'register__player');
+      el.textContent = player.name;
+      el.dataset.index = i;
     }
     playersEl.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
@@ -266,7 +264,7 @@ class RegisterScene extends Scene {
       if (!playerEl) return;
 
       const index = Number(playerEl.dataset.index);
-      const player = localStorageData[serverUrl].players[index];
+      const player = localStorageData.players[index];
       controller.client.connection.send(ProtocolBuilder.login(player));
       this.waitForInitializeThenStartGame();
     });
@@ -288,8 +286,8 @@ class RegisterScene extends Scene {
       password,
     }));
 
-    if (localStorageData[serverUrl]) localStorageData[serverUrl].players.push({ name, password });
-    saveLocalStorageData(localStorageData);
+    localStorageData.players.push({ name, password });
+    saveLocalStorageData();
     this.waitForInitializeThenStartGame();
   }
 
@@ -476,7 +474,7 @@ function globalOnActionHandler(client: Client, e: GameActionEvent) {
     if (location.source === 'world') Helper.useHand(location.loc);
     break;
   case 'use-tool':
-    if (location.source === 'world') Helper.useTool(location.loc, {toolIndex: e.action.extra.index});
+    if (location.source === 'world') Helper.useTool(location.loc, { toolIndex: e.action.extra.index });
     break;
   case 'open-container':
     if (location.source === 'world') Helper.openContainer(location.loc);
@@ -539,6 +537,7 @@ async function loadMap(name: string) {
     dummyDelay: qs.latency ?? 0,
     verbose: false,
   });
+  loadLocalStorageData(`worker-${name}`);
   controller.pushScene(new RegisterScene());
 }
 
