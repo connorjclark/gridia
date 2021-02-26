@@ -10,6 +10,7 @@ export default interface IClientToServerProtocol {
     onMoveItem(server: Server, { from, quantity, to }: ClientToServerProtocol.Params.MoveItem): void;
     onRegister(server: Server, { name, password }: ClientToServerProtocol.Params.Register): void;
     onLogin(server: Server, { name, password }: ClientToServerProtocol.Params.Login): void;
+    onLogout(server: Server, {}: ClientToServerProtocol.Params.Logout): void;
     onRequestContainer(server: Server, { containerId, loc }: ClientToServerProtocol.Params.RequestContainer): void;
     onRequestCreature(server: Server, { id }: ClientToServerProtocol.Params.RequestCreature): void;
     onRequestPartition(server: Server, { w }: ClientToServerProtocol.Params.RequestPartition): void;

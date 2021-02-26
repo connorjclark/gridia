@@ -89,12 +89,19 @@ async function startServer(args: ServerWorkerOpts) {
   server.clientConnections.push(clientConnection);
 }
 
+async function shutdown() {
+  if (!server) return;
+
+  await server.save();
+}
+
 export const RpcMap = {
   init,
   listMaps,
   generateMap,
   saveGeneratedMap,
   startServer,
+  shutdown,
 };
 
 self.addEventListener('message', async (e) => {

@@ -56,6 +56,10 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     });
   }
 
+  onLogout(server: Server, { }: Params.Logout): void {
+    server.removeClient(server.currentClientConnection);
+  }
+
   async onRequestContainer(server: Server, { containerId, loc }: Params.RequestContainer) {
     if (!containerId && !loc) throw new Error('expected containerId or loc');
     if (containerId && loc) throw new Error('expected only one of containerId or loc');

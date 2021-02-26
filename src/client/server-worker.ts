@@ -8,6 +8,7 @@ export class ServerWorker {
   generateMap = this._createRpc('generateMap', 'canvas') as typeof RpcMap['generateMap'];
   saveGeneratedMap = this._createRpc('saveGeneratedMap') as typeof RpcMap['saveGeneratedMap'];
   startServer = this._createRpc('startServer') as typeof RpcMap['startServer'];
+  shutdown = this._createRpc('shutdown') as typeof RpcMap['shutdown'];
   private _rpcCallbacks = new Map<number, (...args: any) => void>();
   private _nextRpcId = 1;
 

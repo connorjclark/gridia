@@ -22,6 +22,8 @@ import MapModule from './modules/map-module';
 import { makeHelpWindow } from './ui/help-window';
 import { makeContainerWindow } from './ui/container-window';
 import { makeGraphicComponent } from './ui/ui-common';
+import { WorkerConnection } from './connection';
+import { ServerWorker } from './server-worker';
 
 // WIP lighting shaders.
 
@@ -794,6 +796,21 @@ class Game {
         helpWindow.el.hidden = true;
       }
     });
+
+    // If running server locally, give it a chance to save data before closing window.
+    if (this.client.connection instanceof WorkerConnection) {
+      window.addEventListener('beforeunload', (e) => {
+        e.preventDefault();
+        e.returnValue = '';
+
+        // @ts-ignore
+        const serverWorker: ServerWorker = window.Gridia.controller.serverWorker;
+        // The browser will display an alert box, which is very likely enough
+        // time to do the saving. However, the alert box message is not customizable
+        // and will say "Data may not be saved".
+        serverWorker.shutdown().then(() => console.log('saved!'));
+      });
+    }
   }
 
   makeUIWindow(opts: { name: string; cell: string }) {

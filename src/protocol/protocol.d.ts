@@ -37,6 +37,9 @@ declare namespace ClientToServerProtocol {
       password: string;
     }
 
+    interface Logout {
+    }
+
     interface RequestContainer {
       containerId?: number;
       loc?: TilePoint;
