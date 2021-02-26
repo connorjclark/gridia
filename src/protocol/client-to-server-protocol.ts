@@ -474,6 +474,12 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
             server.advanceTime(args.ticks);
           },
         },
+        save: {
+          args: [],
+          do() {
+            server.save();
+          },
+        },
         image: {
           args: [
             { name: 'index', type: 'number' },

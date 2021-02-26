@@ -4,7 +4,7 @@ import Client from '../../client/client'
 
 export default interface IServerToClientProtocol {
     onAnimation(client: Client, { key, ...loc }: ServerToClientProtocol.Params.Animation): void;
-    onContainer(client: Client, { id, items }: ServerToClientProtocol.Params.Container): void;
+    onContainer(client: Client, { type, id, items }: ServerToClientProtocol.Params.Container): void;
     onInitialize(client: Client, { player, secondsPerWorldTick, ticksPerWorldDay }: ServerToClientProtocol.Params.Initialize): void;
     onInitializePartition(client: Client, { ...loc }: ServerToClientProtocol.Params.InitializePartition): void;
     onLog(client: Client, { msg }: ServerToClientProtocol.Params.Log): void;

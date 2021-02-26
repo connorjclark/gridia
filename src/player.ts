@@ -3,21 +3,18 @@ import { SECTOR_SIZE } from './constants';
 import * as Utils from './utils';
 import * as Content from './content';
 
-interface TileSeenLogData {
-  floor: number;
-  walkable: boolean;
-}
-
 export class SectorTileSeenLogData {
-  tiles: Array2D<TileSeenLogData | null> = [];
+  data = new Uint16Array(SECTOR_SIZE * SECTOR_SIZE);
 
-  constructor() {
-    for (let x = 0; x < SECTOR_SIZE; x++) {
-      this.tiles[x] = [];
-      for (let y = 0; y < SECTOR_SIZE; y++) {
-        this.tiles[x][y] = null;
-      }
-    }
+  get(x: number, y: number) {
+    const num = this.data[x + y * SECTOR_SIZE];
+    // eslint-disable-next-line no-bitwise
+    return { floor: num >> 1, walkable: num % 2 === 1 };
+  }
+
+  set(x: number, y: number, floor: number, walkable: boolean) {
+    // eslint-disable-next-line no-bitwise
+    this.data[x + y * SECTOR_SIZE] = (floor << 1) + (walkable ? 1 : 0);
   }
 }
 
@@ -42,16 +39,13 @@ export class TilesSeenLog {
 
     const sector = this.getSectorData(point);
     const tile = map.getTile(point);
-    const data = {
-      floor: tile.floor,
-      walkable: !tile.item || Content.getMetaItem(tile.item.type).walkable,
-    };
-    sector.tiles[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE] = data;
+    const walkable = !tile.item || Content.getMetaItem(tile.item.type).walkable;
+    sector.set(point.x % SECTOR_SIZE, point.y % SECTOR_SIZE, tile.floor, walkable);
   }
 
-  getMark(map: WorldMap, point: TilePoint) {
+  getMark(point: TilePoint) {
     const sector = this.getSectorData(point);
-    return sector.tiles[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE];
+    return sector.get(point.x % SECTOR_SIZE, point.y % SECTOR_SIZE);
   }
 }
 

@@ -558,7 +558,6 @@ export default class Server {
           server.context.map.forEach(player.creature.pos, 30, (loc) => {
             player.tilesSeenLog.markSeen(server.context.map, loc);
           });
-          server.context.savePlayer(player);
         }
       },
     });

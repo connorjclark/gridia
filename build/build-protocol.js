@@ -272,7 +272,7 @@ function findNodeByName(node, name) {
 const program = ts.createProgram(["src/protocol/protocol.d.ts"], {
   noEmit: true,
 });
-const protocolDeclaration = program.getSourceFiles().find(f => f.path.includes("protocol"));
+const protocolDeclaration = program.getSourceFiles().find(f => f.path.includes("protocol.d.ts"));
 
 if (process.env.DEBUG) {
   const debug = findNodeByName(protocolDeclaration, "debug");

@@ -84,7 +84,7 @@ declare namespace ServerToClientProtocol {
     }
 
     interface Initialize {
-      player: Player;
+      player: import('../player').default;
       secondsPerWorldTick: number;
       ticksPerWorldDay: number;
     }

@@ -58,7 +58,7 @@ export type Message = AnimationMessage | ContainerMessage | InitializeMessage | 
 export function animation({ key, ...loc }: ServerToClientProtocol.Params.Animation): AnimationMessage {
     return { type: "animation", args: arguments[0] };
 }
-export function container({ id, items }: ServerToClientProtocol.Params.Container): ContainerMessage {
+export function container({ type, id, items }: ServerToClientProtocol.Params.Container): ContainerMessage {
     return { type: "container", args: arguments[0] };
 }
 export function initialize({ player, secondsPerWorldTick, ticksPerWorldDay }: ServerToClientProtocol.Params.Initialize): InitializeMessage {

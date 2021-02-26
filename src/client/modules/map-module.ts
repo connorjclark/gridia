@@ -63,8 +63,8 @@ class MapModule extends ClientModule {
         const loc = { ...playerLoc, x: x + startX, y: y + startY };
         if (!partition.inBounds(loc)) continue;
 
-        const mark = this.game.client.player.tilesSeenLog.getMark(this.game.client.context.map, loc);
-        if (!mark) continue;
+        const mark = this.game.client.player.tilesSeenLog.getMark(loc);
+        if (mark.floor === 0 && !mark.walkable) continue;
 
         const { floor, walkable } = mark;
 
