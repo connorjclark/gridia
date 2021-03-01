@@ -96,11 +96,12 @@ module.exports = {
         "@typescript-eslint/no-unsafe-call": "off", // TODO
         "@typescript-eslint/no-unsafe-member-access": "off", // TODO
         "@typescript-eslint/no-unsafe-return": "off", // TODO
-        "@typescript-eslint/no-unused-expressions": "error",
-        "@typescript-eslint/no-unused-vars": [
-            "warn",
-            {"argsIgnorePattern": "_+"}
-        ],
+        "@typescript-eslint/no-unused-expressions": "off",
+        // "@typescript-eslint/no-unused-vars": [
+        //     "warn",
+        //     {"argsIgnorePattern": "_+"}
+        // ],
+        "@typescript-eslint/no-unused-vars": "off", // TODO. keeps deleting my WIP code! >:(
         "@typescript-eslint/no-use-before-define": "off",
         "@typescript-eslint/no-var-requires": "off",
         "@typescript-eslint/prefer-as-const": "error",

@@ -60,7 +60,6 @@ describe('WireSerializer', () => {
     const car = new MyCar();
     car.color = 'blue';
     map.set(1, { grid: [[car]] });
-    console.log(WireSerializer.serialize(object));
 
     const clonedMap = roundTrip({ object }).object.map;
     const clonedCar = clonedMap.get(1)?.grid[0][0];
