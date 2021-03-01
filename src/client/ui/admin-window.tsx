@@ -16,6 +16,7 @@ export interface State {
     page: number;
   };
   tool: Tool;
+  safeMode: boolean;
 }
 const DEFAULT_STATE: State = {
   selectionFilter: {
@@ -24,6 +25,7 @@ const DEFAULT_STATE: State = {
     page: 0,
   },
   tool: 'point',
+  safeMode: true,
 };
 
 const Input = (props: any) => {
@@ -217,6 +219,12 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
             >{tool}</div>;
           })}
 
+          <div
+            class={`admin__tool ${state.safeMode ? 'admin__tool--selected' : ''}`}
+            title="Enable to prevent overwriting existing items"
+            onClick={() => this.onClickSafeMode()}
+          >Safe Mode</div>
+
           <div>
             <button onClick={() => this.setPage(state.selectionFilter.page - 1, numPages)}>{'<'}</button>
             <button onClick={() => this.setPage(state.selectionFilter.page + 1, numPages)}>{'>'}</button>
@@ -239,6 +247,12 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
     onClickTool(tool: Tool) {
       this.setState({
         tool,
+      }, () => this.updateAdminModule());
+    }
+
+    onClickSafeMode() {
+      this.setState({
+        safeMode: !this.state.safeMode,
       }, () => this.updateAdminModule());
     }
 

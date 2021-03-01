@@ -77,8 +77,10 @@ class AdminModule extends ClientModule {
       const item = this._state.selected.id > 0 ? { type: this._state.selected.id, quantity: 1 } : undefined;
       const currentItem = this.game.client.context.map.getItem(loc);
       if (Utils.equalItems(currentItem, item)) return;
+
       // Don't overwrite existing items - must explictly select the "null" item to delete items.
-      if (currentItem && item) return;
+      if (this._state.safeMode && currentItem && item) return;
+
       this.game.client.connection.send(ProtocolBuilder.adminSetItem({
         ...loc,
         item,
