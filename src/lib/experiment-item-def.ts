@@ -281,7 +281,11 @@ function resolveIdentifier(obj: any, identifier: string, path: string[]) {
 
   const currentPath = [...path];
   currentPath.pop();
+  // Avoids resolving to itself. ex: {burden: '<burden>'}
+  if (path[path.length - 1] === identifier) currentPath.pop();
+
   while (currentPath.length >= 0) {
+
     const value = resolveObjectPath(obj, [...currentPath, first]);
     if (value !== undefined) {
       obj = value;
@@ -311,7 +315,7 @@ function globals_(scopeName: string, properties: TemplateNode['data']['propertie
   return { type: 'globals', data: { scopeName, properties } };
 }
 
-function defineItem_(data: Partial<MetaItem>): DefineItemNode {
+function defineItem_(data: DefineItemNode['data']): DefineItemNode {
   return { type: 'define-item', data };
 }
 
@@ -511,14 +515,15 @@ const testProgram = [
   template_('Tree', {
     product: null, // TODO: error if not provided
     yield: 5,
+    burden: 10000,
     items: {
-      stump: defineItem_({ name: '$product Tree Stump' }),
-      sprouting: defineItem_({ name: 'Sprouting $product Tree', animations: [895] }),
-      young: defineItem_({ name: 'Young $product Tree', animations: [896] }),
-      flowering: defineItem_({ name: 'Flowering $product Tree' }),
-      ripening: defineItem_({ name: 'Ripening $product Tree' }),
-      ripe: defineItem_({ name: 'Ripe $product Tree' }),
-      dormant: defineItem_({ name: 'Dormant $product Tree' }),
+      stump: defineItem_({ name: '$product Tree Stump', burden: '<burden>' }),
+      sprouting: defineItem_({ name: 'Sprouting $product Tree', animations: [895], burden: '<burden>' }),
+      young: defineItem_({ name: 'Young $product Tree', animations: [896], burden: '<burden>' }),
+      flowering: defineItem_({ name: 'Flowering $product Tree', burden: '<burden>' }),
+      ripening: defineItem_({ name: 'Ripening $product Tree', burden: '<burden>' }),
+      ripe: defineItem_({ name: 'Ripe $product Tree', burden: '<burden>' }),
+      dormant: defineItem_({ name: 'Dormant $product Tree', burden: '<burden>' }),
     },
     time: [
       tick_('<items.stump>', '<items.sprouting>', '10 days'),
