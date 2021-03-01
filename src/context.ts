@@ -19,6 +19,14 @@ export class Context {
     this.map.getTile(creature.pos).creature = creature;
   }
 
+  // super lame.
+  syncCreaturesOnTiles() {
+    // Make sure every creature is in its proper place.
+    for (const creature of this.creatures.values()) {
+      this.map.getTile(creature.pos).creature = creature;
+    }
+  }
+
   removeCreature(id: number) {
     const creature = this.creatures.get(id);
     if (creature) {

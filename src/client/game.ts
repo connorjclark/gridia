@@ -825,6 +825,7 @@ class Game {
     const worldTime = this.worldTime;
 
     Draw.sweepTexts();
+    this.client.context.syncCreaturesOnTiles();
 
     const focusPos = this.getPlayerPosition();
     const { w, z } = focusPos;

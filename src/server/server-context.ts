@@ -36,11 +36,12 @@ export class ServerContext extends Context {
     const map = new WorldMap();
     const context = new ServerContext(map, serverDir);
 
-    const creatures = JSON.parse(await fs.readFile(context.creaturesPath()));
-    for (const creature of creatures) {
-      context.creatures.set(creature.id, creature);
-      // Purposefully do not set creature on tile, as that would load the sector.
-    }
+    // TODO: figure out if I want to save creatures at all.
+    // const creatures = JSON.parse(await fs.readFile(context.creaturesPath()));
+    // for (const creature of creatures) {
+    //   context.creatures.set(creature.id, creature);
+    //   // Purposefully do not set creature on tile, as that would load the sector.
+    // }
 
     context.nextContainerId = meta.nextContainerId;
     context.nextCreatureId = meta.nextCreatureId;
@@ -169,9 +170,10 @@ export class ServerContext extends Context {
       this.saveContainer(container);
     }
 
+    // TODO: figure out if I want to save creatures at all.
     // Player creatures are transient (new creature made for each login), so don't bother saving them.
-    const npcs = [...this.creatures.values()].filter((c) => !c.isPlayer);
-    await fs.writeFile(this.creaturesPath(), JSON.stringify(npcs, null, 2));
+    // const npcs = [...this.creatures.values()].filter((c) => !c.isPlayer);
+    // await fs.writeFile(this.creaturesPath(), JSON.stringify(npcs, null, 2));
   }
 
   protected async saveMeta() {
