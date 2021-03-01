@@ -70,7 +70,7 @@ interface ItemSelectionsProps {
 const ItemSelections = (props: ItemSelectionsProps) => {
   return <div class="admin__selections">
     {props.metaItems.map((metaItem) => {
-      const graphicIndex = metaItem.animations?.[0] || 0;
+      const graphicIndex = metaItem.animations ? (metaItem.animations[0] || 0) : 0;
       return <Selection
         type={'item'}
         id={metaItem.id}
