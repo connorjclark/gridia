@@ -10,6 +10,16 @@ import WorldMapPartition from '../world-map-partition';
 import * as WireSerializer from '../lib/wire-serializer';
 import Server from './server';
 
+async function readJson(filePath: string) {
+  const json = await fs.readFile(filePath);
+
+  try {
+    return JSON.parse(json);
+  } catch (_) {
+    throw new Error(`cannot parse json at ${filePath}: ${json}`);
+  }
+}
+
 export class ServerContext extends Context {
   nextContainerId = 1;
   nextCreatureId = 1;
@@ -32,7 +42,7 @@ export class ServerContext extends Context {
   }
 
   static async load(serverDir: string) {
-    const meta = JSON.parse(await fs.readFile(path.join(serverDir, 'meta.json')));
+    const meta = await readJson(path.join(serverDir, 'meta.json'));
     const map = new WorldMap();
     const context = new ServerContext(map, serverDir);
 
@@ -51,7 +61,7 @@ export class ServerContext extends Context {
     const partitionIds = (await fs.readdir(context.sectorDir)).map(Number);
     for (const w of partitionIds) {
       const partitionPath = context.partitionMetaPath(w);
-      const partitionMeta = JSON.parse(await fs.readFile(partitionPath));
+      const partitionMeta = await readJson(partitionPath);
       map.initPartition(w, partitionMeta.width, partitionMeta.height, partitionMeta.depth);
     }
 
@@ -68,8 +78,7 @@ export class ServerContext extends Context {
   }
 
   async loadSector(server: Server, sectorPoint: TilePoint) {
-    const data = await fs.readFile(this.sectorPath(sectorPoint));
-    const sector = JSON.parse(data) as Sector;
+    const sector = await readJson(this.sectorPath(sectorPoint)) as Sector;
 
     // Set creatures (all of which are always loaded in memory) to the sector (of which only active areas are loaded).
     // Kinda lame, I guess.
@@ -140,10 +149,11 @@ export class ServerContext extends Context {
     if (container) return container;
 
     // TODO handle error.
+    // (following todo may not be valid anymore)
     // TODO: even tho fs is stubbed in the browser build, parcel sees `readFileSync` and insists
     // that this be statically analyzable so it can do its bundling. Should create an interface that
     // doesn't trip up parcel's grepping for `.readFile`... (loadData?)
-    const data = JSON.parse(await fs.readFile(this.containerPath(id))) as {
+    const data = await readJson(this.containerPath(id)) as {
       type: ContainerType;
       items: Array<Item | null>;
     };
