@@ -30,7 +30,7 @@ export const SettingsSchema = {
   lightMode: {
     type: 'number',
     label: 'Light Mode',
-    default: 2,
+    default: 1,
     min: 0,
     max: 3,
     step: 1,
