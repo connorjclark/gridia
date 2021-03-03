@@ -12,7 +12,7 @@ async function main(options: CLIOptions) {
 
   const { port, ssl } = options;
 
-  let webserver;
+  let webserver: http.Server;
   if (ssl) {
     webserver = https.createServer({
       cert: fs.readFileSync(ssl.cert),
@@ -48,8 +48,7 @@ async function main(options: CLIOptions) {
   });
 
   async function onTerminate() {
-    // @ts-ignore
-    (webserver as http.Server).close();
+    webserver.close();
     server.stop();
     await server.save();
     process.exit(0);
