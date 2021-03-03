@@ -47,6 +47,17 @@ async function main(options: CLIOptions) {
     server.clientConnections.push(clientConnection);
   });
 
+  async function onTerminate() {
+    // @ts-ignore
+    (webserver as http.Server).close();
+    server.stop();
+    await server.save();
+    process.exit(0);
+  }
+
+  process.once('SIGINT', onTerminate);
+  process.once('SIGTERM', onTerminate);
+
   return server;
 }
 
