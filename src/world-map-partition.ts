@@ -3,6 +3,7 @@ import * as Content from './content';
 import * as Utils from './utils';
 
 class WorldMapPartition {
+  loaded = false;
   width: number;
   height: number;
   depth: number;
@@ -11,6 +12,8 @@ class WorldMapPartition {
   private _sectorLoadPromises = new Map<string, Promise<Sector>>();
 
   constructor(width: number, height: number, depth: number) {
+    if (depth < 0 || depth > 20) throw new Error('invalid depth');
+
     this.width = width;
     this.height = height;
     this.depth = depth;
@@ -26,7 +29,6 @@ class WorldMapPartition {
     if (!this.inBounds(point)) return false;
 
     const tile = this.getTile(point);
-    if (tile.creature) return false;
     if (tile.item && !Content.getMetaItem(tile.item.type).walkable) return false;
 
     return true;
@@ -122,6 +124,7 @@ class WorldMapPartition {
 
   private _loadSector(sectorPoint: PartitionPoint) {
     if (!this.loader) throw new Error('loader not set');
+
     const key = JSON.stringify(sectorPoint);
     let sectorLoadPromise = this._sectorLoadPromises.get(key);
     if (sectorLoadPromise) return sectorLoadPromise;

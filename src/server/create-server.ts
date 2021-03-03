@@ -46,7 +46,7 @@ export async function startServer(options: ServerOptions) {
           const y = Utils.randInt(height / 2 - 5, height / 2 + 5);
           const pos = { w: 0, x, y, z: 0 };
           const monster = Content.getRandomMonsterTemplate();
-          if (monster && server.context.map.walkable(pos)) {
+          if (monster && server.context.walkable(pos)) {
             server.makeCreatureFromTemplate(monster, pos);
           }
         }

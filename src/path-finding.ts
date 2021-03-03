@@ -1,17 +1,38 @@
 import * as Utils from './utils';
 import WorldMapPartition from './world-map-partition';
+import { Context } from './context';
 
-// Does not include the starting tile.
-export function findPath(partition: WorldMapPartition, from: PartitionPoint, to: PartitionPoint) {
+interface Options {
+  width: number;
+  height: number;
+  from: PartitionPoint;
+  to: PartitionPoint;
+  walkable(pos: PartitionPoint): boolean;
+}
+
+export function findPath(context: Context, partition: WorldMapPartition, from: Point4, to: Point3) {
+  return _findPath({
+    width: partition.width,
+    height: partition.height,
+    from,
+    to,
+    walkable: (pos) => {
+      return context.walkable({ w: from.w, ...pos });
+    },
+  });
+}
+
+// Does not include the starting location.
+function _findPath({ width, height, from, to, walkable }: Options) {
   function encodePoint(loc: PartitionPoint) {
-    return loc.x + loc.y * partition.width + loc.z * partition.width * partition.height;
+    return loc.x + loc.y * width + loc.z * width * height;
   }
 
   function decodePoint(encoded: number): PartitionPoint {
     return {
-      x: encoded % partition.width,
-      y: Math.floor((encoded % (partition.width * partition.height)) / partition.width),
-      z: Math.floor(encoded / (partition.width * partition.height)),
+      x: encoded % width,
+      y: Math.floor((encoded % (width * height)) / width),
+      z: Math.floor(encoded / (width * height)),
     };
   }
 
@@ -80,7 +101,7 @@ export function findPath(partition: WorldMapPartition, from: PartitionPoint, to:
     for (let dx = -1; dx <= 1; dx++) {
       for (let dy = -1; dy <= 1; dy++) {
         if (dx === 0 && dy === 0) continue;
-        const neighbor = current + dx + dy * partition.width;
+        const neighbor = current + dx + dy * width;
         if (seen.has(neighbor)) continue;
         const neighborNode = decodePoint(neighbor);
 
@@ -89,7 +110,7 @@ export function findPath(partition: WorldMapPartition, from: PartitionPoint, to:
         // If not walkable, set cost as infinite.
         // Unless it's the destination - even if the destination is not walkable,
         // allow path to it, so that "follow" creature will work.
-        if (!partition.walkable(neighborNode) && !Utils.equalPoints(neighborNode, to)) {
+        if (!walkable(neighborNode) && !Utils.equalPoints(neighborNode, to)) {
           neighborG = Infinity;
         }
 

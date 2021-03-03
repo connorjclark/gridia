@@ -162,7 +162,6 @@ export class ServerContext extends Context {
     await this.saveMeta();
 
     for (const [w, partition] of this.map.getPartitions()) {
-      await fs.mkdir(this.partitionPath(w), { recursive: true });
       await this.savePartition(w, partition);
     }
 
@@ -186,6 +185,8 @@ export class ServerContext extends Context {
   }
 
   protected async savePartition(w: number, partition: WorldMapPartition) {
+    await fs.mkdir(this.partitionPath(w), { recursive: true });
+
     const meta = {
       width: partition.width,
       height: partition.height,

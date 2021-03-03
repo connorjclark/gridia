@@ -36,19 +36,6 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
 
   onSector(client: Client, { tiles, ...pos }: Params.Sector): void {
     client.context.map.getPartition(pos.w).sectors[pos.x][pos.y][pos.z] = tiles;
-
-    // Request creature if not in client memory.
-    for (const row of tiles) {
-      for (const tile of row) {
-        if (tile.creature) {
-          if (!client.context.getCreature(tile.creature.id)) {
-            client.connection.send(ProtocolBuilder.requestCreature({ id: tile.creature.id }));
-          }
-          // TODO rethink what's going on here.
-          tile.creature = undefined;
-        }
-      }
-    }
   }
 
   onSetCreature(client: Client, { partial, ...partialCreature }: Params.SetCreature): void {
@@ -67,10 +54,6 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
       return;
     }
 
-    // Check if position changed.
-    if (partialCreature.pos && !Utils.equalPoints(creature.pos, partialCreature.pos)) {
-      client.context.map.moveCreature(creature, partialCreature.pos);
-    }
     Object.assign(creature, partialCreature);
   }
 

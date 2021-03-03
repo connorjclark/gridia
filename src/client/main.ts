@@ -265,6 +265,8 @@ class RegisterScene extends Scene {
 
       const index = Number(playerEl.dataset.index);
       const player = localStorageData.players[index];
+      // TODO: really need a request/response messaging model so can do
+      // basic things like respond to errors.
       controller.client.connection.send(ProtocolBuilder.login(player));
       this.waitForInitializeThenStartGame();
     });
@@ -299,6 +301,12 @@ class RegisterScene extends Scene {
         else reject(`first message should be initialize, but got ${JSON.stringify(e)}`);
       });
     });
+
+    // TODO: remove when TODO in constructor is done.
+    // @ts-ignore
+    if (this.started) return;
+    // @ts-ignore
+    this.started = true;
 
     startGame(controller.client);
   }
@@ -337,7 +345,7 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
   if (location.source === 'world') {
     const tile = game.client.context.map.getTile(location.loc);
     item = tile.item;
-    creature = tile.creature;
+    creature = game.client.context.getCreatureAt(location.loc);
   } else {
     const container = game.client.context.containers.get(location.id);
     if (!container || location.index === undefined) return [];

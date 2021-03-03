@@ -24,7 +24,7 @@ class SelectedViewModule extends ClientModule {
     const game = this.game;
     let creature;
     if (location?.source === 'world') {
-      creature = game.client.context.map.getTile(location.loc).creature;
+      creature = game.client.context.getCreatureAt(location.loc);
     }
 
     if (creature && creature.id !== game.client.player.creature.id) {
@@ -98,7 +98,7 @@ class SelectedViewModule extends ClientModule {
     }
 
     // Don't allow actions on self.
-    const isSelf = tile?.creature?.id === game.client.player.creature.id;
+    const isSelf = creature?.id === game.client.player.creature.id;
     if (!isSelf) {
       if (state.selectedView.location) {
         state.selectedView.actions = game.getActionsFor(state.selectedView.location);

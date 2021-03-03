@@ -96,10 +96,6 @@ export default class Server {
     this.taskRunner.stop();
   }
 
-  async tick() {
-    await this.taskRunner.tick();
-  }
-
   async save() {
     for (const clientConnection of this.clientConnections) {
       if (clientConnection.player) {
@@ -119,7 +115,7 @@ export default class Server {
     const center = { w: 0, x: Math.round(width / 2), y: Math.round(height / 2) + 3, z: 0 };
     // Make sure sector is loaded. Prevents hidden creature (race condition, happens often in worker).
     await this.ensureSectorLoadedForPoint(center);
-    const spawnLoc = this.findNearest(center, 10, true, (_, loc) => this.context.map.walkable(loc)) || center;
+    const spawnLoc = this.findNearest(center, 10, true, (_, loc) => this.context.walkable(loc)) || center;
     await this.ensureSectorLoadedForPoint(spawnLoc);
 
     const creature = {
@@ -209,7 +205,7 @@ export default class Server {
 
   async consumeAllMessages() {
     while (this.clientConnections.some((c) => c.hasMessage()) || this.outboundMessages.length) {
-      await this.tick();
+      await this.taskRunner.tick();
     }
   }
 
@@ -237,17 +233,15 @@ export default class Server {
   }
 
   registerCreature(creature: Creature): Creature {
-    this.creatureStates[creature.id] = new CreatureState(creature);
+    this.creatureStates[creature.id] = new CreatureState(creature, this.context);
     this.context.setCreature(creature);
-    this.broadcast(ProtocolBuilder.setCreature({ partial: false, ...creature }));
+    this.broadcastInRange(ProtocolBuilder.setCreature({ partial: false, ...creature }), creature.pos, 50);
     return creature;
   }
 
   moveCreature(creature: Creature, pos: TilePoint | null) {
-    delete this.context.map.getTile(creature.pos).creature;
     if (pos) {
       creature.pos = pos;
-      this.context.map.getTile(creature.pos).creature = creature;
     }
     this.broadcastPartialCreatureUpdate(creature, ['pos']);
     this.creatureStates[creature.id].warped = false;
@@ -261,10 +255,10 @@ export default class Server {
       // @ts-ignore
       partialCreature[key] = creature[key];
     }
-    this.broadcast(ProtocolBuilder.setCreature({
+    this.broadcastInRange(ProtocolBuilder.setCreature({
       partial: true,
       ...partialCreature,
-    }));
+    }), creature.pos, 50);
   }
 
   async warpCreature(creature: Creature, pos: TilePoint | null) {
@@ -279,7 +273,7 @@ export default class Server {
   modifyCreatureLife(actor: Creature | null, creature: Creature, delta: number) {
     creature.life += delta;
 
-    this.broadcast(ProtocolBuilder.setCreature({ partial: true, id: creature.id, life: creature.life }));
+    this.broadcastPartialCreatureUpdate(creature, ['life']);
 
     if (delta < 0) {
       this.broadcastAnimation(creature.pos, 'Attack');
@@ -292,9 +286,7 @@ export default class Server {
   }
 
   removeCreature(creature: Creature) {
-    delete this.context.map.getTile(creature.pos).creature;
     this.context.creatures.delete(creature.id);
-    // this.context.deleteCreature(creature.id);
 
     const creatureState = this.creatureStates[creature.id];
     if (creatureState) {
@@ -498,15 +490,14 @@ export default class Server {
       ].join('\n'),
     }));
 
-    // TODO need much better loading.
-    for (const [w, partition] of this.context.map.getPartitions()) {
-      clientConnection.send(ProtocolBuilder.initializePartition({
-        w,
-        x: partition.width,
-        y: partition.height,
-        z: partition.depth,
-      }));
-    }
+    const partition = this.context.map.getPartition(player.creature.pos.w);
+    clientConnection.send(ProtocolBuilder.initializePartition({
+      w: player.creature.pos.w,
+      x: partition.width,
+      y: partition.height,
+      z: partition.depth,
+    }));
+
     // TODO: remove this line since "register creature" does the same. but removing breaks tests ...
     clientConnection.send(ProtocolBuilder.setCreature({ partial: false, ...player.creature }));
     clientConnection.send(ProtocolBuilder.container(await this.context.getContainer(clientConnection.equipment.id)));
@@ -518,6 +509,14 @@ export default class Server {
   }
 
   private setupTickSections() {
+    // super lame.
+    this.taskRunner.registerTickSection({
+      description: 'sync creatures',
+      fn: () => {
+        this.context.syncCreaturesOnTiles();
+      },
+    });
+
     // Handle creatures.
     this.taskRunner.registerTickSection({
       description: 'creature states',
@@ -587,7 +586,9 @@ export default class Server {
         server.time.epoch += 1;
 
         for (const [w, partition] of server.context.map.getPartitions()) {
-          yield* server.growPartition(w, partition);
+          if (partition.loaded) {
+            yield* server.growPartition(w, partition);
+          }
         }
       },
     });

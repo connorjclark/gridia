@@ -1,6 +1,7 @@
 import { findPath } from '../path-finding';
 import * as Utils from '../utils';
 import WorldMapPartition from '../world-map-partition';
+import { Context } from '../context';
 import Server from './server';
 import aStar from './plan';
 
@@ -113,7 +114,7 @@ const Actions: Record<string, Action> = {
 
       // If there is grass nearby, go there.
       const loc = server.findNearest(this.creature.pos, 8, true,
-        (tile, l) => server.context.map.walkable(l) && isGrass(tile.floor));
+        (tile, l) => server.context.walkable(l) && isGrass(tile.floor));
       if (loc) {
         this.goto(loc);
         return;
@@ -156,7 +157,7 @@ export default class CreatureState {
 
   private _shouldRecreatePlan = false;
 
-  constructor(public creature: Creature) {
+  constructor(public creature: Creature, private context: Context) {
     this.home = creature.pos;
     this._actions = [
       Actions.UnarmedMeleeAttack,
@@ -189,7 +190,7 @@ export default class CreatureState {
   goto(destination: TilePoint) {
     if (Utils.equalPoints(destination, this.creature.pos)) return;
     if (destination.w !== this.creature.pos.w) return;
-    this.path = findPath(this.partition, this.creature.pos, destination);
+    this.path = findPath(this.context, this.partition, this.creature.pos, destination);
   }
 
   idle(server: Server, time: number) {
@@ -402,7 +403,7 @@ export default class CreatureState {
 
     if (this.path.length) {
       const newPos = { w, ...this.path.splice(0, 1)[0] };
-      if (partition.walkable(newPos)) {
+      if (this.context.walkable(newPos)) {
         server.moveCreature(this.creature, newPos);
       } else {
         // Path has been obstructed - reset pathing.

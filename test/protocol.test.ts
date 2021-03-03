@@ -99,13 +99,14 @@ function assertItemInContainer(containerId: number, index: number, item: Item) {
 function assertCreatureAt(location: TilePoint, creatureId: number) {
   let creature;
 
-  creature = server.context.getCreature(creatureId);
-  expect(creature.pos).toEqual(location);
-  expect(server.context.map.getTile(location).creature).toEqual(creature);
+  server.context.syncCreaturesOnTiles();
+  client.context.syncCreaturesOnTiles();
 
-  creature = client.context.getCreature(creatureId);
-  expect(creature.pos).toEqual(location);
-  expect(client.context.map.getTile(location).creature).toEqual(creature);
+  creature = server.context.getCreatureAt(location);
+  expect(creature?.id).toEqual(creatureId);
+
+  creature = client.context.getCreatureAt(location);
+  expect(creature?.id).toEqual(creatureId);
 }
 
 assert(Content.getMetaItemByName('Cut Red Rose').walkable);

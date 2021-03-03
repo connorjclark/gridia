@@ -32,7 +32,6 @@ type TilePoint = Point4; // `w` is world index
 interface Tile {
   floor: number;
   item?: Item; // Prefer undefined over null.
-  creature?: Creature;
 }
 
 interface WorldLocation {

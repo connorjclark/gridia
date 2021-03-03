@@ -99,13 +99,14 @@ const ContextMenu = {
 
     contextMenuEl.innerHTML = '';
     const tile = game.client.context.map.getTile(loc);
+    const creature = game.client.context.getCreatureAt(loc);
     const actions = game.getActionsFor(Utils.ItemLocation.World(loc));
     actions.push({
       type: 'cancel',
       innerText: 'Cancel',
       title: '',
     });
-    if (game.client.context.map.walkable(loc)) {
+    if (game.client.context.walkable(loc)) {
       actions.push({
         type: 'move-here',
         innerText: 'Move Here',
@@ -117,7 +118,7 @@ const ContextMenu = {
       game.addDataToActionEl(actionEl, {
         action,
         location: Utils.ItemLocation.World(loc),
-        creatureId: tile.creature?.id,
+        creatureId: creature?.id,
       });
       contextMenuEl.appendChild(actionEl);
     }
@@ -711,10 +712,11 @@ class Game {
       }
 
       // T to toggle z.
-      if (e.key === 't') {
+      const partition = this.client.context.map.partitions.get(focusPos.w);
+      if (e.key === 't' && partition && partition.depth > 1) {
         this.client.connection.send(ProtocolBuilder.move({
           ...focusPos,
-          z: 1 - focusPos.z,
+          z: (focusPos.z + 1) % partition.depth,
         }));
       }
     });
@@ -825,11 +827,22 @@ class Game {
     const worldTime = this.worldTime;
 
     Draw.sweepTexts();
+    // super lame.
     this.client.context.syncCreaturesOnTiles();
 
     const focusPos = this.getPlayerPosition();
     const { w, z } = focusPos;
-    const partition = this.client.context.map.getPartition(w);
+    const partition = this.client.context.map.partitions.get(w);
+
+    if (!partition) {
+      // @ts-ignore
+      const lazy = window.lol_lazy = window.lol_lazy || [];
+      if (!lazy.includes(w)) {
+        lazy.push(w);
+        this.client.connection.send(ProtocolBuilder.requestPartition({ w }));
+      }
+      return;
+    }
 
     if (!this._playerCreature) return;
     if (partition.width === 0) return;
@@ -903,15 +916,16 @@ class Game {
     const start = { x: startTileX, y: startTileY, z };
     for (const { pos, tile } of partition.getIteratorForArea(start, tilesWidth + 1, tilesHeight + 1)) {
       const { x, y } = pos;
+      const creature = this.client.context.getCreatureAt({ w, ...pos });
 
       // TODO: don't make creature sprites on every tick.
-      if (tile.creature) {
-        creatureSpritesNotSeen.delete(tile.creature.id);
+      if (creature) {
+        creatureSpritesNotSeen.delete(creature.id);
 
-        let creatureSprite = this.creatureSprites.get(tile.creature.id);
+        let creatureSprite = this.creatureSprites.get(creature.id);
         if (!creatureSprite) {
-          creatureSprite = new CreatureSprite(tile.creature);
-          this.creatureSprites.set(tile.creature.id, creatureSprite);
+          creatureSprite = new CreatureSprite(creature);
+          this.creatureSprites.set(creature.id, creatureSprite);
           this.worldContainer.layers.creatures.addChild(creatureSprite);
         }
 

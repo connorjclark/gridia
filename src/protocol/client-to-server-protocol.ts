@@ -3,6 +3,7 @@ import * as Content from '../content';
 import * as CommandParser from '../lib/command-parser';
 import Server from '../server/server';
 import * as Utils from '../utils';
+import { makeBareMap } from '../mapgen';
 import IClientToServerProtocol from './gen/client-to-server-protocol';
 import * as ProtocolBuilder from './server-to-client-protocol-builder';
 import Params = ClientToServerProtocol.Params;
@@ -23,7 +24,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
       server.broadcastAnimation(loc, 'MiningSound');
     }
 
-    if (!server.context.map.walkable(loc)) return;
+    if (!server.context.walkable(loc)) return;
 
     // if (!server.inView(loc)) {
     //   return false
@@ -427,7 +428,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
               return 'out of bounds';
             }
 
-            if (!server.context.map.walkable(destination)) {
+            if (!server.context.walkable(destination)) {
               // Don't check this?
               return 'not walkable';
             }
@@ -447,7 +448,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
             }
 
             const loc = server.findNearest(server.currentClientConnection.player.creature.pos, 10, true,
-              (_, l) => server.context.map.walkable(l));
+              (_, l) => server.context.walkable(l));
             if (loc) {
               server.makeCreatureFromTemplate(template, loc);
             }
@@ -471,6 +472,23 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
               to: '', // TODO
               message: server.getMessagePlayersOnline(),
             }));
+          },
+        },
+        newPartition: {
+          args: [
+          ],
+          do() {
+            const nextPartitionId = Math.max(...server.context.map.partitions.keys()) + 1;
+            const partition = makeBareMap(100, 100, 1);
+            server.context.map.addPartition(nextPartitionId, partition);
+            server.save().then(() => {
+              partition.loaded = true;
+              server.currentClientConnection.send(ProtocolBuilder.chat({
+                from: 'World',
+                to: '', // TODO
+                message: `Made partition ${nextPartitionId}`,
+              }));
+            });
           },
         },
         advanceTime: {

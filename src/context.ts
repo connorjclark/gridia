@@ -3,9 +3,14 @@ import WorldMap from './world-map';
 
 export class Context {
   creatures = new Map<number, Creature>();
+  locationToCreature = new Map<string, Creature>();
   containers = new Map<number, Container>();
 
   constructor(public map: WorldMap) {
+  }
+
+  walkable(loc: TilePoint) {
+    return this.map.walkable(loc) && !this.getCreatureAt(loc);
   }
 
   getCreature(id: number): Creature {
@@ -14,16 +19,19 @@ export class Context {
     return this.creatures.get(id);
   }
 
-  setCreature(creature: Creature) {
-    this.creatures.set(creature.id, creature);
-    this.map.getTile(creature.pos).creature = creature;
+  getCreatureAt(loc: TilePoint): Creature | undefined {
+    return this.locationToCreature.get(`${loc.w},${loc.x},${loc.y},${loc.z}`);
   }
 
-  // super lame.
+  setCreature(creature: Creature) {
+    this.creatures.set(creature.id, creature);
+  }
+
   syncCreaturesOnTiles() {
-    // Make sure every creature is in its proper place.
+    this.locationToCreature.clear();
     for (const creature of this.creatures.values()) {
-      this.map.getTile(creature.pos).creature = creature;
+      const pos = creature.pos;
+      this.locationToCreature.set(`${pos.w},${pos.x},${pos.y},${pos.z}`, creature);
     }
   }
 
@@ -31,7 +39,7 @@ export class Context {
     const creature = this.creatures.get(id);
     if (creature) {
       this.creatures.delete(id);
-      delete this.map.getTile(creature.pos).creature;
+      // delete this.map.getTile(creature.pos).creature;
     }
   }
 }

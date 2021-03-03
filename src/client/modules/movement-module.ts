@@ -8,6 +8,7 @@ import Game from '../game';
 import * as Helper from '../helper';
 import KEYS from '../keys';
 import { MINE } from '../../constants';
+import WorldMapPartition from '../../world-map-partition';
 
 const MOVEMENT_DURATION = 200;
 
@@ -27,7 +28,7 @@ class MovementModule extends ClientModule {
     this.game.addActionCreator((location) => {
       if (location.source !== 'world') return;
 
-      const creature = this.game.client.context.map.getTile(location.loc).creature;
+      const creature = this.game.client.context.getCreatureAt(location.loc);
       if (creature) {
         return {
           type: 'follow',
@@ -75,11 +76,15 @@ class MovementModule extends ClientModule {
     }
 
     // TODO: only re-calc if path is obstructed.
+    let to;
     if (this.followCreature) {
-      this.pathToDestination = findPath(partition, focusPos, this.followCreature.pos);
+      to = this.followCreature.pos;
     } else if (lastInPath) {
       // re-calc
-      this.pathToDestination = findPath(partition, focusPos, lastInPath);
+      to = lastInPath;
+    }
+    if (to) {
+      this.pathToDestination = findPath(this.game.client.context, partition, focusPos, to);
     }
 
     if (!Utils.equalPoints(keyInputDelta, { x: 0, y: 0, z: 0 })) {
@@ -102,7 +107,7 @@ class MovementModule extends ClientModule {
         attemptToMine = true;
       }
 
-      if (attemptToMine || this.game.client.context.map.walkable(dest)) {
+      if (attemptToMine || this.game.client.context.walkable(dest)) {
         this.canMoveAgainAt = now + MOVEMENT_DURATION;
         this.movementDirection = {
           x: Utils.clamp(dest.x - focusPos.x, -1, 1),
@@ -125,7 +130,7 @@ class MovementModule extends ClientModule {
       const focusPos = this.game.getPlayerPosition();
       const partition = this.game.client.context.map.getPartition(focusPos.w);
 
-      this.pathToDestination = findPath(partition, focusPos, location.loc);
+      this.pathToDestination = findPath(this.game.client.context, partition, focusPos, location.loc);
       this.followCreature = undefined;
     } else if (type === 'follow') {
       this.followCreature = e.creature;
