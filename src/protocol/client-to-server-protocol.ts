@@ -353,7 +353,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     const toItem = await getItem(validToLocation);
     if (toItem && fromItem.type !== toItem.type) return;
 
-    if (!Content.getMetaItem(fromItem.type).moveable) {
+    if (!server.currentClientConnection.player.isAdmin && !Content.getMetaItem(fromItem.type).moveable) {
       server.reply(ProtocolBuilder.chat({
         from: 'World',
         to: '', // TODO
