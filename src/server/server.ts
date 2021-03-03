@@ -294,6 +294,7 @@ export default class Server {
   removeCreature(creature: Creature) {
     delete this.context.map.getTile(creature.pos).creature;
     this.context.creatures.delete(creature.id);
+    // this.context.deleteCreature(creature.id);
 
     const creatureState = this.creatureStates[creature.id];
     if (creatureState) {
