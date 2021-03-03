@@ -56,7 +56,6 @@ async function main(options: CLIOptions) {
 
   process.once('SIGINT', onTerminate);
   process.once('SIGTERM', onTerminate);
-  process.once('SIGKILL', onTerminate);
 
   return server;
 }
