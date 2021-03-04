@@ -235,7 +235,6 @@ export default class Server {
   registerCreature(creature: Creature): Creature {
     this.creatureStates[creature.id] = new CreatureState(creature, this.context);
     this.context.setCreature(creature);
-    this.broadcastInRange(ProtocolBuilder.setCreature({ partial: false, ...creature }), creature.pos, 50);
     return creature;
   }
 
@@ -255,10 +254,10 @@ export default class Server {
       // @ts-ignore
       partialCreature[key] = creature[key];
     }
-    this.broadcastInRange(ProtocolBuilder.setCreature({
+    this.conditionalBroadcast(ProtocolBuilder.setCreature({
       partial: true,
       ...partialCreature,
-    }), creature.pos, 50);
+    }), (client) => client.subscribedCreatureIds.has(creature.id));
   }
 
   async warpCreature(creature: Creature, pos: TilePoint | null) {
@@ -498,7 +497,7 @@ export default class Server {
       z: partition.depth,
     }));
 
-    // TODO: remove this line since "register creature" does the same. but removing breaks tests ...
+    // TODO: next line not necessary. but removing breaks tests ...
     clientConnection.send(ProtocolBuilder.setCreature({ partial: false, ...player.creature }));
     clientConnection.send(ProtocolBuilder.container(await this.context.getContainer(clientConnection.equipment.id)));
     clientConnection.send(ProtocolBuilder.container(await this.context.getContainer(clientConnection.container.id)));
@@ -514,6 +513,36 @@ export default class Server {
       description: 'sync creatures',
       fn: () => {
         this.context.syncCreaturesOnTiles();
+      },
+    });
+
+    // Update client connections subscribed creatures.
+    function closeEnoughToSubscribe(pos1: TilePoint, pos2: TilePoint) {
+      return pos1.w === pos2.w && pos1.z === pos2.z && Utils.dist(pos1, pos2) <= 50;
+    }
+    this.taskRunner.registerTickSection({
+      description: 'update subscribed creatures',
+      fn: () => {
+        for (const clientConnection of this.clientConnections) {
+          // TODO ?
+          if (!clientConnection.player) continue;
+
+          for (const creatureId of clientConnection.subscribedCreatureIds) {
+            const creature = this.context.creatures.get(creatureId);
+            if (creature && closeEnoughToSubscribe(clientConnection.player.creature.pos, creature.pos)) continue;
+
+            clientConnection.subscribedCreatureIds.delete(creatureId);
+            // TODO send unregister command.
+          }
+
+          for (const creature of this.context.creatures.values()) {
+            if (clientConnection.subscribedCreatureIds.has(creature.id)) continue;
+            if (!closeEnoughToSubscribe(clientConnection.player.creature.pos, creature.pos)) continue;
+
+            clientConnection.subscribedCreatureIds.add(creature.id);
+            clientConnection.send(ProtocolBuilder.setCreature({ partial: false, ...creature }));
+          }
+        }
       },
     });
 

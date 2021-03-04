@@ -1,6 +1,8 @@
 import * as fs from 'fs';
 import { IDBPDatabase, openDB } from 'idb';
 
+// TODO: File System Accesss API is ready now!
+
 const isNode = typeof process !== 'undefined' && typeof process.release !== 'undefined';
 
 function nodeExists(path: string): Promise<boolean> {

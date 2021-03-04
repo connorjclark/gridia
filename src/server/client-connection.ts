@@ -15,6 +15,8 @@ export default class ClientConnection {
   // @ts-ignore
   equipment: Container;
 
+  subscribedCreatureIds = new Set<number>();
+
   // @ts-ignore
   send: (message: ServerToClientMessage) => void;
 
