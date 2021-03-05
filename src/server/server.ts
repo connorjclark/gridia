@@ -97,6 +97,8 @@ export default class Server {
   }
 
   async save() {
+    console.log('Saving server ...');
+
     for (const clientConnection of this.clientConnections) {
       if (clientConnection.player) {
         await this.context.savePlayer(clientConnection.player);

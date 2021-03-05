@@ -54,8 +54,8 @@ class MainController {
       if (await directoryHandle.queryPermission() !== 'granted') {
         const permissionState = await directoryHandle.requestPermission({ mode: 'readwrite' });
         if (permissionState !== 'granted') throw new Error('did not get permission');
-        idbKeyval.set('gridia-directory', directoryHandle);
       }
+      idbKeyval.set('gridia-directory', directoryHandle);
     }
 
     this.serverWorker_ = new ServerWorker();

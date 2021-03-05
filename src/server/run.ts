@@ -50,9 +50,11 @@ async function main(options: CLIOptions) {
   });
 
   async function onTerminate() {
+    console.log('Shutting down server ...');
     webserver.close();
     server.stop();
     await server.save();
+    console.log('Saved! Exiting now.');
     process.exit(0);
   }
 
