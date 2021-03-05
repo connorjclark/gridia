@@ -28,24 +28,35 @@ function maybeDelay(fn: () => void) {
 async function saveMapGen(name: string) {
   if (!mapPreviewPartition) throw new Error('missing mapPreviewPartition');
 
+  await fs.mkdir(name);
+  fs.setRootDirectoryPath(name);
   const world = new WorldMap();
   world.addPartition(0, mapPreviewPartition);
-  const context = new ServerContext(world, name);
+  const context = new ServerContext(world);
   await context.save();
 }
 
-async function init() {
+interface InitArgs {
+  directoryHandle?: FileSystemDirectoryHandle;
+}
+async function init(args: InitArgs) {
+  if (args.directoryHandle) {
+    fs.initialize({ type: 'fsapi', rootDirectoryPath: '', rootDirectoryHandle: args.directoryHandle });
+  } else {
+    fs.initialize({ type: 'idb', rootDirectoryPath: '' });
+  }
   await Content.loadContentFromNetwork();
 }
 
 async function listMaps() {
-  const mapNames = await fs.readdir('/');
+  const mapNames = await fs.readdir('');
   return { mapNames };
 }
 
 interface GenerateMapArgs {
-  bare: boolean; width: number; height: number; depth: number; seeds: {[id: string]: number};
-  canvas?: OffscreenCanvas; }
+  bare: boolean; width: number; height: number; depth: number; seeds: { [id: string]: number };
+  canvas?: OffscreenCanvas;
+}
 function generateMap(args: GenerateMapArgs) {
   if (args.bare) {
     mapPreviewPartition = makeBareMap(args.width, args.height, args.depth);
@@ -77,6 +88,9 @@ async function saveGeneratedMap(args: { name: string }) {
 
 async function startServer(args: ServerWorkerOpts) {
   opts = args; // :(
+
+  fs.setRootDirectoryPath(args.mapName);
+
   clientConnection = new ClientConnection();
   clientConnection.send = (message) => {
     maybeDelay(() => {

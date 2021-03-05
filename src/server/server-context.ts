@@ -26,25 +26,23 @@ export class ServerContext extends Context {
   nextPlayerId = 1;
   playerNamesToIds = new Map<string, number>();
 
-  serverDir: string;
   containerDir: string;
   playerDir: string;
   sectorDir: string;
   miscDir: string;
 
-  constructor(map: WorldMap, serverDir: string) {
+  constructor(map: WorldMap) {
     super(map);
-    this.serverDir = serverDir;
-    this.containerDir = path.join(serverDir, 'containers');
-    this.playerDir = path.join(serverDir, 'players');
-    this.sectorDir = path.join(serverDir, 'sectors');
-    this.miscDir = path.join(serverDir, 'misc');
+    this.containerDir = 'containers';
+    this.playerDir = 'players';
+    this.sectorDir = 'sectors';
+    this.miscDir = 'misc';
   }
 
-  static async load(serverDir: string) {
-    const meta = await readJson(path.join(serverDir, 'meta.json'));
+  static async load() {
     const map = new WorldMap();
-    const context = new ServerContext(map, serverDir);
+    const context = new ServerContext(map);
+    const meta = await readJson(context.metaPath());
 
     // TODO: figure out if I want to save creatures at all.
     // const creatures = JSON.parse(await fs.readFile(context.creaturesPath()));
@@ -163,7 +161,6 @@ export class ServerContext extends Context {
   }
 
   async save() {
-    await fs.mkdir(this.serverDir, { recursive: true });
     await fs.mkdir(this.containerDir, { recursive: true });
     await fs.mkdir(this.playerDir, { recursive: true });
     await fs.mkdir(this.sectorDir, { recursive: true });
@@ -176,7 +173,7 @@ export class ServerContext extends Context {
     }
 
     for (const container of this.containers.values()) {
-      this.saveContainer(container);
+      await this.saveContainer(container);
     }
 
     // TODO: figure out if I want to save creatures at all.
@@ -204,21 +201,23 @@ export class ServerContext extends Context {
     };
     await fs.writeFile(this.partitionMetaPath(w), JSON.stringify(meta, null, 2));
 
+    const promises = [];
     for (let sx = 0; sx < partition.sectors.length; sx++) {
       for (let sy = 0; sy < partition.sectors[0].length; sy++) {
         for (let sz = 0; sz < partition.sectors[0][0].length; sz++) {
           // Only save if the sector is loaded.
           // TODO: There's gotta be a nasty race condition here.
           if (partition.sectors[sx][sy][sz]) {
-            await this.saveSector({ w, x: sx, y: sy, z: sz });
+            promises.push(this.saveSector({ w, x: sx, y: sy, z: sz }));
           }
         }
       }
     }
+    await Promise.all(promises);
   }
 
   protected metaPath() {
-    return path.join(this.serverDir, 'meta.json');
+    return 'meta.json';
   }
 
   protected partitionPath(w: number) {
@@ -234,7 +233,7 @@ export class ServerContext extends Context {
   }
 
   protected creaturesPath() {
-    return path.join(this.serverDir, 'creatures.json');
+    return 'creatures.json';
   }
 
   protected containerPath(id: number) {

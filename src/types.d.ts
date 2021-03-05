@@ -191,11 +191,11 @@ type NoMethodKeys<T> = ({ [P in keyof T]: T[P] extends Function ? never : P })[k
 type NoMethods<T> = Pick<T, NoMethodKeys<T>>;
 
 interface ServerOptions {
-  serverData: string;
   verbose: boolean;
 }
 
 interface CLIOptions extends ServerOptions {
+  directoryPath: string;
   port: number;
   ssl?: {
     cert: string;
@@ -204,6 +204,7 @@ interface CLIOptions extends ServerOptions {
 }
 
 interface ServerWorkerOpts extends ServerOptions {
+  mapName: string;
   dummyDelay: number;
   useMapPreview?: boolean;
 }

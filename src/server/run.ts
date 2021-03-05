@@ -3,6 +3,7 @@ import * as http from 'http';
 import * as https from 'https';
 import { Server as WebSocketServer } from 'ws';
 import * as yargs from 'yargs';
+import * as isoFs from '../iso-fs';
 import * as WireSerializer from '../lib/wire-serializer';
 import ClientConnection from './client-connection';
 import { startServer } from './create-server';
@@ -26,6 +27,7 @@ async function main(options: CLIOptions) {
   });
   webserver.listen(port);
 
+  isoFs.initialize({ type: 'native', rootDirectoryPath: options.directoryPath });
   const server = await startServer(options);
 
   wss.on('connection', (ws) => {
@@ -65,7 +67,7 @@ const argv = yargs
   .string('sslCert')
   .string('sslKey')
   .default('verbose', false)
-  .default('serverData', 'server-data')
+  .default('directoryPath', 'server-data')
   .parse();
 
 const { sslCert, sslKey, ...mostOfArgs } = argv;

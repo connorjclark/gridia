@@ -7,21 +7,21 @@ import * as Utils from '../utils';
 import createDebugWorldMap from '../world-map-debug';
 
 export async function startServer(options: ServerOptions) {
-  const { serverData, verbose } = options;
+  const { verbose } = options;
 
   let context: ServerContext;
-  if (await fs.exists(serverData)) {
-    context = await ServerContext.load(serverData);
+  if ((await fs.readdir('')).length !== 0) {
+    context = await ServerContext.load();
   } else {
     const { world, mapGenData } = createDebugWorldMap();
-    context = new ServerContext(world, serverData);
+    context = new ServerContext(world);
     await context.save();
 
     // Only save images in Node server.
     if (global.node) {
       for (let i = 0; i < mapGenData.length; i++) {
         const canvas = makeMapImage(mapGenData[i]);
-        fs.writeFile(`${serverData}/misc/map${i}.svg`, canvas.toBuffer().toString());
+        fs.writeFile(`misc/map${i}.svg`, canvas.toBuffer().toString());
       }
     }
   }
