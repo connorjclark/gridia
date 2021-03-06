@@ -54,6 +54,11 @@ class AdminModule extends ClientModule {
       }
     });
     this.game.client.eventEmitter.on('pointerUp', (loc) => {
+      if (!this.game.client.context.map.inBounds(loc)) {
+        downAt = undefined;
+        return;
+      }
+
       if (downAt && this._state?.tool === 'rectangle') {
         const minx = Math.min(downAt.x, loc.x);
         const maxx = Math.max(downAt.x, loc.x);
@@ -61,8 +66,49 @@ class AdminModule extends ClientModule {
         const maxy = Math.max(downAt.y, loc.y);
         for (let x = minx; x <= maxx; x++) {
           for (let y = miny; y <= maxy; y++) {
-            this.setTile({x, y, w: loc.w, z: loc.z});
+            this.setTile({ x, y, w: loc.w, z: loc.z });
           }
+        }
+      }
+
+      if (this._state?.tool === 'fill') {
+        const start = this.game.client.context.map.getTile(loc);
+        const seen = new Set<string>();
+        const pending = new Set<string>();
+        const locsToSet: Point4[] = [];
+        const index = (l: Point4) => `${l.x},${l.y}`;
+        const add = (l: Point4) => {
+          const data = index(l);
+          if (seen.has(data)) return;
+          seen.add(data);
+
+          if (!this.game.client.context.map.inBounds(l)) return;
+          if (!this.game.worldContainer.camera.contains(l)) return;
+
+          const tile = this.game.client.context.map.getTile(l);
+          if (tile.item?.type !== start.item?.type) return;
+          if (tile.floor !== start.floor) return;
+
+          pending.add(data);
+        };
+
+        add(loc);
+        while (pending.size) {
+          for (const data of pending.values()) {
+            pending.delete(data);
+            const [x, y] = data.split(',').map(Number);
+            const l = { ...loc, x, y };
+            locsToSet.push(l);
+
+            add({ ...l, x: x + 1, y });
+            add({ ...l, x: x - 1, y });
+            add({ ...l, x, y: y + 1 });
+            add({ ...l, x, y: y - 1 });
+          }
+        }
+
+        for (const l of locsToSet) {
+          this.setTile(l);
         }
       }
 

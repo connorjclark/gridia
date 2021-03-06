@@ -6,7 +6,7 @@ import * as Utils from '../../utils';
 import AdminModule from '../modules/admin-module';
 import { Graphic } from './ui-common';
 
-const TOOLS = ['point', 'rectangle'] as const;
+const TOOLS = ['point', 'rectangle', 'fill'] as const;
 type Tool = typeof TOOLS[number];
 export interface State {
   selected?: { type: SelectionType; id: number };

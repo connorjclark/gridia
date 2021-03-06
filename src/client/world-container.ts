@@ -184,6 +184,12 @@ class Camera {
     // this.edgeBoundary = edgeBoundary;
     // this.adjustFocus(this.focus);
   }
+
+  contains(loc: Point4) {
+    if (this.focus.w !== loc.w) return false;
+    if (this.focus.z !== loc.z) return false;
+    return this.left <= loc.x && loc.x <= this.right && this.top <= loc.y && loc.y <= this.bottom;
+  }
 }
 
 export class WorldContainer extends PIXI.Container {
