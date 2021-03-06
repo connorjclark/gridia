@@ -669,26 +669,25 @@ export default class Server {
       description: 'messages',
       fn: async () => {
         for (const clientConnection of this.clientConnections) {
-          // only read one message from a client at a time
-          const message = clientConnection.getMessage();
-          if (!message) continue;
-
-          if (this.verbose) console.log('from client', message.type, message.args);
-          this.currentClientConnection = clientConnection;
-          // performance.mark(`${message.type}-start`);
-          try {
-            const onMethodName = 'on' + message.type[0].toUpperCase() + message.type.substr(1);
-            // @ts-ignore
-            // eslint-disable-next-line
-            const ret = this._clientToServerProtocol[onMethodName](this, message.args);
-            // TODO: some message handlers are async ... is that bad?
-            if (ret) await ret;
-          } catch (err) {
-            // Don't let a bad message kill the message loop.
-            console.error(err, message);
+          for (const message of clientConnection.messageQueue) {
+            if (this.verbose) console.log('from client', message.type, message.args);
+            this.currentClientConnection = clientConnection;
+            // performance.mark(`${message.type}-start`);
+            try {
+              const onMethodName = 'on' + message.type[0].toUpperCase() + message.type.substr(1);
+              // @ts-ignore
+              // eslint-disable-next-line
+              const ret = this._clientToServerProtocol[onMethodName](this, message.args);
+              // TODO: some message handlers are async ... is that bad?
+              if (ret) await ret;
+            } catch (err) {
+              // Don't let a bad message kill the message loop.
+              console.error(err, message);
+            }
+            // performance.mark(`${message.type}-end`);
+            // performance.measure(message.type, `${message.type}-start`, `${message.type}-end`);
           }
-          // performance.mark(`${message.type}-end`);
-          // performance.measure(message.type, `${message.type}-start`, `${message.type}-end`);
+          clientConnection.messageQueue.length = 0;
         }
 
         // TODO stream marks somewhere, and pull in isomorphic node/browser performance.

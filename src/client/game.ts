@@ -335,7 +335,6 @@ class Game {
       alpha: 0,
     };
     this._highlights.push(highlight);
-    console.log(highlight);
     return highlight;
   }
 
