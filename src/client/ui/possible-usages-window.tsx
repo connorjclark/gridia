@@ -1,5 +1,7 @@
 import { render, h, Component } from 'preact';
+import { GFX_SIZE } from '../../constants';
 import * as Content from '../../content';
+import * as Draw from '../draw';
 import * as Helper from '../helper';
 import UsageModule from '../modules/usage-module';
 import { Graphic } from './ui-common';
@@ -89,6 +91,21 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
 
     // TODO: Choose which possible usage, somehow.
     usageModule.selectPossibleUsage(possibleUsagesGrouped[index][0]);
+  });
+
+  el.addEventListener('pointerover', (e) => {
+    const index = getIndex(e);
+    if (index === undefined) {
+      usageModule.possibleUsageHighlight.location = null;
+      return;
+    }
+
+    // Highlight the usage focus (the first one...) that would be used.
+    const possibleUsage = possibleUsagesGrouped[index][0];
+    usageModule.possibleUsageHighlight.location = possibleUsage.focusLocation;
+  });
+  el.addEventListener('pointerleave', () => {
+    usageModule.possibleUsageHighlight.location = null;
   });
 
   return {

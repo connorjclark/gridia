@@ -5,12 +5,23 @@ import ClientModule from '../client-module';
 import * as Helper from '../helper';
 import { makeUsagesWindow } from '../ui/usages-window';
 import { makePossibleUsagesWindow } from '../ui/possible-usages-window';
+import Game, { HighlightReference } from '../game';
 
 class UsageModule extends ClientModule {
+  possibleUsageHighlight: HighlightReference;
+
   protected currentUsagesLoc?: Point4;
   protected currentUsagesToolIndex?: number;
   protected usagesWindow?: ReturnType<typeof makeUsagesWindow>;
   protected possibleUsagesWindow?: ReturnType<typeof makePossibleUsagesWindow>;
+
+  constructor(game: Game) {
+    super(game);
+
+    this.possibleUsageHighlight = this.game.registerHighlight();
+    this.possibleUsageHighlight.color = 0x0000FF;
+    this.possibleUsageHighlight.alpha = 0.4;
+  }
 
   getUsagesWindow() {
     if (this.usagesWindow) return this.usagesWindow;
@@ -30,6 +41,8 @@ class UsageModule extends ClientModule {
         this.usagesWindow.el.hidden = true;
         this.usagesWindow.setState({ usages: [] });
       }
+
+      this.possibleUsageHighlight.location = null;
     });
   }
 

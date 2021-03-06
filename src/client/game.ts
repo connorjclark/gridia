@@ -246,18 +246,16 @@ class CreatureSprite extends PIXI.Sprite {
   }
 }
 
+export interface HighlightReference {
+  location: ItemLocation | null;
+  color: number;
+  alpha: number;
+}
+
 class Game {
   state: UIState;
   keys: Record<number, boolean> = {};
   loader = new LazyResourceLoader();
-  modules = {
-    movement: new MovementModule(this),
-    selectedView: new SelectedViewModule(this),
-    settings: new SettingsModule(this),
-    map: new MapModule(this),
-    skills: new SkillsModule(this),
-    usage: new UsageModule(this),
-  };
 
   worldContainer: WorldContainer;
   protected app = new PIXI.Application();
@@ -280,6 +278,19 @@ class Game {
 
   private _lastSyncedEpoch = 0;
   private _lastSyncedRealTime = 0;
+
+  private _highlights: HighlightReference[] = [];
+  private _selectedViewHighlight = this.registerHighlight();
+
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  modules = {
+    movement: new MovementModule(this),
+    selectedView: new SelectedViewModule(this),
+    settings: new SettingsModule(this),
+    map: new MapModule(this),
+    skills: new SkillsModule(this),
+    usage: new UsageModule(this),
+  };
 
   constructor(public client: Client) {
     this.state = {
@@ -315,6 +326,17 @@ class Game {
     const epoch = this._lastSyncedEpoch + realSecondsSinceLastSync / this.client.secondsPerWorldTick;
     // return new WorldTime(this.client.ticksPerWorldDay, epoch).time; // TODO ?
     return new WorldTime(this.client.ticksPerWorldDay, epoch);
+  }
+
+  registerHighlight(): HighlightReference {
+    const highlight = {
+      location: null,
+      color: 0,
+      alpha: 0,
+    };
+    this._highlights.push(highlight);
+    console.log(highlight);
+    return highlight;
   }
 
   isEditingMode() {
@@ -974,19 +996,31 @@ class Game {
       this.client.context.getCreature(this.state.selectedView.creatureId).pos :
       (this.state.selectedView.location?.source === 'world' && this.state.selectedView.location.loc);
     if (selectedViewLoc) {
-      const highlight = Draw.makeHighlight(0xffff00, 0.2);
-      highlight.x = selectedViewLoc.x * GFX_SIZE;
-      highlight.y = selectedViewLoc.y * GFX_SIZE;
-      this.worldContainer.layers.top.addChild(highlight);
+      this._selectedViewHighlight.color = 0xffff00;
+      this._selectedViewHighlight.alpha = 0.2;
+      this._selectedViewHighlight.location = Utils.ItemLocation.World(selectedViewLoc);
+    } else {
+      this._selectedViewHighlight.location = null;
+    }
 
-      // If item is the selected view, draw selected tool if usable.
-      if (!this.state.selectedView.creatureId) {
+    // TODO: don't redraw these every frame.
+    for (const highlight of this._highlights) {
+      if (!highlight.location) continue;
+      if (highlight.location.source !== 'world') continue;
+
+      const gfx = Draw.makeHighlight(highlight.color, highlight.alpha);
+      gfx.x = highlight.location.loc.x * GFX_SIZE;
+      gfx.y = highlight.location.loc.y * GFX_SIZE;
+      this.worldContainer.layers.top.addChild(gfx);
+
+      // Draw selected tool if usable.
+      if (highlight === this._selectedViewHighlight && !this.state.selectedView.creatureId) {
         const tool = Helper.getSelectedTool();
-        const selectedItem = this.client.context.map.getItem(selectedViewLoc);
+        const selectedItem = this.client.context.map.getItem(highlight.location.loc);
         if (tool && selectedItem && Helper.usageExists(tool.type, selectedItem.type)) {
           const itemSprite = Draw.makeItemSprite({ type: tool.type, quantity: 1 });
           itemSprite.anchor.x = itemSprite.anchor.y = 0.5;
-          highlight.addChild(itemSprite);
+          gfx.addChild(itemSprite);
         }
       }
     }

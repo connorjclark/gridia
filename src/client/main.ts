@@ -605,11 +605,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         height: 100,
         depth: 1,
       });
-      await controller.serverWorker.saveGeneratedMap({ name: '/quick-default' });
+      await controller.serverWorker.saveGeneratedMap({ name: 'quick-default' });
     }
-    // TODO: improve server dir / map name mismatch.
     await loadMap(qs.map || 'quick-default');
-    controller.pushScene(new RegisterScene());
   } else {
     controller.pushScene(new StartScene());
   }
