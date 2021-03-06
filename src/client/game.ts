@@ -154,8 +154,17 @@ function mouseToWorld(pm: ScreenPoint): ScreenPoint {
 class CreatureSprite extends PIXI.Sprite {
   dirty = false;
 
+  protected label = Draw.pooledText(`creature-label-${this.creature.id}`, '', { fontSize: 20 });
+  protected labelGfx = new PIXI.Graphics();
+  protected labelSprite = new PIXI.Sprite();
+
   constructor(public creature: Creature) {
     super();
+
+    this.labelSprite.addChild(this.labelGfx);
+    this.labelSprite.addChild(this.label);
+    this.label.anchor.set(0.5, 1.2);
+    // this.label.anchor.set(0.5, 1.2);
   }
 
   get tileWidth() {
@@ -168,8 +177,11 @@ class CreatureSprite extends PIXI.Sprite {
 
   tick() {
     if (this.children.length === 0 || this.dirty) {
-      if (this.drawCreature()) this.dirty = false;
-      return;
+      if (this.drawCreature()) {
+        this.dirty = false;
+      } else {
+        return;
+      }
     }
 
     const isPlayer = this.creature.id === game.client.player.creature.id;
@@ -179,8 +191,25 @@ class CreatureSprite extends PIXI.Sprite {
       const RED = 0x880000;
       const color = [GRAY, BLUE, RED][this.creature.id % 3]; // TODO: base on enemy/neutral/good
       this.setOutline(color);
+      this.labelSprite.alpha = 1;
     } else {
       this.setOutline();
+      this.labelSprite.alpha = 0;
+    }
+
+    if (isPlayer) {
+      this.labelSprite.alpha = 1;
+    }
+
+    if (this.labelSprite.alpha) {
+      this.labelGfx.clear();
+      this.labelGfx.beginFill(0xFFFFFF, 0.6);
+      const rect = {} as PIXI.Rectangle;
+      this.label.getLocalBounds(rect);
+      this.labelGfx.x = rect.x;
+      this.labelGfx.y = rect.y;
+      this.labelGfx.drawRect(0, 0, rect.width, rect.height);
+      this.labelGfx.endFill();
     }
   }
 
@@ -230,8 +259,14 @@ class CreatureSprite extends PIXI.Sprite {
     // uniforms.time = now / 1000;
     // filters.push(testFilter);
 
+    this.label.text = this.creature.name;
+
+    this.removeChild(this.labelSprite);
     Draw.destroyChildren(this);
     this.addChild(creatureGfx);
+    this.addChild(this.labelSprite);
+
+    this.labelSprite.alpha = 0;
 
     return true;
   }
