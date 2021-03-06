@@ -49,7 +49,8 @@ async function init(args: InitArgs) {
 }
 
 async function listMaps() {
-  const mapNames = await fs.readdir('');
+  // TODO: add {type: FOLDER} to readdir.
+  const mapNames = (await fs.readdir('')).filter((name) => !name.startsWith('.'));
   return { mapNames };
 }
 

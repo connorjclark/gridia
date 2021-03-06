@@ -51,7 +51,7 @@ class MainController {
         directoryHandle = await self.showDirectoryPicker();
         if (!directoryHandle) throw new Error('did not get folder');
       }
-      if (await directoryHandle.queryPermission() !== 'granted') {
+      if (await directoryHandle.queryPermission({ mode: 'readwrite' }) !== 'granted') {
         const permissionState = await directoryHandle.requestPermission({ mode: 'readwrite' });
         if (permissionState !== 'granted') throw new Error('did not get permission');
       }
