@@ -1,4 +1,4 @@
-import { GFX_SIZE, MINE, WATER } from '../constants';
+import { GFX_SIZE, MINE, WATER, SECTOR_SIZE } from '../constants';
 import * as Content from '../content';
 import { game } from '../game-singleton';
 import { Visibility } from '../lib/visibility';
@@ -302,16 +302,17 @@ export class WorldContainer extends PIXI.Container {
   private drawGrid() {
     Draw.destroyChildren(this.layers.grid);
 
-    const { width, height } = this.camera;
+    const { width, height, left, top } = this.camera;
 
     const gridGfx = new PIXI.Graphics();
     this.layers.grid.addChild(gridGfx);
-    gridGfx.lineStyle(2, 0xEEEEEE, 0.1);
     for (let x = 0; x < width; x++) {
+      gridGfx.lineStyle(2, 0xEEEEEE, (left + x) % SECTOR_SIZE === 0 ? 0.5 : 0.1);
       gridGfx.moveTo(x * GFX_SIZE, 0);
       gridGfx.lineTo(x * GFX_SIZE, height * GFX_SIZE);
     }
     for (let y = 0; y < height; y++) {
+      gridGfx.lineStyle(2, 0xEEEEEE, (top + y) % SECTOR_SIZE === 0 ? 0.5 : 0.1);
       gridGfx.moveTo(0, y * GFX_SIZE);
       gridGfx.lineTo(width * GFX_SIZE, y * GFX_SIZE);
     }
