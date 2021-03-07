@@ -1,6 +1,6 @@
 import performance from '../performance';
 
-interface Rate {
+export interface Rate {
   days?: number;
   hours?: number;
   minutes?: number;
@@ -65,6 +65,10 @@ export default class TaskRunner {
         throw err;
       }
     }
+  }
+
+  getTicks() {
+    return this.ticks;
   }
 
   registerTickSection(section: TickSection) {

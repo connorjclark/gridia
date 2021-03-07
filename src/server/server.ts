@@ -12,6 +12,7 @@ import ClientConnection from './client-connection';
 import CreatureState from './creature-state';
 import { ServerContext } from './server-context';
 import TaskRunner from './task-runner';
+import { Script, TestScript } from './script';
 
 // TODO document how the f this works.
 
@@ -43,7 +44,9 @@ export default class Server {
   secondsPerWorldTick = 20;
   ticksPerWorldDay = 24 * 60 * 60 / this.secondsPerWorldTick / 8;
   time = new WorldTime(this.ticksPerWorldDay, this.ticksPerWorldDay / 2);
+
   private _clientToServerProtocol = new ClientToServerProtocol();
+  private _scripts: Script[] = [];
 
   constructor(opts: CtorOpts) {
     this.context = opts.context;
@@ -220,7 +223,7 @@ export default class Server {
       image: template.image,
       image_type: template.image_type,
       name: template.name,
-      pos,
+      pos: this.findNearest(pos, 10, true, (_, loc) => this.context.walkable(loc)) || pos,
       isPlayer: false,
       roam: template.roam,
       speed: template.speed,
@@ -515,6 +518,16 @@ export default class Server {
       description: 'sync creatures',
       fn: () => {
         this.context.syncCreaturesOnTiles();
+      },
+    });
+
+    this._scripts.push(new TestScript(this));
+    this.taskRunner.registerTickSection({
+      description: 'scripts',
+      fn: async () => {
+        for (const script of this._scripts) {
+          await script.tick();
+        }
       },
     });
 
