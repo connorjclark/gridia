@@ -440,6 +440,17 @@ class Game {
       }
 
       if (e.type === 'setCreature' && e.args.id) {
+        if (e.args.id && e.args.pos) {
+          const pos = e.args.pos;
+          const cre = this.client.context.creatures.get(e.args.id);
+          if (cre) {
+            // Update so "selectView" will correctly find this creature.
+            // TODO This technically puts the creature in two places at once until the next game loop
+            // tick... maybe "selectView" should just accept a location or a creature?
+            this.client.context.locationToCreature.set(`${pos.w},${pos.x},${pos.y},${pos.z}`, cre);
+          }
+        }
+
         if (this.state.selectedView.creatureId === e.args.id) {
           const creature = this.client.context.getCreature(this.state.selectedView.creatureId);
           if (creature.id === e.args.id) {

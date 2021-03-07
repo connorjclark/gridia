@@ -25,6 +25,8 @@ export class Context {
 
   setCreature(creature: Creature) {
     this.creatures.set(creature.id, creature);
+    const pos = creature.pos;
+    this.locationToCreature.set(`${pos.w},${pos.x},${pos.y},${pos.z}`, creature);
   }
 
   syncCreaturesOnTiles() {
