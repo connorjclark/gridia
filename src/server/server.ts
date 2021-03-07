@@ -47,6 +47,7 @@ export default class Server {
 
   private _clientToServerProtocol = new ClientToServerProtocol();
   private _scripts: Script[] = [];
+  private _quests: Quest[] = [];
 
   constructor(opts: CtorOpts) {
     this.context = opts.context;
@@ -110,6 +111,20 @@ export default class Server {
     await this.context.save();
   }
 
+  registerQuest(quest: Quest) {
+    if (quest.stages.length === 0) {
+      throw new Error('invalid quest');
+    }
+
+    this._quests.push(quest);
+  }
+
+  getQuest(id: string) {
+    const quest = this._quests.find((q) => q.id === id);
+    if (!quest) throw new Error(`unknown quest: ${id}`);
+    return quest;
+  }
+
   async registerPlayer(clientConnection: ClientConnection, opts: RegisterOpts) {
     if (this.context.playerNamesToIds.has(opts.name)) {
       // ...
@@ -126,6 +141,7 @@ export default class Server {
     const creature = {
       // Set later.
       id: 0,
+      dead: false,
       name: opts.name,
       pos: spawnLoc,
       image: Utils.randInt(0, 4),
@@ -173,10 +189,13 @@ export default class Server {
     this.context.savePlayer(player);
 
     this.context.playerNamesToIds.set(opts.name, player.id);
-    await this.loginPlayer(clientConnection, { player, playerId: player.id, password: opts.password });
+
+    await this.loginPlayer(clientConnection,
+      { justRegistered: true, player, playerId: player.id, password: opts.password });
   }
 
-  async loginPlayer(clientConnection: ClientConnection, opts: { player?: Player; playerId: number; password: string }) {
+  async loginPlayer(clientConnection: ClientConnection,
+                    opts: { justRegistered?: boolean; player?: Player; playerId: number; password: string }) {
     let player;
     if (opts.player) {
       player = opts.player;
@@ -196,6 +215,15 @@ export default class Server {
     clientConnection.player = player;
     await this.initClient(clientConnection);
     this.broadcastChat(`${clientConnection.player.name} has entered the world.`);
+
+    if (opts.justRegistered) {
+      for (const script of this._scripts) {
+        script.onPlayerRegister(player, clientConnection);
+      }
+    }
+    for (const script of this._scripts) {
+      script.onPlayerLogin(player, clientConnection);
+    }
   }
 
   removeClient(clientConnection: ClientConnection) {
@@ -220,6 +248,7 @@ export default class Server {
 
     const creature = {
       id: this.context.nextCreatureId++,
+      dead: false,
       image: template.image,
       image_type: template.image_type,
       name: template.name,
@@ -265,6 +294,12 @@ export default class Server {
     }), (client) => client.subscribedCreatureIds.has(creature.id));
   }
 
+  findPlayerForCreature(creature: Creature) {
+    for (const player of this.players.values()) {
+      if (player.creature === creature) return player;
+    }
+  }
+
   async warpCreature(creature: Creature, pos: TilePoint | null) {
     if (pos && !this.context.map.inBounds(pos)) return;
 
@@ -286,10 +321,20 @@ export default class Server {
     if (creature.life <= 0) {
       this.removeCreature(creature);
       this.broadcastAnimation(creature.pos, 'diescream');
+
+      if (actor?.isPlayer) {
+        const player = this.findPlayerForCreature(actor);
+        if (player) {
+          for (const script of this._scripts) {
+            script.onPlayerKillCreature(player, creature);
+          }
+        }
+      }
     }
   }
 
   removeCreature(creature: Creature) {
+    creature.dead = true;
     this.context.creatures.delete(creature.id);
 
     const creatureState = this.creatureStates[creature.id];
@@ -522,6 +567,7 @@ export default class Server {
     });
 
     this._scripts.push(new TestScript(this));
+    this._scripts[0].onStart();
     this.taskRunner.registerTickSection({
       description: 'scripts',
       fn: async () => {

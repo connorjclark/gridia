@@ -1,6 +1,8 @@
 import * as Utils from '../utils';
+import Player from '../player';
 import Server from './server';
 import { Rate } from './task-runner';
+import ClientConnection from './client-connection';
 
 type Region = Point4 & { width: number; height: number };
 
@@ -22,9 +24,29 @@ export abstract class Script {
 
   constructor(protected server: Server) { }
 
+  onStart(): Promise<void> | void {
+    // Can override.
+  }
+
+  onTick(): Promise<void> | void {
+    // Can override.
+  }
+
+  onPlayerRegister(player: Player, clientConnection: ClientConnection): Promise<void> | void {
+    // Can override.
+  }
+
+  onPlayerLogin(player: Player, clientConnection: ClientConnection): Promise<void> | void {
+    // Can override.
+  }
+
+  onPlayerKillCreature(player: Player, creature: Creature): Promise<void> | void {
+    // Can override.
+  }
+
   // TODO: time budget for tick.
   // TODO: only run script if player is nearby.
-  tick(): Promise<void> {
+  tick(): Promise<void> | void {
     const ticks = this.server.taskRunner.getTicks();
 
     for (const spawner of this.creatureSpawners) {
@@ -51,15 +73,7 @@ export abstract class Script {
       }
     }
 
-    return Promise.resolve();
-  }
-
-  addCreatureSpawner(spawner: CreatureSpawner) {
-    this.creatureSpawners.push(spawner);
-    this.creatureSpawnerState.set(spawner, {
-      spawnedCreatures: [],
-      scheduledSpawnTicks: [],
-    });
+    return this.onTick();
   }
 
   unload() {
@@ -75,7 +89,15 @@ export abstract class Script {
     }
   }
 
-  spawnCreature(opts: { type: number; loc?: Point4; region?: Region }) {
+  protected addCreatureSpawner(spawner: CreatureSpawner) {
+    this.creatureSpawners.push(spawner);
+    this.creatureSpawnerState.set(spawner, {
+      spawnedCreatures: [],
+      scheduledSpawnTicks: [],
+    });
+  }
+
+  protected spawnCreature(opts: { type: number; loc?: Point4; region?: Region }) {
     if (opts.loc && opts.region) {
       throw new Error('invalid parameters');
     }
@@ -95,9 +117,21 @@ export abstract class Script {
     const creature = this.server.makeCreatureFromTemplate(opts.type, loc);
     return creature;
   }
+
+  protected wasCreatureSpawnedBySpawner(creature: Creature) {
+    for (const state of this.creatureSpawnerState.values()) {
+      if (state.spawnedCreatures.includes(creature)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 }
 
 export class TestScript extends Script {
+  captain?: Creature;
+
   constructor(server: Server) {
     super(server);
 
@@ -107,5 +141,60 @@ export class TestScript extends Script {
       rate: { seconds: 5 },
       region: { w: 0, x: 25, y: 20, z: 0, width: 25, height: 12 },
     });
+  }
+
+  onStart() {
+    this.server.registerQuest({
+      id: 'TEST_QUEST',
+      name: 'Your First Quest',
+      stages: [
+        'in_room',
+        'find_captain',
+        'find_kitchen',
+        'cook_ribs',
+        'collect_meat',
+        'cook_meat',
+        'return_to_captain',
+        'leave_ship',
+      ],
+    });
+  }
+
+  onTick() {
+    if (!this.captain || this.captain.dead) {
+      this.captain = this.spawnCreature({ type: 11, loc: { w: 0, x: 25, y: 20, z: 0 } });
+      if (this.captain) {
+        this.captain.name = 'Captain Jack';
+        this.server.broadcastPartialCreatureUpdate(this.captain, ['name']);
+      }
+    }
+
+    // const region = this.creatureSpawners[0].region;
+
+    // const quest = this.server.getQuest('TEST_QUEST');
+    // for (const player of this.server.players.values()) {
+    //   console.log(player.name, player.getQuestState(quest)?.stage);
+    // }
+
+    // ...
+  }
+
+  onPlayerRegister(player: Player) {
+    this.server.moveCreature(player.creature, this.creatureSpawners[0].region);
+
+    const quest = this.server.getQuest('TEST_QUEST');
+    player.startQuest(quest);
+  }
+
+  onPlayerLogin(player: Player) {
+    const quest = this.server.getQuest('TEST_QUEST');
+    player.startQuest(quest);
+  }
+
+  onPlayerKillCreature(player: Player, creature: Creature) {
+    if (!this.wasCreatureSpawnedBySpawner(creature)) return;
+
+    const quest = this.server.getQuest('TEST_QUEST');
+    player.advanceQuest(quest);
   }
 }

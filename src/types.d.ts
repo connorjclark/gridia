@@ -68,6 +68,7 @@ interface Item {
 
 interface Creature {
   id: number;
+  dead: boolean;
   image: number;
   image_type?: number;
   imageData?: {
@@ -154,6 +155,17 @@ interface Monster {
   life: number;
   roam?: number;
   eat_grass: boolean;
+}
+
+interface Quest {
+  id: string;
+  name: string;
+  stages: string[];
+}
+
+interface QuestState {
+  stage: string;
+  data: Object;
 }
 
 interface UIState {

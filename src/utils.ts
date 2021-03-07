@@ -5,6 +5,7 @@
 //     };
 //   }
 
+import { Rectangle } from 'pixi.js';
 import { GFX_SIZE } from './constants';
 
 // TODO rename these 'world's to 'stage'?
@@ -79,6 +80,10 @@ export function randInt(min: number, max: number) {
 export function emptyArray(n: number) {
   // eslint-disable-next-line
   return [...Array(n)];
+}
+
+export function rectContains(rect: { left: number; top: number; width: number; height: number }, loc: Point4) {
+  return rect.left <= loc.x && loc.x <= rect.left + rect.width && rect.top <= loc.y && loc.y <= rect.top + rect.height;
 }
 
 export function assert(val: any) {

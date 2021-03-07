@@ -55,9 +55,35 @@ export default class Player {
   equipmentContainerId = 0;
   isAdmin = false;
   name = '';
+  questStates = new Map<string, QuestState>();
   // skill id -> xp
   skills = new Map<number, number>();
   tilesSeenLog = new TilesSeenLog();
 
   constructor(public creature: Creature) { }
+
+  getQuestState(quest: Quest) {
+    return this.questStates.get(quest.id);
+  }
+
+  startQuest(quest: Quest) {
+    let state = this.questStates.get(quest.id);
+    if (state) return;
+
+    state = {
+      stage: quest.stages[0],
+      data: {},
+    };
+    this.questStates.set(quest.id, state);
+  }
+
+  advanceQuest(quest: Quest) {
+    const state = this.questStates.get(quest.id);
+    if (!state) return;
+
+    const currentIndex = quest.stages.indexOf(state.stage);
+    if (currentIndex === quest.stages.length - 1) return;
+
+    state.stage = quest.stages[currentIndex + 1];
+  }
 }

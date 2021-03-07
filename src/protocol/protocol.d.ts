@@ -90,6 +90,7 @@ declare namespace ServerToClientProtocol {
       player: import('../player').default;
       secondsPerWorldTick: number;
       ticksPerWorldDay: number;
+      // quests: Array<{id: string, name: string, started: boolean}>;
     }
 
     interface InitializePartition extends TilePoint {

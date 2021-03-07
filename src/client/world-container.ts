@@ -188,7 +188,7 @@ class Camera {
   contains(loc: Point4) {
     if (this.focus.w !== loc.w) return false;
     if (this.focus.z !== loc.z) return false;
-    return this.left <= loc.x && loc.x <= this.right && this.top <= loc.y && loc.y <= this.bottom;
+    return Utils.rectContains(this, loc);
   }
 }
 
