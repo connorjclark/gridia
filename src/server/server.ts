@@ -45,6 +45,8 @@ export default class Server {
   ticksPerWorldDay = 24 * 60 * 60 / this.secondsPerWorldTick / 8;
   time = new WorldTime(this.ticksPerWorldDay, this.ticksPerWorldDay / 2);
 
+  creatureToOnSpeakCallbacks = new WeakMap<Creature, (clientConnection: ClientConnection) => Dialogue | undefined>();
+
   private _clientToServerProtocol = new ClientToServerProtocol();
   private _scripts: Script[] = [];
   private _quests: Quest[] = [];
@@ -123,6 +125,48 @@ export default class Server {
     const quest = this._quests.find((q) => q.id === id);
     if (!quest) throw new Error(`unknown quest: ${id}`);
     return quest;
+  }
+
+  startDialogue(clientConnection: ClientConnection, dialogue: Dialogue) {
+    clientConnection.activeDialogue = { dialogue, partIndex: 0 };
+    this.sendCurrentDialoguePart(clientConnection);
+  }
+
+  processDialogueResponse(clientConnection: ClientConnection, choiceIndex?: number) {
+    if (!clientConnection.activeDialogue) return;
+
+    const { dialogue, partIndex } = clientConnection.activeDialogue;
+    const part = dialogue.parts[partIndex];
+
+    let nextPartIndex;
+    if (choiceIndex !== undefined && part.choices && part.choices.length < choiceIndex) {
+      // TODO
+      nextPartIndex = partIndex + 1;
+    } else if (partIndex + 1 < dialogue.parts.length) {
+      nextPartIndex = partIndex + 1;
+    } else {
+      dialogue.onFinish && dialogue.onFinish();
+    }
+
+    if (nextPartIndex !== undefined) {
+      clientConnection.activeDialogue.partIndex = nextPartIndex;
+      this.sendCurrentDialoguePart(clientConnection);
+    } else {
+      clientConnection.activeDialogue = undefined;
+      clientConnection.send(ProtocolBuilder.dialogue({}));
+    }
+  }
+
+  sendCurrentDialoguePart(clientConnection: ClientConnection) {
+    if (!clientConnection.activeDialogue) return;
+
+    const { dialogue, partIndex } = clientConnection.activeDialogue;
+    const part = dialogue.parts[partIndex];
+    clientConnection.send(ProtocolBuilder.dialogue({
+      speaker: dialogue.speakers[part.speaker].name,
+      text: part.text,
+      choices: part.choices,
+    }));
   }
 
   async registerPlayer(clientConnection: ClientConnection, opts: RegisterOpts) {

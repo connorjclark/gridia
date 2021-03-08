@@ -52,8 +52,12 @@ type TimeMessage = {
     type: "time";
     args: ServerToClientProtocol.Params.Time;
 };
+type DialogueMessage = {
+    type: "dialogue";
+    args: ServerToClientProtocol.Params.Dialogue;
+};
 
-export type Message = AnimationMessage | ContainerMessage | InitializeMessage | InitializePartitionMessage | LogMessage | RemoveCreatureMessage | SectorMessage | SetCreatureMessage | SetFloorMessage | SetItemMessage | XpMessage | ChatMessage | TimeMessage;
+export type Message = AnimationMessage | ContainerMessage | InitializeMessage | InitializePartitionMessage | LogMessage | RemoveCreatureMessage | SectorMessage | SetCreatureMessage | SetFloorMessage | SetItemMessage | XpMessage | ChatMessage | TimeMessage | DialogueMessage;
 
 export function animation({ key, ...loc }: ServerToClientProtocol.Params.Animation): AnimationMessage {
     return { type: "animation", args: arguments[0] };
@@ -93,4 +97,7 @@ export function chat({ from, to, message }: ServerToClientProtocol.Params.Chat):
 }
 export function time({ epoch }: ServerToClientProtocol.Params.Time): TimeMessage {
     return { type: "time", args: arguments[0] };
+}
+export function dialogue({ speaker, text, choices }: ServerToClientProtocol.Params.Dialogue): DialogueMessage {
+    return { type: "dialogue", args: arguments[0] };
 }

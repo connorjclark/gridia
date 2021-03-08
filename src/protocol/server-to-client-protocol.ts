@@ -86,4 +86,8 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
   onTime(client: Client, { epoch }: Params.Time): void {
     // handled by game.ts
   }
+
+  onDialogue(client: Client, { text, choices }: Params.Dialogue): void {
+    // handled by game.ts
+  }
 }

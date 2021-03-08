@@ -80,6 +80,7 @@ interface Creature {
     weapon?: number;
   };
   name: string;
+  canSpeak?: boolean;
   pos: TilePoint;
   isPlayer: boolean;
   tamedBy?: number; // player id
@@ -166,6 +167,18 @@ interface Quest {
 interface QuestState {
   stage: string;
   data: Object;
+}
+
+interface Dialogue {
+  speakers: Creature[];
+  parts: DialoguePart[];
+  onFinish?: () => void;
+}
+
+interface DialoguePart {
+  speaker: number;
+  text: string;
+  choices?: any[];
 }
 
 interface UIState {

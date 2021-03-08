@@ -147,6 +147,24 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
       creature.tamedBy = server.currentClientConnection.player.id;
       server.broadcastPartialCreatureUpdate(creature, ['tamedBy']);
     }
+
+    if (type === 'speak') {
+      const cb = server.creatureToOnSpeakCallbacks.get(creature);
+      const dialogue = cb && cb(server.currentClientConnection);
+      if (dialogue) {
+        server.startDialogue(server.currentClientConnection, dialogue);
+      } else {
+        server.reply(ProtocolBuilder.chat({
+          from: creature.name,
+          to: '', // TODO
+          message: '...',
+        }));
+      }
+    }
+  }
+
+  onDialogueResponse(server: Server, { choiceIndex }: Params.DialogueResponse): void {
+    server.processDialogueResponse(server.currentClientConnection, choiceIndex);
   }
 
   onUse(server: Server, { toolIndex, location, usageIndex }: Params.Use): void {

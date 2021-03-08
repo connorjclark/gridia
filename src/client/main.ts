@@ -375,6 +375,14 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
   const actions: GameAction[] = [];
 
   if (creature) {
+    if (creature.canSpeak) {
+      actions.push({
+        type: 'speak',
+        innerText: 'Speak',
+        title: 'Speak',
+      });
+    }
+
     if (!creature.isPlayer) {
       actions.push({
         type: 'attack',
@@ -505,6 +513,7 @@ function globalOnActionHandler(client: Client, e: GameActionEvent) {
     break;
   case 'attack':
   case 'tame':
+  case 'speak':
     client.connection.send(ProtocolBuilder.creatureAction({
       creatureId: creature.id,
       type,

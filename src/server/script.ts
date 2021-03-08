@@ -165,7 +165,9 @@ export class TestScript extends Script {
       this.captain = this.spawnCreature({ type: 11, loc: { w: 0, x: 25, y: 20, z: 0 } });
       if (this.captain) {
         this.captain.name = 'Captain Jack';
-        this.server.broadcastPartialCreatureUpdate(this.captain, ['name']);
+        this.captain.canSpeak = true;
+        this.server.creatureToOnSpeakCallbacks.set(this.captain, this.onSpeakToCaptain.bind(this));
+        this.server.broadcastPartialCreatureUpdate(this.captain, ['name', 'canSpeak']);
       }
     }
 
@@ -196,5 +198,38 @@ export class TestScript extends Script {
 
     const quest = this.server.getQuest('TEST_QUEST');
     player.advanceQuest(quest);
+  }
+
+  onSpeakToCaptain(clientConnection: ClientConnection): Dialogue | undefined {
+    if (!this.captain) return;
+
+    const quest = this.server.getQuest('TEST_QUEST');
+    const state = clientConnection.player.getQuestState(quest);
+    if (!state) return;
+
+    const speakers = [clientConnection.player.creature, this.captain];
+
+    if (state.stage === 'in_room') {
+      return {
+        speakers,
+        parts: [
+          { speaker: 1, text: 'Welcome!' },
+          { speaker: 0, text: 'Who are you?' },
+          { speaker: 1, text: 'The captain!' },
+          { speaker: 0, text: 'Alright.' },
+        ],
+        onFinish: () => {
+          clientConnection.player.advanceQuest(quest);
+        },
+      };
+    } else {
+      return {
+        speakers,
+        parts: [
+          { speaker: 1, text: 'Go away.' },
+          { speaker: 0, text: 'Alright.' },
+        ],
+      };
+    }
   }
 }

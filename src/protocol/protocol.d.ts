@@ -58,7 +58,11 @@ declare namespace ClientToServerProtocol {
 
     interface CreatureAction {
       creatureId: number;
-      type: 'attack' | 'tame'
+      type: 'attack' | 'tame' | 'speak';
+    }
+
+    interface DialogueResponse {
+      choiceIndex?: number;
     }
 
     interface Use {
@@ -134,6 +138,12 @@ declare namespace ServerToClientProtocol {
 
     interface Time {
       epoch: number;
+    }
+
+    interface Dialogue {
+      speaker?: string;
+      text?: string;
+      choices?: Array<any>;
     }
   }
 }

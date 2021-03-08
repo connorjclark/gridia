@@ -21,6 +21,7 @@ import { WorldContainer } from './world-container';
 import MapModule from './modules/map-module';
 import { makeHelpWindow } from './ui/help-window';
 import { makeContainerWindow } from './ui/container-window';
+import { makeDialogueWindow } from './ui/dialogue-window';
 import { makeGraphicComponent } from './ui/ui-common';
 import { WorkerConnection } from './connection';
 import { ServerWorker } from './server-worker';
@@ -303,6 +304,7 @@ class Game {
 
   protected creatureSprites = new Map<number, CreatureSprite>();
   protected containerWindows = new Map<number, ReturnType<typeof makeContainerWindow>>();
+  protected dialogueWindow?: ReturnType<typeof makeDialogueWindow>;
 
   private _playerCreature?: Creature;
   private _currentHoverItemText =
@@ -477,6 +479,27 @@ class Game {
 
       if (e.type === 'chat') {
         this.addToChat(`${e.args.from}: ${e.args.message}`);
+      }
+
+      if (e.type === 'dialogue') {
+        if (!e.args.speaker && !e.args.text) {
+          closeDialogueWindow();
+          return;
+        }
+
+        if (!this.dialogueWindow) {
+          this.dialogueWindow = makeDialogueWindow(this);
+        }
+
+        this.dialogueWindow.setState(e.args);
+        this.client.eventEmitter.on('playerMove', closeDialogueWindow);
+
+        // TODO: better window management.
+        function closeDialogueWindow() {
+          game.dialogueWindow?.el.remove();
+          game.dialogueWindow = undefined;
+          game.client.eventEmitter.removeListener('playerMove', closeDialogueWindow);
+        }
       }
 
       if (e.type === 'time') {

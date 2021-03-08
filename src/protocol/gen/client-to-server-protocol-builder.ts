@@ -52,6 +52,10 @@ type CreatureActionMessage = {
     type: "creatureAction";
     args: ClientToServerProtocol.Params.CreatureAction;
 };
+type DialogueResponseMessage = {
+    type: "dialogueResponse";
+    args: ClientToServerProtocol.Params.DialogueResponse;
+};
 type UseMessage = {
     type: "use";
     args: ClientToServerProtocol.Params.Use;
@@ -61,7 +65,7 @@ type ChatMessage = {
     args: ClientToServerProtocol.Params.Chat;
 };
 
-export type Message = AdminSetFloorMessage | AdminSetItemMessage | CloseContainerMessage | MoveMessage | MoveItemMessage | RegisterMessage | LoginMessage | LogoutMessage | RequestContainerMessage | RequestCreatureMessage | RequestPartitionMessage | RequestSectorMessage | CreatureActionMessage | UseMessage | ChatMessage;
+export type Message = AdminSetFloorMessage | AdminSetItemMessage | CloseContainerMessage | MoveMessage | MoveItemMessage | RegisterMessage | LoginMessage | LogoutMessage | RequestContainerMessage | RequestCreatureMessage | RequestPartitionMessage | RequestSectorMessage | CreatureActionMessage | DialogueResponseMessage | UseMessage | ChatMessage;
 
 export function adminSetFloor({ floor, ...loc }: ClientToServerProtocol.Params.AdminSetFloor): AdminSetFloorMessage {
     return { type: "adminSetFloor", args: arguments[0] };
@@ -101,6 +105,9 @@ export function requestSector({ ...loc }: ClientToServerProtocol.Params.RequestS
 }
 export function creatureAction({ creatureId, type }: ClientToServerProtocol.Params.CreatureAction): CreatureActionMessage {
     return { type: "creatureAction", args: arguments[0] };
+}
+export function dialogueResponse({ choiceIndex }: ClientToServerProtocol.Params.DialogueResponse): DialogueResponseMessage {
+    return { type: "dialogueResponse", args: arguments[0] };
 }
 export function use({ toolIndex, location, usageIndex }: ClientToServerProtocol.Params.Use): UseMessage {
     return { type: "use", args: arguments[0] };
