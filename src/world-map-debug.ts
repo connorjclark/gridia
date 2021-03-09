@@ -77,17 +77,9 @@ function addDebugStuff(map: WorldMapPartition) {
     type: Content.getRandomMetaItemOfClass('Container').id,
     quantity: 1,
   };
-
-  map.getTile({ x: 9, y: 9, z: 0 }).item = {
-    type: Content.getMetaItemByName('Warp Portal').id,
-    quantity: 1,
-    warpTo: { w: 0, x: 3, y: 1, z: 0 },
-  };
 }
 
-export default function createDebugWorldMap() {
-  // TODO: standardize naming for map, world map, partiton, etc.
-  const world = new WorldMap();
+export function createTestPartitions(map: WorldMap) {
   const width = 1000;
   const height = 1000;
   const depth = 2;
@@ -102,40 +94,50 @@ export default function createDebugWorldMap() {
     percentage: 0.3,
   } as const;
 
-  const defaultMap = mapgen({ width, height, depth, partitionStrategy, waterStrategy, borderIsAlwaysWater: false });
-  addDebugStuff(defaultMap.partition);
-  world.addPartition(0, defaultMap.partition);
+  const testMapResult = mapgen({ width, height, depth, partitionStrategy, waterStrategy, borderIsAlwaysWater: false });
+  const testPartition = testMapResult.partition;
+  const testPartitionW = map.partitions.size;
+  map.addPartition(testPartitionW, testPartition);
+  addDebugStuff(testPartition);
 
-  const smallMap = makeBareMap(20, 20, 1);
-  world.addPartition(1, smallMap);
+  const smallPartition = makeBareMap(20, 20, 1);
+  const smallPartitionW = map.partitions.size;
+  map.addPartition(smallPartitionW, smallPartition);
 
   // middle defaultMap <-> topleft defaultMap
-  defaultMap.partition.getTile({ x: Math.floor(width / 2), y: Math.floor(height / 2), z: 0 }).item = {
+  testPartition.getTile({ x: Math.floor(width / 2), y: Math.floor(height / 2), z: 0 }).item = {
     type: Content.getMetaItemByName('Warp Portal').id,
     quantity: 1,
-    warpTo: { w: 0, x: 1, y: 1, z: 0 },
+    warpTo: { w: testPartitionW, x: 1, y: 1, z: 0 },
   };
-  defaultMap.partition.getTile({ x: 1, y: 1, z: 0 }).item = undefined;
-  defaultMap.partition.getTile({ x: 0, y: 0, z: 0 }).item = {
+  testPartition.getTile({ x: 1, y: 1, z: 0 }).item = undefined;
+  testPartition.getTile({ x: 0, y: 0, z: 0 }).item = {
     type: Content.getMetaItemByName('Warp Portal').id,
     quantity: 1,
-    warpTo: { w: 0, x: Math.floor(width / 2), y: Math.floor(height / 2) - 1, z: 0 },
+    warpTo: { w: testPartitionW, x: Math.floor(width / 2), y: Math.floor(height / 2) - 1, z: 0 },
   };
 
   // defaultMap <-> smallMap
-  defaultMap.partition.getTile({ x: 7, y: 5, z: 0 }).item = {
+  testPartition.getTile({ x: 7, y: 5, z: 0 }).item = {
     type: Content.getMetaItemByName('Warp Portal').id,
     quantity: 1,
-    warpTo: { w: 1, x: 5, y: 5, z: 0 },
+    warpTo: { w: smallPartitionW, x: 5, y: 5, z: 0 },
   };
-  smallMap.getTile({ x: 7, y: 5, z: 0 }).item = {
+  smallPartition.getTile({ x: 7, y: 5, z: 0 }).item = {
     type: Content.getMetaItemByName('Warp Portal').id,
     quantity: 1,
-    warpTo: { w: 0, x: 9, y: 12, z: 0 },
+    warpTo: { w: testPartitionW, x: 9, y: 12, z: 0 },
   };
 
+  return testMapResult.mapGenResult;
+}
+
+export function createMainWorldMap() {
+  // TODO: standardize naming for map, world map, partiton, etc.
+  const world = new WorldMap();
+  const mapGenResult = createTestPartitions(world);
   return {
     world,
-    mapGenData: [defaultMap.mapGenResult],
+    mapGenData: [mapGenResult],
   };
 }

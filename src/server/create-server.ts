@@ -4,7 +4,7 @@ import { makeMapImage } from '../lib/map-generator/map-image-maker';
 import Server from '../server/server';
 import { ServerContext } from '../server/server-context';
 import * as Utils from '../utils';
-import createDebugWorldMap from '../world-map-debug';
+import { createMainWorldMap } from '../world-map-debug';
 
 export async function startServer(options: ServerOptions) {
   const { verbose } = options;
@@ -13,7 +13,8 @@ export async function startServer(options: ServerOptions) {
   if ((await fs.readdir('')).length !== 0) {
     context = await ServerContext.load();
   } else {
-    const { world, mapGenData } = createDebugWorldMap();
+    // TODO: shouldn't create a world here...
+    const { world, mapGenData } = createMainWorldMap();
     context = new ServerContext(world);
     await context.save();
 

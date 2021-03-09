@@ -5,3 +5,10 @@ node_modules
 yarn-error.log
 server-data
 mapgen-temp
+
+saved-maps/*
+!saved-maps/main
+saved-maps/*/meta.json
+saved-maps/*/containers
+saved-maps/*/misc
+saved-maps/*/players

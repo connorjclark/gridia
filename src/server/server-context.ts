@@ -58,9 +58,7 @@ export class ServerContext extends Context {
     // Just load all the partitions for now.
     const partitionIds = (await fs.readdir(context.sectorDir)).map(Number);
     for (const w of partitionIds) {
-      const partitionPath = context.partitionMetaPath(w);
-      const partitionMeta = await readJson(partitionPath);
-      map.initPartition(w, partitionMeta.width, partitionMeta.height, partitionMeta.depth);
+      await context.loadPartition(w);
     }
 
     context.playerNamesToIds.clear();
@@ -75,16 +73,23 @@ export class ServerContext extends Context {
     return context;
   }
 
+  async loadPartition(w: number) {
+    const partitionPath = this.partitionMetaPath(w);
+    const partitionMeta = await readJson(partitionPath);
+    this.map.initPartition(w, partitionMeta.width, partitionMeta.height, partitionMeta.depth);
+  }
+
   async loadSector(server: Server, sectorPoint: TilePoint) {
     const sector = await readJson(this.sectorPath(sectorPoint)) as Sector;
 
     // Set creatures (all of which are always loaded in memory) to the sector (of which only active areas are loaded).
     // Kinda lame, I guess.
-    for (const creature of this.creatures.values()) {
-      if (Utils.equalPoints(sectorPoint, Utils.worldToSector(creature.pos, SECTOR_SIZE))) {
-        server.registerCreature(creature);
-      }
-    }
+    // TODO remove now? currently are not saving creatures to disk.
+    // for (const creature of this.creatures.values()) {
+    //   if (Utils.equalPoints(sectorPoint, Utils.worldToSector(creature.pos, SECTOR_SIZE))) {
+    //     server.registerCreature(creature);
+    //   }
+    // }
 
     return sector;
   }

@@ -90,7 +90,6 @@ Main story line:
   leveling up enough to make it all the way through.
 
 Eng work:
-* Save to version control small maps, so I can manually edit them in game. ex: for the town; the starting ship; various dungeons, etc.
 * In map gen, be able to copy the contents of one map to another.
 * Quest log
 * Scripting
