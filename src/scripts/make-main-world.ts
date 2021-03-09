@@ -13,59 +13,6 @@ async function createMainWorldMap() {
     return;
   }
 
-  // fs.mkdirSync('server-data/sectors', { recursive: true });
-  // execFileSync('cp', ['-r', 'saved-maps/main/sectors', 'server-data']);
-  // fs.writeFileSync('server-data/meta.json', '{}');
-
-  // isoFs.initialize({ type: 'native', rootDirectoryPath: 'server-data' });
-  // const context = await ServerContext.load();
-  // createTestPartitions(context.map);
-  // await context.save();
-
-  // ------
-
-  // fs.mkdirSync('server-data/sectors', { recursive: true });
-
-  // const map = new WorldMap();
-  // for (const _ of fs.readdirSync('saved-maps/main/sectors')) {
-  //   // Gets replaced later.
-  //   map.addPartition(map.partitions.size, new WorldMapPartition(20, 20, 1));
-  // }
-
-  // createTestPartitions(map);
-
-  // isoFs.initialize({ type: 'native', rootDirectoryPath: 'server-data' });
-  // await new ServerContext(map).save();
-  // execFileSync('cp', ['-r', 'saved-maps/main/sectors', 'server-data']);
-
-  // // lol
-  // const context = await ServerContext.load();
-
-  // // @ts-ignore
-  // context.map.loader = (pos) => context.loadSector(null, pos);
-
-  // // main world <-> test world
-  // const mainWorld = context.map.getPartition(0);
-  // const testWorld = context.map.getPartition(context.map.partitions.size - 3);
-  // mainWorld.getTile({ x: 7, y: 5, z: 0 }).item = {
-  //   type: Content.getMetaItemByName('Warp Portal').id,
-  //   quantity: 1,
-  //   warpTo: { w: context.map.partitions.size - 3, x: 5, y: 5, z: 0 },
-  // };
-  // testWorld.getTile({ x: 7, y: 5, z: 0 }).item = {
-  //   type: Content.getMetaItemByName('Warp Portal').id,
-  //   quantity: 1,
-  //   warpTo: { w: 0, x: 9, y: 12, z: 0 },
-  // };
-
-  // await context.save();
-
-  // --------
-
-  // execFileSync('cp', ['-r', 'saved-maps/main', 'server-data']);
-
-  // TODO: make a loadMapPartition fn
-
   const map = new WorldMap();
   isoFs.initialize({ type: 'native', rootDirectoryPath: 'saved-maps/main' });
   const context = new ServerContext(map);
