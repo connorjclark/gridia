@@ -39,6 +39,7 @@
     "run-static-server": "http-server dist/client -c-1",
     "clean": "rimraf dist .cache",
     "watch": "concurrently --kill-others --names Server,Client,Static --prefix name nodemon \"node build/build-client.js --dev\" \"yarn run-static-server > /dev/null\"",
+    "watch-no-server": "concurrently --kill-others --names Client,Static --prefix name \"node build/build-client.js --dev\" \"yarn run-static-server > /dev/null\"",
     "type-check": "tsc --noEmit",
     "lint": "eslint '{src,test,build}/**/*.{ts,js}'",
     "test": "yarn lint && yarn type-check && jest --testPathIgnorePatterns memory"
