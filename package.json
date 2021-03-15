@@ -10,8 +10,6 @@
     "linkstate": "^1.1.1",
     "parcel-bundler": "^1.11.0",
     "pixi-sound": "^3.0.4",
-    "pixi-text-input": "^1.0.5",
-    "pixi-viewport": "^4.3.1",
     "pixi.js": "^5.3.3",
     "preact": "^10.4.1",
     "seedrandom": "^3.0.5",
