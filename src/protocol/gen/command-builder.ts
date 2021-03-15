@@ -16,6 +16,10 @@ type CloseContainerCommand = {
     type: "closeContainer";
     args: Protocol.Commands.CloseContainer;
 };
+type CreatePlayerCommand = {
+    type: "createPlayer";
+    args: Protocol.Commands.CreatePlayer;
+};
 type CreatureActionCommand = {
     type: "creatureAction";
     args: Protocol.Commands.CreatureAction;
@@ -23,6 +27,10 @@ type CreatureActionCommand = {
 type DialogueResponseCommand = {
     type: "dialogueResponse";
     args: Protocol.Commands.DialogueResponse;
+};
+type EnterWorldCommand = {
+    type: "enterWorld";
+    args: Protocol.Commands.EnterWorld;
 };
 type LoginCommand = {
     type: "login";
@@ -40,9 +48,9 @@ type MoveItemCommand = {
     type: "moveItem";
     args: Protocol.Commands.MoveItem;
 };
-type RegisterCommand = {
-    type: "register";
-    args: Protocol.Commands.Register;
+type RegisterAccountCommand = {
+    type: "registerAccount";
+    args: Protocol.Commands.RegisterAccount;
 };
 type RequestContainerCommand = {
     type: "requestContainer";
@@ -65,7 +73,7 @@ type UseCommand = {
     args: Protocol.Commands.Use;
 };
 
-export type Command = AdminSetFloorCommand | AdminSetItemCommand | ChatCommand | CloseContainerCommand | CreatureActionCommand | DialogueResponseCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand;
+export type Command = AdminSetFloorCommand | AdminSetItemCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand;
 
 export function adminSetFloor({ floor, ...loc }: Protocol.Commands.AdminSetFloor["params"]): AdminSetFloorCommand {
     return { type: "adminSetFloor", args: arguments[0] };
@@ -79,11 +87,17 @@ export function chat({ to, message }: Protocol.Commands.Chat["params"]): ChatCom
 export function closeContainer({ containerId }: Protocol.Commands.CloseContainer["params"]): CloseContainerCommand {
     return { type: "closeContainer", args: arguments[0] };
 }
+export function createPlayer({ name }: Protocol.Commands.CreatePlayer["params"]): CreatePlayerCommand {
+    return { type: "createPlayer", args: arguments[0] };
+}
 export function creatureAction({ creatureId, type }: Protocol.Commands.CreatureAction["params"]): CreatureActionCommand {
     return { type: "creatureAction", args: arguments[0] };
 }
 export function dialogueResponse({ choiceIndex }: Protocol.Commands.DialogueResponse["params"]): DialogueResponseCommand {
     return { type: "dialogueResponse", args: arguments[0] };
+}
+export function enterWorld({ playerId }: Protocol.Commands.EnterWorld["params"]): EnterWorldCommand {
+    return { type: "enterWorld", args: arguments[0] };
 }
 export function login({ name, password }: Protocol.Commands.Login["params"]): LoginCommand {
     return { type: "login", args: arguments[0] };
@@ -97,8 +111,8 @@ export function move({ ...loc }: Protocol.Commands.Move["params"]): MoveCommand 
 export function moveItem({ from, quantity, to }: Protocol.Commands.MoveItem["params"]): MoveItemCommand {
     return { type: "moveItem", args: arguments[0] };
 }
-export function register({ name, password }: Protocol.Commands.Register["params"]): RegisterCommand {
-    return { type: "register", args: arguments[0] };
+export function registerAccount({ name, password }: Protocol.Commands.RegisterAccount["params"]): RegisterAccountCommand {
+    return { type: "registerAccount", args: arguments[0] };
 }
 export function requestContainer({ containerId, loc }: Protocol.Commands.RequestContainer["params"]): RequestContainerCommand {
     return { type: "requestContainer", args: arguments[0] };

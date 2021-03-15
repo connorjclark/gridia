@@ -36,26 +36,49 @@ export default class ServerInterface implements IServerInterface {
     return Promise.resolve();
   }
 
-  onRegister(server: Server, { name, password }: Commands.Register['params']): Promise<Commands.Register['response']> {
-    if (server.currentClientConnection.player) return Promise.reject('');
-    if (name.length > 20) return Promise.reject('');
-    if (password.length < 8) return Promise.reject('');
+  // eslint-disable-next-line max-len
+  async onRegisterAccount(server: Server, { name, password }: Commands.RegisterAccount['params']): Promise<Commands.RegisterAccount['response']> {
+    if (server.currentClientConnection.account) return Promise.reject('Already logged in');
+    if (name.length > 20) return Promise.reject('Account name too long');
+    if (password.length < 8) return Promise.reject('Password too short');
 
-    return server.registerPlayer(server.currentClientConnection, {
+    await server.registerAccount(server.currentClientConnection, {
       name,
       password,
     });
   }
 
   async onLogin(server: Server, { name, password }: Commands.Login['params']): Promise<Commands.Login['response']> {
-    if (server.currentClientConnection.player) throw new Error('Already logged in');
+    if (server.currentClientConnection.account) throw new Error('Already logged in');
 
-    const playerId = server.context.playerNamesToIds.get(name);
-    if (!playerId) throw new Error('Invalid login');
-
-    await server.loginPlayer(server.currentClientConnection, {
-      playerId,
+    const account = await server.loginAccount(server.currentClientConnection, {
+      name,
       password,
+    });
+
+    const players = [];
+    for (const id of account.playerIds) {
+      const player = server.players.get(id) || await server.context.loadPlayer(id);
+      if (player) players.push({ id, name: player.name });
+    }
+
+    return { account, players };
+  }
+
+  onCreatePlayer(server: Server, { name }: { name: string }): Promise<void> {
+    if (name.length > 20) return Promise.reject('Name too long');
+
+    return server.createPlayer(server.currentClientConnection, { name });
+  }
+
+  // eslint-disable-next-line max-len
+  async onEnterWorld(server: Server, { playerId }: Commands.EnterWorld['params']): Promise<Commands.EnterWorld['response']> {
+    if (!server.currentClientConnection.account) throw new Error('Not logged in');
+    if (server.currentClientConnection.player) throw new Error('Already in world');
+    if (!server.currentClientConnection.account.playerIds.includes(playerId)) throw new Error('No such player');
+
+    await server.playerEnterWorld(server.currentClientConnection, {
+      playerId,
     });
   }
 

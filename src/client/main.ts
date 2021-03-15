@@ -19,6 +19,10 @@ function parseQuery(queryString: string) {
   };
 }
 
+function randomString(len: number) {
+  return [...Array(len)].map(() => String.fromCharCode(65 + Math.floor(Math.random() * 52))).join('');
+}
+
 const qs = parseQuery(window.location.search);
 
 class MainController {
@@ -231,9 +235,8 @@ class MapSelectScene extends Scene {
 }
 
 interface LocalStorageData {
-  players: Array<{ name: string; password: string }>;
-  // username?: string;
-  // password?: string;
+  username?: string;
+  password?: string;
 }
 
 let localStorageKey = '';
@@ -241,9 +244,7 @@ let localStorageData: LocalStorageData;
 function loadLocalStorageData(key: string) {
   localStorageKey = key;
 
-  let data = {
-    players: [],
-  };
+  let data = {};
 
   const json = localStorage.getItem(`local-gridia-data-${key}`);
   if (json) {
@@ -270,8 +271,37 @@ class RegisterScene extends Scene {
     this.nameInput = Helper.find('#register--name', this.element) as HTMLInputElement;
     this.onClickRegisterBtn = this.onClickRegisterBtn.bind(this);
 
+    const parts1 = 'Small Smelly Quick Steely Quiet'.split(' ');
+    const parts2 = 'Jill Stranger Arthur Maz Harlet Worker'.split(' ');
+    this.nameInput.value = [
+      parts1[Utils.randInt(0, parts1.length - 1)],
+      parts2[Utils.randInt(0, parts2.length - 1)],
+      Utils.randInt(1, 1000),
+    ].join(' ');
+
+    this.load();
+  }
+
+  async load() {
+    let name = localStorageData.username;
+    let password = localStorageData.password;
+
+    if (!name || !password) {
+      localStorageData.username = name = randomString(20);
+      localStorageData.password = password = randomString(20);
+      await controller.client.connection.sendCommand(CommandBuilder.registerAccount({
+        name,
+        password,
+      }));
+    }
+
+    const { players } = await controller.client.connection.sendCommand(CommandBuilder.login({
+      name,
+      password,
+    }));
+
     const playersEl = Helper.find('.register__players', this.element);
-    for (const [i, player] of Object.entries(localStorageData.players)) {
+    for (const [i, player] of Object.entries(players)) {
       const el = Helper.createChildOf(playersEl, 'div', 'register__player');
       el.textContent = player.name;
       el.dataset.index = i;
@@ -282,54 +312,33 @@ class RegisterScene extends Scene {
       if (!playerEl) return;
 
       const index = Number(playerEl.dataset.index);
-      const player = localStorageData.players[index];
+      const player = players[index];
 
       try {
-        await controller.client.connection.sendCommand(CommandBuilder.login(player));
+        await controller.client.connection.sendCommand(CommandBuilder.enterWorld({
+          playerId: player.id,
+        }));
         startGame(controller.client);
       } catch (error) {
         // TODO: UI
         console.error(error);
       }
     });
-
-    const parts1 = 'Small Smelly Quick Steely Quiet'.split(' ');
-    const parts2 = 'Jill Stranger Arthur Maz Harlet Worker'.split(' ');
-    this.nameInput.value = [
-      parts1[Utils.randInt(0, parts1.length - 1)],
-      parts2[Utils.randInt(0, parts2.length - 1)],
-      Utils.randInt(1, 1000),
-    ].join(' ');
   }
 
   async onClickRegisterBtn() {
     const name = this.nameInput.value;
-    const password = [...Array(20)].map(() => String.fromCharCode(65 + Math.floor(Math.random() * 52))).join('');
 
     try {
-      await controller.client.connection.sendCommand(CommandBuilder.register({
+      await controller.client.connection.sendCommand(CommandBuilder.createPlayer({
         name,
-        password,
       }));
-      localStorageData.players.push({ name, password });
       saveLocalStorageData();
-      this.waitForInitializeThenStartGame();
+      startGame(controller.client);
     } catch (error) {
       // TODO: UI
       console.error(error);
     }
-  }
-
-  async waitForInitializeThenStartGame() {
-    // Wait for initialize message. This happens after a successful login.
-    await new Promise((resolve, reject) => {
-      controller.client.eventEmitter.once('event', (e) => {
-        if (e.type === 'initialize') resolve();
-        else reject(`first message should be initialize, but got ${JSON.stringify(e)}`);
-      });
-    });
-
-    startGame(controller.client);
   }
 
   onShow() {

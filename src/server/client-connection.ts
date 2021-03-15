@@ -7,6 +7,8 @@ import { Event } from '../protocol/event-builder';
 export default class ClientConnection {
   messageQueue: Message[] = [];
   // @ts-ignore
+  account: GridiaAccount;
+  // @ts-ignore
   player: Player;
   // @ts-ignore
   container: Container;

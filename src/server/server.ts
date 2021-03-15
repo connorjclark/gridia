@@ -23,9 +23,13 @@ interface CtorOpts {
   verbose: boolean;
 }
 
-interface RegisterOpts {
+interface RegisterAccountOpts {
   name: string;
   password: string;
+}
+
+interface CreatePlayerOpts {
+  name: string;
 }
 
 export default class Server {
@@ -175,7 +179,36 @@ export default class Server {
     }));
   }
 
-  async registerPlayer(clientConnection: ClientConnection, opts: RegisterOpts) {
+  async registerAccount(clientConnection: ClientConnection, opts: RegisterAccountOpts) {
+    if (this.context.accountNamesToIds.has(opts.name)) {
+      throw new Error('Name already taken');
+    }
+
+    const account: GridiaAccount = {
+      id: this.context.nextAccountId++,
+      name: opts.name,
+      playerIds: [],
+    };
+
+    this.context.accountNamesToIds.set(account.name, account.id);
+    await this.context.saveAccount(account);
+    await this.context.saveAccountPassword(account.id, opts.password);
+  }
+
+  async loginAccount(clientConnection: ClientConnection, opts: RegisterAccountOpts) {
+    const accountId = this.context.accountNamesToIds.get(opts.name);
+    const account = accountId ? await this.context.loadAccount(accountId) : undefined;
+    const passwordMatches = account && await this.context.checkAccountPassword(account.id, opts.password);
+
+    if (!account || !passwordMatches) {
+      throw new Error('Invalid login');
+    }
+
+    clientConnection.account = account;
+    return account;
+  }
+
+  async createPlayer(clientConnection: ClientConnection, opts: CreatePlayerOpts) {
     if (this.context.playerNamesToIds.has(opts.name)) {
       throw new Error('Name already taken');
     }
@@ -234,23 +267,23 @@ export default class Server {
     equipment.items[0] = { type: Content.getMetaItemByName('Iron Helmet Plate').id, quantity: 1 };
     player.equipmentContainerId = equipment.id;
 
-    // Don't bother waiting.
-    this.context.savePlayerPassword(player.id, opts.password);
-    this.context.savePlayer(player);
+    await this.context.savePlayer(player);
+
+    clientConnection.account.playerIds.push(player.id);
+    await this.context.saveAccount(clientConnection.account);
 
     this.context.playerNamesToIds.set(opts.name, player.id);
 
-    await this.loginPlayer(clientConnection,
-      { justRegistered: true, player, playerId: player.id, password: opts.password });
+    await this.playerEnterWorld(clientConnection,
+      { justCreated: true, player, playerId: player.id });
   }
 
-  async loginPlayer(clientConnection: ClientConnection,
-                    opts: { justRegistered?: boolean; player?: Player; playerId: number; password: string }) {
+  async playerEnterWorld(clientConnection: ClientConnection,
+                         opts: { justCreated?: boolean; player?: Player; playerId: number }) {
     let player;
     if (opts.player) {
       player = opts.player;
     } else {
-      if (!await this.context.checkPlayerPassword(opts.playerId, opts.password)) throw new Error('wrong password');
       player = this.players.get(opts.playerId) || await this.context.loadPlayer(opts.playerId);
     }
 
@@ -266,13 +299,13 @@ export default class Server {
     await this.initClient(clientConnection);
     this.broadcastChat(`${clientConnection.player.name} has entered the world.`);
 
-    if (opts.justRegistered) {
+    if (opts.justCreated) {
       for (const script of this._scripts) {
-        script.onPlayerRegister(player, clientConnection);
+        script.onPlayerCreated(player, clientConnection);
       }
     }
     for (const script of this._scripts) {
-      script.onPlayerLogin(player, clientConnection);
+      script.onPlayerEnterWorld(player, clientConnection);
     }
   }
 
@@ -782,8 +815,13 @@ export default class Server {
       description: 'messages',
       fn: async () => {
         for (const clientConnection of this.clientConnections) {
+          if (clientConnection.messageQueue.length === 0) continue;
+
           this.currentClientConnection = clientConnection;
-          for (const message of clientConnection.messageQueue) {
+          const messages = [...clientConnection.messageQueue];
+          clientConnection.messageQueue.length = 0;
+
+          for (const message of messages) {
             const command = message.data as Command;
             if (this.verbose) console.log('from client', message.id, command.type, command.args);
             // performance.mark(`${message.type}-start`);
@@ -791,20 +829,13 @@ export default class Server {
               const onMethodName = 'on' + command.type[0].toUpperCase() + command.type.substr(1);
               // @ts-ignore
               // eslint-disable-next-line
-              let ret = this._clientToServerProtocol[onMethodName](this, command.args);
-              // TODO: some message handlers are async ... is that bad?
-              if (ret) {
-                ret = await ret
-                  .then((data: any) => clientConnection.send({ id: message.id, data }))
-                  .catch((e?: Error | string) => {
-                    // debugger;
-                    // TODO: why is this catch AND the try/catch needed?
-                    const error = e ? e.toString() : 'Unknown error';
-                    clientConnection.send({ id: message.id, data: { error } });
-                  });
-              } else {
-                clientConnection.send({ id: message.id, data: ret });
-              }
+              await Promise.resolve(this._clientToServerProtocol[onMethodName](this, command.args))
+                .then((data: any) => clientConnection.send({ id: message.id, data }))
+                .catch((e?: Error | string) => {
+                  // TODO: why is this catch AND the try/catch needed?
+                  const error = e ? e.toString() : 'Unknown error';
+                  clientConnection.send({ id: message.id, data: { error } });
+                });
             } catch (error) {
               // Don't let a bad message kill the message loop.
               console.error(error, message);
@@ -815,7 +846,6 @@ export default class Server {
           }
           // @ts-ignore
           this.currentClientConnection = undefined;
-          clientConnection.messageQueue.length = 0;
         }
 
         // TODO stream marks somewhere, and pull in isomorphic node/browser performance.

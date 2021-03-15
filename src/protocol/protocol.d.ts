@@ -24,13 +24,18 @@ declare namespace Protocol {
     type AdminSetItem = Command<TilePoint & { item?: Item }>;
     type Chat = Command<{ to: string; message: string }>;
     type CloseContainer = Command<{ containerId: number }>;
+    type CreatePlayer = Command<{ name: string }>;
     type CreatureAction = Command<{ creatureId: number; type: 'attack' | 'tame' | 'speak' }>;
     type DialogueResponse = Command<{ choiceIndex?: number }>;
-    type Login = Command<{ name: string; password: string }>;
+    type EnterWorld = Command<{ playerId: number }>;
+    type Login = Command<
+      { name: string; password: string },
+      { account: GridiaAccount; players: Array<{ id: number, name: string }> }
+    >;
     type Logout = Command<{}>;
     type Move = Command<TilePoint>;
     type MoveItem = Command<{ from: ItemLocation; quantity?: number; to: ItemLocation }>;
-    type Register = Command<{ name: string; password: string }>;
+    type RegisterAccount = Command<{ name: string; password: string }>;
     type RequestContainer = Command<
       { containerId?: number; loc?: TilePoint; },
       { container: Container_ }

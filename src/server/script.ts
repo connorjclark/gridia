@@ -32,11 +32,11 @@ export abstract class Script {
     // Can override.
   }
 
-  onPlayerRegister(player: Player, clientConnection: ClientConnection): Promise<void> | void {
+  onPlayerCreated(player: Player, clientConnection: ClientConnection): Promise<void> | void {
     // Can override.
   }
 
-  onPlayerLogin(player: Player, clientConnection: ClientConnection): Promise<void> | void {
+  onPlayerEnterWorld(player: Player, clientConnection: ClientConnection): Promise<void> | void {
     // Can override.
   }
 
@@ -181,14 +181,14 @@ export class TestScript extends Script {
     // ...
   }
 
-  onPlayerRegister(player: Player) {
+  onPlayerCreated(player: Player) {
     this.server.moveCreature(player.creature, this.creatureSpawners[0].region);
 
     const quest = this.server.getQuest('TEST_QUEST');
     player.startQuest(quest);
   }
 
-  onPlayerLogin(player: Player) {
+  onPlayerEnterWorld(player: Player) {
     const quest = this.server.getQuest('TEST_QUEST');
     player.startQuest(quest);
   }

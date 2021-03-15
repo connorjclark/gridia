@@ -1,5 +1,4 @@
 import * as path from 'path';
-import { SECTOR_SIZE } from '../constants';
 import Container, { ContainerType } from '../container';
 import { Context } from '../context';
 import * as fs from '../iso-fs';
@@ -20,27 +19,38 @@ async function readJson(filePath: string) {
 }
 
 export class ServerContext extends Context {
+  nextAccountId = 1;
   nextContainerId = 1;
   nextCreatureId = 1;
   nextPlayerId = 1;
+  accountNamesToIds = new Map<string, number>();
   playerNamesToIds = new Map<string, number>();
 
+  accountDir: string;
   containerDir: string;
+  miscDir: string;
   playerDir: string;
   sectorDir: string;
-  miscDir: string;
 
   constructor(map: WorldMap) {
     super(map);
+    this.accountDir = 'accounts';
     this.containerDir = 'containers';
+    this.miscDir = 'misc';
     this.playerDir = 'players';
     this.sectorDir = 'sectors';
-    this.miscDir = 'misc';
   }
 
   static async load() {
     const map = new WorldMap();
     const context = new ServerContext(map);
+
+    await fs.mkdir(context.accountDir, { recursive: true });
+    await fs.mkdir(context.containerDir, { recursive: true });
+    await fs.mkdir(context.miscDir, { recursive: true });
+    await fs.mkdir(context.playerDir, { recursive: true });
+    await fs.mkdir(context.sectorDir, { recursive: true });
+
     const meta = await readJson(context.metaPath());
 
     // TODO: figure out if I want to save creatures at all.
@@ -50,9 +60,10 @@ export class ServerContext extends Context {
     //   // Purposefully do not set creature on tile, as that would load the sector.
     // }
 
-    context.nextContainerId = meta.nextContainerId;
-    context.nextCreatureId = meta.nextCreatureId;
-    context.nextPlayerId = meta.nextPlayerId;
+    context.nextAccountId = meta.nextAccountId || 1;
+    context.nextContainerId = meta.nextContainerId || 1;
+    context.nextCreatureId = meta.nextCreatureId || 1;
+    context.nextPlayerId = meta.nextPlayerId || 1;
 
     // Just load all the partitions for now.
     const partitionIds = (await fs.readdir(context.sectorDir)).map(Number);
@@ -60,10 +71,18 @@ export class ServerContext extends Context {
       await context.loadPartition(w);
     }
 
+    context.accountNamesToIds.clear();
+    for (const accountPath of await fs.readdir(context.accountDir)) {
+      // TODO: different dir.
+      if (accountPath.includes('password')) continue;
+
+      const json = await fs.readFile(context.accountDir + '/' + accountPath);
+      const account: GridiaAccount = WireSerializer.deserialize(json);
+      context.accountNamesToIds.set(account.name, account.id);
+    }
+
     context.playerNamesToIds.clear();
     for (const playerPath of await fs.readdir(context.playerDir)) {
-      if (playerPath.includes('password')) continue;
-
       const json = await fs.readFile(context.playerDir + '/' + playerPath);
       const player: Player = WireSerializer.deserialize(json);
       context.playerNamesToIds.set(player.name, player.id);
@@ -101,13 +120,23 @@ export class ServerContext extends Context {
     await fs.writeFile(this.sectorPath(sectorPoint), json);
   }
 
-  async savePlayerPassword(playerId: number, password: string) {
-    // TODO salt n' pepper.
-    await fs.writeFile(this.playerPasswordPath(playerId), password);
+  async loadAccount(id: number): Promise<GridiaAccount> {
+    const json = await fs.readFile(this.accountPath(id));
+    return WireSerializer.deserialize(json);
   }
 
-  async checkPlayerPassword(playerId: number, password: string) {
-    const pswd = await fs.readFile(this.playerPasswordPath(playerId));
+  async saveAccount(account: GridiaAccount) {
+    const json = WireSerializer.serialize(account);
+    await fs.writeFile(this.accountPath(account.id), json);
+  }
+
+  async saveAccountPassword(id: number, password: string) {
+    // TODO salt n' pepper.
+    await fs.writeFile(this.accountPasswordPath(id), password);
+  }
+
+  async checkAccountPassword(id: number, password: string) {
+    const pswd = await fs.readFile(this.accountPasswordPath(id));
     return pswd === password;
   }
 
@@ -166,10 +195,11 @@ export class ServerContext extends Context {
   }
 
   async save() {
+    await fs.mkdir(this.accountDir, { recursive: true });
     await fs.mkdir(this.containerDir, { recursive: true });
+    await fs.mkdir(this.miscDir, { recursive: true });
     await fs.mkdir(this.playerDir, { recursive: true });
     await fs.mkdir(this.sectorDir, { recursive: true });
-    await fs.mkdir(this.miscDir, { recursive: true });
 
     await this.saveMeta();
 
@@ -189,6 +219,7 @@ export class ServerContext extends Context {
 
   protected async saveMeta() {
     const meta = {
+      nextAccountId: this.nextAccountId,
       nextContainerId: this.nextContainerId,
       nextCreatureId: this.nextCreatureId,
       nextPlayerId: this.nextPlayerId,
@@ -249,7 +280,11 @@ export class ServerContext extends Context {
     return path.join(this.playerDir, `${id}.json`);
   }
 
-  protected playerPasswordPath(id: number) {
-    return path.join(this.playerDir, `${id}-password.json`);
+  protected accountPath(id: number) {
+    return path.join(this.accountDir, `${id}.json`);
+  }
+
+  protected accountPasswordPath(id: number) {
+    return path.join(this.accountDir, `${id}-password.json`);
   }
 }

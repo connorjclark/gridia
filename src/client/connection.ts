@@ -12,6 +12,7 @@ function debug(prefix: string, msg: Message) {
 
   let value = '';
   if (msg.data && msg.data.args) value = msg.data.args;
+  else if (msg.data) value = msg.data;
   else if (msg.data && msg.data.error) value = msg.data.error;
 
   const json = JSON.stringify(value);

@@ -29,6 +29,12 @@ type ScreenPoint = Point2;
 type PartitionPoint = Point3;
 type TilePoint = Point4; // `w` is world index
 
+interface GridiaAccount {
+  id: number;
+  name: string;
+  playerIds: number[];
+}
+
 interface Tile {
   floor: number;
   item?: Item; // Prefer undefined over null.

@@ -223,6 +223,7 @@ async function fsapiReadDir(path: string) {
 
   const entries = [];
   for await (const entry of dir.keys()) {
+    if (entry.endsWith('.crswap')) continue;
     entries.push(entry);
   }
 
