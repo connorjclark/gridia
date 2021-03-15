@@ -10,15 +10,20 @@ function debug(prefix: string, msg: Message) {
   // @ts-ignore
   if (window.Gridia.debugn instanceof RegExp && window.Gridia.debugn.test(msg.type)) return;
 
-  const json = JSON.stringify(msg.data.args);
+  let value = '';
+  if (msg.data && msg.data.args) value = msg.data.args;
+  else if (msg.data && msg.data.error) value = msg.data.error;
+
+  const json = JSON.stringify(value);
+
   const prefixColor = prefix === '<-' ? 'darkblue' : 'darkgreen';
   const args = [
     `%c${prefix}`,
     `background: ${prefixColor}; color: white`,
-    msg.data.type,
+    msg.data?.type,
   ];
   if (json.length > 60) {
-    args.push(msg.data.args);
+    args.push(value);
   } else {
     args.push(json);
   }
@@ -29,30 +34,35 @@ export abstract class Connection {
   protected _onEvent?: (event: Event) => void;
 
   private nextId = 1;
-  private idToCallback = new Map<number, Function>();
+  private idToCallback = new Map<number, { resolve: Function; reject: Function }>();
 
   setOnEvent(onEvent?: (event: Event) => void) {
     this._onEvent = onEvent;
   }
 
-  sendCommand<T extends Command>(command: T) {
+  sendCommand<T extends Command>(command: T): Promise<T['args']['response']> {
     const id = this.nextId++;
-    const promise = new Promise<T['args']['response']>((resolve) => {
-      this.idToCallback.set(id, resolve);
+    const promise = new Promise((resolve, reject) => {
+      this.idToCallback.set(id, { resolve, reject });
     });
     this.send_({
       id,
       data: command,
     });
+    // @ts-ignore
     return promise;
   }
 
   protected resolveCommand(id: number, data: any) {
-    const cb = this.idToCallback.get(id);
-    if (!cb) throw new Error('unknown id ' + id);
+    const cbs = this.idToCallback.get(id);
+    if (!cbs) throw new Error('unknown id ' + id);
 
     this.idToCallback.delete(id);
-    cb(data);
+    if (data && data.error) {
+      cbs.reject(data.error);
+    } else {
+      cbs.resolve(data);
+    }
   }
 
   public abstract close(): void;
@@ -65,16 +75,14 @@ export class WebSocketConnection extends Connection {
     super();
     _ws.addEventListener('message', (e) => {
       const message = WireSerializer.deserialize<Message>(e.data);
+      debug('<-', message);
 
       if (message.id) {
         this.resolveCommand(message.id, message.data);
         return;
       }
 
-      if (!this._onEvent) return;
-
-      debug('<-', message);
-      this._onEvent(message.data);
+      if (this._onEvent) this._onEvent(message.data);
     });
 
     _ws.addEventListener('close', this.onClose);
@@ -101,7 +109,13 @@ export class WorkerConnection extends Connection {
     _worker.onmessage = (e) => {
       const message = WireSerializer.deserialize<Message>(e.data);
       debug('<-', message);
-      if (this._onEvent && !message.id) this._onEvent(message.data);
+
+      if (message.id) {
+        this.resolveCommand(message.id, message.data);
+        return;
+      }
+
+      if (this._onEvent) this._onEvent(message.data);
     };
   }
 

@@ -177,7 +177,7 @@ export default class Server {
 
   async registerPlayer(clientConnection: ClientConnection, opts: RegisterOpts) {
     if (this.context.playerNamesToIds.has(opts.name)) {
-      // ...
+      throw new Error('Name already taken');
     }
 
     const { width, height } = this.context.map.getPartition(0);
@@ -250,7 +250,7 @@ export default class Server {
     if (opts.player) {
       player = opts.player;
     } else {
-      if (!this.context.checkPlayerPassword(opts.playerId, opts.password)) throw new Error('wrong password');
+      if (!await this.context.checkPlayerPassword(opts.playerId, opts.password)) throw new Error('wrong password');
       player = this.players.get(opts.playerId) || await this.context.loadPlayer(opts.playerId);
     }
 
@@ -782,10 +782,10 @@ export default class Server {
       description: 'messages',
       fn: async () => {
         for (const clientConnection of this.clientConnections) {
+          this.currentClientConnection = clientConnection;
           for (const message of clientConnection.messageQueue) {
             const command = message.data as Command;
             if (this.verbose) console.log('from client', message.id, command.type, command.args);
-            this.currentClientConnection = clientConnection;
             // performance.mark(`${message.type}-start`);
             try {
               const onMethodName = 'on' + command.type[0].toUpperCase() + command.type.substr(1);
@@ -793,15 +793,28 @@ export default class Server {
               // eslint-disable-next-line
               let ret = this._clientToServerProtocol[onMethodName](this, command.args);
               // TODO: some message handlers are async ... is that bad?
-              if (ret) ret = await ret;
-              clientConnection.send({ id: message.id, data: ret });
-            } catch (err) {
+              if (ret) {
+                ret = await ret
+                  .then((data: any) => clientConnection.send({ id: message.id, data }))
+                  .catch((e?: Error | string) => {
+                    // debugger;
+                    // TODO: why is this catch AND the try/catch needed?
+                    const error = e ? e.toString() : 'Unknown error';
+                    clientConnection.send({ id: message.id, data: { error } });
+                  });
+              } else {
+                clientConnection.send({ id: message.id, data: ret });
+              }
+            } catch (error) {
               // Don't let a bad message kill the message loop.
-              console.error(err, message);
+              console.error(error, message);
+              clientConnection.send({ id: message.id, data: { error: error ? error.toString() : 'Unknown error' } });
             }
             // performance.mark(`${message.type}-end`);
             // performance.measure(message.type, `${message.type}-start`, `${message.type}-end`);
           }
+          // @ts-ignore
+          this.currentClientConnection = undefined;
           clientConnection.messageQueue.length = 0;
         }
 

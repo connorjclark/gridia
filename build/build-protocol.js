@@ -261,6 +261,7 @@ function createProtocolInterface(qualifier, name, firstParamTypeName, messageDec
         ts.createQualifiedName(qualifier, messageDeclaration.name),
         ts.createLiteral('response')
       );
+      returnType = ts.createTypeReferenceNode('Promise', [returnType]);
     }
 
     return ts.createMethodSignature(

@@ -14,7 +14,8 @@ interface Container_ {
 
 type Command<P, R = void> = {
   params: P;
-  response: R extends void ? void : Promise<R>;
+  // response: R extends void ? void : Promise<R>;
+  response: R;
 };
 
 declare namespace Protocol {

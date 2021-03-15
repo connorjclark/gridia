@@ -276,17 +276,21 @@ class RegisterScene extends Scene {
       el.textContent = player.name;
       el.dataset.index = i;
     }
-    playersEl.addEventListener('click', (e) => {
+    playersEl.addEventListener('click', async (e) => {
       const target = e.target as HTMLElement;
       const playerEl = target.closest('.register__player') as HTMLElement;
       if (!playerEl) return;
 
       const index = Number(playerEl.dataset.index);
       const player = localStorageData.players[index];
-      // TODO: really need a request/response messaging model so can do
-      // basic things like respond to errors.
-      controller.client.connection.sendCommand(CommandBuilder.login(player));
-      this.waitForInitializeThenStartGame();
+
+      try {
+        await controller.client.connection.sendCommand(CommandBuilder.login(player));
+        startGame(controller.client);
+      } catch (error) {
+        // TODO: UI
+        console.error(error);
+      }
     });
 
     const parts1 = 'Small Smelly Quick Steely Quiet'.split(' ');
@@ -298,17 +302,22 @@ class RegisterScene extends Scene {
     ].join(' ');
   }
 
-  onClickRegisterBtn() {
+  async onClickRegisterBtn() {
     const name = this.nameInput.value;
     const password = [...Array(20)].map(() => String.fromCharCode(65 + Math.floor(Math.random() * 52))).join('');
-    controller.client.connection.sendCommand(CommandBuilder.register({
-      name,
-      password,
-    }));
 
-    localStorageData.players.push({ name, password });
-    saveLocalStorageData();
-    this.waitForInitializeThenStartGame();
+    try {
+      await controller.client.connection.sendCommand(CommandBuilder.register({
+        name,
+        password,
+      }));
+      localStorageData.players.push({ name, password });
+      saveLocalStorageData();
+      this.waitForInitializeThenStartGame();
+    } catch (error) {
+      // TODO: UI
+      console.error(error);
+    }
   }
 
   async waitForInitializeThenStartGame() {
@@ -319,12 +328,6 @@ class RegisterScene extends Scene {
         else reject(`first message should be initialize, but got ${JSON.stringify(e)}`);
       });
     });
-
-    // TODO: remove when TODO in constructor is done.
-    // @ts-ignore
-    if (this.started) return;
-    // @ts-ignore
-    this.started = true;
 
     startGame(controller.client);
   }

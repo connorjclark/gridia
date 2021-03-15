@@ -9,22 +9,22 @@ import * as EventBuilder from './event-builder';
 import Commands = Protocol.Commands;
 
 export default class ServerInterface implements IServerInterface {
-  onMove(server: Server, { ...loc }: Commands.Move['params']): Commands.Move['response'] {
+  onMove(server: Server, { ...loc }: Commands.Move['params']): Promise<Commands.Move['response']> {
     if (!server.context.map.inBounds(loc)) {
-      return;
+      return Promise.reject('out of bounds');
     }
 
     if (server.context.map.getTile(loc).item?.type === MINE) {
       const container = server.currentClientConnection.container;
       const playerHasPick = container.hasItem(Content.getMetaItemByName('Pick').id);
-      if (!playerHasPick) return;
+      if (!playerHasPick) return Promise.reject('missing pick');
 
       const minedItem = { type: Content.getRandomMetaItemOfClass('Ore').id, quantity: 1 };
       server.setItem(loc, minedItem);
       server.broadcastAnimation(loc, 'MiningSound');
     }
 
-    if (!server.context.walkable(loc)) return;
+    if (!server.context.walkable(loc)) return Promise.reject('not walkable');
 
     // if (!server.inView(loc)) {
     //   return false
@@ -32,37 +32,40 @@ export default class ServerInterface implements IServerInterface {
 
     const creature = server.currentClientConnection.player.creature;
     server.moveCreature(creature, loc);
+
+    return Promise.resolve();
   }
 
-  onRegister(server: Server, { name, password }: Commands.Register['params']): Commands.Register['response'] {
-    if (server.currentClientConnection.player) return;
-    if (name.length > 20) return;
-    if (password.length < 8) return;
+  onRegister(server: Server, { name, password }: Commands.Register['params']): Promise<Commands.Register['response']> {
+    if (server.currentClientConnection.player) return Promise.reject('');
+    if (name.length > 20) return Promise.reject('');
+    if (password.length < 8) return Promise.reject('');
 
-    server.registerPlayer(server.currentClientConnection, {
+    return server.registerPlayer(server.currentClientConnection, {
       name,
       password,
     });
   }
 
-  onLogin(server: Server, { name, password }: Commands.Login['params']): Commands.Login['response'] {
-    if (server.currentClientConnection.player) return;
+  async onLogin(server: Server, { name, password }: Commands.Login['params']): Promise<Commands.Login['response']> {
+    if (server.currentClientConnection.player) throw new Error('Already logged in');
 
     const playerId = server.context.playerNamesToIds.get(name);
-    if (!playerId) throw new Error('invalid player name');
+    if (!playerId) throw new Error('Invalid login');
 
-    server.loginPlayer(server.currentClientConnection, {
+    await server.loginPlayer(server.currentClientConnection, {
       playerId,
       password,
     });
   }
 
-  onLogout(server: Server, { }: Commands.Logout['params']): Commands.Logout['response'] {
+  onLogout(server: Server, { }: Commands.Logout['params']): Promise<Commands.Logout['response']> {
     server.removeClient(server.currentClientConnection);
+    return Promise.resolve();
   }
 
   // eslint-disable-next-line max-len
-  async onRequestContainer(server: Server, { containerId, loc }: Commands.RequestContainer['params']): Commands.RequestContainer['response'] {
+  async onRequestContainer(server: Server, { containerId, loc }: Commands.RequestContainer['params']): Promise<Commands.RequestContainer['response']> {
     if (!containerId && !loc) throw new Error('expected containerId or loc');
     if (containerId && loc) throw new Error('expected only one of containerId or loc');
 
@@ -87,28 +90,30 @@ export default class ServerInterface implements IServerInterface {
   }
 
   // eslint-disable-next-line max-len
-  onCloseContainer(server: Server, { containerId }: Commands.CloseContainer['params']): Commands.CloseContainer['response'] {
+  onCloseContainer(server: Server, { containerId }: Commands.CloseContainer['params']): Promise<Commands.CloseContainer['response']> {
     const index = server.currentClientConnection.registeredContainers.indexOf(containerId);
     if (index !== -1) {
       server.currentClientConnection.registeredContainers.splice(index, 1);
     }
+    return Promise.resolve();
   }
 
-  onRequestCreature(server: Server, { id }: Commands.RequestCreature['params']): Commands.RequestCreature['response'] {
+  // eslint-disable-next-line max-len
+  onRequestCreature(server: Server, { id }: Commands.RequestCreature['params']): Promise<Commands.RequestCreature['response']> {
     const creature = server.context.getCreature(id);
     if (!creature) {
-      console.error('client requested invalid creature:', id);
-      return;
+      return Promise.reject('requested invalid creature: ' + id);
     }
 
     server.reply(EventBuilder.setCreature({
       partial: false,
       ...creature,
     }));
+    return Promise.resolve();
   }
 
   // eslint-disable-next-line max-len
-  onRequestPartition(server: Server, { w }: Commands.RequestPartition['params']): Commands.RequestPartition['response'] {
+  onRequestPartition(server: Server, { w }: Commands.RequestPartition['params']): Promise<Commands.RequestPartition['response']> {
     const partition = server.context.map.getPartition(w);
     server.reply(EventBuilder.initializePartition({
       w,
@@ -116,6 +121,7 @@ export default class ServerInterface implements IServerInterface {
       y: partition.height,
       z: partition.depth,
     }));
+    return Promise.resolve();
   }
 
   async onRequestSector(server: Server, { ...loc }: Commands.RequestSector['params']) {
@@ -133,14 +139,14 @@ export default class ServerInterface implements IServerInterface {
   }
 
   // eslint-disable-next-line max-len
-  onCreatureAction(server: Server, { creatureId, type }: Commands.CreatureAction['params']): Commands.CreatureAction['response'] {
+  onCreatureAction(server: Server, { creatureId, type }: Commands.CreatureAction['params']): Promise<Commands.CreatureAction['response']> {
     const creature = server.context.getCreature(creatureId);
     const isClose = true; // TODO
     if (!isClose) {
-      return;
+      return Promise.reject('Too far away');
     }
 
-    if (!creature || creature.isPlayer) return;
+    if (!creature || creature.isPlayer) return Promise.reject('Cannot do that to another player');
 
     if (type === 'attack') {
       server.creatureStates[server.currentClientConnection.player.creature.id].targetCreature =
@@ -148,7 +154,7 @@ export default class ServerInterface implements IServerInterface {
     }
 
     if (type === 'tame') {
-      if (creature.tamedBy) return;
+      if (creature.tamedBy) return Promise.reject('Creature is already tamed');
       creature.tamedBy = server.currentClientConnection.player.id;
       server.broadcastPartialCreatureUpdate(creature, ['tamedBy']);
     }
@@ -166,33 +172,37 @@ export default class ServerInterface implements IServerInterface {
         }));
       }
     }
+
+    return Promise.resolve();
   }
 
   // eslint-disable-next-line max-len
-  onDialogueResponse(server: Server, { choiceIndex }: Commands.DialogueResponse['params']): Commands.DialogueResponse['response'] {
+  onDialogueResponse(server: Server, { choiceIndex }: Commands.DialogueResponse['params']): Promise<Commands.DialogueResponse['response']> {
     server.processDialogueResponse(server.currentClientConnection, choiceIndex);
+    return Promise.resolve();
   }
 
-  onUse(server: Server, { toolIndex, location, usageIndex }: Commands.Use['params']): Commands.Use['response'] {
+  // eslint-disable-next-line max-len
+  onUse(server: Server, { toolIndex, location, usageIndex }: Commands.Use['params']): Promise<Commands.Use['response']> {
     if (location.source === 'container') {
-      return; // TODO
+      return Promise.reject(); // TODO
     }
     const loc = location.loc;
 
     if (!server.context.map.inBounds(loc)) {
-      return;
+      return Promise.reject(); // TODO
     }
 
     const inventory = server.currentClientConnection.container;
     // If -1, use an item that represents "Hand".
     const tool = toolIndex === -1 ? { type: 0, quantity: 0 } : inventory.items[toolIndex];
     // Got a request to use nothing as a tool - doesn't make sense to do that.
-    if (!tool) return;
+    if (!tool) return Promise.reject(); // TODO
 
     const focus = server.context.map.getItem(loc) || { type: 0, quantity: 0 };
 
     const uses = Content.getItemUses(tool.type, focus.type);
-    if (!uses.length) return;
+    if (!uses.length) return Promise.reject(); // TODO
     const use = uses[usageIndex || 0];
 
     const usageResult = {
@@ -237,27 +247,32 @@ export default class ServerInterface implements IServerInterface {
       const skillUsed = Content.getSkills().find((skill) => skill.name === use.skill);
       if (skillUsed) server.grantXp(server.currentClientConnection, skillUsed.id, use.skillSuccessXp);
     }
+
+    return Promise.resolve();
   }
 
   // eslint-disable-next-line max-len
-  onAdminSetFloor(server: Server, { floor, ...loc }: Commands.AdminSetFloor['params']): Commands.AdminSetFloor['response'] {
-    if (!server.currentClientConnection.player.isAdmin) return;
+  onAdminSetFloor(server: Server, { floor, ...loc }: Commands.AdminSetFloor['params']): Promise<Commands.AdminSetFloor['response']> {
+    if (!server.currentClientConnection.player.isAdmin) return Promise.reject(); // TODO
 
     if (!server.context.map.inBounds(loc)) {
-      return;
+      return Promise.reject(); // TODO
     }
 
     server.setFloor(loc, floor);
+    return Promise.resolve();
   }
 
-  onAdminSetItem(server: Server, { item, ...loc }: Commands.AdminSetItem['params']): Commands.AdminSetItem['response'] {
-    if (!server.currentClientConnection.player.isAdmin) return;
+  // eslint-disable-next-line max-len
+  onAdminSetItem(server: Server, { item, ...loc }: Commands.AdminSetItem['params']): Promise<Commands.AdminSetItem['response']> {
+    if (!server.currentClientConnection.player.isAdmin) return Promise.reject(); // TODO
 
     if (!server.context.map.inBounds(loc)) {
-      return;
+      return Promise.reject(); // TODO
     }
 
     server.setItem(loc, item);
+    return Promise.resolve();
   }
 
   // moveItem handles movement between anywhere items can be - from the world to a player's
@@ -340,7 +355,7 @@ export default class ServerInterface implements IServerInterface {
       return;
     }
 
-    if (!boundsCheck(from) || !boundsCheck(to)) {
+    if (!await boundsCheck(from) || !await boundsCheck(to)) {
       return;
     }
 
@@ -421,7 +436,7 @@ export default class ServerInterface implements IServerInterface {
     // context.queueTileChange(to)
   }
 
-  onChat(server: Server, { to, message }: Commands.Chat['params']): Commands.Chat['response'] {
+  onChat(server: Server, { to, message }: Commands.Chat['params']): Promise<Commands.Chat['response']> {
     if (message.startsWith('/')) {
       const parsedCommand = CommandParser.parseCommand(message.substring(1));
 
@@ -562,13 +577,13 @@ export default class ServerInterface implements IServerInterface {
       const command = COMMANDS[parsedCommand.commandName];
       if (!command) {
         server.reply(EventBuilder.chat({ from: 'SERVER', to, message: `unknown command: ${message}` }));
-        return;
+        return Promise.reject();
       }
 
       const parsedArgs = CommandParser.parseArgs(parsedCommand.argsString, command.args);
       if ('error' in parsedArgs) {
         server.reply(EventBuilder.chat({ from: 'SERVER', to, message: `error: ${parsedArgs.error}` }));
-        return;
+        return Promise.reject();
       }
 
       const maybeError = command.do(parsedArgs);
@@ -578,5 +593,7 @@ export default class ServerInterface implements IServerInterface {
     } else {
       server.broadcast(EventBuilder.chat({ from: server.currentClientConnection.player.name, to, message }));
     }
+
+    return Promise.resolve();
   }
 }

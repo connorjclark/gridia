@@ -4,7 +4,6 @@ import Container, { ContainerType } from '../container';
 import { Context } from '../context';
 import * as fs from '../iso-fs';
 import Player from '../player';
-import * as Utils from '../utils';
 import WorldMap from '../world-map';
 import WorldMapPartition from '../world-map-partition';
 import * as WireSerializer from '../lib/wire-serializer';
@@ -108,7 +107,8 @@ export class ServerContext extends Context {
   }
 
   async checkPlayerPassword(playerId: number, password: string) {
-    return await fs.readFile(this.playerPasswordPath(playerId)) === password;
+    const pswd = await fs.readFile(this.playerPasswordPath(playerId));
+    return pswd === password;
   }
 
   async savePlayer(player: Player) {
