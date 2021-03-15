@@ -295,10 +295,28 @@ class RegisterScene extends Scene {
       }));
     }
 
-    const { players } = await controller.client.connection.sendCommand(CommandBuilder.login({
-      name,
-      password,
-    }));
+    let players: Protocol.Commands.Login['response']['players'];
+    try {
+      const response = await controller.client.connection.sendCommand(CommandBuilder.login({
+        name,
+        password,
+      }));
+      players = response.players;
+    } catch (error) {
+      console.error(error);
+
+      localStorageData.username = name = randomString(20);
+      localStorageData.password = password = randomString(20);
+      await controller.client.connection.sendCommand(CommandBuilder.registerAccount({
+        name,
+        password,
+      }));
+      const response = await controller.client.connection.sendCommand(CommandBuilder.login({
+        name,
+        password,
+      }));
+      players = response.players;
+    }
 
     const playersEl = Helper.find('.register__players', this.element);
     for (const [i, player] of Object.entries(players)) {

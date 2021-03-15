@@ -76,14 +76,14 @@ export class ServerContext extends Context {
       // TODO: different dir.
       if (accountPath.includes('password')) continue;
 
-      const json = await fs.readFile(context.accountDir + '/' + accountPath);
+      const json = await readJson(context.accountDir + '/' + accountPath);
       const account: GridiaAccount = WireSerializer.deserialize(json);
       context.accountNamesToIds.set(account.name, account.id);
     }
 
     context.playerNamesToIds.clear();
     for (const playerPath of await fs.readdir(context.playerDir)) {
-      const json = await fs.readFile(context.playerDir + '/' + playerPath);
+      const json = await readJson(context.playerDir + '/' + playerPath);
       const player: Player = WireSerializer.deserialize(json);
       context.playerNamesToIds.set(player.name, player.id);
     }
