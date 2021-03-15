@@ -57,7 +57,7 @@ type DialogueEvent = {
     args: Protocol.Events.Dialogue;
 };
 
-export type Event = AnimationEvent | ContainerEvent | InitializeEvent | InitializePartitionEvent | LogEvent | RemoveCreatureEvent | SectorEvent | SetCreatureEvent | SetFloorEvent | SetItemEvent | XpEvent | ChatEvent | TimeEvent | DialogueEvent;
+export type ProtocolEvent = AnimationEvent | ContainerEvent | InitializeEvent | InitializePartitionEvent | LogEvent | RemoveCreatureEvent | SectorEvent | SetCreatureEvent | SetFloorEvent | SetItemEvent | XpEvent | ChatEvent | TimeEvent | DialogueEvent;
 
 export function animation({ key, ...loc }: Protocol.Events.Animation): AnimationEvent {
     return { type: "animation", args: arguments[0] };

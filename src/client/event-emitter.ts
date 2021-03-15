@@ -1,5 +1,6 @@
 import { EventEmitter } from 'events';
 import StrictEventEmitter from 'strict-event-emitter-types';
+import { ProtocolEvent } from '../protocol/event-builder';
 
 export interface GameActionEvent {
   action: GameAction;
@@ -23,7 +24,7 @@ interface Events {
   editingMode: {enabled: boolean};
   itemMoveBegin: ItemMoveBeginEvent;
   itemMoveEnd: ItemMoveEndEvent;
-  event: import('../protocol/event-builder').Event;
+  event: ProtocolEvent;
   mouseMovedOverTile: TilePoint;
   panelFocusChanged: {panelName: string};
   playerMove: {from: TilePoint; to: TilePoint};

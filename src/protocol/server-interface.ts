@@ -109,7 +109,7 @@ export default class ServerInterface implements IServerInterface {
 
     server.currentClientConnection.registeredContainers.push(containerId);
     const container = await server.context.getContainer(containerId);
-    return { container };
+    server.reply(EventBuilder.container({ container }));
   }
 
   // eslint-disable-next-line max-len

@@ -36,10 +36,7 @@ declare namespace Protocol {
     type Move = Command<TilePoint>;
     type MoveItem = Command<{ from: ItemLocation; quantity?: number; to: ItemLocation }>;
     type RegisterAccount = Command<{ name: string; password: string }>;
-    type RequestContainer = Command<
-      { containerId?: number; loc?: TilePoint; },
-      { container: Container_ }
-    >;
+    type RequestContainer = Command<{ containerId?: number; loc?: TilePoint }>;
     type RequestCreature = Command<{ id: number }>;
     type RequestPartition = Command<{ w: number }>;
     type RequestSector = Command<TilePoint>;

@@ -1,6 +1,6 @@
 import Container from '../container';
 import Player from '../player';
-import { Event } from '../protocol/event-builder';
+import { ProtocolEvent } from '../protocol/event-builder';
 
 // TODO: this whole thing smells.
 
@@ -21,7 +21,7 @@ export default class ClientConnection {
   // @ts-ignore
   send: (message: Message) => void;
 
-  sendEvent(event: Event) {
+  sendEvent(event: ProtocolEvent) {
     this.send({ data: event });
   }
 

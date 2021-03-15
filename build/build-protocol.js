@@ -26,7 +26,7 @@ function collect({ node, commandOrEvent }) {
   const messageTypesUnion = ts.createTypeAliasDeclaration(
     undefined,
     [ts.createModifier(ts.SyntaxKind.ExportKeyword)],
-    uppercase(commandOrEvent),
+    'Protocol' + uppercase(commandOrEvent),
     undefined,
     ts.createUnionTypeNode(messageDeclarations.map(({ typeAlias }) => ts.createTypeReferenceNode(typeAlias.name))),
   );

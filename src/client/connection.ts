@@ -1,6 +1,6 @@
 import * as WireSerializer from '../lib/wire-serializer';
-import { Command } from '../protocol/command-builder';
-import { Event } from '../protocol/event-builder';
+import { ProtocolCommand } from '../protocol/command-builder';
+import { ProtocolEvent } from '../protocol/event-builder';
 
 function debug(prefix: string, msg: Message) {
   // @ts-ignore
@@ -32,16 +32,16 @@ function debug(prefix: string, msg: Message) {
 }
 
 export abstract class Connection {
-  protected _onEvent?: (event: Event) => void;
+  protected _onEvent?: (event: ProtocolEvent) => void;
 
   private nextId = 1;
   private idToCallback = new Map<number, { resolve: Function; reject: Function }>();
 
-  setOnEvent(onEvent?: (event: Event) => void) {
+  setOnEvent(onEvent?: (event: ProtocolEvent) => void) {
     this._onEvent = onEvent;
   }
 
-  sendCommand<T extends Command>(command: T): Promise<T['args']['response']> {
+  sendCommand<T extends ProtocolCommand>(command: T): Promise<T['args']['response']> {
     const id = this.nextId++;
     const promise = new Promise((resolve, reject) => {
       this.idToCallback.set(id, { resolve, reject });
@@ -68,7 +68,7 @@ export abstract class Connection {
 
   public abstract close(): void;
 
-  protected abstract send_(message: { id: number; data: Command }): void;
+  protected abstract send_(message: { id: number; data: ProtocolCommand }): void;
 }
 
 export class WebSocketConnection extends Connection {
@@ -89,7 +89,7 @@ export class WebSocketConnection extends Connection {
     _ws.addEventListener('close', this.onClose);
   }
 
-  send_(message: { id: number; data: Command }) {
+  send_(message: { id: number; data: ProtocolCommand }) {
     debug('->', message);
     this._ws.send(WireSerializer.serialize(message));
   }
@@ -120,7 +120,7 @@ export class WorkerConnection extends Connection {
     };
   }
 
-  send_(message: { id: number; data: Command }) {
+  send_(message: { id: number; data: ProtocolCommand }) {
     debug('->', message);
     this._worker.postMessage(WireSerializer.serialize(message));
   }

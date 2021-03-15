@@ -5,6 +5,7 @@ import { calcStraightLine } from '../lib/line';
 import * as CommandBuilder from '../protocol/command-builder';
 import * as Utils from '../utils';
 import { WorldTime } from '../world-time';
+import { ProtocolEvent } from '../protocol/event-builder';
 import Client from './client';
 import * as Draw from './draw';
 import { ItemMoveBeginEvent, ItemMoveEndEvent } from './event-emitter';
@@ -292,6 +293,7 @@ class Game {
   state: UIState;
   keys: Record<number, boolean> = {};
   loader = new LazyResourceLoader();
+  started = false;
 
   worldContainer: WorldContainer;
   protected app = new PIXI.Application();
@@ -410,102 +412,106 @@ class Game {
     return this._playerCreature;
   }
 
+  onProtocolEvent(event: ProtocolEvent) {
+    // Update the selected view, if the item there changed.
+    if (event.type === 'setItem') {
+      let shouldUpdateUsages = false;
+      if (event.args.location.source === 'container') shouldUpdateUsages = true;
+      else if (Utils.maxDiff(this.getPlayerPosition(), event.args.location.loc) <= 1) shouldUpdateUsages = true;
+      if (shouldUpdateUsages) this.modules.usage.updatePossibleUsages();
+
+      // if (e.args.location.source === 'world' && this.state.selectedView.tile) {
+      //   const loc = e.args.location.loc;
+      //   if (Utils.equalPoints(loc, this.state.selectedView.tile)) {
+      //     this.modules.selectedView.selectView(this.state.selectedView.tile);
+      //   }
+      // }
+      if (this.state.selectedView.location &&
+        Utils.ItemLocation.Equal(this.state.selectedView.location, event.args.location)) {
+        this.modules.selectedView.selectView(this.state.selectedView.location);
+      }
+
+      if (event.args.location.source === 'container' && this.containerWindows.has(event.args.location.id)) {
+        const container = this.client.context.containers.get(event.args.location.id);
+        if (container) {
+          this.containerWindows.get(event.args.location.id)?.setState({ container });
+        }
+      }
+    }
+
+    if (event.type === 'setCreature' && event.args.id) {
+      if (event.args.id && event.args.pos) {
+        const pos = event.args.pos;
+        const cre = this.client.context.creatures.get(event.args.id);
+        if (cre) {
+          // Update so "selectView" will correctly find this creature.
+          // TODO This technically puts the creature in two places at once until the next game loop
+          // tick... maybe "selectView" should just accept a location or a creature?
+          this.client.context.locationToCreature.set(`${pos.w},${pos.x},${pos.y},${pos.z}`, cre);
+        }
+      }
+
+      if (this.state.selectedView.creatureId === event.args.id) {
+        const creature = this.client.context.getCreature(this.state.selectedView.creatureId);
+        if (creature.id === event.args.id) {
+          this.modules.selectedView.selectView(Utils.ItemLocation.World(creature.pos));
+        }
+      }
+
+      const keys = Object.keys(event.args);
+      const justPosUpdate = event.args.pos && keys.length === 3;
+      const creatureSprite = game.creatureSprites.get(event.args.id);
+      if (creatureSprite && !justPosUpdate) {
+        creatureSprite.dirty = true;
+      }
+    }
+    if (event.type === 'removeCreature' && event.args.id === this.state.selectedView.creatureId) {
+      delete this.state.selectedView.creatureId;
+      this.modules.selectedView.clearSelectedView();
+    }
+    if (event.type === 'animation') {
+      const animationData = Content.getAnimation(event.args.key);
+      if (!animationData) throw new Error('no animation found: ' + event.args.key);
+      this.addAnimation(animationData, event.args);
+    }
+
+    if (event.type === 'chat') {
+      this.addToChat(`${event.args.from}: ${event.args.message}`);
+    }
+
+    if (event.type === 'dialogue') {
+      if (!event.args.speaker && !event.args.text) {
+        closeDialogueWindow();
+        return;
+      }
+
+      if (!this.dialogueWindow) {
+        this.dialogueWindow = makeDialogueWindow(this);
+      }
+
+      this.dialogueWindow.setState(event.args);
+      this.client.eventEmitter.on('playerMove', closeDialogueWindow);
+
+      // TODO: better window management.
+      function closeDialogueWindow() {
+        game.dialogueWindow?.el.remove();
+        game.dialogueWindow = undefined;
+        game.client.eventEmitter.removeListener('playerMove', closeDialogueWindow);
+      }
+    }
+
+    if (event.type === 'time') {
+      this._lastSyncedEpoch = event.args.epoch;
+      this._lastSyncedRealTime = Date.now();
+    }
+  }
+
   start() {
     this.client.settings = getDefaultSettings();
 
     // Should only be used for refreshing UI, not updating game state.
     this.client.eventEmitter.on('event', (e) => {
-      // Update the selected view, if the item there changed.
-      if (e.type === 'setItem') {
-        let shouldUpdateUsages = false;
-        if (e.args.location.source === 'container') shouldUpdateUsages = true;
-        else if (Utils.maxDiff(this.getPlayerPosition(), e.args.location.loc) <= 1) shouldUpdateUsages = true;
-        if (shouldUpdateUsages) this.modules.usage.updatePossibleUsages();
-
-        // if (e.args.location.source === 'world' && this.state.selectedView.tile) {
-        //   const loc = e.args.location.loc;
-        //   if (Utils.equalPoints(loc, this.state.selectedView.tile)) {
-        //     this.modules.selectedView.selectView(this.state.selectedView.tile);
-        //   }
-        // }
-        if (this.state.selectedView.location &&
-          Utils.ItemLocation.Equal(this.state.selectedView.location, e.args.location)) {
-          this.modules.selectedView.selectView(this.state.selectedView.location);
-        }
-
-        if (e.args.location.source === 'container' && this.containerWindows.has(e.args.location.id)) {
-          const container = this.client.context.containers.get(e.args.location.id);
-          if (container) {
-            this.containerWindows.get(e.args.location.id)?.setState({ container });
-          }
-        }
-      }
-
-      if (e.type === 'setCreature' && e.args.id) {
-        if (e.args.id && e.args.pos) {
-          const pos = e.args.pos;
-          const cre = this.client.context.creatures.get(e.args.id);
-          if (cre) {
-            // Update so "selectView" will correctly find this creature.
-            // TODO This technically puts the creature in two places at once until the next game loop
-            // tick... maybe "selectView" should just accept a location or a creature?
-            this.client.context.locationToCreature.set(`${pos.w},${pos.x},${pos.y},${pos.z}`, cre);
-          }
-        }
-
-        if (this.state.selectedView.creatureId === e.args.id) {
-          const creature = this.client.context.getCreature(this.state.selectedView.creatureId);
-          if (creature.id === e.args.id) {
-            this.modules.selectedView.selectView(Utils.ItemLocation.World(creature.pos));
-          }
-        }
-
-        const keys = Object.keys(e.args);
-        const justPosUpdate = e.args.pos && keys.length === 3;
-        const creatureSprite = game.creatureSprites.get(e.args.id);
-        if (creatureSprite && !justPosUpdate) {
-          creatureSprite.dirty = true;
-        }
-      }
-      if (e.type === 'removeCreature' && e.args.id === this.state.selectedView.creatureId) {
-        delete this.state.selectedView.creatureId;
-        this.modules.selectedView.clearSelectedView();
-      }
-      if (e.type === 'animation') {
-        const animationData = Content.getAnimation(e.args.key);
-        if (!animationData) throw new Error('no animation found: ' + e.args.key);
-        this.addAnimation(animationData, e.args);
-      }
-
-      if (e.type === 'chat') {
-        this.addToChat(`${e.args.from}: ${e.args.message}`);
-      }
-
-      if (e.type === 'dialogue') {
-        if (!e.args.speaker && !e.args.text) {
-          closeDialogueWindow();
-          return;
-        }
-
-        if (!this.dialogueWindow) {
-          this.dialogueWindow = makeDialogueWindow(this);
-        }
-
-        this.dialogueWindow.setState(e.args);
-        this.client.eventEmitter.on('playerMove', closeDialogueWindow);
-
-        // TODO: better window management.
-        function closeDialogueWindow() {
-          game.dialogueWindow?.el.remove();
-          game.dialogueWindow = undefined;
-          game.client.eventEmitter.removeListener('playerMove', closeDialogueWindow);
-        }
-      }
-
-      if (e.type === 'time') {
-        this._lastSyncedEpoch = e.args.epoch;
-        this._lastSyncedRealTime = Date.now();
-      }
+      this.onProtocolEvent(e);
     });
 
     this.canvasesEl.appendChild(this.app.view);
@@ -534,7 +540,15 @@ class Game {
 
     // This makes everything "pop".
     // this.containers.itemAndCreatureLayer.filters = [new OutlineFilter(0.5, 0, 1)];
+
+    // Server sends some events before the client is ready. Process them now.
+    this.started = true;
+    for (const event of this.client.storedEvents) {
+      this.onProtocolEvent(event);
+    }
+    this.client.storedEvents = [];
   }
+
   playSound(name: string) {
     if (this.client.settings.volume === 0) return;
 

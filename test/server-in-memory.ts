@@ -9,14 +9,14 @@ import ClientConnection from '../src/server/client-connection';
 import Server from '../src/server/server';
 import { ServerContext } from '../src/server/server-context';
 import { createClientWorldMap } from '../src/world-map';
-import { Command } from '../src/protocol/command-builder';
+import { ProtocolCommand } from '../src/protocol/command-builder';
 
 class MemoryConnection extends Connection {
   constructor(private _clientConnection: ClientConnection) {
     super();
   }
 
-  send_(message: { id: number; data: Command }) {
+  send_(message: { id: number; data: ProtocolCommand }) {
     const cloned = WireSerializer.deserialize<Message>(WireSerializer.serialize(message));
     this._clientConnection.messageQueue.push(cloned);
   }

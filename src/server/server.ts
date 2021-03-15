@@ -8,8 +8,8 @@ import * as Utils from '../utils';
 import WorldMapPartition from '../world-map-partition';
 import { WorldTime } from '../world-time';
 import Container, { ContainerType } from '../container';
-import { Command } from '../protocol/command-builder';
-import { Event } from '../protocol/event-builder';
+import { ProtocolCommand } from '../protocol/command-builder';
+import { ProtocolEvent } from '../protocol/event-builder';
 import ClientConnection from './client-connection';
 import CreatureState from './creature-state';
 import { ServerContext } from './server-context';
@@ -63,27 +63,27 @@ export default class Server {
     this.setupTickSections();
   }
 
-  reply(event: Event) {
+  reply(event: ProtocolEvent) {
     const message = { data: event };
     this.outboundMessages.push({ to: this.currentClientConnection, message });
   }
 
-  broadcast(event: Event) {
+  broadcast(event: ProtocolEvent) {
     const message = { data: event };
     this.outboundMessages.push({ message });
   }
 
-  send(event: Event, toClient: ClientConnection) {
+  send(event: ProtocolEvent, toClient: ClientConnection) {
     const message = { data: event };
     this.outboundMessages.push({ to: toClient, message });
   }
 
-  conditionalBroadcast(event: Event, filter: (client: ClientConnection) => boolean) {
+  conditionalBroadcast(event: ProtocolEvent, filter: (client: ClientConnection) => boolean) {
     const message = { data: event };
     this.outboundMessages.push({ filter, message });
   }
 
-  broadcastInRange(event: Event, loc: TilePoint, range: number) {
+  broadcastInRange(event: ProtocolEvent, loc: TilePoint, range: number) {
     this.conditionalBroadcast(event, (client) => {
       const loc2 = client.player.creature.pos;
       if (loc2.z !== loc.z || loc2.w !== loc.w) return false;
@@ -822,7 +822,7 @@ export default class Server {
           clientConnection.messageQueue.length = 0;
 
           for (const message of messages) {
-            const command = message.data as Command;
+            const command = message.data;
             if (this.verbose) console.log('from client', message.id, command.type, command.args);
             // performance.mark(`${message.type}-start`);
             try {
