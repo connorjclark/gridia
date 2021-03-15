@@ -126,6 +126,6 @@ export class WorkerConnection extends Connection {
   }
 
   close() {
-    delete this._worker.onmessage;
+    this._worker.onmessage = null;
   }
 }

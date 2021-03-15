@@ -104,7 +104,7 @@ describe('Check for memory leaks', () => {
     });
 
     console.warn('make sure to have run yarn build');
-    await new Promise((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
       const childProcess = spawn('yarn', ['run-server']);
       childProcess.stdout.on('data', (data: Buffer) => {
         if (data.toString().includes('Server started')) resolve();
@@ -113,7 +113,7 @@ describe('Check for memory leaks', () => {
       childProcess.on('error', reject);
       childProcesses.push(childProcess);
     }).catch(() => process.exit(1));
-    await new Promise((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
       const childProcess = spawn('yarn', ['run-static-server']);
       childProcess.stdout.on('data', (data: Buffer) => {
         if (data.toString().includes('Available on')) resolve();
