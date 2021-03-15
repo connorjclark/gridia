@@ -1,0 +1,324 @@
+* {
+  user-select: none;
+}
+
+html {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: darkgrey;
+}
+
+button {
+  margin: 5px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#canvases {
+  flex-grow: 1;
+  height: 75%;
+  position: relative;
+  border: 1px solid black;
+  outline: none;
+}
+
+.status-texts {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+  color: yellow;
+  padding: 5px;
+}
+
+.status-text {
+  transition: 2s ease-in-out;
+}
+
+.status-text--remove {
+  transform: translate(0, -100px);
+  opacity: 0;
+}
+
+.chat {
+  width: 35%;
+  margin: 0 10px;
+  opacity: 0.5;
+  pointer-events: all;
+}
+.chat:hover {
+  opacity: 1;
+}
+.chat textarea {
+  width: 100%;
+  height: 80%;
+  resize: none;
+}
+.chat-submit {
+  margin-left: 10px;
+}
+
+.help pre {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.contextmenu {
+  display: none;
+  position: absolute;
+  background: blanchedalmond;
+  padding: 5px;
+  border: 2px solid black;
+}
+
+.contextmenu div:hover {
+  background: burlywood;
+}
+
+.panels-container {
+  width: 50%;
+  pointer-events: all;
+}
+
+.panels__tabs {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  margin: 5px 0;
+}
+
+.panels__tab {
+  margin-right: 3px;
+  padding: 0 3px;
+  border: black solid 1px;
+  background-color: rgb(85, 85, 85);
+  color: white;
+}
+
+.panels__tab--active {
+  color: gold;
+}
+
+.register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.register--form {
+  background-color: gray;
+  padding: 20px;
+}
+
+.register__player {
+  margin: 5px;
+  border: 1px solid black;
+}
+.register__player:hover {
+  background-color: #cccca9;
+}
+
+.generate--input-form,
+.generate--input-form input {
+  margin: 10px;
+}
+
+.generate--preview {
+  width: 400px;
+  height: 400px;
+}
+
+.map-list {
+  list-style-type: none;
+}
+.map-list--item {
+  margin: 20px;
+}
+.map-list--item:hover {
+  background-color: #cccca9;
+}
+
+@media only screen and (max-width: 800px) {
+  .instructions {
+    display: none;
+  }
+}
+
+.flex {
+  display: flex;
+}
+.flex-grow {
+  flex-grow: 1;
+}
+
+.ui {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* TODO: this pointer event shuffling seems wrong... is there a better way? */
+  pointer-events: none;
+}
+
+/* always show scrollbars */
+.ui ::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 15px;
+}
+
+.ui ::-webkit-scrollbar-thumb {
+  /* border-radius: 4px; */
+  background-color: rgba(255, 255, 255, .5);
+  /* box-shadow: 0 0 1px rgba(0, 0, 0, .5); */
+}
+
+/* https://grid.layoutit.com/?id=9luxXD0 */
+.ui .grid-container {
+  display: grid;
+  grid-template-columns: 0.2fr 2.2fr 0.6fr;
+  grid-template-rows: 0.3fr 0.5fr 2.5fr 0.7fr;
+  gap: 1px 1px;
+  grid-template-areas:
+    "left top map"
+    "left center map"
+    "left center right"
+    "bottom bottom bottom";
+  height: 100vh;
+}
+.grid-container > div {
+  /* position: relative; */
+}
+.grid-container .bottom { grid-area: bottom; }
+.grid-container .center { grid-area: center; }
+.grid-container .map { grid-area: map; }
+.grid-container .right { grid-area: right; display: flex; flex-direction: column; }
+.grid-container .left { grid-area: left; }
+.grid-container .top { grid-area: top; }
+
+.window {
+  box-sizing: border-box;
+  max-width: 30vw;
+  max-height: 100%;
+  padding: 3px;
+  border: solid 3px gold;
+  color: white;
+  background-color: rgba(50, 49, 50, 0.7);
+  pointer-events: all;
+  overflow-y: scroll;
+}
+
+.window--admin > div {
+  display: flex;
+}
+
+.admin__filter {
+  margin: 5px;
+  white-space: nowrap;
+}
+.admin__filter--empty {
+  opacity: 0.5;
+}
+
+.admin__selections {
+  display: flex;
+  flex-wrap: wrap;
+}
+.admin__selection {
+  flex: 1 0 21%;
+  display: flex;
+  justify-content: center;
+  max-width: 32px;
+}
+.admin__selection--selected {
+  border: 1px solid gold;
+  box-sizing: border-box;
+}
+
+.admin__tool--selected {
+  color: gold;
+}
+
+.window--view {
+  order: 1;
+}
+
+.window--map {
+  right: 0;
+}
+
+.window--container {
+  order: 0;
+  max-height: 30vh;
+}
+.container__slots {
+  display: flex;
+  max-width: 320px;
+  flex-wrap: wrap;
+}
+.container__slot {
+  width: 32px;
+  height: 32px;
+  border: 1px solid white;
+}
+.container__slot:hover {
+  background-color: #cccca9;
+}
+.container__slot--selected {
+  background-color: gold;
+}
+
+.window--equipment .container__slots {
+  display: grid;
+  grid-template: '. a .'
+                 'b c d'
+                 '. e .';
+  grid-auto-columns: min-content;
+}
+.window--equipment .container__slot:nth-child(1) {
+  grid-area: a;
+}
+.window--equipment .container__slot:nth-child(2) {
+  grid-area: b;
+}
+.window--equipment .container__slot:nth-child(3) {
+  grid-area: c;
+}
+.window--equipment .container__slot:nth-child(4) {
+  grid-area: d;
+}
+.window--equipment .container__slot:nth-child(5) {
+  grid-area: e;
+}
+.window--equipment .container__slot {
+  margin: 5px;
+}
+
+.usages__usages {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 320px;
+}
+
+.possible-usages__usage {
+  border-top: 1px solid #cf8989;
+}
+
+.moving-item {
+  position: absolute;
+}
