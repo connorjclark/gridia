@@ -6,6 +6,9 @@
 // @ts-nocheck
 
 jest.mock('../src/iso-fs');
+jest.mock('../src/game-singleton', () => {
+  return {};
+});
 
 import * as assert from 'assert';
 import Client from '../src/client/client';
@@ -47,15 +50,25 @@ beforeEach(async () => {
   connection = client.connection;
   server = memoryServerData.server;
 
+  server.context.saveAccount = () => Promise.resolve();
   server.context.savePlayer = () => Promise.resolve();
+  server.context.checkAccountPassword = () => Promise.resolve(true);
+  server.context.loadAccount = () => Promise.resolve({ id: 1, playerIds: [] });
 
-  connection.sendCommand(CommandBuilder.register({
-    name: 'test-user',
+  connection.sendCommand(CommandBuilder.registerAccount({
+    name: 'test-account',
     password: '1234567890',
+  }));
+  connection.sendCommand(CommandBuilder.login({
+    name: 'test-account',
+    password: '1234567890',
+  }));
+  connection.sendCommand(CommandBuilder.createPlayer({
+    name: 'test-user',
   }));
 
   // Make client make initial request for the sector, so that partial updates are tested later.
-  partition.getTile({x: 0, y: 0, z: 0});
+  partition.getTile({ x: 0, y: 0, z: 0 });
   await server.consumeAllMessages();
 });
 
@@ -122,13 +135,13 @@ describe('move', () => {
   let creature;
   beforeEach(async () => {
     creature = server.context.getCreature(client.player.creature.id);
-    server.moveCreature(creature, {w: 0, x: 5, y: 5, z: 0});
+    server.moveCreature(creature, { w: 0, x: 5, y: 5, z: 0 });
     await server.consumeAllMessages();
   });
 
   it('player can move to open space', async () => {
-    const from = {w: 0, x: 5, y: 5, z: 0};
-    const to = {w: 0, x: 6, y: 5, z: 0};
+    const from = { w: 0, x: 5, y: 5, z: 0 };
+    const to = { w: 0, x: 6, y: 5, z: 0 };
 
     assertCreatureAt(from, creature.id);
     await send(CommandBuilder.move(to));
@@ -136,8 +149,8 @@ describe('move', () => {
   });
 
   it('player can move to walkable item', async () => {
-    const from = {w: 0, x: 5, y: 5, z: 0};
-    const to = {w: 0, x: 6, y: 5, z: 0};
+    const from = { w: 0, x: 5, y: 5, z: 0 };
+    const to = { w: 0, x: 6, y: 5, z: 0 };
     setItem(to, getWalkableItem());
 
     assertCreatureAt(from, creature.id);
@@ -146,8 +159,8 @@ describe('move', () => {
   });
 
   it('player can not move to unwalkable item', async () => {
-    const from = {w: 0, x: 5, y: 5, z: 0};
-    const to = {w: 0, x: 6, y: 5, z: 0};
+    const from = { w: 0, x: 5, y: 5, z: 0 };
+    const to = { w: 0, x: 6, y: 5, z: 0 };
     setItem(to, getUnwalkableItem());
 
     assertCreatureAt(from, creature.id);
@@ -157,8 +170,8 @@ describe('move', () => {
 
   // TODO
   it.skip('player can not move where other creature is', async () => {
-    const from = {w: 0, x: 5, y: 5, z: 0};
-    const to = {w: 0, x: 6, y: 5, z: 0};
+    const from = { w: 0, x: 5, y: 5, z: 0 };
+    const to = { w: 0, x: 6, y: 5, z: 0 };
     const otherCreature = server.makeCreatureFromTemplate(1, to);
     await server.consumeAllMessages();
     // await new Promise((resolve) => server.taskRunner.registerForNextTick({fn: resolve}));
@@ -170,9 +183,9 @@ describe('move', () => {
   });
 
   it('player can not move to mine wall without pickaxe in inventory', async () => {
-    const from = {w: 0, x: 5, y: 5, z: 0};
-    const to = {w: 0, x: 6, y: 5, z: 0};
-    setItem(to, {type: MINE});
+    const from = { w: 0, x: 5, y: 5, z: 0 };
+    const to = { w: 0, x: 6, y: 5, z: 0 };
+    setItem(to, { type: MINE });
 
     assertCreatureAt(from, creature.id);
     await send(CommandBuilder.move(to));
@@ -180,10 +193,10 @@ describe('move', () => {
   });
 
   it('player can move to mine wall with pickaxe in inventory', async () => {
-    const from = {w: 0, x: 5, y: 5, z: 0};
-    const to = {w: 0, x: 6, y: 5, z: 0};
-    setItem(to, {type: MINE});
-    setItemInContainer(client.player.containerId, 0, {type: Content.getMetaItemByName('Pick').id, quantity: 1});
+    const from = { w: 0, x: 5, y: 5, z: 0 };
+    const to = { w: 0, x: 6, y: 5, z: 0 };
+    setItem(to, { type: MINE });
+    setItemInContainer(client.player.containerId, 0, { type: Content.getMetaItemByName('Pick').id, quantity: 1 });
 
     assertCreatureAt(from, creature.id);
     await send(CommandBuilder.move(to));
@@ -326,7 +339,7 @@ describe('use', () => {
     const toolIndex = 0;
     const loc = { w: 0, x: 0, y: 0, z: 0 };
 
-    setItemInContainer(client.player.containerId, 0, {type: Content.getMetaItemByName('Wood Axe').id, quantity: 1});
+    setItemInContainer(client.player.containerId, 0, { type: Content.getMetaItemByName('Wood Axe').id, quantity: 1 });
     setItem(loc, { type: Content.getMetaItemByName('Pine Tree').id, quantity: 1 });
 
     await send(CommandBuilder.use({
