@@ -2,43 +2,42 @@
 
 import Client from '../client/client';
 import Container from '../container';
-import * as Utils from '../utils';
-import * as ProtocolBuilder from './client-to-server-protocol-builder';
-import IServerToClientProtocol from './gen/server-to-client-protocol';
-import Params = ServerToClientProtocol.Params;
+import * as CommandBuilder from './command-builder';
+import IClientInterface from './gen/client-interface';
+import Events = Protocol.Events;
 
-export default class ServerToClientProtocol implements IServerToClientProtocol {
-  onAnimation(client: Client, { key, ...loc }: Params.Animation): void {
+export default class ClientInterface implements IClientInterface {
+  onAnimation(client: Client, { key, ...loc }: Events.Animation): void {
     // handled by game.ts
   }
 
-  onContainer(client: Client, { ...container }: Params.Container): void {
+  onContainer(client: Client, { container }: Events.Container): void {
     client.context.containers.set(container.id, new Container(container.type, container.id, container.items));
   }
 
-  onInitialize(client: Client, { player, secondsPerWorldTick, ticksPerWorldDay }: Params.Initialize): void {
+  onInitialize(client: Client, { player, secondsPerWorldTick, ticksPerWorldDay }: Events.Initialize): void {
     client.player = player;
     client.secondsPerWorldTick = secondsPerWorldTick;
     client.ticksPerWorldDay = ticksPerWorldDay;
   }
 
-  onInitializePartition(client: Client, { ...pos }: Params.InitializePartition): void {
+  onInitializePartition(client: Client, { ...pos }: Events.InitializePartition): void {
     client.context.map.initPartition(pos.w, pos.x, pos.y, pos.z);
   }
 
-  onLog(client: Client, { msg }: Params.Log): void {
+  onLog(client: Client, { msg }: Events.Log): void {
     console.log(msg);
   }
 
-  onRemoveCreature(client: Client, { id }: Params.RemoveCreature): void {
+  onRemoveCreature(client: Client, { id }: Events.RemoveCreature): void {
     client.context.removeCreature(id);
   }
 
-  onSector(client: Client, { tiles, ...pos }: Params.Sector): void {
+  onSector(client: Client, { tiles, ...pos }: Events.Sector): void {
     client.context.map.getPartition(pos.w).sectors[pos.x][pos.y][pos.z] = tiles;
   }
 
-  onSetCreature(client: Client, { partial, ...partialCreature }: Params.SetCreature): void {
+  onSetCreature(client: Client, { partial, ...partialCreature }: Events.SetCreature): void {
     const id = partialCreature.id;
     // TODO: fix in types?
     if (!id) throw new Error('id must exist');
@@ -46,7 +45,7 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
     const creature = client.context.getCreature(id);
     if (!creature) {
       if (partial) {
-        client.connection.send(ProtocolBuilder.requestCreature({ id }));
+        client.connection.sendCommand(CommandBuilder.requestCreature({ id }));
       } else {
         // @ts-ignore - it's not a partial creature.
         client.context.setCreature(partialCreature);
@@ -57,11 +56,11 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
     Object.assign(creature, partialCreature);
   }
 
-  onSetFloor(client: Client, { floor, ...loc }: Params.SetFloor): void {
+  onSetFloor(client: Client, { floor, ...loc }: Events.SetFloor): void {
     client.context.map.getTile(loc).floor = floor;
   }
 
-  onSetItem(client: Client, { location, item }: Params.SetItem): void {
+  onSetItem(client: Client, { location, item }: Events.SetItem): void {
     if (location.source === 'world') {
       client.context.map.getTile(location.loc).item = item;
     } else {
@@ -74,20 +73,20 @@ export default class ServerToClientProtocol implements IServerToClientProtocol {
     }
   }
 
-  onXp(client: Client, { skill, xp }: Params.Xp): void {
+  onXp(client: Client, { skill, xp }: Events.Xp): void {
     const currentXp = client.player.skills.get(skill) || 0;
     client.player.skills.set(skill, currentXp + xp);
   }
 
-  onChat(client: Client, { from, to, message }: Params.Chat): void {
+  onChat(client: Client, { from, to, message }: Events.Chat): void {
     // handled by game.ts
   }
 
-  onTime(client: Client, { epoch }: Params.Time): void {
+  onTime(client: Client, { epoch }: Events.Time): void {
     // handled by game.ts
   }
 
-  onDialogue(client: Client, { text, choices }: Params.Dialogue): void {
+  onDialogue(client: Client, { text, choices }: Events.Dialogue): void {
     // handled by game.ts
   }
 }

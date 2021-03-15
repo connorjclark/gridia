@@ -13,7 +13,7 @@ import { Connection } from '../src/client/connection';
 import { MINE } from '../src/constants';
 import * as Content from '../src/content';
 import { makeBareMap } from '../src/mapgen';
-import * as ProtocolBuilder from '../src/protocol/client-to-server-protocol-builder';
+import * as CommandBuilder from '../src/protocol/command-builder';
 import Server from '../src/server/server';
 import { ServerContext } from '../src/server/server-context';
 import * as Utils from '../src/utils';
@@ -29,7 +29,7 @@ let connection: Connection;
 
 // Immediately process messages.
 async function send(message) {
-  connection.send(message);
+  connection.sendCommand(message);
   await server.consumeAllMessages();
 }
 
@@ -49,7 +49,7 @@ beforeEach(async () => {
 
   server.context.savePlayer = () => Promise.resolve();
 
-  connection.send(ProtocolBuilder.register({
+  connection.sendCommand(CommandBuilder.register({
     name: 'test-user',
     password: '1234567890',
   }));
@@ -131,7 +131,7 @@ describe('move', () => {
     const to = {w: 0, x: 6, y: 5, z: 0};
 
     assertCreatureAt(from, creature.id);
-    await send(ProtocolBuilder.move(to));
+    await send(CommandBuilder.move(to));
     assertCreatureAt(to, creature.id);
   });
 
@@ -141,7 +141,7 @@ describe('move', () => {
     setItem(to, getWalkableItem());
 
     assertCreatureAt(from, creature.id);
-    await send(ProtocolBuilder.move(to));
+    await send(CommandBuilder.move(to));
     assertCreatureAt(to, creature.id);
   });
 
@@ -151,7 +151,7 @@ describe('move', () => {
     setItem(to, getUnwalkableItem());
 
     assertCreatureAt(from, creature.id);
-    await send(ProtocolBuilder.move(to));
+    await send(CommandBuilder.move(to));
     assertCreatureAt(from, creature.id);
   });
 
@@ -165,7 +165,7 @@ describe('move', () => {
     assertCreatureAt(to, otherCreature.id);
 
     assertCreatureAt(from, creature.id);
-    await send(ProtocolBuilder.move(to));
+    await send(CommandBuilder.move(to));
     assertCreatureAt(from, creature.id);
   });
 
@@ -175,7 +175,7 @@ describe('move', () => {
     setItem(to, {type: MINE});
 
     assertCreatureAt(from, creature.id);
-    await send(ProtocolBuilder.move(to));
+    await send(CommandBuilder.move(to));
     assertCreatureAt(from, creature.id);
   });
 
@@ -186,7 +186,7 @@ describe('move', () => {
     setItemInContainer(client.player.containerId, 0, {type: Content.getMetaItemByName('Pick').id, quantity: 1});
 
     assertCreatureAt(from, creature.id);
-    await send(ProtocolBuilder.move(to));
+    await send(CommandBuilder.move(to));
     assertCreatureAt(to, creature.id);
   });
 });
@@ -201,7 +201,7 @@ describe('moveItem', () => {
 
     setItem(from, { type: 1, quantity: 10 });
 
-    await send(ProtocolBuilder.moveItem({
+    await send(CommandBuilder.moveItem({
       from: Utils.ItemLocation.World(from),
       to: Utils.ItemLocation.World(to),
     }));
@@ -217,7 +217,7 @@ describe('moveItem', () => {
     setItem(from, { type: 1, quantity: 1 });
     setItem(to, { type: 2, quantity: 1 });
 
-    await send(ProtocolBuilder.moveItem({
+    await send(CommandBuilder.moveItem({
       from: Utils.ItemLocation.World(from),
       to: Utils.ItemLocation.World(to),
     }));
@@ -234,7 +234,7 @@ describe('moveItem', () => {
     setItem(from, { type: gold.id, quantity: 1 });
     setItem(to, { type: gold.id, quantity: 2 });
 
-    await send(ProtocolBuilder.moveItem({
+    await send(CommandBuilder.moveItem({
       from: Utils.ItemLocation.World(from),
       to: Utils.ItemLocation.World(to),
     }));
@@ -248,9 +248,9 @@ describe('moveItem', () => {
 
     const container = server.context.makeContainer(ContainerType.Normal);
     container.items[0] = { type: 1, quantity: 1 };
-    await send(ProtocolBuilder.requestContainer({ containerId: container.id }));
+    await send(CommandBuilder.requestContainer({ containerId: container.id }));
 
-    await send(ProtocolBuilder.moveItem({
+    await send(CommandBuilder.moveItem({
       from: Utils.ItemLocation.Container(container.id, 0),
       to: Utils.ItemLocation.World(to),
     }));
@@ -264,9 +264,9 @@ describe('moveItem', () => {
 
     setItem(from, { type: 1, quantity: 1 });
     const container = server.context.makeContainer(ContainerType.Normal);
-    await send(ProtocolBuilder.requestContainer({ containerId: container.id }));
+    await send(CommandBuilder.requestContainer({ containerId: container.id }));
 
-    await send(ProtocolBuilder.moveItem({
+    await send(CommandBuilder.moveItem({
       from: Utils.ItemLocation.World(from),
       to: Utils.ItemLocation.Container(container.id, 0),
     }));
@@ -283,9 +283,9 @@ describe('moveItem', () => {
     container.items[0] = { type: 2, quantity: 1 };
     container.items[1] = { type: 2, quantity: 1 };
     container.items[3] = { type: 2, quantity: 1 };
-    await send(ProtocolBuilder.requestContainer({ containerId: container.id }));
+    await send(CommandBuilder.requestContainer({ containerId: container.id }));
 
-    await send(ProtocolBuilder.moveItem({
+    await send(CommandBuilder.moveItem({
       from: Utils.ItemLocation.World(from),
       to: Utils.ItemLocation.Container(container.id),
     }));
@@ -303,9 +303,9 @@ describe('moveItem', () => {
     container.items[1] = { type: 2, quantity: 1 };
     container.items[2] = { type: 1, quantity: 2 };
     container.items[3] = { type: 2, quantity: 1 };
-    await send(ProtocolBuilder.requestContainer({ containerId: container.id }));
+    await send(CommandBuilder.requestContainer({ containerId: container.id }));
 
-    await send(ProtocolBuilder.moveItem({
+    await send(CommandBuilder.moveItem({
       from: Utils.ItemLocation.World(from),
       to: Utils.ItemLocation.Container(container.id),
     }));
@@ -329,7 +329,7 @@ describe('use', () => {
     setItemInContainer(client.player.containerId, 0, {type: Content.getMetaItemByName('Wood Axe').id, quantity: 1});
     setItem(loc, { type: Content.getMetaItemByName('Pine Tree').id, quantity: 1 });
 
-    await send(ProtocolBuilder.use({
+    await send(CommandBuilder.use({
       toolIndex,
       location: Utils.ItemLocation.World(loc),
     }));
@@ -349,7 +349,7 @@ describe('use', () => {
     });
     setItem(loc, { type: Content.getMetaItemByName('Ploughed Ground').id, quantity: 1 });
 
-    await send(ProtocolBuilder.use({
+    await send(CommandBuilder.use({
       toolIndex,
       location: Utils.ItemLocation.World(loc),
     }));
@@ -372,7 +372,7 @@ describe('use', () => {
     setItemInContainer(container.id, toolIndex + 1, undefined);
     setItem(loc, { type: Content.getMetaItemByName('Large Camp Fire').id, quantity: 1 });
 
-    await send(ProtocolBuilder.use({
+    await send(CommandBuilder.use({
       toolIndex,
       location: Utils.ItemLocation.World(loc),
     }));
@@ -394,14 +394,14 @@ describe('use', () => {
 
     setItem(loc, { type: Content.getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123 });
 
-    await send(ProtocolBuilder.use({
+    await send(CommandBuilder.use({
       toolIndex: -1,
       location: Utils.ItemLocation.World(loc),
     }));
 
     assertItemInWorld(loc, { type: Content.getMetaItemByName('Wooden Box').id, quantity: 1, containerId: 123 });
 
-    await send(ProtocolBuilder.use({
+    await send(CommandBuilder.use({
       toolIndex: -1,
       location: Utils.ItemLocation.World(loc),
     }));

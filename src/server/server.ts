@@ -2,12 +2,14 @@ import { SECTOR_SIZE } from '../constants';
 import * as Content from '../content';
 import performance from '../performance';
 import Player from '../player';
-import ClientToServerProtocol from '../protocol/client-to-server-protocol';
-import * as ProtocolBuilder from '../protocol/server-to-client-protocol-builder';
+import ClientToServerProtocol from '../protocol/server-interface';
+import * as EventBuilder from '../protocol/event-builder';
 import * as Utils from '../utils';
 import WorldMapPartition from '../world-map-partition';
 import { WorldTime } from '../world-time';
 import Container, { ContainerType } from '../container';
+import { Command } from '../protocol/command-builder';
+import { Event } from '../protocol/event-builder';
 import ClientConnection from './client-connection';
 import CreatureState from './creature-state';
 import { ServerContext } from './server-context';
@@ -30,7 +32,7 @@ export default class Server {
   context: ServerContext;
   clientConnections: ClientConnection[] = [];
   outboundMessages = [] as Array<{
-    message: ServerToClientMessage;
+    message: Message;
     to?: ClientConnection;
     filter?: (client: ClientConnection) => boolean;
   }>;
@@ -57,24 +59,28 @@ export default class Server {
     this.setupTickSections();
   }
 
-  reply(message: ServerToClientMessage) {
+  reply(event: Event) {
+    const message = { data: event };
     this.outboundMessages.push({ to: this.currentClientConnection, message });
   }
 
-  broadcast(message: ServerToClientMessage) {
+  broadcast(event: Event) {
+    const message = { data: event };
     this.outboundMessages.push({ message });
   }
 
-  send(message: ServerToClientMessage, toClient: ClientConnection) {
+  send(event: Event, toClient: ClientConnection) {
+    const message = { data: event };
     this.outboundMessages.push({ to: toClient, message });
   }
 
-  conditionalBroadcast(message: ServerToClientMessage, filter: (client: ClientConnection) => boolean) {
+  conditionalBroadcast(event: Event, filter: (client: ClientConnection) => boolean) {
+    const message = { data: event };
     this.outboundMessages.push({ filter, message });
   }
 
-  broadcastInRange(message: ServerToClientMessage, loc: TilePoint, range: number) {
-    this.conditionalBroadcast(message, (client) => {
+  broadcastInRange(event: Event, loc: TilePoint, range: number) {
+    this.conditionalBroadcast(event, (client) => {
       const loc2 = client.player.creature.pos;
       if (loc2.z !== loc.z || loc2.w !== loc.w) return false;
 
@@ -83,11 +89,11 @@ export default class Server {
   }
 
   broadcastAnimation(pos: TilePoint, name: string) {
-    this.broadcastInRange(ProtocolBuilder.animation({ ...pos, key: name }), pos, 30);
+    this.broadcastInRange(EventBuilder.animation({ ...pos, key: name }), pos, 30);
   }
 
   broadcastChat(message: string) {
-    this.broadcast(ProtocolBuilder.chat({
+    this.broadcast(EventBuilder.chat({
       from: 'SERVER',
       to: 'global',
       message,
@@ -153,7 +159,7 @@ export default class Server {
       this.sendCurrentDialoguePart(clientConnection);
     } else {
       clientConnection.activeDialogue = undefined;
-      clientConnection.send(ProtocolBuilder.dialogue({}));
+      clientConnection.sendEvent(EventBuilder.dialogue({}));
     }
   }
 
@@ -162,7 +168,7 @@ export default class Server {
 
     const { dialogue, partIndex } = clientConnection.activeDialogue;
     const part = dialogue.parts[partIndex];
-    clientConnection.send(ProtocolBuilder.dialogue({
+    clientConnection.sendEvent(EventBuilder.dialogue({
       speaker: dialogue.speakers[part.speaker].name,
       text: part.text,
       choices: part.choices,
@@ -332,7 +338,7 @@ export default class Server {
       // @ts-ignore
       partialCreature[key] = creature[key];
     }
-    this.conditionalBroadcast(ProtocolBuilder.setCreature({
+    this.conditionalBroadcast(EventBuilder.setCreature({
       partial: true,
       ...partialCreature,
     }), (client) => client.subscribedCreatureIds.has(creature.id));
@@ -389,7 +395,7 @@ export default class Server {
       delete this.creatureStates[creature.id];
     }
 
-    this.broadcast(ProtocolBuilder.removeCreature({
+    this.broadcast(EventBuilder.removeCreature({
       id: creature.id,
     }));
   }
@@ -441,7 +447,7 @@ export default class Server {
       nearestTile.item = item;
     }
 
-    this.broadcast(ProtocolBuilder.setItem({
+    this.broadcast(EventBuilder.setItem({
       location: Utils.ItemLocation.World(nearestLoc),
       item: nearestTile.item,
     }));
@@ -449,7 +455,7 @@ export default class Server {
 
   setFloor(loc: TilePoint, floor: number) {
     this.context.map.getTile(loc).floor = floor;
-    this.broadcast(ProtocolBuilder.setFloor({
+    this.broadcast(EventBuilder.setFloor({
       ...loc,
       floor,
     }));
@@ -457,7 +463,7 @@ export default class Server {
 
   setItem(loc: TilePoint, item?: Item) {
     this.context.map.getTile(loc).item = item;
-    this.broadcast(ProtocolBuilder.setItem({
+    this.broadcast(EventBuilder.setItem({
       location: Utils.ItemLocation.World(loc),
       item,
     }));
@@ -481,7 +487,7 @@ export default class Server {
     const prevItem = container.items[index];
     container.items[index] = item || null;
 
-    this.conditionalBroadcast(ProtocolBuilder.setItem({
+    this.conditionalBroadcast(EventBuilder.setItem({
       location: Utils.ItemLocation.Container(id, index),
       item,
     }), (clientConnection) => {
@@ -526,7 +532,7 @@ export default class Server {
     const newXp = (currentXp || 0) + xp;
     clientConnection.player.skills.set(skill, newXp);
 
-    this.send(ProtocolBuilder.xp({
+    this.send(EventBuilder.xp({
       skill,
       xp,
     }), clientConnection);
@@ -544,7 +550,7 @@ export default class Server {
   advanceTime(ticks: number) {
     // const ticks = gameHours * (this.ticksPerWorldDay / 24);
     this.time.epoch += ticks;
-    this.broadcast(ProtocolBuilder.time({ epoch: this.time.epoch }));
+    this.broadcast(EventBuilder.time({ epoch: this.time.epoch }));
 
     // TODO
     // for (let i = 0; i < ticks; i++) {
@@ -566,14 +572,14 @@ export default class Server {
   private async initClient(clientConnection: ClientConnection) {
     const player = clientConnection.player;
 
-    clientConnection.send(ProtocolBuilder.initialize({
+    clientConnection.sendEvent(EventBuilder.initialize({
       player,
       secondsPerWorldTick: this.secondsPerWorldTick,
       ticksPerWorldDay: this.ticksPerWorldDay,
     }));
-    clientConnection.send(ProtocolBuilder.time({ epoch: this.time.epoch }));
+    clientConnection.sendEvent(EventBuilder.time({ epoch: this.time.epoch }));
 
-    clientConnection.send(ProtocolBuilder.chat({
+    clientConnection.sendEvent(EventBuilder.chat({
       from: 'World',
       to: '', // TODO
       message: [
@@ -584,7 +590,7 @@ export default class Server {
     }));
 
     const partition = this.context.map.getPartition(player.creature.pos.w);
-    clientConnection.send(ProtocolBuilder.initializePartition({
+    clientConnection.sendEvent(EventBuilder.initializePartition({
       w: player.creature.pos.w,
       x: partition.width,
       y: partition.height,
@@ -592,9 +598,13 @@ export default class Server {
     }));
 
     // TODO: next line not necessary. but removing breaks tests ...
-    clientConnection.send(ProtocolBuilder.setCreature({ partial: false, ...player.creature }));
-    clientConnection.send(ProtocolBuilder.container(await this.context.getContainer(clientConnection.equipment.id)));
-    clientConnection.send(ProtocolBuilder.container(await this.context.getContainer(clientConnection.container.id)));
+    clientConnection.sendEvent(EventBuilder.setCreature({ partial: false, ...player.creature }));
+    clientConnection.sendEvent(EventBuilder.container({
+      container: await this.context.getContainer(clientConnection.equipment.id),
+    }));
+    clientConnection.sendEvent(EventBuilder.container(
+      { container: await this.context.getContainer(clientConnection.container.id) },
+    ));
     this.updateCreatureLight(clientConnection);
     setTimeout(() => {
       this.broadcastAnimation(player.creature.pos, 'WarpIn');
@@ -645,7 +655,7 @@ export default class Server {
             if (!closeEnoughToSubscribe(clientConnection.player.creature.pos, creature.pos)) continue;
 
             clientConnection.subscribedCreatureIds.add(creature.id);
-            clientConnection.send(ProtocolBuilder.setCreature({ partial: false, ...creature }));
+            clientConnection.sendEvent(EventBuilder.setCreature({ partial: false, ...creature }));
           }
         }
       },
@@ -731,7 +741,7 @@ export default class Server {
       description: 'sync time',
       rate: { minutes: 1 },
       fn: () => {
-        server.broadcast(ProtocolBuilder.time({ epoch: server.time.epoch }));
+        server.broadcast(EventBuilder.time({ epoch: server.time.epoch }));
       },
     });
 
@@ -743,7 +753,7 @@ export default class Server {
     //   fn: () => {
     //     this._time += this._realTimeToGameTimeRatio;
     //     if (this._time - lastTimeSync > 60) {
-    //       this.broadcast(ProtocolBuilder.time({time: this._time}));
+    //       this.broadcast(EventBuilder.time({time: this._time}));
     //       lastTimeSync = this._time;
     //     }
     //   },
@@ -773,16 +783,18 @@ export default class Server {
       fn: async () => {
         for (const clientConnection of this.clientConnections) {
           for (const message of clientConnection.messageQueue) {
-            if (this.verbose) console.log('from client', message.type, message.args);
+            const command = message.data as Command;
+            if (this.verbose) console.log('from client', message.id, command.type, command.args);
             this.currentClientConnection = clientConnection;
             // performance.mark(`${message.type}-start`);
             try {
-              const onMethodName = 'on' + message.type[0].toUpperCase() + message.type.substr(1);
+              const onMethodName = 'on' + command.type[0].toUpperCase() + command.type.substr(1);
               // @ts-ignore
               // eslint-disable-next-line
-              const ret = this._clientToServerProtocol[onMethodName](this, message.args);
+              let ret = this._clientToServerProtocol[onMethodName](this, command.args);
               // TODO: some message handlers are async ... is that bad?
-              if (ret) await ret;
+              if (ret) ret = await ret;
+              clientConnection.send({ id: message.id, data: ret });
             } catch (err) {
               // Don't let a bad message kill the message loop.
               console.error(err, message);
@@ -854,7 +866,7 @@ export default class Server {
           maxDurationMs: perf.tickDurationMax,
           longestTick,
         }, null, 2);
-        this.broadcast(ProtocolBuilder.log({ msg }));
+        this.broadcast(EventBuilder.log({ msg }));
       },
     });
   }
@@ -879,7 +891,7 @@ export default class Server {
 
       tile.item.type = meta.growthItem;
       tile.item.growth = 0;
-      this.broadcast(ProtocolBuilder.setItem({
+      this.broadcast(EventBuilder.setItem({
         location: Utils.ItemLocation.World({ ...pos, w }),
         item: tile.item,
       }));
@@ -897,7 +909,7 @@ export default class Server {
     //     if (item.growth >= meta.growthDelta) {
     //       item.type = meta.growthItem;
     //       item.growth = 0;
-    //       this.broadcast(ProtocolBuilder.setItem({
+    //       this.broadcast(EventBuilder.setItem({
     //         location: Utils.ItemLocation.World({ ...pos, w }),
     //         item,
     //       }));

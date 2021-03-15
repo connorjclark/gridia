@@ -1,6 +1,6 @@
 import * as Content from '../../content';
 import { findPath } from '../../path-finding';
-import * as ProtocolBuilder from '../../protocol/client-to-server-protocol-builder';
+import * as CommandBuilder from '../../protocol/command-builder';
 import * as Utils from '../../utils';
 import ClientModule from '../client-module';
 import { GameActionEvent } from '../event-emitter';
@@ -114,7 +114,7 @@ class MovementModule extends ClientModule {
           y: Utils.clamp(dest.y - focusPos.y, -1, 1),
         };
         // this.game.client.context.map.moveCreature(focusCreature, dest);
-        this.game.client.connection.send(ProtocolBuilder.move(dest));
+        this.game.client.connection.sendCommand(CommandBuilder.move(dest));
         this.game.client.eventEmitter.emit('playerMove', { from: focusCreature.pos, to: dest });
         delete this.game.state.mouse.tile;
       }

@@ -23,7 +23,7 @@ interface Events {
   editingMode: {enabled: boolean};
   itemMoveBegin: ItemMoveBeginEvent;
   itemMoveEnd: ItemMoveEndEvent;
-  message: import('../protocol/server-to-client-protocol-builder').Message;
+  event: import('../protocol/event-builder').Event;
   mouseMovedOverTile: TilePoint;
   panelFocusChanged: {panelName: string};
   playerMove: {from: TilePoint; to: TilePoint};

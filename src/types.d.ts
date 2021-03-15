@@ -92,9 +92,6 @@ interface Creature {
   light: number;
 }
 
-type ServerToClientMessage = import('./protocol/gen/server-to-client-protocol-builder').Message;
-type ClientToServerMessage = import('./protocol/gen/client-to-server-protocol-builder').Message;
-
 interface MetaFloor {
   id: number;
   color: string;

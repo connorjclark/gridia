@@ -2,7 +2,7 @@ import { GFX_SIZE } from '../constants';
 import * as Content from '../content';
 import { game } from '../game-singleton';
 import { calcStraightLine } from '../lib/line';
-import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
+import * as CommandBuilder from '../protocol/command-builder';
 import * as Utils from '../utils';
 import { WorldTime } from '../world-time';
 import Client from './client';
@@ -414,7 +414,7 @@ class Game {
     this.client.settings = getDefaultSettings();
 
     // Should only be used for refreshing UI, not updating game state.
-    this.client.eventEmitter.on('message', (e) => {
+    this.client.eventEmitter.on('event', (e) => {
       // Update the selected view, if the item there changed.
       if (e.type === 'setItem') {
         let shouldUpdateUsages = false;
@@ -790,7 +790,7 @@ class Game {
           location = Utils.ItemLocation.World(this.client.creature.pos);
         }
 
-        this.client.connection.send(ProtocolBuilder.moveItem({
+        this.client.connection.sendCommand(CommandBuilder.moveItem({
           from: Utils.ItemLocation.World(location.loc),
           to: Utils.ItemLocation.Container(this.client.player.containerId),
         }));
@@ -804,7 +804,7 @@ class Game {
       // T to toggle z.
       const partition = this.client.context.map.partitions.get(focusPos.w);
       if (e.key === 't' && partition && partition.depth > 1) {
-        this.client.connection.send(ProtocolBuilder.move({
+        this.client.connection.sendCommand(CommandBuilder.move({
           ...focusPos,
           z: (focusPos.z + 1) % partition.depth,
         }));
@@ -831,7 +831,7 @@ class Game {
       const from = this.itemMovingState.location;
       const to = e.location;
       if (!Utils.ItemLocation.Equal(from, to)) {
-        this.client.connection.send(ProtocolBuilder.moveItem({
+        this.client.connection.sendCommand(CommandBuilder.moveItem({
           from,
           to,
         }));
@@ -869,7 +869,7 @@ class Game {
       e.preventDefault();
       if (!chatInput.value) return;
 
-      this.client.connection.send(ProtocolBuilder.chat({
+      this.client.connection.sendCommand(CommandBuilder.chat({
         to: 'global',
         message: chatInput.value,
       }));
@@ -929,7 +929,7 @@ class Game {
       const lazy = window.lol_lazy = window.lol_lazy || [];
       if (!lazy.includes(w)) {
         lazy.push(w);
-        this.client.connection.send(ProtocolBuilder.requestPartition({ w }));
+        this.client.connection.sendCommand(CommandBuilder.requestPartition({ w }));
       }
       return;
     }

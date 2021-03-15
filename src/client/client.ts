@@ -1,6 +1,6 @@
 import { Context } from '../context';
-import ServerToClientProtocol from '../protocol/server-to-client-protocol';
-import { Message } from '../protocol/server-to-client-protocol-builder';
+import ServerToClientProtocol from '../protocol/client-interface';
+import { Event } from '../protocol/event-builder';
 import Player from '../player';
 import { Connection } from './connection';
 import EventEmitter from './event-emitter';
@@ -20,15 +20,15 @@ class Client {
   private _protocol = new ServerToClientProtocol();
 
   constructor(public connection: Connection, public context: Context) {
-    this.eventEmitter.on('message', this.handleMessageFromServer.bind(this));
+    this.eventEmitter.on('event', this.handleEventFromServer.bind(this));
   }
 
-  handleMessageFromServer(message: Message) {
-    // if (opts.verbose) console.log('from server', message.type, message.args);
-    const onMethodName = 'on' + message.type[0].toUpperCase() + message.type.substr(1);
+  handleEventFromServer(event: Event) {
+    // if (opts.verbose) console.log('from server', event.type, event.args);
+    const onMethodName = 'on' + event.type[0].toUpperCase() + event.type.substr(1);
     // @ts-ignore
     const p = this._protocol[onMethodName];
-    p(this, message.args);
+    p(this, event.args);
   }
 
   get creature() {

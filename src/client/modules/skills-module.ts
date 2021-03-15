@@ -13,7 +13,7 @@ class SkillsModule extends ClientModule {
   }
 
   onStart() {
-    this.game.client.eventEmitter.on('message', (e) => {
+    this.game.client.eventEmitter.on('event', (e) => {
       if (!this.skillsWindow) return;
 
       if (e.type === 'xp') {

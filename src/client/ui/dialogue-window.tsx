@@ -1,6 +1,6 @@
 import { render, h, Component } from 'preact';
 import Game from '../game';
-import * as ProtocolBuilder from '../../protocol/client-to-server-protocol-builder';
+import * as CommandBuilder from '../../protocol/command-builder';
 
 export function makeDialogueWindow(game: Game) {
   let setState = (_: Partial<State>) => {
@@ -33,7 +33,7 @@ export function makeDialogueWindow(game: Game) {
 
     onClickNextButton() {
       // TODO: don't do this in ui/
-      game.client.connection.send(ProtocolBuilder.dialogueResponse({}));
+      game.client.connection.sendCommand(CommandBuilder.dialogueResponse({}));
     }
   }
 

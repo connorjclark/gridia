@@ -1,7 +1,7 @@
 import * as idbKeyval from 'idb-keyval';
 import * as Content from '../content';
 import { makeGame, game } from '../game-singleton';
-import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
+import * as CommandBuilder from '../protocol/command-builder';
 import * as Utils from '../utils';
 import Client from './client';
 import { connect, connectToServerWorker } from './connect-to-server';
@@ -232,6 +232,8 @@ class MapSelectScene extends Scene {
 
 interface LocalStorageData {
   players: Array<{ name: string; password: string }>;
+  // username?: string;
+  // password?: string;
 }
 
 let localStorageKey = '';
@@ -283,7 +285,7 @@ class RegisterScene extends Scene {
       const player = localStorageData.players[index];
       // TODO: really need a request/response messaging model so can do
       // basic things like respond to errors.
-      controller.client.connection.send(ProtocolBuilder.login(player));
+      controller.client.connection.sendCommand(CommandBuilder.login(player));
       this.waitForInitializeThenStartGame();
     });
 
@@ -299,7 +301,7 @@ class RegisterScene extends Scene {
   onClickRegisterBtn() {
     const name = this.nameInput.value;
     const password = [...Array(20)].map(() => String.fromCharCode(65 + Math.floor(Math.random() * 52))).join('');
-    controller.client.connection.send(ProtocolBuilder.register({
+    controller.client.connection.sendCommand(CommandBuilder.register({
       name,
       password,
     }));
@@ -312,7 +314,7 @@ class RegisterScene extends Scene {
   async waitForInitializeThenStartGame() {
     // Wait for initialize message. This happens after a successful login.
     await new Promise((resolve, reject) => {
-      controller.client.eventEmitter.once('message', (e) => {
+      controller.client.eventEmitter.once('event', (e) => {
         if (e.type === 'initialize') resolve();
         else reject(`first message should be initialize, but got ${JSON.stringify(e)}`);
       });
@@ -484,19 +486,19 @@ function globalOnActionHandler(client: Client, e: GameActionEvent) {
 
   switch (type) {
   case 'pickup':
-    client.connection.send(ProtocolBuilder.moveItem({
+    client.connection.sendCommand(CommandBuilder.moveItem({
       from: location,
       to: Utils.ItemLocation.Container(client.player.containerId),
     }));
     break;
   case 'equip':
-    client.connection.send(ProtocolBuilder.moveItem({
+    client.connection.sendCommand(CommandBuilder.moveItem({
       from: location,
       to: Utils.ItemLocation.Container(client.player.equipmentContainerId),
     }));
     break;
   case 'split':
-    client.connection.send(ProtocolBuilder.moveItem({
+    client.connection.sendCommand(CommandBuilder.moveItem({
       from: location,
       quantity: quantity || 1,
       to: Utils.ItemLocation.Container(client.player.containerId),
@@ -514,7 +516,7 @@ function globalOnActionHandler(client: Client, e: GameActionEvent) {
   case 'attack':
   case 'tame':
   case 'speak':
-    client.connection.send(ProtocolBuilder.creatureAction({
+    client.connection.sendCommand(CommandBuilder.creatureAction({
       creatureId: creature.id,
       type,
     }));

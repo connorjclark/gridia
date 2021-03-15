@@ -1,5 +1,5 @@
 import * as Content from '../../content';
-import * as ProtocolBuilder from '../../protocol/client-to-server-protocol-builder';
+import * as CommandBuilder from '../../protocol/command-builder';
 import * as Utils from '../../utils';
 import ClientModule from '../client-module';
 import * as Helper from '../helper';
@@ -74,7 +74,7 @@ class UsageModule extends ClientModule {
   }
 
   selectPossibleUsage(possibleUsage: PossibleUsage) {
-    this.game.client.connection.send(ProtocolBuilder.use({
+    this.game.client.connection.sendCommand(CommandBuilder.use({
       toolIndex: possibleUsage.toolIndex,
       usageIndex: possibleUsage.usageIndex,
       location: possibleUsage.focusLocation,

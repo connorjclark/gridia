@@ -1,8 +1,8 @@
-import { Message as MessageToServer } from '../protocol/client-to-server-protocol-builder';
-import { Message as MessageToClient } from '../protocol/server-to-client-protocol-builder';
 import * as WireSerializer from '../lib/wire-serializer';
+import { Command } from '../protocol/command-builder';
+import { Event } from '../protocol/event-builder';
 
-function debug(prefix: string , msg: any) {
+function debug(prefix: string, msg: Message) {
   // @ts-ignore
   if (!window.Gridia.debug && !window.Gridia.debugn) return;
   // @ts-ignore
@@ -10,15 +10,15 @@ function debug(prefix: string , msg: any) {
   // @ts-ignore
   if (window.Gridia.debugn instanceof RegExp && window.Gridia.debugn.test(msg.type)) return;
 
-  const json = JSON.stringify(msg.args);
+  const json = JSON.stringify(msg.data.args);
   const prefixColor = prefix === '<-' ? 'darkblue' : 'darkgreen';
   const args = [
     `%c${prefix}`,
     `background: ${prefixColor}; color: white`,
-    msg.type,
+    msg.data.type,
   ];
   if (json.length > 60) {
-    args.push(msg.args);
+    args.push(msg.data.args);
   } else {
     args.push(json);
   }
@@ -26,32 +26,61 @@ function debug(prefix: string , msg: any) {
 }
 
 export abstract class Connection {
-  protected _onMessage?: (message: MessageToClient) => void;
+  protected _onEvent?: (event: Event) => void;
 
-  setOnMessage(onMessage?: (message: MessageToClient) => void)  {
-    this._onMessage = onMessage;
+  private nextId = 1;
+  private idToCallback = new Map<number, Function>();
+
+  setOnEvent(onEvent?: (event: Event) => void) {
+    this._onEvent = onEvent;
   }
 
-  public abstract send(message: MessageToServer): void;
+  sendCommand<T extends Command>(command: T) {
+    const id = this.nextId++;
+    const promise = new Promise<T['args']['response']>((resolve) => {
+      this.idToCallback.set(id, resolve);
+    });
+    this.send_({
+      id,
+      data: command,
+    });
+    return promise;
+  }
+
+  protected resolveCommand(id: number, data: any) {
+    const cb = this.idToCallback.get(id);
+    if (!cb) throw new Error('unknown id ' + id);
+
+    this.idToCallback.delete(id);
+    cb(data);
+  }
 
   public abstract close(): void;
+
+  protected abstract send_(message: { id: number; data: Command }): void;
 }
 
 export class WebSocketConnection extends Connection {
   constructor(private _ws: WebSocket) {
     super();
     _ws.addEventListener('message', (e) => {
-      if (!this._onMessage) return;
+      const message = WireSerializer.deserialize<Message>(e.data);
 
-      const data = WireSerializer.deserialize<any>(e.data);
-      debug('<-', data);
-      this._onMessage(data);
+      if (message.id) {
+        this.resolveCommand(message.id, message.data);
+        return;
+      }
+
+      if (!this._onEvent) return;
+
+      debug('<-', message);
+      this._onEvent(message.data);
     });
 
     _ws.addEventListener('close', this.onClose);
   }
 
-  send(message: MessageToServer) {
+  send_(message: { id: number; data: Command }) {
     debug('->', message);
     this._ws.send(WireSerializer.serialize(message));
   }
@@ -70,13 +99,13 @@ export class WorkerConnection extends Connection {
   constructor(private _worker: Worker) {
     super();
     _worker.onmessage = (e) => {
-      const data = WireSerializer.deserialize<any>(e.data);
-      debug('<-', data);
-      if (this._onMessage) this._onMessage(data);
+      const message = WireSerializer.deserialize<Message>(e.data);
+      debug('<-', message);
+      if (this._onEvent && !message.id) this._onEvent(message.data);
     };
   }
 
-  send(message: MessageToServer) {
+  send_(message: { id: number; data: Command }) {
     debug('->', message);
     this._worker.postMessage(WireSerializer.serialize(message));
   }

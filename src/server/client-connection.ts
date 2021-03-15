@@ -1,10 +1,11 @@
 import Container from '../container';
 import Player from '../player';
+import { Event } from '../protocol/event-builder';
 
 // TODO: this whole thing smells.
 
 export default class ClientConnection {
-  messageQueue: Array<{ type: string; args: Object }> = [];
+  messageQueue: Message[] = [];
   // @ts-ignore
   player: Player;
   // @ts-ignore
@@ -16,7 +17,11 @@ export default class ClientConnection {
   activeDialogue?: { dialogue: Dialogue; partIndex: number };
 
   // @ts-ignore
-  send: (message: ServerToClientMessage) => void;
+  send: (message: Message) => void;
+
+  sendEvent(event: Event) {
+    this.send({ data: event });
+  }
 
   getMessage() {
     return this.messageQueue.shift();

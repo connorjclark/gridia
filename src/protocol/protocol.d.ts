@@ -4,90 +4,49 @@
   The .ts files in this folder implement the files in gen/
 */
 
-declare namespace ClientToServerProtocol {
-  namespace Params {
-    interface AdminSetFloor extends TilePoint {
-      floor: number;
-    }
+type Message = { id?: number; data: any };
 
-    interface AdminSetItem extends TilePoint {
-      item?: Item;
-    }
-
-    interface CloseContainer {
-      containerId: number;
-    }
-
-    interface Move extends TilePoint {
-    }
-
-    interface MoveItem {
-      from: ItemLocation;
-      quantity?: number;
-      to: ItemLocation;
-    }
-
-    interface Register {
-      name: string;
-      password: string;
-    }
-
-    interface Login {
-      name: string;
-      password: string;
-    }
-
-    interface Logout {
-    }
-
-    interface RequestContainer {
-      containerId?: number;
-      loc?: TilePoint;
-    }
-
-    interface RequestCreature {
-      id: number;
-    }
-
-    interface RequestPartition {
-      w: number;
-    }
-
-    interface RequestSector extends TilePoint {
-    }
-
-    interface CreatureAction {
-      creatureId: number;
-      type: 'attack' | 'tame' | 'speak';
-    }
-
-    interface DialogueResponse {
-      choiceIndex?: number;
-    }
-
-    interface Use {
-      toolIndex: number;
-      location: ItemLocation;
-      usageIndex?: number;
-    }
-
-    interface Chat {
-      to: string;
-      message: string;
-    }
-  }
+interface Container_ {
+  type: import('../container').ContainerType;
+  id: number;
+  items: Array<Item | null>;
 }
 
-declare namespace ServerToClientProtocol {
-  namespace Params {
+type Command<P, R = void> = {
+  params: P;
+  response: R extends void ? void : Promise<R>;
+};
+
+declare namespace Protocol {
+  namespace Commands {
+    type AdminSetFloor = Command<TilePoint & { floor: number }>;
+    type AdminSetItem = Command<TilePoint & { item?: Item }>;
+    type Chat = Command<{ to: string; message: string }>;
+    type CloseContainer = Command<{ containerId: number }>;
+    type CreatureAction = Command<{ creatureId: number; type: 'attack' | 'tame' | 'speak' }>;
+    type DialogueResponse = Command<{ choiceIndex?: number }>;
+    type Login = Command<{ name: string; password: string }>;
+    type Logout = Command<{}>;
+    type Move = Command<TilePoint>;
+    type MoveItem = Command<{ from: ItemLocation; quantity?: number; to: ItemLocation }>;
+    type Register = Command<{ name: string; password: string }>;
+    type RequestContainer = Command<
+      { containerId?: number; loc?: TilePoint; },
+      { container: Container_ }
+    >;
+    type RequestCreature = Command<{ id: number }>;
+    type RequestPartition = Command<{ w: number }>;
+    type RequestSector = Command<TilePoint>;
+    type Use = Command<{ toolIndex: number; location: ItemLocation; usageIndex?: number }>;
+  }
+
+  namespace Events {
     interface Animation extends TilePoint {
       key: string;
     }
 
     interface Container {
-      type: import('../container').ContainerType;
-      id: number;
-      items: Array<Item | null>;
+      container: Container_;
     }
 
     interface Initialize {

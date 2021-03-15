@@ -4,12 +4,12 @@ import * as CommandParser from '../lib/command-parser';
 import Server from '../server/server';
 import * as Utils from '../utils';
 import { makeBareMap } from '../mapgen';
-import IClientToServerProtocol from './gen/client-to-server-protocol';
-import * as ProtocolBuilder from './server-to-client-protocol-builder';
-import Params = ClientToServerProtocol.Params;
+import IServerInterface from './gen/server-interface';
+import * as EventBuilder from './event-builder';
+import Commands = Protocol.Commands;
 
-export default class ClientToServerProtocol implements IClientToServerProtocol {
-  onMove(server: Server, { ...loc }: Params.Move): void {
+export default class ServerInterface implements IServerInterface {
+  onMove(server: Server, { ...loc }: Commands.Move['params']): Commands.Move['response'] {
     if (!server.context.map.inBounds(loc)) {
       return;
     }
@@ -34,7 +34,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     server.moveCreature(creature, loc);
   }
 
-  onRegister(server: Server, { name, password }: Params.Register): void {
+  onRegister(server: Server, { name, password }: Commands.Register['params']): Commands.Register['response'] {
     if (server.currentClientConnection.player) return;
     if (name.length > 20) return;
     if (password.length < 8) return;
@@ -45,7 +45,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     });
   }
 
-  onLogin(server: Server, { name, password }: Params.Login): void {
+  onLogin(server: Server, { name, password }: Commands.Login['params']): Commands.Login['response'] {
     if (server.currentClientConnection.player) return;
 
     const playerId = server.context.playerNamesToIds.get(name);
@@ -57,11 +57,12 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     });
   }
 
-  onLogout(server: Server, { }: Params.Logout): void {
+  onLogout(server: Server, { }: Commands.Logout['params']): Commands.Logout['response'] {
     server.removeClient(server.currentClientConnection);
   }
 
-  async onRequestContainer(server: Server, { containerId, loc }: Params.RequestContainer) {
+  // eslint-disable-next-line max-len
+  async onRequestContainer(server: Server, { containerId, loc }: Commands.RequestContainer['params']): Commands.RequestContainer['response'] {
     if (!containerId && !loc) throw new Error('expected containerId or loc');
     if (containerId && loc) throw new Error('expected only one of containerId or loc');
 
@@ -72,6 +73,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
 
     const isClose = true; // TODO
     if (!isClose) {
+      // @ts-ignore
       return;
     }
 
@@ -81,32 +83,34 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
 
     server.currentClientConnection.registeredContainers.push(containerId);
     const container = await server.context.getContainer(containerId);
-    server.reply(ProtocolBuilder.container(container));
+    return { container };
   }
 
-  onCloseContainer(server: Server, { containerId }: Params.CloseContainer): void {
+  // eslint-disable-next-line max-len
+  onCloseContainer(server: Server, { containerId }: Commands.CloseContainer['params']): Commands.CloseContainer['response'] {
     const index = server.currentClientConnection.registeredContainers.indexOf(containerId);
     if (index !== -1) {
       server.currentClientConnection.registeredContainers.splice(index, 1);
     }
   }
 
-  onRequestCreature(server: Server, { id }: Params.RequestCreature): void {
+  onRequestCreature(server: Server, { id }: Commands.RequestCreature['params']): Commands.RequestCreature['response'] {
     const creature = server.context.getCreature(id);
     if (!creature) {
       console.error('client requested invalid creature:', id);
       return;
     }
 
-    server.reply(ProtocolBuilder.setCreature({
+    server.reply(EventBuilder.setCreature({
       partial: false,
       ...creature,
     }));
   }
 
-  onRequestPartition(server: Server, { w }: Params.RequestPartition): void {
+  // eslint-disable-next-line max-len
+  onRequestPartition(server: Server, { w }: Commands.RequestPartition['params']): Commands.RequestPartition['response'] {
     const partition = server.context.map.getPartition(w);
-    server.reply(ProtocolBuilder.initializePartition({
+    server.reply(EventBuilder.initializePartition({
       w,
       x: partition.width,
       y: partition.height,
@@ -114,7 +118,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     }));
   }
 
-  async onRequestSector(server: Server, { ...loc }: Params.RequestSector) {
+  async onRequestSector(server: Server, { ...loc }: Commands.RequestSector['params']) {
     const isClose = true; // TODO
     if (loc.x < 0 || loc.y < 0 || loc.z < 0 || !isClose) {
       return;
@@ -122,13 +126,14 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
 
     const tiles = await server.ensureSectorLoaded(loc);
 
-    server.reply(ProtocolBuilder.sector({
+    server.reply(EventBuilder.sector({
       ...loc,
       tiles,
     }));
   }
 
-  onCreatureAction(server: Server, { creatureId, type }: Params.CreatureAction): void {
+  // eslint-disable-next-line max-len
+  onCreatureAction(server: Server, { creatureId, type }: Commands.CreatureAction['params']): Commands.CreatureAction['response'] {
     const creature = server.context.getCreature(creatureId);
     const isClose = true; // TODO
     if (!isClose) {
@@ -154,7 +159,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
       if (dialogue) {
         server.startDialogue(server.currentClientConnection, dialogue);
       } else {
-        server.reply(ProtocolBuilder.chat({
+        server.reply(EventBuilder.chat({
           from: creature.name,
           to: '', // TODO
           message: '...',
@@ -163,11 +168,12 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     }
   }
 
-  onDialogueResponse(server: Server, { choiceIndex }: Params.DialogueResponse): void {
+  // eslint-disable-next-line max-len
+  onDialogueResponse(server: Server, { choiceIndex }: Commands.DialogueResponse['params']): Commands.DialogueResponse['response'] {
     server.processDialogueResponse(server.currentClientConnection, choiceIndex);
   }
 
-  onUse(server: Server, { toolIndex, location, usageIndex }: Params.Use): void {
+  onUse(server: Server, { toolIndex, location, usageIndex }: Commands.Use['params']): Commands.Use['response'] {
     if (location.source === 'container') {
       return; // TODO
     }
@@ -211,7 +217,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
 
     server.setItemInContainer(inventory.id, toolIndex, usageResult.tool);
     server.context.map.getTile(loc).item = usageResult.focus;
-    server.broadcast(ProtocolBuilder.setItem({
+    server.broadcast(EventBuilder.setItem({
       location: Utils.ItemLocation.World(loc),
       item: usageResult.focus,
     }));
@@ -233,7 +239,8 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     }
   }
 
-  onAdminSetFloor(server: Server, { floor, ...loc }: Params.AdminSetFloor): void {
+  // eslint-disable-next-line max-len
+  onAdminSetFloor(server: Server, { floor, ...loc }: Commands.AdminSetFloor['params']): Commands.AdminSetFloor['response'] {
     if (!server.currentClientConnection.player.isAdmin) return;
 
     if (!server.context.map.inBounds(loc)) {
@@ -243,7 +250,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     server.setFloor(loc, floor);
   }
 
-  onAdminSetItem(server: Server, { item, ...loc }: Params.AdminSetItem): void {
+  onAdminSetItem(server: Server, { item, ...loc }: Commands.AdminSetItem['params']): Commands.AdminSetItem['response'] {
     if (!server.currentClientConnection.player.isAdmin) return;
 
     if (!server.context.map.inBounds(loc)) {
@@ -256,7 +263,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
   // moveItem handles movement between anywhere items can be - from the world to a player's
   // container, within a container, from a container to the world, or even between containers.
   // If "to" is null for a container, no location is specified and the item will be place in the first viable slot.
-  async onMoveItem(server: Server, { from, quantity, to }: Params.MoveItem) {
+  async onMoveItem(server: Server, { from, quantity, to }: Commands.MoveItem['params']) {
     async function boundsCheck(location: ItemLocation) {
       if (location.source === 'world') {
         if (!location.loc) throw new Error('invariant violated');
@@ -352,7 +359,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
 
     const validToLocation = findValidLocation(to, fromItem);
     if ('error' in validToLocation) {
-      server.reply(ProtocolBuilder.chat({
+      server.reply(EventBuilder.chat({
         from: 'World',
         to: '', // TODO
         message: validToLocation.error,
@@ -373,7 +380,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     if (toItem && fromItem.type !== toItem.type) return;
 
     if (!server.currentClientConnection.player.isAdmin && !Content.getMetaItem(fromItem.type).moveable) {
-      server.reply(ProtocolBuilder.chat({
+      server.reply(EventBuilder.chat({
         from: 'World',
         to: '', // TODO
         message: 'That item is not moveable',
@@ -384,7 +391,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     // Prevent container-ception.
     if (Content.getMetaItem(fromItem.type).class === 'Container' && to.source === 'container'
       && to.id === fromItem.containerId) {
-      server.reply(ProtocolBuilder.chat({
+      server.reply(EventBuilder.chat({
         from: 'World',
         to: '', // TODO
         message: 'You cannot store a container inside another container',
@@ -414,7 +421,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
     // context.queueTileChange(to)
   }
 
-  onChat(server: Server, { to, message }: Params.Chat): void {
+  onChat(server: Server, { to, message }: Commands.Chat['params']): Commands.Chat['response'] {
     if (message.startsWith('/')) {
       const parsedCommand = CommandParser.parseCommand(message.substring(1));
 
@@ -461,7 +468,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
           do(args: { name: string }) {
             const template = Content.getMonsterTemplateByNameNoError(args.name);
             if (!template) {
-              server.reply(ProtocolBuilder.chat({ from: 'SERVER', to, message: `No monster named ${args.name}` }));
+              server.reply(EventBuilder.chat({ from: 'SERVER', to, message: `No monster named ${args.name}` }));
               return;
             }
 
@@ -475,7 +482,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
         time: {
           args: [],
           do() {
-            server.currentClientConnection.send(ProtocolBuilder.chat({
+            server.currentClientConnection.sendEvent(EventBuilder.chat({
               from: 'World',
               to: '', // TODO
               message: `The time is ${server.time.toString()}`,
@@ -485,7 +492,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
         who: {
           args: [],
           do() {
-            server.currentClientConnection.send(ProtocolBuilder.chat({
+            server.currentClientConnection.sendEvent(EventBuilder.chat({
               from: 'World',
               to: '', // TODO
               message: server.getMessagePlayersOnline(),
@@ -501,7 +508,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
             server.context.map.addPartition(nextPartitionId, partition);
             server.save().then(() => {
               partition.loaded = true;
-              server.currentClientConnection.send(ProtocolBuilder.chat({
+              server.currentClientConnection.sendEvent(EventBuilder.chat({
                 from: 'World',
                 to: '', // TODO
                 message: `Made partition ${nextPartitionId}`,
@@ -546,7 +553,7 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
               messageBody += `/${commandName} ${args}\n`;
               if (data.help) messageBody += `  ${data.help}\n`;
             }
-            server.reply(ProtocolBuilder.chat({ from: 'SERVER', to, message: messageBody }));
+            server.reply(EventBuilder.chat({ from: 'SERVER', to, message: messageBody }));
           },
         },
       };
@@ -554,22 +561,22 @@ export default class ClientToServerProtocol implements IClientToServerProtocol {
       // @ts-ignore
       const command = COMMANDS[parsedCommand.commandName];
       if (!command) {
-        server.reply(ProtocolBuilder.chat({ from: 'SERVER', to, message: `unknown command: ${message}` }));
+        server.reply(EventBuilder.chat({ from: 'SERVER', to, message: `unknown command: ${message}` }));
         return;
       }
 
       const parsedArgs = CommandParser.parseArgs(parsedCommand.argsString, command.args);
       if ('error' in parsedArgs) {
-        server.reply(ProtocolBuilder.chat({ from: 'SERVER', to, message: `error: ${parsedArgs.error}` }));
+        server.reply(EventBuilder.chat({ from: 'SERVER', to, message: `error: ${parsedArgs.error}` }));
         return;
       }
 
       const maybeError = command.do(parsedArgs);
       if (maybeError) {
-        server.reply(ProtocolBuilder.chat({ from: 'SERVER', to, message: `error: ${maybeError}` }));
+        server.reply(EventBuilder.chat({ from: 'SERVER', to, message: `error: ${maybeError}` }));
       }
     } else {
-      server.broadcast(ProtocolBuilder.chat({ from: server.currentClientConnection.player.name, to, message }));
+      server.broadcast(EventBuilder.chat({ from: server.currentClientConnection.player.name, to, message }));
     }
   }
 }

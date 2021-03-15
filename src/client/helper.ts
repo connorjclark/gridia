@@ -1,6 +1,6 @@
 import * as Content from '../content';
 import { game } from '../game-singleton';
-import * as ProtocolBuilder from '../protocol/client-to-server-protocol-builder';
+import * as CommandBuilder from '../protocol/command-builder';
 import * as Utils from '../utils';
 
 export function canUseHand(itemType: number) {
@@ -12,7 +12,7 @@ export function usageExists(tool: number, focus: number) {
 }
 
 export function useHand(loc: TilePoint) {
-  game.client.connection.send(ProtocolBuilder.use({
+  game.client.connection.sendCommand(CommandBuilder.use({
     toolIndex: -1,
     location: Utils.ItemLocation.World(loc),
   }));
@@ -41,7 +41,7 @@ export function useTool(loc: TilePoint, opts: { toolIndex: number; usageIndex?: 
   }
 
   if (usages.length === 1 || usageIndex !== undefined) {
-    game.client.connection.send(ProtocolBuilder.use({
+    game.client.connection.sendCommand(CommandBuilder.use({
       toolIndex,
       location: Utils.ItemLocation.World(loc),
       usageIndex,
@@ -54,13 +54,13 @@ export function useTool(loc: TilePoint, opts: { toolIndex: number; usageIndex?: 
 // TODO: add tests checking that subscribed containers are updated in all clients.
 // TODO: don't keep requesting container if already open.
 export function openContainer(loc: TilePoint) {
-  game.client.connection.send(ProtocolBuilder.requestContainer({
+  game.client.connection.sendCommand(CommandBuilder.requestContainer({
     loc,
   }));
 }
 
 export function closeContainer(containerId: number) {
-  game.client.connection.send(ProtocolBuilder.closeContainer({
+  game.client.connection.sendCommand(CommandBuilder.closeContainer({
     containerId,
   }));
 }

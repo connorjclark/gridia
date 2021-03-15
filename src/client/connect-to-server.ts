@@ -13,8 +13,8 @@ export async function connect(hostname: string, port: number): Promise<Client> {
   });
 
   const connection = new WebSocketConnection(ws);
-  connection.setOnMessage((message) => {
-    client.eventEmitter.emit('message', message);
+  connection.setOnEvent((event) => {
+    client.eventEmitter.emit('event', event);
   });
   const context = new Context(createClientWorldMap(connection));
   const client = new Client(connection, context);
@@ -24,8 +24,8 @@ export async function connect(hostname: string, port: number): Promise<Client> {
 export async function connectToServerWorker(serverWorker: ServerWorker, opts: ServerWorkerOpts): Promise<Client> {
   await serverWorker.startServer(opts);
   const connection = new WorkerConnection(serverWorker.worker);
-  connection.setOnMessage((message) => {
-    client.eventEmitter.emit('message', message);
+  connection.setOnEvent((event) => {
+    client.eventEmitter.emit('event', event);
   });
   const context = new Context(createClientWorldMap(connection));
   const client = new Client(connection, context);

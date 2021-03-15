@@ -1,4 +1,4 @@
-import * as ProtocolBuilder from '../../protocol/client-to-server-protocol-builder';
+import * as CommandBuilder from '../../protocol/command-builder';
 import * as Utils from '../../utils';
 import ClientModule from '../client-module';
 import { makeAdminWindow, State } from '../ui/admin-window';
@@ -127,7 +127,7 @@ class AdminModule extends ClientModule {
       // Don't overwrite existing items - must explictly select the "null" item to delete items.
       if (this._state.safeMode && currentItem && item) return;
 
-      this.game.client.connection.send(ProtocolBuilder.adminSetItem({
+      this.game.client.connection.sendCommand(CommandBuilder.adminSetItem({
         ...loc,
         item,
       }));
@@ -138,7 +138,7 @@ class AdminModule extends ClientModule {
     } else if (this._state.selected.type === 'floor') {
       const floor = this._state.selected.id;
       if (this.game.client.context.map.getTile(loc).floor === floor) return;
-      this.game.client.connection.send(ProtocolBuilder.adminSetFloor({
+      this.game.client.connection.sendCommand(CommandBuilder.adminSetFloor({
         ...loc,
         floor,
       }));
