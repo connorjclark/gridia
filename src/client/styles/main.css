@@ -8,6 +8,13 @@ html {
   width: 100%;
 }
 
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
   margin: 0;
   overflow-x: hidden;
@@ -212,7 +219,6 @@ button {
 .grid-container .top { grid-area: top; }
 
 .window {
-  box-sizing: border-box;
   max-width: 30vw;
   max-height: 100%;
   padding: 3px;
@@ -247,7 +253,6 @@ button {
 }
 .admin__selection--selected {
   border: 1px solid gold;
-  box-sizing: border-box;
 }
 
 .admin__tool--selected {
