@@ -29,11 +29,20 @@ class MainController {
   private scenes: Scene[] = [];
   private client_: Client | null = null;
   private serverWorker_: ServerWorker | null = null;
+  private backBtn_ = Helper.find('.scene-controller--back-btn');
+
+  constructor() {
+    this.backBtn_.addEventListener('click', () => {
+      this.popScene();
+    });
+    this.setBackButtonClass();
+  }
 
   pushScene(newScene: Scene) {
     if (this.currentScene) this.currentScene.onHide();
     this.scenes.push(newScene);
     newScene.onShow();
+    this.setBackButtonClass();
   }
 
   popScene() {
@@ -43,6 +52,7 @@ class MainController {
       this.scenes.pop();
     }
     this.currentScene.onShow();
+    this.setBackButtonClass();
   }
 
   async loadWorker() {
@@ -64,6 +74,11 @@ class MainController {
 
     this.serverWorker_ = new ServerWorker();
     await this.serverWorker_.init({ directoryHandle });
+  }
+
+  destoryWorker() {
+    this.serverWorker_?.close();
+    this.serverWorker_ = null;
   }
 
   get currentScene() {
@@ -91,6 +106,12 @@ class MainController {
 
   set serverWorker(worker: ServerWorker) {
     this.serverWorker_ = worker;
+  }
+
+  private setBackButtonClass() {
+    const shouldHide = this.scenes.length <= 1 ||
+      this.currentScene.element.classList.contains('register');
+    this.backBtn_.classList.toggle('hidden', shouldHide);
   }
 }
 
@@ -231,6 +252,11 @@ class MapSelectScene extends Scene {
     super.onHide();
     this.selectBtn.removeEventListener('click', this.onClickSelectBtn);
     this.mapListEl.removeEventListener('click', this.onSelectMap);
+  }
+
+  onDestroy() {
+    super.onDestroy();
+    controller.destoryWorker();
   }
 }
 
@@ -626,8 +652,9 @@ function startGame(client: Client) {
   controller.pushScene(new GameScene());
 }
 
-const controller = new MainController();
+let controller: MainController;
 document.addEventListener('DOMContentLoaded', async () => {
+  controller = new MainController();
   setupDebugging();
   await Content.loadContentFromNetwork();
 
@@ -652,9 +679,4 @@ document.addEventListener('DOMContentLoaded', async () => {
   } else {
     controller.pushScene(new StartScene());
   }
-
-  const backBtn = Helper.find('.scene-controller--back-btn');
-  backBtn.addEventListener('click', () => {
-    controller.popScene();
-  });
 });

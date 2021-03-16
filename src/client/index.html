@@ -6,6 +6,7 @@
   <script src="../pixi/index.ts"></script>
   <script src="./main.ts"></script>
   <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="../../node_modules/basscss/css/basscss.css">
   <link rel="stylesheet" href="styles/buttons.css">
 </head>
 
@@ -14,39 +15,45 @@
     <button class="scene-controller--back-btn">Back</button>
   </div>
 
-  <div class="start hidden">
+  <div class="scene start hidden">
+    <h2>Play locally</h2>
     <div>
-      <button class="blue start--local-btn">Local / Single Player</button>
+      <button class="blue start--local-btn">Single Player</button>
     </div>
 
+    <h2>Play online</h2>
     <div>
-      <label for="start--server-location">Server Location</label>
+      <label for="start--server-location">Server</label>
       <input type="text" name="server-location" id="start--server-location"></label>
       <button class="blue start--connect-btn">Connect</button>
     </div>
   </div>
 
-  <div class="map-select hidden">
+  <div class="scene map-select hidden">
+    <h1>Existing worlds</h1>
     <ul class="map-list"></ul>
 
-    <div class="generate">
-      <div class="generate--input-form"></div>
-      <button class="generate--select-btn">Select</button>
-      <div class="generate--preview"></div>
+    <h1>New world</h1>
+    <div class="generate flex flex-column items-center">
+      <div class="flex">
+        <div class="generate--preview"></div>
+        <div class="generate--input-form"></div>
+      </div>
+      <button class="blue generate--select-btn">Select</button>
     </div>
   </div>
 
-  <div class="register hidden">
+  <div class="scene register hidden">
     <div class="register__players">
       Existing Characters:
     </div>
 
-    <div class="register--form">
+    <div class="register--form flex flex-column">
       <div>
         <label for="register--name">Name</label>
         <input type="text" name="name" id="register--name" maxlength="20"></label>
       </div>
-      <button class="register-btn">Register</button>
+      <button class="blue register-btn">Register</button>
     </div>
   </div>
 

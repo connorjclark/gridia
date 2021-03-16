@@ -2,6 +2,7 @@
   "dependencies": {
     "@pixi/filter-outline": "^3.0.3",
     "a-star": "^0.2.0",
+    "basscss": "^8.1.0",
     "d3-delaunay": "^5.1.6",
     "d3-polygon": "^2.0.0",
     "dlv": "^1.1.3",

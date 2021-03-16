@@ -107,17 +107,21 @@ export class WebSocketConnection extends Connection {
 export class WorkerConnection extends Connection {
   constructor(private _worker: Worker) {
     super();
-    _worker.onmessage = (e) => {
-      const message = WireSerializer.deserialize<Message>(e.data);
-      debug('<-', message);
 
-      if (message.id) {
-        this.resolveCommand(message.id, message.data);
-        return;
-      }
+    this.onMessage = this.onMessage.bind(this);
+    this._worker.addEventListener('message', this.onMessage);
+  }
 
-      if (this._onEvent) this._onEvent(message.data);
-    };
+  onMessage(e: MessageEvent) {
+    const message = WireSerializer.deserialize<Message>(e.data);
+    debug('<-', message);
+
+    if (message.id) {
+      this.resolveCommand(message.id, message.data);
+      return;
+    }
+
+    if (this._onEvent) this._onEvent(message.data);
   }
 
   send_(message: { id: number; data: ProtocolCommand }) {
@@ -126,6 +130,6 @@ export class WorkerConnection extends Connection {
   }
 
   close() {
-    this._worker.onmessage = null;
+    this._worker.removeEventListener('message', this.onMessage);
   }
 }

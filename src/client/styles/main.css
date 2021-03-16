@@ -33,6 +33,14 @@ button {
   display: none !important;
 }
 
+.scene {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 #canvases {
   flex-grow: 1;
   height: 75%;
@@ -119,14 +127,6 @@ button {
   color: gold;
 }
 
-.register {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
 .register--form {
   background-color: gray;
   padding: 20px;
@@ -146,8 +146,13 @@ button {
 }
 
 .generate--preview {
+  overflow: scroll;
   width: 400px;
   height: 400px;
+}
+
+.generate--select-btn {
+  width: 200px;
 }
 
 .map-list {

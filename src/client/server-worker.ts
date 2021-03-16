@@ -13,14 +13,22 @@ export class ServerWorker {
   private _nextRpcId = 1;
 
   constructor() {
-    this.worker.onmessage = (e) => {
-      if (!e.data.rpc) throw new Error('unexpected message from server worker');
+    this._onMessage = this._onMessage.bind(this);
+    this.worker.addEventListener('message', this._onMessage);
+  }
 
-      const cb = this._rpcCallbacks.get(e.data.rpc);
-      if (!cb) throw new Error(`could not find callback for rpc ${e.data.rpc}`);
-      this._rpcCallbacks.delete(e.data.rpc);
-      cb(e.data.result);
-    };
+  close() {
+    this.worker.terminate();
+    this.worker.removeEventListener('message', this._onMessage);
+  }
+
+  private _onMessage(e: MessageEvent) {
+    if (!e.data.rpc) return;
+
+    const cb = this._rpcCallbacks.get(e.data.rpc);
+    if (!cb) throw new Error(`could not find callback for rpc ${e.data.rpc}`);
+    this._rpcCallbacks.delete(e.data.rpc);
+    cb(e.data.result);
   }
 
   private _createRpc(method: string, ...transferKeys: string[]) {
