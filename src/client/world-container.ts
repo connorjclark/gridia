@@ -211,6 +211,10 @@ export class WorldContainer extends PIXI.Container {
   ambientLight = 0;
 
   private tiles = new Map<string, Tile>();
+  private numTicksUntilNextLightCompute = 0;
+  private computeLightCache: {
+    lastPlayerPos?: TilePoint;
+  } = {};
 
   constructor(public map: WorldMap) {
     super();
@@ -234,7 +238,7 @@ export class WorldContainer extends PIXI.Container {
       tile.setFloor(floor);
       tile.setItem(item);
     });
-    this.computeLight();
+    this.maybeComputeLight();
     this.drawGrid(); // ?
 
     this.x = -this.camera.left * GFX_SIZE;
@@ -244,6 +248,24 @@ export class WorldContainer extends PIXI.Container {
     this.layers.grid.y = -this.y;
 
     this.pruneTiles();
+  }
+
+  maybeComputeLight() {
+    let shouldCompute = false;
+
+    if (this.numTicksUntilNextLightCompute-- <= 0) {
+      shouldCompute = true;
+      this.numTicksUntilNextLightCompute = 5;
+    }
+
+    if (Utils.equalPoints(game.client.player.creature.pos, this.computeLightCache.lastPlayerPos)) {
+      shouldCompute = true;
+    }
+
+    if (shouldCompute) {
+      this.computeLightCache.lastPlayerPos = { ...game.client.player.creature.pos };
+      this.computeLight();
+    }
   }
 
   forEachInCamera(cb: (tile: Tile, loc: Point4, screenX: number, screenY: number) => void) {
