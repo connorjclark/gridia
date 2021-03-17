@@ -96,12 +96,17 @@ export default class Server {
     this.broadcastInRange(EventBuilder.animation({ ...pos, key: name }), pos, 30);
   }
 
-  broadcastChat(message: string) {
+  broadcastChat(opts: { from: string; message: string }) {
+    console.log(`${opts.from}: ${opts.message}`);
     this.broadcast(EventBuilder.chat({
-      from: 'SERVER',
+      from: opts.from,
       to: 'global',
-      message,
+      message: opts.message,
     }));
+  }
+
+  broadcastChatFromServer(message: string) {
+    this.broadcastChat({ from: 'SERVER', message });
   }
 
   start() {
@@ -297,7 +302,7 @@ export default class Server {
     this.players.set(player.id, player);
     clientConnection.player = player;
     await this.initClient(clientConnection);
-    this.broadcastChat(`${clientConnection.player.name} has entered the world.`);
+    this.broadcastChatFromServer(`${clientConnection.player.name} has entered the world.`);
 
     if (opts.justCreated) {
       for (const script of this._scripts) {
@@ -315,7 +320,7 @@ export default class Server {
       this.context.savePlayer(clientConnection.player);
       this.removeCreature(clientConnection.player.creature);
       this.broadcastAnimation(clientConnection.player.creature.pos, 'WarpOut');
-      this.broadcastChat(`${clientConnection.player.name} has left the world.`);
+      this.broadcastChatFromServer(`${clientConnection.player.name} has left the world.`);
     }
   }
 

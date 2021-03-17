@@ -614,7 +614,7 @@ export default class ServerInterface implements IServerInterface {
         server.reply(EventBuilder.chat({ from: 'SERVER', to, message: `error: ${maybeError}` }));
       }
     } else {
-      server.broadcast(EventBuilder.chat({ from: server.currentClientConnection.player.name, to, message }));
+      server.broadcastChat({ from: server.currentClientConnection.player.name, message });
     }
 
     return Promise.resolve();
