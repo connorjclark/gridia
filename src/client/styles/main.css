@@ -3,6 +3,11 @@
   src: url('../fonts/Jura.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'VT323';
+  src: url('../fonts/VT323.ttf') format('truetype');
+}
+
 * {
   font-family: 'Jura';
   user-select: none;
@@ -37,6 +42,12 @@ button {
 
 .hidden {
   display: none !important;
+}
+
+.game-title {
+  font-family: 'VT323';
+  font-size: 300px;
+  margin: 0;
 }
 
 .scene {
