@@ -75,6 +75,8 @@ export class WebSocketConnection extends Connection {
   constructor(private _ws: WebSocket) {
     super();
     _ws.addEventListener('message', (e) => {
+      if (e.data.rpc) return;
+
       const message = WireSerializer.deserialize<Message>(e.data);
       debug('<-', message);
 
@@ -113,6 +115,8 @@ export class WorkerConnection extends Connection {
   }
 
   onMessage(e: MessageEvent) {
+    if (e.data.rpc) return;
+
     const message = WireSerializer.deserialize<Message>(e.data);
     debug('<-', message);
 

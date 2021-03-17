@@ -8,7 +8,6 @@ import * as Utils from '../utils';
 import WorldMapPartition from '../world-map-partition';
 import { WorldTime } from '../world-time';
 import Container, { ContainerType } from '../container';
-import { ProtocolCommand } from '../protocol/command-builder';
 import { ProtocolEvent } from '../protocol/event-builder';
 import ClientConnection from './client-connection';
 import CreatureState from './creature-state';
