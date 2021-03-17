@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Jura';
+  src: url('../fonts/Jura.ttf') format('truetype');
+}
+
 * {
   user-select: none;
 }
@@ -16,6 +21,7 @@ html {
 }
 
 body {
+  font-family: 'Jura';
   margin: 0;
   overflow-x: hidden;
   overflow-y: hidden;
