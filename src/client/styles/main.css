@@ -4,6 +4,7 @@
 }
 
 * {
+  font-family: 'Jura';
   user-select: none;
 }
 
@@ -21,7 +22,6 @@ html {
 }
 
 body {
-  font-family: 'Jura';
   margin: 0;
   overflow-x: hidden;
   overflow-y: hidden;
