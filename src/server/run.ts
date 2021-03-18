@@ -52,6 +52,7 @@ async function main(options: CLIOptions) {
   nodeCleanup((exitCode, signal) => {
     if (!signal) return;
 
+    nodeCleanup.uninstall();
     console.log('Shutting down server ...');
     webserver.close();
     server.stop();
