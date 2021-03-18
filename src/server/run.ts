@@ -3,6 +3,7 @@ import * as http from 'http';
 import * as https from 'https';
 import { Server as WebSocketServer } from 'ws';
 import * as yargs from 'yargs';
+import * as nodeCleanup from 'node-cleanup';
 import { NodeFs } from '../iso-fs';
 import * as WireSerializer from '../lib/wire-serializer';
 import ClientConnection from './client-connection';
@@ -48,17 +49,18 @@ async function main(options: CLIOptions) {
     server.clientConnections.push(clientConnection);
   });
 
-  async function onTerminate() {
+  nodeCleanup((exitCode, signal) => {
+    if (!signal) return;
+
     console.log('Shutting down server ...');
     webserver.close();
     server.stop();
-    await server.save();
-    console.log('Saved! Exiting now.');
-    process.exit(0);
-  }
-
-  process.once('SIGINT', onTerminate);
-  process.once('SIGTERM', onTerminate);
+    server.save().then(() => {
+      console.log('Saved! Exiting now.');
+      process.kill(process.pid, signal);
+    });
+    return false;
+  });
 
   return server;
 }
