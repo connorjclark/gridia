@@ -1,10 +1,10 @@
 import * as Content from '../content';
 import * as WireSerializer from '../lib/wire-serializer';
-import * as fs from '../iso-fs';
 import { makeMapImage } from '../lib/map-generator/map-image-maker';
 import mapgen, { makeBareMap } from '../mapgen';
 import WorldMap from '../world-map';
 import WorldMapPartition from '../world-map-partition';
+import { FsApiFs, IdbFs, IsoFs } from '../iso-fs';
 import ClientConnection from './client-connection';
 import { startServer as _startServer } from './create-server';
 import Server from './server';
@@ -17,6 +17,8 @@ let clientConnection: ClientConnection;
 let mapPreviewPartition: WorldMapPartition | null = null;
 let mapPreviewGenData: ReturnType<typeof mapgen>['mapGenResult'] | null = null;
 
+let mapsFs: IsoFs;
+
 function maybeDelay(fn: () => void) {
   if (opts.dummyDelay > 0) {
     setTimeout(fn, opts.dummyDelay);
@@ -25,32 +27,42 @@ function maybeDelay(fn: () => void) {
   }
 }
 
+async function makeFsForMap(name: string) {
+  if (initArgs_.directoryHandle) {
+    return new FsApiFs(await initArgs_.directoryHandle.getDirectoryHandle(name));
+  } else {
+    return new IdbFs(name);
+  }
+}
+
 async function saveMapGen(name: string) {
   if (!mapPreviewPartition) throw new Error('missing mapPreviewPartition');
 
-  await fs.mkdir(name);
-  fs.setRootDirectoryPath(name);
+  await mapsFs.mkdir(name);
   const world = new WorldMap();
   world.addPartition(0, mapPreviewPartition);
-  const context = new ServerContext(world);
+
+  const context = new ServerContext(world, await makeFsForMap(name));
   await context.save();
 }
 
 interface InitArgs {
   directoryHandle?: FileSystemDirectoryHandle;
 }
+let initArgs_: InitArgs;
 async function init(args: InitArgs) {
+  initArgs_ = args;
   if (args.directoryHandle) {
-    fs.initialize({ type: 'fsapi', rootDirectoryPath: '', rootDirectoryHandle: args.directoryHandle });
+    mapsFs = new FsApiFs(args.directoryHandle);
   } else {
-    fs.initialize({ type: 'idb', rootDirectoryPath: '' });
+    mapsFs = new IdbFs('');
   }
   await Content.loadContentFromNetwork();
 }
 
 async function listMaps() {
   // TODO: add {type: FOLDER} to readdir.
-  const mapNames = (await fs.readdir('')).filter((name) => !name.startsWith('.'));
+  const mapNames = (await mapsFs.readdir('')).filter((name) => !name.startsWith('.'));
   return { mapNames };
 }
 
@@ -90,8 +102,6 @@ async function saveGeneratedMap(args: { name: string }) {
 async function startServer(args: ServerWorkerOpts) {
   opts = args; // :(
 
-  fs.setRootDirectoryPath(args.mapName);
-
   clientConnection = new ClientConnection();
   clientConnection.send = (message) => {
     maybeDelay(() => {
@@ -100,7 +110,7 @@ async function startServer(args: ServerWorkerOpts) {
     });
   };
 
-  server = await _startServer(args);
+  server = await _startServer(args, await makeFsForMap(args.mapName));
   server.clientConnections.push(clientConnection);
 }
 

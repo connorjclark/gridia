@@ -1,21 +1,21 @@
 import * as Content from '../content';
-import * as fs from '../iso-fs';
+import { IsoFs } from '../iso-fs';
 import { makeMapImage } from '../lib/map-generator/map-image-maker';
 import Server from '../server/server';
 import { ServerContext } from '../server/server-context';
 import * as Utils from '../utils';
 import { createMainWorldMap } from '../world-map-debug';
 
-export async function startServer(options: ServerOptions) {
+export async function startServer(options: ServerOptions, fs: IsoFs) {
   const { verbose } = options;
 
   let context: ServerContext;
   if ((await fs.readdir('')).length !== 0) {
-    context = await ServerContext.load();
+    context = await ServerContext.load(fs);
   } else {
     // TODO: shouldn't create a world here...
     const { world, mapGenData } = createMainWorldMap();
-    context = new ServerContext(world);
+    context = new ServerContext(world, fs);
     await context.save();
 
     // Only save images in Node server.

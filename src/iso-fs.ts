@@ -1,77 +1,55 @@
 import * as fs from 'fs';
 import { IDBPDatabase, openDB } from 'idb';
 
-const isNode = typeof process !== 'undefined' && typeof process.release !== 'undefined';
-
-export let rootDirectoryPath_ = '';
-let rootDirectoryHandle_: FileSystemDirectoryHandle;
-let fsType: 'native' | 'fsapi' | 'idb';
-
-interface InitializeOptions {
-  type: typeof fsType;
-  rootDirectoryPath: string;
-  rootDirectoryHandle?: FileSystemDirectoryHandle;
+export abstract class IsoFs {
+  abstract exists(path: string): Promise<boolean>;
+  abstract writeFile(path: string, data: string): Promise<void>;
+  abstract readFile(path: string): Promise<string>;
+  abstract mkdir(path: string, opts?: fs.MakeDirectoryOptions): Promise<void>;
+  abstract readdir(path: string): Promise<string[]>;
 }
 
-export function setRootDirectoryPath(path: string) {
-  if (fsType === 'native') throw new Error();
-  rootDirectoryPath_ = path;
-}
+export class NodeFs extends IsoFs {
+  constructor(private rootDirectoryPath: string) {
+    super();
 
-export async function initialize({ type, rootDirectoryPath, rootDirectoryHandle }: InitializeOptions) {
-  rootDirectoryPath_ = rootDirectoryPath;
-
-  if (isNode && type !== 'native') throw new Error('invalid type for node');
-
-  if (type === 'native') {
-    exists = nodeExists;
-    writeFile = nodeWriteFile;
-    readFile = nodeReadFile;
-    mkdir = nodeMkDir;
-    readdir = nodeReadDir;
-  } else if (type === 'fsapi') {
-    if (!rootDirectoryHandle) throw new Error('missing rootDirectoryHandle');
-    rootDirectoryHandle_ = rootDirectoryHandle;
-
-    exists = fsapiExists;
-    writeFile = fsapiWriteFile;
-    readFile = fsapiReadFile;
-    mkdir = fsapiMkdir;
-    readdir = fsapiReadDir;
-  } else if (type === 'idb') {
-    exists = idbExists;
-    writeFile = idbWriteFile;
-    readFile = idbReadFile;
-    mkdir = (path: string, _opts?: any) => idbWriteFile(path, '');
-    readdir = idbReadDir;
-
-    if (!await getDb()) throw new Error('error creating indexeddb');
+    const isNode = typeof process !== 'undefined' && typeof process.release !== 'undefined';
+    if (!isNode) throw new Error('not in node');
   }
-}
 
-function nodeExists(path: string): Promise<boolean> {
-  path = `${rootDirectoryPath_}/${path}`;
-  return new Promise((resolve) => fs.exists(path, resolve));
-}
+  async exists(path: string) {
+    path = `${this.rootDirectoryPath}/${path}`;
+    try {
+      await fs.promises.stat(path);
+      return true;
+    } catch (err) {
+      if (err.code === 'ENOENT') {
+        return false;
+      } else {
+        throw err;
+      }
+    }
+  }
 
-function nodeWriteFile(path: string, data: string) {
-  path = `${rootDirectoryPath_}/${path}`;
-  return fs.promises.writeFile(path, data);
-}
+  writeFile(path: string, data: string) {
+    path = `${this.rootDirectoryPath}/${path}`;
+    return fs.promises.writeFile(path, data);
+  }
 
-function nodeReadFile(path: string) {
-  path = `${rootDirectoryPath_}/${path}`;
-  return fs.promises.readFile(path, 'utf-8');
-}
+  readFile(path: string) {
+    path = `${this.rootDirectoryPath}/${path}`;
+    return fs.promises.readFile(path, 'utf-8');
+  }
 
-function nodeMkDir(path: string, opts?: fs.MakeDirectoryOptions) {
-  path = `${rootDirectoryPath_}/${path}`;
-  return fs.promises.mkdir(path, opts);
-}
+  mkdir(path: string, opts?: fs.MakeDirectoryOptions) {
+    path = `${this.rootDirectoryPath}/${path}`;
+    return fs.promises.mkdir(path, opts);
+  }
 
-function nodeReadDir(path: string) {
-  path = `${rootDirectoryPath_}/${path}`;
-  return fs.promises.readdir(path);
+  readdir(path: string) {
+    path = `${this.rootDirectoryPath}/${path}`;
+    return fs.promises.readdir(path);
+  }
 }
 
 const dbName = 'gridia';
@@ -99,142 +77,145 @@ function parseDatabasePath(path: string) {
   // return [path.substr(0, firstSep), path.substr(firstSep)];
 }
 
-async function idbExists(path: string): Promise<boolean> {
-  path = `${rootDirectoryPath_}/${path}`;
-  const db = await getDb();
-  const [storeName, query] = parseDatabasePath(path);
-  return typeof await db.get(storeName, query) !== 'undefined';
-}
+export class IdbFs extends IsoFs {
+  constructor(private rootDirectoryPath: string) {
+    super();
+  }
 
-async function idbWriteFile(path: string, data: string) {
-  path = `${rootDirectoryPath_}/${path}`;
-  const db = await getDb();
-  const [storeName, query] = parseDatabasePath(path);
-  await db.put(storeName, data, query);
-}
+  async exists(path: string) {
+    path = `${this.rootDirectoryPath}/${path}`;
+    const db = await getDb();
+    const [storeName, query] = parseDatabasePath(path);
+    return typeof await db.get(storeName, query) !== 'undefined';
+  }
 
-async function idbReadFile(path: string): Promise<string> {
-  path = `${rootDirectoryPath_}/${path}`;
-  const db = await getDb();
-  const [storeName, query] = parseDatabasePath(path);
-  return db.get(storeName, query);
-}
+  async writeFile(path: string, data: string) {
+    path = `${this.rootDirectoryPath}/${path}`;
+    const db = await getDb();
+    const [storeName, query] = parseDatabasePath(path);
+    await db.put(storeName, data, query);
+  }
 
-async function idbReadDir(path: string) {
-  path = `${rootDirectoryPath_}/${path}`;
-  if (!path.endsWith('/')) path += '/';
+  async readFile(path: string) {
+    path = `${this.rootDirectoryPath}/${path}`;
+    const db = await getDb();
+    const [storeName, query] = parseDatabasePath(path);
+    return db.get(storeName, query);
+  }
 
-  const db = await getDb();
-  const [storeName, query] = parseDatabasePath(path);
-  if (!db.objectStoreNames.contains(storeName)) return [];
+  async mkdir(path: string, opts?: fs.MakeDirectoryOptions) {
+    return this.writeFile(path, '');
+  }
 
-  // This is pretty hacky.
-  const keysInAlphaRange = (await db.getAllKeys(storeName, IDBKeyRange.bound(query, `${query}zzz`)))
-    .map((k) => k.toString());
-  return keysInAlphaRange.filter((key) => {
-    if (key === query) return false;
+  async readdir(path: string) {
+    path = `${this.rootDirectoryPath}/${path}`;
+    if (!path.endsWith('/')) path += '/';
 
-    const nextSep = key.indexOf('/', query.length);
-    if (nextSep === -1 || nextSep === query.length - 1) return true;
-    return false;
-  }).map((key) => key.replace(new RegExp('^' + query), ''));
-}
+    const db = await getDb();
+    const [storeName, query] = parseDatabasePath(path);
+    if (!db.objectStoreNames.contains(storeName)) return [];
 
-const cache = new Map<string, FileSystemDirectoryHandle>();
-async function fsapiTraversePath(pathComponents: string[]) {
-  const path = pathComponents.join('/');
-  const cachedResult = cache.get(path);
-  if (cachedResult) return cachedResult;
+    // This is pretty hacky.
+    const keysInAlphaRange = (await db.getAllKeys(storeName, IDBKeyRange.bound(query, `${query}zzz`)))
+      .map((k) => k.toString());
+    return keysInAlphaRange.filter((key) => {
+      if (key === query) return false;
 
-  let dir = rootDirectoryHandle_;
-  for (const pathComponent of pathComponents) {
-    if (!pathComponent) continue;
-
-    try {
-      dir = await dir.getDirectoryHandle(pathComponent);
-    } catch (_) {
+      const nextSep = key.indexOf('/', query.length);
+      if (nextSep === -1 || nextSep === query.length - 1) return true;
       return false;
+    }).map((key) => key.replace(new RegExp('^' + query), ''));
+  }
+}
+
+export class FsApiFs extends IsoFs {
+  private cache = new Map<string, FileSystemDirectoryHandle>();
+
+  constructor(private rootDirectoryHandle: FileSystemDirectoryHandle) {
+    super();
+  }
+
+  async exists(path: string) {
+    const pathComponents = path.split('/');
+    const filename = pathComponents.pop();
+    if (!filename) return false;
+
+    const dir = await this.traversePath(pathComponents);
+    if (!dir) return false;
+
+    const doesExist = dir.getFileHandle(filename)
+      .then(() => true)
+      .catch(() => false);
+    return doesExist;
+  }
+
+  async writeFile(path: string, data: string) {
+    const pathComponents = path.split('/');
+    const filename = pathComponents.pop();
+    if (!filename) throw new Error('invalid path ' + path);
+
+    const dir = await this.traversePath(pathComponents);
+    if (!dir) throw new Error('invalid path ' + path);
+
+    const fileHandle = await dir.getFileHandle(filename, { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(data);
+    await writable.close();
+  }
+
+  async readFile(path: string) {
+    const pathComponents = path.split('/');
+    const filename = pathComponents.pop();
+    if (!filename) throw new Error('invalid path ' + path);
+
+    const dir = await this.traversePath(pathComponents);
+    if (!dir) throw new Error('invalid path ' + path);
+
+    const fileHandle = await dir.getFileHandle(filename);
+    const file = await fileHandle.getFile();
+    return file.text();
+  }
+
+  async mkdir(path: string) {
+    const names = path.split('/');
+    let dir = this.rootDirectoryHandle;
+    for (const name of names) {
+      if (!name) continue;
+      dir = await dir.getDirectoryHandle(name, { create: true });
     }
   }
 
-  cache.set(path, dir);
-  return dir;
-}
+  async readdir(path: string) {
+    const pathComponents = path.split('/');
+    const dir = await this.traversePath(pathComponents);
+    if (!dir) throw new Error('invalid path ' + path);
 
-async function fsapiExists(path: string) {
-  path = `${rootDirectoryPath_}/${path}`;
-  const pathComponents = path.split('/');
-  const filename = pathComponents.pop();
-  if (!filename) return false;
+    const entries = [];
+    for await (const entry of dir.keys()) {
+      if (entry.endsWith('.crswap')) continue;
+      entries.push(entry);
+    }
 
-  const dir = await fsapiTraversePath(pathComponents);
-  if (!dir) return false;
-
-  const doesExist = dir.getFileHandle(filename)
-    .then(() => true)
-    .catch(() => false);
-  return doesExist;
-}
-
-async function fsapiWriteFile(path: string, data: string) {
-  path = `${rootDirectoryPath_}/${path}`;
-  const pathComponents = path.split('/');
-  const filename = pathComponents.pop();
-  if (!filename) throw new Error('invalid path ' + path);
-
-  const dir = await fsapiTraversePath(pathComponents);
-  if (!dir) throw new Error('invalid path ' + path);
-
-  const fileHandle = await dir.getFileHandle(filename, { create: true });
-  const writable = await fileHandle.createWritable();
-  await writable.write(data);
-  await writable.close();
-}
-
-async function fsapiReadFile(path: string) {
-  path = `${rootDirectoryPath_}/${path}`;
-  const pathComponents = path.split('/');
-  const filename = pathComponents.pop();
-  if (!filename) throw new Error('invalid path ' + path);
-
-  const dir = await fsapiTraversePath(pathComponents);
-  if (!dir) throw new Error('invalid path ' + path);
-
-  const fileHandle = await dir.getFileHandle(filename);
-  const file = await fileHandle.getFile();
-  return file.text();
-}
-
-async function fsapiMkdir(path: string) {
-  path = `${rootDirectoryPath_}/${path}`;
-  const names = path.split('/');
-  let dir = rootDirectoryHandle_;
-  for (const name of names) {
-    if (!name) continue;
-    dir = await dir.getDirectoryHandle(name, { create: true });
-  }
-}
-
-async function fsapiReadDir(path: string) {
-  path = `${rootDirectoryPath_}/${path}`;
-  const pathComponents = path.split('/');
-  const dir = await fsapiTraversePath(pathComponents);
-  if (!dir) throw new Error('invalid path ' + path);
-
-  const entries = [];
-  for await (const entry of dir.keys()) {
-    if (entry.endsWith('.crswap')) continue;
-    entries.push(entry);
+    return entries;
   }
 
-  return entries;
-}
+  private async traversePath(pathComponents: string[]) {
+    const path = pathComponents.join('/');
+    const cachedResult = this.cache.get(path);
+    if (cachedResult) return cachedResult;
 
-const notInitialized = () => {
-  throw new Error();
-};
-export let exists: typeof nodeExists = notInitialized;
-export let writeFile: typeof nodeWriteFile = notInitialized;
-export let readFile: typeof nodeReadFile = notInitialized;
-export let mkdir: typeof nodeMkDir = notInitialized;
-export let readdir: typeof nodeReadDir = notInitialized;
+    let dir = this.rootDirectoryHandle;
+    for (const pathComponent of pathComponents) {
+      if (!pathComponent) continue;
+
+      try {
+        dir = await dir.getDirectoryHandle(pathComponent);
+      } catch (_) {
+        return false;
+      }
+    }
+
+    this.cache.set(path, dir);
+    return dir;
+  }
+}

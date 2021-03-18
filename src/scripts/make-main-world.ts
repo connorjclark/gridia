@@ -2,10 +2,10 @@
 
 import * as fs from 'fs';
 import * as Content from '../content';
-import * as isoFs from '../iso-fs';
 import { createTestPartitions } from '../world-map-debug';
 import { ServerContext } from '../server/server-context';
 import WorldMap from '../world-map';
+import { NodeFs } from '../iso-fs';
 
 async function createMainWorldMap() {
   if (fs.existsSync('server-data')) {
@@ -14,8 +14,7 @@ async function createMainWorldMap() {
   }
 
   const map = new WorldMap();
-  isoFs.initialize({ type: 'native', rootDirectoryPath: 'saved-maps/main' });
-  const context = new ServerContext(map);
+  const context = new ServerContext(map, new NodeFs('saved-maps/main'));
   // @ts-ignore
   context.map.loader = (pos) => context.loadSector(null, pos);
 
@@ -51,7 +50,7 @@ async function createMainWorldMap() {
   };
 
   fs.mkdirSync('server-data', { recursive: true });
-  isoFs.initialize({ type: 'native', rootDirectoryPath: 'server-data' });
+  context.fs = new NodeFs('server-data');
   await context.save();
 }
 

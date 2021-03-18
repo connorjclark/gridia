@@ -3,7 +3,7 @@ import * as http from 'http';
 import * as https from 'https';
 import { Server as WebSocketServer } from 'ws';
 import * as yargs from 'yargs';
-import * as isoFs from '../iso-fs';
+import { NodeFs } from '../iso-fs';
 import * as WireSerializer from '../lib/wire-serializer';
 import ClientConnection from './client-connection';
 import { startServer } from './create-server';
@@ -27,8 +27,7 @@ async function main(options: CLIOptions) {
   });
   webserver.listen(port);
 
-  isoFs.initialize({ type: 'native', rootDirectoryPath: options.directoryPath });
-  const server = await startServer(options);
+  const server = await startServer(options, new NodeFs(options.directoryPath));
 
   wss.on('connection', (ws) => {
     ws.on('message', (data) => {

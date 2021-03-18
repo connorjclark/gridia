@@ -1,14 +1,14 @@
 import * as path from 'path';
 import Container, { ContainerType } from '../container';
 import { Context } from '../context';
-import * as fs from '../iso-fs';
+import {IsoFs} from '../iso-fs';
 import Player from '../player';
 import WorldMap from '../world-map';
 import WorldMapPartition from '../world-map-partition';
 import * as WireSerializer from '../lib/wire-serializer';
 import Server from './server';
 
-async function readJson(filePath: string) {
+async function readJson(fs: IsoFs, filePath: string) {
   const json = await fs.readFile(filePath);
 
   try {
@@ -32,7 +32,7 @@ export class ServerContext extends Context {
   playerDir: string;
   sectorDir: string;
 
-  constructor(map: WorldMap) {
+  constructor(map: WorldMap, public fs: IsoFs) {
     super(map);
     this.accountDir = 'accounts';
     this.containerDir = 'containers';
@@ -41,9 +41,9 @@ export class ServerContext extends Context {
     this.sectorDir = 'sectors';
   }
 
-  static async load() {
+  static async load(fs: IsoFs) {
     const map = new WorldMap();
-    const context = new ServerContext(map);
+    const context = new ServerContext(map, fs);
 
     await fs.mkdir(context.accountDir, { recursive: true });
     await fs.mkdir(context.containerDir, { recursive: true });
@@ -51,7 +51,7 @@ export class ServerContext extends Context {
     await fs.mkdir(context.playerDir, { recursive: true });
     await fs.mkdir(context.sectorDir, { recursive: true });
 
-    const meta = await readJson(context.metaPath());
+    const meta = await readJson(fs, context.metaPath());
 
     // TODO: figure out if I want to save creatures at all.
     // const creatures = JSON.parse(await fs.readFile(context.creaturesPath()));
@@ -76,14 +76,14 @@ export class ServerContext extends Context {
       // TODO: different dir.
       if (accountPath.includes('password')) continue;
 
-      const json = await readJson(context.accountDir + '/' + accountPath);
+      const json = await readJson(fs, context.accountDir + '/' + accountPath);
       const account: GridiaAccount = WireSerializer.deserialize(json);
       context.accountNamesToIds.set(account.name, account.id);
     }
 
     context.playerNamesToIds.clear();
     for (const playerPath of await fs.readdir(context.playerDir)) {
-      const json = await readJson(context.playerDir + '/' + playerPath);
+      const json = await readJson(fs, context.playerDir + '/' + playerPath);
       const player: Player = WireSerializer.deserialize(json);
       context.playerNamesToIds.set(player.name, player.id);
     }
@@ -93,12 +93,12 @@ export class ServerContext extends Context {
 
   async loadPartition(w: number) {
     const partitionPath = this.partitionMetaPath(w);
-    const partitionMeta = await readJson(partitionPath);
+    const partitionMeta = await readJson(this.fs, partitionPath);
     this.map.initPartition(w, partitionMeta.width, partitionMeta.height, partitionMeta.depth);
   }
 
   async loadSector(server: Server, sectorPoint: TilePoint) {
-    const sector = await readJson(this.sectorPath(sectorPoint)) as Sector;
+    const sector = await readJson(this.fs, this.sectorPath(sectorPoint)) as Sector;
 
     // Set creatures (all of which are always loaded in memory) to the sector (of which only active areas are loaded).
     // Kinda lame, I guess.
@@ -117,32 +117,32 @@ export class ServerContext extends Context {
     // Don't save creatures.
     const data = sector.map((tiles) => tiles.map((tile) => ({ floor: tile.floor, item: tile.item })));
     const json = JSON.stringify(data, null, 2);
-    await fs.writeFile(this.sectorPath(sectorPoint), json);
+    await this.fs.writeFile(this.sectorPath(sectorPoint), json);
   }
 
   async loadAccount(id: number): Promise<GridiaAccount> {
-    const json = await fs.readFile(this.accountPath(id));
+    const json = await this.fs.readFile(this.accountPath(id));
     return WireSerializer.deserialize(json);
   }
 
   async saveAccount(account: GridiaAccount) {
     const json = WireSerializer.serialize(account);
-    await fs.writeFile(this.accountPath(account.id), json);
+    await this.fs.writeFile(this.accountPath(account.id), json);
   }
 
   async saveAccountPassword(id: number, password: string) {
     // TODO salt n' pepper.
-    await fs.writeFile(this.accountPasswordPath(id), password);
+    await this.fs.writeFile(this.accountPasswordPath(id), password);
   }
 
   async checkAccountPassword(id: number, password: string) {
-    const pswd = await fs.readFile(this.accountPasswordPath(id));
+    const pswd = await this.fs.readFile(this.accountPasswordPath(id));
     return pswd === password;
   }
 
   async savePlayer(player: Player) {
     const json = WireSerializer.serialize(player);
-    await fs.writeFile(this.playerPath(player.id), json);
+    await this.fs.writeFile(this.playerPath(player.id), json);
 
     const container = this.containers.get(player.containerId);
     if (container) await this.saveContainer(container);
@@ -152,7 +152,7 @@ export class ServerContext extends Context {
   }
 
   async loadPlayer(playerId: number): Promise<Player> {
-    const json = await fs.readFile(this.playerPath(playerId));
+    const json = await this.fs.readFile(this.playerPath(playerId));
     return WireSerializer.deserialize(json);
   }
 
@@ -172,7 +172,7 @@ export class ServerContext extends Context {
 
   async saveContainer(container: Container) {
     const json = JSON.stringify({ type: container.type, items: container.items }, null, 2);
-    await fs.writeFile(this.containerPath(container.id), json);
+    await this.fs.writeFile(this.containerPath(container.id), json);
   }
 
   // TODO defer to loader like sector is?
@@ -185,7 +185,7 @@ export class ServerContext extends Context {
     // TODO: even tho fs is stubbed in the browser build, parcel sees `readFileSync` and insists
     // that this be statically analyzable so it can do its bundling. Should create an interface that
     // doesn't trip up parcel's grepping for `.readFile`... (loadData?)
-    const data = await readJson(this.containerPath(id)) as {
+    const data = await readJson(this.fs, this.containerPath(id)) as {
       type: ContainerType;
       items: Array<Item | null>;
     };
@@ -195,11 +195,11 @@ export class ServerContext extends Context {
   }
 
   async save() {
-    await fs.mkdir(this.accountDir, { recursive: true });
-    await fs.mkdir(this.containerDir, { recursive: true });
-    await fs.mkdir(this.miscDir, { recursive: true });
-    await fs.mkdir(this.playerDir, { recursive: true });
-    await fs.mkdir(this.sectorDir, { recursive: true });
+    await this.fs.mkdir(this.accountDir, { recursive: true });
+    await this.fs.mkdir(this.containerDir, { recursive: true });
+    await this.fs.mkdir(this.miscDir, { recursive: true });
+    await this.fs.mkdir(this.playerDir, { recursive: true });
+    await this.fs.mkdir(this.sectorDir, { recursive: true });
 
     await this.saveMeta();
 
@@ -224,18 +224,18 @@ export class ServerContext extends Context {
       nextCreatureId: this.nextCreatureId,
       nextPlayerId: this.nextPlayerId,
     };
-    await fs.writeFile(this.metaPath(), JSON.stringify(meta, null, 2));
+    await this.fs.writeFile(this.metaPath(), JSON.stringify(meta, null, 2));
   }
 
   protected async savePartition(w: number, partition: WorldMapPartition) {
-    await fs.mkdir(this.partitionPath(w), { recursive: true });
+    await this.fs.mkdir(this.partitionPath(w), { recursive: true });
 
     const meta = {
       width: partition.width,
       height: partition.height,
       depth: partition.depth,
     };
-    await fs.writeFile(this.partitionMetaPath(w), JSON.stringify(meta, null, 2));
+    await this.fs.writeFile(this.partitionMetaPath(w), JSON.stringify(meta, null, 2));
 
     const promises = [];
     for (let sx = 0; sx < partition.sectors.length; sx++) {
