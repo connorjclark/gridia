@@ -316,6 +316,7 @@ export default class Server {
     if (clientConnection.player) {
       this.context.savePlayer(clientConnection.player);
       this.removeCreature(clientConnection.player.creature);
+      this.players.delete(clientConnection.player.id);
       this.broadcastAnimation(clientConnection.player.creature.pos, 'WarpOut');
       this.broadcastChatFromServer(`${clientConnection.player.name} has left the world.`);
     }

@@ -337,6 +337,7 @@ button {
 }
 
 .window--dialogue .dialogue__text {
+  margin: 20px;
   min-height: 100px;
   word-break: break-word;
   text-align: start;

@@ -182,7 +182,10 @@ export class TestScript extends Script {
   }
 
   onPlayerCreated(player: Player) {
-    this.server.moveCreature(player.creature, this.creatureSpawners[0].region);
+    const loc = { ...this.creatureSpawners[0].region };
+    loc.x += 2;
+    loc.y += 2;
+    this.server.moveCreature(player.creature, loc);
 
     const quest = this.server.getQuest('TEST_QUEST');
     player.startQuest(quest);
