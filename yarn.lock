@@ -5383,6 +5383,11 @@ jest@^24.7.1:
     import-local "^2.0.0"
     jest-cli "^24.8.0"
 
+js-bbcode-parser@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/js-bbcode-parser/-/js-bbcode-parser-3.0.4.tgz#e2615fd6ac977ce7d7a7286e0285fc55d36b7169"
+  integrity sha512-rF7oR1LI0mCqqMXEYKKWp3ovllnutT/vu1N+YOmPqGGPlMd73PNpdIJrdN89cbaBF08YUygi2dZUgvjGNAh5Aw==
+
 js-beautify@^1.8.9:
   version "1.10.1"
   resolved "https://registry.yarnpkg.com/js-beautify/-/js-beautify-1.10.1.tgz#bdfe738ddbcaa12e4fced5af2d7cfad59f60ac0a"
@@ -8786,6 +8791,11 @@ type-fest@^0.8.1:
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.8.1.tgz#09e249ebde851d3b1e48d27c105444667f17b83d"
   integrity sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==
+
+typed.js@^2.0.11:
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/typed.js/-/typed.js-2.0.11.tgz#d298a91f959f11a3803bf48b841a6fadd29640d9"
+  integrity sha512-1ZORHalEyLob34q738mqmwp0pT6syMigB1SZuTItqdhovWBKFIt7I5uVALXAGQZCg2MCtihCt6uqkoqPJK+9iQ==
 
 typedarray@^0.0.6:
   version "0.0.6"

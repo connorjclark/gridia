@@ -155,7 +155,8 @@ class StartScene extends Scene {
 
   async onClickConnectBtn() {
     const serverUrl = this.serverLocationInput.value;
-    loadLocalStorageData(`server-${name}`);
+    // TODO
+    loadLocalStorageData('server-');
     controller.client = await createClientForServer(serverUrl);
     controller.pushScene(new RegisterScene());
   }

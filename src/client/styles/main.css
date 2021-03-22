@@ -336,6 +336,12 @@ button {
   margin: 5px;
 }
 
+.window--dialogue .dialogue__text {
+  min-height: 100px;
+  word-break: break-word;
+  text-align: start;
+}
+
 .usages__usages {
   display: flex;
   flex-wrap: wrap;

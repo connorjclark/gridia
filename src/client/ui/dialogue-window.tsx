@@ -1,4 +1,7 @@
 import { render, h, Component } from 'preact';
+import { useEffect, useRef } from 'preact/hooks';
+import bbCodeParser from 'js-bbcode-parser';
+import Typed from 'typed.js';
 import Game from '../game';
 import * as CommandBuilder from '../../protocol/command-builder';
 
@@ -19,13 +22,29 @@ export function makeDialogueWindow(game: Game) {
     }
 
     render(props: any, state: State) {
+      const textEl = useRef(null);
+      useEffect(
+        () => {
+          const string = bbCodeParser.parse(this.state.text);
+          // @ts-expect-error
+          const el = textEl.current as string;
+          const typed = new Typed(el, {
+            strings: [string],
+            typeSpeed: 10,
+            showCursor: false,
+          });
+          return () => typed.destroy();
+        },
+        [this.state.text]
+      );
+
       return <div>
         <div>
           Dialogue
         </div>
         <div>
           <h1>{state.speaker}</h1>
-          <p>{state.text}</p>
+          <div ref={textEl} class='dialogue__text'></div>
           <button onClick={this.onClickNextButton}>Next</button>
         </div>
       </div>;
@@ -37,7 +56,7 @@ export function makeDialogueWindow(game: Game) {
     }
   }
 
-  const el = game.makeUIWindow({ name: 'skills', cell: 'center' });
-  render(<DialogueWindow />, el);
-  return { el, setState: (s: Partial<State>) => setState(s) };
+  const windowEl = game.makeUIWindow({ name: 'dialogue', cell: 'center' });
+  render(<DialogueWindow />, windowEl);
+  return { el: windowEl, setState: (s: Partial<State>) => setState(s) };
 }

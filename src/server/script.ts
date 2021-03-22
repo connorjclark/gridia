@@ -213,9 +213,9 @@ export class TestScript extends Script {
       return {
         speakers,
         parts: [
-          { speaker: 1, text: 'Welcome!' },
+          { speaker: 1, text: '[i]Welcome[/i]!' },
           { speaker: 0, text: 'Who are you?' },
-          { speaker: 1, text: 'The captain!' },
+          { speaker: 1, text: 'The [b]captain[/b]!' },
           { speaker: 0, text: 'Alright.' },
         ],
         onFinish: () => {

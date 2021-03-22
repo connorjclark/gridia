@@ -241,3 +241,7 @@ declare namespace PIXI {
   // const PIXISound: any;
   let OutlineFilter: typeof import('@pixi/filter-outline').OutlineFilter;
 }
+
+declare module 'js-bbcode-parser' {
+  export default {parse: (text: string) => string};
+}
