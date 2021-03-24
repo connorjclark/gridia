@@ -71,6 +71,58 @@ export abstract class Connection {
   protected abstract send_(message: { id: number; data: ProtocolCommand }): void;
 }
 
+export class WebRTCConnection extends Connection {
+  private _bestEffortChannel: RTCDataChannel;
+  private _guarenteedChannel: RTCDataChannel;
+  private _connectionstatechangeListener: any;
+
+  constructor(private _peerConnection: RTCPeerConnection, private _channels: RTCDataChannel[]) {
+    super();
+
+    // @ts-expect-error
+    this._bestEffortChannel = _channels.find((c) => c.label === 'best-effort');
+    // @ts-expect-error
+    this._guarenteedChannel = _channels.find((c) => c.label === 'guarenteed');
+    if (!this._bestEffortChannel) throw new Error('missing channel');
+    if (!this._guarenteedChannel) throw new Error('missing channel');
+
+    for (const channel of _channels) {
+      channel.addEventListener('message', (e) => {
+        const message = WireSerializer.deserialize<Message>(e.data);
+        debug('<-', message);
+
+        if (message.id) {
+          this.resolveCommand(message.id, message.data);
+          return;
+        }
+
+        if (this._onEvent) this._onEvent(message.data);
+      });
+    }
+
+    this._connectionstatechangeListener = () => {
+      if (_peerConnection.connectionState === 'disconnected' || _peerConnection.connectionState === 'failed') {
+        this.onClose();
+      }
+    };
+    _peerConnection.addEventListener('connectionstatechange', this._connectionstatechangeListener);
+  }
+
+  send_(message: { id: number; data: ProtocolCommand }) {
+    debug('->', message);
+    this._guarenteedChannel.send(WireSerializer.serialize(message));
+  }
+
+  close() {
+    this._peerConnection.removeEventListener('connectionstatechange', this._connectionstatechangeListener);
+    this._peerConnection.close();
+  }
+
+  private onClose() {
+    window.document.body.innerText = 'Lost connection to server. Please refresh.';
+  }
+}
+
 export class WebSocketConnection extends Connection {
   constructor(private _ws: WebSocket) {
     super();

@@ -312,7 +312,10 @@ export default class Server {
   }
 
   removeClient(clientConnection: ClientConnection) {
-    this.clientConnections.splice(this.clientConnections.indexOf(clientConnection), 1);
+    const index = this.clientConnections.indexOf(clientConnection);
+    if (index === -1) return;
+
+    this.clientConnections.splice(index, 1);
     if (clientConnection.player) {
       this.context.savePlayer(clientConnection.player);
       this.removeCreature(clientConnection.player.creature);

@@ -4,7 +4,7 @@ import { makeGame, game } from '../game-singleton';
 import * as CommandBuilder from '../protocol/command-builder';
 import * as Utils from '../utils';
 import Client from './client';
-import { connect, connectToServerWorker } from './connect-to-server';
+import { connectWithWebSocket, connectToServerWorker, connectWithWebRTC } from './connect-to-server';
 import { GameActionEvent } from './event-emitter';
 import * as Helper from './helper';
 import { createMapSelectForm } from './scenes/map-select-scene';
@@ -16,6 +16,7 @@ function parseQuery(queryString: string) {
     map: params.get('map'),
     quick: params.get('quick'),
     latency: params.has('latency') ? Number(params.get('latency')) : undefined,
+    connection: params.get('connection'),
   };
 }
 
@@ -586,7 +587,26 @@ function globalOnActionHandler(client: Client, e: GameActionEvent) {
 
 function createClientForServer(hostnameAndPort: string) {
   const [hostname, port] = hostnameAndPort.split(':', 2);
-  return connect(hostname, Number(port));
+
+  let useWebRTC;
+  if (qs.connection === 'websocket') {
+    useWebRTC = false;
+  } else if (qs.connection === 'wrtc') {
+    useWebRTC = true;
+  } else {
+    // TODO: defaulting to websocket for now.
+    // useWebRTC = Boolean(window.RTCPeerConnection);
+  }
+
+  try {
+    if (useWebRTC) {
+      return connectWithWebRTC(hostname, Number(port));
+    }
+  } catch (err) {
+    console.error(err);
+  }
+
+  return connectWithWebSocket(hostname, Number(port));
 }
 
 function setupDebugging() {

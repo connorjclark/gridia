@@ -6,8 +6,19 @@ import * as yargs from 'yargs';
 import * as nodeCleanup from 'node-cleanup';
 import { NodeFs } from '../iso-fs';
 import * as WireSerializer from '../lib/wire-serializer';
+import { WebRTCSignalServer } from '../lib/wrtc/signal-server';
 import ClientConnection from './client-connection';
 import { startServer } from './create-server';
+
+const wrtcSignalServer = new WebRTCSignalServer();
+
+async function onHttpRequest(req: http.IncomingMessage, res: http.ServerResponse) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  if (!await wrtcSignalServer.requestHandler(req, res)) {
+    res.writeHead(400);
+    res.end('?');
+  }
+}
 
 async function main(options: CLIOptions) {
   global.node = true;
@@ -19,9 +30,9 @@ async function main(options: CLIOptions) {
     webserver = https.createServer({
       cert: fs.readFileSync(ssl.cert),
       key: fs.readFileSync(ssl.key),
-    });
+    }, onHttpRequest);
   } else {
-    webserver = http.createServer();
+    webserver = http.createServer(onHttpRequest);
   }
   const wss = new WebSocketServer({
     server: webserver,
@@ -29,6 +40,38 @@ async function main(options: CLIOptions) {
   webserver.listen(port);
 
   const server = await startServer(options, new NodeFs(options.directoryPath));
+
+  wrtcSignalServer.onConnectionEstablished = (peerConnection) => {
+    // @ts-expect-error
+    const channels: RTCDataChannel[] = peerConnection.channels;
+    const bestEffortChannel = channels.find((c) => c.label === 'best-effort');
+    const guarenteedChannel = channels.find((c) => c.label === 'guarenteed');
+    if (!bestEffortChannel) throw new Error('missing channel');
+    if (!guarenteedChannel) throw new Error('missing channel');
+
+    for (const channel of channels) {
+      channel.addEventListener('message', (e) => {
+        const message = WireSerializer.deserialize<any>(e.data.toString('utf-8'));
+        if (server.verbose) console.log('got', message);
+        clientConnection.messageQueue.push(message);
+      });
+    }
+
+    peerConnection.addEventListener('connectionstatechange', () => {
+      if (peerConnection.connectionState === 'disconnected' || peerConnection.connectionState === 'failed') {
+        server.removeClient(clientConnection);
+      }
+    });
+
+    const clientConnection = new ClientConnection();
+    clientConnection.send = (message) => {
+      if (guarenteedChannel.readyState === 'open') {
+        guarenteedChannel.send(WireSerializer.serialize(message));
+      }
+    };
+
+    server.clientConnections.push(clientConnection);
+  };
 
   wss.on('connection', (ws) => {
     ws.on('message', (data) => {
