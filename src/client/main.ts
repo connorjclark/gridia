@@ -589,7 +589,7 @@ function createClientForServer(hostnameAndPort: string) {
   const [hostname, port] = hostnameAndPort.split(':', 2);
 
   let useWebRTC;
-  if (qs.connection === 'websocket') {
+  if (qs.connection === 'ws') {
     useWebRTC = false;
   } else if (qs.connection === 'wrtc') {
     useWebRTC = true;

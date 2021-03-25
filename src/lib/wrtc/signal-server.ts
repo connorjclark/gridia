@@ -1,11 +1,22 @@
+/* eslint-disable max-len */
+
+// https://blog.brkho.com/2017/03/15/dive-into-client-server-web-games-webrtc/
+// https://www.youtube.com/watch?v=FExZvpVvYxA&ab_channel=HusseinNasser
+// https://medium.com/av-transcode/what-is-webrtc-and-how-to-setup-stun-turn-server-for-webrtc-communication-63314728b9d0
+// https://tools.ietf.org/id/draft-nandakumar-rtcweb-sdp-01.html#rfc.section.2
+// https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/
+
+/* eslint-enable max-len */
+
 import * as http from 'http';
 // @ts-expect-error
 import { RTCPeerConnection as RTCPeerConnection_ } from 'wrtc';
+import { WEBRTC_CONFIG } from './config';
 
 const RTCPeerConnection: typeof globalThis.RTCPeerConnection = RTCPeerConnection_;
 
 function createConnection() {
-  const peerConnection = new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] });
+  const peerConnection = new RTCPeerConnection(WEBRTC_CONFIG);
 
   const dataChannel1 = peerConnection.createDataChannel('guarenteed', { ordered: true });
   const dataChannel2 = peerConnection.createDataChannel('best-effort', { ordered: false, maxRetransmits: 0 });

@@ -1,6 +1,7 @@
 import { Context } from '../context';
 import { createClientWorldMap } from '../world-map';
 import { ProtocolEvent } from '../protocol/event-builder';
+import { WEBRTC_CONFIG } from '../lib/wrtc/config';
 import Client from './client';
 import { WebRTCConnection, WebSocketConnection, WorkerConnection } from './connection';
 import { ServerWorker } from './server-worker';
@@ -13,7 +14,7 @@ export async function connectWithWebRTC(hostname: string, port: number): Promise
   const res = await fetch(`${window.location.protocol}//${hostname}:${port}/webrtc`);
   const { id, offer } = await res.json();
 
-  const peerConnection = new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] });
+  const peerConnection = new RTCPeerConnection(WEBRTC_CONFIG);
 
   await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
   const answer = await peerConnection.createAnswer();
@@ -32,8 +33,8 @@ export async function connectWithWebRTC(hostname: string, port: number): Promise
     };
   });
 
-  peerConnection.addEventListener('connectionstatechange', (e) => console.log(e.type));
-  peerConnection.addEventListener('iceconnectionstatechange', (e) => console.log(e.type));
+  // peerConnection.addEventListener('connectionstatechange', (e) => console.log(e.type));
+  // peerConnection.addEventListener('iceconnectionstatechange', (e) => console.log(e.type));
 
   await fetch(`${window.location.protocol}//${hostname}:${port}/webrtc/answer`, {
     method: 'POST',
