@@ -516,7 +516,7 @@ export default class Server {
     this.broadcastPartialCreatureUpdate(client.player.creature, ['light']);
   }
 
-  setItemInContainer(id: number, index: number, item?: Item) {
+  setItemInContainer(id: string, index: number, item?: Item) {
     const container = this.context.containers.get(id);
     if (!container) throw new Error(`no container: ${id}`);
 

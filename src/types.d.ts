@@ -46,7 +46,7 @@ interface WorldLocation {
 
 interface ContainerLocation {
   source: 'container';
-  id: number;
+  id: string;
   index?: number;
 }
 
@@ -67,7 +67,7 @@ interface Item {
   type: number;
   quantity: number;
   growth?: number;
-  containerId?: number;
+  containerId?: string;
   warpTo?: TilePoint;
 }
 
@@ -198,7 +198,7 @@ interface UIState {
   };
   elapsedFrames: number;
   containers: {
-    [id: number]: {
+    [id: string]: {
       selectedIndex: number | null;
     };
   };

@@ -101,7 +101,7 @@ export const ItemLocation = {
       loc,
     };
   },
-  Container(containerId: number, index?: number): ContainerLocation {
+  Container(containerId: string, index?: number): ContainerLocation {
     return {
       source: 'container',
       id: containerId,

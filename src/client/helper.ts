@@ -59,9 +59,9 @@ export function openContainer(loc: TilePoint) {
   }));
 }
 
-export function closeContainer(containerId: number) {
+export function closeContainer(id: string) {
   game.client.connection.sendCommand(CommandBuilder.closeContainer({
-    containerId,
+    containerId: id,
   }));
 }
 

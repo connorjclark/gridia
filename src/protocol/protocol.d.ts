@@ -8,7 +8,7 @@ type Message = { id?: number; data: any };
 
 interface Container_ {
   type: import('../container').ContainerType;
-  id: number;
+  id: string;
   items: Array<Item | null>;
 }
 
@@ -23,7 +23,7 @@ declare namespace Protocol {
     type AdminSetFloor = Command<TilePoint & { floor: number }>;
     type AdminSetItem = Command<TilePoint & { item?: Item }>;
     type Chat = Command<{ to: string; message: string }>;
-    type CloseContainer = Command<{ containerId: number }>;
+    type CloseContainer = Command<{ containerId: string }>;
     type CreatePlayer = Command<{ name: string }>;
     type CreatureAction = Command<{ creatureId: number; type: 'attack' | 'tame' | 'speak' }>;
     type DialogueResponse = Command<{ choiceIndex?: number }>;
@@ -36,7 +36,7 @@ declare namespace Protocol {
     type Move = Command<TilePoint>;
     type MoveItem = Command<{ from: ItemLocation; quantity?: number; to: ItemLocation }>;
     type RegisterAccount = Command<{ username: string; password: string }>;
-    type RequestContainer = Command<{ containerId?: number; loc?: TilePoint }>;
+    type RequestContainer = Command<{ containerId?: string; loc?: TilePoint }>;
     type RequestCreature = Command<{ id: number }>;
     type RequestPartition = Command<{ w: number }>;
     type RequestSector = Command<TilePoint>;

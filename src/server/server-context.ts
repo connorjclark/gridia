@@ -1,4 +1,5 @@
 import * as path from 'path';
+import * as Utils from '../utils';
 import Container, { ContainerType } from '../container';
 import { Context } from '../context';
 import { IsoFs } from '../iso-fs';
@@ -19,7 +20,6 @@ async function readJson(fs: IsoFs, filePath: string) {
 }
 
 export class ServerContext extends Context {
-  nextContainerId = 1;
   nextCreatureId = 1;
   playerNamesToIds = new Map<string, string>();
 
@@ -60,7 +60,6 @@ export class ServerContext extends Context {
     //   // Purposefully do not set creature on tile, as that would load the sector.
     // }
 
-    context.nextContainerId = meta.nextContainerId || 1;
     context.nextCreatureId = meta.nextCreatureId || 1;
 
     // Just load all the partitions for now.
@@ -149,7 +148,7 @@ export class ServerContext extends Context {
   }
 
   makeContainer(type: ContainerType, size = 30) {
-    const container = new Container(type, this.nextContainerId++, Array(size).fill(null));
+    const container = new Container(type, Utils.uuid(), Array(size).fill(null));
     this.containers.set(container.id, container);
     return container;
   }
@@ -168,7 +167,7 @@ export class ServerContext extends Context {
   }
 
   // TODO defer to loader like sector is?
-  async getContainer(id: number) {
+  async getContainer(id: string) {
     let container = this.containers.get(id);
     if (container) return container;
 
@@ -212,7 +211,6 @@ export class ServerContext extends Context {
 
   protected async saveMeta() {
     const meta = {
-      nextContainerId: this.nextContainerId,
       nextCreatureId: this.nextCreatureId,
     };
     await this.fs.writeFile(this.metaPath(), JSON.stringify(meta, null, 2));
@@ -263,7 +261,7 @@ export class ServerContext extends Context {
     return 'creatures.json';
   }
 
-  protected containerPath(id: number) {
+  protected containerPath(id: string) {
     return path.join(this.containerDir, `${id}.json`);
   }
 

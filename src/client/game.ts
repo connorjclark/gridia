@@ -305,7 +305,7 @@ class Game {
   protected actionCreators: GameActionCreator[] = [];
 
   protected creatureSprites = new Map<number, CreatureSprite>();
-  protected containerWindows = new Map<number, ReturnType<typeof makeContainerWindow>>();
+  protected containerWindows = new Map<string, ReturnType<typeof makeContainerWindow>>();
   protected dialogueWindow?: ReturnType<typeof makeDialogueWindow>;
 
   private _playerCreature?: Creature;

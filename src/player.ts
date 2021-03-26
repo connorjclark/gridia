@@ -51,8 +51,8 @@ export class TilesSeenLog {
 
 export default class Player {
   id = '';
-  containerId = 0;
-  equipmentContainerId = 0;
+  containerId = '';
+  equipmentContainerId = '';
   isAdmin = false;
   name = '';
   questStates = new Map<string, QuestState>();

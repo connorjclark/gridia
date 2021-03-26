@@ -4,7 +4,7 @@ import WorldMap from './world-map';
 export class Context {
   creatures = new Map<number, Creature>();
   locationToCreature = new Map<string, Creature>();
-  containers = new Map<number, Container>();
+  containers = new Map<string, Container>();
 
   constructor(public map: WorldMap) {
   }

@@ -15,7 +15,7 @@ export default class Container {
     Legs: 4,
   };
 
-  constructor(readonly type: ContainerType, public id: number, public items: Array<Item | null>) {
+  constructor(readonly type: ContainerType, public id: string, public items: Array<Item | null>) {
   }
 
   hasItem(itemType: number) {

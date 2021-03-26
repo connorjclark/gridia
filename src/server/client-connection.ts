@@ -15,7 +15,7 @@ export default class ClientConnection {
   // @ts-ignore
   equipment: Container;
   subscribedCreatureIds = new Set<number>();
-  registeredContainers = [] as number[];
+  registeredContainers = [] as string[];
   activeDialogue?: { dialogue: Dialogue; partIndex: number };
 
   // @ts-ignore
