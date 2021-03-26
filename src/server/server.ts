@@ -42,7 +42,7 @@ export default class Server {
   // @ts-ignore: this is always defined when accessed.
   currentClientConnection: ClientConnection;
   creatureStates: Record<number, CreatureState> = {};
-  players = new Map<number, Player>();
+  players = new Map<string, Player>();
   verbose: boolean;
   taskRunner = new TaskRunner(50);
 
@@ -236,6 +236,7 @@ export default class Server {
     };
 
     const player = new Player(creature);
+    player.id = Utils.uuid();
     player.name = opts.name;
     player.isAdmin = true; // everyone is an admin, for now.
 
@@ -277,7 +278,7 @@ export default class Server {
   }
 
   async playerEnterWorld(clientConnection: ClientConnection,
-                         opts: { justCreated?: boolean; player?: Player; playerId: number }) {
+                         opts: { justCreated?: boolean; player?: Player; playerId: string }) {
     let player;
     if (opts.player) {
       player = opts.player;

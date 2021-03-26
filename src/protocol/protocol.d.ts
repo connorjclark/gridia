@@ -27,10 +27,10 @@ declare namespace Protocol {
     type CreatePlayer = Command<{ name: string }>;
     type CreatureAction = Command<{ creatureId: number; type: 'attack' | 'tame' | 'speak' }>;
     type DialogueResponse = Command<{ choiceIndex?: number }>;
-    type EnterWorld = Command<{ playerId: number }>;
+    type EnterWorld = Command<{ playerId: string }>;
     type Login = Command<
       { username: string; password: string },
-      { account: GridiaAccount; players: Array<{ id: number, name: string }> }
+      { account: GridiaAccount; players: Array<{ id: string, name: string }> }
     >;
     type Logout = Command<{}>;
     type Move = Command<TilePoint>;

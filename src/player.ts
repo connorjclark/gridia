@@ -50,7 +50,7 @@ export class TilesSeenLog {
 }
 
 export default class Player {
-  id = 0;
+  id = '';
   containerId = 0;
   equipmentContainerId = 0;
   isAdmin = false;

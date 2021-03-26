@@ -19,10 +19,9 @@ async function readJson(fs: IsoFs, filePath: string) {
 }
 
 export class ServerContext extends Context {
-  nextAccountId = 1;
   nextContainerId = 1;
   nextCreatureId = 1;
-  playerNamesToIds = new Map<string, number>();
+  playerNamesToIds = new Map<string, string>();
 
   accountDir: string;
   containerDir: string;
@@ -61,7 +60,6 @@ export class ServerContext extends Context {
     //   // Purposefully do not set creature on tile, as that would load the sector.
     // }
 
-    context.nextAccountId = meta.nextAccountId || 1;
     context.nextContainerId = meta.nextContainerId || 1;
     context.nextCreatureId = meta.nextCreatureId || 1;
 
@@ -145,7 +143,7 @@ export class ServerContext extends Context {
     if (equipment) await this.saveContainer(equipment);
   }
 
-  async loadPlayer(playerId: number): Promise<Player> {
+  async loadPlayer(playerId: string): Promise<Player> {
     const json = await this.fs.readFile(this.playerPath(playerId));
     return WireSerializer.deserialize(json);
   }
@@ -214,7 +212,6 @@ export class ServerContext extends Context {
 
   protected async saveMeta() {
     const meta = {
-      nextAccountId: this.nextAccountId,
       nextContainerId: this.nextContainerId,
       nextCreatureId: this.nextCreatureId,
     };
@@ -270,7 +267,7 @@ export class ServerContext extends Context {
     return path.join(this.containerDir, `${id}.json`);
   }
 
-  protected playerPath(id: number) {
+  protected playerPath(id: string) {
     return path.join(this.playerDir, `${id}.json`);
   }
 

@@ -31,7 +31,7 @@ type TilePoint = Point4; // `w` is world index
 
 interface GridiaAccount {
   username: string;
-  playerIds: number[];
+  playerIds: string[];
 }
 
 interface Tile {
@@ -88,7 +88,7 @@ interface Creature {
   canSpeak?: boolean;
   pos: TilePoint;
   isPlayer: boolean;
-  tamedBy?: number; // player id
+  tamedBy?: string; // player id
   roam?: number;
   speed: number;
   life: number;
