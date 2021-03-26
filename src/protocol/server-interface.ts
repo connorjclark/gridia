@@ -37,22 +37,22 @@ export default class ServerInterface implements IServerInterface {
   }
 
   // eslint-disable-next-line max-len
-  async onRegisterAccount(server: Server, { name, password }: Commands.RegisterAccount['params']): Promise<Commands.RegisterAccount['response']> {
+  async onRegisterAccount(server: Server, { username, password }: Commands.RegisterAccount['params']): Promise<Commands.RegisterAccount['response']> {
     if (server.currentClientConnection.account) return Promise.reject('Already logged in');
-    if (name.length > 20) return Promise.reject('Account name too long');
+    if (username.length > 20) return Promise.reject('Username too long');
     if (password.length < 8) return Promise.reject('Password too short');
 
     await server.registerAccount(server.currentClientConnection, {
-      name,
+      username,
       password,
     });
   }
 
-  async onLogin(server: Server, { name, password }: Commands.Login['params']): Promise<Commands.Login['response']> {
+  async onLogin(server: Server, { username, password }: Commands.Login['params']): Promise<Commands.Login['response']> {
     if (server.currentClientConnection.account) throw new Error('Already logged in');
 
     const account = await server.loginAccount(server.currentClientConnection, {
-      name,
+      username,
       password,
     });
 

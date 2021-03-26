@@ -29,13 +29,13 @@ declare namespace Protocol {
     type DialogueResponse = Command<{ choiceIndex?: number }>;
     type EnterWorld = Command<{ playerId: number }>;
     type Login = Command<
-      { name: string; password: string },
+      { username: string; password: string },
       { account: GridiaAccount; players: Array<{ id: number, name: string }> }
     >;
     type Logout = Command<{}>;
     type Move = Command<TilePoint>;
     type MoveItem = Command<{ from: ItemLocation; quantity?: number; to: ItemLocation }>;
-    type RegisterAccount = Command<{ name: string; password: string }>;
+    type RegisterAccount = Command<{ username: string; password: string }>;
     type RequestContainer = Command<{ containerId?: number; loc?: TilePoint }>;
     type RequestCreature = Command<{ id: number }>;
     type RequestPartition = Command<{ w: number }>;

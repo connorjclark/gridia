@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@pixi/filter-outline": "^3.0.3",
+    "@types/uuid": "^8.3.0",
     "a-star": "^0.2.0",
     "basscss": "^8.1.0",
     "d3-delaunay": "^5.1.6",
@@ -20,6 +21,7 @@
     "source-map-support": "^0.5.12",
     "strict-event-emitter-types": "^2.0.0",
     "typed.js": "^2.0.11",
+    "uuid": "^8.3.2",
     "wrtc": "^0.4.7",
     "ws": "*",
     "yargs": "^13.2.2"

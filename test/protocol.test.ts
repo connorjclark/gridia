@@ -56,11 +56,11 @@ beforeEach(async () => {
   server.context.loadAccount = () => Promise.resolve({ id: 1, playerIds: [] });
 
   connection.sendCommand(CommandBuilder.registerAccount({
-    name: 'test-account',
+    username: 'test-account',
     password: '1234567890',
   }));
   connection.sendCommand(CommandBuilder.login({
-    name: 'test-account',
+    username: 'test-account',
     password: '1234567890',
   }));
   connection.sendCommand(CommandBuilder.createPlayer({

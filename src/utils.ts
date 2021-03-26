@@ -5,8 +5,12 @@
 //     };
 //   }
 
-import { Rectangle } from 'pixi.js';
+import { v4 as uuidv4 } from 'uuid';
 import { GFX_SIZE } from './constants';
+
+export function uuid() {
+  return uuidv4();
+}
 
 // TODO rename these 'world's to 'stage'?
 export function worldToTile(w: number, pw: ScreenPoint, z: number): TilePoint {

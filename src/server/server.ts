@@ -23,7 +23,7 @@ interface CtorOpts {
 }
 
 interface RegisterAccountOpts {
-  name: string;
+  username: string;
   password: string;
 }
 
@@ -182,25 +182,22 @@ export default class Server {
   }
 
   async registerAccount(clientConnection: ClientConnection, opts: RegisterAccountOpts) {
-    if (this.context.accountNamesToIds.has(opts.name)) {
-      throw new Error('Name already taken');
+    if (await this.context.accountExists(opts.username)) {
+      throw new Error('Username already taken');
     }
 
     const account: GridiaAccount = {
-      id: this.context.nextAccountId++,
-      name: opts.name,
+      username: opts.username,
       playerIds: [],
     };
 
-    this.context.accountNamesToIds.set(account.name, account.id);
     await this.context.saveAccount(account);
-    await this.context.saveAccountPassword(account.id, opts.password);
+    await this.context.saveAccountPassword(account.username, opts.password);
   }
 
   async loginAccount(clientConnection: ClientConnection, opts: RegisterAccountOpts) {
-    const accountId = this.context.accountNamesToIds.get(opts.name);
-    const account = accountId ? await this.context.loadAccount(accountId) : undefined;
-    const passwordMatches = account && await this.context.checkAccountPassword(account.id, opts.password);
+    const account = await this.context.accountExists(opts.username) && await this.context.loadAccount(opts.username);
+    const passwordMatches = account && await this.context.checkAccountPassword(opts.username, opts.password);
 
     if (!account || !passwordMatches) {
       throw new Error('Invalid login');
@@ -242,7 +239,6 @@ export default class Server {
     player.name = opts.name;
     player.isAdmin = true; // everyone is an admin, for now.
 
-    player.id = this.context.nextPlayerId++;
     player.creature = creature;
 
     // Mock xp for now.

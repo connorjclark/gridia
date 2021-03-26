@@ -20,10 +20,6 @@ function parseQuery(queryString: string) {
   };
 }
 
-function randomString(len: number) {
-  return [...Array(len)].map(() => String.fromCharCode(65 + Math.floor(Math.random() * 52))).join('');
-}
-
 const qs = parseQuery(window.location.search);
 
 class MainController {
@@ -311,36 +307,38 @@ class RegisterScene extends Scene {
   }
 
   async load() {
-    let name = localStorageData.username;
+    let username = localStorageData.username;
     let password = localStorageData.password;
 
-    if (!name || !password) {
-      localStorageData.username = name = randomString(20);
-      localStorageData.password = password = randomString(20);
+    if (!username || !password) {
+      localStorageData.username = username = Utils.uuid().substr(0, 20);
+      localStorageData.password = password = Utils.uuid();
       await controller.client.connection.sendCommand(CommandBuilder.registerAccount({
-        name,
+        username,
         password,
       }));
+      saveLocalStorageData();
     }
 
     let players: Protocol.Commands.Login['response']['players'];
     try {
       const response = await controller.client.connection.sendCommand(CommandBuilder.login({
-        name,
+        username,
         password,
       }));
       players = response.players;
     } catch (error) {
       console.error(error);
 
-      localStorageData.username = name = randomString(20);
-      localStorageData.password = password = randomString(20);
+      localStorageData.username = username = Utils.uuid().substr(0, 20);
+      localStorageData.password = password = Utils.uuid();
       await controller.client.connection.sendCommand(CommandBuilder.registerAccount({
-        name,
+        username,
         password,
       }));
+      saveLocalStorageData();
       const response = await controller.client.connection.sendCommand(CommandBuilder.login({
-        name,
+        username,
         password,
       }));
       players = response.players;

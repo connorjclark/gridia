@@ -30,8 +30,7 @@ type PartitionPoint = Point3;
 type TilePoint = Point4; // `w` is world index
 
 interface GridiaAccount {
-  id: number;
-  name: string;
+  username: string;
   playerIds: number[];
 }
 

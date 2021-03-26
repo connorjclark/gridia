@@ -1,7 +1,7 @@
 import * as path from 'path';
 import Container, { ContainerType } from '../container';
 import { Context } from '../context';
-import {IsoFs} from '../iso-fs';
+import { IsoFs } from '../iso-fs';
 import Player from '../player';
 import WorldMap from '../world-map';
 import WorldMapPartition from '../world-map-partition';
@@ -22,13 +22,12 @@ export class ServerContext extends Context {
   nextAccountId = 1;
   nextContainerId = 1;
   nextCreatureId = 1;
-  nextPlayerId = 1;
-  accountNamesToIds = new Map<string, number>();
   playerNamesToIds = new Map<string, number>();
 
   accountDir: string;
   containerDir: string;
   miscDir: string;
+  passwordDir: string;
   playerDir: string;
   sectorDir: string;
 
@@ -37,6 +36,7 @@ export class ServerContext extends Context {
     this.accountDir = 'accounts';
     this.containerDir = 'containers';
     this.miscDir = 'misc';
+    this.passwordDir = 'passwords';
     this.playerDir = 'players';
     this.sectorDir = 'sectors';
   }
@@ -48,6 +48,7 @@ export class ServerContext extends Context {
     await fs.mkdir(context.accountDir, { recursive: true });
     await fs.mkdir(context.containerDir, { recursive: true });
     await fs.mkdir(context.miscDir, { recursive: true });
+    await fs.mkdir(context.passwordDir, { recursive: true });
     await fs.mkdir(context.playerDir, { recursive: true });
     await fs.mkdir(context.sectorDir, { recursive: true });
 
@@ -63,22 +64,11 @@ export class ServerContext extends Context {
     context.nextAccountId = meta.nextAccountId || 1;
     context.nextContainerId = meta.nextContainerId || 1;
     context.nextCreatureId = meta.nextCreatureId || 1;
-    context.nextPlayerId = meta.nextPlayerId || 1;
 
     // Just load all the partitions for now.
     const partitionIds = (await fs.readdir(context.sectorDir)).map(Number);
     for (const w of partitionIds) {
       await context.loadPartition(w);
-    }
-
-    context.accountNamesToIds.clear();
-    for (const accountPath of await fs.readdir(context.accountDir)) {
-      // TODO: different dir.
-      if (accountPath.includes('password')) continue;
-
-      const json = await readJson(fs, context.accountDir + '/' + accountPath);
-      const account: GridiaAccount = WireSerializer.deserialize(json);
-      context.accountNamesToIds.set(account.name, account.id);
     }
 
     context.playerNamesToIds.clear();
@@ -120,23 +110,27 @@ export class ServerContext extends Context {
     await this.fs.writeFile(this.sectorPath(sectorPoint), json);
   }
 
-  async loadAccount(id: number): Promise<GridiaAccount> {
-    const json = await this.fs.readFile(this.accountPath(id));
+  accountExists(username: string) {
+    return this.fs.exists(this.accountPath(username));
+  }
+
+  async loadAccount(username: string): Promise<GridiaAccount> {
+    const json = await this.fs.readFile(this.accountPath(username));
     return WireSerializer.deserialize(json);
   }
 
   async saveAccount(account: GridiaAccount) {
     const json = WireSerializer.serialize(account);
-    await this.fs.writeFile(this.accountPath(account.id), json);
+    await this.fs.writeFile(this.accountPath(account.username), json);
   }
 
-  async saveAccountPassword(id: number, password: string) {
+  async saveAccountPassword(username: string, password: string) {
     // TODO salt n' pepper.
-    await this.fs.writeFile(this.accountPasswordPath(id), password);
+    await this.fs.writeFile(this.accountPasswordPath(username), password);
   }
 
-  async checkAccountPassword(id: number, password: string) {
-    const pswd = await this.fs.readFile(this.accountPasswordPath(id));
+  async checkAccountPassword(username: string, password: string) {
+    const pswd = await this.fs.readFile(this.accountPasswordPath(username));
     return pswd === password;
   }
 
@@ -198,6 +192,7 @@ export class ServerContext extends Context {
     await this.fs.mkdir(this.accountDir, { recursive: true });
     await this.fs.mkdir(this.containerDir, { recursive: true });
     await this.fs.mkdir(this.miscDir, { recursive: true });
+    await this.fs.mkdir(this.passwordDir, { recursive: true });
     await this.fs.mkdir(this.playerDir, { recursive: true });
     await this.fs.mkdir(this.sectorDir, { recursive: true });
 
@@ -222,7 +217,6 @@ export class ServerContext extends Context {
       nextAccountId: this.nextAccountId,
       nextContainerId: this.nextContainerId,
       nextCreatureId: this.nextCreatureId,
-      nextPlayerId: this.nextPlayerId,
     };
     await this.fs.writeFile(this.metaPath(), JSON.stringify(meta, null, 2));
   }
@@ -280,11 +274,11 @@ export class ServerContext extends Context {
     return path.join(this.playerDir, `${id}.json`);
   }
 
-  protected accountPath(id: number) {
-    return path.join(this.accountDir, `${id}.json`);
+  protected accountPath(username: string) {
+    return path.join(this.accountDir, `${username}.json`);
   }
 
-  protected accountPasswordPath(id: number) {
-    return path.join(this.accountDir, `${id}-password.json`);
+  protected accountPasswordPath(username: string) {
+    return path.join(this.passwordDir, `${username}.json`);
   }
 }

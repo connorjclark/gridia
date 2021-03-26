@@ -5,6 +5,7 @@
 // https://medium.com/av-transcode/what-is-webrtc-and-how-to-setup-stun-turn-server-for-webrtc-communication-63314728b9d0
 // https://tools.ietf.org/id/draft-nandakumar-rtcweb-sdp-01.html#rfc.section.2
 // https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/
+// https://stackoverflow.com/a/43788873/2788187
 
 /* eslint-enable max-len */
 
