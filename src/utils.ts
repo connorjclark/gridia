@@ -57,6 +57,18 @@ export function clamp(val: number, min: number, max: number) {
   return Math.max(Math.min(val, max), min);
 }
 
+export function formatQuantity(quantity: number) {
+  if (quantity > 9999999) {
+    // Ex: 10100000 -> 10.1M
+    return Math.floor(Math.round(quantity / 100000)) / 10 + 'M';
+  } else if (quantity > 9999) {
+    // Ex: 10100 -> 10.1K
+    return Math.floor(Math.round(quantity / 100)) / 10 + 'K';
+  } else {
+    return quantity.toString();
+  }
+}
+
 // 3d matrix
 // TODO: this doesn't seem properly typed.
 export function matrix<T>(x: number, y: number, z: number, val?: T): T[][][] {

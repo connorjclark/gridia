@@ -85,7 +85,7 @@ class SelectedViewModule extends ClientModule {
       meta = Content.getMetaItem(item.type);
       data = {
         name: meta.name,
-        quantity: String(item.quantity),
+        quantity: item.quantity.toLocaleString(),
         burden: String(item.quantity * meta.burden),
         id: String(meta.id),
       };

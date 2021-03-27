@@ -1,4 +1,5 @@
 import { h, render, Component } from 'preact';
+import * as Utils from '../../utils';
 import * as Helper from '../helper';
 
 interface GraphicProps {
@@ -22,7 +23,7 @@ export const Graphic = (props: GraphicProps) => {
     throw new Error();
   }
 
-  const label = props.quantity !== undefined && props.quantity !== 1 ? props.quantity : '';
+  const label = props.quantity !== undefined && props.quantity !== 1 ? Utils.formatQuantity(props.quantity) : '';
 
   return <div
     style={{

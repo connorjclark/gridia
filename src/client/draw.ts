@@ -1,4 +1,5 @@
 import { GFX_SIZE } from '../constants';
+import * as Utils from '../utils';
 import * as Content from '../content';
 import { game } from '../game-singleton';
 import { ImageResources } from './lazy-resource-loader';
@@ -82,7 +83,7 @@ export function makeItemTemplate(item: Item) {
 }
 
 export function makeItemQuantity(quantity: number) {
-  return text(quantity.toString(), {
+  return text(Utils.formatQuantity(quantity), {
     fontSize: 14,
     stroke: 0xffffff,
     strokeThickness: 4,
