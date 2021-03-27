@@ -1,4 +1,4 @@
-import { MINE } from '../constants';
+import { MAX_STACK, MINE } from '../constants';
 import * as Content from '../content';
 import * as CommandParser from '../lib/command-parser';
 import Server from '../server/server';
@@ -437,12 +437,23 @@ export default class ServerInterface implements IServerInterface {
       return;
     }
 
+    const isStackable = Content.getMetaItem(fromItem.type).stackable && fromItem.type === toItem?.type;
     const quantityToMove = quantity !== undefined ? quantity : fromItem.quantity;
+
+    if (isStackable && quantityToMove + (toItem?.quantity || 0) > MAX_STACK) {
+      server.reply(EventBuilder.chat({
+        from: 'World',
+        to: '', // TODO
+        message: 'Item stack would be too large.',
+      }));
+      return;
+    }
+
     const newItem = {
       ...fromItem,
       quantity: quantityToMove,
     };
-    if (toItem && toItem.type === fromItem.type) {
+    if (toItem && isStackable) {
       newItem.quantity += toItem.quantity;
     }
 
@@ -534,11 +545,14 @@ export default class ServerInterface implements IServerInterface {
               return;
             }
 
+            let quantity = args.quantity || 1;
+            if (quantity > MAX_STACK) quantity = MAX_STACK;
+
             server.setItemInContainer;
             const loc = server.findNearest(server.currentClientConnection.player.creature.pos, 10, true,
               (t) => !t.item);
             if (loc) {
-              server.setItem(loc, { type: meta.id, quantity: args.quantity || 1 });
+              server.setItem(loc, { type: meta.id, quantity });
             }
           },
         },

@@ -1,3 +1,4 @@
+import { MAX_STACK } from './constants';
 import * as Content from './content';
 import * as Utils from './utils';
 
@@ -29,10 +30,12 @@ export default class Container {
     const meta = Content.getMetaItem(item.type);
 
     if (this.type === ContainerType.Normal) {
-      if (!this.items[index]) return true;
+      const itemAtIndex = this.items[index];
+      if (!itemAtIndex) return true;
       if (!meta.stackable) return false;
-      // TODO: check stack limit.
-      return this.items[index]?.type === item.type;
+      if (itemAtIndex.type !== item.type) return false;
+      if (itemAtIndex.quantity + item.quantity > MAX_STACK) return false;
+      return true;
     } else if (this.type === ContainerType.Equipment) {
       return meta.equipSlot !== undefined && Container.EQUIP_SLOTS[meta.equipSlot] === index;
     }
@@ -61,7 +64,8 @@ export default class Container {
         firstOpenSlot = i;
       }
       const containerItem = this.items[i];
-      if (isStackable && containerItem && containerItem.type === item.type) {
+      if (isStackable && containerItem && containerItem.type === item.type
+        && containerItem.quantity + item.quantity <= MAX_STACK) {
         firstStackableSlot = i;
         break;
       }

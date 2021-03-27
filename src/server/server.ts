@@ -1,4 +1,4 @@
-import { SECTOR_SIZE } from '../constants';
+import { MAX_STACK, SECTOR_SIZE } from '../constants';
 import * as Content from '../content';
 import performance from '../performance';
 import Player from '../player';
@@ -473,7 +473,11 @@ export default class Server {
   addItemNear(loc: TilePoint, item: Item) {
     const stackable = Content.getMetaItem(item.type).stackable;
     const nearestLoc = this.findNearest(loc, 6, true,
-      (tile) => !tile.item || (stackable && tile.item.type === item.type));
+      (tile) => {
+        if (!tile.item) return true;
+        if (stackable && tile.item.type === item.type && tile.item.quantity + item.quantity <= MAX_STACK) return true;
+        return false;
+      });
     if (!nearestLoc) return; // TODO what to do in this case?
 
     const nearestTile = this.context.map.getTile(nearestLoc);
