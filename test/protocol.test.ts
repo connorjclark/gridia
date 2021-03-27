@@ -53,7 +53,8 @@ beforeEach(async () => {
   server.context.saveAccount = () => Promise.resolve();
   server.context.savePlayer = () => Promise.resolve();
   server.context.checkAccountPassword = () => Promise.resolve(true);
-  server.context.loadAccount = () => Promise.resolve({ id: 1, playerIds: [] });
+  server.context.accountExists = () => Promise.resolve(true);
+  server.context.loadAccount = () => Promise.resolve({ username: 'test-account', playerIds: [] });
 
   connection.sendCommand(CommandBuilder.registerAccount({
     username: 'test-account',
@@ -103,7 +104,7 @@ function assertItemInWorldNear(location: TilePoint, item: Item) {
   expect(client.context.map.getItem(point)).toEqual(item);
 }
 
-function assertItemInContainer(containerId: number, index: number, item: Item) {
+function assertItemInContainer(containerId: string, index: number, item: Item) {
   expect(server.context.containers.get(containerId).items[index]).toEqual(item);
   expect(client.context.containers.get(containerId).items[index]).toEqual(item);
 }
