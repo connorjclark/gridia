@@ -16,7 +16,7 @@ export function makeHelpWindow(game: Game) {
     }
   }
 
-  const el = game.makeUIWindow({ name: 'help', cell: 'center' });
+  const el = game.makeUIWindow({ name: 'help', cell: 'right' });
   render(<HelpWindow />, el);
   return { el };
 }

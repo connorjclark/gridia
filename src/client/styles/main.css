@@ -231,7 +231,8 @@ button {
   height: 100vh;
 }
 .grid-container > div {
-  /* position: relative; */
+  margin: 5px;
+  min-height: 0;
 }
 .grid-container .bottom { grid-area: bottom; }
 .grid-container .center { grid-area: center; }
@@ -241,13 +242,22 @@ button {
 .grid-container .top { grid-area: top; }
 
 .window {
-  max-width: 30vw;
   max-height: 100%;
   padding: 3px;
   border: solid 3px gold;
   color: white;
   background-color: rgba(50, 49, 50, 0.7);
   pointer-events: all;
+  overflow-y: scroll;
+}
+.window--noscroll {
+  overflow-y: unset;
+}
+.grid-container .center {
+  max-width: 50%;
+}
+
+.window--skills {
   overflow-y: scroll;
 }
 

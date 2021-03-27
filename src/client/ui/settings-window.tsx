@@ -68,7 +68,7 @@ export function makeSettingsWindow(settingsModule: SettingsModule) {
     }
   }
 
-  const el = settingsModule.game.makeUIWindow({name: 'settings', cell: 'center'});
+  const el = settingsModule.game.makeUIWindow({name: 'settings', cell: 'right'});
   render(<SettingsWindow />, el);
   return { el, setState: (s: Partial<State>) => setState(s) };
 }

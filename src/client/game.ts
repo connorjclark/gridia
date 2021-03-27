@@ -919,9 +919,10 @@ class Game {
     }
   }
 
-  makeUIWindow(opts: { name: string; cell: string }) {
+  makeUIWindow(opts: { name: string; cell: string; noscroll?: boolean }) {
     const cellEl = Helper.find(`.ui .grid-container > .${opts.cell}`);
     const el = Helper.createChildOf(cellEl, 'div', `window window--${opts.name}`);
+    el.classList.toggle('window--noscroll', Boolean(opts.noscroll));
     return el;
   }
 

@@ -5,17 +5,19 @@ import * as Content from '../../content';
 class MapModule extends ClientModule {
   private mapEl?: HTMLCanvasElement;
   private context?: CanvasRenderingContext2D;
-  private mapWindow = this.game.makeUIWindow({ name: 'map', cell: 'map' });
+  private mapWindow = this.game.makeUIWindow({ name: 'map', cell: 'map', noscroll: true });
 
   private nextDrawAt = 0;
   private numDraws = 0;
 
   onStart() {
-    this.mapWindow.classList.add('ui-map');
+    this.mapWindow.classList.add('ui-map', 'flex');
     this.mapEl = Helper.createChildOf(this.mapWindow, 'canvas', 'map');
     this.mapEl.width = this.mapEl.height; // TODO: css?
-    Helper.createChildOf(this.mapWindow, 'div', 'location');
-    Helper.createChildOf(this.mapWindow, 'div', 'time');
+
+    const wrapper = Helper.createChildOf(this.mapWindow, 'div');
+    Helper.createChildOf(wrapper, 'div', 'location');
+    Helper.createChildOf(wrapper, 'div', 'time');
 
     const context = this.mapEl.getContext('2d');
     if (!context) throw new Error('could not make context');

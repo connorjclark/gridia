@@ -77,7 +77,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
     }
   }
 
-  const el = game.makeUIWindow({ name: 'container', cell: 'right' });
+  const el = game.makeUIWindow({ name: 'container', cell: 'right', noscroll: true });
   render(<ContainerWindow />, el);
 
   if (container.id === game.client.player.equipmentContainerId) {

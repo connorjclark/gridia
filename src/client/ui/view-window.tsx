@@ -98,7 +98,7 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
     }
   }
 
-  const el = selectedViewModule.game.makeUIWindow({ name: 'view', cell: 'right' });
+  const el = selectedViewModule.game.makeUIWindow({ name: 'view', cell: 'right', noscroll: true });
   render(<ViewWindow />, el);
   return { el, setState: (s: Partial<State>) => setState(s) };
 }
