@@ -103,9 +103,11 @@ declare namespace Protocol {
     }
 
     interface Dialogue {
-      speaker?: string;
-      text?: string;
-      choices?: Array<any>;
+      dialogue?: {
+        speakers: Creature[];
+        parts: DialoguePart[];
+      }
+      index: number;
     }
   }
 }

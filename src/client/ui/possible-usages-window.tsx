@@ -1,7 +1,5 @@
 import { render, h, Component } from 'preact';
-import { GFX_SIZE } from '../../constants';
 import * as Content from '../../content';
-import * as Draw from '../draw';
 import * as Helper from '../helper';
 import UsageModule from '../modules/usage-module';
 import { Graphic } from './ui-common';
@@ -61,7 +59,7 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
                 const graphicIndex = metaItem.animations ? (metaItem.animations[0] || 0) : 0;
 
                 return <Graphic
-                  type={'item'}
+                  type={'items'}
                   index={graphicIndex}
                   quantity={product.quantity}
                 ></Graphic>;

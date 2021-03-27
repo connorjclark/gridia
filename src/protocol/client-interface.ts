@@ -86,7 +86,7 @@ export default class ClientInterface implements IClientInterface {
     // handled by game.ts
   }
 
-  onDialogue(client: Client, { text, choices }: Events.Dialogue): void {
+  onDialogue(client: Client, { dialogue, index }: Events.Dialogue): void {
     // handled by game.ts
   }
 }

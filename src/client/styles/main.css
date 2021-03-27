@@ -352,6 +352,9 @@ button {
   word-break: break-word;
   text-align: start;
 }
+.window--dialogue .active-speaker {
+  border-bottom: 3px solid gold;
+}
 
 .usages__usages {
   display: flex;

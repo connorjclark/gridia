@@ -16,5 +16,5 @@ export default interface IEvents {
     onXp(client: Client, { skill, xp }: Protocol.Events.Xp): void;
     onChat(client: Client, { from, to, message }: Protocol.Events.Chat): void;
     onTime(client: Client, { epoch }: Protocol.Events.Time): void;
-    onDialogue(client: Client, { speaker, text, choices }: Protocol.Events.Dialogue): void;
+    onDialogue(client: Client, { dialogue, index }: Protocol.Events.Dialogue): void;
 }

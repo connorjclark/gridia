@@ -36,7 +36,7 @@ const Input = (props: any) => {
   </Fragment>;
 };
 
-type SelectionType = 'item' | 'floor';
+type SelectionType = 'items' | 'floors';
 
 interface SelectionProps {
   type: SelectionType;
@@ -74,7 +74,7 @@ const ItemSelections = (props: ItemSelectionsProps) => {
     {props.metaItems.map((metaItem) => {
       const graphicIndex = metaItem.animations ? (metaItem.animations[0] || 0) : 0;
       return <Selection
-        type={'item'}
+        type={'items'}
         id={metaItem.id}
         graphicIndex={graphicIndex}
         title={metaItem.name}
@@ -95,7 +95,7 @@ const FloorSelections = (props: FloorSelectionsProps) => {
     {props.floors.map((floor) => {
       const graphicIndex = floor.id;
       return <Selection
-        type={'floor'}
+        type={'floors'}
         id={floor.id}
         graphicIndex={graphicIndex}
         title={'Floor'}
@@ -189,11 +189,11 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
       const Selections = isFloors ?
         <FloorSelections
           onClickSelection={this.onClickSelection}
-          selectedId={state.selected?.type === 'floor' ? state.selected?.id : undefined}
+          selectedId={state.selected?.type === 'floors' ? state.selected?.id : undefined}
           floors={paginatedItems as MetaFloor[]}></FloorSelections> :
         <ItemSelections
           onClickSelection={this.onClickSelection}
-          selectedId={state.selected?.type === 'item' ? state.selected?.id : undefined}
+          selectedId={state.selected?.type === 'items' ? state.selected?.id : undefined}
           metaItems={paginatedItems as MetaItem[]}></ItemSelections>;
 
       return <div>

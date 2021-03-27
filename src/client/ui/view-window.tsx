@@ -26,20 +26,20 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
       if (!state.selectedView) return <div></div>;
       const selectedView = state.selectedView;
 
-      let type: 'creature' | 'item' | undefined;
+      let type: 'creatures' | 'items' | undefined;
       let index;
       let quantity = 1;
       if (selectedView.creatureId) {
-        type = 'creature';
+        type = 'creatures';
         index = selectedViewModule.game.client.context.getCreature(selectedView.creatureId).image;
       } else if (selectedView.location?.source === 'world') {
-        type = 'item';
+        type = 'items';
         const item = selectedViewModule.game.client.context.map.getItem(selectedView.location.loc);
         const metaItem = item && Content.getMetaItem(item.type);
         if (metaItem && metaItem.animations) index = metaItem.animations[0] || 0;
         if (item) quantity = item.quantity;
       } else if (selectedView.location?.source === 'container') {
-        type = 'item';
+        type = 'items';
         const container = selectedViewModule.game.client.context.containers.get(selectedView.location.id);
         const item =
           container && selectedView.location.index !== undefined && container.items[selectedView.location.index];

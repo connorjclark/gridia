@@ -480,7 +480,7 @@ class Game {
     }
 
     if (event.type === 'dialogue') {
-      if (!event.args.speaker && !event.args.text) {
+      if (event.args.index === -1) {
         closeDialogueWindow();
         return;
       }
@@ -1061,7 +1061,7 @@ class Game {
       const metaItem = Content.getMetaItem(this.itemMovingState.item.type);
       this.itemMovingGraphic.setState({
         graphic: {
-          type: 'item',
+          type: 'items',
           index: metaItem.animations?.[0] || 0,
         },
       });

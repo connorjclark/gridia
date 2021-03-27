@@ -98,6 +98,6 @@ export function chat({ from, to, message }: Protocol.Events.Chat): ChatEvent {
 export function time({ epoch }: Protocol.Events.Time): TimeEvent {
     return { type: "time", args: arguments[0] };
 }
-export function dialogue({ speaker, text, choices }: Protocol.Events.Dialogue): DialogueEvent {
+export function dialogue({ dialogue, index }: Protocol.Events.Dialogue): DialogueEvent {
     return { type: "dialogue", args: arguments[0] };
 }

@@ -141,7 +141,7 @@ export default class Server {
 
   startDialogue(clientConnection: ClientConnection, dialogue: Dialogue) {
     clientConnection.activeDialogue = { dialogue, partIndex: 0 };
-    this.sendCurrentDialoguePart(clientConnection);
+    this.sendCurrentDialoguePart(clientConnection, true);
   }
 
   processDialogueResponse(clientConnection: ClientConnection, choiceIndex?: number) {
@@ -162,22 +162,23 @@ export default class Server {
 
     if (nextPartIndex !== undefined) {
       clientConnection.activeDialogue.partIndex = nextPartIndex;
-      this.sendCurrentDialoguePart(clientConnection);
+      this.sendCurrentDialoguePart(clientConnection, false);
     } else {
       clientConnection.activeDialogue = undefined;
-      clientConnection.sendEvent(EventBuilder.dialogue({}));
+      clientConnection.sendEvent(EventBuilder.dialogue({ index: -1 }));
     }
   }
 
-  sendCurrentDialoguePart(clientConnection: ClientConnection) {
+  sendCurrentDialoguePart(clientConnection: ClientConnection, start: boolean) {
     if (!clientConnection.activeDialogue) return;
 
     const { dialogue, partIndex } = clientConnection.activeDialogue;
-    const part = dialogue.parts[partIndex];
     clientConnection.sendEvent(EventBuilder.dialogue({
-      speaker: dialogue.speakers[part.speaker].name,
-      text: part.text,
-      choices: part.choices,
+      dialogue: start ? {
+        speakers: dialogue.speakers,
+        parts: dialogue.parts,
+      } : undefined,
+      index: partIndex,
     }));
   }
 

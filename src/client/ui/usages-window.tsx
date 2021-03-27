@@ -33,7 +33,7 @@ export function makeUsagesWindow(usageModule: UsageModule) {
             const graphicIndex = metaItem.animations ? (metaItem.animations[0] || 0) : 0;
             return <div class="usages__usage" data-index={i}>
               <Graphic
-                type={'item'}
+                type={'items'}
                 index={graphicIndex}
                 quantity={item.quantity}
               ></Graphic>
