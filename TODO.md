@@ -1,5 +1,4 @@
 * More performant saving.
-* Accounts
 * Persist settings to local storage
 * "Reset" button for settings
 * Max item stacks
@@ -10,7 +9,6 @@ ____
 
 * Stamina / Health
 * Inventory system
-* Better online networking
 * Merchants
 * Registration
 

@@ -499,7 +499,7 @@ export default class ServerInterface implements IServerInterface {
             server.warpCreature(server.currentClientConnection.player.creature, destination);
           },
         },
-        spawn: {
+        creature: {
           args: [
             { name: 'name', type: 'string' },
           ],
@@ -514,6 +514,31 @@ export default class ServerInterface implements IServerInterface {
               (_, l) => server.context.walkable(l));
             if (loc) {
               server.makeCreatureFromTemplate(template, loc);
+            }
+          },
+        },
+        item: {
+          args: [
+            { name: 'nameOrId', type: 'string' },
+            { name: 'quantity', type: 'number', optional: true },
+          ],
+          do(args: { nameOrId: string; quantity?: number }) {
+            let meta;
+            if (args.nameOrId.match(/\d+/)) {
+              meta = Content.getMetaItem(parseInt(args.nameOrId, 10));
+            } else {
+              meta = Content.getMetaItemByName(args.nameOrId);
+            }
+            if (!meta) {
+              server.reply(EventBuilder.chat({ from: 'SERVER', to, message: `No item: ${args.nameOrId}` }));
+              return;
+            }
+
+            server.setItemInContainer;
+            const loc = server.findNearest(server.currentClientConnection.player.creature.pos, 10, true,
+              (t) => !t.item);
+            if (loc) {
+              server.setItem(loc, { type: meta.id, quantity: args.quantity || 1 });
             }
           },
         },

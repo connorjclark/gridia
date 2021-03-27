@@ -315,7 +315,6 @@ export class WorldContainer extends PIXI.Container {
       if (e.key === 'l') {
         this.ambientLight = (this.ambientLight + 1) % (MAX_LIGHT_POWER + 1);
         this.computeLight();
-        console.log({ ambientLight: this.ambientLight });
         return;
       }
     });
