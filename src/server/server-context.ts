@@ -154,11 +154,11 @@ export class ServerContext extends Context {
   }
 
   getContainerIdFromItem(item: Item) {
-    if (item.containerId) {
-      return item.containerId;
-    } else {
-      return item.containerId = this.makeContainer(ContainerType.Normal, 10).id;
+    if (!item.containerId) {
+      item.containerId = this.makeContainer(ContainerType.Normal, 10).id;
     }
+
+    return item.containerId;
   }
 
   async saveContainer(container: Container) {
