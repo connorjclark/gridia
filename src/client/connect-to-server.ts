@@ -3,11 +3,18 @@ import { createClientWorldMap } from '../world-map';
 import { ProtocolEvent } from '../protocol/event-builder';
 import { WEBRTC_CONFIG } from '../lib/wrtc/config';
 import Client from './client';
-import { WebRTCConnection, WebSocketConnection, WorkerConnection } from './connection';
+import { Connection, WebRTCConnection, WebSocketConnection, WorkerConnection } from './connection';
 import { ServerWorker } from './server-worker';
 
 function onProtocolEvent(client: Client, event: ProtocolEvent) {
   client.eventEmitter.emit('event', event);
+}
+
+function createClient(connection: Connection) {
+  const context = new Context(createClientWorldMap(connection));
+  const client = new Client(connection, context);
+  connection.setOnEvent(onProtocolEvent.bind(undefined, client));
+  return client;
 }
 
 export async function connectWithWebRTC(hostname: string, port: number): Promise<Client> {
@@ -44,10 +51,7 @@ export async function connectWithWebRTC(hostname: string, port: number): Promise
   await channelsOpenPromise;
 
   const connection = new WebRTCConnection(peerConnection, dataChannels);
-  const context = new Context(createClientWorldMap(connection));
-  const client = new Client(connection, context);
-  connection.setOnEvent(onProtocolEvent.bind(undefined, client));
-  return client;
+  return createClient(connection);
 }
 
 export async function connectWithWebSocket(hostname: string, port: number): Promise<Client> {
@@ -59,17 +63,11 @@ export async function connectWithWebSocket(hostname: string, port: number): Prom
   });
 
   const connection = new WebSocketConnection(ws);
-  const context = new Context(createClientWorldMap(connection));
-  const client = new Client(connection, context);
-  connection.setOnEvent(onProtocolEvent.bind(undefined, client));
-  return client;
+  return createClient(connection);
 }
 
 export async function connectToServerWorker(serverWorker: ServerWorker, opts: ServerWorkerOpts): Promise<Client> {
   await serverWorker.startServer(opts);
   const connection = new WorkerConnection(serverWorker.worker);
-  const context = new Context(createClientWorldMap(connection));
-  const client = new Client(connection, context);
-  connection.setOnEvent(onProtocolEvent.bind(undefined, client));
-  return client;
+  return createClient(connection);
 }
