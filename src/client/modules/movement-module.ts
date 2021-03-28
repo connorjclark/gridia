@@ -8,7 +8,6 @@ import Game from '../game';
 import * as Helper from '../helper';
 import KEYS from '../keys';
 import { MINE } from '../../constants';
-import WorldMapPartition from '../../world-map-partition';
 
 const MOVEMENT_DURATION = 200;
 
@@ -116,6 +115,7 @@ class MovementModule extends ClientModule {
         // this.game.client.context.map.moveCreature(focusCreature, dest);
         this.game.client.connection.sendCommand(CommandBuilder.move(dest));
         this.game.client.eventEmitter.emit('playerMove', { from: focusCreature.pos, to: dest });
+        this.game.modules.sound.playSfx('move');
         delete this.game.state.mouse.tile;
       }
     }

@@ -71,7 +71,7 @@ class WorldAnimationController {
       sprite.y = animation.location.y * GFX_SIZE;
       sprite.onFrameChange = () => {
         const sound = animation.frames && animation.frames[sprite.currentFrame].sound;
-        if (sound) game.playSound(sound);
+        if (sound) game.modules.sound.playSfx(sound);
       };
       sprite.onFrameChange(sprite.currentFrame);
       sprite.onComplete = () => sprite.destroy();

@@ -63,6 +63,7 @@ export const SfxResources: Record<string, string> = {
   havenmayor: './world/sound/sfx/rpgwo/havenmayor.wav',
   heal: './world/sound/sfx/ff6/heal.wav',
   magic: './world/sound/sfx/paid/magic.wav',
+  move: './world/sound/sfx/paid/move.wav',
   hiccup: './world/sound/sfx/rpgwo/hiccup.wav',
   ice: './world/sound/sfx/rpgwo/ice.WAV',
   pop_drip: './world/sound/sfx/rcptones/pop_drip.wav',
@@ -75,6 +76,10 @@ export const SfxResources: Record<string, string> = {
   warp: './world/sound/sfx/rpgwo/warp.wav',
   woodcutting: './world/sound/sfx/ryanconway/woodcutting.wav',
 };
+
+export function getMusicResource(name: string) {
+  return `./world/sound/music/${name}`;
+}
 
 function createPromiseAndResolve() {
   let resolve: Function;

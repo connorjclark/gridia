@@ -3,15 +3,24 @@ import { makeSettingsWindow } from '../ui/settings-window';
 
 export interface Settings {
   showGrid: boolean;
-  volume: number;
+  sfxVolume: number;
+  musicVolume: number;
   lightMode: number;
   clickMagic: boolean;
 }
 
 export const SettingsSchema = {
-  volume: {
+  sfxVolume: {
     type: 'number',
-    label: 'Volume',
+    label: 'SFX Volume',
+    default: process.env.NODE_ENV === 'production' ? 0.6 : 0,
+    min: 0,
+    max: 1,
+    step: 0.01,
+  },
+  musicVolume: {
+    type: 'number',
+    label: 'Music Volume',
     default: process.env.NODE_ENV === 'production' ? 0.6 : 0,
     min: 0,
     max: 1,

@@ -33,15 +33,13 @@ export function makeSettingsWindow(settingsModule: SettingsModule) {
               const attrs: any = {};
               if (value) attrs.checked = true;
               return <div>
-                {key}
+                {schema.label}
                 <input
                   onInput={linkState(this, `settings.${key}`)}
                   type="checkbox"
                   setting-id={key}
                   {...attrs}
-                >
-                  {schema.label}
-                </input>
+                ></input>
               </div>;
             } else if (schema.type === 'number') {
               const attrs = {
@@ -51,15 +49,13 @@ export function makeSettingsWindow(settingsModule: SettingsModule) {
                 step: schema.step,
               };
               return <div>
-                {key}
+                {schema.label}
                 <input
                   onInput={linkState(this, `settings.${key}`)}
                   type="range"
                   setting-id={key}
                   {...attrs}
-                >
-                  {schema.label}
-                </input>
+                ></input>
               </div>;
             }
           })}

@@ -11,7 +11,7 @@ import * as Draw from './draw';
 import { ItemMoveBeginEvent, ItemMoveEndEvent } from './event-emitter';
 import * as Helper from './helper';
 import KEYS from './keys';
-import LazyResourceLoader, { SfxResources } from './lazy-resource-loader';
+import LazyResourceLoader, { getMusicResource, SfxResources } from './lazy-resource-loader';
 import AdminModule from './modules/admin-module';
 import MovementModule from './modules/movement-module';
 import SelectedViewModule from './modules/selected-view-module';
@@ -26,6 +26,7 @@ import { makeDialogueWindow } from './ui/dialogue-window';
 import { makeGraphicComponent } from './ui/ui-common';
 import { WorkerConnection } from './connection';
 import { ServerWorker } from './server-worker';
+import SoundModule from './modules/sound-module';
 
 // WIP lighting shaders.
 
@@ -313,8 +314,6 @@ class Game {
   new PIXI.Text('', { fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round' });
   private _isEditing = false;
 
-  private _soundCache: Record<string, PIXI.sound.Sound> = {};
-
   private _lastSyncedEpoch = 0;
   private _lastSyncedRealTime = 0;
 
@@ -328,6 +327,7 @@ class Game {
     settings: new SettingsModule(this),
     map: new MapModule(this),
     skills: new SkillsModule(this),
+    sound: new SoundModule(this),
     usage: new UsageModule(this),
   };
 
@@ -538,6 +538,8 @@ class Game {
 
     this.app.stage.addChild(this._currentHoverItemText);
 
+    void this.modules.sound.playSong(this.modules.sound.getRandomSong());
+
     // This makes everything "pop".
     // this.containers.itemAndCreatureLayer.filters = [new OutlineFilter(0.5, 0, 1)];
 
@@ -547,17 +549,6 @@ class Game {
       this.onProtocolEvent(event);
     }
     this.client.storedEvents = [];
-  }
-
-  playSound(name: string) {
-    if (this.client.settings.volume === 0) return;
-
-    if (!this._soundCache[name]) {
-      const resourceKey = SfxResources[name];
-      this._soundCache[name] = PIXI.sound.Sound.from(resourceKey);
-    }
-
-    void this._soundCache[name].play({ volume: this.client.settings.volume });
   }
 
   addAnimation(animation: GridiaAnimation, loc: TilePoint) {
