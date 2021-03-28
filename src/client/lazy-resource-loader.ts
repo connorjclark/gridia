@@ -126,7 +126,7 @@ class LazyResourceLoader {
     const queue = [...this.loadQueue];
     this.loadQueue.splice(0, this.loadQueue.length);
 
-    PIXI.Loader.shared.add(queue).load((_, resources) => {
+    PIXI.Loader.shared.add(queue).load((_, resources: PIXI.ILoaderResource[]) => {
       for (const resource of Object.values(resources)) {
         if (!resource) continue;
 

@@ -277,7 +277,7 @@ class CreatureSprite extends PIXI.Sprite {
     const gfx = this.children[0] as PIXI.Graphics;
     const filters = [];
     if (color !== undefined) {
-      filters.push(new PIXI.OutlineFilter(2, color, 1));
+      filters.push(new OutlineFilter(2, color, 1));
     }
     gfx.filters = filters;
   }

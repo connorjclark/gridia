@@ -10,7 +10,14 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "jsxFactory": "h",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    // PIXI Loaders needs this to use the more strict mini-signal types
+    "paths": {
+      "mini-signals": [
+        "node_modules/resource-loader/typings/mini-signals.d.ts"
+      ]
+    },
+    "baseUrl": "./",
   },
   "include": [
     "src",

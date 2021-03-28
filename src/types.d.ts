@@ -4,6 +4,15 @@ declare namespace NodeJS {
   }
 }
 
+declare namespace PIXI {
+  export * from 'pixi.js';
+}
+
+// This is code split'd.
+declare let PIXI: import('pixi.js');
+declare let pixiSound: import('pixi-sound');
+declare let OutlineFilter: import('@pixi/filter-outline');
+
 type Array2D<T> = T[][];
 type Array3D<T> = T[][][];
 
@@ -236,11 +245,6 @@ interface ServerWorkerOpts extends ServerOptions {
   useMapPreview?: boolean;
 }
 
-declare namespace PIXI {
-  // const PIXISound: any;
-  let OutlineFilter: typeof import('@pixi/filter-outline').OutlineFilter;
-}
-
 declare module 'js-bbcode-parser' {
-  export default {parse: (text: string) => string};
+  export default { parse: (text: string) => string };
 }

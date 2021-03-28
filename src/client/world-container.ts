@@ -73,7 +73,7 @@ class WorldAnimationController {
         const sound = animation.frames && animation.frames[sprite.currentFrame].sound;
         if (sound) game.playSound(sound);
       };
-      sprite.onFrameChange();
+      sprite.onFrameChange(sprite.currentFrame);
       sprite.onComplete = () => sprite.destroy();
 
       const container = this.worldContainer.layers.animations;

@@ -34,7 +34,12 @@ function makeTextureCache(resourceType: string) {
 
     const rect = new PIXI.Rectangle(
       (type % 10) * GFX_SIZE, Math.floor((type % 100) / 10) * GFX_SIZE, tilesWidth * GFX_SIZE, tilesHeight * GFX_SIZE);
-    texture = new PIXI.Texture(PIXI.Loader.shared.resources[resourceKey].texture.baseTexture, rect);
+    const loaderResource = PIXI.Loader.shared.resources[resourceKey];
+    if (!loaderResource.texture) {
+      throw new Error('missing texture ' + resourceKey);
+    }
+
+    texture = new PIXI.Texture(loaderResource.texture.baseTexture, rect);
     textureCache.set(type, texture);
     return texture;
   };
