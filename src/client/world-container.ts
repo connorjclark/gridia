@@ -71,7 +71,7 @@ class WorldAnimationController {
       sprite.y = animation.location.y * GFX_SIZE;
       sprite.onFrameChange = () => {
         const sound = animation.frames && animation.frames[sprite.currentFrame].sound;
-        if (sound) game.modules.sound.playSfx(sound);
+        if (sound) game.modules.sound.playSfx(sound, animation.location);
       };
       sprite.onFrameChange(sprite.currentFrame);
       sprite.onComplete = () => sprite.destroy();
@@ -258,12 +258,12 @@ export class WorldContainer extends PIXI.Container {
       this.numTicksUntilNextLightCompute = 5;
     }
 
-    if (Utils.equalPoints(game.client.player.creature.pos, this.computeLightCache.lastPlayerPos)) {
+    if (Utils.equalPoints(game.client.creature.pos, this.computeLightCache.lastPlayerPos)) {
       shouldCompute = true;
     }
 
     if (shouldCompute) {
-      this.computeLightCache.lastPlayerPos = { ...game.client.player.creature.pos };
+      this.computeLightCache.lastPlayerPos = { ...game.client.creature.pos };
       this.computeLight();
     }
   }

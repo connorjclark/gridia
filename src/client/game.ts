@@ -11,7 +11,7 @@ import * as Draw from './draw';
 import { ItemMoveBeginEvent, ItemMoveEndEvent } from './event-emitter';
 import * as Helper from './helper';
 import KEYS from './keys';
-import LazyResourceLoader, { getMusicResource, SfxResources } from './lazy-resource-loader';
+import LazyResourceLoader from './lazy-resource-loader';
 import AdminModule from './modules/admin-module';
 import MovementModule from './modules/movement-module';
 import SelectedViewModule from './modules/selected-view-module';

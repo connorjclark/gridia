@@ -26,7 +26,7 @@ class SoundModule extends ClientModule {
     }
   }
 
-  playSfx(name: string) {
+  playSfx(name: string, loc?: Point4) {
     if (this.game.client.settings.sfxVolume === 0) return;
 
     if (!this._soundCache[name]) {
@@ -34,7 +34,17 @@ class SoundModule extends ClientModule {
       this._soundCache[name] = PIXI.sound.Sound.from(resourceKey);
     }
 
-    void this._soundCache[name].play({ volume: this.game.client.settings.sfxVolume });
+    // TODO: stereo sound https://github.com/pixijs/pixi-sound/issues/73
+    let multiplier = 1;
+    if (loc) {
+      const range = 50;
+      const x = Utils.dist(this.game.client.creature.pos, loc) / range;
+      // https://www.desmos.com/calculator/mqvwdlklo7
+      multiplier = Utils.clamp(1.1 - 3.6 * Math.log10(x + 1), 0, 1);
+    }
+
+    const volume = multiplier * this.game.client.settings.sfxVolume;
+    void this._soundCache[name].play({ volume });
   }
 
   async playSong(name: string) {
