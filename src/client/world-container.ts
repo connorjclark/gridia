@@ -258,7 +258,7 @@ export class WorldContainer extends PIXI.Container {
       this.numTicksUntilNextLightCompute = 5;
     }
 
-    if (Utils.equalPoints(game.client.creature.pos, this.computeLightCache.lastPlayerPos)) {
+    if (!Utils.equalPoints(game.client.creature.pos, this.computeLightCache.lastPlayerPos)) {
       shouldCompute = true;
     }
 
