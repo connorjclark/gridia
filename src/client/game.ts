@@ -538,8 +538,6 @@ class Game {
 
     this.app.stage.addChild(this._currentHoverItemText);
 
-    void this.modules.sound.playSong(this.modules.sound.getRandomSong());
-
     // This makes everything "pop".
     // this.containers.itemAndCreatureLayer.filters = [new OutlineFilter(0.5, 0, 1)];
 

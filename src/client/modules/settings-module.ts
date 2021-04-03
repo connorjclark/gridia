@@ -21,7 +21,7 @@ export const SettingsSchema = {
   musicVolume: {
     type: 'number',
     label: 'Music Volume',
-    default: process.env.NODE_ENV === 'production' ? 0.6 : 0,
+    default: process.env.NODE_ENV === 'production' ? 0.2 : 0.2,
     min: 0,
     max: 1,
     step: 0.01,

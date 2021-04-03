@@ -2,27 +2,49 @@ import ClientModule from '../client-module';
 import * as Utils from '../../utils';
 import { getMusicResource, SfxResources } from '../lazy-resource-loader';
 
+const SONGS = [
+  'aaron-anderson-11/Good Memories.mp3',
+  'boxcat/Against the Wall.mp3',
+  'boxcat/Inspiration.mp3',
+  'boxcat/Passing Time.mp3',
+  'boxcat/Young Love.mp3',
+  'scythuz/Mead in Jorvik.mp3',
+  'scythuz/Spring Breeze.mp3',
+  'scythuz/Withering Leaves.mp3',
+];
+
 class SoundModule extends ClientModule {
   songMode: 'shuffle' | 'loop' = 'shuffle';
+  private _shuffledSongList: string[] = [];
   private _soundCache: Record<string, PIXI.sound.Sound> = {};
   private _currentSongName?: string;
   private _currentSong?: PIXI.sound.IMediaInstance;
+  private _state: 'not-initialized' | 'loading-song' | 'playing' = 'not-initialized';
 
   onStart() {
     // ...
   }
 
   async onTick() {
-    if (!this._currentSong && this._currentSongName && this.game.client.settings.musicVolume > 0) {
-      await this.playSong(this._currentSongName);
+    if (this.game.client.settings.musicVolume === 0) {
+      if (this._currentSong && !this._currentSong.paused) this._currentSong.paused = true;
+      return;
+    } else {
+      if (!this._currentSong && this._currentSongName) {
+        await this.playSong(this._currentSongName);
+      }
+      if (this._currentSong && this._currentSong.paused) {
+        this._currentSong.paused = false;
+      }
     }
 
     if (this._currentSong) {
       this._currentSong.volume = this.game.client.settings.musicVolume;
+    }
 
-      if (this.songMode === 'shuffle' && this._currentSong.progress === 1) {
-        await this.playSong(this.getRandomSong());
-      }
+    const songFinished = this._state === 'playing' && this._currentSong && this._currentSong.progress === 1;
+    if (this.songMode === 'shuffle' && (this._state === 'not-initialized' || songFinished)) {
+      await this._continueShuffledPlaylist();
     }
   }
 
@@ -60,26 +82,32 @@ class SoundModule extends ClientModule {
 
     if (this._currentSong) {
       this._currentSong.stop();
-      this._currentSong.destroy();
+      // this._currentSong.destroy();
     }
 
-    this._currentSong = await this._soundCache[name].play({ volume: this.game.client.settings.musicVolume });
-    if (this.songMode === 'loop') this._currentSong.loop = true;
+    this._state = 'loading-song';
+    this._currentSong = await this._soundCache[name].play({
+      volume: this.game.client.settings.musicVolume,
+      loop: this.songMode === 'loop',
+    });
+    this._state = 'playing';
     this._currentSongName = name;
   }
 
-  getRandomSong() {
-    const songs = [
-      'aaron-anderson-11/Good Memories.mp3',
-      'boxcat/Against the Wall.mp3',
-      'boxcat/Inspiration.mp3',
-      'boxcat/Passing Time.mp3',
-      'boxcat/Young Love.mp3',
-      'scythuz/Mead in Jorvik.mp3',
-      'scythuz/Spring Breeze.mp3',
-      'scythuz/Withering Leaves.mp3',
-    ];
-    return songs[Utils.randInt(0, songs.length - 1)];
+  async skipSong() {
+    if (this.songMode !== 'shuffle') return;
+    await this._continueShuffledPlaylist();
+  }
+
+  async _continueShuffledPlaylist() {
+    if (this._shuffledSongList.length === 0) {
+      this._shuffledSongList = [...SONGS].sort(() => Math.random() > 0.5 ? 1 : -1);
+    }
+
+    const nextSong = this._shuffledSongList.pop();
+    if (nextSong) {
+      await this.playSong(nextSong);
+    }
   }
 }
 
