@@ -976,8 +976,10 @@ class Game {
       }
     }
 
-    const tilesWidth = Math.ceil(this.app.view.width / GFX_SIZE);
-    const tilesHeight = Math.ceil(this.app.view.height / GFX_SIZE);
+    const scale = this.client.settings.scale;
+    this.app.stage.scale.set(scale);
+    const tilesWidth = Math.ceil(this.app.view.width / GFX_SIZE / scale);
+    const tilesHeight = Math.ceil(this.app.view.height / GFX_SIZE / scale);
 
     // Hand-picked values.
     const lightData = [

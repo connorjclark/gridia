@@ -7,6 +7,7 @@ export interface Settings {
   musicVolume: number;
   lightMode: number;
   clickMagic: boolean;
+  scale: number;
 }
 
 export const SettingsSchema = {
@@ -43,6 +44,14 @@ export const SettingsSchema = {
     min: 0,
     max: 3,
     step: 1,
+  },
+  scale: {
+    type: 'number',
+    label: 'Scale',
+    default: 1.5,
+    min: 1,
+    max: 3,
+    step: 0.25,
   },
 } as const;
 
