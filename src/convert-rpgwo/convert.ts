@@ -207,6 +207,11 @@ function parseItemsIni() {
     if (item.class === 'PLANT') item.class = 'Plant';
     // @ts-ignore
     if (item.class) item.class = uppercaseFirstLetter(item.class);
+
+    // @ts-expect-error
+    item.growthItem = item.growthItem || item.degradeItem;
+    // @ts-expect-error
+    item.growthDelta = item.growthDelta || item.degradeDelta;
   }
 
   for (const item of items) {

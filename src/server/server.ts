@@ -791,9 +791,7 @@ export default class Server {
         server.time.epoch += 1;
 
         for (const [w, partition] of server.context.map.getPartitions()) {
-          if (partition.loaded) {
-            yield* server.growPartition(w, partition);
-          }
+          yield* server.growPartition(w, partition);
         }
       },
     });
@@ -955,17 +953,17 @@ export default class Server {
       if (!tile.item) continue;
 
       const meta = Content.getMetaItem(tile.item.type);
-      if (!meta || !meta.growthItem) continue;
+      if (!meta || meta.growthDelta === undefined) continue;
 
       tile.item.growth = (tile.item.growth || 0) + 1;
       if (tile.item.growth < meta.growthDelta) continue;
 
-      tile.item.type = meta.growthItem;
-      tile.item.growth = 0;
-      this.broadcast(EventBuilder.setItem({
-        location: Utils.ItemLocation.World({ ...pos, w }),
-        item: tile.item,
-      }));
+      const newItem = meta.growthItem ? {
+        ...tile.item,
+        type: meta.growthItem,
+        growth: 0,
+      } : undefined;
+      this.setItem({ ...pos, w }, newItem);
     }
 
     // for (let x = 0; x < partition.width; x++) {

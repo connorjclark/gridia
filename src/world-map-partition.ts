@@ -3,6 +3,7 @@ import * as Content from './content';
 import * as Utils from './utils';
 
 class WorldMapPartition {
+  // TODO remove?
   loaded = false;
   width: number;
   height: number;

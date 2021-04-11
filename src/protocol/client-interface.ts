@@ -64,7 +64,9 @@ export default class ClientInterface implements IClientInterface {
 
   onSetItem(client: Client, { location, item }: Events.SetItem): void {
     if (location.source === 'world') {
-      client.context.map.getTile(location.loc).item = item;
+      if (client.context.map.partitions.get(location.loc.w)) {
+        client.context.map.getTile(location.loc).item = item;
+      }
     } else {
       if (location.index === undefined) throw new Error('invariant violated');
 
