@@ -1,0 +1,50 @@
+<html>
+
+<head>
+  <title>Gridia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <script src="../../pixi/index.ts"></script>
+  <script src="./ui-index.ts"></script>
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../../../node_modules/basscss/css/basscss.css">
+  <link rel="stylesheet" href="../styles/buttons.css">
+</head>
+
+<body>
+  <div class="game">
+    <div id="canvases" tabindex="0">
+      <div class="status-texts"></div>
+    </div>
+    <div class="ui">
+      <div class="grid-container">
+        <div class="bottom">
+          <div class="chat">
+            <textarea class="chat-area" tabindex="-1" readonly></textarea>
+            <form class="flex chat-form">
+              <input class="flex-grow chat-input" type="text">
+              <input class="chat-submit" type="submit">
+            </form>
+          </div>
+
+          <div class="panels-container">
+            <div class="panels__tabs">
+              <!-- <div class="panels__tab" data-panel="inventory">Inventory</div> -->
+              <div class="panels__tab" data-panel="skills">Skills</div>
+              <div class="panels__tab" data-panel="settings">Settings</div>
+              <div class="panels__tab" data-panel="admin">Admin</div>
+              <div class="panels__tab" data-panel="help">Help</div>
+            </div>
+          </div>
+        </div>
+        <div class="center"></div>
+        <div class="map"></div>
+        <div class="right"></div>
+        <div class="left"></div>
+        <div class="top"></div>
+      </div>
+    </div>
+    <div class="contextmenu"></div>
+  </div>
+</body>
+
+</html>

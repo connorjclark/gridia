@@ -8,7 +8,7 @@ class SkillsModule extends ClientModule {
 
   getSkillsWindow() {
     if (this.skillsWindow) return this.skillsWindow;
-    this.skillsWindow = makeSkillsWindow(this);
+    this.skillsWindow = makeSkillsWindow({ skills: this.getSkills() });
     return this.skillsWindow;
   }
 
@@ -24,32 +24,33 @@ class SkillsModule extends ClientModule {
         // TODO: add one listener to .status-texts
         statusTextEl.addEventListener('transitionend', () => statusTextEl.remove());
         Helper.find('.status-texts').appendChild(statusTextEl);
-
-        this.getSkillsWindow().setState({ skills: this.getSkills() });
+        this.getSkillsWindow().actions.setSkill(this.getSkill(e.args.skill));
       }
     });
 
     this.game.client.eventEmitter.on('panelFocusChanged', ({ panelName }) => {
       if (panelName === 'skills') {
         this.getSkillsWindow().el.hidden = false;
-        this.getSkillsWindow().setState({ skills: this.getSkills() });
+        this.getSkillsWindow().actions.setSkills(this.getSkills());
       } else if (this.skillsWindow) {
         this.getSkillsWindow().el.hidden = true;
       }
     });
   }
 
+  getSkill(id: number) {
+    const skill = Content.getSkill(id);
+    const xp = this.game.client.player.skills.get(id);
+    return {
+      ...skill,
+      xp,
+    };
+  }
+
   getSkills() {
     const skillIdsSortedByName = [...this.game.client.player.skills.keys()].sort(
       (a, b) => Content.getSkill(a).name.localeCompare(Content.getSkill(b).name));
-    return skillIdsSortedByName.map((id) => {
-      const skill = Content.getSkill(id);
-      const xp = this.game.client.player.skills.get(id);
-      return {
-        ...skill,
-        xp,
-      };
-    });
+    return skillIdsSortedByName.map((id) => this.getSkill(id));
   }
 }
 

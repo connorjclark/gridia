@@ -107,7 +107,7 @@ class SelectedViewModule extends ClientModule {
       }
     }
 
-    this.getViewWindow().setState({ selectedView: this.game.state.selectedView, data });
+    this.getViewWindow().actions.setView({ selectedView: this.game.state.selectedView, data });
     this.getViewWindow().el.hidden = !creature && !item;
   }
 }

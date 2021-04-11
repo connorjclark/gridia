@@ -1,33 +1,31 @@
 import { render, h, Component } from 'preact';
-import SettingsModule, { SettingsSchema, Settings } from '../modules/settings-module';
-import linkState from '../../lib/link-state';
+import { SettingsSchema, Settings } from '../modules/settings-module';
+import { val } from '../../lib/link-state';
+import { ComponentProps, createSubApp, makeUIWindow } from './ui-common';
 
-export function makeSettingsWindow(settingsModule: SettingsModule) {
-  let setState = (_: Partial<State>) => {
-    // Do nothing.
-  };
-  interface State {
-    settings?: Settings;
-  }
-  class SettingsWindow extends Component {
-    state: State = {};
+interface State {
+  settings: Settings;
+}
 
-    // TODO: don't think this is needed... remove?
-    componentDidMount() {
-      setState = this.setState.bind(this);
-    }
+export function makeSettingsWindow(initialState: State) {
+  const actions = () => ({
+    setSettings: (state: State, settings: Settings): State => {
+      return { ...state, settings };
+    },
+  });
 
-    render(props: any, state: State) {
-      if (!state.settings) return;
-
+  type Props = ComponentProps<State, typeof actions>;
+  class SettingsWindow extends Component<Props> {
+    render(props: Props) {
       return <div>
         <div>
           Settings
         </div>
         <div>
           {Object.entries(SettingsSchema).map(([key, schema]) => {
-            // @ts-ignore
-            const value = state.settings[key];
+            // @ts-expect-error
+            const value = props.settings[key];
+            const update = (v: any) => props.setSettings({ ...props.settings, [key]: v });
 
             if (schema.type === 'boolean') {
               const attrs: any = {};
@@ -35,7 +33,7 @@ export function makeSettingsWindow(settingsModule: SettingsModule) {
               return <div>
                 {schema.label}
                 <input
-                  onInput={linkState(this, `settings.${key}`)}
+                  onInput={(e) => update(val(e.target))}
                   type="checkbox"
                   setting-id={key}
                   {...attrs}
@@ -51,7 +49,7 @@ export function makeSettingsWindow(settingsModule: SettingsModule) {
               return <div>
                 {schema.label}
                 <input
-                  onInput={linkState(this, `settings.${key}`)}
+                  onInput={(e) => update(val(e.target))}
                   type="range"
                   setting-id={key}
                   {...attrs}
@@ -64,7 +62,9 @@ export function makeSettingsWindow(settingsModule: SettingsModule) {
     }
   }
 
-  const el = settingsModule.game.makeUIWindow({name: 'settings', cell: 'right'});
-  render(<SettingsWindow />, el);
-  return { el, setState: (s: Partial<State>) => setState(s) };
+  const { SubApp, exportedActions, subscribe } = createSubApp(SettingsWindow, initialState, actions);
+  const el = makeUIWindow({ name: 'settings', cell: 'right' });
+  render(<SubApp />, el);
+
+  return { el, actions: exportedActions, subscribe };
 }

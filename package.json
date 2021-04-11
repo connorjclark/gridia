@@ -16,6 +16,7 @@
     "pixi-sound": "^3.0.5",
     "pixi.js": "^6.0.1",
     "preact": "^10.4.1",
+    "redux-zero": "^5.1.7",
     "seedrandom": "^3.0.5",
     "serialijse": "^0.1.3",
     "source-map-support": "^0.5.12",
@@ -45,6 +46,7 @@
     "clean": "rimraf dist .cache",
     "watch": "concurrently --kill-others --names Server,Client,Static --prefix name nodemon \"node build/build-client.js --dev\" \"yarn run-static-server > /dev/null\"",
     "watch-no-server": "concurrently --kill-others --names Client,Static --prefix name \"node build/build-client.js --dev\" \"yarn run-static-server > /dev/null\"",
+    "watch-ui": "open http://localhost:1234/ui.html && parcel serve src/client/ui/ui.html",
     "type-check": "tsc --noEmit",
     "lint": "eslint '{src,test,build}/**/*.{ts,js}'",
     "test": "yarn lint && yarn type-check && jest --testPathIgnorePatterns memory"

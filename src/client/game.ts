@@ -434,7 +434,8 @@ class Game {
       if (event.args.location.source === 'container' && this.containerWindows.has(event.args.location.id)) {
         const container = this.client.context.containers.get(event.args.location.id);
         if (container) {
-          this.containerWindows.get(event.args.location.id)?.setState({ container });
+          // TODO: should only update a single slot ...
+          this.containerWindows.get(event.args.location.id)?.actions.setContainer(container);
         }
       }
     }
@@ -745,9 +746,9 @@ class Game {
 
         // 1234567890
         if (num === 0) {
-          inventoryWindow.setSelectedIndex(9);
+          inventoryWindow.actions.setSelectedIndex(9);
         } else {
-          inventoryWindow.setSelectedIndex(num - 1);
+          inventoryWindow.actions.setSelectedIndex(num - 1);
         }
       }
 
@@ -906,13 +907,6 @@ class Game {
         serverWorker.shutdown().then(() => console.log('saved!'));
       });
     }
-  }
-
-  makeUIWindow(opts: { name: string; cell: string; noscroll?: boolean }) {
-    const cellEl = Helper.find(`.ui .grid-container > .${opts.cell}`);
-    const el = Helper.createChildOf(cellEl, 'div', `window window--${opts.name}`);
-    el.classList.toggle('window--noscroll', Boolean(opts.noscroll));
-    return el;
   }
 
   tick() {

@@ -82,7 +82,8 @@ class UsageModule extends ClientModule {
   }
 
   updatePossibleUsages(center?: TilePoint) {
-    this.getPossibleUsagesWindow().setState({ possibleUsages: this.getPossibleUsages(center) });
+    this.getPossibleUsagesWindow().actions.setPossibleUsages(this.getPossibleUsages(center));
+    this.getPossibleUsagesWindow().actions.setSelectedTool(Helper.getSelectedTool());
   }
 
   // TODO: better comment. maybe some bullet points. mhm.

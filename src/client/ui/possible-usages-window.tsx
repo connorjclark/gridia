@@ -1,31 +1,46 @@
 import { render, h, Component } from 'preact';
 import * as Content from '../../content';
-import * as Helper from '../helper';
+import * as Utils from '../../utils';
 import UsageModule from '../modules/usage-module';
-import { Graphic } from './ui-common';
+import { ComponentProps, Graphic, makeUIWindow, createSubApp } from './ui-common';
+
+interface State {
+  possibleUsages: PossibleUsage[];
+  selectedTool?: Item;
+}
 
 // omg
 let possibleUsagesGrouped: PossibleUsage[][] = [];
 
 export function makePossibleUsagesWindow(usageModule: UsageModule) {
-  let setState = (_: Partial<State>) => {
-    // Do nothing.
+  const initialState: State = {
+    possibleUsages: [],
   };
 
-  interface State {
-    possibleUsages: PossibleUsage[];
-  }
-  class PossibleUsagesWindow extends Component {
-    state: State = { possibleUsages: [] };
+  const actions = () => ({
+    setPossibleUsages: (state: State, possibleUsages: PossibleUsage[]): State => {
+      if (state.possibleUsages.length === possibleUsages.length) {
+        const allSame = possibleUsages.every((use1, i) => {
+          const use2 = state.possibleUsages[i];
+          return use1.use === use2.use && use1.toolIndex === use2.toolIndex
+            && use1.usageIndex === use2.usageIndex && Utils.ItemLocation.Equal(use1.focusLocation, use2.focusLocation);
+        });
+        if (allSame) return state;
+      }
 
-    componentDidMount() {
-      setState = this.setState.bind(this);
-    }
+      return {
+        ...state, possibleUsages,
+      };
+    },
+    setSelectedTool: (state: State, selectedTool: Item | undefined): State => ({ ...state, selectedTool }),
+  });
 
-    render(props: any, state: State) {
+  type Props = ComponentProps<State, typeof actions>;
+  class PossibleUsagesWindow extends Component<Props> {
+    render(props: Props) {
       // Group by usage.
       const possibleUsagesGroupedMap = new Map<ItemUse, PossibleUsage[]>();
-      for (const possibleUsage of state.possibleUsages) {
+      for (const possibleUsage of props.possibleUsages) {
         const group = possibleUsagesGroupedMap.get(possibleUsage.use) || [];
         group.push(possibleUsage);
         possibleUsagesGroupedMap.set(possibleUsage.use, group);
@@ -40,9 +55,8 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
         entries.push(products);
       }
 
-      const selectedTool = Helper.getSelectedTool();
       let title = 'Possible Usages';
-      if (selectedTool) title += ` (using ${Content.getMetaItem(selectedTool.type).name})`;
+      if (props.selectedTool) title += ` (using ${Content.getMetaItem(props.selectedTool.type).name})`;
 
       return <div>
         <div>
@@ -71,8 +85,9 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
     }
   }
 
-  const el = usageModule.game.makeUIWindow({ name: 'possible-usages', cell: 'left' });
-  render(<PossibleUsagesWindow />, el);
+  const { SubApp, exportedActions, subscribe } = createSubApp(PossibleUsagesWindow, initialState, actions);
+  const el = makeUIWindow({ name: 'possible-usages', cell: 'left' });
+  render(<SubApp />, el);
 
   const getIndex = (e: PointerEvent): number | undefined => {
     const target = e.target as HTMLElement;
@@ -106,8 +121,5 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
     usageModule.possibleUsageHighlight.location = null;
   });
 
-  return {
-    el,
-    setState: (s: Partial<State>) => setState(s),
-  };
+  return { el, actions: exportedActions, subscribe };
 }

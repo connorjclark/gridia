@@ -1,27 +1,37 @@
 import { render, h, Component } from 'preact';
-import SkillsModule from '../modules/skills-module';
+import { ComponentProps, makeUIWindow, createSubApp } from './ui-common';
 
-export function makeSkillsWindow(skillsModule: SkillsModule) {
-  let setState = (_: Partial<State>) => {
-    // Do nothing.
-  };
-  interface State {
-    skills: Array<{ id: number; name: string; xp?: number }>;
-  }
-  class SkillsWindow extends Component {
-    state: State = {skills: []};
+interface State {
+  skills: Record<number, { id: number; name: string; xp?: number }>;
+}
 
-    componentDidMount() {
-      setState = this.setState.bind(this);
-    }
+export function makeSkillsWindow(initialState: State) {
+  const actions = () => ({
+    setSkills: (state: State, skills: State['skills']): State => {
+      return {
+        ...state,
+        skills,
+      };
+    },
+    setSkill: (state: State, skill: { id: number; name: string; xp?: number }): State => {
+      return {
+        skills: {
+          ...state.skills,
+          [skill.id]: skill,
+        },
+      };
+    },
+  });
 
-    render(props: any, state: State) {
+  type Props = ComponentProps<State, typeof actions>;
+  class SkillsWindow extends Component<Props> {
+    render(props: Props) {
       return <div>
         <div>
           Skills
         </div>
         <div>
-          {state.skills.map((skill) => {
+          {Object.values(props.skills).map((skill) => {
             return <div>{skill.name} - {skill.xp || 0}</div>;
           })}
         </div>
@@ -29,7 +39,9 @@ export function makeSkillsWindow(skillsModule: SkillsModule) {
     }
   }
 
-  const el = skillsModule.game.makeUIWindow({name: 'skills', cell: 'right'});
-  render(<SkillsWindow />, el);
-  return { el, setState: (s: Partial<State>) => setState(s) };
+  const { SubApp, exportedActions, subscribe } = createSubApp(SkillsWindow, initialState, actions);
+  const el = makeUIWindow({ name: 'skills', cell: 'right' });
+  render(<SubApp />, el);
+
+  return { el, actions: exportedActions, subscribe };
 }

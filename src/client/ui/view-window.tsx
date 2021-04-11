@@ -1,30 +1,32 @@
 import { render, h, Component } from 'preact';
 import SelectedViewModule from '../modules/selected-view-module';
 import * as Content from '../../content';
-import linkState from '../../lib/link-state';
-import { Graphic } from './ui-common';
+import { val } from '../../lib/link-state';
+import { Graphic, ComponentProps, createSubApp, makeUIWindow } from './ui-common';
+
+interface State {
+  selectedView?: UIState['selectedView'];
+  data?: Record<string, string>;
+  quantity?: number;
+}
 
 export function makeViewWindow(selectedViewModule: SelectedViewModule) {
-  let setState = (_: Partial<State>) => {
-    // Do nothing.
-  };
-  interface State {
-    selectedView?: UIState['selectedView'];
-    data?: Record<string, string>;
-    quantity: number;
-  }
-  class ViewWindow extends Component {
-    state: State = {
-      quantity: 1,
-    };
+  const initialState: State = {};
 
-    componentDidMount() {
-      setState = this.setState.bind(this);
-    }
+  const actions = () => ({
+    setView: (state: State, newState: State): State => {
+      return { ...newState, quantity: undefined };
+    },
+    setQuantity: (state: State, quantity: number): State => {
+      return { ...state, quantity };
+    },
+  });
 
-    render(props: any, state: State) {
-      if (!state.selectedView) return <div></div>;
-      const selectedView = state.selectedView;
+  type Props = ComponentProps<State, typeof actions>;
+  class ViewWindow extends Component<Props> {
+    render(props: Props) {
+      if (!props.selectedView) return <div></div>;
+      const selectedView = props.selectedView;
 
       let type: 'creatures' | 'items' | undefined;
       let index;
@@ -48,10 +50,6 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
         if (item) quantity = item.quantity;
       }
 
-      if (quantity > 1 && state.quantity > quantity -1) {
-        this.setState({quantity: quantity - 1});
-      }
-
       return <div>
         <div>
           View
@@ -59,7 +57,7 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
         <div>
           {type && index !== undefined && <Graphic type={type} index={index} quantity={quantity}></Graphic>}
 
-          {Object.entries(state.data || {}).map(([key, value]) => {
+          {Object.entries(props.data || {}).map(([key, value]) => {
             return <div>
               {key}: {value}
             </div>;
@@ -73,19 +71,20 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
             });
 
             const children = [];
-            if (action.type === 'split') {
+            if (action.type === 'split' && quantity > 1) {
+              const quantityToSplit = props.quantity || quantity - 1;
               children.push(
                 <input
                   type="number"
-                  onInput={linkState(this, 'quantity')}
-                  value={state.quantity}
+                  onInput={(e) => props.setQuantity(val(e.target))}
+                  value={quantityToSplit}
                   min="1"
                   max={quantity - 1}
                   step="1">
                 </input>
               );
               // @ts-ignore
-              dataset['data-quantity'] = state.quantity;
+              dataset['data-quantity'] = quantityToSplit;
             }
 
             return <div>
@@ -98,7 +97,9 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
     }
   }
 
-  const el = selectedViewModule.game.makeUIWindow({ name: 'view', cell: 'right', noscroll: true });
-  render(<ViewWindow />, el);
-  return { el, setState: (s: Partial<State>) => setState(s) };
+  const { SubApp, exportedActions, subscribe } = createSubApp(ViewWindow, initialState, actions);
+  const el = makeUIWindow({ name: 'view', cell: 'right', noscroll: true });
+  render(<SubApp />, el);
+
+  return { el, actions: exportedActions, subscribe };
 }

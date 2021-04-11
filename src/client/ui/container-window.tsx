@@ -2,60 +2,50 @@ import { render, h, Component } from 'preact';
 import * as Utils from '../../utils';
 import * as Content from '../../content';
 import Game from '../game';
-import Container from '../../container';
-import { Graphic } from './ui-common';
+import Container, { ContainerType } from '../../container';
+import { Graphic, ComponentProps, createSubApp, makeUIWindow } from './ui-common';
+
+interface State {
+  name?: string;
+  container: Pick<Container, 'id' | 'items'>;
+  selectedIndex: number | null;
+}
 
 export function makeContainerWindow(game: Game, container: Container, name?: string) {
-  let setState = (_: Partial<State>) => {
-    // Do nothing.
+  const initialState: State = {
+    name,
+    container,
+    selectedIndex: null,
   };
 
-  let setSelectedIndex = (_: number) => {
-    // Do nothing.
-  };
-
-  interface State {
-    name?: string;
-    container: Container;
-    selectedIndex: number | null;
-  }
-  class ContainerWindow extends Component {
-    state: State = { container, name, selectedIndex: null };
-
-    componentDidMount() {
-      setState = this.setState.bind(this);
-      setSelectedIndex = this.setSelectedIndex.bind(this);
-    }
-
-    componentDidUpdate() {
-      // lol
-      container = this.state.container;
-    }
-
-    setSelectedIndex(index: number | null) {
-      if (index === this.state.selectedIndex) {
-        index = null;
-      }
-      this.setState({
-        selectedIndex: index,
-      });
+  const actions = () => ({
+    setContainer: (state: State, container_: Container): State => {
+      return { ...state, container: { ...container_ } };
+    },
+    setSelectedIndex: (state: State, selectedIndex: number | null): State => {
+      if (selectedIndex === state.selectedIndex) selectedIndex = null;
 
       // lol
-      game.state.containers[this.state.container.id] = game.state.containers[this.state.container.id] || {};
-      game.state.containers[this.state.container.id].selectedIndex = index;
+      game.state.containers[state.container.id] = game.state.containers[state.container.id] || {};
+      game.state.containers[state.container.id].selectedIndex = selectedIndex;
 
       // Selected item actions are based off currently selected tool. Fire
       // an event so the appropriate system can respond to changes.
       game.client.eventEmitter.emit('containerWindowSelectedIndexChanged');
-    }
 
-    render(props: any, state: State) {
+      return { ...state, selectedIndex };
+    },
+  });
+
+  type Props = ComponentProps<State, typeof actions>;
+  class ContainerWindow extends Component<Props> {
+    render(props: Props) {
       return <div>
         <div>
-          {state.name || 'Container'}
+          {props.name || 'Container'}
         </div>
         <div class="container__slots">
-          {state.container.items.map((item, i) => {
+          {props.container.items.map((item, i) => {
             let gfx;
             if (item) {
               const metaItem = Content.getMetaItem(item.type);
@@ -68,7 +58,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
             }
 
             const classes = ['container__slot'];
-            if (state.selectedIndex === i) classes.push('container__slot--selected');
+            if (props.selectedIndex === i) classes.push('container__slot--selected');
 
             return <div class={classes.join(' ')} data-index={i}>{gfx}</div>;
           })}
@@ -77,10 +67,11 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
     }
   }
 
-  const el = game.makeUIWindow({ name: 'container', cell: 'right', noscroll: true });
-  render(<ContainerWindow />, el);
+  const { SubApp, exportedActions, subscribe } = createSubApp(ContainerWindow, initialState, actions);
+  const el = makeUIWindow({ name: 'container', cell: 'right', noscroll: true });
+  render(<SubApp />, el);
 
-  if (container.id === game.client.player.equipmentContainerId) {
+  if (container.type === ContainerType.Equipment) {
     el.classList.add('window--equipment');
   }
 
@@ -97,6 +88,10 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
   };
 
   el.addEventListener('pointerdown', (e) => {
+    // lol
+    // @ts-expect-error
+    container = game.client.context.containers.get(container.id);
+
     const index = getIndex(e);
     if (index === undefined || !container.items[index]) return;
 
@@ -130,15 +125,10 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
       });
     }
     if (mouseDownIndex === mouseOverIndex) {
-      setSelectedIndex(mouseDownIndex);
+      exportedActions.setSelectedIndex(mouseDownIndex);
       game.modules.selectedView.selectView(Utils.ItemLocation.Container(container.id, mouseDownIndex));
     }
   });
 
-  // TODO: ughhh state management here is crappppp.
-  return {
-    el,
-    setState: (s: Partial<State>) => setState(s),
-    setSelectedIndex: (s: number) => setSelectedIndex(s),
-  };
+  return { el, actions: exportedActions, subscribe };
 }

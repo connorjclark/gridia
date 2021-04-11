@@ -7,7 +7,10 @@ import delve from 'dlv';
 
 /** @typedef {import('preact').AnyComponent} Component */
 
-function val(t) {
+/**
+ * @param {HTMLElement} t
+ */
+export function val(t) {
   if (t.type.match(/^che|rad/)) return t.checked;
   if (t.type.match(/^number|range/)) return t.valueAsNumber;
   return t.value;

@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import { render, h, Component } from 'preact';
 import Game from '../game';
+import { makeUIWindow } from './ui-common';
 
 export function makeHelpWindow(game: Game) {
   class HelpWindow extends Component {
@@ -16,7 +17,7 @@ export function makeHelpWindow(game: Game) {
     }
   }
 
-  const el = game.makeUIWindow({ name: 'help', cell: 'right' });
+  const el = makeUIWindow({ name: 'help', cell: 'right' });
   render(<HelpWindow />, el);
   return { el };
 }

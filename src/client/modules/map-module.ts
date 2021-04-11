@@ -1,11 +1,12 @@
 import ClientModule from '../client-module';
 import * as Helper from '../helper';
 import * as Content from '../../content';
+import { makeUIWindow } from '../ui/ui-common';
 
 class MapModule extends ClientModule {
   private mapEl?: HTMLCanvasElement;
   private context?: CanvasRenderingContext2D;
-  private mapWindow = this.game.makeUIWindow({ name: 'map', cell: 'map', noscroll: true });
+  private mapWindow = makeUIWindow({ name: 'map', cell: 'map', noscroll: true });
 
   private nextDrawAt = 0;
   private numDraws = 0;

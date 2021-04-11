@@ -4,7 +4,7 @@ import bbCodeParser from 'js-bbcode-parser';
 import Typed from 'typed.js';
 import Game from '../game';
 import * as CommandBuilder from '../../protocol/command-builder';
-import { CustomCreatureGraphic, Graphic } from './ui-common';
+import { CustomCreatureGraphic, Graphic, makeUIWindow } from './ui-common';
 
 export function makeDialogueWindow(game: Game) {
   let setState = (_: Partial<State>) => {
@@ -91,7 +91,7 @@ export function makeDialogueWindow(game: Game) {
     }
   }
 
-  const windowEl = game.makeUIWindow({ name: 'dialogue', cell: 'center' });
+  const windowEl = makeUIWindow({ name: 'dialogue', cell: 'center' });
   render(<DialogueWindow />, windowEl);
   return { el: windowEl, setState: (s: Partial<State>) => setState(s) };
 }

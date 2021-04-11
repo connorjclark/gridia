@@ -21,7 +21,7 @@ export const SettingsSchema = {
   musicVolume: {
     type: 'number',
     label: 'Music Volume',
-    default: process.env.NODE_ENV === 'production' ? 0.2 : 0.2,
+    default: process.env.NODE_ENV === 'production' ? 0.2 : 0.0,
     min: 0,
     max: 1,
     step: 0.01,
@@ -63,7 +63,10 @@ class SettingsModule extends ClientModule {
 
   getSettingsWindow() {
     if (this.settingsWindow) return this.settingsWindow;
-    this.settingsWindow = makeSettingsWindow(this);
+    this.settingsWindow = makeSettingsWindow({ settings: this.game.client.settings });
+    this.settingsWindow.subscribe((state) => {
+      if (state.settings) this.game.client.settings = state.settings;
+    });
     return this.settingsWindow;
   }
 
@@ -71,7 +74,7 @@ class SettingsModule extends ClientModule {
     this.game.client.eventEmitter.on('panelFocusChanged', ({ panelName }) => {
       if (panelName === 'settings') {
         this.getSettingsWindow().el.hidden = false;
-        this.getSettingsWindow().setState({settings: this.game.client.settings});
+        this.getSettingsWindow().actions.setSettings({ ...this.game.client.settings });
       } else if (this.settingsWindow) {
         this.getSettingsWindow().el.hidden = true;
       }

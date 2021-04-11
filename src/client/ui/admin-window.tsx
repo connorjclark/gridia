@@ -4,7 +4,7 @@ import * as Content from '../../content';
 import * as Helper from '../helper';
 import * as Utils from '../../utils';
 import AdminModule from '../modules/admin-module';
-import { Graphic } from './ui-common';
+import { Graphic, makeUIWindow } from './ui-common';
 
 const TOOLS = ['point', 'rectangle', 'fill'] as const;
 type Tool = typeof TOOLS[number];
@@ -279,7 +279,7 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
     }
   }
 
-  const el = adminModule.game.makeUIWindow({ name: 'admin', cell: 'center' });
+  const el = makeUIWindow({ name: 'admin', cell: 'center' });
   render(<AdminWindow />, el);
   return el;
 }
