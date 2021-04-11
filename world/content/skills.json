@@ -9,39 +9,48 @@
   },
   {
     "id": 2,
-    "name": "Unarmed Attack"
+    "name": "Unarmed Attack",
+    "purpose": "melee"
   },
   {
     "id": 3,
-    "name": "Dagger"
+    "name": "Dagger",
+    "purpose": "melee"
   },
   {
     "id": 4,
-    "name": "Sword"
+    "name": "Sword",
+    "purpose": "melee"
   },
   {
     "id": 5,
-    "name": "Axe"
+    "name": "Axe",
+    "purpose": "melee"
   },
   {
     "id": 6,
-    "name": "Mace"
+    "name": "Mace",
+    "purpose": "melee"
   },
   {
     "id": 7,
-    "name": "Spear"
+    "name": "Spear",
+    "purpose": "melee"
   },
   {
     "id": 8,
-    "name": "Staff"
+    "name": "Staff",
+    "purpose": "melee"
   },
   {
     "id": 9,
-    "name": "Flail"
+    "name": "Flail",
+    "purpose": "melee"
   },
   {
     "id": 10,
-    "name": "Scythe"
+    "name": "Scythe",
+    "purpose": "melee"
   },
   {
     "id": 11,
@@ -49,15 +58,18 @@
   },
   {
     "id": 12,
-    "name": "Bow"
+    "name": "Bow",
+    "purpose": "missle"
   },
   {
     "id": 13,
-    "name": "Crossbow"
+    "name": "Crossbow",
+    "purpose": "missle"
   },
   {
     "id": 14,
-    "name": "Throwing"
+    "name": "Throwing",
+    "purpose": "missle"
   },
   {
     "id": 15,
@@ -65,19 +77,23 @@
   },
   {
     "id": 16,
-    "name": "Black Magic"
+    "name": "Black Magic",
+    "purpose": "magic"
   },
   {
     "id": 17,
-    "name": "White Magic"
+    "name": "White Magic",
+    "purpose": "magic"
   },
   {
     "id": 18,
-    "name": "Red Magic"
+    "name": "Red Magic",
+    "purpose": "magic"
   },
   {
     "id": 19,
-    "name": "Blue Magic"
+    "name": "Blue Magic",
+    "purpose": "magic"
   },
   {
     "id": 20,

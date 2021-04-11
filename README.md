@@ -15,3 +15,4 @@ Thanks to Mickey for RPGWO, and for allowing me to use the RPGWO server files.
 ## Resources
 
 [Ultima Online Postmortem](https://www.youtube.com/watch?v=lnnsDi7Sxq0&t=1586s)
+https://rpgwoforums.net/index.php?topic=460.240

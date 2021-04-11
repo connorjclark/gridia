@@ -310,6 +310,12 @@ export default class Server {
     }
   }
 
+  getClientConnectionForCreature(creature: Creature) {
+    for (const clientConnection of this.clientConnections) {
+      if (clientConnection.player.creature.id === creature.id) return clientConnection;
+    }
+  }
+
   removeClient(clientConnection: ClientConnection) {
     const index = this.clientConnections.indexOf(clientConnection);
     if (index === -1) return;
@@ -351,12 +357,19 @@ export default class Server {
       light: 0,
       // TODO: get stats from monster.ini
       stats: {
-        armor: 1,
-        attackSpeed: 1,
+        armor: 0,
+        attackSpeed: template.speed,
         damageLow: 1,
         damageHigh: 2,
+        magicDefense: template.magic_defense || 0,
+        meleeDefense: template.melee_defense || 0,
+        missleDefense: template.missle_defense || 0,
       },
     };
+
+    if (template.equipment) {
+      creature.equipment = template.equipment;
+    }
 
     this.registerCreature(creature);
     return creature;
@@ -549,6 +562,12 @@ export default class Server {
     this.broadcastPartialCreatureUpdate(client.player.creature, ['light']);
   }
 
+  getCreatureSkillLevel(creature: Creature, skillId: number) {
+    // TODO skills
+    return 0;
+    // return creature.stats[skillId];
+  }
+
   setItemInContainer(id: string, index: number, item?: Item) {
     const container = this.context.containers.get(id);
     if (!container) throw new Error(`no container: ${id}`);
@@ -586,6 +605,7 @@ export default class Server {
   updateCreatureDataBasedOnEquipment(creature: Creature, container: Container, opts: { broadcast: boolean }) {
     creature.imageData = this.makeCreatureImageData(container);
     creature.stats = {
+      ...creature.stats,
       armor: 0,
       attackSpeed: 1,
       damageLow: 1,

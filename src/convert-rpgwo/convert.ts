@@ -29,6 +29,10 @@ function getMetaItemByName(name: string) {
   return meta;
 }
 
+function getSkillByName(name: string) {
+  return state.skills.find((s) => s.name.toLowerCase() === name.toLowerCase());
+}
+
 function loadIni(type: string) {
   const iniPath = `${__dirname}/v1.15/data-files/${type}.ini`;
   return fs.readFileSync(iniPath, 'utf-8')
@@ -175,6 +179,9 @@ function parseItemsIni() {
     } else if (key.match(/^ArmorSpot/i)) {
       // @ts-ignore
       currentItem.equipSlot = uppercaseFirstLetter(value);
+    } else if (key.match(/^CombatSkill/i)) {
+      // @ts-ignore
+      currentItem.combatSkill = getSkillByName(value)?.id;
     } else {
       // Most properties are unchanged, except for being camelCase.
       const camelCaseKey = camelCase(key);
@@ -394,7 +401,7 @@ function parseItemUsagesIni(): ItemUse[] {
 function parseSkillsIni() {
   const skillsIni = loadIni('Skill');
 
-  const skills = [];
+  const skills: Skill[] = [];
 
   let currentSkill;
   for (const [key, value] of skillsIni) {
@@ -402,6 +409,7 @@ function parseSkillsIni() {
       currentSkill = {
         id: forcenum(value),
       };
+      // @ts-expect-error
       skills.push(currentSkill);
     } else {
       // Most properties are unchanged, except for being camelCase.
@@ -421,12 +429,17 @@ function parseSkillsIni() {
     }
   }
 
+  for (const skill of skills) {
+    if (skill.purpose) skill.purpose = skill.purpose.toLowerCase();
+  }
+
   // printUniqueKeys(skills);
 
   // Only save properties that Gridia utilizes.
   const allowlist = [
     'id',
     'name',
+    'purpose',
   ];
   for (const skill of skills) {
     filterProperties(skill, allowlist);
@@ -576,15 +589,29 @@ function convertFloors() {
   return floors;
 }
 
+function convertMonsters() {
+  // let equipment: Item[] | undefined;
+  // for (const [key, value] of Object.entries(monster)) {
+  //   if (!['weapon'].includes(key) || typeof value !== 'string') continue;
+  //   const meta = getMetaItemByName(value);
+  //   if (!meta) continue;
+
+  //   equipment = equipment || [];
+  //   // @ts-expect-error
+  //   equipment[Container.EQUIP_SLOTS[uppercaseFirstLetter(key)]] = { type: meta.id, quantity: 1 };
+  // }
+  // if (equipment) monster.equipment = equipment;
+}
+
 function run() {
+  state.skills = convertSkills();
+  const skillsPath = path.join(__dirname, '..', '..', 'world', 'content', 'skills.json');
+
   state.items = convertItems();
   const itemsPath = path.join(__dirname, '..', '..', 'world', 'content', 'items.json');
 
   state.usages = convertItemUsages();
   const usagesPath = path.join(__dirname, '..', '..', 'world', 'content', 'itemuses.json');
-
-  state.skills = convertSkills();
-  const skillsPath = path.join(__dirname, '..', '..', 'world', 'content', 'skills.json');
 
   state.floors = convertFloors();
   const floorsPath = path.join(__dirname, '..', '..', 'world', 'content', 'floors.json');

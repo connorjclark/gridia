@@ -106,11 +106,15 @@ interface Creature {
   food: number;
   eat_grass: boolean;
   light: number;
+  equipment?: Item[];
   stats: {
     armor: number;
     attackSpeed: number;
     damageLow: number;
     damageHigh: number;
+    magicDefense: number;
+    meleeDefense: number;
+    missleDefense: number;
   };
 }
 
@@ -139,6 +143,7 @@ interface MetaItem {
   stackable: boolean;
   walkable: boolean;
   trapEffect: 'Warp';
+  combatSkill?: number;
   armorLevel?: number;
   attackSpeed?: number;
   damageLow?: number;
@@ -162,6 +167,7 @@ interface ItemUse {
 interface Skill {
   id: number;
   name: string;
+  purpose: string;
 }
 
 interface GridiaAnimation {
@@ -179,9 +185,13 @@ interface Monster {
   image_type?: number;
   speed: number;
   life: number;
+  magic_defense?: number;
+  melee_defense?: number;
+  missle_defense?: number;
   roam?: number;
   eat_grass: boolean;
   dead_item?: name;
+  equipment?: Item[];
   treasure: Array<{
     item: string;
     quantity: number;

@@ -224,3 +224,7 @@ export function getSkills() {
 export function getSkill(id: number) {
   return skills[id];
 }
+
+export function getSkillByName(name: string) {
+  return skills.find((s) => s.name === name);
+}

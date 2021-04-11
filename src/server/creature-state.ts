@@ -1,4 +1,7 @@
 import { findPath } from '../path-finding';
+import * as Content from '../content';
+import * as EventBuilder from '../protocol/event-builder';
+import Container from '../container';
 import * as Utils from '../utils';
 import WorldMapPartition from '../world-map-partition';
 import { Context } from '../context';
@@ -418,13 +421,51 @@ export default class CreatureState {
     // Range check.
     if (Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos) > 1) return;
 
-    const damageRoll = Utils.randInt(this.creature.stats.damageLow, this.creature.stats.damageHigh);
-    const damage = Utils.clamp(damageRoll - this.targetCreature.creature.stats.armor, 0, Number.POSITIVE_INFINITY);
+    let attackSkill;
+    if (this.creature.equipment && this.creature.equipment[Container.EQUIP_SLOTS.Weapon]) {
+      const meta = Content.getMetaItem(this.creature.equipment[Container.EQUIP_SLOTS.Weapon].type);
+      const skill = meta.combatSkill && Content.getSkill(meta.combatSkill);
+      if (skill && skill.purpose) {
+        attackSkill = skill;
+      }
+    }
+
+    let hitSuccess = true;
+    if (attackSkill) {
+      const attackType = attackSkill?.purpose || 'melee';
+      // const atk = attackSkill.level;
+      const atk = 100;
+      // @ts-expect-error
+      const def = this.targetCreature.creature.stats[attackType + 'Defense'] as number || 0;
+      hitSuccess = Utils.randInt(0, atk) >= Utils.randInt(0, def);
+    }
+
+    let damage = 0;
+    if (hitSuccess) {
+      const damageRoll = Utils.randInt(this.creature.stats.damageLow, this.creature.stats.damageHigh);
+      const armor = this.targetCreature.creature.stats.armor;
+      damage = Math.round(damageRoll * damageRoll / (damageRoll + armor));
+      damage = Utils.clamp(damage, 1, this.targetCreature.creature.life);
+    } else {
+      // miss ...
+    }
+
+    if (this.creature.isPlayer || this.targetCreature.creature.isPlayer) {
+      const clientConnection = server.getClientConnectionForCreature(this.creature) ||
+        server.getClientConnectionForCreature(this.targetCreature.creature);
+      if (clientConnection) {
+        const message = hitSuccess ?
+          `${this.creature.name} hit ${this.targetCreature.creature.name} for ${damage} damage` :
+          `${this.creature.name} missed ${this.targetCreature.creature.name}`;
+        server.send(EventBuilder.chat({ from: 'SERVER', to: '', message }), clientConnection);
+      }
+    }
 
     this.ticksUntilNextAttack = server.taskRunner.rateToTicks({ seconds: this.creature.stats.attackSpeed });
     if (!this.targetCreature.enemyCreatures.includes(this)) {
       this.targetCreature.enemyCreatures.push(this);
     }
-    server.modifyCreatureLife(this.creature, this.targetCreature.creature, -damage);
+
+    if (damage) server.modifyCreatureLife(this.creature, this.targetCreature.creature, -damage);
   }
 }
