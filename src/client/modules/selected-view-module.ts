@@ -89,6 +89,15 @@ class SelectedViewModule extends ClientModule {
         burden: String(item.quantity * meta.burden),
         id: String(meta.id),
       };
+      if (meta.damageLow !== undefined && meta.damageHigh !== undefined) {
+        data.damage = `${meta.damageLow} - ${meta.damageHigh}`;
+      }
+      if (meta.attackSpeed !== undefined) {
+        data['attack speed'] = String(meta.attackSpeed);
+      }
+      if (meta.armorLevel !== undefined) {
+        data.armor = String(meta.armorLevel);
+      }
     } else {
       data = {
         name: '-',

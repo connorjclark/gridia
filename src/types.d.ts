@@ -106,6 +106,12 @@ interface Creature {
   food: number;
   eat_grass: boolean;
   light: number;
+  stats: {
+    armor: number;
+    attackSpeed: number;
+    damageLow: number;
+    damageHigh: number;
+  };
 }
 
 interface MetaFloor {
@@ -116,7 +122,9 @@ interface MetaFloor {
 interface MetaItem {
   id: number;
   name: string;
-  class: 'Normal' | 'Ore' | 'CaveDown' | 'CaveUp' | 'Container' | 'Ball' | 'Weapon' | 'Ammo' | 'Plant' | 'Shield';
+  class:
+  'Normal' | 'Armor' | 'Ore' | 'CaveDown' | 'CaveUp' | 'Container' |
+  'Ball' | 'Weapon' | 'Ammo' | 'Plant' | 'Shield';
   equipSlot?: 'Head' | 'Weapon' | 'Chest' | 'Shield' | 'Legs';
   equipImage?: number;
   animations: number[];
@@ -131,6 +139,10 @@ interface MetaItem {
   stackable: boolean;
   walkable: boolean;
   trapEffect: 'Warp';
+  armorLevel?: number;
+  attackSpeed?: number;
+  damageLow?: number;
+  damageHigh?: number;
 }
 
 interface ItemUse {

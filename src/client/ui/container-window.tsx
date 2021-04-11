@@ -12,7 +12,7 @@ interface State {
   // TODO: this should be a separate component.
   equipmentWindow?: {
     imageData: Creature['imageData'];
-    stats: {};
+    stats: Creature['stats'];
   };
 }
 
@@ -54,6 +54,18 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
         previewEl = <CustomCreatureGraphic {...props.equipmentWindow.imageData}></CustomCreatureGraphic>;
       }
 
+      let statsEl = null;
+      if (props.equipmentWindow) {
+        const stats: any = { ...props.equipmentWindow.stats };
+        stats.damage = `${props.equipmentWindow.stats.damageLow} - ${props.equipmentWindow.stats.damageHigh}`;
+        delete stats.damageLow;
+        delete stats.damageHigh;
+
+        statsEl = <div>{Object.entries(stats).map(([key, value]) => {
+          return <div>{key}: {value}</div>;
+        })}</div>;
+      }
+
       return <div>
         <div>
           {props.name || 'Container'}
@@ -79,6 +91,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
             return <div class={classes.join(' ')} data-index={i}>{gfx}</div>;
           })}
         </div>
+        {statsEl}
       </div>;
     }
   }

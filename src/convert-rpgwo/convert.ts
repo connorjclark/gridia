@@ -243,6 +243,10 @@ function parseItemsIni() {
     'blocksLight',
     'equipSlot',
     'equipImage',
+    'armorLevel',
+    'attackSpeed',
+    'damageLow',
+    'damageHigh',
   ];
   for (const item of items) {
     filterProperties(item, allowlist);

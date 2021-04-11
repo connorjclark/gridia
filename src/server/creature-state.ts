@@ -418,10 +418,13 @@ export default class CreatureState {
     // Range check.
     if (Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos) > 1) return;
 
-    this.ticksUntilNextAttack = server.taskRunner.rateToTicks({ seconds: 1 });
+    const damageRoll = Utils.randInt(this.creature.stats.damageLow, this.creature.stats.damageHigh);
+    const damage = Utils.clamp(damageRoll - this.targetCreature.creature.stats.armor, 0, Number.POSITIVE_INFINITY);
+
+    this.ticksUntilNextAttack = server.taskRunner.rateToTicks({ seconds: this.creature.stats.attackSpeed });
     if (!this.targetCreature.enemyCreatures.includes(this)) {
       this.targetCreature.enemyCreatures.push(this);
     }
-    server.modifyCreatureLife(this.creature, this.targetCreature.creature, -10);
+    server.modifyCreatureLife(this.creature, this.targetCreature.creature, -damage);
   }
 }

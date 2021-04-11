@@ -457,7 +457,7 @@ class Game {
           const equipmentWindow = this.containerWindows.get(this.client.equipment.id);
           equipmentWindow?.actions.setEquipmentWindow({
             imageData: this.client.creature.imageData,
-            stats: {},
+            stats: this.client.creature.stats,
           });
         }
       }
@@ -961,7 +961,7 @@ class Game {
       if (container.type === ContainerType.Equipment) {
         containerWindow.actions.setEquipmentWindow({
           imageData: this.client.creature.imageData,
-          stats: {},
+          stats: this.client.creature.stats,
         });
       }
 

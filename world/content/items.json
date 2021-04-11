@@ -194,6 +194,7 @@
     "animations": [
       12
     ],
+    "armorLevel": 11,
     "blocksLight": false,
     "burden": 1500,
     "equipImage": 12,
@@ -211,6 +212,7 @@
     "animations": [
       13
     ],
+    "armorLevel": 10,
     "blocksLight": false,
     "burden": 1350,
     "equipImage": 12,
@@ -228,6 +230,7 @@
     "animations": [
       14
     ],
+    "armorLevel": 9,
     "blocksLight": false,
     "burden": 1200,
     "equipImage": 12,
@@ -245,6 +248,7 @@
     "animations": [
       15
     ],
+    "armorLevel": 1,
     "blocksLight": false,
     "burden": 400,
     "equipImage": 20,
@@ -262,6 +266,7 @@
     "animations": [
       1126
     ],
+    "armorLevel": 9,
     "blocksLight": false,
     "burden": 600,
     "equipImage": 21,
@@ -279,6 +284,7 @@
     "animations": [
       832
     ],
+    "armorLevel": 12,
     "blocksLight": false,
     "burden": 900,
     "equipImage": 23,
@@ -296,6 +302,7 @@
     "animations": [
       958
     ],
+    "armorLevel": 25,
     "blocksLight": false,
     "burden": 1000,
     "equipImage": 18,
@@ -313,6 +320,7 @@
     "animations": [
       1288
     ],
+    "armorLevel": 25,
     "blocksLight": false,
     "burden": 1000,
     "equipImage": 18,
@@ -330,8 +338,11 @@
     "animations": [
       20
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 50,
+    "damageHigh": 2,
+    "damageLow": 1,
     "equipImage": 1,
     "equipSlot": "Weapon",
     "light": 0,
@@ -347,8 +358,11 @@
     "animations": [
       20
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 50,
+    "damageHigh": 4,
+    "damageLow": 2,
     "equipImage": 1,
     "equipSlot": "Weapon",
     "light": 0,
@@ -364,8 +378,11 @@
     "animations": [
       21
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 60,
+    "damageHigh": 5,
+    "damageLow": 3,
     "equipImage": 1,
     "equipSlot": "Weapon",
     "light": 0,
@@ -381,8 +398,11 @@
     "animations": [
       22
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 70,
+    "damageHigh": 7,
+    "damageLow": 4,
     "equipImage": 20,
     "equipSlot": "Weapon",
     "light": 0,
@@ -398,8 +418,11 @@
     "animations": [
       23
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 50,
+    "damageHigh": 6,
+    "damageLow": 4,
     "equipImage": 21,
     "equipSlot": "Weapon",
     "light": 0,
@@ -415,8 +438,11 @@
     "animations": [
       39
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 1000,
+    "damageHigh": 23,
+    "damageLow": 19,
     "equipImage": 3,
     "equipSlot": "Weapon",
     "light": 0,
@@ -480,6 +506,7 @@
     "animations": [
       959
     ],
+    "armorLevel": 25,
     "blocksLight": false,
     "burden": 250,
     "equipImage": 100,
@@ -497,8 +524,11 @@
     "animations": [
       30
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 150,
+    "damageHigh": 4,
+    "damageLow": 2,
     "equipImage": 2,
     "equipSlot": "Weapon",
     "light": 0,
@@ -514,8 +544,11 @@
     "animations": [
       30
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 150,
+    "damageHigh": 7,
+    "damageLow": 4,
     "equipImage": 2,
     "equipSlot": "Weapon",
     "light": 0,
@@ -531,8 +564,11 @@
     "animations": [
       31
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 250,
+    "damageHigh": 11,
+    "damageLow": 7,
     "equipImage": 75,
     "equipSlot": "Weapon",
     "light": 0,
@@ -548,8 +584,11 @@
     "animations": [
       32
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 350,
+    "damageHigh": 15,
+    "damageLow": 11,
     "equipImage": 76,
     "equipSlot": "Weapon",
     "light": 0,
@@ -565,8 +604,11 @@
     "animations": [
       33
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 28,
+    "damageLow": 24,
     "equipImage": 30,
     "equipSlot": "Weapon",
     "light": 0,
@@ -597,8 +639,11 @@
     "animations": [
       36
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 20,
+    "damageLow": 15,
     "equipImage": 3,
     "equipSlot": "Weapon",
     "light": 0,
@@ -647,8 +692,11 @@
     "animations": [
       40
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 4,
+    "damageLow": 3,
     "equipImage": 5,
     "equipSlot": "Weapon",
     "light": 0,
@@ -664,8 +712,11 @@
     "animations": [
       40
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 6,
+    "damageLow": 5,
     "equipImage": 5,
     "equipSlot": "Weapon",
     "light": 0,
@@ -681,8 +732,11 @@
     "animations": [
       41
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 17,
+    "damageLow": 13,
     "equipImage": 45,
     "equipSlot": "Weapon",
     "light": 0,
@@ -698,8 +752,11 @@
     "animations": [
       42
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 22,
+    "damageLow": 18,
     "equipImage": 6,
     "equipSlot": "Weapon",
     "light": 0,
@@ -715,8 +772,11 @@
     "animations": [
       25
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 1500,
+    "damageHigh": 28,
+    "damageLow": 20,
     "equipImage": 32,
     "equipSlot": "Weapon",
     "light": 4,
@@ -732,8 +792,11 @@
     "animations": [
       44
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 400,
+    "damageHigh": 12,
+    "damageLow": 8,
     "equipImage": 16,
     "equipSlot": "Weapon",
     "light": 0,
@@ -749,8 +812,11 @@
     "animations": [
       45
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 16,
+    "damageLow": 14,
     "equipImage": 102,
     "equipSlot": "Weapon",
     "light": 0,
@@ -766,8 +832,11 @@
     "animations": [
       46
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 800,
+    "damageHigh": 28,
+    "damageLow": 20,
     "equipImage": 103,
     "equipSlot": "Weapon",
     "light": 0,
@@ -783,6 +852,7 @@
     "animations": [
       1116
     ],
+    "armorLevel": 6,
     "blocksLight": false,
     "burden": 400,
     "equipImage": 22,
@@ -801,8 +871,11 @@
     "animations": [
       50
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 4,
+    "damageLow": 2,
     "equipImage": 56,
     "equipSlot": "Weapon",
     "light": 0,
@@ -818,8 +891,11 @@
     "animations": [
       50
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 6,
+    "damageLow": 4,
     "equipImage": 56,
     "equipSlot": "Weapon",
     "light": 0,
@@ -835,8 +911,11 @@
     "animations": [
       51
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 400,
+    "damageHigh": 9,
+    "damageLow": 7,
     "equipImage": 7,
     "equipSlot": "Weapon",
     "light": 0,
@@ -852,8 +931,11 @@
     "animations": [
       52
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 12,
+    "damageLow": 10,
     "equipImage": 57,
     "equipSlot": "Weapon",
     "light": 0,
@@ -870,8 +952,11 @@
     "animations": [
       37
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 800,
+    "damageHigh": 25,
+    "damageLow": 15,
     "equipImage": 8,
     "equipSlot": "Weapon",
     "light": 0,
@@ -887,8 +972,11 @@
     "animations": [
       38
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 17,
+    "damageLow": 13,
     "equipImage": 58,
     "equipSlot": "Weapon",
     "light": 0,
@@ -904,8 +992,11 @@
     "animations": [
       448
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 5,
+    "damageLow": 3,
     "equipImage": 5,
     "equipSlot": "Weapon",
     "light": 0,
@@ -953,8 +1044,11 @@
     "animations": [
       60
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 5,
+    "damageLow": 3,
     "equipImage": 9,
     "equipSlot": "Weapon",
     "light": 0,
@@ -970,8 +1064,11 @@
     "animations": [
       60
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 10,
+    "damageLow": 5,
     "equipImage": 9,
     "equipSlot": "Weapon",
     "light": 0,
@@ -987,8 +1084,11 @@
     "animations": [
       61
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 13,
+    "damageLow": 9,
     "equipImage": 10,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1004,8 +1104,11 @@
     "animations": [
       62
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 1000,
+    "damageHigh": 20,
+    "damageLow": 16,
     "equipImage": 9,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1021,8 +1124,11 @@
     "animations": [
       63
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 12,
+    "damageLow": 7,
     "equipImage": 11,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1054,8 +1160,11 @@
     "animations": [
       68
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 12,
+    "damageLow": 7,
     "equipImage": 73,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1103,8 +1212,11 @@
     "animations": [
       64
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 900,
+    "damageHigh": 20,
+    "damageLow": 14,
     "equipImage": 74,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1120,8 +1232,11 @@
     "animations": [
       70
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 5,
+    "damageLow": 3,
     "equipImage": 13,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1137,8 +1252,11 @@
     "animations": [
       70
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 9,
+    "damageLow": 6,
     "equipImage": 13,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1154,8 +1272,11 @@
     "animations": [
       71
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 250,
+    "damageHigh": 10,
+    "damageLow": 7,
     "equipImage": 82,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1172,8 +1293,11 @@
     "animations": [
       73
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 20,
+    "damageLow": 16,
     "equipImage": 13,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1189,8 +1313,11 @@
     "animations": [
       38
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 20,
+    "damageLow": 15,
     "equipImage": 58,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1206,8 +1333,11 @@
     "animations": [
       69
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 900,
+    "damageHigh": 15,
+    "damageLow": 11,
     "equipImage": 12,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1269,8 +1399,11 @@
     "animations": [
       80
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 6,
+    "damageLow": 4,
     "equipImage": 14,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1286,8 +1419,11 @@
     "animations": [
       80
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 350,
+    "damageHigh": 8,
+    "damageLow": 6,
     "equipImage": 14,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1303,8 +1439,11 @@
     "animations": [
       81
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 12,
+    "damageLow": 8,
     "equipImage": 89,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1320,8 +1459,11 @@
     "animations": [
       82
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 15,
+    "damageLow": 11,
     "equipImage": 90,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1338,8 +1480,11 @@
     "animations": [
       66
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 900,
+    "damageHigh": 20,
+    "damageLow": 15,
     "equipImage": 15,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1355,6 +1500,7 @@
     "animations": [
       863
     ],
+    "armorLevel": 15,
     "blocksLight": false,
     "burden": 500,
     "equipImage": 5,
@@ -1417,8 +1563,11 @@
     "animations": [
       90
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 30,
+    "damageHigh": 4,
+    "damageLow": 2,
     "equipImage": 35,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1434,8 +1583,11 @@
     "animations": [
       91
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 100,
+    "damageHigh": 6,
+    "damageLow": 4,
     "equipImage": 4,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1451,8 +1603,11 @@
     "animations": [
       92
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 10,
+    "damageLow": 8,
     "equipImage": 36,
     "equipSlot": "Weapon",
     "light": 5,
@@ -1468,8 +1623,11 @@
     "animations": [
       93
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 20,
+    "damageLow": 15,
     "equipImage": 37,
     "equipSlot": "Weapon",
     "light": 4,
@@ -1485,8 +1643,11 @@
     "animations": [
       83
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 20,
+    "damageLow": 10,
     "equipImage": 38,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1502,8 +1663,11 @@
     "animations": [
       20
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 10,
+    "damageHigh": 10,
+    "damageLow": 5,
     "equipImage": 1,
     "light": 0,
     "moveable": true,
@@ -1518,8 +1682,11 @@
     "animations": [
       60
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 20,
+    "damageHigh": 15,
+    "damageLow": 10,
     "equipImage": 9,
     "light": 0,
     "moveable": true,
@@ -1534,8 +1701,11 @@
     "animations": [
       20
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 1,
+    "damageHigh": 5,
+    "damageLow": 2,
     "equipImage": 1,
     "light": 0,
     "moveable": true,
@@ -1550,8 +1720,11 @@
     "animations": [
       40
     ],
+    "attackSpeed": 1.25,
     "blocksLight": false,
     "burden": 20,
+    "damageHigh": 13,
+    "damageLow": 7,
     "equipImage": 5,
     "light": 0,
     "moveable": true,
@@ -1583,8 +1756,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 4,
+    "damageLow": 2,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -1598,8 +1774,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 6,
+    "damageLow": 4,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -1613,8 +1792,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 8,
+    "damageLow": 6,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -1628,8 +1810,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 10,
+    "damageLow": 8,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -1643,8 +1828,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 12,
+    "damageLow": 10,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -1658,8 +1846,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 20,
+    "damageLow": 15,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -1673,8 +1864,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 30,
+    "damageLow": 20,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -1688,8 +1882,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 7,
+    "damageLow": 5,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -1703,8 +1900,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 5,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 20,
+    "damageLow": 10,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -1718,8 +1918,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 2,
+    "damageLow": 1,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -1733,8 +1936,11 @@
     "animations": [
       74
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 350,
+    "damageHigh": 12,
+    "damageLow": 8,
     "equipImage": 105,
     "equipSlot": "Weapon",
     "light": 0,
@@ -1750,8 +1956,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 4,
+    "damageLow": 2,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -1766,6 +1975,7 @@
     "animations": [
       53
     ],
+    "armorLevel": 12,
     "blocksLight": false,
     "burden": 600,
     "equipSlot": "Chest",
@@ -1782,6 +1992,7 @@
     "animations": [
       593
     ],
+    "armorLevel": 4,
     "blocksLight": false,
     "burden": 250,
     "equipImage": 1,
@@ -1799,6 +2010,7 @@
     "animations": [
       590
     ],
+    "armorLevel": 8,
     "blocksLight": false,
     "burden": 500,
     "equipImage": 3,
@@ -1816,6 +2028,7 @@
     "animations": [
       591
     ],
+    "armorLevel": 6,
     "blocksLight": false,
     "burden": 375,
     "equipImage": 2,
@@ -1833,6 +2046,7 @@
     "animations": [
       592
     ],
+    "armorLevel": 10,
     "blocksLight": false,
     "burden": 750,
     "equipImage": 4,
@@ -1850,6 +2064,7 @@
     "animations": [
       67
     ],
+    "armorLevel": 12,
     "blocksLight": false,
     "burden": 500,
     "equipImage": 7,
@@ -1883,8 +2098,11 @@
     "animations": [
       346
     ],
+    "attackSpeed": 4,
     "blocksLight": false,
     "burden": 100,
+    "damageHigh": 5,
+    "damageLow": 3,
     "equipImage": 16,
     "equipSlot": "Weapon",
     "light": 0,
@@ -2191,8 +2409,11 @@
     "animations": [
       688
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 100,
+    "damageHigh": 8,
+    "damageLow": 5,
     "equipImage": 22,
     "equipSlot": "Weapon",
     "light": 0,
@@ -2438,8 +2659,11 @@
     "animations": [
       920
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 50,
+    "damageHigh": 18,
+    "damageLow": 12,
     "equipImage": 23,
     "equipSlot": "Weapon",
     "light": 0,
@@ -4093,8 +4317,11 @@
     "animations": [
       921
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 35,
+    "damageLow": 25,
     "equipImage": 59,
     "equipSlot": "Weapon",
     "light": 0,
@@ -4245,8 +4472,11 @@
     "animations": [
       893
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 15,
+    "damageLow": 10,
     "equipSlot": "Weapon",
     "light": 0,
     "moveable": true,
@@ -4261,8 +4491,11 @@
     "animations": [
       922
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 26,
+    "damageLow": 20,
     "equipImage": 70,
     "equipSlot": "Weapon",
     "light": 0,
@@ -4293,8 +4526,11 @@
     "animations": [
       265
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 5,
+    "damageHigh": 4,
+    "damageLow": 2,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -4308,8 +4544,11 @@
     "animations": [
       890
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 10,
+    "damageHigh": 8,
+    "damageLow": 4,
     "equipSlot": "Weapon",
     "light": 0,
     "moveable": true,
@@ -4324,8 +4563,11 @@
     "animations": [
       892
     ],
+    "attackSpeed": 10,
     "blocksLight": false,
     "burden": 4000,
+    "damageHigh": 100,
+    "damageLow": 50,
     "equipSlot": "Weapon",
     "light": 0,
     "moveable": true,
@@ -4340,8 +4582,11 @@
     "animations": [
       891
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 100,
+    "damageHigh": 10,
+    "damageLow": 5,
     "equipSlot": "Weapon",
     "light": 0,
     "moveable": true,
@@ -5719,8 +5964,11 @@
     "animations": [
       923
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 29,
+    "damageLow": 23,
     "equipImage": 91,
     "equipSlot": "Weapon",
     "light": 0,
@@ -5736,8 +5984,11 @@
     "animations": [
       924
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 25,
+    "damageLow": 19,
     "equipImage": 83,
     "equipSlot": "Weapon",
     "light": 0,
@@ -5880,8 +6131,11 @@
     "animations": [
       925
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 900,
+    "damageHigh": 33,
+    "damageLow": 27,
     "equipImage": 46,
     "equipSlot": "Weapon",
     "light": 0,
@@ -5897,8 +6151,11 @@
     "animations": [
       926
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 18,
+    "damageLow": 12,
     "equipImage": 39,
     "equipSlot": "Weapon",
     "light": 0,
@@ -7782,6 +8039,7 @@
     "animations": [
       779
     ],
+    "armorLevel": 13,
     "blocksLight": false,
     "burden": 700,
     "equipImage": 6,
@@ -8209,6 +8467,7 @@
     "animations": [
       703
     ],
+    "armorLevel": 3,
     "blocksLight": false,
     "burden": 300,
     "equipImage": 10,
@@ -8226,6 +8485,7 @@
     "animations": [
       704
     ],
+    "armorLevel": 4,
     "blocksLight": false,
     "burden": 450,
     "equipImage": 10,
@@ -8243,6 +8503,7 @@
     "animations": [
       705
     ],
+    "armorLevel": 5,
     "blocksLight": false,
     "burden": 600,
     "equipImage": 10,
@@ -8260,6 +8521,7 @@
     "animations": [
       716
     ],
+    "armorLevel": 0,
     "blocksLight": false,
     "burden": 400,
     "equipImage": 17,
@@ -8277,6 +8539,7 @@
     "animations": [
       717
     ],
+    "armorLevel": 0,
     "blocksLight": false,
     "burden": 800,
     "equipImage": 17,
@@ -8294,6 +8557,7 @@
     "animations": [
       718
     ],
+    "armorLevel": 0,
     "blocksLight": false,
     "burden": 1200,
     "equipImage": 17,
@@ -8311,6 +8575,7 @@
     "animations": [
       713
     ],
+    "armorLevel": 15,
     "blocksLight": false,
     "burden": 2100,
     "equipImage": 14,
@@ -8328,6 +8593,7 @@
     "animations": [
       714
     ],
+    "armorLevel": 16,
     "blocksLight": false,
     "burden": 2250,
     "equipImage": 14,
@@ -8345,6 +8611,7 @@
     "animations": [
       715
     ],
+    "armorLevel": 17,
     "blocksLight": false,
     "burden": 2400,
     "equipImage": 14,
@@ -8362,6 +8629,7 @@
     "animations": [
       706
     ],
+    "armorLevel": 18,
     "blocksLight": false,
     "burden": 2550,
     "equipImage": 15,
@@ -8379,6 +8647,7 @@
     "animations": [
       707
     ],
+    "armorLevel": 19,
     "blocksLight": false,
     "burden": 2700,
     "equipImage": 15,
@@ -8396,6 +8665,7 @@
     "animations": [
       708
     ],
+    "armorLevel": 20,
     "blocksLight": false,
     "burden": 2850,
     "equipImage": 15,
@@ -8413,6 +8683,7 @@
     "animations": [
       710
     ],
+    "armorLevel": 6,
     "blocksLight": false,
     "burden": 750,
     "equipImage": 11,
@@ -8430,6 +8701,7 @@
     "animations": [
       711
     ],
+    "armorLevel": 7,
     "blocksLight": false,
     "burden": 900,
     "equipImage": 11,
@@ -8447,6 +8719,7 @@
     "animations": [
       712
     ],
+    "armorLevel": 8,
     "blocksLight": false,
     "burden": 1050,
     "equipImage": 11,
@@ -8464,6 +8737,7 @@
     "animations": [
       700
     ],
+    "armorLevel": 12,
     "blocksLight": false,
     "burden": 1650,
     "equipImage": 13,
@@ -8481,6 +8755,7 @@
     "animations": [
       701
     ],
+    "armorLevel": 13,
     "blocksLight": false,
     "burden": 1800,
     "equipImage": 13,
@@ -8498,6 +8773,7 @@
     "animations": [
       702
     ],
+    "armorLevel": 14,
     "blocksLight": false,
     "burden": 1950,
     "equipImage": 13,
@@ -8515,6 +8791,7 @@
     "animations": [
       720
     ],
+    "armorLevel": 21,
     "blocksLight": false,
     "burden": 3000,
     "equipImage": 16,
@@ -8532,6 +8809,7 @@
     "animations": [
       721
     ],
+    "armorLevel": 22,
     "blocksLight": false,
     "burden": 3150,
     "equipImage": 16,
@@ -8549,6 +8827,7 @@
     "animations": [
       722
     ],
+    "armorLevel": 23,
     "blocksLight": false,
     "burden": 3300,
     "equipImage": 16,
@@ -11563,6 +11842,7 @@
     "animations": [
       725
     ],
+    "armorLevel": 11,
     "blocksLight": false,
     "burden": 1500,
     "equipImage": 12,
@@ -11580,6 +11860,7 @@
     "animations": [
       724
     ],
+    "armorLevel": 10,
     "blocksLight": false,
     "burden": 1350,
     "equipImage": 12,
@@ -11597,6 +11878,7 @@
     "animations": [
       723
     ],
+    "armorLevel": 9,
     "blocksLight": false,
     "burden": 1200,
     "equipImage": 12,
@@ -11614,6 +11896,7 @@
     "animations": [
       709
     ],
+    "armorLevel": 3,
     "blocksLight": false,
     "burden": 300,
     "equipImage": 10,
@@ -11631,6 +11914,7 @@
     "animations": [
       719
     ],
+    "armorLevel": 4,
     "blocksLight": false,
     "burden": 450,
     "equipImage": 10,
@@ -11648,6 +11932,7 @@
     "animations": [
       729
     ],
+    "armorLevel": 5,
     "blocksLight": false,
     "burden": 600,
     "equipImage": 10,
@@ -11665,6 +11950,7 @@
     "animations": [
       739
     ],
+    "armorLevel": 0,
     "blocksLight": false,
     "burden": 400,
     "equipImage": 17,
@@ -11682,6 +11968,7 @@
     "animations": [
       740
     ],
+    "armorLevel": 0,
     "blocksLight": false,
     "burden": 800,
     "equipImage": 17,
@@ -11699,6 +11986,7 @@
     "animations": [
       741
     ],
+    "armorLevel": 0,
     "blocksLight": false,
     "burden": 1200,
     "equipImage": 17,
@@ -11716,6 +12004,7 @@
     "animations": [
       736
     ],
+    "armorLevel": 15,
     "blocksLight": false,
     "burden": 2100,
     "equipImage": 14,
@@ -11733,6 +12022,7 @@
     "animations": [
       737
     ],
+    "armorLevel": 16,
     "blocksLight": false,
     "burden": 2250,
     "equipImage": 14,
@@ -11750,6 +12040,7 @@
     "animations": [
       738
     ],
+    "armorLevel": 17,
     "blocksLight": false,
     "burden": 2400,
     "equipImage": 14,
@@ -11767,6 +12058,7 @@
     "animations": [
       730
     ],
+    "armorLevel": 18,
     "blocksLight": false,
     "burden": 2550,
     "equipImage": 15,
@@ -11784,6 +12076,7 @@
     "animations": [
       731
     ],
+    "armorLevel": 19,
     "blocksLight": false,
     "burden": 2700,
     "equipImage": 15,
@@ -11801,6 +12094,7 @@
     "animations": [
       732
     ],
+    "armorLevel": 20,
     "blocksLight": false,
     "burden": 2850,
     "equipImage": 15,
@@ -11818,6 +12112,7 @@
     "animations": [
       733
     ],
+    "armorLevel": 6,
     "blocksLight": false,
     "burden": 750,
     "equipImage": 11,
@@ -11835,6 +12130,7 @@
     "animations": [
       734
     ],
+    "armorLevel": 7,
     "blocksLight": false,
     "burden": 900,
     "equipImage": 11,
@@ -11852,6 +12148,7 @@
     "animations": [
       735
     ],
+    "armorLevel": 8,
     "blocksLight": false,
     "burden": 1050,
     "equipImage": 11,
@@ -11869,6 +12166,7 @@
     "animations": [
       726
     ],
+    "armorLevel": 12,
     "blocksLight": false,
     "burden": 1650,
     "equipImage": 13,
@@ -11886,6 +12184,7 @@
     "animations": [
       727
     ],
+    "armorLevel": 13,
     "blocksLight": false,
     "burden": 1800,
     "equipImage": 13,
@@ -11903,6 +12202,7 @@
     "animations": [
       728
     ],
+    "armorLevel": 14,
     "blocksLight": false,
     "burden": 1950,
     "equipImage": 13,
@@ -11920,6 +12220,7 @@
     "animations": [
       742
     ],
+    "armorLevel": 21,
     "blocksLight": false,
     "burden": 3000,
     "equipImage": 16,
@@ -11937,6 +12238,7 @@
     "animations": [
       743
     ],
+    "armorLevel": 22,
     "blocksLight": false,
     "burden": 3150,
     "equipImage": 16,
@@ -11954,6 +12256,7 @@
     "animations": [
       744
     ],
+    "armorLevel": 23,
     "blocksLight": false,
     "burden": 3300,
     "equipImage": 16,
@@ -11971,6 +12274,7 @@
     "animations": [
       752
     ],
+    "armorLevel": 11,
     "blocksLight": false,
     "burden": 375,
     "equipImage": 101,
@@ -11988,6 +12292,7 @@
     "animations": [
       751
     ],
+    "armorLevel": 10,
     "blocksLight": false,
     "burden": 337,
     "equipImage": 101,
@@ -12005,6 +12310,7 @@
     "animations": [
       750
     ],
+    "armorLevel": 9,
     "blocksLight": false,
     "burden": 300,
     "equipImage": 101,
@@ -12022,6 +12328,7 @@
     "animations": [
       756
     ],
+    "armorLevel": 3,
     "blocksLight": false,
     "burden": 75,
     "equipImage": 102,
@@ -12039,6 +12346,7 @@
     "animations": [
       757
     ],
+    "armorLevel": 4,
     "blocksLight": false,
     "burden": 112,
     "equipImage": 102,
@@ -12056,6 +12364,7 @@
     "animations": [
       758
     ],
+    "armorLevel": 5,
     "blocksLight": false,
     "burden": 150,
     "equipImage": 102,
@@ -12073,6 +12382,7 @@
     "animations": [
       768
     ],
+    "armorLevel": 0,
     "blocksLight": false,
     "burden": 100,
     "equipImage": 103,
@@ -12090,6 +12400,7 @@
     "animations": [
       769
     ],
+    "armorLevel": 0,
     "blocksLight": false,
     "burden": 200,
     "equipImage": 103,
@@ -12107,6 +12418,7 @@
     "animations": [
       770
     ],
+    "armorLevel": 0,
     "blocksLight": false,
     "burden": 300,
     "equipImage": 103,
@@ -12124,6 +12436,7 @@
     "animations": [
       765
     ],
+    "armorLevel": 15,
     "blocksLight": false,
     "burden": 525,
     "equipImage": 104,
@@ -12141,6 +12454,7 @@
     "animations": [
       766
     ],
+    "armorLevel": 16,
     "blocksLight": false,
     "burden": 562,
     "equipImage": 104,
@@ -12158,6 +12472,7 @@
     "animations": [
       767
     ],
+    "armorLevel": 17,
     "blocksLight": false,
     "burden": 600,
     "equipImage": 104,
@@ -12175,6 +12490,7 @@
     "animations": [
       759
     ],
+    "armorLevel": 18,
     "blocksLight": false,
     "burden": 637,
     "equipImage": 105,
@@ -12192,6 +12508,7 @@
     "animations": [
       760
     ],
+    "armorLevel": 19,
     "blocksLight": false,
     "burden": 675,
     "equipImage": 105,
@@ -12209,6 +12526,7 @@
     "animations": [
       761
     ],
+    "armorLevel": 20,
     "blocksLight": false,
     "burden": 712,
     "equipImage": 105,
@@ -12226,6 +12544,7 @@
     "animations": [
       762
     ],
+    "armorLevel": 6,
     "blocksLight": false,
     "burden": 187,
     "equipImage": 106,
@@ -12243,6 +12562,7 @@
     "animations": [
       763
     ],
+    "armorLevel": 7,
     "blocksLight": false,
     "burden": 225,
     "equipImage": 106,
@@ -12260,6 +12580,7 @@
     "animations": [
       764
     ],
+    "armorLevel": 8,
     "blocksLight": false,
     "burden": 262,
     "equipImage": 106,
@@ -12277,6 +12598,7 @@
     "animations": [
       753
     ],
+    "armorLevel": 12,
     "blocksLight": false,
     "burden": 412,
     "equipImage": 107,
@@ -12294,6 +12616,7 @@
     "animations": [
       754
     ],
+    "armorLevel": 13,
     "blocksLight": false,
     "burden": 450,
     "equipImage": 107,
@@ -12311,6 +12634,7 @@
     "animations": [
       755
     ],
+    "armorLevel": 14,
     "blocksLight": false,
     "burden": 487,
     "equipImage": 107,
@@ -12328,6 +12652,7 @@
     "animations": [
       771
     ],
+    "armorLevel": 21,
     "blocksLight": false,
     "burden": 750,
     "equipImage": 108,
@@ -12345,6 +12670,7 @@
     "animations": [
       772
     ],
+    "armorLevel": 22,
     "blocksLight": false,
     "burden": 787,
     "equipImage": 108,
@@ -12362,6 +12688,7 @@
     "animations": [
       773
     ],
+    "armorLevel": 23,
     "blocksLight": false,
     "burden": 825,
     "equipImage": 108,
@@ -12529,6 +12856,7 @@
     "animations": [
       885
     ],
+    "armorLevel": 1,
     "blocksLight": false,
     "burden": 50,
     "equipImage": 109,
@@ -12546,6 +12874,7 @@
     "animations": [
       886
     ],
+    "armorLevel": 1,
     "blocksLight": false,
     "burden": 200,
     "equipImage": 20,
@@ -13301,8 +13630,11 @@
     "animations": [
       955
     ],
+    "attackSpeed": 10,
     "blocksLight": false,
     "burden": 2000,
+    "damageHigh": 100,
+    "damageLow": 50,
     "equipImage": 8,
     "equipSlot": "Weapon",
     "light": 0,
@@ -13363,8 +13695,11 @@
     "animations": [
       960
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 17,
+    "damageLow": 13,
     "equipImage": 84,
     "equipSlot": "Weapon",
     "light": 0,
@@ -13380,8 +13715,11 @@
     "animations": [
       961
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 400,
+    "damageHigh": 18,
+    "damageLow": 12,
     "equipImage": 77,
     "equipSlot": "Weapon",
     "light": 0,
@@ -14495,6 +14833,7 @@
     "animations": [
       560
     ],
+    "armorLevel": 1,
     "blocksLight": false,
     "burden": 10,
     "equipImage": 115,
@@ -15884,6 +16223,7 @@
       306,
       307
     ],
+    "armorLevel": 4,
     "blocksLight": false,
     "burden": 100,
     "equipSlot": "Head",
@@ -16021,8 +16361,11 @@
       318,
       319
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 20,
+    "damageLow": 12,
     "equipImage": 31,
     "equipSlot": "Weapon",
     "growthDelta": 1000,
@@ -16225,8 +16568,11 @@
     "animations": [
       334
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 100,
+    "damageHigh": 3,
+    "damageLow": 1,
     "equipImage": 13,
     "equipSlot": "Weapon",
     "light": 0,
@@ -16847,8 +17193,11 @@
     "animations": [
       380
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 100,
+    "damageHigh": 5,
+    "damageLow": 3,
     "equipSlot": "Weapon",
     "light": 0,
     "moveable": true,
@@ -17021,8 +17370,11 @@
     "animations": [
       1270
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 20,
+    "damageLow": 10,
     "equipImage": 104,
     "equipSlot": "Weapon",
     "light": 0,
@@ -17695,8 +18047,11 @@
     "animations": [
       460
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 10,
+    "damageLow": 5,
     "equipImage": 17,
     "equipSlot": "Weapon",
     "light": 0,
@@ -17712,8 +18067,11 @@
     "animations": [
       461
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 14,
+    "damageLow": 10,
     "equipImage": 110,
     "equipSlot": "Weapon",
     "light": 0,
@@ -17729,8 +18087,11 @@
     "animations": [
       462
     ],
+    "attackSpeed": 2.5,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 20,
+    "damageLow": 14,
     "equipImage": 111,
     "equipSlot": "Weapon",
     "light": 0,
@@ -17763,6 +18124,7 @@
     ],
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 2,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -17778,6 +18140,7 @@
     ],
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 0,
     "light": 2,
     "moveable": true,
     "rarity": 1,
@@ -17793,6 +18156,7 @@
     ],
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 0,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -17866,8 +18230,11 @@
     "animations": [
       460
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 6,
+    "damageLow": 3,
     "equipImage": 17,
     "equipSlot": "Weapon",
     "light": 0,
@@ -17898,8 +18265,11 @@
     "animations": [
       481
     ],
+    "attackSpeed": 4,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 10,
+    "damageLow": 4,
     "equipImage": 18,
     "equipSlot": "Weapon",
     "light": 0,
@@ -17915,8 +18285,11 @@
     "animations": [
       481
     ],
+    "attackSpeed": 4,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 15,
+    "damageLow": 8,
     "equipImage": 18,
     "equipSlot": "Weapon",
     "light": 0,
@@ -17932,8 +18305,11 @@
     "animations": [
       480
     ],
+    "attackSpeed": 4,
     "blocksLight": false,
     "burden": 900,
+    "damageHigh": 30,
+    "damageLow": 15,
     "equipImage": 123,
     "equipSlot": "Weapon",
     "light": 0,
@@ -17949,8 +18325,11 @@
     "animations": [
       482
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 5,
+    "damageLow": 2,
     "equipImage": 13,
     "equipSlot": "Weapon",
     "light": 0,
@@ -17966,8 +18345,11 @@
     "animations": [
       483
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 5,
+    "damageLow": 2,
     "equipImage": 13,
     "equipSlot": "Weapon",
     "light": 0,
@@ -18013,8 +18395,11 @@
     "animations": [
       638
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 10,
+    "damageLow": 4,
     "equipImage": 130,
     "equipSlot": "Weapon",
     "light": 0,
@@ -18030,8 +18415,11 @@
     "animations": [
       461
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 400,
+    "damageHigh": 16,
+    "damageLow": 12,
     "equipImage": 112,
     "equipSlot": "Weapon",
     "light": 0,
@@ -18047,8 +18435,11 @@
     "animations": [
       777
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 12,
+    "damageLow": 10,
     "equipImage": 113,
     "equipSlot": "Weapon",
     "light": 0,
@@ -18081,6 +18472,7 @@
     ],
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 2,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -18096,6 +18488,7 @@
     ],
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 0,
     "light": 2,
     "moveable": true,
     "rarity": 1,
@@ -18111,6 +18504,7 @@
     ],
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 0,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -18154,8 +18548,11 @@
     "animations": [
       894
     ],
+    "attackSpeed": 3.5,
     "blocksLight": false,
     "burden": 900,
+    "damageHigh": 30,
+    "damageLow": 20,
     "equipImage": 124,
     "equipSlot": "Weapon",
     "light": 0,
@@ -18171,8 +18568,11 @@
     "animations": [
       927
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 400,
+    "damageHigh": 35,
+    "damageLow": 25,
     "equipImage": 114,
     "equipSlot": "Weapon",
     "light": 0,
@@ -18188,8 +18588,11 @@
     "animations": [
       928
     ],
+    "attackSpeed": 3.5,
     "blocksLight": false,
     "burden": 750,
+    "damageHigh": 61,
+    "damageLow": 45,
     "equipImage": 125,
     "equipSlot": "Weapon",
     "light": 0,
@@ -18220,8 +18623,11 @@
     "animations": [
       480
     ],
+    "attackSpeed": 3.5,
     "blocksLight": false,
     "burden": 800,
+    "damageHigh": 25,
+    "damageLow": 20,
     "equipImage": 126,
     "equipSlot": "Weapon",
     "light": 0,
@@ -18952,8 +19358,11 @@
     "animations": [
       1083
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 50,
+    "damageHigh": 9,
+    "damageLow": 7,
     "equipImage": 24,
     "equipSlot": "Weapon",
     "growthDelta": 150,
@@ -18971,8 +19380,11 @@
     "animations": [
       1084
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 50,
+    "damageHigh": 9,
+    "damageLow": 7,
     "equipImage": 25,
     "equipSlot": "Weapon",
     "growthDelta": 50,
@@ -18990,8 +19402,11 @@
     "animations": [
       1085
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 50,
+    "damageHigh": 9,
+    "damageLow": 8,
     "equipImage": 26,
     "equipSlot": "Weapon",
     "light": 0,
@@ -19007,8 +19422,11 @@
     "animations": [
       1086
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 25,
+    "damageLow": 15,
     "equipImage": 14,
     "equipSlot": "Weapon",
     "light": 0,
@@ -19024,6 +19442,7 @@
     "animations": [
       1087
     ],
+    "armorLevel": 25,
     "blocksLight": false,
     "burden": 100,
     "equipSlot": "Head",
@@ -19040,6 +19459,7 @@
     "animations": [
       1088
     ],
+    "armorLevel": 30,
     "blocksLight": false,
     "burden": 100,
     "equipSlot": "Head",
@@ -19133,8 +19553,11 @@
     "animations": [
       1091
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 3000,
+    "damageHigh": 50,
+    "damageLow": 30,
     "equipImage": 60,
     "equipSlot": "Weapon",
     "light": 0,
@@ -19150,8 +19573,11 @@
     "animations": [
       1092
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 3000,
+    "damageHigh": 50,
+    "damageLow": 30,
     "equipImage": 92,
     "equipSlot": "Weapon",
     "light": 0,
@@ -19662,8 +20088,11 @@
     "animations": [
       44
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 400,
+    "damageHigh": 7,
+    "damageLow": 5,
     "equipImage": 16,
     "equipSlot": "Weapon",
     "light": 0,
@@ -19851,6 +20280,7 @@
     "animations": [
       1117
     ],
+    "armorLevel": 6,
     "blocksLight": false,
     "burden": 50,
     "equipImage": 110,
@@ -19868,6 +20298,7 @@
     "animations": [
       1118
     ],
+    "armorLevel": 6,
     "blocksLight": false,
     "burden": 400,
     "equipImage": 22,
@@ -19885,6 +20316,7 @@
     "animations": [
       1127
     ],
+    "armorLevel": 9,
     "blocksLight": false,
     "burden": 100,
     "equipImage": 111,
@@ -19902,6 +20334,7 @@
     "animations": [
       1128
     ],
+    "armorLevel": 9,
     "blocksLight": false,
     "burden": 600,
     "equipImage": 21,
@@ -19919,6 +20352,7 @@
     "animations": [
       1119
     ],
+    "armorLevel": 12,
     "blocksLight": false,
     "burden": 225,
     "equipImage": 112,
@@ -19936,6 +20370,7 @@
     "animations": [
       1129
     ],
+    "armorLevel": 12,
     "blocksLight": false,
     "burden": 900,
     "equipImage": 23,
@@ -19953,6 +20388,7 @@
     "animations": [
       1140
     ],
+    "armorLevel": 10,
     "blocksLight": false,
     "burden": 150,
     "equipImage": 113,
@@ -20049,8 +20485,11 @@
     "animations": [
       1172
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 350,
+    "damageHigh": 15,
+    "damageLow": 11,
     "equipImage": 151,
     "equipSlot": "Weapon",
     "light": 4,
@@ -20066,8 +20505,11 @@
     "animations": [
       1173
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 20,
+    "damageLow": 15,
     "equipImage": 32,
     "equipSlot": "Weapon",
     "light": 4,
@@ -20083,8 +20525,11 @@
     "animations": [
       1176
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 350,
+    "damageHigh": 15,
+    "damageLow": 11,
     "equipImage": 153,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20100,8 +20545,11 @@
     "animations": [
       1177
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 20,
+    "damageLow": 15,
     "equipImage": 33,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20117,8 +20565,11 @@
     "animations": [
       1174
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 350,
+    "damageHigh": 15,
+    "damageLow": 11,
     "equipImage": 155,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20134,8 +20585,11 @@
     "animations": [
       1175
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 20,
+    "damageLow": 15,
     "equipImage": 34,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20151,8 +20605,11 @@
     "animations": [
       1184
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 400,
+    "damageHigh": 11,
+    "damageLow": 9,
     "equipImage": 44,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20168,8 +20625,11 @@
     "animations": [
       1185
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 400,
+    "damageHigh": 13,
+    "damageLow": 9,
     "equipImage": 85,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20185,8 +20645,11 @@
     "animations": [
       1150
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 17,
+    "damageLow": 13,
     "equipImage": 47,
     "equipSlot": "Weapon",
     "light": 4,
@@ -20202,8 +20665,11 @@
     "animations": [
       1151
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 22,
+    "damageLow": 18,
     "equipImage": 53,
     "equipSlot": "Weapon",
     "light": 4,
@@ -20219,8 +20685,11 @@
     "animations": [
       1154
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 17,
+    "damageLow": 13,
     "equipImage": 48,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20236,8 +20705,11 @@
     "animations": [
       1155
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 22,
+    "damageLow": 18,
     "equipImage": 54,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20253,8 +20725,11 @@
     "animations": [
       1152
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 17,
+    "damageLow": 13,
     "equipImage": 49,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20270,8 +20745,11 @@
     "animations": [
       1153
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 22,
+    "damageLow": 18,
     "equipImage": 55,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20287,8 +20765,11 @@
     "animations": [
       1161
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 800,
+    "damageHigh": 25,
+    "damageLow": 15,
     "equipImage": 61,
     "equipSlot": "Weapon",
     "light": 4,
@@ -20304,8 +20785,11 @@
     "animations": [
       1160
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 17,
+    "damageLow": 13,
     "equipImage": 64,
     "equipSlot": "Weapon",
     "light": 4,
@@ -20321,8 +20805,11 @@
     "animations": [
       1165
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 800,
+    "damageHigh": 25,
+    "damageLow": 15,
     "equipImage": 62,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20338,8 +20825,11 @@
     "animations": [
       1164
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 17,
+    "damageLow": 13,
     "equipImage": 65,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20355,8 +20845,11 @@
     "animations": [
       1163
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 800,
+    "damageHigh": 25,
+    "damageLow": 15,
     "equipImage": 63,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20372,8 +20865,11 @@
     "animations": [
       1162
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 17,
+    "damageLow": 13,
     "equipImage": 66,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20389,8 +20885,11 @@
     "animations": [
       1166
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 10,
+    "damageLow": 5,
     "equipImage": 71,
     "equipSlot": "Weapon",
     "light": 4,
@@ -20406,8 +20905,11 @@
     "animations": [
       1180
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 13,
+    "damageLow": 9,
     "equipImage": 79,
     "equipSlot": "Weapon",
     "light": 4,
@@ -20423,8 +20925,11 @@
     "animations": [
       1167
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 10,
+    "damageLow": 5,
     "equipImage": 72,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20440,8 +20945,11 @@
     "animations": [
       1181
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 13,
+    "damageLow": 9,
     "equipImage": 80,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20457,8 +20965,11 @@
     "animations": [
       1168
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 10,
+    "damageLow": 5,
     "equipImage": 78,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20474,8 +20985,11 @@
     "animations": [
       1182
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 13,
+    "damageLow": 9,
     "equipImage": 81,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20491,8 +21005,11 @@
     "animations": [
       1169
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 17,
+    "damageLow": 13,
     "equipImage": 79,
     "equipSlot": "Weapon",
     "light": 4,
@@ -20508,8 +21025,11 @@
     "animations": [
       1170
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 17,
+    "damageLow": 13,
     "equipImage": 80,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20525,8 +21045,11 @@
     "animations": [
       1171
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 17,
+    "damageLow": 13,
     "equipImage": 81,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20542,8 +21065,11 @@
     "animations": [
       1146
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 15,
+    "damageLow": 11,
     "equipImage": 93,
     "equipSlot": "Weapon",
     "light": 4,
@@ -20559,8 +21085,11 @@
     "animations": [
       1147
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 900,
+    "damageHigh": 20,
+    "damageLow": 15,
     "equipImage": 96,
     "equipSlot": "Weapon",
     "light": 4,
@@ -20576,8 +21105,11 @@
     "animations": [
       1158
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 15,
+    "damageLow": 11,
     "equipImage": 94,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20593,8 +21125,11 @@
     "animations": [
       1159
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 900,
+    "damageHigh": 20,
+    "damageLow": 15,
     "equipImage": 97,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20610,8 +21145,11 @@
     "animations": [
       1156
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 15,
+    "damageLow": 11,
     "equipImage": 95,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20627,8 +21165,11 @@
     "animations": [
       1157
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 900,
+    "damageHigh": 20,
+    "damageLow": 15,
     "equipImage": 98,
     "equipSlot": "Weapon",
     "light": 0,
@@ -20646,6 +21187,7 @@
     ],
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 0,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -20676,6 +21218,7 @@
     ],
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 0,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -20991,8 +21534,11 @@
     "animations": [
       1172
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 350,
+    "damageHigh": 11,
+    "damageLow": 7,
     "equipImage": 150,
     "equipSlot": "Weapon",
     "light": 4,
@@ -21008,8 +21554,11 @@
     "animations": [
       1176
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 350,
+    "damageHigh": 11,
+    "damageLow": 7,
     "equipImage": 152,
     "equipSlot": "Weapon",
     "light": 0,
@@ -21025,8 +21574,11 @@
     "animations": [
       1174
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 350,
+    "damageHigh": 11,
+    "damageLow": 7,
     "equipImage": 154,
     "equipSlot": "Weapon",
     "light": 0,
@@ -21042,8 +21594,11 @@
     "animations": [
       1150
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 11,
+    "damageLow": 9,
     "equipImage": 50,
     "equipSlot": "Weapon",
     "light": 4,
@@ -21059,8 +21614,11 @@
     "animations": [
       1154
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 11,
+    "damageLow": 9,
     "equipImage": 51,
     "equipSlot": "Weapon",
     "light": 0,
@@ -21076,8 +21634,11 @@
     "animations": [
       1152
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 11,
+    "damageLow": 9,
     "equipImage": 52,
     "equipSlot": "Weapon",
     "light": 0,
@@ -21093,8 +21654,11 @@
     "animations": [
       1160
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 12,
+    "damageLow": 10,
     "equipImage": 67,
     "equipSlot": "Weapon",
     "light": 4,
@@ -21110,8 +21674,11 @@
     "animations": [
       1164
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 12,
+    "damageLow": 10,
     "equipImage": 68,
     "equipSlot": "Weapon",
     "light": 0,
@@ -21127,8 +21694,11 @@
     "animations": [
       1162
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 12,
+    "damageLow": 10,
     "equipImage": 69,
     "equipSlot": "Weapon",
     "light": 0,
@@ -21144,8 +21714,11 @@
     "animations": [
       1169
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 12,
+    "damageLow": 8,
     "equipImage": 79,
     "equipSlot": "Weapon",
     "light": 4,
@@ -21161,8 +21734,11 @@
     "animations": [
       1170
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 12,
+    "damageLow": 8,
     "equipImage": 80,
     "equipSlot": "Weapon",
     "light": 0,
@@ -21178,8 +21754,11 @@
     "animations": [
       1171
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 12,
+    "damageLow": 8,
     "equipImage": 81,
     "equipSlot": "Weapon",
     "light": 0,
@@ -21195,8 +21774,11 @@
     "animations": [
       1146
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 8,
+    "damageLow": 6,
     "equipImage": 99,
     "equipSlot": "Weapon",
     "light": 4,
@@ -21212,8 +21794,11 @@
     "animations": [
       1158
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 8,
+    "damageLow": 6,
     "equipImage": 100,
     "equipSlot": "Weapon",
     "light": 0,
@@ -21229,8 +21814,11 @@
     "animations": [
       1156
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 8,
+    "damageLow": 6,
     "equipImage": 101,
     "equipSlot": "Weapon",
     "light": 0,
@@ -21246,8 +21834,11 @@
     "animations": [
       1203
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 20,
+    "damageLow": 16,
     "equipImage": 106,
     "equipSlot": "Weapon",
     "light": 4,
@@ -21263,8 +21854,11 @@
     "animations": [
       1204
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 20,
+    "damageLow": 16,
     "equipImage": 107,
     "equipSlot": "Weapon",
     "light": 0,
@@ -21280,8 +21874,11 @@
     "animations": [
       1205
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 20,
+    "damageLow": 16,
     "equipImage": 108,
     "equipSlot": "Weapon",
     "light": 0,
@@ -21297,8 +21894,11 @@
     "animations": [
       1206
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 10,
+    "damageLow": 6,
     "light": 2,
     "moveable": true,
     "rarity": 1,
@@ -21312,8 +21912,11 @@
     "animations": [
       1207
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 10,
+    "damageLow": 6,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -21327,8 +21930,11 @@
     "animations": [
       1208
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 10,
+    "damageLow": 6,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -21342,8 +21948,11 @@
     "animations": [
       1209
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 10,
+    "damageLow": 6,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -23304,8 +23913,11 @@
     "animations": [
       1298
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 800,
+    "damageHigh": 35,
+    "damageLow": 25,
     "equipImage": 109,
     "equipSlot": "Weapon",
     "light": 0,
@@ -23321,8 +23933,11 @@
     "animations": [
       809
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 28,
+    "damageLow": 20,
     "equipImage": 163,
     "equipSlot": "Weapon",
     "light": 0,
@@ -23338,8 +23953,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2.5,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 50,
+    "damageLow": 30,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -23353,8 +23971,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 30,
+    "damageLow": 20,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -23368,8 +23989,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 30,
+    "damageLow": 20,
     "equipSlot": "Weapon",
     "light": 0,
     "moveable": true,
@@ -23504,6 +24128,7 @@
     "animations": [
       15
     ],
+    "armorLevel": 2,
     "blocksLight": false,
     "burden": 450,
     "equipSlot": "Chest",
@@ -23520,6 +24145,7 @@
     "animations": [
       885
     ],
+    "armorLevel": 2,
     "blocksLight": false,
     "burden": 75,
     "equipSlot": "Head",
@@ -23536,6 +24162,7 @@
     "animations": [
       886
     ],
+    "armorLevel": 2,
     "blocksLight": false,
     "burden": 250,
     "equipSlot": "Legs",
@@ -23552,6 +24179,7 @@
     "animations": [
       15
     ],
+    "armorLevel": 3,
     "blocksLight": false,
     "burden": 550,
     "equipSlot": "Chest",
@@ -23568,6 +24196,7 @@
     "animations": [
       885
     ],
+    "armorLevel": 3,
     "blocksLight": false,
     "burden": 100,
     "equipSlot": "Head",
@@ -23584,6 +24213,7 @@
     "animations": [
       886
     ],
+    "armorLevel": 3,
     "blocksLight": false,
     "burden": 350,
     "equipSlot": "Legs",
@@ -23600,6 +24230,7 @@
     "animations": [
       15
     ],
+    "armorLevel": 4,
     "blocksLight": false,
     "burden": 650,
     "equipSlot": "Chest",
@@ -23616,6 +24247,7 @@
     "animations": [
       885
     ],
+    "armorLevel": 4,
     "blocksLight": false,
     "burden": 125,
     "equipSlot": "Head",
@@ -23632,6 +24264,7 @@
     "animations": [
       886
     ],
+    "armorLevel": 4,
     "blocksLight": false,
     "burden": 450,
     "equipSlot": "Legs",
@@ -23648,6 +24281,7 @@
     "animations": [
       15
     ],
+    "armorLevel": 5,
     "blocksLight": false,
     "burden": 750,
     "equipSlot": "Chest",
@@ -23664,6 +24298,7 @@
     "animations": [
       885
     ],
+    "armorLevel": 5,
     "blocksLight": false,
     "burden": 150,
     "equipSlot": "Head",
@@ -23680,6 +24315,7 @@
     "animations": [
       886
     ],
+    "armorLevel": 5,
     "blocksLight": false,
     "burden": 550,
     "equipSlot": "Legs",
@@ -23696,6 +24332,7 @@
     "animations": [
       15
     ],
+    "armorLevel": 6,
     "blocksLight": false,
     "burden": 850,
     "equipSlot": "Chest",
@@ -23712,6 +24349,7 @@
     "animations": [
       885
     ],
+    "armorLevel": 6,
     "blocksLight": false,
     "burden": 175,
     "equipSlot": "Head",
@@ -23728,6 +24366,7 @@
     "animations": [
       886
     ],
+    "armorLevel": 6,
     "blocksLight": false,
     "burden": 650,
     "equipSlot": "Legs",
@@ -23744,6 +24383,7 @@
     "animations": [
       15
     ],
+    "armorLevel": 7,
     "blocksLight": false,
     "burden": 950,
     "equipSlot": "Chest",
@@ -23760,6 +24400,7 @@
     "animations": [
       885
     ],
+    "armorLevel": 7,
     "blocksLight": false,
     "burden": 200,
     "equipSlot": "Head",
@@ -23776,6 +24417,7 @@
     "animations": [
       886
     ],
+    "armorLevel": 7,
     "blocksLight": false,
     "burden": 750,
     "equipSlot": "Legs",
@@ -23792,6 +24434,7 @@
     "animations": [
       15
     ],
+    "armorLevel": 8,
     "blocksLight": false,
     "burden": 1050,
     "equipSlot": "Chest",
@@ -23808,6 +24451,7 @@
     "animations": [
       885
     ],
+    "armorLevel": 8,
     "blocksLight": false,
     "burden": 225,
     "equipSlot": "Head",
@@ -23824,6 +24468,7 @@
     "animations": [
       886
     ],
+    "armorLevel": 8,
     "blocksLight": false,
     "burden": 750,
     "equipSlot": "Legs",
@@ -23840,6 +24485,7 @@
     "animations": [
       15
     ],
+    "armorLevel": 9,
     "blocksLight": false,
     "burden": 1150,
     "equipSlot": "Chest",
@@ -23856,6 +24502,7 @@
     "animations": [
       885
     ],
+    "armorLevel": 9,
     "blocksLight": false,
     "burden": 250,
     "equipSlot": "Head",
@@ -23872,6 +24519,7 @@
     "animations": [
       886
     ],
+    "armorLevel": 9,
     "blocksLight": false,
     "burden": 850,
     "equipSlot": "Legs",
@@ -23903,8 +24551,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 10,
+    "damageLow": 8,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -23918,8 +24569,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 10,
+    "damageLow": 8,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -23933,8 +24587,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 30,
+    "damageLow": 20,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -23948,8 +24605,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 10,
+    "damageLow": 8,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -24059,8 +24719,11 @@
     "animations": [
       1316
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 8,
+    "damageLow": 6,
     "equipImage": 41,
     "equipSlot": "Weapon",
     "light": 4,
@@ -24076,8 +24739,11 @@
     "animations": [
       1317
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 8,
+    "damageLow": 6,
     "equipImage": 42,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24093,8 +24759,11 @@
     "animations": [
       1318
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 8,
+    "damageLow": 6,
     "equipImage": 43,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24110,8 +24779,11 @@
     "animations": [
       1335
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 8,
+    "damageLow": 6,
     "equipImage": 40,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24127,6 +24799,7 @@
     "animations": [
       1312
     ],
+    "armorLevel": 14,
     "blocksLight": false,
     "burden": 1500,
     "equipImage": 19,
@@ -24144,6 +24817,7 @@
     "animations": [
       1311
     ],
+    "armorLevel": 13,
     "blocksLight": false,
     "burden": 1350,
     "equipImage": 19,
@@ -24161,6 +24835,7 @@
     "animations": [
       1310
     ],
+    "armorLevel": 12,
     "blocksLight": false,
     "burden": 1200,
     "equipImage": 19,
@@ -24208,6 +24883,7 @@
     "animations": [
       1309
     ],
+    "armorLevel": 14,
     "blocksLight": false,
     "burden": 375,
     "equipImage": 105,
@@ -24225,6 +24901,7 @@
     "animations": [
       1308
     ],
+    "armorLevel": 13,
     "blocksLight": false,
     "burden": 337,
     "equipImage": 105,
@@ -24242,6 +24919,7 @@
     "animations": [
       1307
     ],
+    "armorLevel": 12,
     "blocksLight": false,
     "burden": 300,
     "equipImage": 105,
@@ -24259,6 +24937,7 @@
     "animations": [
       1315
     ],
+    "armorLevel": 14,
     "blocksLight": false,
     "burden": 1500,
     "equipImage": 19,
@@ -24276,6 +24955,7 @@
     "animations": [
       1314
     ],
+    "armorLevel": 13,
     "blocksLight": false,
     "burden": 1350,
     "equipImage": 19,
@@ -24293,6 +24973,7 @@
     "animations": [
       1313
     ],
+    "armorLevel": 12,
     "blocksLight": false,
     "burden": 1200,
     "equipImage": 19,
@@ -24327,8 +25008,11 @@
     "animations": [
       1319
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 350,
+    "damageHigh": 20,
+    "damageLow": 15,
     "equipImage": 2,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24344,8 +25028,11 @@
     "animations": [
       1320
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 23,
+    "damageLow": 19,
     "equipImage": 3,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24361,8 +25048,11 @@
     "animations": [
       1322
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 800,
+    "damageHigh": 26,
+    "damageLow": 22,
     "equipImage": 8,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24378,8 +25068,11 @@
     "animations": [
       1321
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 22,
+    "damageLow": 18,
     "equipImage": 7,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24395,8 +25088,11 @@
     "animations": [
       1323
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 21,
+    "damageLow": 19,
     "equipImage": 5,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24412,8 +25108,11 @@
     "animations": [
       1324
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 25,
+    "damageLow": 23,
     "equipImage": 6,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24429,8 +25128,11 @@
     "animations": [
       1325
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 22,
+    "damageLow": 18,
     "equipImage": 16,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24446,8 +25148,11 @@
     "animations": [
       1326
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 19,
+    "damageLow": 15,
     "equipImage": 14,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24463,8 +25168,11 @@
     "animations": [
       1327
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 900,
+    "damageHigh": 23,
+    "damageLow": 19,
     "equipImage": 15,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24480,8 +25188,11 @@
     "animations": [
       1328
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 100,
+    "damageHigh": 10,
+    "damageLow": 6,
     "equipImage": 4,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24497,8 +25208,11 @@
     "animations": [
       1330
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 20,
+    "damageLow": 16,
     "equipImage": 84,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24514,8 +25228,11 @@
     "animations": [
       1329
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 400,
+    "damageHigh": 21,
+    "damageLow": 15,
     "equipImage": 77,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24531,8 +25248,11 @@
     "animations": [
       1332
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 18,
+    "damageLow": 13,
     "equipImage": 164,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24548,8 +25268,11 @@
     "animations": [
       1333
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 12,
+    "damageLow": 8,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -24563,8 +25286,11 @@
     "animations": [
       1336
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 60,
+    "damageHigh": 7,
+    "damageLow": 4,
     "equipImage": 1,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24580,8 +25306,11 @@
     "animations": [
       1340
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 250,
+    "damageHigh": 12,
+    "damageLow": 7,
     "equipImage": 115,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24597,8 +25326,11 @@
     "animations": [
       1341
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 14,
+    "damageLow": 9,
     "equipImage": 116,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24614,8 +25346,11 @@
     "animations": [
       1342
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 350,
+    "damageHigh": 16,
+    "damageLow": 11,
     "equipImage": 117,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24631,8 +25366,11 @@
     "animations": [
       1344
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 400,
+    "damageHigh": 18,
+    "damageLow": 13,
     "equipImage": 119,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24648,8 +25386,11 @@
     "animations": [
       1345
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 450,
+    "damageHigh": 21,
+    "damageLow": 15,
     "equipImage": 120,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24665,8 +25406,11 @@
     "animations": [
       1346
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 28,
+    "damageLow": 20,
     "equipImage": 121,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24682,8 +25426,11 @@
     "animations": [
       1347
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 550,
+    "damageHigh": 35,
+    "damageLow": 25,
     "equipImage": 122,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24804,8 +25551,11 @@
     "animations": [
       1343
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 350,
+    "damageHigh": 17,
+    "damageLow": 12,
     "equipImage": 118,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24956,8 +25706,11 @@
     "animations": [
       1360
     ],
+    "attackSpeed": 4,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 12,
+    "damageLow": 7,
     "equipImage": 127,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24973,8 +25726,11 @@
     "animations": [
       1361
     ],
+    "attackSpeed": 4,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 15,
+    "damageLow": 10,
     "equipImage": 128,
     "equipSlot": "Weapon",
     "light": 0,
@@ -24990,8 +25746,11 @@
     "animations": [
       1362
     ],
+    "attackSpeed": 4,
     "blocksLight": false,
     "burden": 800,
+    "damageHigh": 18,
+    "damageLow": 13,
     "equipImage": 129,
     "equipSlot": "Weapon",
     "light": 0,
@@ -25007,8 +25766,11 @@
     "animations": [
       1363
     ],
+    "attackSpeed": 4,
     "blocksLight": false,
     "burden": 900,
+    "damageHigh": 21,
+    "damageLow": 16,
     "equipImage": 131,
     "equipSlot": "Weapon",
     "light": 0,
@@ -25024,8 +25786,11 @@
     "animations": [
       1364
     ],
+    "attackSpeed": 4,
     "blocksLight": false,
     "burden": 1000,
+    "damageHigh": 24,
+    "damageLow": 19,
     "equipImage": 132,
     "equipSlot": "Weapon",
     "light": 0,
@@ -25041,8 +25806,11 @@
     "animations": [
       1365
     ],
+    "attackSpeed": 4,
     "blocksLight": false,
     "burden": 1100,
+    "damageHigh": 27,
+    "damageLow": 22,
     "equipImage": 133,
     "equipSlot": "Weapon",
     "light": 0,
@@ -25058,8 +25826,11 @@
     "animations": [
       1366
     ],
+    "attackSpeed": 4,
     "blocksLight": false,
     "burden": 1200,
+    "damageHigh": 36,
+    "damageLow": 28,
     "equipImage": 134,
     "equipSlot": "Weapon",
     "light": 0,
@@ -25075,8 +25846,11 @@
     "animations": [
       1367
     ],
+    "attackSpeed": 4,
     "blocksLight": false,
     "burden": 1300,
+    "damageHigh": 45,
+    "damageLow": 35,
     "equipImage": 135,
     "equipSlot": "Weapon",
     "light": 0,
@@ -25107,8 +25881,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 12,
+    "damageLow": 8,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -25122,8 +25899,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 10,
+    "damageLow": 5,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -25235,8 +26015,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 12,
+    "damageLow": 8,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -28170,6 +28953,7 @@
     "animations": [
       1612
     ],
+    "armorLevel": 0,
     "blocksLight": false,
     "burden": 10,
     "equipImage": 2,
@@ -28187,6 +28971,7 @@
     "animations": [
       1613
     ],
+    "armorLevel": 0,
     "blocksLight": false,
     "burden": 10,
     "equipImage": 4,
@@ -28226,6 +29011,7 @@
     "animations": [
       1617
     ],
+    "armorLevel": 0,
     "blocksLight": false,
     "burden": 10,
     "equipImage": 24,
@@ -28517,6 +29303,7 @@
     "animations": [
       1491
     ],
+    "armorLevel": 20,
     "blocksLight": false,
     "burden": 1000,
     "equipImage": 25,
@@ -28534,6 +29321,7 @@
     "animations": [
       1482
     ],
+    "armorLevel": 20,
     "blocksLight": false,
     "burden": 1000,
     "equipImage": 24,
@@ -28551,6 +29339,7 @@
     "animations": [
       1492
     ],
+    "armorLevel": 20,
     "blocksLight": false,
     "burden": 350,
     "equipImage": 114,
@@ -28568,8 +29357,11 @@
     "animations": [
       1499
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 100,
+    "damageHigh": 40,
+    "damageLow": 30,
     "equipSlot": "Weapon",
     "light": 0,
     "moveable": true,
@@ -28975,8 +29767,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 30,
+    "damageLow": 20,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -29020,8 +29815,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 50,
+    "damageLow": 30,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -29035,8 +29833,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 55,
+    "damageLow": 35,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -29050,8 +29851,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 30,
+    "damageLow": 20,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -29080,8 +29884,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 5,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 150,
+    "damageLow": 100,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -29537,8 +30344,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 35,
+    "damageLow": 25,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -29552,8 +30362,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 25,
+    "damageLow": 15,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -29567,8 +30380,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 25,
+    "damageLow": 15,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -29653,8 +30469,11 @@
     "animations": [
       1649
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 1000,
+    "damageHigh": 26,
+    "damageLow": 18,
     "equipImage": 159,
     "equipSlot": "Weapon",
     "light": 0,
@@ -29670,8 +30489,11 @@
     "animations": [
       1654
     ],
+    "attackSpeed": 2.5,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 24,
+    "damageLow": 16,
     "equipImage": 156,
     "equipSlot": "Weapon",
     "light": 5,
@@ -29687,8 +30509,11 @@
     "animations": [
       1656
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 200,
+    "damageHigh": 20,
+    "damageLow": 15,
     "equipImage": 158,
     "equipSlot": "Weapon",
     "light": 5,
@@ -29704,8 +30529,11 @@
     "animations": [
       1657
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 150,
+    "damageHigh": 12,
+    "damageLow": 8,
     "equipImage": 160,
     "equipSlot": "Weapon",
     "light": 0,
@@ -29721,8 +30549,11 @@
     "animations": [
       1655
     ],
+    "attackSpeed": 2.5,
     "blocksLight": false,
     "burden": 1000,
+    "damageHigh": 30,
+    "damageLow": 20,
     "equipImage": 157,
     "equipSlot": "Weapon",
     "light": 0,
@@ -29933,6 +30764,7 @@
     "animations": [
       1683
     ],
+    "armorLevel": 11,
     "blocksLight": false,
     "burden": 500,
     "equipImage": 8,
@@ -29950,6 +30782,7 @@
     "animations": [
       1684
     ],
+    "armorLevel": 12,
     "blocksLight": false,
     "burden": 700,
     "equipImage": 9,
@@ -29967,6 +30800,7 @@
     "animations": [
       1682
     ],
+    "armorLevel": 14,
     "blocksLight": false,
     "burden": 800,
     "equipImage": 11,
@@ -29984,6 +30818,7 @@
     "animations": [
       1681
     ],
+    "armorLevel": 13,
     "blocksLight": false,
     "burden": 700,
     "equipImage": 10,
@@ -30033,8 +30868,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 20,
+    "damageLow": 10,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -30384,6 +31222,7 @@
     "animations": [
       1690
     ],
+    "armorLevel": 12,
     "blocksLight": false,
     "burden": 300,
     "equipImage": 110,
@@ -32101,8 +32940,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 7,
+    "damageLow": 5,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32116,8 +32958,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2.5,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 5,
+    "damageLow": 3,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32131,8 +32976,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2.5,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 6,
+    "damageLow": 4,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32146,8 +32994,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2.5,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 30,
+    "damageLow": 20,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32311,8 +33162,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2.5,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 35,
+    "damageLow": 25,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32356,8 +33210,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 8,
+    "damageLow": 6,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32371,8 +33228,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 12,
+    "damageLow": 10,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32386,8 +33246,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 6,
+    "damageLow": 4,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32401,8 +33264,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 10,
+    "damageLow": 8,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32416,8 +33282,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 6,
+    "damageLow": 4,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32431,8 +33300,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 6,
+    "damageLow": 4,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32446,8 +33318,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 8,
+    "damageLow": 6,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32461,8 +33336,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 12,
+    "damageLow": 10,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32476,8 +33354,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 12,
+    "damageLow": 10,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32491,8 +33372,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 20,
+    "damageLow": 15,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32506,8 +33390,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 30,
+    "damageLow": 20,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32521,8 +33408,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 15,
+    "damageLow": 10,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32536,8 +33426,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 6,
+    "damageLow": 4,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32551,8 +33444,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 8,
+    "damageLow": 4,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32566,8 +33462,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 4,
+    "damageLow": 2,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32581,8 +33480,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 8,
+    "damageLow": 6,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32596,8 +33498,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 20,
+    "damageLow": 15,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32611,8 +33516,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 7,
+    "damageLow": 5,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32623,8 +33531,11 @@
     "id": 2084,
     "name": "Asp Spit",
     "class": "Normal",
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 4,
+    "damageLow": 2,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32638,8 +33549,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 10,
+    "damageLow": 8,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32653,8 +33567,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 10,
+    "damageLow": 8,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32668,8 +33585,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 6,
+    "damageLow": 4,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32683,8 +33603,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 8,
+    "damageLow": 6,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32695,8 +33618,11 @@
     "id": 2089,
     "name": "Skunk Spray",
     "class": "Normal",
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 4,
+    "damageLow": 2,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32710,8 +33636,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 10,
+    "damageLow": 8,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -32892,6 +33821,7 @@
     "animations": [
       1888
     ],
+    "armorLevel": 15,
     "blocksLight": false,
     "burden": 225,
     "equipImage": 116,
@@ -32909,6 +33839,7 @@
     "animations": [
       1887
     ],
+    "armorLevel": 15,
     "blocksLight": false,
     "burden": 900,
     "equipImage": 30,
@@ -32926,6 +33857,7 @@
     "animations": [
       1889
     ],
+    "armorLevel": 15,
     "blocksLight": false,
     "burden": 900,
     "equipImage": 26,
@@ -32943,8 +33875,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 30,
+    "damageLow": 20,
     "equipSlot": "Weapon",
     "light": 0,
     "moveable": true,
@@ -32989,6 +33924,7 @@
     "animations": [
       1892
     ],
+    "armorLevel": 18,
     "blocksLight": false,
     "burden": 250,
     "equipImage": 117,
@@ -33006,6 +33942,7 @@
     "animations": [
       1893
     ],
+    "armorLevel": 18,
     "blocksLight": false,
     "burden": 1000,
     "equipImage": 31,
@@ -33023,6 +33960,7 @@
     "animations": [
       1894
     ],
+    "armorLevel": 18,
     "blocksLight": false,
     "burden": 1000,
     "equipImage": 27,
@@ -33040,8 +33978,11 @@
     "animations": [
       1895
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 250,
+    "damageHigh": 12,
+    "damageLow": 8,
     "equipImage": 178,
     "equipSlot": "Weapon",
     "light": 0,
@@ -33057,8 +33998,11 @@
     "animations": [
       1896
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 100,
+    "damageHigh": 11,
+    "damageLow": 9,
     "equipImage": 179,
     "equipSlot": "Weapon",
     "light": 0,
@@ -33074,8 +34018,11 @@
     "animations": [
       1897
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 150,
+    "damageHigh": 14,
+    "damageLow": 8,
     "equipImage": 180,
     "equipSlot": "Weapon",
     "light": 0,
@@ -33091,8 +34038,11 @@
     "animations": [
       1898
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 23,
+    "damageLow": 17,
     "equipImage": 181,
     "equipSlot": "Weapon",
     "light": 0,
@@ -33951,6 +34901,7 @@
     "animations": [
       1950
     ],
+    "armorLevel": 2,
     "blocksLight": false,
     "burden": 100,
     "equipImage": 20,
@@ -33968,6 +34919,7 @@
     "animations": [
       1960
     ],
+    "armorLevel": 3,
     "blocksLight": false,
     "burden": 150,
     "equipImage": 30,
@@ -33985,6 +34937,7 @@
     "animations": [
       1970
     ],
+    "armorLevel": 4,
     "blocksLight": false,
     "burden": 200,
     "equipImage": 40,
@@ -34002,6 +34955,7 @@
     "animations": [
       1951
     ],
+    "armorLevel": 5,
     "blocksLight": false,
     "burden": 250,
     "equipImage": 21,
@@ -34019,6 +34973,7 @@
     "animations": [
       1961
     ],
+    "armorLevel": 6,
     "blocksLight": false,
     "burden": 300,
     "equipImage": 31,
@@ -34036,6 +34991,7 @@
     "animations": [
       1971
     ],
+    "armorLevel": 7,
     "blocksLight": false,
     "burden": 350,
     "equipImage": 41,
@@ -34053,6 +35009,7 @@
     "animations": [
       1952
     ],
+    "armorLevel": 8,
     "blocksLight": false,
     "burden": 400,
     "equipImage": 22,
@@ -34070,6 +35027,7 @@
     "animations": [
       1962
     ],
+    "armorLevel": 9,
     "blocksLight": false,
     "burden": 450,
     "equipImage": 32,
@@ -34087,6 +35045,7 @@
     "animations": [
       1972
     ],
+    "armorLevel": 10,
     "blocksLight": false,
     "burden": 500,
     "equipImage": 42,
@@ -34104,6 +35063,7 @@
     "animations": [
       1953
     ],
+    "armorLevel": 11,
     "blocksLight": false,
     "burden": 550,
     "equipImage": 23,
@@ -34121,6 +35081,7 @@
     "animations": [
       1963
     ],
+    "armorLevel": 12,
     "blocksLight": false,
     "burden": 600,
     "equipImage": 33,
@@ -34138,6 +35099,7 @@
     "animations": [
       1973
     ],
+    "armorLevel": 13,
     "blocksLight": false,
     "burden": 650,
     "equipImage": 43,
@@ -34155,6 +35117,7 @@
     "animations": [
       1954
     ],
+    "armorLevel": 14,
     "blocksLight": false,
     "burden": 700,
     "equipImage": 24,
@@ -34172,6 +35135,7 @@
     "animations": [
       1964
     ],
+    "armorLevel": 15,
     "blocksLight": false,
     "burden": 750,
     "equipImage": 34,
@@ -34189,6 +35153,7 @@
     "animations": [
       1974
     ],
+    "armorLevel": 16,
     "blocksLight": false,
     "burden": 800,
     "equipImage": 44,
@@ -34206,6 +35171,7 @@
     "animations": [
       1955
     ],
+    "armorLevel": 17,
     "blocksLight": false,
     "burden": 850,
     "equipImage": 25,
@@ -34223,6 +35189,7 @@
     "animations": [
       1965
     ],
+    "armorLevel": 18,
     "blocksLight": false,
     "burden": 900,
     "equipImage": 35,
@@ -34240,6 +35207,7 @@
     "animations": [
       1975
     ],
+    "armorLevel": 19,
     "blocksLight": false,
     "burden": 950,
     "equipImage": 45,
@@ -34257,6 +35225,7 @@
     "animations": [
       1956
     ],
+    "armorLevel": 20,
     "blocksLight": false,
     "burden": 1000,
     "equipImage": 26,
@@ -34274,6 +35243,7 @@
     "animations": [
       1966
     ],
+    "armorLevel": 21,
     "blocksLight": false,
     "burden": 1050,
     "equipImage": 36,
@@ -34291,6 +35261,7 @@
     "animations": [
       1976
     ],
+    "armorLevel": 22,
     "blocksLight": false,
     "burden": 1100,
     "equipImage": 46,
@@ -34313,8 +35284,11 @@
       1959,
       1959
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 10,
+    "damageHigh": 10,
+    "damageLow": 5,
     "equipImage": 75,
     "equipSlot": "Weapon",
     "growthDelta": 30,
@@ -34336,8 +35310,11 @@
       1948,
       1948
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 10,
+    "damageHigh": 10,
+    "damageLow": 5,
     "equipSlot": "Weapon",
     "growthDelta": 30,
     "light": 0,
@@ -34459,8 +35436,11 @@
     "animations": [
       1980
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 100,
+    "damageHigh": 14,
+    "damageLow": 12,
     "equipImage": 182,
     "equipSlot": "Weapon",
     "light": 0,
@@ -34476,8 +35456,11 @@
     "animations": [
       1981
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 400,
+    "damageHigh": 26,
+    "damageLow": 20,
     "equipImage": 183,
     "equipSlot": "Weapon",
     "light": 0,
@@ -34493,8 +35476,11 @@
     "animations": [
       1982
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 28,
+    "damageLow": 24,
     "equipImage": 185,
     "equipSlot": "Weapon",
     "light": 0,
@@ -34510,8 +35496,11 @@
     "animations": [
       1983
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 30,
+    "damageLow": 22,
     "equipImage": 190,
     "equipSlot": "Weapon",
     "light": 0,
@@ -34527,8 +35516,11 @@
     "animations": [
       1984
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 30,
+    "damageLow": 22,
     "equipImage": 186,
     "equipSlot": "Weapon",
     "light": 0,
@@ -34544,8 +35536,11 @@
     "animations": [
       1985
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 23,
+    "damageLow": 15,
     "equipImage": 187,
     "equipSlot": "Weapon",
     "light": 0,
@@ -34561,8 +35556,11 @@
     "animations": [
       1986
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 23,
+    "damageLow": 15,
     "equipImage": 188,
     "equipSlot": "Weapon",
     "light": 0,
@@ -34578,8 +35576,11 @@
     "animations": [
       1977
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 26,
+    "damageLow": 20,
     "equipImage": 189,
     "equipSlot": "Weapon",
     "light": 0,
@@ -34595,8 +35596,11 @@
     "animations": [
       1978
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 16,
+    "damageLow": 10,
     "equipImage": 184,
     "equipSlot": "Weapon",
     "light": 0,
@@ -34612,8 +35616,11 @@
     "animations": [
       1987
     ],
+    "attackSpeed": 2.5,
     "blocksLight": false,
     "burden": 400,
+    "damageHigh": 36,
+    "damageLow": 28,
     "equipImage": 191,
     "equipSlot": "Weapon",
     "light": 0,
@@ -34629,8 +35636,11 @@
     "animations": [
       1988
     ],
+    "attackSpeed": 3.5,
     "blocksLight": false,
     "burden": 750,
+    "damageHigh": 52,
+    "damageLow": 40,
     "equipImage": 192,
     "equipSlot": "Weapon",
     "light": 0,
@@ -34646,8 +35656,11 @@
     "animations": [
       1979
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 25,
+    "damageLow": 15,
     "equipImage": 193,
     "equipSlot": "Weapon",
     "light": 0,
@@ -34859,6 +35872,7 @@
     "animations": [
       2022
     ],
+    "armorLevel": 30,
     "blocksLight": false,
     "burden": 500,
     "equipImage": 118,
@@ -34876,6 +35890,7 @@
     "animations": [
       2020
     ],
+    "armorLevel": 30,
     "blocksLight": false,
     "burden": 1500,
     "equipImage": 32,
@@ -34893,6 +35908,7 @@
     "animations": [
       2021
     ],
+    "armorLevel": 30,
     "blocksLight": false,
     "burden": 1500,
     "equipImage": 28,
@@ -34974,6 +35990,7 @@
     ],
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 0,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -35019,6 +36036,7 @@
     ],
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 4,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -35034,6 +36052,7 @@
     ],
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 4,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -35101,6 +36120,7 @@
     ],
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 5,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -35538,6 +36558,7 @@
     ],
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 20,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -35561,6 +36582,7 @@
     ],
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 20,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -37835,8 +38857,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 30,
+    "damageLow": 10,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -37925,8 +38950,11 @@
     "animations": [
       1754
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 1000,
+    "damageHigh": 23,
+    "damageLow": 19,
     "equipImage": 161,
     "equipSlot": "Weapon",
     "light": 0,
@@ -37987,8 +39015,11 @@
     "animations": [
       0
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "damageHigh": 30,
+    "damageLow": 10,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -38002,8 +39033,11 @@
     "animations": [
       1756
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 1000,
+    "damageHigh": 26,
+    "damageLow": 22,
     "equipImage": 162,
     "equipSlot": "Weapon",
     "light": 0,
@@ -38064,8 +39098,11 @@
     "animations": [
       1730
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 18,
+    "damageLow": 13,
     "equipSlot": "Weapon",
     "growthDelta": 45,
     "growthItem": 1550,
@@ -38082,8 +39119,11 @@
     "animations": [
       1732
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 18,
+    "damageLow": 13,
     "equipSlot": "Weapon",
     "growthDelta": 45,
     "growthItem": 1550,
@@ -38100,8 +39140,11 @@
     "animations": [
       1733
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 18,
+    "damageLow": 13,
     "equipSlot": "Weapon",
     "growthDelta": 45,
     "growthItem": 1550,
@@ -38118,8 +39161,11 @@
     "animations": [
       83
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 20,
+    "damageLow": 10,
     "equipImage": 38,
     "equipSlot": "Weapon",
     "light": 0,
@@ -38135,8 +39181,11 @@
     "animations": [
       83
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 20,
+    "damageLow": 10,
     "equipImage": 38,
     "equipSlot": "Weapon",
     "light": 0,
@@ -38152,8 +39201,11 @@
     "animations": [
       83
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 20,
+    "damageLow": 10,
     "equipImage": 38,
     "equipSlot": "Weapon",
     "light": 0,
@@ -38440,6 +39492,7 @@
     "animations": [
       16
     ],
+    "armorLevel": 14,
     "blocksLight": false,
     "burden": 1600,
     "equipImage": 26,
@@ -38457,6 +39510,7 @@
     "animations": [
       17
     ],
+    "armorLevel": 20,
     "blocksLight": false,
     "burden": 1600,
     "equipImage": 27,
@@ -38476,6 +39530,7 @@
     "animations": [
       1778
     ],
+    "armorLevel": 20,
     "blocksLight": false,
     "burden": 1600,
     "equipImage": 28,
@@ -38495,6 +39550,7 @@
     "animations": [
       1779
     ],
+    "armorLevel": 20,
     "blocksLight": false,
     "burden": 1600,
     "equipImage": 29,
@@ -38870,6 +39926,7 @@
     "animations": [
       1843
     ],
+    "armorLevel": 1,
     "blocksLight": false,
     "burden": 10,
     "equipImage": 35,
@@ -38887,6 +39944,7 @@
     "animations": [
       1842
     ],
+    "armorLevel": 1,
     "blocksLight": false,
     "burden": 10,
     "equipImage": 25,
@@ -38904,8 +39962,11 @@
     "animations": [
       1790
     ],
+    "attackSpeed": 0.1,
     "blocksLight": false,
     "burden": 150,
+    "damageHigh": 400,
+    "damageLow": 300,
     "equipImage": 165,
     "equipSlot": "Weapon",
     "light": 0,
@@ -39375,8 +40436,11 @@
     "animations": [
       1873
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 50,
+    "damageHigh": 9,
+    "damageLow": 7,
     "equipImage": 166,
     "equipSlot": "Weapon",
     "light": 0,
@@ -39392,8 +40456,11 @@
     "animations": [
       1874
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 23,
+    "damageLow": 19,
     "equipImage": 167,
     "equipSlot": "Weapon",
     "light": 0,
@@ -39409,8 +40476,11 @@
     "animations": [
       1875
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 900,
+    "damageHigh": 24,
+    "damageLow": 22,
     "equipImage": 169,
     "equipSlot": "Weapon",
     "light": 0,
@@ -39426,8 +40496,11 @@
     "animations": [
       1876
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 800,
+    "damageHigh": 29,
+    "damageLow": 17,
     "equipImage": 174,
     "equipSlot": "Weapon",
     "light": 0,
@@ -39443,8 +40516,11 @@
     "animations": [
       1877
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 27,
+    "damageLow": 19,
     "equipImage": 170,
     "equipSlot": "Weapon",
     "light": 0,
@@ -39460,8 +40536,11 @@
     "animations": [
       1878
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 19,
+    "damageLow": 14,
     "equipImage": 171,
     "equipSlot": "Weapon",
     "light": 0,
@@ -39477,8 +40556,11 @@
     "animations": [
       1879
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 19,
+    "damageLow": 14,
     "equipImage": 172,
     "equipSlot": "Weapon",
     "light": 0,
@@ -39494,8 +40576,11 @@
     "animations": [
       1868
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 500,
+    "damageHigh": 23,
+    "damageLow": 18,
     "equipImage": 173,
     "equipSlot": "Weapon",
     "light": 0,
@@ -39511,8 +40596,11 @@
     "animations": [
       1869
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 13,
+    "damageLow": 7,
     "equipImage": 168,
     "equipSlot": "Weapon",
     "light": 0,
@@ -39528,8 +40616,11 @@
     "animations": [
       1880
     ],
+    "attackSpeed": 2.5,
     "blocksLight": false,
     "burden": 400,
+    "damageHigh": 19,
+    "damageLow": 15,
     "equipImage": 175,
     "equipSlot": "Weapon",
     "light": 0,
@@ -39545,8 +40636,11 @@
     "animations": [
       1881
     ],
+    "attackSpeed": 3.5,
     "blocksLight": false,
     "burden": 750,
+    "damageHigh": 32,
+    "damageLow": 22,
     "equipImage": 176,
     "equipSlot": "Weapon",
     "light": 0,
@@ -39562,8 +40656,11 @@
     "animations": [
       1883
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 15,
+    "damageLow": 10,
     "equipImage": 177,
     "equipSlot": "Weapon",
     "light": 0,
@@ -40080,8 +41177,11 @@
     "animations": [
       412
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 21,
+    "damageLow": 19,
     "equipImage": 5,
     "equipSlot": "Weapon",
     "growthDelta": 1000,
@@ -40099,8 +41199,11 @@
     "animations": [
       410
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 450,
+    "damageHigh": 20,
+    "damageLow": 15,
     "equipImage": 2,
     "equipSlot": "Weapon",
     "growthDelta": 1000,
@@ -40118,8 +41221,11 @@
     "animations": [
       2177
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "damageHigh": 22,
+    "damageLow": 18,
     "equipImage": 7,
     "equipSlot": "Weapon",
     "growthDelta": 1000,
@@ -40137,8 +41243,11 @@
     "animations": [
       2179
     ],
+    "attackSpeed": 2,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 22,
+    "damageLow": 18,
     "equipImage": 16,
     "equipSlot": "Weapon",
     "growthDelta": 1000,
@@ -40156,8 +41265,11 @@
     "animations": [
       2174
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 100,
+    "damageHigh": 10,
+    "damageLow": 6,
     "equipImage": 4,
     "equipSlot": "Weapon",
     "growthDelta": 1000,
@@ -40175,8 +41287,11 @@
     "animations": [
       2173
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "damageHigh": 20,
+    "damageLow": 16,
     "equipImage": 84,
     "equipSlot": "Weapon",
     "growthDelta": 1000,
@@ -40194,8 +41309,11 @@
     "animations": [
       2169
     ],
+    "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 400,
+    "damageHigh": 21,
+    "damageLow": 15,
     "equipImage": 77,
     "equipSlot": "Weapon",
     "growthDelta": 1000,
@@ -40213,8 +41331,11 @@
     "animations": [
       2178
     ],
+    "attackSpeed": 3,
     "blocksLight": false,
     "burden": 300,
+    "damageHigh": 18,
+    "damageLow": 13,
     "equipImage": 164,
     "equipSlot": "Weapon",
     "growthDelta": 1000,
@@ -40234,6 +41355,7 @@
     ],
     "blocksLight": false,
     "burden": 2,
+    "damageHigh": 2,
     "light": 0,
     "moveable": true,
     "rarity": 1,
@@ -40247,8 +41369,11 @@
     "animations": [
       2180
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 60,
+    "damageHigh": 11,
+    "damageLow": 8,
     "equipImage": 1,
     "equipSlot": "Weapon",
     "light": 0,
@@ -40264,8 +41389,11 @@
     "animations": [
       2175
     ],
+    "attackSpeed": 1,
     "blocksLight": false,
     "burden": 60,
+    "damageHigh": 11,
+    "damageLow": 8,
     "equipImage": 1,
     "equipSlot": "Weapon",
     "growthDelta": 1000,
@@ -40283,8 +41411,11 @@
     "animations": [
       2176
     ],
+    "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 900,
+    "damageHigh": 23,
+    "damageLow": 19,
     "equipImage": 15,
     "equipSlot": "Weapon",
     "growthDelta": 1000,
@@ -40507,6 +41638,7 @@
     "animations": [
       2213
     ],
+    "armorLevel": 15,
     "blocksLight": false,
     "burden": 500,
     "equipImage": 119,
@@ -40539,6 +41671,7 @@
     "animations": [
       2214
     ],
+    "armorLevel": 22,
     "blocksLight": false,
     "burden": 600,
     "equipImage": 117,

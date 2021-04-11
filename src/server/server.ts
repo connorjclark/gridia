@@ -234,6 +234,7 @@ export default class Server {
       food: 100,
       eat_grass: false,
       light: 0,
+      stats: {} as Creature['stats'],
     };
 
     const player = new Player(creature);
@@ -291,7 +292,7 @@ export default class Server {
     clientConnection.equipment = await this.context.getContainer(player.equipmentContainerId);
 
     player.creature.id = this.context.nextCreatureId++;
-    player.creature.imageData = this.makeCreatureImageData(clientConnection.equipment);
+    this.updateCreatureDataBasedOnEquipment(player.creature, clientConnection.equipment, { broadcast: false });
     player.creature = this.registerCreature(player.creature);
 
     this.players.set(player.id, player);
@@ -348,6 +349,13 @@ export default class Server {
       food: 10,
       eat_grass: template.eat_grass,
       light: 0,
+      // TODO: get stats from monster.ini
+      stats: {
+        armor: 1,
+        attackSpeed: 1,
+        damageLow: 1,
+        damageHigh: 2,
+      },
     };
 
     this.registerCreature(creature);
@@ -570,10 +578,33 @@ export default class Server {
         ...this.players.values(),
       ].find((player) => player.equipmentContainerId === id)?.creature;
       if (creature) {
-        creature.imageData = this.makeCreatureImageData(container);
-        this.broadcastPartialCreatureUpdate(creature, ['imageData']);
+        this.updateCreatureDataBasedOnEquipment(creature, container, { broadcast: true });
       }
     }
+  }
+
+  updateCreatureDataBasedOnEquipment(creature: Creature, container: Container, opts: { broadcast: boolean }) {
+    creature.imageData = this.makeCreatureImageData(container);
+    creature.stats = {
+      armor: 0,
+      attackSpeed: 1,
+      damageLow: 1,
+      damageHigh: 1,
+    };
+    for (const item of container.items) {
+      const meta = item && Content.getMetaItem(item.type);
+      if (!meta) continue;
+
+      if (meta.class === 'Weapon') {
+        creature.stats.damageLow = meta.damageLow || 1;
+        creature.stats.damageHigh = meta.damageHigh || 1;
+        creature.stats.attackSpeed = meta.attackSpeed || 1;
+      } else if (meta.class === 'Armor') {
+        creature.stats.armor += meta.armorLevel || 0;
+      }
+    }
+
+    if (opts.broadcast) this.broadcastPartialCreatureUpdate(creature, ['imageData', 'stats']);
   }
 
   makeCreatureImageData(container: Container) {
