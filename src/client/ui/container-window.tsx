@@ -3,12 +3,17 @@ import * as Utils from '../../utils';
 import * as Content from '../../content';
 import Game from '../game';
 import Container, { ContainerType } from '../../container';
-import { Graphic, ComponentProps, createSubApp, makeUIWindow } from './ui-common';
+import { Graphic, ComponentProps, createSubApp, makeUIWindow, CustomCreatureGraphic } from './ui-common';
 
 interface State {
   name?: string;
   container: Pick<Container, 'id' | 'items'>;
   selectedIndex: number | null;
+  // TODO: this should be a separate component.
+  equipmentWindow?: {
+    imageData: Creature['imageData'];
+    stats: {};
+  };
 }
 
 export function makeContainerWindow(game: Game, container: Container, name?: string) {
@@ -35,16 +40,27 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
 
       return { ...state, selectedIndex };
     },
+    setEquipmentWindow: (state: State, equipmentWindow: State['equipmentWindow']): State => {
+      if (container.type !== ContainerType.Equipment) return state;
+      return { ...state, equipmentWindow };
+    },
   });
 
   type Props = ComponentProps<State, typeof actions>;
   class ContainerWindow extends Component<Props> {
     render(props: Props) {
+      let previewEl = <div></div>;
+      if (props.equipmentWindow && props.equipmentWindow.imageData) {
+        previewEl = <CustomCreatureGraphic {...props.equipmentWindow.imageData}></CustomCreatureGraphic>;
+      }
+
       return <div>
         <div>
           {props.name || 'Container'}
         </div>
         <div class="container__slots">
+          {previewEl}
+
           {props.container.items.map((item, i) => {
             let gfx;
             if (item) {
@@ -125,7 +141,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
       });
     }
     if (mouseDownIndex === mouseOverIndex) {
-      exportedActions.setSelectedIndex(mouseDownIndex);
+      if (container.type === ContainerType.Normal) exportedActions.setSelectedIndex(mouseDownIndex);
       game.modules.selectedView.selectView(Utils.ItemLocation.Container(container.id, mouseDownIndex));
     }
   });

@@ -87,7 +87,7 @@ export const Graphic = (props: GraphicProps) => {
     };
   }
 
-  return <div style={style}>{label}</div>;
+  return <div class="graphic" style={style}>{label}</div>;
 };
 
 interface CustomCreatureGraphicProps {
@@ -101,7 +101,9 @@ interface CustomCreatureGraphicProps {
 }
 export function CustomCreatureGraphic(props: CustomCreatureGraphicProps) {
   const size = (props.scale || 1) * GFX_SIZE;
-  return <div style={{ width: size + 'px', height: size + 'px', marginRight: size + 'px' }}>
+  // TODO: using margin here is a hack ...
+  return <div class="custom-creature-graphic" style={
+    { width: size + 'px', height: size + 'px', marginRight: size + 'px' }}>
     {Object.entries(props).map(([key, value]) => {
       if (key === 'scale' || value === undefined) return;
       return <div style={{ position: 'absolute' }}>

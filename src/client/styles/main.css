@@ -322,27 +322,35 @@ button {
 
 .window--equipment .container__slots {
   display: grid;
-  grid-template: '. a .'
+  grid-template: 'p a .'
                  'b c d'
                  '. e .';
   grid-auto-columns: min-content;
 }
 .window--equipment .container__slot:nth-child(1) {
-  grid-area: a;
+  grid-area: p;
 }
 .window--equipment .container__slot:nth-child(2) {
-  grid-area: b;
+  grid-area: a;
 }
 .window--equipment .container__slot:nth-child(3) {
-  grid-area: c;
+  grid-area: b;
 }
 .window--equipment .container__slot:nth-child(4) {
-  grid-area: d;
+  grid-area: c;
 }
 .window--equipment .container__slot:nth-child(5) {
+  grid-area: d;
+}
+.window--equipment .container__slot:nth-child(6) {
   grid-area: e;
 }
 .window--equipment .container__slot {
+  margin: 5px;
+}
+/* lol */
+.window--equipment .custom-creature-graphic {
+  margin-right: 0 !important;
   margin: 5px;
 }
 

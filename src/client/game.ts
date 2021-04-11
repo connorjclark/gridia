@@ -1,3 +1,4 @@
+import { ContainerType } from '../container';
 import { GFX_SIZE } from '../constants';
 import * as Content from '../content';
 import { game } from '../game-singleton';
@@ -448,6 +449,16 @@ class Game {
           // TODO This technically puts the creature in two places at once until the next game loop
           // tick... maybe "selectView" should just accept a location or a creature?
           this.client.context.locationToCreature.set(`${pos.w},${pos.x},${pos.y},${pos.z}`, cre);
+        }
+      }
+
+      if (this.client.creature.id === event.args.id) {
+        if (this.client.equipment && (event.args.image !== undefined || event.args.imageData !== undefined)) {
+          const equipmentWindow = this.containerWindows.get(this.client.equipment.id);
+          equipmentWindow?.actions.setEquipmentWindow({
+            imageData: this.client.creature.imageData,
+            stats: {},
+          });
         }
       }
 
@@ -946,6 +957,13 @@ class Game {
 
       containerWindow = makeContainerWindow(this, container, name);
       this.containerWindows.set(id, containerWindow);
+
+      if (container.type === ContainerType.Equipment) {
+        containerWindow.actions.setEquipmentWindow({
+          imageData: this.client.creature.imageData,
+          stats: {},
+        });
+      }
 
       if (![game.client.player.containerId, game.client.player.equipmentContainerId].includes(container.id)) {
         game.client.eventEmitter.on('playerMove', close);
