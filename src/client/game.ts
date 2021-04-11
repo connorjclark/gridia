@@ -222,10 +222,7 @@ class CreatureSprite extends PIXI.Sprite {
     const height = this.tileHeight;
 
     // Load all necessary textures.
-    const textures: Record<string, PIXI.Texture> = {
-      main: Draw.getTexture.creatures(this.creature.image, width, height),
-    };
-
+    const textures: Record<string, PIXI.Texture> = {};
     if (this.creature.image >= 0 && this.creature.image <= 4) {
       const data = this.creature.imageData || {
         arms: 0,
@@ -240,6 +237,8 @@ class CreatureSprite extends PIXI.Sprite {
       textures.legs = Draw.getTexture.legs(data.legs);
       if (data.shield) textures.shield = Draw.getTexture.shield(data.shield);
       if (data.weapon) textures.weapon = Draw.getTexture.weapon(data.weapon);
+    } else {
+      textures.main = Draw.getTexture.creatures(this.creature.image, width, height);
     }
 
     const creatureGfx = new PIXI.Graphics();
