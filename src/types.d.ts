@@ -82,6 +82,8 @@ interface Item {
 
 interface Creature {
   id: number;
+  // Refers to monster template id, if used.
+  type?: number;
   dead: boolean;
   image: number;
   image_type?: number;
@@ -167,6 +169,13 @@ interface Monster {
   life: number;
   roam?: number;
   eat_grass: boolean;
+  dead_item?: name;
+  treasure: Array<{
+    item: string;
+    quantity: number;
+    /** 1 - 100 */
+    chance: number;
+  }>;
 }
 
 interface Quest {

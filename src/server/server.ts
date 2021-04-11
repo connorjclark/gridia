@@ -329,12 +329,13 @@ export default class Server {
     }
   }
 
-  makeCreatureFromTemplate(creatureType: number | Monster, pos: TilePoint) {
+  makeCreatureFromTemplate(creatureType: number | Monster, pos: TilePoint): Creature | undefined {
     const template = typeof creatureType === 'number' ? Content.getMonsterTemplate(creatureType) : creatureType;
     if (!template) return; // TODO
 
-    const creature = {
+    const creature: Creature = {
       id: this.context.nextCreatureId++,
+      type: template.id,
       dead: false,
       image: template.image,
       image_type: template.image_type,
@@ -414,6 +415,25 @@ export default class Server {
         if (player) {
           for (const script of this._scripts) {
             script.onPlayerKillCreature(player, creature);
+          }
+        }
+      }
+
+      if (!creature.isPlayer && creature.type) {
+        const template = Content.getMonsterTemplate(creature.type);
+        if (template) {
+          const itemsToSpawn = template.treasure.filter((entry) => {
+            // TODO: bug in monsters.json conversion.
+            const chance = entry.chance === 0 ? 0.1 : entry.chance;
+            return Utils.rand(0, 100) <= chance;
+          });
+          itemsToSpawn.unshift({ item: template.dead_item || 'Decayed Remains', quantity: 1, chance: 100 });
+
+          for (const entry of itemsToSpawn) {
+            const item = Content.findMetaItemByName(entry.item);
+            if (!item) continue;
+
+            this.addItemNear(creature.pos, { type: item.id, quantity: entry.quantity });
           }
         }
       }

@@ -136,6 +136,12 @@ export function getMetaItemByName(name: string): MetaItem {
   return result;
 }
 
+export function findMetaItemByName(name: string): MetaItem | undefined {
+  const lowerCaseName = name.toLowerCase();
+  const result = items.find((item) => Boolean(item && item.name.toLowerCase() === lowerCaseName));
+  return result;
+}
+
 export function getAllItemUses() {
   return itemUses;
 }

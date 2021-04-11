@@ -87,6 +87,10 @@ export function matrix<T>(x: number, y: number, z: number, val?: T): T[][][] {
   return m;
 }
 
+export function rand(min: number, max: number) {
+  return Math.random() * (max - min + 1) + min;
+}
+
 export function randInt(min: number, max: number) {
   min = Math.ceil(min);
   max = Math.floor(max);
