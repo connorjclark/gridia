@@ -244,7 +244,7 @@ button {
 .window {
   max-height: 100%;
   padding: 3px;
-  border: solid 3px gold;
+  border: solid 2px gold;
   color: white;
   background-color: rgba(50, 49, 50, 0.7);
   pointer-events: all;
@@ -362,6 +362,24 @@ button {
 }
 .window--dialogue .active-speaker {
   border-bottom: 3px solid gold;
+}
+
+.window--attributes {
+  width: 30%;
+  max-height: unset;
+  float: right;
+  color: black;
+  font-weight: bold;
+}
+.window--attributes .bar {
+  position: relative;
+  border: 3px solid black;
+}
+.window--attributes .bar__bg {
+  transition: width 150ms;
+}
+.window--attributes .bar__label {
+  position: absolute;
 }
 
 .usages__usages {

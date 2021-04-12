@@ -28,6 +28,7 @@ import { makeGraphicComponent } from './ui/ui-common';
 import { WorkerConnection } from './connection';
 import { ServerWorker } from './server-worker';
 import SoundModule from './modules/sound-module';
+import { makeAttributesWindow } from './ui/attributes-window';
 
 // WIP lighting shaders.
 
@@ -307,6 +308,7 @@ class Game {
 
   protected creatureSprites = new Map<number, CreatureSprite>();
   protected containerWindows = new Map<string, ReturnType<typeof makeContainerWindow>>();
+  protected attributesWindow = makeAttributesWindow();
   protected dialogueWindow?: ReturnType<typeof makeDialogueWindow>;
 
   private _playerCreature?: Creature;
@@ -453,6 +455,10 @@ class Game {
       }
 
       if (this.client.creature.id === event.args.id) {
+        this.attributesWindow.actions.set('life', { value: this.client.creature.life, max: 100 });
+        this.attributesWindow.actions.set('stamina', { value: this.client.creature.stamina, max: 100 });
+        this.attributesWindow.actions.set('mana', { value: this.client.creature.mana, max: 100 });
+
         if (this.client.equipment && (event.args.image !== undefined || event.args.imageData !== undefined)) {
           const equipmentWindow = this.containerWindows.get(this.client.equipment.id);
           equipmentWindow?.actions.setEquipmentWindow({

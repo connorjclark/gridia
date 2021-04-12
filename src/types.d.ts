@@ -103,6 +103,8 @@ interface Creature {
   roam?: number;
   speed: number;
   life: number;
+  stamina: number;
+  mana: number;
   food: number;
   eat_grass: boolean;
   light: number;
@@ -185,6 +187,8 @@ interface Monster {
   image_type?: number;
   speed: number;
   life: number;
+  stamina?: number;
+  mana?: number;
   magic_defense?: number;
   melee_defense?: number;
   missle_defense?: number;
