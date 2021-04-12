@@ -24,9 +24,9 @@ export function makeAttributesWindow() {
     const percent = 100 * props.value / props.max;
     return <div class="bar">
       <div class="bar__label">
-        <span>{props.label}:</span> <span>{props.value}&nbsp;/&nbsp;{props.max}</span>
+        <span>{props.label}:&nbsp;</span><span>{props.value}&nbsp;/&nbsp;{props.max}</span>
       </div>
-      <div class="bar__bg" style={{ width: `${percent}%`, backgroundColor: props.color }}>.</div>
+      <div class="bar__bg" style={{ width: `${percent}%`, backgroundColor: props.color }}>&nbsp;</div>
     </div>;
   };
 

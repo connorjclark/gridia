@@ -368,8 +368,6 @@ button {
   width: 30%;
   max-height: unset;
   float: right;
-  color: black;
-  font-weight: bold;
 }
 .window--attributes .bar {
   position: relative;
@@ -380,6 +378,14 @@ button {
 }
 .window--attributes .bar__label {
   position: absolute;
+  width: 100%;
+  color: black;
+  font-weight: bold;
+}
+.window--attributes .bar__label span:nth-child(1) {
+  float: left;
+  text-align: right;
+  width: 50%;
 }
 
 .usages__usages {
