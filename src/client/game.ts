@@ -455,9 +455,9 @@ class Game {
       }
 
       if (this.client.creature.id === event.args.id) {
-        this.attributesWindow.actions.set('life', { value: this.client.creature.life, max: 100 });
-        this.attributesWindow.actions.set('stamina', { value: this.client.creature.stamina, max: 100 });
-        this.attributesWindow.actions.set('mana', { value: this.client.creature.mana, max: 100 });
+        this.attributesWindow.actions.set('life', { ...this.client.creature.life });
+        this.attributesWindow.actions.set('stamina', { ...this.client.creature.stamina });
+        this.attributesWindow.actions.set('mana', { ...this.client.creature.mana });
 
         if (this.client.equipment && (event.args.image !== undefined || event.args.imageData !== undefined)) {
           const equipmentWindow = this.containerWindows.get(this.client.equipment.id);

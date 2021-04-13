@@ -14,6 +14,7 @@ import CreatureState from './creature-state';
 import { ServerContext } from './server-context';
 import TaskRunner from './task-runner';
 import { Script, TestScript } from './script';
+import { adjustAttribute } from './creature-utils';
 
 // TODO document how the f this works.
 
@@ -231,9 +232,9 @@ export default class Server {
       isPlayer: true,
       // TODO
       speed: 2,
-      life: 0,
-      stamina: 0,
-      mana: 0,
+      life: { current: 0, max: 0 },
+      stamina: { current: 0, max: 0 },
+      mana: { current: 0, max: 0 },
       // TODO
       food: 100,
       eat_grass: false,
@@ -258,9 +259,13 @@ export default class Server {
       player.skills.incrementXp(skill.id, Utils.randInt(100, 10000));
     }
 
-    player.creature.life = player.attributes.getValue('life').level;
-    player.creature.mana = player.attributes.getValue('mana').level;
-    player.creature.stamina = player.attributes.getValue('stamina').level;
+    // TODO: remember values on log off.
+    const life = player.attributes.getValue('life').level;
+    const stamina = player.attributes.getValue('stamina').level;
+    const mana = player.attributes.getValue('mana').level;
+    creature.life.current = creature.life.max = life;
+    creature.stamina.current = creature.stamina.max = stamina;
+    creature.mana.current = creature.mana.max = mana;
 
     const container = this.context.makeContainer(ContainerType.Normal);
     player.containerId = container.id;
@@ -353,6 +358,9 @@ export default class Server {
     const template = typeof creatureType === 'number' ? Content.getMonsterTemplate(creatureType) : creatureType;
     if (!template) return; // TODO
 
+    const life = template.life || 10;
+    const stamina = template.stamina || 10;
+    const mana = template.mana || 10;
     const creature: Creature = {
       id: this.context.nextCreatureId++,
       type: template.id,
@@ -364,9 +372,9 @@ export default class Server {
       isPlayer: false,
       roam: template.roam,
       speed: template.speed,
-      life: template.life,
-      stamina: template.stamina || 0,
-      mana: template.mana || 0,
+      life: { current: life, max: life },
+      stamina: { current: stamina, max: stamina },
+      mana: { current: mana, max: mana },
       food: 10,
       eat_grass: template.eat_grass,
       light: 0,
@@ -434,7 +442,7 @@ export default class Server {
   }
 
   modifyCreatureLife(actor: Creature | null, creature: Creature, delta: number) {
-    creature.life += delta;
+    adjustAttribute(creature, 'life', delta);
 
     this.broadcastPartialCreatureUpdate(creature, ['life']);
 
@@ -442,7 +450,7 @@ export default class Server {
       this.broadcastAnimation(creature.pos, 'Attack');
     }
 
-    if (creature.life <= 0) {
+    if (creature.life.current <= 0) {
       this.removeCreature(creature);
       this.broadcastAnimation(creature.pos, 'diescream');
 

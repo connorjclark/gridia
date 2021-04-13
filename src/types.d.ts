@@ -103,9 +103,9 @@ interface Creature {
   roam?: number;
   speed: number;
   // TODO: maxes
-  life: number;
-  stamina: number;
-  mana: number;
+  life: { current: number; max: number };
+  stamina: { current: number; max: number };
+  mana: { current: number; max: number };
   food: number;
   eat_grass: boolean;
   light: number;

@@ -2,16 +2,16 @@ import { render, h, Component } from 'preact';
 import { ComponentProps, createSubApp, makeUIWindow } from './ui-common';
 
 interface State {
-  life: { value: number; max: number };
-  stamina: { value: number; max: number };
-  mana: { value: number; max: number };
+  life: { current: number; max: number };
+  stamina: { current: number; max: number };
+  mana: { current: number; max: number };
 }
 
 export function makeAttributesWindow() {
   const initialState: State = {
-    life: { value: 0, max: 0 },
-    stamina: { value: 0, max: 0 },
-    mana: { value: 0, max: 0 },
+    life: { current: 0, max: 0 },
+    stamina: { current: 0, max: 0 },
+    mana: { current: 0, max: 0 },
   };
 
   const actions = () => ({
@@ -20,11 +20,11 @@ export function makeAttributesWindow() {
     },
   });
 
-  const Bar = (props: { label: string; color: string; value: number; max: number }) => {
-    const percent = 100 * props.value / props.max;
+  const Bar = (props: { label: string; color: string; current: number; max: number }) => {
+    const percent = 100 * props.current / props.max;
     return <div class="bar">
       <div class="bar__label">
-        <span>{props.label}:&nbsp;</span><span>{props.value}&nbsp;/&nbsp;{props.max}</span>
+        <span>{props.label}:&nbsp;</span><span>{props.current}&nbsp;/&nbsp;{props.max}</span>
       </div>
       <div class="bar__bg" style={{ width: `${percent}%`, backgroundColor: props.color }}>&nbsp;</div>
     </div>;

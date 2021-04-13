@@ -78,7 +78,9 @@ class SelectedViewModule extends ClientModule {
     if (creature) {
       data = {
         name: creature.name,
-        life: String(creature.life),
+        life: `${creature.life.current} / ${creature.life.max}`,
+        stamina: `${creature.stamina.current} / ${creature.stamina.max}`,
+        mana: `${creature.mana.current} / ${creature.mana.max}`,
         food: String(creature.food),
       };
     } else if (item) {

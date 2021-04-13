@@ -7,6 +7,7 @@ import WorldMapPartition from '../world-map-partition';
 import { Context } from '../context';
 import Server from './server';
 import aStar from './plan';
+import { adjustAttribute } from './creature-utils';
 
 interface Goal {
   desiredEffect: string;
@@ -151,6 +152,7 @@ export default class CreatureState {
   private ticksUntilNotIdle = 0;
   private ticksUntilNextMovement = 0;
   private ticksUntilNextAttack = 0;
+  private ticksUntilRegeneration = 0;
 
   // GOAP
   private _actions: Action[];
@@ -219,6 +221,18 @@ export default class CreatureState {
     if (this.ticksUntilNextAttack > 0) this.ticksUntilNextAttack--;
     if (this.ticksUntilNextMovement > 0) this.ticksUntilNextMovement--;
     if (this.ticksUntilNotIdle > 0) this.ticksUntilNotIdle--;
+    if (this.ticksUntilRegeneration > 0) this.ticksUntilRegeneration--;
+
+    if (this.ticksUntilRegeneration === 0) {
+      this.ticksUntilRegeneration = server.taskRunner.rateToTicks({ seconds: 1 });
+      const changed = (['life', 'stamina', 'mana'] as const).filter((attribute) => {
+        if (this.creature[attribute].current < this.creature[attribute].max) {
+          adjustAttribute(this.creature, attribute, 1);
+          return true;
+        }
+      });
+      if (changed.length) server.broadcastPartialCreatureUpdate(this.creature, changed);
+    }
 
     if (!this.goals.length && this.creature.eat_grass) {
       if (this.creature.food <= 10) {
@@ -399,7 +413,7 @@ export default class CreatureState {
           desiredEffect: 'kill-creature',
           priority: 100,
           // TODO: LOS
-          satisfied: () => closestEnemy ? closestEnemy.creature.life <= 0 : true,
+          satisfied: () => closestEnemy ? closestEnemy.creature.life.current <= 0 : true,
         });
       }
     }
@@ -421,6 +435,10 @@ export default class CreatureState {
     // Range check.
     if (Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos) > 1) return;
 
+    // TODO: regeneration for each attribute. only reset timer if that attribute was consumed.
+    this.ticksUntilRegeneration = server.taskRunner.rateToTicks({ seconds: 5 });
+    this.targetCreature.ticksUntilRegeneration = server.taskRunner.rateToTicks({ seconds: 5 });
+
     let attackSkill = Content.getSkillByName('Unarmed Attack') as Skill;
     if (this.creature.equipment && this.creature.equipment[Container.EQUIP_SLOTS.Weapon]) {
       const meta = Content.getMetaItem(this.creature.equipment[Container.EQUIP_SLOTS.Weapon].type);
@@ -431,8 +449,8 @@ export default class CreatureState {
     }
 
     function useAttribute(creature: Creature, attribute: 'stamina' | 'mana', amount: number) {
-      if (creature[attribute] >= 1) {
-        creature[attribute] -= 1;
+      if (creature[attribute].current >= amount) {
+        adjustAttribute(creature, attribute, -amount);
         server.broadcastPartialCreatureUpdate(creature, [attribute]);
         return true;
       } else {
@@ -476,7 +494,7 @@ export default class CreatureState {
       const damageRoll = Utils.randInt(this.creature.stats.damageLow, this.creature.stats.damageHigh);
       const armor = this.targetCreature.creature.stats.armor;
       damage = Math.round(damageRoll * damageRoll / (damageRoll + armor));
-      damage = Utils.clamp(damage, 1, this.targetCreature.creature.life);
+      damage = Utils.clamp(damage, 1, this.targetCreature.creature.life.current);
     } else {
       // miss ...
     }
