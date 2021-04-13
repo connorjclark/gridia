@@ -421,7 +421,7 @@ export default class CreatureState {
     // Range check.
     if (Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos) > 1) return;
 
-    let attackSkill;
+    let attackSkill = Content.getSkillByName('Unarmed Attack') as Skill;
     if (this.creature.equipment && this.creature.equipment[Container.EQUIP_SLOTS.Weapon]) {
       const meta = Content.getMetaItem(this.creature.equipment[Container.EQUIP_SLOTS.Weapon].type);
       const skill = meta.combatSkill && Content.getSkill(meta.combatSkill);
@@ -430,14 +430,45 @@ export default class CreatureState {
       }
     }
 
-    let hitSuccess = true;
-    if (attackSkill) {
-      const attackType = attackSkill?.purpose || 'melee';
+    function useAttribute(creature: Creature, attribute: 'stamina' | 'mana', amount: number) {
+      if (creature[attribute] >= 1) {
+        creature[attribute] -= 1;
+        server.broadcastPartialCreatureUpdate(creature, [attribute]);
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    const attackType = attackSkill?.purpose || 'melee';
+    let hasEnergyForAttack = false;
+    let hitSuccess = false;
+
+    if (attackType === 'magic') {
+      hasEnergyForAttack = useAttribute(this.creature, 'mana', 1);
+    } else {
+      hasEnergyForAttack = useAttribute(this.creature, 'stamina', 1);
+    }
+
+    if (hasEnergyForAttack) {
+      // TODO use skill values.
       // const atk = attackSkill.level;
       const atk = 100;
       // @ts-expect-error
       const def = this.targetCreature.creature.stats[attackType + 'Defense'] as number || 0;
       hitSuccess = Utils.randInt(0, atk) >= Utils.randInt(0, def);
+
+      if (!hitSuccess) {
+        if (attackType === 'magic') {
+          if (!useAttribute(this.targetCreature.creature, 'mana', 1)) {
+            hitSuccess = true;
+          }
+        } else {
+          if (!useAttribute(this.targetCreature.creature, 'stamina', 1)) {
+            hitSuccess = true;
+          }
+        }
+      }
     }
 
     let damage = 0;
