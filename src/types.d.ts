@@ -102,6 +102,7 @@ interface Creature {
   tamedBy?: string; // player id
   roam?: number;
   speed: number;
+  // TODO: maxes
   life: number;
   stamina: number;
   mana: number;
@@ -170,6 +171,12 @@ interface Skill {
   id: number;
   name: string;
   purpose: string;
+  divisor: number;
+  quickness?: number;
+  dexterity?: number;
+  strength?: number;
+  intelligence?: number;
+  wisdom?: number;
 }
 
 interface GridiaAnimation {

@@ -172,3 +172,5 @@ Pick up materials (gems, silk, wood). In order to use, costs environment points 
 Can't dig down unless you own the land.
 
 Ultima IV has moon gates, portals linking parts of the world that go on/off based on the phase of the moon.
+
+This is cool: https://www.angelfire.com/super/rummager/ fireplace.

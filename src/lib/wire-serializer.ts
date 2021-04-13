@@ -1,7 +1,7 @@
 /* eslint-disable no-bitwise */
 
 import * as serialijse from 'serialijse';
-import Player, { TilesSeenLog, SectorTileSeenLogData } from '../player';
+import Player, { TilesSeenLog, SectorTileSeenLogData, PlayerAttributes, PlayerSkills } from '../player';
 import Container from '../container';
 
 // Name is required because minimization can break things.
@@ -42,6 +42,8 @@ function dataToMap(context: any, object_id: any, data: { e: string }) {
 registerClass(Map, 'Map', mapToData, dataToMap);
 
 registerClass(Player, 'Player');
+registerClass(PlayerAttributes, 'PlayerAttributes');
+registerClass(PlayerSkills, 'PlayerSkills');
 registerClass(TilesSeenLog, 'TilesSeenLog');
 registerClass(Container, 'Container');
 

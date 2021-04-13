@@ -2,7 +2,7 @@ import { render, h, Component } from 'preact';
 import { ComponentProps, makeUIWindow, createSubApp } from './ui-common';
 
 interface State {
-  skills: Record<number, { id: number; name: string; xp?: number }>;
+  skills: Array<{ id: number; name: string; level: number; xp: number; xpUntilNextLevel: number }>;
 }
 
 export function makeSkillsWindow(initialState: State) {
@@ -13,12 +13,15 @@ export function makeSkillsWindow(initialState: State) {
         skills,
       };
     },
-    setSkill: (state: State, skill: { id: number; name: string; xp?: number }): State => {
+    setSkill: (state: State, skill: State['skills'][number]): State => {
+      const index = state.skills.findIndex((s) => s.id === skill.id);
+      const skills = [...state.skills];
+      if (index === -1) skills.push(skill);
+      else skills[index] = skill;
+
       return {
-        skills: {
-          ...state.skills,
-          [skill.id]: skill,
-        },
+        ...state,
+        skills,
       };
     },
   });
@@ -26,13 +29,16 @@ export function makeSkillsWindow(initialState: State) {
   type Props = ComponentProps<State, typeof actions>;
   class SkillsWindow extends Component<Props> {
     render(props: Props) {
+      const skillsSortedByName = Object.values(props.skills)
+        .sort((a, b) => a.name.localeCompare(b.name));
       return <div>
         <div>
           Skills
         </div>
         <div>
-          {Object.values(props.skills).map((skill) => {
-            return <div>{skill.name} - {skill.xp || 0}</div>;
+          {skillsSortedByName.map((skill) => {
+            const title = `${skill.xp} xp (${skill.xpUntilNextLevel} until next level)`;
+            return <div title={title}>{skill.name} - {skill.level}</div>;
           })}
         </div>
       </div>;

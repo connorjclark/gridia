@@ -5,194 +5,343 @@
   },
   {
     "id": 1,
-    "name": "Melee Defense"
+    "name": "Melee Defense",
+    "divisor": 3,
+    "dexterity": 1,
+    "quickness": 1
   },
   {
     "id": 2,
     "name": "Unarmed Attack",
-    "purpose": "melee"
+    "divisor": 3,
+    "dexterity": 1,
+    "purpose": "melee",
+    "strength": 1
   },
   {
     "id": 3,
     "name": "Dagger",
-    "purpose": "melee"
+    "divisor": 3,
+    "dexterity": 1,
+    "purpose": "melee",
+    "quickness": 1
   },
   {
     "id": 4,
     "name": "Sword",
-    "purpose": "melee"
+    "divisor": 3,
+    "dexterity": 1,
+    "purpose": "melee",
+    "strength": 1
   },
   {
     "id": 5,
     "name": "Axe",
-    "purpose": "melee"
+    "divisor": 3,
+    "dexterity": 1,
+    "purpose": "melee",
+    "strength": 1
   },
   {
     "id": 6,
     "name": "Mace",
-    "purpose": "melee"
+    "divisor": 3,
+    "dexterity": 1,
+    "purpose": "melee",
+    "strength": 1
   },
   {
     "id": 7,
     "name": "Spear",
-    "purpose": "melee"
+    "divisor": 3,
+    "dexterity": 1,
+    "purpose": "melee",
+    "strength": 1
   },
   {
     "id": 8,
     "name": "Staff",
-    "purpose": "melee"
+    "divisor": 3,
+    "dexterity": 1,
+    "purpose": "melee",
+    "strength": 1
   },
   {
     "id": 9,
     "name": "Flail",
-    "purpose": "melee"
+    "divisor": 3,
+    "dexterity": 1,
+    "purpose": "melee",
+    "strength": 1
   },
   {
     "id": 10,
     "name": "Scythe",
-    "purpose": "melee"
+    "divisor": 3,
+    "dexterity": 1,
+    "purpose": "melee",
+    "strength": 1
   },
   {
     "id": 11,
-    "name": "Missle Defense"
+    "name": "Missle Defense",
+    "divisor": 3,
+    "dexterity": 1,
+    "quickness": 1
   },
   {
     "id": 12,
     "name": "Bow",
+    "divisor": 2,
+    "dexterity": 1,
     "purpose": "missle"
   },
   {
     "id": 13,
     "name": "Crossbow",
-    "purpose": "missle"
+    "divisor": 3,
+    "dexterity": 1,
+    "purpose": "missle",
+    "strength": 1
   },
   {
     "id": 14,
     "name": "Throwing",
-    "purpose": "missle"
+    "divisor": 3,
+    "dexterity": 1,
+    "purpose": "missle",
+    "quickness": 1
   },
   {
     "id": 15,
-    "name": "Magic Defense"
+    "name": "Magic Defense",
+    "divisor": 5,
+    "dexterity": 1,
+    "intelligence": 1,
+    "quickness": 1,
+    "strength": 1,
+    "wisdom": 1
   },
   {
     "id": 16,
     "name": "Black Magic",
-    "purpose": "magic"
+    "divisor": 4,
+    "intelligence": 1,
+    "purpose": "magic",
+    "wisdom": 1
   },
   {
     "id": 17,
     "name": "White Magic",
-    "purpose": "magic"
+    "divisor": 3,
+    "intelligence": 1,
+    "purpose": "magic",
+    "wisdom": 1
   },
   {
     "id": 18,
     "name": "Red Magic",
-    "purpose": "magic"
+    "divisor": 3,
+    "intelligence": 1,
+    "purpose": "magic",
+    "wisdom": 1
   },
   {
     "id": 19,
     "name": "Blue Magic",
-    "purpose": "magic"
+    "divisor": 3,
+    "intelligence": 1,
+    "purpose": "magic",
+    "wisdom": 1
   },
   {
     "id": 20,
-    "name": "Mana Conversion"
+    "name": "Mana Conversion",
+    "divisor": 3,
+    "intelligence": 1,
+    "wisdom": 1
   },
   {
     "id": 21,
-    "name": "Alchemy"
+    "name": "Alchemy",
+    "divisor": 3,
+    "intelligence": 1,
+    "wisdom": 1
   },
   {
     "id": 22,
-    "name": "Read Ancient"
+    "name": "Read Ancient",
+    "divisor": 4,
+    "intelligence": 1,
+    "wisdom": 1
   },
   {
     "id": 23,
-    "name": "Swim"
+    "name": "Swim",
+    "divisor": 4,
+    "dexterity": 1,
+    "quickness": 1,
+    "strength": 1
   },
   {
     "id": 24,
-    "name": "Scan"
+    "name": "Scan",
+    "divisor": 5,
+    "dexterity": 1,
+    "intelligence": 1,
+    "quickness": 1,
+    "strength": 1,
+    "wisdom": 1
   },
   {
     "id": 25,
-    "name": "Run"
+    "name": "Run",
+    "divisor": 1,
+    "quickness": 1
   },
   {
     "id": 26,
-    "name": "Deception"
+    "name": "Deception",
+    "divisor": 5,
+    "dexterity": 1,
+    "intelligence": 1,
+    "quickness": 1,
+    "strength": 1,
+    "wisdom": 1
   },
   {
     "id": 27,
-    "name": "Assess"
+    "name": "Assess",
+    "divisor": 5,
+    "dexterity": 1,
+    "intelligence": 1,
+    "quickness": 1,
+    "strength": 1,
+    "wisdom": 1
   },
   {
     "id": 28,
-    "name": "Stealth"
+    "name": "Stealth",
+    "divisor": 4,
+    "dexterity": 1,
+    "intelligence": 1
   },
   {
     "id": 29,
-    "name": "Trap"
+    "name": "Trap",
+    "divisor": 3,
+    "dexterity": 1,
+    "intelligence": 1
   },
   {
     "id": 30,
-    "name": "Tame"
+    "name": "Tame",
+    "divisor": 5,
+    "dexterity": 1,
+    "intelligence": 1,
+    "quickness": 1,
+    "strength": 1,
+    "wisdom": 1
   },
   {
     "id": 31,
-    "name": "Blacksmith"
+    "name": "Blacksmith",
+    "divisor": 3,
+    "dexterity": 1,
+    "strength": 1
   },
   {
     "id": 32,
-    "name": "Farming"
+    "name": "Farming",
+    "divisor": 3,
+    "dexterity": 1,
+    "wisdom": 1
   },
   {
     "id": 33,
-    "name": "Masonry"
+    "name": "Masonry",
+    "divisor": 3,
+    "dexterity": 1,
+    "strength": 1
   },
   {
     "id": 34,
-    "name": "Fishing"
+    "name": "Fishing",
+    "divisor": 3,
+    "dexterity": 1,
+    "wisdom": 1
   },
   {
     "id": 35,
-    "name": "Cooking"
+    "name": "Cooking",
+    "divisor": 3,
+    "intelligence": 1,
+    "wisdom": 1
   },
   {
     "id": 36,
-    "name": "Mining"
+    "name": "Mining",
+    "divisor": 2,
+    "strength": 1
   },
   {
     "id": 37,
-    "name": "Fletching"
+    "name": "Fletching",
+    "divisor": 3,
+    "dexterity": 1,
+    "intelligence": 1
   },
   {
     "id": 38,
-    "name": "LockSmith"
+    "name": "LockSmith",
+    "divisor": 3,
+    "dexterity": 1,
+    "intelligence": 1
   },
   {
     "id": 39,
-    "name": "Tailor"
+    "name": "Tailor",
+    "divisor": 3,
+    "dexterity": 1,
+    "intelligence": 1
   },
   {
     "id": 40,
-    "name": "Carpentry"
+    "name": "Carpentry",
+    "divisor": 3,
+    "dexterity": 1,
+    "strength": 1
   },
   {
     "id": 41,
-    "name": "First Aid"
+    "name": "First Aid",
+    "divisor": 3,
+    "dexterity": 1,
+    "intelligence": 1
   },
   {
     "id": 42,
-    "name": "Sports"
+    "name": "Sports",
+    "divisor": 5,
+    "dexterity": 1,
+    "intelligence": 1,
+    "quickness": 1,
+    "strength": 1,
+    "wisdom": 1
   },
   {
     "id": 43,
-    "name": "Jewelry Making"
+    "name": "Jewelry Making",
+    "divisor": 4,
+    "dexterity": 1,
+    "intelligence": 1,
+    "wisdom": 1
   },
   {
     "id": 44,
-    "name": "Climb"
+    "name": "Climb",
+    "divisor": 3,
+    "dexterity": 1,
+    "strength": 1
   }
 ]

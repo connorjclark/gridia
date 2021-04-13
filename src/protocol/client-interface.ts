@@ -78,8 +78,7 @@ export default class ClientInterface implements IClientInterface {
   }
 
   onXp(client: Client, { skill, xp }: Events.Xp): void {
-    const currentXp = client.player.skills.get(skill) || 0;
-    client.player.skills.set(skill, currentXp + xp);
+    client.player.skills.incrementXp(skill, xp);
   }
 
   onChat(client: Client, { from, to, message }: Events.Chat): void {

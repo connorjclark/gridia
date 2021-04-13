@@ -40,17 +40,15 @@ class SkillsModule extends ClientModule {
 
   getSkill(id: number) {
     const skill = Content.getSkill(id);
-    const xp = this.game.client.player.skills.get(id);
+    const value = this.game.client.player.skills.getValue(skill.id);
     return {
       ...skill,
-      xp,
+      ...value,
     };
   }
 
   getSkills() {
-    const skillIdsSortedByName = [...this.game.client.player.skills.keys()].sort(
-      (a, b) => Content.getSkill(a).name.localeCompare(Content.getSkill(b).name));
-    return skillIdsSortedByName.map((id) => this.getSkill(id));
+    return this.game.client.player.skills.getLearnedSkills().map((id) => this.getSkill(id));
   }
 }
 

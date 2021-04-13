@@ -411,6 +411,16 @@ function parseSkillsIni() {
       };
       // @ts-expect-error
       skills.push(currentSkill);
+    } else if (key.match(/quick|dex|str|intel|wisdom/i)) {
+      const newKey = {
+        quick: 'quickness',
+        dex: 'dexterity',
+        str: 'strength',
+        intel: 'intelligence',
+        wisdom: 'wisdom',
+      }[key.toLowerCase()];
+      // @ts-expect-error
+      currentSkill[newKey] = forcenum(value);
     } else {
       // Most properties are unchanged, except for being camelCase.
       const camelCaseKey = camelCase(key);
@@ -440,6 +450,12 @@ function parseSkillsIni() {
     'id',
     'name',
     'purpose',
+    'divisor',
+    'quickness',
+    'dexterity',
+    'strength',
+    'intelligence',
+    'wisdom',
   ];
   for (const skill of skills) {
     filterProperties(skill, allowlist);
@@ -557,7 +573,7 @@ function convertSkills() {
     },
     ...parseSkillsIni(),
   ];
-  const explicitOrder = ['id', 'name'];
+  const explicitOrder = ['id', 'name', 'divisor'];
   return skills.map((usage) => sortObject(usage, explicitOrder));
 }
 

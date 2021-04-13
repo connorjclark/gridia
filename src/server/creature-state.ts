@@ -450,6 +450,11 @@ export default class CreatureState {
       // miss ...
     }
 
+    // TODO
+    // const xpModifier = this.creature.level / this.targetCreature.creature.level;
+    // const isCriticial = hitSuccess && hitSuccess && hitSuccess
+    // const modifier = isCriticial ? Utils.randInt(2, 3) : 1;
+
     if (this.creature.isPlayer || this.targetCreature.creature.isPlayer) {
       const clientConnection = server.getClientConnectionForCreature(this.creature) ||
         server.getClientConnectionForCreature(this.targetCreature.creature);

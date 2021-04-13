@@ -97,6 +97,11 @@ export function randInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+export function randArrayItem<T>(array: readonly T[]): T {
+  if (array.length === 0) throw new Error('array cannot be empty');
+  return array[randInt(0, array.length - 1)];
+}
+
 export function emptyArray(n: number) {
   // eslint-disable-next-line
   return [...Array(n)];

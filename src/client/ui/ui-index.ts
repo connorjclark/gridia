@@ -31,18 +31,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   {
     const { el, actions } = makeSkillsWindow({
-      skills: {
-        0: {
+      skills: [
+        {
           id: 0,
           name: 'Farming',
+          level: 1,
           xp: 100,
+          xpUntilNextLevel: 110,
         },
-        1: {
-          id: 0,
+        {
+          id: 1,
           name: 'Fishing',
+          level: 10,
           xp: 12300,
+          xpUntilNextLevel: 1100,
         },
-      },
+      ],
     });
   }
 

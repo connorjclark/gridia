@@ -1,7 +1,7 @@
 import { MAX_STACK, SECTOR_SIZE } from '../constants';
 import * as Content from '../content';
 import performance from '../performance';
-import Player from '../player';
+import Player, { PlayerAttributes } from '../player';
 import ClientToServerProtocol from '../protocol/server-interface';
 import * as EventBuilder from '../protocol/event-builder';
 import * as Utils from '../utils';
@@ -229,11 +229,12 @@ export default class Server {
       pos: spawnLoc,
       image: Utils.randInt(0, 4),
       isPlayer: true,
-      speed: 2,
       // TODO
-      life: 100,
-      stamina: 100,
-      mana: 100,
+      speed: 2,
+      life: 0,
+      stamina: 0,
+      mana: 0,
+      // TODO
       food: 100,
       eat_grass: false,
       light: 0,
@@ -248,9 +249,18 @@ export default class Server {
     player.creature = creature;
 
     // Mock xp for now.
-    for (const skill of Content.getSkills()) {
-      player.skills.set(skill.id, 1);
+    for (let i = 0; i < 600; i++) {
+      const attribute = Utils.randArrayItem(PlayerAttributes.ATTRIBUTES);
+      player.attributes.incrementLevel(attribute);
     }
+    for (const skill of Content.getSkills()) {
+      player.skills.learnSkill(skill.id);
+      player.skills.incrementXp(skill.id, Utils.randInt(100, 10000));
+    }
+
+    player.creature.life = player.attributes.getValue('life').level;
+    player.creature.mana = player.attributes.getValue('mana').level;
+    player.creature.stamina = player.attributes.getValue('stamina').level;
 
     const container = this.context.makeContainer(ContainerType.Normal);
     player.containerId = container.id;
@@ -645,9 +655,8 @@ export default class Server {
   }
 
   grantXp(clientConnection: ClientConnection, skill: number, xp: number) {
-    const currentXp = clientConnection.player.skills.get(skill);
-    const newXp = (currentXp || 0) + xp;
-    clientConnection.player.skills.set(skill, newXp);
+    // TODO: notice when level up.
+    clientConnection.player.skills.incrementXp(skill, xp);
 
     this.send(EventBuilder.xp({
       skill,
