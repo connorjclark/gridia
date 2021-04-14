@@ -313,7 +313,6 @@ class Game {
   protected world = new PIXI.Container();
   protected itemMovingState?: ItemMoveBeginEvent;
   protected itemMovingGraphic = makeGraphicComponent();
-  protected mouseHasMovedSinceItemMoveBegin = false;
   protected actionCreators: GameActionCreator[] = [];
 
   protected creatureSprites = new Map<number, CreatureSprite>();
@@ -698,11 +697,18 @@ class Game {
       if (!item || !item.type) return;
       if (!this.state.mouse.tile) return;
 
-      Utils.ItemLocation.World(this.state.mouse.tile);
-      this.client.eventEmitter.emit('itemMoveBegin', {
-        location: Utils.ItemLocation.World(this.state.mouse.tile),
-        item,
-      });
+      const evtListener = (e2: PIXI.InteractionEvent) => {
+        const point2 = worldToTile(mouseToWorld({ x: e2.data.global.x, y: e2.data.global.y }));
+        if (!Utils.equalPoints(point, point2)) {
+          this.client.eventEmitter.emit('itemMoveBegin', {
+            location: Utils.ItemLocation.World(point),
+            item,
+          });
+          this.world.off('mousemove', evtListener);
+        }
+      };
+      this.world.on('mousemove', evtListener);
+      this.world.once('pointerup', () => this.world.off('mousemove', evtListener));
     });
     this.world.on('pointerup', (e: PIXI.InteractionEvent) => {
       if (Utils.equalPoints(this.state.mouse.tile, this.getPlayerPosition())) {
@@ -849,10 +855,15 @@ class Game {
     resize();
 
     this.client.eventEmitter.on('itemMoveBegin', (e: ItemMoveBeginEvent) => {
+      if (!e.item) return;
+
       this.itemMovingState = e;
-      this.mouseHasMovedSinceItemMoveBegin = false;
-      this.world.once('mousemove', () => {
-        this.mouseHasMovedSinceItemMoveBegin = true;
+      const metaItem = Content.getMetaItem(e.item.type);
+      this.itemMovingGraphic.setState({
+        graphic: {
+          type: 'items',
+          index: metaItem.animations?.[0] || 0,
+        },
       });
     });
     this.client.eventEmitter.on('itemMoveEnd', (e: ItemMoveEndEvent) => {
@@ -879,6 +890,7 @@ class Game {
       if (!this.state.selectedView.creatureId) this.modules.selectedView.clearSelectedView();
       ContextMenu.close();
       this.modules.usage.updatePossibleUsages(e.to);
+      this.itemMovingState = undefined;
     });
 
     this.client.eventEmitter.on('action', () => ContextMenu.close());
@@ -1075,14 +1087,7 @@ class Game {
     }
 
     // Draw item being moved.
-    if (this.itemMovingState && this.mouseHasMovedSinceItemMoveBegin && this.itemMovingState.item) {
-      const metaItem = Content.getMetaItem(this.itemMovingState.item.type);
-      this.itemMovingGraphic.setState({
-        graphic: {
-          type: 'items',
-          index: metaItem.animations?.[0] || 0,
-        },
-      });
+    if (this.itemMovingState && this.itemMovingState.item) {
       const { x, y } = this.state.mouse;
       this.itemMovingGraphic.el.style.left = `${x - GFX_SIZE / 2}px`;
       this.itemMovingGraphic.el.style.top = `${y - GFX_SIZE / 2}px`;
