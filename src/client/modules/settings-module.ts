@@ -7,6 +7,7 @@ export interface Settings {
   musicVolume: number;
   lightMode: number;
   clickMagic: boolean;
+  labelBackground: boolean;
   scale: number;
 }
 
@@ -35,6 +36,11 @@ export const SettingsSchema = {
   clickMagic: {
     type: 'boolean',
     label: 'Click Magic',
+    default: false,
+  },
+  labelBackground: {
+    type: 'boolean',
+    label: 'Label Background',
     default: false,
   },
   lightMode: {

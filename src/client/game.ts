@@ -159,7 +159,13 @@ function mouseToWorld(pm: ScreenPoint): ScreenPoint {
 class CreatureSprite extends PIXI.Sprite {
   dirty = false;
 
-  protected label = Draw.pooledText(`creature-label-${this.creature.id}`, '', { fontSize: 20 });
+  protected label = Draw.pooledText(`creature-label-${this.creature.id}`, '', {
+    fontSize: 20,
+    fill: '#f4f1f1',
+    lineJoin: 'bevel',
+    miterLimit: 1,
+    strokeThickness: 5,
+  });
   protected labelGfx = new PIXI.Graphics();
   protected labelSprite = new PIXI.Sprite();
 
@@ -168,8 +174,8 @@ class CreatureSprite extends PIXI.Sprite {
 
     this.labelSprite.addChild(this.labelGfx);
     this.labelSprite.addChild(this.label);
-    this.label.anchor.set(0.5, 1.2);
-    // this.label.anchor.set(0.5, 1.2);
+    this.labelSprite.x = this.labelGfx.x = GFX_SIZE / 2;
+    this.label.anchor.set(0.5, 1.0);
   }
 
   get tileWidth() {
@@ -181,6 +187,9 @@ class CreatureSprite extends PIXI.Sprite {
   }
 
   tick() {
+    // this.labelGfx.transform.scale.set(1 / game.client.settings.scale);
+    this.labelSprite.transform.scale.set(1 / game.client.settings.scale);
+
     if (this.children.length === 0 || this.dirty) {
       if (this.drawCreature()) {
         this.dirty = false;
@@ -189,8 +198,8 @@ class CreatureSprite extends PIXI.Sprite {
       }
     }
 
-    const isPlayer = this.creature.id === game.client.player.creature.id;
-    if (!isPlayer && Utils.equalPoints(game.state.mouse.tile, this.creature.pos)) {
+    const isClient = this.creature.id === game.client.player.creature.id;
+    if (!isClient && Utils.equalPoints(game.state.mouse.tile, this.creature.pos)) {
       const GRAY = 0x606060;
       const BLUE = 0x000088;
       const RED = 0x880000;
@@ -202,19 +211,21 @@ class CreatureSprite extends PIXI.Sprite {
       this.labelSprite.alpha = 0;
     }
 
-    if (isPlayer) {
+    if (this.creature.isPlayer) {
       this.labelSprite.alpha = 1;
     }
 
     if (this.labelSprite.alpha) {
       this.labelGfx.clear();
-      this.labelGfx.beginFill(0xFFFFFF, 0.6);
-      const rect = {} as PIXI.Rectangle;
-      this.label.getLocalBounds(rect);
-      this.labelGfx.x = rect.x;
-      this.labelGfx.y = rect.y;
-      this.labelGfx.drawRect(0, 0, rect.width, rect.height);
-      this.labelGfx.endFill();
+      if (game.client.settings.labelBackground) {
+        this.labelGfx.beginFill(0xFFFFFF, 0.6);
+        const rect = {} as PIXI.Rectangle;
+        this.label.getLocalBounds(rect);
+        this.labelGfx.x = rect.x;
+        this.labelGfx.y = rect.y;
+        this.labelGfx.drawRect(0, 0, rect.width, rect.height);
+        this.labelGfx.endFill();
+      }
     }
   }
 
