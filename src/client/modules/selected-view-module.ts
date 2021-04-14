@@ -73,14 +73,14 @@ class SelectedViewModule extends ClientModule {
       }
     }
 
-    let data: Record<string, string>;
+    let data: Record<string, string | { type: 'bar'; color: string; current: number; max: number }>;
     let meta;
     if (creature) {
       data = {
         name: creature.name,
-        life: `${creature.life.current} / ${creature.life.max}`,
-        stamina: `${creature.stamina.current} / ${creature.stamina.max}`,
-        mana: `${creature.mana.current} / ${creature.mana.max}`,
+        life: { type: 'bar', color: 'red', ...creature.life },
+        stamina: { type: 'bar', color: 'yellow', ...creature.stamina },
+        mana: { type: 'bar', color: 'blue', ...creature.mana },
         food: String(creature.food),
       };
     } else if (item) {

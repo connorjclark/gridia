@@ -187,7 +187,6 @@ class CreatureSprite extends PIXI.Sprite {
   }
 
   tick() {
-    // this.labelGfx.transform.scale.set(1 / game.client.settings.scale);
     this.labelSprite.transform.scale.set(1 / game.client.settings.scale);
 
     if (this.children.length === 0 || this.dirty) {

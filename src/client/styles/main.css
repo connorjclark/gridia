@@ -369,20 +369,21 @@ button {
   max-height: unset;
   float: right;
 }
-.window--attributes .bar {
+
+.bar {
   position: relative;
   border: 3px solid black;
 }
-.window--attributes .bar__bg {
+.bar__bg {
   transition: width 150ms;
 }
-.window--attributes .bar__label {
+.bar__label {
   position: absolute;
   width: 100%;
   color: black;
   font-weight: bold;
 }
-.window--attributes .bar__label span:nth-child(1) {
+.bar__label span:nth-child(1) {
   float: left;
   text-align: right;
   width: 50%;

@@ -143,3 +143,13 @@ export function makeGraphicComponent() {
     setState: (s: Partial<GraphicComponentState>) => setState(s),
   };
 }
+
+export const Bar = (props: { label: string; color: string; current: number; max: number }) => {
+  const percent = 100 * props.current / props.max;
+  return <div class="bar">
+    <div class="bar__label">
+      <span>{props.label}:&nbsp;</span><span>{props.current}&nbsp;/&nbsp;{props.max}</span>
+    </div>
+    <div class="bar__bg" style={{ width: `${percent}%`, backgroundColor: props.color }}>&nbsp;</div>
+  </div>;
+};

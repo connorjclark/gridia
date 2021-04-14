@@ -2,11 +2,11 @@ import { render, h, Component } from 'preact';
 import SelectedViewModule from '../modules/selected-view-module';
 import * as Content from '../../content';
 import { val } from '../../lib/link-state';
-import { Graphic, ComponentProps, createSubApp, makeUIWindow } from './ui-common';
+import { Graphic, ComponentProps, createSubApp, makeUIWindow, Bar } from './ui-common';
 
 interface State {
   selectedView?: UIState['selectedView'];
-  data?: Record<string, string>;
+  data?: Record<string, string | { type: 'bar'; color: string; current: number; max: number }>;
   quantity?: number;
 }
 
@@ -58,6 +58,10 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
           {type && index !== undefined && <Graphic type={type} index={index} quantity={quantity}></Graphic>}
 
           {Object.entries(props.data || {}).map(([key, value]) => {
+            if (typeof value !== 'string' && value.type === 'bar') {
+              return <Bar label={key} {...value}></Bar>;
+            }
+
             return <div>
               {key}: {value}
             </div>;
