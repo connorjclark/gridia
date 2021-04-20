@@ -228,7 +228,10 @@ export default class Server {
       dead: false,
       name: opts.name,
       pos: spawnLoc,
-      image: Utils.randInt(0, 4),
+      graphics: {
+        file: 'rpgwo-player0.png',
+        index: Utils.randInt(0, 4),
+      },
       isPlayer: true,
       // TODO
       speed: 2,
@@ -365,8 +368,7 @@ export default class Server {
       id: this.context.nextCreatureId++,
       type: template.id,
       dead: false,
-      image: template.image,
-      image_type: template.image_type,
+      graphics: template.graphics,
       name: template.name,
       pos: this.findNearest(pos, 10, true, (_, loc) => this.context.walkable(loc)) || pos,
       isPlayer: false,
@@ -653,10 +655,10 @@ export default class Server {
   makeCreatureImageData(container: Container) {
     const getEquipImage = (i: Item | null) => i ? Content.getMetaItem(i.type).equipImage : undefined;
     return {
-      arms: 0,
-      chest: getEquipImage(container.items[Container.EQUIP_SLOTS.Chest]) || 0,
-      head: getEquipImage(container.items[Container.EQUIP_SLOTS.Head]) || 0,
-      legs: getEquipImage(container.items[Container.EQUIP_SLOTS.Legs]) || 0,
+      arms: { file: 'rpgwo-arms0.png', frames: [0] },
+      chest: getEquipImage(container.items[Container.EQUIP_SLOTS.Chest]) || { file: 'rpgwo-chest0.png', frames: [0] },
+      head: getEquipImage(container.items[Container.EQUIP_SLOTS.Head]) || { file: 'rpgwo-head0.png', frames: [0] },
+      legs: getEquipImage(container.items[Container.EQUIP_SLOTS.Legs]) || { file: 'rpgwo-legs0.png', frames: [0] },
       shield: getEquipImage(container.items[Container.EQUIP_SLOTS.Shield]),
       weapon: getEquipImage(container.items[Container.EQUIP_SLOTS.Weapon]),
     };

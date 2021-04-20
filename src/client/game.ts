@@ -179,11 +179,11 @@ class CreatureSprite extends PIXI.Sprite {
   }
 
   get tileWidth() {
-    return this.creature.image_type || 1;
+    return this.creature.graphics.imageType || 1;
   }
 
   get tileHeight() {
-    return this.creature.image_type || 1;
+    return this.creature.graphics.imageType || 1;
   }
 
   tick() {
@@ -235,22 +235,22 @@ class CreatureSprite extends PIXI.Sprite {
 
     // Load all necessary textures.
     const textures: Record<string, PIXI.Texture> = {};
-    if (this.creature.image >= 0 && this.creature.image <= 4) {
+    if (this.creature.graphics.index >= 0 && this.creature.graphics.index <= 4) {
       const data = this.creature.imageData || {
-        arms: 0,
-        head: 0,
-        chest: 0,
-        legs: 0,
+        arms: { file: 'rpgwo-arms0.png', frames: [0] },
+        head: { file: 'rpgwo-head0.png', frames: [0] },
+        chest: { file: 'rpgwo-chest0.png', frames: [0] },
+        legs: { file: 'rpgwo-legs0.png', frames: [0] },
       };
 
-      textures.arms = Draw.getTexture.arms(data.arms);
-      textures.head = Draw.getTexture.head(data.head);
-      textures.chest = Draw.getTexture.chest(data.chest);
-      textures.legs = Draw.getTexture.legs(data.legs);
-      if (data.shield) textures.shield = Draw.getTexture.shield(data.shield);
-      if (data.weapon) textures.weapon = Draw.getTexture.weapon(data.weapon);
+      textures.arms = Draw.getTexture(data.arms.file, data.arms.frames[0]);
+      textures.head = Draw.getTexture(data.head.file, data.head.frames[0]);
+      textures.chest = Draw.getTexture(data.chest.file, data.chest.frames[0]);
+      textures.legs = Draw.getTexture(data.legs.file, data.legs.frames[0]);
+      if (data.shield) textures.shield = Draw.getTexture(data.shield.file, data.shield.frames[0]);
+      if (data.weapon) textures.weapon = Draw.getTexture(data.weapon.file, data.weapon.frames[0]);
     } else {
-      textures.main = Draw.getTexture.creatures(this.creature.image, width, height);
+      textures.main = Draw.getTexture(this.creature.graphics.file, this.creature.graphics.index, width, height);
     }
 
     const creatureGfx = new PIXI.Graphics();
@@ -468,7 +468,7 @@ class Game {
         this.attributesWindow.actions.set('stamina', { ...this.client.creature.stamina });
         this.attributesWindow.actions.set('mana', { ...this.client.creature.mana });
 
-        if (this.client.equipment && (event.args.image !== undefined || event.args.imageData !== undefined)) {
+        if (this.client.equipment && (event.args.graphics !== undefined || event.args.imageData !== undefined)) {
           const equipmentWindow = this.containerWindows.get(this.client.equipment.id);
           equipmentWindow?.actions.setEquipmentWindow({
             imageData: this.client.creature.imageData,
@@ -861,8 +861,8 @@ class Game {
       const metaItem = Content.getMetaItem(e.item.type);
       this.itemMovingGraphic.setState({
         graphic: {
-          type: 'items',
-          index: metaItem.animations?.[0] || 0,
+          file: metaItem.graphics.file,
+          index: metaItem.graphics.frames[0],
         },
       });
     });

@@ -4,7 +4,9 @@ import { Provider, connect } from 'redux-zero/preact';
 import { Actions, BoundActions } from 'redux-zero/types/Actions';
 import { GFX_SIZE } from '../../constants';
 import * as Utils from '../../utils';
+import { getTexture } from '../draw';
 import * as Helper from '../helper';
+import { ImageResources } from '../lazy-resource-loader';
 
 export type ComponentProps<S, T extends Actions<S>> = S & BoundActions<S, T>;
 type OmitFirstArg<F> = F extends (x: any, ...args: infer P) => infer R ? (...args: P) => R : never;
@@ -50,25 +52,18 @@ export function makeUIWindow(opts: { name: string; cell: string; noscroll?: bool
 }
 
 interface GraphicProps {
-  type: 'floors' | 'items' | 'creatures' | 'arms' | 'chest' | 'head' | 'legs' | 'shield' | 'weapon';
+  file: string;
   index: number;
   quantity?: number;
   scale?: number;
 }
 export const Graphic = (props: GraphicProps) => {
-  const spritesheetIndex = Math.floor(props.index / 100);
-  const x = props.index % 10;
-  const y = Math.floor(props.index / 10) % 100;
-
-  let key;
-  if (props.type === 'creatures') {
-    // TODO
-    key = 'player';
-  } else {
-    key = props.type;
-  }
-  const backgroundImage = `url(world/${key}/${key}${spritesheetIndex}.png)`;
-
+  const res = ImageResources.find((r) => r.file === 'world/graphics/' + props.file);
+  const width = res?.width || 320;
+  const tilesAcross = width / GFX_SIZE;
+  const x = props.index % tilesAcross;
+  const y = Math.floor(props.index / tilesAcross);
+  const backgroundImage = `url(world/graphics/${props.file})`;
   const label = props.quantity !== undefined && props.quantity !== 1 ? Utils.formatQuantity(props.quantity) : '';
 
   let style: { [key: string]: string | number } = {
@@ -91,12 +86,12 @@ export const Graphic = (props: GraphicProps) => {
 };
 
 interface CustomCreatureGraphicProps {
-  arms: number;
-  head: number;
-  chest: number;
-  legs: number;
-  shield?: number;
-  weapon?: number;
+  arms: { file: string; frames: number[] };
+  head: { file: string; frames: number[] };
+  chest: { file: string; frames: number[] };
+  legs: { file: string; frames: number[] };
+  shield?: { file: string; frames: number[] };
+  weapon?: { file: string; frames: number[] };
   scale?: number;
 }
 export function CustomCreatureGraphic(props: CustomCreatureGraphicProps) {
@@ -106,8 +101,9 @@ export function CustomCreatureGraphic(props: CustomCreatureGraphicProps) {
     { width: size + 'px', height: size + 'px', marginRight: size + 'px' }}>
     {Object.entries(props).map(([key, value]) => {
       if (key === 'scale' || value === undefined) return;
+
       return <div style={{ position: 'absolute' }}>
-        <Graphic type={key as any} index={value} scale={props.scale}></Graphic>
+        <Graphic file={value.file} index={value.frames[0]} scale={props.scale}></Graphic>
       </div>;
     })}
   </div>;

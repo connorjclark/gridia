@@ -69,11 +69,11 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
             return <div class="possible-usages__usage" data-index={i}>
               {products.map((product) => {
                 const metaItem = Content.getMetaItem(product.type);
-                // TODO this is silly.
-                const graphicIndex = metaItem.animations ? (metaItem.animations[0] || 0) : 0;
+                if (!metaItem.graphics) return;
 
+                const graphicIndex = metaItem.graphics.frames[0] || 0;
                 return <Graphic
-                  type={'items'}
+                  file={metaItem.graphics.file}
                   index={graphicIndex}
                   quantity={product.quantity}
                 ></Graphic>;

@@ -41,6 +41,7 @@ type SelectionType = 'items' | 'floors';
 interface SelectionProps {
   type: SelectionType;
   id: number;
+  graphicFile: string;
   graphicIndex: number;
   title: string;
   selected: boolean;
@@ -58,7 +59,7 @@ const Selection = (props: SelectionProps) => {
     onClick={() => props.onClickSelection({ type: props.type, id: props.id })}
   >
     <Graphic
-      type={props.type}
+      file={props.graphicFile}
       index={props.graphicIndex}
     ></Graphic>
   </div>;
@@ -72,11 +73,11 @@ interface ItemSelectionsProps {
 const ItemSelections = (props: ItemSelectionsProps) => {
   return <div class="admin__selections">
     {props.metaItems.map((metaItem) => {
-      const graphicIndex = metaItem.animations ? (metaItem.animations[0] || 0) : 0;
       return <Selection
         type={'items'}
         id={metaItem.id}
-        graphicIndex={graphicIndex}
+        graphicFile={metaItem.graphics.file}
+        graphicIndex={metaItem.graphics.frames[0]}
         title={metaItem.name}
         selected={props.selectedId === metaItem.id}
         onClickSelection={props.onClickSelection}
@@ -93,11 +94,11 @@ interface FloorSelectionsProps {
 const FloorSelections = (props: FloorSelectionsProps) => {
   return <div class="admin__selections">
     {props.floors.map((floor) => {
-      const graphicIndex = floor.id;
       return <Selection
         type={'floors'}
         id={floor.id}
-        graphicIndex={graphicIndex}
+        graphicFile={floor.graphics.file}
+        graphicIndex={floor.graphics.frames[0]}
         title={'Floor'}
         selected={props.selectedId === floor.id}
         onClickSelection={props.onClickSelection}

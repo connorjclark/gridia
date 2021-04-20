@@ -1,49 +1,310 @@
-export const ImageResources: Record<string, string[]> = {
-  animations: [],
-  arms: [],
-  chest: [],
-  creatures: [],
-  floors: [],
-  head: [],
-  items: [],
-  legs: [],
-  shield: [],
-  templates: ['./world/templates/templates0.png'],
-  weapon: [],
-};
-
-for (let i = 0; i < 8; i++) {
-  ImageResources.creatures.push(`./world/player/player${i}.png`);
-}
-for (let i = 0; i < 6; i++) {
-  ImageResources.floors.push(`./world/floors/floors${i}.png`);
-}
-for (let i = 0; i < 27; i++) {
-  ImageResources.items.push(`./world/items/items${i}.png`);
-}
-for (let i = 0; i < 2; i++) {
-  ImageResources.animations.push(`./world/animations/animations${i}.png`);
-}
-
-for (let i = 0; i < 1; i++) {
-  ImageResources.arms.push(`./world/arms/arms${i}.png`);
-}
-for (let i = 0; i < 1; i++) {
-  ImageResources.legs.push(`./world/legs/legs${i}.png`);
-}
-for (let i = 0; i < 1; i++) {
-  ImageResources.chest.push(`./world/chest/chest${i}.png`);
-}
-for (let i = 0; i < 1; i++) {
-  ImageResources.shield.push(`./world/shield/shield${i}.png`);
-}
-for (let i = 0; i < 2; i++) {
-  ImageResources.weapon.push(`./world/weapon/weapon${i}.png`);
-}
-for (let i = 0; i < 2; i++) {
-  ImageResources.head.push(`./world/head/head${i}.png`);
-}
-
+export const ImageResources = [
+  {
+    file: 'world/graphics/armor.png',
+    width: 640,
+    height: 2112,
+  },
+  {
+    file: 'world/graphics/bonus.png',
+    width: 640,
+    height: 96,
+  },
+  {
+    file: 'world/graphics/emoticons.png',
+    width: 640,
+    height: 224,
+  },
+  {
+    file: 'world/graphics/fishing.png',
+    width: 640,
+    height: 160,
+  },
+  {
+    file: 'world/graphics/general.png',
+    width: 640,
+    height: 576,
+  },
+  {
+    file: 'world/graphics/insects.png',
+    width: 640,
+    height: 160,
+  },
+  {
+    file: 'world/graphics/misc.png',
+    width: 640,
+    height: 192,
+  },
+  {
+    file: 'world/graphics/potions.png',
+    width: 640,
+    height: 960,
+  },
+  {
+    file: 'world/graphics/weapons.png',
+    width: 640,
+    height: 768,
+  },
+  {
+    file: 'world/graphics/rpgwo-animations0.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-animations1.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-arms0.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-chest0.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-floors0.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-floors1.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-floors2.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-floors3.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-floors4.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-floors5.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-head0.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-head1.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item0.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item1.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item10.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item11.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item12.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item13.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item14.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item15.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item16.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item17.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item18.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item19.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item2.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item20.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item21.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item22.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item23.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item24.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item25.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item26.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item3.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item4.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item5.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item6.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item7.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item8.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-item9.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-legs0.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-player0.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-player1.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-player2.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-player3.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-player4.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-player5.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-player6.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-player7.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-shield0.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-templates0.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-weapon0.png',
+    width: 320,
+    height: 320,
+  },
+  {
+    file: 'world/graphics/rpgwo-weapon1.png',
+    width: 320,
+    height: 320,
+  },
+];
 
 export const SfxResources: Record<string, string> = {
   beep: './world/sound/sfx/rpgwo/beep.WAV',
@@ -115,13 +376,11 @@ class LazyResourceLoader {
 
   loadAllImageResources() {
     const keys = [];
-    for (const resources of Object.values(ImageResources)) {
-      for (const key of resources) {
-        if (this.isResourceLoaded.has(key)) continue;
-        keys.push(key);
-      }
+    for (const res of ImageResources) {
+      if (this.isResourceLoaded.has(res.file)) continue;
+      keys.push(res.file);
     }
-    return Promise.all(keys.map((key) => this.loadResource(key)));
+    return Promise.all(keys.map((file) => this.loadResource(file)));
   }
 
   private processLoadQueue() {

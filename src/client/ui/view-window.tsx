@@ -28,26 +28,31 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
       if (!props.selectedView) return <div></div>;
       const selectedView = props.selectedView;
 
-      let type: 'creatures' | 'items' | undefined;
+      let file = '';
       let index;
       let quantity = 1;
       if (selectedView.creatureId) {
-        type = 'creatures';
-        index = selectedViewModule.game.client.context.getCreature(selectedView.creatureId).image;
+        const creature = selectedViewModule.game.client.context.getCreature(selectedView.creatureId);
+        file = creature.graphics.file;
+        index = creature.graphics.index;
       } else if (selectedView.location?.source === 'world') {
-        type = 'items';
         const item = selectedViewModule.game.client.context.map.getItem(selectedView.location.loc);
         const metaItem = item && Content.getMetaItem(item.type);
-        if (metaItem && metaItem.animations) index = metaItem.animations[0] || 0;
-        if (item) quantity = item.quantity;
+        if (metaItem) {
+          file = metaItem?.graphics.file;
+          index = metaItem?.graphics.frames[0];
+          if (item) quantity = item.quantity;
+        }
       } else if (selectedView.location?.source === 'container') {
-        type = 'items';
         const container = selectedViewModule.game.client.context.containers.get(selectedView.location.id);
         const item =
           container && selectedView.location.index !== undefined && container.items[selectedView.location.index];
-        const metaItem = item && Content.getMetaItem(item.type);
-        if (metaItem && metaItem.animations) index = metaItem.animations[0] || 0;
-        if (item) quantity = item.quantity;
+        const metaItem = item ? Content.getMetaItem(item.type) : undefined;
+        if (metaItem) {
+          file = metaItem.graphics.file;
+          index = metaItem.graphics.frames[0];
+          if (item) quantity = item.quantity;
+        }
       }
 
       return <div>
@@ -55,7 +60,7 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
           View
         </div>
         <div>
-          {type && index !== undefined && <Graphic type={type} index={index} quantity={quantity}></Graphic>}
+          {file && index !== undefined && <Graphic file={file} index={index} quantity={quantity}></Graphic>}
 
           {Object.entries(props.data || {}).map(([key, value]) => {
             if (typeof value !== 'string' && value.type === 'bar') {

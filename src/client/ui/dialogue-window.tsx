@@ -79,7 +79,7 @@ export function makeDialogueWindow(game: Game) {
         speakerGfx =
           <CustomCreatureGraphic {...creature.imageData} scale={2}></CustomCreatureGraphic>;
       } else {
-        speakerGfx = <Graphic type='creatures' index={creature.image} scale={2}></Graphic>;
+        speakerGfx = <Graphic file={creature.graphics.file} index={creature.graphics.index} scale={2}></Graphic>;
       }
 
       return speakerGfx;

@@ -9,6 +9,8 @@ import { execFileSync } from 'child_process';
 // lol esmodules.
 const __dirname = path.join(path.dirname(decodeURI(new URL(import.meta.url).pathname))).replace(/^\\([A-Z]:\\)/, '$1');
 
+const assetFolder = `${__dirname}/../../assets/rpgwo-v1.15`;
+
 function loadContent(name: string) {
   return JSON.parse(fs.readFileSync(`${__dirname}/../../world/content/${name}`, 'utf-8'));
 }
@@ -34,7 +36,7 @@ function getSkillByName(name: string) {
 }
 
 function loadIni(type: string) {
-  const iniPath = `${__dirname}/v1.15/data-files/${type}.ini`;
+  const iniPath = `${assetFolder}/data-files/${type}.ini`;
   return fs.readFileSync(iniPath, 'utf-8')
     .split(/[\n\r]+/)
     .filter((line) => !line.startsWith(';'))
@@ -151,7 +153,7 @@ function parseItemsIni() {
   };
   const items = [];
 
-  let currentItem;
+  let currentItem: any = undefined;
   for (const [key, value] of itemsIni) {
     if (key.match(/^item$/i)) {
       currentItem = {
@@ -164,8 +166,14 @@ function parseItemsIni() {
       // @ts-ignore
       defaults[camelCase(key.replace('default', ''))] = value;
     } else if (key.match(/^animation/i)) {
-      currentItem.animations = currentItem.animations || [];
-      currentItem.animations.push(forcenum(value));
+      const num = forcenum(value);
+      if (!currentItem.graphics) {
+        currentItem.graphics = {
+          file: `rpgwo-item${Math.floor(num / 100)}.png`,
+          frames: [],
+        };
+      }
+      currentItem.graphics.frames.push(num % 100);
     } else if (key.match(/^notmovable/i)) {
       currentItem.moveable = false;
     } else if (key.match(/^imagetype/i)) {
@@ -200,6 +208,11 @@ function parseItemsIni() {
     }
   }
 
+  for (const item of items) {
+    if (!item.graphics) item.graphics = { file: 'rpgwo-item0.png', frames: [1] };
+    if (item.imageHeight) item.graphics.imageHeight = item.imageHeight;
+  }
+
   // Only un-walkable items block light, unless 'OpenSightLine' was used.
   for (const item of items) {
     if (!item.walkable && !('blocksLight' in item)) {
@@ -215,15 +228,24 @@ function parseItemsIni() {
     // @ts-ignore
     if (item.class) item.class = uppercaseFirstLetter(item.class);
 
-    // @ts-expect-error
     item.growthItem = item.growthItem || item.degradeItem;
-    // @ts-expect-error
     item.growthDelta = item.growthDelta || item.degradeDelta;
   }
 
   for (const item of items) {
     if (item.class === 'Weapon') item.equipSlot = 'Weapon';
+    if (item.class === 'Wand') item.equipSlot = 'Weapon';
+    if (item.class === 'Ammo') item.equipSlot = 'Weapon';
     if (item.class === 'Shield') item.equipSlot = 'Shield';
+  }
+
+  for (const item of items) {
+    if (!item.equipImage) continue;
+
+    item.equipImage = {
+      file: `rpgwo-${item.equipSlot.toLowerCase()}${Math.floor(item.equipImage / 100)}.png`,
+      frames: [item.equipImage % 100],
+    };
   }
 
   // Just in case items are defined out of order.
@@ -233,13 +255,12 @@ function parseItemsIni() {
 
   // Only save properties that Gridia utilizes.
   const allowlist = [
-    'animations',
+    'graphics',
     'burden',
     'class',
     'growthDelta',
     'growthItem',
     'id',
-    'imageHeight',
     'moveable',
     'name',
     'rarity',
@@ -485,6 +506,10 @@ function convertItems() {
     {
       id: 0,
       name: 'Nothing',
+      graphics: {
+        file: "rpgwo-item0.png",
+        frames: [1],
+      },
       class: 'Normal',
       burden: 0,
       walkable: true,
@@ -508,6 +533,15 @@ function convertItems() {
   // gfx are bad, so just remove from mining class for now.
   for (const item of items.filter(item => item.name === 'Sulfur Ore' || item.name === 'Phosphorous Ore')) {
     item.class = undefined;
+  }
+
+  const replaceGraphics = [
+    { name: 'Small Branches', file: 'general.png', frames: [20] },
+    { name: 'Small Log', file: 'general.png', frames: [21] },
+  ];
+  for (const { name, ...graphics } of replaceGraphics) {
+    const item = items.find(i => i.name === name);
+    item.graphics = graphics;
   }
 
   const explicitOrder = ['id', 'name', 'class'];
@@ -580,6 +614,11 @@ function convertSkills() {
 function convertFloors() {
   const floors = loadContent('floors.json');
   for (const floor of floors) {
+    floor.graphics = {
+      file: `rpgwo-floors${Math.floor(floor.id / 100)}.png`,
+      frames: [floor.id % 100],
+    };
+
     // Water.
     if (floor.id === 1) {
       floor.color = 'ADBCE6';

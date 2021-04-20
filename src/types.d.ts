@@ -85,15 +85,19 @@ interface Creature {
   // Refers to monster template id, if used.
   type?: number;
   dead: boolean;
-  image: number;
-  image_type?: number;
+  graphics: {
+    file: string;
+    index: number;
+    // TODO
+    imageType?: number;
+  };
   imageData?: {
-    arms: number;
-    chest: number;
-    head: number;
-    legs: number;
-    shield?: number;
-    weapon?: number;
+    arms: { file: string; frames: number[] };
+    chest: { file: string; frames: number[] };
+    head: { file: string; frames: number[] };
+    legs: { file: string; frames: number[] };
+    shield?: { file: string; frames: number[] };
+    weapon?: { file: string; frames: number[] };
   };
   name: string;
   canSpeak?: boolean;
@@ -121,8 +125,15 @@ interface Creature {
   };
 }
 
+interface Graphics {
+  file: string;
+  frames: number[];
+  imageHeight?: number;
+}
+
 interface MetaFloor {
   id: number;
+  graphics: Graphics;
   color: string;
 }
 
@@ -133,12 +144,11 @@ interface MetaItem {
   'Normal' | 'Armor' | 'Ore' | 'CaveDown' | 'CaveUp' | 'Container' |
   'Ball' | 'Weapon' | 'Ammo' | 'Plant' | 'Shield';
   equipSlot?: 'Head' | 'Weapon' | 'Chest' | 'Shield' | 'Legs';
-  equipImage?: number;
-  animations: number[];
+  equipImage?: Graphics;
+  graphics: Graphics;
   burden: number;
   growthDelta: number;
   growthItem: number;
-  imageHeight: number;
   moveable: boolean;
   light: number;
   blocksLight: boolean;
@@ -190,8 +200,7 @@ interface GridiaAnimation {
 interface Monster {
   id: number;
   name: string;
-  image: number;
-  image_type?: number;
+  graphics: Creature['graphics'];
   speed: number;
   life: number;
   stamina?: number;

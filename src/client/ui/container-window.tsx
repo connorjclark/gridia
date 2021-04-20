@@ -77,10 +77,9 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
             let gfx;
             if (item) {
               const metaItem = Content.getMetaItem(item.type);
-              const graphicIndex = metaItem.animations ? (metaItem.animations[0] || 0) : 0;
               gfx = <Graphic
-                type={'items'}
-                index={graphicIndex}
+                file={metaItem.graphics.file}
+                index={metaItem.graphics.frames[0]}
                 quantity={item.quantity}
               ></Graphic>;
             }

@@ -2,7 +2,6 @@ import { GFX_SIZE } from '../constants';
 import * as Utils from '../utils';
 import * as Content from '../content';
 import { game } from '../game-singleton';
-import { ImageResources } from './lazy-resource-loader';
 
 export function destroyChildren(displayObject: PIXI.Container) {
   if (displayObject.children.length === 0) return;
@@ -16,7 +15,7 @@ export function destroyChildren(displayObject: PIXI.Container) {
   }
 }
 
-function makeTextureCache(resourceType: string) {
+function makeTextureCache(file: string) {
   const textureCache = new Map<number, PIXI.Texture>();
   return (type: number, tilesWidth = 1, tilesHeight = 1) => {
     let texture = textureCache.get(type);
@@ -24,20 +23,21 @@ function makeTextureCache(resourceType: string) {
       return texture;
     }
 
-    const textureIndex = Math.floor(type / 100);
-    const resourceKey = ImageResources[resourceType][textureIndex];
-
+    const resourceKey = 'world/graphics/' + file;
     if (!game.loader.hasResourceLoaded(resourceKey)) {
       game.loader.loadResource(resourceKey);
       return PIXI.Texture.EMPTY;
     }
 
-    const rect = new PIXI.Rectangle(
-      (type % 10) * GFX_SIZE, Math.floor((type % 100) / 10) * GFX_SIZE, tilesWidth * GFX_SIZE, tilesHeight * GFX_SIZE);
     const loaderResource = PIXI.Loader.shared.resources[resourceKey];
     if (!loaderResource.texture) {
       throw new Error('missing texture ' + resourceKey);
     }
+
+    const tilesAcross = loaderResource.texture.baseTexture.width / GFX_SIZE;
+    const x = (type % tilesAcross) * GFX_SIZE;
+    const y = Math.floor(type / tilesAcross) * GFX_SIZE;
+    const rect = new PIXI.Rectangle(x, y, tilesWidth * GFX_SIZE, tilesHeight * GFX_SIZE);
 
     texture = new PIXI.Texture(loaderResource.texture.baseTexture, rect);
     textureCache.set(type, texture);
@@ -45,19 +45,16 @@ function makeTextureCache(resourceType: string) {
   };
 }
 
-export const getTexture = {
-  animations: makeTextureCache('animations'),
-  arms: makeTextureCache('arms'),
-  chest: makeTextureCache('chest'),
-  creatures: makeTextureCache('creatures'),
-  floors: makeTextureCache('floors'),
-  head: makeTextureCache('head'),
-  items: makeTextureCache('items'),
-  legs: makeTextureCache('legs'),
-  shield: makeTextureCache('shield'),
-  templates: makeTextureCache('templates'),
-  weapon: makeTextureCache('weapon'),
-};
+const textureCaches = new Map<string, ReturnType<typeof makeTextureCache>>();
+export function getTexture(file: string, index: number, width = 1, height = 1) {
+  let textureCache = textureCaches.get(file);
+  if (!textureCache) {
+    textureCache = makeTextureCache(file);
+    textureCaches.set(file, textureCache);
+  }
+
+  return textureCache(index, width, height);
+}
 
 export function makeHighlight(color: number, alpha: number) {
   const highlight = new PIXI.Graphics();
@@ -67,24 +64,28 @@ export function makeHighlight(color: number, alpha: number) {
 }
 
 export function makeAnimationSprite(animationIndices: number[]) {
-  const textures = animationIndices.map((index) => getTexture.animations(index));
+  // TODO animation.graphics.
+  const textures = animationIndices.map(
+    (index) => getTexture(`rpgwo-animations${Math.floor(index / 100)}.png`, index % 100));
   const anim = new PIXI.AnimatedSprite(textures);
   return anim;
 }
 
 export function makeItemTemplate(item: Item) {
   const meta = Content.getMetaItem(item.type);
-  let texture = 1;
-  if (meta.animations) {
-    if (meta.animations.length === 1) {
-      texture = meta.animations[0];
-    } else if (meta.animations.length > 1) {
-      const index = Math.floor((game.state.elapsedFrames * (60 / 1000)) % meta.animations.length);
-      texture = meta.animations[index];
-    }
+  if (!meta.graphics || meta.graphics.frames.length === 0) {
+    return getTexture('rpgwo-item0.png', 1);
   }
-  const imgHeight = meta.imageHeight || 1;
-  return getTexture.items(texture, 1, imgHeight);
+
+  let index = 0;
+  const numFrames = meta.graphics.frames.length;
+  if (meta.graphics.frames.length === 1) {
+    index = meta.graphics.frames[0];
+  } else if (numFrames > 1) {
+    index = meta.graphics.frames[Math.floor((game.state.elapsedFrames * (60 / 1000)) % numFrames)];
+  }
+
+  return getTexture(meta.graphics.file, index, meta.graphics.imageHeight);
 }
 
 export function makeItemQuantity(quantity: number) {
@@ -120,19 +121,19 @@ export function makeItemSprite2(item: Item) {
   function make() {
     const meta = Content.getMetaItem(item.type);
 
-    if (!meta.animations) {
+    if (!meta.graphics) {
       return new PIXI.Sprite();
     }
 
-    if (meta.animations.length === 1) {
-      const texture = getTexture.items(meta.animations[0], 1, meta.imageHeight || 1);
+    if (meta.graphics.frames.length === 1) {
+      const texture = getTexture(meta.graphics.file, meta.graphics.frames[0], 1, meta.graphics.imageHeight);
       if (texture === PIXI.Texture.EMPTY) return null;
       return new PIXI.Sprite(texture);
     }
 
     const textures = [];
-    for (const frame of meta.animations) {
-      const texture = getTexture.items(frame, 1, meta.imageHeight || 1);
+    for (const frame of meta.graphics.frames) {
+      const texture = getTexture(meta.graphics.file, frame, 1, meta.graphics.imageHeight);
       if (texture === PIXI.Texture.EMPTY) return null;
       textures.push(texture);
     }

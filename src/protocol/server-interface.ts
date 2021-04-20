@@ -611,13 +611,16 @@ export default class ServerInterface implements IServerInterface {
         image: {
           args: [
             { name: 'index', type: 'number' },
+            { name: 'file', type: 'string', optional: true },
             { name: 'type', type: 'number', optional: true },
           ],
-          do(args: { index: number; type?: number }) {
-            server.currentClientConnection.player.creature.image = args.index;
-            server.currentClientConnection.player.creature.image_type = args.type || 0;
-            server.broadcastPartialCreatureUpdate(
-              server.currentClientConnection.player.creature, ['image', 'image_type']);
+          do(args: { index: number; file?: string; type?: number }) {
+            server.currentClientConnection.player.creature.graphics = {
+              file: args.file || 'rpgwo-player0.png',
+              index: args.index,
+              imageType: args.type || 0,
+            };
+            server.broadcastPartialCreatureUpdate(server.currentClientConnection.player.creature, ['graphics']);
           },
         },
         help: {

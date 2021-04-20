@@ -29,12 +29,10 @@ export function makeUsagesWindow(usageModule: UsageModule) {
 
             const item = usage.products[0];
             const metaItem = Content.getMetaItem(item.type);
-            // TODO this is silly.
-            const graphicIndex = metaItem.animations ? (metaItem.animations[0] || 0) : 0;
             return <div class="usages__usage" data-index={i}>
               <Graphic
-                type={'items'}
-                index={graphicIndex}
+                file={metaItem.graphics.file}
+                index={metaItem.graphics.frames[0]}
                 quantity={item.quantity}
               ></Graphic>
             </div>;

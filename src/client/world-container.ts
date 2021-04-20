@@ -422,13 +422,15 @@ class Tile {
       this.floor = undefined;
     }
 
+    const meta = Content.getMetaFloor(this.floorValue);
     let texture;
+    // TODO
     if (this.floorValue === WATER) {
       const partition = this.worldContainer.map.getPartition(this.loc.w);
       const templateIdx = getWaterFloor(partition, this.loc);
-      texture = Draw.getTexture.templates(templateIdx);
+      texture = Draw.getTexture(meta.graphics.file, templateIdx);
     } else {
-      texture = Draw.getTexture.floors(this.floorValue);
+      texture = Draw.getTexture(meta.graphics.file, meta.graphics.frames[0]);
     }
 
     if (texture === PIXI.Texture.EMPTY) {
@@ -470,10 +472,11 @@ class Tile {
     if (!this.itemValue) return;
 
     let sprite;
+    // TODO
     if (this.itemValue.type === MINE) {
       const partition = this.worldContainer.map.getPartition(this.loc.w);
       const templateIdx = getMineItem(partition, this.loc);
-      const texture = Draw.getTexture.templates(templateIdx);
+      const texture = Draw.getTexture('rpgwo-templates0.png', templateIdx);
       sprite = new PIXI.Sprite(texture);
     } else {
       sprite = Draw.makeItemSprite2(this.itemValue);
