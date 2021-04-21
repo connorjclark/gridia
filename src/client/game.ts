@@ -1151,6 +1151,18 @@ class Game {
     }
   }
 
+  addStatusText(text: string) {
+    Helper.find('.status-texts').style.bottom = Helper.find('.panels__tabs').offsetHeight + 'px';
+
+    const statusTextEl = document.createElement('div');
+    statusTextEl.classList.add('status-text');
+    setTimeout(() => statusTextEl.classList.add('status-text--remove'), 500);
+    statusTextEl.textContent = text;
+    // TODO: add one listener to .status-texts
+    statusTextEl.addEventListener('transitionend', () => statusTextEl.remove());
+    Helper.find('.status-texts').appendChild(statusTextEl);
+  }
+
   isOnStage(displayObject: PIXI.DisplayObject) {
     let parent = displayObject.parent;
     while (parent && parent.parent) {
