@@ -147,15 +147,15 @@ interface MetaItem {
   equipImage?: Graphics;
   graphics: Graphics;
   burden: number;
-  growthDelta: number;
-  growthItem: number;
+  growthDelta?: number;
+  growthItem?: number;
   moveable: boolean;
   light: number;
   blocksLight: boolean;
   rarity: number;
   stackable: boolean;
   walkable: boolean;
-  trapEffect: 'Warp';
+  trapEffect?: 'Warp';
   combatSkill?: number;
   armorLevel?: number;
   attackSpeed?: number;
