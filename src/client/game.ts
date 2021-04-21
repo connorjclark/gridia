@@ -310,6 +310,7 @@ class Game {
   worldContainer: WorldContainer;
   protected app = new PIXI.Application();
   protected canvasesEl = Helper.find('#canvases');
+  protected gridCursorEl = Helper.find('.grid-cursor');
   protected world = new PIXI.Container();
   protected itemMovingState?: ItemMoveBeginEvent;
   protected itemMovingGraphic = makeGraphicComponent();
@@ -643,6 +644,19 @@ class Game {
         this.client.eventEmitter.emit('mouseMovedOverTile', { ...loc }); // TODO remove
         this.client.eventEmitter.emit('pointerMove', { ...loc });
       }
+
+      if (!(e.target as HTMLElement).closest('.ui')) {
+        this.gridCursorEl.hidden = false;
+        this.gridCursorEl.style.setProperty('--size', GFX_SIZE * this.client.settings.scale + 'px');
+        if (this.state.mouse.tile) {
+          const x = (this.state.mouse.tile.x - this.worldContainer.camera.left) * GFX_SIZE * this.client.settings.scale;
+          const y = (this.state.mouse.tile.y - this.worldContainer.camera.top) * GFX_SIZE * this.client.settings.scale;
+          this.gridCursorEl.style.setProperty('--x', x + 'px');
+          this.gridCursorEl.style.setProperty('--y', y + 'px');
+        }
+      } else {
+        this.gridCursorEl.hidden = true;
+      }
     });
 
     this.canvasesEl.addEventListener('pointerdown', () => {
@@ -891,6 +905,7 @@ class Game {
       ContextMenu.close();
       this.modules.usage.updatePossibleUsages(e.to);
       this.itemMovingState = undefined;
+      this.gridCursorEl.hidden = true;
     });
 
     this.client.eventEmitter.on('action', () => ContextMenu.close());

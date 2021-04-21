@@ -64,6 +64,7 @@ button {
   position: relative;
   border: 1px solid black;
   outline: none;
+  cursor: cell;
 }
 
 .status-texts {
@@ -201,6 +202,7 @@ button {
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 1;
   /* TODO: this pointer event shuffling seems wrong... is there a better way? */
   pointer-events: none;
 }
@@ -401,4 +403,41 @@ button {
 
 .moving-item {
   position: absolute;
+}
+
+/* https://stackoverflow.com/questions/14387690/how-can-i-show-only-corner-borders */
+@property --delta {
+  syntax: '<length>';
+  initial-value: 0;
+  inherits: false;
+}
+
+/* https://stackoverflow.com/questions/14387690/how-can-i-show-only-corner-borders */
+@keyframes gridCursor {
+  100% { --delta: 3px }
+}
+
+.grid-cursor {
+  --size: 64px;
+  --x: 0px;
+  --y: 0px;
+  --delta: 0px;
+  --thickness: 2px;
+  --width: 10px;
+  --color: gold;
+
+  top: calc(var(--y) - var(--delta) - var(--thickness));
+  left: calc(var(--x) - var(--delta) - var(--thickness));
+  width: calc(var(--size) + var(--delta) * 2 + var(--thickness));
+  height: calc(var(--size) + var(--delta) * 2 + var(--thickness));
+
+  position: absolute;
+  animation: 0.75s linear gridCursor infinite alternate;
+  border: var(--thickness) solid transparent;
+  background: linear-gradient(var(--color), var(--color)) top left, linear-gradient(var(--color), var(--color)) top left, linear-gradient(var(--color), var(--color)) bottom left, linear-gradient(var(--color), var(--color)) bottom left, linear-gradient(var(--color), var(--color)) top right, linear-gradient(var(--color), var(--color)) top right, linear-gradient(var(--color), var(--color)) bottom right, linear-gradient(var(--color), var(--color)) bottom right;
+  background-size: var(--thickness) var(--width), var(--width) var(--thickness);
+  background-origin: border-box;
+  background-repeat: no-repeat;
+  box-sizing: content-box;
+  pointer-events: none;
 }
