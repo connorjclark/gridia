@@ -516,7 +516,7 @@ class Game {
       }
 
       this.dialogueWindow.setState(event.args);
-      this.client.eventEmitter.on('playerMove', closeDialogueWindow);
+      this.client.eventEmitter.once('playerMove', closeDialogueWindow);
 
       // TODO: better window management.
       function closeDialogueWindow() {
