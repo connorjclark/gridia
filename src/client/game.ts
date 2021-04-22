@@ -646,13 +646,16 @@ class Game {
       }
 
       if (!(e.target as HTMLElement).closest('.ui')) {
-        this.gridCursorEl.hidden = false;
-        this.gridCursorEl.style.setProperty('--size', GFX_SIZE * this.client.settings.scale + 'px');
-        if (this.state.mouse.tile) {
-          const x = (this.state.mouse.tile.x - this.worldContainer.camera.left) * GFX_SIZE * this.client.settings.scale;
-          const y = (this.state.mouse.tile.y - this.worldContainer.camera.top) * GFX_SIZE * this.client.settings.scale;
-          this.gridCursorEl.style.setProperty('--x', x + 'px');
-          this.gridCursorEl.style.setProperty('--y', y + 'px');
+        if (!ContextMenu.isOpen()) {
+          const size = GFX_SIZE * this.client.settings.scale;
+          this.gridCursorEl.hidden = false;
+          this.gridCursorEl.style.setProperty('--size', size + 'px');
+          if (this.state.mouse.tile) {
+            const x = (this.state.mouse.tile.x - this.worldContainer.camera.left) * size;
+            const y = (this.state.mouse.tile.y - this.worldContainer.camera.top) * size;
+            this.gridCursorEl.style.setProperty('--x', x + 'px');
+            this.gridCursorEl.style.setProperty('--y', y + 'px');
+          }
         }
       } else {
         this.gridCursorEl.hidden = true;
