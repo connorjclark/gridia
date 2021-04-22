@@ -2,7 +2,13 @@ import { render, h, Component } from 'preact';
 import { ComponentProps, makeUIWindow, createSubApp } from './ui-common';
 
 interface State {
-  skills: Array<{ id: number; name: string; level: number; xp: number; xpUntilNextLevel: number }>;
+  skills: Array<{
+    id: number;
+    name: string;
+    level: number;
+    xp: number;
+    xpBar: { current: number; max: number };
+  }>;
 }
 
 export function makeSkillsWindow(initialState: State) {
@@ -37,8 +43,12 @@ export function makeSkillsWindow(initialState: State) {
         </div>
         <div>
           {skillsSortedByName.map((skill) => {
-            const title = `${skill.xp} xp (${skill.xpUntilNextLevel} until next level)`;
-            return <div title={title}>{skill.name} - {skill.level}</div>;
+            const xpUntilNextLevel = skill.xpBar.max - skill.xpBar.current;
+            const title = `${skill.xp} xp (${xpUntilNextLevel} until next level)`;
+            const percent = skill.xpBar.current / skill.xpBar.max;
+            return <div class='skill__xp-bar' title={title} style={{ '--percent': percent }}>
+              {skill.level} {skill.name}
+            </div>;
           })}
         </div>
       </div>;

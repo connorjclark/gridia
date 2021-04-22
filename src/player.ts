@@ -69,6 +69,10 @@ function skillOrAttributeLevelForXp(xp: number) {
   return index - 1;
 }
 
+export function getXpTotalForLevel(level: number) {
+  return attributeLevelToXpTotal[level];
+}
+
 type Attribute = typeof PlayerAttributes.ATTRIBUTES[number];
 export class PlayerAttributes {
   static ATTRIBUTES = [

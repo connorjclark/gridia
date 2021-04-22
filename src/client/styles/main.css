@@ -262,6 +262,11 @@ button {
 .window--skills {
   overflow-y: scroll;
 }
+.skill__xp-bar {
+  border-bottom: 5px solid;
+  border-image: linear-gradient(to right, gold calc(var(--percent) * 100%), rgba(0,0,0,0) calc(var(--percent) * 100%)); /* to top - at 50% transparent */
+  border-image-slice: 1;
+}
 
 .window--admin > div {
   display: flex;
@@ -375,6 +380,7 @@ button {
 .bar {
   position: relative;
   border: 3px solid black;
+  background-color: darkslategrey;
 }
 .bar__bg {
   transition: width 150ms;
