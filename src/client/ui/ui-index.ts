@@ -37,14 +37,14 @@ document.addEventListener('DOMContentLoaded', async () => {
           name: 'Farming',
           level: 1,
           xp: 100,
-          xpUntilNextLevel: 110,
+          xpBar: { current: 100, max: 200 },
         },
         {
           id: 1,
           name: 'Fishing',
           level: 10,
           xp: 12300,
-          xpUntilNextLevel: 1100,
+          xpBar: { current: 20, max: 200 },
         },
       ],
     });
