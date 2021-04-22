@@ -397,7 +397,6 @@ class Game {
     this.actionCreators.push(actionCreator);
   }
 
-  // TODO: No action creators use `loc` - remove?
   // getActionsFor(location: ItemLocation, opts?: { onlyCreature: boolean }): GameAction[] {
   getActionsFor(location: ItemLocation): GameAction[] {
     const actions = [];
@@ -432,12 +431,6 @@ class Game {
       else if (Utils.maxDiff(this.getPlayerPosition(), event.args.location.loc) <= 1) shouldUpdateUsages = true;
       if (shouldUpdateUsages) this.modules.usage.updatePossibleUsages();
 
-      // if (e.args.location.source === 'world' && this.state.selectedView.tile) {
-      //   const loc = e.args.location.loc;
-      //   if (Utils.equalPoints(loc, this.state.selectedView.tile)) {
-      //     this.modules.selectedView.selectView(this.state.selectedView.tile);
-      //   }
-      // }
       if (this.state.selectedView.location &&
         Utils.ItemLocation.Equal(this.state.selectedView.location, event.args.location)) {
         this.modules.selectedView.selectView(this.state.selectedView.location);

@@ -46888,6 +46888,7 @@
   {
     "id": 2378,
     "name": "Sulfur Ore",
+    "class": "Normal",
     "blocksLight": false,
     "burden": 100,
     "graphics": {
@@ -46905,6 +46906,7 @@
   {
     "id": 2379,
     "name": "Phosphorous Ore",
+    "class": "Normal",
     "blocksLight": false,
     "burden": 100,
     "graphics": {
@@ -51419,6 +51421,12 @@
     "name": "Mine",
     "class": "Normal",
     "blocksLight": true,
+    "graphics": {
+      "file": "rpgwo-templates0.png",
+      "frames": [
+        50
+      ]
+    },
     "moveable": false,
     "walkable": false
   }

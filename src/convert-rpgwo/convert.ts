@@ -502,7 +502,7 @@ function fillGaps(objects: any[]) {
 }
 
 function convertItems() {
-  let items = [
+  let items: MetaItem[] = [
     {
       id: 0,
       name: 'Nothing',
@@ -521,9 +521,14 @@ function convertItems() {
     ...parseItemsIni(),
   ];
 
+  // @ts-expect-error
   items.push({
     id: items[items.length - 1].id + 1,
     name: 'Mine',
+    graphics: {
+      file: 'rpgwo-templates0.png',
+      frames: [50],
+    },
     class: 'Normal',
     walkable: false,
     moveable: false,
@@ -532,7 +537,7 @@ function convertItems() {
 
   // gfx are bad, so just remove from mining class for now.
   for (const item of items.filter(item => item.name === 'Sulfur Ore' || item.name === 'Phosphorous Ore')) {
-    item.class = undefined;
+    item.class = 'Normal';
   }
 
   const replaceGraphics = [
@@ -541,6 +546,7 @@ function convertItems() {
   ];
   for (const { name, ...graphics } of replaceGraphics) {
     const item = items.find(i => i.name === name);
+    if (!item) throw new Error('missing item ' + name);
     item.graphics = graphics;
   }
 
