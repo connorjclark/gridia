@@ -622,10 +622,11 @@ function convertFloors() {
     // Water.
     if (floor.id === 1) {
       floor.color = 'ADBCE6';
+      floor.graphics.file = 'rpgwo-templates0.png';
       continue;
     }
 
-    const imageName = `world/floors/floors${Math.floor(floor.id / 100)}.png`;
+    const imageName = `${assetFolder}/gfx/floors${Math.floor(floor.id / 100)}.png`;
     const x = (floor.id % 10) * 32;
     const y = Math.floor((floor.id % 100) / 10) * 32;
     const args = [
