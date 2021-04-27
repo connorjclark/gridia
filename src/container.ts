@@ -2,92 +2,84 @@ import { MAX_STACK } from './constants';
 import * as Content from './content';
 import * as Utils from './utils';
 
-// eslint-disable-next-line no-shadow
-export enum ContainerType {
-  Normal, Equipment,
+export const EQUIP_SLOTS = {
+  Head: 0,
+  Weapon: 1,
+  Chest: 2,
+  Shield: 3,
+  Legs: 4,
+};
+
+export function hasItem(container: Container, itemType: number) {
+  for (const item of container.items) {
+    if (item && item.type === itemType) return true;
+  }
+
+  return false;
 }
 
-export default class Container {
-  static EQUIP_SLOTS = {
-    Head: 0,
-    Weapon: 1,
-    Chest: 2,
-    Shield: 3,
-    Legs: 4,
-  };
+export function isValidLocationToAddItemInContainer(container: Container, index: number, item: Item): boolean {
+  const meta = Content.getMetaItem(item.type);
 
-  constructor(readonly type: ContainerType, public id: string, public items: Array<Item | null>) {
+  if (container.type === 'normal') {
+    const itemAtIndex = container.items[index];
+    if (!itemAtIndex) return true;
+    if (!meta.stackable) return false;
+    if (itemAtIndex.type !== item.type) return false;
+    if (itemAtIndex.quantity + item.quantity > MAX_STACK) return false;
+    return true;
+  } else if (container.type === 'equipment') {
+    return meta.equipSlot !== undefined && EQUIP_SLOTS[meta.equipSlot] === index;
   }
 
-  hasItem(itemType: number) {
-    for (const item of this.items) {
-      if (item && item.type === itemType) return true;
-    }
-    return false;
+  return false;
+}
+
+export function findValidLocationToAddItemToContainer(
+  container: Container, item: Item, opts: { allowStacking: boolean }): ContainerLocation | undefined {
+  const meta = Content.getMetaItem(item.type);
+
+  if (container.type === 'equipment') {
+    if (!meta.equipSlot) return;
+    const equipIndex = EQUIP_SLOTS[meta.equipSlot];
+    if (container.items[equipIndex]) return;
+    return Utils.ItemLocation.Container(container.id, equipIndex);
   }
 
-  isValidLocationToAddItemInContainer(index: number, item: Item): boolean {
-    const meta = Content.getMetaItem(item.type);
+  const isStackable = opts.allowStacking && meta.stackable;
 
-    if (this.type === ContainerType.Normal) {
-      const itemAtIndex = this.items[index];
-      if (!itemAtIndex) return true;
-      if (!meta.stackable) return false;
-      if (itemAtIndex.type !== item.type) return false;
-      if (itemAtIndex.quantity + item.quantity > MAX_STACK) return false;
-      return true;
-    } else if (this.type === ContainerType.Equipment) {
-      return meta.equipSlot !== undefined && Container.EQUIP_SLOTS[meta.equipSlot] === index;
+  // Pick the first slot of the same item type, if stackable.
+  // Else, pick the first open slot.
+  let firstOpenSlot = null;
+  let firstStackableSlot = null;
+  for (let i = 0; i < container.items.length; i++) {
+    if (firstOpenSlot === null && !container.items[i]) {
+      firstOpenSlot = i;
     }
-
-    return false;
-  }
-
-  findValidLocationToAddItemToContainer(item: Item, opts: { allowStacking: boolean }): ContainerLocation | undefined {
-    const meta = Content.getMetaItem(item.type);
-
-    if (this.type === ContainerType.Equipment) {
-      if (!meta.equipSlot) return;
-      const equipIndex = Container.EQUIP_SLOTS[meta.equipSlot];
-      if (this.items[equipIndex]) return;
-      return Utils.ItemLocation.Container(this.id, equipIndex);
-    }
-
-    const isStackable = opts.allowStacking && meta.stackable;
-
-    // Pick the first slot of the same item type, if stackable.
-    // Else, pick the first open slot.
-    let firstOpenSlot = null;
-    let firstStackableSlot = null;
-    for (let i = 0; i < this.items.length; i++) {
-      if (firstOpenSlot === null && !this.items[i]) {
-        firstOpenSlot = i;
-      }
-      const containerItem = this.items[i];
-      if (isStackable && containerItem && containerItem.type === item.type
-        && containerItem.quantity + item.quantity <= MAX_STACK) {
-        firstStackableSlot = i;
-        break;
-      }
-    }
-
-    let index;
-    if (firstStackableSlot !== null) {
-      index = firstStackableSlot;
-    } else if (firstOpenSlot !== null) {
-      index = firstOpenSlot;
-    }
-
-    if (index !== undefined) {
-      return Utils.ItemLocation.Container(this.id, index);
+    const containerItem = container.items[i];
+    if (isStackable && containerItem && containerItem.type === item.type
+      && containerItem.quantity + item.quantity <= MAX_STACK) {
+      firstStackableSlot = i;
+      break;
     }
   }
 
-  forEach(fn: (value: Item, index: number, array: Array<Item | null>) => void) {
-    for (let i = 0; i < this.items.length; i++) {
-      const item = this.items[i];
-      if (!item) continue;
-      fn(item, i, this.items);
-    }
+  let index;
+  if (firstStackableSlot !== null) {
+    index = firstStackableSlot;
+  } else if (firstOpenSlot !== null) {
+    index = firstOpenSlot;
+  }
+
+  if (index !== undefined) {
+    return Utils.ItemLocation.Container(container.id, index);
+  }
+}
+
+export function forEach(container: Container, fn: (value: Item, index: number, array: Array<Item | null>) => void) {
+  for (let i = 0; i < container.items.length; i++) {
+    const item = container.items[i];
+    if (!item) continue;
+    fn(item, i, container.items);
   }
 }

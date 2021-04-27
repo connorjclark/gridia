@@ -1,6 +1,5 @@
 import * as Content from '../../content';
 import { getDefaultSettings } from '../modules/settings-module';
-import Container, { ContainerType } from '../../container';
 import { makeContainerWindow } from './container-window';
 import { makePossibleUsagesWindow } from './possible-usages-window';
 import { makeSettingsWindow } from './settings-window';
@@ -51,68 +50,72 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   {
-    const container = new Container(ContainerType.Normal, '1', [
-      {
-        type: 57,
-        quantity: 1,
-      },
-      {
-        type: 280,
-        quantity: 1,
-      },
-      {
-        type: 901,
-        quantity: 1,
-      },
-      {
-        type: 1067,
-        quantity: 1,
-      },
-      {
-        type: 1974,
-        quantity: 100,
-      },
-      {
-        type: 1783,
-        quantity: 1,
-      },
-      {
-        type: 1068,
-        quantity: 1,
-      },
-      {
-        type: 826,
-        quantity: 1,
-      },
-      {
-        type: 335,
-        quantity: 1,
-      },
-      {
-        type: 406,
-        quantity: 100,
-      },
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-    ]);
+    const container = {
+      id: '1',
+      type: 'normal' as const,
+      items: [
+        {
+          type: 57,
+          quantity: 1,
+        },
+        {
+          type: 280,
+          quantity: 1,
+        },
+        {
+          type: 901,
+          quantity: 1,
+        },
+        {
+          type: 1067,
+          quantity: 1,
+        },
+        {
+          type: 1974,
+          quantity: 100,
+        },
+        {
+          type: 1783,
+          quantity: 1,
+        },
+        {
+          type: 1068,
+          quantity: 1,
+        },
+        {
+          type: 826,
+          quantity: 1,
+        },
+        {
+          type: 335,
+          quantity: 1,
+        },
+        {
+          type: 406,
+          quantity: 100,
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+      ],
+    };
     const { el, actions } = makeContainerWindow(game, container);
   }
 });

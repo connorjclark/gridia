@@ -2,7 +2,6 @@ import { render, h, Component } from 'preact';
 import * as Utils from '../../utils';
 import * as Content from '../../content';
 import Game from '../game';
-import Container, { ContainerType } from '../../container';
 import { Graphic, ComponentProps, createSubApp, makeUIWindow, CustomCreatureGraphic } from './ui-common';
 
 interface State {
@@ -41,7 +40,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
       return { ...state, selectedIndex };
     },
     setEquipmentWindow: (state: State, equipmentWindow: State['equipmentWindow']): State => {
-      if (container.type !== ContainerType.Equipment) return state;
+      if (container.type !== 'equipment') return state;
       return { ...state, equipmentWindow };
     },
   });
@@ -99,7 +98,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
   const el = makeUIWindow({ name: 'container', cell: 'right', noscroll: true });
   render(<SubApp />, el);
 
-  if (container.type === ContainerType.Equipment) {
+  if (container.type === 'equipment') {
     el.classList.add('window--equipment');
   }
 
@@ -153,7 +152,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
       });
     }
     if (mouseDownIndex === mouseOverIndex) {
-      if (container.type === ContainerType.Normal) exportedActions.setSelectedIndex(mouseDownIndex);
+      if (container.type === 'normal') exportedActions.setSelectedIndex(mouseDownIndex);
       game.modules.selectedView.selectView(Utils.ItemLocation.Container(container.id, mouseDownIndex));
     }
   });

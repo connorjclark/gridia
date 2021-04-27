@@ -1,6 +1,5 @@
 import * as path from 'path';
 import * as Utils from '../utils';
-import Container, { ContainerType } from '../container';
 import { Context } from '../context';
 import { IsoFs } from '../iso-fs';
 import Player from '../player';
@@ -147,15 +146,15 @@ export class ServerContext extends Context {
     return WireSerializer.deserialize(json);
   }
 
-  makeContainer(type: ContainerType, size = 30) {
-    const container = new Container(type, Utils.uuid(), Array(size).fill(null));
+  makeContainer(type: Container['type'], size = 30) {
+    const container = { id: Utils.uuid(), type, items: Array(size).fill(null) };
     this.containers.set(container.id, container);
     return container;
   }
 
   getContainerIdFromItem(item: Item) {
     if (!item.containerId) {
-      item.containerId = this.makeContainer(ContainerType.Normal, 10).id;
+      item.containerId = this.makeContainer('normal', 10).id;
     }
 
     return item.containerId;
@@ -177,10 +176,10 @@ export class ServerContext extends Context {
     // that this be statically analyzable so it can do its bundling. Should create an interface that
     // doesn't trip up parcel's grepping for `.readFile`... (loadData?)
     const data = await readJson(this.fs, this.containerPath(id)) as {
-      type: ContainerType;
+      type: Container['type'];
       items: Array<Item | null>;
     };
-    container = new Container(data.type, id, data.items);
+    container = { id, type: data.type, items: data.items };
     this.containers.set(id, container);
     return container;
   }

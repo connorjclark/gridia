@@ -7,8 +7,8 @@ import * as EventBuilder from '../protocol/event-builder';
 import * as Utils from '../utils';
 import WorldMapPartition from '../world-map-partition';
 import { WorldTime } from '../world-time';
-import Container, { ContainerType } from '../container';
 import { ProtocolEvent } from '../protocol/event-builder';
+import * as Container from '../container';
 import ClientConnection from './client-connection';
 import CreatureState from './creature-state';
 import { ServerContext } from './server-context';
@@ -270,7 +270,7 @@ export default class Server {
     creature.stamina.current = creature.stamina.max = stamina;
     creature.mana.current = creature.mana.max = mana;
 
-    const container = this.context.makeContainer(ContainerType.Normal);
+    const container = this.context.makeContainer('normal');
     player.containerId = container.id;
     if (opts.name !== 'test-user') {
       container.items[0] = { type: Content.getMetaItemByName('Wood Axe').id, quantity: 1 };
@@ -285,7 +285,7 @@ export default class Server {
       container.items[9] = { type: Content.getMetaItemByName('Wood Planks').id, quantity: 100 };
     }
 
-    const equipment = this.context.makeContainer(ContainerType.Equipment, 5);
+    const equipment = this.context.makeContainer('equipment', 5);
     equipment.items[0] = { type: Content.getMetaItemByName('Iron Helmet Plate').id, quantity: 1 };
     player.equipmentContainerId = equipment.id;
 
@@ -617,7 +617,7 @@ export default class Server {
       this.updateCreatureLight(client);
     }
 
-    if (container.type === ContainerType.Equipment) {
+    if (container.type === 'equipment') {
       const creature = [
         ...this.players.values(),
       ].find((player) => player.equipmentContainerId === id)?.creature;

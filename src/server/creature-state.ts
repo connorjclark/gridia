@@ -1,10 +1,10 @@
 import { findPath } from '../path-finding';
 import * as Content from '../content';
 import * as EventBuilder from '../protocol/event-builder';
-import Container from '../container';
 import * as Utils from '../utils';
 import WorldMapPartition from '../world-map-partition';
 import { Context } from '../context';
+import * as Container from '../container';
 import Server from './server';
 import aStar from './plan';
 import { adjustAttribute } from './creature-utils';

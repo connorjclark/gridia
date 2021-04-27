@@ -2,7 +2,6 @@
 
 import * as serialijse from 'serialijse';
 import Player, { TilesSeenLog, SectorTileSeenLogData, PlayerAttributes, PlayerSkills } from '../player';
-import Container from '../container';
 
 // Name is required because minimization can break things.
 export function registerClass(klass: any, name: string, serializeFn?: Function, deserializeFn?: Function) {
@@ -45,7 +44,6 @@ registerClass(Player, 'Player');
 registerClass(PlayerAttributes, 'PlayerAttributes');
 registerClass(PlayerSkills, 'PlayerSkills');
 registerClass(TilesSeenLog, 'TilesSeenLog');
-registerClass(Container, 'Container');
 
 // TODO: should look into saving this as binary on disk / blobs in indexdb.
 registerClass(SectorTileSeenLogData, 'SectorTileSeenLogData');

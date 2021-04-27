@@ -1,4 +1,3 @@
-import Container from '../container';
 import Player from '../player';
 import { ProtocolEvent } from '../protocol/event-builder';
 

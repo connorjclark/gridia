@@ -1,4 +1,3 @@
-import { ContainerType } from '../container';
 import { GFX_SIZE } from '../constants';
 import * as Content from '../content';
 import { game } from '../game-singleton';
@@ -997,7 +996,7 @@ class Game {
       containerWindow = makeContainerWindow(this, container, name);
       this.containerWindows.set(id, containerWindow);
 
-      if (container.type === ContainerType.Equipment) {
+      if (container.type === 'equipment') {
         containerWindow.actions.setEquipmentWindow({
           imageData: this.client.creature.imageData,
           stats: this.client.creature.stats,

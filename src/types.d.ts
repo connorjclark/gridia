@@ -43,6 +43,12 @@ interface GridiaAccount {
   playerIds: string[];
 }
 
+interface Container {
+  id: string;
+  type: 'normal' | 'equipment';
+  items: Array<Item | null>;
+}
+
 interface Tile {
   floor: number;
   item?: Item; // Prefer undefined over null.

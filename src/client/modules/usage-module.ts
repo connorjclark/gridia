@@ -1,6 +1,7 @@
 import * as Content from '../../content';
 import * as CommandBuilder from '../../protocol/command-builder';
 import * as Utils from '../../utils';
+import * as Container from '../../container';
 import ClientModule from '../client-module';
 import * as Helper from '../helper';
 import { makeUsagesWindow } from '../ui/usages-window';
@@ -112,7 +113,7 @@ class UsageModule extends ClientModule {
       nearbyItems.push({ loc, item: tile.item });
     });
 
-    inventory.forEach((tool, toolIndex) => {
+    Container.forEach(inventory, (tool, toolIndex) => {
       if (selectedTool && selectedTool !== tool) return;
 
       const possibleUsesGroupedByFocus = Content.getItemUsesForTool(tool.type);

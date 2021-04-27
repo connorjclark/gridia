@@ -1,4 +1,3 @@
-import Container from './container';
 import WorldMap from './world-map';
 
 export class Context {

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import Client from '../client/client';
-import Container from '../container';
 import * as CommandBuilder from './command-builder';
 import IClientInterface from './gen/client-interface';
 import Events = Protocol.Events;
@@ -12,7 +11,7 @@ export default class ClientInterface implements IClientInterface {
   }
 
   onContainer(client: Client, { container }: Events.Container): void {
-    client.context.containers.set(container.id, new Container(container.type, container.id, container.items));
+    client.context.containers.set(container.id, container);
   }
 
   onInitialize(client: Client, { player, secondsPerWorldTick, ticksPerWorldDay }: Events.Initialize): void {

@@ -4,13 +4,9 @@
   The .ts files in this folder implement the files in gen/
 */
 
-type Message = { id?: number; data: any };
+type Container_ = Container;
 
-interface Container_ {
-  type: import('../container').ContainerType;
-  id: string;
-  items: Array<Item | null>;
-}
+type Message = { id?: number; data: any };
 
 type Command<P, R = void> = {
   params: P;

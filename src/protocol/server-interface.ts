@@ -4,6 +4,7 @@ import * as CommandParser from '../lib/command-parser';
 import Server from '../server/server';
 import * as Utils from '../utils';
 import { makeBareMap } from '../mapgen';
+import * as Container from '../container';
 import IServerInterface from './gen/server-interface';
 import * as EventBuilder from './event-builder';
 import Commands = Protocol.Commands;
@@ -16,7 +17,7 @@ export default class ServerInterface implements IServerInterface {
 
     if (server.context.map.getTile(loc).item?.type === MINE) {
       const container = server.currentClientConnection.container;
-      const playerHasPick = container.hasItem(Content.getMetaItemByName('Pick').id);
+      const playerHasPick = Container.hasItem(container, Content.getMetaItemByName('Pick').id);
       if (!playerHasPick) return Promise.reject('missing pick');
 
       const minedItem = { type: Content.getRandomMetaItemOfClass('Ore').id, quantity: 1 };
@@ -239,7 +240,7 @@ export default class ServerInterface implements IServerInterface {
     }
 
     if (usageResult.successTool) {
-      const containerLocation = inventory.findValidLocationToAddItemToContainer(usageResult.successTool, {
+      const containerLocation = Container.findValidLocationToAddItemToContainer(inventory, usageResult.successTool, {
         allowStacking: true,
       });
       if (containerLocation && containerLocation.index !== undefined) {
@@ -340,11 +341,11 @@ export default class ServerInterface implements IServerInterface {
       if (location.index === undefined) {
         // Don't allow stacking if this is an item split operation.
         const allowStacking = quantity === undefined;
-        return container.findValidLocationToAddItemToContainer(item, { allowStacking }) || {
+        return Container.findValidLocationToAddItemToContainer(container, item, { allowStacking }) || {
           error: 'No possible location for that item in this container.',
         };
       } else {
-        if (container.isValidLocationToAddItemInContainer(location.index, item)) {
+        if (Container.isValidLocationToAddItemInContainer(container, location.index, item)) {
           return location;
         } else {
           return {
