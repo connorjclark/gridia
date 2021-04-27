@@ -145,7 +145,7 @@ function getTileSeenSectorData(player: Player, point: TilePoint) {
 
 export function getTileSeenData(player: Player, point: TilePoint) {
   const data = getTileSeenSectorData(player, point);
-  return sectorTileSeenLogGet(data, point.x, point.y);
+  return sectorTileSeenLogGet(data, point.x % SECTOR_SIZE, point.y % SECTOR_SIZE);
 }
 
 export function markTileSeen(player: Player, map: WorldMap, point: TilePoint) {

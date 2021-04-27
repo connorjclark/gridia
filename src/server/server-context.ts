@@ -11,7 +11,7 @@ async function readJson(fs: IsoFs, filePath: string) {
   const json = await fs.readFile(filePath);
 
   try {
-    return JSON.parse(json);
+    return WireSerializer.deserialize(json);
   } catch (_) {
     throw new Error(`cannot parse json at ${filePath}: ${json}`);
   }
@@ -68,8 +68,7 @@ export class ServerContext extends Context {
 
     context.playerNamesToIds.clear();
     for (const playerPath of await fs.readdir(context.playerDir)) {
-      const json = await readJson(fs, context.playerDir + '/' + playerPath);
-      const player: Player = WireSerializer.deserialize(json);
+      const player: Player = await readJson(fs, context.playerDir + '/' + playerPath);
       context.playerNamesToIds.set(player.name, player.id);
     }
 
@@ -110,8 +109,7 @@ export class ServerContext extends Context {
   }
 
   async loadAccount(username: string): Promise<GridiaAccount> {
-    const json = await this.fs.readFile(this.accountPath(username));
-    return WireSerializer.deserialize(json);
+    return readJson(this.fs, this.accountPath(username));
   }
 
   async saveAccount(account: GridiaAccount) {
@@ -141,8 +139,7 @@ export class ServerContext extends Context {
   }
 
   async loadPlayer(playerId: string): Promise<Player> {
-    const json = await this.fs.readFile(this.playerPath(playerId));
-    return WireSerializer.deserialize(json);
+    return readJson(this.fs, this.playerPath(playerId));
   }
 
   makeContainer(type: Container['type'], size = 30) {
