@@ -1,7 +1,7 @@
 import { MAX_STACK, SECTOR_SIZE } from '../constants';
 import * as Content from '../content';
 import performance from '../performance';
-import Player, { PlayerAttributes } from '../player';
+import * as Player from '../player';
 import ClientToServerProtocol from '../protocol/server-interface';
 import * as EventBuilder from '../protocol/event-builder';
 import * as Utils from '../utils';
@@ -245,27 +245,43 @@ export default class Server {
       stats: {} as Creature['stats'],
     };
 
-    const player = new Player(creature);
-    player.id = Utils.uuid();
-    player.name = opts.name;
-    player.isAdmin = true; // everyone is an admin, for now.
-
-    player.creature = creature;
+    const player: Player = {
+      id: Utils.uuid(),
+      name: opts.name,
+      attributes: new Map(),
+      skills: new Map(),
+      questStates: new Map(),
+      tilesSeenLog: new Map(),
+      // everyone is an admin, for now.
+      isAdmin: true,
+      creature,
+      // set later
+      containerId: '',
+      // set later
+      equipmentContainerId: '',
+    };
 
     // Mock xp for now.
-    for (let i = 0; i < 600; i++) {
-      const attribute = Utils.randArrayItem(PlayerAttributes.ATTRIBUTES);
-      player.attributes.incrementLevel(attribute);
+    for (const attribute of Player.ATTRIBUTES) {
+      player.attributes.set(attribute, {
+        baseLevel: Utils.randInt(10, 100),
+        earnedLevel: 0,
+      });
+    }
+    for (let i = 0; i < 100; i++) {
+      const attribute = Utils.randArrayItem(Player.ATTRIBUTES);
+      Player.incrementAttribute(player, attribute);
     }
     for (const skill of Content.getSkills()) {
-      player.skills.learnSkill(skill.id);
-      player.skills.incrementXp(skill.id, Utils.randInt(100, 10000));
+      Player.learnSkill(player, skill.id);
+      Player.incrementSkillXp(player, skill.id, Utils.randInt(100, 10000));
     }
 
     // TODO: remember values on log off.
-    const life = player.attributes.getValue('life').level;
-    const stamina = player.attributes.getValue('stamina').level;
-    const mana = player.attributes.getValue('mana').level;
+
+    const life = Player.getAttributeValue(player, 'life').level;
+    const stamina = Player.getAttributeValue(player, 'stamina').level;
+    const mana = Player.getAttributeValue(player, 'mana').level;
     creature.life.current = creature.life.max = life;
     creature.stamina.current = creature.stamina.max = stamina;
     creature.mana.current = creature.mana.max = mana;
@@ -666,7 +682,7 @@ export default class Server {
 
   grantXp(clientConnection: ClientConnection, skill: number, xp: number) {
     // TODO: notice when level up.
-    clientConnection.player.skills.incrementXp(skill, xp);
+    Player.incrementSkillXp(clientConnection.player, skill, xp);
 
     this.send(EventBuilder.xp({
       skill,
@@ -849,7 +865,7 @@ export default class Server {
       fn: () => {
         for (const player of this.players.values()) {
           server.context.map.forEach(player.creature.pos, 30, (loc) => {
-            player.tilesSeenLog.markSeen(server.context.map, loc);
+            Player.markTileSeen(player, server.context.map, loc);
           });
         }
       },

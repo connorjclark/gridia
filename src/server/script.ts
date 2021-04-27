@@ -1,5 +1,5 @@
 import * as Utils from '../utils';
-import Player from '../player';
+import * as Player from '../player';
 import Server from './server';
 import { Rate } from './task-runner';
 import ClientConnection from './client-connection';
@@ -188,26 +188,26 @@ export class TestScript extends Script {
     this.server.moveCreature(player.creature, loc);
 
     const quest = this.server.getQuest('TEST_QUEST');
-    player.startQuest(quest);
+    Player.startQuest(player, quest);
   }
 
   onPlayerEnterWorld(player: Player) {
     const quest = this.server.getQuest('TEST_QUEST');
-    player.startQuest(quest);
+    Player.startQuest(player, quest);
   }
 
   onPlayerKillCreature(player: Player, creature: Creature) {
     if (!this.wasCreatureSpawnedBySpawner(creature)) return;
 
     const quest = this.server.getQuest('TEST_QUEST');
-    player.advanceQuest(quest);
+    Player.advanceQuest(player, quest);
   }
 
   onSpeakToCaptain(clientConnection: ClientConnection): Dialogue | undefined {
     if (!this.captain) return;
 
     const quest = this.server.getQuest('TEST_QUEST');
-    const state = clientConnection.player.getQuestState(quest);
+    const state = Player.getQuestState(clientConnection.player, quest);
     if (!state) return;
 
     const speakers = [clientConnection.player.creature, this.captain];
@@ -222,7 +222,7 @@ export class TestScript extends Script {
           { speaker: 0, text: 'Alright.' },
         ],
         onFinish: () => {
-          clientConnection.player.advanceQuest(quest);
+          Player.advanceQuest(clientConnection.player, quest);
         },
       };
     } else {

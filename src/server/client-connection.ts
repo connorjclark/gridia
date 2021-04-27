@@ -1,4 +1,3 @@
-import Player from '../player';
 import { ProtocolEvent } from '../protocol/event-builder';
 
 // TODO: this whole thing smells.

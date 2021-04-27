@@ -3,51 +3,17 @@ import { SECTOR_SIZE } from './constants';
 import * as Utils from './utils';
 import * as Content from './content';
 
-export class SectorTileSeenLogData {
-  data = new Uint16Array(SECTOR_SIZE * SECTOR_SIZE);
-
-  get(x: number, y: number) {
-    const num = this.data[x + y * SECTOR_SIZE];
-    // eslint-disable-next-line no-bitwise
-    return { floor: num >> 1, walkable: num % 2 === 1 };
-  }
-
-  set(x: number, y: number, floor: number, walkable: boolean) {
-    // eslint-disable-next-line no-bitwise
-    this.data[x + y * SECTOR_SIZE] = (floor << 1) + (walkable ? 1 : 0);
-  }
-}
-
-export class TilesSeenLog {
-  // w,x,y,z partition -> data
-  seen = new Map<string, SectorTileSeenLogData>();
-
-  getSectorData(point: TilePoint) {
-    const sectorPoint = Utils.worldToSector(point, SECTOR_SIZE);
-    const key = `${point.w},${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}`;
-    let sector = this.seen.get(key);
-    if (!sector) {
-      sector = new SectorTileSeenLogData();
-      this.seen.set(key, sector);
-    }
-
-    return sector;
-  }
-
-  markSeen(map: WorldMap, point: TilePoint) {
-    if (!map.inBounds(point)) return;
-
-    const sector = this.getSectorData(point);
-    const tile = map.getTile(point);
-    const walkable = !tile.item || Content.getMetaItem(tile.item.type).walkable;
-    sector.set(point.x % SECTOR_SIZE, point.y % SECTOR_SIZE, tile.floor, walkable);
-  }
-
-  getMark(point: TilePoint) {
-    const sector = this.getSectorData(point);
-    return sector.get(point.x % SECTOR_SIZE, point.y % SECTOR_SIZE);
-  }
-}
+export const ATTRIBUTES = [
+  'dexterity',
+  'intelligence',
+  'life',
+  'mana',
+  'quickness',
+  'stamina',
+  'strength',
+  'wisdom',
+] as const;
+type Attribute = typeof ATTRIBUTES[number];
 
 function costToIncrementSkillOrAttribute(level: number) {
   const x = level;
@@ -73,137 +39,131 @@ export function getXpTotalForLevel(level: number) {
   return attributeLevelToXpTotal[level];
 }
 
-type Attribute = typeof PlayerAttributes.ATTRIBUTES[number];
-export class PlayerAttributes {
-  static ATTRIBUTES = [
-    'dexterity',
-    'intelligence',
-    'life',
-    'mana',
-    'quickness',
-    'stamina',
-    'strength',
-    'wisdom',
-  ] as const;
+export function getAttributeValue(player: Player, id: Attribute) {
+  const data = player.attributes.get(id);
+  if (!ATTRIBUTES.includes(id) || !data) throw new Error('unknown attribute ' + id);
 
-  constructor(public values: Record<Attribute, { baseLevel: number; earnedLevel: number }>) {
-    // @ts-expect-error
-    if (!values) values = {};
-    for (const attribute of PlayerAttributes.ATTRIBUTES) {
-      if (!values[attribute]) values[attribute] = { baseLevel: 0, earnedLevel: 0 };
-    }
-  }
-
-  getValue(id: Attribute) {
-    if (!PlayerAttributes.ATTRIBUTES.includes(id)) throw new Error('unknown attribute ' + id);
-
-    const { baseLevel, earnedLevel } = this.values[id];
-    return {
-      baseLevel,
-      earnedLevel,
-      level: baseLevel + earnedLevel,
-      xpUntilNextLevel: costToIncrementSkillOrAttribute(earnedLevel),
-    };
-  }
-
-  incrementLevel(id: Attribute) {
-    if (!PlayerAttributes.ATTRIBUTES.includes(id)) throw new Error('unknown attribute ' + id);
-
-    this.values[id].earnedLevel += 1;
-  }
+  const { baseLevel, earnedLevel } = data;
+  return {
+    baseLevel,
+    earnedLevel,
+    level: baseLevel + earnedLevel,
+    xpUntilNextLevel: costToIncrementSkillOrAttribute(earnedLevel),
+  };
 }
 
-export class PlayerSkills {
-  xps = new Map<number, number>();
+export function incrementAttribute(player: Player, id: Attribute) {
+  const data = player.attributes.get(id);
+  if (!ATTRIBUTES.includes(id) || !data) throw new Error('unknown attribute ' + id);
 
-  constructor(private attributes: PlayerAttributes) {
-  }
-
-  getLearnedSkills() {
-    return [...this.xps.keys()];
-  }
-
-  getValue(id: number) {
-    const xp = this.xps.get(id) || 0;
-    const { baseLevel, earnedLevel, level } = this.getLevel(id);
-    return {
-      xp,
-      baseLevel,
-      earnedLevel,
-      level,
-      xpUntilNextLevel: attributeLevelToXpTotal[earnedLevel + 1] - xp,
-    };
-  }
-
-  getLevel(id: number) {
-    const xp = this.xps.get(id) || 0;
-    const skill = Content.getSkill(id);
-    let baseLevelSum = 0;
-    for (const attribute of PlayerAttributes.ATTRIBUTES) {
-      const multiplier = skill[attribute as keyof Skill];
-      if (!multiplier || typeof multiplier !== 'number') continue;
-
-      baseLevelSum += multiplier * this.attributes.getValue(attribute).level;
-    }
-    const baseLevel = Math.floor(baseLevelSum / skill.divisor);
-    const earnedLevel = skillOrAttributeLevelForXp(xp);
-    return { baseLevel, earnedLevel, level: baseLevel + earnedLevel };
-  }
-
-  hasSkill(id: number) {
-    return this.xps.has(id);
-  }
-
-  learnSkill(id: number) {
-    if (this.xps.has(id)) return;
-
-    this.xps.set(id, 0);
-  }
-
-  incrementXp(id: number, xp: number) {
-    const value = this.xps.get(id);
-    if (value === undefined) return;
-
-    this.xps.set(id, value + xp);
-  }
+  data.earnedLevel += 1;
 }
 
-export default class Player {
-  id = '';
-  containerId = '';
-  equipmentContainerId = '';
-  isAdmin = false;
-  name = '';
-  questStates = new Map<string, QuestState>();
-  // @ts-expect-error
-  attributes = new PlayerAttributes({});
-  skills = new PlayerSkills(this.attributes);
-  tilesSeenLog = new TilesSeenLog();
+export function getLearnedSkills(player: Player) {
+  return [...player.skills.keys()];
+}
 
-  constructor(public creature: Creature) { }
+function getSkillLevel(player: Player, id: number) {
+  const xp = player.skills.get(id)?.xp || 0;
+  const skill = Content.getSkill(id);
+  let baseLevelSum = 0;
+  for (const attribute of ATTRIBUTES) {
+    const multiplier = skill[attribute as keyof Skill];
+    if (!multiplier || typeof multiplier !== 'number') continue;
 
-  getQuestState(quest: Quest) {
-    return this.questStates.get(quest.id);
+    baseLevelSum += multiplier * getAttributeValue(player, attribute).level;
+  }
+  const baseLevel = Math.floor(baseLevelSum / skill.divisor);
+  const earnedLevel = skillOrAttributeLevelForXp(xp);
+  return { baseLevel, earnedLevel, level: baseLevel + earnedLevel };
+}
+
+// TODO rename details
+export function getSkillValue(player: Player, id: number) {
+  const xp = player.skills.get(id)?.xp || 0;
+  const { baseLevel, earnedLevel, level } = getSkillLevel(player, id);
+
+  return {
+    xp,
+    baseLevel,
+    earnedLevel,
+    level,
+    xpUntilNextLevel: attributeLevelToXpTotal[earnedLevel + 1] - xp,
+  };
+}
+
+export function learnSkill(player: Player, id: number) {
+  if (player.skills.has(id)) return;
+
+  player.skills.set(id, { xp: 0 });
+}
+
+export function incrementSkillXp(player: Player, id: number, xp: number) {
+  const obj = player.skills.get(id);
+  if (obj === undefined) return;
+
+  obj.xp += xp;
+}
+
+export function startQuest(player: Player, quest: Quest) {
+  let state = player.questStates.get(quest.id);
+  if (state) return;
+
+  state = {
+    stage: quest.stages[0],
+    data: {},
+  };
+  player.questStates.set(quest.id, state);
+}
+
+export function getQuestState(player: Player, quest: Quest) {
+  return player.questStates.get(quest.id);
+}
+
+export function advanceQuest(player: Player, quest: Quest) {
+  const state = player.questStates.get(quest.id);
+  if (!state) return;
+
+  const currentIndex = quest.stages.indexOf(state.stage);
+  if (currentIndex === quest.stages.length - 1) return;
+
+  state.stage = quest.stages[currentIndex + 1];
+}
+
+function getTileSeenSectorData(player: Player, point: TilePoint) {
+  const sectorPoint = Utils.worldToSector(point, SECTOR_SIZE);
+  const key = `${point.w},${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}`;
+
+  let data = player.tilesSeenLog.get(key);
+  if (!data) {
+    data = new Uint16Array(SECTOR_SIZE * SECTOR_SIZE);
+    player.tilesSeenLog.set(key, data);
   }
 
-  startQuest(quest: Quest) {
-    let state = this.questStates.get(quest.id);
-    if (state) return;
+  return data;
+}
 
-    state = {
-      stage: quest.stages[0],
-      data: {},
-    };
-    this.questStates.set(quest.id, state);
-  }
+export function getTileSeenData(player: Player, point: TilePoint) {
+  const data = getTileSeenSectorData(player, point);
+  return sectorTileSeenLogGet(data, point.x, point.y);
+}
 
-  advanceQuest(quest: Quest) {
-    const state = this.questStates.get(quest.id);
-    if (!state) return;
+export function markTileSeen(player: Player, map: WorldMap, point: TilePoint) {
+  if (!map.inBounds(point)) return;
 
-    const currentIndex = quest.stages.indexOf(state.stage);
-    if (currentIndex === quest.stages.length - 1) return;
+  const data = getTileSeenSectorData(player, point);
+  const tile = map.getTile(point);
+  const walkable = !tile.item || Content.getMetaItem(tile.item.type).walkable;
+  sectorTileSeenLogSet(data, point.x % SECTOR_SIZE, point.y % SECTOR_SIZE, tile.floor, walkable);
+}
 
-    state.stage = quest.stages[currentIndex + 1];
-  }
+export function sectorTileSeenLogGet(data: Uint16Array, x: number, y: number) {
+  const num = data[x + y * SECTOR_SIZE];
+  // eslint-disable-next-line no-bitwise
+  return { floor: num >> 1, walkable: num % 2 === 1 };
+}
+
+function sectorTileSeenLogSet(data: Uint16Array, x: number, y: number, floor: number, walkable: boolean) {
+  // eslint-disable-next-line no-bitwise
+  data[x + y * SECTOR_SIZE] = (floor << 1) + (walkable ? 1 : 0);
 }

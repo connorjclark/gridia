@@ -1,7 +1,6 @@
 /* eslint-disable no-bitwise */
 
 import * as serialijse from 'serialijse';
-import Player, { TilesSeenLog, SectorTileSeenLogData, PlayerAttributes, PlayerSkills } from '../player';
 
 // Name is required because minimization can break things.
 export function registerClass(klass: any, name: string, serializeFn?: Function, deserializeFn?: Function) {
@@ -39,11 +38,3 @@ function dataToMap(context: any, object_id: any, data: { e: string }) {
   return map;
 }
 registerClass(Map, 'Map', mapToData, dataToMap);
-
-registerClass(Player, 'Player');
-registerClass(PlayerAttributes, 'PlayerAttributes');
-registerClass(PlayerSkills, 'PlayerSkills');
-registerClass(TilesSeenLog, 'TilesSeenLog');
-
-// TODO: should look into saving this as binary on disk / blobs in indexdb.
-registerClass(SectorTileSeenLogData, 'SectorTileSeenLogData');

@@ -1,6 +1,7 @@
 import ClientModule from '../client-module';
 import * as Helper from '../helper';
 import * as Content from '../../content';
+import * as Player from '../../player';
 import { makeUIWindow } from '../ui/ui-common';
 
 class MapModule extends ClientModule {
@@ -27,7 +28,7 @@ class MapModule extends ClientModule {
 
     this.game.client.eventEmitter.on('playerMove', () => {
       this.game.worldContainer.forEachInCamera((_, loc) => {
-        this.game.client.player.tilesSeenLog.markSeen(this.game.client.context.map, loc);
+        Player.markTileSeen(this.game.client.player, this.game.client.context.map, loc);
       });
     });
   }
@@ -66,7 +67,7 @@ class MapModule extends ClientModule {
         const loc = { ...playerLoc, x: x + startX, y: y + startY };
         if (!partition.inBounds(loc)) continue;
 
-        const mark = this.game.client.player.tilesSeenLog.getMark(loc);
+        const mark = Player.getTileSeenData(this.game.client.player, loc);
         if (mark.floor === 0 && !mark.walkable) continue;
 
         const { floor, walkable } = mark;

@@ -1,5 +1,5 @@
 import * as Content from '../../content';
-import { getXpTotalForLevel } from '../../player';
+import * as Player from '../../player';
 import ClientModule from '../client-module';
 import { makeSkillsWindow } from '../ui/skills-window';
 
@@ -35,20 +35,20 @@ class SkillsModule extends ClientModule {
 
   getSkill(id: number) {
     const skill = Content.getSkill(id);
-    const value = this.game.client.player.skills.getValue(skill.id);
+    const value = Player.getSkillValue(this.game.client.player, skill.id);
 
     return {
       ...skill,
       ...value,
       xpBar: {
-        current: value.xp - getXpTotalForLevel(value.earnedLevel),
-        max: getXpTotalForLevel(value.earnedLevel + 1) - getXpTotalForLevel(value.earnedLevel),
+        current: value.xp - Player.getXpTotalForLevel(value.earnedLevel),
+        max: Player.getXpTotalForLevel(value.earnedLevel + 1) - Player.getXpTotalForLevel(value.earnedLevel),
       },
     };
   }
 
   getSkills() {
-    return this.game.client.player.skills.getLearnedSkills().map((id) => this.getSkill(id));
+    return Player.getLearnedSkills(this.game.client.player).map((id) => this.getSkill(id));
   }
 }
 

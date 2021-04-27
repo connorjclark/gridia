@@ -43,6 +43,23 @@ interface GridiaAccount {
   playerIds: string[];
 }
 
+interface Player {
+  id: string;
+  name: string;
+  attributes: Map<string, { baseLevel: number; earnedLevel: number }>;
+  skills: Map<number, { xp: number }>;
+  containerId: string;
+  equipmentContainerId: string;
+  isAdmin: boolean;
+  questStates: Map<string, QuestState>;
+  tilesSeenLog: Map<string, Uint16Array>;
+  /**
+   * Last creature assigned to player. These are temporary, but some data is copied
+   * over when a player logs in again.
+   */
+  creature: Creature;
+}
+
 interface Container {
   id: string;
   type: 'normal' | 'equipment';

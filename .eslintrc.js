@@ -1,4 +1,5 @@
 // TODO: ban default exports
+// TODO: match-declaration-order
 
 module.exports = {
     "env": {

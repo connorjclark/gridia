@@ -2,7 +2,6 @@ import * as path from 'path';
 import * as Utils from '../utils';
 import { Context } from '../context';
 import { IsoFs } from '../iso-fs';
-import Player from '../player';
 import WorldMap from '../world-map';
 import WorldMapPartition from '../world-map-partition';
 import * as WireSerializer from '../lib/wire-serializer';

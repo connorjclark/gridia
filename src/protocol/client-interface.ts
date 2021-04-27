@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import Client from '../client/client';
+import * as Player from '../player';
 import * as CommandBuilder from './command-builder';
 import IClientInterface from './gen/client-interface';
 import Events = Protocol.Events;
@@ -77,7 +78,7 @@ export default class ClientInterface implements IClientInterface {
   }
 
   onXp(client: Client, { skill, xp }: Events.Xp): void {
-    client.player.skills.incrementXp(skill, xp);
+    Player.incrementSkillXp(client.player, skill, xp);
   }
 
   onChat(client: Client, { from, to, message }: Events.Chat): void {

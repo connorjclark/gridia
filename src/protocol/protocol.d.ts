@@ -49,7 +49,7 @@ declare namespace Protocol {
     }
 
     interface Initialize {
-      player: import('../player').default;
+      player: Player;
       secondsPerWorldTick: number;
       ticksPerWorldDay: number;
       // quests: Array<{id: string, name: string, started: boolean}>;

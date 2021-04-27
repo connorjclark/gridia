@@ -1,7 +1,6 @@
 import { Context } from '../context';
 import ServerToClientProtocol from '../protocol/client-interface';
 import { ProtocolEvent } from '../protocol/event-builder';
-import Player from '../player';
 import { game } from '../game-singleton';
 import { Connection } from './connection';
 import EventEmitter from './event-emitter';
