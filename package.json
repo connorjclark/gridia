@@ -31,7 +31,7 @@
     "pixi-sound/@pixi/loaders": "6.0.1"
   },
   "engines": {
-    "node": "13.14.0"
+    "node": "14.16.1"
   },
   "engineStrict": true,
   "scripts": {
