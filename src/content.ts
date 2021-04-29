@@ -233,7 +233,7 @@ export function getSkills() {
 }
 
 export function getSkill(id: number) {
-  return skills[id];
+  return skills[id - 1];
 }
 
 export function getSkillByName(name: string) {

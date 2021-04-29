@@ -433,6 +433,7 @@ function parseSkillsIni() {
       // @ts-expect-error
       skills.push(currentSkill);
     } else if (key.match(/quick|dex|str|intel|wisdom/i)) {
+      // @ts-ignore
       const newKey = {
         quick: 'quickness',
         dex: 'dexterity',
@@ -607,10 +608,6 @@ function convertItemUsages() {
 
 function convertSkills() {
   const skills = [
-    {
-      id: 0,
-      name: 'Nothing',
-    },
     ...parseSkillsIni(),
   ];
   const explicitOrder = ['id', 'name', 'divisor'];

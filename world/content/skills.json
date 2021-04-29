@@ -1,9 +1,5 @@
 [
   {
-    "id": 0,
-    "name": "Nothing"
-  },
-  {
     "id": 1,
     "name": "Melee Defense",
     "divisor": 3,
