@@ -1,5 +1,6 @@
 import * as Content from '../../content';
 import * as Player from '../../player';
+import * as Helper from '../helper';
 import ClientModule from '../client-module';
 import { makeSkillsWindow } from '../ui/skills-window';
 
@@ -8,7 +9,10 @@ class SkillsModule extends ClientModule {
 
   getSkillsWindow() {
     if (this.skillsWindow) return this.skillsWindow;
-    this.skillsWindow = makeSkillsWindow({ skills: this.getSkills() });
+    this.skillsWindow = makeSkillsWindow({
+      attributes: this.getAttributes(),
+      skills: this.getSkills(),
+    });
     return this.skillsWindow;
   }
 
@@ -45,6 +49,18 @@ class SkillsModule extends ClientModule {
         max: Player.getXpTotalForLevel(value.earnedLevel + 1) - Player.getXpTotalForLevel(value.earnedLevel),
       },
     };
+  }
+
+  getAttributes() {
+    const result = [];
+    for (const [name, value] of this.game.client.player.attributes) {
+      result.push({ name, ...value });
+    }
+    return Helper.sortByPrecedence(result, [
+      { type: 'predicate', fn: (item) => item.name === 'life' },
+      { type: 'predicate', fn: (item) => item.name === 'mana' },
+      { type: 'predicate', fn: (item) => item.name === 'stamina' },
+    ]);
   }
 
   getSkills() {

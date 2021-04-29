@@ -248,7 +248,7 @@ button {
   padding: 3px;
   border: solid 2px gold;
   color: white;
-  background-color: rgba(50, 49, 50, 0.7);
+  background-color: rgba(50, 49, 50, 0.85);
   pointer-events: all;
   overflow-y: scroll;
 }
@@ -262,9 +262,19 @@ button {
 .window--skills {
   overflow-y: scroll;
 }
+.attribute {
+  width: 50%;
+}
+.skill {
+  width: 30%;
+}
+.skill__level {
+  margin: 3px;
+  font-size: 22px;
+}
 .skill__xp-bar {
   border-bottom: 5px solid;
-  border-image: linear-gradient(to right, gold calc(var(--percent) * 100%), rgba(0,0,0,0) calc(var(--percent) * 100%)); /* to top - at 50% transparent */
+  border-image: linear-gradient(to right, #e6cf54 calc(var(--percent) * 100%), rgb(119, 57, 57) calc(var(--percent) * 100%)); /* to top - at 50% transparent */
   border-image-slice: 1;
 }
 

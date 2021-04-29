@@ -142,24 +142,27 @@ export function createChildOf<T extends string>(
   return element;
 }
 
-type PrecedenceMatcher =
-  | { type: 'equal'; value: string };
-function matches(item: string, matcher: PrecedenceMatcher) {
+type PrecedenceMatcher<T> =
+  | { type: 'equal'; value: T }
+  | { type: 'predicate'; fn: (val: T) => boolean };
+function matches<T>(item: T, matcher: PrecedenceMatcher<T>) {
   if (matcher.type === 'equal') {
     return item === matcher.value;
+  } if (matcher.type === 'predicate') {
+    return matcher.fn(item);
   } else {
     return false;
   }
 }
 
-export function sortByPrecedence(items: string[], matchers: PrecedenceMatcher[]) {
+export function sortByPrecedence<T>(items: T[], matchers: Array<PrecedenceMatcher<T>>) {
   items.sort((a, b) => {
     const aMatcherIndex = matchers.findIndex((m) => matches(a, m));
     const bMatcherIndex = matchers.findIndex((m) => matches(b, m));
 
     // If neither value has a match, or they are equal, use an alphabetical comparison.
     if (aMatcherIndex === -1 && bMatcherIndex === -1) {
-      return a.localeCompare(b);
+      return String(a).localeCompare(String(b));
     }
 
     // If just one value has a match, it is greater.

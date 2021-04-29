@@ -2,6 +2,11 @@ import { render, h, Component } from 'preact';
 import { ComponentProps, makeUIWindow, createSubApp } from './ui-common';
 
 interface State {
+  attributes: Array<{
+    name: string;
+    earnedLevel: number;
+    baseLevel: number;
+  }>;
   skills: Array<{
     id: number;
     name: string;
@@ -33,21 +38,39 @@ export function makeSkillsWindow(initialState: State) {
   });
 
   type Props = ComponentProps<State, typeof actions>;
+  // TODO: rename Character.
   class SkillsWindow extends Component<Props> {
     render(props: Props) {
       const skillsSortedByName = Object.values(props.skills)
         .sort((a, b) => a.name.localeCompare(b.name));
       return <div>
         <div>
+          Attributes
+        </div>
+        <div class='flex flex-wrap'>
+          {props.attributes.map((attribute) => {
+            const level = attribute.baseLevel + attribute.earnedLevel;
+            const title = `base: ${attribute.baseLevel} earned: ${attribute.earnedLevel}`;
+            return <div class='attribute' title={title}>
+              {attribute.name} {level}
+            </div>;
+          })}
+        </div>
+        <br></br>
+        <div>
           Skills
         </div>
-        <div>
+        <div class='flex flex-wrap justify-evenly'>
           {skillsSortedByName.map((skill) => {
             const xpUntilNextLevel = skill.xpBar.max - skill.xpBar.current;
-            const title = `${skill.xp} xp (${xpUntilNextLevel} until next level)`;
+            const title = `${skill.name}–${skill.xp} xp (${xpUntilNextLevel} until next level)`;
             const percent = skill.xpBar.current / skill.xpBar.max;
-            return <div class='skill__xp-bar' title={title} style={{ '--percent': percent }}>
-              {skill.level} {skill.name}
+            return <div class='skill' title={title}>
+              <span class="flex justify-between items-center">
+                <span>{skill.name}</span>
+                <span class="skill__level">{skill.level}</span>
+              </span>
+              <div class="skill__xp-bar" style={{ '--percent': percent }}></div>
             </div>;
           })}
         </div>
@@ -56,7 +79,7 @@ export function makeSkillsWindow(initialState: State) {
   }
 
   const { SubApp, exportedActions, subscribe } = createSubApp(SkillsWindow, initialState, actions);
-  const el = makeUIWindow({ name: 'skills', cell: 'right' });
+  const el = makeUIWindow({ name: 'skills', cell: 'center' });
   render(<SubApp />, el);
 
   return { el, actions: exportedActions, subscribe };

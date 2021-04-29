@@ -30,6 +30,48 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   {
     const { el, actions } = makeSkillsWindow({
+      attributes: [
+        {
+          name: 'life',
+          baseLevel: 92,
+          earnedLevel: 20,
+        },
+        {
+          name: 'mana',
+          baseLevel: 76,
+          earnedLevel: 4,
+        },
+        {
+          name: 'stamina',
+          baseLevel: 79,
+          earnedLevel: 11,
+        },
+        {
+          name: 'dexterity',
+          baseLevel: 12,
+          earnedLevel: 12,
+        },
+        {
+          name: 'intelligence',
+          baseLevel: 36,
+          earnedLevel: 12,
+        },
+        {
+          name: 'quickness',
+          baseLevel: 33,
+          earnedLevel: 11,
+        },
+        {
+          name: 'strength',
+          baseLevel: 39,
+          earnedLevel: 15,
+        },
+        {
+          name: 'wisdom',
+          baseLevel: 89,
+          earnedLevel: 15,
+        },
+      ],
       skills: [
         {
           id: 0,
