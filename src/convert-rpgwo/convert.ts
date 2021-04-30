@@ -551,6 +551,9 @@ function convertItems() {
     item.graphics = graphics;
   }
 
+  const dirt = items.find(item => item.name === 'Pile of Dirt');
+  if (dirt) dirt.class = 'Normal';
+
   const explicitOrder = ['id', 'name', 'class'];
   return items.map((item) => sortObject(item, explicitOrder));
 }

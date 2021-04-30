@@ -101,6 +101,7 @@ interface Item {
   growth?: number;
   containerId?: string;
   warpTo?: TilePoint;
+  oreType?: number;
 }
 
 interface Creature {

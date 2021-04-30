@@ -502,6 +502,11 @@ export default class Server {
     }
   }
 
+  modifyCreatureStamina(actor: Creature | null, creature: Creature, delta: number) {
+    adjustAttribute(creature, 'stamina', delta);
+    this.broadcastPartialCreatureUpdate(creature, ['stamina']);
+  }
+
   removeCreature(creature: Creature) {
     creature.dead = true;
     this.context.creatures.delete(creature.id);

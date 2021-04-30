@@ -92,6 +92,10 @@ export function getSkillValue(player: Player, id: number) {
   };
 }
 
+export function hasSkill(player: Player, id: number) {
+  return player.skills.has(id);
+}
+
 export function learnSkill(player: Player, id: number) {
   if (player.skills.has(id)) return;
 

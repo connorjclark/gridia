@@ -24146,7 +24146,7 @@
   {
     "id": 1210,
     "name": "Pile of Dirt",
-    "class": "Ore",
+    "class": "Normal",
     "blocksLight": false,
     "burden": 500,
     "graphics": {

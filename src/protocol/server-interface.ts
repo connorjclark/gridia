@@ -15,14 +15,25 @@ export default class ServerInterface implements IServerInterface {
       return Promise.reject('out of bounds');
     }
 
-    if (server.context.map.getTile(loc).item?.type === MINE) {
+    const tile = server.context.map.getTile(loc);
+    if (tile.item?.type === MINE) {
+      const player = server.currentClientConnection.player;
+      const miningSkill = Content.getSkillByName('Mining');
+      if (!miningSkill || !player.skills.has(miningSkill.id)) return Promise.reject('need mining skill');
+
       const container = server.currentClientConnection.container;
       const playerHasPick = Container.hasItem(container, Content.getMetaItemByName('Pick').id);
       if (!playerHasPick) return Promise.reject('missing pick');
 
-      const minedItem = { type: Content.getRandomMetaItemOfClass('Ore').id, quantity: 1 };
+      const staminaCost = 5;
+      if (player.creature.stamina.current < staminaCost) return Promise.reject('you are exhausted');
+      server.modifyCreatureStamina(null, player.creature, -staminaCost);
+
+      const oreType = tile.item.oreType || Content.getMetaItemByName('Pile of Dirt').id;
+      const minedItem = { type: oreType, quantity: 1 };
       server.setItem(loc, minedItem);
       server.broadcastAnimation(loc, 'MiningSound');
+      server.grantXp(server.currentClientConnection, miningSkill.id, 100);
     }
 
     if (!server.context.walkable(loc)) return Promise.reject('not walkable');
