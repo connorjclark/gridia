@@ -35,7 +35,7 @@
   "engineStrict": true,
   "scripts": {
     "build": "yarn build-client && yarn build-server",
-    "build-prod": "NODE_ENV=production yarn build-client && yarn build-server",
+    "build-prod": "NODE_ENV=production yarn build-client && yarn build-server && parcel build src/client/ui/ui.html",
     "build-client": "node build/build-client.js",
     "build-server": "tsc -p tsconfig.server.json --outDir dist/server && node build/build-server.js",
     "build-server-watch": "tsc -p tsconfig.server.json --outDir dist/server ; node build/build-server.js",

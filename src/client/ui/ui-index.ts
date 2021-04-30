@@ -1,4 +1,6 @@
+import { GFX_SIZE } from '../../constants';
 import * as Content from '../../content';
+import * as Utils from '../../utils';
 import { getDefaultSettings } from '../modules/settings-module';
 import { makeContainerWindow } from './container-window';
 import { makePossibleUsagesWindow } from './possible-usages-window';
@@ -160,4 +162,39 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
     const { el, actions } = makeContainerWindow(game, container);
   }
+
+  const scale = 1.5;
+  const gridCursorEl = document.querySelector('.grid-cursor') as HTMLElement;
+  function mouseToWorld(pm: ScreenPoint): ScreenPoint {
+    return {x: pm.x / scale, y: pm.y / scale};
+  }
+  function worldToTile(pw: ScreenPoint) {
+    return Utils.worldToTile(0, pw, 0);
+  }
+
+  // copied from game.ts
+  // TODO: get new Game() to work in this fake ui page too.
+  document.addEventListener('pointermove', (e) => {
+    const loc = worldToTile(mouseToWorld({ x: e.clientX, y: e.clientY }));
+    const mouse = {
+      // ...this.state.mouse,
+      x: e.clientX,
+      y: e.clientY,
+      tile: loc,
+    };
+
+    if (!(e.target as HTMLElement).closest('.ui')) {
+      const size = GFX_SIZE * scale;
+      gridCursorEl.hidden = false;
+      gridCursorEl.style.setProperty('--size', size + 'px');
+      if (mouse.tile) {
+        const x = (mouse.tile.x) * size;
+        const y = (mouse.tile.y) * size;
+        gridCursorEl.style.setProperty('--x', x + 'px');
+        gridCursorEl.style.setProperty('--y', y + 'px');
+      }
+    } else {
+      gridCursorEl.hidden = true;
+    }
+  });
 });
