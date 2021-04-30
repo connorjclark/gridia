@@ -35,7 +35,7 @@
   "engineStrict": true,
   "scripts": {
     "build": "yarn build-client && yarn build-server",
-    "build-prod": "NODE_ENV=production yarn build-client && yarn build-server && parcel build src/client/ui/ui.html",
+    "build-prod": "NODE_ENV=production yarn build-client && yarn build-server",
     "build-client": "node build/build-client.js",
     "build-server": "tsc -p tsconfig.server.json --outDir dist/server && node build/build-server.js",
     "build-server-watch": "tsc -p tsconfig.server.json --outDir dist/server ; node build/build-server.js",
@@ -45,7 +45,7 @@
     "clean": "rimraf dist .cache",
     "watch": "concurrently --kill-others --names Server,Client,Static --prefix name nodemon \"node build/build-client.js --dev\" \"yarn run-static-server > /dev/null\"",
     "watch-no-server": "concurrently --kill-others --names Client,Static --prefix name \"node build/build-client.js --dev\" \"yarn run-static-server > /dev/null\"",
-    "watch-ui": "open http://localhost:1234/ui.html && parcel serve src/client/ui/ui.html",
+    "watch-ui": "open http://localhost:1234/ui.html && parcel serve src/client/ui.html",
     "type-check": "tsc --noEmit",
     "lint": "eslint '{src,test,build}/**/*.{ts,js}'",
     "test": "yarn lint && yarn type-check && jest --testPathIgnorePatterns memory"

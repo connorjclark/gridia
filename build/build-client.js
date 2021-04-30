@@ -40,7 +40,11 @@ function copyFolderRecursiveSync(source, target) {
 
 async function main() {
   const dev = process.argv[2] === "--dev";
-  const bundler = new ParcelBundler("src/client/index.html", {
+  const entries = [
+    'src/client/index.html',
+    'src/client/ui.html',
+  ];
+  const bundler = new ParcelBundler(entries, {
     outDir: "dist/client",
     publicUrl: ".",
     watch: dev,
