@@ -256,6 +256,7 @@ export default class ServerInterface implements IServerInterface {
       });
       if (containerLocation && containerLocation.index !== undefined) {
         server.setItemInContainer(containerLocation.id, containerLocation.index, usageResult.successTool);
+      } else {
         server.addItemNear(loc, usageResult.successTool);
       }
     }
@@ -288,11 +289,6 @@ export default class ServerInterface implements IServerInterface {
 
   // eslint-disable-next-line max-len
   onAdminSetFloor(server: Server, { floor, ...loc }: Commands.AdminSetFloor['params']): Promise<Commands.AdminSetFloor['response']> {
-    if (!server.currentClientConnection.player.isAdmin) return Promise.reject(); // TODO
-
-    if (!server.context.map.inBounds(loc)) {
-      return Promise.reject(); // TODO
-    }
 
     server.setFloor(loc, floor);
     return Promise.resolve();
