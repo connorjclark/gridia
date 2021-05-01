@@ -150,9 +150,15 @@ export function learnSkill(player: Player, id: number) {
 
 export function incrementSkillXp(player: Player, id: number, xp: number) {
   const obj = player.skills.get(id);
-  if (obj === undefined) return;
+  if (obj === undefined || xp <= 0) return;
 
+  const skillLevelBefore = getSkillLevel(player, id).earnedLevel;
+  const combatLevelBefore = getCombatLevel(player).combatLevel;
   obj.xp += xp;
+  return {
+    skillLevelIncreased: skillLevelBefore !== getSkillLevel(player, id).earnedLevel,
+    combatLevelIncreased: combatLevelBefore !== getCombatLevel(player).combatLevel,
+  };
 }
 
 export function startQuest(player: Player, quest: Quest) {

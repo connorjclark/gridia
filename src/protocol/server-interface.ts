@@ -641,6 +641,35 @@ export default class ServerInterface implements IServerInterface {
             server.broadcastPartialCreatureUpdate(server.currentClientConnection.creature, ['graphics']);
           },
         },
+        xp: {
+          args: [
+            { name: 'skillName', type: 'string' },
+            { name: 'xp', type: 'number' },
+          ],
+          do(args: { skillName: string; xp: number }) {
+            const skill = Content.getSkillByName(args.skillName);
+            if (!skill) {
+              server.reply(EventBuilder.chat({ from: 'SERVER', to, message: `No skill named ${args.skillName}` }));
+              return;
+            }
+
+            server.grantXp(server.currentClientConnection, skill.id, args.xp);
+          },
+        },
+        animation: {
+          args: [
+            { name: 'name', type: 'string' },
+          ],
+          do(args: { name: string }) {
+            const animation = Content.getAnimation(args.name);
+            if (!animation) {
+              server.reply(EventBuilder.chat({ from: 'SERVER', to, message: `No animation named ${args.name}` }));
+              return;
+            }
+
+            server.broadcastAnimation(server.currentClientConnection.creature.pos, args.name);
+          },
+        },
         help: {
           args: [],
           do() {

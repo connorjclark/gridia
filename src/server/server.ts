@@ -698,8 +698,35 @@ export default class Server {
   }
 
   grantXp(clientConnection: ClientConnection, skill: number, xp: number) {
-    // TODO: notice when level up.
-    Player.incrementSkillXp(clientConnection.player, skill, xp);
+    const { skillLevelIncreased, combatLevelIncreased } =
+      Player.incrementSkillXp(clientConnection.player, skill, xp) || {};
+
+    if (skillLevelIncreased) {
+      const value = Player.getSkillValue(clientConnection.player, skill);
+      this.send(EventBuilder.chat({
+        from: 'World',
+        to: '', // TODO
+        message: `${Content.getSkill(skill).name} is now level ${value.level}`,
+      }), clientConnection);
+    }
+
+    if (combatLevelIncreased) {
+      const combatLevel = Player.getCombatLevel(clientConnection.player).combatLevel;
+      this.send(EventBuilder.chat({
+        from: 'World',
+        to: '', // TODO
+        message: `You are now combat level ${combatLevel}!`,
+      }), clientConnection);
+
+      if (combatLevel % 5 === 0) {
+        this.broadcastChat({
+          from: 'World',
+          message: `${clientConnection.player.name} is now combat level ${combatLevel}!`,
+        });
+      }
+
+      this.broadcastAnimation(clientConnection.creature.pos, 'LevelUp');
+    }
 
     this.send(EventBuilder.xp({
       skill,
