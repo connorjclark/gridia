@@ -434,6 +434,8 @@ export default class CreatureState {
 
     // Range check.
     if (Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos) > 1) return;
+    if (this.creature.pos.w !== this.targetCreature.creature.pos.w) return;
+    if (this.creature.pos.z !== this.targetCreature.creature.pos.z) return;
 
     // TODO: regeneration for each attribute. only reset timer if that attribute was consumed.
     this.ticksUntilRegeneration = server.taskRunner.rateToTicks({ seconds: 5 });
