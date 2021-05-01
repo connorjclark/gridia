@@ -80,8 +80,8 @@ function addDebugStuff(map: WorldMapPartition) {
 }
 
 export function createTestPartitions(map: WorldMap) {
-  const width = 1000;
-  const height = 1000;
+  const width = 100;
+  const height = 100;
   const depth = 2;
 
   const partitionStrategy = {
@@ -90,8 +90,8 @@ export function createTestPartitions(map: WorldMap) {
     relaxations: 5,
   } as const;
   const waterStrategy = {
-    type: 'perlin',
-    percentage: 0.3,
+    type: 'radial',
+    radius: 0.9,
   } as const;
 
   const testMapResult = mapgen({ width, height, depth, partitionStrategy, waterStrategy, borderIsAlwaysWater: false });

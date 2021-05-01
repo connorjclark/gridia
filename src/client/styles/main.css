@@ -175,6 +175,8 @@ button {
 
 .map-list {
   list-style-type: none;
+  overflow-y: scroll;
+  max-height: 20vh;
 }
 .map-list--item {
   margin: 20px;
