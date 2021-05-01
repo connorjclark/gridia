@@ -42,11 +42,12 @@ class SkillsModule extends ClientModule {
 
   getCombatLevel() {
     const combatLevelDetails = Player.getCombatLevel(this.game.client.player);
+    const level = combatLevelDetails.combatLevel;
     return {
-      level: combatLevelDetails.combatLevel,
+      level,
       xpBar: {
-        current: combatLevelDetails.xp,
-        max: combatLevelDetails.xp + combatLevelDetails.xpUntilNextLevel,
+        current: combatLevelDetails.xp - Player.getXpTotalForCombatLevel(level),
+        max: Player.getXpTotalForCombatLevel(level + 1) - Player.getXpTotalForCombatLevel(level),
       },
     };
   }

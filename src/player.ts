@@ -39,7 +39,6 @@ export function getXpTotalForLevel(level: number) {
   return attributeLevelToXpTotal[level];
 }
 
-
 function costToIncrementCombatLevel(level: number) {
   const x = level;
   return Math.round(295.5543 * Math.pow(x, 3) - 1749.6641 * Math.pow(x, 2) + 5625.2909 * x - 4182.4037);
@@ -58,6 +57,10 @@ function combatLevelForXp(xp: number) {
   const index = combatLevelToXpTotal.findIndex((threshold) => threshold > xp);
   if (index === -1) return combatLevelToXpTotal.length;
   return index - 1;
+}
+
+export function getXpTotalForCombatLevel(level: number) {
+  return combatLevelToXpTotal[level];
 }
 
 export function getAttributeValue(player: Player, id: Attribute) {
