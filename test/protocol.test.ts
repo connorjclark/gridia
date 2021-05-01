@@ -135,7 +135,7 @@ function getUnwalkableItem(): Item {
 describe('move', () => {
   let creature;
   beforeEach(async () => {
-    creature = server.context.getCreature(client.player.creature.id);
+    creature = server.context.getCreature(client.creature.id);
     server.moveCreature(creature, { w: 0, x: 5, y: 5, z: 0 });
     await server.consumeAllMessages();
   });

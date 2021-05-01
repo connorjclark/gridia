@@ -15,6 +15,8 @@ export default class ServerInterface implements IServerInterface {
       return Promise.reject('out of bounds');
     }
 
+    const creature = server.currentClientConnection.creature;
+
     const tile = server.context.map.getTile(loc);
     if (tile.item?.type === MINE) {
       const player = server.currentClientConnection.player;
@@ -26,8 +28,8 @@ export default class ServerInterface implements IServerInterface {
       if (!playerHasPick) return Promise.reject('missing pick');
 
       const staminaCost = 5;
-      if (player.creature.stamina.current < staminaCost) return Promise.reject('you are exhausted');
-      server.modifyCreatureStamina(null, player.creature, -staminaCost);
+      if (creature.stamina.current < staminaCost) return Promise.reject('you are exhausted');
+      server.modifyCreatureStamina(null, creature, -staminaCost);
 
       const oreType = tile.item.oreType || Content.getMetaItemByName('Pile of Dirt').id;
       const minedItem = { type: oreType, quantity: 1 };
@@ -42,7 +44,6 @@ export default class ServerInterface implements IServerInterface {
     //   return false
     // }
 
-    const creature = server.currentClientConnection.player.creature;
     server.moveCreature(creature, loc);
 
     return Promise.resolve();
@@ -193,7 +194,7 @@ export default class ServerInterface implements IServerInterface {
     if (!creature || creature.isPlayer) return Promise.reject('Cannot do that to another player');
 
     if (type === 'attack') {
-      server.creatureStates[server.currentClientConnection.player.creature.id].targetCreature =
+      server.creatureStates[server.currentClientConnection.creature.id].targetCreature =
         server.creatureStates[creatureId];
     }
 
@@ -500,7 +501,7 @@ export default class ServerInterface implements IServerInterface {
             { name: 'map', type: 'number', optional: true },
           ],
           do(args: { x: number; y: number; z?: number; map?: number }) {
-            const destination = { ...server.currentClientConnection.player.creature.pos };
+            const destination = { ...server.currentClientConnection.creature.pos };
             if (args.z !== undefined && args.map !== undefined) {
               destination.w = args.map;
               destination.x = args.x;
@@ -524,7 +525,7 @@ export default class ServerInterface implements IServerInterface {
               return 'not walkable';
             }
 
-            server.warpCreature(server.currentClientConnection.player.creature, destination);
+            server.warpCreature(server.currentClientConnection.creature, destination);
           },
         },
         creature: {
@@ -538,7 +539,7 @@ export default class ServerInterface implements IServerInterface {
               return;
             }
 
-            const loc = server.findNearest(server.currentClientConnection.player.creature.pos, 10, true,
+            const loc = server.findNearest(server.currentClientConnection.creature.pos, 10, true,
               (_, l) => server.context.walkable(l));
             if (loc) {
               server.makeCreatureFromTemplate(template, loc);
@@ -566,7 +567,7 @@ export default class ServerInterface implements IServerInterface {
             if (quantity > MAX_STACK) quantity = MAX_STACK;
 
             server.setItemInContainer;
-            const loc = server.findNearest(server.currentClientConnection.player.creature.pos, 10, true,
+            const loc = server.findNearest(server.currentClientConnection.creature.pos, 10, true,
               (t) => !t.item);
             if (loc) {
               server.setItem(loc, { type: meta.id, quantity });
@@ -632,12 +633,12 @@ export default class ServerInterface implements IServerInterface {
             { name: 'type', type: 'number', optional: true },
           ],
           do(args: { index: number; file?: string; type?: number }) {
-            server.currentClientConnection.player.creature.graphics = {
+            server.currentClientConnection.creature.graphics = {
               file: args.file || 'rpgwo-player0.png',
               index: args.index,
               imageType: args.type || 0,
             };
-            server.broadcastPartialCreatureUpdate(server.currentClientConnection.player.creature, ['graphics']);
+            server.broadcastPartialCreatureUpdate(server.currentClientConnection.creature, ['graphics']);
           },
         },
         help: {

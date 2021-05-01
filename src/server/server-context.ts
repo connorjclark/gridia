@@ -127,7 +127,11 @@ export class ServerContext extends Context {
     return pswd === password;
   }
 
-  async savePlayer(player: Player) {
+  async savePlayer(player: Player, creature?: Creature) {
+    if (creature) {
+      player.loc = creature.pos;
+    }
+
     const json = WireSerializer.serialize(player);
     await this.fs.writeFile(this.playerPath(player.id), json);
 

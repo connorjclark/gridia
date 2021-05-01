@@ -181,11 +181,12 @@ export class TestScript extends Script {
     // ...
   }
 
-  onPlayerCreated(player: Player) {
+  onPlayerCreated(player: Player, clientConnection: ClientConnection) {
     const loc = { ...this.creatureSpawners[0].region };
     loc.x += 2;
     loc.y += 2;
-    this.server.moveCreature(player.creature, loc);
+    this.server.getClientConnectionForCreature;
+    this.server.moveCreature(clientConnection.creature, loc);
 
     const quest = this.server.getQuest('TEST_QUEST');
     Player.startQuest(player, quest);
@@ -210,7 +211,7 @@ export class TestScript extends Script {
     const state = Player.getQuestState(clientConnection.player, quest);
     if (!state) return;
 
-    const speakers = [clientConnection.player.creature, this.captain];
+    const speakers = [clientConnection.creature, this.captain];
 
     if (state.stage === 'in_room') {
       return {

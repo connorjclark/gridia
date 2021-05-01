@@ -15,10 +15,9 @@ export default class ClientInterface implements IClientInterface {
     client.context.containers.set(container.id, container);
   }
 
-  onInitialize(client: Client, { player, secondsPerWorldTick, ticksPerWorldDay }: Events.Initialize): void {
+  onInitialize(client: Client, { player, creatureId, secondsPerWorldTick, ticksPerWorldDay }: Events.Initialize): void {
     client.player = player;
-    // @ts-expect-error Should use client.creature instead.
-    client.player.creature = { id: client.player.creature.id };
+    client.creatureId = creatureId;
     client.secondsPerWorldTick = secondsPerWorldTick;
     client.ticksPerWorldDay = ticksPerWorldDay;
   }

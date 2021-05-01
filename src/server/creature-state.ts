@@ -75,8 +75,11 @@ const Actions: Record<string, Action> = {
     effects: ['near-target'],
     tick(server) {
       // TODO: This overloading feels wrong.
-      const creatureToFollow =
-        this.targetCreature?.creature || (this.creature.tamedBy && server.players.get(this.creature.tamedBy)?.creature);
+      let creatureToFollow = this.targetCreature?.creature;
+      if (this.creature.tamedBy) {
+        const tamedByPlayer = server.players.get(this.creature.tamedBy);
+        if (tamedByPlayer) creatureToFollow = server.findCreatureForPlayer(tamedByPlayer);
+      }
 
       if (!creatureToFollow) return false;
       if (creatureToFollow.pos.w !== this.creature.pos.w) return false;

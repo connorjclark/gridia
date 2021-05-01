@@ -196,7 +196,7 @@ class CreatureSprite extends PIXI.Sprite {
       }
     }
 
-    const isClient = this.creature.id === game.client.player.creature.id;
+    const isClient = this.creature.id === game.client.creature.id;
     if (!isClient && Utils.equalPoints(game.state.mouse.tile, this.creature.pos)) {
       const GRAY = 0x606060;
       const BLUE = 0x000088;

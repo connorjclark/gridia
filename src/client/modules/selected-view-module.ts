@@ -110,7 +110,7 @@ class SelectedViewModule extends ClientModule {
     }
 
     // Don't allow actions on self.
-    const isSelf = creature?.id === game.client.player.creature.id;
+    const isSelf = creature?.id === game.client.creatureId;
     if (isSelf) {
       state.selectedView.actions = [];
     } else {

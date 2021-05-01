@@ -53,11 +53,7 @@ interface Player {
   isAdmin: boolean;
   questStates: Map<string, QuestState>;
   tilesSeenLog: Map<string, Uint16Array>;
-  /**
-   * Last creature assigned to player. These are temporary, but some data is copied
-   * over when a player logs in again.
-   */
-  creature: Creature;
+  loc: Point4;
 }
 
 interface Container {

@@ -9,6 +9,8 @@ export default class ClientConnection {
   // @ts-ignore
   player: Player;
   // @ts-ignore
+  creature: Creature;
+  // @ts-ignore
   container: Container;
   // @ts-ignore
   equipment: Container;

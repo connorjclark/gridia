@@ -85,7 +85,7 @@ export default class Server {
 
   broadcastInRange(event: ProtocolEvent, loc: TilePoint, range: number) {
     this.conditionalBroadcast(event, (client) => {
-      const loc2 = client.player.creature.pos;
+      const loc2 = client.creature.pos;
       if (loc2.z !== loc.z || loc2.w !== loc.w) return false;
 
       return Utils.dist(loc, loc2) <= range;
@@ -120,7 +120,7 @@ export default class Server {
   async save() {
     for (const clientConnection of this.clientConnections) {
       if (clientConnection.player) {
-        await this.context.savePlayer(clientConnection.player);
+        await this.context.savePlayer(clientConnection.player, clientConnection.creature);
       }
     }
     await this.context.save();
@@ -215,37 +215,11 @@ export default class Server {
     }
 
     const { width, height } = this.context.map.getPartition(0);
-
     const center = { w: 0, x: Math.round(width / 2), y: Math.round(height / 2) + 3, z: 0 };
     // Make sure sector is loaded. Prevents hidden creature (race condition, happens often in worker).
     await this.ensureSectorLoadedForPoint(center);
     const spawnLoc = this.findNearest(center, 10, true, (_, loc) => this.context.walkable(loc)) || center;
     await this.ensureSectorLoadedForPoint(spawnLoc);
-
-    const creature: Creature = {
-      // Set later.
-      id: 0,
-      dead: false,
-      name: opts.name,
-      pos: spawnLoc,
-      graphics: {
-        file: 'rpgwo-player0.png',
-        index: Utils.randInt(0, 4),
-      },
-      isPlayer: true,
-      // TODO
-      speed: 2,
-      life: { current: 0, max: 0 },
-      stamina: { current: 0, max: 0 },
-      mana: { current: 0, max: 0 },
-      // TODO
-      food: 100,
-      eat_grass: false,
-      light: 0,
-      // Set later.
-      combatLevel: 0,
-      stats: {} as Creature['stats'],
-    };
 
     const player: Player = {
       id: Utils.uuid(),
@@ -256,11 +230,11 @@ export default class Server {
       tilesSeenLog: new Map(),
       // everyone is an admin, for now.
       isAdmin: true,
-      creature,
       // set later
       containerId: '',
       // set later
       equipmentContainerId: '',
+      loc: spawnLoc,
     };
 
     // Mock xp for now.
@@ -278,17 +252,6 @@ export default class Server {
       Player.learnSkill(player, skill.id);
       Player.incrementSkillXp(player, skill.id, Utils.randInt(100, 10000));
     }
-
-    // TODO: remember values on log off.
-
-    creature.combatLevel = Player.getCombatLevel(player).combatLevel;
-
-    const life = Player.getAttributeValue(player, 'life').level;
-    const stamina = Player.getAttributeValue(player, 'stamina').level;
-    const mana = Player.getAttributeValue(player, 'mana').level;
-    creature.life.current = creature.life.max = life;
-    creature.stamina.current = creature.stamina.max = stamina;
-    creature.mana.current = creature.mana.max = mana;
 
     const container = this.context.makeContainer('normal');
     player.containerId = container.id;
@@ -332,9 +295,39 @@ export default class Server {
     clientConnection.container = await this.context.getContainer(player.containerId);
     clientConnection.equipment = await this.context.getContainer(player.equipmentContainerId);
 
-    player.creature.id = this.context.nextCreatureId++;
-    this.updateCreatureDataBasedOnEquipment(player.creature, clientConnection.equipment, { broadcast: false });
-    player.creature = this.registerCreature(player.creature);
+    const creature: Creature = {
+      id: this.context.nextCreatureId++,
+      dead: false,
+      name: player.name,
+      pos: { ...player.loc },
+      graphics: {
+        file: 'rpgwo-player0.png',
+        index: Utils.randInt(0, 4),
+      },
+      isPlayer: true,
+      // TODO
+      speed: 2,
+      life: { current: 0, max: 0 },
+      stamina: { current: 0, max: 0 },
+      mana: { current: 0, max: 0 },
+      // TODO
+      food: 100,
+      eat_grass: false,
+      light: 0,
+      combatLevel: Player.getCombatLevel(player).combatLevel,
+      stats: {} as Creature['stats'],
+    };
+
+    // TODO: remember values on log off.
+    const life = Player.getAttributeValue(player, 'life').level;
+    const stamina = Player.getAttributeValue(player, 'stamina').level;
+    const mana = Player.getAttributeValue(player, 'mana').level;
+    creature.life.current = creature.life.max = life;
+    creature.stamina.current = creature.stamina.max = stamina;
+    creature.mana.current = creature.mana.max = mana;
+    this.updateCreatureDataBasedOnEquipment(creature, clientConnection.equipment, { broadcast: false });
+    clientConnection.creature = creature;
+    this.registerCreature(creature);
 
     this.players.set(player.id, player);
     clientConnection.player = player;
@@ -353,7 +346,7 @@ export default class Server {
 
   getClientConnectionForCreature(creature: Creature) {
     for (const clientConnection of this.clientConnections) {
-      if (clientConnection.player.creature.id === creature.id) return clientConnection;
+      if (clientConnection.creature.id === creature.id) return clientConnection;
     }
   }
 
@@ -363,10 +356,10 @@ export default class Server {
 
     this.clientConnections.splice(index, 1);
     if (clientConnection.player) {
-      this.context.savePlayer(clientConnection.player);
-      this.removeCreature(clientConnection.player.creature);
+      this.context.savePlayer(clientConnection.player, clientConnection.creature);
+      this.removeCreature(clientConnection.creature);
       this.players.delete(clientConnection.player.id);
-      this.broadcastAnimation(clientConnection.player.creature.pos, 'WarpOut');
+      this.broadcastAnimation(clientConnection.creature.pos, 'WarpOut');
       this.broadcastChatFromServer(`${clientConnection.player.name} has left the world.`);
     }
   }
@@ -422,10 +415,9 @@ export default class Server {
     return creature;
   }
 
-  registerCreature(creature: Creature): Creature {
+  registerCreature(creature: Creature) {
     this.creatureStates[creature.id] = new CreatureState(creature, this.context);
     this.context.setCreature(creature);
-    return creature;
   }
 
   moveCreature(creature: Creature, pos: TilePoint | null) {
@@ -451,8 +443,14 @@ export default class Server {
   }
 
   findPlayerForCreature(creature: Creature) {
-    for (const player of this.players.values()) {
-      if (player.creature === creature) return player;
+    for (const clientConnection of this.clientConnections.values()) {
+      if (clientConnection.creature === creature) return clientConnection.player;
+    }
+  }
+
+  findCreatureForPlayer(player: Player) {
+    for (const clientConnection of this.clientConnections.values()) {
+      if (clientConnection.player === player) return clientConnection.creature;
     }
   }
 
@@ -608,16 +606,10 @@ export default class Server {
       if (!cur) return acc;
       return Math.max(acc, Content.getMetaItem(cur.type).light);
     }, 0);
-    if (light === client.player.creature.light) return;
+    if (light === client.creature.light) return;
 
-    client.player.creature.light = light;
-    this.broadcastPartialCreatureUpdate(client.player.creature, ['light']);
-  }
-
-  getCreatureSkillLevel(creature: Creature, skillId: number) {
-    // TODO skills
-    return 0;
-    // return creature.stats[skillId];
+    client.creature.light = light;
+    this.broadcastPartialCreatureUpdate(client.creature, ['light']);
   }
 
   setItemInContainer(id: string, index: number, item?: Item) {
@@ -646,8 +638,8 @@ export default class Server {
 
     if (container.type === 'equipment') {
       const creature = [
-        ...this.players.values(),
-      ].find((player) => player.equipmentContainerId === id)?.creature;
+        ...this.clientConnections.values(),
+      ].find((client) => client.equipment.id === id)?.creature;
       if (creature) {
         this.updateCreatureDataBasedOnEquipment(creature, container, { broadcast: true });
       }
@@ -738,6 +730,7 @@ export default class Server {
 
     clientConnection.sendEvent(EventBuilder.initialize({
       player,
+      creatureId: clientConnection.creature.id,
       secondsPerWorldTick: this.secondsPerWorldTick,
       ticksPerWorldDay: this.ticksPerWorldDay,
     }));
@@ -753,16 +746,16 @@ export default class Server {
       ].join('\n'),
     }));
 
-    const partition = this.context.map.getPartition(player.creature.pos.w);
+    const partition = this.context.map.getPartition(clientConnection.creature.pos.w);
     clientConnection.sendEvent(EventBuilder.initializePartition({
-      w: player.creature.pos.w,
+      w: clientConnection.creature.pos.w,
       x: partition.width,
       y: partition.height,
       z: partition.depth,
     }));
 
     // TODO: next line not necessary. but removing breaks tests ...
-    clientConnection.sendEvent(EventBuilder.setCreature({ partial: false, ...player.creature }));
+    clientConnection.sendEvent(EventBuilder.setCreature({ partial: false, ...clientConnection.creature }));
     clientConnection.sendEvent(EventBuilder.container({
       container: await this.context.getContainer(clientConnection.equipment.id),
     }));
@@ -771,7 +764,7 @@ export default class Server {
     ));
     this.updateCreatureLight(clientConnection);
     setTimeout(() => {
-      this.broadcastAnimation(player.creature.pos, 'WarpIn');
+      this.broadcastAnimation(clientConnection.creature.pos, 'WarpIn');
     }, 1000);
   }
 
@@ -808,7 +801,7 @@ export default class Server {
 
           for (const creatureId of clientConnection.subscribedCreatureIds) {
             const creature = this.context.creatures.get(creatureId);
-            if (creature && closeEnoughToSubscribe(clientConnection.player.creature.pos, creature.pos)) continue;
+            if (creature && closeEnoughToSubscribe(clientConnection.creature.pos, creature.pos)) continue;
 
             clientConnection.subscribedCreatureIds.delete(creatureId);
             // TODO send unregister command.
@@ -816,7 +809,7 @@ export default class Server {
 
           for (const creature of this.context.creatures.values()) {
             if (clientConnection.subscribedCreatureIds.has(creature.id)) continue;
-            if (!closeEnoughToSubscribe(clientConnection.player.creature.pos, creature.pos)) continue;
+            if (!closeEnoughToSubscribe(clientConnection.creature.pos, creature.pos)) continue;
 
             clientConnection.subscribedCreatureIds.add(creature.id);
             clientConnection.sendEvent(EventBuilder.setCreature({ partial: false, ...creature }));
@@ -875,9 +868,9 @@ export default class Server {
       description: 'tiles seen logs',
       rate: { seconds: 5 },
       fn: () => {
-        for (const player of this.players.values()) {
-          server.context.map.forEach(player.creature.pos, 30, (loc) => {
-            Player.markTileSeen(player, server.context.map, loc);
+        for (const clientConnection of this.clientConnections.values()) {
+          server.context.map.forEach(clientConnection.creature.pos, 30, (loc) => {
+            Player.markTileSeen(clientConnection.player, server.context.map, loc);
           });
         }
       },

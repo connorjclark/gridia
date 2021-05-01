@@ -9,6 +9,7 @@ import { Settings } from './modules/settings-module';
 class Client {
   // @ts-ignore set later.
   player: Player;
+  creatureId = 0;
 
   secondsPerWorldTick = 0;
   ticksPerWorldDay = 0;
@@ -37,7 +38,7 @@ class Client {
   }
 
   get creature() {
-    return this.context.getCreature(this.player.creature.id);
+    return this.context.getCreature(this.creatureId);
   }
 
   get inventory() {

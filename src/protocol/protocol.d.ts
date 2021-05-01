@@ -50,6 +50,7 @@ declare namespace Protocol {
 
     interface Initialize {
       player: Player;
+      creatureId: number;
       secondsPerWorldTick: number;
       ticksPerWorldDay: number;
       // quests: Array<{id: string, name: string, started: boolean}>;
