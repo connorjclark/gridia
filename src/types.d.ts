@@ -54,6 +54,9 @@ interface Player {
   questStates: Map<string, QuestState>;
   tilesSeenLog: Map<string, Uint16Array>;
   loc: Point4;
+  life: number;
+  stamina: number;
+  mana: number;
 }
 
 interface Container {

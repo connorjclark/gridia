@@ -130,6 +130,9 @@ export class ServerContext extends Context {
   async savePlayer(player: Player, creature?: Creature) {
     if (creature) {
       player.loc = creature.pos;
+      player.life = creature.life.current;
+      player.stamina = creature.stamina.current;
+      player.mana = creature.mana.current;
     }
 
     const json = WireSerializer.serialize(player);

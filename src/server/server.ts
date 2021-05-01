@@ -235,6 +235,12 @@ export default class Server {
       // set later
       equipmentContainerId: '',
       loc: spawnLoc,
+      // set later
+      life: 0,
+      // set later
+      stamina: 0,
+      // set later
+      mana: 0,
     };
 
     // Mock xp for now.
@@ -252,6 +258,10 @@ export default class Server {
       Player.learnSkill(player, skill.id);
       Player.incrementSkillXp(player, skill.id, Utils.randInt(100, 10000));
     }
+
+    player.life = Player.getAttributeValue(player, 'life').level;
+    player.stamina = Player.getAttributeValue(player, 'stamina').level;
+    player.mana = Player.getAttributeValue(player, 'mana').level;
 
     const container = this.context.makeContainer('normal');
     player.containerId = container.id;
@@ -307,24 +317,27 @@ export default class Server {
       isPlayer: true,
       // TODO
       speed: 2,
-      life: { current: 0, max: 0 },
-      stamina: { current: 0, max: 0 },
-      mana: { current: 0, max: 0 },
+      life: {
+        current: player.life,
+        max: Player.getAttributeValue(player, 'life').level,
+      },
+      stamina: {
+        current: player.stamina,
+        max: Player.getAttributeValue(player, 'stamina').level,
+      },
+      mana: {
+        current: player.mana,
+        max: Player.getAttributeValue(player, 'mana').level,
+      },
       // TODO
       food: 100,
       eat_grass: false,
       light: 0,
       combatLevel: Player.getCombatLevel(player).combatLevel,
+      // set later
       stats: {} as Creature['stats'],
     };
 
-    // TODO: remember values on log off.
-    const life = Player.getAttributeValue(player, 'life').level;
-    const stamina = Player.getAttributeValue(player, 'stamina').level;
-    const mana = Player.getAttributeValue(player, 'mana').level;
-    creature.life.current = creature.life.max = life;
-    creature.stamina.current = creature.stamina.max = stamina;
-    creature.mana.current = creature.mana.max = mana;
     this.updateCreatureDataBasedOnEquipment(creature, clientConnection.equipment, { broadcast: false });
     clientConnection.creature = creature;
     this.registerCreature(creature);
@@ -869,6 +882,8 @@ export default class Server {
       rate: { seconds: 5 },
       fn: () => {
         for (const clientConnection of this.clientConnections.values()) {
+          if (!clientConnection.player) continue;
+
           server.context.map.forEach(clientConnection.creature.pos, 30, (loc) => {
             Player.markTileSeen(clientConnection.player, server.context.map, loc);
           });
