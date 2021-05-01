@@ -441,12 +441,13 @@ export default class CreatureState {
     this.ticksUntilRegeneration = server.taskRunner.rateToTicks({ seconds: 5 });
     this.targetCreature.ticksUntilRegeneration = server.taskRunner.rateToTicks({ seconds: 5 });
 
-    let attackSkill = Content.getSkillByName('Unarmed Attack') as Skill;
-    if (this.creature.equipment && this.creature.equipment[Container.EQUIP_SLOTS.Weapon]) {
-      const meta = Content.getMetaItem(this.creature.equipment[Container.EQUIP_SLOTS.Weapon].type);
-      const skill = meta.combatSkill && Content.getSkill(meta.combatSkill);
-      if (skill && skill.purpose) {
-        attackSkill = skill;
+    let attackSkill = Content.getSkillByNameOrThrowError('Unarmed Attack');
+    const weaponType = this.creature.equipment && this.creature.equipment[Container.EQUIP_SLOTS.Weapon]?.type;
+    if (weaponType) {
+      const meta = Content.getMetaItem(weaponType);
+      if (meta.combatSkill !== undefined) {
+        const skill = Content.getSkill(meta.combatSkill);
+        if (skill) attackSkill = skill;
       }
     }
 
@@ -469,6 +470,10 @@ export default class CreatureState {
     } else {
       hasEnergyForAttack = useAttribute(this.creature, 'stamina', 1);
     }
+
+    let defenseSkill = Content.getSkillByNameOrThrowError('Melee Defense');
+    if (attackType === 'magic') defenseSkill = Content.getSkillByNameOrThrowError('Magic Defense');
+    if (attackType === 'missle') defenseSkill = Content.getSkillByNameOrThrowError('Missle Defense');
 
     if (hasEnergyForAttack) {
       // TODO use skill values.
@@ -502,7 +507,6 @@ export default class CreatureState {
     }
 
     // TODO
-    // const xpModifier = this.creature.level / this.targetCreature.creature.level;
     // const isCriticial = hitSuccess && hitSuccess && hitSuccess
     // const modifier = isCriticial ? Utils.randInt(2, 3) : 1;
 
@@ -514,6 +518,13 @@ export default class CreatureState {
           `${this.creature.name} hit ${this.targetCreature.creature.name} for ${damage} damage` :
           `${this.creature.name} missed ${this.targetCreature.creature.name}`;
         server.send(EventBuilder.chat({ from: 'SERVER', to: '', message }), clientConnection);
+
+        const xpModifier = this.creature.isPlayer ?
+          this.targetCreature.creature.combatLevel / this.creature.combatLevel :
+          this.creature.combatLevel / this.targetCreature.creature.combatLevel;
+        const xp = Math.round(xpModifier * damage * 10);
+        const skill = this.creature.isPlayer ? attackSkill : defenseSkill;
+        server.grantXp(clientConnection, skill.id, xp);
       }
     }
 

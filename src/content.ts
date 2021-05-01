@@ -239,3 +239,10 @@ export function getSkill(id: number) {
 export function getSkillByName(name: string) {
   return skills.find((s) => s.name === name);
 }
+
+// TODO make default behavior?
+export function getSkillByNameOrThrowError(name: string) {
+  const skill = skills.find((s) => s.name === name);
+  if (!skill) throw new Error('no skill named ' + name);
+  return skill;
+}

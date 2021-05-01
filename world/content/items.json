@@ -390,6 +390,7 @@
     "armorLevel": 25,
     "blocksLight": false,
     "burden": 1000,
+    "combatSkill": 11,
     "equipImage": {
       "file": "rpgwo-legs0.png",
       "frames": [
@@ -416,6 +417,7 @@
     "armorLevel": 25,
     "blocksLight": false,
     "burden": 1000,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-chest0.png",
       "frames": [
@@ -442,6 +444,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 50,
+    "combatSkill": 3,
     "damageHigh": 2,
     "damageLow": 1,
     "equipImage": {
@@ -470,6 +473,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 50,
+    "combatSkill": 3,
     "damageHigh": 4,
     "damageLow": 2,
     "equipImage": {
@@ -498,6 +502,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 60,
+    "combatSkill": 3,
     "damageHigh": 5,
     "damageLow": 3,
     "equipImage": {
@@ -526,6 +531,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 70,
+    "combatSkill": 3,
     "damageHigh": 7,
     "damageLow": 4,
     "equipImage": {
@@ -554,6 +560,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 50,
+    "combatSkill": 3,
     "damageHigh": 6,
     "damageLow": 4,
     "equipImage": {
@@ -582,6 +589,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 1000,
+    "combatSkill": 4,
     "damageHigh": 23,
     "damageLow": 19,
     "equipImage": {
@@ -685,6 +693,7 @@
     "armorLevel": 25,
     "blocksLight": false,
     "burden": 250,
+    "combatSkill": 15,
     "equipImage": {
       "file": "rpgwo-head1.png",
       "frames": [
@@ -711,6 +720,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 150,
+    "combatSkill": 4,
     "damageHigh": 4,
     "damageLow": 2,
     "equipImage": {
@@ -739,6 +749,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 150,
+    "combatSkill": 4,
     "damageHigh": 7,
     "damageLow": 4,
     "equipImage": {
@@ -767,6 +778,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 250,
+    "combatSkill": 4,
     "damageHigh": 11,
     "damageLow": 7,
     "equipImage": {
@@ -795,6 +807,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 350,
+    "combatSkill": 4,
     "damageHigh": 15,
     "damageLow": 11,
     "equipImage": {
@@ -823,6 +836,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 4,
     "damageHigh": 28,
     "damageLow": 24,
     "equipImage": {
@@ -869,6 +883,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 4,
     "damageHigh": 20,
     "damageLow": 15,
     "equipImage": {
@@ -948,6 +963,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 5,
     "damageHigh": 4,
     "damageLow": 3,
     "equipImage": {
@@ -976,6 +992,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 5,
     "damageHigh": 6,
     "damageLow": 5,
     "equipImage": {
@@ -1004,6 +1021,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 5,
     "damageHigh": 17,
     "damageLow": 13,
     "equipImage": {
@@ -1032,6 +1050,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 5,
     "damageHigh": 22,
     "damageLow": 18,
     "equipImage": {
@@ -1060,6 +1079,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 1500,
+    "combatSkill": 4,
     "damageHigh": 28,
     "damageLow": 20,
     "equipImage": {
@@ -1088,6 +1108,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 400,
+    "combatSkill": 10,
     "damageHigh": 12,
     "damageLow": 8,
     "equipImage": {
@@ -1116,6 +1137,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 10,
     "damageHigh": 16,
     "damageLow": 14,
     "equipImage": {
@@ -1144,6 +1166,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 800,
+    "combatSkill": 10,
     "damageHigh": 28,
     "damageLow": 20,
     "equipImage": {
@@ -1199,6 +1222,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 6,
     "damageHigh": 4,
     "damageLow": 2,
     "equipImage": {
@@ -1227,6 +1251,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 6,
     "damageHigh": 6,
     "damageLow": 4,
     "equipImage": {
@@ -1255,6 +1280,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 400,
+    "combatSkill": 6,
     "damageHigh": 9,
     "damageLow": 7,
     "equipImage": {
@@ -1283,6 +1309,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 6,
     "damageHigh": 12,
     "damageLow": 10,
     "equipImage": {
@@ -1312,6 +1339,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 800,
+    "combatSkill": 6,
     "damageHigh": 25,
     "damageLow": 15,
     "equipImage": {
@@ -1340,6 +1368,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 6,
     "damageHigh": 17,
     "damageLow": 13,
     "equipImage": {
@@ -1368,6 +1397,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 5,
     "damageHigh": 5,
     "damageLow": 3,
     "equipImage": {
@@ -1446,6 +1476,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 7,
     "damageHigh": 5,
     "damageLow": 3,
     "equipImage": {
@@ -1474,6 +1505,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 7,
     "damageHigh": 10,
     "damageLow": 5,
     "equipImage": {
@@ -1502,6 +1534,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 7,
     "damageHigh": 13,
     "damageLow": 9,
     "equipImage": {
@@ -1530,6 +1563,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 1000,
+    "combatSkill": 7,
     "damageHigh": 20,
     "damageLow": 16,
     "equipImage": {
@@ -1558,6 +1592,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 7,
     "damageHigh": 12,
     "damageLow": 7,
     "equipImage": {
@@ -1611,6 +1646,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 7,
     "damageHigh": 12,
     "damageLow": 7,
     "equipImage": {
@@ -1689,6 +1725,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 900,
+    "combatSkill": 7,
     "damageHigh": 20,
     "damageLow": 14,
     "equipImage": {
@@ -1717,6 +1754,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 8,
     "damageHigh": 5,
     "damageLow": 3,
     "equipImage": {
@@ -1745,6 +1783,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 8,
     "damageHigh": 9,
     "damageLow": 6,
     "equipImage": {
@@ -1773,6 +1812,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 250,
+    "combatSkill": 8,
     "damageHigh": 10,
     "damageLow": 7,
     "equipImage": {
@@ -1802,6 +1842,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 8,
     "damageHigh": 20,
     "damageLow": 16,
     "equipImage": {
@@ -1830,6 +1871,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 6,
     "damageHigh": 20,
     "damageLow": 15,
     "equipImage": {
@@ -1858,6 +1900,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 900,
+    "combatSkill": 7,
     "damageHigh": 15,
     "damageLow": 11,
     "equipImage": {
@@ -1947,6 +1990,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 9,
     "damageHigh": 6,
     "damageLow": 4,
     "equipImage": {
@@ -1975,6 +2019,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 350,
+    "combatSkill": 9,
     "damageHigh": 8,
     "damageLow": 6,
     "equipImage": {
@@ -2003,6 +2048,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 9,
     "damageHigh": 12,
     "damageLow": 8,
     "equipImage": {
@@ -2031,6 +2077,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 9,
     "damageHigh": 15,
     "damageLow": 11,
     "equipImage": {
@@ -2060,6 +2107,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 900,
+    "combatSkill": 9,
     "damageHigh": 20,
     "damageLow": 15,
     "equipImage": {
@@ -2088,6 +2136,7 @@
     "armorLevel": 15,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -2168,6 +2217,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 30,
+    "combatSkill": 2,
     "damageHigh": 4,
     "damageLow": 2,
     "equipImage": {
@@ -2196,6 +2246,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 100,
+    "combatSkill": 2,
     "damageHigh": 6,
     "damageLow": 4,
     "equipImage": {
@@ -2224,6 +2275,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 2,
     "damageHigh": 10,
     "damageLow": 8,
     "equipImage": {
@@ -2252,6 +2304,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 2,
     "damageHigh": 20,
     "damageLow": 15,
     "equipImage": {
@@ -2280,6 +2333,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 2,
     "damageHigh": 20,
     "damageLow": 10,
     "equipImage": {
@@ -2308,6 +2362,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 10,
+    "combatSkill": 14,
     "damageHigh": 10,
     "damageLow": 5,
     "equipImage": {
@@ -2336,6 +2391,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 20,
+    "combatSkill": 14,
     "damageHigh": 15,
     "damageLow": 10,
     "equipImage": {
@@ -2364,6 +2420,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 1,
+    "combatSkill": 14,
     "damageHigh": 5,
     "damageLow": 2,
     "equipImage": {
@@ -2392,6 +2449,7 @@
     "attackSpeed": 1.25,
     "blocksLight": false,
     "burden": 20,
+    "combatSkill": 14,
     "damageHigh": 13,
     "damageLow": 7,
     "equipImage": {
@@ -2608,6 +2666,7 @@
     "attackSpeed": 5,
     "blocksLight": false,
     "burden": 10000,
+    "combatSkill": 12,
     "damageHigh": 20,
     "damageLow": 10,
     "graphics": {
@@ -2629,6 +2688,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 10000,
+    "combatSkill": 12,
     "damageHigh": 2,
     "damageLow": 1,
     "graphics": {
@@ -2650,6 +2710,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 350,
+    "combatSkill": 10,
     "damageHigh": 12,
     "damageLow": 8,
     "equipImage": {
@@ -2720,6 +2781,7 @@
     "armorLevel": 4,
     "blocksLight": false,
     "burden": 250,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -2746,6 +2808,7 @@
     "armorLevel": 8,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -2772,6 +2835,7 @@
     "armorLevel": 6,
     "blocksLight": false,
     "burden": 375,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -2798,6 +2862,7 @@
     "armorLevel": 10,
     "blocksLight": false,
     "burden": 750,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -2824,6 +2889,7 @@
     "armorLevel": 12,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -2875,6 +2941,7 @@
     "attackSpeed": 4,
     "blocksLight": false,
     "burden": 100,
+    "combatSkill": 10,
     "damageHigh": 5,
     "damageLow": 3,
     "equipImage": {
@@ -3248,6 +3315,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 100,
+    "combatSkill": 3,
     "damageHigh": 8,
     "damageLow": 5,
     "equipImage": {
@@ -3557,6 +3625,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 50,
+    "combatSkill": 3,
     "damageHigh": 18,
     "damageLow": 12,
     "equipImage": {
@@ -5532,6 +5601,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 6,
     "damageHigh": 35,
     "damageLow": 25,
     "equipImage": {
@@ -5719,6 +5789,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 14,
     "damageHigh": 15,
     "damageLow": 10,
     "equipSlot": "Weapon",
@@ -5741,6 +5812,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 7,
     "damageHigh": 26,
     "damageLow": 20,
     "equipImage": {
@@ -5787,6 +5859,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 5,
+    "combatSkill": 14,
     "damageHigh": 4,
     "damageLow": 2,
     "equipSlot": "Weapon",
@@ -5809,6 +5882,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 10,
+    "combatSkill": 14,
     "damageHigh": 8,
     "damageLow": 4,
     "equipSlot": "Weapon",
@@ -5831,6 +5905,7 @@
     "attackSpeed": 10,
     "blocksLight": false,
     "burden": 4000,
+    "combatSkill": 14,
     "damageHigh": 100,
     "damageLow": 50,
     "equipSlot": "Weapon",
@@ -5853,6 +5928,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 100,
+    "combatSkill": 14,
     "damageHigh": 10,
     "damageLow": 5,
     "equipSlot": "Weapon",
@@ -7487,6 +7563,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 9,
     "damageHigh": 29,
     "damageLow": 23,
     "equipImage": {
@@ -7515,6 +7592,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 8,
     "damageHigh": 25,
     "damageLow": 19,
     "equipImage": {
@@ -7700,6 +7778,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 900,
+    "combatSkill": 5,
     "damageHigh": 33,
     "damageLow": 27,
     "equipImage": {
@@ -7728,6 +7807,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 2,
     "damageHigh": 18,
     "damageLow": 12,
     "equipImage": {
@@ -10005,6 +10085,7 @@
     "armorLevel": 13,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -17000,6 +17081,7 @@
     "attackSpeed": 10,
     "blocksLight": false,
     "burden": 2000,
+    "combatSkill": 6,
     "damageHigh": 100,
     "damageLow": 50,
     "equipImage": {
@@ -17082,6 +17164,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 8,
     "damageHigh": 17,
     "damageLow": 13,
     "equipImage": {
@@ -17110,6 +17193,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 400,
+    "combatSkill": 7,
     "damageHigh": 18,
     "damageLow": 12,
     "equipImage": {
@@ -20303,6 +20387,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 4,
     "damageHigh": 20,
     "damageLow": 12,
     "equipImage": {
@@ -20557,6 +20642,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 100,
+    "combatSkill": 8,
     "damageHigh": 3,
     "damageLow": 1,
     "equipImage": {
@@ -21301,6 +21387,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 100,
+    "combatSkill": 4,
     "damageHigh": 5,
     "damageLow": 3,
     "equipSlot": "Weapon",
@@ -21508,6 +21595,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 10,
     "damageHigh": 20,
     "damageLow": 10,
     "equipImage": {
@@ -22310,6 +22398,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 12,
     "damageHigh": 10,
     "damageLow": 5,
     "equipImage": {
@@ -22338,6 +22427,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 12,
     "damageHigh": 14,
     "damageLow": 10,
     "equipImage": {
@@ -22366,6 +22456,7 @@
     "attackSpeed": 2.5,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 12,
     "damageHigh": 20,
     "damageLow": 14,
     "equipImage": {
@@ -22545,6 +22636,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 12,
     "damageHigh": 6,
     "damageLow": 3,
     "equipImage": {
@@ -22591,6 +22683,7 @@
     "attackSpeed": 4,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 13,
     "damageHigh": 10,
     "damageLow": 4,
     "equipImage": {
@@ -22619,6 +22712,7 @@
     "attackSpeed": 4,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 13,
     "damageHigh": 15,
     "damageLow": 8,
     "equipImage": {
@@ -22647,6 +22741,7 @@
     "attackSpeed": 4,
     "blocksLight": false,
     "burden": 900,
+    "combatSkill": 13,
     "damageHigh": 30,
     "damageLow": 15,
     "equipImage": {
@@ -22675,6 +22770,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 13,
     "damageHigh": 5,
     "damageLow": 2,
     "equipImage": {
@@ -22703,6 +22799,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 13,
     "damageHigh": 5,
     "damageLow": 2,
     "equipImage": {
@@ -22767,6 +22864,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 13,
     "damageHigh": 10,
     "damageLow": 4,
     "equipImage": {
@@ -22795,6 +22893,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 400,
+    "combatSkill": 12,
     "damageHigh": 16,
     "damageLow": 12,
     "equipImage": {
@@ -22823,6 +22922,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 12,
     "damageHigh": 12,
     "damageLow": 10,
     "equipImage": {
@@ -22968,6 +23068,7 @@
     "attackSpeed": 3.5,
     "blocksLight": false,
     "burden": 900,
+    "combatSkill": 13,
     "damageHigh": 30,
     "damageLow": 20,
     "equipImage": {
@@ -22996,6 +23097,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 400,
+    "combatSkill": 12,
     "damageHigh": 35,
     "damageLow": 25,
     "equipImage": {
@@ -23024,6 +23126,7 @@
     "attackSpeed": 3.5,
     "blocksLight": false,
     "burden": 750,
+    "combatSkill": 13,
     "damageHigh": 61,
     "damageLow": 45,
     "equipImage": {
@@ -23070,6 +23173,7 @@
     "attackSpeed": 3.5,
     "blocksLight": false,
     "burden": 800,
+    "combatSkill": 13,
     "damageHigh": 25,
     "damageLow": 20,
     "equipImage": {
@@ -23951,6 +24055,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 50,
+    "combatSkill": 3,
     "damageHigh": 9,
     "damageLow": 7,
     "equipImage": {
@@ -23981,6 +24086,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 50,
+    "combatSkill": 3,
     "damageHigh": 9,
     "damageLow": 7,
     "equipImage": {
@@ -24011,6 +24117,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 50,
+    "combatSkill": 3,
     "damageHigh": 9,
     "damageLow": 8,
     "equipImage": {
@@ -24039,6 +24146,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 9,
     "damageHigh": 25,
     "damageLow": 15,
     "equipImage": {
@@ -24205,6 +24313,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 3000,
+    "combatSkill": 6,
     "damageHigh": 50,
     "damageLow": 30,
     "equipImage": {
@@ -24233,6 +24342,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 3000,
+    "combatSkill": 9,
     "damageHigh": 50,
     "damageLow": 30,
     "equipImage": {
@@ -24852,6 +24962,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 400,
+    "combatSkill": 10,
     "damageHigh": 7,
     "damageLow": 5,
     "equipImage": {
@@ -25361,6 +25472,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 350,
+    "combatSkill": 4,
     "damageHigh": 15,
     "damageLow": 11,
     "equipImage": {
@@ -25389,6 +25501,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 4,
     "damageHigh": 20,
     "damageLow": 15,
     "equipImage": {
@@ -25417,6 +25530,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 350,
+    "combatSkill": 4,
     "damageHigh": 15,
     "damageLow": 11,
     "equipImage": {
@@ -25445,6 +25559,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 4,
     "damageHigh": 20,
     "damageLow": 15,
     "equipImage": {
@@ -25473,6 +25588,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 350,
+    "combatSkill": 4,
     "damageHigh": 15,
     "damageLow": 11,
     "equipImage": {
@@ -25501,6 +25617,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 4,
     "damageHigh": 20,
     "damageLow": 15,
     "equipImage": {
@@ -25529,6 +25646,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 400,
+    "combatSkill": 5,
     "damageHigh": 11,
     "damageLow": 9,
     "equipImage": {
@@ -25557,6 +25675,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 400,
+    "combatSkill": 8,
     "damageHigh": 13,
     "damageLow": 9,
     "equipImage": {
@@ -25585,6 +25704,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 5,
     "damageHigh": 17,
     "damageLow": 13,
     "equipImage": {
@@ -25613,6 +25733,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 5,
     "damageHigh": 22,
     "damageLow": 18,
     "equipImage": {
@@ -25641,6 +25762,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 5,
     "damageHigh": 17,
     "damageLow": 13,
     "equipImage": {
@@ -25669,6 +25791,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 5,
     "damageHigh": 22,
     "damageLow": 18,
     "equipImage": {
@@ -25697,6 +25820,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 5,
     "damageHigh": 17,
     "damageLow": 13,
     "equipImage": {
@@ -25725,6 +25849,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 5,
     "damageHigh": 22,
     "damageLow": 18,
     "equipImage": {
@@ -25753,6 +25878,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 800,
+    "combatSkill": 6,
     "damageHigh": 25,
     "damageLow": 15,
     "equipImage": {
@@ -25781,6 +25907,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 6,
     "damageHigh": 17,
     "damageLow": 13,
     "equipImage": {
@@ -25809,6 +25936,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 800,
+    "combatSkill": 6,
     "damageHigh": 25,
     "damageLow": 15,
     "equipImage": {
@@ -25837,6 +25965,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 6,
     "damageHigh": 17,
     "damageLow": 13,
     "equipImage": {
@@ -25865,6 +25994,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 800,
+    "combatSkill": 6,
     "damageHigh": 25,
     "damageLow": 15,
     "equipImage": {
@@ -25893,6 +26023,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 6,
     "damageHigh": 17,
     "damageLow": 13,
     "equipImage": {
@@ -25921,6 +26052,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 7,
     "damageHigh": 10,
     "damageLow": 5,
     "equipImage": {
@@ -25949,6 +26081,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 7,
     "damageHigh": 13,
     "damageLow": 9,
     "equipImage": {
@@ -25977,6 +26110,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 7,
     "damageHigh": 10,
     "damageLow": 5,
     "equipImage": {
@@ -26005,6 +26139,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 7,
     "damageHigh": 13,
     "damageLow": 9,
     "equipImage": {
@@ -26033,6 +26168,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 7,
     "damageHigh": 10,
     "damageLow": 5,
     "equipImage": {
@@ -26061,6 +26197,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 7,
     "damageHigh": 13,
     "damageLow": 9,
     "equipImage": {
@@ -26089,6 +26226,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 8,
     "damageHigh": 17,
     "damageLow": 13,
     "equipImage": {
@@ -26117,6 +26255,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 8,
     "damageHigh": 17,
     "damageLow": 13,
     "equipImage": {
@@ -26145,6 +26284,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 8,
     "damageHigh": 17,
     "damageLow": 13,
     "equipImage": {
@@ -26173,6 +26313,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 9,
     "damageHigh": 15,
     "damageLow": 11,
     "equipImage": {
@@ -26201,6 +26342,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 900,
+    "combatSkill": 9,
     "damageHigh": 20,
     "damageLow": 15,
     "equipImage": {
@@ -26229,6 +26371,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 9,
     "damageHigh": 15,
     "damageLow": 11,
     "equipImage": {
@@ -26257,6 +26400,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 900,
+    "combatSkill": 9,
     "damageHigh": 20,
     "damageLow": 15,
     "equipImage": {
@@ -26285,6 +26429,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 9,
     "damageHigh": 15,
     "damageLow": 11,
     "equipImage": {
@@ -26313,6 +26458,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 900,
+    "combatSkill": 9,
     "damageHigh": 20,
     "damageLow": 15,
     "equipImage": {
@@ -26765,6 +26911,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 350,
+    "combatSkill": 4,
     "damageHigh": 11,
     "damageLow": 7,
     "equipImage": {
@@ -26793,6 +26940,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 350,
+    "combatSkill": 4,
     "damageHigh": 11,
     "damageLow": 7,
     "equipImage": {
@@ -26821,6 +26969,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 350,
+    "combatSkill": 4,
     "damageHigh": 11,
     "damageLow": 7,
     "equipImage": {
@@ -26849,6 +26998,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 5,
     "damageHigh": 11,
     "damageLow": 9,
     "equipImage": {
@@ -26877,6 +27027,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 5,
     "damageHigh": 11,
     "damageLow": 9,
     "equipImage": {
@@ -26905,6 +27056,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 5,
     "damageHigh": 11,
     "damageLow": 9,
     "equipImage": {
@@ -26933,6 +27085,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 6,
     "damageHigh": 12,
     "damageLow": 10,
     "equipImage": {
@@ -26961,6 +27114,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 6,
     "damageHigh": 12,
     "damageLow": 10,
     "equipImage": {
@@ -26989,6 +27143,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 6,
     "damageHigh": 12,
     "damageLow": 10,
     "equipImage": {
@@ -27017,6 +27172,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 8,
     "damageHigh": 12,
     "damageLow": 8,
     "equipImage": {
@@ -27045,6 +27201,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 8,
     "damageHigh": 12,
     "damageLow": 8,
     "equipImage": {
@@ -27073,6 +27230,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 8,
     "damageHigh": 12,
     "damageLow": 8,
     "equipImage": {
@@ -27101,6 +27259,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 9,
     "damageHigh": 8,
     "damageLow": 6,
     "equipImage": {
@@ -27129,6 +27288,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 9,
     "damageHigh": 8,
     "damageLow": 6,
     "equipImage": {
@@ -27157,6 +27317,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 9,
     "damageHigh": 8,
     "damageLow": 6,
     "equipImage": {
@@ -27185,6 +27346,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 10,
     "damageHigh": 20,
     "damageLow": 16,
     "equipImage": {
@@ -27213,6 +27375,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 10,
     "damageHigh": 20,
     "damageLow": 16,
     "equipImage": {
@@ -27241,6 +27404,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 10,
     "damageHigh": 20,
     "damageLow": 16,
     "equipImage": {
@@ -27269,6 +27433,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 2,
+    "combatSkill": 14,
     "damageHigh": 10,
     "damageLow": 6,
     "equipSlot": "Weapon",
@@ -27291,6 +27456,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 2,
+    "combatSkill": 14,
     "damageHigh": 10,
     "damageLow": 6,
     "equipSlot": "Weapon",
@@ -27313,6 +27479,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 2,
+    "combatSkill": 14,
     "damageHigh": 10,
     "damageLow": 6,
     "equipSlot": "Weapon",
@@ -27335,6 +27502,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 2,
+    "combatSkill": 14,
     "damageHigh": 10,
     "damageLow": 6,
     "equipSlot": "Weapon",
@@ -29667,6 +29835,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 800,
+    "combatSkill": 10,
     "damageHigh": 35,
     "damageLow": 25,
     "equipImage": {
@@ -29695,6 +29864,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 14,
     "damageHigh": 28,
     "damageLow": 20,
     "equipImage": {
@@ -29765,6 +29935,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 10000,
+    "combatSkill": 14,
     "damageHigh": 30,
     "damageLow": 20,
     "equipSlot": "Weapon",
@@ -30627,6 +30798,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 2,
     "damageHigh": 8,
     "damageLow": 6,
     "equipImage": {
@@ -30655,6 +30827,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 2,
     "damageHigh": 8,
     "damageLow": 6,
     "equipImage": {
@@ -30683,6 +30856,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 2,
     "damageHigh": 8,
     "damageLow": 6,
     "equipImage": {
@@ -30711,6 +30885,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 2,
     "damageHigh": 8,
     "damageLow": 6,
     "equipImage": {
@@ -31029,6 +31204,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 350,
+    "combatSkill": 4,
     "damageHigh": 20,
     "damageLow": 15,
     "equipImage": {
@@ -31057,6 +31233,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 4,
     "damageHigh": 23,
     "damageLow": 19,
     "equipImage": {
@@ -31085,6 +31262,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 800,
+    "combatSkill": 6,
     "damageHigh": 26,
     "damageLow": 22,
     "equipImage": {
@@ -31113,6 +31291,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 6,
     "damageHigh": 22,
     "damageLow": 18,
     "equipImage": {
@@ -31141,6 +31320,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 5,
     "damageHigh": 21,
     "damageLow": 19,
     "equipImage": {
@@ -31169,6 +31349,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 5,
     "damageHigh": 25,
     "damageLow": 23,
     "equipImage": {
@@ -31197,6 +31378,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 10,
     "damageHigh": 22,
     "damageLow": 18,
     "equipImage": {
@@ -31225,6 +31407,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 9,
     "damageHigh": 19,
     "damageLow": 15,
     "equipImage": {
@@ -31253,6 +31436,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 900,
+    "combatSkill": 9,
     "damageHigh": 23,
     "damageLow": 19,
     "equipImage": {
@@ -31281,6 +31465,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 100,
+    "combatSkill": 2,
     "damageHigh": 10,
     "damageLow": 6,
     "equipImage": {
@@ -31309,6 +31494,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 8,
     "damageHigh": 20,
     "damageLow": 16,
     "equipImage": {
@@ -31337,6 +31523,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 400,
+    "combatSkill": 7,
     "damageHigh": 21,
     "damageLow": 15,
     "equipImage": {
@@ -31365,6 +31552,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 14,
     "damageHigh": 18,
     "damageLow": 13,
     "equipImage": {
@@ -31393,6 +31581,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 2,
+    "combatSkill": 14,
     "damageHigh": 12,
     "damageLow": 8,
     "equipSlot": "Weapon",
@@ -31415,6 +31604,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 60,
+    "combatSkill": 3,
     "damageHigh": 7,
     "damageLow": 4,
     "equipImage": {
@@ -31443,6 +31633,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 250,
+    "combatSkill": 12,
     "damageHigh": 12,
     "damageLow": 7,
     "equipImage": {
@@ -31471,6 +31662,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 12,
     "damageHigh": 14,
     "damageLow": 9,
     "equipImage": {
@@ -31499,6 +31691,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 350,
+    "combatSkill": 12,
     "damageHigh": 16,
     "damageLow": 11,
     "equipImage": {
@@ -31527,6 +31720,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 400,
+    "combatSkill": 12,
     "damageHigh": 18,
     "damageLow": 13,
     "equipImage": {
@@ -31555,6 +31749,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 450,
+    "combatSkill": 12,
     "damageHigh": 21,
     "damageLow": 15,
     "equipImage": {
@@ -31583,6 +31778,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 12,
     "damageHigh": 28,
     "damageLow": 20,
     "equipImage": {
@@ -31611,6 +31807,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 550,
+    "combatSkill": 12,
     "damageHigh": 35,
     "damageLow": 25,
     "equipImage": {
@@ -31765,6 +31962,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 350,
+    "combatSkill": 12,
     "damageHigh": 17,
     "damageLow": 12,
     "equipImage": {
@@ -31955,6 +32153,7 @@
     "attackSpeed": 4,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 13,
     "damageHigh": 12,
     "damageLow": 7,
     "equipImage": {
@@ -31983,6 +32182,7 @@
     "attackSpeed": 4,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 13,
     "damageHigh": 15,
     "damageLow": 10,
     "equipImage": {
@@ -32011,6 +32211,7 @@
     "attackSpeed": 4,
     "blocksLight": false,
     "burden": 800,
+    "combatSkill": 13,
     "damageHigh": 18,
     "damageLow": 13,
     "equipImage": {
@@ -32039,6 +32240,7 @@
     "attackSpeed": 4,
     "blocksLight": false,
     "burden": 900,
+    "combatSkill": 13,
     "damageHigh": 21,
     "damageLow": 16,
     "equipImage": {
@@ -32067,6 +32269,7 @@
     "attackSpeed": 4,
     "blocksLight": false,
     "burden": 1000,
+    "combatSkill": 13,
     "damageHigh": 24,
     "damageLow": 19,
     "equipImage": {
@@ -32095,6 +32298,7 @@
     "attackSpeed": 4,
     "blocksLight": false,
     "burden": 1100,
+    "combatSkill": 13,
     "damageHigh": 27,
     "damageLow": 22,
     "equipImage": {
@@ -32123,6 +32327,7 @@
     "attackSpeed": 4,
     "blocksLight": false,
     "burden": 1200,
+    "combatSkill": 13,
     "damageHigh": 36,
     "damageLow": 28,
     "equipImage": {
@@ -32151,6 +32356,7 @@
     "attackSpeed": 4,
     "blocksLight": false,
     "burden": 1300,
+    "combatSkill": 13,
     "damageHigh": 45,
     "damageLow": 35,
     "equipImage": {
@@ -32197,6 +32403,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 10000,
+    "combatSkill": 2,
     "damageHigh": 12,
     "damageLow": 8,
     "graphics": {
@@ -32218,6 +32425,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 10000,
+    "combatSkill": 2,
     "damageHigh": 10,
     "damageLow": 5,
     "graphics": {
@@ -32355,6 +32563,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 10000,
+    "combatSkill": 2,
     "damageHigh": 12,
     "damageLow": 8,
     "graphics": {
@@ -36301,6 +36510,7 @@
     "armorLevel": 20,
     "blocksLight": false,
     "burden": 1000,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-chest0.png",
       "frames": [
@@ -36327,6 +36537,7 @@
     "armorLevel": 20,
     "blocksLight": false,
     "burden": 1000,
+    "combatSkill": 11,
     "equipImage": {
       "file": "rpgwo-legs0.png",
       "frames": [
@@ -36353,6 +36564,7 @@
     "armorLevel": 20,
     "blocksLight": false,
     "burden": 350,
+    "combatSkill": 15,
     "equipImage": {
       "file": "rpgwo-head1.png",
       "frames": [
@@ -36379,6 +36591,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 100,
+    "combatSkill": 12,
     "damageHigh": 40,
     "damageLow": 30,
     "equipSlot": "Weapon",
@@ -37704,6 +37917,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 1000,
+    "combatSkill": 4,
     "damageHigh": 26,
     "damageLow": 18,
     "equipImage": {
@@ -37732,6 +37946,7 @@
     "attackSpeed": 2.5,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 6,
     "damageHigh": 24,
     "damageLow": 16,
     "equipImage": {
@@ -37760,6 +37975,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 4,
     "damageHigh": 20,
     "damageLow": 15,
     "equipImage": {
@@ -37788,6 +38004,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 150,
+    "combatSkill": 3,
     "damageHigh": 12,
     "damageLow": 8,
     "equipImage": {
@@ -37816,6 +38033,7 @@
     "attackSpeed": 2.5,
     "blocksLight": false,
     "burden": 1000,
+    "combatSkill": 6,
     "damageHigh": 30,
     "damageLow": 20,
     "equipImage": {
@@ -38078,6 +38296,7 @@
     "armorLevel": 11,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -38104,6 +38323,7 @@
     "armorLevel": 12,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -38130,6 +38350,7 @@
     "armorLevel": 14,
     "blocksLight": false,
     "burden": 800,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -38156,6 +38377,7 @@
     "armorLevel": 13,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -40744,6 +40966,7 @@
     "attackSpeed": 2.5,
     "blocksLight": false,
     "burden": 10000,
+    "combatSkill": 6,
     "damageHigh": 30,
     "damageLow": 20,
     "graphics": {
@@ -40945,6 +41168,7 @@
     "attackSpeed": 2.5,
     "blocksLight": false,
     "burden": 10000,
+    "combatSkill": 6,
     "damageHigh": 35,
     "damageLow": 25,
     "graphics": {
@@ -41805,6 +42029,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 10000,
+    "combatSkill": 14,
     "damageHigh": 30,
     "damageLow": 20,
     "equipSlot": "Weapon",
@@ -41941,6 +42166,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 250,
+    "combatSkill": 4,
     "damageHigh": 12,
     "damageLow": 8,
     "equipImage": {
@@ -41969,6 +42195,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 100,
+    "combatSkill": 2,
     "damageHigh": 11,
     "damageLow": 9,
     "equipImage": {
@@ -41997,6 +42224,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 150,
+    "combatSkill": 4,
     "damageHigh": 14,
     "damageLow": 8,
     "equipImage": {
@@ -42025,6 +42253,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 8,
     "damageHigh": 23,
     "damageLow": 17,
     "equipImage": {
@@ -43058,6 +43287,7 @@
     "armorLevel": 2,
     "blocksLight": false,
     "burden": 100,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43084,6 +43314,7 @@
     "armorLevel": 3,
     "blocksLight": false,
     "burden": 150,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43110,6 +43341,7 @@
     "armorLevel": 4,
     "blocksLight": false,
     "burden": 200,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43136,6 +43368,7 @@
     "armorLevel": 5,
     "blocksLight": false,
     "burden": 250,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43162,6 +43395,7 @@
     "armorLevel": 6,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43188,6 +43422,7 @@
     "armorLevel": 7,
     "blocksLight": false,
     "burden": 350,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43214,6 +43449,7 @@
     "armorLevel": 8,
     "blocksLight": false,
     "burden": 400,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43240,6 +43476,7 @@
     "armorLevel": 9,
     "blocksLight": false,
     "burden": 450,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43266,6 +43503,7 @@
     "armorLevel": 10,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43292,6 +43530,7 @@
     "armorLevel": 11,
     "blocksLight": false,
     "burden": 550,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43318,6 +43557,7 @@
     "armorLevel": 12,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43344,6 +43584,7 @@
     "armorLevel": 13,
     "blocksLight": false,
     "burden": 650,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43370,6 +43611,7 @@
     "armorLevel": 14,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43396,6 +43638,7 @@
     "armorLevel": 15,
     "blocksLight": false,
     "burden": 750,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43422,6 +43665,7 @@
     "armorLevel": 16,
     "blocksLight": false,
     "burden": 800,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43448,6 +43692,7 @@
     "armorLevel": 17,
     "blocksLight": false,
     "burden": 850,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43474,6 +43719,7 @@
     "armorLevel": 18,
     "blocksLight": false,
     "burden": 900,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43500,6 +43746,7 @@
     "armorLevel": 19,
     "blocksLight": false,
     "burden": 950,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43526,6 +43773,7 @@
     "armorLevel": 20,
     "blocksLight": false,
     "burden": 1000,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43552,6 +43800,7 @@
     "armorLevel": 21,
     "blocksLight": false,
     "burden": 1050,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43578,6 +43827,7 @@
     "armorLevel": 22,
     "blocksLight": false,
     "burden": 1100,
+    "combatSkill": 1,
     "equipImage": {
       "file": "rpgwo-shield0.png",
       "frames": [
@@ -43604,6 +43854,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 10,
+    "combatSkill": 42,
     "damageHigh": 10,
     "damageLow": 5,
     "equipImage": {
@@ -43638,6 +43889,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 10,
+    "combatSkill": 42,
     "damageHigh": 10,
     "damageLow": 5,
     "equipSlot": "Weapon",
@@ -43793,6 +44045,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 100,
+    "combatSkill": 3,
     "damageHigh": 14,
     "damageLow": 12,
     "equipImage": {
@@ -43821,6 +44074,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 400,
+    "combatSkill": 4,
     "damageHigh": 26,
     "damageLow": 20,
     "equipImage": {
@@ -43849,6 +44103,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 5,
     "damageHigh": 28,
     "damageLow": 24,
     "equipImage": {
@@ -43877,6 +44132,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 10,
     "damageHigh": 30,
     "damageLow": 22,
     "equipImage": {
@@ -43905,6 +44161,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 6,
     "damageHigh": 30,
     "damageLow": 22,
     "equipImage": {
@@ -43933,6 +44190,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 7,
     "damageHigh": 23,
     "damageLow": 15,
     "equipImage": {
@@ -43961,6 +44219,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 8,
     "damageHigh": 23,
     "damageLow": 15,
     "equipImage": {
@@ -43989,6 +44248,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 9,
     "damageHigh": 26,
     "damageLow": 20,
     "equipImage": {
@@ -44017,6 +44277,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 2,
     "damageHigh": 16,
     "damageLow": 10,
     "equipImage": {
@@ -44045,6 +44306,7 @@
     "attackSpeed": 2.5,
     "blocksLight": false,
     "burden": 400,
+    "combatSkill": 12,
     "damageHigh": 36,
     "damageLow": 28,
     "equipImage": {
@@ -44073,6 +44335,7 @@
     "attackSpeed": 3.5,
     "blocksLight": false,
     "burden": 750,
+    "combatSkill": 13,
     "damageHigh": 52,
     "damageLow": 40,
     "equipImage": {
@@ -44101,6 +44364,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 14,
     "damageHigh": 25,
     "damageLow": 15,
     "equipImage": {
@@ -47923,6 +48187,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 1000,
+    "combatSkill": 4,
     "damageHigh": 23,
     "damageLow": 19,
     "equipImage": {
@@ -48026,6 +48291,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 1000,
+    "combatSkill": 6,
     "damageHigh": 26,
     "damageLow": 22,
     "equipImage": {
@@ -48108,6 +48374,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 14,
     "damageHigh": 18,
     "damageLow": 13,
     "equipSlot": "Weapon",
@@ -48132,6 +48399,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 14,
     "damageHigh": 18,
     "damageLow": 13,
     "equipSlot": "Weapon",
@@ -48156,6 +48424,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 14,
     "damageHigh": 18,
     "damageLow": 13,
     "equipSlot": "Weapon",
@@ -48180,6 +48449,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 2,
     "damageHigh": 20,
     "damageLow": 10,
     "equipImage": {
@@ -48208,6 +48478,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 2,
     "damageHigh": 20,
     "damageLow": 10,
     "equipImage": {
@@ -48236,6 +48507,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 2,
     "damageHigh": 20,
     "damageLow": 10,
     "equipImage": {
@@ -49176,6 +49448,7 @@
     "attackSpeed": 0.1,
     "blocksLight": false,
     "burden": 150,
+    "combatSkill": 6,
     "damageHigh": 400,
     "damageLow": 300,
     "equipImage": {
@@ -49748,6 +50021,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 50,
+    "combatSkill": 3,
     "damageHigh": 9,
     "damageLow": 7,
     "equipImage": {
@@ -49776,6 +50050,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 4,
     "damageHigh": 23,
     "damageLow": 19,
     "equipImage": {
@@ -49804,6 +50079,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 900,
+    "combatSkill": 5,
     "damageHigh": 24,
     "damageLow": 22,
     "equipImage": {
@@ -49832,6 +50108,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 800,
+    "combatSkill": 10,
     "damageHigh": 29,
     "damageLow": 17,
     "equipImage": {
@@ -49860,6 +50137,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 6,
     "damageHigh": 27,
     "damageLow": 19,
     "equipImage": {
@@ -49888,6 +50166,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 7,
     "damageHigh": 19,
     "damageLow": 14,
     "equipImage": {
@@ -49916,6 +50195,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 8,
     "damageHigh": 19,
     "damageLow": 14,
     "equipImage": {
@@ -49944,6 +50224,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 500,
+    "combatSkill": 9,
     "damageHigh": 23,
     "damageLow": 18,
     "equipImage": {
@@ -49972,6 +50253,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 2,
     "damageHigh": 13,
     "damageLow": 7,
     "equipImage": {
@@ -50000,6 +50282,7 @@
     "attackSpeed": 2.5,
     "blocksLight": false,
     "burden": 400,
+    "combatSkill": 12,
     "damageHigh": 19,
     "damageLow": 15,
     "equipImage": {
@@ -50028,6 +50311,7 @@
     "attackSpeed": 3.5,
     "blocksLight": false,
     "burden": 750,
+    "combatSkill": 13,
     "damageHigh": 32,
     "damageLow": 22,
     "equipImage": {
@@ -50056,6 +50340,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 14,
     "damageHigh": 15,
     "damageLow": 10,
     "equipImage": {
@@ -50678,6 +50963,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 5,
     "damageHigh": 21,
     "damageLow": 19,
     "equipImage": {
@@ -50708,6 +50994,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 450,
+    "combatSkill": 4,
     "damageHigh": 20,
     "damageLow": 15,
     "equipImage": {
@@ -50738,6 +51025,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 700,
+    "combatSkill": 6,
     "damageHigh": 22,
     "damageLow": 18,
     "equipImage": {
@@ -50768,6 +51056,7 @@
     "attackSpeed": 2,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 10,
     "damageHigh": 22,
     "damageLow": 18,
     "equipImage": {
@@ -50798,6 +51087,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 100,
+    "combatSkill": 2,
     "damageHigh": 10,
     "damageLow": 6,
     "equipImage": {
@@ -50828,6 +51118,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 600,
+    "combatSkill": 8,
     "damageHigh": 20,
     "damageLow": 16,
     "equipImage": {
@@ -50858,6 +51149,7 @@
     "attackSpeed": 1.5,
     "blocksLight": false,
     "burden": 400,
+    "combatSkill": 7,
     "damageHigh": 21,
     "damageLow": 15,
     "equipImage": {
@@ -50888,6 +51180,7 @@
     "attackSpeed": 3,
     "blocksLight": false,
     "burden": 300,
+    "combatSkill": 14,
     "damageHigh": 18,
     "damageLow": 13,
     "equipImage": {
@@ -50938,6 +51231,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 60,
+    "combatSkill": 3,
     "damageHigh": 11,
     "damageLow": 8,
     "equipImage": {
@@ -50966,6 +51260,7 @@
     "attackSpeed": 1,
     "blocksLight": false,
     "burden": 60,
+    "combatSkill": 3,
     "damageHigh": 11,
     "damageLow": 8,
     "equipImage": {
@@ -50996,6 +51291,7 @@
     "attackSpeed": 1.75,
     "blocksLight": false,
     "burden": 900,
+    "combatSkill": 9,
     "damageHigh": 23,
     "damageLow": 19,
     "equipImage": {

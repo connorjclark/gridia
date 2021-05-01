@@ -275,6 +275,7 @@ function parseItemsIni() {
     'attackSpeed',
     'damageLow',
     'damageHigh',
+    'combatSkill',
   ];
   for (const item of items) {
     filterProperties(item, allowlist);

@@ -22,6 +22,12 @@ interface State {
 
 export function makeSkillsWindow(initialState: State) {
   const actions = () => ({
+    setCombatLevel: (state: State, combatLevel: State['combatLevel']): State => {
+      return {
+        ...state,
+        combatLevel,
+      };
+    },
     setSkills: (state: State, skills: State['skills']): State => {
       return {
         ...state,

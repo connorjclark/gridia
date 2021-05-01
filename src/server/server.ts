@@ -222,7 +222,7 @@ export default class Server {
     const spawnLoc = this.findNearest(center, 10, true, (_, loc) => this.context.walkable(loc)) || center;
     await this.ensureSectorLoadedForPoint(spawnLoc);
 
-    const creature = {
+    const creature: Creature = {
       // Set later.
       id: 0,
       dead: false,
@@ -655,6 +655,7 @@ export default class Server {
   }
 
   updateCreatureDataBasedOnEquipment(creature: Creature, container: Container, opts: { broadcast: boolean }) {
+    creature.equipment = container.items;
     creature.imageData = this.makeCreatureImageData(container);
     creature.stats = {
       ...creature.stats,

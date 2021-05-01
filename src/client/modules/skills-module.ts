@@ -10,16 +10,8 @@ class SkillsModule extends ClientModule {
   getSkillsWindow() {
     if (this.skillsWindow) return this.skillsWindow;
 
-
-    const combatLevelDetails = Player.getCombatLevel(this.game.client.player);
     this.skillsWindow = makeSkillsWindow({
-      combatLevel: {
-        level: combatLevelDetails.combatLevel,
-        xpBar: {
-          current: combatLevelDetails.xp,
-          max: combatLevelDetails.xp + combatLevelDetails.xpUntilNextLevel,
-        },
-      },
+      combatLevel: this.getCombatLevel(),
       attributes: this.getAttributes(),
       skills: this.getSkills(),
     });
@@ -32,7 +24,8 @@ class SkillsModule extends ClientModule {
         this.game.addStatusText(`+${e.args.xp}xp ${Content.getSkill(e.args.skill).name}`);
 
         if (this.skillsWindow) {
-          this.getSkillsWindow().actions.setSkill(this.getSkill(e.args.skill));
+          this.skillsWindow.actions.setCombatLevel(this.getCombatLevel());
+          this.skillsWindow.actions.setSkill(this.getSkill(e.args.skill));
         }
       }
     });
@@ -45,6 +38,17 @@ class SkillsModule extends ClientModule {
         this.getSkillsWindow().el.hidden = true;
       }
     });
+  }
+
+  getCombatLevel() {
+    const combatLevelDetails = Player.getCombatLevel(this.game.client.player);
+    return {
+      level: combatLevelDetails.combatLevel,
+      xpBar: {
+        current: combatLevelDetails.xp,
+        max: combatLevelDetails.xp + combatLevelDetails.xpUntilNextLevel,
+      },
+    };
   }
 
   getSkill(id: number) {

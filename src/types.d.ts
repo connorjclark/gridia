@@ -136,7 +136,7 @@ interface Creature {
   food: number;
   eat_grass: boolean;
   light: number;
-  equipment?: Item[];
+  equipment?: Array<Item | null>;
   combatLevel: number;
   stats: {
     armor: number;
