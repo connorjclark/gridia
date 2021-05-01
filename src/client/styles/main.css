@@ -40,6 +40,10 @@ button {
   margin: 5px;
 }
 
+.start--connect-btn {
+  width: 100%;
+}
+
 .hidden {
   display: none !important;
 }
