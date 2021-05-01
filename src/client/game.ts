@@ -713,11 +713,11 @@ class Game {
             location: Utils.ItemLocation.World(point),
             item,
           });
-          this.world.off('mousemove', evtListener);
+          this.world.off('pointermove', evtListener);
         }
       };
-      this.world.on('mousemove', evtListener);
-      this.world.once('pointerup', () => this.world.off('mousemove', evtListener));
+      this.world.on('pointermove', evtListener);
+      this.world.once('pointerup', () => this.world.off('pointermove', evtListener));
     });
     this.world.on('pointerup', (e: PIXI.InteractionEvent) => {
       if (Utils.equalPoints(this.state.mouse.tile, this.getPlayerPosition())) {
