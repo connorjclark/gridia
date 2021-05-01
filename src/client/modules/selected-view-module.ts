@@ -27,7 +27,7 @@ class SelectedViewModule extends ClientModule {
       creature = game.client.context.getCreatureAt(location.loc);
     }
 
-    if (creature && creature.id !== game.client.player.creature.id) {
+    if (creature) {
       game.state.selectedView.creatureId = creature.id;
       game.state.selectedView.location = undefined;
     } else {
@@ -77,11 +77,12 @@ class SelectedViewModule extends ClientModule {
     let meta;
     if (creature) {
       data = {
-        name: creature.name,
-        life: { type: 'bar', color: 'red', ...creature.life },
-        stamina: { type: 'bar', color: 'yellow', ...creature.stamina },
-        mana: { type: 'bar', color: 'blue', ...creature.mana },
-        food: String(creature.food),
+        'Name': creature.name,
+        'Combat Level': String(creature.combatLevel),
+        'Life': { type: 'bar', color: 'red', ...creature.life },
+        'Stamina': { type: 'bar', color: 'yellow', ...creature.stamina },
+        'Mana': { type: 'bar', color: 'blue', ...creature.mana },
+        'Food': String(creature.food),
       };
     } else if (item) {
       meta = Content.getMetaItem(item.type);
@@ -110,7 +111,9 @@ class SelectedViewModule extends ClientModule {
 
     // Don't allow actions on self.
     const isSelf = creature?.id === game.client.player.creature.id;
-    if (!isSelf) {
+    if (isSelf) {
+      state.selectedView.actions = [];
+    } else {
       if (state.selectedView.location) {
         state.selectedView.actions = game.getActionsFor(state.selectedView.location);
       } else if (creature) {

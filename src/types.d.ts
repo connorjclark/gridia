@@ -130,7 +130,6 @@ interface Creature {
   tamedBy?: string; // player id
   roam?: number;
   speed: number;
-  // TODO: maxes
   life: { current: number; max: number };
   stamina: { current: number; max: number };
   mana: { current: number; max: number };
@@ -138,6 +137,7 @@ interface Creature {
   eat_grass: boolean;
   light: number;
   equipment?: Item[];
+  combatLevel: number;
   stats: {
     armor: number;
     attackSpeed: number;

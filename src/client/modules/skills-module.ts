@@ -9,7 +9,17 @@ class SkillsModule extends ClientModule {
 
   getSkillsWindow() {
     if (this.skillsWindow) return this.skillsWindow;
+
+
+    const combatLevelDetails = Player.getCombatLevel(this.game.client.player);
     this.skillsWindow = makeSkillsWindow({
+      combatLevel: {
+        level: combatLevelDetails.combatLevel,
+        xpBar: {
+          current: combatLevelDetails.xp,
+          max: combatLevelDetails.xp + combatLevelDetails.xpUntilNextLevel,
+        },
+      },
       attributes: this.getAttributes(),
       skills: this.getSkills(),
     });

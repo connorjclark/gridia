@@ -242,6 +242,8 @@ export default class Server {
       food: 100,
       eat_grass: false,
       light: 0,
+      // Set later.
+      combatLevel: 0,
       stats: {} as Creature['stats'],
     };
 
@@ -278,6 +280,8 @@ export default class Server {
     }
 
     // TODO: remember values on log off.
+
+    creature.combatLevel = Player.getCombatLevel(player).combatLevel;
 
     const life = Player.getAttributeValue(player, 'life').level;
     const stamina = Player.getAttributeValue(player, 'stamina').level;
@@ -396,6 +400,8 @@ export default class Server {
       food: 10,
       eat_grass: template.eat_grass,
       light: 0,
+      // @ts-expect-error TODO
+      combatLevel: template.level || 5,
       // TODO: get stats from monster.ini
       stats: {
         armor: 0,

@@ -39,6 +39,27 @@ export function getXpTotalForLevel(level: number) {
   return attributeLevelToXpTotal[level];
 }
 
+
+function costToIncrementCombatLevel(level: number) {
+  const x = level;
+  return Math.round(295.5543 * Math.pow(x, 3) - 1749.6641 * Math.pow(x, 2) + 5625.2909 * x - 4182.4037);
+}
+
+const combatLevelToXpTotal: number[] = [];
+{
+  let xp = 0;
+  for (let i = 0; i < 500; i++) {
+    combatLevelToXpTotal.push(xp);
+    xp += costToIncrementCombatLevel(i);
+  }
+}
+
+function combatLevelForXp(xp: number) {
+  const index = combatLevelToXpTotal.findIndex((threshold) => threshold > xp);
+  if (index === -1) return combatLevelToXpTotal.length;
+  return index - 1;
+}
+
 export function getAttributeValue(player: Player, id: Attribute) {
   const data = player.attributes.get(id);
   if (!ATTRIBUTES.includes(id) || !data) throw new Error('unknown attribute ' + id);
@@ -89,6 +110,31 @@ export function getSkillValue(player: Player, id: number) {
     earnedLevel,
     level,
     xpUntilNextLevel: attributeLevelToXpTotal[earnedLevel + 1] - xp,
+  };
+}
+
+export function getCombatLevel(player: Player) {
+  const skills = new Set([
+    'Melee Defense',
+    'Missle Defense',
+    'Magic Defense',
+  ]);
+  for (const skill of Content.getSkills()) {
+    if (skill.purpose) skills.add(skill.name);
+  }
+
+  let xp = 0;
+  for (const skillName of skills) {
+    const skill = Content.getSkillByName(skillName);
+    if (skill === undefined) continue;
+    xp += player.skills.get(skill.id)?.xp || 0;
+  }
+
+  const combatLevel = combatLevelForXp(xp);
+  return {
+    xp,
+    combatLevel,
+    xpUntilNextLevel: combatLevelToXpTotal[combatLevel + 1] - xp,
   };
 }
 

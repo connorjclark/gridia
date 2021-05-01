@@ -2,6 +2,10 @@ import { render, h, Component } from 'preact';
 import { ComponentProps, makeUIWindow, createSubApp } from './ui-common';
 
 interface State {
+  combatLevel: {
+    level: number;
+    xpBar: { current: number; max: number };
+  };
   attributes: Array<{
     name: string;
     earnedLevel: number;
@@ -43,7 +47,18 @@ export function makeSkillsWindow(initialState: State) {
     render(props: Props) {
       const skillsSortedByName = Object.values(props.skills)
         .sort((a, b) => a.name.localeCompare(b.name));
+
+      const combatXpUntilNextLevel = props.combatLevel.xpBar.max - props.combatLevel.xpBar.current;
+      const combatLevelTitle = `combat xp until next level: ${combatXpUntilNextLevel.toLocaleString()}`;
+      const combatLevelXpPercent = props.combatLevel.xpBar.current / props.combatLevel.xpBar.max;
+
       return <div>
+        <div class="skill__xp-bar" title={combatLevelTitle} style={{ '--percent': combatLevelXpPercent }}>
+          Combat Level {props.combatLevel.level}
+        </div>
+
+        <br></br>
+
         <div>
           Attributes
         </div>
@@ -56,14 +71,17 @@ export function makeSkillsWindow(initialState: State) {
             </div>;
           })}
         </div>
+
         <br></br>
+
         <div>
           Skills
         </div>
         <div class='flex flex-wrap justify-evenly'>
           {skillsSortedByName.map((skill) => {
             const xpUntilNextLevel = skill.xpBar.max - skill.xpBar.current;
-            const title = `${skill.name}–${skill.xp} xp (${xpUntilNextLevel} until next level)`;
+            const title =
+              `${skill.name}–${skill.xp.toLocaleString()} xp (${xpUntilNextLevel.toLocaleString()} until next level)`;
             const percent = skill.xpBar.current / skill.xpBar.max;
             return <div class='skill' title={title}>
               <span class="flex justify-between items-center">

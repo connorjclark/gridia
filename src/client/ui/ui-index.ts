@@ -32,6 +32,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   {
     const { el, actions } = makeSkillsWindow({
+      combatLevel: {
+        level: 50,
+        xpBar: { current: 500000, max: 1000000 },
+      },
       attributes: [
         {
           name: 'life',
@@ -166,7 +170,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const scale = 1.5;
   const gridCursorEl = document.querySelector('.grid-cursor') as HTMLElement;
   function mouseToWorld(pm: ScreenPoint): ScreenPoint {
-    return {x: pm.x / scale, y: pm.y / scale};
+    return { x: pm.x / scale, y: pm.y / scale };
   }
   function worldToTile(pw: ScreenPoint) {
     return Utils.worldToTile(0, pw, 0);
