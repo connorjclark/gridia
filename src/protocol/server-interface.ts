@@ -165,7 +165,16 @@ export default class ServerInterface implements IServerInterface {
       return;
     }
 
-    const tiles = await server.ensureSectorLoaded(loc);
+    const tiles: Tile[][] = JSON.parse(JSON.stringify(await server.ensureSectorLoaded(loc)));
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
+    for (let i = 0; i < tiles.length; i++) {
+      for (let j = 0; j < tiles[0].length; j++) {
+        const tile = tiles[i][j];
+        if (tile.item?.oreType) {
+          delete tile.item.oreType;
+        }
+      }
+    }
 
     server.reply(EventBuilder.sector({
       ...loc,
