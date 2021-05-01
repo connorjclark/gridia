@@ -15,6 +15,7 @@ interface State {
     id: number;
     name: string;
     level: number;
+    buffAmount: number;
     xp: number;
     xpBar: { current: number; max: number };
   }>;
@@ -92,6 +93,7 @@ export function makeSkillsWindow(initialState: State) {
             return <div class='skill' title={title}>
               <span class="flex justify-between items-center">
                 <span>{skill.name}</span>
+                {skill.buffAmount ? <span>+{skill.buffAmount}</span> : null}
                 <span class="skill__level">{skill.level}</span>
               </span>
               <div class="skill__xp-bar" style={{ '--percent': percent }}></div>

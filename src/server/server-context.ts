@@ -133,6 +133,7 @@ export class ServerContext extends Context {
       player.life = creature.life.current;
       player.stamina = creature.stamina.current;
       player.mana = creature.mana.current;
+      player.buffs = creature.buffs;
     }
 
     const json = WireSerializer.serialize(player);

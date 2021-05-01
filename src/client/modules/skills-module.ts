@@ -28,6 +28,13 @@ class SkillsModule extends ClientModule {
           this.skillsWindow.actions.setSkill(this.getSkill(e.args.skill));
         }
       }
+
+      if (e.type === 'setCreature' && e.args.buffs && e.args.id === this.game.client.creatureId) {
+        if (this.skillsWindow) {
+          this.skillsWindow.actions.setCombatLevel(this.getCombatLevel());
+          this.skillsWindow.actions.setSkills(this.getSkills());
+        }
+      }
     });
 
     this.game.client.eventEmitter.on('panelFocusChanged', ({ panelName }) => {
@@ -54,7 +61,7 @@ class SkillsModule extends ClientModule {
 
   getSkill(id: number) {
     const skill = Content.getSkill(id);
-    const value = Player.getSkillValue(this.game.client.player, skill.id);
+    const value = Player.getSkillValue(this.game.client.player, this.game.client.creature.buffs, skill.id);
 
     return {
       ...skill,

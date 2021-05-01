@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { GFX_SIZE } from '../constants';
 import * as Content from '../content';
 import { game } from '../game-singleton';
@@ -457,9 +458,16 @@ class Game {
       }
 
       if (this.client.creature.id === event.args.id) {
-        this.attributesWindow.actions.set('life', { ...this.client.creature.life });
-        this.attributesWindow.actions.set('stamina', { ...this.client.creature.stamina });
-        this.attributesWindow.actions.set('mana', { ...this.client.creature.mana });
+        this.attributesWindow.actions.setAttribute('life', { ...this.client.creature.life });
+        this.attributesWindow.actions.setAttribute('stamina', { ...this.client.creature.stamina });
+        this.attributesWindow.actions.setAttribute('mana', { ...this.client.creature.mana });
+        this.attributesWindow.actions.setBuffs(this.client.creature.buffs.map((buff) => {
+          return {
+            name: `${Content.getSkill(buff.skill).name} Buff`,
+            skillName: Content.getSkill(buff.skill).name,
+            ...buff,
+          };
+        }));
 
         if (this.client.equipment && (event.args.graphics !== undefined || event.args.imageData !== undefined)) {
           const equipmentWindow = this.containerWindows.get(this.client.equipment.id);
@@ -1154,6 +1162,21 @@ class Game {
       this._currentHoverItemText.y = this.app.view.height - this._currentHoverItemText.height;
     } else {
       this._currentHoverItemText.visible = false;
+    }
+
+    for (const el of Helper.findAll('.relative-time')) {
+      const time = Number(el.getAttribute('data-time'));
+      const delta = time - Date.now();
+      const expiresAt = DateTime.fromMillis(time);
+      let unit;
+      if (delta > 1000 * 60 * 60 * 2) {
+        unit = 'hours' as const;
+      } else if (delta > 1000 * 60 * 2) {
+        unit = 'minutes' as const;
+      } else {
+        unit = 'seconds' as const;
+      }
+      el.textContent = expiresAt.toRelative({ unit });
     }
 
     for (const clientModule of Object.values(this.modules)) {

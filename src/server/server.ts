@@ -241,6 +241,7 @@ export default class Server {
       stamina: 0,
       // set later
       mana: 0,
+      buffs: [],
     };
 
     // Mock xp for now.
@@ -305,6 +306,21 @@ export default class Server {
     clientConnection.container = await this.context.getContainer(player.containerId);
     clientConnection.equipment = await this.context.getContainer(player.equipmentContainerId);
 
+    player.buffs = [
+      {
+        expiresAt: Date.now() + Math.round(1000 * 60 * 60 * 10),
+        skill: 1,
+        percentChange: 0.1,
+        linearChange: 10,
+      },
+      {
+        expiresAt: Date.now() + Math.round(1000 * 60 * 60 * 10),
+        skill: 4,
+        percentChange: 0.2,
+        linearChange: 25,
+      },
+    ];
+
     const creature: Creature = {
       id: this.context.nextCreatureId++,
       dead: false,
@@ -336,6 +352,7 @@ export default class Server {
       combatLevel: Player.getCombatLevel(player).combatLevel,
       // set later
       stats: {} as Creature['stats'],
+      buffs: player.buffs,
     };
 
     this.updateCreatureDataBasedOnEquipment(creature, clientConnection.equipment, { broadcast: false });
@@ -418,6 +435,7 @@ export default class Server {
         meleeDefense: template.melee_defense || 0,
         missleDefense: template.missle_defense || 0,
       },
+      buffs: [],
     };
 
     if (template.equipment) {
@@ -522,6 +540,11 @@ export default class Server {
   modifyCreatureStamina(actor: Creature | null, creature: Creature, delta: number) {
     adjustAttribute(creature, 'stamina', delta);
     this.broadcastPartialCreatureUpdate(creature, ['stamina']);
+  }
+
+  assignCreatureBuff(creature: Creature, buff: Buff) {
+    creature.buffs.push(buff);
+    this.broadcastPartialCreatureUpdate(creature, ['buffs']);
   }
 
   removeCreature(creature: Creature) {
@@ -702,7 +725,7 @@ export default class Server {
       Player.incrementSkillXp(clientConnection.player, skill, xp) || {};
 
     if (skillLevelIncreased) {
-      const value = Player.getSkillValue(clientConnection.player, skill);
+      const value = Player.getSkillValue(clientConnection.player, clientConnection.creature.buffs, skill);
       this.send(EventBuilder.chat({
         from: 'World',
         to: '', // TODO
@@ -824,6 +847,28 @@ export default class Server {
       fn: async () => {
         for (const script of this._scripts) {
           await script.tick();
+        }
+      },
+    });
+
+    this.taskRunner.registerTickSection({
+      description: 'expire buffs',
+      fn: () => {
+        const now = Date.now();
+        for (const creature of this.context.creatures.values()) {
+          if (!creature.buffs.length) continue;
+
+          let modified = false;
+          for (let i = creature.buffs.length - 1; i >= 0; i--) {
+            if (creature.buffs[i].expiresAt <= now) {
+              creature.buffs.splice(i, 1);
+              modified = true;
+            }
+          }
+
+          if (modified) {
+            this.broadcastPartialCreatureUpdate(creature, ['buffs']);
+          }
         }
       },
     });

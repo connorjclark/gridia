@@ -115,7 +115,6 @@ export function maybeFind(query: string, node?: Element): HTMLElement | undefine
 export function findAll(query: string, node?: Element): Element[] {
   if (!node) node = document.body;
   const result = [...node.querySelectorAll(query)];
-  if (!result.length) throw new Error(`no elements matching ${query}`);
   return result;
 }
 

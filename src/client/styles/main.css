@@ -413,6 +413,20 @@ button {
   width: 50%;
 }
 
+.buff {
+  display: inline-block;
+}
+
+.tooltip {
+  display: none;
+  position: relative;
+  background-color: #cf8989;
+}
+.tooltip-on-hover:hover > .tooltip {
+  display: block;
+  position: absolute;
+}
+
 .usages__usages {
   display: flex;
   flex-wrap: wrap;

@@ -57,6 +57,7 @@ interface Player {
   life: number;
   stamina: number;
   mana: number;
+  buffs: Buff[];
 }
 
 interface Container {
@@ -146,6 +147,15 @@ interface Creature {
     meleeDefense: number;
     missleDefense: number;
   };
+  buffs: Buff[];
+}
+
+interface Buff {
+  /** UNIX epoch. */
+  expiresAt: number;
+  skill: number;
+  linearChange?: number;
+  percentChange?: number;
 }
 
 interface Graphics {

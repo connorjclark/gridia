@@ -103,15 +103,26 @@ function getSkillLevel(player: Player, id: number) {
 }
 
 // TODO rename details
-export function getSkillValue(player: Player, id: number) {
+export function getSkillValue(player: Player, buffs: Buff[], id: number) {
   const xp = player.skills.get(id)?.xp || 0;
   const { baseLevel, earnedLevel, level } = getSkillLevel(player, id);
+
+  let percentChange = 0;
+  let linearChange = 0;
+  for (const buff of buffs) {
+    if (buff.skill === id) {
+      if (buff.percentChange) percentChange += buff.percentChange;
+      if (buff.linearChange) linearChange += buff.linearChange;
+    }
+  }
+  const buffAmount = Math.floor(level * (percentChange) + linearChange);
 
   return {
     xp,
     baseLevel,
     earnedLevel,
-    level,
+    buffAmount,
+    level: level + buffAmount,
     xpUntilNextLevel: attributeLevelToXpTotal[earnedLevel + 1] - xp,
   };
 }
