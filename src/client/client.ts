@@ -10,6 +10,7 @@ class Client {
   // @ts-ignore set later.
   player: Player;
   creatureId = 0;
+  attackingCreatureId: number | null = 0;
 
   secondsPerWorldTick = 0;
   ticksPerWorldDay = 0;

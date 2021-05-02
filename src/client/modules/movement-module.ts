@@ -24,6 +24,16 @@ class MovementModule extends ClientModule {
 
   onStart() {
     this.game.client.eventEmitter.on('action', this.onAction);
+    this.game.client.eventEmitter.on('event', (e) => {
+      if (e.type === 'setAttackTarget') {
+        if (e.args.creatureId) {
+          this.followCreature = this.game.client.context.getCreature(e.args.creatureId);
+        } else {
+          this.followCreature = undefined;
+        }
+      }
+    });
+
     this.game.addActionCreator((location) => {
       if (location.source !== 'world') return;
 

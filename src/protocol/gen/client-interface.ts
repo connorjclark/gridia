@@ -17,4 +17,5 @@ export default interface IEvents {
     onChat(client: Client, { section, from, text }: Protocol.Events.Chat): void;
     onTime(client: Client, { epoch }: Protocol.Events.Time): void;
     onDialogue(client: Client, { dialogue, index }: Protocol.Events.Dialogue): void;
+    onSetAttackTarget(client: Client, { creatureId }: Protocol.Events.SetAttackTarget): void;
 }

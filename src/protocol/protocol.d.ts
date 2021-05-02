@@ -110,5 +110,9 @@ declare namespace Protocol {
       }
       index: number;
     }
+
+    interface SetAttackTarget {
+      creatureId: number | null;
+    }
   }
 }

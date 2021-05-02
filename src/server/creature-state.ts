@@ -392,7 +392,6 @@ export default class CreatureState {
     this.ticksUntilNextMovement = server.taskRunner.rateToTicks({ ms: durationInMs });
 
     const w = this.creature.pos.w;
-    const partition = server.context.map.getPartition(w);
 
     // Target the closest enemy.
     if (this.enemyCreatures.length && !this.targetCreature) {

@@ -1176,12 +1176,15 @@ class Game {
     }
 
     // Set _selectedViewCursor.
-    const selectedViewLoc = this.state.selectedView.creatureId ?
-      this.client.context.getCreature(this.state.selectedView.creatureId).pos :
+    const selectedCreatureId = this.state.selectedView.creatureId;
+    const selectedViewLoc = selectedCreatureId ?
+      this.client.context.getCreature(selectedCreatureId).pos :
       (this.state.selectedView.location?.source === 'world' && this.state.selectedView.location.loc);
     if (selectedViewLoc) {
       this._selectedViewCursor.location = Utils.ItemLocation.World(selectedViewLoc);
-      if (this.state.selectedView.creatureId) {
+      if (selectedCreatureId && selectedCreatureId === this.client.attackingCreatureId) {
+        this._selectedViewCursor.color = 'red';
+      } else if (selectedCreatureId) {
         this._selectedViewCursor.color = 'green';
       } else {
         this._selectedViewCursor.color = 'white';

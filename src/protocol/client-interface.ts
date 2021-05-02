@@ -91,4 +91,8 @@ export default class ClientInterface implements IClientInterface {
   onDialogue(client: Client, { dialogue, index }: Events.Dialogue): void {
     // handled by game.ts
   }
+
+  onSetAttackTarget(client: Client, { creatureId }: Events.SetAttackTarget): void {
+    client.attackingCreatureId = creatureId;
+  }
 }

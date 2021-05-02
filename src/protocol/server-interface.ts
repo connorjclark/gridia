@@ -194,6 +194,7 @@ export default class ServerInterface implements IServerInterface {
     if (type === 'attack') {
       server.creatureStates[server.currentClientConnection.creature.id].targetCreature =
         server.creatureStates[creatureId];
+      server.currentClientConnection.sendEvent(EventBuilder.setAttackTarget({ creatureId }));
     }
 
     if (type === 'tame') {
