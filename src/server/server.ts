@@ -207,6 +207,9 @@ export default class Server {
 
   async createPlayer(clientConnection: ClientConnection, opts: Protocol.Commands.CreatePlayer['params']) {
     if (opts.name.length > 20) return Promise.reject('Name too long');
+    if (opts.name.length < 2) return Promise.reject('Name too short');
+    if (opts.name.match(/\s{2,}/) || opts.name.trim() !== opts.name) return Promise.reject('Name has bad spacing');
+    if (!opts.name.match(/[A-ZÀ-ÚÄ-Ü]+/)) return Promise.reject('Name has illegal characters');
 
     if (this.context.playerNamesToIds.has(opts.name)) {
       throw new Error('Name already taken');
