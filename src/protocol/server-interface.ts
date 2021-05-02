@@ -35,7 +35,7 @@ export default class ServerInterface implements IServerInterface {
       const minedItem = { type: oreType, quantity: 1 };
       server.setItem(loc, minedItem);
       server.broadcastAnimation(loc, 'MiningSound');
-      server.grantXp(server.currentClientConnection, miningSkill.id, 100);
+      server.grantXp(server.currentClientConnection, miningSkill.id, 10);
     }
 
     if (!server.context.walkable(loc)) return Promise.reject('not walkable');
