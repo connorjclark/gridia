@@ -276,7 +276,7 @@ export default class Server {
 
     const container = this.context.makeContainer('normal');
     player.containerId = container.id;
-    if (opts.name !== 'test-user') {
+    if (opts.name !== 'TestUser') {
       container.items[0] = { type: Content.getMetaItemByName('Wood Axe').id, quantity: 1 };
       container.items[1] = { type: Content.getMetaItemByName('Fire Starter').id, quantity: 1 };
       container.items[2] = { type: Content.getMetaItemByName('Pick').id, quantity: 1 };

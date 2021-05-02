@@ -13,7 +13,7 @@ jest.mock('../src/game-singleton', () => {
 import * as assert from 'assert';
 import Client from '../src/client/client';
 import { Connection } from '../src/client/connection';
-import { MINE } from '../src/constants';
+import { CREATE_CHARACTER_ATTRIBUTES, MINE } from '../src/constants';
 import * as Content from '../src/content';
 import { makeBareMap } from '../src/mapgen';
 import * as CommandBuilder from '../src/protocol/command-builder';
@@ -21,7 +21,6 @@ import Server from '../src/server/server';
 import { ServerContext } from '../src/server/server-context';
 import * as Utils from '../src/utils';
 import WorldMap from '../src/world-map';
-import { ContainerType } from '../src/container';
 import { openAndConnectToServerInMemory } from './server-in-memory';
 
 let client: Client;
@@ -65,7 +64,16 @@ beforeEach(async () => {
     password: '1234567890',
   }));
   connection.sendCommand(CommandBuilder.createPlayer({
-    name: 'test-user',
+    name: 'TestUser',
+    attributes: new Map([
+      ['life', CREATE_CHARACTER_ATTRIBUTES - 20],
+      ['stamina', 20],
+    ]),
+    skills: [
+      Content.getSkillByNameOrThrowError('Cooking').id,
+      Content.getSkillByNameOrThrowError('Farming').id,
+      Content.getSkillByNameOrThrowError('Mining').id,
+    ],
   }));
 
   // Make client make initial request for the sector, so that partial updates are tested later.
@@ -260,7 +268,7 @@ describe('moveItem', () => {
   it('move item from container to world', async () => {
     const to = { w: 0, x: 0, y: 0, z: 0 };
 
-    const container = server.context.makeContainer(ContainerType.Normal);
+    const container = server.context.makeContainer('normal');
     container.items[0] = { type: 1, quantity: 1 };
     await send(CommandBuilder.requestContainer({ containerId: container.id }));
 
@@ -277,7 +285,7 @@ describe('moveItem', () => {
     const from = { w: 0, x: 0, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
-    const container = server.context.makeContainer(ContainerType.Normal);
+    const container = server.context.makeContainer('normal');
     await send(CommandBuilder.requestContainer({ containerId: container.id }));
 
     await send(CommandBuilder.moveItem({
@@ -293,7 +301,7 @@ describe('moveItem', () => {
     const from = { w: 0, x: 0, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
-    const container = server.context.makeContainer(ContainerType.Normal);
+    const container = server.context.makeContainer('normal');
     container.items[0] = { type: 2, quantity: 1 };
     container.items[1] = { type: 2, quantity: 1 };
     container.items[3] = { type: 2, quantity: 1 };
@@ -312,7 +320,7 @@ describe('moveItem', () => {
     const from = { w: 0, x: 0, y: 0, z: 0 };
 
     setItem(from, { type: 1, quantity: 1 });
-    const container = server.context.makeContainer(ContainerType.Normal);
+    const container = server.context.makeContainer('normal');
     container.items[0] = { type: 2, quantity: 1 };
     container.items[1] = { type: 2, quantity: 1 };
     container.items[2] = { type: 1, quantity: 2 };
