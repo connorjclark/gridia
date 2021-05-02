@@ -456,6 +456,16 @@ export default class ServerInterface implements IServerInterface {
       return;
     }
 
+    // TODO: temporary code until not everyone is an admin.
+    if (Content.getMetaItem(fromItem.type).trapEffect === 'Warp') {
+      server.reply(EventBuilder.chat({
+        section: 'World',
+        from: 'World',
+        text: 'Dont touch that.',
+      }));
+      return;
+    }
+
     // Prevent container-ception.
     if (Content.getMetaItem(fromItem.type).class === 'Container' && to.source === 'container'
       && to.id === fromItem.containerId) {
