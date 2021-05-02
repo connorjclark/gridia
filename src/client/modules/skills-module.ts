@@ -7,14 +7,18 @@ import { makeSkillsWindow } from '../ui/skills-window';
 class SkillsModule extends ClientModule {
   protected skillsWindow?: ReturnType<typeof makeSkillsWindow>;
 
-  getSkillsWindow() {
-    if (this.skillsWindow) return this.skillsWindow;
-
-    this.skillsWindow = makeSkillsWindow({
+  makeUIState() {
+    return {
       combatLevel: this.getCombatLevel(),
       attributes: this.getAttributes(),
       skills: this.getSkills(),
-    });
+    };
+  }
+
+  getSkillsWindow() {
+    if (this.skillsWindow) return this.skillsWindow;
+
+    this.skillsWindow = makeSkillsWindow(this.makeUIState());
     return this.skillsWindow;
   }
 

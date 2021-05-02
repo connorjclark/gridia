@@ -337,6 +337,7 @@ class Game {
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   modules = {
+    admin: new AdminModule(this),
     movement: new MovementModule(this),
     selectedView: new SelectedViewModule(this),
     settings: new SettingsModule(this),
