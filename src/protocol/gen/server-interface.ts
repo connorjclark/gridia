@@ -5,9 +5,9 @@ import Server from '../../server/server'
 export default interface ICommands {
     onAdminSetFloor(server: Server, { floor, ...loc }: Protocol.Commands.AdminSetFloor["params"]): Promise<Protocol.Commands.AdminSetFloor["response"]>;
     onAdminSetItem(server: Server, { item, ...loc }: Protocol.Commands.AdminSetItem["params"]): Promise<Protocol.Commands.AdminSetItem["response"]>;
-    onChat(server: Server, { to, message }: Protocol.Commands.Chat["params"]): Promise<Protocol.Commands.Chat["response"]>;
+    onChat(server: Server, { text }: Protocol.Commands.Chat["params"]): Promise<Protocol.Commands.Chat["response"]>;
     onCloseContainer(server: Server, { containerId }: Protocol.Commands.CloseContainer["params"]): Promise<Protocol.Commands.CloseContainer["response"]>;
-    onCreatePlayer(server: Server, { name }: Protocol.Commands.CreatePlayer["params"]): Promise<Protocol.Commands.CreatePlayer["response"]>;
+    onCreatePlayer(server: Server, { name, attributes, skills }: Protocol.Commands.CreatePlayer["params"]): Promise<Protocol.Commands.CreatePlayer["response"]>;
     onCreatureAction(server: Server, { creatureId, type }: Protocol.Commands.CreatureAction["params"]): Promise<Protocol.Commands.CreatureAction["response"]>;
     onDialogueResponse(server: Server, { choiceIndex }: Protocol.Commands.DialogueResponse["params"]): Promise<Protocol.Commands.DialogueResponse["response"]>;
     onEnterWorld(server: Server, { playerId }: Protocol.Commands.EnterWorld["params"]): Promise<Protocol.Commands.EnterWorld["response"]>;

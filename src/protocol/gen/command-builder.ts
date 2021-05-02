@@ -81,13 +81,13 @@ export function adminSetFloor({ floor, ...loc }: Protocol.Commands.AdminSetFloor
 export function adminSetItem({ item, ...loc }: Protocol.Commands.AdminSetItem["params"]): AdminSetItemCommand {
     return { type: "adminSetItem", args: arguments[0] };
 }
-export function chat({ to, message }: Protocol.Commands.Chat["params"]): ChatCommand {
+export function chat({ text }: Protocol.Commands.Chat["params"]): ChatCommand {
     return { type: "chat", args: arguments[0] };
 }
 export function closeContainer({ containerId }: Protocol.Commands.CloseContainer["params"]): CloseContainerCommand {
     return { type: "closeContainer", args: arguments[0] };
 }
-export function createPlayer({ name }: Protocol.Commands.CreatePlayer["params"]): CreatePlayerCommand {
+export function createPlayer({ name, attributes, skills }: Protocol.Commands.CreatePlayer["params"]): CreatePlayerCommand {
     return { type: "createPlayer", args: arguments[0] };
 }
 export function creatureAction({ creatureId, type }: Protocol.Commands.CreatureAction["params"]): CreatureActionCommand {

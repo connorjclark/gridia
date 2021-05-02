@@ -514,13 +514,14 @@ export default class CreatureState {
     // const modifier = isCriticial ? Utils.randInt(2, 3) : 1;
 
     if (this.creature.isPlayer || this.targetCreature.creature.isPlayer) {
+      // TODO: this won't work for PvP
       const clientConnection = server.getClientConnectionForCreature(this.creature) ||
         server.getClientConnectionForCreature(this.targetCreature.creature);
       if (clientConnection) {
-        const message = hitSuccess ?
+        const text = hitSuccess ?
           `${this.creature.name} hit ${this.targetCreature.creature.name} for ${damage} damage` :
           `${this.creature.name} missed ${this.targetCreature.creature.name}`;
-        server.send(EventBuilder.chat({ from: 'SERVER', to: '', message }), clientConnection);
+        server.send(EventBuilder.chat({ section: 'Combat', text }), clientConnection);
 
         const xpModifier = this.creature.isPlayer ?
           this.targetCreature.creature.combatLevel / this.creature.combatLevel :

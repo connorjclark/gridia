@@ -92,17 +92,17 @@ export default class Server {
     this.broadcastInRange(EventBuilder.animation({ ...pos, key: name }), pos, 30);
   }
 
-  broadcastChat(opts: { from: string; message: string }) {
-    console.log(`${opts.from}: ${opts.message}`);
+  broadcastChat(opts: { from: string; text: string }) {
+    console.log(`${opts.from}: ${opts.text}`);
     this.broadcast(EventBuilder.chat({
+      section: 'Global',
       from: opts.from,
-      to: 'global',
-      message: opts.message,
+      text: opts.text,
     }));
   }
 
   broadcastChatFromServer(message: string) {
-    this.broadcastChat({ from: 'SERVER', message });
+    this.broadcastChat({ from: 'SERVER', text: message });
   }
 
   start() {
@@ -735,24 +735,22 @@ export default class Server {
     if (skillLevelIncreased) {
       const value = Player.getSkillValue(clientConnection.player, clientConnection.creature.buffs, skill);
       this.send(EventBuilder.chat({
-        from: 'World',
-        to: '', // TODO
-        message: `${Content.getSkill(skill).name} is now level ${value.level}`,
+        section: 'Skills',
+        text: `${Content.getSkill(skill).name} is now level ${value.level}`,
       }), clientConnection);
     }
 
     if (combatLevelIncreased) {
       const combatLevel = Player.getCombatLevel(clientConnection.player).combatLevel;
       this.send(EventBuilder.chat({
-        from: 'World',
-        to: '', // TODO
-        message: `You are now combat level ${combatLevel}!`,
+        section: 'Skills',
+        text: `You are now combat level ${combatLevel}!`,
       }), clientConnection);
 
       if (combatLevel % 5 === 0) {
         this.broadcastChat({
-          from: 'World',
-          message: `${clientConnection.player.name} is now combat level ${combatLevel}!`,
+          from: 'SERVER',
+          text: `${clientConnection.player.name} is now combat level ${combatLevel}!`,
         });
       }
 
@@ -808,9 +806,9 @@ export default class Server {
     clientConnection.sendEvent(EventBuilder.time({ epoch: this.time.epoch }));
 
     clientConnection.sendEvent(EventBuilder.chat({
-      from: 'World',
-      to: '', // TODO
-      message: [
+      section: 'World',
+      from: 'SERVER',
+      text: [
         `Welcome to Gridia, ${player.name}! Type "/help" for a list of chat commands`,
         this.getMessagePlayersOnline(),
         this.getMessageTime(),

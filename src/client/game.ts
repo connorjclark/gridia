@@ -332,6 +332,9 @@ class Game {
   private _highlights: HighlightReference[] = [];
   private _selectedViewHighlight = this.registerHighlight();
 
+  private _currentChatSection = 'All';
+  private _chatLog: Array<{ section: string; text: string; from?: string }> = [];
+
   // eslint-disable-next-line @typescript-eslint/member-ordering
   modules = {
     movement: new MovementModule(this),
@@ -423,6 +426,7 @@ class Game {
     return this._playerCreature;
   }
 
+  // Should only be used for refreshing UI, not updating game state.
   onProtocolEvent(event: ProtocolEvent) {
     // Update the selected view, if the item there changed.
     if (event.type === 'setItem') {
@@ -504,7 +508,7 @@ class Game {
     }
 
     if (event.type === 'chat') {
-      this.addToChat(`${event.args.from}: ${event.args.message}`);
+      this.addToChat(event.args.section, event.args.text, event.args.from);
     }
 
     if (event.type === 'dialogue') {
@@ -537,12 +541,15 @@ class Game {
   start() {
     this.client.settings = getDefaultSettings();
 
-    // Should only be used for refreshing UI, not updating game state.
-    this.client.eventEmitter.on('event', (e) => {
-      this.onProtocolEvent(e);
-    });
-
     this.canvasesEl.appendChild(this.app.view);
+
+    this.createChatSection('All');
+    this.setChatSection('All');
+    this.createChatSection('Global');
+    // this.createChatSection('Local');
+    this.createChatSection('World');
+    this.createChatSection('Combat');
+    this.createChatSection('Skills');
 
     // ?
     setTimeout(() => this.onLoad());
@@ -610,6 +617,10 @@ class Game {
   }
 
   registerListeners() {
+    this.client.eventEmitter.on('event', (e) => {
+      if (this.started) this.onProtocolEvent(e);
+    });
+
     const onActionSelection = (e: Event) => {
       if (!(e.target instanceof HTMLElement)) return;
       if (!e.target.classList.contains('action')) return;
@@ -931,8 +942,7 @@ class Game {
       if (!chatInput.value) return;
 
       this.client.connection.sendCommand(CommandBuilder.chat({
-        to: 'global',
-        message: chatInput.value,
+        text: chatInput.value,
       }));
       chatInput.value = '';
       chatTextarea.scrollTop = chatTextarea.scrollHeight;
@@ -948,6 +958,12 @@ class Game {
       } else if (helpWindow) {
         helpWindow.el.hidden = true;
       }
+    });
+
+    Helper.find('.chat-sections').addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const sectionEl = target.closest('.chat-section');
+      if (sectionEl) this.setChatSection(sectionEl.getAttribute('name') || 'All');
     });
 
     // If running server locally, give it a chance to save data before closing window.
@@ -1222,11 +1238,44 @@ class Game {
     }
   }
 
-  private addToChat(line: string) {
+  private addToChat(section: string, text: string, from?: string) {
+    this._chatLog.push({ section, text, from });
+    if (section === this._currentChatSection || this._currentChatSection === 'All') {
+      const chatTextarea = Helper.find('.chat-area') as HTMLTextAreaElement;
+      const isMaxScroll = (chatTextarea.scrollTop + chatTextarea.offsetHeight) >= chatTextarea.scrollHeight;
+      chatTextarea.value += `${this.formatChatEntry(text, from)}\n`;
+      if (isMaxScroll) chatTextarea.scrollTop = chatTextarea.scrollHeight;
+    }
+  }
+
+  private setChatSection(name: string) {
+    this._currentChatSection = name;
+
+    const currentSectionEl = Helper.maybeFind('.chat-section.selected');
+    if (currentSectionEl) currentSectionEl.classList.remove('selected');
+    const el = Helper.find(`.chat-section[name="${name}"]`);
+    el.classList.add('selected');
+
     const chatTextarea = Helper.find('.chat-area') as HTMLTextAreaElement;
-    const isMaxScroll = (chatTextarea.scrollTop + chatTextarea.offsetHeight) >= chatTextarea.scrollHeight;
-    chatTextarea.value += `${line}\n`;
-    if (isMaxScroll) chatTextarea.scrollTop = chatTextarea.scrollHeight;
+    chatTextarea.value = '';
+    for (const entry of this._chatLog) {
+      if (entry.section === name || name === 'All') {
+        chatTextarea.value += `${this.formatChatEntry(entry.text, entry.from)}\n`;
+      }
+    }
+
+    chatTextarea.scrollTop = chatTextarea.scrollHeight;
+  }
+
+  private createChatSection(name: string) {
+    const sectionsEl = Helper.find('.chat .chat-sections');
+    const el = Helper.createChildOf(sectionsEl, 'div', 'chat-section', { name });
+    el.textContent = name;
+  }
+
+  private formatChatEntry(text: string, from?: string) {
+    if (!from) return text;
+    return `${from}: ${text}`;
   }
 }
 

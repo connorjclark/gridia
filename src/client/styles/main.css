@@ -92,7 +92,7 @@ button {
 .chat {
   width: 35%;
   margin: 0 10px;
-  opacity: 0.5;
+  opacity: 0.8;
   pointer-events: all;
 }
 .chat:hover {
@@ -105,6 +105,12 @@ button {
 }
 .chat-submit {
   margin-left: 10px;
+}
+.chat-sections {
+  background-color: navajowhite;
+}
+.chat-section.selected {
+  background-color: gold;
 }
 
 .help pre {

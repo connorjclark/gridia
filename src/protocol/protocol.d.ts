@@ -18,7 +18,7 @@ declare namespace Protocol {
   namespace Commands {
     type AdminSetFloor = Command<TilePoint & { floor: number }>;
     type AdminSetItem = Command<TilePoint & { item?: Item }>;
-    type Chat = Command<{ to: string; message: string }>;
+    type Chat = Command<{ text: string }>;
     type CloseContainer = Command<{ containerId: string }>;
     type CreatePlayer = Command<{
       name: string,
@@ -94,9 +94,9 @@ declare namespace Protocol {
     }
 
     interface Chat {
-      from: string;
-      to: string;
-      message: string;
+      section: string;
+      from?: string;
+      text: string;
     }
 
     interface Time {

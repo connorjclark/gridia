@@ -65,7 +65,7 @@ export function animation({ key, ...loc }: Protocol.Events.Animation): Animation
 export function container({ container }: Protocol.Events.Container): ContainerEvent {
     return { type: "container", args: arguments[0] };
 }
-export function initialize({ player, secondsPerWorldTick, ticksPerWorldDay }: Protocol.Events.Initialize): InitializeEvent {
+export function initialize({ player, creatureId, secondsPerWorldTick, ticksPerWorldDay }: Protocol.Events.Initialize): InitializeEvent {
     return { type: "initialize", args: arguments[0] };
 }
 export function initializePartition({ ...loc }: Protocol.Events.InitializePartition): InitializePartitionEvent {
@@ -92,7 +92,7 @@ export function setItem({ location, item }: Protocol.Events.SetItem): SetItemEve
 export function xp({ skill, xp }: Protocol.Events.Xp): XpEvent {
     return { type: "xp", args: arguments[0] };
 }
-export function chat({ from, to, message }: Protocol.Events.Chat): ChatEvent {
+export function chat({ section, from, text }: Protocol.Events.Chat): ChatEvent {
     return { type: "chat", args: arguments[0] };
 }
 export function time({ epoch }: Protocol.Events.Time): TimeEvent {

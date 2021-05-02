@@ -209,9 +209,9 @@ export default class ServerInterface implements IServerInterface {
         server.startDialogue(server.currentClientConnection, dialogue);
       } else {
         server.reply(EventBuilder.chat({
+          section: 'World',
           from: creature.name,
-          to: '', // TODO
-          message: '...',
+          text: '...',
         }));
       }
     }
@@ -423,9 +423,9 @@ export default class ServerInterface implements IServerInterface {
     const validToLocation = findValidLocation(to, fromItem);
     if ('error' in validToLocation) {
       server.reply(EventBuilder.chat({
+        section: 'World',
         from: 'World',
-        to: '', // TODO
-        message: validToLocation.error,
+        text: validToLocation.error,
       }));
       return;
     }
@@ -444,9 +444,9 @@ export default class ServerInterface implements IServerInterface {
 
     if (!server.currentClientConnection.player.isAdmin && !Content.getMetaItem(fromItem.type).moveable) {
       server.reply(EventBuilder.chat({
+        section: 'World',
         from: 'World',
-        to: '', // TODO
-        message: 'That item is not moveable',
+        text: 'That item is not moveable',
       }));
       return;
     }
@@ -455,9 +455,9 @@ export default class ServerInterface implements IServerInterface {
     if (Content.getMetaItem(fromItem.type).class === 'Container' && to.source === 'container'
       && to.id === fromItem.containerId) {
       server.reply(EventBuilder.chat({
+        section: 'World',
         from: 'World',
-        to: '', // TODO
-        message: 'You cannot store a container inside another container',
+        text: 'You cannot store a container inside another container',
       }));
       return;
     }
@@ -467,9 +467,9 @@ export default class ServerInterface implements IServerInterface {
 
     if (isStackable && quantityToMove + (toItem?.quantity || 0) > MAX_STACK) {
       server.reply(EventBuilder.chat({
+        section: 'World',
         from: 'World',
-        to: '', // TODO
-        message: 'Item stack would be too large.',
+        text: 'Item stack would be too large.',
       }));
       return;
     }
@@ -495,9 +495,9 @@ export default class ServerInterface implements IServerInterface {
     // context.queueTileChange(to)
   }
 
-  onChat(server: Server, { to, message }: Commands.Chat['params']): Promise<Commands.Chat['response']> {
-    if (message.startsWith('/')) {
-      const parsedCommand = CommandParser.parseCommand(message.substring(1));
+  onChat(server: Server, { text }: Commands.Chat['params']): Promise<Commands.Chat['response']> {
+    if (text.startsWith('/')) {
+      const parsedCommand = CommandParser.parseCommand(text.substring(1));
 
       const COMMANDS: Record<string, CommandParser.Command> = {
         warp: {
@@ -542,7 +542,11 @@ export default class ServerInterface implements IServerInterface {
           do(args: { name: string }) {
             const template = Content.getMonsterTemplateByNameNoError(args.name);
             if (!template) {
-              server.reply(EventBuilder.chat({ from: 'SERVER', to, message: `No monster named ${args.name}` }));
+              server.reply(EventBuilder.chat({
+                section: 'World',
+                from: 'SERVER',
+                text: `No monster named ${args.name}`,
+              }));
               return;
             }
 
@@ -566,7 +570,11 @@ export default class ServerInterface implements IServerInterface {
               meta = Content.getMetaItemByName(args.nameOrId);
             }
             if (!meta) {
-              server.reply(EventBuilder.chat({ from: 'SERVER', to, message: `No item: ${args.nameOrId}` }));
+              server.reply(EventBuilder.chat({
+                section: 'World',
+                from: 'SERVER',
+                text: `No item: ${args.nameOrId}`,
+              }));
               return;
             }
 
@@ -584,9 +592,9 @@ export default class ServerInterface implements IServerInterface {
           args: [],
           do() {
             server.currentClientConnection.sendEvent(EventBuilder.chat({
+              section: 'World',
               from: 'World',
-              to: '', // TODO
-              message: `The time is ${server.time.toString()}`,
+              text: `The time is ${server.time.toString()}`,
             }));
           },
         },
@@ -594,9 +602,9 @@ export default class ServerInterface implements IServerInterface {
           args: [],
           do() {
             server.currentClientConnection.sendEvent(EventBuilder.chat({
+              section: 'World',
               from: 'World',
-              to: '', // TODO
-              message: server.getMessagePlayersOnline(),
+              text: server.getMessagePlayersOnline(),
             }));
           },
         },
@@ -610,9 +618,9 @@ export default class ServerInterface implements IServerInterface {
             server.save().then(() => {
               partition.loaded = true;
               server.currentClientConnection.sendEvent(EventBuilder.chat({
+                section: 'World',
                 from: 'World',
-                to: '', // TODO
-                message: `Made partition ${nextPartitionId}`,
+                text: `Made partition ${nextPartitionId}`,
               }));
             });
           },
@@ -655,7 +663,11 @@ export default class ServerInterface implements IServerInterface {
           do(args: { skillName: string; xp: number }) {
             const skill = Content.getSkillByName(args.skillName);
             if (!skill) {
-              server.reply(EventBuilder.chat({ from: 'SERVER', to, message: `No skill named ${args.skillName}` }));
+              server.reply(EventBuilder.chat({
+                section: 'World',
+                from: 'SERVER',
+                text: `No skill named ${args.skillName}`,
+              }));
               return;
             }
 
@@ -669,7 +681,11 @@ export default class ServerInterface implements IServerInterface {
           do(args: { name: string }) {
             const animation = Content.getAnimation(args.name);
             if (!animation) {
-              server.reply(EventBuilder.chat({ from: 'SERVER', to, message: `No animation named ${args.name}` }));
+              server.reply(EventBuilder.chat({
+                section: 'World',
+                from: 'SERVER',
+                text: `No animation named ${args.name}`,
+              }));
               return;
             }
 
@@ -686,7 +702,11 @@ export default class ServerInterface implements IServerInterface {
               messageBody += `/${commandName} ${args}\n`;
               if (data.help) messageBody += `  ${data.help}\n`;
             }
-            server.reply(EventBuilder.chat({ from: 'SERVER', to, message: messageBody }));
+            server.reply(EventBuilder.chat({
+              section: 'World',
+              from: 'SERVER',
+              text: messageBody,
+            }));
           },
         },
       };
@@ -694,22 +714,37 @@ export default class ServerInterface implements IServerInterface {
       // @ts-ignore
       const command = COMMANDS[parsedCommand.commandName];
       if (!command) {
-        server.reply(EventBuilder.chat({ from: 'SERVER', to, message: `unknown command: ${message}` }));
+        server.reply(EventBuilder.chat({
+          section: 'World',
+          from: 'SERVER',
+          text: `unknown command: ${text}`,
+        }));
         return Promise.reject();
       }
 
       const parsedArgs = CommandParser.parseArgs(parsedCommand.argsString, command.args);
       if ('error' in parsedArgs) {
-        server.reply(EventBuilder.chat({ from: 'SERVER', to, message: `error: ${parsedArgs.error}` }));
+        server.reply(EventBuilder.chat({
+          section: 'World',
+          from: 'SERVER',
+          text: `error: ${parsedArgs.error}`,
+        }));
         return Promise.reject();
       }
 
       const maybeError = command.do(parsedArgs);
       if (maybeError) {
-        server.reply(EventBuilder.chat({ from: 'SERVER', to, message: `error: ${maybeError}` }));
+        server.reply(EventBuilder.chat({
+          section: 'World',
+          from: 'SERVER',
+          text: `error: ${maybeError}`,
+        }));
       }
     } else {
-      server.broadcastChat({ from: server.currentClientConnection.player.name, message });
+      server.broadcastChat({
+        from: server.currentClientConnection.player.name,
+        text,
+      });
     }
 
     return Promise.resolve();

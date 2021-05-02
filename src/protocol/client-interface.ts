@@ -80,7 +80,7 @@ export default class ClientInterface implements IClientInterface {
     Player.incrementSkillXp(client.player, skill, xp);
   }
 
-  onChat(client: Client, { from, to, message }: Events.Chat): void {
+  onChat(client: Client, { section, from, text }: Events.Chat): void {
     // handled by game.ts
   }
 
