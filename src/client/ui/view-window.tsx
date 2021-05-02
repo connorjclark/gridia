@@ -2,7 +2,7 @@ import { render, h, Component } from 'preact';
 import SelectedViewModule from '../modules/selected-view-module';
 import * as Content from '../../content';
 import { val } from '../../lib/link-state';
-import { Graphic, ComponentProps, createSubApp, makeUIWindow, Bar } from './ui-common';
+import { Graphic, ComponentProps, createSubApp, makeUIWindow, Bar, CustomCreatureGraphic } from './ui-common';
 
 interface State {
   selectedView?: UIState['selectedView'];
@@ -28,6 +28,7 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
       if (!props.selectedView) return <div></div>;
       const selectedView = props.selectedView;
 
+      let imageData;
       let file = '';
       let index;
       let quantity = 1;
@@ -35,6 +36,7 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
         const creature = selectedViewModule.game.client.context.getCreature(selectedView.creatureId);
         file = creature.graphics.file;
         index = creature.graphics.index;
+        imageData = creature.imageData;
       } else if (selectedView.location?.source === 'world') {
         const item = selectedViewModule.game.client.context.map.getItem(selectedView.location.loc);
         const metaItem = item && Content.getMetaItem(item.type);
@@ -55,12 +57,19 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
         }
       }
 
+      let img;
+      if (imageData) {
+        img = <CustomCreatureGraphic {...imageData}></CustomCreatureGraphic>;
+      } else if (file && index !== undefined) {
+        img = <Graphic file={file} index={index} quantity={quantity}></Graphic>;
+      }
+
       return <div>
         <div>
           View
         </div>
         <div>
-          {file && index !== undefined && <Graphic file={file} index={index} quantity={quantity}></Graphic>}
+          {img}
 
           {Object.entries(props.data || {}).map(([key, value]) => {
             if (typeof value !== 'string' && value.type === 'bar') {
