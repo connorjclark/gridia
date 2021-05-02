@@ -534,8 +534,7 @@ class CreateCharacterScene extends Scene {
       saveLocalStorageData();
       startGame(controller.client);
     } catch (error) {
-      // TODO: UI
-      console.error(error);
+      Helper.find('.create--errorlog', this.element).textContent = error;
     }
   }
 
