@@ -70,6 +70,7 @@ class SkillsModule extends ClientModule {
         current: value.xp - Player.getXpTotalForLevel(value.earnedLevel),
         max: Player.getXpTotalForLevel(value.earnedLevel + 1) - Player.getXpTotalForLevel(value.earnedLevel),
       },
+      baseLevelFormula: Content.getSkillAttributeDescription(skill),
     };
   }
 

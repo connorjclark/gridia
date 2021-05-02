@@ -292,12 +292,6 @@ button {
 .window--skills {
   overflow-y: scroll;
 }
-.attribute {
-  width: 50%;
-}
-.skill {
-  width: 30%;
-}
 .skill__level {
   margin: 3px;
   font-size: 22px;

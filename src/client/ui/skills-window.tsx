@@ -15,9 +15,12 @@ interface State {
     id: number;
     name: string;
     level: number;
+    baseLevel: number;
+    earnedLevel: number;
     buffAmount: number;
     xp: number;
     xpBar: { current: number; max: number };
+    baseLevelFormula: string;
   }>;
 }
 
@@ -73,7 +76,7 @@ export function makeSkillsWindow(initialState: State) {
           {props.attributes.map((attribute) => {
             const level = attribute.baseLevel + attribute.earnedLevel;
             const title = `base: ${attribute.baseLevel} earned: ${attribute.earnedLevel}`;
-            return <div class='attribute' title={title}>
+            return <div class='attribute' title={title} style={{ width: '50%' }}>
               {attribute.name} {level}
             </div>;
           })}
@@ -87,10 +90,9 @@ export function makeSkillsWindow(initialState: State) {
         <div class='flex flex-wrap justify-evenly'>
           {skillsSortedByName.map((skill) => {
             const xpUntilNextLevel = skill.xpBar.max - skill.xpBar.current;
-            const title =
-              `${skill.name}–${skill.xp.toLocaleString()} xp (${xpUntilNextLevel.toLocaleString()} until next level)`;
             const percent = skill.xpBar.current / skill.xpBar.max;
-            return <div class='skill' title={title}>
+
+            const skillEl = <div class='skill tooltip-on-hover'>
               <span class="flex justify-between items-center">
                 <span>{skill.name}</span>
                 {skill.buffAmount ? <span>+{skill.buffAmount}</span> : null}
@@ -98,6 +100,19 @@ export function makeSkillsWindow(initialState: State) {
               </span>
               <div class="skill__xp-bar" style={{ '--percent': percent }}></div>
             </div>;
+
+            const l = (str: string | number) => str.toLocaleString();
+            return <span style={{ width: '30%' }}>
+              {skillEl}
+              <div class='tooltip'>
+                {skill.name} Lvl. {skill.level}
+                <br></br>total xp: {l(skill.xp)}
+                <br></br>xp until next level: {l(xpUntilNextLevel)}
+                <br></br>base level = {skill.baseLevelFormula} = {skill.baseLevel}
+                <br></br>buffed levels: {skill.buffAmount}
+                <br></br>trained levels: {skill.earnedLevel}
+              </div>
+            </span>;
           })}
         </div>
       </div>;
