@@ -1,3 +1,4 @@
+import { ATTRIBUTES } from './player';
 // TODO: this json is bundled as JS - but it's much faster to parse
 // JSON at runtime via JSON.parse than as a JS object literal.
 
@@ -245,4 +246,24 @@ export function getSkillByNameOrThrowError(name: string) {
   const skill = skills.find((s) => s.name === name);
   if (!skill) throw new Error('no skill named ' + name);
   return skill;
+}
+
+export function getSkillAttributeDescription(skill: Skill) {
+  const parts = [];
+
+  for (const key of ATTRIBUTES) {
+    // @ts-expect-error
+    const multiplier = skill[key] || 0;
+    if (!multiplier) continue;
+
+    const abrv = key.substr(0, 3).toUpperCase();
+    if (multiplier === 1) {
+      parts.push(abrv);
+    } else {
+      parts.push(`${multiplier} * ${abrv}`);
+    }
+  }
+
+  if (skill.divisor === 1) return parts.join(' + ');
+  return `(${parts.join(' + ')}) / ${skill.divisor}`;
 }

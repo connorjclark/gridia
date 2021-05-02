@@ -470,14 +470,15 @@ class CreateCharacterScene extends Scene {
         const el = Helper.createChildOf(categoryEl, 'div', 'create--skill flex tooltip-on-hover');
         Helper.createChildOf(el, 'div').textContent = `${skill.name} (${skill.skillPoints})`;
         const required = requiredSkills.includes(skill);
+
+        let tooltip = skill.description + '<br> base level = ' + Content.getSkillAttributeDescription(skill);
         if (required) {
           el.classList.add('selected');
-          Helper.createChildOf(categoryEl, 'div', 'tooltip').textContent = skill.description + ' (required)';
-        } else {
-          Helper.createChildOf(categoryEl, 'div', 'tooltip').textContent = skill.description;
+          tooltip += ' (required)';
         }
-        if (required) continue;
+        Helper.createChildOf(categoryEl, 'div', 'tooltip').innerHTML = tooltip;
 
+        if (required) continue;
         el.addEventListener('click', () => {
           let selected = this.selectedSkills.has(id);
           if (selected) {

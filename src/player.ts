@@ -41,7 +41,7 @@ export function getXpTotalForLevel(level: number) {
 
 function costToIncrementCombatLevel(level: number) {
   const x = level;
-  return Math.round(295.5543 * Math.pow(x, 3) - 1749.6641 * Math.pow(x, 2) + 5625.2909 * x - 4182.4037);
+  return Math.round(295.5543 * Math.pow(x, 3) - 1749.6641 * Math.pow(x, 2) + 5625.2909 * x);
 }
 
 const combatLevelToXpTotal: number[] = [];
@@ -128,19 +128,14 @@ export function getSkillValue(player: Player, buffs: Buff[], id: number) {
 }
 
 export function getCombatLevel(player: Player) {
-  const skills = new Set([
-    'Melee Defense',
-    'Missle Defense',
-    'Magic Defense',
-  ]);
+  const skills = new Set<number>();
   for (const skill of Content.getSkills()) {
-    if (skill.purpose) skills.add(skill.name);
+    if (skill.category === 'combat' || skill.category === 'combat basics') skills.add(skill.id);
   }
 
   let xp = 0;
-  for (const skillName of skills) {
-    const skill = Content.getSkillByName(skillName);
-    if (skill === undefined) continue;
+  for (const id of skills) {
+    const skill = Content.getSkill(id);
     xp += player.skills.get(skill.id)?.xp || 0;
   }
 
