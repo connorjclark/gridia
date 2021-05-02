@@ -31,7 +31,7 @@ export const SettingsSchema = {
   showGrid: {
     type: 'boolean',
     label: 'Show Grid',
-    default: true,
+    default: false,
   },
   clickMagic: {
     type: 'boolean',
