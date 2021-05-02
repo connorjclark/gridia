@@ -54,8 +54,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       },
     };
 
-    possibleUsageHighlight = {};
-    registerHighlight() {
+    possibleUsageCursor = {};
+    registerCursor() {
       return {};
     }
     addActionCreator() {

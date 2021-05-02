@@ -295,10 +295,10 @@ class CreatureSprite extends PIXI.Sprite {
   }
 }
 
-export interface HighlightReference {
+export interface CursorReference {
+  el: HTMLElement;
   location: ItemLocation | null;
-  color: number;
-  alpha: number;
+  color: string;
 }
 
 class Game {
@@ -310,7 +310,6 @@ class Game {
   worldContainer: WorldContainer;
   protected app = new PIXI.Application();
   protected canvasesEl = Helper.find('#canvases');
-  protected gridCursorEl = Helper.find('.grid-cursor');
   protected world = new PIXI.Container();
   protected itemMovingState?: ItemMoveBeginEvent;
   protected itemMovingGraphic = makeGraphicComponent();
@@ -329,8 +328,9 @@ class Game {
   private _lastSyncedEpoch = 0;
   private _lastSyncedRealTime = 0;
 
-  private _highlights: HighlightReference[] = [];
-  private _selectedViewHighlight = this.registerHighlight();
+  private _cursors: CursorReference[] = [];
+  private _mouseCursor = this.registerCursor({ color: 'gold' });
+  private _selectedViewCursor = this.registerCursor({ color: 'white' });
 
   private _currentChatSection = 'All';
   private _chatLog: Array<{ section: string; text: string; from?: string }> = [];
@@ -383,14 +383,15 @@ class Game {
     return new WorldTime(this.client.ticksPerWorldDay, epoch);
   }
 
-  registerHighlight(): HighlightReference {
-    const highlight = {
+  registerCursor(opts: { color: string }): CursorReference {
+    const el = Helper.createChildOf(Helper.find('.grid-cursors'), 'div', 'grid-cursor');
+    const cursor = {
+      el,
       location: null,
-      color: 0,
-      alpha: 0,
+      color: opts.color,
     };
-    this._highlights.push(highlight);
-    return highlight;
+    this._cursors.push(cursor);
+    return cursor;
   }
 
   isEditingMode() {
@@ -660,18 +661,12 @@ class Game {
 
       if (!(e.target as HTMLElement).closest('.ui')) {
         if (!ContextMenu.isOpen()) {
-          const size = GFX_SIZE * this.client.settings.scale;
-          this.gridCursorEl.hidden = false;
-          this.gridCursorEl.style.setProperty('--size', size + 'px');
           if (this.state.mouse.tile) {
-            const x = (this.state.mouse.tile.x - this.worldContainer.camera.left) * size;
-            const y = (this.state.mouse.tile.y - this.worldContainer.camera.top) * size;
-            this.gridCursorEl.style.setProperty('--x', x + 'px');
-            this.gridCursorEl.style.setProperty('--y', y + 'px');
+            this._mouseCursor.location = Utils.ItemLocation.World(this.state.mouse.tile);
           }
         }
       } else {
-        this.gridCursorEl.hidden = true;
+        this._mouseCursor.location = null;
       }
     });
 
@@ -933,7 +928,7 @@ class Game {
       ContextMenu.close();
       this.modules.usage.updatePossibleUsages(e.to);
       this.itemMovingState = undefined;
-      this.gridCursorEl.hidden = true;
+      this._mouseCursor.location = null;
     });
 
     this.client.eventEmitter.on('action', () => ContextMenu.close());
@@ -1180,36 +1175,58 @@ class Game {
       });
     }
 
-    // Draw highlight over selected view.
+    // Set _selectedViewCursor.
     const selectedViewLoc = this.state.selectedView.creatureId ?
       this.client.context.getCreature(this.state.selectedView.creatureId).pos :
       (this.state.selectedView.location?.source === 'world' && this.state.selectedView.location.loc);
     if (selectedViewLoc) {
-      this._selectedViewHighlight.color = 0xffff00;
-      this._selectedViewHighlight.alpha = 0.2;
-      this._selectedViewHighlight.location = Utils.ItemLocation.World(selectedViewLoc);
+      this._selectedViewCursor.location = Utils.ItemLocation.World(selectedViewLoc);
+      if (this.state.selectedView.creatureId) {
+        this._selectedViewCursor.color = 'green';
+      } else {
+        this._selectedViewCursor.color = 'white';
+      }
     } else {
-      this._selectedViewHighlight.location = null;
+      this._selectedViewCursor.location = null;
     }
 
-    // TODO: don't redraw these every frame.
-    for (const highlight of this._highlights) {
-      if (!highlight.location) continue;
-      if (highlight.location.source !== 'world') continue;
+    // Hide mouse cursor if any other cursors are in same location.
+    for (const cursor of this._cursors) {
+      if (cursor === this._mouseCursor) continue;
+      if (!cursor.location || !this._mouseCursor.location) continue;
+      if (!Utils.ItemLocation.Equal(cursor.location, this._mouseCursor.location)) continue;
 
-      const gfx = Draw.makeHighlight(highlight.color, highlight.alpha);
-      gfx.x = highlight.location.loc.x * GFX_SIZE;
-      gfx.y = highlight.location.loc.y * GFX_SIZE;
-      this.worldContainer.layers.top.addChild(gfx);
+      this._mouseCursor.location = null;
+    }
 
+    // Draw cursors.
+    for (const cursor of this._cursors) {
+      cursor.el.hidden = !cursor.location;
+      if (!cursor.location) continue;
+      if (cursor.location.source !== 'world') continue;
+
+      const size = GFX_SIZE * this.client.settings.scale;
+      const x = (cursor.location.loc.x - this.worldContainer.camera.left) * size;
+      const y = (cursor.location.loc.y - this.worldContainer.camera.top) * size;
+      cursor.el.style.setProperty('--size', size + 'px');
+      cursor.el.style.setProperty('--color', cursor.color);
+      cursor.el.style.setProperty('--x', x + 'px');
+      cursor.el.style.setProperty('--y', y + 'px');
+
+      // TODO: don't redraw these every frame.
       // Draw selected tool if usable.
-      if (highlight === this._selectedViewHighlight && !this.state.selectedView.creatureId) {
+      if (cursor === this._selectedViewCursor && !this.state.selectedView.creatureId) {
+        const sprite = new PIXI.Sprite();
+        sprite.x = cursor.location.loc.x * GFX_SIZE;
+        sprite.y = cursor.location.loc.y * GFX_SIZE;
+        this.worldContainer.layers.top.addChild(sprite);
+
         const tool = Helper.getSelectedTool();
-        const selectedItem = this.client.context.map.getItem(highlight.location.loc);
+        const selectedItem = this.client.context.map.getItem(cursor.location.loc);
         if (tool && selectedItem && Helper.usageExists(tool.type, selectedItem.type)) {
           const itemSprite = Draw.makeItemSprite({ type: tool.type, quantity: 1 });
           itemSprite.anchor.x = itemSprite.anchor.y = 0.5;
-          gfx.addChild(itemSprite);
+          sprite.addChild(itemSprite);
         }
       }
     }

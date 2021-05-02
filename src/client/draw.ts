@@ -56,13 +56,6 @@ export function getTexture(file: string, index: number, width = 1, height = 1) {
   return textureCache(index, width, height);
 }
 
-export function makeHighlight(color: number, alpha: number) {
-  const highlight = new PIXI.Graphics();
-  highlight.beginFill(color, alpha);
-  highlight.drawRect(0, 0, GFX_SIZE, GFX_SIZE);
-  return highlight;
-}
-
 export function makeAnimationSprite(animationIndices: number[]) {
   // TODO animation.graphics.
   const textures = animationIndices.map(

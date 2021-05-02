@@ -109,16 +109,16 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
   el.addEventListener('pointerover', (e) => {
     const index = getIndex(e);
     if (index === undefined) {
-      usageModule.possibleUsageHighlight.location = null;
+      usageModule.possibleUsageCursor.location = null;
       return;
     }
 
     // Highlight the usage focus (the first one...) that would be used.
     const possibleUsage = possibleUsagesGrouped[index][0];
-    usageModule.possibleUsageHighlight.location = possibleUsage.focusLocation;
+    usageModule.possibleUsageCursor.location = possibleUsage.focusLocation;
   });
   el.addEventListener('pointerleave', () => {
-    usageModule.possibleUsageHighlight.location = null;
+    usageModule.possibleUsageCursor.location = null;
   });
 
   return { el, actions: exportedActions, subscribe };
