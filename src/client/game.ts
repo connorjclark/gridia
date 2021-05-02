@@ -875,6 +875,18 @@ class Game {
           z: (focusPos.z + 1) % partition.depth,
         }));
       }
+
+      // Q/E to cycle targets.
+      if (e.key === 'q') this.cycleSelectedTarget(-1);
+      if (e.key === 'e') this.cycleSelectedTarget(1);
+
+      // R to attack.
+      if (e.key === 'r' && this.state.selectedView.creatureId) {
+        this.client.connection.sendCommand(CommandBuilder.creatureAction({
+          creatureId: this.state.selectedView.creatureId,
+          type: 'attack',
+        }));
+      }
     });
 
     // resize the canvas to fill browser window dynamically
@@ -981,6 +993,41 @@ class Game {
         serverWorker.shutdown().then(() => console.log('saved!'));
       });
     }
+  }
+
+  cycleSelectedTarget(delta: number) {
+    const focusPos = this.getPlayerPosition();
+
+    const creaturesSortedByDistance = [];
+    for (const creature of this.client.context.creatures.values()) {
+      if (creature.id === this.client.creatureId) continue;
+      if (creature.pos.w !== focusPos.w) continue;
+      if (creature.pos.z !== focusPos.z) continue;
+      if (!this.worldContainer.camera.contains(creature.pos)) continue;
+
+      creaturesSortedByDistance.push(creature);
+    }
+    creaturesSortedByDistance.sort((a, b) => {
+      const distA = Utils.dist(focusPos, a.pos);
+      const distB = Utils.dist(focusPos, b.pos);
+      return distA - distB;
+    });
+    if (creaturesSortedByDistance.length === 0) return;
+
+    const currentTargetedCreatureId = this.state.selectedView.creatureId;
+    let currentTargetedCreatureIndex = currentTargetedCreatureId === undefined ?
+      undefined :
+      creaturesSortedByDistance.findIndex((c) => c.id === currentTargetedCreatureId);
+    if (currentTargetedCreatureIndex === -1) currentTargetedCreatureIndex = 0;
+
+    let nextTargetedCreatureIndex = currentTargetedCreatureIndex === undefined ?
+      0 :
+      currentTargetedCreatureIndex + delta;
+    if (nextTargetedCreatureIndex === -1) nextTargetedCreatureIndex = creaturesSortedByDistance.length - 1;
+    if (nextTargetedCreatureIndex === creaturesSortedByDistance.length) nextTargetedCreatureIndex = 0;
+
+    const nextTargetedCreature = creaturesSortedByDistance[nextTargetedCreatureIndex];
+    this.modules.selectedView.selectView(Utils.ItemLocation.World(nextTargetedCreature.pos));
   }
 
   tick() {

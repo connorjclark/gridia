@@ -593,7 +593,7 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
     if (!creature.isPlayer) {
       actions.push({
         type: 'attack',
-        innerText: 'Attack',
+        innerText: 'Attack [R]',
         title: 'Attack',
       });
     }
