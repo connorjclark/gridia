@@ -78,10 +78,8 @@ export default class ServerInterface implements IServerInterface {
     return { account, players };
   }
 
-  onCreatePlayer(server: Server, { name }: { name: string }): Promise<void> {
-    if (name.length > 20) return Promise.reject('Name too long');
-
-    return server.createPlayer(server.currentClientConnection, { name });
+  onCreatePlayer(server: Server, args: Commands.CreatePlayer['params']): Promise<void> {
+    return server.createPlayer(server.currentClientConnection, args);
   }
 
   // eslint-disable-next-line max-len

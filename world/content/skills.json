@@ -2,14 +2,20 @@
   {
     "id": 1,
     "name": "Melee Defense",
+    "description": "Ability to evade attacks with melee weapon.",
+    "skillPoints": 10,
     "divisor": 3,
+    "category": "combat basics",
     "dexterity": 1,
     "quickness": 1
   },
   {
     "id": 2,
     "name": "Unarmed Attack",
+    "description": "Ability to use bare hands or claw like weapons.",
+    "skillPoints": 6,
     "divisor": 3,
+    "category": "combat",
     "dexterity": 1,
     "purpose": "melee",
     "strength": 1
@@ -17,7 +23,10 @@
   {
     "id": 3,
     "name": "Dagger",
+    "description": "Ability to use daggers as a melee weapon.",
+    "skillPoints": 4,
     "divisor": 3,
+    "category": "combat",
     "dexterity": 1,
     "purpose": "melee",
     "quickness": 1
@@ -25,7 +34,10 @@
   {
     "id": 4,
     "name": "Sword",
+    "description": "Ability to use swords as a melee weapon.",
+    "skillPoints": 6,
     "divisor": 3,
+    "category": "combat",
     "dexterity": 1,
     "purpose": "melee",
     "strength": 1
@@ -33,7 +45,10 @@
   {
     "id": 5,
     "name": "Axe",
+    "description": "Ability to use axes as a melee weapon.",
+    "skillPoints": 6,
     "divisor": 3,
+    "category": "combat",
     "dexterity": 1,
     "purpose": "melee",
     "strength": 1
@@ -41,7 +56,10 @@
   {
     "id": 6,
     "name": "Mace",
+    "description": "Ability to use maces or clubs as a melee weapon.",
+    "skillPoints": 6,
     "divisor": 3,
+    "category": "combat",
     "dexterity": 1,
     "purpose": "melee",
     "strength": 1
@@ -49,7 +67,10 @@
   {
     "id": 7,
     "name": "Spear",
+    "description": "Ability to use spears as a melee weapon.",
+    "skillPoints": 6,
     "divisor": 3,
+    "category": "combat",
     "dexterity": 1,
     "purpose": "melee",
     "strength": 1
@@ -57,7 +78,10 @@
   {
     "id": 8,
     "name": "Staff",
+    "description": "Ability to use staffs as a melee weapon.",
+    "skillPoints": 6,
     "divisor": 3,
+    "category": "combat",
     "dexterity": 1,
     "purpose": "melee",
     "strength": 1
@@ -65,7 +89,10 @@
   {
     "id": 9,
     "name": "Flail",
+    "description": "Ability to use flails as a melee weapon.",
+    "skillPoints": 6,
     "divisor": 3,
+    "category": "combat",
     "dexterity": 1,
     "purpose": "melee",
     "strength": 1
@@ -73,7 +100,10 @@
   {
     "id": 10,
     "name": "Scythe",
+    "description": "Ability to use scythes as a melee weapon.",
+    "skillPoints": 6,
     "divisor": 3,
+    "category": "combat",
     "dexterity": 1,
     "purpose": "melee",
     "strength": 1
@@ -81,21 +111,30 @@
   {
     "id": 11,
     "name": "Missle Defense",
+    "description": "Ability to evade/dodge missle attacks like arrows.",
+    "skillPoints": 6,
     "divisor": 3,
+    "category": "combat basics",
     "dexterity": 1,
     "quickness": 1
   },
   {
     "id": 12,
     "name": "Bow",
+    "description": "Ability to use bows as a missle weapon.",
+    "skillPoints": 6,
     "divisor": 2,
+    "category": "combat",
     "dexterity": 1,
     "purpose": "missle"
   },
   {
     "id": 13,
     "name": "Crossbow",
+    "description": "Ability to use crossbows as a missle weapon.",
+    "skillPoints": 6,
     "divisor": 3,
+    "category": "combat",
     "dexterity": 1,
     "purpose": "missle",
     "strength": 1
@@ -103,7 +142,10 @@
   {
     "id": 14,
     "name": "Throwing",
+    "description": "Ability to throw objects like knifes as a missle weapon.",
+    "skillPoints": 4,
     "divisor": 3,
+    "category": "combat",
     "dexterity": 1,
     "purpose": "missle",
     "quickness": 1
@@ -111,7 +153,10 @@
   {
     "id": 15,
     "name": "Magic Defense",
+    "description": "Ability to resist harmful spells cast on you.",
+    "skillPoints": 6,
     "divisor": 5,
+    "category": "combat basics",
     "dexterity": 1,
     "intelligence": 1,
     "quickness": 1,
@@ -121,7 +166,10 @@
   {
     "id": 16,
     "name": "Black Magic",
+    "description": "Offensive magic used to cause damage to the target.",
+    "skillPoints": 10,
     "divisor": 4,
+    "category": "magic",
     "intelligence": 1,
     "purpose": "magic",
     "wisdom": 1
@@ -129,7 +177,10 @@
   {
     "id": 17,
     "name": "White Magic",
+    "description": "Defensive magic mainly for restoration and renewal.",
+    "skillPoints": 8,
     "divisor": 3,
+    "category": "magic",
     "intelligence": 1,
     "purpose": "magic",
     "wisdom": 1
@@ -137,7 +188,10 @@
   {
     "id": 18,
     "name": "Red Magic",
+    "description": "Enhancement magic for skills and attributes of players.",
+    "skillPoints": 6,
     "divisor": 3,
+    "category": "magic",
     "intelligence": 1,
     "purpose": "magic",
     "wisdom": 1
@@ -145,7 +199,10 @@
   {
     "id": 19,
     "name": "Blue Magic",
+    "description": "Item manipulation, animation, and warp magic.",
+    "skillPoints": 6,
     "divisor": 3,
+    "category": "magic",
     "intelligence": 1,
     "purpose": "magic",
     "wisdom": 1
@@ -153,28 +210,40 @@
   {
     "id": 20,
     "name": "Mana Conversion",
+    "description": "Ability to use Mana more effeciently when casting spells.",
+    "skillPoints": 6,
     "divisor": 3,
+    "category": "magic",
     "intelligence": 1,
     "wisdom": 1
   },
   {
     "id": 21,
     "name": "Alchemy",
+    "description": "Ability to make potions.",
+    "skillPoints": 6,
     "divisor": 3,
+    "category": "crafts",
     "intelligence": 1,
     "wisdom": 1
   },
   {
     "id": 22,
     "name": "Read Ancient",
+    "description": "Ability to decipher ancient writing and speak the ancient language.",
+    "skillPoints": 2,
     "divisor": 4,
+    "category": "miscellaneous",
     "intelligence": 1,
     "wisdom": 1
   },
   {
     "id": 23,
     "name": "Swim",
+    "description": "Ability to move in water efficiently.",
+    "skillPoints": 2,
     "divisor": 4,
+    "category": "miscellaneous",
     "dexterity": 1,
     "quickness": 1,
     "strength": 1
@@ -182,7 +251,10 @@
   {
     "id": 24,
     "name": "Scan",
+    "description": "Ability to discover players in stealth mode.",
+    "skillPoints": 2,
     "divisor": 5,
+    "category": "miscellaneous",
     "dexterity": 1,
     "intelligence": 1,
     "quickness": 1,
@@ -192,13 +264,19 @@
   {
     "id": 25,
     "name": "Run",
+    "description": "Ability to move on the map faster.",
+    "skillPoints": 2,
     "divisor": 1,
+    "category": "miscellaneous",
     "quickness": 1
   },
   {
     "id": 26,
     "name": "Deception",
+    "description": "Ability to hide your stats from other players.",
+    "skillPoints": 2,
     "divisor": 5,
+    "category": "miscellaneous",
     "dexterity": 1,
     "intelligence": 1,
     "quickness": 1,
@@ -208,7 +286,10 @@
   {
     "id": 27,
     "name": "Assess",
+    "description": "Ability to discover any players stats.",
+    "skillPoints": 2,
     "divisor": 5,
+    "category": "miscellaneous",
     "dexterity": 1,
     "intelligence": 1,
     "quickness": 1,
@@ -218,21 +299,30 @@
   {
     "id": 28,
     "name": "Stealth",
+    "description": "Ability to move on the map unseen.",
+    "skillPoints": 10,
     "divisor": 4,
+    "category": "miscellaneous",
     "dexterity": 1,
     "intelligence": 1
   },
   {
     "id": 29,
     "name": "Trap",
+    "description": "Ability to arm and disarm traps.",
+    "skillPoints": 4,
     "divisor": 3,
+    "category": "miscellaneous",
     "dexterity": 1,
     "intelligence": 1
   },
   {
     "id": 30,
     "name": "Tame",
+    "description": "Ability to tame a monster for you to control.",
+    "skillPoints": 4,
     "divisor": 5,
+    "category": "miscellaneous",
     "dexterity": 1,
     "intelligence": 1,
     "quickness": 1,
@@ -242,83 +332,119 @@
   {
     "id": 31,
     "name": "Blacksmith",
+    "description": "Ability to form weapons, armor, tools, etc from metals.",
+    "skillPoints": 8,
     "divisor": 3,
+    "category": "crafts",
     "dexterity": 1,
     "strength": 1
   },
   {
     "id": 32,
     "name": "Farming",
+    "description": "Ability to plant, grow, and harvest raw materials and food.",
+    "skillPoints": 4,
     "divisor": 3,
+    "category": "crafts",
     "dexterity": 1,
     "wisdom": 1
   },
   {
     "id": 33,
     "name": "Masonry",
+    "description": "Ability to use stone in building and craftmanship.",
+    "skillPoints": 4,
     "divisor": 3,
+    "category": "crafts",
     "dexterity": 1,
     "strength": 1
   },
   {
     "id": 34,
     "name": "Fishing",
+    "description": "Ability to catch fish.",
+    "skillPoints": 2,
     "divisor": 3,
+    "category": "crafts",
     "dexterity": 1,
     "wisdom": 1
   },
   {
     "id": 35,
     "name": "Cooking",
+    "description": "Ability to prepare and cook foods.",
+    "skillPoints": 4,
     "divisor": 3,
+    "category": "crafts",
     "intelligence": 1,
     "wisdom": 1
   },
   {
     "id": 36,
     "name": "Mining",
+    "description": "Ability to dig caves and recover ore.",
+    "skillPoints": 4,
     "divisor": 2,
+    "category": "crafts",
     "strength": 1
   },
   {
     "id": 37,
     "name": "Fletching",
+    "description": "Ability to make missle weapons and ammo for them.",
+    "skillPoints": 4,
     "divisor": 3,
+    "category": "crafts",
     "dexterity": 1,
     "intelligence": 1
   },
   {
     "id": 38,
     "name": "LockSmith",
+    "description": "Ability to pick locks, set locks, and make keys.",
+    "skillPoints": 4,
     "divisor": 3,
+    "category": "miscellaneous",
     "dexterity": 1,
     "intelligence": 1
   },
   {
     "id": 39,
     "name": "Tailor",
+    "description": "Ability to sew and create items from clothe material and hides.",
+    "skillPoints": 2,
     "divisor": 3,
+    "category": "crafts",
     "dexterity": 1,
     "intelligence": 1
   },
   {
     "id": 40,
     "name": "Carpentry",
+    "description": "Ability to work with wood to make items.",
+    "skillPoints": 4,
     "divisor": 3,
+    "category": "crafts",
     "dexterity": 1,
     "strength": 1
   },
   {
     "id": 41,
     "name": "First Aid",
+    "description": "Ability to perform medical procedures on a player, like healing.",
+    "skillPoints": 2,
     "divisor": 3,
+    "category": "miscellaneous",
     "dexterity": 1,
     "intelligence": 1
   },
   {
     "id": 42,
     "name": "Sports",
+    "description": "Ability to play sports like soccer.",
+    "skillPoints": 2,
     "divisor": 5,
+    "category": "miscellaneous",
     "dexterity": 1,
     "intelligence": 1,
     "quickness": 1,
@@ -328,7 +454,10 @@
   {
     "id": 43,
     "name": "Jewelry Making",
+    "description": "Ability to create jewelry",
+    "skillPoints": 4,
     "divisor": 4,
+    "category": "crafts",
     "dexterity": 1,
     "intelligence": 1,
     "wisdom": 1
@@ -336,7 +465,10 @@
   {
     "id": 44,
     "name": "Climb",
+    "description": "Ability to climb impassible terrain like mountains.",
+    "skillPoints": 2,
     "divisor": 3,
+    "category": "miscellaneous",
     "dexterity": 1,
     "strength": 1
   }

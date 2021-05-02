@@ -48,6 +48,7 @@ interface Player {
   name: string;
   attributes: Map<string, { baseLevel: number; earnedLevel: number }>;
   skills: Map<number, { xp: number }>;
+  skillPoints: number;
   containerId: string;
   equipmentContainerId: string;
   isAdmin: boolean;
@@ -213,6 +214,9 @@ interface ItemUse {
 interface Skill {
   id: number;
   name: string;
+  description: string;
+  skillPoints: number;
+  category: string;
   purpose: string;
   divisor: number;
   quickness?: number;

@@ -46,17 +46,45 @@
     </div>
   </div>
 
-  <div class="scene register hidden">
-    <div class="register__players">
-      Existing Characters:
-    </div>
+  <div class="scene select-character hidden">
+    <button class="blue select-character__create-character-btn">Create New Character</button>
 
-    <div class="register--form flex flex-column">
+    <h1>Existing Characters</h1>
+    <div class="select-character__players"></div>
+  </div>
+
+  <div class="scene create-character hidden">
+    <div class="create--form flex flex-column">
       <div>
-        <label for="register--name">Name</label>
-        <input type="text" name="name" id="register--name" maxlength="20"></label>
+        <div>
+          <label for="create--name">Name</label>
+          <input type="text" name="name" id="create--name" maxlength="20"></label>
+        </div>
+
+        <div>
+          <h2 class="tooltip-on-hover">Attributes</h2>
+          <div class="tooltip">
+            Attributes determine the base level of skills. As you train combat
+            skills, you can spend xp to increase attributes.
+          </div>
+          Points available: <span class="create--attribute-points"></span>
+
+          <div class="create--attributes flex flex-wrap"></div>
+        </div>
+
+        <div>
+          <h2 class="tooltip-on-hover">Skills</h2>
+          <div class="tooltip">
+            Skills allow you to equip certain weapons, craft certain items, and other
+            miscellaneous things. As you increase your combat level, you gain skill points
+            which can be used to learn more skills.
+          </div>
+          Points available: <span class="create--skill-points"></span>
+
+          <div class='create--skills flex justify-between flex-wrap'></div>
+        </div>
       </div>
-      <button class="blue register-btn">Register</button>
+      <button class="blue create-btn">Create</button>
     </div>
   </div>
 

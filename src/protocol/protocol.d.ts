@@ -20,7 +20,11 @@ declare namespace Protocol {
     type AdminSetItem = Command<TilePoint & { item?: Item }>;
     type Chat = Command<{ to: string; message: string }>;
     type CloseContainer = Command<{ containerId: string }>;
-    type CreatePlayer = Command<{ name: string }>;
+    type CreatePlayer = Command<{
+      name: string,
+      attributes: Map<string, number>,
+      skills: number[],
+    }>;
     type CreatureAction = Command<{ creatureId: number; type: 'attack' | 'tame' | 'speak' }>;
     type DialogueResponse = Command<{ choiceIndex?: number }>;
     type EnterWorld = Command<{ playerId: string }>;

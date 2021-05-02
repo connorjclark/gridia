@@ -472,6 +472,8 @@ function parseSkillsIni() {
   const allowlist = [
     'id',
     'name',
+    'skillPoints',
+    'description',
     'purpose',
     'divisor',
     'quickness',
@@ -614,7 +616,58 @@ function convertSkills() {
   const skills = [
     ...parseSkillsIni(),
   ];
-  const explicitOrder = ['id', 'name', 'divisor'];
+
+  const categories: Record<string, string> = {
+    "Melee Defense": 'combat basics',
+    "Unarmed Attack": 'combat',
+    "Dagger": 'combat',
+    "Sword": 'combat',
+    "Axe": 'combat',
+    "Mace": 'combat',
+    "Spear": 'combat',
+    "Staff": 'combat',
+    "Flail": 'combat',
+    "Scythe": 'combat',
+    "Missle Defense": 'combat basics',
+    "Bow": 'combat',
+    "Crossbow": 'combat',
+    "Throwing": 'combat',
+    "Magic Defense": 'combat basics',
+    "Black Magic": 'magic',
+    "White Magic": 'magic',
+    "Red Magic": 'magic',
+    "Blue Magic": 'magic',
+    "Mana Conversion": 'magic',
+    "Alchemy": 'crafts',
+    "Read Ancient": '',
+    "Swim": '',
+    "Scan": '',
+    "Run": '',
+    "Deception": '',
+    "Assess": '',
+    "Stealth": '',
+    "Trap": '',
+    "Tame": '',
+    "Blacksmith": 'crafts',
+    "Farming": 'crafts',
+    "Masonry": 'crafts',
+    "Fishing": 'crafts',
+    "Cooking": 'crafts',
+    "Mining": 'crafts',
+    "Fletching": 'crafts',
+    "LockSmith": '',
+    "Tailor": 'crafts',
+    "Carpentry": 'crafts',
+    "First Aid": '',
+    "Sports": '',
+    "Jewelry Making": 'crafts',
+    "Climb": '',
+  };
+  for (const skill of skills) {
+    skill.category = categories[skill.name] || 'miscellaneous';
+  }
+
+  const explicitOrder = ['id', 'name', 'description', 'skillPoints', 'divisor'];
   return skills.map((usage) => sortObject(usage, explicitOrder));
 }
 

@@ -149,17 +149,41 @@ button {
   color: gold;
 }
 
-.register--form {
+.select-character--form {
   background-color: gray;
   padding: 20px;
 }
+.select-character__players {
+  overflow: scroll;
+  max-height: 30vh;
+}
 
-.register__player {
+.select-character__player {
   margin: 5px;
   border: 1px solid black;
 }
-.register__player:hover {
+.select-character__player:hover {
   background-color: #cccca9;
+}
+
+.create--form {
+  width: 100%;
+  padding-left: 15vw;
+  padding-right: 15vw;
+}
+.create--attribute {
+  display: flex;
+  width: 25%;
+}
+.create--skill-category {
+  margin: 10px;
+}
+
+.create--skill.selected {
+  background-color: gold;
+}
+.create--skill.selected.required {
+  background-color: lightgray;
 }
 
 .generate--input-form,
@@ -422,7 +446,7 @@ button {
   position: relative;
   background-color: #cf8989;
 }
-.tooltip-on-hover:hover > .tooltip {
+.tooltip-on-hover:hover + .tooltip {
   display: block;
   position: absolute;
 }

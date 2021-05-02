@@ -1,4 +1,4 @@
-import { MAX_STACK, SECTOR_SIZE } from '../constants';
+import { CREATE_CHARACTER_ATTRIBUTES, CREATE_CHARACTER_SKILL_POINTS, MAX_STACK, SECTOR_SIZE } from '../constants';
 import * as Content from '../content';
 import performance from '../performance';
 import * as Player from '../player';
@@ -26,10 +26,6 @@ interface CtorOpts {
 interface RegisterAccountOpts {
   username: string;
   password: string;
-}
-
-interface CreatePlayerOpts {
-  name: string;
 }
 
 export default class Server {
@@ -209,9 +205,23 @@ export default class Server {
     return account;
   }
 
-  async createPlayer(clientConnection: ClientConnection, opts: CreatePlayerOpts) {
+  async createPlayer(clientConnection: ClientConnection, opts: Protocol.Commands.CreatePlayer['params']) {
+    if (opts.name.length > 20) return Promise.reject('Name too long');
+
     if (this.context.playerNamesToIds.has(opts.name)) {
       throw new Error('Name already taken');
+    }
+
+    let attributeValueSum = 0;
+    for (const value of opts.attributes.values()) attributeValueSum += value;
+    if (attributeValueSum !== CREATE_CHARACTER_ATTRIBUTES) {
+      throw new Error(`attributes must sum to ${CREATE_CHARACTER_ATTRIBUTES}`);
+    }
+
+    let skillPointSum = 0;
+    for (const skill of opts.skills) skillPointSum += Content.getSkill(skill).skillPoints;
+    if (skillPointSum > CREATE_CHARACTER_SKILL_POINTS) {
+      throw new Error(`skill points can't be greater than ${CREATE_CHARACTER_SKILL_POINTS}`);
     }
 
     const { width, height } = this.context.map.getPartition(0);
@@ -226,6 +236,7 @@ export default class Server {
       name: opts.name,
       attributes: new Map(),
       skills: new Map(),
+      skillPoints: CREATE_CHARACTER_SKILL_POINTS,
       questStates: new Map(),
       tilesSeenLog: new Map(),
       // everyone is an admin, for now.
@@ -244,20 +255,16 @@ export default class Server {
       buffs: [],
     };
 
-    // Mock xp for now.
     for (const attribute of Player.ATTRIBUTES) {
       player.attributes.set(attribute, {
-        baseLevel: Utils.randInt(10, 100),
+        baseLevel: opts.attributes.get(attribute) || 0,
         earnedLevel: 0,
       });
     }
-    for (let i = 0; i < 100; i++) {
-      const attribute = Utils.randArrayItem(Player.ATTRIBUTES);
-      Player.incrementAttribute(player, attribute);
-    }
-    for (const skill of Content.getSkills()) {
-      Player.learnSkill(player, skill.id);
-      Player.incrementSkillXp(player, skill.id, Utils.randInt(100, 10000));
+
+    for (const skill of opts.skills) {
+      Player.learnSkill(player, skill);
+      player.skillPoints -= Content.getSkill(skill).skillPoints;
     }
 
     player.life = Player.getAttributeValue(player, 'life').level;
