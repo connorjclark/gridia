@@ -410,6 +410,8 @@ class CreateCharacterScene extends Scene {
       }
 
       Helper.find('.create--attribute-points', this.element).textContent = attributePoints.toLocaleString();
+
+      this.createBtn.classList.toggle('red', attributePoints !== 0);
     };
 
     const attributesSorted = Helper.sortByPrecedence([...ATTRIBUTES], [
@@ -474,7 +476,7 @@ class CreateCharacterScene extends Scene {
         let tooltip = skill.description + '<br> base level = ' + Content.getSkillAttributeDescription(skill);
         if (required) {
           el.classList.add('selected');
-          tooltip += ' (required)';
+          tooltip += '<br>Required';
         }
         Helper.createChildOf(categoryEl, 'div', 'tooltip').innerHTML = tooltip;
 
@@ -828,6 +830,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (qs.quick === 'server') {
     controller.pushScene(new StartScene());
     await (controller.currentScene as StartScene).onClickConnectBtn();
+    (controller.currentScene as SelectCharacterScene).onClickCreateCharacterBtn();
     (controller.currentScene as CreateCharacterScene).onClickCreateBtn();
   } else if (qs.quick === 'local') {
     await controller.loadWorker();
