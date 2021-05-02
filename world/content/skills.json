@@ -165,7 +165,7 @@
   },
   {
     "id": 16,
-    "name": "Black Magic",
+    "name": "Dark Magic",
     "description": "Offensive magic used to cause damage to the target.",
     "skillPoints": 10,
     "divisor": 4,
@@ -176,7 +176,7 @@
   },
   {
     "id": 17,
-    "name": "White Magic",
+    "name": "Light Magic",
     "description": "Defensive magic mainly for restoration and renewal.",
     "skillPoints": 8,
     "divisor": 3,

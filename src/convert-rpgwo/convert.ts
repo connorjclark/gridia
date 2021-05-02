@@ -758,6 +758,12 @@ function run() {
 
   state.items = fillGaps(state.items);
 
+  const blackMagic = state.skills.find(skill => skill.name === 'Black Magic');
+  if (blackMagic) blackMagic.name = 'Dark Magic';
+
+  const lightMagic = state.skills.find(skill => skill.name === 'White Magic');
+  if (lightMagic) lightMagic.name = 'Light Magic';
+
   fs.writeFileSync(itemsPath, JSON.stringify(state.items, null, 2));
   fs.writeFileSync(floorsPath, JSON.stringify(state.floors, null, 2));
   fs.writeFileSync(usagesPath, JSON.stringify(state.usages, null, 2));
