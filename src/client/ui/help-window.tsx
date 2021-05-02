@@ -1,8 +1,9 @@
 import { render, h, Component } from 'preact';
+import { useState } from 'preact/hooks';
 import Game from '../game';
 import { makeUIWindow } from './ui-common';
 
-const sections = {
+const sections: Record<string, string> = {
   'General': `
     <a href="https://github.com/connorjclark/gridia-2019-wip" target="_blank">GitHub</a>
     <br>WASD to move character.
@@ -31,12 +32,14 @@ const sections = {
 export function makeHelpWindow(game: Game) {
   class HelpWindow extends Component {
     render() {
+      const [currentSection, setCurrentSection] = useState('General');
 
-      const currentSection = 'General';
-      return <div class="help">
+      return <div class="help flex">
         <div class="sections">
           {Object.keys(sections).map((name) => {
-            return <div>{name}</div>;
+            const classes = ['section'];
+            if (name === currentSection) classes.push('selected');
+            return <div class={classes.join(' ')} onClick={() => setCurrentSection(name)}>{name}</div>;
           })}
         </div>
 

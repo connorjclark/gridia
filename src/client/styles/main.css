@@ -118,6 +118,19 @@ button {
   white-space: pre-wrap;
 }
 
+.help .sections {
+  width: 30%;
+}
+.help .section {
+  border: solid 1px white;
+}
+.help .section.selected {
+  color: gold;
+}
+.help .current-section {
+  width: 70%;
+}
+
 .contextmenu {
   display: none;
   position: absolute;
