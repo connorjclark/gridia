@@ -469,7 +469,8 @@ class Game {
           };
         }));
 
-        if (this.client.equipment && (event.args.graphics !== undefined || event.args.imageData !== undefined)) {
+        const updateEquipmentWindow = event.args.stats || event.args.graphics || event.args.imageData;
+        if (this.client.equipment && updateEquipmentWindow) {
           const equipmentWindow = this.containerWindows.get(this.client.equipment.id);
           equipmentWindow?.actions.setEquipmentWindow({
             imageData: this.client.creature.imageData,

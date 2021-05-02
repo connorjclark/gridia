@@ -353,6 +353,15 @@ export default class ServerInterface implements IServerInterface {
         return { error: 'Container does not exist.' };
       }
 
+      if (container.type === 'equipment') {
+        const requiredSkill = Content.getMetaItem(item.type).combatSkill;
+        if (requiredSkill && !server.currentClientConnection.player.skills.has(requiredSkill)) {
+          return {
+            error: `Missing ${Content.getSkill(requiredSkill).name} skill`,
+          };
+        }
+      }
+
       if (location.index === undefined) {
         // Don't allow stacking if this is an item split operation.
         const allowStacking = quantity === undefined;
@@ -360,13 +369,13 @@ export default class ServerInterface implements IServerInterface {
           error: 'No possible location for that item in this container.',
         };
       } else {
-        if (Container.isValidLocationToAddItemInContainer(container, location.index, item)) {
-          return location;
-        } else {
+        if (!Container.isValidLocationToAddItemInContainer(container, location.index, item)) {
           return {
             error: 'Not a valid location for that item in this container.',
           };
         }
+
+        return location;
       }
     }
 
@@ -564,7 +573,6 @@ export default class ServerInterface implements IServerInterface {
             let quantity = args.quantity || 1;
             if (quantity > MAX_STACK) quantity = MAX_STACK;
 
-            server.setItemInContainer;
             const loc = server.findNearest(server.currentClientConnection.creature.pos, 10, true,
               (t) => !t.item);
             if (loc) {

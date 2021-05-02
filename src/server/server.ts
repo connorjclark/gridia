@@ -674,9 +674,7 @@ export default class Server {
     // TODO: should light sources be equippable and only set creature light then?
     if ((prevItem && Content.getMetaItem(prevItem.type).light) || (item && Content.getMetaItem(item.type).light)) {
       const client = this.clientConnections.find((c) => c.container.id === id);
-      if (!client) return;
-
-      this.updateCreatureLight(client);
+      if (client) this.updateCreatureLight(client);
     }
 
     if (container.type === 'equipment') {
