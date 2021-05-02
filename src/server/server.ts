@@ -218,7 +218,7 @@ export default class Server {
     let attributeValueSum = 0;
     for (const value of opts.attributes.values()) attributeValueSum += value;
     if (attributeValueSum !== CREATE_CHARACTER_ATTRIBUTES) {
-      throw new Error(`attributes must sum to ${CREATE_CHARACTER_ATTRIBUTES}`);
+      throw new Error('Must use all attribute points');
     }
 
     let skillPointSum = 0;
