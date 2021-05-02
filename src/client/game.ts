@@ -1238,7 +1238,7 @@ class Game {
     }
   }
 
-  private addToChat(section: string, text: string, from?: string) {
+  addToChat(section: string, text: string, from?: string) {
     this._chatLog.push({ section, text, from });
     if (section === this._currentChatSection || this._currentChatSection === 'All') {
       const chatTextarea = Helper.find('.chat-area') as HTMLTextAreaElement;

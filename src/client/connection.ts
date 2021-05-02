@@ -1,3 +1,4 @@
+import { game } from '../game-singleton';
 import * as WireSerializer from '../lib/wire-serializer';
 import { ProtocolCommand } from '../protocol/command-builder';
 import { ProtocolEvent } from '../protocol/event-builder';
@@ -61,6 +62,7 @@ export abstract class Connection {
     this.idToCallback.delete(id);
     if (data && data.error) {
       cbs.reject(data.error);
+      if (game) game.addToChat('World', data.error);
     } else {
       cbs.resolve(data);
     }

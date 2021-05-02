@@ -248,6 +248,12 @@ export default class ServerInterface implements IServerInterface {
     if (!uses.length) return Promise.reject(); // TODO
     const use = uses[usageIndex || 0];
 
+    // TODO: use.skill should be a skill id
+    const skill = use.skill && Content.getSkillByName(use.skill);
+    if (skill && !server.currentClientConnection.player.skills.has(skill.id)) {
+      return Promise.reject('missing required skill: ' + skill.name);
+    }
+
     const usageResult = {
       tool: new Content.ItemWrapper(tool.type, tool.quantity).remove(use.toolQuantityConsumed || 0).raw(),
       focus: new Content.ItemWrapper(focus.type, focus.quantity).remove(use.focusQuantityConsumed || 0).raw(),
@@ -287,9 +293,8 @@ export default class ServerInterface implements IServerInterface {
       server.setFloor(loc, use.successFloor);
     }
 
-    if (use.skill && use.skillSuccessXp) {
-      const skillUsed = Content.getSkills().find((skill) => skill.name === use.skill);
-      if (skillUsed) server.grantXp(server.currentClientConnection, skillUsed.id, use.skillSuccessXp);
+    if (skill && use.skillSuccessXp) {
+      server.grantXp(server.currentClientConnection, skill.id, use.skillSuccessXp);
     }
 
     return Promise.resolve();
