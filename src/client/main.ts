@@ -526,7 +526,7 @@ class CreateCharacterScene extends Scene {
       await controller.client.connection.sendCommand(CommandBuilder.createPlayer({
         name,
         attributes,
-        skills: [1, 2, 3],
+        skills: [...this.selectedSkills],
       }));
       saveLocalStorageData();
       startGame(controller.client);
