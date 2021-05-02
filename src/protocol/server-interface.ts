@@ -540,6 +540,25 @@ export default class ServerInterface implements IServerInterface {
             server.warpCreature(server.currentClientConnection.creature, destination);
           },
         },
+        warpTo: {
+          args: [
+            { name: 'playerName', type: 'string' },
+          ],
+          do(args: { playerName: string }) {
+            const playerId = server.context.playerNamesToIds.get(args.playerName);
+            if (!playerId) return; // TODO
+            const player = server.players.get(playerId);
+            if (!player) return;
+
+            const creature = server.findCreatureForPlayer(player);
+            if (!creature) return;
+
+            const loc = server.findNearest(creature.pos, 10, false, (_, l) => server.context.walkable(l));
+            if (!loc) return;
+
+            server.warpCreature(server.currentClientConnection.creature, loc);
+          },
+        },
         creature: {
           args: [
             { name: 'name', type: 'string' },
