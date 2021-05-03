@@ -1494,6 +1494,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -1523,6 +1524,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -1552,6 +1554,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -1581,6 +1584,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -1610,6 +1614,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -1664,6 +1669,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 3,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -1743,6 +1749,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -1918,6 +1925,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -2381,6 +2389,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 4,
     "moveable": true,
     "rarity": 1,
     "stackable": true,
@@ -2411,6 +2420,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 6,
     "moveable": true,
     "rarity": 1,
     "stackable": true,
@@ -2441,6 +2451,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 3,
     "moveable": true,
     "rarity": 1,
     "stackable": true,
@@ -2471,6 +2482,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 5,
     "moveable": true,
     "rarity": 1,
     "stackable": true,
@@ -2681,6 +2693,8 @@
       ]
     },
     "light": 0,
+    "maxRange": 6,
+    "minRange": 1,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -2703,6 +2717,8 @@
       ]
     },
     "light": 0,
+    "maxRange": 5,
+    "minRange": 1,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -5805,6 +5821,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -5834,6 +5851,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 3,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -5876,6 +5894,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 3,
     "moveable": true,
     "rarity": 1,
     "stackable": true,
@@ -5900,6 +5919,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 5,
     "moveable": true,
     "rarity": 1,
     "stackable": true,
@@ -5924,6 +5944,8 @@
       ]
     },
     "light": 0,
+    "maxRange": 10,
+    "minRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -5947,6 +5969,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 6,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -17218,6 +17241,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -21620,6 +21644,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -22424,6 +22449,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 6,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -22454,6 +22480,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -22484,6 +22511,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 10,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -22669,6 +22697,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 6,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -22717,6 +22746,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 6,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -22747,6 +22777,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -22777,6 +22808,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 13,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -22806,6 +22838,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 5,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -22835,6 +22868,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 5,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -22901,6 +22935,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 6,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -22931,6 +22966,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -22961,6 +22997,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 7,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -23114,6 +23151,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 13,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -23144,6 +23182,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 10,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -23174,6 +23213,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -23222,6 +23262,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 10,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -24391,6 +24432,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -26101,6 +26143,7 @@
       ]
     },
     "light": 4,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -26130,6 +26173,7 @@
       ]
     },
     "light": 4,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -26159,6 +26203,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -26188,6 +26233,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -26217,6 +26263,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -26246,6 +26293,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -27483,6 +27531,7 @@
       ]
     },
     "light": 2,
+    "maxRange": 4,
     "moveable": true,
     "rarity": 1,
     "stackable": true,
@@ -27507,6 +27556,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 4,
     "moveable": true,
     "rarity": 1,
     "stackable": true,
@@ -27531,6 +27581,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 4,
     "moveable": true,
     "rarity": 1,
     "stackable": true,
@@ -27555,6 +27606,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 4,
     "moveable": true,
     "rarity": 1,
     "stackable": true,
@@ -29923,6 +29975,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -29944,6 +29997,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -29988,6 +30042,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 5,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -31582,6 +31637,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -31611,6 +31667,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -31635,6 +31692,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 5,
     "moveable": true,
     "rarity": 1,
     "stackable": true,
@@ -31694,6 +31752,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 6,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -31724,6 +31783,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 6,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -31754,6 +31814,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 6,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -31784,6 +31845,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 6,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -31814,6 +31876,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 6,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -31844,6 +31907,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 6,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -31874,6 +31938,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 6,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -32030,6 +32095,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 7,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -32222,6 +32288,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -32252,6 +32319,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -32282,6 +32350,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -32312,6 +32381,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -32342,6 +32412,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -32372,6 +32443,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -32402,6 +32474,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -32432,6 +32505,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -32494,6 +32568,8 @@
       ]
     },
     "light": 0,
+    "maxRange": 4,
+    "minRange": 1,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -32632,6 +32708,8 @@
       ]
     },
     "light": 0,
+    "maxRange": 5,
+    "minRange": 1,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -36662,6 +36740,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -37146,6 +37225,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -37203,6 +37283,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 3,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -37224,6 +37305,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 3,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -37284,6 +37366,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 4,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -37840,6 +37923,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 3,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -37882,6 +37966,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -41036,6 +41121,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 1,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -41238,6 +41324,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 1,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -41526,6 +41613,8 @@
       ]
     },
     "light": 0,
+    "maxRange": 5,
+    "minRange": 1,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -41673,6 +41762,8 @@
       ]
     },
     "light": 0,
+    "maxRange": 3,
+    "minRange": 1,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -41778,6 +41869,8 @@
       ]
     },
     "light": 0,
+    "maxRange": 5,
+    "minRange": 1,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -42100,6 +42193,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 5,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -43966,6 +44060,7 @@
     },
     "growthDelta": 30,
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -44267,6 +44362,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 3,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -44384,6 +44480,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -44414,6 +44511,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 10,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -44443,6 +44541,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 6,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -48154,6 +48253,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -48456,6 +48556,7 @@
     "growthDelta": 45,
     "growthItem": 1550,
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -48481,6 +48582,7 @@
     "growthDelta": 45,
     "growthItem": 1550,
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -48506,6 +48608,7 @@
     "growthDelta": 45,
     "growthItem": 1550,
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -50252,6 +50355,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 3,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -50369,6 +50473,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 6,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -50399,6 +50504,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -50428,6 +50534,7 @@
       ]
     },
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -51239,6 +51346,7 @@
     "growthDelta": 1000,
     "growthItem": 1549,
     "light": 0,
+    "maxRange": 2,
     "moveable": true,
     "rarity": 1,
     "stackable": false,
@@ -51270,6 +51378,7 @@
     "growthDelta": 1000,
     "growthItem": 1332,
     "light": 0,
+    "maxRange": 8,
     "moveable": true,
     "rarity": 1,
     "stackable": false,

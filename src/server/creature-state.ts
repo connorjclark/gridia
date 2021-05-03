@@ -435,7 +435,8 @@ export default class CreatureState {
     if (!this.targetCreature || this.ticksUntilNextAttack > 0) return;
 
     // Range check.
-    if (Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos) > 1) return;
+    const distanceFromTarget = Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos);
+    if (distanceFromTarget > 100) return;
     if (this.creature.pos.w !== this.targetCreature.creature.pos.w) return;
     if (this.creature.pos.z !== this.targetCreature.creature.pos.z) return;
 
@@ -445,13 +446,17 @@ export default class CreatureState {
 
     let attackSkill = Content.getSkillByNameOrThrowError('Unarmed Attack');
     const weaponType = this.creature.equipment && this.creature.equipment[Container.EQUIP_SLOTS.Weapon]?.type;
-    const weaponMeta = weaponType && Content.getMetaItem(weaponType);
+    const weaponMeta = weaponType ? Content.getMetaItem(weaponType) : null;
     if (weaponMeta) {
       if (weaponMeta.combatSkill !== undefined) {
         const skill = Content.getSkill(weaponMeta.combatSkill);
         if (skill) attackSkill = skill;
       }
     }
+
+    const minRange = weaponMeta?.minRange || 0;
+    const maxRange = weaponMeta?.maxRange || 1;
+    if (distanceFromTarget < minRange || distanceFromTarget > maxRange) return;
 
     function useAttribute(creature: Creature, attribute: 'stamina' | 'mana', amount: number) {
       if (creature[attribute].current >= amount) {

@@ -196,6 +196,8 @@ interface MetaItem {
   damageLow?: number;
   damageHigh?: number;
   ammoType?: number;
+  minRange?: number;
+  maxRange?: number;
 }
 
 interface ItemUse {

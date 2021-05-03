@@ -184,6 +184,10 @@ function parseItemsIni() {
       currentItem.blocksLight = false;
     } else if (key.match(/^WearImage/i)) {
       currentItem.equipImage = forcenum(value);
+    } else if (key.match(/^WeaponMinRange/i)) {
+      currentItem.minRange = forcenum(value);
+    } else if (key.match(/^WeaponMaxRange/i)) {
+      currentItem.maxRange = forcenum(value);
     } else if (key.match(/^ArmorSpot/i)) {
       // @ts-ignore
       currentItem.equipSlot = uppercaseFirstLetter(value);
@@ -280,6 +284,8 @@ function parseItemsIni() {
     'damageHigh',
     'combatSkill',
     'ammoType',
+    'minRange',
+    'maxRange',
   ];
   for (const item of items) {
     filterProperties(item, allowlist);
