@@ -694,28 +694,34 @@ export default class Server {
     }
   }
 
-  updateCreatureDataBasedOnEquipment(creature: Creature, container: Container, opts: { broadcast: boolean }) {
-    creature.equipment = container.items;
-    creature.imageData = this.makeCreatureImageData(container);
+  updateCreatureDataBasedOnEquipment(creature: Creature, equipment: Container, opts: { broadcast: boolean }) {
+    creature.equipment = equipment.items;
+    creature.imageData = this.makeCreatureImageData(equipment);
     creature.stats = {
       ...creature.stats,
       armor: 0,
-      attackSpeed: 1,
-      damageLow: 1,
-      damageHigh: 1,
+      attackSpeed: 0,
+      damageLow: 0,
+      damageHigh: 0,
     };
-    for (const item of container.items) {
+    for (const item of equipment.items) {
       const meta = item && Content.getMetaItem(item.type);
       if (!meta) continue;
 
-      if (meta.class === 'Weapon') {
-        creature.stats.damageLow = meta.damageLow || 1;
-        creature.stats.damageHigh = meta.damageHigh || 1;
-        creature.stats.attackSpeed = meta.attackSpeed || 1;
-      } else if (meta.class === 'Armor') {
-        creature.stats.armor += meta.armorLevel || 0;
+      if (meta.equipSlot === 'Ammo' &&
+        Content.getMetaItem(equipment.items[Container.EQUIP_SLOTS.Weapon]?.type || 0).ammoType !== meta.ammoType) {
+        continue;
       }
+
+      creature.stats.damageLow += meta.damageLow || 0;
+      creature.stats.damageHigh += meta.damageHigh || 0;
+      creature.stats.attackSpeed += meta.attackSpeed || 0;
+      creature.stats.armor += meta.armorLevel || 0;
     }
+
+    creature.stats.damageLow = Math.max(1, creature.stats.damageLow);
+    creature.stats.damageHigh = Math.max(1, creature.stats.damageHigh);
+    creature.stats.attackSpeed = Math.max(1, creature.stats.attackSpeed);
 
     if (opts.broadcast) this.broadcastPartialCreatureUpdate(creature, ['imageData', 'stats']);
   }
