@@ -287,9 +287,11 @@ export default class Server {
       container.items[7] = { type: Content.getMetaItemByName('Hammer and Nails').id, quantity: 1 };
       container.items[8] = { type: Content.getMetaItemByName('Lit Torch').id, quantity: 1 };
       container.items[9] = { type: Content.getMetaItemByName('Wood Planks').id, quantity: 100 };
+      container.items[10] = { type: Content.getMetaItemByName('Bow').id, quantity: 1 };
+      container.items[11] = { type: Content.getMetaItemByName('Arrow').id, quantity: 500 };
     }
 
-    const equipment = this.context.makeContainer('equipment', 5);
+    const equipment = this.context.makeContainer('equipment', Object.keys(Container.EQUIP_SLOTS).length);
     equipment.items[0] = { type: Content.getMetaItemByName('Iron Helmet Plate').id, quantity: 1 };
     player.equipmentContainerId = equipment.id;
 

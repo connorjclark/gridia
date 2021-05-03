@@ -8,6 +8,7 @@ export const EQUIP_SLOTS = {
   Chest: 2,
   Shield: 3,
   Legs: 4,
+  Ammo: 5,
 };
 
 export function hasItem(container: Container, itemType: number) {

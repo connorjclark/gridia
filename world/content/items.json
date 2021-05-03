@@ -98,7 +98,7 @@
     "class": "Ammo",
     "blocksLight": false,
     "burden": 100,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item2.png",
       "frames": [
@@ -2366,12 +2366,12 @@
     "damageHigh": 10,
     "damageLow": 5,
     "equipImage": {
-      "file": "rpgwo-weapon0.png",
+      "file": "rpgwo-ammo0.png",
       "frames": [
         1
       ]
     },
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -2395,12 +2395,12 @@
     "damageHigh": 15,
     "damageLow": 10,
     "equipImage": {
-      "file": "rpgwo-weapon0.png",
+      "file": "rpgwo-ammo0.png",
       "frames": [
         9
       ]
     },
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -2424,12 +2424,12 @@
     "damageHigh": 5,
     "damageLow": 2,
     "equipImage": {
-      "file": "rpgwo-weapon0.png",
+      "file": "rpgwo-ammo0.png",
       "frames": [
         1
       ]
     },
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -2453,12 +2453,12 @@
     "damageHigh": 13,
     "damageLow": 7,
     "equipImage": {
-      "file": "rpgwo-weapon0.png",
+      "file": "rpgwo-ammo0.png",
       "frames": [
         5
       ]
     },
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -5862,7 +5862,7 @@
     "combatSkill": 14,
     "damageHigh": 4,
     "damageLow": 2,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item2.png",
       "frames": [
@@ -22484,7 +22484,7 @@
     "class": "Ammo",
     "blocksLight": false,
     "burden": 2,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item4.png",
       "frames": [
@@ -22504,7 +22504,7 @@
     "blocksLight": false,
     "burden": 2,
     "damageHigh": 2,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item4.png",
       "frames": [
@@ -22524,7 +22524,7 @@
     "blocksLight": false,
     "burden": 2,
     "damageHigh": 0,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item4.png",
       "frames": [
@@ -22544,7 +22544,7 @@
     "blocksLight": false,
     "burden": 2,
     "damageHigh": 0,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item4.png",
       "frames": [
@@ -22950,7 +22950,7 @@
     "class": "Ammo",
     "blocksLight": false,
     "burden": 2,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item8.png",
       "frames": [
@@ -22970,7 +22970,7 @@
     "blocksLight": false,
     "burden": 2,
     "damageHigh": 2,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item8.png",
       "frames": [
@@ -22990,7 +22990,7 @@
     "blocksLight": false,
     "burden": 2,
     "damageHigh": 0,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item8.png",
       "frames": [
@@ -23010,7 +23010,7 @@
     "blocksLight": false,
     "burden": 2,
     "damageHigh": 0,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item8.png",
       "frames": [
@@ -23029,7 +23029,7 @@
     "class": "Ammo",
     "blocksLight": false,
     "burden": 1,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item8.png",
       "frames": [
@@ -23048,7 +23048,7 @@
     "class": "Ammo",
     "blocksLight": false,
     "burden": 1,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item4.png",
       "frames": [
@@ -26487,7 +26487,7 @@
     "blocksLight": false,
     "burden": 2,
     "damageHigh": 0,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item11.png",
       "frames": [
@@ -26525,7 +26525,7 @@
     "blocksLight": false,
     "burden": 2,
     "damageHigh": 0,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item11.png",
       "frames": [
@@ -26816,7 +26816,7 @@
     "class": "Ammo",
     "blocksLight": false,
     "burden": 2,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item11.png",
       "frames": [
@@ -26835,7 +26835,7 @@
     "class": "Ammo",
     "blocksLight": false,
     "burden": 2,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item11.png",
       "frames": [
@@ -26872,7 +26872,7 @@
     "class": "Ammo",
     "blocksLight": false,
     "burden": 2,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item12.png",
       "frames": [
@@ -26891,7 +26891,7 @@
     "class": "Ammo",
     "blocksLight": false,
     "burden": 2,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item12.png",
       "frames": [
@@ -27436,7 +27436,7 @@
     "combatSkill": 14,
     "damageHigh": 10,
     "damageLow": 6,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item12.png",
       "frames": [
@@ -27459,7 +27459,7 @@
     "combatSkill": 14,
     "damageHigh": 10,
     "damageLow": 6,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item12.png",
       "frames": [
@@ -27482,7 +27482,7 @@
     "combatSkill": 14,
     "damageHigh": 10,
     "damageLow": 6,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item12.png",
       "frames": [
@@ -27505,7 +27505,7 @@
     "combatSkill": 14,
     "damageHigh": 10,
     "damageLow": 6,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item12.png",
       "frames": [
@@ -31584,7 +31584,7 @@
     "combatSkill": 14,
     "damageHigh": 12,
     "damageLow": 8,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item13.png",
       "frames": [
@@ -44786,7 +44786,7 @@
     "blocksLight": false,
     "burden": 2,
     "damageHigh": 0,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item20.png",
       "frames": [
@@ -44805,7 +44805,7 @@
     "class": "Ammo",
     "blocksLight": false,
     "burden": 2,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item20.png",
       "frames": [
@@ -44843,7 +44843,7 @@
     "blocksLight": false,
     "burden": 2,
     "damageHigh": 4,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item20.png",
       "frames": [
@@ -44863,7 +44863,7 @@
     "blocksLight": false,
     "burden": 2,
     "damageHigh": 4,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item20.png",
       "frames": [
@@ -44944,7 +44944,7 @@
     "blocksLight": false,
     "burden": 2,
     "damageHigh": 5,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item21.png",
       "frames": [
@@ -45432,7 +45432,7 @@
     "blocksLight": false,
     "burden": 2,
     "damageHigh": 20,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item21.png",
       "frames": [
@@ -45460,7 +45460,7 @@
     "blocksLight": false,
     "burden": 2,
     "damageHigh": 20,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item21.png",
       "frames": [
@@ -51211,7 +51211,7 @@
     "blocksLight": false,
     "burden": 2,
     "damageHigh": 2,
-    "equipSlot": "Weapon",
+    "equipSlot": "Ammo",
     "graphics": {
       "file": "rpgwo-item21.png",
       "frames": [

@@ -384,7 +384,7 @@ button {
   display: grid;
   grid-template: 'p a .'
                  'b c d'
-                 '. e .';
+                 'f e .';
   grid-auto-columns: min-content;
 }
 .window--equipment .container__slot:nth-child(1) {
@@ -404,6 +404,9 @@ button {
 }
 .window--equipment .container__slot:nth-child(6) {
   grid-area: e;
+}
+.window--equipment .container__slot:nth-child(7) {
+  grid-area: f;
 }
 .window--equipment .container__slot {
   margin: 5px;

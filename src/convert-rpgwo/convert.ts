@@ -237,6 +237,7 @@ function parseItemsIni() {
     if (item.class === 'Wand') item.equipSlot = 'Weapon';
     if (item.class === 'Ammo') item.equipSlot = 'Weapon';
     if (item.class === 'Shield') item.equipSlot = 'Shield';
+    if (item.class === 'Ammo') item.equipSlot = 'Ammo';
   }
 
   for (const item of items) {
