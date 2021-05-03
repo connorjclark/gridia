@@ -18,6 +18,7 @@ function parseQuery(queryString: string) {
   return {
     map: params.get('map'),
     quick: params.get('quick'),
+    playerId: params.get('playerId'),
     latency: params.has('latency') ? Number(params.get('latency')) : undefined,
     connection: params.get('connection'),
   };
@@ -350,17 +351,20 @@ class SelectCharacterScene extends Scene {
 
       const index = Number(playerEl.dataset.index);
       const player = players[index];
-
-      try {
-        await controller.client.connection.sendCommand(CommandBuilder.enterWorld({
-          playerId: player.id,
-        }));
-        startGame(controller.client);
-      } catch (error) {
-        // TODO: UI
-        console.error(error);
-      }
+      await this.selectPlayer(player.id);
     });
+  }
+
+  async selectPlayer(playerId: string) {
+    try {
+      await controller.client.connection.sendCommand(CommandBuilder.enterWorld({
+        playerId,
+      }));
+      startGame(controller.client);
+    } catch (error) {
+      // TODO: UI
+      console.error(error);
+    }
   }
 
   onClickCreateCharacterBtn() {
@@ -829,8 +833,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (qs.quick === 'server') {
     controller.pushScene(new StartScene());
     await (controller.currentScene as StartScene).onClickConnectBtn();
-    (controller.currentScene as SelectCharacterScene).onClickCreateCharacterBtn();
-    (controller.currentScene as CreateCharacterScene).onClickCreateBtn();
+    if (qs.playerId) {
+      (controller.currentScene as SelectCharacterScene).selectPlayer(qs.playerId);
+    }
   } else if (qs.quick === 'local') {
     await controller.loadWorker();
 
