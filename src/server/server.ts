@@ -661,6 +661,8 @@ export default class Server {
   }
 
   setItemInContainer(id: string, index: number, item?: Item) {
+    if (item?.quantity === 0) item = undefined;
+
     const container = this.context.containers.get(id);
     if (!container) throw new Error(`no container: ${id}`);
 

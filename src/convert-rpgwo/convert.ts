@@ -187,6 +187,8 @@ function parseItemsIni() {
     } else if (key.match(/^ArmorSpot/i)) {
       // @ts-ignore
       currentItem.equipSlot = uppercaseFirstLetter(value);
+    } else if (key.match(/^Ammo/i)) {
+      currentItem.ammoType = forcenum(value);
     } else if (key.match(/^CombatSkill/i)) {
       // @ts-ignore
       currentItem.combatSkill = getSkillByName(value)?.id;
@@ -277,6 +279,7 @@ function parseItemsIni() {
     'damageLow',
     'damageHigh',
     'combatSkill',
+    'ammoType',
   ];
   for (const item of items) {
     filterProperties(item, allowlist);

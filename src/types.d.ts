@@ -177,7 +177,7 @@ interface MetaItem {
   class:
   'Normal' | 'Armor' | 'Ore' | 'CaveDown' | 'CaveUp' | 'Container' |
   'Ball' | 'Weapon' | 'Ammo' | 'Plant' | 'Shield';
-  equipSlot?: 'Head' | 'Weapon' | 'Chest' | 'Shield' | 'Legs';
+  equipSlot?: 'Head' | 'Weapon' | 'Chest' | 'Shield' | 'Legs' | 'Ammo';
   equipImage?: Graphics;
   graphics: Graphics;
   burden: number;
@@ -195,6 +195,7 @@ interface MetaItem {
   attackSpeed?: number;
   damageLow?: number;
   damageHigh?: number;
+  ammoType?: number;
 }
 
 interface ItemUse {

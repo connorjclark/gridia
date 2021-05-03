@@ -360,11 +360,22 @@ export default class ServerInterface implements IServerInterface {
       }
 
       if (container.type === 'equipment') {
-        const requiredSkill = Content.getMetaItem(item.type).combatSkill;
+        const meta = Content.getMetaItem(item.type);
+        const requiredSkill = meta.combatSkill;
         if (requiredSkill && !server.currentClientConnection.player.skills.has(requiredSkill)) {
           return {
             error: `Missing ${Content.getSkill(requiredSkill).name} skill`,
           };
+        }
+
+        if (meta.equipSlot === 'Ammo') {
+          const weaponItem = container.items[Container.EQUIP_SLOTS.Weapon];
+          const weaponMeta = weaponItem && Content.getMetaItem(weaponItem.type);
+          if (weaponMeta && weaponMeta.ammoType !== meta.ammoType) {
+            return {
+              error: 'Wrong ammo type for weapon',
+            };
+          }
         }
       }
 

@@ -445,10 +445,10 @@ export default class CreatureState {
 
     let attackSkill = Content.getSkillByNameOrThrowError('Unarmed Attack');
     const weaponType = this.creature.equipment && this.creature.equipment[Container.EQUIP_SLOTS.Weapon]?.type;
-    if (weaponType) {
-      const meta = Content.getMetaItem(weaponType);
-      if (meta.combatSkill !== undefined) {
-        const skill = Content.getSkill(meta.combatSkill);
+    const weaponMeta = weaponType && Content.getMetaItem(weaponType);
+    if (weaponMeta) {
+      if (weaponMeta.combatSkill !== undefined) {
+        const skill = Content.getSkill(weaponMeta.combatSkill);
         if (skill) attackSkill = skill;
       }
     }
@@ -473,11 +473,27 @@ export default class CreatureState {
       hasEnergyForAttack = useAttribute(this.creature, 'stamina', 1);
     }
 
+    let hasAmmoForAttack = true;
+    if (weaponMeta && attackType === 'missle' && this.creature.isPlayer) {
+      const ammoTypeNeeded = weaponMeta.ammoType;
+      const ammoItemEquipped = this.creature.equipment && this.creature.equipment[Container.EQUIP_SLOTS.Ammo];
+      const ammoTypeEquipped = ammoItemEquipped && Content.getMetaItem(ammoItemEquipped.type).ammoType;
+      hasAmmoForAttack = Boolean(ammoTypeNeeded && ammoTypeEquipped) && ammoTypeNeeded === ammoTypeEquipped;
+
+      const clientConnection = server.getClientConnectionForCreature(this.creature);
+      if (hasAmmoForAttack && clientConnection && ammoItemEquipped) {
+        server.setItemInContainer(clientConnection.equipment.id, Container.EQUIP_SLOTS.Ammo, {
+          ...ammoItemEquipped,
+          quantity: ammoItemEquipped.quantity - 1,
+        });
+      }
+    }
+
     let defenseSkill = Content.getSkillByNameOrThrowError('Melee Defense');
     if (attackType === 'magic') defenseSkill = Content.getSkillByNameOrThrowError('Magic Defense');
     if (attackType === 'missle') defenseSkill = Content.getSkillByNameOrThrowError('Missle Defense');
 
-    if (hasEnergyForAttack) {
+    if (hasAmmoForAttack && hasEnergyForAttack) {
       // TODO use skill values.
       // const atk = attackSkill.level;
       const atk = 100;
