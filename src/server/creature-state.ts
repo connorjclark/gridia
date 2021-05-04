@@ -460,7 +460,6 @@ export default class CreatureState {
     let missReason = null;
     const minRange = weaponMeta?.minRange || 0;
     const maxRange = weaponMeta?.maxRange || 1;
-    if (this.creature.isPlayer) console.log({ minRange, maxRange, distanceFromTarget });
     if (distanceFromTarget < minRange) {
       missReason = 'too-close' as const;
     }
@@ -550,10 +549,15 @@ export default class CreatureState {
         // findPath(this.context, this.partition, this.creature.pos, this.targetCreature.creature.pos)
         //   .map((p) => ({...p, w: this.creature.pos.w})),
 
-        // Path is unobstructed if all points (except first or last) are walkable.
-        const isObstructed = !path.slice(1, path.length - 2).every((p) => server.context.walkable(p));
+        const isObstructed = !path.every((p) => {
+          if (Utils.equalPoints(p, this.targetCreature?.creature.pos) || Utils.equalPoints(p, this.creature.pos)) {
+            return true;
+          }
+
+          return server.context.walkable(p);
+        });
         if (isObstructed) {
-          // TODO: say something.
+          missReason = 'obstructed' as const;
           damage = 0;
         } else {
           server.broadcastAnimation({
@@ -589,6 +593,8 @@ export default class CreatureState {
             text = 'You are too close!';
           } else if (missReason === 'too-far') {
             text = 'You are too far away!';
+          } else if (missReason === 'obstructed') {
+            text = 'You don\'t have a clear line of sight!';
           }
         } else {
           if (!missReason) {
