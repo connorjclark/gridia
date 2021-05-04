@@ -628,8 +628,11 @@ export default class CreatureState {
     }
 
     this.ticksUntilNextAttack = server.taskRunner.rateToTicks({ seconds: this.creature.stats.attackSpeed });
-    if (!this.targetCreature.enemyCreatures.includes(this)) {
-      this.targetCreature.enemyCreatures.push(this);
+
+    if (!missReason || missReason === 'blocked') {
+      if (!this.targetCreature.enemyCreatures.includes(this)) {
+        this.targetCreature.enemyCreatures.push(this);
+      }
     }
 
     if (damage) server.modifyCreatureLife(this.creature, this.targetCreature.creature, -damage);
