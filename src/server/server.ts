@@ -88,8 +88,8 @@ export default class Server {
     });
   }
 
-  broadcastAnimation(pos: TilePoint, name: string) {
-    this.broadcastInRange(EventBuilder.animation({ ...pos, key: name }), pos, 30);
+  broadcastAnimation(animationInstance: GridiaAnimationInstance) {
+    this.broadcastInRange(EventBuilder.animation({ ...animationInstance }), animationInstance.path[0], 30);
   }
 
   broadcastChat(opts: { from: string; text: string }) {
@@ -401,7 +401,10 @@ export default class Server {
       this.context.savePlayer(clientConnection.player, clientConnection.creature);
       this.removeCreature(clientConnection.creature);
       this.players.delete(clientConnection.player.id);
-      this.broadcastAnimation(clientConnection.creature.pos, 'WarpOut');
+      this.broadcastAnimation({
+        name: 'WarpOut',
+        path: [clientConnection.creature.pos],
+      });
       this.broadcastChatFromServer(`${clientConnection.player.name} has left the world.`);
     }
   }
@@ -512,12 +515,18 @@ export default class Server {
     this.broadcastPartialCreatureUpdate(creature, ['life']);
 
     if (delta < 0) {
-      this.broadcastAnimation(creature.pos, 'Attack');
+      this.broadcastAnimation({
+        name: 'Attack',
+        path: [creature.pos],
+      });
     }
 
     if (creature.life.current <= 0) {
       this.removeCreature(creature);
-      this.broadcastAnimation(creature.pos, 'diescream');
+      this.broadcastAnimation({
+        name: 'diescream',
+        path: [creature.pos],
+      });
 
       if (actor?.isPlayer) {
         const player = this.findPlayerForCreature(actor);
@@ -764,7 +773,10 @@ export default class Server {
         });
       }
 
-      this.broadcastAnimation(clientConnection.creature.pos, 'LevelUp');
+      this.broadcastAnimation({
+        name: 'LevelUp',
+        path: [clientConnection.creature.pos],
+      });
     }
 
     this.send(EventBuilder.xp({
@@ -843,7 +855,10 @@ export default class Server {
     ));
     this.updateCreatureLight(clientConnection);
     setTimeout(() => {
-      this.broadcastAnimation(clientConnection.creature.pos, 'WarpIn');
+      this.broadcastAnimation({
+        name: 'WarpIn',
+        path: [clientConnection.creature.pos],
+      });
     }, 1000);
   }
 
@@ -955,8 +970,14 @@ export default class Server {
             if (!newPos || !map.inBounds(newPos) || !await map.walkableAsync(newPos)) continue;
 
             if (playWarpSound) {
-              this.broadcastAnimation(creature.pos, 'WarpOut');
-              this.broadcastAnimation(newPos, 'WarpIn');
+              this.broadcastAnimation({
+                name: 'WarpOut',
+                path: [creature.pos],
+              });
+              this.broadcastAnimation({
+                name: 'WarpIn',
+                path: [newPos],
+              });
             }
             await this.warpCreature(creature, newPos);
           }

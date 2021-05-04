@@ -504,9 +504,9 @@ class Game {
       this.modules.selectedView.clearSelectedView();
     }
     if (event.type === 'animation') {
-      const animationData = Content.getAnimation(event.args.key);
-      if (!animationData) throw new Error('no animation found: ' + event.args.key);
-      this.addAnimation(animationData, event.args);
+      const animation = Content.getAnimation(event.args.name);
+      if (!animation) throw new Error('no animation found: ' + event.args.name);
+      this.addAnimation(event.args);
     }
 
     if (event.type === 'chat') {
@@ -586,21 +586,33 @@ class Game {
     this.client.storedEvents = [];
   }
 
-  addAnimation(animation: GridiaAnimation, loc: TilePoint) {
+  addAnimation(animationInstance: GridiaAnimationInstance) {
+    const animation = Content.getAnimation(animationInstance.name);
+
     // TODO
     let light = 0;
-    if (['WarpIn', 'WarpOut', 'LevelUp', 'Lightning', 'Burning'].includes(animation.name)) {
+    if (['WarpIn', 'WarpOut', 'LevelUp', 'Lightning', 'Burning'].includes(animationInstance.name)) {
       light = 4;
     }
 
-    this.worldContainer.animationController.addAnimation({
-      location: loc,
-      tint: 0,
-      alpha: 1,
-      decay: 0.1,
-      light,
-      frames: animation.frames,
-    });
+    if (animationInstance.path.length === 1) {
+      this.worldContainer.animationController.addAnimation({
+        location: animationInstance.path[0],
+        tint: 0,
+        alpha: 1,
+        decay: 0.1,
+        light,
+        frames: animation?.frames,
+        directionalFrames: animation?.directionalFrames,
+      });
+    } else {
+      this.worldContainer.animationController.addEmitter({
+        tint: 0,
+        path: animationInstance.path,
+        frames: animation?.frames,
+        directionalFrames: animation?.directionalFrames,
+      });
+    }
   }
 
   trip() {
@@ -772,7 +784,7 @@ class Game {
 
         this.worldContainer.animationController.addEmitter({
           tint: 0x000055,
-          path: calcStraightLine(this.worldContainer.camera.focus, loc).reverse(),
+          path: calcStraightLine(this.worldContainer.camera.focus, loc),
           light: 4,
           offshootRate: 0.2,
           frames,

@@ -792,7 +792,8 @@
       {
         "sprite":117
       }
-    ]
+    ],
+    "directionalFrames": true
   },
   {
     "id":34,
@@ -822,7 +823,8 @@
       {
         "sprite":127
       }
-    ]
+    ],
+    "directionalFrames": true
   },
   {
     "id":35,
@@ -852,7 +854,8 @@
       {
         "sprite":137
       }
-    ]
+    ],
+    "directionalFrames": true
   },
   {
     "id":36,
@@ -882,7 +885,8 @@
       {
         "sprite":147
       }
-    ]
+    ],
+    "directionalFrames": true
   },
   {
     "id":37,
@@ -912,7 +916,8 @@
       {
         "sprite":157
       }
-    ]
+    ],
+    "directionalFrames": true
   },
   {
     "id":38,

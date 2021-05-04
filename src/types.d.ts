@@ -235,6 +235,12 @@ interface GridiaAnimation {
     sprite: number;
     sound?: string;
   }>;
+  directionalFrames?: boolean;
+}
+
+interface GridiaAnimationInstance {
+  name: string;
+  path: Point4[];
 }
 
 interface Monster {

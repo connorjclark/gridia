@@ -5,6 +5,7 @@ import * as Utils from '../utils';
 import WorldMapPartition from '../world-map-partition';
 import { Context } from '../context';
 import * as Container from '../container';
+import { calcStraightLine } from '../lib/line';
 import Server from './server';
 import aStar from './plan';
 import { adjustAttribute } from './creature-utils';
@@ -525,6 +526,26 @@ export default class CreatureState {
       const armor = this.targetCreature.creature.stats.armor;
       damage = Math.round(damageRoll * damageRoll / (damageRoll + armor));
       damage = Utils.clamp(damage, 1, this.targetCreature.creature.life.current);
+
+      if (weaponMeta && attackType === 'missle') {
+        const path = calcStraightLine(this.creature.pos, this.targetCreature.creature.pos)
+          .map((p) => ({ ...this.creature.pos, ...p }));
+        // using findPath does a cool "homing" attack, around corners. could be used for a neat weapon?
+        // findPath(this.context, this.partition, this.creature.pos, this.targetCreature.creature.pos)
+        //   .map((p) => ({...p, w: this.creature.pos.w})),
+
+        // Path is unobstructed if all points (except first or last) are walkable.
+        const isObstructed = !path.slice(1, path.length - 2).every((p) => server.context.walkable(p));
+        if (isObstructed) {
+          // TODO: say something.
+          damage = 0;
+        } else {
+          server.broadcastAnimation({
+            name: 'Arrow',
+            path,
+          });
+        }
+      }
     } else {
       // miss ...
     }

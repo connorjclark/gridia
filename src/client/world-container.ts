@@ -19,14 +19,18 @@ interface Animation {
   decay: number;
   light: number;
   frames?: GridiaAnimation['frames'];
+  directionalFrames?: boolean;
 }
 
 interface Emitter {
   tint: number;
   path: Point2[];
+  currentIndex: number;
   offshootRate?: number;
   light?: number;
   frames?: GridiaAnimation['frames'];
+  directionalFrames?: boolean;
+  lastEmission: number;
 }
 
 type LightResult = Array2D<{ light: number; tint?: number; alpha?: number }>;
@@ -37,7 +41,8 @@ class WorldAnimationController {
 
   constructor(private worldContainer: WorldContainer) { }
 
-  addEmitter(emitter: Emitter) {
+  addEmitter(emitter_: Omit<Emitter, 'currentIndex' | 'lastEmission'>) {
+    const emitter = { ...emitter_, currentIndex: 0, lastEmission: 0 };
     // Don't emit sounds for every animation created. Instead,
     // create an invisible animation for just the sounds, so that
     // it only plays once.
@@ -71,6 +76,7 @@ class WorldAnimationController {
       sprite.x = animation.location.x * GFX_SIZE;
       sprite.y = animation.location.y * GFX_SIZE;
       sprite.onFrameChange = () => {
+        // TODO: will sound on the first frame play?
         const sound = animation.frames && animation.frames[sprite.currentFrame].sound;
         if (sound) game.modules.sound.playSfx(sound, animation.location);
       };
@@ -85,28 +91,66 @@ class WorldAnimationController {
   }
 
   tick() {
+    const now = Date.now();
     for (const emitter of [...this.emitters]) {
-      const cur = emitter.path.pop();
+      if (now - emitter.lastEmission <= 30) continue;
+      emitter.lastEmission = now;
+
+      const cur = emitter.path[emitter.currentIndex];
       if (!cur) {
         this.emitters.splice(this.emitters.indexOf(emitter), 1);
       } else {
+        let frames = emitter.frames;
+        if (emitter.directionalFrames) {
+          let p1 = emitter.path[emitter.currentIndex];
+          let p2 = emitter.path[emitter.currentIndex + 1];
+          if (!p2) {
+            p1 = emitter.path[0];
+            p2 = emitter.path[emitter.currentIndex - 1];
+          }
+
+          let angleIndex;
+          const dy = p2.y - p1.y;
+          const dx = p2.x - p1.x;
+          const angle = Math.atan2(dy, dx);
+          // (angle + PI because range is [-PI, PI] - PI/4 because quarter turn counterclockwise)
+          // all divided by 2PI broken into 8 quadrants to get 0-7.
+          angleIndex = (angle + Math.PI) / (Math.PI / 4);
+
+          // Strangely this doesn't seem necessary. The above seems to
+          // always work out to an integer!
+          angleIndex = Math.round(angleIndex);
+
+          // Adjust quarter turn counterclockwise because sprite start pointing 0 degrees (up).
+          angleIndex = angleIndex - 2;
+          angleIndex = angleIndex % 8;
+          if (angleIndex < 0) angleIndex = 8 + angleIndex;
+
+          const frame = emitter.frames && emitter.frames[angleIndex];
+          if (frame) frames = [frame];
+        }
+
         this.addAnimation({
           tint: emitter.tint,
           location: { ...this.worldContainer.camera.focus, x: cur.x, y: cur.y },
           alpha: 0.3,
           decay: 0.01,
           light: emitter.light || 0,
-          frames: emitter.frames,
+          frames,
         });
 
         if (emitter.offshootRate && Math.random() < emitter.offshootRate) {
           this.emitters.push({
             tint: emitter.tint,
             path: [{ x: cur.x + Utils.randInt(-1, 1), y: cur.y + Utils.randInt(-1, 1) }],
+            currentIndex: 0,
             offshootRate: emitter.offshootRate / 2,
             light: emitter.light,
+            lastEmission: 0,
           });
         }
+
+        emitter.currentIndex += 1;
       }
     }
 

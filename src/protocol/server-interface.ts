@@ -34,7 +34,10 @@ export default class ServerInterface implements IServerInterface {
       const oreType = tile.item.oreType || Content.getMetaItemByName('Pile of Dirt').id;
       const minedItem = { type: oreType, quantity: 1 };
       server.setItem(loc, minedItem);
-      server.broadcastAnimation(loc, 'MiningSound');
+      server.broadcastAnimation({
+        name: 'MiningSound',
+        path: [loc],
+      });
       server.grantXp(server.currentClientConnection, miningSkill.id, 10);
     }
 
@@ -287,7 +290,10 @@ export default class ServerInterface implements IServerInterface {
     }
 
     if (use.animation) {
-      server.broadcastAnimation(loc, use.animation);
+      server.broadcastAnimation({
+        name: use.animation,
+        path: [loc],
+      });
     }
 
     if (use.successFloor) {
@@ -735,7 +741,10 @@ export default class ServerInterface implements IServerInterface {
               return;
             }
 
-            server.broadcastAnimation(server.currentClientConnection.creature.pos, args.name);
+            server.broadcastAnimation({
+              name: args.name,
+              path: [server.currentClientConnection.creature.pos],
+            });
           },
         },
         help: {

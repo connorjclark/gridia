@@ -44,8 +44,10 @@ declare namespace Protocol {
   }
 
   namespace Events {
-    interface Animation extends TilePoint {
-      key: string;
+    interface Animation {
+      // TODO TSC bug?! why can't I use GridiaAnimationInstance?
+      name: string;
+      path: Point4[];
     }
 
     interface Container {

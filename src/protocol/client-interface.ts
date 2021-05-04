@@ -7,7 +7,7 @@ import IClientInterface from './gen/client-interface';
 import Events = Protocol.Events;
 
 export default class ClientInterface implements IClientInterface {
-  onAnimation(client: Client, { key, ...loc }: Events.Animation): void {
+  onAnimation(client: Client, animatonInstance: Events.Animation): void {
     // handled by game.ts
   }
 
