@@ -2,6 +2,7 @@ import WorldMap from './world-map';
 import { SECTOR_SIZE } from './constants';
 import * as Utils from './utils';
 import * as Content from './content';
+import { EQUIP_SLOTS } from './container';
 
 export const ATTRIBUTES = [
   'dexterity',
@@ -231,4 +232,17 @@ export function sectorTileSeenLogGet(data: Uint16Array, x: number, y: number) {
 function sectorTileSeenLogSet(data: Uint16Array, x: number, y: number, floor: number, walkable: boolean) {
   // eslint-disable-next-line no-bitwise
   data[x + y * SECTOR_SIZE] = (floor << 1) + (walkable ? 1 : 0);
+}
+
+// TODO shouldnt be here ...
+export function getCombatAttackType(equipment: Container) {
+  let attackSkill = Content.getSkillByNameOrThrowError('Unarmed Attack');
+  const weaponType = equipment.items[EQUIP_SLOTS.Weapon]?.type;
+  const weaponMeta = weaponType ? Content.getMetaItem(weaponType) : null;
+  if (weaponMeta && weaponMeta.combatSkill !== undefined) {
+    const skill = Content.getSkill(weaponMeta.combatSkill);
+    if (skill) attackSkill = skill;
+  }
+
+  return attackSkill.purpose;
 }

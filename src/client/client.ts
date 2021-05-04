@@ -42,6 +42,7 @@ class Client {
     return this.context.getCreature(this.creatureId);
   }
 
+  // TODO remove undefined from return type
   get inventory() {
     return this.context.containers.get(this.player.containerId);
   }

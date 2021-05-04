@@ -748,6 +748,8 @@ export default class Server {
   }
 
   grantXp(clientConnection: ClientConnection, skill: number, xp: number) {
+    if (xp <= 0) return;
+
     const { skillLevelIncreased, combatLevelIncreased } =
       Player.incrementSkillXp(clientConnection.player, skill, xp) || {};
 

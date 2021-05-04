@@ -8,6 +8,7 @@ import Game from '../game';
 import * as Helper from '../helper';
 import KEYS from '../keys';
 import { MINE } from '../../constants';
+import * as Player from '../../player';
 
 const MOVEMENT_DURATION = 200;
 
@@ -26,10 +27,15 @@ class MovementModule extends ClientModule {
     this.game.client.eventEmitter.on('action', this.onAction);
     this.game.client.eventEmitter.on('event', (e) => {
       if (e.type === 'setAttackTarget') {
-        if (e.args.creatureId) {
-          this.followCreature = this.game.client.context.getCreature(e.args.creatureId);
-        } else {
-          this.followCreature = undefined;
+        // Only move towards creature if using melee attack.
+        const attackType = this.game.client.equipment && Player.getCombatAttackType(this.game.client.equipment);
+
+        if (attackType === 'melee') {
+          if (e.args.creatureId) {
+            this.followCreature = this.game.client.context.getCreature(e.args.creatureId);
+          } else {
+            this.followCreature = undefined;
+          }
         }
       }
     });
