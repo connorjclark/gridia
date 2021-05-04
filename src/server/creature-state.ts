@@ -455,9 +455,18 @@ export default class CreatureState {
       }
     }
 
+    const attackType = attackSkill?.purpose || 'melee';
+
+    let missReason = null;
     const minRange = weaponMeta?.minRange || 0;
     const maxRange = weaponMeta?.maxRange || 1;
-    if (distanceFromTarget < minRange || distanceFromTarget > maxRange) return;
+    if (this.creature.isPlayer) console.log({ minRange, maxRange, distanceFromTarget });
+    if (distanceFromTarget < minRange) {
+      missReason = 'too-close' as const;
+    }
+    if (distanceFromTarget > maxRange) {
+      missReason = 'too-far' as const;
+    }
 
     function useAttribute(creature: Creature, attribute: 'stamina' | 'mana', amount: number) {
       if (creature[attribute].current >= amount) {
@@ -469,43 +478,48 @@ export default class CreatureState {
       }
     }
 
-    const attackType = attackSkill?.purpose || 'melee';
-    let hasEnergyForAttack = false;
-    let hitSuccess = false;
-
-    if (attackType === 'magic') {
-      hasEnergyForAttack = useAttribute(this.creature, 'mana', 1);
-    } else {
-      hasEnergyForAttack = useAttribute(this.creature, 'stamina', 1);
+    if (!missReason) {
+      let hasEnergyForAttack = false;
+      if (attackType === 'magic') {
+        hasEnergyForAttack = useAttribute(this.creature, 'mana', 1);
+        if (!hasEnergyForAttack) missReason = 'need-mana' as const;
+      } else {
+        hasEnergyForAttack = useAttribute(this.creature, 'stamina', 1);
+        if (!hasEnergyForAttack) missReason = 'need-stamina' as const;
+      }
     }
 
-    let hasAmmoForAttack = true;
-    if (weaponMeta && attackType === 'missle' && this.creature.isPlayer) {
-      const ammoTypeNeeded = weaponMeta.ammoType;
-      const ammoItemEquipped = this.creature.equipment && this.creature.equipment[Container.EQUIP_SLOTS.Ammo];
-      const ammoTypeEquipped = ammoItemEquipped && Content.getMetaItem(ammoItemEquipped.type).ammoType;
-      hasAmmoForAttack = Boolean(ammoTypeNeeded && ammoTypeEquipped) && ammoTypeNeeded === ammoTypeEquipped;
+    if (!missReason) {
+      let hasAmmoForAttack = true;
+      if (weaponMeta && attackType === 'missle' && this.creature.isPlayer) {
+        const ammoTypeNeeded = weaponMeta.ammoType;
+        const ammoItemEquipped = this.creature.equipment && this.creature.equipment[Container.EQUIP_SLOTS.Ammo];
+        const ammoTypeEquipped = ammoItemEquipped && Content.getMetaItem(ammoItemEquipped.type).ammoType;
+        hasAmmoForAttack = Boolean(ammoTypeNeeded && ammoTypeEquipped) && ammoTypeNeeded === ammoTypeEquipped;
 
-      const clientConnection = server.getClientConnectionForCreature(this.creature);
-      if (hasAmmoForAttack && clientConnection && ammoItemEquipped) {
-        server.setItemInContainer(clientConnection.equipment.id, Container.EQUIP_SLOTS.Ammo, {
-          ...ammoItemEquipped,
-          quantity: ammoItemEquipped.quantity - 1,
-        });
+        const clientConnection = server.getClientConnectionForCreature(this.creature);
+        if (hasAmmoForAttack && clientConnection && ammoItemEquipped) {
+          server.setItemInContainer(clientConnection.equipment.id, Container.EQUIP_SLOTS.Ammo, {
+            ...ammoItemEquipped,
+            quantity: ammoItemEquipped.quantity - 1,
+          });
+        }
       }
+
+      if (!hasAmmoForAttack) missReason = 'need-ammo' as const;
     }
 
     let defenseSkill = Content.getSkillByNameOrThrowError('Melee Defense');
     if (attackType === 'magic') defenseSkill = Content.getSkillByNameOrThrowError('Magic Defense');
     if (attackType === 'missle') defenseSkill = Content.getSkillByNameOrThrowError('Missle Defense');
 
-    if (hasAmmoForAttack && hasEnergyForAttack) {
+    if (!missReason) {
       // TODO use skill values.
       // const atk = attackSkill.level;
       const atk = 100;
       // @ts-expect-error
       const def = this.targetCreature.creature.stats[attackType + 'Defense'] as number || 0;
-      hitSuccess = Utils.randInt(0, atk) >= Utils.randInt(0, def);
+      let hitSuccess = Utils.randInt(0, atk) >= Utils.randInt(0, def);
 
       if (!hitSuccess) {
         if (attackType === 'magic') {
@@ -518,10 +532,12 @@ export default class CreatureState {
           }
         }
       }
+
+      if (!hitSuccess) missReason = 'blocked' as const;
     }
 
     let damage = 0;
-    if (hitSuccess) {
+    if (!missReason) {
       const damageRoll = Utils.randInt(this.creature.stats.damageLow, this.creature.stats.damageHigh);
       const armor = this.targetCreature.creature.stats.armor;
       damage = Math.round(damageRoll * damageRoll / (damageRoll + armor));
@@ -546,8 +562,6 @@ export default class CreatureState {
           });
         }
       }
-    } else {
-      // miss ...
     }
 
     // TODO
@@ -559,17 +573,51 @@ export default class CreatureState {
       const clientConnection = server.getClientConnectionForCreature(this.creature) ||
         server.getClientConnectionForCreature(this.targetCreature.creature);
       if (clientConnection) {
-        const text = hitSuccess ?
-          `${this.creature.name} hit ${this.targetCreature.creature.name} for ${damage} damage` :
-          `${this.creature.name} missed ${this.targetCreature.creature.name}`;
-        server.send(EventBuilder.chat({ section: 'Combat', text }), clientConnection);
+        let text;
+        if (this.creature.isPlayer) {
+          if (!missReason) {
+            text = `You hit ${this.targetCreature.creature.name} for ${damage} damage`;
+          } else if (missReason === 'blocked') {
+            text = `${this.targetCreature.creature.name} blocked your attack`;
+          } else if (missReason === 'need-ammo') {
+            text = 'You need more ammo!';
+          } else if (missReason === 'need-mana') {
+            text = 'You need more mana!';
+          } else if (missReason === 'need-stamina') {
+            text = 'You need more stamina!';
+          } else if (missReason === 'too-close') {
+            text = 'You are too close!';
+          } else if (missReason === 'too-far') {
+            text = 'You are too far away!';
+          }
+        } else {
+          if (!missReason) {
+            text = `${this.creature.name} hit you for ${damage} damage`;
+          } else if (missReason === 'blocked') {
+            text = `You blocked ${this.creature.name}'s attack`;
+          } else if (missReason === 'need-ammo') {
+            // nothing
+          } else if (missReason === 'need-mana') {
+            // nothing
+          } else if (missReason === 'need-stamina') {
+            // nothing
+          } else if (missReason === 'too-close') {
+            // nothing
+          } else if (missReason === 'too-far') {
+            // nothing
+          }
+        }
 
-        const xpModifier = this.creature.isPlayer ?
-          this.targetCreature.creature.combatLevel / this.creature.combatLevel :
-          this.creature.combatLevel / this.targetCreature.creature.combatLevel;
-        const xp = Math.round(xpModifier * damage * 10);
-        const skill = this.creature.isPlayer ? attackSkill : defenseSkill;
-        server.grantXp(clientConnection, skill.id, xp);
+        if (text) server.send(EventBuilder.chat({ section: 'Combat', text }), clientConnection);
+
+        if (!missReason) {
+          const xpModifier = this.creature.isPlayer ?
+            this.targetCreature.creature.combatLevel / this.creature.combatLevel :
+            this.creature.combatLevel / this.targetCreature.creature.combatLevel;
+          const xp = Math.round(xpModifier * damage * 10);
+          const skill = this.creature.isPlayer ? attackSkill : defenseSkill;
+          server.grantXp(clientConnection, skill.id, xp);
+        }
       }
     }
 
