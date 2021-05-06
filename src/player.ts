@@ -64,15 +64,26 @@ export function getXpTotalForCombatLevel(level: number) {
   return combatLevelToXpTotal[level];
 }
 
-export function getAttributeValue(player: Player, id: Attribute) {
+export function getAttributeValue(player: Player, id: Attribute, buffs: Buff[]) {
   const data = player.attributes.get(id);
   if (!ATTRIBUTES.includes(id) || !data) throw new Error('unknown attribute ' + id);
 
+  let percentChange = 0;
+  let linearChange = 0;
+  for (const buff of buffs) {
+    if (buff.attribute === id) {
+      if (buff.percentChange) percentChange += buff.percentChange;
+      if (buff.linearChange) linearChange += buff.linearChange;
+    }
+  }
+
   const { baseLevel, earnedLevel } = data;
+  const buffAmount = Math.floor((baseLevel + earnedLevel) * (percentChange) + linearChange);
   return {
     baseLevel,
     earnedLevel,
-    level: baseLevel + earnedLevel,
+    buffAmount,
+    level: baseLevel + earnedLevel + buffAmount,
     xpUntilNextLevel: costToIncrementSkillOrAttribute(earnedLevel),
   };
 }
@@ -88,42 +99,48 @@ export function getLearnedSkills(player: Player) {
   return [...player.skills.keys()];
 }
 
-function getSkillLevel(player: Player, id: number) {
+function getSkillLevel(player: Player, id: number, buffs: Buff[] = []) {
+  let percentChange = 0;
+  let linearChange = 0;
+  for (const buff of buffs) {
+    if (buff.skill === id || buff.skill === -1) {
+      if (buff.percentChange) percentChange += buff.percentChange;
+      if (buff.linearChange) linearChange += buff.linearChange;
+    }
+  }
+
   const xp = player.skills.get(id)?.xp || 0;
   const skill = Content.getSkill(id);
   let baseLevelSum = 0;
+  let baseLevelSumFromBuffs = 0;
   for (const attribute of ATTRIBUTES) {
     const multiplier = skill[attribute as keyof Skill];
     if (!multiplier || typeof multiplier !== 'number') continue;
 
-    baseLevelSum += multiplier * getAttributeValue(player, attribute).level;
+    const attrValue = getAttributeValue(player, attribute, buffs);
+    baseLevelSum += multiplier * (attrValue.baseLevel + attrValue.earnedLevel);
+    baseLevelSumFromBuffs += multiplier * attrValue.buffAmount;
   }
+
   const baseLevel = Math.floor(baseLevelSum / skill.divisor);
+  const baseLevelFromBuffs = Math.floor(baseLevelSumFromBuffs / skill.divisor);
+  const buffAmount = baseLevelFromBuffs + Math.floor(baseLevel * (percentChange) + linearChange);
   const earnedLevel = skillOrAttributeLevelForXp(xp);
-  return { baseLevel, earnedLevel, level: baseLevel + earnedLevel };
+  const level = baseLevel + earnedLevel + buffAmount;
+  return { baseLevel, earnedLevel, buffAmount, level };
 }
 
 // TODO rename details
 export function getSkillValue(player: Player, buffs: Buff[], id: number) {
   const xp = player.skills.get(id)?.xp || 0;
-  const { baseLevel, earnedLevel, level } = getSkillLevel(player, id);
-
-  let percentChange = 0;
-  let linearChange = 0;
-  for (const buff of buffs) {
-    if (buff.skill === id) {
-      if (buff.percentChange) percentChange += buff.percentChange;
-      if (buff.linearChange) linearChange += buff.linearChange;
-    }
-  }
-  const buffAmount = Math.floor(level * (percentChange) + linearChange);
+  const { baseLevel, earnedLevel, buffAmount, level } = getSkillLevel(player, id, buffs);
 
   return {
     xp,
     baseLevel,
     earnedLevel,
     buffAmount,
-    level: level + buffAmount,
+    level,
     xpUntilNextLevel: attributeLevelToXpTotal[earnedLevel + 1] - xp,
   };
 }

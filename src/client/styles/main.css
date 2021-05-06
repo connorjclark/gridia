@@ -457,10 +457,20 @@ button {
   display: inline-block;
 }
 
+.spell {
+  position: relative;
+}
+.timer {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .tooltip {
   display: none;
   position: relative;
   background-color: #cf8989;
+  z-index: 10;
 }
 .tooltip-on-hover:hover + .tooltip {
   display: block;

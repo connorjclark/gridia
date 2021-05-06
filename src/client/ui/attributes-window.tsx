@@ -30,13 +30,15 @@ export function makeAttributesWindow() {
     render(props: Props) {
       const buffs = [];
       for (const buff of props.buffs) {
-        buffs.push(<div class='buff tooltip-on-hover'>
-          <Graphic file='rpgwo-animations0.png' index={6}></Graphic>
-        </div>);
-        buffs.push(<div className="tooltip">
-          {buff.name} (expires <span class='relative-time' data-time={buff.expiresAt}></span>)
-          {buff.linearChange ? <div>+{buff.linearChange} {buff.skillName}</div> : null}
-          {buff.percentChange ? <div>+{100 * buff.percentChange}% {buff.skillName}</div> : null}
+        buffs.push(<div>
+          <div class='buff tooltip-on-hover'>
+            <Graphic file='rpgwo-animations0.png' index={6}></Graphic>
+          </div>
+          <div className="tooltip">
+            {buff.name} (expires <span class='relative-time' data-time={buff.expiresAt}></span>)
+            {buff.linearChange ? <div>+{buff.linearChange} {buff.skillName}</div> : null}
+            {buff.percentChange ? <div>+{100 * buff.percentChange}% {buff.skillName}</div> : null}
+          </div>
         </div>);
       }
 
@@ -46,7 +48,9 @@ export function makeAttributesWindow() {
           <Bar label='Stamina' color='yellow' {...props.stamina}></Bar>
           <Bar label='Mana' color='blue' {...props.mana}></Bar>
         </div>
-        {buffs}
+        <div class="flex">
+          {buffs}
+        </div>
       </div>;
     }
   }

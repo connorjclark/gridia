@@ -8,6 +8,10 @@ type AdminSetItemCommand = {
     type: "adminSetItem";
     args: Protocol.Commands.AdminSetItem;
 };
+type CastSpellCommand = {
+    type: "castSpell";
+    args: Protocol.Commands.CastSpell;
+};
 type ChatCommand = {
     type: "chat";
     args: Protocol.Commands.Chat;
@@ -73,13 +77,16 @@ type UseCommand = {
     args: Protocol.Commands.Use;
 };
 
-export type ProtocolCommand = AdminSetFloorCommand | AdminSetItemCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand;
+export type ProtocolCommand = AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand;
 
 export function adminSetFloor({ floor, ...loc }: Protocol.Commands.AdminSetFloor["params"]): AdminSetFloorCommand {
     return { type: "adminSetFloor", args: arguments[0] };
 }
 export function adminSetItem({ item, ...loc }: Protocol.Commands.AdminSetItem["params"]): AdminSetItemCommand {
     return { type: "adminSetItem", args: arguments[0] };
+}
+export function castSpell({ id, loc }: Protocol.Commands.CastSpell["params"]): CastSpellCommand {
+    return { type: "castSpell", args: arguments[0] };
 }
 export function chat({ text }: Protocol.Commands.Chat["params"]): ChatCommand {
     return { type: "chat", args: arguments[0] };

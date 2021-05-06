@@ -5,6 +5,7 @@ import Server from '../server/server';
 import * as Utils from '../utils';
 import { makeBareMap } from '../mapgen';
 import * as Container from '../container';
+import { adjustAttribute } from '../server/creature-utils';
 import IServerInterface from './gen/server-interface';
 import * as EventBuilder from './event-builder';
 import Commands = Protocol.Commands;
@@ -98,6 +99,52 @@ export default class ServerInterface implements IServerInterface {
 
   onLogout(server: Server, { }: Commands.Logout['params']): Promise<Commands.Logout['response']> {
     server.removeClient(server.currentClientConnection);
+    return Promise.resolve();
+  }
+
+  onCastSpell(server: Server, { id, loc }: Commands.CastSpell['params']): Promise<void> {
+    const creature = server.currentClientConnection.creature;
+    const spell = Content.getSpell(id);
+    if (!spell) return Promise.resolve();
+    if (spell.target === 'other') return Promise.resolve();
+    if (creature.mana.current < spell.mana) return Promise.reject('Not enough mana');
+
+    const variance = spell.variance ? Utils.randInt(0, spell.variance) : 0;
+
+    if (spell.target === 'self') {
+      if (spell.life) {
+        const life = spell.life + variance;
+        adjustAttribute(creature, 'life', life);
+        server.broadcastPartialCreatureUpdate(creature, ['life']);
+      }
+
+      for (const key of ['quickness', 'dexterity', 'strength', 'intelligence', 'wisdom', 'hero'] as const) {
+        if (!spell[key]) continue;
+
+        const buff: Buff = {
+          expiresAt: Date.now() + 1000 * 60 * 5,
+          linearChange: spell[key],
+        };
+        if (key === 'hero') {
+          buff.skill = -1;
+        } else {
+          buff.attribute = key;
+        }
+
+        server.assignCreatureBuff(creature, buff);
+      }
+    }
+
+    if (spell.animation) {
+      server.broadcastAnimation({
+        name: Content.getAnimationByIndex(spell.animation - 1).name,
+        path: [creature.pos],
+      });
+    }
+
+    adjustAttribute(creature, 'mana', -spell.mana);
+    server.broadcastPartialCreatureUpdate(creature, ['mana']);
+
     return Promise.resolve();
   }
 

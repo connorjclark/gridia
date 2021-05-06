@@ -270,9 +270,9 @@ export default class Server {
       player.skillPoints -= Content.getSkill(skill).skillPoints;
     }
 
-    player.life = Player.getAttributeValue(player, 'life').level;
-    player.stamina = Player.getAttributeValue(player, 'stamina').level;
-    player.mana = Player.getAttributeValue(player, 'mana').level;
+    player.life = Player.getAttributeValue(player, 'life', player.buffs).level;
+    player.stamina = Player.getAttributeValue(player, 'stamina', player.buffs).level;
+    player.mana = Player.getAttributeValue(player, 'mana', player.buffs).level;
 
     const container = this.context.makeContainer('normal');
     player.containerId = container.id;
@@ -347,15 +347,15 @@ export default class Server {
       speed: 2,
       life: {
         current: player.life,
-        max: Player.getAttributeValue(player, 'life').level,
+        max: Player.getAttributeValue(player, 'life', player.buffs).level,
       },
       stamina: {
         current: player.stamina,
-        max: Player.getAttributeValue(player, 'stamina').level,
+        max: Player.getAttributeValue(player, 'stamina', player.buffs).level,
       },
       mana: {
         current: player.mana,
-        max: Player.getAttributeValue(player, 'mana').level,
+        max: Player.getAttributeValue(player, 'mana', player.buffs).level,
       },
       // TODO
       food: 100,

@@ -4,7 +4,6 @@ import { Provider, connect } from 'redux-zero/preact';
 import { Actions, BoundActions } from 'redux-zero/types/Actions';
 import { GFX_SIZE } from '../../constants';
 import * as Utils from '../../utils';
-import { getTexture } from '../draw';
 import * as Helper from '../helper';
 import { ImageResources } from '../lazy-resource-loader';
 

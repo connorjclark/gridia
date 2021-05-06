@@ -18,6 +18,7 @@ declare namespace Protocol {
   namespace Commands {
     type AdminSetFloor = Command<TilePoint & { floor: number }>;
     type AdminSetItem = Command<TilePoint & { item?: Item }>;
+    type CastSpell = Command<{ id: number; loc?: Point4 }>;
     type Chat = Command<{ text: string }>;
     type CloseContainer = Command<{ containerId: string }>;
     type CreatePlayer = Command<{

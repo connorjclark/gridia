@@ -11,6 +11,7 @@ let itemUses: ItemUse[] = [];
 let animations: GridiaAnimation[] = [];
 let monsters: Monster[] = [];
 let skills: Skill[] = [];
+let spells: Spell[] = [];
 
 // Parcel doesn't support dynamic imports for workers yet.
 // Until then, we do this hack to at least cut the content data out
@@ -21,13 +22,14 @@ function loadContentFromDisk() {
   // Make the path dynamically so parcel doesn't bundle the data.
   const prefix = '../world/content';
 
-  [floors, items, itemUses, animations, monsters, skills] = [
+  [floors, items, itemUses, animations, monsters, skills, spells] = [
     require(`${prefix}/floors.json`),
     require(`${prefix}/items.json`),
     require(`${prefix}/itemuses.json`),
     require(`${prefix}/animations.json`),
     require(`${prefix}/monsters.json`),
     require(`${prefix}/skills.json`),
+    require(`${prefix}/spells.json`),
   ];
   prepareData();
 }
@@ -35,13 +37,14 @@ function loadContentFromDisk() {
 // Web client and worker entry uses this.
 export async function loadContentFromNetwork() {
   // @ts-ignore
-  [floors, items, itemUses, animations, monsters, skills] = await Promise.all([
+  [floors, items, itemUses, animations, monsters, skills, spells] = await Promise.all([
     fetch('world/content/floors.json').then((r) => r.json()),
     fetch('world/content/items.json').then((r) => r.json()),
     fetch('world/content/itemuses.json').then((r) => r.json()),
     fetch('world/content/animations.json').then((r) => r.json()),
     fetch('world/content/monsters.json').then((r) => r.json()),
     fetch('world/content/skills.json').then((r) => r.json()),
+    fetch('world/content/spells.json').then((r) => r.json()),
   ]);
   prepareData();
 }
@@ -209,6 +212,10 @@ export function getAnimation(key: string) {
   return animations.find((a) => a.name === key);
 }
 
+export function getAnimationByIndex(index: number) {
+  return animations[index];
+}
+
 export function getMonsterTemplate(id: number) {
   return monsters[id];
 }
@@ -266,4 +273,12 @@ export function getSkillAttributeDescription(skill: Skill) {
 
   if (skill.divisor === 1) return parts.join(' + ');
   return `(${parts.join(' + ')}) / ${skill.divisor}`;
+}
+
+export function getSpells() {
+  return spells;
+}
+
+export function getSpell(id: number) {
+  return spells[id];
 }

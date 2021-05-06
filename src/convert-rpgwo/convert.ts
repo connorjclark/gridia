@@ -22,6 +22,7 @@ const state = {
   floors: [] as MetaFloor[],
   usages: [] as ItemUse[],
   skills: [] as Skill[],
+  spells: [] as Spell[],
 };
 
 function getMetaItemByName(name: string) {
@@ -499,6 +500,84 @@ function parseSkillsIni() {
   return skills;
 }
 
+function parseMagicIni() {
+  const magicIni = loadIni('magic');
+
+  const spells: Spell[] = [];
+
+  let currentSpell: Spell | undefined;
+  for (const [key, value] of magicIni) {
+    if (key.match(/^spell$/i)) {
+      // @ts-expect-error
+      currentSpell = {
+        id: forcenum(value),
+      };
+      // @ts-expect-error
+      spells.push(currentSpell);
+    } else if (!currentSpell) {
+      // defaults come first.
+    } else if (key.match(/^ManaCost$/i)) {
+      currentSpell.mana = forcenum(value);
+    } else {
+      // Most properties are unchanged, except for being camelCase.
+      const camelCaseKey = camelCase(key);
+
+      let convertedValue: string | number | boolean = value;
+      const maybeNumber = loosenum(value);
+      if (typeof maybeNumber === 'number' && Number.isFinite(maybeNumber)) {
+        convertedValue = maybeNumber;
+      }
+      if (convertedValue === undefined) {
+        convertedValue = true;
+      }
+
+      // @ts-ignore
+      currentSpell[camelCaseKey] = convertedValue;
+    }
+  }
+
+  for (let spell of spells as any) {
+    spell.failureXp = forcenum(spell.failedXp);
+
+    spell.target = spell.target.toLowerCase();
+    if (spell.target === 'Item') spell.target = 'world';
+
+    spell.animation = spell.animation0;
+
+    spell.range = spell.range || 5;
+  }
+
+  // printUniqueKeys(spells);
+
+  // Only save properties that Gridia utilizes.
+  const allowlist = [
+    'id',
+    'name',
+    'description',
+    'mana',
+    'target',
+    'range',
+    'successXp',
+    'failureXp',
+    'variance',
+    'life',
+    'animation',
+    'projectileAnimation',
+    'castTime',
+    'quickness',
+    'dexterity',
+    'strength',
+    'intelligence',
+    'wisdom',
+    'hero',
+  ];
+  for (const spell of spells) {
+    filterProperties(spell, allowlist);
+  }
+
+  return spells;
+}
+
 function fillGaps(objects: any[]) {
   const noGaps = [];
 
@@ -729,6 +808,12 @@ function convertMonsters() {
   // if (equipment) monster.equipment = equipment;
 }
 
+function convertSpells() {
+  const spells = parseMagicIni();
+  const explicitOrder = ['id', 'name', 'description'];
+  return spells.map((spell) => sortObject(spell, explicitOrder));
+}
+
 function run() {
   state.skills = convertSkills();
   const skillsPath = path.join(__dirname, '..', '..', 'world', 'content', 'skills.json');
@@ -741,6 +826,9 @@ function run() {
 
   state.floors = convertFloors();
   const floorsPath = path.join(__dirname, '..', '..', 'world', 'content', 'floors.json');
+
+  state.spells = convertSpells();
+  const spellsPath = path.join(__dirname, '..', '..', 'world', 'content', 'spells.json');
 
   const removeUsage = (usage: ItemUse) => {
     const index = state.usages.indexOf(usage);
@@ -767,6 +855,7 @@ function run() {
   }
 
   state.items = fillGaps(state.items);
+  state.spells = fillGaps(state.spells);
 
   const blackMagic = state.skills.find(skill => skill.name === 'Black Magic');
   if (blackMagic) blackMagic.name = 'Dark Magic';
@@ -778,5 +867,6 @@ function run() {
   fs.writeFileSync(floorsPath, JSON.stringify(state.floors, null, 2));
   fs.writeFileSync(usagesPath, JSON.stringify(state.usages, null, 2));
   fs.writeFileSync(skillsPath, JSON.stringify(state.skills, null, 2));
+  fs.writeFileSync(spellsPath, JSON.stringify(state.spells, null, 2));
 }
 run();

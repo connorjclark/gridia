@@ -154,7 +154,9 @@ interface Creature {
 interface Buff {
   /** UNIX epoch. */
   expiresAt: number;
-  skill: number;
+  /** -1 is all */
+  skill?: number;
+  attribute?: string;
   linearChange?: number;
   percentChange?: number;
 }
@@ -227,6 +229,28 @@ interface Skill {
   strength?: number;
   intelligence?: number;
   wisdom?: number;
+}
+
+interface Spell {
+  id: number;
+  name: string;
+  description: string;
+  mana: number;
+  range: number;
+  target: 'self' | 'other' | 'world';
+  successXp: number;
+  failureXp: number;
+  life?: number;
+  variance?: number;
+  animation?: number;
+  projectileAnimation?: number;
+  castTime: number;
+  quickness?: number;
+  dexterity?: number;
+  strength?: number;
+  intelligence?: number;
+  wisdom?: number;
+  hero?: number;
 }
 
 interface GridiaAnimation {

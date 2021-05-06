@@ -29,6 +29,7 @@ import { WorkerConnection } from './connection';
 import { ServerWorker } from './server-worker';
 import SoundModule from './modules/sound-module';
 import { makeAttributesWindow } from './ui/attributes-window';
+import { makeSpellsWindow } from './ui/spells-window';
 
 // WIP lighting shaders.
 
@@ -468,9 +469,22 @@ class Game {
         this.attributesWindow.actions.setAttribute('stamina', { ...this.client.creature.stamina });
         this.attributesWindow.actions.setAttribute('mana', { ...this.client.creature.mana });
         this.attributesWindow.actions.setBuffs(this.client.creature.buffs.map((buff) => {
+          let name = 'Buff';
+          let skillName = '?';
+          if (buff.skill === -1) {
+            skillName = 'All Skills';
+            name = 'Hero Buff';
+          } else if (buff.skill) {
+            skillName = Content.getSkill(buff.skill).name;
+            name = `${skillName} Buff`;
+          } else if (buff.attribute) {
+            skillName = buff.attribute;
+            name = `${skillName} Buff`;
+          }
+
           return {
-            name: `${Content.getSkill(buff.skill).name} Buff`,
-            skillName: Content.getSkill(buff.skill).name,
+            name,
+            skillName,
             ...buff,
           };
         }));
@@ -977,6 +991,22 @@ class Game {
         helpWindow.el.hidden = false;
       } else if (helpWindow) {
         helpWindow.el.hidden = true;
+      }
+    });
+
+    let spellsWindow: ReturnType<typeof makeSpellsWindow>;
+    this.client.eventEmitter.on('panelFocusChanged', ({ panelName }) => {
+      if (panelName === 'spells') {
+        if (!helpWindow) {
+          spellsWindow = makeSpellsWindow((spell) => {
+            if (spell.target === 'self') {
+              this.client.connection.sendCommand(CommandBuilder.castSpell({ id: spell.id }));
+            }
+          });
+        }
+        spellsWindow.el.hidden = false;
+      } else if (spellsWindow) {
+        spellsWindow.el.hidden = true;
       }
     });
 
