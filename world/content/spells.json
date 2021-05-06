@@ -10,6 +10,7 @@
     "life": 10,
     "mana": 15,
     "range": 5,
+    "skill": 17,
     "target": "self",
     "variance": 5
   },
@@ -24,6 +25,7 @@
     "mana": 10,
     "projectileAnimation": 5,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -38,6 +40,7 @@
     "mana": 25,
     "projectileAnimation": 1,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -52,6 +55,7 @@
     "mana": 15,
     "projectileAnimation": 35,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 5
   },
@@ -64,6 +68,7 @@
     "failureXp": null,
     "mana": 15,
     "range": 5,
+    "skill": 17,
     "target": "self",
     "variance": 5
   },
@@ -77,6 +82,7 @@
     "mana": 10,
     "projectileAnimation": 6,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -90,6 +96,7 @@
     "mana": 25,
     "projectileAnimation": 1,
     "range": 2,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -103,6 +110,7 @@
     "mana": 13,
     "projectileAnimation": 12,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 2
   },
@@ -116,6 +124,7 @@
     "mana": -15,
     "projectileAnimation": 1,
     "range": 2,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -130,6 +139,7 @@
     "mana": 15,
     "projectileAnimation": 8,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 5
   },
@@ -144,6 +154,7 @@
     "mana": 15,
     "projectileAnimation": 9,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 5
   },
@@ -156,6 +167,7 @@
     "failureXp": null,
     "mana": 40,
     "range": 5,
+    "skill": 17,
     "target": "self"
   },
   {
@@ -168,6 +180,7 @@
     "mana": 30,
     "projectileAnimation": 12,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -180,6 +193,7 @@
     "mana": 40,
     "projectileAnimation": 11,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -191,6 +205,7 @@
     "failureXp": null,
     "mana": 40,
     "range": 5,
+    "skill": 17,
     "target": "self"
   },
   {
@@ -203,6 +218,7 @@
     "mana": 30,
     "projectileAnimation": 5,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -215,6 +231,7 @@
     "mana": 40,
     "projectileAnimation": 11,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -226,6 +243,7 @@
     "failureXp": null,
     "mana": 40,
     "range": 5,
+    "skill": 17,
     "target": "self"
   },
   {
@@ -238,6 +256,7 @@
     "mana": 30,
     "projectileAnimation": 6,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -249,6 +268,7 @@
     "failureXp": null,
     "mana": 40,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -260,6 +280,7 @@
     "failureXp": null,
     "mana": 25,
     "range": 5,
+    "skill": 17,
     "target": "self"
   },
   {
@@ -271,6 +292,7 @@
     "failureXp": null,
     "mana": 20,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -282,6 +304,7 @@
     "failureXp": null,
     "mana": 20,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -294,6 +317,7 @@
     "hero": 10,
     "mana": 25,
     "range": 5,
+    "skill": 18,
     "target": "self"
   },
   {
@@ -306,6 +330,7 @@
     "hero": 10,
     "mana": 20,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -318,6 +343,7 @@
     "hero": -10,
     "mana": 20,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -329,6 +355,7 @@
     "failureXp": null,
     "mana": 25,
     "range": 5,
+    "skill": 19,
     "target": "self"
   },
   null,
@@ -341,6 +368,7 @@
     "failureXp": null,
     "mana": 15,
     "range": 5,
+    "skill": 17,
     "target": "self",
     "variance": 5
   },
@@ -353,6 +381,7 @@
     "failureXp": null,
     "mana": 10,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -365,6 +394,7 @@
     "failureXp": null,
     "mana": 25,
     "range": 2,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -377,6 +407,7 @@
     "failureXp": null,
     "mana": 25,
     "range": 5,
+    "skill": 17,
     "target": "self",
     "variance": 1
   },
@@ -389,6 +420,7 @@
     "failureXp": null,
     "mana": 20,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 1
   },
@@ -402,6 +434,7 @@
     "mana": 25,
     "projectileAnimation": 36,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 1
   },
@@ -414,6 +447,7 @@
     "failureXp": null,
     "mana": 20,
     "range": 2,
+    "skill": 19,
     "target": "item"
   },
   {
@@ -425,6 +459,7 @@
     "failureXp": null,
     "mana": 40,
     "range": 2,
+    "skill": 19,
     "target": "item"
   },
   {
@@ -436,6 +471,7 @@
     "failureXp": null,
     "mana": 60,
     "range": 2,
+    "skill": 19,
     "target": "item"
   },
   {
@@ -447,6 +483,7 @@
     "failureXp": null,
     "mana": 80,
     "range": 2,
+    "skill": 19,
     "target": "item"
   },
   {
@@ -458,6 +495,7 @@
     "failureXp": null,
     "mana": 100,
     "range": 2,
+    "skill": 19,
     "target": "item"
   },
   {
@@ -469,6 +507,7 @@
     "failureXp": null,
     "mana": 120,
     "range": 2,
+    "skill": 19,
     "target": "item"
   },
   {
@@ -480,6 +519,7 @@
     "failureXp": null,
     "mana": 25,
     "range": 5,
+    "skill": 17,
     "target": "self",
     "variance": 1
   },
@@ -492,6 +532,7 @@
     "failureXp": null,
     "mana": 20,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 1
   },
@@ -504,6 +545,7 @@
     "failureXp": null,
     "mana": 20,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 1
   },
@@ -516,6 +558,7 @@
     "failureXp": null,
     "mana": 25,
     "range": 5,
+    "skill": 18,
     "strength": 15,
     "target": "self"
   },
@@ -528,6 +571,7 @@
     "failureXp": null,
     "mana": 20,
     "range": 5,
+    "skill": 18,
     "strength": 15,
     "target": "other"
   },
@@ -540,6 +584,7 @@
     "failureXp": null,
     "mana": 20,
     "range": 5,
+    "skill": 18,
     "strength": -15,
     "target": "other"
   },
@@ -553,6 +598,7 @@
     "failureXp": null,
     "mana": 25,
     "range": 5,
+    "skill": 18,
     "target": "self"
   },
   {
@@ -565,6 +611,7 @@
     "failureXp": null,
     "mana": 20,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -577,6 +624,7 @@
     "failureXp": null,
     "mana": 20,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -589,6 +637,7 @@
     "mana": 25,
     "quickness": 15,
     "range": 5,
+    "skill": 18,
     "target": "self"
   },
   {
@@ -601,6 +650,7 @@
     "mana": 20,
     "quickness": 15,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -613,6 +663,7 @@
     "mana": 20,
     "quickness": -15,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -625,6 +676,7 @@
     "intelligence": 15,
     "mana": 25,
     "range": 5,
+    "skill": 18,
     "target": "self"
   },
   {
@@ -637,6 +689,7 @@
     "intelligence": 15,
     "mana": 20,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -649,6 +702,7 @@
     "intelligence": -15,
     "mana": 20,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -660,6 +714,7 @@
     "failureXp": null,
     "mana": 25,
     "range": 5,
+    "skill": 18,
     "target": "self",
     "wisdom": 15
   },
@@ -672,6 +727,7 @@
     "failureXp": null,
     "mana": 20,
     "range": 5,
+    "skill": 18,
     "target": "other",
     "wisdom": 15
   },
@@ -684,6 +740,7 @@
     "failureXp": null,
     "mana": 20,
     "range": 5,
+    "skill": 18,
     "target": "other",
     "wisdom": -15
   },
@@ -697,6 +754,7 @@
     "life": -50,
     "mana": 100,
     "range": 2,
+    "skill": 19,
     "target": "item"
   },
   {
@@ -709,6 +767,7 @@
     "life": -1000,
     "mana": 100,
     "range": 2,
+    "skill": 19,
     "target": "item"
   },
   {
@@ -721,6 +780,7 @@
     "life": -20,
     "mana": 50,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -734,6 +794,7 @@
     "failureXp": null,
     "mana": 60,
     "range": 5,
+    "skill": 17,
     "target": "self"
   },
   {
@@ -746,6 +807,7 @@
     "life": 20,
     "mana": 30,
     "range": 5,
+    "skill": 17,
     "target": "self",
     "variance": 5
   },
@@ -759,6 +821,7 @@
     "life": 20,
     "mana": 20,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -771,6 +834,7 @@
     "failureXp": null,
     "mana": 30,
     "range": 5,
+    "skill": 17,
     "target": "self",
     "variance": 5
   },
@@ -783,6 +847,7 @@
     "failureXp": null,
     "mana": 20,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -795,6 +860,7 @@
     "failureXp": null,
     "mana": 50,
     "range": 2,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -807,6 +873,7 @@
     "failureXp": null,
     "mana": 23,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 2
   },
@@ -819,6 +886,7 @@
     "failureXp": null,
     "mana": -25,
     "range": 2,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -831,6 +899,7 @@
     "failureXp": null,
     "mana": 50,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -842,6 +911,7 @@
     "failureXp": null,
     "mana": 60,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -853,6 +923,7 @@
     "failureXp": null,
     "mana": 80,
     "range": 5,
+    "skill": 17,
     "target": "self"
   },
   {
@@ -864,6 +935,7 @@
     "failureXp": null,
     "mana": 60,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -875,6 +947,7 @@
     "failureXp": null,
     "mana": 80,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -886,6 +959,7 @@
     "failureXp": null,
     "mana": 60,
     "range": 5,
+    "skill": 17,
     "target": "self"
   },
   {
@@ -897,6 +971,7 @@
     "failureXp": null,
     "mana": 50,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -908,6 +983,7 @@
     "failureXp": null,
     "mana": 60,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -919,6 +995,7 @@
     "failureXp": null,
     "mana": 100,
     "range": 5,
+    "skill": 17,
     "target": "self"
   },
   {
@@ -930,6 +1007,7 @@
     "failureXp": null,
     "mana": 80,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -941,6 +1019,7 @@
     "failureXp": null,
     "mana": 80,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -953,6 +1032,7 @@
     "hero": 20,
     "mana": 100,
     "range": 5,
+    "skill": 18,
     "target": "self"
   },
   {
@@ -965,6 +1045,7 @@
     "hero": 20,
     "mana": 80,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -977,6 +1058,7 @@
     "hero": -20,
     "mana": 80,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -988,6 +1070,7 @@
     "failureXp": null,
     "mana": 30,
     "range": 5,
+    "skill": 17,
     "target": "self",
     "variance": 5
   },
@@ -1000,6 +1083,7 @@
     "failureXp": null,
     "mana": 20,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -1012,6 +1096,7 @@
     "failureXp": null,
     "mana": 50,
     "range": 2,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -1024,6 +1109,7 @@
     "failureXp": null,
     "mana": 80,
     "range": 5,
+    "skill": 17,
     "target": "self",
     "variance": 1
   },
@@ -1036,6 +1122,7 @@
     "failureXp": null,
     "mana": 60,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 1
   },
@@ -1049,6 +1136,7 @@
     "mana": 100,
     "projectileAnimation": 36,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 1
   },
@@ -1061,6 +1149,7 @@
     "failureXp": null,
     "mana": 80,
     "range": 5,
+    "skill": 17,
     "target": "self",
     "variance": 1
   },
@@ -1073,6 +1162,7 @@
     "failureXp": null,
     "mana": 60,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 1
   },
@@ -1085,6 +1175,7 @@
     "failureXp": null,
     "mana": 100,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 1
   },
@@ -1097,6 +1188,7 @@
     "failureXp": null,
     "mana": 40,
     "range": 5,
+    "skill": 18,
     "strength": 30,
     "target": "self"
   },
@@ -1109,6 +1201,7 @@
     "failureXp": null,
     "mana": 30,
     "range": 5,
+    "skill": 18,
     "strength": 30,
     "target": "other"
   },
@@ -1121,6 +1214,7 @@
     "failureXp": null,
     "mana": 30,
     "range": 5,
+    "skill": 18,
     "strength": -30,
     "target": "other"
   },
@@ -1134,6 +1228,7 @@
     "failureXp": null,
     "mana": 40,
     "range": 5,
+    "skill": 18,
     "target": "self"
   },
   {
@@ -1146,6 +1241,7 @@
     "failureXp": null,
     "mana": 30,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -1158,6 +1254,7 @@
     "failureXp": null,
     "mana": 30,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -1170,6 +1267,7 @@
     "mana": 40,
     "quickness": 30,
     "range": 5,
+    "skill": 18,
     "target": "self"
   },
   {
@@ -1182,6 +1280,7 @@
     "mana": 30,
     "quickness": 30,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -1194,6 +1293,7 @@
     "mana": 30,
     "quickness": -30,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -1206,6 +1306,7 @@
     "intelligence": 30,
     "mana": 40,
     "range": 5,
+    "skill": 18,
     "target": "self"
   },
   {
@@ -1218,6 +1319,7 @@
     "intelligence": 30,
     "mana": 30,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -1230,6 +1332,7 @@
     "intelligence": -30,
     "mana": 30,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -1241,6 +1344,7 @@
     "failureXp": null,
     "mana": 40,
     "range": 5,
+    "skill": 18,
     "target": "self",
     "wisdom": 30
   },
@@ -1253,6 +1357,7 @@
     "failureXp": null,
     "mana": 30,
     "range": 5,
+    "skill": 18,
     "target": "other",
     "wisdom": 30
   },
@@ -1265,6 +1370,7 @@
     "failureXp": null,
     "mana": 30,
     "range": 5,
+    "skill": 18,
     "target": "other",
     "wisdom": -30
   },
@@ -1277,6 +1383,7 @@
     "failureXp": null,
     "mana": 5,
     "range": 5,
+    "skill": 17,
     "target": "self",
     "variance": 0
   },
@@ -1289,6 +1396,7 @@
     "failureXp": null,
     "mana": 50,
     "range": 5,
+    "skill": 19,
     "target": "self"
   },
   {
@@ -1300,6 +1408,7 @@
     "failureXp": null,
     "mana": 75,
     "range": 5,
+    "skill": 19,
     "target": "self"
   },
   {
@@ -1311,6 +1420,7 @@
     "failureXp": null,
     "mana": 100,
     "range": 2,
+    "skill": 19,
     "target": "spot"
   },
   {
@@ -1322,6 +1432,7 @@
     "failureXp": null,
     "mana": 75,
     "range": 2,
+    "skill": 19,
     "target": "item"
   },
   {
@@ -1333,6 +1444,7 @@
     "failureXp": null,
     "mana": 125,
     "range": 2,
+    "skill": 19,
     "target": "item"
   },
   {
@@ -1346,6 +1458,7 @@
     "mana": 30,
     "projectileAnimation": 35,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1360,6 +1473,7 @@
     "mana": 45,
     "projectileAnimation": 35,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1374,6 +1488,7 @@
     "mana": 60,
     "projectileAnimation": 35,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1388,6 +1503,7 @@
     "mana": 30,
     "projectileAnimation": 8,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1402,6 +1518,7 @@
     "mana": 45,
     "projectileAnimation": 8,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1416,6 +1533,7 @@
     "mana": 60,
     "projectileAnimation": 8,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1430,6 +1548,7 @@
     "mana": 30,
     "projectileAnimation": 9,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1444,6 +1563,7 @@
     "mana": 45,
     "projectileAnimation": 9,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1458,6 +1578,7 @@
     "mana": 60,
     "projectileAnimation": 9,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1472,6 +1593,7 @@
     "mana": 15,
     "projectileAnimation": 36,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 5
   },
@@ -1486,6 +1608,7 @@
     "mana": 30,
     "projectileAnimation": 36,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1500,6 +1623,7 @@
     "mana": 45,
     "projectileAnimation": 36,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1514,6 +1638,7 @@
     "mana": 60,
     "projectileAnimation": 36,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1528,6 +1653,7 @@
     "mana": 15,
     "projectileAnimation": 37,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 5
   },
@@ -1542,6 +1668,7 @@
     "mana": 30,
     "projectileAnimation": 37,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1556,6 +1683,7 @@
     "mana": 45,
     "projectileAnimation": 37,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1570,6 +1698,7 @@
     "mana": 60,
     "projectileAnimation": 37,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1583,6 +1712,7 @@
     "life": -15,
     "mana": 15,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 5
   },
@@ -1596,6 +1726,7 @@
     "life": -30,
     "mana": 30,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1609,6 +1740,7 @@
     "life": -50,
     "mana": 45,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1622,6 +1754,7 @@
     "life": -70,
     "mana": 60,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1635,6 +1768,7 @@
     "life": -15,
     "mana": 15,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 5
   },
@@ -1648,6 +1782,7 @@
     "life": -30,
     "mana": 30,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1661,6 +1796,7 @@
     "life": -50,
     "mana": 45,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1674,6 +1810,7 @@
     "life": -70,
     "mana": 60,
     "range": 6,
+    "skill": 16,
     "target": "other",
     "variance": 10
   },
@@ -1686,6 +1823,7 @@
     "failureXp": null,
     "mana": 25,
     "range": 5,
+    "skill": 17,
     "target": "self",
     "variance": 1
   },
@@ -1698,6 +1836,7 @@
     "failureXp": null,
     "mana": 100,
     "range": 5,
+    "skill": 17,
     "target": "self",
     "variance": 1
   },
@@ -1711,6 +1850,7 @@
     "life": -30,
     "mana": 75,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -1724,6 +1864,7 @@
     "failureXp": null,
     "mana": 80,
     "range": 5,
+    "skill": 17,
     "target": "self"
   },
   {
@@ -1736,6 +1877,7 @@
     "life": 30,
     "mana": 45,
     "range": 5,
+    "skill": 17,
     "target": "self",
     "variance": 5
   },
@@ -1749,6 +1891,7 @@
     "life": 30,
     "mana": 30,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -1761,6 +1904,7 @@
     "failureXp": null,
     "mana": 45,
     "range": 5,
+    "skill": 17,
     "target": "self",
     "variance": 5
   },
@@ -1773,6 +1917,7 @@
     "failureXp": null,
     "mana": 30,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -1785,6 +1930,7 @@
     "failureXp": null,
     "mana": 75,
     "range": 2,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -1797,6 +1943,7 @@
     "failureXp": null,
     "mana": 33,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 2
   },
@@ -1809,6 +1956,7 @@
     "failureXp": null,
     "mana": -35,
     "range": 2,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -1821,6 +1969,7 @@
     "failureXp": null,
     "mana": 75,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -1832,6 +1981,7 @@
     "failureXp": null,
     "mana": 90,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -1843,6 +1993,7 @@
     "failureXp": null,
     "mana": 120,
     "range": 5,
+    "skill": 17,
     "target": "self"
   },
   {
@@ -1854,6 +2005,7 @@
     "failureXp": null,
     "mana": 90,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -1865,6 +2017,7 @@
     "failureXp": null,
     "mana": 120,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -1876,6 +2029,7 @@
     "failureXp": null,
     "mana": 90,
     "range": 5,
+    "skill": 17,
     "target": "self"
   },
   {
@@ -1887,6 +2041,7 @@
     "failureXp": null,
     "mana": 75,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -1898,6 +2053,7 @@
     "failureXp": null,
     "mana": 90,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -1909,6 +2065,7 @@
     "failureXp": null,
     "mana": 150,
     "range": 5,
+    "skill": 17,
     "target": "self"
   },
   {
@@ -1920,6 +2077,7 @@
     "failureXp": null,
     "mana": 120,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -1931,6 +2089,7 @@
     "failureXp": null,
     "mana": 120,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -1943,6 +2102,7 @@
     "hero": 30,
     "mana": 150,
     "range": 5,
+    "skill": 18,
     "target": "self"
   },
   {
@@ -1955,6 +2115,7 @@
     "hero": 30,
     "mana": 120,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -1967,6 +2128,7 @@
     "hero": -30,
     "mana": 120,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -1978,6 +2140,7 @@
     "failureXp": null,
     "mana": 45,
     "range": 5,
+    "skill": 17,
     "target": "self",
     "variance": 5
   },
@@ -1990,6 +2153,7 @@
     "failureXp": null,
     "mana": 30,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -2002,6 +2166,7 @@
     "failureXp": null,
     "mana": 75,
     "range": 2,
+    "skill": 17,
     "target": "other",
     "variance": 5
   },
@@ -2015,6 +2180,7 @@
     "mana": 150,
     "projectileAnimation": 36,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 1
   },
@@ -2027,6 +2193,7 @@
     "failureXp": null,
     "mana": 150,
     "range": 5,
+    "skill": 17,
     "target": "other",
     "variance": 1
   },
@@ -2039,6 +2206,7 @@
     "failureXp": null,
     "mana": 60,
     "range": 5,
+    "skill": 18,
     "strength": 45,
     "target": "self"
   },
@@ -2051,6 +2219,7 @@
     "failureXp": null,
     "mana": 45,
     "range": 5,
+    "skill": 18,
     "strength": 45,
     "target": "other"
   },
@@ -2063,6 +2232,7 @@
     "failureXp": null,
     "mana": 45,
     "range": 5,
+    "skill": 18,
     "strength": -45,
     "target": "other"
   },
@@ -2076,6 +2246,7 @@
     "failureXp": null,
     "mana": 60,
     "range": 5,
+    "skill": 18,
     "target": "self"
   },
   {
@@ -2088,6 +2259,7 @@
     "failureXp": null,
     "mana": 45,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -2100,6 +2272,7 @@
     "failureXp": null,
     "mana": 45,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -2112,6 +2285,7 @@
     "mana": 60,
     "quickness": 45,
     "range": 5,
+    "skill": 18,
     "target": "self"
   },
   {
@@ -2124,6 +2298,7 @@
     "mana": 45,
     "quickness": 45,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -2136,6 +2311,7 @@
     "mana": 45,
     "quickness": -45,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -2148,6 +2324,7 @@
     "intelligence": 45,
     "mana": 60,
     "range": 5,
+    "skill": 18,
     "target": "self"
   },
   {
@@ -2160,6 +2337,7 @@
     "intelligence": 45,
     "mana": 45,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -2172,6 +2350,7 @@
     "intelligence": -45,
     "mana": 45,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -2183,6 +2362,7 @@
     "failureXp": null,
     "mana": 60,
     "range": 5,
+    "skill": 18,
     "target": "self",
     "wisdom": 45
   },
@@ -2195,6 +2375,7 @@
     "failureXp": null,
     "mana": 45,
     "range": 5,
+    "skill": 18,
     "target": "other",
     "wisdom": 45
   },
@@ -2207,6 +2388,7 @@
     "failureXp": null,
     "mana": 45,
     "range": 5,
+    "skill": 18,
     "target": "other",
     "wisdom": -45
   },
@@ -2219,6 +2401,7 @@
     "failureXp": null,
     "mana": 10,
     "range": 5,
+    "skill": 17,
     "target": "self",
     "variance": 0
   },
@@ -2231,6 +2414,7 @@
     "failureXp": null,
     "mana": 50,
     "range": 2,
+    "skill": 19,
     "target": "item"
   },
   {
@@ -2242,6 +2426,7 @@
     "failureXp": null,
     "mana": 100,
     "range": 4,
+    "skill": 19,
     "target": "spot"
   },
   {
@@ -2253,6 +2438,7 @@
     "failureXp": null,
     "mana": 200,
     "range": 4,
+    "skill": 19,
     "target": "spot"
   },
   {
@@ -2264,6 +2450,7 @@
     "failureXp": null,
     "mana": 50,
     "range": 10000,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -2275,6 +2462,7 @@
     "failureXp": null,
     "mana": 100,
     "range": 10000,
+    "skill": 17,
     "target": "other"
   },
   null,
@@ -2288,6 +2476,7 @@
     "hero": -50,
     "mana": 50,
     "range": 10000,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -2301,6 +2490,7 @@
     "mana": 50,
     "projectileAnimation": 9,
     "range": 10000,
+    "skill": 16,
     "target": "other",
     "variance": 50
   },
@@ -2313,6 +2503,7 @@
     "failureXp": null,
     "mana": 50,
     "range": 10000,
+    "skill": 19,
     "target": "item"
   },
   {
@@ -2326,6 +2517,7 @@
     "mana": 50,
     "projectileAnimation": 35,
     "range": 10000,
+    "skill": 16,
     "target": "other",
     "variance": 50
   },
@@ -2338,6 +2530,7 @@
     "failureXp": null,
     "mana": 100,
     "range": 10000,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -2349,6 +2542,7 @@
     "failureXp": null,
     "mana": 50,
     "range": 10000,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -2360,6 +2554,7 @@
     "failureXp": null,
     "mana": 50,
     "range": 10000,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -2372,6 +2567,7 @@
     "mana": 50,
     "projectileAnimation": 36,
     "range": 10000,
+    "skill": 17,
     "target": "other",
     "variance": 0
   },
@@ -2384,6 +2580,7 @@
     "failureXp": null,
     "mana": 50,
     "range": 10000,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -2395,6 +2592,7 @@
     "failureXp": null,
     "mana": 100,
     "range": 10000,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -2409,6 +2607,7 @@
     "mana": 50,
     "quickness": 100,
     "range": 10000,
+    "skill": 18,
     "strength": 100,
     "target": "other",
     "wisdom": 100
@@ -2423,6 +2622,7 @@
     "mana": 20,
     "projectileAnimation": 1,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -2435,6 +2635,7 @@
     "mana": 30,
     "projectileAnimation": 1,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -2447,6 +2648,7 @@
     "mana": 40,
     "projectileAnimation": 1,
     "range": 5,
+    "skill": 17,
     "target": "other"
   },
   {
@@ -2458,6 +2660,7 @@
     "failureXp": null,
     "mana": 80,
     "range": 5,
+    "skill": 18,
     "strength": 60,
     "target": "self"
   },
@@ -2470,6 +2673,7 @@
     "failureXp": null,
     "mana": 80,
     "range": 5,
+    "skill": 18,
     "strength": 60,
     "target": "other"
   },
@@ -2482,6 +2686,7 @@
     "failureXp": null,
     "mana": 80,
     "range": 5,
+    "skill": 18,
     "strength": -60,
     "target": "other"
   },
@@ -2495,6 +2700,7 @@
     "failureXp": null,
     "mana": 80,
     "range": 5,
+    "skill": 18,
     "target": "self"
   },
   {
@@ -2507,6 +2713,7 @@
     "failureXp": null,
     "mana": 80,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -2519,6 +2726,7 @@
     "failureXp": null,
     "mana": 80,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -2531,6 +2739,7 @@
     "mana": 80,
     "quickness": 60,
     "range": 5,
+    "skill": 18,
     "target": "self"
   },
   {
@@ -2543,6 +2752,7 @@
     "mana": 80,
     "quickness": 60,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -2555,6 +2765,7 @@
     "mana": 80,
     "quickness": -60,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -2567,6 +2778,7 @@
     "intelligence": 60,
     "mana": 80,
     "range": 5,
+    "skill": 18,
     "target": "self"
   },
   {
@@ -2579,6 +2791,7 @@
     "intelligence": 60,
     "mana": 80,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -2591,6 +2804,7 @@
     "intelligence": -60,
     "mana": 80,
     "range": 5,
+    "skill": 18,
     "target": "other"
   },
   {
@@ -2602,6 +2816,7 @@
     "failureXp": null,
     "mana": 80,
     "range": 5,
+    "skill": 18,
     "target": "self",
     "wisdom": 60
   },
@@ -2614,6 +2829,7 @@
     "failureXp": null,
     "mana": 80,
     "range": 5,
+    "skill": 18,
     "target": "other",
     "wisdom": 60
   },
@@ -2626,6 +2842,7 @@
     "failureXp": null,
     "mana": 80,
     "range": 5,
+    "skill": 18,
     "target": "other",
     "wisdom": -60
   },
@@ -2638,6 +2855,7 @@
     "failureXp": null,
     "mana": 100,
     "range": 2,
+    "skill": 19,
     "target": "item"
   }
 ]

@@ -459,11 +459,24 @@ button {
 
 .spell {
   position: relative;
+  margin: 5px;
+}
+.spell:hover {
+  outline: 1px dotted gold;
+  cursor: pointer;
 }
 .timer {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.window--spells .selected {
+  color: gold;
+}
+
+.window--spells .tabs {
+  margin: 10px;
 }
 
 .tooltip {

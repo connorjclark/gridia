@@ -545,6 +545,9 @@ function parseMagicIni() {
     spell.animation = spell.animation0;
 
     spell.range = spell.range || 5;
+
+    // @ts-expect-error
+    spell.skill = state.skills.find(s => s && s.name === spell.skill).id;
   }
 
   // printUniqueKeys(spells);
@@ -555,6 +558,7 @@ function parseMagicIni() {
     'name',
     'description',
     'mana',
+    'skill',
     'target',
     'range',
     'successXp',

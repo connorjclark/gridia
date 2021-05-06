@@ -236,6 +236,7 @@ interface Spell {
   name: string;
   description: string;
   mana: number;
+  skill: number;
   range: number;
   target: 'self' | 'other' | 'world';
   successXp: number;

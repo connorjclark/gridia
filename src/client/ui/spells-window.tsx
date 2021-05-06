@@ -6,6 +6,7 @@ import { Graphic, ComponentProps, createSubApp, makeUIWindow } from './ui-common
 
 interface State {
   spells: Spell[];
+  tab: string;
   globalCooldown: number;
   cooldowns: Record<number, number>;
 }
@@ -13,6 +14,7 @@ interface State {
 export function makeSpellsWindow(onCastSpell: (spell: Spell) => void) {
   const initialState: State = {
     spells: Content.getSpells(),
+    tab: 'Dark Magic',
     globalCooldown: 0,
     cooldowns: {},
   };
@@ -34,7 +36,19 @@ export function makeSpellsWindow(onCastSpell: (spell: Spell) => void) {
         },
       };
     },
+    setTab: (state: State, tab: string): State => {
+      return {
+        ...state,
+        tab,
+      };
+    },
   });
+
+  const tabs = Content.getSkills()
+    .filter((s) => s && s.name.includes('Magic') && !s.name.includes('Defense'))
+    .map((s) => {
+      return {name: s.name, skill: s.id};
+    });
 
   type Props = ComponentProps<State, typeof actions>;
   class SpellsWindow extends Component<Props> {
@@ -56,10 +70,12 @@ export function makeSpellsWindow(onCastSpell: (spell: Spell) => void) {
         return () => clearInterval(handle);
       }, []);
 
-      const spells = [];
-      for (const spell of props.spells) {
-        if (!spell) continue;
+      const tab = tabs.find((t) => t.name === props.tab);
+      if (!tab) throw new Error('no tab');
+      const currentSpells = props.spells.filter((spell) => spell && spell.skill === tab.skill);
 
+      const spells = [];
+      for (const spell of currentSpells) {
         const cooldown = Math.max(props.cooldowns[spell.id], props.globalCooldown);
         const animationIndex = spell.animation ? Content.getAnimationByIndex(spell.animation - 1).frames[0].sprite : 11;
         spells.push(<div onClick={() => this.onClickSpell(spell)}>
@@ -77,6 +93,11 @@ export function makeSpellsWindow(onCastSpell: (spell: Spell) => void) {
 
       return <div>
         <h2>Spells</h2>
+        <div class="tabs flex justify-around">
+          {tabs.map((t) => {
+            return <div class={t === tab ? 'selected' : ''} onClick={() => props.setTab(t.name)}>{t.name}</div>;
+          })}
+        </div>
         <div class="flex flex-wrap" style={{ maxHeight: '20vh', overflow: 'scroll' }}>
           {spells}
         </div>
