@@ -320,12 +320,14 @@ export default class Server {
 
     player.buffs = [
       {
+        id: 'fakebuff0',
         expiresAt: Date.now() + Math.round(1000 * 60 * 60 * 10),
         skill: 1,
         percentChange: 0.1,
         linearChange: 10,
       },
       {
+        id: 'fakebuff1',
         expiresAt: Date.now() + Math.round(1000 * 60 * 60 * 10),
         skill: 4,
         percentChange: 0.2,
@@ -564,7 +566,12 @@ export default class Server {
   }
 
   assignCreatureBuff(creature: Creature, buff: Buff) {
-    creature.buffs.push(buff);
+    const existingBuff = creature.buffs.find((b) => b.id === buff.id);
+    if (existingBuff) {
+      existingBuff.expiresAt = Math.max(existingBuff.expiresAt, buff.expiresAt);
+    } else {
+      creature.buffs.push(buff);
+    }
     this.broadcastPartialCreatureUpdate(creature, ['buffs']);
   }
 

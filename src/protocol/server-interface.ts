@@ -122,6 +122,7 @@ export default class ServerInterface implements IServerInterface {
         if (!spell[key]) continue;
 
         const buff: Buff = {
+          id: `spell-${key}`,
           expiresAt: Date.now() + 1000 * 60 * 5,
           linearChange: spell[key],
         };

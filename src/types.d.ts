@@ -152,6 +152,7 @@ interface Creature {
 }
 
 interface Buff {
+  id: string;
   /** UNIX epoch. */
   expiresAt: number;
   /** -1 is all */
