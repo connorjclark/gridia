@@ -567,7 +567,7 @@ export default class Server {
         }
       } else {
         if (attributeCheck(data.actor, 'stamina', data.attackAttributeCost)) {
-          actorAttributesDelta.mana = -data.attackAttributeCost;
+          actorAttributesDelta.stamina = -data.attackAttributeCost;
         } else {
           missReason = 'need-stamina';
         }
