@@ -261,5 +261,7 @@ export function getCombatAttackType(equipment: Container) {
     if (skill) attackSkill = skill;
   }
 
+  if (weaponMeta?.class === 'Wand' && weaponMeta.combatSkill) attackSkill = Content.getSkill(weaponMeta.combatSkill);
+
   return attackSkill.purpose;
 }

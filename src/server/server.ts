@@ -9,12 +9,13 @@ import WorldMapPartition from '../world-map-partition';
 import { WorldTime } from '../world-time';
 import { ProtocolEvent } from '../protocol/event-builder';
 import * as Container from '../container';
+import { calcStraightLine } from '../lib/line';
 import ClientConnection from './client-connection';
 import CreatureState from './creature-state';
 import { ServerContext } from './server-context';
 import TaskRunner from './task-runner';
 import { Script, TestScript } from './script';
-import { adjustAttribute } from './creature-utils';
+import { adjustAttribute, attributeCheck } from './creature-utils';
 
 // TODO document how the f this works.
 
@@ -26,6 +27,23 @@ interface CtorOpts {
 interface RegisterAccountOpts {
   username: string;
   password: string;
+}
+
+interface AttackData {
+  actor: Creature;
+  damage: number;
+  canBeBlocked: boolean;
+  attackAttributeCost: number;
+  attackSkill: Skill;
+  weapon?: Item;
+  spell?: Spell;
+  minRange: number;
+  maxRange: number;
+  lineOfSight: boolean;
+  target: Creature;
+  defenseSkill: Skill;
+  successAnimationName?: string;
+  successProjectileAnimationName?: string;
 }
 
 export default class Server {
@@ -512,17 +530,246 @@ export default class Server {
     this.creatureStates[creature.id].path = [];
   }
 
+  // TODO: rename
+  handleAttack(data: AttackData) {
+    // eslint-disable-next-line max-len
+    let missReason: null | 'too-close' | 'too-far' | 'need-mana' | 'need-stamina' | 'need-ammo' | 'blocked' | 'obstructed' = null;
+    const weaponMeta = data.weapon && Content.getMetaItem(data.weapon.type);
+    const attackType = data.attackSkill.purpose || 'melee';
+    const actorAttributesDelta: Record<string, number> = {
+      life: 0,
+      stamina: 0,
+      mana: 0,
+    };
+    const targetAttributesDelta: Record<string, number> = {
+      life: 0,
+      stamina: 0,
+      mana: 0,
+    };
+
+    // Range checks.
+    const distanceFromTarget = Utils.maxDiff(data.actor.pos, data.target.pos);
+    if (distanceFromTarget < data.minRange) {
+      missReason = 'too-close';
+    }
+    if (distanceFromTarget > data.maxRange) {
+      missReason = 'too-far';
+    }
+    if (data.actor.pos.w !== data.target.pos.w) missReason = 'too-far';
+    if (data.actor.pos.z !== data.target.pos.z) missReason = 'too-far';
+
+    if (!missReason && data.attackAttributeCost) {
+      if (attackType === 'magic') {
+        if (attributeCheck(data.actor, 'mana', data.attackAttributeCost)) {
+          actorAttributesDelta.mana = -data.attackAttributeCost;
+        } else {
+          missReason = 'need-mana';
+        }
+      } else {
+        if (attributeCheck(data.actor, 'stamina', data.attackAttributeCost)) {
+          actorAttributesDelta.mana = -data.attackAttributeCost;
+        } else {
+          missReason = 'need-stamina';
+        }
+      }
+    }
+
+    if (!missReason) {
+      let hasAmmoForAttack = true;
+      if (weaponMeta && attackType === 'missle' && data.actor.isPlayer) {
+        const ammoTypeNeeded = weaponMeta.ammoType;
+        const ammoItemEquipped = data.actor.equipment && data.actor.equipment[Container.EQUIP_SLOTS.Ammo];
+        const ammoTypeEquipped = ammoItemEquipped && Content.getMetaItem(ammoItemEquipped.type).ammoType;
+        hasAmmoForAttack = Boolean(ammoTypeNeeded && ammoTypeEquipped) && ammoTypeNeeded === ammoTypeEquipped;
+
+        const clientConnection = this.getClientConnectionForCreature(data.actor);
+        if (hasAmmoForAttack && clientConnection && ammoItemEquipped) {
+          this.setItemInContainer(clientConnection.equipment.id, Container.EQUIP_SLOTS.Ammo, {
+            ...ammoItemEquipped,
+            quantity: ammoItemEquipped.quantity - 1,
+          });
+        }
+      }
+
+      if (!hasAmmoForAttack) missReason = 'need-ammo';
+    }
+
+    // TODO: improve this math.
+    if (!missReason && data.canBeBlocked) {
+      // TODO use skill values.
+      // const atk = attackSkill.level;
+      const atk = 100;
+      // @ts-expect-error
+      const def = data.target.stats[attackType + 'Defense'] as number || 0;
+      const passBlockRoll = Utils.randInt(0, atk) < Utils.randInt(0, def);
+
+      let blocked = false;
+      if (passBlockRoll) {
+        if (attackType === 'magic' && attributeCheck(data.target, 'mana', 1)) {
+          blocked = true;
+          targetAttributesDelta.mana -= 1;
+        } else if (attributeCheck(data.target, 'stamina', 1)) {
+          blocked = true;
+          targetAttributesDelta.stamina -= 1;
+        }
+      }
+
+      if (blocked) missReason = 'blocked';
+    }
+
+    // TODO
+    // const isCriticial = hitSuccess && hitSuccess && hitSuccess
+    // const modifier = isCriticial ? Utils.randInt(2, 3) : 1;
+
+    let path;
+    let damage = 0;
+    if (!missReason && data.damage) {
+      damage = data.damage;
+      const armor = data.target.stats.armor;
+      damage = Math.round(damage * damage / (damage + armor));
+      damage = Utils.clamp(damage, 1, data.target.life.current);
+    }
+
+    if (!missReason && data.lineOfSight) {
+      path = calcStraightLine(data.actor.pos, data.target.pos)
+        .map((p) => ({ ...data.actor.pos, ...p }));
+      // using findPath does a cool "homing" attack, around corners. could be used for a neat weapon?
+      // findPath(this.context, this.partition, data.actor.pos, data.target.pos)
+      //   .map((p) => ({...p, w: data.actor.pos.w})),
+
+      const isObstructed = !path.every((p) => {
+        if (Utils.equalPoints(p, data.target.pos) || Utils.equalPoints(p, data.actor.pos)) {
+          return true;
+        }
+
+        return this.context.walkable(p);
+      });
+      if (isObstructed) {
+        missReason = 'obstructed';
+        damage = 0;
+      }
+    }
+
+    if (!missReason) {
+      targetAttributesDelta.life -= damage;
+
+      if (data.successAnimationName) {
+        this.broadcastAnimation({
+          name: data.successAnimationName,
+          path: [data.target.pos],
+        });
+      }
+
+      if (data.successProjectileAnimationName && path) {
+        this.broadcastAnimation({
+          name: data.successProjectileAnimationName,
+          path,
+        });
+      }
+
+      if (data.spell) {
+        this.castSpell(data.actor, data.target, data.spell, false);
+      }
+    }
+
+    // TODO: This bit is a little silly.
+    const attributes = ['stamina', 'mana'] as const;
+    const actorAttributesChanged = attributes.filter((k) => actorAttributesDelta[k] !== 0);
+    for (const attribute of actorAttributesChanged) {
+      adjustAttribute(data.actor, attribute, actorAttributesDelta[attribute]);
+    }
+    if (actorAttributesChanged.length) this.broadcastPartialCreatureUpdate(data.actor, actorAttributesChanged);
+    if (actorAttributesDelta.life) this.modifyCreatureLife(null, data.actor, actorAttributesDelta.life);
+
+    const targetAttributesChanged = attributes.filter((k) => targetAttributesDelta[k] !== 0);
+    for (const attribute of targetAttributesChanged) {
+      adjustAttribute(data.target, attribute, targetAttributesDelta[attribute]);
+    }
+    if (targetAttributesChanged.length) this.broadcastPartialCreatureUpdate(data.target, targetAttributesChanged);
+    if (targetAttributesDelta.life) this.modifyCreatureLife(data.actor, data.target, targetAttributesDelta.life);
+
+    const notifyClient = (clientConnection: ClientConnection) => {
+      const thisCreature = clientConnection.creature;
+      const otherCreature = clientConnection.creature === data.actor ? data.target : data.actor;
+
+      let text;
+      if (thisCreature === data.actor) {
+        if (!missReason) {
+          if (data.spell) {
+            // TODO: say more?
+            text = `You cast ${data.spell.name} on ${otherCreature.name}!`;
+          } else {
+            text = `You hit ${otherCreature.name} for ${damage} damage!`;
+          }
+        } else if (missReason === 'blocked') {
+          text = `${otherCreature.name} blocked your attack`;
+        } else if (missReason === 'need-ammo') {
+          text = 'You need more ammo!';
+        } else if (missReason === 'need-mana') {
+          text = 'You need more mana!';
+        } else if (missReason === 'need-stamina') {
+          text = 'You need more stamina!';
+        } else if (missReason === 'too-close') {
+          text = 'You are too close!';
+        } else if (missReason === 'too-far') {
+          text = 'You are too far away!';
+        } else if (missReason === 'obstructed') {
+          text = 'You don\'t have a clear line of sight!';
+        }
+      } else {
+        if (!missReason) {
+          if (data.spell) {
+            // TODO: say more?
+            text = `${otherCreature.name} cast ${data.spell.name} on you!`;
+          } else {
+            text = `${otherCreature.name} hit you for ${damage} damage!`;
+          }
+        } else if (missReason === 'blocked') {
+          text = `You blocked ${otherCreature.name}'s attack`;
+        } else if (missReason === 'need-ammo') {
+          // nothing
+        } else if (missReason === 'need-mana') {
+          // nothing
+        } else if (missReason === 'need-stamina') {
+          // nothing
+        } else if (missReason === 'too-close') {
+          // nothing
+        } else if (missReason === 'too-far') {
+          // nothing
+        }
+      }
+
+      if (text) this.send(EventBuilder.chat({ section: 'Combat', text }), clientConnection);
+
+      if (!missReason) {
+        const xpModifier = otherCreature.combatLevel / thisCreature.combatLevel;
+        const xp = Math.round(xpModifier * damage * 10);
+        const skill = thisCreature === data.actor ? data.attackSkill : data.defenseSkill;
+        this.grantXp(clientConnection, skill.id, xp);
+      }
+    };
+
+    const actorClient = this.getClientConnectionForCreature(data.actor);
+    if (actorClient) notifyClient(actorClient);
+
+    const targetClient = this.getClientConnectionForCreature(data.target);
+    if (targetClient) notifyClient(targetClient);
+
+    return missReason;
+  }
+
+  // TODO: refactor
   modifyCreatureLife(actor: Creature | null, creature: Creature, delta: number) {
     adjustAttribute(creature, 'life', delta);
 
     this.broadcastPartialCreatureUpdate(creature, ['life']);
 
-    if (delta < 0) {
-      this.broadcastAnimation({
-        name: 'Attack',
-        path: [creature.pos],
-      });
-    }
+    // if (delta < 0) {
+    //   this.broadcastAnimation({
+    //     name: 'Attack',
+    //     path: [creature.pos],
+    //   });
+    // }
 
     if (creature.life.current <= 0) {
       this.removeCreature(creature);
@@ -569,6 +816,7 @@ export default class Server {
   assignCreatureBuff(creature: Creature, buff: Buff) {
     const existingBuff = creature.buffs.find((b) => b.id === buff.id);
     if (existingBuff) {
+      // TODO: keep the larger buff.
       existingBuff.expiresAt = Math.max(existingBuff.expiresAt, buff.expiresAt);
     } else {
       creature.buffs.push(buff);
@@ -576,7 +824,7 @@ export default class Server {
     this.broadcastPartialCreatureUpdate(creature, ['buffs']);
   }
 
-  castSpell(creature: Creature, targetCreature: Creature, spell: Spell) {
+  castSpell(creature: Creature, targetCreature: Creature, spell: Spell, consumeMana = true) {
     if (creature.mana.current < spell.mana) return 'Not enough mana';
 
     const variance = spell.variance ? Utils.randInt(0, spell.variance) : 0;
@@ -590,7 +838,7 @@ export default class Server {
       if (!spell[key]) continue;
 
       const buff: Buff = {
-        id: `spell-${key}`,
+        id: `spell-${key}`, // TODO: add to id if buff is +/-
         expiresAt: Date.now() + 1000 * 60 * 5,
         linearChange: spell[key],
       };
@@ -610,8 +858,10 @@ export default class Server {
       });
     }
 
-    adjustAttribute(creature, 'mana', -spell.mana);
-    this.broadcastPartialCreatureUpdate(creature, ['mana']);
+    if (consumeMana) {
+      adjustAttribute(creature, 'mana', -spell.mana);
+      this.broadcastPartialCreatureUpdate(creature, ['mana']);
+    }
 
     return;
   }

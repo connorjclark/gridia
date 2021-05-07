@@ -15,6 +15,7 @@ export function makeSpellsWindow(onCastSpell: (spell: Spell) => void) {
   const initialState: State = {
     spells: Content.getSpells(),
     tab: 'Dark Magic',
+    // TODO: should cooldown just apply to all spells?
     globalCooldown: 0,
     cooldowns: {},
   };

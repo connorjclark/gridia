@@ -1,11 +1,10 @@
 import { findPath } from '../path-finding';
 import * as Content from '../content';
-import * as EventBuilder from '../protocol/event-builder';
 import * as Utils from '../utils';
 import WorldMapPartition from '../world-map-partition';
 import { Context } from '../context';
 import * as Container from '../container';
-import { calcStraightLine } from '../lib/line';
+import * as EventBuilder from '../protocol/event-builder';
 import Server from './server';
 import aStar from './plan';
 import { adjustAttribute } from './creature-utils';
@@ -224,6 +223,7 @@ export default class CreatureState {
   }
 
   tick(server: Server) {
+    if (this.currentSpell?.target !== 'other') this.currentSpell = undefined;
     if (this.ticksUntilNextAttack > 0) this.ticksUntilNextAttack--;
     if (this.ticksUntilNextMovement > 0) this.ticksUntilNextMovement--;
     if (this.ticksUntilNotIdle > 0) this.ticksUntilNotIdle--;
@@ -437,19 +437,9 @@ export default class CreatureState {
   private _handleAttack(server: Server) {
     if (!this.targetCreature || this.ticksUntilNextAttack > 0) return;
 
-    // Range check.
-    const distanceFromTarget = Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos);
-    if (distanceFromTarget > 100) return;
-    if (this.creature.pos.w !== this.targetCreature.creature.pos.w) return;
-    if (this.creature.pos.z !== this.targetCreature.creature.pos.z) return;
-
-    // TODO: regeneration for each attribute. only reset timer if that attribute was consumed.
-    this.ticksUntilRegeneration = server.taskRunner.rateToTicks({ seconds: 5 });
-    this.targetCreature.ticksUntilRegeneration = server.taskRunner.rateToTicks({ seconds: 5 });
-
     let attackSkill = Content.getSkillByNameOrThrowError('Unarmed Attack');
-    const weaponType = this.creature.equipment && this.creature.equipment[Container.EQUIP_SLOTS.Weapon]?.type;
-    const weaponMeta = weaponType ? Content.getMetaItem(weaponType) : null;
+    const weapon = this.creature.equipment && this.creature.equipment[Container.EQUIP_SLOTS.Weapon];
+    const weaponMeta = weapon ? Content.getMetaItem(weapon.type) : null;
     if (weaponMeta) {
       if (weaponMeta.combatSkill !== undefined) {
         const skill = Content.getSkill(weaponMeta.combatSkill);
@@ -459,8 +449,10 @@ export default class CreatureState {
       }
     }
 
-    let missReason = null;
     const attackType = attackSkill?.purpose || 'melee';
+    if (attackType === 'magic' && !this.currentSpell) {
+      return;
+    }
 
     let minRange = 0;
     let maxRange = 1;
@@ -471,195 +463,87 @@ export default class CreatureState {
       maxRange = weaponMeta?.maxRange || 1;
     }
 
-    if (distanceFromTarget < minRange) {
-      missReason = 'too-close' as const;
-    }
-    if (distanceFromTarget > maxRange) {
-      missReason = 'too-far' as const;
-    }
-
-    function useAttribute(creature: Creature, attribute: 'stamina' | 'mana', amount: number) {
-      if (creature[attribute].current >= amount) {
-        adjustAttribute(creature, attribute, -amount);
-        server.broadcastPartialCreatureUpdate(creature, [attribute]);
-        return true;
-      } else {
-        return false;
-      }
-    }
-
-    function canUseAttribute(creature: Creature, attribute: 'stamina' | 'mana', amount: number) {
-      if (creature[attribute].current >= amount) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-
-    if (!missReason) {
-      let hasEnergyForAttack = false;
-      if (attackType === 'magic') {
-        hasEnergyForAttack = canUseAttribute(this.creature, 'mana', this.currentSpell?.mana || 0);
-        if (!hasEnergyForAttack) missReason = 'need-mana' as const;
-      } else {
-        hasEnergyForAttack = useAttribute(this.creature, 'stamina', 1);
-        if (!hasEnergyForAttack) missReason = 'need-stamina' as const;
-      }
-    }
-
-    if (!missReason) {
-      let hasAmmoForAttack = true;
-      if (weaponMeta && attackType === 'missle' && this.creature.isPlayer) {
-        const ammoTypeNeeded = weaponMeta.ammoType;
-        const ammoItemEquipped = this.creature.equipment && this.creature.equipment[Container.EQUIP_SLOTS.Ammo];
-        const ammoTypeEquipped = ammoItemEquipped && Content.getMetaItem(ammoItemEquipped.type).ammoType;
-        hasAmmoForAttack = Boolean(ammoTypeNeeded && ammoTypeEquipped) && ammoTypeNeeded === ammoTypeEquipped;
-
-        const clientConnection = server.getClientConnectionForCreature(this.creature);
-        if (hasAmmoForAttack && clientConnection && ammoItemEquipped) {
-          server.setItemInContainer(clientConnection.equipment.id, Container.EQUIP_SLOTS.Ammo, {
-            ...ammoItemEquipped,
-            quantity: ammoItemEquipped.quantity - 1,
-          });
-        }
-      }
-
-      if (!hasAmmoForAttack) missReason = 'need-ammo' as const;
-    }
-
     let defenseSkill = Content.getSkillByNameOrThrowError('Melee Defense');
     if (attackType === 'magic') defenseSkill = Content.getSkillByNameOrThrowError('Magic Defense');
     if (attackType === 'missle') defenseSkill = Content.getSkillByNameOrThrowError('Missle Defense');
 
-    if (!missReason) {
-      // TODO use skill values.
-      // const atk = attackSkill.level;
-      const atk = 100;
-      // @ts-expect-error
-      const def = this.targetCreature.creature.stats[attackType + 'Defense'] as number || 0;
-      let hitSuccess = Utils.randInt(0, atk) >= Utils.randInt(0, def);
+    let lineOfSight = false;
+    if (attackType === 'missle' || attackType === 'magic') lineOfSight = true;
 
-      if (!hitSuccess) {
-        if (attackType === 'magic') {
-          if (!useAttribute(this.targetCreature.creature, 'mana', 1)) {
-            hitSuccess = true;
-          }
-        } else {
-          if (!useAttribute(this.targetCreature.creature, 'stamina', 1)) {
-            hitSuccess = true;
-          }
-        }
-      }
+    let successAnimationName = 'Attack';
+    if (attackType === 'magic' && this.currentSpell?.animation) {
+      successAnimationName = Content.getAnimationByIndex(this.currentSpell.animation - 1).name;
+    }
 
-      if (!hitSuccess) missReason = 'blocked' as const;
+    let successProjectileAnimationName;
+    if (attackType === 'missle') successProjectileAnimationName = 'Arrow';
+    if (attackType === 'magic' && this.currentSpell?.projectileAnimation) {
+      successAnimationName = Content.getAnimationByIndex(this.currentSpell.projectileAnimation - 1).name;
     }
 
     let damage = 0;
-    if (!missReason && attackType !== 'magic') {
-      const damageRoll = Utils.randInt(this.creature.stats.damageLow, this.creature.stats.damageHigh);
-      const armor = this.targetCreature.creature.stats.armor;
-      damage = Math.round(damageRoll * damageRoll / (damageRoll + armor));
-      damage = Utils.clamp(damage, 1, this.targetCreature.creature.life.current);
-
-      if (weaponMeta && attackType === 'missle') {
-        const path = calcStraightLine(this.creature.pos, this.targetCreature.creature.pos)
-          .map((p) => ({ ...this.creature.pos, ...p }));
-        // using findPath does a cool "homing" attack, around corners. could be used for a neat weapon?
-        // findPath(this.context, this.partition, this.creature.pos, this.targetCreature.creature.pos)
-        //   .map((p) => ({...p, w: this.creature.pos.w})),
-
-        const isObstructed = !path.every((p) => {
-          if (Utils.equalPoints(p, this.targetCreature?.creature.pos) || Utils.equalPoints(p, this.creature.pos)) {
-            return true;
-          }
-
-          return server.context.walkable(p);
-        });
-        if (isObstructed) {
-          missReason = 'obstructed' as const;
-          damage = 0;
-        } else {
-          server.broadcastAnimation({
-            name: 'Arrow',
-            path,
-          });
-        }
+    if (attackType === 'magic') {
+      // TODO: should just set damage to 0 and allow this to
+      // go thru the 'data.spell' flow.
+      if (this.currentSpell?.life && this.currentSpell.life < 0) {
+        const variance = Utils.randInt(this.currentSpell.variance || 0, this.currentSpell.variance || 0);
+        damage = -this.currentSpell.life + variance;
       }
+    } else {
+      damage = Utils.randInt(this.creature.stats.damageLow, this.creature.stats.damageHigh);
     }
 
-    // TODO rework ...
-    if (!missReason && attackType === 'magic' && this.currentSpell) {
-      useAttribute(this.creature, 'mana', this.currentSpell.mana);
-      server.castSpell(this.creature, this.targetCreature.creature, this.currentSpell);
+    let attackAttributeCost = 1;
+    if (attackType === 'magic' && this.currentSpell) attackAttributeCost = this.currentSpell.mana;
+
+    const attackSpeed = attackType === 'magic' && this.currentSpell ?
+      this.currentSpell.castTime :
+      this.creature.stats.attackSpeed;
+    this.ticksUntilNextAttack = server.taskRunner.rateToTicks({ seconds: attackSpeed });
+
+    let spell = this.currentSpell;
+    let isFriendly = false;
+    if (damage === 0 && attackType === 'magic' && spell) {
+      const keys = ['life', 'intelligence', 'wisdom', 'dexterity', 'quickness', 'hero', 'strength'] as const;
+      isFriendly = keys.every((key) => (spell?.[key] || 0) >= 0);
     }
+    if (!isFriendly) spell = undefined;
 
-    // TODO
-    // const isCriticial = hitSuccess && hitSuccess && hitSuccess
-    // const modifier = isCriticial ? Utils.randInt(2, 3) : 1;
-
-    if (this.creature.isPlayer || this.targetCreature.creature.isPlayer) {
-      // TODO: this won't work for PvP
-      const clientConnection = server.getClientConnectionForCreature(this.creature) ||
-        server.getClientConnectionForCreature(this.targetCreature.creature);
-      if (clientConnection) {
-        let text;
-        if (this.creature.isPlayer) {
-          if (!missReason) {
-            text = `You hit ${this.targetCreature.creature.name} for ${damage} damage`;
-          } else if (missReason === 'blocked') {
-            text = `${this.targetCreature.creature.name} blocked your attack`;
-          } else if (missReason === 'need-ammo') {
-            text = 'You need more ammo!';
-          } else if (missReason === 'need-mana') {
-            text = 'You need more mana!';
-          } else if (missReason === 'need-stamina') {
-            text = 'You need more stamina!';
-          } else if (missReason === 'too-close') {
-            text = 'You are too close!';
-          } else if (missReason === 'too-far') {
-            text = 'You are too far away!';
-          } else if (missReason === 'obstructed') {
-            text = 'You don\'t have a clear line of sight!';
-          }
-        } else {
-          if (!missReason) {
-            text = `${this.creature.name} hit you for ${damage} damage`;
-          } else if (missReason === 'blocked') {
-            text = `You blocked ${this.creature.name}'s attack`;
-          } else if (missReason === 'need-ammo') {
-            // nothing
-          } else if (missReason === 'need-mana') {
-            // nothing
-          } else if (missReason === 'need-stamina') {
-            // nothing
-          } else if (missReason === 'too-close') {
-            // nothing
-          } else if (missReason === 'too-far') {
-            // nothing
-          }
-        }
-
-        if (text) server.send(EventBuilder.chat({ section: 'Combat', text }), clientConnection);
-
-        if (!missReason) {
-          const xpModifier = this.creature.isPlayer ?
-            this.targetCreature.creature.combatLevel / this.creature.combatLevel :
-            this.creature.combatLevel / this.targetCreature.creature.combatLevel;
-          const xp = Math.round(xpModifier * damage * 10);
-          const skill = this.creature.isPlayer ? attackSkill : defenseSkill;
-          server.grantXp(clientConnection, skill.id, xp);
-        }
-      }
-    }
-
-    this.ticksUntilNextAttack = server.taskRunner.rateToTicks({ seconds: this.creature.stats.attackSpeed });
+    const missReason = server.handleAttack({
+      actor: this.creature,
+      damage,
+      canBeBlocked: !isFriendly,
+      attackAttributeCost,
+      attackSkill,
+      weapon: weapon ?? undefined,
+      spell: attackType === 'magic' ? spell : undefined,
+      minRange,
+      maxRange,
+      lineOfSight,
+      target: this.targetCreature.creature,
+      defenseSkill,
+      successAnimationName,
+      successProjectileAnimationName,
+    });
 
     if (!missReason || missReason === 'blocked') {
-      if (!this.targetCreature.enemyCreatures.includes(this)) {
+      if (!isFriendly && damage && this.targetCreature && !this.targetCreature.enemyCreatures.includes(this)) {
         this.targetCreature.enemyCreatures.push(this);
+      }
+
+      // TODO: regeneration for each attribute. only reset timer if that attribute was consumed.
+      this.ticksUntilRegeneration = server.taskRunner.rateToTicks({ seconds: 5 });
+      if (this.targetCreature) {
+        this.targetCreature.ticksUntilRegeneration = server.taskRunner.rateToTicks({ seconds: 5 });
       }
     }
 
-    if (damage) server.modifyCreatureLife(this.creature, this.targetCreature.creature, -damage);
+    // Only keep doing the same spell if it does damage.
+    if (attackType === 'magic' && this.currentSpell && !(this.currentSpell.life && this.currentSpell.life < 0)) {
+      this.currentSpell = undefined;
+      this.targetCreature = null;
+      const clientConnection = server.getClientConnectionForCreature(this.creature);
+      if (clientConnection) clientConnection.sendEvent(EventBuilder.setAttackTarget({ creatureId: null }));
+    }
   }
 }

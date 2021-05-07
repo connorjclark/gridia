@@ -5,7 +5,6 @@ import Server from '../server/server';
 import * as Utils from '../utils';
 import { makeBareMap } from '../mapgen';
 import * as Container from '../container';
-import { adjustAttribute } from '../server/creature-utils';
 import IServerInterface from './gen/server-interface';
 import * as EventBuilder from './event-builder';
 import Commands = Protocol.Commands;
@@ -123,7 +122,7 @@ export default class ServerInterface implements IServerInterface {
     }
 
     // Defer to creature state.
-    if (spell.target === 'other' && spell.life && spell.life < 0) {
+    if (spell.target === 'other') {
       const state = server.creatureStates[server.currentClientConnection.creature.id];
       state.targetCreature = server.creatureStates[targetCreature.id];
       state.currentSpell = spell;
