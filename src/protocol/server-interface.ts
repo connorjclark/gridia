@@ -342,7 +342,6 @@ export default class ServerInterface implements IServerInterface {
 
   // eslint-disable-next-line max-len
   onAdminSetFloor(server: Server, { floor, ...loc }: Commands.AdminSetFloor['params']): Promise<Commands.AdminSetFloor['response']> {
-
     server.setFloor(loc, floor);
     return Promise.resolve();
   }

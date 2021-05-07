@@ -478,7 +478,7 @@ export default class CreatureState {
     let successProjectileAnimationName;
     if (attackType === 'missle') successProjectileAnimationName = 'Arrow';
     if (attackType === 'magic' && this.currentSpell?.projectileAnimation) {
-      successAnimationName = Content.getAnimationByIndex(this.currentSpell.projectileAnimation - 1).name;
+      successProjectileAnimationName = Content.getAnimationByIndex(this.currentSpell.projectileAnimation - 1).name;
     }
 
     let damage = 0;
