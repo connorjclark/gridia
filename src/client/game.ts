@@ -999,9 +999,8 @@ class Game {
       if (panelName === 'spells') {
         if (!helpWindow) {
           spellsWindow = makeSpellsWindow((spell) => {
-            if (spell.target === 'self') {
-              this.client.connection.sendCommand(CommandBuilder.castSpell({ id: spell.id }));
-            }
+            const creatureId = this.state.selectedView.creatureId;
+            this.client.connection.sendCommand(CommandBuilder.castSpell({ id: spell.id, creatureId }));
           });
         }
         spellsWindow.el.hidden = false;

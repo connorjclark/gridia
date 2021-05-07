@@ -289,6 +289,7 @@ export default class Server {
       container.items[9] = { type: Content.getMetaItemByName('Wood Planks').id, quantity: 100 };
       container.items[10] = { type: Content.getMetaItemByName('Bow').id, quantity: 1 };
       container.items[11] = { type: Content.getMetaItemByName('Arrow').id, quantity: 500 };
+      container.items[12] = { type: Content.getMetaItemByName('Iron Wand').id, quantity: 1 };
     }
 
     const equipment = this.context.makeContainer('equipment', Object.keys(Container.EQUIP_SLOTS).length);
@@ -573,6 +574,46 @@ export default class Server {
       creature.buffs.push(buff);
     }
     this.broadcastPartialCreatureUpdate(creature, ['buffs']);
+  }
+
+  castSpell(creature: Creature, targetCreature: Creature, spell: Spell) {
+    if (creature.mana.current < spell.mana) return 'Not enough mana';
+
+    const variance = spell.variance ? Utils.randInt(0, spell.variance) : 0;
+
+    if (spell.life) {
+      const life = spell.life + variance;
+      this.modifyCreatureLife(creature, targetCreature, life);
+    }
+
+    for (const key of ['quickness', 'dexterity', 'strength', 'intelligence', 'wisdom', 'hero'] as const) {
+      if (!spell[key]) continue;
+
+      const buff: Buff = {
+        id: `spell-${key}`,
+        expiresAt: Date.now() + 1000 * 60 * 5,
+        linearChange: spell[key],
+      };
+      if (key === 'hero') {
+        buff.skill = -1;
+      } else {
+        buff.attribute = key;
+      }
+
+      this.assignCreatureBuff(targetCreature, buff);
+    }
+
+    if (spell.animation) {
+      this.broadcastAnimation({
+        name: Content.getAnimationByIndex(spell.animation - 1).name,
+        path: [targetCreature.pos],
+      });
+    }
+
+    adjustAttribute(creature, 'mana', -spell.mana);
+    this.broadcastPartialCreatureUpdate(creature, ['mana']);
+
+    return;
   }
 
   removeCreature(creature: Creature) {

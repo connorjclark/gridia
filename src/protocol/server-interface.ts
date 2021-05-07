@@ -102,49 +102,35 @@ export default class ServerInterface implements IServerInterface {
     return Promise.resolve();
   }
 
-  onCastSpell(server: Server, { id, loc }: Commands.CastSpell['params']): Promise<void> {
+  async onCastSpell(server: Server, { id, creatureId, loc }: Commands.CastSpell['params']): Promise<void> {
     const creature = server.currentClientConnection.creature;
     const spell = Content.getSpell(id);
-    if (!spell) return Promise.resolve();
-    if (spell.target === 'other') return Promise.resolve();
-    if (creature.mana.current < spell.mana) return Promise.reject('Not enough mana');
+    if (!spell) return Promise.reject('No such spell');
 
-    const variance = spell.variance ? Utils.randInt(0, spell.variance) : 0;
-
-    if (spell.target === 'self') {
-      if (spell.life) {
-        const life = spell.life + variance;
-        adjustAttribute(creature, 'life', life);
-        server.broadcastPartialCreatureUpdate(creature, ['life']);
+    let targetCreature;
+    if (spell.target === 'other') {
+      if (creatureId) {
+        targetCreature = server.context.getCreature(creatureId);
+      } else {
+        targetCreature = server.creatureStates[server.currentClientConnection.creature.id].targetCreature?.creature;
       }
-
-      for (const key of ['quickness', 'dexterity', 'strength', 'intelligence', 'wisdom', 'hero'] as const) {
-        if (!spell[key]) continue;
-
-        const buff: Buff = {
-          id: `spell-${key}`,
-          expiresAt: Date.now() + 1000 * 60 * 5,
-          linearChange: spell[key],
-        };
-        if (key === 'hero') {
-          buff.skill = -1;
-        } else {
-          buff.attribute = key;
-        }
-
-        server.assignCreatureBuff(creature, buff);
-      }
+    } else if (spell.target === 'self') {
+      targetCreature = creature;
     }
 
-    if (spell.animation) {
-      server.broadcastAnimation({
-        name: Content.getAnimationByIndex(spell.animation - 1).name,
-        path: [creature.pos],
-      });
+    if (!targetCreature) {
+      return Promise.reject('No target selected');
     }
 
-    adjustAttribute(creature, 'mana', -spell.mana);
-    server.broadcastPartialCreatureUpdate(creature, ['mana']);
+    // Defer to creature state.
+    if (spell.target === 'other' && spell.life && spell.life < 0) {
+      const state = server.creatureStates[server.currentClientConnection.creature.id];
+      state.targetCreature = server.creatureStates[targetCreature.id];
+      state.currentSpell = spell;
+    } else {
+      const failureReason = server.castSpell(creature, targetCreature, spell);
+      if (failureReason) return Promise.reject(failureReason);
+    }
 
     return Promise.resolve();
   }

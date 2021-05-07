@@ -151,6 +151,8 @@ export default class CreatureState {
 
   enemyCreatures: CreatureState[] = [];
 
+  currentSpell?: Spell;
+
   // @ts-ignore
   partition: WorldMapPartition;
   private ticksUntilNotIdle = 0;
@@ -452,14 +454,23 @@ export default class CreatureState {
       if (weaponMeta.combatSkill !== undefined) {
         const skill = Content.getSkill(weaponMeta.combatSkill);
         if (skill) attackSkill = skill;
+      } else if (weaponMeta.class === 'Wand' && this.currentSpell) {
+        attackSkill = Content.getSkill(this.currentSpell.skill);
       }
     }
 
+    let missReason = null;
     const attackType = attackSkill?.purpose || 'melee';
 
-    let missReason = null;
-    const minRange = weaponMeta?.minRange || 0;
-    const maxRange = weaponMeta?.maxRange || 1;
+    let minRange = 0;
+    let maxRange = 1;
+    if (attackType === 'magic') {
+      maxRange = this.currentSpell?.range || 1;
+    } else {
+      minRange = weaponMeta?.minRange || 0;
+      maxRange = weaponMeta?.maxRange || 1;
+    }
+
     if (distanceFromTarget < minRange) {
       missReason = 'too-close' as const;
     }
@@ -477,10 +488,18 @@ export default class CreatureState {
       }
     }
 
+    function canUseAttribute(creature: Creature, attribute: 'stamina' | 'mana', amount: number) {
+      if (creature[attribute].current >= amount) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     if (!missReason) {
       let hasEnergyForAttack = false;
       if (attackType === 'magic') {
-        hasEnergyForAttack = useAttribute(this.creature, 'mana', 1);
+        hasEnergyForAttack = canUseAttribute(this.creature, 'mana', this.currentSpell?.mana || 0);
         if (!hasEnergyForAttack) missReason = 'need-mana' as const;
       } else {
         hasEnergyForAttack = useAttribute(this.creature, 'stamina', 1);
@@ -536,7 +555,7 @@ export default class CreatureState {
     }
 
     let damage = 0;
-    if (!missReason) {
+    if (!missReason && attackType !== 'magic') {
       const damageRoll = Utils.randInt(this.creature.stats.damageLow, this.creature.stats.damageHigh);
       const armor = this.targetCreature.creature.stats.armor;
       damage = Math.round(damageRoll * damageRoll / (damageRoll + armor));
@@ -566,6 +585,12 @@ export default class CreatureState {
           });
         }
       }
+    }
+
+    // TODO rework ...
+    if (!missReason && attackType === 'magic' && this.currentSpell) {
+      useAttribute(this.creature, 'mana', this.currentSpell.mana);
+      server.castSpell(this.creature, this.targetCreature.creature, this.currentSpell);
     }
 
     // TODO

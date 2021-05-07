@@ -179,7 +179,7 @@ interface MetaItem {
   name: string;
   class:
   'Normal' | 'Armor' | 'Ore' | 'CaveDown' | 'CaveUp' | 'Container' |
-  'Ball' | 'Weapon' | 'Ammo' | 'Plant' | 'Shield';
+  'Ball' | 'Weapon' | 'Ammo' | 'Plant' | 'Shield' | 'Wand';
   equipSlot?: 'Head' | 'Weapon' | 'Chest' | 'Shield' | 'Legs' | 'Ammo';
   equipImage?: Graphics;
   graphics: Graphics;

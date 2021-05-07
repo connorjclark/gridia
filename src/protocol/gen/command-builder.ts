@@ -85,7 +85,7 @@ export function adminSetFloor({ floor, ...loc }: Protocol.Commands.AdminSetFloor
 export function adminSetItem({ item, ...loc }: Protocol.Commands.AdminSetItem["params"]): AdminSetItemCommand {
     return { type: "adminSetItem", args: arguments[0] };
 }
-export function castSpell({ id, loc }: Protocol.Commands.CastSpell["params"]): CastSpellCommand {
+export function castSpell({ id, creatureId, loc }: Protocol.Commands.CastSpell["params"]): CastSpellCommand {
     return { type: "castSpell", args: arguments[0] };
 }
 export function chat({ text }: Protocol.Commands.Chat["params"]): ChatCommand {

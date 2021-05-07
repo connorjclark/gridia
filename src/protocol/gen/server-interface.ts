@@ -5,7 +5,7 @@ import Server from '../../server/server'
 export default interface ICommands {
     onAdminSetFloor(server: Server, { floor, ...loc }: Protocol.Commands.AdminSetFloor["params"]): Promise<Protocol.Commands.AdminSetFloor["response"]>;
     onAdminSetItem(server: Server, { item, ...loc }: Protocol.Commands.AdminSetItem["params"]): Promise<Protocol.Commands.AdminSetItem["response"]>;
-    onCastSpell(server: Server, { id, loc }: Protocol.Commands.CastSpell["params"]): Promise<Protocol.Commands.CastSpell["response"]>;
+    onCastSpell(server: Server, { id, creatureId, loc }: Protocol.Commands.CastSpell["params"]): Promise<Protocol.Commands.CastSpell["response"]>;
     onChat(server: Server, { text }: Protocol.Commands.Chat["params"]): Promise<Protocol.Commands.Chat["response"]>;
     onCloseContainer(server: Server, { containerId }: Protocol.Commands.CloseContainer["params"]): Promise<Protocol.Commands.CloseContainer["response"]>;
     onCreatePlayer(server: Server, { name, attributes, skills }: Protocol.Commands.CreatePlayer["params"]): Promise<Protocol.Commands.CreatePlayer["response"]>;
