@@ -884,10 +884,10 @@ export default class Server {
       }
     }
 
-    if (spell.spawnItem) {
-      for (let i = 0; i < spell.spawnItem.quantity; i++) {
+    for (const item of spell.spawnItems || []) {
+      for (let i = 0; i < item.quantity; i++) {
         this.addItemNear(loc || creature.pos, {
-          ...spell.spawnItem,
+          ...item,
           quantity: 1,
         }, { includeTargetLocation: true, checkCreatures: true });
       }

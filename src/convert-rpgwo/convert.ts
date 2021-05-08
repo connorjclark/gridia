@@ -511,6 +511,7 @@ function parseMagicIni() {
       // @ts-expect-error
       currentSpell = {
         id: forcenum(value),
+        spawnItems: [],
       };
       // @ts-expect-error
       spells.push(currentSpell);
@@ -518,6 +519,14 @@ function parseMagicIni() {
       // defaults come first.
     } else if (key.match(/^ManaCost$/i)) {
       currentSpell.mana = forcenum(value);
+    } else if (key.match(/^SpawnItem$/i)) {
+      currentSpell.spawnItems?.push({
+        type: getMetaItemByName(value).id,
+        quantity: 1,
+      });
+    } else if (key.match(/^SpawnItemQty$/i)) {
+      const item = currentSpell.spawnItems?.[currentSpell.spawnItems?.length - 1];
+      if (item) item.quantity = forcenum(value);
     } else {
       // Most properties are unchanged, except for being camelCase.
       const camelCaseKey = camelCase(key);
@@ -550,11 +559,8 @@ function parseMagicIni() {
     // @ts-expect-error
     spell.skill = state.skills.find(s => s && s.name === spell.skill).id;
 
-    if (spell.spawnItem) {
-      spell.spawnItem = {
-        type: getMetaItemByName(spell.spawnItem).id,
-        quantity: spell.spawnItemQty || 1,
-      };
+    if (!spell.spawnItems.length) {
+      delete spell.spawnItems;
     }
   }
 
@@ -583,7 +589,7 @@ function parseMagicIni() {
     'intelligence',
     'wisdom',
     'hero',
-    'spawnItem',
+    'spawnItems',
   ];
   for (const spell of spells) {
     filterProperties(spell, allowlist);

@@ -359,10 +359,12 @@
     "mana": 25,
     "range": 5,
     "skill": 19,
-    "spawnItem": {
-      "type": 479,
-      "quantity": 1
-    },
+    "spawnItems": [
+      {
+        "type": 479,
+        "quantity": 1
+      }
+    ],
     "target": "self"
   },
   null,
@@ -762,10 +764,16 @@
     "mana": 100,
     "range": 2,
     "skill": 19,
-    "spawnItem": {
-      "type": 1085,
-      "quantity": 16
-    },
+    "spawnItems": [
+      {
+        "type": 1086,
+        "quantity": 8
+      },
+      {
+        "type": 1085,
+        "quantity": 16
+      }
+    ],
     "target": "world"
   },
   {
@@ -779,10 +787,16 @@
     "mana": 100,
     "range": 2,
     "skill": 19,
-    "spawnItem": {
-      "type": 1085,
-      "quantity": 16
-    },
+    "spawnItems": [
+      {
+        "type": 1086,
+        "quantity": 8
+      },
+      {
+        "type": 1085,
+        "quantity": 16
+      }
+    ],
     "target": "world"
   },
   {
@@ -1440,10 +1454,16 @@
     "mana": 100,
     "range": 2,
     "skill": 19,
-    "spawnItem": {
-      "type": 477,
-      "quantity": 8
-    },
+    "spawnItems": [
+      {
+        "type": 1141,
+        "quantity": 1
+      },
+      {
+        "type": 477,
+        "quantity": 8
+      }
+    ],
     "target": "world"
   },
   {
@@ -2454,10 +2474,12 @@
     "mana": 100,
     "range": 4,
     "skill": 19,
-    "spawnItem": {
-      "type": 1781,
-      "quantity": 1
-    },
+    "spawnItems": [
+      {
+        "type": 1781,
+        "quantity": 1
+      }
+    ],
     "target": "world"
   },
   {
@@ -2470,10 +2492,12 @@
     "mana": 200,
     "range": 4,
     "skill": 19,
-    "spawnItem": {
-      "type": 1781,
-      "quantity": 8
-    },
+    "spawnItems": [
+      {
+        "type": 1781,
+        "quantity": 8
+      }
+    ],
     "target": "world"
   },
   {
