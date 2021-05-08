@@ -774,7 +774,15 @@
         "quantity": 16
       }
     ],
-    "target": "world"
+    "target": "world",
+    "transformItemFrom": {
+      "type": 917,
+      "quantity": 1
+    },
+    "transformItemTo": {
+      "type": 1140,
+      "quantity": 1
+    }
   },
   {
     "id": 60,
@@ -797,7 +805,15 @@
         "quantity": 16
       }
     ],
-    "target": "world"
+    "target": "world",
+    "transformItemFrom": {
+      "type": 1140,
+      "quantity": 1
+    },
+    "transformItemTo": {
+      "type": 1086,
+      "quantity": 1
+    }
   },
   {
     "id": 61,
@@ -2915,6 +2931,14 @@
     "mana": 100,
     "range": 2,
     "skill": 19,
-    "target": "world"
+    "target": "world",
+    "transformItemFrom": {
+      "type": 340,
+      "quantity": 1
+    },
+    "transformItemTo": {
+      "type": 2237,
+      "quantity": 1
+    }
   }
 ]

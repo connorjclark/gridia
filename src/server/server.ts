@@ -853,6 +853,12 @@ export default class Server {
   castSpell(spell: Spell, creature: Creature, targetCreature?: Creature, loc?: Point4, consumeMana = true) {
     if (creature.mana.current < spell.mana) return 'Not enough mana';
 
+    if (spell.transformItemFrom && spell.transformItemTo) {
+      if (!loc || this.context.map.getItem(loc)?.type !== spell.transformItemFrom.type) return 'Invalid item';
+
+      this.setItem(loc, { ...spell.transformItemTo });
+    }
+
     const variance = spell.variance ? Utils.randInt(0, spell.variance) : 0;
 
     if (targetCreature && spell.life) {

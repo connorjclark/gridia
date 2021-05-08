@@ -562,6 +562,19 @@ function parseMagicIni() {
     if (!spell.spawnItems.length) {
       delete spell.spawnItems;
     }
+
+    if (spell.transformFrom) {
+      spell.transformItemFrom = {
+        type: getMetaItemByName(spell.transformFrom).id,
+        quantity: 1,
+      };
+    }
+    if (spell.transformTo) {
+      spell.transformItemTo = {
+        type: getMetaItemByName(spell.transformTo).id,
+        quantity: 1,
+      };
+    }
   }
 
   // printUniqueKeys(spells);
@@ -590,6 +603,8 @@ function parseMagicIni() {
     'wisdom',
     'hero',
     'spawnItems',
+    'transformItemFrom',
+    'transformItemTo',
   ];
   for (const spell of spells) {
     filterProperties(spell, allowlist);
