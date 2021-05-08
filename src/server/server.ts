@@ -657,7 +657,7 @@ export default class Server {
           return true;
         }
 
-        return this.context.walkable(p);
+        return this.context.map.walkable(p);
       });
       if (isObstructed) {
         missReason = 'obstructed';
