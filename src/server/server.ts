@@ -834,6 +834,11 @@ export default class Server {
       this.modifyCreatureLife(creature, targetCreature, life);
     }
 
+    if (spell.stamina) {
+      const stamina = spell.stamina + variance;
+      this.modifyCreatureStamina(creature, targetCreature, stamina);
+    }
+
     for (const key of ['quickness', 'dexterity', 'strength', 'intelligence', 'wisdom', 'hero'] as const) {
       if (!spell[key]) continue;
 

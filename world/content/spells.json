@@ -69,6 +69,7 @@
     "mana": 15,
     "range": 5,
     "skill": 17,
+    "stamina": 10,
     "target": "self",
     "variance": 5
   },
@@ -83,6 +84,7 @@
     "projectileAnimation": 6,
     "range": 5,
     "skill": 17,
+    "stamina": 10,
     "target": "other",
     "variance": 5
   },
@@ -97,6 +99,7 @@
     "projectileAnimation": 1,
     "range": 2,
     "skill": 17,
+    "stamina": -15,
     "target": "other",
     "variance": 5
   },
@@ -835,6 +838,7 @@
     "mana": 30,
     "range": 5,
     "skill": 17,
+    "stamina": 20,
     "target": "self",
     "variance": 5
   },
@@ -848,6 +852,7 @@
     "mana": 20,
     "range": 5,
     "skill": 17,
+    "stamina": 20,
     "target": "other",
     "variance": 5
   },
@@ -861,6 +866,7 @@
     "mana": 50,
     "range": 2,
     "skill": 17,
+    "stamina": -25,
     "target": "other",
     "variance": 5
   },
@@ -1384,6 +1390,7 @@
     "mana": 5,
     "range": 5,
     "skill": 17,
+    "stamina": -10,
     "target": "self",
     "variance": 0
   },
@@ -1905,6 +1912,7 @@
     "mana": 45,
     "range": 5,
     "skill": 17,
+    "stamina": 30,
     "target": "self",
     "variance": 5
   },
@@ -1918,6 +1926,7 @@
     "mana": 30,
     "range": 5,
     "skill": 17,
+    "stamina": 30,
     "target": "other",
     "variance": 5
   },
@@ -1931,6 +1940,7 @@
     "mana": 75,
     "range": 2,
     "skill": 17,
+    "stamina": -35,
     "target": "other",
     "variance": 5
   },
@@ -2402,6 +2412,7 @@
     "mana": 10,
     "range": 5,
     "skill": 17,
+    "stamina": -10,
     "target": "self",
     "variance": 0
   },

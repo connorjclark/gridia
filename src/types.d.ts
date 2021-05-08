@@ -243,6 +243,7 @@ interface Spell {
   successXp: number;
   failureXp: number;
   life?: number;
+  stamina?: number;
   variance?: number;
   animation?: number;
   projectileAnimation?: number;

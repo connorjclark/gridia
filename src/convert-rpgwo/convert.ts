@@ -565,6 +565,7 @@ function parseMagicIni() {
     'failureXp',
     'variance',
     'life',
+    'stamina',
     'animation',
     'projectileAnimation',
     'castTime',
