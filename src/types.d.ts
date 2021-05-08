@@ -255,6 +255,7 @@ interface Spell {
   intelligence?: number;
   wisdom?: number;
   hero?: number;
+  spawnItem?: Item;
 }
 
 interface GridiaAnimation {

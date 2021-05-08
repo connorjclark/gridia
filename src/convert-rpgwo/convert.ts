@@ -548,6 +548,13 @@ function parseMagicIni() {
 
     // @ts-expect-error
     spell.skill = state.skills.find(s => s && s.name === spell.skill).id;
+
+    if (spell.spawnItem) {
+      spell.spawnItem = {
+        type: getMetaItemByName(spell.spawnItem).id,
+        quantity: spell.spawnItemQty || 1,
+      };
+    }
   }
 
   // printUniqueKeys(spells);
@@ -575,6 +582,7 @@ function parseMagicIni() {
     'intelligence',
     'wisdom',
     'hero',
+    'spawnItem',
   ];
   for (const spell of spells) {
     filterProperties(spell, allowlist);

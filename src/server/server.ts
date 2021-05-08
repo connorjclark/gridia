@@ -882,6 +882,12 @@ export default class Server {
       this.assignCreatureBuff(targetCreature, buff);
     }
 
+    if (spell.spawnItem) {
+      this.addItemNear(creature.pos, {
+        ...spell.spawnItem,
+      });
+    }
+
     if (spell.animation) {
       this.broadcastAnimation({
         name: Content.getAnimationByIndex(spell.animation - 1).name,
