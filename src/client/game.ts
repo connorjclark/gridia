@@ -1001,11 +1001,9 @@ class Game {
           spellsWindow = makeSpellsWindow((spell) => {
             const creatureId = this.state.selectedView.creatureId;
             let loc;
-            if (spell.target === 'world') {
+            if (spell.target === 'world' && !creatureId) {
               if (this.state.selectedView.location?.source === 'world') {
                 loc = this.state.selectedView.location.loc;
-              } else if (this.state.selectedView.creatureId) {
-                loc = this.client.context.getCreature(this.state.selectedView.creatureId).pos;
               } else {
                 loc = this.client.creature.pos;
               }

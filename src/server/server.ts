@@ -889,11 +889,11 @@ export default class Server {
         this.addItemNear(loc || creature.pos, {
           ...spell.spawnItem,
           quantity: 1,
-        }, false);
+        }, { includeTargetLocation: true, checkCreatures: true });
       }
     }
 
-    const somePos = targetCreature?.pos || loc;
+    const somePos = loc || targetCreature?.pos;
     if (spell.animation && somePos) {
       this.broadcastAnimation({
         name: Content.getAnimationByIndex(spell.animation - 1).name,
@@ -960,10 +960,18 @@ export default class Server {
     return null;
   }
 
-  addItemNear(loc: TilePoint, item: Item, includeTargetLocation = true) {
+  addItemNear(loc: TilePoint, item: Item, opts?: { includeTargetLocation: boolean; checkCreatures: boolean }) {
+    if (!opts) {
+      opts = {
+        includeTargetLocation: true,
+        checkCreatures: false,
+      };
+    }
+
     const stackable = Content.getMetaItem(item.type).stackable;
-    const nearestLoc = this.findNearest(loc, 6, includeTargetLocation,
-      (tile) => {
+    const nearestLoc = this.findNearest(loc, 6, opts.includeTargetLocation,
+      (tile, loc2) => {
+        if (opts?.checkCreatures && this.context.getCreatureAt(loc2)) return false;
         if (!tile.item) return true;
         if (stackable && tile.item.type === item.type && tile.item.quantity + item.quantity <= MAX_STACK) return true;
         return false;

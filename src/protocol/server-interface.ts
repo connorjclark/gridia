@@ -113,18 +113,22 @@ export default class ServerInterface implements IServerInterface {
 
   async onCastSpell(server: Server, { id, creatureId, loc }: Commands.CastSpell['params']): Promise<void> {
     const creature = server.currentClientConnection.creature;
+    const otherCreature = creatureId ? server.context.getCreature(creatureId) : null;
     const spell = Content.getSpell(id);
     if (!spell) return Promise.reject('No such spell');
 
     let targetCreature;
     if (spell.target === 'other') {
-      if (creatureId) {
-        targetCreature = server.context.getCreature(creatureId);
-      } else {
-        targetCreature = server.creatureStates[server.currentClientConnection.creature.id].targetCreature?.creature;
-      }
-    } else if (spell.target === 'self') {
+      // `other` spells target the provided creatureId, else they target the currently targeted creature.
+      const creatureState = server.creatureStates[server.currentClientConnection.creature.id];
+      targetCreature = otherCreature || creatureState.targetCreature?.creature;
+    } else {
+      // `self` and `world` spells may only target the caster.
       targetCreature = creature;
+    }
+
+    if (spell.target === 'world' && !loc) {
+      loc = otherCreature?.pos || targetCreature?.pos;
     }
 
     if (!targetCreature && !loc) {
