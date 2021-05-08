@@ -5,6 +5,7 @@ import WorldMapPartition from '../world-map-partition';
 import { Context } from '../context';
 import * as Container from '../container';
 import * as EventBuilder from '../protocol/event-builder';
+import { WATER } from '../constants';
 import Server from './server';
 import aStar from './plan';
 import { adjustAttribute } from './creature-utils';
@@ -222,6 +223,10 @@ export default class CreatureState {
     this._shouldRecreatePlan = true;
   }
 
+  resetRegenerationTimer(server: Server) {
+    this.ticksUntilRegeneration = server.taskRunner.rateToTicks({ seconds: 5 });
+  }
+
   tick(server: Server) {
     if (this.currentSpell?.target !== 'other') this.currentSpell = undefined;
     if (this.ticksUntilNextAttack > 0) this.ticksUntilNextAttack--;
@@ -229,7 +234,7 @@ export default class CreatureState {
     if (this.ticksUntilNotIdle > 0) this.ticksUntilNotIdle--;
     if (this.ticksUntilRegeneration > 0) this.ticksUntilRegeneration--;
 
-    if (this.ticksUntilRegeneration === 0) {
+    if (this.ticksUntilRegeneration === 0 && server.context.map.getTile(this.creature.pos).floor !== WATER) {
       this.ticksUntilRegeneration = server.taskRunner.rateToTicks({ seconds: 1 });
       const changed = (['life', 'stamina', 'mana'] as const).filter((attribute) => {
         if (this.creature[attribute].current < this.creature[attribute].max) {
@@ -532,9 +537,9 @@ export default class CreatureState {
       }
 
       // TODO: regeneration for each attribute. only reset timer if that attribute was consumed.
-      this.ticksUntilRegeneration = server.taskRunner.rateToTicks({ seconds: 5 });
+      this.resetRegenerationTimer(server);
       if (this.targetCreature) {
-        this.targetCreature.ticksUntilRegeneration = server.taskRunner.rateToTicks({ seconds: 5 });
+        this.targetCreature.resetRegenerationTimer(server);
       }
     }
 

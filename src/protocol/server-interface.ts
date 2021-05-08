@@ -1,10 +1,11 @@
-import { MAX_STACK, MINE } from '../constants';
+import { MAX_STACK, MINE, WATER } from '../constants';
 import * as Content from '../content';
 import * as CommandParser from '../lib/command-parser';
 import Server from '../server/server';
 import * as Utils from '../utils';
 import { makeBareMap } from '../mapgen';
 import * as Container from '../container';
+import { attributeCheck } from '../server/creature-utils';
 import IServerInterface from './gen/server-interface';
 import * as EventBuilder from './event-builder';
 import Commands = Protocol.Commands;
@@ -42,6 +43,15 @@ export default class ServerInterface implements IServerInterface {
     }
 
     if (!server.context.walkable(loc)) return Promise.reject('not walkable');
+
+    if (tile.floor === WATER) {
+      server.creatureStates[creature.id].resetRegenerationTimer(server);
+      if (attributeCheck(creature, 'stamina', 1)) {
+        server.modifyCreatureStamina(null, creature, -5);
+      } else {
+        server.modifyCreatureLife(null, creature, -5);
+      }
+    }
 
     // if (!server.inView(loc)) {
     //   return false
