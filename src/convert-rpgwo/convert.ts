@@ -540,7 +540,8 @@ function parseMagicIni() {
     spell.failureXp = forcenum(spell.failedXp);
 
     spell.target = spell.target.toLowerCase();
-    if (spell.target === 'Item') spell.target = 'world';
+    if (spell.target === 'item') spell.target = 'world';
+    if (spell.target === 'spot') spell.target = 'world';
 
     spell.animation = spell.animation0;
 

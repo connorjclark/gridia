@@ -683,7 +683,7 @@ export default class Server {
       }
 
       if (data.spell) {
-        this.castSpell(data.actor, data.target, data.spell, false);
+        this.castSpell(data.spell, data.actor, data.target, undefined, false);
       }
     }
 
@@ -850,48 +850,54 @@ export default class Server {
     this.broadcastPartialCreatureUpdate(creature, ['buffs']);
   }
 
-  castSpell(creature: Creature, targetCreature: Creature, spell: Spell, consumeMana = true) {
+  castSpell(spell: Spell, creature: Creature, targetCreature?: Creature, loc?: Point4, consumeMana = true) {
     if (creature.mana.current < spell.mana) return 'Not enough mana';
 
     const variance = spell.variance ? Utils.randInt(0, spell.variance) : 0;
 
-    if (spell.life) {
+    if (targetCreature && spell.life) {
       const life = spell.life + variance;
       this.modifyCreatureLife(creature, targetCreature, life);
     }
 
-    if (spell.stamina) {
+    if (targetCreature && spell.stamina) {
       const stamina = spell.stamina + variance;
       this.modifyCreatureStamina(creature, targetCreature, stamina);
     }
 
-    for (const key of ['quickness', 'dexterity', 'strength', 'intelligence', 'wisdom', 'hero'] as const) {
-      if (!spell[key]) continue;
+    if (targetCreature) {
+      for (const key of ['quickness', 'dexterity', 'strength', 'intelligence', 'wisdom', 'hero'] as const) {
+        if (!spell[key]) continue;
 
-      const buff: Buff = {
-        id: `spell-${key}`, // TODO: add to id if buff is +/-
-        expiresAt: Date.now() + 1000 * 60 * 5,
-        linearChange: spell[key],
-      };
-      if (key === 'hero') {
-        buff.skill = -1;
-      } else {
-        buff.attribute = key;
+        const buff: Buff = {
+          id: `spell-${key}`, // TODO: add to id if buff is +/-
+          expiresAt: Date.now() + 1000 * 60 * 5,
+          linearChange: spell[key],
+        };
+        if (key === 'hero') {
+          buff.skill = -1;
+        } else {
+          buff.attribute = key;
+        }
+
+        this.assignCreatureBuff(targetCreature, buff);
       }
-
-      this.assignCreatureBuff(targetCreature, buff);
     }
 
     if (spell.spawnItem) {
-      this.addItemNear(creature.pos, {
-        ...spell.spawnItem,
-      });
+      for (let i = 0; i < spell.spawnItem.quantity; i++) {
+        this.addItemNear(loc || creature.pos, {
+          ...spell.spawnItem,
+          quantity: 1,
+        }, false);
+      }
     }
 
-    if (spell.animation) {
+    const somePos = targetCreature?.pos || loc;
+    if (spell.animation && somePos) {
       this.broadcastAnimation({
         name: Content.getAnimationByIndex(spell.animation - 1).name,
-        path: [targetCreature.pos],
+        path: [somePos],
       });
     }
 
@@ -954,9 +960,9 @@ export default class Server {
     return null;
   }
 
-  addItemNear(loc: TilePoint, item: Item) {
+  addItemNear(loc: TilePoint, item: Item, includeTargetLocation = true) {
     const stackable = Content.getMetaItem(item.type).stackable;
-    const nearestLoc = this.findNearest(loc, 6, true,
+    const nearestLoc = this.findNearest(loc, 6, includeTargetLocation,
       (tile) => {
         if (!tile.item) return true;
         if (stackable && tile.item.type === item.type && tile.item.quantity + item.quantity <= MAX_STACK) return true;

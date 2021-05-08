@@ -1000,7 +1000,18 @@ class Game {
         if (!helpWindow) {
           spellsWindow = makeSpellsWindow((spell) => {
             const creatureId = this.state.selectedView.creatureId;
-            this.client.connection.sendCommand(CommandBuilder.castSpell({ id: spell.id, creatureId }));
+            let loc;
+            if (spell.target === 'world') {
+              if (this.state.selectedView.location?.source === 'world') {
+                loc = this.state.selectedView.location.loc;
+              } else if (this.state.selectedView.creatureId) {
+                loc = this.client.context.getCreature(this.state.selectedView.creatureId).pos;
+              } else {
+                loc = this.client.creature.pos;
+              }
+            }
+
+            this.client.connection.sendCommand(CommandBuilder.castSpell({ id: spell.id, creatureId, loc }));
           });
         }
         spellsWindow.el.hidden = false;

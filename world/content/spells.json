@@ -455,7 +455,7 @@
     "mana": 20,
     "range": 2,
     "skill": 19,
-    "target": "item"
+    "target": "world"
   },
   {
     "id": 36,
@@ -467,7 +467,7 @@
     "mana": 40,
     "range": 2,
     "skill": 19,
-    "target": "item"
+    "target": "world"
   },
   {
     "id": 37,
@@ -479,7 +479,7 @@
     "mana": 60,
     "range": 2,
     "skill": 19,
-    "target": "item"
+    "target": "world"
   },
   {
     "id": 38,
@@ -491,7 +491,7 @@
     "mana": 80,
     "range": 2,
     "skill": 19,
-    "target": "item"
+    "target": "world"
   },
   {
     "id": 39,
@@ -503,7 +503,7 @@
     "mana": 100,
     "range": 2,
     "skill": 19,
-    "target": "item"
+    "target": "world"
   },
   {
     "id": 40,
@@ -515,7 +515,7 @@
     "mana": 120,
     "range": 2,
     "skill": 19,
-    "target": "item"
+    "target": "world"
   },
   {
     "id": 41,
@@ -766,7 +766,7 @@
       "type": 1085,
       "quantity": 16
     },
-    "target": "item"
+    "target": "world"
   },
   {
     "id": 60,
@@ -783,7 +783,7 @@
       "type": 1085,
       "quantity": 16
     },
-    "target": "item"
+    "target": "world"
   },
   {
     "id": 61,
@@ -1444,7 +1444,7 @@
       "type": 477,
       "quantity": 8
     },
-    "target": "spot"
+    "target": "world"
   },
   {
     "id": 113,
@@ -1456,7 +1456,7 @@
     "mana": 75,
     "range": 2,
     "skill": 19,
-    "target": "item"
+    "target": "world"
   },
   {
     "id": 114,
@@ -1468,7 +1468,7 @@
     "mana": 125,
     "range": 2,
     "skill": 19,
-    "target": "item"
+    "target": "world"
   },
   {
     "id": 115,
@@ -2442,7 +2442,7 @@
     "mana": 50,
     "range": 2,
     "skill": 19,
-    "target": "item"
+    "target": "world"
   },
   {
     "id": 188,
@@ -2458,7 +2458,7 @@
       "type": 1781,
       "quantity": 1
     },
-    "target": "spot"
+    "target": "world"
   },
   {
     "id": 189,
@@ -2474,7 +2474,7 @@
       "type": 1781,
       "quantity": 8
     },
-    "target": "spot"
+    "target": "world"
   },
   {
     "id": 190,
@@ -2539,7 +2539,7 @@
     "mana": 50,
     "range": 10000,
     "skill": 19,
-    "target": "item"
+    "target": "world"
   },
   {
     "id": 196,
@@ -2891,6 +2891,6 @@
     "mana": 100,
     "range": 2,
     "skill": 19,
-    "target": "item"
+    "target": "world"
   }
 ]

@@ -127,17 +127,17 @@ export default class ServerInterface implements IServerInterface {
       targetCreature = creature;
     }
 
-    if (!targetCreature) {
+    if (!targetCreature && !loc) {
       return Promise.reject('No target selected');
     }
 
     // Defer to creature state.
-    if (spell.target === 'other') {
+    if (spell.target === 'other' && targetCreature) {
       const state = server.creatureStates[server.currentClientConnection.creature.id];
       state.targetCreature = server.creatureStates[targetCreature.id];
       state.currentSpell = spell;
     } else {
-      const failureReason = server.castSpell(creature, targetCreature, spell);
+      const failureReason = server.castSpell(spell, creature, targetCreature, loc);
       if (failureReason) return Promise.reject(failureReason);
     }
 
