@@ -223,6 +223,26 @@ export default class Server {
     return account;
   }
 
+  async getInitialSpawnLoc() {
+    const { width, height } = this.context.map.getPartition(0);
+    const center = { w: 0, x: Math.round(width / 2), y: Math.round(height / 2) + 3, z: 0 };
+
+    // TODO: is this still needed?
+    // Make sure sector is loaded. Prevents hidden creature (race condition, happens often in worker).
+    await this.ensureSectorLoadedForPoint(center);
+    const spawnLoc = this.findNearest(center, 10, true, (_, loc) => this.context.walkable(loc)) || center;
+    await this.ensureSectorLoadedForPoint(spawnLoc);
+
+    return spawnLoc;
+  }
+
+  getInitialSpawnLoc2() {
+    const { width, height } = this.context.map.getPartition(0);
+    const center = { w: 0, x: Math.round(width / 2), y: Math.round(height / 2) + 3, z: 0 };
+    const spawnLoc = this.findNearest(center, 10, true, (_, loc) => this.context.walkable(loc)) || center;
+    return spawnLoc;
+  }
+
   async createPlayer(clientConnection: ClientConnection, opts: Protocol.Commands.CreatePlayer['params']) {
     if (opts.name.length > 20) return Promise.reject('Name too long');
     if (opts.name.length < 2) return Promise.reject('Name too short');
@@ -245,13 +265,7 @@ export default class Server {
       throw new Error(`skill points can't be greater than ${CREATE_CHARACTER_SKILL_POINTS}`);
     }
 
-    const { width, height } = this.context.map.getPartition(0);
-    const center = { w: 0, x: Math.round(width / 2), y: Math.round(height / 2) + 3, z: 0 };
-    // Make sure sector is loaded. Prevents hidden creature (race condition, happens often in worker).
-    await this.ensureSectorLoadedForPoint(center);
-    const spawnLoc = this.findNearest(center, 10, true, (_, loc) => this.context.walkable(loc)) || center;
-    await this.ensureSectorLoadedForPoint(spawnLoc);
-
+    const loc = await this.getInitialSpawnLoc();
     const player: Player = {
       id: Utils.uuid(),
       name: opts.name,
@@ -266,7 +280,8 @@ export default class Server {
       containerId: '',
       // set later
       equipmentContainerId: '',
-      loc: spawnLoc,
+      loc,
+      spawnLoc: loc,
       // set later
       life: 0,
       // set later
@@ -772,7 +787,18 @@ export default class Server {
     // }
 
     if (creature.life.current <= 0) {
-      this.removeCreature(creature);
+      if (creature.isPlayer) {
+        const player = this.findPlayerForCreature(creature);
+        this.warpCreature(creature, player?.spawnLoc || this.getInitialSpawnLoc2());
+        adjustAttribute(creature, 'life', Math.floor(creature.life.max / 4));
+        adjustAttribute(creature, 'stamina', Math.floor(creature.stamina.max / 4));
+        adjustAttribute(creature, 'mana', Math.floor(creature.mana.max / 4));
+        this.broadcastPartialCreatureUpdate(creature, ['life', 'stamina', 'mana']);
+        this.creatureStates[creature.id].targetCreature = null;
+      } else {
+        this.removeCreature(creature);
+      }
+
       this.broadcastAnimation({
         name: 'diescream',
         path: [creature.pos],

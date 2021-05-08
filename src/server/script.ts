@@ -185,7 +185,7 @@ export class TestScript extends Script {
     const loc = { ...this.creatureSpawners[0].region };
     loc.x += 2;
     loc.y += 2;
-    this.server.getClientConnectionForCreature;
+    clientConnection.player.spawnLoc = loc;
     this.server.moveCreature(clientConnection.creature, loc);
 
     const quest = this.server.getQuest('TEST_QUEST');
