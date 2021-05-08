@@ -788,6 +788,11 @@ export default class Server {
 
     if (creature.life.current <= 0) {
       if (creature.isPlayer) {
+        this.broadcastAnimation({
+          name: 'diescream',
+          path: [creature.pos],
+        });
+
         const player = this.findPlayerForCreature(creature);
         this.warpCreature(creature, player?.spawnLoc || this.getInitialSpawnLoc2());
         adjustAttribute(creature, 'life', Math.floor(creature.life.max / 4));
@@ -798,11 +803,6 @@ export default class Server {
       } else {
         this.removeCreature(creature);
       }
-
-      this.broadcastAnimation({
-        name: 'diescream',
-        path: [creature.pos],
-      });
 
       if (actor?.isPlayer) {
         const player = this.findPlayerForCreature(actor);
