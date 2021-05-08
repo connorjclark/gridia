@@ -75,6 +75,17 @@ export class ServerContext extends Context {
     return context;
   }
 
+  async loadSectorClaims(): Promise<Record<string, string>> {
+    const claimsPath = this.miscPath('claims.json');
+    if (await this.fs.exists(claimsPath)) return readJson(this.fs, claimsPath);
+    return {};
+  }
+
+  async saveSectorClaims(server: Server) {
+    const claimsPath = this.miscPath('claims.json');
+    await this.fs.writeFile(claimsPath, JSON.stringify(server.claims));
+  }
+
   async loadPartition(w: number) {
     const partitionPath = this.partitionMetaPath(w);
     const partitionMeta = await readJson(this.fs, partitionPath);
@@ -197,6 +208,8 @@ export class ServerContext extends Context {
     await this.fs.mkdir(this.sectorDir, { recursive: true });
 
     await this.saveMeta();
+    // TODO: also save all players ...
+    // await this.saveSectorClaims(server);
 
     for (const [w, partition] of this.map.getPartitions()) {
       await this.savePartition(w, partition);
@@ -246,6 +259,10 @@ export class ServerContext extends Context {
 
   protected metaPath() {
     return 'meta.json';
+  }
+
+  protected miscPath(name: string) {
+    return path.join(this.miscDir, name);
   }
 
   protected partitionPath(w: number) {

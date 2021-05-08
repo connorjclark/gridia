@@ -362,13 +362,13 @@ export class WorldContainer extends PIXI.Container {
   }
 
   private addListeners() {
-    document.addEventListener('keyup', (e) => {
-      if (e.key === 'l') {
-        this.ambientLight = (this.ambientLight + 1) % (MAX_LIGHT_POWER + 1);
-        this.computeLight();
-        return;
-      }
-    });
+    // document.addEventListener('keyup', (e) => {
+    //   if (e.key === 'l') {
+    //     this.ambientLight = (this.ambientLight + 1) % (MAX_LIGHT_POWER + 1);
+    //     this.computeLight();
+    //     return;
+    //   }
+    // });
   }
 
   private drawGrid() {

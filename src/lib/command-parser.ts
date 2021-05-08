@@ -5,7 +5,7 @@ export interface Command {
 }
 
 export function parseArgs(input: string, args: Command['args']) {
-  const result: Record<string, string|number> = {};
+  const result: Record<string, string|number|boolean> = {};
 
   // https://stackoverflow.com/questions/16261635/
   const match = input.match(/(?:[^\s"']+|['"][^'"]*["'])+/g) || [];
@@ -26,6 +26,8 @@ export function parseArgs(input: string, args: Command['args']) {
       if (str[0] === '\'' && str[str.length - 1] === '\'') str = str.substr(1, str.length - 2);
       else if (str[0] === '"' && str[str.length - 1] === '"') str = str.substr(1, str.length - 2);
       result[arg.name] = str;
+    } else if (arg.type === 'boolean') {
+      result[arg.name] = tokens[i] === 'true' || tokens[i] === '1';
     }
   }
 

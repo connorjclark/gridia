@@ -1,4 +1,4 @@
-import { MAX_STACK, MINE, WATER } from '../constants';
+import { MAX_STACK, MINE, SECTOR_SIZE, WATER } from '../constants';
 import * as Content from '../content';
 import * as CommandParser from '../lib/command-parser';
 import Server from '../server/server';
@@ -511,6 +511,26 @@ export default class ServerInterface implements IServerInterface {
     const toItem = await getItem(validToLocation);
     if (toItem && fromItem.type !== toItem.type) return;
 
+    const fromOwner = from.source === 'world' && server.getSectorOwner(from.loc);
+    if (fromOwner && fromOwner !== server.currentClientConnection.player.id) {
+      server.reply(EventBuilder.chat({
+        section: 'World',
+        from: 'World',
+        text: 'You cannot move items on land owned by someone else',
+      }));
+      return;
+    }
+
+    const toOwner = to.source === 'world' && server.getSectorOwner(to.loc);
+    if (toOwner && toOwner !== server.currentClientConnection.player.id) {
+      server.reply(EventBuilder.chat({
+        section: 'World',
+        from: 'World',
+        text: 'You cannot put items on land owned by someone else',
+      }));
+      return;
+    }
+
     if (!server.currentClientConnection.player.isAdmin && !Content.getMetaItem(fromItem.type).moveable) {
       server.reply(EventBuilder.chat({
         section: 'World',
@@ -715,9 +735,41 @@ export default class ServerInterface implements IServerInterface {
             }));
           },
         },
-        newPartition: {
+        landClaim: {
           args: [
+            { name: 'server', type: 'boolean', optional: true },
           ],
+          do(args: { server?: boolean }) {
+            const creature = server.currentClientConnection.creature;
+            const sectorPoint = Utils.worldToSector(creature.pos, SECTOR_SIZE);
+            const id = args.server ? 'SERVER' : server.currentClientConnection.player.id;
+            return server.claimSector(id, creature.pos.w, sectorPoint)?.error;
+          },
+        },
+        landOwner: {
+          args: [],
+          do() {
+            const creature = server.currentClientConnection.creature;
+            const id = server.getSectorOwner(creature.pos);
+            if (!id) {
+              server.currentClientConnection.sendEvent(EventBuilder.chat({
+                section: 'World',
+                from: 'World',
+                text: 'Unclaimed',
+              }));
+              return;
+            }
+
+            const player = server.players.get(id);
+            server.currentClientConnection.sendEvent(EventBuilder.chat({
+              section: 'World',
+              from: 'World',
+              text: player?.name || id,
+            }));
+          },
+        },
+        newPartition: {
+          args: [],
           do() {
             const nextPartitionId = Math.max(...server.context.map.partitions.keys()) + 1;
             const partition = makeBareMap(100, 100, 1);
@@ -833,6 +885,7 @@ export default class ServerInterface implements IServerInterface {
       }
 
       const parsedArgs = CommandParser.parseArgs(parsedCommand.argsString, command.args);
+      // TODO: return Error instead ?
       if ('error' in parsedArgs) {
         server.reply(EventBuilder.chat({
           section: 'World',

@@ -58,6 +58,7 @@ export default class Server {
   currentClientConnection: ClientConnection;
   creatureStates: Record<number, CreatureState> = {};
   players = new Map<string, Player>();
+  claims: Record<string, string> = {};
   verbose: boolean;
   taskRunner = new TaskRunner(50);
 
@@ -137,6 +138,7 @@ export default class Server {
         await this.context.savePlayer(clientConnection.player, clientConnection.creature);
       }
     }
+    await this.context.saveSectorClaims(this);
     await this.context.save();
   }
 
@@ -425,6 +427,12 @@ export default class Server {
   getClientConnectionForCreature(creature: Creature) {
     for (const clientConnection of this.clientConnections) {
       if (clientConnection.creature.id === creature.id) return clientConnection;
+    }
+  }
+
+  getClientConnectionForPlayer(player: Player) {
+    for (const clientConnection of this.clientConnections) {
+      if (clientConnection.player.id === player.id) return clientConnection;
     }
   }
 
@@ -1171,6 +1179,40 @@ export default class Server {
   getMessagePlayersOnline() {
     const players = [...this.players.values()].map((player) => player.name);
     return `${players.length} players online: ${players.join(', ')}`;
+  }
+
+  claimSector(owner: string, w: number, sectorPoint: PartitionPoint) {
+    const key = `${w},${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}`;
+    if (this.claims[key]) {
+      const currentOwnerId = this.claims[key];
+      const currentOwner = this.players.get(this.claims[key]);
+      return { error: `Sector already owned by ${currentOwner?.name || currentOwnerId}` };
+    }
+
+    if (owner !== 'SERVER') {
+      let numOwned = 0;
+      for (const id of Object.values(this.claims)) {
+        if (id === owner) numOwned += 1;
+      }
+
+      if (numOwned >= 1) {
+        return { error: 'You own too much land' };
+      }
+    }
+
+    this.claims[key] = owner;
+
+    const player = this.players.get(owner);
+    const clientConnection = player && this.getClientConnectionForPlayer(player);
+    if (clientConnection) {
+      this.send(EventBuilder.chat({ section: 'World', text: 'You now own this land!' }), clientConnection);
+    }
+  }
+
+  getSectorOwner(loc: Point4): string | undefined {
+    const sectorPoint = Utils.worldToSector(loc, SECTOR_SIZE);
+    const key = `${loc.w},${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}`;
+    return this.claims[key];
   }
 
   private async initClient(clientConnection: ClientConnection) {
