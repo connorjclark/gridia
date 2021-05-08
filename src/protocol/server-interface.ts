@@ -520,6 +520,15 @@ export default class ServerInterface implements IServerInterface {
       return;
     }
 
+    if (toItem && !Content.getMetaItem(fromItem.type).stackable) {
+      server.reply(EventBuilder.chat({
+        section: 'World',
+        from: 'World',
+        text: 'That item is not stackable',
+      }));
+      return;
+    }
+
     // TODO: temporary code until not everyone is an admin.
     if (Content.getMetaItem(fromItem.type).trapEffect === 'Warp') {
       server.reply(EventBuilder.chat({
