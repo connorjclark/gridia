@@ -5,7 +5,7 @@ declare namespace NodeJS {
 }
 
 interface AddEventListenerOptions {
-  signal: AbortSignal;
+  signal?: AbortSignal;
 }
 
 declare namespace PIXI {
