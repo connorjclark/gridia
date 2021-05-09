@@ -694,6 +694,10 @@ class Game {
       } else {
         this._mouseCursor.location = null;
       }
+
+      if (ContextMenu.isOpen()) {
+        this.itemMovingState = undefined;
+      }
     });
 
     this.canvasesEl.addEventListener('pointerdown', () => {
