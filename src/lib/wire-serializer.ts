@@ -1,5 +1,7 @@
 // https://gist.github.com/jimmywarting/a6ae45a9f445ca352ed62374a2855ff2
 
+const TextDecoder = globalThis.TextDecoder || require('u' + 'til').TextDecoder;
+
 /* eslint-disable */
 const {replacer,reviver} = ((types, b64) => ({
   // @ts-expect-error

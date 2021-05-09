@@ -26,6 +26,11 @@ describe('WireSerializer', () => {
     roundTrip({ map });
   });
 
+  it('Uint16Array', () => {
+    const array = new Uint16Array([1, 2, 3, 4, 5]);
+    roundTrip({ array });
+  });
+
   it('map instance with complex values', () => {
     const map = new Map<number, { car: { color: string } }>();
     map.set(1, { car: { color: 'blue' } });
