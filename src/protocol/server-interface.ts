@@ -287,6 +287,8 @@ export default class ServerInterface implements IServerInterface {
       return Promise.reject(); // TODO
     }
 
+    // TODO range check.
+
     const inventory = server.currentClientConnection.container;
     // If -1, use an item that represents "Hand".
     const tool = toolIndex === -1 ? { type: 0, quantity: 0 } : inventory.items[toolIndex];
@@ -345,6 +347,26 @@ export default class ServerInterface implements IServerInterface {
 
     if (use.successFloor) {
       server.setFloor(loc, use.successFloor);
+    }
+
+    const focusMeta = Content.getMetaItem(focus.type);
+    if (focusMeta.name === 'Life Stone' || focusMeta.name === 'Attune Warp Stone') {
+      const distance = Utils.maxDiff(location.loc, server.currentClientConnection.creature.pos);
+      if (distance > 1) {
+        // TODO replace these with new Error() ...
+        return Promise.reject('too far away');
+      }
+
+      server.broadcastAnimation({
+        name: 'LevelUp',
+        path: [server.currentClientConnection.creature.pos],
+      });
+      server.reply(EventBuilder.chat({
+        section: 'World',
+        from: 'World',
+        text: 'You will respawn here',
+      }));
+      server.currentClientConnection.player.spawnLoc = server.currentClientConnection.creature.pos;
     }
 
     if (skill && use.skillSuccessXp) {
