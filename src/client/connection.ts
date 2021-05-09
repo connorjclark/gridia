@@ -121,7 +121,7 @@ export class WebRTCConnection extends Connection {
   }
 
   private onClose() {
-    window.document.body.innerText = 'Lost connection to server. Please refresh.';
+    game.onDisconnect();
   }
 }
 
@@ -156,7 +156,7 @@ export class WebSocketConnection extends Connection {
   }
 
   private onClose() {
-    window.document.body.innerText = 'Lost connection to server. Please refresh.';
+    game.onDisconnect();
   }
 }
 

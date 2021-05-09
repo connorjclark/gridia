@@ -4,6 +4,10 @@ declare namespace NodeJS {
   }
 }
 
+interface AddEventListenerOptions {
+  signal: AbortSignal;
+}
+
 declare namespace PIXI {
   export * from 'pixi.js';
 }

@@ -1,3 +1,4 @@
+import 'event-target-shim';
 import { DateTime } from 'luxon';
 import { GFX_SIZE } from '../constants';
 import * as Content from '../content';
@@ -130,24 +131,6 @@ const ContextMenu = {
     }
   },
 };
-
-// TODO: rename panels cuz they aren't panels anymore.
-let currentPanel = '';
-function registerPanelListeners() {
-  Helper.find('.panels__tabs').addEventListener('click', (e) => {
-    Helper.maybeFind('.panels__tab--active')?.classList.toggle('panels__tab--active');
-
-    const targetEl = e.target as HTMLElement;
-    let panelName = targetEl.dataset.panel as string;
-    if (panelName === currentPanel) panelName = '';
-
-    game.client.eventEmitter.emit('panelFocusChanged', { panelName });
-    currentPanel = panelName;
-    if (!panelName) return;
-
-    targetEl.classList.toggle('panels__tab--active');
-  });
-}
 
 function worldToTile(pw: ScreenPoint) {
   return Utils.worldToTile(Helper.getW(), pw, Helper.getZ());
@@ -321,6 +304,8 @@ class Game {
   protected attributesWindow = makeAttributesWindow();
   protected dialogueWindow?: ReturnType<typeof makeDialogueWindow>;
 
+  private _eventAbortController = new AbortController();
+  private _currentPanel = '';
   private _playerCreature?: Creature;
   private _currentHoverItemText =
   new PIXI.Text('', { fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round' });
@@ -382,6 +367,11 @@ class Game {
     const epoch = this._lastSyncedEpoch + realSecondsSinceLastSync / this.client.secondsPerWorldTick;
     // return new WorldTime(this.client.ticksPerWorldDay, epoch).time; // TODO ?
     return new WorldTime(this.client.ticksPerWorldDay, epoch);
+  }
+
+  onDisconnect() {
+    this._eventAbortController.abort();
+    window.document.body.innerText = 'Lost connection to server. Please refresh.';
   }
 
   registerCursor(opts: { color: string }): CursorReference {
@@ -645,6 +635,8 @@ class Game {
   }
 
   registerListeners() {
+    const evtOptions = { signal: this._eventAbortController.signal };
+
     this.client.eventEmitter.on('event', (e) => {
       if (this.started) this.onProtocolEvent(e);
     });
@@ -670,7 +662,7 @@ class Game {
         quantity,
       });
     };
-    document.body.addEventListener('click', onActionSelection);
+    document.body.addEventListener('click', onActionSelection, evtOptions);
 
     window.document.addEventListener('pointermove', (e: MouseEvent) => {
       const loc = worldToTile(mouseToWorld({ x: e.clientX, y: e.clientY }));
@@ -698,7 +690,7 @@ class Game {
       if (ContextMenu.isOpen()) {
         this.itemMovingState = undefined;
       }
-    });
+    }, evtOptions);
 
     this.canvasesEl.addEventListener('pointerdown', () => {
       this.state.mouse = {
@@ -706,21 +698,21 @@ class Game {
         state: 'down',
         downTile: this.state.mouse.tile,
       };
-    });
+    }, evtOptions);
 
     this.canvasesEl.addEventListener('pointerup', () => {
       this.state.mouse = {
         ...this.state.mouse,
         state: 'up',
       };
-    });
+    }, evtOptions);
 
     this.canvasesEl.addEventListener('contextmenu', (e: MouseEvent) => {
       e.preventDefault();
       const mouse = { x: e.pageX, y: e.pageY };
       const tile = worldToTile(mouseToWorld(mouse));
       ContextMenu.openForTile(mouse, tile);
-    });
+    }, evtOptions);
 
     // TODO: touch doesn't really work well.
     let longTouchTimer: NodeJS.Timeout | null = null;
@@ -735,12 +727,12 @@ class Game {
         ContextMenu.openForTile(mouse, tile);
         longTouchTimer = null;
       }, 1000);
-    }, false);
+    }, { capture: false, signal: this._eventAbortController.signal });
     this.canvasesEl.addEventListener('touchend', () => {
       if (!longTouchTimer) return;
       clearInterval(longTouchTimer);
       longTouchTimer = null;
-    }, false);
+    }, { capture: false, signal: this._eventAbortController.signal });
 
     this.world.interactive = true;
     this.world.on('pointerdown', (e: PIXI.InteractionEvent) => {
@@ -764,7 +756,7 @@ class Game {
       };
       this.world.on('pointermove', evtListener);
       this.world.once('pointerup', () => this.world.off('pointermove', evtListener));
-    });
+    }, evtOptions);
     this.world.on('pointerup', (e: PIXI.InteractionEvent) => {
       if (Utils.equalPoints(this.state.mouse.tile, this.getPlayerPosition())) {
         this.client.eventEmitter.emit('itemMoveEnd', {
@@ -778,7 +770,7 @@ class Game {
 
       const loc = worldToTile(mouseToWorld({ x: e.data.global.x, y: e.data.global.y }));
       this.client.eventEmitter.emit('pointerUp', { ...loc });
-    });
+    }, evtOptions);
     this.world.on('pointerdown', (e: PIXI.InteractionEvent) => {
       if (ContextMenu.isOpen()) {
         ContextMenu.close();
@@ -808,13 +800,13 @@ class Game {
           frames,
         });
       }
-    });
+    }, evtOptions);
 
     const canvases = Helper.find('#canvases');
     canvases.focus();
     canvases.addEventListener('keydown', (e) => {
       this.keys[e.keyCode] = true;
-    });
+    }, evtOptions);
 
     // TODO: listen to the document.body
     canvases.addEventListener('keyup', (e) => {
@@ -912,13 +904,13 @@ class Game {
           type: 'attack',
         }));
       }
-    });
+    }, evtOptions);
 
     // resize the canvas to fill browser window dynamically
     const resize = () => {
       this.app.renderer.resize(window.innerWidth, window.innerHeight);
     };
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', resize, evtOptions);
     resize();
 
     this.client.eventEmitter.on('itemMoveBegin', (e: ItemMoveBeginEvent) => {
@@ -984,9 +976,22 @@ class Game {
       }));
       chatInput.value = '';
       chatTextarea.scrollTop = chatTextarea.scrollHeight;
-    });
+    }, evtOptions);
 
-    registerPanelListeners();
+    // TODO: rename panels cuz they aren't panels anymore.
+    Helper.find('.panels__tabs').addEventListener('click', (e) => {
+      Helper.maybeFind('.panels__tab--active')?.classList.toggle('panels__tab--active');
+
+      const targetEl = e.target as HTMLElement;
+      let panelName = targetEl.dataset.panel as string;
+      if (panelName === this._currentPanel) panelName = '';
+
+      game.client.eventEmitter.emit('panelFocusChanged', { panelName });
+      this._currentPanel = panelName;
+      if (!panelName) return;
+
+      targetEl.classList.toggle('panels__tab--active');
+    }, evtOptions);
 
     let helpWindow: ReturnType<typeof makeHelpWindow>;
     this.client.eventEmitter.on('panelFocusChanged', ({ panelName }) => {
@@ -1026,7 +1031,7 @@ class Game {
       const target = e.target as HTMLElement;
       const sectionEl = target.closest('.chat-section');
       if (sectionEl) this.setChatSection(sectionEl.getAttribute('name') || 'All');
-    });
+    }, evtOptions);
 
     // If running server locally, give it a chance to save data before closing window.
     if (this.client.connection instanceof WorkerConnection) {
@@ -1040,7 +1045,7 @@ class Game {
         // time to do the saving. However, the alert box message is not customizable
         // and will say "Data may not be saved".
         serverWorker.shutdown().then(() => console.log('saved!'));
-      });
+      }, evtOptions);
     }
   }
 
