@@ -63,6 +63,7 @@ async function init(args: InitArgs) {
 async function listMaps() {
   // TODO: add {type: FOLDER} to readdir.
   const mapNames = (await mapsFs.readdir('')).filter((name) => !name.startsWith('.'));
+  mapNames.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
   return { mapNames };
 }
 
