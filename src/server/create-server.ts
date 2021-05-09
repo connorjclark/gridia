@@ -34,14 +34,14 @@ export async function startServer(options: ServerOptions, fs: IsoFs) {
 
   const { width, height } = context.map.getPartition(0);
 
-  // This cyclical dependency between Server and WorldMap could be improved.
-  context.map.loader = (pos) => context.loadSector(server, pos);
+  // This cyclical dependency between ServerContext and WorldMap could be improved.
+  context.map.loader = (pos) => context.loadSector(pos);
 
   server.taskRunner.registerTickSection({
     description: 'cows',
     rate: { seconds: 1 },
     fn: () => {
-      if (server.clientConnections.length > 0) {
+      if (context.clientConnections.length > 0) {
         if (Object.keys(server.creatureStates).length < 10) {
           const x = Utils.randInt(width / 2 - 5, width / 2 + 5);
           const y = Utils.randInt(height / 2 - 5, height / 2 + 5);

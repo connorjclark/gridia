@@ -78,7 +78,7 @@ const Actions: Record<string, Action> = {
       // TODO: This overloading feels wrong.
       let creatureToFollow = this.targetCreature?.creature;
       if (this.creature.tamedBy) {
-        const tamedByPlayer = server.players.get(this.creature.tamedBy);
+        const tamedByPlayer = server.context.players.get(this.creature.tamedBy);
         if (tamedByPlayer) creatureToFollow = server.findCreatureForPlayer(tamedByPlayer);
       }
 

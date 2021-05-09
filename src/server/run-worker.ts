@@ -111,7 +111,7 @@ async function startServer(args: ServerWorkerOpts) {
   };
 
   server = await _startServer(args, await makeFsForMap(args.mapName));
-  server.clientConnections.push(clientConnection);
+  server.context.clientConnections.push(clientConnection);
 }
 
 async function shutdown() {

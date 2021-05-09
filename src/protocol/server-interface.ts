@@ -84,7 +84,7 @@ export default class ServerInterface implements IServerInterface {
 
     const players = [];
     for (const id of account.playerIds) {
-      const player = server.players.get(id) || await server.context.loadPlayer(id);
+      const player = server.context.players.get(id) || await server.context.loadPlayer(id);
       if (player) players.push({ id, name: player.name });
     }
 
@@ -673,7 +673,7 @@ export default class ServerInterface implements IServerInterface {
           do(args: { playerName: string }) {
             const playerId = server.context.playerNamesToIds.get(args.playerName);
             if (!playerId) return; // TODO
-            const player = server.players.get(playerId);
+            const player = server.context.players.get(playerId);
             if (!player) return;
 
             const creature2 = server.findCreatureForPlayer(player);
@@ -799,7 +799,7 @@ export default class ServerInterface implements IServerInterface {
               return;
             }
 
-            const player = server.players.get(id);
+            const player = server.context.players.get(id);
             server.currentClientConnection.sendEvent(EventBuilder.chat({
               section: 'World',
               from: 'World',
@@ -835,7 +835,13 @@ export default class ServerInterface implements IServerInterface {
         save: {
           args: [],
           do() {
-            server.save();
+            server.save().then(() => {
+              server.currentClientConnection.sendEvent(EventBuilder.chat({
+                section: 'World',
+                from: 'World',
+                text: 'Server saved.',
+              }));
+            });
           },
         },
         image: {

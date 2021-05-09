@@ -46,7 +46,7 @@ export function openAndConnectToServerInMemory(
     if (!cloned.id) client.eventEmitter.emit('event', cloned.data);
   };
   // TODO: why is this needed?
-  server.clientConnections.push(clientConnection);
+  server.context.clientConnections.push(clientConnection);
 
   const connection = new MemoryConnection(clientConnection);
   connection.setOnEvent((event) => {

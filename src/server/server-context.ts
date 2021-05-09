@@ -5,7 +5,7 @@ import { IsoFs } from '../iso-fs';
 import WorldMap from '../world-map';
 import WorldMapPartition from '../world-map-partition';
 import * as WireSerializer from '../lib/wire-serializer';
-import Server from './server';
+import ClientConnection from './client-connection';
 
 async function readJson(fs: IsoFs, filePath: string) {
   const json = await fs.readFile(filePath);
@@ -18,8 +18,11 @@ async function readJson(fs: IsoFs, filePath: string) {
 }
 
 export class ServerContext extends Context {
-  nextCreatureId = 1;
+  clientConnections: ClientConnection[] = [];
+  players = new Map<string, Player>();
   playerNamesToIds = new Map<string, string>();
+  claims: Record<string, string> = {};
+  nextCreatureId = 1;
 
   accountDir: string;
   containerDir: string;
@@ -81,9 +84,9 @@ export class ServerContext extends Context {
     return {};
   }
 
-  async saveSectorClaims(server: Server) {
+  async saveSectorClaims() {
     const claimsPath = this.miscPath('claims.json');
-    await this.fs.writeFile(claimsPath, JSON.stringify(server.claims));
+    await this.fs.writeFile(claimsPath, JSON.stringify(this.claims));
   }
 
   async loadPartition(w: number) {
@@ -92,7 +95,7 @@ export class ServerContext extends Context {
     this.map.initPartition(w, partitionMeta.width, partitionMeta.height, partitionMeta.depth);
   }
 
-  async loadSector(server: Server, sectorPoint: TilePoint) {
+  async loadSector(sectorPoint: TilePoint) {
     const sector = await readJson(this.fs, this.sectorPath(sectorPoint)) as Sector;
 
     // Set creatures (all of which are always loaded in memory) to the sector (of which only active areas are loaded).
@@ -208,8 +211,13 @@ export class ServerContext extends Context {
     await this.fs.mkdir(this.sectorDir, { recursive: true });
 
     await this.saveMeta();
-    // TODO: also save all players ...
-    // await this.saveSectorClaims(server);
+    await this.saveSectorClaims();
+
+    for (const clientConnection of this.clientConnections) {
+      if (clientConnection.player) {
+        await this.savePlayer(clientConnection.player, clientConnection.creature);
+      }
+    }
 
     for (const [w, partition] of this.map.getPartitions()) {
       await this.savePartition(w, partition);

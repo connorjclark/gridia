@@ -48,7 +48,6 @@ interface AttackData {
 
 export default class Server {
   context: ServerContext;
-  clientConnections: ClientConnection[] = [];
   outboundMessages = [] as Array<{
     message: Message;
     to?: ClientConnection;
@@ -57,8 +56,7 @@ export default class Server {
   // @ts-ignore: this is always defined when accessed.
   currentClientConnection: ClientConnection;
   creatureStates: Record<number, CreatureState> = {};
-  players = new Map<string, Player>();
-  claims: Record<string, string> = {};
+
   verbose: boolean;
   taskRunner = new TaskRunner(50);
 
@@ -132,14 +130,8 @@ export default class Server {
     this.taskRunner.stop();
   }
 
-  async save() {
-    for (const clientConnection of this.clientConnections) {
-      if (clientConnection.player) {
-        await this.context.savePlayer(clientConnection.player, clientConnection.creature);
-      }
-    }
-    await this.context.saveSectorClaims(this);
-    await this.context.save();
+  save() {
+    return this.context.save();
   }
 
   registerQuest(quest: Quest) {
@@ -348,7 +340,7 @@ export default class Server {
     if (opts.player) {
       player = opts.player;
     } else {
-      player = this.players.get(opts.playerId) || await this.context.loadPlayer(opts.playerId);
+      player = this.context.players.get(opts.playerId) || await this.context.loadPlayer(opts.playerId);
     }
 
     clientConnection.container = await this.context.getContainer(player.containerId);
@@ -409,7 +401,7 @@ export default class Server {
     clientConnection.creature = creature;
     this.registerCreature(creature);
 
-    this.players.set(player.id, player);
+    this.context.players.set(player.id, player);
     clientConnection.player = player;
     await this.initClient(clientConnection);
     this.broadcastChatFromServer(`${clientConnection.player.name} has entered the world.`);
@@ -425,26 +417,26 @@ export default class Server {
   }
 
   getClientConnectionForCreature(creature: Creature) {
-    for (const clientConnection of this.clientConnections) {
+    for (const clientConnection of this.context.clientConnections) {
       if (clientConnection.creature.id === creature.id) return clientConnection;
     }
   }
 
   getClientConnectionForPlayer(player: Player) {
-    for (const clientConnection of this.clientConnections) {
+    for (const clientConnection of this.context.clientConnections) {
       if (clientConnection.player.id === player.id) return clientConnection;
     }
   }
 
   removeClient(clientConnection: ClientConnection) {
-    const index = this.clientConnections.indexOf(clientConnection);
+    const index = this.context.clientConnections.indexOf(clientConnection);
     if (index === -1) return;
 
-    this.clientConnections.splice(index, 1);
+    this.context.clientConnections.splice(index, 1);
     if (clientConnection.player) {
       this.context.savePlayer(clientConnection.player, clientConnection.creature);
       this.removeCreature(clientConnection.creature);
-      this.players.delete(clientConnection.player.id);
+      this.context.players.delete(clientConnection.player.id);
       this.broadcastAnimation({
         name: 'WarpOut',
         path: [clientConnection.creature.pos],
@@ -454,7 +446,7 @@ export default class Server {
   }
 
   async consumeAllMessages() {
-    while (this.clientConnections.some((c) => c.hasMessage()) || this.outboundMessages.length) {
+    while (this.context.clientConnections.some((c) => c.hasMessage()) || this.outboundMessages.length) {
       await this.taskRunner.tick();
     }
   }
@@ -533,13 +525,13 @@ export default class Server {
   }
 
   findPlayerForCreature(creature: Creature) {
-    for (const clientConnection of this.clientConnections.values()) {
+    for (const clientConnection of this.context.clientConnections.values()) {
       if (clientConnection.creature === creature) return clientConnection.player;
     }
   }
 
   findCreatureForPlayer(player: Player) {
-    for (const clientConnection of this.clientConnections.values()) {
+    for (const clientConnection of this.context.clientConnections.values()) {
       if (clientConnection.player === player) return clientConnection.creature;
     }
   }
@@ -1052,13 +1044,13 @@ export default class Server {
 
     // TODO: should light sources be equippable and only set creature light then?
     if ((prevItem && Content.getMetaItem(prevItem.type).light) || (item && Content.getMetaItem(item.type).light)) {
-      const client = this.clientConnections.find((c) => c.container.id === id);
+      const client = this.context.clientConnections.find((c) => c.container.id === id);
       if (client) this.updateCreatureLight(client);
     }
 
     if (container.type === 'equipment') {
       const creature = [
-        ...this.clientConnections.values(),
+        ...this.context.clientConnections.values(),
       ].find((client) => client.equipment.id === id)?.creature;
       if (creature) {
         this.updateCreatureDataBasedOnEquipment(creature, container, { broadcast: true });
@@ -1177,7 +1169,7 @@ export default class Server {
   }
 
   getMessagePlayersOnline() {
-    const players = [...this.players.values()].map((player) => player.name);
+    const players = [...this.context.players.values()].map((player) => player.name);
     return `${players.length} players online: ${players.join(', ')}`;
   }
 
@@ -1185,19 +1177,19 @@ export default class Server {
     const key = `${w},${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}`;
 
     if (!key) {
-      delete this.claims[key];
+      delete this.context.claims[key];
       return;
     }
 
-    if (this.claims[key]) {
-      const currentOwnerId = this.claims[key];
-      const currentOwner = this.players.get(this.claims[key]);
+    if (this.context.claims[key]) {
+      const currentOwnerId = this.context.claims[key];
+      const currentOwner = this.context.players.get(this.context.claims[key]);
       return { error: `Sector already owned by ${currentOwner?.name || currentOwnerId}` };
     }
 
     if (owner !== 'SERVER') {
       let numOwned = 0;
-      for (const id of Object.values(this.claims)) {
+      for (const id of Object.values(this.context.claims)) {
         if (id === owner) numOwned += 1;
       }
 
@@ -1206,9 +1198,9 @@ export default class Server {
       }
     }
 
-    this.claims[key] = owner;
+    this.context.claims[key] = owner;
 
-    const player = this.players.get(owner);
+    const player = this.context.players.get(owner);
     const clientConnection = player && this.getClientConnectionForPlayer(player);
     if (clientConnection) {
       this.send(EventBuilder.chat({ section: 'World', text: 'You now own this land!' }), clientConnection);
@@ -1218,7 +1210,7 @@ export default class Server {
   getSectorOwner(loc: Point4): string | undefined {
     const sectorPoint = Utils.worldToSector(loc, SECTOR_SIZE);
     const key = `${loc.w},${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}`;
-    return this.claims[key];
+    return this.context.claims[key];
   }
 
   private async initClient(clientConnection: ClientConnection) {
@@ -1316,7 +1308,7 @@ export default class Server {
     this.taskRunner.registerTickSection({
       description: 'update subscribed creatures',
       fn: () => {
-        for (const clientConnection of this.clientConnections) {
+        for (const clientConnection of this.context.clientConnections) {
           // TODO ?
           if (!clientConnection.player) continue;
 
@@ -1395,7 +1387,7 @@ export default class Server {
       description: 'tiles seen logs',
       rate: { seconds: 5 },
       fn: () => {
-        for (const clientConnection of this.clientConnections.values()) {
+        for (const clientConnection of this.context.clientConnections.values()) {
           if (!clientConnection.player) continue;
 
           server.context.map.forEach(clientConnection.creature.pos, 30, (loc) => {
@@ -1465,7 +1457,7 @@ export default class Server {
     this.taskRunner.registerTickSection({
       description: 'messages',
       fn: async () => {
-        for (const clientConnection of this.clientConnections) {
+        for (const clientConnection of this.context.clientConnections) {
           if (clientConnection.messageQueue.length === 0) continue;
 
           this.currentClientConnection = clientConnection;
@@ -1513,13 +1505,13 @@ export default class Server {
           if (to) {
             to.send(message);
           } else if (filter) {
-            for (const clientConnection of this.clientConnections) {
+            for (const clientConnection of this.context.clientConnections) {
               // If connection is not logged in yet, skip.
               if (!clientConnection.player) continue;
               if (filter(clientConnection)) clientConnection.send(message);
             }
           } else {
-            for (const clientConnection of this.clientConnections) {
+            for (const clientConnection of this.context.clientConnections) {
               // If connection is not logged in yet, skip.
               if (!clientConnection.player) continue;
               clientConnection.send(message);
