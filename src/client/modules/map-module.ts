@@ -76,7 +76,7 @@ class MapModule extends ClientModule {
         if (!walkable) {
           color = 'black';
         } else {
-          color = '#' + floors[floor].color;
+          color = '#' + floors[floor]?.color || '000000';
         }
 
         this.context.fillStyle = color;
