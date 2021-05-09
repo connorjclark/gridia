@@ -117,18 +117,24 @@ button {
   word-wrap: break-word;
   white-space: pre-wrap;
 }
+.help a {
+  color: silver;
+}
 
 .help .sections {
   width: 30%;
 }
 .help .section {
   border: solid 1px white;
+  padding: 5px;
 }
 .help .section.selected {
   color: gold;
 }
 .help .current-section {
   width: 70%;
+  padding: 5px;
+  font-size: 18px;
 }
 
 .contextmenu {
