@@ -181,6 +181,8 @@ button {
 .select-character__players {
   overflow: scroll;
   max-height: 30vh;
+  /* TODO: remove when "Graphic component" is not position: absolute */
+  will-change: transform;
 }
 
 .select-character__player {
