@@ -110,6 +110,15 @@ interface Item {
   oreType?: number;
 }
 
+interface CreatureImageData {
+  arms: { file: string; frames: number[] };
+  chest: { file: string; frames: number[] };
+  head: { file: string; frames: number[] };
+  legs: { file: string; frames: number[] };
+  shield?: { file: string; frames: number[] };
+  weapon?: { file: string; frames: number[] };
+}
+
 interface Creature {
   id: number;
   // Refers to monster template id, if used.
@@ -121,14 +130,7 @@ interface Creature {
     // TODO
     imageType?: number;
   };
-  imageData?: {
-    arms: { file: string; frames: number[] };
-    chest: { file: string; frames: number[] };
-    head: { file: string; frames: number[] };
-    legs: { file: string; frames: number[] };
-    shield?: { file: string; frames: number[] };
-    weapon?: { file: string; frames: number[] };
-  };
+  imageData?: CreatureImageData;
   name: string;
   canSpeak?: boolean;
   pos: TilePoint;

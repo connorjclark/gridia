@@ -184,6 +184,9 @@ button {
 }
 
 .select-character__player {
+  display: flex;
+  align-items: center;
+  padding: 5px;
   margin: 5px;
   border: 1px solid black;
 }

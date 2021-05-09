@@ -31,7 +31,7 @@ declare namespace Protocol {
     type EnterWorld = Command<{ playerId: string }>;
     type Login = Command<
       { username: string; password: string },
-      { account: GridiaAccount; players: Array<{ id: string, name: string }> }
+      { account: GridiaAccount; players: Player[]; imageDatas: CreatureImageData[] }
     >;
     type Logout = Command<{}>;
     type Move = Command<TilePoint>;

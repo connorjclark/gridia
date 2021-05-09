@@ -83,12 +83,19 @@ export default class ServerInterface implements IServerInterface {
     });
 
     const players = [];
+    const imageDatas = [];
     for (const id of account.playerIds) {
       const player = server.context.players.get(id) || await server.context.loadPlayer(id);
-      if (player) players.push({ id, name: player.name });
+      if (!player) continue;
+
+      const equipment = await server.context.getContainer(player.equipmentContainerId);
+      if (!equipment) continue;
+
+      players.push(player);
+      imageDatas.push(server.makeCreatureImageData(equipment));
     }
 
-    return { account, players };
+    return { account, players, imageDatas };
   }
 
   onCreatePlayer(server: Server, args: Commands.CreatePlayer['params']): Promise<void> {

@@ -1090,7 +1090,7 @@ export default class Server {
     if (opts.broadcast) this.broadcastPartialCreatureUpdate(creature, ['imageData', 'stats']);
   }
 
-  makeCreatureImageData(container: Container) {
+  makeCreatureImageData(container: Container): CreatureImageData {
     const getEquipImage = (i: Item | null) => i ? Content.getMetaItem(i.type).equipImage : undefined;
     return {
       arms: { file: 'rpgwo-arms0.png', frames: [0] },

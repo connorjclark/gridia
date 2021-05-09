@@ -6,7 +6,6 @@
 
 ____
 
-* Stamina / Health
 * Inventory system
 * Merchants
 * Registration

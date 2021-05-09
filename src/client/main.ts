@@ -1,17 +1,18 @@
 import * as idbKeyval from 'idb-keyval';
-import { string } from 'yargs';
 import { CREATE_CHARACTER_ATTRIBUTES, CREATE_CHARACTER_SKILL_POINTS } from '../constants';
 import * as Content from '../content';
 import { makeGame, game } from '../game-singleton';
 import { ATTRIBUTES } from '../player';
 import * as CommandBuilder from '../protocol/command-builder';
 import * as Utils from '../utils';
+import * as Player from '../player';
 import Client from './client';
 import { connectWithWebSocket, connectToServerWorker, connectWithWebRTC } from './connect-to-server';
 import { GameActionEvent } from './event-emitter';
 import * as Helper from './helper';
 import { createMapSelectForm } from './scenes/map-select-scene';
 import { ServerWorker } from './server-worker';
+import { makeCustomCreatureGraphicComponent, makeGraphicComponent } from './ui/ui-common';
 
 function parseQuery(queryString: string) {
   const params = new URLSearchParams(queryString ? queryString.substr(1) : '');
@@ -314,13 +315,12 @@ class SelectCharacterScene extends Scene {
       saveLocalStorageData();
     }
 
-    let players: Protocol.Commands.Login['response']['players'];
+    let response: Protocol.Commands.Login['response'];
     try {
-      const response = await controller.client.connection.sendCommand(CommandBuilder.login({
+      response = await controller.client.connection.sendCommand(CommandBuilder.login({
         username,
         password,
       }));
-      players = response.players;
     } catch (error) {
       console.error(error);
 
@@ -331,18 +331,20 @@ class SelectCharacterScene extends Scene {
         password,
       }));
       saveLocalStorageData();
-      const response = await controller.client.connection.sendCommand(CommandBuilder.login({
+      response = await controller.client.connection.sendCommand(CommandBuilder.login({
         username,
         password,
       }));
-      players = response.players;
     }
 
     const playersEl = Helper.find('.select-character__players', this.element);
-    for (const [i, player] of Object.entries(players)) {
+    for (const [i, player] of Object.entries(response.players)) {
       const el = Helper.createChildOf(playersEl, 'div', 'select-character__player');
-      el.textContent = player.name;
       el.dataset.index = i;
+      el.append(makeCustomCreatureGraphicComponent(response.imageDatas[Number(i)]));
+      const div2 = Helper.createChildOf(el, 'div');
+      Helper.createChildOf(div2, 'div').textContent = player.name;
+      Helper.createChildOf(div2, 'div').textContent = `Combat Level: ${Player.getCombatLevel(player).combatLevel}`;
     }
     playersEl.addEventListener('click', async (e) => {
       const target = e.target as HTMLElement;
@@ -350,7 +352,7 @@ class SelectCharacterScene extends Scene {
       if (!playerEl) return;
 
       const index = Number(playerEl.dataset.index);
-      const player = players[index];
+      const player = response.players[index];
       await this.selectPlayer(player.id);
     });
   }

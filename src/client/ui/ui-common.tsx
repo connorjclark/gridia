@@ -108,6 +108,12 @@ export function CustomCreatureGraphic(props: CustomCreatureGraphicProps) {
   </div>;
 }
 
+export function makeCustomCreatureGraphicComponent(props: CustomCreatureGraphicProps) {
+  const el = Helper.createElement('div');
+  render(<CustomCreatureGraphic {...props} />, el);
+  return el;
+}
+
 export function makeGraphicComponent() {
   interface GraphicComponentState {
     graphic?: GraphicProps;
