@@ -157,7 +157,7 @@ export class ServerContext extends Context {
     if (equipment) await this.saveContainer(equipment);
   }
 
-  async loadPlayer(playerId: string): Promise<Player> {
+  loadPlayer(playerId: string): Promise<Player> {
     return readJson(this.fs, this.playerPath(playerId));
   }
 
