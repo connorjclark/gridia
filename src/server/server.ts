@@ -1183,6 +1183,12 @@ export default class Server {
 
   claimSector(owner: string, w: number, sectorPoint: PartitionPoint) {
     const key = `${w},${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}`;
+
+    if (!key) {
+      delete this.claims[key];
+      return;
+    }
+
     if (this.claims[key]) {
       const currentOwnerId = this.claims[key];
       const currentOwner = this.players.get(this.claims[key]);

@@ -605,6 +605,7 @@ export default class ServerInterface implements IServerInterface {
 
   onChat(server: Server, { text }: Commands.Chat['params']): Promise<Commands.Chat['response']> {
     if (text.startsWith('/')) {
+      const creature = server.currentClientConnection.creature;
       const parsedCommand = CommandParser.parseCommand(text.substring(1));
 
       const COMMANDS: Record<string, CommandParser.Command> = {
@@ -653,13 +654,13 @@ export default class ServerInterface implements IServerInterface {
             const player = server.players.get(playerId);
             if (!player) return;
 
-            const creature = server.findCreatureForPlayer(player);
-            if (!creature) return;
+            const creature2 = server.findCreatureForPlayer(player);
+            if (!creature2) return;
 
-            const loc = server.findNearest(creature.pos, 10, false, (_, l) => server.context.walkable(l));
+            const loc = server.findNearest(creature2.pos, 10, false, (_, l) => server.context.walkable(l));
             if (!loc) return;
 
-            server.warpCreature(server.currentClientConnection.creature, loc);
+            server.warpCreature(creature, loc);
           },
         },
         creature: {
@@ -740,16 +741,32 @@ export default class ServerInterface implements IServerInterface {
             { name: 'server', type: 'boolean', optional: true },
           ],
           do(args: { server?: boolean }) {
-            const creature = server.currentClientConnection.creature;
+            if (args.server && !server.currentClientConnection.player.isAdmin) return 'not allowed';
+
             const sectorPoint = Utils.worldToSector(creature.pos, SECTOR_SIZE);
             const id = args.server ? 'SERVER' : server.currentClientConnection.player.id;
             return server.claimSector(id, creature.pos.w, sectorPoint)?.error;
           },
         },
+        landUnclaim: {
+          args: [],
+          do() {
+            const id = server.getSectorOwner(creature.pos);
+            if (!id) return 'land is not claimed';
+
+            if (id === 'SERVER') {
+              if (!server.currentClientConnection.player.isAdmin) return 'not allowed';
+            } else {
+              if (id !== server.currentClientConnection.player.id) return 'not allowed';
+            }
+
+            const sectorPoint = Utils.worldToSector(creature.pos, SECTOR_SIZE);
+            server.claimSector('', creature.pos.w, sectorPoint);
+          },
+        },
         landOwner: {
           args: [],
           do() {
-            const creature = server.currentClientConnection.creature;
             const id = server.getSectorOwner(creature.pos);
             if (!id) {
               server.currentClientConnection.sendEvent(EventBuilder.chat({
