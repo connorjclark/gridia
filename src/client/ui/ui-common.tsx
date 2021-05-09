@@ -1,4 +1,5 @@
 import { h, render, Component } from 'preact';
+import { useState } from 'preact/hooks';
 import createStore from 'redux-zero';
 import { Provider, connect } from 'redux-zero/preact';
 import { Actions, BoundActions } from 'redux-zero/types/Actions';
@@ -48,6 +49,29 @@ export function makeUIWindow(opts: { name: string; cell: string; noscroll?: bool
   const el = Helper.createChildOf(cellEl, 'div', `window window--${opts.name}`);
   el.classList.toggle('window--noscroll', Boolean(opts.noscroll));
   return el;
+}
+
+
+export interface TabbedPaneProps {
+  tabs: Record<string, {label: string; content: Component['constructor']}>;
+  childProps: any;
+}
+export class TabbedPane extends Component<TabbedPaneProps> {
+  render(props: TabbedPaneProps) {
+    const [currentId, setCurrentId] = useState(Object.keys(props.tabs)[0]);
+
+    const tab = props.tabs[currentId];
+    if (!tab) throw new Error('no tab');
+
+    return <div class='tabbed-pane'>
+      <div class="tabbed-pane__tabs flex justify-around">
+        {Object.entries(props.tabs).map(([id, t]) => {
+          return <div class={id === currentId ? 'selected' : ''} onClick={() => setCurrentId(id)}>{t.label}</div>;
+        })}
+      </div>
+      <tab.content {...props.childProps}></tab.content>
+    </div>;
+  }
 }
 
 interface GraphicProps {

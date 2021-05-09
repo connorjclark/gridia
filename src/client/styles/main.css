@@ -319,6 +319,13 @@ button {
   max-width: 50%;
 }
 
+.tabbed-pane .selected {
+  color: gold;
+}
+.tabbed-pane__tabs {
+  margin: 10px;
+}
+
 .window--skills {
   overflow-y: scroll;
 }
@@ -480,14 +487,6 @@ button {
   position: absolute;
   top: 0;
   left: 0;
-}
-
-.window--spells .selected {
-  color: gold;
-}
-
-.window--spells .tabs {
-  margin: 10px;
 }
 
 .tooltip {

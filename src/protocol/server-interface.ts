@@ -1,5 +1,6 @@
 import { MAX_STACK, MINE, SECTOR_SIZE, WATER } from '../constants';
 import * as Content from '../content';
+import * as Player from '../player';
 import * as CommandParser from '../lib/command-parser';
 import Server from '../server/server';
 import * as Utils from '../utils';
@@ -630,6 +631,17 @@ export default class ServerInterface implements IServerInterface {
     // TODO queue changes and send to all clients.
     // context.queueTileChange(from)
     // context.queueTileChange(to)
+  }
+
+  onLearnSkill(server: Server, { id }: { id: number }): Promise<void> {
+    const skill = Content.getSkill(id);
+    if (server.currentClientConnection.player.skillPoints < skill.skillPoints) {
+      return Promise.reject('not enough skill points');
+    }
+
+    Player.learnSkill(server.currentClientConnection.player, id);
+    server.currentClientConnection.player.skillPoints -= skill.skillPoints;
+    return Promise.resolve();
   }
 
   onChat(server: Server, { text }: Commands.Chat['params']): Promise<Commands.Chat['response']> {

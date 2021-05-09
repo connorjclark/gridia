@@ -2,11 +2,10 @@ import { render, h, Component } from 'preact';
 import { useEffect } from 'preact/hooks';
 import * as Content from '../../content';
 import * as Helper from '../helper';
-import { Graphic, ComponentProps, createSubApp, makeUIWindow } from './ui-common';
+import { Graphic, ComponentProps, createSubApp, makeUIWindow, TabbedPane, TabbedPaneProps } from './ui-common';
 
 interface State {
   spells: Spell[];
-  tab: string;
   globalCooldown: number;
   cooldowns: Record<number, number>;
 }
@@ -14,7 +13,6 @@ interface State {
 export function makeSpellsWindow(onCastSpell: (spell: Spell) => void) {
   const initialState: State = {
     spells: Content.getSpells(),
-    tab: 'Dark Magic',
     // TODO: should cooldown just apply to all spells?
     globalCooldown: 0,
     cooldowns: {},
@@ -37,21 +35,54 @@ export function makeSpellsWindow(onCastSpell: (spell: Spell) => void) {
         },
       };
     },
-    setTab: (state: State, tab: string): State => {
-      return {
-        ...state,
-        tab,
-      };
-    },
   });
 
-  const tabs = Content.getSkills()
-    .filter((s) => s && s.name.includes('Magic') && !s.name.includes('Defense'))
-    .map((s) => {
-      return {name: s.name, skill: s.id};
-    });
+  const tabs: TabbedPaneProps['tabs'] = {};
+  for (const skill of Content.getSkills()) {
+    if (skill && skill.name.includes('Magic') && !skill.name.includes('Defense')) {
+      tabs[skill.name] = {
+        label: skill.name,
+        content: (props: Props) => <SpellsTab
+          {...props}
+          spells={props.spells.filter((s) => s && s.skill === skill.id)}></SpellsTab>,
+      };
+    }
+  }
 
   type Props = ComponentProps<State, typeof actions>;
+  class SpellsTab extends Component<Props> {
+    render(props: Props) {
+      const spells = [];
+      for (const spell of props.spells) {
+        const cooldown = Math.max(props.cooldowns[spell.id], props.globalCooldown);
+        const animationIndex = spell.animation ? Content.getAnimationByIndex(spell.animation - 1).frames[0].sprite : 11;
+        spells.push(<div onClick={() => this.onClickSpell(spell)}>
+          <div class='spell tooltip-on-hover' data-cooldown={cooldown}>
+            <Graphic file='rpgwo-animations0.png' index={animationIndex}></Graphic>
+            <span class='timer'></span>
+          </div>
+          <div className="tooltip">
+            <div>{spell.name}</div>
+            <div>{spell.description}</div>
+            <div>Mana: {spell.mana}</div>
+          </div>
+        </div>);
+      }
+
+      return <div class="flex flex-wrap" style={{ maxHeight: '20vh', overflow: 'scroll' }}>
+        {spells}
+      </div>;
+    }
+
+    onClickSpell(spell: Spell) {
+      const now = Date.now();
+      if (now > this.props.globalCooldown && now > this.props.cooldowns[spell.id]) {
+        this.props.useSpell(spell.id);
+        onCastSpell(spell);
+      }
+    }
+  }
+
   class SpellsWindow extends Component<Props> {
     render(props: Props) {
       useEffect(() => {
@@ -71,46 +102,7 @@ export function makeSpellsWindow(onCastSpell: (spell: Spell) => void) {
         return () => clearInterval(handle);
       }, []);
 
-      const tab = tabs.find((t) => t.name === props.tab);
-      if (!tab) throw new Error('no tab');
-      const currentSpells = props.spells.filter((spell) => spell && spell.skill === tab.skill);
-
-      const spells = [];
-      for (const spell of currentSpells) {
-        const cooldown = Math.max(props.cooldowns[spell.id], props.globalCooldown);
-        const animationIndex = spell.animation ? Content.getAnimationByIndex(spell.animation - 1).frames[0].sprite : 11;
-        spells.push(<div onClick={() => this.onClickSpell(spell)}>
-          <div class='spell tooltip-on-hover' data-cooldown={cooldown}>
-            <Graphic file='rpgwo-animations0.png' index={animationIndex}></Graphic>
-            <span class='timer'></span>
-          </div>
-          <div className="tooltip">
-            <div>{spell.name}</div>
-            <div>{spell.description}</div>
-            <div>Mana: {spell.mana}</div>
-          </div>
-        </div>);
-      }
-
-      return <div>
-        <h2>Spells</h2>
-        <div class="tabs flex justify-around">
-          {tabs.map((t) => {
-            return <div class={t === tab ? 'selected' : ''} onClick={() => props.setTab(t.name)}>{t.name}</div>;
-          })}
-        </div>
-        <div class="flex flex-wrap" style={{ maxHeight: '20vh', overflow: 'scroll' }}>
-          {spells}
-        </div>
-      </div>;
-    }
-
-    onClickSpell(spell: Spell) {
-      const now = Date.now();
-      if (now > this.props.globalCooldown && now > this.props.cooldowns[spell.id]) {
-        this.props.useSpell(spell.id);
-        onCastSpell(spell);
-      }
+      return <TabbedPane tabs={tabs} childProps={props}></TabbedPane>;
     }
   }
 

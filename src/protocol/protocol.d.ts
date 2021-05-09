@@ -42,6 +42,7 @@ declare namespace Protocol {
     type RequestPartition = Command<{ w: number }>;
     type RequestSector = Command<TilePoint>;
     type Use = Command<{ toolIndex: number; location: ItemLocation; usageIndex?: number }>;
+    type LearnSkill = Command<{ id: number }>;
   }
 
   namespace Events {

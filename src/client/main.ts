@@ -12,7 +12,7 @@ import { GameActionEvent } from './event-emitter';
 import * as Helper from './helper';
 import { createMapSelectForm } from './scenes/map-select-scene';
 import { ServerWorker } from './server-worker';
-import { makeCustomCreatureGraphicComponent, makeGraphicComponent } from './ui/ui-common';
+import { makeCustomCreatureGraphicComponent } from './ui/ui-common';
 
 function parseQuery(queryString: string) {
   const params = new URLSearchParams(queryString ? queryString.substr(1) : '');

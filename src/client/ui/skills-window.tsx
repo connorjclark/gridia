@@ -1,5 +1,5 @@
 import { render, h, Component } from 'preact';
-import { ComponentProps, makeUIWindow, createSubApp } from './ui-common';
+import { ComponentProps, makeUIWindow, createSubApp, TabbedPane, TabbedPaneProps } from './ui-common';
 
 interface State {
   combatLevel: {
@@ -52,8 +52,8 @@ export function makeSkillsWindow(initialState: State) {
   });
 
   type Props = ComponentProps<State, typeof actions>;
-  // TODO: rename Character.
-  class SkillsWindow extends Component<Props> {
+
+  class SkillsTab extends Component<Props> {
     render(props: Props) {
       const skillsSortedByName = Object.values(props.skills)
         .sort((a, b) => a.name.localeCompare(b.name));
@@ -116,6 +116,30 @@ export function makeSkillsWindow(initialState: State) {
           })}
         </div>
       </div>;
+    }
+  }
+
+  class LearnNewSkillTab extends Component<Props> {
+    render(props: Props) {
+      return 'Coming soon';
+    }
+  }
+
+  const tabs: TabbedPaneProps['tabs'] = {
+    skills: {
+      label: 'Skills',
+      content: SkillsTab,
+    },
+    learn: {
+      label: 'Learn New Skill',
+      content: LearnNewSkillTab,
+    },
+  };
+
+  // TODO: rename Character.
+  class SkillsWindow extends Component<Props> {
+    render(props: Props) {
+      return <TabbedPane tabs={tabs} childProps={props}></TabbedPane>;
     }
   }
 
