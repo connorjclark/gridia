@@ -63,12 +63,19 @@ export class TabbedPane extends Component<TabbedPaneProps> {
     if (!tab) throw new Error('no tab');
 
     return <div class='tabbed-pane'>
-      <div class="tabbed-pane__tabs flex justify-around">
+      <div role='tablist' class='tabbed-pane__tabs flex justify-around'>
         {Object.entries(props.tabs).map(([id, t]) => {
-          return <div class={id === currentId ? 'selected' : ''} onClick={() => setCurrentId(id)}>{t.label}</div>;
+          return <button
+            role='tab'
+            aria-controls={id}
+            aria-selected={id === currentId}
+            className={'tabbed-pane__tab ' + (id === currentId ? 'selected' : '')}
+            onClick={() => setCurrentId(id)}>{t.label}</button>;
         })}
       </div>
-      <tab.content {...props.childProps}></tab.content>
+      <div role='tabpanel' aria-labelledby={currentId}>
+        <tab.content {...props.childProps}></tab.content>
+      </div>
     </div>;
   }
 }
