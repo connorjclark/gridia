@@ -133,7 +133,7 @@ export function makeSkillsWindow(initialState: State) {
 
   class LearnNewSkillTab extends Component<Props> {
     render(props: Props) {
-      const [selectedId, setSelectedId] = useState<number|null>(0);
+      const [selectedId, setSelectedId] = useState<number|null>(null);
 
       return <div>
         <div>Skill Points: {props.skillPoints}</div>
