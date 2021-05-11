@@ -1,3 +1,4 @@
+* a11y
 * More performant saving.
 * Persist settings to local storage
 * "Reset" button for settings

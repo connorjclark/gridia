@@ -99,6 +99,14 @@ export function getLearnedSkills(player: Player) {
   return [...player.skills.keys()];
 }
 
+export function getUnlearnedSkills(player: Player) {
+  const skills = [];
+  for (const skill of Content.getSkills()) {
+    if (!player.skills.has(skill.id)) skills.push(skill);
+  }
+  return skills;
+}
+
 function getSkillLevel(player: Player, id: number, buffs: Buff[] = []) {
   let percentChange = 0;
   let linearChange = 0;

@@ -51,7 +51,6 @@ export function makeUIWindow(opts: { name: string; cell: string; noscroll?: bool
   return el;
 }
 
-
 export interface TabbedPaneProps {
   tabs: Record<string, {label: string; content: Component['constructor']}>;
   childProps: any;

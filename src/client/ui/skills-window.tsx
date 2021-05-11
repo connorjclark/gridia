@@ -1,7 +1,8 @@
 import { render, h, Component } from 'preact';
+import { useState } from 'preact/hooks';
 import { ComponentProps, makeUIWindow, createSubApp, TabbedPane, TabbedPaneProps } from './ui-common';
 
-interface State {
+export interface State {
   combatLevel: {
     level: number;
     xpBar: { current: number; max: number };
@@ -22,10 +23,19 @@ interface State {
     xpBar: { current: number; max: number };
     baseLevelFormula: string;
   }>;
+  skillPoints: number;
+  unlearnedSkills: Skill[];
+  onLearnSkill: (id: number) => void;
 }
 
 export function makeSkillsWindow(initialState: State) {
   const actions = () => ({
+    setState(state: State, newState: State) {
+      return {
+        ...state,
+        ...newState,
+      };
+    },
     setCombatLevel: (state: State, combatLevel: State['combatLevel']): State => {
       return {
         ...state,
@@ -70,21 +80,6 @@ export function makeSkillsWindow(initialState: State) {
         <br></br>
 
         <div>
-          Attributes
-        </div>
-        <div class='flex flex-wrap'>
-          {props.attributes.map((attribute) => {
-            const level = attribute.baseLevel + attribute.earnedLevel;
-            const title = `base: ${attribute.baseLevel} earned: ${attribute.earnedLevel}`;
-            return <div class='attribute' title={title} style={{ width: '50%' }}>
-              {attribute.name} {level}
-            </div>;
-          })}
-        </div>
-
-        <br></br>
-
-        <div>
           Skills
         </div>
         <div class='flex flex-wrap justify-evenly'>
@@ -119,9 +114,45 @@ export function makeSkillsWindow(initialState: State) {
     }
   }
 
+  class AttributesTab extends Component<Props> {
+    render(props: Props) {
+      return <div>
+        <div>Spendable XP: TODO</div>
+        <div class='flex flex-wrap'>
+          {props.attributes.map((attribute) => {
+            const level = attribute.baseLevel + attribute.earnedLevel;
+            const title = `base: ${attribute.baseLevel} earned: ${attribute.earnedLevel}`;
+            return <div class='attribute' title={title} style={{ width: '50%' }}>
+              {attribute.name} {level}
+            </div>;
+          })}
+        </div>
+      </div>;
+    }
+  }
+
   class LearnNewSkillTab extends Component<Props> {
     render(props: Props) {
-      return 'Coming soon';
+      const [selectedId, setSelectedId] = useState<number|null>(0);
+
+      return <div>
+        <div>Skill Points: {props.skillPoints}</div>
+        <div class="flex flex-wrap">
+          {props.unlearnedSkills.map((skill) => {
+            const classes = ['skill'];
+            if (skill.id === selectedId) classes.push('selected');
+            return <div class={classes.join(' ')} onClick={() => setSelectedId(skill.id)} style={{ width: '33%' }}>
+              {skill.name} ({skill.skillPoints})
+            </div>;
+          })}
+        </div>
+        <button onClick={() => {
+          if (selectedId !== null) {
+            props.onLearnSkill(selectedId);
+            setSelectedId(null);
+          }
+        }}>Learn</button>
+      </div>;
     }
   }
 
@@ -129,6 +160,10 @@ export function makeSkillsWindow(initialState: State) {
     skills: {
       label: 'Skills',
       content: SkillsTab,
+    },
+    attributes: {
+      label: 'Attributes',
+      content: AttributesTab,
     },
     learn: {
       label: 'Learn New Skill',

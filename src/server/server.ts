@@ -1134,6 +1134,8 @@ export default class Server {
         name: 'LevelUp',
         path: [clientConnection.creature.pos],
       });
+
+      this.updateClientPlayer(clientConnection);
     }
 
     this.send(EventBuilder.xp({
@@ -1211,6 +1213,16 @@ export default class Server {
     const sectorPoint = Utils.worldToSector(loc, SECTOR_SIZE);
     const key = `${loc.w},${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}`;
     return this.context.claims[key];
+  }
+
+  updateClientPlayer(clientConnection: ClientConnection) {
+    // Lazy way to update Player.
+    clientConnection.sendEvent(EventBuilder.initialize({
+      player: clientConnection.player,
+      creatureId: clientConnection.creature.id,
+      secondsPerWorldTick: this.secondsPerWorldTick,
+      ticksPerWorldDay: this.ticksPerWorldDay,
+    }));
   }
 
   private async initClient(clientConnection: ClientConnection) {

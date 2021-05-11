@@ -638,9 +638,14 @@ export default class ServerInterface implements IServerInterface {
     if (server.currentClientConnection.player.skillPoints < skill.skillPoints) {
       return Promise.reject('not enough skill points');
     }
+    if (server.currentClientConnection.player.skills.get(id)) {
+      return Promise.reject('you already know that skill');
+    }
 
     Player.learnSkill(server.currentClientConnection.player, id);
     server.currentClientConnection.player.skillPoints -= skill.skillPoints;
+    server.updateClientPlayer(server.currentClientConnection);
+
     return Promise.resolve();
   }
 

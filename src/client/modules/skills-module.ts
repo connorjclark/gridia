@@ -2,16 +2,22 @@ import * as Content from '../../content';
 import * as Player from '../../player';
 import * as Helper from '../helper';
 import ClientModule from '../client-module';
-import { makeSkillsWindow } from '../ui/skills-window';
+import { State, makeSkillsWindow } from '../ui/skills-window';
+import * as CommandBuilder from '../../protocol/command-builder';
 
 class SkillsModule extends ClientModule {
   protected skillsWindow?: ReturnType<typeof makeSkillsWindow>;
 
-  makeUIState() {
+  makeUIState(): State {
     return {
       combatLevel: this.getCombatLevel(),
       attributes: this.getAttributes(),
       skills: this.getSkills(),
+      skillPoints: this.game.client.player.skillPoints,
+      unlearnedSkills: Player.getUnlearnedSkills(this.game.client.player),
+      onLearnSkill: (id) => {
+        this.game.client.connection.sendCommand(CommandBuilder.learnSkill({ id }));
+      },
     };
   }
 
@@ -38,6 +44,10 @@ class SkillsModule extends ClientModule {
           this.skillsWindow.actions.setCombatLevel(this.getCombatLevel());
           this.skillsWindow.actions.setSkills(this.getSkills());
         }
+      }
+
+      if (this.skillsWindow && e.type === 'initialize') {
+        this.getSkillsWindow().actions.setState(this.makeUIState());
       }
     });
 
