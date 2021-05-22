@@ -129,7 +129,6 @@ export function CustomCreatureGraphic(props: CustomCreatureGraphicProps) {
   return <div class="custom-creature-graphic" style={
     { width: size + 'px', height: size + 'px', marginRight: size + 'px' }}>
     {Object.entries(props).map(([key, value]) => {
-      if (key === '__source' || key === '__self') return;
       if (key === 'scale' || value === undefined) return;
 
       return <div style={{ position: 'absolute' }}>

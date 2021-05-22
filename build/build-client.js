@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const Parcel = require("@parcel/core").default;
+const ParcelBundler = require("parcel-bundler");
 
 function copyFileSync(source, target) {
   var targetFile = target;
@@ -39,32 +39,20 @@ function copyFolderRecursiveSync(source, target) {
 }
 
 async function main() {
-  const flags = new Set(process.argv.slice(2));
-  const dev = flags.has('--dev');
+  const dev = process.argv[2] === "--dev";
   const entries = [
     'src/client/index.html',
     'src/client/ui.html',
   ];
-  const bundler = new Parcel({
-    mode: dev ? 'development' : 'production',
-    defaultConfig: require.resolve("@parcel/config-default"),
-    entries,
-    defaultTargetOptions: {
-      distDir: "dist/client",
-      publicUrl: ".",
-      // This break PIXI bundle.
-      // TODO: can other bundles be scope hoisted?
-      shouldScopeHoist: false,
-    },
+  const bundler = new ParcelBundler(entries, {
+    outDir: "dist/client",
+    publicUrl: ".",
+    watch: dev,
     // https://github.com/parcel-bundler/parcel/issues/643
-    // hmr: false,
-    shouldContentHash: !dev,
+    hmr: false,
+    contentHash: !dev,
   });
-  if (dev) {
-    await bundler.watch();
-  } else {
-    await bundler.run();
-  }
+  await bundler.bundle();
   copyFolderRecursiveSync("world", path.join("dist", "client"));
 }
 
