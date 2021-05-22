@@ -13,5 +13,5 @@ globalThis.PIXI = PIXI_;
 globalThis.OutlineFilter = OutlineFilter_;
 
 document.addEventListener('click', async () => {
-  globalThis.PIXI.sound = (await import('pixi-sound')).default;
+  globalThis.PIXI.sound = (await import('pixi-sound'));
 }, { once: true });
