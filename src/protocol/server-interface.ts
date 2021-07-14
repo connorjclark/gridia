@@ -262,7 +262,8 @@ export default class ServerInterface implements IServerInterface {
     }
 
     if (type === 'speak') {
-      const dialogue = creatureState.onSpeakCallback && creatureState.onSpeakCallback(server.currentClientConnection);
+      const dialogue =
+        creatureState.onSpeakCallback && creatureState.onSpeakCallback(server.currentClientConnection, creature);
       if (dialogue) {
         server.startDialogue(server.currentClientConnection, dialogue);
       } else {

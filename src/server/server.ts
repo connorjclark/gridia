@@ -138,6 +138,18 @@ export default class Server {
       throw new Error('invalid quest');
     }
 
+    if (quest.stages[0] !== 'start') {
+      throw new Error('first stage must be "start"');
+    }
+
+    if (quest.stages[quest.stages.length - 1] !== 'finish') {
+      throw new Error('last stage must be "finish"');
+    }
+
+    if (new Set(quest.stages).size !== quest.stages.length) {
+      throw new Error('stages must be unique');
+    }
+
     this._quests.push(quest);
   }
 

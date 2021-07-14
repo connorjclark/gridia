@@ -198,17 +198,39 @@ export function incrementSkillXp(player: Player, id: number, xp: number) {
 
 export function startQuest(player: Player, quest: Quest) {
   let state = player.questStates.get(quest.id);
-  if (state) return;
+  if (state) return state;
 
   state = {
     stage: quest.stages[0],
     data: {},
   };
   player.questStates.set(quest.id, state);
+  return state;
 }
 
 export function getQuestState(player: Player, quest: Quest) {
   return player.questStates.get(quest.id);
+}
+
+export function hasStartedQuest(player: Player, quest: Quest): boolean {
+  return player.questStates.has(quest.id);
+}
+
+export function getQuestStatusMessage(player: Player, quest: Quest): string {
+  const parts = [
+    `Quest: ${quest.name}`,
+    quest.description,
+  ];
+
+  const state = getQuestState(player, quest);
+  if (state) {
+    parts.push(`Current stage: ${state.stage} (${quest.stages.indexOf(state.stage) + 1} / ${quest.stages.length})`);
+    if (Object.keys(state.data).length) parts.push(JSON.stringify(state.data, null, 2));
+  } else {
+    parts.push('Current stage: Not Started');
+  }
+
+  return parts.join('\n');
 }
 
 export function advanceQuest(player: Player, quest: Quest) {

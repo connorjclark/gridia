@@ -1,13 +1,28 @@
 import ClientConnection from '../client-connection';
 import { Script } from '../script';
-import Server from '../server';
 import * as Player from '../../player';
 
 export class BasicScript extends Script {
   captain?: Creature;
+  quest: Quest = {
+    id: 'TEST_QUEST',
+    name: 'Your First Quest',
+    description: 'Basic quest description',
+    stages: [
+      'start',
+      'find_captain',
+      'find_kitchen',
+      'cook_ribs',
+      'collect_meat',
+      'cook_meat',
+      'return_to_captain',
+      'leave_ship',
+      'finish',
+    ],
+  };
 
-  constructor(server: Server) {
-    super(server);
+  onStart() {
+    this.server.registerQuest(this.quest);
 
     this.addCreatureSpawner({
       descriptors: [{ type: 41 }, { type: 43 }, { type: 98 }],
@@ -17,46 +32,20 @@ export class BasicScript extends Script {
     });
   }
 
-  onStart() {
-    this.server.registerQuest({
-      id: 'TEST_QUEST',
-      name: 'Your First Quest',
-      stages: [
-        'in_room',
-        'find_captain',
-        'find_kitchen',
-        'cook_ribs',
-        'collect_meat',
-        'cook_meat',
-        'return_to_captain',
-        'leave_ship',
-      ],
-    });
-  }
-
   onTick() {
+    // TODO should have a primitive that always keeps a creature alive / respawn if needed.
     if (!this.captain || this.captain.dead) {
       this.captain = this.spawnCreature({
         descriptor: {
           type: 11,
           onSpeak: this.onSpeakToCaptain.bind(this),
+          partial: {
+            name: 'Captain Jack',
+          },
         },
         loc: { w: 0, x: 25, y: 20, z: 0 },
       });
-      if (this.captain) {
-        this.captain.name = 'Captain Jack';
-        this.captain.canSpeak = true;
-      }
     }
-
-    // const region = this.creatureSpawners[0].region;
-
-    // const quest = this.server.getQuest('TEST_QUEST');
-    // for (const player of this.server.players.values()) {
-    //   console.log(player.name, player.getQuestState(quest)?.stage);
-    // }
-
-    // ...
   }
 
   onPlayerCreated(player: Player, clientConnection: ClientConnection) {
@@ -65,33 +54,23 @@ export class BasicScript extends Script {
     loc.y += 2;
     clientConnection.player.spawnLoc = loc;
     this.server.moveCreature(clientConnection.creature, loc);
-
-    const quest = this.server.getQuest('TEST_QUEST');
-    Player.startQuest(player, quest);
-  }
-
-  onPlayerEnterWorld(player: Player) {
-    const quest = this.server.getQuest('TEST_QUEST');
-    Player.startQuest(player, quest);
   }
 
   onPlayerKillCreature(player: Player, creature: Creature) {
+    if (!Player.hasStartedQuest(player, this.quest)) return;
     if (!this.wasCreatureSpawnedBySpawner(creature)) return;
 
-    const quest = this.server.getQuest('TEST_QUEST');
-    Player.advanceQuest(player, quest);
+    Player.advanceQuest(player, this.quest);
+    // TODO: quest panel
+    console.log(Player.getQuestStatusMessage(player, this.quest));
   }
 
-  onSpeakToCaptain(clientConnection: ClientConnection): Dialogue | undefined {
-    if (!this.captain) return;
+  onSpeakToCaptain(clientConnection: ClientConnection, speaker: Creature): Dialogue | undefined {
+    const player = clientConnection.player;
+    const state = Player.getQuestState(player, this.quest) || Player.startQuest(player, this.quest);
+    const speakers = [clientConnection.creature, speaker];
 
-    const quest = this.server.getQuest('TEST_QUEST');
-    const state = Player.getQuestState(clientConnection.player, quest);
-    if (!state) return;
-
-    const speakers = [clientConnection.creature, this.captain];
-
-    if (state.stage === 'in_room') {
+    if (state.stage === 'start') {
       return {
         speakers,
         parts: [
@@ -101,7 +80,7 @@ export class BasicScript extends Script {
           { speaker: 0, text: 'Alright.' },
         ],
         onFinish: () => {
-          Player.advanceQuest(clientConnection.player, quest);
+          Player.advanceQuest(player, this.quest);
         },
       };
     } else {

@@ -146,7 +146,7 @@ export default class CreatureState {
   warped = false;
   home: TilePoint;
   path: PartitionPoint[] = [];
-  onSpeakCallback?: (clientConnection: ClientConnection) => Dialogue | undefined;
+  onSpeakCallback?: (clientConnection: ClientConnection, speaker: Creature) => Dialogue | undefined;
 
   // For attacking.
   targetCreature: CreatureState | null = null;
