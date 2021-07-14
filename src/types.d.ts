@@ -158,6 +158,12 @@ interface Creature {
   buffs: Buff[];
 }
 
+interface CreatureDescriptor {
+  type: number;
+  partial?: Partial<Creature>;
+  onSpeak?: import('./server/creature-state').default['onSpeakCallback'];
+}
+
 interface Buff {
   id: string;
   /** UNIX epoch. */

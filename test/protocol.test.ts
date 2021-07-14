@@ -181,7 +181,7 @@ describe('move', () => {
   it.skip('player can not move where other creature is', async () => {
     const from = { w: 0, x: 5, y: 5, z: 0 };
     const to = { w: 0, x: 6, y: 5, z: 0 };
-    const otherCreature = server.makeCreatureFromTemplate(1, to);
+    const otherCreature = server.createCreature({type: 1}, to);
     await server.consumeAllMessages();
     // await new Promise((resolve) => server.taskRunner.registerForNextTick({fn: resolve}));
     assertCreatureAt(to, otherCreature.id);

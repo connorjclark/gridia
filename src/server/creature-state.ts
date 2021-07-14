@@ -9,6 +9,7 @@ import { WATER } from '../constants';
 import Server from './server';
 import aStar from './plan';
 import { adjustAttribute } from './creature-utils';
+import ClientConnection from './client-connection';
 
 interface Goal {
   desiredEffect: string;
@@ -145,6 +146,7 @@ export default class CreatureState {
   warped = false;
   home: TilePoint;
   path: PartitionPoint[] = [];
+  onSpeakCallback?: (clientConnection: ClientConnection) => Dialogue | undefined;
 
   // For attacking.
   targetCreature: CreatureState | null = null;

@@ -7,7 +7,7 @@ import ClientConnection from './client-connection';
 type Region = Point4 & { width: number; height: number };
 
 interface CreatureSpawner {
-  types: number[];
+  descriptors: CreatureDescriptor[];
   limit: number;
   rate: Rate;
   region: Region;
@@ -65,8 +65,8 @@ export abstract class Script {
 
       for (const scheduledTicks of state.scheduledSpawnTicks) {
         if (scheduledTicks <= ticks) {
-          const type = spawner.types[Utils.randInt(0, spawner.types.length - 1)];
-          const creature = this.spawnCreature({ type, region: spawner.region });
+          const descriptor = spawner.descriptors[Utils.randInt(0, spawner.descriptors.length - 1)];
+          const creature = this.spawnCreature({ descriptor, region: spawner.region });
           if (creature) state.spawnedCreatures.push(creature);
           state.scheduledSpawnTicks.splice(state.scheduledSpawnTicks.indexOf(scheduledTicks), 1);
         }
@@ -97,11 +97,7 @@ export abstract class Script {
     });
   }
 
-  protected spawnCreature(opts: { type: number; loc?: Point4; region?: Region }) {
-    if (opts.loc && opts.region) {
-      throw new Error('invalid parameters');
-    }
-
+  protected spawnCreature(opts: { descriptor: CreatureDescriptor; loc?: Point4; region?: Region }) {
     let loc;
     if (opts.loc) {
       loc = opts.loc;
@@ -114,7 +110,7 @@ export abstract class Script {
       throw new Error('invalid parameters');
     }
 
-    const creature = this.server.makeCreatureFromTemplate(opts.type, loc);
+    const creature = this.server.createCreature(opts.descriptor, loc);
     return creature;
   }
 
@@ -136,7 +132,7 @@ export class TestScript extends Script {
     super(server);
 
     this.addCreatureSpawner({
-      types: [41, 43, 98],
+      descriptors: [{ type: 41 }, { type: 43 }, { type: 98 }],
       limit: 10,
       rate: { seconds: 5 },
       region: { w: 0, x: 25, y: 20, z: 0, width: 25, height: 12 },
@@ -162,12 +158,16 @@ export class TestScript extends Script {
 
   onTick() {
     if (!this.captain || this.captain.dead) {
-      this.captain = this.spawnCreature({ type: 11, loc: { w: 0, x: 25, y: 20, z: 0 } });
+      this.captain = this.spawnCreature({
+        descriptor: {
+          type: 11,
+          onSpeak: this.onSpeakToCaptain.bind(this),
+        },
+        loc: { w: 0, x: 25, y: 20, z: 0 },
+      });
       if (this.captain) {
         this.captain.name = 'Captain Jack';
         this.captain.canSpeak = true;
-        this.server.creatureToOnSpeakCallbacks.set(this.captain, this.onSpeakToCaptain.bind(this));
-        this.server.broadcastPartialCreatureUpdate(this.captain, ['name', 'canSpeak']);
       }
     }
 

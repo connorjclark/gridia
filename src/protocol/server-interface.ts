@@ -242,6 +242,7 @@ export default class ServerInterface implements IServerInterface {
   // eslint-disable-next-line max-len
   onCreatureAction(server: Server, { creatureId, type }: Commands.CreatureAction['params']): Promise<Commands.CreatureAction['response']> {
     const creature = server.context.getCreature(creatureId);
+    const creatureState = server.creatureStates[creatureId];
     const isClose = true; // TODO
     if (!isClose) {
       return Promise.reject('Too far away');
@@ -250,8 +251,7 @@ export default class ServerInterface implements IServerInterface {
     if (!creature || creature.isPlayer) return Promise.reject('Cannot do that to another player');
 
     if (type === 'attack') {
-      server.creatureStates[server.currentClientConnection.creature.id].targetCreature =
-        server.creatureStates[creatureId];
+      server.creatureStates[server.currentClientConnection.creature.id].targetCreature = creatureState;
       server.currentClientConnection.sendEvent(EventBuilder.setAttackTarget({ creatureId }));
     }
 
@@ -262,8 +262,7 @@ export default class ServerInterface implements IServerInterface {
     }
 
     if (type === 'speak') {
-      const cb = server.creatureToOnSpeakCallbacks.get(creature);
-      const dialogue = cb && cb(server.currentClientConnection);
+      const dialogue = creatureState.onSpeakCallback && creatureState.onSpeakCallback(server.currentClientConnection);
       if (dialogue) {
         server.startDialogue(server.currentClientConnection, dialogue);
       } else {
@@ -727,7 +726,7 @@ export default class ServerInterface implements IServerInterface {
             const loc = server.findNearest(server.currentClientConnection.creature.pos, 10, true,
               (_, l) => server.context.walkable(l));
             if (loc) {
-              server.makeCreatureFromTemplate(template, loc);
+              server.createCreature({type: template.id}, loc);
             }
           },
         },

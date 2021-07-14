@@ -64,8 +64,6 @@ export default class Server {
   ticksPerWorldDay = 24 * 60 * 60 / this.secondsPerWorldTick / 8;
   time = new WorldTime(this.ticksPerWorldDay, this.ticksPerWorldDay / 2);
 
-  creatureToOnSpeakCallbacks = new WeakMap<Creature, (clientConnection: ClientConnection) => Dialogue | undefined>();
-
   private _clientToServerProtocol = new ClientToServerProtocol();
   private _scripts: Script[] = [];
   private _quests: Quest[] = [];
@@ -451,20 +449,26 @@ export default class Server {
     }
   }
 
-  makeCreatureFromTemplate(creatureType: number | Monster, pos: TilePoint): Creature | undefined {
-    const template = typeof creatureType === 'number' ? Content.getMonsterTemplate(creatureType) : creatureType;
-    if (!template) return; // TODO
+  createCreature(descriptor: CreatureDescriptor, pos: TilePoint): Creature | undefined {
+    let template = Content.getMonsterTemplate(descriptor.type);
+    if (!template) {
+      console.error(`invalid monster template: ${descriptor.type}, falling back to default`);
+      template = Content.getMonsterTemplate(1);
+    }
+
+    pos = this.findNearest(pos, 10, true, (_, loc) => this.context.walkable(loc)) || pos;
 
     const life = template.life || 10;
     const stamina = template.stamina || 10;
     const mana = template.mana || 10;
+
     const creature: Creature = {
       id: this.context.nextCreatureId++,
       type: template.id,
       dead: false,
       graphics: template.graphics,
       name: template.name,
-      pos: this.findNearest(pos, 10, true, (_, loc) => this.context.walkable(loc)) || pos,
+      pos,
       isPlayer: false,
       roam: template.roam,
       speed: template.speed,
@@ -487,19 +491,17 @@ export default class Server {
         missleDefense: template.missle_defense || 0,
       },
       buffs: [],
+      ...descriptor.partial,
     };
 
-    if (template.equipment) {
-      creature.equipment = template.equipment;
+    this.registerCreature(creature);
+
+    if (descriptor.onSpeak) {
+      creature.canSpeak = true;
+      this.creatureStates[creature.id].onSpeakCallback = descriptor.onSpeak;
     }
 
-    this.registerCreature(creature);
     return creature;
-  }
-
-  registerCreature(creature: Creature) {
-    this.creatureStates[creature.id] = new CreatureState(creature, this.context);
-    this.context.setCreature(creature);
   }
 
   moveCreature(creature: Creature, pos: TilePoint | null) {
@@ -1223,6 +1225,11 @@ export default class Server {
       secondsPerWorldTick: this.secondsPerWorldTick,
       ticksPerWorldDay: this.ticksPerWorldDay,
     }));
+  }
+
+  private registerCreature(creature: Creature) {
+    this.creatureStates[creature.id] = new CreatureState(creature, this.context);
+    this.context.setCreature(creature);
   }
 
   private async initClient(clientConnection: ClientConnection) {
