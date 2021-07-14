@@ -14,8 +14,9 @@ import ClientConnection from './client-connection';
 import CreatureState from './creature-state';
 import { ServerContext } from './server-context';
 import TaskRunner from './task-runner';
-import { Script, TestScript } from './script';
+import { Script } from './script';
 import { adjustAttribute, attributeCheck } from './creature-utils';
+import { BasicScript } from './scripts/basic-script';
 
 // TODO document how the f this works.
 
@@ -1287,7 +1288,7 @@ export default class Server {
       },
     });
 
-    this._scripts.push(new TestScript(this));
+    this._scripts.push(new BasicScript(this));
     this._scripts[0].onStart();
     this.taskRunner.registerTickSection({
       description: 'scripts',
