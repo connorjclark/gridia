@@ -1,8 +1,14 @@
 import ClientConnection from '../client-connection';
 import { Script } from '../script';
 import * as Player from '../../player';
+import { ScriptConfigStore } from './script-config-store';
 
-export class BasicScript extends Script {
+interface Config {
+  captainRegion: Region;
+  ratSpawnerRegion: Region;
+}
+
+export class BasicScript extends Script<Config> {
   quest: Quest = {
     id: 'TEST_QUEST',
     name: 'Your First Quest',
@@ -23,11 +29,26 @@ export class BasicScript extends Script {
     descriptors: [{ type: 41 }, { type: 43 }, { type: 98 }],
     limit: 10,
     rate: { seconds: 5 },
-    region: { w: 0, x: 25, y: 20, z: 0, width: 25, height: 12 },
+    region: this.config.ratSpawnerRegion,
   });
 
+  // TODO: be able to set these values in-game (drawing a rectangle for a region),
+  // and having the script reload.
+  readConfig(config: ScriptConfigStore): Config {
+    return {
+      captainRegion: config.getRegion('test-quest.captain-region'),
+      ratSpawnerRegion: config.getRegion('test-quest.rat-spawner-region'),
+    };
+  }
+
   onStart() {
-    this.server.registerQuest(this.quest);
+    this.ratSpawnerState = this.addCreatureSpawner({
+      descriptors: [{ type: 41 }, { type: 43 }, { type: 98 }],
+      limit: 10,
+      rate: { seconds: 5 },
+      region: this.config.ratSpawnerRegion,
+    });
+
     // TODO better primitive that always keeps a creature alive / respawn if needed ?
     this.addCreatureSpawner({
       descriptors: [{
@@ -37,10 +58,12 @@ export class BasicScript extends Script {
           name: 'Captain Jack',
         },
       }],
-      region: { w: 0, x: 25, y: 20, z: 0, width: 1, height: 1 },
+      region: this.config.captainRegion,
       limit: 1,
       rate: { seconds: 3 },
     });
+
+    this.server.registerQuest(this.quest);
   }
 
   onPlayerCreated(player: Player, clientConnection: ClientConnection) {

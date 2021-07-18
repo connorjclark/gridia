@@ -1,0 +1,18 @@
+{
+  "test-quest.rat-spawner-region": {
+    "w": 0,
+    "x": 25,
+    "y": 20,
+    "z": 0,
+    "width": 25,
+    "height": 12
+  },
+  "test-quest.captain-region": {
+    "w": 0,
+    "x": 25,
+    "y": 20,
+    "z": 0,
+    "width": 1,
+    "height": 1
+  }
+}

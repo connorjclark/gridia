@@ -42,6 +42,8 @@ type ScreenPoint = Point2;
 type PartitionPoint = Point3;
 type TilePoint = Point4; // `w` is world index
 
+type Region = Point4 & { width: number; height: number };
+
 interface GridiaAccount {
   username: string;
   playerIds: string[];

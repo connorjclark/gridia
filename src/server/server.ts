@@ -66,7 +66,7 @@ export default class Server {
   time = new WorldTime(this.ticksPerWorldDay, this.ticksPerWorldDay / 2);
 
   private _clientToServerProtocol = new ClientToServerProtocol();
-  private _scripts: Script[] = [];
+  private _scripts: Array<Script<any>> = [];
   private _quests: Quest[] = [];
 
   constructor(opts: CtorOpts) {
@@ -1291,6 +1291,22 @@ export default class Server {
     }, 1000);
   }
 
+  private addScript(ScriptClass: new (...args: any) => Script<any>) {
+    try {
+      const script = new ScriptClass(this);
+
+      const errors = this.context.scriptConfigStore.takeErrors();
+      if (errors.length) {
+        throw new Error(JSON.stringify(errors, null, 2));
+      }
+
+      script.onStart();
+      this._scripts.push(script);
+    } catch (err) {
+      console.error(`Failed to add script ${ScriptClass.name}. ` + err);
+    }
+  }
+
   private setupTickSections() {
     // super lame.
     this.taskRunner.registerTickSection({
@@ -1300,8 +1316,7 @@ export default class Server {
       },
     });
 
-    this._scripts.push(new BasicScript(this));
-    this._scripts[0].onStart();
+    this.addScript(BasicScript);
     this.taskRunner.registerTickSection({
       description: 'scripts',
       fn: async () => {

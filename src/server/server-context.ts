@@ -6,6 +6,7 @@ import WorldMap from '../world-map';
 import WorldMapPartition from '../world-map-partition';
 import * as WireSerializer from '../lib/wire-serializer';
 import ClientConnection from './client-connection';
+import { ScriptConfigStore } from './scripts/script-config-store';
 
 async function readJson(fs: IsoFs, filePath: string) {
   const json = await fs.readFile(filePath);
@@ -23,6 +24,7 @@ export class ServerContext extends Context {
   playerNamesToIds = new Map<string, string>();
   claims: Record<string, string> = {};
   nextCreatureId = 1;
+  scriptConfigStore = new ScriptConfigStore({});
 
   accountDir: string;
   containerDir: string;
@@ -73,6 +75,13 @@ export class ServerContext extends Context {
     for (const playerPath of await fs.readdir(context.playerDir)) {
       const player: Player = await readJson(fs, context.playerDir + '/' + playerPath);
       context.playerNamesToIds.set(player.name, player.id);
+    }
+
+    const scriptConfigPath = context.miscDir + '/script-config.json';
+    if (await fs.exists(scriptConfigPath)) {
+      context.scriptConfigStore = new ScriptConfigStore(await readJson(fs, scriptConfigPath));
+    } else {
+      context.scriptConfigStore = new ScriptConfigStore({});
     }
 
     return context;

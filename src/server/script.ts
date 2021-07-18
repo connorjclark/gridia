@@ -2,8 +2,7 @@ import * as Utils from '../utils';
 import Server from './server';
 import { Rate } from './task-runner';
 import ClientConnection from './client-connection';
-
-type Region = Point4 & { width: number; height: number };
+import { ScriptConfigStore } from './scripts/script-config-store';
 
 interface CreatureSpawner {
   descriptors: CreatureDescriptor[];
@@ -17,11 +16,16 @@ interface CreatureSpawnerState {
   scheduledSpawnTicks: number[];
 }
 
-export abstract class Script {
+export abstract class Script<Config> {
   protected creatureSpawners: CreatureSpawner[] = [];
   protected creatureSpawnerState = new Map<CreatureSpawner, CreatureSpawnerState>();
+  protected config: Config;
 
-  constructor(protected server: Server) { }
+  constructor(protected server: Server) {
+    this.config = this.readConfig(server.context.scriptConfigStore);
+  }
+
+  abstract readConfig(store: ScriptConfigStore): Config;
 
   onStart(): Promise<void> | void {
     // Can override.
