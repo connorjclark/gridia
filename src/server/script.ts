@@ -88,12 +88,14 @@ export abstract class Script {
     }
   }
 
-  protected addCreatureSpawner(spawner: CreatureSpawner) {
+  protected addCreatureSpawner(spawner: CreatureSpawner): CreatureSpawnerState {
     this.creatureSpawners.push(spawner);
-    this.creatureSpawnerState.set(spawner, {
+    const state = {
       spawnedCreatures: [],
       scheduledSpawnTicks: [],
-    });
+    };
+    this.creatureSpawnerState.set(spawner, state);
+    return state;
   }
 
   protected spawnCreature(opts: { descriptor: CreatureDescriptor; loc?: Point4; region?: Region }) {
@@ -113,13 +115,14 @@ export abstract class Script {
     return creature;
   }
 
-  protected wasCreatureSpawnedBySpawner(creature: Creature) {
-    for (const state of this.creatureSpawnerState.values()) {
-      if (state.spawnedCreatures.includes(creature)) {
-        return true;
-      }
-    }
+  // TODO: remove?
+  // protected wasCreatureSpawnedBySpawner(creature: Creature) {
+  //   for (const state of this.creatureSpawnerState.values()) {
+  //     if (state.spawnedCreatures.includes(creature)) {
+  //       return true;
+  //     }
+  //   }
 
-    return false;
-  }
+  //   return false;
+  // }
 }

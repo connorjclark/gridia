@@ -3,7 +3,6 @@ import { Script } from '../script';
 import * as Player from '../../player';
 
 export class BasicScript extends Script {
-  captain?: Creature;
   quest: Quest = {
     id: 'TEST_QUEST',
     name: 'Your First Quest',
@@ -20,32 +19,28 @@ export class BasicScript extends Script {
       'finish',
     ],
   };
+  ratSpawnerState = this.addCreatureSpawner({
+    descriptors: [{ type: 41 }, { type: 43 }, { type: 98 }],
+    limit: 10,
+    rate: { seconds: 5 },
+    region: { w: 0, x: 25, y: 20, z: 0, width: 25, height: 12 },
+  });
 
   onStart() {
     this.server.registerQuest(this.quest);
-
+    // TODO better primitive that always keeps a creature alive / respawn if needed ?
     this.addCreatureSpawner({
-      descriptors: [{ type: 41 }, { type: 43 }, { type: 98 }],
-      limit: 10,
-      rate: { seconds: 5 },
-      region: { w: 0, x: 25, y: 20, z: 0, width: 25, height: 12 },
-    });
-  }
-
-  onTick() {
-    // TODO should have a primitive that always keeps a creature alive / respawn if needed.
-    if (!this.captain || this.captain.dead) {
-      this.captain = this.spawnCreature({
-        descriptor: {
-          type: 11,
-          onSpeak: this.onSpeakToCaptain.bind(this),
-          partial: {
-            name: 'Captain Jack',
-          },
+      descriptors: [{
+        type: 11,
+        onSpeak: this.onSpeakToCaptain.bind(this),
+        partial: {
+          name: 'Captain Jack',
         },
-        loc: { w: 0, x: 25, y: 20, z: 0 },
-      });
-    }
+      }],
+      region: { w: 0, x: 25, y: 20, z: 0, width: 1, height: 1 },
+      limit: 1,
+      rate: { seconds: 3 },
+    });
   }
 
   onPlayerCreated(player: Player, clientConnection: ClientConnection) {
@@ -58,7 +53,7 @@ export class BasicScript extends Script {
 
   onPlayerKillCreature(player: Player, creature: Creature) {
     if (!Player.hasStartedQuest(player, this.quest)) return;
-    if (!this.wasCreatureSpawnedBySpawner(creature)) return;
+    if (!this.ratSpawnerState.spawnedCreatures.includes(creature)) return;
 
     Player.advanceQuest(player, this.quest);
     // TODO: quest panel
