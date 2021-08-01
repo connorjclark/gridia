@@ -649,6 +649,10 @@ export default class ServerInterface implements IServerInterface {
     return Promise.resolve();
   }
 
+  onRequestScripts(server: Server): Promise<Array<{ id: string; config: any; errors: any[] }>> {
+    return Promise.resolve(server.getScriptStates());
+  }
+
   onChat(server: Server, { text }: Commands.Chat['params']): Promise<Commands.Chat['response']> {
     if (text.startsWith('/')) {
       const creature = server.currentClientConnection.creature;

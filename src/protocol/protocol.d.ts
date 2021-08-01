@@ -43,6 +43,7 @@ declare namespace Protocol {
     type RequestSector = Command<TilePoint>;
     type Use = Command<{ toolIndex: number; location: ItemLocation; usageIndex?: number }>;
     type LearnSkill = Command<{ id: number }>;
+    type RequestScripts = Command<{}, Array<{id: string; config: any; errors: any[]}>>;
   }
 
   namespace Events {

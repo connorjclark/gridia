@@ -1,5 +1,5 @@
 {
-  "test-quest.rat-spawner-region": {
+  "basic-script.ratSpawnerRegion": {
     "w": 0,
     "x": 25,
     "y": 20,
@@ -7,7 +7,7 @@
     "width": 25,
     "height": 12
   },
-  "test-quest.captain-region": {
+  "basic-script.captainRegion": {
     "w": 0,
     "x": 25,
     "y": 20,

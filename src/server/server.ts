@@ -657,7 +657,7 @@ export default class Server {
       damage = data.damage;
       const armor = data.target.stats.armor;
       damage = Math.round(damage * damage / (damage + armor));
-      damage = Utils.clamp(damage, 1, data.target.life.current);
+      damage = Utils.clamp(damage, 0, data.target.life.current);
     }
 
     if (!missReason && data.lineOfSight) {
@@ -1291,19 +1291,19 @@ export default class Server {
     }, 1000);
   }
 
+  getScriptStates() {
+    return this._scripts.map((s) => s.getScriptState());
+  }
+
   private addScript(ScriptClass: new (...args: any) => Script<any>) {
-    try {
-      const script = new ScriptClass(this);
-
-      const errors = this.context.scriptConfigStore.takeErrors();
-      if (errors.length) {
-        throw new Error(JSON.stringify(errors, null, 2));
-      }
-
+    const script = new ScriptClass(this);
+    this._scripts.push(script);
+    const errors = script.getScriptState().errors;
+    if (errors.length) {
+      console.error(`Failed to add script ${ScriptClass.name}.\n` + errors.join('\n'));
+    } else {
       script.onStart();
-      this._scripts.push(script);
-    } catch (err) {
-      console.error(`Failed to add script ${ScriptClass.name}. ` + err);
+      script.state = 'started';
     }
   }
 
@@ -1321,7 +1321,9 @@ export default class Server {
       description: 'scripts',
       fn: async () => {
         for (const script of this._scripts) {
-          await script.tick();
+          if (script.state === 'started') {
+            await script.tick();
+          }
         }
       },
     });

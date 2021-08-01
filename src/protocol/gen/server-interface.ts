@@ -23,4 +23,5 @@ export default interface ICommands {
     onRequestSector(server: Server, { ...loc }: Protocol.Commands.RequestSector["params"]): Promise<Protocol.Commands.RequestSector["response"]>;
     onUse(server: Server, { toolIndex, location, usageIndex }: Protocol.Commands.Use["params"]): Promise<Protocol.Commands.Use["response"]>;
     onLearnSkill(server: Server, { id }: Protocol.Commands.LearnSkill["params"]): Promise<Protocol.Commands.LearnSkill["response"]>;
+    onRequestScripts(server: Server, {}: Protocol.Commands.RequestScripts["params"]): Promise<Protocol.Commands.RequestScripts["response"]>;
 }

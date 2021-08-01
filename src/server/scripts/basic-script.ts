@@ -1,14 +1,16 @@
 import ClientConnection from '../client-connection';
 import { Script } from '../script';
 import * as Player from '../../player';
-import { ScriptConfigStore } from './script-config-store';
+import Server from '../server';
 
-interface Config {
-  captainRegion: Region;
-  ratSpawnerRegion: Region;
-}
+const configDefinition = {
+  captainRegion: 'Region',
+  ratSpawnerRegion: 'Region',
+} as const;
 
-export class BasicScript extends Script<Config> {
+// TODO make scripts not use a class.
+
+export class BasicScript extends Script<typeof configDefinition> {
   quest: Quest = {
     id: 'TEST_QUEST',
     name: 'Your First Quest',
@@ -32,13 +34,8 @@ export class BasicScript extends Script<Config> {
     region: this.config.ratSpawnerRegion,
   });
 
-  // TODO: be able to set these values in-game (drawing a rectangle for a region),
-  // and having the script reload.
-  readConfig(config: ScriptConfigStore): Config {
-    return {
-      captainRegion: config.getRegion('test-quest.captain-region'),
-      ratSpawnerRegion: config.getRegion('test-quest.rat-spawner-region'),
-    };
+  constructor(protected server: Server) {
+    super('basic-script', server, configDefinition);
   }
 
   onStart() {

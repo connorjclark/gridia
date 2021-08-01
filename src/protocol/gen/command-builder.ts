@@ -80,8 +80,12 @@ type LearnSkillCommand = {
     type: "learnSkill";
     args: Protocol.Commands.LearnSkill;
 };
+type RequestScriptsCommand = {
+    type: "requestScripts";
+    args: Protocol.Commands.RequestScripts;
+};
 
-export type ProtocolCommand = AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand;
+export type ProtocolCommand = AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | RequestScriptsCommand;
 
 export function adminSetFloor({ floor, ...loc }: Protocol.Commands.AdminSetFloor["params"]): AdminSetFloorCommand {
     return { type: "adminSetFloor", args: arguments[0] };
@@ -142,4 +146,7 @@ export function use({ toolIndex, location, usageIndex }: Protocol.Commands.Use["
 }
 export function learnSkill({ id }: Protocol.Commands.LearnSkill["params"]): LearnSkillCommand {
     return { type: "learnSkill", args: arguments[0] };
+}
+export function requestScripts({}: Protocol.Commands.RequestScripts["params"]): RequestScriptsCommand {
+    return { type: "requestScripts", args: arguments[0] };
 }

@@ -9,6 +9,21 @@ export class ScriptConfigStore {
     return errors;
   }
 
+  getNumber(key: string): number {
+    const value = this.store[key];
+    if (value === undefined) {
+      this.errors.push({key, error: `no config value for ${key}`});
+      // @ts-expect-error
+      return;
+    }
+    if (typeof value !== 'number') {
+      this.errors.push({key, error: `config value for ${key} should be a number`});
+      // @ts-expect-error
+      return;
+    }
+    return value;
+  }
+
   getRegion(key: string): Region {
     const value = this.store[key];
     if (value === undefined) {

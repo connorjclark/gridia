@@ -16,16 +16,56 @@ interface CreatureSpawnerState {
   scheduledSpawnTicks: number[];
 }
 
-export abstract class Script<Config> {
-  protected creatureSpawners: CreatureSpawner[] = [];
-  protected creatureSpawnerState = new Map<CreatureSpawner, CreatureSpawnerState>();
-  protected config: Config;
+type ConfigDefinition = Record<string, 'Region'|'number'>;
 
-  constructor(protected server: Server) {
-    this.config = this.readConfig(server.context.scriptConfigStore);
+export type MapConfigType<T extends ConfigDefinition> = Required<{ [K in keyof T]?:
+  T[K] extends 'Region' ? Region :
+    T[K] extends 'number' ? number :
+      never
+}>;
+
+function readConfig<T extends ConfigDefinition>(
+  scriptName: string, configDef: T, configStore: ScriptConfigStore): {config: MapConfigType<T>; errors: any[]} {
+
+  // @ts-expect-error
+  const config: MapConfigType<T> = {};
+  for (const [k, v] of Object.entries(configDef)) {
+    const key = `${scriptName}.${k}`;
+    if (v === 'Region') {
+      // @ts-expect-error
+      config[k] = configStore.getRegion(key);
+    } else if (v === 'number') {
+      // @ts-expect-error
+      config[k] = configStore.getNumber(key);
+    }
   }
 
-  abstract readConfig(store: ScriptConfigStore): Config;
+  const errors = configStore.takeErrors();
+  return {config, errors};
+}
+
+export abstract class Script<C extends ConfigDefinition> {
+  protected creatureSpawners: CreatureSpawner[] = [];
+  protected creatureSpawnerState = new Map<CreatureSpawner, CreatureSpawnerState>();
+  // TODO: be able to set these values in-game (drawing a rectangle for a region),
+  // and having the script reload.
+  protected config: MapConfigType<C>;
+  protected errors: any[] = [];
+  state = 'not-started';
+
+  constructor(public id: string, protected server: Server, public configDefinition: C) {
+    const result = readConfig(id, configDefinition, server.context.scriptConfigStore);
+    this.config = result.config;
+    this.errors = result.errors;
+  }
+
+  getScriptState() {
+    return {
+      id: this.id,
+      config: this.config,
+      errors: this.errors,
+    };
+  }
 
   onStart(): Promise<void> | void {
     // Can override.

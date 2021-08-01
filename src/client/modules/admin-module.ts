@@ -32,6 +32,9 @@ class AdminModule extends ClientModule {
   private async init() {
     if (this._adminWindow) return;
 
+    const scripts = await this.game.client.connection.sendCommand(CommandBuilder.requestScripts({}));
+    console.log(scripts);
+
     // Must first load all the image resources.
     await this.game.loader.loadAllImageResources();
 
