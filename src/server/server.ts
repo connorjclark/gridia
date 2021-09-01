@@ -10,6 +10,7 @@ import { WorldTime } from '../world-time';
 import { ProtocolEvent } from '../protocol/event-builder';
 import * as Container from '../container';
 import { calcStraightLine } from '../lib/line';
+import { LootTable as LootTable, roll } from '../lib/drop-table';
 import ClientConnection from './client-connection';
 import CreatureState from './creature-state';
 import { ServerContext } from './server-context';
@@ -829,21 +830,29 @@ export default class Server {
       }
 
       if (!creature.isPlayer && creature.type) {
+        const loot: LootTable = [
+          // TODO: remove
+          { type: 'ref', id: 'food', chance: 20 },
+        ];
+        let deadItemName = 'Decayed Remains';
+
         const template = Content.getMonsterTemplate(creature.type);
         if (template) {
-          const itemsToSpawn = template.treasure.filter((entry) => {
-            // TODO: bug in monsters.json conversion.
-            const chance = entry.chance === 0 ? 0.1 : entry.chance;
-            return Utils.rand(0, 100) <= chance;
+          if (template.dead_item) deadItemName = template.dead_item;
+          loot.push({
+            type: 'one-of',
+            values: template.treasure.map((entry) => {
+              // TODO: bug in monsters.json conversion.
+              const chance = 100 * (entry.chance === 0 ? 0.1 : entry.chance);
+              return {chance, itemType: Content.getMetaItemByName(entry.item).id, itemQuantity: entry.quantity};
+            }),
           });
-          itemsToSpawn.unshift({ item: template.dead_item || 'Decayed Remains', quantity: 1, chance: 100 });
+        }
 
-          for (const entry of itemsToSpawn) {
-            const item = Content.findMetaItemByName(entry.item);
-            if (!item) continue;
-
-            this.addItemNear(creature.pos, { type: item.id, quantity: entry.quantity });
-          }
+        loot.unshift({ itemType: Content.getMetaItemByName(deadItemName).id });
+        const itemsToSpawn = roll(loot);
+        for (const item of itemsToSpawn) {
+          this.addItemNear(creature.pos, item);
         }
       }
     }
