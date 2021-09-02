@@ -177,7 +177,7 @@ export default class CreatureState {
       Actions.FollowTarget,
     ];
 
-    if (this.creature.eat_grass) {
+    if (this.creature.eatGrass) {
       this._actions.push(Actions.FindGrass);
       this._actions.push(Actions.EatGrass);
     }
@@ -247,7 +247,7 @@ export default class CreatureState {
       if (changed.length) server.broadcastPartialCreatureUpdate(this.creature, changed);
     }
 
-    if (!this.goals.length && this.creature.eat_grass) {
+    if (!this.goals.length && this.creature.eatGrass) {
       if (this.creature.food <= 10) {
         this.addGoal({
           desiredEffect: 'food',

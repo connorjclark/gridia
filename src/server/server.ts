@@ -401,7 +401,7 @@ export default class Server {
       },
       // TODO
       food: 100,
-      eat_grass: false,
+      eatGrass: false,
       light: 0,
       combatLevel: Player.getCombatLevel(player).combatLevel,
       // set later
@@ -490,7 +490,7 @@ export default class Server {
       stamina: { current: stamina, max: stamina },
       mana: { current: mana, max: mana },
       food: 10,
-      eat_grass: template.eat_grass,
+      eatGrass: template.eatGrass,
       light: 0,
       // @ts-expect-error TODO
       combatLevel: template.level || 5,
@@ -500,9 +500,9 @@ export default class Server {
         attackSpeed: template.speed,
         damageLow: 1,
         damageHigh: 2,
-        magicDefense: template.magic_defense || 0,
-        meleeDefense: template.melee_defense || 0,
-        missleDefense: template.missle_defense || 0,
+        magicDefense: template.magicDefense || 0,
+        meleeDefense: template.meleeDefense || 0,
+        missleDefense: template.missleDefense || 0,
       },
       buffs: [],
       ...descriptor.partial,
@@ -834,22 +834,15 @@ export default class Server {
           // TODO: remove
           { type: 'ref', id: 'food', chance: 20 },
         ];
-        let deadItemName = 'Decayed Remains';
+        let deadItemType = Content.getMetaItemByName('Decayed Remains').id;
 
         const template = Content.getMonsterTemplate(creature.type);
         if (template) {
-          if (template.dead_item) deadItemName = template.dead_item;
-          loot.push({
-            type: 'one-of',
-            values: template.treasure.map((entry) => {
-              // TODO: bug in monsters.json conversion.
-              const chance = 100 * (entry.chance === 0 ? 0.1 : entry.chance);
-              return {chance, type: Content.getMetaItemByName(entry.item).id, quantity: entry.quantity};
-            }),
-          });
+          if (template.deadItem) deadItemType = template.deadItem;
+          if (template.lootTable) loot.push(...template.lootTable);
         }
 
-        loot.unshift({ type: Content.getMetaItemByName(deadItemName).id });
+        loot.unshift({ type: deadItemType });
         const itemsToSpawn = roll(loot, Content.getLootTables());
         for (const item of itemsToSpawn) {
           this.addItemNear(creature.pos, item);
@@ -1499,7 +1492,7 @@ export default class Server {
       rate: { minutes: 1 },
       fn: () => {
         for (const creature of this.context.creatures.values()) {
-          if (!creature.eat_grass) return; // TODO: let all creature experience hunger pain.
+          if (!creature.eatGrass) return; // TODO: let all creature experience hunger pain.
 
           if (creature.food <= 0) {
             // TODO: reduce stamina instead?

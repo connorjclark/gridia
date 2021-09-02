@@ -1,2027 +1,2113 @@
 {
-  "LowWeapon": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 90
-      },
-      {
-        "type": 21
-      },
-      {
-        "type": 31,
-        "chance": 2
-      },
-      {
-        "type": 41
-      },
-      {
-        "type": 41
-      },
-      {
-        "type": 51
-      },
-      {
-        "type": 61
-      },
-      {
-        "type": 71
-      },
-      {
-        "type": 81
-      }
-    ]
-  },
-  "MediumWeapon": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 91
-      },
-      {
-        "type": 1525
-      },
-      {
-        "type": 22
-      },
-      {
-        "type": 32,
-        "chance": 2
-      },
-      {
-        "type": 1279
-      },
-      {
-        "type": 53
-      },
-      {
-        "type": 62
-      },
-      {
-        "type": 1280
-      },
-      {
-        "type": 82
-      },
-      {
-        "type": 45
-      }
-    ]
-  },
-  "HighWeapon": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 91
-      },
-      {
-        "type": 1525
-      },
-      {
-        "type": 22
-      },
-      {
-        "type": 33,
-        "chance": 2
-      },
-      {
-        "type": 42
-      },
-      {
-        "type": 56
-      },
-      {
-        "type": 842
-      },
-      {
-        "type": 1280
-      },
-      {
-        "type": 83
-      },
-      {
-        "type": 45
-      },
-      {
-        "type": 46
-      }
-    ]
-  },
-  "VeryHighWeapon": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 91
-      },
-      {
-        "type": 1525
-      },
-      {
-        "type": 22
-      },
-      {
-        "type": 36,
-        "chance": 2
-      },
-      {
-        "type": 43
-      },
-      {
-        "type": 55
-      },
-      {
-        "type": 69
-      },
-      {
-        "type": 1280
-      },
-      {
-        "type": 85
-      },
-      {
-        "type": 1079
-      }
-    ]
-  },
-  "LowMissle": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 1122,
-        "chance": 2
-      },
-      {
-        "type": 1136
-      },
-      {
-        "type": 274
-      }
-    ]
-  },
-  "MediumMissle": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 1122,
-        "chance": 3
-      },
-      {
-        "type": 1123
-      },
-      {
-        "type": 1136,
-        "chance": 2
-      },
-      {
-        "type": 1137
-      },
-      {
-        "type": 274
-      }
-    ]
-  },
-  "HighMissle": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 1122,
-        "chance": 3
-      },
-      {
-        "type": 1123
-      },
-      {
-        "type": 1136,
-        "chance": 2
-      },
-      {
-        "type": 1137
-      },
-      {
-        "type": 274
-      },
-      {
-        "type": 268
-      }
-    ]
-  },
-  "VeryHighMissle": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 1122,
-        "chance": 3
-      },
-      {
-        "type": 1123
-      },
-      {
-        "type": 1136,
-        "chance": 2
-      },
-      {
-        "type": 1137
-      },
-      {
-        "type": 274
-      },
-      {
-        "type": 268
-      }
-    ]
-  },
-  "LowArmor": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 15
-      },
-      {
-        "type": 15
-      },
-      {
-        "type": 15
-      },
-      {
-        "type": 787
-      },
-      {
-        "type": 787
-      },
-      {
-        "type": 787
-      },
-      {
-        "type": 788
-      },
-      {
-        "type": 788
-      },
-      {
-        "type": 788
-      },
-      {
-        "type": 733
-      },
-      {
-        "type": 757
-      },
-      {
-        "type": 518
-      }
-    ]
-  },
-  "MediumArmor": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 13
-      },
-      {
-        "type": 754
-      },
-      {
-        "type": 730
-      },
-      {
-        "type": 530
-      },
-      {
-        "type": 769
-      },
-      {
-        "type": 745
-      },
-      {
-        "type": 734
-      },
-      {
-        "type": 758
-      },
-      {
-        "type": 519
-      }
-    ]
-  },
-  "HighArmor": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 533
-      },
-      {
-        "type": 772
-      },
-      {
-        "type": 748
-      },
-      {
-        "type": 12
-      },
-      {
-        "type": 753
-      },
-      {
-        "type": 729
-      },
-      {
-        "type": 531
-      },
-      {
-        "type": 770
-      },
-      {
-        "type": 746
-      }
-    ]
-  },
-  "VeryHighArmor": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 12
-      },
-      {
-        "type": 753
-      },
-      {
-        "type": 729
-      },
-      {
-        "type": 534
-      },
-      {
-        "type": 773
-      },
-      {
-        "type": 749
-      }
-    ]
-  },
-  "LowSheild": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 2169
-      },
-      {
-        "type": 2169
-      },
-      {
-        "type": 2169
-      },
-      {
-        "type": 2170
-      },
-      {
-        "type": 2170
-      },
-      {
-        "type": 2170
-      },
-      {
-        "type": 2171
-      },
-      {
-        "type": 2171
-      },
-      {
-        "type": 2171
-      },
-      {
-        "type": 2172
-      },
-      {
-        "type": 2172
-      },
-      {
-        "type": 2172
-      },
-      {
-        "type": 2173
-      },
-      {
-        "type": 2173
-      },
-      {
-        "type": 2173
-      },
-      {
-        "type": 2174
-      },
-      {
-        "type": 2174
-      },
-      {
-        "type": 2174
-      }
-    ]
-  },
-  "MediumSheild": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 2175
-      },
-      {
-        "type": 2175
-      },
-      {
-        "type": 2175
-      },
-      {
-        "type": 2176
-      },
-      {
-        "type": 2176
-      },
-      {
-        "type": 2176
-      },
-      {
-        "type": 2177
-      },
-      {
-        "type": 2177
-      },
-      {
-        "type": 2177
-      },
-      {
-        "type": 2178
-      },
-      {
-        "type": 2178
-      },
-      {
-        "type": 2178
-      },
-      {
-        "type": 2179
-      },
-      {
-        "type": 2179
-      },
-      {
-        "type": 2179
-      },
-      {
-        "type": 2180
-      },
-      {
-        "type": 2180
-      },
-      {
-        "type": 2180
-      }
-    ]
-  },
-  "HighSheild": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 2178
-      },
-      {
-        "type": 2178
-      },
-      {
-        "type": 2178
-      },
-      {
-        "type": 2179
-      },
-      {
-        "type": 2179
-      },
-      {
-        "type": 2179
-      },
-      {
-        "type": 2180
-      },
-      {
-        "type": 2180
-      },
-      {
-        "type": 2180
-      },
-      {
-        "type": 2181
-      },
-      {
-        "type": 2181
-      },
-      {
-        "type": 2181
-      },
-      {
-        "type": 2182
-      },
-      {
-        "type": 2182
-      },
-      {
-        "type": 2182
-      },
-      {
-        "type": 2183
-      },
-      {
-        "type": 2183
-      },
-      {
-        "type": 2183
-      }
-    ]
-  },
-  "LowWand": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 58
-      },
-      {
-        "type": 362
-      },
-      {
-        "type": 58
-      },
-      {
-        "type": 362
-      },
-      {
-        "type": 58
-      },
-      {
-        "type": 362
-      },
-      {
-        "type": 58
-      },
-      {
-        "type": 362
-      }
-    ]
-  },
-  "MediumWand": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 37
-      },
-      {
-        "type": 119
-      },
-      {
-        "type": 37
-      },
-      {
-        "type": 119
-      },
-      {
-        "type": 37
-      },
-      {
-        "type": 119
-      },
-      {
-        "type": 37
-      },
-      {
-        "type": 119
-      }
-    ]
-  },
-  "HighWand": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 67
-      },
-      {
-        "type": 26
-      },
-      {
-        "type": 67
-      },
-      {
-        "type": 26
-      },
-      {
-        "type": 67
-      },
-      {
-        "type": 26
-      },
-      {
-        "type": 67
-      },
-      {
-        "type": 26
-      }
-    ]
-  },
-  "VeryHighWand": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 867
-      },
-      {
-        "type": 869
-      },
-      {
-        "type": 867
-      },
-      {
-        "type": 869
-      },
-      {
-        "type": 867
-      },
-      {
-        "type": 869
-      },
-      {
-        "type": 867
-      },
-      {
-        "type": 869
-      }
-    ]
-  },
-  "LowJewelry": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 377,
-        "chance": 3
-      },
-      {
-        "type": 378,
-        "chance": 3
-      },
-      {
-        "type": 379
-      },
-      {
-        "type": 789,
-        "chance": 6
-      },
-      {
-        "type": 790,
-        "chance": 5
-      },
-      {
-        "type": 791,
-        "chance": 3
-      },
-      {
-        "type": 792,
-        "chance": 6
-      },
-      {
-        "type": 793,
-        "chance": 6
-      },
-      {
-        "type": 794,
-        "chance": 2
-      },
-      {
-        "type": 795,
-        "chance": 12
-      },
-      {
-        "type": 796,
-        "chance": 10
-      },
-      {
-        "type": 797,
-        "chance": 6
-      },
-      {
-        "type": 798,
-        "chance": 6
-      },
-      {
-        "type": 799,
-        "chance": 6
-      },
-      {
-        "type": 800,
-        "chance": 2
-      },
-      {
-        "type": 801,
-        "chance": 12
-      },
-      {
-        "type": 802,
-        "chance": 10
-      },
-      {
-        "type": 803,
-        "chance": 6
-      }
-    ]
-  },
-  "MediumJewelry": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 377,
-        "chance": 3
-      },
-      {
-        "type": 378,
-        "chance": 3
-      },
-      {
-        "type": 379
-      },
-      {
-        "type": 789,
-        "chance": 6
-      },
-      {
-        "type": 790,
-        "chance": 5
-      },
-      {
-        "type": 791,
-        "chance": 3
-      },
-      {
-        "type": 792,
-        "chance": 6
-      },
-      {
-        "type": 793,
-        "chance": 6
-      },
-      {
-        "type": 794,
-        "chance": 2
-      },
-      {
-        "type": 795,
-        "chance": 12
-      },
-      {
-        "type": 796,
-        "chance": 10
-      },
-      {
-        "type": 797,
-        "chance": 6
-      },
-      {
-        "type": 798,
-        "chance": 6
-      },
-      {
-        "type": 799,
-        "chance": 6
-      },
-      {
-        "type": 800,
-        "chance": 2
-      },
-      {
-        "type": 801,
-        "chance": 12
-      },
-      {
-        "type": 802,
-        "chance": 10
-      },
-      {
-        "type": 803,
-        "chance": 6
-      }
-    ]
-  },
-  "HighJewelry": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 377,
-        "chance": 3
-      },
-      {
-        "type": 378,
-        "chance": 3
-      },
-      {
-        "type": 379
-      },
-      {
-        "type": 789,
-        "chance": 6
-      },
-      {
-        "type": 790,
-        "chance": 5
-      },
-      {
-        "type": 791,
-        "chance": 3
-      },
-      {
-        "type": 792,
-        "chance": 6
-      },
-      {
-        "type": 793,
-        "chance": 6
-      },
-      {
-        "type": 794,
-        "chance": 2
-      },
-      {
-        "type": 795,
-        "chance": 12
-      },
-      {
-        "type": 796,
-        "chance": 10
-      },
-      {
-        "type": 797,
-        "chance": 6
-      },
-      {
-        "type": 798,
-        "chance": 6
-      },
-      {
-        "type": 799,
-        "chance": 6
-      },
-      {
-        "type": 800,
-        "chance": 2
-      },
-      {
-        "type": 801,
-        "chance": 12
-      },
-      {
-        "type": 802,
-        "chance": 10
-      },
-      {
-        "type": 803,
-        "chance": 6
-      }
-    ]
-  },
-  "VeryHighJewelry": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 377,
-        "chance": 3
-      },
-      {
-        "type": 378,
-        "chance": 3
-      },
-      {
-        "type": 379
-      },
-      {
-        "type": 789,
-        "chance": 6
-      },
-      {
-        "type": 790,
-        "chance": 5
-      },
-      {
-        "type": 791,
-        "chance": 3
-      },
-      {
-        "type": 792,
-        "chance": 6
-      },
-      {
-        "type": 793,
-        "chance": 6
-      },
-      {
-        "type": 794,
-        "chance": 2
-      },
-      {
-        "type": 795,
-        "chance": 12
-      },
-      {
-        "type": 796,
-        "chance": 10
-      },
-      {
-        "type": 797,
-        "chance": 6
-      },
-      {
-        "type": 798,
-        "chance": 6
-      },
-      {
-        "type": 799,
-        "chance": 6
-      },
-      {
-        "type": 800,
-        "chance": 2
-      },
-      {
-        "type": 801,
-        "chance": 12
-      },
-      {
-        "type": 802,
-        "chance": 10
-      },
-      {
-        "type": 803,
-        "chance": 6
-      }
-    ]
-  },
-  "LowElemental": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 1331
-      },
-      {
-        "type": 1332
-      },
-      {
-        "type": 1333
-      },
-      {
-        "type": 1334
-      },
-      {
-        "type": 1335
-      },
-      {
-        "type": 1336
-      },
-      {
-        "type": 1337
-      },
-      {
-        "type": 1338
-      },
-      {
-        "type": 1339
-      },
-      {
-        "type": 1293
-      },
-      {
-        "type": 1295
-      },
-      {
-        "type": 1297
-      },
-      {
-        "type": 1340
-      },
-      {
-        "type": 1341
-      },
-      {
-        "type": 1342
-      },
-      {
-        "type": 1343
-      },
-      {
-        "type": 1344
-      },
-      {
-        "type": 1345
-      }
-    ]
-  },
-  "MediumElemental": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 1522
-      },
-      {
-        "type": 1523
-      },
-      {
-        "type": 1524
-      },
-      {
-        "type": 1273
-      },
-      {
-        "type": 1275
-      },
-      {
-        "type": 1277
-      },
-      {
-        "type": 1281
-      },
-      {
-        "type": 1283
-      },
-      {
-        "type": 1285
-      },
-      {
-        "type": 1288
-      },
-      {
-        "type": 1290
-      },
-      {
-        "type": 1292
-      },
-      {
-        "type": 1293
-      },
-      {
-        "type": 1295
-      },
-      {
-        "type": 1297
-      },
-      {
-        "type": 1299
-      },
-      {
-        "type": 1300
-      },
-      {
-        "type": 1301
-      },
-      {
-        "type": 1343
-      },
-      {
-        "type": 1344
-      },
-      {
-        "type": 1345
-      },
-      {
-        "type": 1274
-      },
-      {
-        "type": 1276
-      },
-      {
-        "type": 1278
-      },
-      {
-        "type": 1282
-      },
-      {
-        "type": 1284
-      },
-      {
-        "type": 1286
-      },
-      {
-        "type": 1287
-      },
-      {
-        "type": 1289
-      },
-      {
-        "type": 1291
-      },
-      {
-        "type": 1294
-      },
-      {
-        "type": 1296
-      },
-      {
-        "type": 1298
-      },
-      {
-        "type": 1303
-      },
-      {
-        "type": 1305
-      },
-      {
-        "type": 1307
-      },
-      {
-        "type": 1346
-      },
-      {
-        "type": 1347
-      },
-      {
-        "type": 1348
-      }
-    ]
-  },
-  "HighElemental": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 1522
-      },
-      {
-        "type": 1523
-      },
-      {
-        "type": 1524
-      },
-      {
-        "type": 1273
-      },
-      {
-        "type": 1275
-      },
-      {
-        "type": 1277
-      },
-      {
-        "type": 1281
-      },
-      {
-        "type": 1283
-      },
-      {
-        "type": 1285
-      },
-      {
-        "type": 1288
-      },
-      {
-        "type": 1290
-      },
-      {
-        "type": 1292
-      },
-      {
-        "type": 1293
-      },
-      {
-        "type": 1295
-      },
-      {
-        "type": 1297
-      },
-      {
-        "type": 1299
-      },
-      {
-        "type": 1300
-      },
-      {
-        "type": 1301
-      },
-      {
-        "type": 1343
-      },
-      {
-        "type": 1344
-      },
-      {
-        "type": 1345
-      },
-      {
-        "type": 1274
-      },
-      {
-        "type": 1276
-      },
-      {
-        "type": 1278
-      },
-      {
-        "type": 1282
-      },
-      {
-        "type": 1284
-      },
-      {
-        "type": 1286
-      },
-      {
-        "type": 1287
-      },
-      {
-        "type": 1289
-      },
-      {
-        "type": 1291
-      },
-      {
-        "type": 1294
-      },
-      {
-        "type": 1296
-      },
-      {
-        "type": 1298
-      },
-      {
-        "type": 1303
-      },
-      {
-        "type": 1305
-      },
-      {
-        "type": 1307
-      },
-      {
-        "type": 1346
-      },
-      {
-        "type": 1347
-      },
-      {
-        "type": 1348
-      }
-    ]
-  },
-  "VeryHighElemental": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 1522
-      },
-      {
-        "type": 1523
-      },
-      {
-        "type": 1524
-      },
-      {
-        "type": 1273
-      },
-      {
-        "type": 1275
-      },
-      {
-        "type": 1277
-      },
-      {
-        "type": 1281
-      },
-      {
-        "type": 1283
-      },
-      {
-        "type": 1285
-      },
-      {
-        "type": 1288
-      },
-      {
-        "type": 1290
-      },
-      {
-        "type": 1292
-      },
-      {
-        "type": 1293
-      },
-      {
-        "type": 1295
-      },
-      {
-        "type": 1297
-      },
-      {
-        "type": 1299
-      },
-      {
-        "type": 1300
-      },
-      {
-        "type": 1301
-      },
-      {
-        "type": 1343
-      },
-      {
-        "type": 1344
-      },
-      {
-        "type": 1345
-      },
-      {
-        "type": 1274
-      },
-      {
-        "type": 1276
-      },
-      {
-        "type": 1278
-      },
-      {
-        "type": 1282
-      },
-      {
-        "type": 1284
-      },
-      {
-        "type": 1286
-      },
-      {
-        "type": 1287
-      },
-      {
-        "type": 1289
-      },
-      {
-        "type": 1291
-      },
-      {
-        "type": 1294
-      },
-      {
-        "type": 1296
-      },
-      {
-        "type": 1298
-      },
-      {
-        "type": 1303
-      },
-      {
-        "type": 1305
-      },
-      {
-        "type": 1307
-      },
-      {
-        "type": 1346
-      },
-      {
-        "type": 1347
-      },
-      {
-        "type": 1348
-      }
-    ]
-  },
-  "LowCastingJewelry": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      }
-    ]
-  },
-  "MediumCastingJewelry": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      }
-    ]
-  },
-  "HighCastingJewelry": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      }
-    ]
-  },
-  "VeryHighCastingJewelry": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      },
-      {
-        "type": 376
-      }
-    ]
-  },
-  "MinorPotion": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 410,
-        "chance": 2
-      },
-      {
-        "type": 411,
-        "chance": 5
-      },
-      {
-        "type": 412,
-        "chance": 5
-      },
-      {
-        "type": 413,
-        "chance": 5
-      },
-      {
-        "type": 418,
-        "chance": 5
-      }
-    ]
-  },
-  "MajorPotion": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 700,
-        "chance": 2
-      },
-      {
-        "type": 701,
-        "chance": 5
-      },
-      {
-        "type": 702,
-        "chance": 5
-      },
-      {
-        "type": 703,
-        "chance": 5
-      },
-      {
-        "type": 704,
-        "chance": 5
-      }
-    ]
-  },
-  "MinorAttribPotion": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 589,
-        "chance": 5
-      },
-      {
-        "type": 591,
-        "chance": 5
-      },
-      {
-        "type": 590,
-        "chance": 5
-      },
-      {
-        "type": 593,
-        "chance": 5
-      },
-      {
-        "type": 592,
-        "chance": 5
-      }
-    ]
-  },
-  "MajorAttribPotion": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 705,
-        "chance": 5
-      },
-      {
-        "type": 707,
-        "chance": 5
-      },
-      {
-        "type": 706,
-        "chance": 5
-      },
-      {
-        "type": 709,
-        "chance": 5
-      },
-      {
-        "type": 708,
-        "chance": 5
-      }
-    ]
-  },
-  "MinorMeleePotion": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 594,
-        "chance": 5
-      },
-      {
-        "type": 595,
-        "chance": 5
-      },
-      {
-        "type": 596,
-        "chance": 5
-      },
-      {
-        "type": 597,
-        "chance": 5
-      },
-      {
-        "type": 598,
-        "chance": 5
-      },
-      {
-        "type": 599,
-        "chance": 5
-      },
-      {
-        "type": 640,
-        "chance": 5
-      },
-      {
-        "type": 641,
-        "chance": 5
-      },
-      {
-        "type": 642,
-        "chance": 5
-      },
-      {
-        "type": 643,
-        "chance": 5
-      },
-      {
-        "type": 644,
-        "chance": 5
-      },
-      {
-        "type": 645,
-        "chance": 5
-      },
-      {
-        "type": 654,
-        "chance": 5
-      },
-      {
-        "type": 895,
-        "chance": 5
-      }
-    ]
-  },
-  "MajorMeleePotion": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 710,
-        "chance": 5
-      },
-      {
-        "type": 711,
-        "chance": 5
-      },
-      {
-        "type": 712,
-        "chance": 5
-      },
-      {
-        "type": 713,
-        "chance": 5
-      },
-      {
-        "type": 714,
-        "chance": 5
-      },
-      {
-        "type": 715,
-        "chance": 5
-      },
-      {
-        "type": 716,
-        "chance": 5
-      },
-      {
-        "type": 717,
-        "chance": 5
-      },
-      {
-        "type": 718,
-        "chance": 5
-      },
-      {
-        "type": 719,
-        "chance": 5
-      },
-      {
-        "type": 720,
-        "chance": 5
-      },
-      {
-        "type": 721,
-        "chance": 5
-      },
-      {
-        "type": 728,
-        "chance": 5
-      },
-      {
-        "type": 972,
-        "chance": 5
-      }
-    ]
-  },
-  "MinorMagicPotion": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 646,
-        "chance": 5
-      },
-      {
-        "type": 647,
-        "chance": 5
-      },
-      {
-        "type": 648,
-        "chance": 5
-      },
-      {
-        "type": 898,
-        "chance": 5
-      },
-      {
-        "type": 960,
-        "chance": 5
-      },
-      {
-        "type": 963,
-        "chance": 5
-      },
-      {
-        "type": 968,
-        "chance": 5
-      }
-    ]
-  },
-  "MajorMagicPotion": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 722,
-        "chance": 5
-      },
-      {
-        "type": 723,
-        "chance": 5
-      },
-      {
-        "type": 724,
-        "chance": 5
-      },
-      {
-        "type": 973,
-        "chance": 5
-      },
-      {
-        "type": 975,
-        "chance": 5
-      },
-      {
-        "type": 976,
-        "chance": 5
-      },
-      {
-        "type": 974,
-        "chance": 5
-      }
-    ]
-  },
-  "MinorTradePotion": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 966,
-        "chance": 5
-      },
-      {
-        "type": 1095,
-        "chance": 5
-      },
-      {
-        "type": 1103,
-        "chance": 5
-      },
-      {
-        "type": 999,
-        "chance": 5
-      },
-      {
-        "type": 650,
-        "chance": 5
-      },
-      {
-        "type": 653,
-        "chance": 5
-      },
-      {
-        "type": 649,
-        "chance": 5
-      },
-      {
-        "type": 1108,
-        "chance": 5
-      }
-    ]
-  },
-  "MajorTradePotion": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 995,
-        "chance": 5
-      },
-      {
-        "type": 1096,
-        "chance": 5
-      },
-      {
-        "type": 1104,
-        "chance": 5
-      },
-      {
-        "type": 1092,
-        "chance": 5
-      },
-      {
-        "type": 726,
-        "chance": 5
-      },
-      {
-        "type": 727,
-        "chance": 5
-      },
-      {
-        "type": 725,
-        "chance": 5
-      },
-      {
-        "type": 1109,
-        "chance": 5
-      }
-    ]
-  },
-  "VeryHighSheild": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 2181
-      },
-      {
-        "type": 2181
-      },
-      {
-        "type": 2181
-      },
-      {
-        "type": 2182
-      },
-      {
-        "type": 2182
-      },
-      {
-        "type": 2182
-      },
-      {
-        "type": 2183
-      },
-      {
-        "type": 2183
-      },
-      {
-        "type": 2183
-      },
-      {
-        "type": 2184
-      },
-      {
-        "type": 2184
-      },
-      {
-        "type": 2184
-      },
-      {
-        "type": 2185
-      },
-      {
-        "type": 2185
-      },
-      {
-        "type": 2185
-      },
-      {
-        "type": 2186
-      },
-      {
-        "type": 2186
-      },
-      {
-        "type": 2186
-      }
-    ]
-  },
-  "food": {
-    "type": "one-of",
-    "values": [
-      {
-        "type": 158
-      },
-      {
-        "type": 576
-      }
-    ]
-  }
+  "lowweapon": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 90
+        },
+        {
+          "type": 21
+        },
+        {
+          "type": 31,
+          "chance": 2
+        },
+        {
+          "type": 41
+        },
+        {
+          "type": 41
+        },
+        {
+          "type": 51
+        },
+        {
+          "type": 61
+        },
+        {
+          "type": 71
+        },
+        {
+          "type": 81
+        }
+      ]
+    }
+  ],
+  "mediumweapon": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 91
+        },
+        {
+          "type": 1525
+        },
+        {
+          "type": 22
+        },
+        {
+          "type": 32,
+          "chance": 2
+        },
+        {
+          "type": 1279
+        },
+        {
+          "type": 53
+        },
+        {
+          "type": 62
+        },
+        {
+          "type": 1280
+        },
+        {
+          "type": 82
+        },
+        {
+          "type": 45
+        }
+      ]
+    }
+  ],
+  "highweapon": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 91
+        },
+        {
+          "type": 1525
+        },
+        {
+          "type": 22
+        },
+        {
+          "type": 33,
+          "chance": 2
+        },
+        {
+          "type": 42
+        },
+        {
+          "type": 56
+        },
+        {
+          "type": 842
+        },
+        {
+          "type": 1280
+        },
+        {
+          "type": 83
+        },
+        {
+          "type": 45
+        },
+        {
+          "type": 46
+        }
+      ]
+    }
+  ],
+  "veryhighweapon": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 91
+        },
+        {
+          "type": 1525
+        },
+        {
+          "type": 22
+        },
+        {
+          "type": 36,
+          "chance": 2
+        },
+        {
+          "type": 43
+        },
+        {
+          "type": 55
+        },
+        {
+          "type": 69
+        },
+        {
+          "type": 1280
+        },
+        {
+          "type": 85
+        },
+        {
+          "type": 1079
+        }
+      ]
+    }
+  ],
+  "lowmissle": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 1122,
+          "chance": 2
+        },
+        {
+          "type": 1136
+        },
+        {
+          "type": 274
+        }
+      ]
+    }
+  ],
+  "mediummissle": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 1122,
+          "chance": 3
+        },
+        {
+          "type": 1123
+        },
+        {
+          "type": 1136,
+          "chance": 2
+        },
+        {
+          "type": 1137
+        },
+        {
+          "type": 274
+        }
+      ]
+    }
+  ],
+  "highmissle": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 1122,
+          "chance": 3
+        },
+        {
+          "type": 1123
+        },
+        {
+          "type": 1136,
+          "chance": 2
+        },
+        {
+          "type": 1137
+        },
+        {
+          "type": 274
+        },
+        {
+          "type": 268
+        }
+      ]
+    }
+  ],
+  "veryhighmissle": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 1122,
+          "chance": 3
+        },
+        {
+          "type": 1123
+        },
+        {
+          "type": 1136,
+          "chance": 2
+        },
+        {
+          "type": 1137
+        },
+        {
+          "type": 274
+        },
+        {
+          "type": 268
+        }
+      ]
+    }
+  ],
+  "lowarmor": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 15
+        },
+        {
+          "type": 15
+        },
+        {
+          "type": 15
+        },
+        {
+          "type": 787
+        },
+        {
+          "type": 787
+        },
+        {
+          "type": 787
+        },
+        {
+          "type": 788
+        },
+        {
+          "type": 788
+        },
+        {
+          "type": 788
+        },
+        {
+          "type": 733
+        },
+        {
+          "type": 757
+        },
+        {
+          "type": 518
+        }
+      ]
+    }
+  ],
+  "mediumarmor": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 13
+        },
+        {
+          "type": 754
+        },
+        {
+          "type": 730
+        },
+        {
+          "type": 530
+        },
+        {
+          "type": 769
+        },
+        {
+          "type": 745
+        },
+        {
+          "type": 734
+        },
+        {
+          "type": 758
+        },
+        {
+          "type": 519
+        }
+      ]
+    }
+  ],
+  "higharmor": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 533
+        },
+        {
+          "type": 772
+        },
+        {
+          "type": 748
+        },
+        {
+          "type": 12
+        },
+        {
+          "type": 753
+        },
+        {
+          "type": 729
+        },
+        {
+          "type": 531
+        },
+        {
+          "type": 770
+        },
+        {
+          "type": 746
+        }
+      ]
+    }
+  ],
+  "veryhigharmor": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 12
+        },
+        {
+          "type": 753
+        },
+        {
+          "type": 729
+        },
+        {
+          "type": 534
+        },
+        {
+          "type": 773
+        },
+        {
+          "type": 749
+        }
+      ]
+    }
+  ],
+  "lowshield": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 2169
+        },
+        {
+          "type": 2169
+        },
+        {
+          "type": 2169
+        },
+        {
+          "type": 2170
+        },
+        {
+          "type": 2170
+        },
+        {
+          "type": 2170
+        },
+        {
+          "type": 2171
+        },
+        {
+          "type": 2171
+        },
+        {
+          "type": 2171
+        },
+        {
+          "type": 2172
+        },
+        {
+          "type": 2172
+        },
+        {
+          "type": 2172
+        },
+        {
+          "type": 2173
+        },
+        {
+          "type": 2173
+        },
+        {
+          "type": 2173
+        },
+        {
+          "type": 2174
+        },
+        {
+          "type": 2174
+        },
+        {
+          "type": 2174
+        }
+      ]
+    }
+  ],
+  "mediumshield": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 2175
+        },
+        {
+          "type": 2175
+        },
+        {
+          "type": 2175
+        },
+        {
+          "type": 2176
+        },
+        {
+          "type": 2176
+        },
+        {
+          "type": 2176
+        },
+        {
+          "type": 2177
+        },
+        {
+          "type": 2177
+        },
+        {
+          "type": 2177
+        },
+        {
+          "type": 2178
+        },
+        {
+          "type": 2178
+        },
+        {
+          "type": 2178
+        },
+        {
+          "type": 2179
+        },
+        {
+          "type": 2179
+        },
+        {
+          "type": 2179
+        },
+        {
+          "type": 2180
+        },
+        {
+          "type": 2180
+        },
+        {
+          "type": 2180
+        }
+      ]
+    }
+  ],
+  "highshield": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 2178
+        },
+        {
+          "type": 2178
+        },
+        {
+          "type": 2178
+        },
+        {
+          "type": 2179
+        },
+        {
+          "type": 2179
+        },
+        {
+          "type": 2179
+        },
+        {
+          "type": 2180
+        },
+        {
+          "type": 2180
+        },
+        {
+          "type": 2180
+        },
+        {
+          "type": 2181
+        },
+        {
+          "type": 2181
+        },
+        {
+          "type": 2181
+        },
+        {
+          "type": 2182
+        },
+        {
+          "type": 2182
+        },
+        {
+          "type": 2182
+        },
+        {
+          "type": 2183
+        },
+        {
+          "type": 2183
+        },
+        {
+          "type": 2183
+        }
+      ]
+    }
+  ],
+  "lowwand": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 58
+        },
+        {
+          "type": 362
+        },
+        {
+          "type": 58
+        },
+        {
+          "type": 362
+        },
+        {
+          "type": 58
+        },
+        {
+          "type": 362
+        },
+        {
+          "type": 58
+        },
+        {
+          "type": 362
+        }
+      ]
+    }
+  ],
+  "mediumwand": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 37
+        },
+        {
+          "type": 119
+        },
+        {
+          "type": 37
+        },
+        {
+          "type": 119
+        },
+        {
+          "type": 37
+        },
+        {
+          "type": 119
+        },
+        {
+          "type": 37
+        },
+        {
+          "type": 119
+        }
+      ]
+    }
+  ],
+  "highwand": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 67
+        },
+        {
+          "type": 26
+        },
+        {
+          "type": 67
+        },
+        {
+          "type": 26
+        },
+        {
+          "type": 67
+        },
+        {
+          "type": 26
+        },
+        {
+          "type": 67
+        },
+        {
+          "type": 26
+        }
+      ]
+    }
+  ],
+  "veryhighwand": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 867
+        },
+        {
+          "type": 869
+        },
+        {
+          "type": 867
+        },
+        {
+          "type": 869
+        },
+        {
+          "type": 867
+        },
+        {
+          "type": 869
+        },
+        {
+          "type": 867
+        },
+        {
+          "type": 869
+        }
+      ]
+    }
+  ],
+  "lowjewelry": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 377,
+          "chance": 3
+        },
+        {
+          "type": 378,
+          "chance": 3
+        },
+        {
+          "type": 379
+        },
+        {
+          "type": 789,
+          "chance": 6
+        },
+        {
+          "type": 790,
+          "chance": 5
+        },
+        {
+          "type": 791,
+          "chance": 3
+        },
+        {
+          "type": 792,
+          "chance": 6
+        },
+        {
+          "type": 793,
+          "chance": 6
+        },
+        {
+          "type": 794,
+          "chance": 2
+        },
+        {
+          "type": 795,
+          "chance": 12
+        },
+        {
+          "type": 796,
+          "chance": 10
+        },
+        {
+          "type": 797,
+          "chance": 6
+        },
+        {
+          "type": 798,
+          "chance": 6
+        },
+        {
+          "type": 799,
+          "chance": 6
+        },
+        {
+          "type": 800,
+          "chance": 2
+        },
+        {
+          "type": 801,
+          "chance": 12
+        },
+        {
+          "type": 802,
+          "chance": 10
+        },
+        {
+          "type": 803,
+          "chance": 6
+        }
+      ]
+    }
+  ],
+  "mediumjewelry": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 377,
+          "chance": 3
+        },
+        {
+          "type": 378,
+          "chance": 3
+        },
+        {
+          "type": 379
+        },
+        {
+          "type": 789,
+          "chance": 6
+        },
+        {
+          "type": 790,
+          "chance": 5
+        },
+        {
+          "type": 791,
+          "chance": 3
+        },
+        {
+          "type": 792,
+          "chance": 6
+        },
+        {
+          "type": 793,
+          "chance": 6
+        },
+        {
+          "type": 794,
+          "chance": 2
+        },
+        {
+          "type": 795,
+          "chance": 12
+        },
+        {
+          "type": 796,
+          "chance": 10
+        },
+        {
+          "type": 797,
+          "chance": 6
+        },
+        {
+          "type": 798,
+          "chance": 6
+        },
+        {
+          "type": 799,
+          "chance": 6
+        },
+        {
+          "type": 800,
+          "chance": 2
+        },
+        {
+          "type": 801,
+          "chance": 12
+        },
+        {
+          "type": 802,
+          "chance": 10
+        },
+        {
+          "type": 803,
+          "chance": 6
+        }
+      ]
+    }
+  ],
+  "highjewelry": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 377,
+          "chance": 3
+        },
+        {
+          "type": 378,
+          "chance": 3
+        },
+        {
+          "type": 379
+        },
+        {
+          "type": 789,
+          "chance": 6
+        },
+        {
+          "type": 790,
+          "chance": 5
+        },
+        {
+          "type": 791,
+          "chance": 3
+        },
+        {
+          "type": 792,
+          "chance": 6
+        },
+        {
+          "type": 793,
+          "chance": 6
+        },
+        {
+          "type": 794,
+          "chance": 2
+        },
+        {
+          "type": 795,
+          "chance": 12
+        },
+        {
+          "type": 796,
+          "chance": 10
+        },
+        {
+          "type": 797,
+          "chance": 6
+        },
+        {
+          "type": 798,
+          "chance": 6
+        },
+        {
+          "type": 799,
+          "chance": 6
+        },
+        {
+          "type": 800,
+          "chance": 2
+        },
+        {
+          "type": 801,
+          "chance": 12
+        },
+        {
+          "type": 802,
+          "chance": 10
+        },
+        {
+          "type": 803,
+          "chance": 6
+        }
+      ]
+    }
+  ],
+  "veryhighjewelry": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 377,
+          "chance": 3
+        },
+        {
+          "type": 378,
+          "chance": 3
+        },
+        {
+          "type": 379
+        },
+        {
+          "type": 789,
+          "chance": 6
+        },
+        {
+          "type": 790,
+          "chance": 5
+        },
+        {
+          "type": 791,
+          "chance": 3
+        },
+        {
+          "type": 792,
+          "chance": 6
+        },
+        {
+          "type": 793,
+          "chance": 6
+        },
+        {
+          "type": 794,
+          "chance": 2
+        },
+        {
+          "type": 795,
+          "chance": 12
+        },
+        {
+          "type": 796,
+          "chance": 10
+        },
+        {
+          "type": 797,
+          "chance": 6
+        },
+        {
+          "type": 798,
+          "chance": 6
+        },
+        {
+          "type": 799,
+          "chance": 6
+        },
+        {
+          "type": 800,
+          "chance": 2
+        },
+        {
+          "type": 801,
+          "chance": 12
+        },
+        {
+          "type": 802,
+          "chance": 10
+        },
+        {
+          "type": 803,
+          "chance": 6
+        }
+      ]
+    }
+  ],
+  "lowelemental": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 1331
+        },
+        {
+          "type": 1332
+        },
+        {
+          "type": 1333
+        },
+        {
+          "type": 1334
+        },
+        {
+          "type": 1335
+        },
+        {
+          "type": 1336
+        },
+        {
+          "type": 1337
+        },
+        {
+          "type": 1338
+        },
+        {
+          "type": 1339
+        },
+        {
+          "type": 1293
+        },
+        {
+          "type": 1295
+        },
+        {
+          "type": 1297
+        },
+        {
+          "type": 1340
+        },
+        {
+          "type": 1341
+        },
+        {
+          "type": 1342
+        },
+        {
+          "type": 1343
+        },
+        {
+          "type": 1344
+        },
+        {
+          "type": 1345
+        }
+      ]
+    }
+  ],
+  "mediumelemental": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 1522
+        },
+        {
+          "type": 1523
+        },
+        {
+          "type": 1524
+        },
+        {
+          "type": 1273
+        },
+        {
+          "type": 1275
+        },
+        {
+          "type": 1277
+        },
+        {
+          "type": 1281
+        },
+        {
+          "type": 1283
+        },
+        {
+          "type": 1285
+        },
+        {
+          "type": 1288
+        },
+        {
+          "type": 1290
+        },
+        {
+          "type": 1292
+        },
+        {
+          "type": 1293
+        },
+        {
+          "type": 1295
+        },
+        {
+          "type": 1297
+        },
+        {
+          "type": 1299
+        },
+        {
+          "type": 1300
+        },
+        {
+          "type": 1301
+        },
+        {
+          "type": 1343
+        },
+        {
+          "type": 1344
+        },
+        {
+          "type": 1345
+        },
+        {
+          "type": 1274
+        },
+        {
+          "type": 1276
+        },
+        {
+          "type": 1278
+        },
+        {
+          "type": 1282
+        },
+        {
+          "type": 1284
+        },
+        {
+          "type": 1286
+        },
+        {
+          "type": 1287
+        },
+        {
+          "type": 1289
+        },
+        {
+          "type": 1291
+        },
+        {
+          "type": 1294
+        },
+        {
+          "type": 1296
+        },
+        {
+          "type": 1298
+        },
+        {
+          "type": 1303
+        },
+        {
+          "type": 1305
+        },
+        {
+          "type": 1307
+        },
+        {
+          "type": 1346
+        },
+        {
+          "type": 1347
+        },
+        {
+          "type": 1348
+        }
+      ]
+    }
+  ],
+  "highelemental": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 1522
+        },
+        {
+          "type": 1523
+        },
+        {
+          "type": 1524
+        },
+        {
+          "type": 1273
+        },
+        {
+          "type": 1275
+        },
+        {
+          "type": 1277
+        },
+        {
+          "type": 1281
+        },
+        {
+          "type": 1283
+        },
+        {
+          "type": 1285
+        },
+        {
+          "type": 1288
+        },
+        {
+          "type": 1290
+        },
+        {
+          "type": 1292
+        },
+        {
+          "type": 1293
+        },
+        {
+          "type": 1295
+        },
+        {
+          "type": 1297
+        },
+        {
+          "type": 1299
+        },
+        {
+          "type": 1300
+        },
+        {
+          "type": 1301
+        },
+        {
+          "type": 1343
+        },
+        {
+          "type": 1344
+        },
+        {
+          "type": 1345
+        },
+        {
+          "type": 1274
+        },
+        {
+          "type": 1276
+        },
+        {
+          "type": 1278
+        },
+        {
+          "type": 1282
+        },
+        {
+          "type": 1284
+        },
+        {
+          "type": 1286
+        },
+        {
+          "type": 1287
+        },
+        {
+          "type": 1289
+        },
+        {
+          "type": 1291
+        },
+        {
+          "type": 1294
+        },
+        {
+          "type": 1296
+        },
+        {
+          "type": 1298
+        },
+        {
+          "type": 1303
+        },
+        {
+          "type": 1305
+        },
+        {
+          "type": 1307
+        },
+        {
+          "type": 1346
+        },
+        {
+          "type": 1347
+        },
+        {
+          "type": 1348
+        }
+      ]
+    }
+  ],
+  "veryhighelemental": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 1522
+        },
+        {
+          "type": 1523
+        },
+        {
+          "type": 1524
+        },
+        {
+          "type": 1273
+        },
+        {
+          "type": 1275
+        },
+        {
+          "type": 1277
+        },
+        {
+          "type": 1281
+        },
+        {
+          "type": 1283
+        },
+        {
+          "type": 1285
+        },
+        {
+          "type": 1288
+        },
+        {
+          "type": 1290
+        },
+        {
+          "type": 1292
+        },
+        {
+          "type": 1293
+        },
+        {
+          "type": 1295
+        },
+        {
+          "type": 1297
+        },
+        {
+          "type": 1299
+        },
+        {
+          "type": 1300
+        },
+        {
+          "type": 1301
+        },
+        {
+          "type": 1343
+        },
+        {
+          "type": 1344
+        },
+        {
+          "type": 1345
+        },
+        {
+          "type": 1274
+        },
+        {
+          "type": 1276
+        },
+        {
+          "type": 1278
+        },
+        {
+          "type": 1282
+        },
+        {
+          "type": 1284
+        },
+        {
+          "type": 1286
+        },
+        {
+          "type": 1287
+        },
+        {
+          "type": 1289
+        },
+        {
+          "type": 1291
+        },
+        {
+          "type": 1294
+        },
+        {
+          "type": 1296
+        },
+        {
+          "type": 1298
+        },
+        {
+          "type": 1303
+        },
+        {
+          "type": 1305
+        },
+        {
+          "type": 1307
+        },
+        {
+          "type": 1346
+        },
+        {
+          "type": 1347
+        },
+        {
+          "type": 1348
+        }
+      ]
+    }
+  ],
+  "lowcastingjewelry": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        }
+      ]
+    }
+  ],
+  "mediumcastingjewelry": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        }
+      ]
+    }
+  ],
+  "highcastingjewelry": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        }
+      ]
+    }
+  ],
+  "veryhighcastingjewelry": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        },
+        {
+          "type": 376
+        }
+      ]
+    }
+  ],
+  "minorpotion": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 410,
+          "chance": 2
+        },
+        {
+          "type": 411,
+          "chance": 5
+        },
+        {
+          "type": 412,
+          "chance": 5
+        },
+        {
+          "type": 413,
+          "chance": 5
+        },
+        {
+          "type": 418,
+          "chance": 5
+        }
+      ]
+    }
+  ],
+  "majorpotion": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 700,
+          "chance": 2
+        },
+        {
+          "type": 701,
+          "chance": 5
+        },
+        {
+          "type": 702,
+          "chance": 5
+        },
+        {
+          "type": 703,
+          "chance": 5
+        },
+        {
+          "type": 704,
+          "chance": 5
+        }
+      ]
+    }
+  ],
+  "minorattribpotion": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 589,
+          "chance": 5
+        },
+        {
+          "type": 591,
+          "chance": 5
+        },
+        {
+          "type": 590,
+          "chance": 5
+        },
+        {
+          "type": 593,
+          "chance": 5
+        },
+        {
+          "type": 592,
+          "chance": 5
+        }
+      ]
+    }
+  ],
+  "majorattribpotion": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 705,
+          "chance": 5
+        },
+        {
+          "type": 707,
+          "chance": 5
+        },
+        {
+          "type": 706,
+          "chance": 5
+        },
+        {
+          "type": 709,
+          "chance": 5
+        },
+        {
+          "type": 708,
+          "chance": 5
+        }
+      ]
+    }
+  ],
+  "minormeleepotion": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 594,
+          "chance": 5
+        },
+        {
+          "type": 595,
+          "chance": 5
+        },
+        {
+          "type": 596,
+          "chance": 5
+        },
+        {
+          "type": 597,
+          "chance": 5
+        },
+        {
+          "type": 598,
+          "chance": 5
+        },
+        {
+          "type": 599,
+          "chance": 5
+        },
+        {
+          "type": 640,
+          "chance": 5
+        },
+        {
+          "type": 641,
+          "chance": 5
+        },
+        {
+          "type": 642,
+          "chance": 5
+        },
+        {
+          "type": 643,
+          "chance": 5
+        },
+        {
+          "type": 644,
+          "chance": 5
+        },
+        {
+          "type": 645,
+          "chance": 5
+        },
+        {
+          "type": 654,
+          "chance": 5
+        },
+        {
+          "type": 895,
+          "chance": 5
+        }
+      ]
+    }
+  ],
+  "majormeleepotion": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 710,
+          "chance": 5
+        },
+        {
+          "type": 711,
+          "chance": 5
+        },
+        {
+          "type": 712,
+          "chance": 5
+        },
+        {
+          "type": 713,
+          "chance": 5
+        },
+        {
+          "type": 714,
+          "chance": 5
+        },
+        {
+          "type": 715,
+          "chance": 5
+        },
+        {
+          "type": 716,
+          "chance": 5
+        },
+        {
+          "type": 717,
+          "chance": 5
+        },
+        {
+          "type": 718,
+          "chance": 5
+        },
+        {
+          "type": 719,
+          "chance": 5
+        },
+        {
+          "type": 720,
+          "chance": 5
+        },
+        {
+          "type": 721,
+          "chance": 5
+        },
+        {
+          "type": 728,
+          "chance": 5
+        },
+        {
+          "type": 972,
+          "chance": 5
+        }
+      ]
+    }
+  ],
+  "minormagicpotion": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 646,
+          "chance": 5
+        },
+        {
+          "type": 647,
+          "chance": 5
+        },
+        {
+          "type": 648,
+          "chance": 5
+        },
+        {
+          "type": 898,
+          "chance": 5
+        },
+        {
+          "type": 960,
+          "chance": 5
+        },
+        {
+          "type": 963,
+          "chance": 5
+        },
+        {
+          "type": 968,
+          "chance": 5
+        }
+      ]
+    }
+  ],
+  "majormagicpotion": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 722,
+          "chance": 5
+        },
+        {
+          "type": 723,
+          "chance": 5
+        },
+        {
+          "type": 724,
+          "chance": 5
+        },
+        {
+          "type": 973,
+          "chance": 5
+        },
+        {
+          "type": 975,
+          "chance": 5
+        },
+        {
+          "type": 976,
+          "chance": 5
+        },
+        {
+          "type": 974,
+          "chance": 5
+        }
+      ]
+    }
+  ],
+  "minortradepotion": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 966,
+          "chance": 5
+        },
+        {
+          "type": 1095,
+          "chance": 5
+        },
+        {
+          "type": 1103,
+          "chance": 5
+        },
+        {
+          "type": 999,
+          "chance": 5
+        },
+        {
+          "type": 650,
+          "chance": 5
+        },
+        {
+          "type": 653,
+          "chance": 5
+        },
+        {
+          "type": 649,
+          "chance": 5
+        },
+        {
+          "type": 1108,
+          "chance": 5
+        }
+      ]
+    }
+  ],
+  "majortradepotion": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 995,
+          "chance": 5
+        },
+        {
+          "type": 1096,
+          "chance": 5
+        },
+        {
+          "type": 1104,
+          "chance": 5
+        },
+        {
+          "type": 1092,
+          "chance": 5
+        },
+        {
+          "type": 726,
+          "chance": 5
+        },
+        {
+          "type": 727,
+          "chance": 5
+        },
+        {
+          "type": 725,
+          "chance": 5
+        },
+        {
+          "type": 1109,
+          "chance": 5
+        }
+      ]
+    }
+  ],
+  "veryhighshield": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 2181
+        },
+        {
+          "type": 2181
+        },
+        {
+          "type": 2181
+        },
+        {
+          "type": 2182
+        },
+        {
+          "type": 2182
+        },
+        {
+          "type": 2182
+        },
+        {
+          "type": 2183
+        },
+        {
+          "type": 2183
+        },
+        {
+          "type": 2183
+        },
+        {
+          "type": 2184
+        },
+        {
+          "type": 2184
+        },
+        {
+          "type": 2184
+        },
+        {
+          "type": 2185
+        },
+        {
+          "type": 2185
+        },
+        {
+          "type": 2185
+        },
+        {
+          "type": 2186
+        },
+        {
+          "type": 2186
+        },
+        {
+          "type": 2186
+        }
+      ]
+    }
+  ],
+  "food": [
+    {
+      "type": "one-of",
+      "values": [
+        {
+          "type": 158
+        },
+        {
+          "type": 576
+        }
+      ]
+    }
+  ]
 }

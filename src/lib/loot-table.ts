@@ -4,7 +4,7 @@ export function roll(loot: LootTable, namedLootTables: Record<string, LootTable>
   return result;
 }
 
-function roll_(loot: LootTable, namedLootTables: Record<string, LootTable>, result: Item[]) {
+function roll_(loot: LootTable | DropTableEntry, namedLootTables: Record<string, LootTable>, result: Item[]) {
   if (Array.isArray(loot)) {
     for (const entry of loot) {
       roll_(entry, namedLootTables, result);
@@ -31,7 +31,10 @@ function roll_(loot: LootTable, namedLootTables: Record<string, LootTable>, resu
   } else if ('type' in loot && loot.type === 'ref') {
     const refLoot = namedLootTables[loot.id];
     if (!refLoot) throw new Error('unknown loot ref: ' + loot.id);
-    roll_(refLoot, namedLootTables, result);
+
+    for (let i = 0; i < (loot.quantity || 1); i++) {
+      roll_(refLoot, namedLootTables, result);
+    }
   } else {
     result.push({type: loot.type, quantity: loot.quantity || 1});
   }

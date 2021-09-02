@@ -5,6 +5,17 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { execFileSync } from 'child_process';
+import { val } from '../lib/link-state';
+// import { EQUIP_SLOTS } from '../container';
+// TODO
+const EQUIP_SLOTS = {
+  Head: 0,
+  Weapon: 1,
+  Chest: 2,
+  Shield: 3,
+  Legs: 4,
+  Ammo: 5,
+};
 
 // lol esmodules.
 const __dirname = path.join(path.dirname(decodeURI(new URL(import.meta.url).pathname))).replace(/^\\([A-Z]:\\)/, '$1');
@@ -24,6 +35,7 @@ const state = {
   skills: [] as Skill[],
   spells: [] as Spell[],
   lootTables: {} as Record<string, LootTable>,
+  monsters: [] as Monster[],
 };
 
 function getMetaItemByName(name: string) {
@@ -625,7 +637,10 @@ function parseLootTablesIni() {
   let currentItem: { item: string, chance: number } | undefined;
   for (const [key, value] of treasureIni) {
     if (key.match(/^treasure$/i)) {
-      currentTreasureList = { id: value, items: [] };
+      currentTreasureList = {
+        id: fixTreasureName(value),
+        items: [],
+      };
       treasureLists.push(currentTreasureList);
     } else if (key.match(/^item$/i)) {
       // @ts-expect-error
@@ -652,14 +667,14 @@ function parseLootTablesIni() {
 
   const lootTables: Record<string, LootTable> = {};
   for (const { id, items } of Object.values(treasureLists)) {
-    lootTables[id] = {
+    lootTables[id] = [{
       type: 'one-of',
       values: items.map(i => {
         const entry: DropTableEntry = { type: getMetaItemByName(i.name).id };
         if (i.chance !== 1) entry.chance = i.chance;
         return entry;
       }),
-    };
+    }];
   }
 
   return lootTables;
@@ -881,19 +896,137 @@ function convertFloors() {
   return floors;
 }
 
-// TODO convert monster and treasure...
-function convertMonsters() {
-  // let equipment: Item[] | undefined;
-  // for (const [key, value] of Object.entries(monster)) {
-  //   if (!['weapon'].includes(key) || typeof value !== 'string') continue;
-  //   const meta = getMetaItemByName(value);
-  //   if (!meta) continue;
+function fixTreasureName(value: string) {
+  return value.toLowerCase()
+    .replace('jewlery', 'jewelry')
+    .replace('sheild', 'shield')
+    .replace('weapn', 'weapon');
+}
 
-  //   equipment = equipment || [];
-  //   // @ts-expect-error
-  //   equipment[Container.EQUIP_SLOTS[uppercaseFirstLetter(key)]] = { type: meta.id, quantity: 1 };
-  // }
-  // if (equipment) monster.equipment = equipment;
+function parseMonsterIni() {
+  const monsterIni = loadIni('monster');
+  const armorKeys = [
+    'ChestArmor',
+    'HeadArmor',
+    'LegArmor',
+    'Shield',
+    'Weapon',
+  ];
+
+  const defaults: Partial<Monster> = {};
+  const monsters: Monster[] = [];
+
+  let currentMonster: Monster | undefined = undefined;
+  for (const [key, value] of monsterIni) {
+    if (key.match(/^monster$/i)) {
+      // @ts-expect-error
+      currentMonster = {
+        id: forcenum(value),
+        ...defaults,
+      };
+      // @ts-expect-error
+      monsters.push(currentMonster);
+    } else if (!currentMonster) {
+      // defaults come first.
+      // @ts-ignore
+      defaults[camelCase(key.replace('default', ''))] = value;
+    } else if (armorKeys.includes(key)) {
+      currentMonster.equipment = currentMonster.equipment || [];
+      let slotKey = uppercaseFirstLetter(
+        key.toLocaleLowerCase()
+          .replace('armour', '')
+          .replace('armor', '')
+      );
+      if (slotKey === 'Leg') slotKey = 'Legs';
+      // @ts-expect-error
+      const slotIndex = EQUIP_SLOTS[slotKey];
+      const meta = getMetaItemByName(value);
+      currentMonster.equipment[slotIndex] = { type: meta.id, quantity: 1 };
+    } else if (key.match(/^deaditem/i)) {
+      currentMonster.deadItem = getMetaItemByName(value).id;
+    } else if (key.match(/^treasure\d+$/i)) {
+      currentMonster.lootTable = currentMonster.lootTable || [];
+      if (value.startsWith('<')) {
+        const id = fixTreasureName(value.substr(1, value.length - 2));
+        if (!state.lootTables[id]) throw new Error('missing loot table: ' + id);
+
+        currentMonster.lootTable.push({
+          type: 'ref',
+          id,
+        });
+      } else {
+        currentMonster.lootTable.push({
+          type: getMetaItemByName(value).id,
+        });
+      }
+    } else if (key.match(/^TreasureQty/i)) {
+      // @ts-expect-error
+      const entry = currentMonster.lootTable[currentMonster.lootTable.length - 1];
+      const quantity = forcenum(value);
+      if (quantity !== 1) entry.quantity = quantity;
+    } else if (key.match(/^TreasureChance/i)) {
+      // @ts-expect-error
+      const entry = currentMonster.lootTable[currentMonster.lootTable.length - 1];
+      entry.chance = forcenum(value);
+    } else {
+      // Most properties are unchanged, except for being camelCase.
+      const camelCaseKey = camelCase(key);
+
+      let convertedValue: string | number | boolean = value;
+      const maybeNumber = loosenum(value);
+      if (typeof maybeNumber === 'number' && Number.isFinite(maybeNumber)) {
+        convertedValue = maybeNumber;
+      }
+      if (convertedValue === undefined) {
+        convertedValue = true;
+      }
+
+      // @ts-expect-error
+      currentMonster[camelCaseKey] = convertedValue;
+    }
+  }
+
+  for (const monster of monsters) {
+    monster.graphics = {
+      // @ts-expect-error
+      file: `rpgwo-player${Math.floor(monster.image / 100)}.png`,
+      // @ts-expect-error
+      index: (monster.image % 100) - 1,
+      // @ts-expect-error
+      imageType: monster.image_type,
+    };
+
+    if (monster.speed === undefined) monster.speed = 2;
+  }
+
+  // Just in case items are defined out of order.
+  monsters.sort((a, b) => a.id - b.id);
+
+  // printUniqueKeys(monsters);
+
+  // Only save properties that Gridia utilizes.
+  const allowlist = [
+    'deadItem',
+    'eatGrass',
+    'graphics',
+    'id',
+    'level',
+    'life',
+    'magicDefense',
+    'meleeDefense',
+    'missleDefense',
+    'name',
+    'lootTable',
+    'roam',
+    'speed',
+    'stamina',
+    'weapon',
+  ];
+  for (const item of monsters) {
+    filterProperties(item, allowlist);
+  }
+
+  return monsters;
 }
 
 function convertSpells() {
@@ -906,15 +1039,22 @@ function convertLootTables() {
   const lootTables = parseLootTablesIni();
 
   // TODO: remove
-  lootTables.food = {
+  lootTables.food = [{
     type: 'one-of',
     values: [
       { type: getMetaItemByName('Red Apple').id },
       { type: getMetaItemByName('Banana').id },
     ],
-  };
+  }];
 
   return lootTables;
+}
+
+function convertMonsters() {
+  const explicitOrder = ['id', 'name'];
+  const monsters = parseMonsterIni().map((monster) => sortObject(monster, explicitOrder));
+  monsters.unshift(null);
+  return monsters;
 }
 
 function run() {
@@ -935,6 +1075,9 @@ function run() {
 
   state.lootTables = convertLootTables();
   const lootTablesPath = path.join(__dirname, '..', '..', 'world', 'content', 'lootTables.json');
+
+  state.monsters = convertMonsters();
+  const monstersPath = path.join(__dirname, '..', '..', 'world', 'content', 'monsters.json');
 
   const removeUsage = (usage: ItemUse) => {
     const index = state.usages.indexOf(usage);
@@ -975,5 +1118,6 @@ function run() {
   fs.writeFileSync(skillsPath, JSON.stringify(state.skills, null, 2));
   fs.writeFileSync(spellsPath, JSON.stringify(state.spells, null, 2));
   fs.writeFileSync(lootTablesPath, JSON.stringify(state.lootTables, null, 2));
+  fs.writeFileSync(monstersPath, JSON.stringify(state.monsters, null, 2));
 }
 run();

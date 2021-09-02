@@ -84,20 +84,6 @@ function prepareData() {
     use.productNames = use.products.map((product) => getName(product.type));
   }
 
-  for (const monster of monsters) {
-    if (!monster) continue;
-
-    monster.graphics = {
-      // @ts-expect-error
-      file: `rpgwo-player${Math.floor(monster.image / 100)}.png`,
-      // @ts-expect-error
-      index: (monster.image % 100) - 1,
-      // @ts-expect-error
-      imageType: monster.image_type,
-    };
-    if (monster.speed === undefined) monster.speed = 2;
-  }
-
   // @ts-ignore
   // globalThis.GridiaContent = {items, itemUses, animations, monsters, skills};
 }

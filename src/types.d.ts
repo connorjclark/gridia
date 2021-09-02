@@ -144,7 +144,7 @@ interface Creature {
   stamina: { current: number; max: number };
   mana: { current: number; max: number };
   food: number;
-  eat_grass: boolean;
+  eatGrass: boolean;
   light: number;
   equipment?: Array<Item | null>;
   combatLevel: number;
@@ -291,6 +291,7 @@ interface GridiaAnimationInstance {
 interface DropTableEntryBase {
   /** 0-100. Defaults to 100. */
   chance?: number;
+  quantity?: number;
 }
 
 interface DropTableRef extends DropTableEntryBase {
@@ -305,11 +306,10 @@ interface DropTableOneOf extends DropTableEntryBase {
 
 interface DropTableValue extends DropTableEntryBase {
   type: number;
-  quantity?: number;
 }
 
 type DropTableEntry = DropTableRef | DropTableOneOf | DropTableValue;
-type LootTable = DropTableEntry | DropTableEntry[];
+type LootTable = DropTableEntry[];
 
 interface Monster {
   id: number;
@@ -319,19 +319,14 @@ interface Monster {
   life: number;
   stamina?: number;
   mana?: number;
-  magic_defense?: number;
-  melee_defense?: number;
-  missle_defense?: number;
+  magicDefense?: number;
+  meleeDefense?: number;
+  missleDefense?: number;
   roam?: number;
-  eat_grass: boolean;
-  dead_item?: name;
+  eatGrass: boolean;
+  deadItem?: number;
   equipment?: Item[];
-  treasure: Array<{
-    item: string;
-    quantity: number;
-    /** 1 - 100 */
-    chance: number;
-  }>;
+  lootTable?: LootTable;
 }
 
 interface Quest {
