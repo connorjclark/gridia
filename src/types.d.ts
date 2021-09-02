@@ -288,6 +288,29 @@ interface GridiaAnimationInstance {
   path: Point4[];
 }
 
+interface DropTableEntryBase {
+  /** 0-100. Defaults to 100. */
+  chance?: number;
+}
+
+interface DropTableRef extends DropTableEntryBase {
+  type: 'ref';
+  id: string;
+}
+
+interface DropTableOneOf extends DropTableEntryBase {
+  type: 'one-of';
+  values: DropTableEntry[];
+}
+
+interface DropTableValue extends DropTableEntryBase {
+  type: number;
+  quantity?: number;
+}
+
+type DropTableEntry = DropTableRef | DropTableOneOf | DropTableValue;
+type LootTable = DropTableEntry | DropTableEntry[];
+
 interface Monster {
   id: number;
   name: string;

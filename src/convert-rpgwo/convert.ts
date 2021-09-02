@@ -23,6 +23,7 @@ const state = {
   usages: [] as ItemUse[],
   skills: [] as Skill[],
   spells: [] as Spell[],
+  lootTables: {} as Record<string, LootTable>,
 };
 
 function getMetaItemByName(name: string) {
@@ -540,7 +541,7 @@ function parseMagicIni() {
         convertedValue = true;
       }
 
-      // @ts-ignore
+      // @ts-expect-error
       currentSpell[camelCaseKey] = convertedValue;
     }
   }
@@ -611,6 +612,57 @@ function parseMagicIni() {
   }
 
   return spells;
+}
+
+function parseLootTablesIni() {
+  const treasureIni = loadIni('treasure');
+
+  let treasureLists: Array<{
+    id: string,
+    items: Array<{ name: string, chance: number }>,
+  }> = [];
+  let currentTreasureList;
+  let currentItem: { item: string, chance: number } | undefined;
+  for (const [key, value] of treasureIni) {
+    if (key.match(/^treasure$/i)) {
+      currentTreasureList = { id: value, items: [] };
+      treasureLists.push(currentTreasureList);
+    } else if (key.match(/^item$/i)) {
+      // @ts-expect-error
+      currentItem = { name: value };
+      // @ts-expect-error
+      currentTreasureList?.items.push(currentItem);
+    } else {
+      // Most properties are unchanged, except for being camelCase.
+      const camelCaseKey = camelCase(key);
+
+      let convertedValue: string | number | boolean = value;
+      const maybeNumber = loosenum(value);
+      if (typeof maybeNumber === 'number' && Number.isFinite(maybeNumber)) {
+        convertedValue = maybeNumber;
+      }
+      if (convertedValue === undefined) {
+        convertedValue = true;
+      }
+
+      // @ts-expect-error
+      currentItem[camelCaseKey] = convertedValue;
+    }
+  }
+
+  const lootTables: Record<string, LootTable> = {};
+  for (const { id, items } of Object.values(treasureLists)) {
+    lootTables[id] = {
+      type: 'one-of',
+      values: items.map(i => {
+        const entry: DropTableEntry = { type: getMetaItemByName(i.name).id };
+        if (i.chance !== 1) entry.chance = i.chance;
+        return entry;
+      }),
+    };
+  }
+
+  return lootTables;
 }
 
 function fillGaps(objects: any[]) {
@@ -829,6 +881,7 @@ function convertFloors() {
   return floors;
 }
 
+// TODO convert monster and treasure...
 function convertMonsters() {
   // let equipment: Item[] | undefined;
   // for (const [key, value] of Object.entries(monster)) {
@@ -849,6 +902,21 @@ function convertSpells() {
   return spells.map((spell) => sortObject(spell, explicitOrder));
 }
 
+function convertLootTables() {
+  const lootTables = parseLootTablesIni();
+
+  // TODO: remove
+  lootTables.food = {
+    type: 'one-of',
+    values: [
+      { type: getMetaItemByName('Red Apple').id },
+      { type: getMetaItemByName('Banana').id },
+    ],
+  };
+
+  return lootTables;
+}
+
 function run() {
   state.skills = convertSkills();
   const skillsPath = path.join(__dirname, '..', '..', 'world', 'content', 'skills.json');
@@ -864,6 +932,9 @@ function run() {
 
   state.spells = convertSpells();
   const spellsPath = path.join(__dirname, '..', '..', 'world', 'content', 'spells.json');
+
+  state.lootTables = convertLootTables();
+  const lootTablesPath = path.join(__dirname, '..', '..', 'world', 'content', 'lootTables.json');
 
   const removeUsage = (usage: ItemUse) => {
     const index = state.usages.indexOf(usage);
@@ -903,5 +974,6 @@ function run() {
   fs.writeFileSync(usagesPath, JSON.stringify(state.usages, null, 2));
   fs.writeFileSync(skillsPath, JSON.stringify(state.skills, null, 2));
   fs.writeFileSync(spellsPath, JSON.stringify(state.spells, null, 2));
+  fs.writeFileSync(lootTablesPath, JSON.stringify(state.lootTables, null, 2));
 }
 run();

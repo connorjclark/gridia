@@ -10,7 +10,7 @@ import { WorldTime } from '../world-time';
 import { ProtocolEvent } from '../protocol/event-builder';
 import * as Container from '../container';
 import { calcStraightLine } from '../lib/line';
-import { LootTable as LootTable, roll } from '../lib/drop-table';
+import { roll } from '../lib/loot-table';
 import ClientConnection from './client-connection';
 import CreatureState from './creature-state';
 import { ServerContext } from './server-context';
@@ -844,13 +844,13 @@ export default class Server {
             values: template.treasure.map((entry) => {
               // TODO: bug in monsters.json conversion.
               const chance = 100 * (entry.chance === 0 ? 0.1 : entry.chance);
-              return {chance, itemType: Content.getMetaItemByName(entry.item).id, itemQuantity: entry.quantity};
+              return {chance, type: Content.getMetaItemByName(entry.item).id, quantity: entry.quantity};
             }),
           });
         }
 
-        loot.unshift({ itemType: Content.getMetaItemByName(deadItemName).id });
-        const itemsToSpawn = roll(loot);
+        loot.unshift({ type: Content.getMetaItemByName(deadItemName).id });
+        const itemsToSpawn = roll(loot, Content.getLootTables());
         for (const item of itemsToSpawn) {
           this.addItemNear(creature.pos, item);
         }
