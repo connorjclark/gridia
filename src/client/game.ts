@@ -1146,8 +1146,7 @@ class Game {
     let tilesWidth = Math.ceil(this.app.view.width / GFX_SIZE / scale);
     let tilesHeight = Math.ceil(this.app.view.height / GFX_SIZE / scale);
 
-    const LIMIT_VIEW = true;
-    if (LIMIT_VIEW) {
+    if (this.client.settings.limitView) {
       tilesWidth = Math.min(23, tilesWidth);
       tilesHeight = Math.min(17, tilesWidth);
     }

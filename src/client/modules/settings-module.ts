@@ -9,6 +9,7 @@ export interface Settings {
   clickMagic: boolean;
   labelBackground: boolean;
   scale: number;
+  limitView: boolean;
 }
 
 export const SettingsSchema = {
@@ -58,6 +59,11 @@ export const SettingsSchema = {
     min: 1,
     max: 3,
     step: 0.25,
+  },
+  limitView: {
+    type: 'boolean',
+    label: 'Limit View',
+    default: true,
   },
 } as const;
 
