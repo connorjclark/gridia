@@ -1143,8 +1143,14 @@ class Game {
 
     const scale = this.client.settings.scale;
     this.app.stage.scale.set(scale);
-    const tilesWidth = Math.ceil(this.app.view.width / GFX_SIZE / scale);
-    const tilesHeight = Math.ceil(this.app.view.height / GFX_SIZE / scale);
+    let tilesWidth = Math.ceil(this.app.view.width / GFX_SIZE / scale);
+    let tilesHeight = Math.ceil(this.app.view.height / GFX_SIZE / scale);
+
+    const LIMIT_VIEW = true;
+    if (LIMIT_VIEW) {
+      tilesWidth = Math.min(23, tilesWidth);
+      tilesHeight = Math.min(17, tilesWidth);
+    }
 
     // Hand-picked values.
     const lightData = [

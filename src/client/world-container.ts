@@ -289,6 +289,7 @@ export class WorldContainer extends PIXI.Container {
       tile.setFloor(floor);
       tile.setItem(item);
     });
+
     this.maybeComputeLight();
     this.drawGrid(); // ?
 
@@ -394,7 +395,7 @@ export class WorldContainer extends PIXI.Container {
     for (const [key, tile] of this.tiles.entries()) {
       const { w, x, y, z } = tile.loc;
       if (w === this.camera.focus.w && z === this.camera.focus.z &&
-        x >= this.camera.left && x <= this.camera.right && y >= this.camera.top && y <= this.camera.bottom) continue;
+        x >= this.camera.left && x < this.camera.right && y >= this.camera.top && y < this.camera.bottom) continue;
 
       tile.destroy();
       this.tiles.delete(key);

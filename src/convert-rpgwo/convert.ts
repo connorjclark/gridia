@@ -5,7 +5,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { execFileSync } from 'child_process';
-import { val } from '../lib/link-state';
 // import { EQUIP_SLOTS } from '../container';
 // TODO
 const EQUIP_SLOTS = {
