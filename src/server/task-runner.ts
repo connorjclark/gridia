@@ -1,4 +1,4 @@
-import performance from '../performance';
+import {performance} from '../performance';
 
 export interface Rate {
   days?: number;
@@ -24,7 +24,7 @@ interface PerfTick {
   sections: Array<{ name: string; duration: number }>;
 }
 
-export default class TaskRunner {
+export class TaskRunner {
   debugMeasureTiming = false;
   perf = {
     ticks: [] as PerfTick[],

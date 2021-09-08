@@ -4,7 +4,7 @@ import { render, h, Component, Fragment } from 'preact';
 import * as Content from '../../content';
 import * as Utils from '../../utils';
 import * as Helper from '../helper';
-import AdminModule from '../modules/admin-module';
+import {AdminModule} from '../modules/admin-module';
 
 import { Graphic, makeUIWindow } from './ui-common';
 

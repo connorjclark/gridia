@@ -1,6 +1,6 @@
 import { Context } from './context';
 import * as Utils from './utils';
-import WorldMapPartition from './world-map-partition';
+import {WorldMapPartition} from './world-map-partition';
 
 interface Options {
   width: number;

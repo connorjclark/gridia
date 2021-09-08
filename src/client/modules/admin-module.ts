@@ -1,9 +1,9 @@
 import * as CommandBuilder from '../../protocol/command-builder';
 import * as Utils from '../../utils';
-import ClientModule from '../client-module';
+import {ClientModule} from '../client-module';
 import { makeAdminWindow, State } from '../ui/admin-window';
 
-class AdminModule extends ClientModule {
+export class AdminModule extends ClientModule {
   private _adminWindow?: HTMLElement;
   private _state?: State;
 
@@ -153,5 +153,3 @@ class AdminModule extends ClientModule {
     return this._adminWindow;
   }
 }
-
-export default AdminModule;

@@ -5,7 +5,7 @@ import * as Content from './content';
 import { generate, GenerateOptions } from './lib/map-generator/map-generator';
 import * as Perlin from './lib/perlin/perlin';
 import * as Utils from './utils';
-import WorldMapPartition from './world-map-partition';
+import {WorldMapPartition} from './world-map-partition';
 
 function biomeToFloor(biome: string) {
   if (biome === 'BARE') return 49;
@@ -71,7 +71,7 @@ interface MapGenOptions extends GenerateOptions {
   depth: number;
 }
 
-export default function mapgen(opts: MapGenOptions) {
+export function mapgen(opts: MapGenOptions) {
   const { width, height, depth } = opts;
   sanityCheck(width, height, depth);
 

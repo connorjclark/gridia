@@ -1,4 +1,3 @@
-// TODO: ban default exports
 // TODO: match-declaration-order
 
 module.exports = {
@@ -174,6 +173,7 @@ module.exports = {
             'newlines-between': 'always',
             'alphabetize': {order: 'asc'},
         }],
+        "import/no-default-export": "error",
         // "import/extensions": ["error", "ignorePackages"],
         "jsdoc/check-alignment": "error",
         "jsdoc/check-indentation": "error",

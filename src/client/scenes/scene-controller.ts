@@ -1,6 +1,6 @@
 import * as idbKeyval from 'idb-keyval';
 
-import Client from '../client';
+import {Client} from '../client';
 import * as Helper from '../helper';
 import { ServerWorker } from '../server-worker';
 

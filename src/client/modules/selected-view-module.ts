@@ -1,9 +1,9 @@
 import * as Content from '../../content';
 import { ItemLocation } from '../../utils';
-import ClientModule from '../client-module';
+import {ClientModule} from '../client-module';
 import { makeViewWindow } from '../ui/view-window';
 
-class SelectedViewModule extends ClientModule {
+export class SelectedViewModule extends ClientModule {
   private viewWindow?: ReturnType<typeof makeViewWindow>;
 
   getViewWindow() {
@@ -125,5 +125,3 @@ class SelectedViewModule extends ClientModule {
     this.getViewWindow().el.hidden = !creature && !item;
   }
 }
-
-export default SelectedViewModule;

@@ -1,7 +1,7 @@
 import { render, h, Component } from 'preact';
 
 import * as Content from '../../content';
-import UsageModule from '../modules/usage-module';
+import {UsageModule} from '../modules/usage-module';
 
 import { Graphic, makeUIWindow } from './ui-common';
 

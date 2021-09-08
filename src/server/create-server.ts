@@ -1,7 +1,7 @@
 import * as Content from '../content';
 import { IsoFs } from '../iso-fs';
 import { makeMapImage } from '../lib/map-generator/map-image-maker';
-import Server from '../server/server';
+import {Server} from '../server/server';
 import { ServerContext } from '../server/server-context';
 import * as Utils from '../utils';
 import { createMainWorldMap } from '../world-map-debug';

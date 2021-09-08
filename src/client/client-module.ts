@@ -1,6 +1,6 @@
-import Game from './game';
+import {Game} from './game';
 
-abstract class ClientModule {
+export abstract class ClientModule {
   constructor(public game: Game) {}
 
   onStart() {
@@ -12,5 +12,3 @@ abstract class ClientModule {
     // empty
   }
 }
-
-export default ClientModule;

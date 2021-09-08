@@ -5,12 +5,12 @@ import { Context } from '../context';
 import { findPath } from '../path-finding';
 import * as EventBuilder from '../protocol/event-builder';
 import * as Utils from '../utils';
-import WorldMapPartition from '../world-map-partition';
+import {WorldMapPartition} from '../world-map-partition';
 
-import ClientConnection from './client-connection';
+import {ClientConnection} from './client-connection';
 import { adjustAttribute } from './creature-utils';
-import aStar from './plan';
-import Server from './server';
+import {aStar} from './plan';
+import {Server} from './server';
 
 interface Goal {
   desiredEffect: string;
@@ -141,7 +141,7 @@ const Actions: Record<string, Action> = {
 
 // State that clients don't need and shouldn't have.
 // Also isn't serialized - this state is transient.
-export default class CreatureState {
+export class CreatureState {
   mode: string[] = [];
   // True if last movement was a warp. Prevents infinite stairs.
   warped = false;

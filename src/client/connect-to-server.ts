@@ -3,7 +3,7 @@ import { WEBRTC_CONFIG } from '../lib/wrtc/config';
 import { ProtocolEvent } from '../protocol/event-builder';
 import { createClientWorldMap } from '../world-map';
 
-import Client from './client';
+import {Client} from './client';
 import { Connection, WebRTCConnection, WebSocketConnection, WorkerConnection } from './connection';
 import { ServerWorker } from './server-worker';
 

@@ -10,7 +10,7 @@ import { NodeFs } from '../iso-fs';
 import * as WireSerializer from '../lib/wire-serializer';
 import { WebRTCSignalServer } from '../lib/wrtc/signal-server';
 
-import ClientConnection from './client-connection';
+import {ClientConnection} from './client-connection';
 import { startServer } from './create-server';
 
 const wrtcSignalServer = new WebRTCSignalServer();

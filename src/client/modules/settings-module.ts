@@ -1,4 +1,4 @@
-import ClientModule from '../client-module';
+import {ClientModule} from '../client-module';
 import { makeSettingsWindow } from '../ui/settings-window';
 
 export interface Settings {
@@ -79,7 +79,7 @@ export function getDefaultSettings() {
   return settings;
 }
 
-class SettingsModule extends ClientModule {
+export class SettingsModule extends ClientModule {
   private settingsWindow?: ReturnType<typeof makeSettingsWindow>;
 
   getSettingsWindow() {
@@ -102,5 +102,3 @@ class SettingsModule extends ClientModule {
     });
   }
 }
-
-export default SettingsModule;

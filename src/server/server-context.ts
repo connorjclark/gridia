@@ -4,10 +4,10 @@ import { Context } from '../context';
 import { IsoFs } from '../iso-fs';
 import * as WireSerializer from '../lib/wire-serializer';
 import * as Utils from '../utils';
-import WorldMap from '../world-map';
-import WorldMapPartition from '../world-map-partition';
+import {WorldMap} from '../world-map';
+import {WorldMapPartition} from '../world-map-partition';
 
-import ClientConnection from './client-connection';
+import {ClientConnection} from './client-connection';
 import { ScriptConfigStore } from './scripts/script-config-store';
 
 async function readJson(fs: IsoFs, filePath: string) {

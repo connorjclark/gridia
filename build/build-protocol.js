@@ -49,7 +49,7 @@ function collect({ node, commandOrEvent }) {
   ].join("\n\n");
   const protocolInterfaceCode = [
     autoGenComment,
-    isServerInterface ? `import Server from '../../server/server'` : `import Client from '../../client/client'`,
+    isServerInterface ? `import {Server} from '../../server/server'` : `import {Client} from '../../client/client'`,
     printNode(protocolInterface),
   ].join("\n\n");
 
@@ -128,7 +128,7 @@ function createMessageType({ qualifier, node, commandOrEvent }) {
  */
 function createMessageParamsBinding({ qualifier, messageDeclaration, commandOrEvent }) {
   /*
-    { item, ...loc }: ClientToServerProtocol.AdminSetItem
+    { item, ...loc }: ServerInterface.AdminSetItem
   */
   const elements = [];
   const restElements = [];
@@ -275,7 +275,6 @@ function createProtocolInterface(qualifier, name, firstParamTypeName, messageDec
     undefined, /* decorators */
     [
       ts.createModifier(ts.SyntaxKind.ExportKeyword),
-      ts.createModifier(ts.SyntaxKind.DefaultKeyword),
     ], /* modifiers */
     name, /* name */
     undefined, /* typeParameters */

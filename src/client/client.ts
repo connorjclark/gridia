@@ -1,13 +1,13 @@
 import { Context } from '../context';
 import { game } from '../game-singleton';
-import ServerToClientProtocol from '../protocol/client-interface';
+import {ClientInterface} from '../protocol/client-interface';
 import { ProtocolEvent } from '../protocol/event-builder';
 
 import { Connection } from './connection';
-import EventEmitter from './event-emitter';
+import {TypedEventEmitter} from './event-emitter';
 import { Settings } from './modules/settings-module';
 
-class Client {
+export class Client {
   // @ts-ignore set later.
   player: Player;
   creatureId = 0;
@@ -16,12 +16,12 @@ class Client {
   secondsPerWorldTick = 0;
   ticksPerWorldDay = 0;
 
-  eventEmitter = new EventEmitter();
+  eventEmitter = new TypedEventEmitter();
   // @ts-ignore set later.
   settings: Settings = {};
   storedEvents: ProtocolEvent[] = [];
 
-  private _protocol = new ServerToClientProtocol();
+  private _protocol = new ClientInterface();
 
   constructor(public connection: Connection, public context: Context) {
     this.eventEmitter.on('event', this.handleEventFromServer.bind(this));
@@ -52,5 +52,3 @@ class Client {
     return this.context.containers.get(this.player.equipmentContainerId);
   }
 }
-
-export default Client;

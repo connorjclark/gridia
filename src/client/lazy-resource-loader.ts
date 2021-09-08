@@ -352,7 +352,7 @@ function createPromiseAndResolve() {
   };
 }
 
-class LazyResourceLoader {
+export class LazyResourceLoader {
   private loadQueue: string[] = [];
   private loadingResourcePromise = new Map<string, { promise: Promise<void>; resolve: Function }>();
   private isResourceLoaded = new Set<string>();
@@ -405,5 +405,3 @@ class LazyResourceLoader {
     });
   }
 }
-
-export default LazyResourceLoader;

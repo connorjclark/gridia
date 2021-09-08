@@ -1,5 +1,5 @@
 import { MINE, WATER } from '../constants';
-import WorldMapPartition from '../world-map-partition';
+import {WorldMapPartition} from '../world-map-partition';
 
 export function getWaterFloor(partition: WorldMapPartition, point: PartitionPoint) {
   const templateIndex = useTemplate(partition, 0, WATER, point, 'floor');

@@ -2,7 +2,7 @@ import { render, h, Component } from 'preact';
 
 import * as Content from '../../content';
 import { val } from '../../lib/link-state';
-import SelectedViewModule from '../modules/selected-view-module';
+import {SelectedViewModule} from '../modules/selected-view-module';
 
 import { Graphic, ComponentProps, createSubApp, makeUIWindow, Bar, CustomCreatureGraphic } from './ui-common';
 

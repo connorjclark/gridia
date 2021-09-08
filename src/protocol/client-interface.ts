@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import Client from '../client/client';
+import {Client} from '../client/client';
 import * as Player from '../player';
 
 import * as CommandBuilder from './command-builder';
-import IClientInterface from './gen/client-interface';
+import {IEvents} from './gen/client-interface';
 
 import Events = Protocol.Events;
 
-export default class ClientInterface implements IClientInterface {
+export class ClientInterface implements IEvents {
   onAnimation(client: Client, animatonInstance: Events.Animation): void {
     // handled by game.ts
   }

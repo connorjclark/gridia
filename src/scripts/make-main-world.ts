@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import * as Content from '../content';
 import { NodeFs } from '../iso-fs';
 import { ServerContext } from '../server/server-context';
-import WorldMap from '../world-map';
+import {WorldMap} from '../world-map';
 import { createTestPartitions } from '../world-map-debug';
 
 async function createMainWorldMap() {

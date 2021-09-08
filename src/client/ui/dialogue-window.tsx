@@ -4,7 +4,7 @@ import { useEffect, useRef, useMemo } from 'preact/hooks';
 import Typed from 'typed.js';
 
 import * as CommandBuilder from '../../protocol/command-builder';
-import Game from '../game';
+import {Game} from '../game';
 
 import { CustomCreatureGraphic, Graphic, makeUIWindow } from './ui-common';
 

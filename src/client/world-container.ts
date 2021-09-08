@@ -3,7 +3,7 @@ import * as Content from '../content';
 import { game } from '../game-singleton';
 import { Visibility } from '../lib/visibility';
 import * as Utils from '../utils';
-import WorldMap from '../world-map';
+import {WorldMap} from '../world-map';
 
 import * as Draw from './draw';
 import * as Helper from './helper';

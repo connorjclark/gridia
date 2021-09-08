@@ -3,22 +3,22 @@ import * as Container from '../container';
 import * as Content from '../content';
 import { calcStraightLine } from '../lib/line';
 import { roll } from '../lib/loot-table';
-import performance from '../performance';
+import {performance} from '../performance';
 import * as Player from '../player';
 import * as EventBuilder from '../protocol/event-builder';
 import { ProtocolEvent } from '../protocol/event-builder';
-import ClientToServerProtocol from '../protocol/server-interface';
+import {ServerInterface} from '../protocol/server-interface';
 import * as Utils from '../utils';
-import WorldMapPartition from '../world-map-partition';
+import {WorldMapPartition} from '../world-map-partition';
 import { WorldTime } from '../world-time';
 
-import ClientConnection from './client-connection';
-import CreatureState from './creature-state';
+import {ClientConnection} from './client-connection';
+import {CreatureState} from './creature-state';
 import { adjustAttribute, attributeCheck } from './creature-utils';
 import { Script } from './script';
 import { BasicScript } from './scripts/basic-script';
 import { ServerContext } from './server-context';
-import TaskRunner from './task-runner';
+import {TaskRunner} from './task-runner';
 
 // TODO document how the f this works.
 
@@ -49,7 +49,7 @@ interface AttackData {
   successProjectileAnimationName?: string;
 }
 
-export default class Server {
+export class Server {
   context: ServerContext;
   outboundMessages = [] as Array<{
     message: Message;
@@ -67,7 +67,7 @@ export default class Server {
   ticksPerWorldDay = 24 * 60 * 60 / this.secondsPerWorldTick / 8;
   time = new WorldTime(this.ticksPerWorldDay, this.ticksPerWorldDay / 2);
 
-  private _clientToServerProtocol = new ClientToServerProtocol();
+  private _serverInterface = new ServerInterface();
   private _scripts: Array<Script<any>> = [];
   private _quests: Quest[] = [];
 
@@ -1528,7 +1528,7 @@ export default class Server {
               const onMethodName = 'on' + command.type[0].toUpperCase() + command.type.substr(1);
               // @ts-ignore
               // eslint-disable-next-line
-              await Promise.resolve(this._clientToServerProtocol[onMethodName](this, command.args))
+              await Promise.resolve(this._serverInterface[onMethodName](this, command.args))
                 .then((data: any) => clientConnection.send({ id: message.id, data }))
                 .catch((e?: Error | string) => {
                   // TODO: why is this catch AND the try/catch needed?

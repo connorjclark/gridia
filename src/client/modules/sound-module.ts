@@ -1,5 +1,5 @@
 import * as Utils from '../../utils';
-import ClientModule from '../client-module';
+import {ClientModule} from '../client-module';
 import { getMusicResource, SfxResources } from '../lazy-resource-loader';
 
 const SONGS = [
@@ -13,7 +13,7 @@ const SONGS = [
   'scythuz/Withering Leaves.mp3',
 ];
 
-class SoundModule extends ClientModule {
+export class SoundModule extends ClientModule {
   songMode: 'shuffle' | 'loop' = 'shuffle';
   private _shuffledSongList: string[] = [];
   private _soundCache: Record<string, PIXI.sound.Sound> = {};
@@ -110,5 +110,3 @@ class SoundModule extends ClientModule {
     }
   }
 }
-
-export default SoundModule;

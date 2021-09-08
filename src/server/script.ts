@@ -1,8 +1,8 @@
 import * as Utils from '../utils';
 
-import ClientConnection from './client-connection';
+import {ClientConnection} from './client-connection';
 import { ScriptConfigStore } from './scripts/script-config-store';
-import Server from './server';
+import {Server} from './server';
 import { Rate } from './task-runner';
 
 interface CreatureSpawner {

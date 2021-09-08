@@ -1,7 +1,7 @@
 import * as Content from './content';
-import mapgen, { makeBareMap } from './mapgen';
-import WorldMap from './world-map';
-import WorldMapPartition from './world-map-partition';
+import { mapgen, makeBareMap } from './mapgen';
+import {WorldMap} from './world-map';
+import {WorldMapPartition} from './world-map-partition';
 
 function addDebugStuff(map: WorldMapPartition) {
   const treeType = Content.getMetaItemByName('Pine Tree').id;

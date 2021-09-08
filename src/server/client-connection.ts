@@ -2,7 +2,7 @@ import { ProtocolEvent } from '../protocol/event-builder';
 
 // TODO: this whole thing smells.
 
-export default class ClientConnection {
+export class ClientConnection {
   messageQueue: Message[] = [];
   // @ts-ignore
   account: GridiaAccount;

@@ -5,15 +5,15 @@ import * as CommandParser from '../lib/command-parser';
 import { makeBareMap } from '../mapgen';
 import * as Player from '../player';
 import { attributeCheck } from '../server/creature-utils';
-import Server from '../server/server';
+import {Server} from '../server/server';
 import * as Utils from '../utils';
 
 import * as EventBuilder from './event-builder';
-import IServerInterface from './gen/server-interface';
+import {ICommands} from './gen/server-interface';
 
 import Commands = Protocol.Commands;
 
-export default class ServerInterface implements IServerInterface {
+export class ServerInterface implements ICommands {
   onMove(server: Server, { ...loc }: Commands.Move['params']): Promise<Commands.Move['response']> {
     if (!server.context.map.inBounds(loc)) {
       return Promise.reject('out of bounds');

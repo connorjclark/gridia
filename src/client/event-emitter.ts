@@ -36,6 +36,4 @@ interface Events {
   pointerUp: TilePoint;
 }
 
-const TypedEventEmitter: new() => StrictEventEmitter<EventEmitter, Events> = EventEmitter;
-
-export default TypedEventEmitter;
+export const TypedEventEmitter: new() => StrictEventEmitter<EventEmitter, Events> = EventEmitter;

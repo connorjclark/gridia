@@ -13,7 +13,7 @@ const dict = dict_.default || dict_;
 // https://github.com/andrewrk/node-astar
 // TODO: Make a generic astar (path-finding.ts).
 
-export default function aStar(params) {
+export function aStar(params) {
   // assert.ok(params.start !== undefined);
   // assert.ok(params.isEnd !== undefined);
   // assert.ok(params.neighbor);

@@ -1,4 +1,4 @@
-export default {
+export const KEYS = {
   BACKSPACE: 8,
   TAB: 9,
   CLEAR: 12,

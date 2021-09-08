@@ -1,10 +1,10 @@
 import * as Content from '../../content';
 import * as Player from '../../player';
-import ClientModule from '../client-module';
+import {ClientModule} from '../client-module';
 import * as Helper from '../helper';
 import { makeUIWindow } from '../ui/ui-common';
 
-class MapModule extends ClientModule {
+export class MapModule extends ClientModule {
   private mapEl?: HTMLCanvasElement;
   private context?: CanvasRenderingContext2D;
   private mapWindow = makeUIWindow({ name: 'map', cell: 'map', noscroll: true });
@@ -90,5 +90,3 @@ class MapModule extends ClientModule {
     }
   }
 }
-
-export default MapModule;

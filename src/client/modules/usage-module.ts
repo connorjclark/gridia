@@ -2,13 +2,13 @@ import * as Container from '../../container';
 import * as Content from '../../content';
 import * as CommandBuilder from '../../protocol/command-builder';
 import * as Utils from '../../utils';
-import ClientModule from '../client-module';
-import Game, { CursorReference } from '../game';
+import {ClientModule} from '../client-module';
+import { Game, CursorReference } from '../game';
 import * as Helper from '../helper';
 import { makePossibleUsagesWindow } from '../ui/possible-usages-window';
 import { makeUsagesWindow } from '../ui/usages-window';
 
-class UsageModule extends ClientModule {
+export class UsageModule extends ClientModule {
   possibleUsageCursor: CursorReference;
 
   protected currentUsagesLoc?: Point4;
@@ -152,5 +152,3 @@ class UsageModule extends ClientModule {
     return possibleUsageActions;
   }
 }
-
-export default UsageModule;

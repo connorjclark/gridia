@@ -4,15 +4,15 @@ import { findPath } from '../../path-finding';
 import * as Player from '../../player';
 import * as CommandBuilder from '../../protocol/command-builder';
 import * as Utils from '../../utils';
-import ClientModule from '../client-module';
+import {ClientModule} from '../client-module';
 import { GameActionEvent } from '../event-emitter';
-import Game from '../game';
+import {Game} from '../game';
 import * as Helper from '../helper';
-import KEYS from '../keys';
+import {KEYS} from '../keys';
 
 const MOVEMENT_DURATION = 200;
 
-class MovementModule extends ClientModule {
+export class MovementModule extends ClientModule {
   protected followCreature?: Creature;
   protected pathToDestination?: PartitionPoint[];
   protected canMoveAgainAt = 0;
@@ -159,5 +159,3 @@ class MovementModule extends ClientModule {
     this.followCreature = undefined;
   }
 }
-
-export default MovementModule;

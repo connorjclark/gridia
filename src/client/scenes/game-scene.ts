@@ -2,7 +2,7 @@ import * as Content from '../../content';
 import { game, makeGame } from '../../game-singleton';
 import * as CommandBuilder from '../../protocol/command-builder';
 import * as Utils from '../../utils';
-import Client from '../client';
+import {Client} from '../client';
 import { GameActionEvent } from '../event-emitter';
 import * as Helper from '../helper';
 

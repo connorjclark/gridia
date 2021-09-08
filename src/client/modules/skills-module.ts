@@ -1,11 +1,11 @@
 import * as Content from '../../content';
 import * as Player from '../../player';
 import * as CommandBuilder from '../../protocol/command-builder';
-import ClientModule from '../client-module';
+import {ClientModule} from '../client-module';
 import * as Helper from '../helper';
 import { State, makeSkillsWindow } from '../ui/skills-window';
 
-class SkillsModule extends ClientModule {
+export class SkillsModule extends ClientModule {
   protected skillsWindow?: ReturnType<typeof makeSkillsWindow>;
 
   makeUIState(): State {
@@ -104,5 +104,3 @@ class SkillsModule extends ClientModule {
     return Player.getLearnedSkills(this.game.client.player).map((id) => this.getSkill(id));
   }
 }
-
-export default SkillsModule;

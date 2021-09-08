@@ -10,21 +10,21 @@ import { ProtocolEvent } from '../protocol/event-builder';
 import * as Utils from '../utils';
 import { WorldTime } from '../world-time';
 
-import Client from './client';
+import {Client} from './client';
 import { WorkerConnection } from './connection';
 import * as Draw from './draw';
 import { ItemMoveBeginEvent, ItemMoveEndEvent } from './event-emitter';
 import * as Helper from './helper';
-import KEYS from './keys';
-import LazyResourceLoader from './lazy-resource-loader';
-import AdminModule from './modules/admin-module';
-import MapModule from './modules/map-module';
-import MovementModule from './modules/movement-module';
-import SelectedViewModule from './modules/selected-view-module';
-import SettingsModule, { getDefaultSettings } from './modules/settings-module';
-import SkillsModule from './modules/skills-module';
-import SoundModule from './modules/sound-module';
-import UsageModule from './modules/usage-module';
+import {KEYS} from './keys';
+import {LazyResourceLoader} from './lazy-resource-loader';
+import {AdminModule} from './modules/admin-module';
+import {MapModule} from './modules/map-module';
+import {MovementModule} from './modules/movement-module';
+import {SelectedViewModule} from './modules/selected-view-module';
+import { SettingsModule, getDefaultSettings } from './modules/settings-module';
+import {SkillsModule} from './modules/skills-module';
+import {SoundModule} from './modules/sound-module';
+import {UsageModule} from './modules/usage-module';
 import { ServerWorker } from './server-worker';
 import { makeAttributesWindow } from './ui/attributes-window';
 import { makeContainerWindow } from './ui/container-window';
@@ -287,7 +287,7 @@ export interface CursorReference {
   color: string;
 }
 
-class Game {
+export class Game {
   state: UIState;
   keys: Record<number, boolean> = {};
   loader = new LazyResourceLoader();
@@ -1412,5 +1412,3 @@ class Game {
     return `${from}: ${text}`;
   }
 }
-
-export default Game;

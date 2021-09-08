@@ -2,7 +2,7 @@ import { SECTOR_SIZE } from './constants';
 import * as Content from './content';
 import * as Utils from './utils';
 
-class WorldMapPartition {
+export class WorldMapPartition {
   // TODO remove?
   loaded = false;
   width: number;
@@ -143,5 +143,3 @@ class WorldMapPartition {
     this._sectorLoadPromises.clear();
   }
 }
-
-export default WorldMapPartition;

@@ -1,7 +1,7 @@
 // Because parcel does not support externals.
 // https://github.com/parcel-bundler/parcel/issues/144
 
-let performance: typeof window.performance;
+export let performance: typeof window.performance;
 
 if (typeof process !== 'undefined' && typeof process.release !== 'undefined') {
   // Prevents parcel from erroring: 'Cannot resolve dependency'
@@ -10,5 +10,3 @@ if (typeof process !== 'undefined' && typeof process.release !== 'undefined') {
 } else {
   performance = self.performance;
 }
-
-export default performance;

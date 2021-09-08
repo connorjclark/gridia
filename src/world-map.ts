@@ -1,9 +1,9 @@
 import { Connection } from './client/connection';
 import { SECTOR_SIZE } from './constants';
 import * as CommandBuilder from './protocol/command-builder';
-import WorldMapPartition from './world-map-partition';
+import {WorldMapPartition} from './world-map-partition';
 
-export default class WorldMap {
+export class WorldMap {
   partitions = new Map<number, WorldMapPartition>();
   loader?: (sectorPoint: TilePoint) => Promise<Sector>;
 
