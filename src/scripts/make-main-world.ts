@@ -16,8 +16,7 @@ async function createMainWorldMap() {
 
   const map = new WorldMap();
   const context = new ServerContext(map, new NodeFs('saved-maps/main'));
-  // @ts-ignore
-  context.map.loader = (pos) => context.loadSector(null, pos);
+  context.map.loader = (pos) => context.loadSector(pos);
 
   let numMainPartitions = 0;
   for (const _ of fs.readdirSync('saved-maps/main/sectors')) {
