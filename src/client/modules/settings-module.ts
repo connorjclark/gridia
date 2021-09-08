@@ -1,5 +1,5 @@
 import {ClientModule} from '../client-module';
-import { makeSettingsWindow } from '../ui/settings-window';
+import {makeSettingsWindow} from '../ui/settings-window';
 
 export interface Settings {
   showGrid: boolean;
@@ -84,7 +84,7 @@ export class SettingsModule extends ClientModule {
 
   getSettingsWindow() {
     if (this.settingsWindow) return this.settingsWindow;
-    this.settingsWindow = makeSettingsWindow({ settings: this.game.client.settings });
+    this.settingsWindow = makeSettingsWindow({settings: this.game.client.settings});
     this.settingsWindow.subscribe((state) => {
       if (state.settings) this.game.client.settings = state.settings;
     });
@@ -92,10 +92,10 @@ export class SettingsModule extends ClientModule {
   }
 
   onStart() {
-    this.game.client.eventEmitter.on('panelFocusChanged', ({ panelName }) => {
+    this.game.client.eventEmitter.on('panelFocusChanged', ({panelName}) => {
       if (panelName === 'settings') {
         this.getSettingsWindow().el.hidden = false;
-        this.getSettingsWindow().actions.setSettings({ ...this.game.client.settings });
+        this.getSettingsWindow().actions.setSettings({...this.game.client.settings});
       } else if (this.settingsWindow) {
         this.getSettingsWindow().el.hidden = true;
       }

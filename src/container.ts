@@ -1,4 +1,4 @@
-import { MAX_STACK } from './constants';
+import {MAX_STACK} from './constants';
 import * as Content from './content';
 import * as Utils from './utils';
 

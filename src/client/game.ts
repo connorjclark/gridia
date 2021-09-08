@@ -1,19 +1,19 @@
 import 'event-target-shim';
-import { DateTime } from 'luxon';
+import {DateTime} from 'luxon';
 
-import { GFX_SIZE } from '../constants';
+import {GFX_SIZE} from '../constants';
 import * as Content from '../content';
-import { game } from '../game-singleton';
-import { calcStraightLine } from '../lib/line';
+import {game} from '../game-singleton';
+import {calcStraightLine} from '../lib/line';
 import * as CommandBuilder from '../protocol/command-builder';
-import { ProtocolEvent } from '../protocol/event-builder';
+import {ProtocolEvent} from '../protocol/event-builder';
 import * as Utils from '../utils';
-import { WorldTime } from '../world-time';
+import {WorldTime} from '../world-time';
 
 import {Client} from './client';
-import { WorkerConnection } from './connection';
+import {WorkerConnection} from './connection';
 import * as Draw from './draw';
-import { ItemMoveBeginEvent, ItemMoveEndEvent } from './event-emitter';
+import {ItemMoveBeginEvent, ItemMoveEndEvent} from './event-emitter';
 import * as Helper from './helper';
 import {KEYS} from './keys';
 import {LazyResourceLoader} from './lazy-resource-loader';
@@ -21,18 +21,18 @@ import {AdminModule} from './modules/admin-module';
 import {MapModule} from './modules/map-module';
 import {MovementModule} from './modules/movement-module';
 import {SelectedViewModule} from './modules/selected-view-module';
-import { SettingsModule, getDefaultSettings } from './modules/settings-module';
+import {SettingsModule, getDefaultSettings} from './modules/settings-module';
 import {SkillsModule} from './modules/skills-module';
 import {SoundModule} from './modules/sound-module';
 import {UsageModule} from './modules/usage-module';
-import { ServerWorker } from './server-worker';
-import { makeAttributesWindow } from './ui/attributes-window';
-import { makeContainerWindow } from './ui/container-window';
-import { makeDialogueWindow } from './ui/dialogue-window';
-import { makeHelpWindow } from './ui/help-window';
-import { makeSpellsWindow } from './ui/spells-window';
-import { makeGraphicComponent } from './ui/ui-common';
-import { WorldContainer } from './world-container';
+import {ServerWorker} from './server-worker';
+import {makeAttributesWindow} from './ui/attributes-window';
+import {makeContainerWindow} from './ui/container-window';
+import {makeDialogueWindow} from './ui/dialogue-window';
+import {makeHelpWindow} from './ui/help-window';
+import {makeSpellsWindow} from './ui/spells-window';
+import {makeGraphicComponent} from './ui/ui-common';
+import {WorldContainer} from './world-container';
 
 // WIP lighting shaders.
 
@@ -223,10 +223,10 @@ class CreatureSprite extends PIXI.Sprite {
     const textures: Record<string, PIXI.Texture> = {};
     if (this.creature.graphics.index >= 0 && this.creature.graphics.index <= 4) {
       const data = this.creature.imageData || {
-        arms: { file: 'rpgwo-arms0.png', frames: [0] },
-        head: { file: 'rpgwo-head0.png', frames: [0] },
-        chest: { file: 'rpgwo-chest0.png', frames: [0] },
-        legs: { file: 'rpgwo-legs0.png', frames: [0] },
+        arms: {file: 'rpgwo-arms0.png', frames: [0]},
+        head: {file: 'rpgwo-head0.png', frames: [0]},
+        chest: {file: 'rpgwo-chest0.png', frames: [0]},
+        legs: {file: 'rpgwo-legs0.png', frames: [0]},
       };
 
       textures.arms = Draw.getTexture(data.arms.file, data.arms.frames[0]);
@@ -244,7 +244,7 @@ class CreatureSprite extends PIXI.Sprite {
       if (texture === PIXI.Texture.EMPTY) return false;
 
       creatureGfx
-        .beginTextureFill({ texture })
+        .beginTextureFill({texture})
         .drawRect(0, 0, width * GFX_SIZE, height * GFX_SIZE)
         .endFill();
     }
@@ -310,15 +310,15 @@ export class Game {
   private _currentPanel = '';
   private _playerCreature?: Creature;
   private _currentHoverItemText =
-  new PIXI.Text('', { fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round' });
+  new PIXI.Text('', {fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round'});
   private _isEditing = false;
 
   private _lastSyncedEpoch = 0;
   private _lastSyncedRealTime = 0;
 
   private _cursors: CursorReference[] = [];
-  private _mouseCursor = this.registerCursor({ color: 'gold' });
-  private _selectedViewCursor = this.registerCursor({ color: 'white' });
+  private _mouseCursor = this.registerCursor({color: 'gold'});
+  private _selectedViewCursor = this.registerCursor({color: 'white'});
 
   private _currentChatSection = 'All';
   private _chatLog: Array<{ section: string; text: string; from?: string }> = [];
@@ -413,7 +413,7 @@ export class Game {
   getPlayerPosition() {
     const creature = this.getPlayerCreature();
     if (creature) return creature.pos;
-    return { w: 0, x: 0, y: 0, z: 0 };
+    return {w: 0, x: 0, y: 0, z: 0};
   }
 
   getPlayerCreature() {
@@ -457,9 +457,9 @@ export class Game {
       }
 
       if (this.client.creature.id === event.args.id) {
-        this.attributesWindow.actions.setAttribute('life', { ...this.client.creature.life });
-        this.attributesWindow.actions.setAttribute('stamina', { ...this.client.creature.stamina });
-        this.attributesWindow.actions.setAttribute('mana', { ...this.client.creature.mana });
+        this.attributesWindow.actions.setAttribute('life', {...this.client.creature.life});
+        this.attributesWindow.actions.setAttribute('stamina', {...this.client.creature.stamina});
+        this.attributesWindow.actions.setAttribute('mana', {...this.client.creature.mana});
         this.attributesWindow.actions.setBuffs(this.client.creature.buffs.map((buff) => {
           let name = 'Buff';
           let skillName = '?';
@@ -637,7 +637,7 @@ export class Game {
   }
 
   registerListeners() {
-    const evtOptions = { signal: this._eventAbortController.signal };
+    const evtOptions = {signal: this._eventAbortController.signal};
 
     this.client.eventEmitter.on('event', (e) => {
       if (this.started) this.onProtocolEvent(e);
@@ -667,7 +667,7 @@ export class Game {
     document.body.addEventListener('click', onActionSelection, evtOptions);
 
     window.document.addEventListener('pointermove', (e: MouseEvent) => {
-      const loc = worldToTile(mouseToWorld({ x: e.clientX, y: e.clientY }));
+      const loc = worldToTile(mouseToWorld({x: e.clientX, y: e.clientY}));
       this.state.mouse = {
         ...this.state.mouse,
         x: e.clientX,
@@ -675,8 +675,8 @@ export class Game {
         tile: loc,
       };
       if (this.client.context.map.inBounds(loc)) {
-        this.client.eventEmitter.emit('mouseMovedOverTile', { ...loc }); // TODO remove
-        this.client.eventEmitter.emit('pointerMove', { ...loc });
+        this.client.eventEmitter.emit('mouseMovedOverTile', {...loc}); // TODO remove
+        this.client.eventEmitter.emit('pointerMove', {...loc});
       }
 
       if (!(e.target as HTMLElement).closest('.ui')) {
@@ -711,7 +711,7 @@ export class Game {
 
     this.canvasesEl.addEventListener('contextmenu', (e: MouseEvent) => {
       e.preventDefault();
-      const mouse = { x: e.pageX, y: e.pageY };
+      const mouse = {x: e.pageX, y: e.pageY};
       const tile = worldToTile(mouseToWorld(mouse));
       ContextMenu.openForTile(mouse, tile);
     }, evtOptions);
@@ -724,30 +724,30 @@ export class Game {
       longTouchTimer = setTimeout(() => {
         const touch = e.targetTouches.item(0);
         if (!touch) return;
-        const mouse = { x: touch.pageX, y: touch.pageY };
+        const mouse = {x: touch.pageX, y: touch.pageY};
         const tile = worldToTile(mouseToWorld(mouse));
         ContextMenu.openForTile(mouse, tile);
         longTouchTimer = null;
       }, 1000);
-    }, { capture: false, signal: this._eventAbortController.signal });
+    }, {capture: false, signal: this._eventAbortController.signal});
     this.canvasesEl.addEventListener('touchend', () => {
       if (!longTouchTimer) return;
       clearInterval(longTouchTimer);
       longTouchTimer = null;
-    }, { capture: false, signal: this._eventAbortController.signal });
+    }, {capture: false, signal: this._eventAbortController.signal});
 
     this.world.interactive = true;
     this.world.on('pointerdown', (e: PIXI.InteractionEvent) => {
       if (this.isEditingMode()) return;
 
-      const point = worldToTile(mouseToWorld({ x: e.data.global.x, y: e.data.global.y }));
+      const point = worldToTile(mouseToWorld({x: e.data.global.x, y: e.data.global.y}));
       if (!this.client.context.map.inBounds(point)) return;
       const item = this.client.context.map.getItem(point);
       if (!item || !item.type) return;
       if (!this.state.mouse.tile) return;
 
       const evtListener = (e2: PIXI.InteractionEvent) => {
-        const point2 = worldToTile(mouseToWorld({ x: e2.data.global.x, y: e2.data.global.y }));
+        const point2 = worldToTile(mouseToWorld({x: e2.data.global.x, y: e2.data.global.y}));
         if (!Utils.equalPoints(point, point2)) {
           this.client.eventEmitter.emit('itemMoveBegin', {
             location: Utils.ItemLocation.World(point),
@@ -770,8 +770,8 @@ export class Game {
         });
       }
 
-      const loc = worldToTile(mouseToWorld({ x: e.data.global.x, y: e.data.global.y }));
-      this.client.eventEmitter.emit('pointerUp', { ...loc });
+      const loc = worldToTile(mouseToWorld({x: e.data.global.x, y: e.data.global.y}));
+      this.client.eventEmitter.emit('pointerUp', {...loc});
     }, evtOptions);
     this.world.on('pointerdown', (e: PIXI.InteractionEvent) => {
       if (ContextMenu.isOpen()) {
@@ -779,19 +779,19 @@ export class Game {
         return;
       }
 
-      const loc = worldToTile(mouseToWorld({ x: e.data.global.x, y: e.data.global.y }));
+      const loc = worldToTile(mouseToWorld({x: e.data.global.x, y: e.data.global.y}));
       this.modules.selectedView.selectView(Utils.ItemLocation.World(loc));
 
       if (this.client.context.map.inBounds(loc)) {
-        this.client.eventEmitter.emit('tileClicked', { ...loc }); // TODO remove
-        this.client.eventEmitter.emit('pointerDown', { ...loc });
+        this.client.eventEmitter.emit('tileClicked', {...loc}); // TODO remove
+        this.client.eventEmitter.emit('pointerDown', {...loc});
       }
 
       // Temporary.
       if (this.client.settings.clickMagic) {
-        const graphics = Math.random() > 0.5 ? { graphic: 60, graphicFrames: 10 } : { graphic: 80, graphicFrames: 5 };
+        const graphics = Math.random() > 0.5 ? {graphic: 60, graphicFrames: 10} : {graphic: 80, graphicFrames: 5};
         const frames: GridiaAnimation['frames'] =
-          Utils.emptyArray(graphics.graphicFrames).map((_, i) => ({ sprite: graphics.graphic + i }));
+          Utils.emptyArray(graphics.graphicFrames).map((_, i) => ({sprite: graphics.graphic + i}));
         frames[0].sound = 'magic';
 
         this.worldContainer.animationController.addEmitter({
@@ -849,11 +849,11 @@ export class Game {
       if (dx || dy) {
         let currentCursor = null;
         if (this.state.selectedView.creatureId) {
-          currentCursor = { ...this.client.context.getCreature(this.state.selectedView.creatureId).pos };
+          currentCursor = {...this.client.context.getCreature(this.state.selectedView.creatureId).pos};
         } else if (this.state.selectedView.location?.source === 'world') {
           currentCursor = this.state.selectedView.location.loc;
         } else {
-          currentCursor = { ...focusPos };
+          currentCursor = {...focusPos};
         }
 
         currentCursor.x += dx;
@@ -863,7 +863,7 @@ export class Game {
 
       // Space bar to use selected tool.
       if (e.keyCode === KEYS.SPACE_BAR && this.state.selectedView.location?.source === 'world') {
-        Helper.useTool(this.state.selectedView.location.loc, { toolIndex: Helper.getSelectedToolIndex() });
+        Helper.useTool(this.state.selectedView.location.loc, {toolIndex: Helper.getSelectedToolIndex()});
       }
 
       // Shift to pick up item.
@@ -957,7 +957,7 @@ export class Game {
 
     this.client.eventEmitter.on('action', () => ContextMenu.close());
 
-    this.client.eventEmitter.on('editingMode', ({ enabled }) => {
+    this.client.eventEmitter.on('editingMode', ({enabled}) => {
       this._isEditing = enabled;
     });
 
@@ -988,7 +988,7 @@ export class Game {
       let panelName = targetEl.dataset.panel as string;
       if (panelName === this._currentPanel) panelName = '';
 
-      game.client.eventEmitter.emit('panelFocusChanged', { panelName });
+      game.client.eventEmitter.emit('panelFocusChanged', {panelName});
       this._currentPanel = panelName;
       if (!panelName) return;
 
@@ -996,7 +996,7 @@ export class Game {
     }, evtOptions);
 
     let helpWindow: ReturnType<typeof makeHelpWindow>;
-    this.client.eventEmitter.on('panelFocusChanged', ({ panelName }) => {
+    this.client.eventEmitter.on('panelFocusChanged', ({panelName}) => {
       if (panelName === 'help') {
         if (!helpWindow) helpWindow = makeHelpWindow(this);
         helpWindow.el.hidden = false;
@@ -1006,7 +1006,7 @@ export class Game {
     });
 
     let spellsWindow: ReturnType<typeof makeSpellsWindow>;
-    this.client.eventEmitter.on('panelFocusChanged', ({ panelName }) => {
+    this.client.eventEmitter.on('panelFocusChanged', ({panelName}) => {
       if (panelName === 'spells') {
         if (!helpWindow) {
           spellsWindow = makeSpellsWindow((spell) => {
@@ -1020,7 +1020,7 @@ export class Game {
               }
             }
 
-            this.client.connection.sendCommand(CommandBuilder.castSpell({ id: spell.id, creatureId, loc }));
+            this.client.connection.sendCommand(CommandBuilder.castSpell({id: spell.id, creatureId, loc}));
           });
         }
         spellsWindow.el.hidden = false;
@@ -1096,7 +1096,7 @@ export class Game {
     this.client.context.syncCreaturesOnTiles();
 
     const focusPos = this.getPlayerPosition();
-    const { w, z } = focusPos;
+    const {w, z} = focusPos;
     const partition = this.client.context.map.partitions.get(w);
 
     if (!partition) {
@@ -1104,7 +1104,7 @@ export class Game {
       const lazy = window.lol_lazy = window.lol_lazy || [];
       if (!lazy.includes(w)) {
         lazy.push(w);
-        this.client.connection.sendCommand(CommandBuilder.requestPartition({ w }));
+        this.client.connection.sendCommand(CommandBuilder.requestPartition({w}));
       }
       return;
     }
@@ -1192,10 +1192,10 @@ export class Game {
 
     const creatureSpritesNotSeen = new Set([...this.creatureSprites.keys()]);
 
-    const start = { x: startTileX, y: startTileY, z };
-    for (const { pos, tile } of partition.getIteratorForArea(start, tilesWidth + 1, tilesHeight + 1)) {
-      const { x, y } = pos;
-      const creature = this.client.context.getCreatureAt({ w, ...pos });
+    const start = {x: startTileX, y: startTileY, z};
+    for (const {pos, tile} of partition.getIteratorForArea(start, tilesWidth + 1, tilesHeight + 1)) {
+      const {x, y} = pos;
+      const creature = this.client.context.getCreatureAt({w, ...pos});
 
       // TODO: don't make creature sprites on every tick.
       if (creature) {
@@ -1232,7 +1232,7 @@ export class Game {
 
     // Draw item being moved.
     if (this.itemMovingState && this.itemMovingState.item) {
-      const { x, y } = this.state.mouse;
+      const {x, y} = this.state.mouse;
       this.itemMovingGraphic.el.style.left = `${x - GFX_SIZE / 2}px`;
       this.itemMovingGraphic.el.style.top = `${y - GFX_SIZE / 2}px`;
     } else {
@@ -1293,7 +1293,7 @@ export class Game {
         const tool = Helper.getSelectedTool();
         const selectedItem = this.client.context.map.getItem(cursor.location.loc);
         if (tool && selectedItem && Helper.usageExists(tool.type, selectedItem.type)) {
-          const itemSprite = Draw.makeItemSprite({ type: tool.type, quantity: 1 });
+          const itemSprite = Draw.makeItemSprite({type: tool.type, quantity: 1});
           itemSprite.anchor.x = itemSprite.anchor.y = 0.5;
           sprite.addChild(itemSprite);
         }
@@ -1327,7 +1327,7 @@ export class Game {
       } else {
         unit = 'seconds' as const;
       }
-      el.textContent = expiresAt.toRelative({ unit });
+      el.textContent = expiresAt.toRelative({unit});
     }
 
     for (const clientModule of Object.values(this.modules)) {
@@ -1373,7 +1373,7 @@ export class Game {
   }
 
   addToChat(section: string, text: string, from?: string) {
-    this._chatLog.push({ section, text, from });
+    this._chatLog.push({section, text, from});
     if (section === this._currentChatSection || this._currentChatSection === 'All') {
       const chatTextarea = Helper.find('.chat-area') as HTMLTextAreaElement;
       const isMaxScroll = (chatTextarea.scrollTop + chatTextarea.offsetHeight) >= chatTextarea.scrollHeight;
@@ -1403,7 +1403,7 @@ export class Game {
 
   private createChatSection(name: string) {
     const sectionsEl = Helper.find('.chat .chat-sections');
-    const el = Helper.createChildOf(sectionsEl, 'div', 'chat-section', { name });
+    const el = Helper.createChildOf(sectionsEl, 'div', 'chat-section', {name});
     el.textContent = name;
   }
 

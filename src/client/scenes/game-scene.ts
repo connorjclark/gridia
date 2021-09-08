@@ -1,13 +1,13 @@
 import * as Content from '../../content';
-import { game, makeGame } from '../../game-singleton';
+import {game, makeGame} from '../../game-singleton';
 import * as CommandBuilder from '../../protocol/command-builder';
 import * as Utils from '../../utils';
 import {Client} from '../client';
-import { GameActionEvent } from '../event-emitter';
+import {GameActionEvent} from '../event-emitter';
 import * as Helper from '../helper';
 
-import { Scene } from './scene';
-import { SceneController } from './scene-controller';
+import {Scene} from './scene';
+import {SceneController} from './scene-controller';
 
 function globalActionCreator(location: ItemLocation): GameAction[] {
   let item;
@@ -134,7 +134,7 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
 
 function globalOnActionHandler(client: Client, e: GameActionEvent) {
   const type = e.action.type;
-  const { creature, location, quantity } = e;
+  const {creature, location, quantity} = e;
 
   switch (type) {
   case 'pickup':
@@ -160,7 +160,7 @@ function globalOnActionHandler(client: Client, e: GameActionEvent) {
     if (location.source === 'world') Helper.useHand(location.loc);
     break;
   case 'use-tool':
-    if (location.source === 'world') Helper.useTool(location.loc, { toolIndex: e.action.extra.index });
+    if (location.source === 'world') Helper.useTool(location.loc, {toolIndex: e.action.extra.index});
     break;
   case 'open-container':
     if (location.source === 'world') Helper.openContainer(location.loc);

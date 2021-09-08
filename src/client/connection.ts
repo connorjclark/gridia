@@ -1,7 +1,7 @@
-import { game } from '../game-singleton';
+import {game} from '../game-singleton';
 import * as WireSerializer from '../lib/wire-serializer';
-import { ProtocolCommand } from '../protocol/command-builder';
-import { ProtocolEvent } from '../protocol/event-builder';
+import {ProtocolCommand} from '../protocol/command-builder';
+import {ProtocolEvent} from '../protocol/event-builder';
 
 function debug(prefix: string, msg: Message) {
   // @ts-ignore
@@ -45,7 +45,7 @@ export abstract class Connection {
   sendCommand<T extends ProtocolCommand>(command: T): Promise<T['args']['response']> {
     const id = this.nextId++;
     const promise = new Promise((resolve, reject) => {
-      this.idToCallback.set(id, { resolve, reject });
+      this.idToCallback.set(id, {resolve, reject});
     });
     this.send_({
       id,

@@ -1,13 +1,13 @@
-import { h, render, Component } from 'preact';
-import { useState } from 'preact/hooks';
+import {h, render, Component} from 'preact';
+import {useState} from 'preact/hooks';
 import createStore from 'redux-zero';
-import { Provider, connect } from 'redux-zero/preact';
-import { Actions, BoundActions } from 'redux-zero/types/Actions';
+import {Provider, connect} from 'redux-zero/preact';
+import {Actions, BoundActions} from 'redux-zero/types/Actions';
 
-import { GFX_SIZE } from '../../constants';
+import {GFX_SIZE} from '../../constants';
 import * as Utils from '../../utils';
 import * as Helper from '../helper';
-import { ImageResources } from '../lazy-resource-loader';
+import {ImageResources} from '../lazy-resource-loader';
 
 export type ComponentProps<S, T extends Actions<S>> = S & BoundActions<S, T>;
 type OmitFirstArg<F> = F extends (x: any, ...args: infer P) => infer R ? (...args: P) => R : never;
@@ -42,7 +42,7 @@ export function createSubApp<S, A>(component: any, initialState: S, actions: () 
     store.subscribe(fn);
   };
 
-  return { SubApp, exportedActions, subscribe };
+  return {SubApp, exportedActions, subscribe};
 }
 
 export function makeUIWindow(opts: { name: string; cell: string; noscroll?: boolean }) {
@@ -128,11 +128,11 @@ export function CustomCreatureGraphic(props: CustomCreatureGraphicProps) {
   const size = (props.scale || 1) * GFX_SIZE;
   // TODO: using margin here is a hack ...
   return <div class="custom-creature-graphic" style={
-    { width: size + 'px', height: size + 'px', marginRight: size + 'px' }}>
+    {width: size + 'px', height: size + 'px', marginRight: size + 'px'}}>
     {Object.entries(props).map(([key, value]) => {
       if (key === 'scale' || value === undefined) return;
 
-      return <div style={{ position: 'absolute' }}>
+      return <div style={{position: 'absolute'}}>
         <Graphic file={value.file} index={value.frames[0]} scale={props.scale}></Graphic>
       </div>;
     })}
@@ -182,6 +182,6 @@ export const Bar = (props: { label: string; color: string; current: number; max:
     <div class="bar__label">
       <span>{props.label}:&nbsp;</span><span>{props.current}&nbsp;/&nbsp;{props.max}</span>
     </div>
-    <div class="bar__bg" style={{ width: `${percent}%`, backgroundColor: props.color }}>&nbsp;</div>
+    <div class="bar__bg" style={{width: `${percent}%`, backgroundColor: props.color}}>&nbsp;</div>
   </div>;
 };

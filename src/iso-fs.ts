@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 
-import { IDBPDatabase, openDB } from 'idb';
+import {IDBPDatabase, openDB} from 'idb';
 
 export abstract class IsoFs {
   abstract exists(path: string): Promise<boolean>;
@@ -158,7 +158,7 @@ export class FsApiFs extends IsoFs {
     const dir = await this.traversePath(pathComponents);
     if (!dir) throw new Error('invalid path ' + path);
 
-    const fileHandle = await dir.getFileHandle(filename, { create: true });
+    const fileHandle = await dir.getFileHandle(filename, {create: true});
     const writable = await fileHandle.createWritable();
     await writable.write(data);
     await writable.close();
@@ -182,7 +182,7 @@ export class FsApiFs extends IsoFs {
     let dir = this.rootDirectoryHandle;
     for (const name of names) {
       if (!name) continue;
-      dir = await dir.getDirectoryHandle(name, { create: true });
+      dir = await dir.getDirectoryHandle(name, {create: true});
     }
   }
 

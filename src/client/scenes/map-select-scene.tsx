@@ -1,15 +1,15 @@
 /* eslint-disable max-len */
 
 import linkState from 'linkstate';
-import { render, h, Component, Fragment } from 'preact';
+import {render, h, Component, Fragment} from 'preact';
 
-import { randInt } from '../../utils';
-import { connectToServerWorker } from '../connect-to-server';
+import {randInt} from '../../utils';
+import {connectToServerWorker} from '../connect-to-server';
 import * as Helper from '../helper';
 
-import { Scene } from './scene';
-import { SceneController } from './scene-controller';
-import { SelectCharacterScene } from './select-character-scene';
+import {Scene} from './scene';
+import {SceneController} from './scene-controller';
+import {SelectCharacterScene} from './select-character-scene';
 
 const DEFAULT_MAP_FORM_STATE = {
   width: 200,
@@ -60,11 +60,11 @@ function createMapSelectForm(inputFormEl: HTMLElement, onStateUpdate: (state: Fo
 
   // Pass `parent` so `linkState` works. Could use `this` if these components were defined inside `MapSelectForm.render`,
   // but that causes user input to be lost after every render.
-  const PartitionStrategy = (({ parent, choice, options }: FormState['partitionStrategy'] & { parent: Component }) => {
+  const PartitionStrategy = (({parent, choice, options}: FormState['partitionStrategy'] & { parent: Component }) => {
     const statePrefix = `partitionStrategy.options.${choice}`;
 
     if (choice === 'voronoi') {
-      const { points, relaxations } = options[choice];
+      const {points, relaxations} = options[choice];
       return <div>
         <Input onInput={linkState(parent, `${statePrefix}.points`)} name="points" type={'range'} min={1} value={points} max={5000} step={50}></Input>
         <Input onInput={linkState(parent, `${statePrefix}.relaxations`)} name="relaxations" type={'range'} min={0} value={relaxations} max={10} step={1}></Input>
@@ -72,7 +72,7 @@ function createMapSelectForm(inputFormEl: HTMLElement, onStateUpdate: (state: Fo
     }
 
     if (choice === 'square') {
-      const { size, rand } = options[choice];
+      const {size, rand} = options[choice];
       return <div>
         <Input onInput={linkState(parent, `${statePrefix}.size`)} name="size" type={'range'} min={1} value={size} max={100} step={5}></Input>
         <Input onInput={linkState(parent, `${statePrefix}.rand`)} name="rand" type={'range'} min={0} value={rand} max={0.5} step={0.1}></Input>
@@ -82,18 +82,18 @@ function createMapSelectForm(inputFormEl: HTMLElement, onStateUpdate: (state: Fo
     throw new Error();
   });
 
-  const WaterStrategy = (({ parent, choice, options }: FormState['waterStrategy'] & { parent: Component }) => {
+  const WaterStrategy = (({parent, choice, options}: FormState['waterStrategy'] & { parent: Component }) => {
     const statePrefix = `waterStrategy.options.${choice}`;
 
     if (choice === 'perlin') {
-      const { percentage } = options[choice];
+      const {percentage} = options[choice];
       return <div>
         <Input onInput={linkState(parent, `${statePrefix}.percentage`)} name="percentage" type={'range'} min={0} value={percentage} max={1} step={0.1}></Input>
       </div>;
     }
 
     if (choice === 'radial') {
-      const { radius } = options[choice];
+      const {radius} = options[choice];
       return <div>
         <Input onInput={linkState(parent, `${statePrefix}.radius`)} name="radius" type={'range'} min={0} value={radius} max={1} step={0.1}></Input>
       </div>;
@@ -160,7 +160,7 @@ function stateToMapGenOptions(data: any) {
     for (const [key, value] of Object.entries(src)) {
       if (value && typeof value === 'object' && key !== 'seeds') {
         // @ts-ignore
-        dest[key] = { type: value.choice };
+        dest[key] = {type: value.choice};
         // @ts-ignore
         handle(value.options[value.choice], dest[key]);
       } else {
@@ -233,7 +233,7 @@ export class MapSelectScene extends Scene {
 
   async onClickSelectBtn() {
     const name = `default-world-${this.mapListEl.childElementCount}`;
-    await this.controller.serverWorker.saveGeneratedMap({ name });
+    await this.controller.serverWorker.saveGeneratedMap({name});
     this.controller.loadLocalStorageData(`worker-${name}`);
     this.controller.client = await connectToServerWorker(this.controller.serverWorker, {
       mapName: name,

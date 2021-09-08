@@ -408,5 +408,5 @@ interface ServerWorkerOpts extends ServerOptions {
 
 declare module 'js-bbcode-parser' {
   // eslint-disable-next-line import/no-default-export
-  export default { parse: (text: string) => string };
+  export default {parse: (text: string) => string};
 }

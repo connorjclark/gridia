@@ -11,19 +11,19 @@ function roundTrip<T>(object: T) {
 
 describe('WireSerializer', () => {
   it('basics', () => {
-    roundTrip({ msg: 'hello' });
-    roundTrip({ msg: 123 });
-    roundTrip({ msg: { larger: 'hello', data: 123 } });
+    roundTrip({msg: 'hello'});
+    roundTrip({msg: 123});
+    roundTrip({msg: {larger: 'hello', data: 123}});
   });
 
   it('date', () => {
-    roundTrip({ msg: new Date() });
+    roundTrip({msg: new Date()});
   });
 
   it('map instance', () => {
     const map = new Map();
-    map.set(1, { a: 'hello' });
-    roundTrip({ map });
+    map.set(1, {a: 'hello'});
+    roundTrip({map});
   });
 
   it('Uint16Array', () => {
@@ -34,20 +34,20 @@ describe('WireSerializer', () => {
 
   it('map instance with complex values', () => {
     const map = new Map<number, { car: { color: string } }>();
-    map.set(1, { car: { color: 'blue' } });
+    map.set(1, {car: {color: 'blue'}});
 
-    const clonedMap = roundTrip({ map }).map;
+    const clonedMap = roundTrip({map}).map;
     const clonedCar = clonedMap.get(1)?.car;
     expect(clonedCar && clonedCar.color).toBe('blue');
   });
 
   it('object instance with map with complex values in array', () => {
     const map = new Map<number, { grid: Array<Array<{ color: string }>> }>();
-    const object = { map };
-    const car = { color: 'blue' };
-    map.set(1, { grid: [[car]] });
+    const object = {map};
+    const car = {color: 'blue'};
+    map.set(1, {grid: [[car]]});
 
-    const clonedMap = roundTrip({ object }).object.map;
+    const clonedMap = roundTrip({object}).object.map;
     const clonedCar = clonedMap.get(1)?.grid[0][0];
     expect(clonedCar && clonedCar.color).toBe('blue');
   });

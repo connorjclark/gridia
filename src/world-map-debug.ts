@@ -1,5 +1,5 @@
 import * as Content from './content';
-import { mapgen, makeBareMap } from './mapgen';
+import {mapgen, makeBareMap} from './mapgen';
 import {WorldMap} from './world-map';
 import {WorldMapPartition} from './world-map-partition';
 
@@ -26,7 +26,7 @@ function addDebugStuff(map: WorldMapPartition) {
       }
 
       if (item) {
-        map.getTile({ x, y, z: 0 }).item = item;
+        map.getTile({x, y, z: 0}).item = item;
       }
     }
   }
@@ -48,18 +48,18 @@ function addDebugStuff(map: WorldMapPartition) {
   for (const [tool, uses] of itemUsesSample) {
     const startX = 25;
     const y = i * 3;
-    map.getTile({ x: startX, y, z: 0 }).item = { type: tool, quantity: 1 };
+    map.getTile({x: startX, y, z: 0}).item = {type: tool, quantity: 1};
     const focusItems = [...new Set(uses.map((u) => u.focus))];
     for (let j = 0; j < focusItems.length; j++) {
-      map.getTile({ x: startX + j + 2, y, z: 0 }).item = { type: focusItems[j], quantity: 1 };
+      map.getTile({x: startX + j + 2, y, z: 0}).item = {type: focusItems[j], quantity: 1};
     }
     i++;
   }
 
   // Some stairs.
-  const loc = { x: 5, y: 5, z: 0 };
-  map.getTile({ ...loc, z: 1 }).floor = map.getTile(loc).floor = 10;
-  map.getTile({ ...loc, z: 1 }).item = {
+  const loc = {x: 5, y: 5, z: 0};
+  map.getTile({...loc, z: 1}).floor = map.getTile(loc).floor = 10;
+  map.getTile({...loc, z: 1}).item = {
     type: Content.getMetaItemByName('Royal Stairs Up').id,
     quantity: 1,
   };
@@ -69,11 +69,11 @@ function addDebugStuff(map: WorldMapPartition) {
   };
 
   // Chests to test containers.
-  map.getTile({ x: 8, y: 8, z: 0 }).item = {
+  map.getTile({x: 8, y: 8, z: 0}).item = {
     type: Content.getRandomMetaItemOfClass('Container').id,
     quantity: 1,
   };
-  map.getTile({ x: 9, y: 8, z: 0 }).item = {
+  map.getTile({x: 9, y: 8, z: 0}).item = {
     type: Content.getRandomMetaItemOfClass('Container').id,
     quantity: 1,
   };
@@ -94,7 +94,7 @@ export function createTestPartitions(map: WorldMap) {
     radius: 0.9,
   } as const;
 
-  const testMapResult = mapgen({ width, height, depth, partitionStrategy, waterStrategy, borderIsAlwaysWater: false });
+  const testMapResult = mapgen({width, height, depth, partitionStrategy, waterStrategy, borderIsAlwaysWater: false});
   const testPartition = testMapResult.partition;
   const testPartitionW = map.partitions.size;
   map.addPartition(testPartitionW, testPartition);
@@ -105,28 +105,28 @@ export function createTestPartitions(map: WorldMap) {
   map.addPartition(smallPartitionW, smallPartition);
 
   // middle defaultMap <-> topleft defaultMap
-  testPartition.getTile({ x: Math.floor(width / 2), y: Math.floor(height / 2), z: 0 }).item = {
+  testPartition.getTile({x: Math.floor(width / 2), y: Math.floor(height / 2), z: 0}).item = {
     type: Content.getMetaItemByName('Warp Portal').id,
     quantity: 1,
-    warpTo: { w: testPartitionW, x: 1, y: 1, z: 0 },
+    warpTo: {w: testPartitionW, x: 1, y: 1, z: 0},
   };
-  testPartition.getTile({ x: 1, y: 1, z: 0 }).item = undefined;
-  testPartition.getTile({ x: 0, y: 0, z: 0 }).item = {
+  testPartition.getTile({x: 1, y: 1, z: 0}).item = undefined;
+  testPartition.getTile({x: 0, y: 0, z: 0}).item = {
     type: Content.getMetaItemByName('Warp Portal').id,
     quantity: 1,
-    warpTo: { w: testPartitionW, x: Math.floor(width / 2), y: Math.floor(height / 2) - 1, z: 0 },
+    warpTo: {w: testPartitionW, x: Math.floor(width / 2), y: Math.floor(height / 2) - 1, z: 0},
   };
 
   // defaultMap <-> smallMap
-  testPartition.getTile({ x: 7, y: 5, z: 0 }).item = {
+  testPartition.getTile({x: 7, y: 5, z: 0}).item = {
     type: Content.getMetaItemByName('Warp Portal').id,
     quantity: 1,
-    warpTo: { w: smallPartitionW, x: 5, y: 5, z: 0 },
+    warpTo: {w: smallPartitionW, x: 5, y: 5, z: 0},
   };
-  smallPartition.getTile({ x: 7, y: 5, z: 0 }).item = {
+  smallPartition.getTile({x: 7, y: 5, z: 0}).item = {
     type: Content.getMetaItemByName('Warp Portal').id,
     quantity: 1,
-    warpTo: { w: testPartitionW, x: 9, y: 12, z: 0 },
+    warpTo: {w: testPartitionW, x: 9, y: 12, z: 0},
   };
 
   return testMapResult.mapGenResult;

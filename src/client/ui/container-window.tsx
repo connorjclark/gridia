@@ -1,10 +1,10 @@
-import { render, h, Component } from 'preact';
+import {render, h, Component} from 'preact';
 
 import * as Content from '../../content';
 import * as Utils from '../../utils';
 import {Game} from '../game';
 
-import { Graphic, ComponentProps, createSubApp, makeUIWindow, CustomCreatureGraphic } from './ui-common';
+import {Graphic, ComponentProps, createSubApp, makeUIWindow, CustomCreatureGraphic} from './ui-common';
 
 interface State {
   name?: string;
@@ -26,7 +26,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
 
   const actions = () => ({
     setContainer: (state: State, container_: Container): State => {
-      return { ...state, container: { ...container_ } };
+      return {...state, container: {...container_}};
     },
     setSelectedIndex: (state: State, selectedIndex: number | null): State => {
       if (selectedIndex === state.selectedIndex) selectedIndex = null;
@@ -39,11 +39,11 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
       // an event so the appropriate system can respond to changes.
       game.client.eventEmitter.emit('containerWindowSelectedIndexChanged');
 
-      return { ...state, selectedIndex };
+      return {...state, selectedIndex};
     },
     setEquipmentWindow: (state: State, equipmentWindow: State['equipmentWindow']): State => {
       if (container.type !== 'equipment') return state;
-      return { ...state, equipmentWindow };
+      return {...state, equipmentWindow};
     },
   });
 
@@ -57,7 +57,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
 
       let statsEl = null;
       if (props.equipmentWindow) {
-        const stats: any = { ...props.equipmentWindow.stats };
+        const stats: any = {...props.equipmentWindow.stats};
         stats.damage = `${props.equipmentWindow.stats.damageLow} - ${props.equipmentWindow.stats.damageHigh}`;
         delete stats.damageLow;
         delete stats.damageHigh;
@@ -96,8 +96,8 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
     }
   }
 
-  const { SubApp, exportedActions, subscribe } = createSubApp(ContainerWindow, initialState, actions);
-  const el = makeUIWindow({ name: 'container', cell: 'right', noscroll: true });
+  const {SubApp, exportedActions, subscribe} = createSubApp(ContainerWindow, initialState, actions);
+  const el = makeUIWindow({name: 'container', cell: 'right', noscroll: true});
   render(<SubApp />, el);
 
   if (container.type === 'equipment') {
@@ -159,5 +159,5 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
     }
   });
 
-  return { el, actions: exportedActions, subscribe };
+  return {el, actions: exportedActions, subscribe};
 }

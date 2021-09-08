@@ -1,10 +1,10 @@
-import { MAX_STACK, MINE, SECTOR_SIZE, WATER } from '../constants';
+import {MAX_STACK, MINE, SECTOR_SIZE, WATER} from '../constants';
 import * as Container from '../container';
 import * as Content from '../content';
 import * as CommandParser from '../lib/command-parser';
-import { makeBareMap } from '../mapgen';
+import {makeBareMap} from '../mapgen';
 import * as Player from '../player';
-import { attributeCheck } from '../server/creature-utils';
+import {attributeCheck} from '../server/creature-utils';
 import {Server} from '../server/server';
 import * as Utils from '../utils';
 
@@ -14,7 +14,7 @@ import {ICommands} from './gen/server-interface';
 import Commands = Protocol.Commands;
 
 export class ServerInterface implements ICommands {
-  onMove(server: Server, { ...loc }: Commands.Move['params']): Promise<Commands.Move['response']> {
+  onMove(server: Server, {...loc}: Commands.Move['params']): Promise<Commands.Move['response']> {
     if (!server.context.map.inBounds(loc)) {
       return Promise.reject('out of bounds');
     }
@@ -36,7 +36,7 @@ export class ServerInterface implements ICommands {
       server.modifyCreatureStamina(null, creature, -staminaCost);
 
       const oreType = tile.item.oreType || Content.getMetaItemByName('Pile of Dirt').id;
-      const minedItem = { type: oreType, quantity: 1 };
+      const minedItem = {type: oreType, quantity: 1};
       server.setItem(loc, minedItem);
       server.broadcastAnimation({
         name: 'MiningSound',
@@ -66,7 +66,7 @@ export class ServerInterface implements ICommands {
   }
 
   // eslint-disable-next-line max-len
-  async onRegisterAccount(server: Server, { username, password }: Commands.RegisterAccount['params']): Promise<Commands.RegisterAccount['response']> {
+  async onRegisterAccount(server: Server, {username, password}: Commands.RegisterAccount['params']): Promise<Commands.RegisterAccount['response']> {
     if (server.currentClientConnection.account) return Promise.reject('Already logged in');
     if (username.length > 20) return Promise.reject('Username too long');
     if (password.length < 8) return Promise.reject('Password too short');
@@ -77,7 +77,7 @@ export class ServerInterface implements ICommands {
     });
   }
 
-  async onLogin(server: Server, { username, password }: Commands.Login['params']): Promise<Commands.Login['response']> {
+  async onLogin(server: Server, {username, password}: Commands.Login['params']): Promise<Commands.Login['response']> {
     if (server.currentClientConnection.account) throw new Error('Already logged in');
 
     const account = await server.loginAccount(server.currentClientConnection, {
@@ -98,7 +98,7 @@ export class ServerInterface implements ICommands {
       imageDatas.push(server.makeCreatureImageData(equipment));
     }
 
-    return { account, players, imageDatas };
+    return {account, players, imageDatas};
   }
 
   onCreatePlayer(server: Server, args: Commands.CreatePlayer['params']): Promise<void> {
@@ -106,7 +106,7 @@ export class ServerInterface implements ICommands {
   }
 
   // eslint-disable-next-line max-len
-  async onEnterWorld(server: Server, { playerId }: Commands.EnterWorld['params']): Promise<Commands.EnterWorld['response']> {
+  async onEnterWorld(server: Server, {playerId}: Commands.EnterWorld['params']): Promise<Commands.EnterWorld['response']> {
     if (!server.currentClientConnection.account) throw new Error('Not logged in');
     if (server.currentClientConnection.player) throw new Error('Already in world');
     if (!server.currentClientConnection.account.playerIds.includes(playerId)) throw new Error('No such player');
@@ -121,7 +121,7 @@ export class ServerInterface implements ICommands {
     return Promise.resolve();
   }
 
-  async onCastSpell(server: Server, { id, creatureId, loc }: Commands.CastSpell['params']): Promise<void> {
+  async onCastSpell(server: Server, {id, creatureId, loc}: Commands.CastSpell['params']): Promise<void> {
     const creature = server.currentClientConnection.creature;
     const otherCreature = creatureId ? server.context.getCreature(creatureId) : null;
     const spell = Content.getSpell(id);
@@ -159,7 +159,7 @@ export class ServerInterface implements ICommands {
   }
 
   // eslint-disable-next-line max-len
-  async onRequestContainer(server: Server, { containerId, loc }: Commands.RequestContainer['params']): Promise<Commands.RequestContainer['response']> {
+  async onRequestContainer(server: Server, {containerId, loc}: Commands.RequestContainer['params']): Promise<Commands.RequestContainer['response']> {
     if (!containerId && !loc) throw new Error('expected containerId or loc');
     if (containerId && loc) throw new Error('expected only one of containerId or loc');
 
@@ -180,11 +180,11 @@ export class ServerInterface implements ICommands {
 
     server.currentClientConnection.registeredContainers.push(containerId);
     const container = await server.context.getContainer(containerId);
-    server.reply(EventBuilder.container({ container }));
+    server.reply(EventBuilder.container({container}));
   }
 
   // eslint-disable-next-line max-len
-  onCloseContainer(server: Server, { containerId }: Commands.CloseContainer['params']): Promise<Commands.CloseContainer['response']> {
+  onCloseContainer(server: Server, {containerId}: Commands.CloseContainer['params']): Promise<Commands.CloseContainer['response']> {
     const index = server.currentClientConnection.registeredContainers.indexOf(containerId);
     if (index !== -1) {
       server.currentClientConnection.registeredContainers.splice(index, 1);
@@ -193,7 +193,7 @@ export class ServerInterface implements ICommands {
   }
 
   // eslint-disable-next-line max-len
-  onRequestCreature(server: Server, { id }: Commands.RequestCreature['params']): Promise<Commands.RequestCreature['response']> {
+  onRequestCreature(server: Server, {id}: Commands.RequestCreature['params']): Promise<Commands.RequestCreature['response']> {
     const creature = server.context.getCreature(id);
     if (!creature) {
       return Promise.reject('requested invalid creature: ' + id);
@@ -207,7 +207,7 @@ export class ServerInterface implements ICommands {
   }
 
   // eslint-disable-next-line max-len
-  onRequestPartition(server: Server, { w }: Commands.RequestPartition['params']): Promise<Commands.RequestPartition['response']> {
+  onRequestPartition(server: Server, {w}: Commands.RequestPartition['params']): Promise<Commands.RequestPartition['response']> {
     const partition = server.context.map.getPartition(w);
     server.reply(EventBuilder.initializePartition({
       w,
@@ -218,7 +218,7 @@ export class ServerInterface implements ICommands {
     return Promise.resolve();
   }
 
-  async onRequestSector(server: Server, { ...loc }: Commands.RequestSector['params']) {
+  async onRequestSector(server: Server, {...loc}: Commands.RequestSector['params']) {
     const isClose = true; // TODO
     if (loc.x < 0 || loc.y < 0 || loc.z < 0 || !isClose) {
       return;
@@ -242,7 +242,7 @@ export class ServerInterface implements ICommands {
   }
 
   // eslint-disable-next-line max-len
-  onCreatureAction(server: Server, { creatureId, type }: Commands.CreatureAction['params']): Promise<Commands.CreatureAction['response']> {
+  onCreatureAction(server: Server, {creatureId, type}: Commands.CreatureAction['params']): Promise<Commands.CreatureAction['response']> {
     const creature = server.context.getCreature(creatureId);
     const creatureState = server.creatureStates[creatureId];
     const isClose = true; // TODO
@@ -254,7 +254,7 @@ export class ServerInterface implements ICommands {
 
     if (type === 'attack') {
       server.creatureStates[server.currentClientConnection.creature.id].targetCreature = creatureState;
-      server.currentClientConnection.sendEvent(EventBuilder.setAttackTarget({ creatureId }));
+      server.currentClientConnection.sendEvent(EventBuilder.setAttackTarget({creatureId}));
     }
 
     if (type === 'tame') {
@@ -281,13 +281,13 @@ export class ServerInterface implements ICommands {
   }
 
   // eslint-disable-next-line max-len
-  onDialogueResponse(server: Server, { choiceIndex }: Commands.DialogueResponse['params']): Promise<Commands.DialogueResponse['response']> {
+  onDialogueResponse(server: Server, {choiceIndex}: Commands.DialogueResponse['params']): Promise<Commands.DialogueResponse['response']> {
     server.processDialogueResponse(server.currentClientConnection, choiceIndex);
     return Promise.resolve();
   }
 
   // eslint-disable-next-line max-len
-  onUse(server: Server, { toolIndex, location, usageIndex }: Commands.Use['params']): Promise<Commands.Use['response']> {
+  onUse(server: Server, {toolIndex, location, usageIndex}: Commands.Use['params']): Promise<Commands.Use['response']> {
     if (location.source === 'container') {
       return Promise.reject(); // TODO
     }
@@ -301,11 +301,11 @@ export class ServerInterface implements ICommands {
 
     const inventory = server.currentClientConnection.container;
     // If -1, use an item that represents "Hand".
-    const tool = toolIndex === -1 ? { type: 0, quantity: 0 } : inventory.items[toolIndex];
+    const tool = toolIndex === -1 ? {type: 0, quantity: 0} : inventory.items[toolIndex];
     // Got a request to use nothing as a tool - doesn't make sense to do that.
     if (!tool) return Promise.reject(); // TODO
 
-    const focus = server.context.map.getItem(loc) || { type: 0, quantity: 0 };
+    const focus = server.context.map.getItem(loc) || {type: 0, quantity: 0};
 
     const uses = Content.getItemUses(tool.type, focus.type);
     if (!uses.length) return Promise.reject(); // TODO
@@ -321,7 +321,7 @@ export class ServerInterface implements ICommands {
       tool: new Content.ItemWrapper(tool.type, tool.quantity).remove(use.toolQuantityConsumed || 0).raw(),
       focus: new Content.ItemWrapper(focus.type, focus.quantity).remove(use.focusQuantityConsumed || 0).raw(),
       successTool: use.successTool !== undefined ? new Content.ItemWrapper(use.successTool, 1).raw() : null,
-      products: use.products.map((product) => ({ ...product })) as Item[],
+      products: use.products.map((product) => ({...product})) as Item[],
     };
     if (focus.containerId && usageResult.products.length) {
       usageResult.products[0].containerId = focus.containerId;
@@ -387,13 +387,13 @@ export class ServerInterface implements ICommands {
   }
 
   // eslint-disable-next-line max-len
-  onAdminSetFloor(server: Server, { floor, ...loc }: Commands.AdminSetFloor['params']): Promise<Commands.AdminSetFloor['response']> {
+  onAdminSetFloor(server: Server, {floor, ...loc}: Commands.AdminSetFloor['params']): Promise<Commands.AdminSetFloor['response']> {
     server.setFloor(loc, floor);
     return Promise.resolve();
   }
 
   // eslint-disable-next-line max-len
-  onAdminSetItem(server: Server, { item, ...loc }: Commands.AdminSetItem['params']): Promise<Commands.AdminSetItem['response']> {
+  onAdminSetItem(server: Server, {item, ...loc}: Commands.AdminSetItem['params']): Promise<Commands.AdminSetItem['response']> {
     if (!server.currentClientConnection.player.isAdmin) return Promise.reject(); // TODO
 
     if (!server.context.map.inBounds(loc)) {
@@ -407,7 +407,7 @@ export class ServerInterface implements ICommands {
   // moveItem handles movement between anywhere items can be - from the world to a player's
   // container, within a container, from a container to the world, or even between containers.
   // If "to" is null for a container, no location is specified and the item will be place in the first viable slot.
-  async onMoveItem(server: Server, { from, quantity, to }: Commands.MoveItem['params']) {
+  async onMoveItem(server: Server, {from, quantity, to}: Commands.MoveItem['params']) {
     async function boundsCheck(location: ItemLocation) {
       if (location.source === 'world') {
         if (!location.loc) throw new Error('invariant violated');
@@ -440,7 +440,7 @@ export class ServerInterface implements ICommands {
 
       const container = server.context.containers.get(location.id);
       if (!container) {
-        return { error: 'Container does not exist.' };
+        return {error: 'Container does not exist.'};
       }
 
       if (container.type === 'equipment') {
@@ -466,7 +466,7 @@ export class ServerInterface implements ICommands {
       if (location.index === undefined) {
         // Don't allow stacking if this is an item split operation.
         const allowStacking = quantity === undefined;
-        return Container.findValidLocationToAddItemToContainer(container, item, { allowStacking }) || {
+        return Container.findValidLocationToAddItemToContainer(container, item, {allowStacking}) || {
           error: 'No possible location for that item in this container.',
         };
       } else {
@@ -517,7 +517,7 @@ export class ServerInterface implements ICommands {
     if (to.source === 'world') {
       const itemInWorld = await getItem(to);
       if (itemInWorld && Content.getMetaItem(itemInWorld.type).class === 'Container') {
-        to = { source: 'container', id: server.context.getContainerIdFromItem(itemInWorld) };
+        to = {source: 'container', id: server.context.getContainerIdFromItem(itemInWorld)};
       }
     }
 
@@ -627,7 +627,7 @@ export class ServerInterface implements ICommands {
     if (quantityToMove === fromItem.quantity) {
       clearItem(from);
     } else {
-      setItem(from, { ...fromItem, quantity: fromItem.quantity - quantityToMove });
+      setItem(from, {...fromItem, quantity: fromItem.quantity - quantityToMove});
     }
 
     // TODO queue changes and send to all clients.
@@ -635,7 +635,7 @@ export class ServerInterface implements ICommands {
     // context.queueTileChange(to)
   }
 
-  onLearnSkill(server: Server, { id }: { id: number }): Promise<void> {
+  onLearnSkill(server: Server, {id}: { id: number }): Promise<void> {
     const skill = Content.getSkill(id);
     if (server.currentClientConnection.player.skillPoints < skill.skillPoints) {
       return Promise.reject('not enough skill points');
@@ -655,7 +655,7 @@ export class ServerInterface implements ICommands {
     return Promise.resolve(server.getScriptStates());
   }
 
-  onChat(server: Server, { text }: Commands.Chat['params']): Promise<Commands.Chat['response']> {
+  onChat(server: Server, {text}: Commands.Chat['params']): Promise<Commands.Chat['response']> {
     if (text.startsWith('/')) {
       const creature = server.currentClientConnection.creature;
       const parsedCommand = CommandParser.parseCommand(text.substring(1));
@@ -663,13 +663,13 @@ export class ServerInterface implements ICommands {
       const COMMANDS: Record<string, CommandParser.Command> = {
         warp: {
           args: [
-            { name: 'x', type: 'number' },
-            { name: 'y', type: 'number' },
-            { name: 'z', type: 'number', optional: true },
-            { name: 'map', type: 'number', optional: true },
+            {name: 'x', type: 'number'},
+            {name: 'y', type: 'number'},
+            {name: 'z', type: 'number', optional: true},
+            {name: 'map', type: 'number', optional: true},
           ],
           do(args: { x: number; y: number; z?: number; map?: number }) {
-            const destination = { ...server.currentClientConnection.creature.pos };
+            const destination = {...server.currentClientConnection.creature.pos};
             if (args.z !== undefined && args.map !== undefined) {
               destination.w = args.map;
               destination.x = args.x;
@@ -698,7 +698,7 @@ export class ServerInterface implements ICommands {
         },
         warpTo: {
           args: [
-            { name: 'playerName', type: 'string' },
+            {name: 'playerName', type: 'string'},
           ],
           do(args: { playerName: string }) {
             const playerId = server.context.playerNamesToIds.get(args.playerName);
@@ -717,7 +717,7 @@ export class ServerInterface implements ICommands {
         },
         creature: {
           args: [
-            { name: 'name', type: 'string' },
+            {name: 'name', type: 'string'},
           ],
           do(args: { name: string }) {
             const template = Content.getMonsterTemplateByNameNoError(args.name);
@@ -739,8 +739,8 @@ export class ServerInterface implements ICommands {
         },
         item: {
           args: [
-            { name: 'nameOrId', type: 'string' },
-            { name: 'quantity', type: 'number', optional: true },
+            {name: 'nameOrId', type: 'string'},
+            {name: 'quantity', type: 'number', optional: true},
           ],
           do(args: { nameOrId: string; quantity?: number }) {
             let meta;
@@ -764,7 +764,7 @@ export class ServerInterface implements ICommands {
             const loc = server.findNearest(server.currentClientConnection.creature.pos, 10, true,
               (t) => !t.item);
             if (loc) {
-              server.setItem(loc, { type: meta.id, quantity });
+              server.setItem(loc, {type: meta.id, quantity});
             }
           },
         },
@@ -790,7 +790,7 @@ export class ServerInterface implements ICommands {
         },
         landClaim: {
           args: [
-            { name: 'server', type: 'boolean', optional: true },
+            {name: 'server', type: 'boolean', optional: true},
           ],
           do(args: { server?: boolean }) {
             if (args.server && !server.currentClientConnection.player.isAdmin) return 'not allowed';
@@ -855,7 +855,7 @@ export class ServerInterface implements ICommands {
         },
         advanceTime: {
           args: [
-            { name: 'ticks', type: 'number' },
+            {name: 'ticks', type: 'number'},
           ],
           help: `1 hour=${server.ticksPerWorldDay / 24}`,
           do(args: { ticks: number }) {
@@ -876,9 +876,9 @@ export class ServerInterface implements ICommands {
         },
         image: {
           args: [
-            { name: 'index', type: 'number' },
-            { name: 'file', type: 'string', optional: true },
-            { name: 'type', type: 'number', optional: true },
+            {name: 'index', type: 'number'},
+            {name: 'file', type: 'string', optional: true},
+            {name: 'type', type: 'number', optional: true},
           ],
           do(args: { index: number; file?: string; type?: number }) {
             server.currentClientConnection.creature.graphics = {
@@ -891,8 +891,8 @@ export class ServerInterface implements ICommands {
         },
         xp: {
           args: [
-            { name: 'skillName', type: 'string' },
-            { name: 'xp', type: 'number' },
+            {name: 'skillName', type: 'string'},
+            {name: 'xp', type: 'number'},
           ],
           do(args: { skillName: string; xp: number }) {
             const skill = Content.getSkillByName(args.skillName);
@@ -910,7 +910,7 @@ export class ServerInterface implements ICommands {
         },
         animation: {
           args: [
-            { name: 'name', type: 'string' },
+            {name: 'name', type: 'string'},
           ],
           do(args: { name: string }) {
             const animation = Content.getAnimation(args.name);

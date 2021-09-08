@@ -1,6 +1,6 @@
-import { GFX_SIZE } from '../../constants';
+import {GFX_SIZE} from '../../constants';
 import * as Content from '../../content';
-import { deserialize } from '../../lib/wire-serializer';
+import {deserialize} from '../../lib/wire-serializer';
 import * as Utils from '../../utils';
 import {TypedEventEmitter} from '../event-emitter';
 import * as Helper from '../helper';
@@ -8,14 +8,14 @@ import {AdminModule} from '../modules/admin-module';
 import {MapModule} from '../modules/map-module';
 import {MovementModule} from '../modules/movement-module';
 import {SelectedViewModule} from '../modules/selected-view-module';
-import { SettingsModule, getDefaultSettings } from '../modules/settings-module';
+import {SettingsModule, getDefaultSettings} from '../modules/settings-module';
 import {SkillsModule} from '../modules/skills-module';
 import {SoundModule} from '../modules/sound-module';
 import {UsageModule} from '../modules/usage-module';
 
-import { makeContainerWindow } from './container-window';
-import { makeHelpWindow } from './help-window';
-import { makePossibleUsagesWindow } from './possible-usages-window';
+import {makeContainerWindow} from './container-window';
+import {makeHelpWindow} from './help-window';
+import {makePossibleUsagesWindow} from './possible-usages-window';
 
 // super hacky file to render UI, copies / fakes a bunch of stuff from game.ts
 
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       settings: {},
       // eslint-disable-next-line max-len
       player: deserialize('{"id":"b31f3f4d-859b-41d8-b218-d262ca0f9358","name":"Quick Jill 161","attributes":{"$m":[["dexterity",{"baseLevel":100,"earnedLevel":0}],["intelligence",{"baseLevel":200,"earnedLevel":0}],["life",{"baseLevel":200,"earnedLevel":0}],["mana",{"baseLevel":100,"earnedLevel":0}],["quickness",{"baseLevel":100,"earnedLevel":0}],["stamina",{"baseLevel":100,"earnedLevel":0}],["strength",{"baseLevel":100,"earnedLevel":0}],["wisdom",{"baseLevel":100,"earnedLevel":0}]]},"skills":{"$m":[[1,{"xp":1230}],[25,{"xp":33310}]]},"skillPoints":38,"questStates":{"$m":[]},"tilesSeenLog":{"$m":[]},"isAdmin":true,"containerId":"113cc044-544b-4f1c-a15a-02a4a2d4b651","equipmentContainerId":"1bd2bd07-d270-439d-b780-79e0dc1cef88","loc":{"w":0,"x":50,"y":53,"z":0},"life":200,"stamina":100,"mana":100,"buffs":[{"expiresAt":1620023415194,"skill":1,"percentChange":0.1,"linearChange":10},{"expiresAt":1620023415194,"skill":4,"percentChange":0.2,"linearChange":25}]}'),
-      creature: { buffs: [] },
+      creature: {buffs: []},
     };
     modules = {
       // @ts-expect-error
@@ -71,13 +71,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   {
     // @ts-expect-error
-    const { el, actions } = makePossibleUsagesWindow({ game });
+    const {el, actions} = makePossibleUsagesWindow({game});
     actions.setPossibleUsages([
       {
         toolIndex: 0,
         usageIndex: 0,
         use: Content.getAllItemUses()[231],
-        focusLocation: { source: 'world', loc: { w: 0, x: 0, y: 0, z: 0 } },
+        focusLocation: {source: 'world', loc: {w: 0, x: 0, y: 0, z: 0}},
       },
     ]);
   }
@@ -228,13 +228,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         null,
       ],
     };
-    const { el, actions } = makeContainerWindow(game, container);
+    const {el, actions} = makeContainerWindow(game, container);
   }
 
   const scale = 1.5;
   const gridCursorEl = document.querySelector('.grid-cursor') as HTMLElement;
   function mouseToWorld(pm: ScreenPoint): ScreenPoint {
-    return { x: pm.x / scale, y: pm.y / scale };
+    return {x: pm.x / scale, y: pm.y / scale};
   }
   function worldToTile(pw: ScreenPoint) {
     return Utils.worldToTile(0, pw, 0);
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // copied from game.ts
   // TODO: get new Game() to work in this fake ui page too.
   document.addEventListener('pointermove', (e) => {
-    const loc = worldToTile(mouseToWorld({ x: e.clientX, y: e.clientY }));
+    const loc = worldToTile(mouseToWorld({x: e.clientX, y: e.clientY}));
     const mouse = {
       // ...this.state.mouse,
       x: e.clientX,
@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       let panelName = targetEl.dataset.panel as string;
       if (panelName === currentPanel) panelName = '';
 
-      game.client.eventEmitter.emit('panelFocusChanged', { panelName });
+      game.client.eventEmitter.emit('panelFocusChanged', {panelName});
       currentPanel = panelName;
       if (!panelName) return;
 
@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   let helpWindow: ReturnType<typeof makeHelpWindow>;
   // @ts-expect-error
-  game.client.eventEmitter.on('panelFocusChanged', ({ panelName }) => {
+  game.client.eventEmitter.on('panelFocusChanged', ({panelName}) => {
     if (panelName === 'help') {
       if (!helpWindow) helpWindow = makeHelpWindow(game);
       helpWindow.el.hidden = false;

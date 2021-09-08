@@ -1,4 +1,4 @@
-import { Context } from './context';
+import {Context} from './context';
 import * as Utils from './utils';
 import {WorldMapPartition} from './world-map-partition';
 
@@ -17,13 +17,13 @@ export function findPath(context: Context, partition: WorldMapPartition, from: P
     from,
     to,
     walkable: (pos) => {
-      return context.walkable({ w: from.w, ...pos });
+      return context.walkable({w: from.w, ...pos});
     },
   });
 }
 
 // Does not include the starting location.
-function _findPath({ width, height, from, to, walkable }: Options) {
+function _findPath({width, height, from, to, walkable}: Options) {
   function encodePoint(loc: PartitionPoint) {
     return loc.x + loc.y * width + loc.z * width * height;
   }

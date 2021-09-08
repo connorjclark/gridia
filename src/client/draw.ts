@@ -1,6 +1,6 @@
-import { GFX_SIZE } from '../constants';
+import {GFX_SIZE} from '../constants';
 import * as Content from '../content';
-import { game } from '../game-singleton';
+import {game} from '../game-singleton';
 import * as Utils from '../utils';
 
 export function destroyChildren(displayObject: PIXI.Container) {

@@ -1,5 +1,5 @@
-import { SECTOR_SIZE } from './constants';
-import { EQUIP_SLOTS } from './container';
+import {SECTOR_SIZE} from './constants';
+import {EQUIP_SLOTS} from './container';
 import * as Content from './content';
 import * as Utils from './utils';
 import {WorldMap} from './world-map';
@@ -77,7 +77,7 @@ export function getAttributeValue(player: Player, id: Attribute, buffs: Buff[]) 
     }
   }
 
-  const { baseLevel, earnedLevel } = data;
+  const {baseLevel, earnedLevel} = data;
   const buffAmount = Math.floor((baseLevel + earnedLevel) * (percentChange) + linearChange);
   return {
     baseLevel,
@@ -135,13 +135,13 @@ function getSkillLevel(player: Player, id: number, buffs: Buff[] = []) {
   const buffAmount = baseLevelFromBuffs + Math.floor(baseLevel * (percentChange) + linearChange);
   const earnedLevel = skillOrAttributeLevelForXp(xp);
   const level = baseLevel + earnedLevel + buffAmount;
-  return { baseLevel, earnedLevel, buffAmount, level };
+  return {baseLevel, earnedLevel, buffAmount, level};
 }
 
 // TODO rename details
 export function getSkillValue(player: Player, buffs: Buff[], id: number) {
   const xp = player.skills.get(id)?.xp || 0;
-  const { baseLevel, earnedLevel, buffAmount, level } = getSkillLevel(player, id, buffs);
+  const {baseLevel, earnedLevel, buffAmount, level} = getSkillLevel(player, id, buffs);
 
   return {
     xp,
@@ -180,7 +180,7 @@ export function hasSkill(player: Player, id: number) {
 export function learnSkill(player: Player, id: number) {
   if (player.skills.has(id)) return;
 
-  player.skills.set(id, { xp: 0 });
+  player.skills.set(id, {xp: 0});
 }
 
 export function incrementSkillXp(player: Player, id: number, xp: number) {
@@ -273,7 +273,7 @@ export function markTileSeen(player: Player, map: WorldMap, point: TilePoint) {
 export function sectorTileSeenLogGet(data: Uint16Array, x: number, y: number) {
   const num = data[x + y * SECTOR_SIZE];
   // eslint-disable-next-line no-bitwise
-  return { floor: num >> 1, walkable: num % 2 === 1 };
+  return {floor: num >> 1, walkable: num % 2 === 1};
 }
 
 function sectorTileSeenLogSet(data: Uint16Array, x: number, y: number, floor: number, walkable: boolean) {

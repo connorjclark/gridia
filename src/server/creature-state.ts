@@ -1,14 +1,14 @@
-import { WATER } from '../constants';
+import {WATER} from '../constants';
 import * as Container from '../container';
 import * as Content from '../content';
-import { Context } from '../context';
-import { findPath } from '../path-finding';
+import {Context} from '../context';
+import {findPath} from '../path-finding';
 import * as EventBuilder from '../protocol/event-builder';
 import * as Utils from '../utils';
 import {WorldMapPartition} from '../world-map-partition';
 
 import {ClientConnection} from './client-connection';
-import { adjustAttribute } from './creature-utils';
+import {adjustAttribute} from './creature-utils';
 import {aStar} from './plan';
 import {Server} from './server';
 
@@ -58,7 +58,7 @@ const Actions: Record<string, Action> = {
       // Just wander baby.
       if (this.path.length) return;
 
-      const randomDest = { ...this.creature.pos };
+      const randomDest = {...this.creature.pos};
       randomDest.x += Utils.randInt(-1, 1) * 3;
       randomDest.y += Utils.randInt(-1, 1) * 3;
       // TODO: use creature.roam to anchor to home.
@@ -131,7 +131,7 @@ const Actions: Record<string, Action> = {
       }
 
       // Else just move somewhere else.
-      const randomDest = { ...this.creature.pos };
+      const randomDest = {...this.creature.pos};
       randomDest.x += Utils.randInt(-1, 1) * 8;
       randomDest.y += Utils.randInt(-1, 1) * 8;
       this.goto(randomDest);
@@ -208,7 +208,7 @@ export class CreatureState {
   }
 
   idle(server: Server, time: number) {
-    this.ticksUntilNotIdle = server.taskRunner.rateToTicks({ ms: time });
+    this.ticksUntilNotIdle = server.taskRunner.rateToTicks({ms: time});
   }
 
   addGoal(newGoal: Goal) {
@@ -227,7 +227,7 @@ export class CreatureState {
   }
 
   resetRegenerationTimer(server: Server) {
-    this.ticksUntilRegeneration = server.taskRunner.rateToTicks({ seconds: 5 });
+    this.ticksUntilRegeneration = server.taskRunner.rateToTicks({seconds: 5});
   }
 
   tick(server: Server) {
@@ -238,7 +238,7 @@ export class CreatureState {
     if (this.ticksUntilRegeneration > 0) this.ticksUntilRegeneration--;
 
     if (this.ticksUntilRegeneration === 0 && server.context.map.getTile(this.creature.pos).floor !== WATER) {
-      this.ticksUntilRegeneration = server.taskRunner.rateToTicks({ seconds: 1 });
+      this.ticksUntilRegeneration = server.taskRunner.rateToTicks({seconds: 1});
       const changed = (['life', 'stamina', 'mana'] as const).filter((attribute) => {
         if (this.creature[attribute].current < this.creature[attribute].max) {
           adjustAttribute(this.creature, attribute, 1);
@@ -400,7 +400,7 @@ export class CreatureState {
 
     const durationThresholds = [400, 750, 1000, 1500, 3500, 5000];
     const durationInMs = durationThresholds[Utils.clamp(this.creature.speed, 0, durationThresholds.length)];
-    this.ticksUntilNextMovement = server.taskRunner.rateToTicks({ ms: durationInMs });
+    this.ticksUntilNextMovement = server.taskRunner.rateToTicks({ms: durationInMs});
 
     const w = this.creature.pos.w;
 
@@ -432,7 +432,7 @@ export class CreatureState {
     }
 
     if (this.path.length) {
-      const newPos = { w, ...this.path.splice(0, 1)[0] };
+      const newPos = {w, ...this.path.splice(0, 1)[0]};
       if (this.context.walkable(newPos)) {
         server.moveCreature(this.creature, newPos);
       } else {
@@ -507,7 +507,7 @@ export class CreatureState {
     const attackSpeed = attackType === 'magic' && this.currentSpell ?
       this.currentSpell.castTime :
       this.creature.stats.attackSpeed;
-    this.ticksUntilNextAttack = server.taskRunner.rateToTicks({ seconds: attackSpeed });
+    this.ticksUntilNextAttack = server.taskRunner.rateToTicks({seconds: attackSpeed});
 
     let spell = this.currentSpell;
     let isFriendly = false;
@@ -551,7 +551,7 @@ export class CreatureState {
       this.currentSpell = undefined;
       this.targetCreature = null;
       const clientConnection = server.getClientConnectionForCreature(this.creature);
-      if (clientConnection) clientConnection.sendEvent(EventBuilder.setAttackTarget({ creatureId: null }));
+      if (clientConnection) clientConnection.sendEvent(EventBuilder.setAttackTarget({creatureId: null}));
     }
   }
 }

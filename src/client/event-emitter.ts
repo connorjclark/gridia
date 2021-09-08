@@ -1,8 +1,8 @@
-import { EventEmitter } from 'events';
+import {EventEmitter} from 'events';
 
 import StrictEventEmitter from 'strict-event-emitter-types';
 
-import { ProtocolEvent } from '../protocol/event-builder';
+import {ProtocolEvent} from '../protocol/event-builder';
 
 export interface GameActionEvent {
   action: GameAction;

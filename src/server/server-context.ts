@@ -1,14 +1,14 @@
 import * as path from 'path';
 
-import { Context } from '../context';
-import { IsoFs } from '../iso-fs';
+import {Context} from '../context';
+import {IsoFs} from '../iso-fs';
 import * as WireSerializer from '../lib/wire-serializer';
 import * as Utils from '../utils';
 import {WorldMap} from '../world-map';
 import {WorldMapPartition} from '../world-map-partition';
 
 import {ClientConnection} from './client-connection';
-import { ScriptConfigStore } from './scripts/script-config-store';
+import {ScriptConfigStore} from './scripts/script-config-store';
 
 async function readJson(fs: IsoFs, filePath: string) {
   const json = await fs.readFile(filePath);
@@ -49,12 +49,12 @@ export class ServerContext extends Context {
     const map = new WorldMap();
     const context = new ServerContext(map, fs);
 
-    await fs.mkdir(context.accountDir, { recursive: true });
-    await fs.mkdir(context.containerDir, { recursive: true });
-    await fs.mkdir(context.miscDir, { recursive: true });
-    await fs.mkdir(context.passwordDir, { recursive: true });
-    await fs.mkdir(context.playerDir, { recursive: true });
-    await fs.mkdir(context.sectorDir, { recursive: true });
+    await fs.mkdir(context.accountDir, {recursive: true});
+    await fs.mkdir(context.containerDir, {recursive: true});
+    await fs.mkdir(context.miscDir, {recursive: true});
+    await fs.mkdir(context.passwordDir, {recursive: true});
+    await fs.mkdir(context.playerDir, {recursive: true});
+    await fs.mkdir(context.sectorDir, {recursive: true});
 
     const meta = await readJson(fs, context.metaPath());
 
@@ -124,7 +124,7 @@ export class ServerContext extends Context {
   async saveSector(sectorPoint: TilePoint) {
     const sector = this.map.getSector(sectorPoint);
     // Don't save creatures.
-    const data = sector.map((tiles) => tiles.map((tile) => ({ floor: tile.floor, item: tile.item })));
+    const data = sector.map((tiles) => tiles.map((tile) => ({floor: tile.floor, item: tile.item})));
     const json = JSON.stringify(data, null, 2);
     await this.fs.writeFile(this.sectorPath(sectorPoint), json);
   }
@@ -176,7 +176,7 @@ export class ServerContext extends Context {
   }
 
   makeContainer(type: Container['type'], size = 30) {
-    const container = { id: Utils.uuid(), type, items: Array(size).fill(null) };
+    const container = {id: Utils.uuid(), type, items: Array(size).fill(null)};
     this.containers.set(container.id, container);
     return container;
   }
@@ -190,7 +190,7 @@ export class ServerContext extends Context {
   }
 
   async saveContainer(container: Container) {
-    const json = JSON.stringify({ type: container.type, items: container.items }, null, 2);
+    const json = JSON.stringify({type: container.type, items: container.items}, null, 2);
     await this.fs.writeFile(this.containerPath(container.id), json);
   }
 
@@ -208,18 +208,18 @@ export class ServerContext extends Context {
       type: Container['type'];
       items: Array<Item | null>;
     };
-    container = { id, type: data.type, items: data.items };
+    container = {id, type: data.type, items: data.items};
     this.containers.set(id, container);
     return container;
   }
 
   async save() {
-    await this.fs.mkdir(this.accountDir, { recursive: true });
-    await this.fs.mkdir(this.containerDir, { recursive: true });
-    await this.fs.mkdir(this.miscDir, { recursive: true });
-    await this.fs.mkdir(this.passwordDir, { recursive: true });
-    await this.fs.mkdir(this.playerDir, { recursive: true });
-    await this.fs.mkdir(this.sectorDir, { recursive: true });
+    await this.fs.mkdir(this.accountDir, {recursive: true});
+    await this.fs.mkdir(this.containerDir, {recursive: true});
+    await this.fs.mkdir(this.miscDir, {recursive: true});
+    await this.fs.mkdir(this.passwordDir, {recursive: true});
+    await this.fs.mkdir(this.playerDir, {recursive: true});
+    await this.fs.mkdir(this.sectorDir, {recursive: true});
 
     await this.saveMeta();
     await this.saveSectorClaims();
@@ -252,7 +252,7 @@ export class ServerContext extends Context {
   }
 
   protected async savePartition(w: number, partition: WorldMapPartition) {
-    await this.fs.mkdir(this.partitionPath(w), { recursive: true });
+    await this.fs.mkdir(this.partitionPath(w), {recursive: true});
 
     const meta = {
       width: partition.width,
@@ -268,7 +268,7 @@ export class ServerContext extends Context {
           // Only save if the sector is loaded.
           // TODO: There's gotta be a nasty race condition here.
           if (partition.sectors[sx][sy][sz]) {
-            promises.push(this.saveSector({ w, x: sx, y: sy, z: sz }));
+            promises.push(this.saveSector({w, x: sx, y: sy, z: sz}));
           }
         }
       }

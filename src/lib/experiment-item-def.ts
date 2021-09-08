@@ -312,31 +312,31 @@ function resolveIdentifier(obj: any, identifier: string, path: string[]) {
 }
 
 function globals_(scopeName: string, properties: TemplateNode['data']['properties']): GlobalsNode {
-  return { type: 'globals', data: { scopeName, properties } };
+  return {type: 'globals', data: {scopeName, properties}};
 }
 
 function defineItem_(data: DefineItemNode['data']): DefineItemNode {
-  return { type: 'define-item', data };
+  return {type: 'define-item', data};
 }
 
 function item_(data: Partial<MetaItem>) {
-  return { type: 'item', data };
+  return {type: 'item', data};
 }
 
 function usage_(data: any): UsageNode {
-  return { type: 'usage', data };
+  return {type: 'usage', data};
 }
 
 function tick_(from: string, to: string, time: string): TickNode {
-  return { type: 'tick', data: { from, to, time } };
+  return {type: 'tick', data: {from, to, time}};
 }
 
 function template_(name: string, properties: TemplateNode['data']['properties']): TemplateNode {
-  return { type: 'template', data: { name, properties } };
+  return {type: 'template', data: {name, properties}};
 }
 
 function useTemplate_(templateName: string, properties: UseTemplateNode['data']['properties']): UseTemplateNode {
-  return { type: 'use-template', data: { templateName, properties } };
+  return {type: 'use-template', data: {templateName, properties}};
 }
 
 class Program {
@@ -396,7 +396,7 @@ class Program {
     //     {focus: '<product>'} -> {focus: {referenceToObjectAtKeyProduct}}
     walkObject(programObject, (obj, key, value, path) => {
       if (typeof value === 'string') {
-        obj[key] = this.parseString(value, { programObject, path });
+        obj[key] = this.parseString(value, {programObject, path});
       }
     });
 
@@ -444,7 +444,7 @@ class Program {
       const itemUse: ItemUse = node.data as any;
       // @ts-ignore
       itemUse.products = itemUse.products.map((product) => {
-        if (typeof product === 'number') return { type: product, quantity: 1 };
+        if (typeof product === 'number') return {type: product, quantity: 1};
         return product;
       });
       itemUses.push(itemUse);
@@ -461,7 +461,7 @@ class Program {
       // from.growthDelta = node.data.time;
     }
 
-    return { items, itemUses };
+    return {items, itemUses};
   }
 
   private resolveUseTemplateNode(templateNodes: TemplateNode[], useTemplateNode: UseTemplateNode) {
@@ -481,7 +481,7 @@ class Program {
       const identifier = str.substr(1, str.length - 2);
 
       // Special case.
-      if (identifier === 'hand') return item_({ name: 'hand', id: 0 });
+      if (identifier === 'hand') return item_({name: 'hand', id: 0});
 
       const value = lookupIdentifier(identifier);
       return value;
@@ -508,22 +508,22 @@ class Program {
 
 const testProgram = [
   globals_('common', {
-    gold: defineItem_({ name: 'Gold' }),
-    axe: defineItem_({ name: 'Axe' }),
-    branches: defineItem_({ name: 'Branches' }),
+    gold: defineItem_({name: 'Gold'}),
+    axe: defineItem_({name: 'Axe'}),
+    branches: defineItem_({name: 'Branches'}),
   }),
   template_('Tree', {
     product: null, // TODO: error if not provided
     yield: 5,
     burden: 10000,
     items: {
-      stump: defineItem_({ name: '$product Tree Stump', burden: '<burden>' }),
-      sprouting: defineItem_({ name: 'Sprouting $product Tree', animations: [895], burden: '<burden>' }),
-      young: defineItem_({ name: 'Young $product Tree', animations: [896], burden: '<burden>' }),
-      flowering: defineItem_({ name: 'Flowering $product Tree', burden: '<burden>' }),
-      ripening: defineItem_({ name: 'Ripening $product Tree', burden: '<burden>' }),
-      ripe: defineItem_({ name: 'Ripe $product Tree', burden: '<burden>' }),
-      dormant: defineItem_({ name: 'Dormant $product Tree', burden: '<burden>' }),
+      stump: defineItem_({name: '$product Tree Stump', burden: '<burden>'}),
+      sprouting: defineItem_({name: 'Sprouting $product Tree', animations: [895], burden: '<burden>'}),
+      young: defineItem_({name: 'Young $product Tree', animations: [896], burden: '<burden>'}),
+      flowering: defineItem_({name: 'Flowering $product Tree', burden: '<burden>'}),
+      ripening: defineItem_({name: 'Ripening $product Tree', burden: '<burden>'}),
+      ripe: defineItem_({name: 'Ripe $product Tree', burden: '<burden>'}),
+      dormant: defineItem_({name: 'Dormant $product Tree', burden: '<burden>'}),
     },
     time: [
       tick_('<items.stump>', '<items.sprouting>', '10 days'),
@@ -534,20 +534,20 @@ const testProgram = [
       tick_('<items.ripe>', '<items.dormant>', '2 days'),
     ],
     usages: [
-      usage_({ tool: '<hand>', focus: '<items.ripe>', products: [{ type: '<product>', quantity: '<yield>' }] }),
+      usage_({tool: '<hand>', focus: '<items.ripe>', products: [{type: '<product>', quantity: '<yield>'}]}),
       usage_({
         tool: '<common.axe>',
         focus: '<items.sprouting>',
         products: [
           '<items.stump>',
-          { type: '<common.branches>', quantity: 1 },
+          {type: '<common.branches>', quantity: 1},
         ],
       }),
     ],
   }),
   useTemplate_('Tree', {
     name: 'Orange',
-    product: defineItem_({ name: 'Orange', animations: [511] }),
+    product: defineItem_({name: 'Orange', animations: [511]}),
   }),
   useTemplate_('Tree', {
     name: 'Gold',

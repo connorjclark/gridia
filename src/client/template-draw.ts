@@ -1,4 +1,4 @@
-import { MINE, WATER } from '../constants';
+import {MINE, WATER} from '../constants';
 import {WorldMapPartition} from '../world-map-partition';
 
 export function getWaterFloor(partition: WorldMapPartition, point: PartitionPoint) {
@@ -13,7 +13,7 @@ export function getMineItem(partition: WorldMapPartition, point: PartitionPoint)
 
 function useTemplate(partition: WorldMapPartition, templateId: number,
                      typeToMatch: number, loc: PartitionPoint, match: 'item' | 'floor') {
-  const { x, y, z } = loc;
+  const {x, y, z} = loc;
   // const width = client.world.width;
   // const height = client.world.height;
   // const xl = x == 0 ? width - 1 : x - 1;
@@ -36,10 +36,10 @@ function useTemplate(partition: WorldMapPartition, templateId: number,
     return tile.item?.type === typeToMatch;
   }
 
-  const below = matches({ x, y: yu, z });
-  const above = matches({ x, y: yd, z });
-  const left = matches({ x: xl, y, z });
-  const right = matches({ x: xr, y, z });
+  const below = matches({x, y: yu, z});
+  const above = matches({x, y: yd, z});
+  const left = matches({x: xl, y, z});
+  const right = matches({x: xr, y, z});
 
   const offset = templateId * 50;
   let v = (above ? 1 : 0) + (below ? 2 : 0) + (left ? 4 : 0) + (right ? 8 : 0);
@@ -52,10 +52,10 @@ function useTemplate(partition: WorldMapPartition, templateId: number,
   // ^ nov 2014
   // update: just copied this again here in dec 2018
 
-  const downleft = matches({ x: xl, y: yu, z });
-  const downright = matches({ x: xr, y: yu, z });
-  const upleft = matches({ x: xl, y: yd, z });
-  const upright = matches({ x: xr, y: yd, z });
+  const downleft = matches({x: xl, y: yu, z});
+  const downright = matches({x: xr, y: yu, z});
+  const upleft = matches({x: xl, y: yd, z});
+  const upright = matches({x: xr, y: yd, z});
 
   if (v === 15) {
     if (!upleft) {

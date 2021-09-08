@@ -1,11 +1,11 @@
 import * as Content from '../content';
 
-import { connectWithWebSocket, connectWithWebRTC } from './connect-to-server';
+import {connectWithWebSocket, connectWithWebRTC} from './connect-to-server';
 import * as Helper from './helper';
-import { MapSelectScene } from './scenes/map-select-scene';
-import { Scene } from './scenes/scene';
-import { SceneController } from './scenes/scene-controller';
-import { SelectCharacterScene } from './scenes/select-character-scene';
+import {MapSelectScene} from './scenes/map-select-scene';
+import {Scene} from './scenes/scene';
+import {SceneController} from './scenes/scene-controller';
+import {SelectCharacterScene} from './scenes/select-character-scene';
 
 class StartScene extends Scene {
   private localBtn: HTMLElement;
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         depth: 1,
         seeds: {},
       });
-      await controller.serverWorker.saveGeneratedMap({ name: 'quick-default' });
+      await controller.serverWorker.saveGeneratedMap({name: 'quick-default'});
     }
     new MapSelectScene(controller).loadMap(controller.qs.map || 'quick-default');
   } else {

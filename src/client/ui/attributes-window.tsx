@@ -1,6 +1,6 @@
-import { render, h, Component } from 'preact';
+import {render, h, Component} from 'preact';
 
-import { Graphic, Bar, ComponentProps, createSubApp, makeUIWindow } from './ui-common';
+import {Graphic, Bar, ComponentProps, createSubApp, makeUIWindow} from './ui-common';
 
 interface State {
   life: { current: number; max: number };
@@ -11,18 +11,18 @@ interface State {
 
 export function makeAttributesWindow() {
   const initialState: State = {
-    life: { current: 0, max: 0 },
-    stamina: { current: 0, max: 0 },
-    mana: { current: 0, max: 0 },
+    life: {current: 0, max: 0},
+    stamina: {current: 0, max: 0},
+    mana: {current: 0, max: 0},
     buffs: [],
   };
 
   const actions = () => ({
     setAttribute: (state: State, key: keyof State, obj: State['life']): State => {
-      return { ...state, [key]: { ...obj } };
+      return {...state, [key]: {...obj}};
     },
     setBuffs: (state: State, buffs: State['buffs']): State => {
-      return { ...state, buffs };
+      return {...state, buffs};
     },
   });
 
@@ -56,9 +56,9 @@ export function makeAttributesWindow() {
     }
   }
 
-  const { SubApp, exportedActions, subscribe } = createSubApp(AttributesWindow, initialState, actions);
-  const el = makeUIWindow({ name: 'attributes', cell: 'top', noscroll: true });
+  const {SubApp, exportedActions, subscribe} = createSubApp(AttributesWindow, initialState, actions);
+  const el = makeUIWindow({name: 'attributes', cell: 'top', noscroll: true});
   render(<SubApp />, el);
 
-  return { el, actions: exportedActions, subscribe };
+  return {el, actions: exportedActions, subscribe};
 }

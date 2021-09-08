@@ -2,8 +2,8 @@
 
 import * as fs from 'fs';
 
-import { generate } from './map-generator';
-import { makeMapImage } from './map-image-maker';
+import {generate} from './map-generator';
+import {makeMapImage} from './map-image-maker';
 
 function get<T>(env: string, defaultValue: T) {
   const value = process.env[env];

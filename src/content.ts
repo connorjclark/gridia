@@ -1,5 +1,5 @@
-import { ATTRIBUTES } from './player';
-import { randInt } from './utils';
+import {ATTRIBUTES} from './player';
+import {randInt} from './utils';
 
 let floors: MetaFloor[] = [];
 let items: MetaItem[] = [];
@@ -99,7 +99,7 @@ export class ItemWrapper {
 
   raw(): Item | undefined {
     if (this.type === 0) return;
-    return { type: this.type, quantity: this.quantity };
+    return {type: this.type, quantity: this.quantity};
   }
 
   remove(quantity: number) {

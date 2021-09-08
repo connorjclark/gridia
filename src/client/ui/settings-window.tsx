@@ -1,9 +1,9 @@
-import { render, h, Component } from 'preact';
+import {render, h, Component} from 'preact';
 
-import { val } from '../../lib/link-state';
-import { SettingsSchema, Settings } from '../modules/settings-module';
+import {val} from '../../lib/link-state';
+import {SettingsSchema, Settings} from '../modules/settings-module';
 
-import { ComponentProps, createSubApp, makeUIWindow } from './ui-common';
+import {ComponentProps, createSubApp, makeUIWindow} from './ui-common';
 
 interface State {
   settings: Settings;
@@ -12,7 +12,7 @@ interface State {
 export function makeSettingsWindow(initialState: State) {
   const actions = () => ({
     setSettings: (state: State, settings: Settings): State => {
-      return { ...state, settings };
+      return {...state, settings};
     },
   });
 
@@ -27,7 +27,7 @@ export function makeSettingsWindow(initialState: State) {
           {Object.entries(SettingsSchema).map(([key, schema]) => {
             // @ts-expect-error
             const value = props.settings[key];
-            const update = (v: any) => props.setSettings({ ...props.settings, [key]: v });
+            const update = (v: any) => props.setSettings({...props.settings, [key]: v});
 
             if (schema.type === 'boolean') {
               const attrs: any = {};
@@ -64,9 +64,9 @@ export function makeSettingsWindow(initialState: State) {
     }
   }
 
-  const { SubApp, exportedActions, subscribe } = createSubApp(SettingsWindow, initialState, actions);
-  const el = makeUIWindow({ name: 'settings', cell: 'right' });
+  const {SubApp, exportedActions, subscribe} = createSubApp(SettingsWindow, initialState, actions);
+  const el = makeUIWindow({name: 'settings', cell: 'right'});
   render(<SubApp />, el);
 
-  return { el, actions: exportedActions, subscribe };
+  return {el, actions: exportedActions, subscribe};
 }

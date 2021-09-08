@@ -1,10 +1,10 @@
-import { render, h, Component } from 'preact';
+import {render, h, Component} from 'preact';
 
 import * as Content from '../../content';
 import * as Utils from '../../utils';
 import {UsageModule} from '../modules/usage-module';
 
-import { ComponentProps, Graphic, makeUIWindow, createSubApp } from './ui-common';
+import {ComponentProps, Graphic, makeUIWindow, createSubApp} from './ui-common';
 
 interface State {
   possibleUsages: PossibleUsage[];
@@ -34,7 +34,7 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
         ...state, possibleUsages,
       };
     },
-    setSelectedTool: (state: State, selectedTool: Item | undefined): State => ({ ...state, selectedTool }),
+    setSelectedTool: (state: State, selectedTool: Item | undefined): State => ({...state, selectedTool}),
   });
 
   type Props = ComponentProps<State, typeof actions>;
@@ -53,7 +53,7 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
       for (const possibleUsagesGroup of possibleUsagesGrouped) {
         const possibleUsage = possibleUsagesGroup[0];
         const products = possibleUsage.use.products.filter((p) => p.type);
-        if (possibleUsage.use.successTool) products.unshift({ type: possibleUsage.use.successTool, quantity: 1 });
+        if (possibleUsage.use.successTool) products.unshift({type: possibleUsage.use.successTool, quantity: 1});
         entries.push(products);
       }
 
@@ -87,8 +87,8 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
     }
   }
 
-  const { SubApp, exportedActions, subscribe } = createSubApp(PossibleUsagesWindow, initialState, actions);
-  const el = makeUIWindow({ name: 'possible-usages', cell: 'left' });
+  const {SubApp, exportedActions, subscribe} = createSubApp(PossibleUsagesWindow, initialState, actions);
+  const el = makeUIWindow({name: 'possible-usages', cell: 'left'});
   render(<SubApp />, el);
 
   const getIndex = (e: PointerEvent): number | undefined => {
@@ -123,5 +123,5 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
     usageModule.possibleUsageCursor.location = null;
   });
 
-  return { el, actions: exportedActions, subscribe };
+  return {el, actions: exportedActions, subscribe};
 }

@@ -1,4 +1,4 @@
-import type { RpcMap } from '../server/run-worker';
+import type {RpcMap} from '../server/run-worker';
 
 export class ServerWorker {
   worker = new Worker('../server/run-worker.ts');

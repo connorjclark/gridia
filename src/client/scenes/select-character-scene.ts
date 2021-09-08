@@ -2,11 +2,11 @@ import * as Player from '../../player';
 import * as CommandBuilder from '../../protocol/command-builder';
 import * as Utils from '../../utils';
 import * as Helper from '../helper';
-import { makeCustomCreatureGraphicComponent } from '../ui/ui-common';
+import {makeCustomCreatureGraphicComponent} from '../ui/ui-common';
 
-import { CreateCharacterScene } from './create-character-scene';
-import { Scene } from './scene';
-import { SceneController } from './scene-controller';
+import {CreateCharacterScene} from './create-character-scene';
+import {Scene} from './scene';
+import {SceneController} from './scene-controller';
 
 export class SelectCharacterScene extends Scene {
   private createCharacterBtn: HTMLElement;
@@ -17,7 +17,7 @@ export class SelectCharacterScene extends Scene {
     this.createCharacterBtn = Helper.find('.select-character__create-character-btn', this.element);
     this.onClickCreateCharacterBtn = this.onClickCreateCharacterBtn.bind(this);
     this.createCharacterBtn.addEventListener(
-      'click', this.onClickCreateCharacterBtn, { signal: this._eventAbortController.signal });
+      'click', this.onClickCreateCharacterBtn, {signal: this._eventAbortController.signal});
     this.load();
   }
 
@@ -75,7 +75,7 @@ export class SelectCharacterScene extends Scene {
       const index = Number(playerEl.dataset.index);
       const player = response.players[index];
       await this.selectPlayer(player.id);
-    }, { signal: this._eventAbortController.signal });
+    }, {signal: this._eventAbortController.signal});
   }
 
   async selectPlayer(playerId: string) {

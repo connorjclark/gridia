@@ -3,7 +3,7 @@
 
 /* eslint-disable no-shadow */
 
-import { Delaunay } from 'd3-delaunay';
+import {Delaunay} from 'd3-delaunay';
 import * as d3 from 'd3-polygon';
 import SeedRandomBrowser from 'seedrandom';
 import * as SeedRandomNode from 'seedrandom';
@@ -177,12 +177,12 @@ function makePolygons(geomPolygons: GeomPolygon[]) {
     }
   }
 
-  return { polygons, corners: [...corners.values()] };
+  return {polygons, corners: [...corners.values()]};
 }
 
 function squarePartition(partitionStrategy: SquarePartitionStrategy, ctx: Context) {
-  const { width, height } = ctx.options;
-  const { size, rand = 0 } = partitionStrategy;
+  const {width, height} = ctx.options;
+  const {size, rand = 0} = partitionStrategy;
   const random = ctx.randoms.partition;
 
   if (rand > 0.5 || rand < 0) throw new Error();
@@ -196,12 +196,12 @@ function squarePartition(partitionStrategy: SquarePartitionStrategy, ctx: Contex
       const x0 = Math.min(x, width);
       const y0 = Math.min(y, height);
       geomPolygons.push({
-        center: { x: x0 + size / 2, y: y0 + size / 2 },
+        center: {x: x0 + size / 2, y: y0 + size / 2},
         corners: [
-          { x: x0, y: y0 },
-          { x: x0 + size, y: y0 },
-          { x: x0 + size, y: y0 + size },
-          { x: x0, y: y0 + size },
+          {x: x0, y: y0},
+          {x: x0 + size, y: y0},
+          {x: x0 + size, y: y0 + size},
+          {x: x0, y: y0 + size},
         ],
       });
 
@@ -210,7 +210,7 @@ function squarePartition(partitionStrategy: SquarePartitionStrategy, ctx: Contex
     y += size;
   }
 
-  const { corners, polygons } = makePolygons(geomPolygons);
+  const {corners, polygons} = makePolygons(geomPolygons);
 
   for (const corner of corners) {
     if (rand && corner.x !== 0 && corner.x !== width && corner.y !== 0 && corner.y !== height) {
@@ -219,15 +219,15 @@ function squarePartition(partitionStrategy: SquarePartitionStrategy, ctx: Contex
     }
   }
 
-  return { polygons, corners };
+  return {polygons, corners};
 }
 
 function voronoiPartition(partitionStrategy: VoronoiPartitionStrategy, ctx: Context) {
-  const { width, height } = ctx.options;
-  const { points: numPoints, relaxations } = partitionStrategy;
+  const {width, height} = ctx.options;
+  const {points: numPoints, relaxations} = partitionStrategy;
   const random = ctx.randoms.partition;
 
-  const points = Float64Array.from({ length: numPoints * 2 }, (_, i) => random() * (i % 2 === 0 ? width : height));
+  const points = Float64Array.from({length: numPoints * 2}, (_, i) => random() * (i % 2 === 0 ? width : height));
   const delaunay = new Delaunay(points);
   const voronoi = delaunay.voronoi([0, 0, width, height]);
 
@@ -252,8 +252,8 @@ function voronoiPartition(partitionStrategy: VoronoiPartitionStrategy, ctx: Cont
     const cx = delaunay.points[i * 2];
     const cy = delaunay.points[i * 2 + 1];
     geomPolygons.push({
-      center: { x: cx, y: cy },
-      corners: polygon.map((p) => ({ x: p[0], y: p[1] })),
+      center: {x: cx, y: cy},
+      corners: polygon.map((p) => ({x: p[0], y: p[1]})),
     });
   }
 
@@ -261,22 +261,22 @@ function voronoiPartition(partitionStrategy: VoronoiPartitionStrategy, ctx: Cont
 }
 
 function setBorder(ctx: Context) {
-  const { width, height } = ctx.options;
+  const {width, height} = ctx.options;
 
   for (const corner of ctx.corners) {
-    const { x, y } = corner;
+    const {x, y} = corner;
     corner.border = x === 0 || y === 0 || x === width - 1 || y === height - 1;
   }
 }
 
 function setWater(ctx: Context) {
-  const { width, height } = ctx.options;
+  const {width, height} = ctx.options;
   const random = ctx.randoms.water;
 
-  let isWaterFilter: ({ x, y }: Point) => boolean;
+  let isWaterFilter: ({x, y}: Point) => boolean;
   const waterStrategy = ctx.options.waterStrategy;
   if (waterStrategy.type === 'radial') {
-    isWaterFilter = ({ x, y }) => {
+    isWaterFilter = ({x, y}) => {
       const dx = Math.abs(x - width / 2);
       const dy = Math.abs(y - height / 2);
       const dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
@@ -293,7 +293,7 @@ function setWater(ctx: Context) {
 
     const index = Math.floor(waterStrategy.percentage * noise.length);
     const threshold = [...noise].sort((a, b) => b - a)[index] || -Infinity;
-    isWaterFilter = ({ x, y }) => noise[x + y * ctx.options.width] > threshold;
+    isWaterFilter = ({x, y}) => noise[x + y * ctx.options.width] > threshold;
   } else {
     // @ts-ignore
     throw new Error(`invalid water strategy ${waterStrategy.type}`);
@@ -610,13 +610,13 @@ function rasterize(ctx: Context) {
       if (raster[x][y]) return;
       if (seen.has(`${x},${y}`)) return;
 
-      queue.push({ x, y });
+      queue.push({x, y});
       seen.add(`${x},${y}`);
     };
 
     add(Math.round(polygon.center.x), Math.round(polygon.center.y));
     while (queue.length) {
-      const { x, y } = queue.pop() || {};
+      const {x, y} = queue.pop() || {};
       // TODO make a better type for this stuff.
       if (x === undefined || y === undefined) continue;
 
@@ -654,7 +654,7 @@ export function generate(options: GenerateOptions) {
     polygons: [],
     corners: null as unknown as Corner[],
   };
-  const { partitionStrategy } = options;
+  const {partitionStrategy} = options;
 
   // Partition into polygons.
   if (partitionStrategy.type === 'square') {
@@ -694,6 +694,6 @@ export function generate(options: GenerateOptions) {
 
   const raster = rasterize(ctx);
 
-  const mapGenResult = { ...ctx, raster, seeds };
+  const mapGenResult = {...ctx, raster, seeds};
   return mapGenResult;
 }

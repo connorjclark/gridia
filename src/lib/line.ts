@@ -12,7 +12,7 @@ export function calcStraightLine(start: Point2, end: Point2) {
   const sy = (y1 < y2) ? 1 : -1;
   let err = dx - dy;
   // Set first coordinates
-  coordinatesArray.push({ x: x1, y: y1 });
+  coordinatesArray.push({x: x1, y: y1});
   // Main loop
   while (!((x1 === x2) && (y1 === y2))) {
     // eslint-disable-next-line
@@ -26,7 +26,7 @@ export function calcStraightLine(start: Point2, end: Point2) {
       y1 += sy;
     }
     // Set coordinates
-    coordinatesArray.push({ x: x1, y: y1 });
+    coordinatesArray.push({x: x1, y: y1});
   }
   // Return the result
   return coordinatesArray;

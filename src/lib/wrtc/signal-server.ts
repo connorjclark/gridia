@@ -12,17 +12,17 @@
 import * as http from 'http';
 
 // @ts-expect-error
-import { RTCPeerConnection as RTCPeerConnection_ } from 'wrtc';
+import {RTCPeerConnection as RTCPeerConnection_} from 'wrtc';
 
-import { WEBRTC_CONFIG } from './config';
+import {WEBRTC_CONFIG} from './config';
 
 const RTCPeerConnection: typeof globalThis.RTCPeerConnection = RTCPeerConnection_;
 
 function createConnection() {
   const peerConnection = new RTCPeerConnection(WEBRTC_CONFIG);
 
-  const dataChannel1 = peerConnection.createDataChannel('guarenteed', { ordered: true });
-  const dataChannel2 = peerConnection.createDataChannel('best-effort', { ordered: false, maxRetransmits: 0 });
+  const dataChannel1 = peerConnection.createDataChannel('guarenteed', {ordered: true});
+  const dataChannel2 = peerConnection.createDataChannel('best-effort', {ordered: false, maxRetransmits: 0});
   // @ts-expect-error
   peerConnection.channels = [dataChannel1, dataChannel2];
 
@@ -43,7 +43,7 @@ export class WebRTCSignalServer {
       const offer = await peerConnection.createOffer();
       peerConnection.setLocalDescription(offer);
       res.writeHead(200);
-      res.end(JSON.stringify({ id, offer: peerConnection.localDescription }, null, 2));
+      res.end(JSON.stringify({id, offer: peerConnection.localDescription}, null, 2));
       return true;
     } else if (req.method === 'POST' && req.url === '/webrtc/answer') {
       const data = await new Promise<any>((resolve) => {

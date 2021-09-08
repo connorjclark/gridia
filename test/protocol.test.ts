@@ -13,17 +13,17 @@ jest.mock('../src/game-singleton', () => {
 import * as assert from 'assert';
 
 import Client from '../src/client/client';
-import { Connection } from '../src/client/connection';
-import { CREATE_CHARACTER_ATTRIBUTES, MINE } from '../src/constants';
+import {Connection} from '../src/client/connection';
+import {CREATE_CHARACTER_ATTRIBUTES, MINE} from '../src/constants';
 import * as Content from '../src/content';
-import { makeBareMap } from '../src/mapgen';
+import {makeBareMap} from '../src/mapgen';
 import * as CommandBuilder from '../src/protocol/command-builder';
 import Server from '../src/server/server';
-import { ServerContext } from '../src/server/server-context';
+import {ServerContext} from '../src/server/server-context';
 import * as Utils from '../src/utils';
 import WorldMap from '../src/world-map';
 
-import { openAndConnectToServerInMemory } from './server-in-memory';
+import {openAndConnectToServerInMemory} from './server-in-memory';
 
 let client: Client;
 let server: Server;
@@ -55,7 +55,7 @@ beforeEach(async () => {
   server.context.savePlayer = () => Promise.resolve();
   server.context.checkAccountPassword = () => Promise.resolve(true);
   server.context.accountExists = () => Promise.resolve(true);
-  server.context.loadAccount = () => Promise.resolve({ username: 'test-account', playerIds: [] });
+  server.context.loadAccount = () => Promise.resolve({username: 'test-account', playerIds: []});
 
   connection.sendCommand(CommandBuilder.registerAccount({
     username: 'test-account',
@@ -79,7 +79,7 @@ beforeEach(async () => {
   }));
 
   // Make client make initial request for the sector, so that partial updates are tested later.
-  partition.getTile({ x: 0, y: 0, z: 0 });
+  partition.getTile({x: 0, y: 0, z: 0});
   await server.consumeAllMessages();
 });
 
@@ -134,25 +134,25 @@ function assertCreatureAt(location: TilePoint, creatureId: number) {
 
 assert(Content.getMetaItemByName('Cut Red Rose').walkable);
 function getWalkableItem(): Item {
-  return { type: Content.getMetaItemByName('Cut Red Rose').id, quantity: 1 };
+  return {type: Content.getMetaItemByName('Cut Red Rose').id, quantity: 1};
 }
 
 assert(!Content.getMetaItemByName('Granite Wall').walkable);
 function getUnwalkableItem(): Item {
-  return { type: Content.getMetaItemByName('Granite Wall').id, quantity: 1 };
+  return {type: Content.getMetaItemByName('Granite Wall').id, quantity: 1};
 }
 
 describe('move', () => {
   let creature;
   beforeEach(async () => {
     creature = server.context.getCreature(client.creature.id);
-    server.moveCreature(creature, { w: 0, x: 5, y: 5, z: 0 });
+    server.moveCreature(creature, {w: 0, x: 5, y: 5, z: 0});
     await server.consumeAllMessages();
   });
 
   it('player can move to open space', async () => {
-    const from = { w: 0, x: 5, y: 5, z: 0 };
-    const to = { w: 0, x: 6, y: 5, z: 0 };
+    const from = {w: 0, x: 5, y: 5, z: 0};
+    const to = {w: 0, x: 6, y: 5, z: 0};
 
     assertCreatureAt(from, creature.id);
     await send(CommandBuilder.move(to));
@@ -160,8 +160,8 @@ describe('move', () => {
   });
 
   it('player can move to walkable item', async () => {
-    const from = { w: 0, x: 5, y: 5, z: 0 };
-    const to = { w: 0, x: 6, y: 5, z: 0 };
+    const from = {w: 0, x: 5, y: 5, z: 0};
+    const to = {w: 0, x: 6, y: 5, z: 0};
     setItem(to, getWalkableItem());
 
     assertCreatureAt(from, creature.id);
@@ -170,8 +170,8 @@ describe('move', () => {
   });
 
   it('player can not move to unwalkable item', async () => {
-    const from = { w: 0, x: 5, y: 5, z: 0 };
-    const to = { w: 0, x: 6, y: 5, z: 0 };
+    const from = {w: 0, x: 5, y: 5, z: 0};
+    const to = {w: 0, x: 6, y: 5, z: 0};
     setItem(to, getUnwalkableItem());
 
     assertCreatureAt(from, creature.id);
@@ -181,8 +181,8 @@ describe('move', () => {
 
   // TODO
   it.skip('player can not move where other creature is', async () => {
-    const from = { w: 0, x: 5, y: 5, z: 0 };
-    const to = { w: 0, x: 6, y: 5, z: 0 };
+    const from = {w: 0, x: 5, y: 5, z: 0};
+    const to = {w: 0, x: 6, y: 5, z: 0};
     const otherCreature = server.createCreature({type: 1}, to);
     await server.consumeAllMessages();
     // await new Promise((resolve) => server.taskRunner.registerForNextTick({fn: resolve}));
@@ -194,9 +194,9 @@ describe('move', () => {
   });
 
   it('player can not move to mine wall without pickaxe in inventory', async () => {
-    const from = { w: 0, x: 5, y: 5, z: 0 };
-    const to = { w: 0, x: 6, y: 5, z: 0 };
-    setItem(to, { type: MINE });
+    const from = {w: 0, x: 5, y: 5, z: 0};
+    const to = {w: 0, x: 6, y: 5, z: 0};
+    setItem(to, {type: MINE});
 
     assertCreatureAt(from, creature.id);
     await send(CommandBuilder.move(to));
@@ -204,10 +204,10 @@ describe('move', () => {
   });
 
   it('player can move to mine wall with pickaxe in inventory', async () => {
-    const from = { w: 0, x: 5, y: 5, z: 0 };
-    const to = { w: 0, x: 6, y: 5, z: 0 };
-    setItem(to, { type: MINE });
-    setItemInContainer(client.player.containerId, 0, { type: Content.getMetaItemByName('Pick').id, quantity: 1 });
+    const from = {w: 0, x: 5, y: 5, z: 0};
+    const to = {w: 0, x: 6, y: 5, z: 0};
+    setItem(to, {type: MINE});
+    setItemInContainer(client.player.containerId, 0, {type: Content.getMetaItemByName('Pick').id, quantity: 1});
 
     assertCreatureAt(from, creature.id);
     await send(CommandBuilder.move(to));
@@ -220,10 +220,10 @@ describe('moveItem', () => {
   assert(Content.getMetaItem(1).moveable);
 
   it('move item', async () => {
-    const from = { w: 0, x: 0, y: 0, z: 0 };
-    const to = { w: 0, x: 1, y: 0, z: 0 };
+    const from = {w: 0, x: 0, y: 0, z: 0};
+    const to = {w: 0, x: 1, y: 0, z: 0};
 
-    setItem(from, { type: 1, quantity: 10 });
+    setItem(from, {type: 1, quantity: 10});
 
     await send(CommandBuilder.moveItem({
       from: Utils.ItemLocation.World(from),
@@ -231,32 +231,32 @@ describe('moveItem', () => {
     }));
 
     assertItemInWorld(from, undefined);
-    assertItemInWorld(to, { type: 1, quantity: 10 });
+    assertItemInWorld(to, {type: 1, quantity: 10});
   });
 
   it('fail to move item to non-empty tile', async () => {
-    const from = { w: 0, x: 0, y: 0, z: 0 };
-    const to = { w: 0, x: 1, y: 0, z: 0 };
+    const from = {w: 0, x: 0, y: 0, z: 0};
+    const to = {w: 0, x: 1, y: 0, z: 0};
 
-    setItem(from, { type: 1, quantity: 1 });
-    setItem(to, { type: 2, quantity: 1 });
+    setItem(from, {type: 1, quantity: 1});
+    setItem(to, {type: 2, quantity: 1});
 
     await send(CommandBuilder.moveItem({
       from: Utils.ItemLocation.World(from),
       to: Utils.ItemLocation.World(to),
     }));
 
-    assertItemInWorld(from, { type: 1, quantity: 1 });
-    assertItemInWorld(to, { type: 2, quantity: 1 });
+    assertItemInWorld(from, {type: 1, quantity: 1});
+    assertItemInWorld(to, {type: 2, quantity: 1});
   });
 
   it('move stackable item', async () => {
-    const from = { w: 0, x: 0, y: 0, z: 0 };
-    const to = { w: 0, x: 1, y: 0, z: 0 };
+    const from = {w: 0, x: 0, y: 0, z: 0};
+    const to = {w: 0, x: 1, y: 0, z: 0};
     const gold = Content.getMetaItemByName('Gold');
 
-    setItem(from, { type: gold.id, quantity: 1 });
-    setItem(to, { type: gold.id, quantity: 2 });
+    setItem(from, {type: gold.id, quantity: 1});
+    setItem(to, {type: gold.id, quantity: 2});
 
     await send(CommandBuilder.moveItem({
       from: Utils.ItemLocation.World(from),
@@ -264,31 +264,31 @@ describe('moveItem', () => {
     }));
 
     assertItemInWorld(from, undefined);
-    assertItemInWorld(to, { type: gold.id, quantity: 3 });
+    assertItemInWorld(to, {type: gold.id, quantity: 3});
   });
 
   it('move item from container to world', async () => {
-    const to = { w: 0, x: 0, y: 0, z: 0 };
+    const to = {w: 0, x: 0, y: 0, z: 0};
 
     const container = server.context.makeContainer('normal');
-    container.items[0] = { type: 1, quantity: 1 };
-    await send(CommandBuilder.requestContainer({ containerId: container.id }));
+    container.items[0] = {type: 1, quantity: 1};
+    await send(CommandBuilder.requestContainer({containerId: container.id}));
 
     await send(CommandBuilder.moveItem({
       from: Utils.ItemLocation.Container(container.id, 0),
       to: Utils.ItemLocation.World(to),
     }));
 
-    assertItemInWorld(to, { type: 1, quantity: 1 });
+    assertItemInWorld(to, {type: 1, quantity: 1});
     assertItemInContainer(container.id, 0, null);
   });
 
   it('move item from world to container', async () => {
-    const from = { w: 0, x: 0, y: 0, z: 0 };
+    const from = {w: 0, x: 0, y: 0, z: 0};
 
-    setItem(from, { type: 1, quantity: 1 });
+    setItem(from, {type: 1, quantity: 1});
     const container = server.context.makeContainer('normal');
-    await send(CommandBuilder.requestContainer({ containerId: container.id }));
+    await send(CommandBuilder.requestContainer({containerId: container.id}));
 
     await send(CommandBuilder.moveItem({
       from: Utils.ItemLocation.World(from),
@@ -296,18 +296,18 @@ describe('moveItem', () => {
     }));
 
     assertItemInWorld(from, undefined);
-    assertItemInContainer(container.id, 0, { type: 1, quantity: 1 });
+    assertItemInContainer(container.id, 0, {type: 1, quantity: 1});
   });
 
   it('move item from world to container: no "index" places in first open slot', async () => {
-    const from = { w: 0, x: 0, y: 0, z: 0 };
+    const from = {w: 0, x: 0, y: 0, z: 0};
 
-    setItem(from, { type: 1, quantity: 1 });
+    setItem(from, {type: 1, quantity: 1});
     const container = server.context.makeContainer('normal');
-    container.items[0] = { type: 2, quantity: 1 };
-    container.items[1] = { type: 2, quantity: 1 };
-    container.items[3] = { type: 2, quantity: 1 };
-    await send(CommandBuilder.requestContainer({ containerId: container.id }));
+    container.items[0] = {type: 2, quantity: 1};
+    container.items[1] = {type: 2, quantity: 1};
+    container.items[3] = {type: 2, quantity: 1};
+    await send(CommandBuilder.requestContainer({containerId: container.id}));
 
     await send(CommandBuilder.moveItem({
       from: Utils.ItemLocation.World(from),
@@ -315,19 +315,19 @@ describe('moveItem', () => {
     }));
 
     assertItemInWorld(from, undefined);
-    assertItemInContainer(container.id, 2, { type: 1, quantity: 1 });
+    assertItemInContainer(container.id, 2, {type: 1, quantity: 1});
   });
 
   it('move item from world to container: no "index" places in first open slot - stacks', async () => {
-    const from = { w: 0, x: 0, y: 0, z: 0 };
+    const from = {w: 0, x: 0, y: 0, z: 0};
 
-    setItem(from, { type: 1, quantity: 1 });
+    setItem(from, {type: 1, quantity: 1});
     const container = server.context.makeContainer('normal');
-    container.items[0] = { type: 2, quantity: 1 };
-    container.items[1] = { type: 2, quantity: 1 };
-    container.items[2] = { type: 1, quantity: 2 };
-    container.items[3] = { type: 2, quantity: 1 };
-    await send(CommandBuilder.requestContainer({ containerId: container.id }));
+    container.items[0] = {type: 2, quantity: 1};
+    container.items[1] = {type: 2, quantity: 1};
+    container.items[2] = {type: 1, quantity: 2};
+    container.items[3] = {type: 2, quantity: 1};
+    await send(CommandBuilder.requestContainer({containerId: container.id}));
 
     await send(CommandBuilder.moveItem({
       from: Utils.ItemLocation.World(from),
@@ -335,7 +335,7 @@ describe('moveItem', () => {
     }));
 
     assertItemInWorld(from, undefined);
-    assertItemInContainer(container.id, 2, { type: 1, quantity: 3 });
+    assertItemInContainer(container.id, 2, {type: 1, quantity: 3});
   });
 });
 
@@ -348,37 +348,37 @@ describe('use', () => {
 
   it('cut down tree', async () => {
     const toolIndex = 0;
-    const loc = { w: 0, x: 0, y: 0, z: 0 };
+    const loc = {w: 0, x: 0, y: 0, z: 0};
 
-    setItemInContainer(client.player.containerId, 0, { type: Content.getMetaItemByName('Wood Axe').id, quantity: 1 });
-    setItem(loc, { type: Content.getMetaItemByName('Pine Tree').id, quantity: 1 });
+    setItemInContainer(client.player.containerId, 0, {type: Content.getMetaItemByName('Wood Axe').id, quantity: 1});
+    setItem(loc, {type: Content.getMetaItemByName('Pine Tree').id, quantity: 1});
 
     await send(CommandBuilder.use({
       toolIndex,
       location: Utils.ItemLocation.World(loc),
     }));
 
-    assertItemInWorld(loc, { type: Content.getMetaItemByName('Pine Tree Stump').id, quantity: 1 });
-    assertItemInWorldNear(loc, { type: Content.getMetaItemByName('Small Branches').id, quantity: 6 });
-    assertItemInWorldNear(loc, { type: Content.getMetaItemByName('Small Log').id, quantity: 2 });
+    assertItemInWorld(loc, {type: Content.getMetaItemByName('Pine Tree Stump').id, quantity: 1});
+    assertItemInWorldNear(loc, {type: Content.getMetaItemByName('Small Branches').id, quantity: 6});
+    assertItemInWorldNear(loc, {type: Content.getMetaItemByName('Small Log').id, quantity: 2});
   });
 
   it('plant a seed', async () => {
     const toolIndex = 1;
-    const loc = { w: 0, x: 0, y: 0, z: 0 };
+    const loc = {w: 0, x: 0, y: 0, z: 0};
 
     setItemInContainer(client.player.containerId, 1, {
       type: Content.getMetaItemByName('Mana Plant Seeds').id,
       quantity: 100,
     });
-    setItem(loc, { type: Content.getMetaItemByName('Ploughed Ground').id, quantity: 1 });
+    setItem(loc, {type: Content.getMetaItemByName('Ploughed Ground').id, quantity: 1});
 
     await send(CommandBuilder.use({
       toolIndex,
       location: Utils.ItemLocation.World(loc),
     }));
 
-    assertItemInWorld(loc, { type: Content.getMetaItemByName('Mana Plant Seeded Ground').id, quantity: 1 });
+    assertItemInWorld(loc, {type: Content.getMetaItemByName('Mana Plant Seeded Ground').id, quantity: 1});
     assertItemInContainer(container.id, toolIndex, {
       type: Content.getMetaItemByName('Mana Plant Seeds').id,
       quantity: 99,
@@ -387,21 +387,21 @@ describe('use', () => {
 
   it('cook food', async () => {
     const toolIndex = 0;
-    const loc = { w: 0, x: 0, y: 0, z: 0 };
+    const loc = {w: 0, x: 0, y: 0, z: 0};
 
     setItemInContainer(container.id, toolIndex, {
       type: Content.getMetaItemByName('Un-Cooked Large Ribs').id,
       quantity: 5,
     });
     setItemInContainer(container.id, toolIndex + 1, undefined);
-    setItem(loc, { type: Content.getMetaItemByName('Large Camp Fire').id, quantity: 1 });
+    setItem(loc, {type: Content.getMetaItemByName('Large Camp Fire').id, quantity: 1});
 
     await send(CommandBuilder.use({
       toolIndex,
       location: Utils.ItemLocation.World(loc),
     }));
 
-    assertItemInWorld(loc, { type: Content.getMetaItemByName('Large Camp Fire').id, quantity: 1 });
+    assertItemInWorld(loc, {type: Content.getMetaItemByName('Large Camp Fire').id, quantity: 1});
     assertItemInContainer(container.id, toolIndex, {
       type: Content.getMetaItemByName('Un-Cooked Large Ribs').id,
       quantity: 4,
@@ -414,22 +414,22 @@ describe('use', () => {
   });
 
   it('closing/opening chest retains container id', async () => {
-    const loc = { w: 0, x: 0, y: 0, z: 0 };
+    const loc = {w: 0, x: 0, y: 0, z: 0};
 
-    setItem(loc, { type: Content.getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123 });
-
-    await send(CommandBuilder.use({
-      toolIndex: -1,
-      location: Utils.ItemLocation.World(loc),
-    }));
-
-    assertItemInWorld(loc, { type: Content.getMetaItemByName('Wooden Box').id, quantity: 1, containerId: 123 });
+    setItem(loc, {type: Content.getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123});
 
     await send(CommandBuilder.use({
       toolIndex: -1,
       location: Utils.ItemLocation.World(loc),
     }));
 
-    assertItemInWorld(loc, { type: Content.getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123 });
+    assertItemInWorld(loc, {type: Content.getMetaItemByName('Wooden Box').id, quantity: 1, containerId: 123});
+
+    await send(CommandBuilder.use({
+      toolIndex: -1,
+      location: Utils.ItemLocation.World(loc),
+    }));
+
+    assertItemInWorld(loc, {type: Content.getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123});
   });
 });

@@ -3,7 +3,7 @@ import * as Player from '../../player';
 import * as CommandBuilder from '../../protocol/command-builder';
 import {ClientModule} from '../client-module';
 import * as Helper from '../helper';
-import { State, makeSkillsWindow } from '../ui/skills-window';
+import {State, makeSkillsWindow} from '../ui/skills-window';
 
 export class SkillsModule extends ClientModule {
   protected skillsWindow?: ReturnType<typeof makeSkillsWindow>;
@@ -16,7 +16,7 @@ export class SkillsModule extends ClientModule {
       skillPoints: this.game.client.player.skillPoints,
       unlearnedSkills: Player.getUnlearnedSkills(this.game.client.player),
       onLearnSkill: (id) => {
-        this.game.client.connection.sendCommand(CommandBuilder.learnSkill({ id }));
+        this.game.client.connection.sendCommand(CommandBuilder.learnSkill({id}));
       },
     };
   }
@@ -51,7 +51,7 @@ export class SkillsModule extends ClientModule {
       }
     });
 
-    this.game.client.eventEmitter.on('panelFocusChanged', ({ panelName }) => {
+    this.game.client.eventEmitter.on('panelFocusChanged', ({panelName}) => {
       if (panelName === 'skills') {
         this.getSkillsWindow().el.hidden = false;
         this.getSkillsWindow().actions.setSkills(this.getSkills());
@@ -91,12 +91,12 @@ export class SkillsModule extends ClientModule {
   getAttributes() {
     const result = [];
     for (const [name, value] of this.game.client.player.attributes) {
-      result.push({ name, ...value });
+      result.push({name, ...value});
     }
     return Helper.sortByPrecedence(result, [
-      { type: 'predicate', fn: (item) => item.name === 'life' },
-      { type: 'predicate', fn: (item) => item.name === 'mana' },
-      { type: 'predicate', fn: (item) => item.name === 'stamina' },
+      {type: 'predicate', fn: (item) => item.name === 'life'},
+      {type: 'predicate', fn: (item) => item.name === 'mana'},
+      {type: 'predicate', fn: (item) => item.name === 'stamina'},
     ]);
   }
 

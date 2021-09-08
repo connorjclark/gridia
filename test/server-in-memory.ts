@@ -2,14 +2,14 @@
 /// <reference path="../src/types.d.ts" />
 
 import {Client} from '../src/client/client';
-import { Connection } from '../src/client/connection';
-import { Context } from '../src/context';
+import {Connection} from '../src/client/connection';
+import {Context} from '../src/context';
 import * as WireSerializer from '../src/lib/wire-serializer';
-import { ProtocolCommand } from '../src/protocol/command-builder';
+import {ProtocolCommand} from '../src/protocol/command-builder';
 import {ClientConnection} from '../src/server/client-connection';
 import {Server} from '../src/server/server';
-import { ServerContext } from '../src/server/server-context';
-import { createClientWorldMap } from '../src/world-map';
+import {ServerContext} from '../src/server/server-context';
+import {createClientWorldMap} from '../src/world-map';
 
 class MemoryConnection extends Connection {
   constructor(private _clientConnection: ClientConnection) {
@@ -33,7 +33,7 @@ type OpenAndConnectToServerOpts = any; // ?what
 export function openAndConnectToServerInMemory(
   opts: OpenAndConnectToServerOpts & { serverContext: ServerContext }) {
 
-  const { verbose, serverContext } = opts;
+  const {verbose, serverContext} = opts;
   const server = new Server({
     context: serverContext,
     verbose,
@@ -51,10 +51,10 @@ export function openAndConnectToServerInMemory(
   const connection = new MemoryConnection(clientConnection);
   connection.setOnEvent((event) => {
     const cloned = WireSerializer.deserialize<Event>(WireSerializer.serialize(event));
-    clientConnection.messageQueue.push({ data: cloned });
+    clientConnection.messageQueue.push({data: cloned});
   });
 
   const clientContext = new Context(createClientWorldMap(connection));
   const client = new Client(connection, clientContext);
-  return { client, server };
+  return {client, server};
 }

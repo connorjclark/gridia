@@ -1,11 +1,11 @@
 /* eslint-disable max-len */
 
-import { render, h, Component } from 'preact';
-import { useState } from 'preact/hooks';
+import {render, h, Component} from 'preact';
+import {useState} from 'preact/hooks';
 
 import {Game} from '../game';
 
-import { makeUIWindow } from './ui-common';
+import {makeUIWindow} from './ui-common';
 
 const sections: Record<string, string> = {
   'General': `
@@ -72,13 +72,13 @@ export function makeHelpWindow(game: Game) {
         </div>
 
         <div class="current-section">
-          <div dangerouslySetInnerHTML={{ __html: sections[currentSection].replace(/\n/g, '<br>') }}></div>
+          <div dangerouslySetInnerHTML={{__html: sections[currentSection].replace(/\n/g, '<br>')}}></div>
         </div>
       </div>;
     }
   }
 
-  const el = makeUIWindow({ name: 'help', cell: 'center' });
+  const el = makeUIWindow({name: 'help', cell: 'center'});
   render(<HelpWindow />, el);
-  return { el };
+  return {el};
 }

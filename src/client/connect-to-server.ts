@@ -1,11 +1,11 @@
-import { Context } from '../context';
-import { WEBRTC_CONFIG } from '../lib/wrtc/config';
-import { ProtocolEvent } from '../protocol/event-builder';
-import { createClientWorldMap } from '../world-map';
+import {Context} from '../context';
+import {WEBRTC_CONFIG} from '../lib/wrtc/config';
+import {ProtocolEvent} from '../protocol/event-builder';
+import {createClientWorldMap} from '../world-map';
 
 import {Client} from './client';
-import { Connection, WebRTCConnection, WebSocketConnection, WorkerConnection } from './connection';
-import { ServerWorker } from './server-worker';
+import {Connection, WebRTCConnection, WebSocketConnection, WorkerConnection} from './connection';
+import {ServerWorker} from './server-worker';
 
 function onProtocolEvent(client: Client, event: ProtocolEvent) {
   client.eventEmitter.emit('event', event);
@@ -20,7 +20,7 @@ function createClient(connection: Connection) {
 
 export async function connectWithWebRTC(hostname: string, port: number): Promise<Client> {
   const res = await fetch(`${window.location.protocol}//${hostname}:${port}/webrtc`);
-  const { id, offer } = await res.json();
+  const {id, offer} = await res.json();
 
   const peerConnection = new RTCPeerConnection(WEBRTC_CONFIG);
 
@@ -46,7 +46,7 @@ export async function connectWithWebRTC(hostname: string, port: number): Promise
 
   await fetch(`${window.location.protocol}//${hostname}:${port}/webrtc/answer`, {
     method: 'POST',
-    body: JSON.stringify({ id, answer }),
+    body: JSON.stringify({id, answer}),
   });
 
   await channelsOpenPromise;

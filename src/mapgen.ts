@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 
-import { MINE, SECTOR_SIZE, WATER } from './constants';
+import {MINE, SECTOR_SIZE, WATER} from './constants';
 import * as Content from './content';
-import { generate, GenerateOptions } from './lib/map-generator/map-generator';
+import {generate, GenerateOptions} from './lib/map-generator/map-generator';
 import * as Perlin from './lib/perlin/perlin';
 import * as Utils from './utils';
 import {WorldMapPartition} from './world-map-partition';
@@ -56,7 +56,7 @@ export function makeBareMap(width: number, height: number, depth: number) {
   for (let x = 0; x < width; x++) {
     for (let y = 0; y < height; y++) {
       for (let z = 0; z < depth; z++) {
-        const loc = { x, y, z };
+        const loc = {x, y, z};
         map.setTile(loc, {
           floor: z ? MINE : 100,
         });
@@ -72,7 +72,7 @@ interface MapGenOptions extends GenerateOptions {
 }
 
 export function mapgen(opts: MapGenOptions) {
-  const { width, height, depth } = opts;
+  const {width, height, depth} = opts;
   sanityCheck(width, height, depth);
 
   const map = new WorldMapPartition(width, height, depth);
@@ -91,7 +91,7 @@ export function mapgen(opts: MapGenOptions) {
   for (let x = 0; x < width; x++) {
     for (let y = 0; y < height; y++) {
       for (let z = 0; z < depth; z++) {
-        const loc = { x, y, z };
+        const loc = {x, y, z};
         let floor = 0;
         let item;
 
@@ -111,7 +111,7 @@ export function mapgen(opts: MapGenOptions) {
           // floor = 100 + (raster[x][y] % 10) * 20;
         } else {
           floor = 19;
-          item = { type: MINE, quantity: 1 };
+          item = {type: MINE, quantity: 1};
         }
 
         map.setTile(loc, {
@@ -138,7 +138,7 @@ export function mapgen(opts: MapGenOptions) {
     for (let x = 0; x < width; x++) {
       for (let y = 0; y < height; y++) {
         if (noise1[x + y * width] > threshold) {
-          points.push({ x, y });
+          points.push({x, y});
           // const minedItem = { type: Content.getRandomMetaItemOfClass('Ore').id, quantity: 1 };
           // map.getTile({x, y, z}).item = {...minedItem};
         }
@@ -162,7 +162,7 @@ export function mapgen(opts: MapGenOptions) {
         if (seen.has(data)) return;
         seen.add(data);
 
-        if (!map.inBounds({ ...l, z })) return;
+        if (!map.inBounds({...l, z})) return;
         if (!pointIndices.includes(index(l))) return;
 
         pending.add(data);
@@ -173,20 +173,20 @@ export function mapgen(opts: MapGenOptions) {
         for (const data of pending.values()) {
           pending.delete(data);
           const [x, y] = data.split(',').map(Number);
-          const l = { x, y };
+          const l = {x, y};
           locsToSet.push(l);
 
-          add({ x: x + 1, y });
-          add({ x: x - 1, y });
-          add({ x, y: y + 1 });
-          add({ x, y: y - 1 });
+          add({x: x + 1, y});
+          add({x: x - 1, y});
+          add({x, y: y + 1});
+          add({x, y: y - 1});
         }
       }
 
       for (const point of locsToSet) {
         const ind = points.findIndex((p) => p.x === point.x && point.y === p.y);
         if (ind !== -1) points.splice(ind, 1);
-        const tile = map.getTile({ ...point, z });
+        const tile = map.getTile({...point, z});
         if (tile.item?.type !== MINE) continue;
         if (random() < 0.2) tile.item.oreType = oreType;
       }
@@ -200,7 +200,7 @@ export function mapgen(opts: MapGenOptions) {
       const numOre = Utils.randInt(5, 20);
       const oreType = Content.getRandomMetaItemOfClass('Ore').id;
       for (let j = 0; j < numOre; j++) {
-        const tile = map.getTile({ x, y, z });
+        const tile = map.getTile({x, y, z});
         if (tile.item?.type !== MINE) continue;
         if (tile.item.oreType) continue;
 

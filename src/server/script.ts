@@ -1,9 +1,9 @@
 import * as Utils from '../utils';
 
 import {ClientConnection} from './client-connection';
-import { ScriptConfigStore } from './scripts/script-config-store';
+import {ScriptConfigStore} from './scripts/script-config-store';
 import {Server} from './server';
-import { Rate } from './task-runner';
+import {Rate} from './task-runner';
 
 interface CreatureSpawner {
   descriptors: CreatureDescriptor[];
@@ -110,7 +110,7 @@ export abstract class Script<C extends ConfigDefinition> {
       for (const scheduledTicks of state.scheduledSpawnTicks) {
         if (scheduledTicks <= ticks) {
           const descriptor = spawner.descriptors[Utils.randInt(0, spawner.descriptors.length - 1)];
-          const creature = this.spawnCreature({ descriptor, region: spawner.region });
+          const creature = this.spawnCreature({descriptor, region: spawner.region});
           if (creature) state.spawnedCreatures.push(creature);
           state.scheduledSpawnTicks.splice(state.scheduledSpawnTicks.indexOf(scheduledTicks), 1);
         }
@@ -151,7 +151,7 @@ export abstract class Script<C extends ConfigDefinition> {
       // TODO: find nearest walkable tile INSIDE region.
       const x = opts.region.x + Utils.randInt(0, opts.region.width);
       const y = opts.region.y + Utils.randInt(0, opts.region.height);
-      loc = { w: opts.region.w, x, y, z: opts.region.z };
+      loc = {w: opts.region.w, x, y, z: opts.region.z};
     } else {
       throw new Error('invalid parameters');
     }

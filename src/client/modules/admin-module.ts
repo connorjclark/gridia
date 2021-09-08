@@ -1,14 +1,14 @@
 import * as CommandBuilder from '../../protocol/command-builder';
 import * as Utils from '../../utils';
 import {ClientModule} from '../client-module';
-import { makeAdminWindow, State } from '../ui/admin-window';
+import {makeAdminWindow, State} from '../ui/admin-window';
 
 export class AdminModule extends ClientModule {
   private _adminWindow?: HTMLElement;
   private _state?: State;
 
   onStart() {
-    this.game.client.eventEmitter.on('panelFocusChanged', async ({ panelName }) => {
+    this.game.client.eventEmitter.on('panelFocusChanged', async ({panelName}) => {
       if (panelName === 'admin') {
         await this.init();
         this.getAdminWindow().hidden = false;
@@ -21,9 +21,9 @@ export class AdminModule extends ClientModule {
 
   setUIState(state?: State) {
     if (this._state && !state) {
-      this.game.client.eventEmitter.emit('editingMode', { enabled: false });
+      this.game.client.eventEmitter.emit('editingMode', {enabled: false});
     } else if (!this._state && state) {
-      this.game.client.eventEmitter.emit('editingMode', { enabled: true });
+      this.game.client.eventEmitter.emit('editingMode', {enabled: true});
     }
 
     this._state = state;
@@ -67,7 +67,7 @@ export class AdminModule extends ClientModule {
         const maxy = Math.max(downAt.y, loc.y);
         for (let x = minx; x <= maxx; x++) {
           for (let y = miny; y <= maxy; y++) {
-            this.setTile({ x, y, w: loc.w, z: loc.z });
+            this.setTile({x, y, w: loc.w, z: loc.z});
           }
         }
       }
@@ -98,13 +98,13 @@ export class AdminModule extends ClientModule {
           for (const data of pending.values()) {
             pending.delete(data);
             const [x, y] = data.split(',').map(Number);
-            const l = { ...loc, x, y };
+            const l = {...loc, x, y};
             locsToSet.push(l);
 
-            add({ ...l, x: x + 1, y });
-            add({ ...l, x: x - 1, y });
-            add({ ...l, x, y: y + 1 });
-            add({ ...l, x, y: y - 1 });
+            add({...l, x: x + 1, y});
+            add({...l, x: x - 1, y});
+            add({...l, x, y: y + 1});
+            add({...l, x, y: y - 1});
           }
         }
 
@@ -121,7 +121,7 @@ export class AdminModule extends ClientModule {
     if (!this._state?.selected) return;
 
     if (this._state.selected.type === 'items') {
-      const item = this._state.selected.id > 0 ? { type: this._state.selected.id, quantity: 1 } : undefined;
+      const item = this._state.selected.id > 0 ? {type: this._state.selected.id, quantity: 1} : undefined;
       const currentItem = this.game.client.context.map.getItem(loc);
       if (Utils.equalItems(currentItem, item)) return;
 

@@ -13,34 +13,34 @@ export class ClientInterface implements IEvents {
     // handled by game.ts
   }
 
-  onContainer(client: Client, { container }: Events.Container): void {
+  onContainer(client: Client, {container}: Events.Container): void {
     client.context.containers.set(container.id, container);
   }
 
-  onInitialize(client: Client, { player, creatureId, secondsPerWorldTick, ticksPerWorldDay }: Events.Initialize): void {
+  onInitialize(client: Client, {player, creatureId, secondsPerWorldTick, ticksPerWorldDay}: Events.Initialize): void {
     client.player = player;
     client.creatureId = creatureId;
     client.secondsPerWorldTick = secondsPerWorldTick;
     client.ticksPerWorldDay = ticksPerWorldDay;
   }
 
-  onInitializePartition(client: Client, { ...pos }: Events.InitializePartition): void {
+  onInitializePartition(client: Client, {...pos}: Events.InitializePartition): void {
     client.context.map.initPartition(pos.w, pos.x, pos.y, pos.z);
   }
 
-  onLog(client: Client, { msg }: Events.Log): void {
+  onLog(client: Client, {msg}: Events.Log): void {
     console.log(msg);
   }
 
-  onRemoveCreature(client: Client, { id }: Events.RemoveCreature): void {
+  onRemoveCreature(client: Client, {id}: Events.RemoveCreature): void {
     client.context.removeCreature(id);
   }
 
-  onSector(client: Client, { tiles, ...pos }: Events.Sector): void {
+  onSector(client: Client, {tiles, ...pos}: Events.Sector): void {
     client.context.map.getPartition(pos.w).sectors[pos.x][pos.y][pos.z] = tiles;
   }
 
-  onSetCreature(client: Client, { partial, ...partialCreature }: Events.SetCreature): void {
+  onSetCreature(client: Client, {partial, ...partialCreature}: Events.SetCreature): void {
     const id = partialCreature.id;
     // TODO: fix in types?
     if (!id) throw new Error('id must exist');
@@ -48,7 +48,7 @@ export class ClientInterface implements IEvents {
     const creature = client.context.getCreature(id);
     if (!creature) {
       if (partial) {
-        client.connection.sendCommand(CommandBuilder.requestCreature({ id }));
+        client.connection.sendCommand(CommandBuilder.requestCreature({id}));
       } else {
         // @ts-ignore - it's not a partial creature.
         client.context.setCreature(partialCreature);
@@ -59,11 +59,11 @@ export class ClientInterface implements IEvents {
     Object.assign(creature, partialCreature);
   }
 
-  onSetFloor(client: Client, { floor, ...loc }: Events.SetFloor): void {
+  onSetFloor(client: Client, {floor, ...loc}: Events.SetFloor): void {
     client.context.map.getTile(loc).floor = floor;
   }
 
-  onSetItem(client: Client, { location, item }: Events.SetItem): void {
+  onSetItem(client: Client, {location, item}: Events.SetItem): void {
     if (location.source === 'world') {
       if (client.context.map.partitions.get(location.loc.w)) {
         client.context.map.getTile(location.loc).item = item;
@@ -78,23 +78,23 @@ export class ClientInterface implements IEvents {
     }
   }
 
-  onXp(client: Client, { skill, xp }: Events.Xp): void {
+  onXp(client: Client, {skill, xp}: Events.Xp): void {
     Player.incrementSkillXp(client.player, skill, xp);
   }
 
-  onChat(client: Client, { section, from, text }: Events.Chat): void {
+  onChat(client: Client, {section, from, text}: Events.Chat): void {
     // handled by game.ts
   }
 
-  onTime(client: Client, { epoch }: Events.Time): void {
+  onTime(client: Client, {epoch}: Events.Time): void {
     // handled by game.ts
   }
 
-  onDialogue(client: Client, { dialogue, index }: Events.Dialogue): void {
+  onDialogue(client: Client, {dialogue, index}: Events.Dialogue): void {
     // handled by game.ts
   }
 
-  onSetAttackTarget(client: Client, { creatureId }: Events.SetAttackTarget): void {
+  onSetAttackTarget(client: Client, {creatureId}: Events.SetAttackTarget): void {
     client.attackingCreatureId = creatureId;
   }
 }

@@ -1,10 +1,10 @@
-import { render, h, Component } from 'preact';
-import { useEffect } from 'preact/hooks';
+import {render, h, Component} from 'preact';
+import {useEffect} from 'preact/hooks';
 
 import * as Content from '../../content';
 import * as Helper from '../helper';
 
-import { Graphic, ComponentProps, createSubApp, makeUIWindow, TabbedPane, TabbedPaneProps } from './ui-common';
+import {Graphic, ComponentProps, createSubApp, makeUIWindow, TabbedPane, TabbedPaneProps} from './ui-common';
 
 interface State {
   spells: Spell[];
@@ -71,7 +71,7 @@ export function makeSpellsWindow(onCastSpell: (spell: Spell) => void) {
         </div>);
       }
 
-      return <div class="flex flex-wrap" style={{ maxHeight: '20vh', overflow: 'scroll' }}>
+      return <div class="flex flex-wrap" style={{maxHeight: '20vh', overflow: 'scroll'}}>
         {spells}
       </div>;
     }
@@ -108,9 +108,9 @@ export function makeSpellsWindow(onCastSpell: (spell: Spell) => void) {
     }
   }
 
-  const { SubApp, exportedActions, subscribe } = createSubApp(SpellsWindow, initialState, actions);
-  const el = makeUIWindow({ name: 'spells', cell: 'center', noscroll: true });
+  const {SubApp, exportedActions, subscribe} = createSubApp(SpellsWindow, initialState, actions);
+  const el = makeUIWindow({name: 'spells', cell: 'center', noscroll: true});
   render(<SubApp />, el);
 
-  return { el, actions: exportedActions, subscribe };
+  return {el, actions: exportedActions, subscribe};
 }

@@ -175,6 +175,7 @@ module.exports = {
         }],
         "import/no-default-export": "error",
         // "import/extensions": ["error", "ignorePackages"],
+        "object-curly-spacing": "error",
         "jsdoc/check-alignment": "error",
         "jsdoc/check-indentation": "error",
         "jsdoc/newline-after-description": "error",

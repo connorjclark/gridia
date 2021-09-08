@@ -1,7 +1,7 @@
 import * as Content from '../../content';
-import { ItemLocation } from '../../utils';
+import {ItemLocation} from '../../utils';
 import {ClientModule} from '../client-module';
-import { makeViewWindow } from '../ui/view-window';
+import {makeViewWindow} from '../ui/view-window';
 
 export class SelectedViewModule extends ClientModule {
   private viewWindow?: ReturnType<typeof makeViewWindow>;
@@ -79,9 +79,9 @@ export class SelectedViewModule extends ClientModule {
       data = {
         'Name': creature.name,
         'Combat Level': String(creature.combatLevel),
-        'Life': { type: 'bar', color: 'red', ...creature.life },
-        'Stamina': { type: 'bar', color: 'yellow', ...creature.stamina },
-        'Mana': { type: 'bar', color: 'blue', ...creature.mana },
+        'Life': {type: 'bar', color: 'red', ...creature.life},
+        'Stamina': {type: 'bar', color: 'yellow', ...creature.stamina},
+        'Mana': {type: 'bar', color: 'blue', ...creature.mana},
         'Food': String(creature.food),
       };
     } else if (item) {
@@ -121,7 +121,7 @@ export class SelectedViewModule extends ClientModule {
       }
     }
 
-    this.getViewWindow().actions.setView({ selectedView: this.game.state.selectedView, data });
+    this.getViewWindow().actions.setView({selectedView: this.game.state.selectedView, data});
     this.getViewWindow().el.hidden = !creature && !item;
   }
 }

@@ -1,23 +1,23 @@
-import { CREATE_CHARACTER_ATTRIBUTES, CREATE_CHARACTER_SKILL_POINTS, MAX_STACK, SECTOR_SIZE } from '../constants';
+import {CREATE_CHARACTER_ATTRIBUTES, CREATE_CHARACTER_SKILL_POINTS, MAX_STACK, SECTOR_SIZE} from '../constants';
 import * as Container from '../container';
 import * as Content from '../content';
-import { calcStraightLine } from '../lib/line';
-import { roll } from '../lib/loot-table';
+import {calcStraightLine} from '../lib/line';
+import {roll} from '../lib/loot-table';
 import {performance} from '../performance';
 import * as Player from '../player';
 import * as EventBuilder from '../protocol/event-builder';
-import { ProtocolEvent } from '../protocol/event-builder';
+import {ProtocolEvent} from '../protocol/event-builder';
 import {ServerInterface} from '../protocol/server-interface';
 import * as Utils from '../utils';
 import {WorldMapPartition} from '../world-map-partition';
-import { WorldTime } from '../world-time';
+import {WorldTime} from '../world-time';
 
 import {ClientConnection} from './client-connection';
 import {CreatureState} from './creature-state';
-import { adjustAttribute, attributeCheck } from './creature-utils';
-import { Script } from './script';
-import { BasicScript } from './scripts/basic-script';
-import { ServerContext } from './server-context';
+import {adjustAttribute, attributeCheck} from './creature-utils';
+import {Script} from './script';
+import {BasicScript} from './scripts/basic-script';
+import {ServerContext} from './server-context';
 import {TaskRunner} from './task-runner';
 
 // TODO document how the f this works.
@@ -78,23 +78,23 @@ export class Server {
   }
 
   reply(event: ProtocolEvent) {
-    const message = { data: event };
-    this.outboundMessages.push({ to: this.currentClientConnection, message });
+    const message = {data: event};
+    this.outboundMessages.push({to: this.currentClientConnection, message});
   }
 
   broadcast(event: ProtocolEvent) {
-    const message = { data: event };
-    this.outboundMessages.push({ message });
+    const message = {data: event};
+    this.outboundMessages.push({message});
   }
 
   send(event: ProtocolEvent, toClient: ClientConnection) {
-    const message = { data: event };
-    this.outboundMessages.push({ to: toClient, message });
+    const message = {data: event};
+    this.outboundMessages.push({to: toClient, message});
   }
 
   conditionalBroadcast(event: ProtocolEvent, filter: (client: ClientConnection) => boolean) {
-    const message = { data: event };
-    this.outboundMessages.push({ filter, message });
+    const message = {data: event};
+    this.outboundMessages.push({filter, message});
   }
 
   broadcastInRange(event: ProtocolEvent, loc: TilePoint, range: number) {
@@ -107,7 +107,7 @@ export class Server {
   }
 
   broadcastAnimation(animationInstance: GridiaAnimationInstance) {
-    this.broadcastInRange(EventBuilder.animation({ ...animationInstance }), animationInstance.path[0], 30);
+    this.broadcastInRange(EventBuilder.animation({...animationInstance}), animationInstance.path[0], 30);
   }
 
   broadcastChat(opts: { from: string; text: string }) {
@@ -120,7 +120,7 @@ export class Server {
   }
 
   broadcastChatFromServer(message: string) {
-    this.broadcastChat({ from: 'SERVER', text: message });
+    this.broadcastChat({from: 'SERVER', text: message});
   }
 
   start() {
@@ -162,14 +162,14 @@ export class Server {
   }
 
   startDialogue(clientConnection: ClientConnection, dialogue: Dialogue) {
-    clientConnection.activeDialogue = { dialogue, partIndex: 0 };
+    clientConnection.activeDialogue = {dialogue, partIndex: 0};
     this.sendCurrentDialoguePart(clientConnection, true);
   }
 
   processDialogueResponse(clientConnection: ClientConnection, choiceIndex?: number) {
     if (!clientConnection.activeDialogue) return;
 
-    const { dialogue, partIndex } = clientConnection.activeDialogue;
+    const {dialogue, partIndex} = clientConnection.activeDialogue;
     const part = dialogue.parts[partIndex];
 
     let nextPartIndex;
@@ -187,14 +187,14 @@ export class Server {
       this.sendCurrentDialoguePart(clientConnection, false);
     } else {
       clientConnection.activeDialogue = undefined;
-      clientConnection.sendEvent(EventBuilder.dialogue({ index: -1 }));
+      clientConnection.sendEvent(EventBuilder.dialogue({index: -1}));
     }
   }
 
   sendCurrentDialoguePart(clientConnection: ClientConnection, start: boolean) {
     if (!clientConnection.activeDialogue) return;
 
-    const { dialogue, partIndex } = clientConnection.activeDialogue;
+    const {dialogue, partIndex} = clientConnection.activeDialogue;
     clientConnection.sendEvent(EventBuilder.dialogue({
       dialogue: start ? {
         speakers: dialogue.speakers,
@@ -231,8 +231,8 @@ export class Server {
   }
 
   async getInitialSpawnLoc() {
-    const { width, height } = this.context.map.getPartition(0);
-    const center = { w: 0, x: Math.round(width / 2), y: Math.round(height / 2) + 3, z: 0 };
+    const {width, height} = this.context.map.getPartition(0);
+    const center = {w: 0, x: Math.round(width / 2), y: Math.round(height / 2) + 3, z: 0};
 
     // TODO: is this still needed?
     // Make sure sector is loaded. Prevents hidden creature (race condition, happens often in worker).
@@ -244,8 +244,8 @@ export class Server {
   }
 
   getInitialSpawnLoc2() {
-    const { width, height } = this.context.map.getPartition(0);
-    const center = { w: 0, x: Math.round(width / 2), y: Math.round(height / 2) + 3, z: 0 };
+    const {width, height} = this.context.map.getPartition(0);
+    const center = {w: 0, x: Math.round(width / 2), y: Math.round(height / 2) + 3, z: 0};
     const spawnLoc = this.findNearest(center, 10, true, (_, loc) => this.context.walkable(loc)) || center;
     return spawnLoc;
   }
@@ -317,23 +317,23 @@ export class Server {
     const container = this.context.makeContainer('normal');
     player.containerId = container.id;
     if (opts.name !== 'TestUser') {
-      container.items[0] = { type: Content.getMetaItemByName('Wood Axe').id, quantity: 1 };
-      container.items[1] = { type: Content.getMetaItemByName('Fire Starter').id, quantity: 1 };
-      container.items[2] = { type: Content.getMetaItemByName('Pick').id, quantity: 1 };
-      container.items[3] = { type: Content.getMetaItemByName('Plough').id, quantity: 1 };
-      container.items[4] = { type: Content.getMetaItemByName('Mana Plant Seeds').id, quantity: 100 };
-      container.items[5] = { type: Content.getMetaItemByName('Soccer Ball').id, quantity: 1 };
-      container.items[6] = { type: Content.getMetaItemByName('Saw').id, quantity: 1 };
-      container.items[7] = { type: Content.getMetaItemByName('Hammer and Nails').id, quantity: 1 };
-      container.items[8] = { type: Content.getMetaItemByName('Lit Torch').id, quantity: 1 };
-      container.items[9] = { type: Content.getMetaItemByName('Wood Planks').id, quantity: 100 };
-      container.items[10] = { type: Content.getMetaItemByName('Bow').id, quantity: 1 };
-      container.items[11] = { type: Content.getMetaItemByName('Arrow').id, quantity: 500 };
-      container.items[12] = { type: Content.getMetaItemByName('Iron Wand').id, quantity: 1 };
+      container.items[0] = {type: Content.getMetaItemByName('Wood Axe').id, quantity: 1};
+      container.items[1] = {type: Content.getMetaItemByName('Fire Starter').id, quantity: 1};
+      container.items[2] = {type: Content.getMetaItemByName('Pick').id, quantity: 1};
+      container.items[3] = {type: Content.getMetaItemByName('Plough').id, quantity: 1};
+      container.items[4] = {type: Content.getMetaItemByName('Mana Plant Seeds').id, quantity: 100};
+      container.items[5] = {type: Content.getMetaItemByName('Soccer Ball').id, quantity: 1};
+      container.items[6] = {type: Content.getMetaItemByName('Saw').id, quantity: 1};
+      container.items[7] = {type: Content.getMetaItemByName('Hammer and Nails').id, quantity: 1};
+      container.items[8] = {type: Content.getMetaItemByName('Lit Torch').id, quantity: 1};
+      container.items[9] = {type: Content.getMetaItemByName('Wood Planks').id, quantity: 100};
+      container.items[10] = {type: Content.getMetaItemByName('Bow').id, quantity: 1};
+      container.items[11] = {type: Content.getMetaItemByName('Arrow').id, quantity: 500};
+      container.items[12] = {type: Content.getMetaItemByName('Iron Wand').id, quantity: 1};
     }
 
     const equipment = this.context.makeContainer('equipment', Object.keys(Container.EQUIP_SLOTS).length);
-    equipment.items[0] = { type: Content.getMetaItemByName('Iron Helmet Plate').id, quantity: 1 };
+    equipment.items[0] = {type: Content.getMetaItemByName('Iron Helmet Plate').id, quantity: 1};
     player.equipmentContainerId = equipment.id;
 
     await this.context.savePlayer(player);
@@ -344,7 +344,7 @@ export class Server {
     this.context.playerNamesToIds.set(opts.name, player.id);
 
     await this.playerEnterWorld(clientConnection,
-      { justCreated: true, player, playerId: player.id });
+      {justCreated: true, player, playerId: player.id});
   }
 
   async playerEnterWorld(clientConnection: ClientConnection,
@@ -380,7 +380,7 @@ export class Server {
       id: this.context.nextCreatureId++,
       dead: false,
       name: player.name,
-      pos: { ...player.loc },
+      pos: {...player.loc},
       graphics: {
         file: 'rpgwo-player0.png',
         index: Utils.randInt(0, 4),
@@ -410,7 +410,7 @@ export class Server {
       buffs: player.buffs,
     };
 
-    this.updateCreatureDataBasedOnEquipment(creature, clientConnection.equipment, { broadcast: false });
+    this.updateCreatureDataBasedOnEquipment(creature, clientConnection.equipment, {broadcast: false});
     clientConnection.creature = creature;
     this.registerCreature(creature);
 
@@ -487,9 +487,9 @@ export class Server {
       isPlayer: false,
       roam: template.roam,
       speed: template.speed,
-      life: { current: life, max: life },
-      stamina: { current: stamina, max: stamina },
-      mana: { current: mana, max: mana },
+      life: {current: life, max: life},
+      stamina: {current: stamina, max: stamina},
+      mana: {current: mana, max: mana},
       food: 10,
       eatGrass: template.eatGrass,
       light: 0,
@@ -664,7 +664,7 @@ export class Server {
 
     if (!missReason && data.lineOfSight) {
       path = calcStraightLine(data.actor.pos, data.target.pos)
-        .map((p) => ({ ...data.actor.pos, ...p }));
+        .map((p) => ({...data.actor.pos, ...p}));
       // using findPath does a cool "homing" attack, around corners. could be used for a neat weapon?
       // findPath(this.context, this.partition, data.actor.pos, data.target.pos)
       //   .map((p) => ({...p, w: data.actor.pos.w})),
@@ -771,7 +771,7 @@ export class Server {
         }
       }
 
-      if (text) this.send(EventBuilder.chat({ section: 'Combat', text }), clientConnection);
+      if (text) this.send(EventBuilder.chat({section: 'Combat', text}), clientConnection);
 
       if (!missReason) {
         const xpModifier = otherCreature.combatLevel / thisCreature.combatLevel;
@@ -833,7 +833,7 @@ export class Server {
       if (!creature.isPlayer && creature.type) {
         const loot: LootTable = [
           // TODO: remove
-          { type: 'ref', id: 'food', chance: 20 },
+          {type: 'ref', id: 'food', chance: 20},
         ];
         let deadItemType = Content.getMetaItemByName('Decayed Remains').id;
 
@@ -843,7 +843,7 @@ export class Server {
           if (template.lootTable) loot.push(...template.lootTable);
         }
 
-        loot.unshift({ type: deadItemType });
+        loot.unshift({type: deadItemType});
         const itemsToSpawn = roll(loot, Content.getLootTables());
         for (const item of itemsToSpawn) {
           this.addItemNear(creature.pos, item);
@@ -874,7 +874,7 @@ export class Server {
     if (spell.transformItemFrom && spell.transformItemTo) {
       if (!loc || this.context.map.getItem(loc)?.type !== spell.transformItemFrom.type) return 'Invalid item';
 
-      this.setItem(loc, { ...spell.transformItemTo });
+      this.setItem(loc, {...spell.transformItemTo});
     }
 
     const variance = spell.variance ? Utils.randInt(0, spell.variance) : 0;
@@ -913,7 +913,7 @@ export class Server {
         this.addItemNear(loc || creature.pos, {
           ...item,
           quantity: 1,
-        }, { includeTargetLocation: true, checkCreatures: true });
+        }, {includeTargetLocation: true, checkCreatures: true});
       }
     }
 
@@ -966,16 +966,16 @@ export class Server {
       for (let y1 = y0 - offset; y1 <= offset + y0; y1++) {
         if (y1 === y0 - offset || y1 === y0 + offset) {
           for (let x1 = x0 - offset; x1 <= offset + x0; x1++) {
-            if (test({ w, x: x1, y: y1, z })) {
-              return { w, x: x1, y: y1, z };
+            if (test({w, x: x1, y: y1, z})) {
+              return {w, x: x1, y: y1, z};
             }
           }
         } else {
-          if (test({ w, x: x0 - offset, y: y1, z })) {
-            return { w, x: x0 - offset, y: y1, z };
+          if (test({w, x: x0 - offset, y: y1, z})) {
+            return {w, x: x0 - offset, y: y1, z};
           }
-          if (test({ w, x: x0 + offset, y: y1, z })) {
-            return { w, x: x0 + offset, y: y1, z };
+          if (test({w, x: x0 + offset, y: y1, z})) {
+            return {w, x: x0 + offset, y: y1, z};
           }
         }
       }
@@ -1071,7 +1071,7 @@ export class Server {
         ...this.context.clientConnections.values(),
       ].find((client) => client.equipment.id === id)?.creature;
       if (creature) {
-        this.updateCreatureDataBasedOnEquipment(creature, container, { broadcast: true });
+        this.updateCreatureDataBasedOnEquipment(creature, container, {broadcast: true});
       }
     }
   }
@@ -1111,10 +1111,10 @@ export class Server {
   makeCreatureImageData(container: Container): CreatureImageData {
     const getEquipImage = (i: Item | null) => i ? Content.getMetaItem(i.type).equipImage : undefined;
     return {
-      arms: { file: 'rpgwo-arms0.png', frames: [0] },
-      chest: getEquipImage(container.items[Container.EQUIP_SLOTS.Chest]) || { file: 'rpgwo-chest0.png', frames: [0] },
-      head: getEquipImage(container.items[Container.EQUIP_SLOTS.Head]) || { file: 'rpgwo-head0.png', frames: [0] },
-      legs: getEquipImage(container.items[Container.EQUIP_SLOTS.Legs]) || { file: 'rpgwo-legs0.png', frames: [0] },
+      arms: {file: 'rpgwo-arms0.png', frames: [0]},
+      chest: getEquipImage(container.items[Container.EQUIP_SLOTS.Chest]) || {file: 'rpgwo-chest0.png', frames: [0]},
+      head: getEquipImage(container.items[Container.EQUIP_SLOTS.Head]) || {file: 'rpgwo-head0.png', frames: [0]},
+      legs: getEquipImage(container.items[Container.EQUIP_SLOTS.Legs]) || {file: 'rpgwo-legs0.png', frames: [0]},
       shield: getEquipImage(container.items[Container.EQUIP_SLOTS.Shield]),
       weapon: getEquipImage(container.items[Container.EQUIP_SLOTS.Weapon]),
     };
@@ -1123,7 +1123,7 @@ export class Server {
   grantXp(clientConnection: ClientConnection, skill: number, xp: number) {
     if (xp <= 0) return;
 
-    const { skillLevelIncreased, combatLevelIncreased } =
+    const {skillLevelIncreased, combatLevelIncreased} =
       Player.incrementSkillXp(clientConnection.player, skill, xp) || {};
 
     if (skillLevelIncreased) {
@@ -1168,13 +1168,13 @@ export class Server {
 
   ensureSectorLoadedForPoint(loc: TilePoint) {
     const sectorPoint = Utils.worldToSector(loc, SECTOR_SIZE);
-    return this.ensureSectorLoaded({ w: loc.w, ...sectorPoint });
+    return this.ensureSectorLoaded({w: loc.w, ...sectorPoint});
   }
 
   advanceTime(ticks: number) {
     // const ticks = gameHours * (this.ticksPerWorldDay / 24);
     this.time.epoch += ticks;
-    this.broadcast(EventBuilder.time({ epoch: this.time.epoch }));
+    this.broadcast(EventBuilder.time({epoch: this.time.epoch}));
 
     // TODO
     // for (let i = 0; i < ticks; i++) {
@@ -1204,7 +1204,7 @@ export class Server {
     if (this.context.claims[key]) {
       const currentOwnerId = this.context.claims[key];
       const currentOwner = this.context.players.get(this.context.claims[key]);
-      return { error: `Sector already owned by ${currentOwner?.name || currentOwnerId}` };
+      return {error: `Sector already owned by ${currentOwner?.name || currentOwnerId}`};
     }
 
     if (owner !== 'SERVER') {
@@ -1214,7 +1214,7 @@ export class Server {
       }
 
       if (numOwned >= 1) {
-        return { error: 'You own too much land' };
+        return {error: 'You own too much land'};
       }
     }
 
@@ -1223,7 +1223,7 @@ export class Server {
     const player = this.context.players.get(owner);
     const clientConnection = player && this.getClientConnectionForPlayer(player);
     if (clientConnection) {
-      this.send(EventBuilder.chat({ section: 'World', text: 'You now own this land!' }), clientConnection);
+      this.send(EventBuilder.chat({section: 'World', text: 'You now own this land!'}), clientConnection);
     }
   }
 
@@ -1257,7 +1257,7 @@ export class Server {
       secondsPerWorldTick: this.secondsPerWorldTick,
       ticksPerWorldDay: this.ticksPerWorldDay,
     }));
-    clientConnection.sendEvent(EventBuilder.time({ epoch: this.time.epoch }));
+    clientConnection.sendEvent(EventBuilder.time({epoch: this.time.epoch}));
 
     clientConnection.sendEvent(EventBuilder.chat({
       section: 'World',
@@ -1278,12 +1278,12 @@ export class Server {
     }));
 
     // TODO: next line not necessary. but removing breaks tests ...
-    clientConnection.sendEvent(EventBuilder.setCreature({ partial: false, ...clientConnection.creature }));
+    clientConnection.sendEvent(EventBuilder.setCreature({partial: false, ...clientConnection.creature}));
     clientConnection.sendEvent(EventBuilder.container({
       container: await this.context.getContainer(clientConnection.equipment.id),
     }));
     clientConnection.sendEvent(EventBuilder.container(
-      { container: await this.context.getContainer(clientConnection.container.id) },
+      {container: await this.context.getContainer(clientConnection.container.id)},
     ));
     this.updateCreatureLight(clientConnection);
     setTimeout(() => {
@@ -1377,7 +1377,7 @@ export class Server {
             if (!closeEnoughToSubscribe(clientConnection.creature.pos, creature.pos)) continue;
 
             clientConnection.subscribedCreatureIds.add(creature.id);
-            clientConnection.sendEvent(EventBuilder.setCreature({ partial: false, ...creature }));
+            clientConnection.sendEvent(EventBuilder.setCreature({partial: false, ...creature}));
           }
         }
       },
@@ -1413,11 +1413,11 @@ export class Server {
             let newPos = null;
             let playWarpSound = false;
             if (meta.class === 'CaveDown') {
-              newPos = { ...creature.pos, z: creature.pos.z + 1 };
+              newPos = {...creature.pos, z: creature.pos.z + 1};
             } else if (meta.class === 'CaveUp') {
-              newPos = { ...creature.pos, z: creature.pos.z - 1 };
+              newPos = {...creature.pos, z: creature.pos.z - 1};
             } else if (meta.trapEffect === 'Warp' && item.warpTo) {
-              newPos = { ...item.warpTo };
+              newPos = {...item.warpTo};
               playWarpSound = true;
             }
             if (!newPos || !map.inBounds(newPos) || !await map.walkableAsync(newPos)) continue;
@@ -1441,7 +1441,7 @@ export class Server {
     // Handle tiles seen logs.
     this.taskRunner.registerTickSection({
       description: 'tiles seen logs',
-      rate: { seconds: 5 },
+      rate: {seconds: 5},
       fn: () => {
         for (const clientConnection of this.context.clientConnections.values()) {
           if (!clientConnection.player) continue;
@@ -1459,7 +1459,7 @@ export class Server {
     this.taskRunner.registerTickSection({
       description: 'time',
       // RPGWO does 20 second growth intervals.
-      rate: { seconds: this.secondsPerWorldTick },
+      rate: {seconds: this.secondsPerWorldTick},
       *generator() {
         server.time.epoch += 1;
 
@@ -1471,9 +1471,9 @@ export class Server {
 
     this.taskRunner.registerTickSection({
       description: 'sync time',
-      rate: { minutes: 1 },
+      rate: {minutes: 1},
       fn: () => {
-        server.broadcast(EventBuilder.time({ epoch: server.time.epoch }));
+        server.broadcast(EventBuilder.time({epoch: server.time.epoch}));
       },
     });
 
@@ -1494,7 +1494,7 @@ export class Server {
     // Handle hunger.
     this.taskRunner.registerTickSection({
       description: 'hunger',
-      rate: { minutes: 1 },
+      rate: {minutes: 1},
       fn: () => {
         for (const creature of this.context.creatures.values()) {
           if (!creature.eatGrass) return; // TODO: let all creature experience hunger pain.
@@ -1529,16 +1529,16 @@ export class Server {
               // @ts-ignore
               // eslint-disable-next-line
               await Promise.resolve(this._serverInterface[onMethodName](this, command.args))
-                .then((data: any) => clientConnection.send({ id: message.id, data }))
+                .then((data: any) => clientConnection.send({id: message.id, data}))
                 .catch((e?: Error | string) => {
                   // TODO: why is this catch AND the try/catch needed?
                   const error = e ? e.toString() : 'Unknown error';
-                  clientConnection.send({ id: message.id, data: { error } });
+                  clientConnection.send({id: message.id, data: {error}});
                 });
             } catch (error) {
               // Don't let a bad message kill the message loop.
               console.error(error, message);
-              clientConnection.send({ id: message.id, data: { error: error ? error.toString() : 'Unknown error' } });
+              clientConnection.send({id: message.id, data: {error: error ? error.toString() : 'Unknown error'}});
             }
             // performance.mark(`${message.type}-end`);
             // performance.measure(message.type, `${message.type}-start`, `${message.type}-end`);
@@ -1553,7 +1553,7 @@ export class Server {
         // performance.clearMeasures();
         // performance.clearResourceTimings();
 
-        for (const { message, to, filter } of this.outboundMessages) {
+        for (const {message, to, filter} of this.outboundMessages) {
           // Send a message to:
           // 1) a specific client
           // 2) clients based on a filter
@@ -1580,7 +1580,7 @@ export class Server {
 
     this.taskRunner.registerTickSection({
       description: 'tick performance',
-      rate: { seconds: 10 },
+      rate: {seconds: 10},
       fn: () => {
         if (!this.taskRunner.debugMeasureTiming) return;
 
@@ -1608,7 +1608,7 @@ export class Server {
           maxDurationMs: perf.tickDurationMax,
           longestTick,
         }, null, 2);
-        this.broadcast(EventBuilder.log({ msg }));
+        this.broadcast(EventBuilder.log({msg}));
       },
     });
   }
@@ -1618,7 +1618,7 @@ export class Server {
     // iterate directly, iterate with getIteratorForArea, or iterate directly on partition.sectors ?
 
     let i = 0;
-    for (const { pos, tile } of partition.getIteratorForArea({ x: 0, y: 0, z: 0 }, partition.width, partition.height)) {
+    for (const {pos, tile} of partition.getIteratorForArea({x: 0, y: 0, z: 0}, partition.width, partition.height)) {
       if (++i % 1000 === 0) yield;
 
       if (pos.z !== 0) continue; // TODO. No reason. lol.
@@ -1636,7 +1636,7 @@ export class Server {
         type: meta.growthItem,
         growth: 0,
       } : undefined;
-      this.setItem({ ...pos, w }, newItem);
+      this.setItem({...pos, w}, newItem);
     }
 
     // for (let x = 0; x < partition.width; x++) {

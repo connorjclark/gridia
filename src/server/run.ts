@@ -3,15 +3,15 @@ import * as http from 'http';
 import * as https from 'https';
 
 import * as nodeCleanup from 'node-cleanup';
-import { Server as WebSocketServer } from 'ws';
+import {Server as WebSocketServer} from 'ws';
 import * as yargs from 'yargs';
 
-import { NodeFs } from '../iso-fs';
+import {NodeFs} from '../iso-fs';
 import * as WireSerializer from '../lib/wire-serializer';
-import { WebRTCSignalServer } from '../lib/wrtc/signal-server';
+import {WebRTCSignalServer} from '../lib/wrtc/signal-server';
 
 import {ClientConnection} from './client-connection';
-import { startServer } from './create-server';
+import {startServer} from './create-server';
 
 const wrtcSignalServer = new WebRTCSignalServer();
 
@@ -26,7 +26,7 @@ async function onHttpRequest(req: http.IncomingMessage, res: http.ServerResponse
 async function main(options: CLIOptions) {
   global.node = true;
 
-  const { port, ssl } = options;
+  const {port, ssl} = options;
 
   let webserver: http.Server;
   if (ssl) {
@@ -120,8 +120,8 @@ const argv = yargs
   .default('directoryPath', 'server-data')
   .parse();
 
-const { sslCert, sslKey, ...mostOfArgs } = argv;
+const {sslCert, sslKey, ...mostOfArgs} = argv;
 void main({
   ...mostOfArgs,
-  ssl: sslKey && sslCert ? { cert: sslCert, key: sslKey } : undefined,
+  ssl: sslKey && sslCert ? {cert: sslCert, key: sslKey} : undefined,
 });

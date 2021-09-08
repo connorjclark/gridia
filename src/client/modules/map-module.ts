@@ -2,12 +2,12 @@ import * as Content from '../../content';
 import * as Player from '../../player';
 import {ClientModule} from '../client-module';
 import * as Helper from '../helper';
-import { makeUIWindow } from '../ui/ui-common';
+import {makeUIWindow} from '../ui/ui-common';
 
 export class MapModule extends ClientModule {
   private mapEl?: HTMLCanvasElement;
   private context?: CanvasRenderingContext2D;
-  private mapWindow = makeUIWindow({ name: 'map', cell: 'map', noscroll: true });
+  private mapWindow = makeUIWindow({name: 'map', cell: 'map', noscroll: true});
 
   private nextDrawAt = 0;
   private numDraws = 0;
@@ -64,13 +64,13 @@ export class MapModule extends ClientModule {
 
     for (let x = 0; x < chunk; x++) {
       for (let y = 0; y < chunk; y++) {
-        const loc = { ...playerLoc, x: x + startX, y: y + startY };
+        const loc = {...playerLoc, x: x + startX, y: y + startY};
         if (!partition.inBounds(loc)) continue;
 
         const mark = Player.getTileSeenData(this.game.client.player, loc);
         if (mark.floor === 0 && !mark.walkable) continue;
 
-        const { floor, walkable } = mark;
+        const {floor, walkable} = mark;
 
         let color;
         if (!walkable) {

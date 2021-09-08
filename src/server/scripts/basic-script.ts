@@ -1,6 +1,6 @@
 import * as Player from '../../player';
 import {ClientConnection} from '../client-connection';
-import { Script } from '../script';
+import {Script} from '../script';
 import {Server} from '../server';
 
 const configDefinition = {
@@ -28,9 +28,9 @@ export class BasicScript extends Script<typeof configDefinition> {
     ],
   };
   ratSpawnerState = this.addCreatureSpawner({
-    descriptors: [{ type: 41 }, { type: 43 }, { type: 98 }],
+    descriptors: [{type: 41}, {type: 43}, {type: 98}],
     limit: 10,
-    rate: { seconds: 5 },
+    rate: {seconds: 5},
     region: this.config.ratSpawnerRegion,
   });
 
@@ -40,9 +40,9 @@ export class BasicScript extends Script<typeof configDefinition> {
 
   onStart() {
     this.ratSpawnerState = this.addCreatureSpawner({
-      descriptors: [{ type: 41 }, { type: 43 }, { type: 98 }],
+      descriptors: [{type: 41}, {type: 43}, {type: 98}],
       limit: 10,
-      rate: { seconds: 5 },
+      rate: {seconds: 5},
       region: this.config.ratSpawnerRegion,
     });
 
@@ -57,14 +57,14 @@ export class BasicScript extends Script<typeof configDefinition> {
       }],
       region: this.config.captainRegion,
       limit: 1,
-      rate: { seconds: 3 },
+      rate: {seconds: 3},
     });
 
     this.server.registerQuest(this.quest);
   }
 
   onPlayerCreated(player: Player, clientConnection: ClientConnection) {
-    const loc = { ...this.creatureSpawners[0].region };
+    const loc = {...this.creatureSpawners[0].region};
     loc.x += 2;
     loc.y += 2;
     clientConnection.player.spawnLoc = loc;
@@ -89,10 +89,10 @@ export class BasicScript extends Script<typeof configDefinition> {
       return {
         speakers,
         parts: [
-          { speaker: 1, text: '[i]Welcome[/i]!' },
-          { speaker: 0, text: 'Who are you?' },
-          { speaker: 1, text: 'The [b]captain[/b]!' },
-          { speaker: 0, text: 'Alright.' },
+          {speaker: 1, text: '[i]Welcome[/i]!'},
+          {speaker: 0, text: 'Who are you?'},
+          {speaker: 1, text: 'The [b]captain[/b]!'},
+          {speaker: 0, text: 'Alright.'},
         ],
         onFinish: () => {
           Player.advanceQuest(player, this.quest);
@@ -102,8 +102,8 @@ export class BasicScript extends Script<typeof configDefinition> {
       return {
         speakers,
         parts: [
-          { speaker: 1, text: 'Go away.' },
-          { speaker: 0, text: 'Alright.' },
+          {speaker: 1, text: 'Go away.'},
+          {speaker: 0, text: 'Alright.'},
         ],
       };
     }

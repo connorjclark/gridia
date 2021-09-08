@@ -1,15 +1,15 @@
 import * as Content from '../content';
-import { FsApiFs, IdbFs, IsoFs } from '../iso-fs';
-import { makeMapImage } from '../lib/map-generator/map-image-maker';
+import {FsApiFs, IdbFs, IsoFs} from '../iso-fs';
+import {makeMapImage} from '../lib/map-generator/map-image-maker';
 import * as WireSerializer from '../lib/wire-serializer';
-import { mapgen, makeBareMap } from '../mapgen';
+import {mapgen, makeBareMap} from '../mapgen';
 import {WorldMap} from '../world-map';
 import {WorldMapPartition} from '../world-map-partition';
 
 import {ClientConnection} from './client-connection';
-import { startServer as _startServer } from './create-server';
+import {startServer as _startServer} from './create-server';
 import {Server} from './server';
-import { ServerContext } from './server-context';
+import {ServerContext} from './server-context';
 
 let opts: ServerWorkerOpts;
 let server: Server;
@@ -64,8 +64,8 @@ async function init(args: InitArgs) {
 async function listMaps() {
   // TODO: add {type: FOLDER} to readdir.
   const mapNames = (await mapsFs.readdir('')).filter((name) => !name.startsWith('.'));
-  mapNames.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
-  return { mapNames };
+  mapNames.sort((a, b) => a.localeCompare(b, undefined, {numeric: true}));
+  return {mapNames};
 }
 
 interface GenerateMapArgs {

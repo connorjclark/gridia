@@ -1,12 +1,12 @@
 import bbCodeParser from 'js-bbcode-parser';
-import { render, h, Component } from 'preact';
-import { useEffect, useRef, useMemo } from 'preact/hooks';
+import {render, h, Component} from 'preact';
+import {useEffect, useRef, useMemo} from 'preact/hooks';
 import Typed from 'typed.js';
 
 import * as CommandBuilder from '../../protocol/command-builder';
 import {Game} from '../game';
 
-import { CustomCreatureGraphic, Graphic, makeUIWindow } from './ui-common';
+import {CustomCreatureGraphic, Graphic, makeUIWindow} from './ui-common';
 
 export function makeDialogueWindow(game: Game) {
   let setState = (_: Partial<State>) => {
@@ -93,7 +93,7 @@ export function makeDialogueWindow(game: Game) {
     }
   }
 
-  const windowEl = makeUIWindow({ name: 'dialogue', cell: 'center' });
+  const windowEl = makeUIWindow({name: 'dialogue', cell: 'center'});
   render(<DialogueWindow />, windowEl);
-  return { el: windowEl, setState: (s: Partial<State>) => setState(s) };
+  return {el: windowEl, setState: (s: Partial<State>) => setState(s)};
 }

@@ -1,12 +1,12 @@
 import linkState from 'linkstate';
-import { render, h, Component, Fragment } from 'preact';
+import {render, h, Component, Fragment} from 'preact';
 
 import * as Content from '../../content';
 import * as Utils from '../../utils';
 import * as Helper from '../helper';
 import {AdminModule} from '../modules/admin-module';
 
-import { Graphic, makeUIWindow } from './ui-common';
+import {Graphic, makeUIWindow} from './ui-common';
 
 const TOOLS = ['point', 'rectangle', 'fill'] as const;
 type Tool = typeof TOOLS[number];
@@ -58,7 +58,7 @@ const Selection = (props: SelectionProps) => {
   return <div
     class={classes.join(' ')}
     title={props.title}
-    onClick={() => props.onClickSelection({ type: props.type, id: props.id })}
+    onClick={() => props.onClickSelection({type: props.type, id: props.id})}
   >
     <Graphic
       file={props.graphicFile}
@@ -131,14 +131,14 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
   }
 
   const itemClassesOrdered = Helper.sortByPrecedence([...classToMetaItem.keys()], [
-    { type: 'equal', value: 'Normal' },
-    { type: 'equal', value: 'None' },
+    {type: 'equal', value: 'Normal'},
+    {type: 'equal', value: 'None'},
   ]);
 
   const selectionFilters: Array<{ type: string; value: string }> = [];
-  selectionFilters.push({ type: 'floors', value: 'Floors' });
+  selectionFilters.push({type: 'floors', value: 'Floors'});
   for (const itemClass of itemClassesOrdered) {
-    selectionFilters.push({ type: 'class', value: itemClass });
+    selectionFilters.push({type: 'class', value: itemClass});
   }
 
   function filterMetaItems(itemClass: string, text: string) {
@@ -261,12 +261,12 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
 
     // TODO: this all feels very hacky.
     updateAdminModule() {
-      adminModule.setUIState({ ...this.state });
+      adminModule.setUIState({...this.state});
     }
 
     setPage(page: number, numPages: number) {
       const newPage = Utils.clamp(page, 0, numPages - 1);
-      this.setState({ selectionFilter: { ...this.state.selectionFilter, page: newPage } });
+      this.setState({selectionFilter: {...this.state.selectionFilter, page: newPage}});
     }
 
     setItemClassFilter(itemClass: string) {
@@ -282,7 +282,7 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
     }
   }
 
-  const el = makeUIWindow({ name: 'admin', cell: 'center' });
+  const el = makeUIWindow({name: 'admin', cell: 'center'});
   render(<AdminWindow />, el);
   return el;
 }

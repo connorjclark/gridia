@@ -1,11 +1,11 @@
-import { MINE } from '../../constants';
+import {MINE} from '../../constants';
 import * as Content from '../../content';
-import { findPath } from '../../path-finding';
+import {findPath} from '../../path-finding';
 import * as Player from '../../player';
 import * as CommandBuilder from '../../protocol/command-builder';
 import * as Utils from '../../utils';
 import {ClientModule} from '../client-module';
-import { GameActionEvent } from '../event-emitter';
+import {GameActionEvent} from '../event-emitter';
 import {Game} from '../game';
 import * as Helper from '../helper';
 import {KEYS} from '../keys';
@@ -64,9 +64,9 @@ export class MovementModule extends ClientModule {
     // if (this.game.client.context.map.width === 0) return;
     if (now < this.canMoveAgainAt) return;
 
-    let dest: TilePoint = { ...focusCreature.pos };
+    let dest: TilePoint = {...focusCreature.pos};
 
-    const keyInputDelta = { x: 0, y: 0, z: 0 };
+    const keyInputDelta = {x: 0, y: 0, z: 0};
     if (this.game.keys[KEYS.W]) {
       keyInputDelta.y -= 1;
     } else if (this.game.keys[KEYS.S]) {
@@ -102,13 +102,13 @@ export class MovementModule extends ClientModule {
       this.pathToDestination = findPath(this.game.client.context, partition, focusPos, to);
     }
 
-    if (!Utils.equalPoints(keyInputDelta, { x: 0, y: 0, z: 0 })) {
-      dest = { ...focusCreature.pos };
+    if (!Utils.equalPoints(keyInputDelta, {x: 0, y: 0, z: 0})) {
+      dest = {...focusCreature.pos};
       dest.x += keyInputDelta.x;
       dest.y += keyInputDelta.y;
       this.invalidateDestination();
     } else if (this.pathToDestination) {
-      dest = { w, ...this.pathToDestination.splice(0, 1)[0] };
+      dest = {w, ...this.pathToDestination.splice(0, 1)[0]};
     }
 
     if (dest && !Utils.equalPoints(dest, focusCreature.pos)) {
@@ -130,7 +130,7 @@ export class MovementModule extends ClientModule {
         };
         // this.game.client.context.map.moveCreature(focusCreature, dest);
         this.game.client.connection.sendCommand(CommandBuilder.move(dest));
-        this.game.client.eventEmitter.emit('playerMove', { from: focusCreature.pos, to: dest });
+        this.game.client.eventEmitter.emit('playerMove', {from: focusCreature.pos, to: dest});
         this.game.modules.sound.playSfx('move');
         delete this.game.state.mouse.tile;
       }
@@ -139,7 +139,7 @@ export class MovementModule extends ClientModule {
 
   onAction(e: GameActionEvent) {
     const type = e.action.type;
-    const { location } = e;
+    const {location} = e;
     if (location.source !== 'world') return;
 
     if (type === 'move-here') {

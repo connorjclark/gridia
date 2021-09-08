@@ -33,7 +33,7 @@ export class TaskRunner {
   };
   private tickSections: TickSection[] = [];
   private ticks = 0;
-  private resetTickRate: Rate = { days: 10 };
+  private resetTickRate: Rate = {days: 10};
   private tickTimeoutHandle?: NodeJS.Timeout;
   private lastTickTime = 0;
   private unprocessedTickTime = 0;
@@ -76,10 +76,10 @@ export class TaskRunner {
   }
 
   registerForNextTick(options: Exclude<TickSection, 'rate'>) {
-    this.registerTickSection({ ...options, rate: { ms: 0 } });
+    this.registerTickSection({...options, rate: {ms: 0}});
   }
 
-  rateToTicks({ days = 0, hours = 0, minutes = 0, seconds = 0, ms = 0 }) {
+  rateToTicks({days = 0, hours = 0, minutes = 0, seconds = 0, ms = 0}) {
     let ms_ = ms;
     ms_ += seconds * 1000;
     ms_ += minutes * 1000 * 60;
@@ -93,7 +93,7 @@ export class TaskRunner {
     if (this.rateMatchesCurrentTick(this.resetTickRate)) this.ticks = 0;
 
     let perfTick: PerfTick | undefined;
-    if (this.debugMeasureTiming) perfTick = { started: performance.now(), duration: 0, sections: [] };
+    if (this.debugMeasureTiming) perfTick = {started: performance.now(), duration: 0, sections: []};
 
     for (const section of [...this.tickSections]) {
       if (section.rate !== undefined && !this.rateMatchesCurrentTick(section.rate)) continue;
@@ -104,7 +104,7 @@ export class TaskRunner {
         const now = performance.now();
         await this.handleTickSection(section);
         const duration = performance.now() - now;
-        perfTick.sections.push({ name: section.description, duration });
+        perfTick.sections.push({name: section.description, duration});
       }
 
       // Remove sections that run only once.
@@ -140,7 +140,7 @@ export class TaskRunner {
     const start = performance.now();
     while (!it.next().done) {
       if (performance.now() - start > this.tickDuration * 0.5) {
-        this.registerForNextTick({ ...section, generator: it });
+        this.registerForNextTick({...section, generator: it});
         break;
       }
     }

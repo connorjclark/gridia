@@ -1,19 +1,19 @@
 // yarn build-server && rm -rf world/graphics && node dist/server/scripts/create-graphics.js
 
-import { execFileSync } from 'child_process';
+import {execFileSync} from 'child_process';
 import * as fs from 'fs';
 
 import * as glob from 'glob';
 
 const graphicsManifest = [];
 
-fs.mkdirSync('world/graphics', { recursive: true });
-fs.mkdirSync('.tmp', { recursive: true });
+fs.mkdirSync('world/graphics', {recursive: true});
+fs.mkdirSync('.tmp', {recursive: true});
 
 for (const file of glob.sync('assets/**/*.{png,bmp}')) {
   const result = execFileSync('magick', [
     'identify', '-ping', '-format', '%w %h', file,
-  ], { encoding: 'utf-8' });
+  ], {encoding: 'utf-8'});
   const [width, height] = result.split(' ').map(Number);
   if (width > 4096 || height > 4096) {
     throw new Error('greater than max texture size: ' + file);
@@ -48,7 +48,7 @@ for (const file of glob.sync('assets/**/*.{png,bmp}')) {
     fs.copyFileSync(file, newPath);
   }
 
-  graphicsManifest.push({ file: newPath, width, height });
+  graphicsManifest.push({file: newPath, width, height});
 }
 
 console.log(JSON.stringify(graphicsManifest, null, 2));

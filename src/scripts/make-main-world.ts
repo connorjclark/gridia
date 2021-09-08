@@ -3,10 +3,10 @@
 import * as fs from 'fs';
 
 import * as Content from '../content';
-import { NodeFs } from '../iso-fs';
-import { ServerContext } from '../server/server-context';
+import {NodeFs} from '../iso-fs';
+import {ServerContext} from '../server/server-context';
 import {WorldMap} from '../world-map';
-import { createTestPartitions } from '../world-map-debug';
+import {createTestPartitions} from '../world-map-debug';
 
 async function createMainWorldMap() {
   if (fs.existsSync('server-data')) {
@@ -26,7 +26,7 @@ async function createMainWorldMap() {
     for (let sx = 0; sx < partition.sectors.length; sx++) {
       for (let sy = 0; sy < partition.sectors[0].length; sy++) {
         for (let sz = 0; sz < partition.sectors[0][0].length; sz++) {
-          await partition.getSectorAsync({ x: sx, y: sy, z: sz });
+          await partition.getSectorAsync({x: sx, y: sy, z: sz});
         }
       }
     }
@@ -39,18 +39,18 @@ async function createMainWorldMap() {
   // main world <-> test world
   const mainWorld = context.map.getPartition(0);
   const testWorld = context.map.getPartition(numMainPartitions);
-  mainWorld.getTile({ x: 40, y: 20, z: 0 }).item = {
+  mainWorld.getTile({x: 40, y: 20, z: 0}).item = {
     type: Content.getMetaItemByName('Warp Portal').id,
     quantity: 1,
-    warpTo: { w: numMainPartitions, x: 20, y: 10, z: 0 },
+    warpTo: {w: numMainPartitions, x: 20, y: 10, z: 0},
   };
-  testWorld.getTile({ x: 20, y: 12, z: 0 }).item = {
+  testWorld.getTile({x: 20, y: 12, z: 0}).item = {
     type: Content.getMetaItemByName('Warp Portal').id,
     quantity: 1,
-    warpTo: { w: 0, x: 40, y: 22, z: 0 },
+    warpTo: {w: 0, x: 40, y: 22, z: 0},
   };
 
-  fs.mkdirSync('server-data', { recursive: true });
+  fs.mkdirSync('server-data', {recursive: true});
   context.fs = new NodeFs('server-data');
   await context.save();
 }

@@ -1,13 +1,13 @@
-import { GFX_SIZE, MINE, WATER, SECTOR_SIZE } from '../constants';
+import {GFX_SIZE, MINE, WATER, SECTOR_SIZE} from '../constants';
 import * as Content from '../content';
-import { game } from '../game-singleton';
-import { Visibility } from '../lib/visibility';
+import {game} from '../game-singleton';
+import {Visibility} from '../lib/visibility';
 import * as Utils from '../utils';
 import {WorldMap} from '../world-map';
 
 import * as Draw from './draw';
 import * as Helper from './helper';
-import { getMineItem, getWaterFloor } from './template-draw';
+import {getMineItem, getWaterFloor} from './template-draw';
 
 const MAX_LIGHT_POWER = 6;
 
@@ -43,13 +43,13 @@ class WorldAnimationController {
   constructor(private worldContainer: WorldContainer) { }
 
   addEmitter(emitter_: Omit<Emitter, 'currentIndex' | 'lastEmission'>) {
-    const emitter = { ...emitter_, currentIndex: 0, lastEmission: 0 };
+    const emitter = {...emitter_, currentIndex: 0, lastEmission: 0};
     // Don't emit sounds for every animation created. Instead,
     // create an invisible animation for just the sounds, so that
     // it only plays once.
     if (emitter.frames) {
       this.addAnimation({
-        location: { ...this.worldContainer.camera.focus, ...emitter.path[0] },
+        location: {...this.worldContainer.camera.focus, ...emitter.path[0]},
         frames: emitter.frames.map((frame) => ({
           sprite: 0,
           sound: frame.sound,
@@ -133,7 +133,7 @@ class WorldAnimationController {
 
         this.addAnimation({
           tint: emitter.tint,
-          location: { ...this.worldContainer.camera.focus, x: cur.x, y: cur.y },
+          location: {...this.worldContainer.camera.focus, x: cur.x, y: cur.y},
           alpha: 0.3,
           decay: 0.01,
           light: emitter.light || 0,
@@ -143,7 +143,7 @@ class WorldAnimationController {
         if (emitter.offshootRate && Math.random() < emitter.offshootRate) {
           this.emitters.push({
             tint: emitter.tint,
-            path: [{ x: cur.x + Utils.randInt(-1, 1), y: cur.y + Utils.randInt(-1, 1) }],
+            path: [{x: cur.x + Utils.randInt(-1, 1), y: cur.y + Utils.randInt(-1, 1)}],
             currentIndex: 0,
             offshootRate: emitter.offshootRate / 2,
             light: emitter.light,
@@ -167,14 +167,14 @@ class WorldAnimationController {
 class Camera {
   // TODO: is it possible to define multiple regions that the camera shouldn't be in,
   // defined by open UI windows?
-  DEFAULT_CENTER_ELASTICITY = { left: 0.4, right: 0.6, top: 0.4, bottom: 0.6 };
-  RIGHT_CENTER_ELASTICITY = { left: 0.5, right: 0.75, top: 0.4, bottom: 0.6 };
+  DEFAULT_CENTER_ELASTICITY = {left: 0.4, right: 0.6, top: 0.4, bottom: 0.6};
+  RIGHT_CENTER_ELASTICITY = {left: 0.5, right: 0.75, top: 0.4, bottom: 0.6};
 
   left = 0;
   top = 0;
   width = 0;
   height = 0;
-  focus: Point4 = { w: 0, x: 0, y: 0, z: 0 };
+  focus: Point4 = {w: 0, x: 0, y: 0, z: 0};
   /**
    * 0 - 1
    *
@@ -200,7 +200,7 @@ class Camera {
   adjustFocus(loc: Point4) {
     const shouldCenter = this.focus.w !== loc.w || this.focus.z !== loc.z || Utils.dist(loc, this.focus) >= 20;
 
-    this.focus = { ...loc };
+    this.focus = {...loc};
 
     const leftBoundary = Math.round(this.left + this.width * this.centerElasticity.left);
     const rightBoundary = Math.round(this.left + this.width * this.centerElasticity.right);
@@ -286,7 +286,7 @@ export class WorldContainer extends PIXI.Container {
 
     this.animationController.tick();
     this.forEachInCamera((tile, loc) => {
-      const { item, floor } = this.map.getTile(loc);
+      const {item, floor} = this.map.getTile(loc);
       tile.setFloor(floor);
       tile.setItem(item);
     });
@@ -316,7 +316,7 @@ export class WorldContainer extends PIXI.Container {
     }
 
     if (shouldCompute) {
-      this.computeLightCache.lastPlayerPos = { ...game.client.creature.pos };
+      this.computeLightCache.lastPlayerPos = {...game.client.creature.pos};
       this.computeLight();
     }
   }
@@ -327,7 +327,7 @@ export class WorldContainer extends PIXI.Container {
         const mapX = this.camera.left + x;
         const mapY = this.camera.top + y;
 
-        const loc = { ...this.camera.focus, x: mapX, y: mapY };
+        const loc = {...this.camera.focus, x: mapX, y: mapY};
         cb(this.getTile(loc), loc, x, y);
       }
     }
@@ -346,7 +346,7 @@ export class WorldContainer extends PIXI.Container {
     }
 
     this.forEachInCamera((tile, loc, screenX, screenY) => {
-      const { light, tint, alpha } = lights[screenX][screenY];
+      const {light, tint, alpha} = lights[screenX][screenY];
       tile.setLight(light);
       tile.setTint(tint !== undefined ? tint : 0xFFFFFF, alpha || 0);
     });
@@ -356,7 +356,7 @@ export class WorldContainer extends PIXI.Container {
     const key = `${loc.w},${loc.x},${loc.y},${loc.z}`;
     let tile = this.tiles.get(key);
     if (!tile) {
-      tile = new Tile({ ...loc }, this);
+      tile = new Tile({...loc}, this);
       this.tiles.set(key, tile);
     }
 
@@ -376,7 +376,7 @@ export class WorldContainer extends PIXI.Container {
   private drawGrid() {
     Draw.destroyChildren(this.layers.grid);
 
-    const { width, height, left, top } = this.camera;
+    const {width, height, left, top} = this.camera;
 
     const gridGfx = new PIXI.Graphics();
     this.layers.grid.addChild(gridGfx);
@@ -394,7 +394,7 @@ export class WorldContainer extends PIXI.Container {
 
   private pruneTiles() {
     for (const [key, tile] of this.tiles.entries()) {
-      const { w, x, y, z } = tile.loc;
+      const {w, x, y, z} = tile.loc;
       if (w === this.camera.focus.w && z === this.camera.focus.z &&
         x >= this.camera.left && x < this.camera.right && y >= this.camera.top && y < this.camera.bottom) continue;
 
@@ -461,7 +461,7 @@ class Tile {
         for (let y1 = -1; y1 <= 1; y1++) {
           if (x1 === 0 && y1 === 0) continue;
 
-          const tile = this.worldContainer.getTile({ ...this.loc, x: this.loc.x + x1, y: this.loc.y + y1 });
+          const tile = this.worldContainer.getTile({...this.loc, x: this.loc.x + x1, y: this.loc.y + y1});
           tile.redrawFloor();
         }
       }
@@ -509,7 +509,7 @@ class Tile {
         for (let y1 = -1; y1 <= 1; y1++) {
           if (x1 === 0 && y1 === 0) continue;
 
-          const tile = this.worldContainer.getTile({ ...this.loc, x: this.loc.x + x1, y: this.loc.y + y1 });
+          const tile = this.worldContainer.getTile({...this.loc, x: this.loc.x + x1, y: this.loc.y + y1});
           tile.redrawItem();
         }
       }
@@ -578,7 +578,7 @@ function realLighting(focusLoc: Point3, worldContainer: WorldContainer, lightMod
   for (let x = 0; x < cameraWidth; x++) {
     lights[x] = [];
     for (let y = 0; y < cameraHeight; y++) {
-      lights[x][y] = { light: focusLoc.z === 0 ? worldContainer.ambientLight : 0 };
+      lights[x][y] = {light: focusLoc.z === 0 ? worldContainer.ambientLight : 0};
     }
   }
 
@@ -587,7 +587,7 @@ function realLighting(focusLoc: Point3, worldContainer: WorldContainer, lightMod
     const cameray = y - worldContainer.camera.top;
     if (camerax < 0 || cameray < 0 || camerax >= cameraWidth || cameray >= cameraHeight) return true;
 
-    const item = worldContainer.map.getItem({ ...worldContainer.camera.focus, x, y });
+    const item = worldContainer.map.getItem({...worldContainer.camera.focus, x, y});
     const meta = item && Content.getMetaItem(item.type);
     return Boolean(meta?.blocksLight);
   }
@@ -608,7 +608,7 @@ function realLighting(focusLoc: Point3, worldContainer: WorldContainer, lightMod
 
   const lightSources: Array<{ x: number; y: number; power: number; tint?: number; alpha?: number }> = [];
   worldContainer.forEachInCamera((tile, loc) => {
-    const { item } = worldContainer.map.getTile(loc);
+    const {item} = worldContainer.map.getTile(loc);
     const creature = game.client.context.getCreatureAt(loc);
 
     const meta = item && Content.getMetaItem(item.type);
@@ -649,9 +649,9 @@ function realLighting(focusLoc: Point3, worldContainer: WorldContainer, lightMod
     }
   }
 
-  lightSources.push({ x: focusLoc.x, y: focusLoc.y, power: 2 });
+  lightSources.push({x: focusLoc.x, y: focusLoc.y, power: 2});
 
-  for (const { x, y, power, tint, alpha } of lightSources) {
+  for (const {x, y, power, tint, alpha} of lightSources) {
     function setVisible_Light(x1: number, y1: number) {
       const camerax = x1 - worldContainer.camera.left;
       const cameray = y1 - worldContainer.camera.top;
@@ -671,7 +671,7 @@ function realLighting(focusLoc: Point3, worldContainer: WorldContainer, lightMod
       }
     }
 
-    new Visibility(blocksLight, setVisible_Light, getDistance).Compute({ x, y }, power * 5);
+    new Visibility(blocksLight, setVisible_Light, getDistance).Compute({x, y}, power * 5);
   }
 
   // TODO
@@ -694,7 +694,7 @@ function realLighting(focusLoc: Point3, worldContainer: WorldContainer, lightMod
 
   for (let x = 0; x < cameraWidth; x++) {
     for (let y = 0; y < cameraHeight; y++) {
-      let { light } = lights[x][y];
+      let {light} = lights[x][y];
       light = Utils.clamp(light, 0, MAX_LIGHT_POWER);
       if (HIDE_NOT_VISIBLE && !visible[x][y]) light = 0;
 

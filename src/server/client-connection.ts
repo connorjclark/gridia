@@ -1,4 +1,4 @@
-import { ProtocolEvent } from '../protocol/event-builder';
+import {ProtocolEvent} from '../protocol/event-builder';
 
 // TODO: this whole thing smells.
 
@@ -22,7 +22,7 @@ export class ClientConnection {
   send: (message: Message) => void;
 
   sendEvent(event: ProtocolEvent) {
-    this.send({ data: event });
+    this.send({data: event});
   }
 
   getMessage() {

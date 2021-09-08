@@ -1,4 +1,4 @@
-import { OutlineFilter as OutlineFilter_ } from '@pixi/filter-outline';
+import {OutlineFilter as OutlineFilter_} from '@pixi/filter-outline';
 import * as PIXI_ from 'pixi.js';
 // TODO: This breaks some input–afaik just the text input in admin panel.
 // defer until needed for deferred lighting.
@@ -14,4 +14,4 @@ globalThis.OutlineFilter = OutlineFilter_;
 
 document.addEventListener('click', async () => {
   globalThis.PIXI.sound = (await import('pixi-sound')).default;
-}, { once: true });
+}, {once: true});

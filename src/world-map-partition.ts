@@ -1,4 +1,4 @@
-import { SECTOR_SIZE } from './constants';
+import {SECTOR_SIZE} from './constants';
 import * as Content from './content';
 import * as Utils from './utils';
 
@@ -61,7 +61,7 @@ export class WorldMapPartition {
   }
 
   getTile(point: PartitionPoint): Tile {
-    if (!this.inBounds(point)) return { floor: 0 };
+    if (!this.inBounds(point)) return {floor: 0};
 
     const sector = this.getSector(Utils.worldToSector(point, SECTOR_SIZE));
     return sector[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE];
@@ -103,7 +103,7 @@ export class WorldMapPartition {
     // Do some caching for current sector.
     let currentSector;
 
-    const cur = { ...start };
+    const cur = {...start};
     for (let x = 0; x < width; x++) {
       currentSector = null;
       cur.y = start.y;
@@ -113,7 +113,7 @@ export class WorldMapPartition {
 
         if (!currentSector) currentSector = this.getSector(Utils.worldToSector(cur, SECTOR_SIZE));
         if (currentSector) {
-          yield { pos: cur, tile: currentSector[cur.x % SECTOR_SIZE][cur.y % SECTOR_SIZE] };
+          yield {pos: cur, tile: currentSector[cur.x % SECTOR_SIZE][cur.y % SECTOR_SIZE]};
         }
 
         cur.y++;

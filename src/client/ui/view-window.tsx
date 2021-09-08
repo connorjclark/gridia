@@ -1,10 +1,10 @@
-import { render, h, Component } from 'preact';
+import {render, h, Component} from 'preact';
 
 import * as Content from '../../content';
-import { val } from '../../lib/link-state';
+import {val} from '../../lib/link-state';
 import {SelectedViewModule} from '../modules/selected-view-module';
 
-import { Graphic, ComponentProps, createSubApp, makeUIWindow, Bar, CustomCreatureGraphic } from './ui-common';
+import {Graphic, ComponentProps, createSubApp, makeUIWindow, Bar, CustomCreatureGraphic} from './ui-common';
 
 interface State {
   selectedView?: UIState['selectedView'];
@@ -17,10 +17,10 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
 
   const actions = () => ({
     setView: (state: State, newState: State): State => {
-      return { ...newState, quantity: undefined };
+      return {...newState, quantity: undefined};
     },
     setQuantity: (state: State, quantity: number): State => {
-      return { ...state, quantity };
+      return {...state, quantity};
     },
   });
 
@@ -117,9 +117,9 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
     }
   }
 
-  const { SubApp, exportedActions, subscribe } = createSubApp(ViewWindow, initialState, actions);
-  const el = makeUIWindow({ name: 'view', cell: 'right', noscroll: true });
+  const {SubApp, exportedActions, subscribe} = createSubApp(ViewWindow, initialState, actions);
+  const el = makeUIWindow({name: 'view', cell: 'right', noscroll: true});
   render(<SubApp />, el);
 
-  return { el, actions: exportedActions, subscribe };
+  return {el, actions: exportedActions, subscribe};
 }

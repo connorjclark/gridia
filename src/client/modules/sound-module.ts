@@ -1,6 +1,6 @@
 import * as Utils from '../../utils';
 import {ClientModule} from '../client-module';
-import { getMusicResource, SfxResources } from '../lazy-resource-loader';
+import {getMusicResource, SfxResources} from '../lazy-resource-loader';
 
 const SONGS = [
   'aaron-anderson-11/Good Memories.mp3',
@@ -66,7 +66,7 @@ export class SoundModule extends ClientModule {
     }
 
     const volume = multiplier * this.game.client.settings.sfxVolume;
-    void this._soundCache[name].play({ volume });
+    void this._soundCache[name].play({volume});
   }
 
   async playSong(name: string) {

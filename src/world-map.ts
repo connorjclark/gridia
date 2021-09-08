@@ -1,5 +1,5 @@
-import { Connection } from './client/connection';
-import { SECTOR_SIZE } from './constants';
+import {Connection} from './client/connection';
+import {SECTOR_SIZE} from './constants';
 import * as CommandBuilder from './protocol/command-builder';
 import {WorldMapPartition} from './world-map-partition';
 
@@ -11,7 +11,7 @@ export class WorldMap {
     this.partitions.set(w, partition);
     partition.loader = (sectorPoint: PartitionPoint) => {
       if (!this.loader) throw new Error('loader not set');
-      return this.loader({ w, ...sectorPoint });
+      return this.loader({w, ...sectorPoint});
     };
   }
 
@@ -84,7 +84,7 @@ export class WorldMap {
 
     for (let x = startX; x <= endX; x++) {
       for (let y = startY; y <= endY; y++) {
-        const loc = { ...center, x, y };
+        const loc = {...center, x, y};
         fn(loc, this.getTile(loc));
       }
     }

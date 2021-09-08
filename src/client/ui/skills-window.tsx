@@ -1,7 +1,7 @@
-import { render, h, Component } from 'preact';
-import { useState } from 'preact/hooks';
+import {render, h, Component} from 'preact';
+import {useState} from 'preact/hooks';
 
-import { ComponentProps, makeUIWindow, createSubApp, TabbedPane, TabbedPaneProps } from './ui-common';
+import {ComponentProps, makeUIWindow, createSubApp, TabbedPane, TabbedPaneProps} from './ui-common';
 
 export interface State {
   combatLevel: {
@@ -74,7 +74,7 @@ export function makeSkillsWindow(initialState: State) {
       const combatLevelXpPercent = props.combatLevel.xpBar.current / props.combatLevel.xpBar.max;
 
       return <div>
-        <div class="skill__xp-bar" title={combatLevelTitle} style={{ '--percent': combatLevelXpPercent }}>
+        <div class="skill__xp-bar" title={combatLevelTitle} style={{'--percent': combatLevelXpPercent}}>
           Combat Level {props.combatLevel.level}
         </div>
 
@@ -94,11 +94,11 @@ export function makeSkillsWindow(initialState: State) {
                 {skill.buffAmount ? <span>+{skill.buffAmount}</span> : null}
                 <span class="skill__level">{skill.level}</span>
               </span>
-              <div class="skill__xp-bar" style={{ '--percent': percent }}></div>
+              <div class="skill__xp-bar" style={{'--percent': percent}}></div>
             </div>;
 
             const l = (str: string | number) => str.toLocaleString();
-            return <span style={{ width: '30%' }}>
+            return <span style={{width: '30%'}}>
               {skillEl}
               <div class='tooltip'>
                 {skill.name} Lvl. {skill.level}
@@ -123,7 +123,7 @@ export function makeSkillsWindow(initialState: State) {
           {props.attributes.map((attribute) => {
             const level = attribute.baseLevel + attribute.earnedLevel;
             const title = `base: ${attribute.baseLevel} earned: ${attribute.earnedLevel}`;
-            return <div class='attribute' title={title} style={{ width: '50%' }}>
+            return <div class='attribute' title={title} style={{width: '50%'}}>
               {attribute.name} {level}
             </div>;
           })}
@@ -142,7 +142,7 @@ export function makeSkillsWindow(initialState: State) {
           {props.unlearnedSkills.map((skill) => {
             const classes = ['skill'];
             if (skill.id === selectedId) classes.push('selected');
-            return <div class={classes.join(' ')} onClick={() => setSelectedId(skill.id)} style={{ width: '33%' }}>
+            return <div class={classes.join(' ')} onClick={() => setSelectedId(skill.id)} style={{width: '33%'}}>
               {skill.name} ({skill.skillPoints})
             </div>;
           })}
@@ -179,9 +179,9 @@ export function makeSkillsWindow(initialState: State) {
     }
   }
 
-  const { SubApp, exportedActions, subscribe } = createSubApp(SkillsWindow, initialState, actions);
-  const el = makeUIWindow({ name: 'skills', cell: 'center' });
+  const {SubApp, exportedActions, subscribe} = createSubApp(SkillsWindow, initialState, actions);
+  const el = makeUIWindow({name: 'skills', cell: 'center'});
   render(<SubApp />, el);
 
-  return { el, actions: exportedActions, subscribe };
+  return {el, actions: exportedActions, subscribe};
 }

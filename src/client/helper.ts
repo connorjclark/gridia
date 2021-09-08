@@ -1,5 +1,5 @@
 import * as Content from '../content';
-import { game } from '../game-singleton';
+import {game} from '../game-singleton';
 import * as CommandBuilder from '../protocol/command-builder';
 import * as Utils from '../utils';
 
@@ -24,7 +24,7 @@ export function useHand(loc: TilePoint) {
  * a dialog box is shown to choose.
  */
 export function useTool(loc: TilePoint, opts: { toolIndex: number; usageIndex?: number }) {
-  const { toolIndex, usageIndex } = opts;
+  const {toolIndex, usageIndex} = opts;
 
   const tool = getInventory().items[toolIndex];
   if (!tool || toolIndex === -1) {
@@ -33,7 +33,7 @@ export function useTool(loc: TilePoint, opts: { toolIndex: number; usageIndex?: 
     return;
   }
 
-  const focus = game.client.context.map.getItem(loc) || { type: 0, quantity: 0 };
+  const focus = game.client.context.map.getItem(loc) || {type: 0, quantity: 0};
   const usages = Content.getItemUses(tool.type, focus.type);
 
   if (usages.length === 0) {

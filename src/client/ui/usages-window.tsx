@@ -1,9 +1,9 @@
-import { render, h, Component } from 'preact';
+import {render, h, Component} from 'preact';
 
 import * as Content from '../../content';
 import {UsageModule} from '../modules/usage-module';
 
-import { Graphic, makeUIWindow } from './ui-common';
+import {Graphic, makeUIWindow} from './ui-common';
 
 export function makeUsagesWindow(usageModule: UsageModule) {
   let setState = (_: Partial<State>) => {
@@ -14,7 +14,7 @@ export function makeUsagesWindow(usageModule: UsageModule) {
     usages: ItemUse[];
   }
   class UsagesWindow extends Component {
-    state: State = { usages: [] };
+    state: State = {usages: []};
 
     componentDidMount() {
       setState = this.setState.bind(this);
@@ -44,7 +44,7 @@ export function makeUsagesWindow(usageModule: UsageModule) {
     }
   }
 
-  const el = makeUIWindow({ name: 'usages', cell: 'center' });
+  const el = makeUIWindow({name: 'usages', cell: 'center'});
   render(<UsagesWindow />, el);
 
   const getIndex = (e: PointerEvent): number | undefined => {

@@ -2,10 +2,10 @@ import * as idbKeyval from 'idb-keyval';
 
 import {Client} from '../client';
 import * as Helper from '../helper';
-import { ServerWorker } from '../server-worker';
+import {ServerWorker} from '../server-worker';
 
-import { GameScene } from './game-scene';
-import { Scene } from './scene';
+import {GameScene} from './game-scene';
+import {Scene} from './scene';
 
 interface LocalStorageData {
   username?: string;
@@ -92,15 +92,15 @@ export class SceneController {
         directoryHandle = await self.showDirectoryPicker();
         if (!directoryHandle) throw new Error('did not get folder');
       }
-      if (await directoryHandle.queryPermission({ mode: 'readwrite' }) !== 'granted') {
-        const permissionState = await directoryHandle.requestPermission({ mode: 'readwrite' });
+      if (await directoryHandle.queryPermission({mode: 'readwrite'}) !== 'granted') {
+        const permissionState = await directoryHandle.requestPermission({mode: 'readwrite'});
         if (permissionState !== 'granted') throw new Error('did not get permission');
       }
       idbKeyval.set('gridia-directory', directoryHandle);
     }
 
     this.serverWorker_ = new ServerWorker();
-    await this.serverWorker_.init({ directoryHandle });
+    await this.serverWorker_.init({directoryHandle});
   }
 
   destoryWorker() {
@@ -136,7 +136,7 @@ export class SceneController {
   }
 
   async getMapNames() {
-    const { mapNames } = await this.serverWorker.listMaps();
+    const {mapNames} = await this.serverWorker.listMaps();
     return mapNames;
   }
 

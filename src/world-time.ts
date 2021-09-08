@@ -25,7 +25,7 @@ export class WorldTime {
   }
 
   toString() {
-    const { day, hour, minute } = this.time;
+    const {day, hour, minute} = this.time;
     const H = hour.toString().padStart(2, '0');
     const M = minute.toString().padStart(2, '0');
     return `${H}${M}, day ${day + 1}`;

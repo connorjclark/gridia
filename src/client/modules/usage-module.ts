@@ -3,10 +3,10 @@ import * as Content from '../../content';
 import * as CommandBuilder from '../../protocol/command-builder';
 import * as Utils from '../../utils';
 import {ClientModule} from '../client-module';
-import { Game, CursorReference } from '../game';
+import {Game, CursorReference} from '../game';
 import * as Helper from '../helper';
-import { makePossibleUsagesWindow } from '../ui/possible-usages-window';
-import { makeUsagesWindow } from '../ui/usages-window';
+import {makePossibleUsagesWindow} from '../ui/possible-usages-window';
+import {makeUsagesWindow} from '../ui/usages-window';
 
 export class UsageModule extends ClientModule {
   possibleUsageCursor: CursorReference;
@@ -19,7 +19,7 @@ export class UsageModule extends ClientModule {
   constructor(game: Game) {
     super(game);
 
-    this.possibleUsageCursor = this.game.registerCursor({ color: '#0000FF' });
+    this.possibleUsageCursor = this.game.registerCursor({color: '#0000FF'});
   }
 
   getUsagesWindow() {
@@ -38,7 +38,7 @@ export class UsageModule extends ClientModule {
     this.game.client.eventEmitter.on('playerMove', () => {
       if (this.usagesWindow) {
         this.usagesWindow.el.hidden = true;
-        this.usagesWindow.setState({ usages: [] });
+        this.usagesWindow.setState({usages: []});
       }
 
       this.possibleUsageCursor.location = null;
@@ -52,7 +52,7 @@ export class UsageModule extends ClientModule {
   openUsages(usages: ItemUse[], loc: TilePoint, toolIndex: number) {
     this.currentUsagesLoc = loc;
     this.currentUsagesToolIndex = toolIndex;
-    this.getUsagesWindow().setState({ usages });
+    this.getUsagesWindow().setState({usages});
     this.getUsagesWindow().el.hidden = false;
   }
 
@@ -67,7 +67,7 @@ export class UsageModule extends ClientModule {
     this.currentUsagesLoc = undefined;
     this.currentUsagesToolIndex = undefined;
     if (this.usagesWindow) {
-      this.usagesWindow.setState({ usages: [] });
+      this.usagesWindow.setState({usages: []});
       this.usagesWindow.el.hidden = true;
     }
   }
@@ -108,7 +108,7 @@ export class UsageModule extends ClientModule {
       // If a tile is selected, limit results to usages on that tile.
       if (selectedTile && !Utils.equalPoints(selectedTile, loc)) return;
 
-      nearbyItems.push({ loc, item: tile.item });
+      nearbyItems.push({loc, item: tile.item});
     });
 
     Container.forEach(inventory, (tool, toolIndex) => {

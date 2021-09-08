@@ -1,12 +1,12 @@
-import { CREATE_CHARACTER_ATTRIBUTES, CREATE_CHARACTER_SKILL_POINTS } from '../../constants';
+import {CREATE_CHARACTER_ATTRIBUTES, CREATE_CHARACTER_SKILL_POINTS} from '../../constants';
 import * as Content from '../../content';
-import { ATTRIBUTES } from '../../player';
+import {ATTRIBUTES} from '../../player';
 import * as CommandBuilder from '../../protocol/command-builder';
 import * as Utils from '../../utils';
 import * as Helper from '../helper';
 
-import { Scene } from './scene';
-import { SceneController } from './scene-controller';
+import {Scene} from './scene';
+import {SceneController} from './scene-controller';
 
 export class CreateCharacterScene extends Scene {
   private createBtn: HTMLElement;
@@ -41,9 +41,9 @@ export class CreateCharacterScene extends Scene {
     };
 
     const attributesSorted = Helper.sortByPrecedence([...ATTRIBUTES], [
-      { type: 'equal', value: 'life' },
-      { type: 'equal', value: 'mana' },
-      { type: 'equal', value: 'stamina' },
+      {type: 'equal', value: 'life'},
+      {type: 'equal', value: 'mana'},
+      {type: 'equal', value: 'stamina'},
     ]);
 
     const attributesEl = Helper.find('.create--attributes', this.element);
@@ -78,10 +78,10 @@ export class CreateCharacterScene extends Scene {
     }
 
     const skillsByCategoryOrdered = Helper.sortByPrecedence([...skillsByCategory.entries()], [
-      { type: 'predicate', fn: (kv) => kv[0] === 'combat basics' },
-      { type: 'predicate', fn: (kv) => kv[0] === 'combat' },
-      { type: 'predicate', fn: (kv) => kv[0] === 'magic' },
-      { type: 'predicate', fn: (kv) => kv[0] === 'crafts' },
+      {type: 'predicate', fn: (kv) => kv[0] === 'combat basics'},
+      {type: 'predicate', fn: (kv) => kv[0] === 'combat'},
+      {type: 'predicate', fn: (kv) => kv[0] === 'magic'},
+      {type: 'predicate', fn: (kv) => kv[0] === 'crafts'},
     ]);
 
     const requiredSkills = [

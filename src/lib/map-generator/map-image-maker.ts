@@ -1,6 +1,6 @@
-import { CanvasRenderingContext2D, createCanvas } from 'canvas';
+import {CanvasRenderingContext2D, createCanvas} from 'canvas';
 
-import { Corner, MapGenerationResult } from './map-generator';
+import {Corner, MapGenerationResult} from './map-generator';
 
 function findCoastPaths(mapGenResult: MapGenerationResult) {
   const paths: Corner[][] = [];
@@ -49,7 +49,7 @@ function findRivers(mapGenResult: MapGenerationResult) {
       c = c.downslope;
     }
 
-    result.push({ start: currentRiverStart, length, sum, average: sum / length });
+    result.push({start: currentRiverStart, length, sum, average: sum / length});
   }
 
   return result.sort((a, b) => b.length - a.length);
@@ -57,7 +57,7 @@ function findRivers(mapGenResult: MapGenerationResult) {
 
 function drawPath(ctx: CanvasRenderingContext2D, path: Corner[]) {
   ctx.beginPath();
-  for (const { x, y } of path) {
+  for (const {x, y} of path) {
     ctx.lineTo(x, y);
   }
   ctx.closePath();
@@ -85,7 +85,7 @@ function getColor(biome: string) {
 }
 
 export function makeMapImage(mapGenResult: MapGenerationResult) {
-  const { width, height } = mapGenResult.options;
+  const {width, height} = mapGenResult.options;
 
   const canvas = createCanvas(width, height, 'svg');
   const ctx = canvas.getContext('2d');
