@@ -23,7 +23,7 @@ export class NodeFs extends IsoFs {
     try {
       await fs.promises.stat(path);
       return true;
-    } catch (err) {
+    } catch (err: any) {
       if (err.code === 'ENOENT') {
         return false;
       } else {

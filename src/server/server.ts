@@ -1535,7 +1535,7 @@ export class Server {
                   const error = e ? e.toString() : 'Unknown error';
                   clientConnection.send({id: message.id, data: {error}});
                 });
-            } catch (error) {
+            } catch (error: any) {
               // Don't let a bad message kill the message loop.
               console.error(error, message);
               clientConnection.send({id: message.id, data: {error: error ? error.toString() : 'Unknown error'}});

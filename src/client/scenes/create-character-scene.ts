@@ -159,7 +159,7 @@ export class CreateCharacterScene extends Scene {
       }));
       this.controller.saveLocalStorageData();
       this.controller.startGame();
-    } catch (error) {
+    } catch (error: any) {
       Helper.find('.create--errorlog', this.element).textContent = error;
     }
   }
