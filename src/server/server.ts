@@ -1299,11 +1299,11 @@ export default class Server {
 
   private addScript(ScriptClass: new (...args: any) => Script<any>) {
     const script = new ScriptClass(this);
-    this._scripts.push(script);
     const errors = script.getScriptState().errors;
     if (errors.length) {
-      console.error(`Failed to add script ${ScriptClass.name}.\n` + errors.join('\n'));
+      console.error(`Failed to add script ${ScriptClass.name}.\n` + errors.map((err) => err.toString()).join('\n'));
     } else {
+      this._scripts.push(script);
       script.onStart();
       script.state = 'started';
     }
@@ -1387,7 +1387,11 @@ export default class Server {
       description: 'creature states',
       fn: () => {
         for (const state of Object.values(this.creatureStates)) {
-          state.tick(this);
+          try {
+            state.tick(this);
+          } catch (err) {
+            console.error(err);
+          }
         }
       },
     });

@@ -1,8 +1,13 @@
 import { render, h, Component, Fragment } from 'preact';
 import linkState from 'linkstate';
 import { randInt } from '../../utils';
+import * as Helper from '../helper';
+import { connectToServerWorker } from '../connect-to-server';
+import { Scene } from './scene';
+import { SceneController } from './scene-controller';
+import { SelectCharacterScene } from './select-character-scene';
 
-export const DEFAULT_MAP_FORM_STATE = {
+const DEFAULT_MAP_FORM_STATE = {
   width: 200,
   height: 200,
   depth: 2,
@@ -40,7 +45,7 @@ export const DEFAULT_MAP_FORM_STATE = {
 
 type FormState = typeof DEFAULT_MAP_FORM_STATE;
 
-export function createMapSelectForm(inputFormEl: HTMLElement, onStateUpdate: (state: FormState) => void) {
+function createMapSelectForm(inputFormEl: HTMLElement, onStateUpdate: (state: FormState) => void) {
   const Input = (props: any) => {
     return <Fragment>
       <label>{props.children || props.name}</label>
@@ -163,4 +168,104 @@ function stateToMapGenOptions(data: any) {
   handle(data, options);
 
   return options;
+}
+
+export class MapSelectScene extends Scene {
+  private mapListEl: HTMLElement;
+  private selectBtn: HTMLElement;
+  private previewEl: HTMLElement;
+  private inputFormEl: HTMLElement;
+  private loadingPreview = false;
+
+  constructor(private controller: SceneController) {
+    super(Helper.find('.map-select'));
+    this.mapListEl = Helper.find('.map-list');
+    this.selectBtn = Helper.find('.generate--select-btn', this.element);
+    this.previewEl = Helper.find('.generate--preview', this.element);
+    this.inputFormEl = Helper.find('.generate--input-form', this.element);
+    this.generateMap = this.generateMap.bind(this);
+    this.onClickSelectBtn = this.onClickSelectBtn.bind(this);
+    this.onSelectMap = this.onSelectMap.bind(this);
+  }
+
+  async loadMap(name: string) {
+    this.controller.client = await connectToServerWorker(this.controller.serverWorker, {
+      mapName: name,
+      dummyDelay: this.controller.qs.latency ?? 0,
+      verbose: false,
+    });
+    this.controller.loadLocalStorageData(`worker-${name}`);
+    this.controller.pushScene(new SelectCharacterScene(this.controller));
+  }
+
+  async renderMapSelection() {
+    this.mapListEl.innerHTML = '';
+
+    const mapNames = await this.controller.getMapNames();
+    for (const name of mapNames) {
+      const mapEl = document.createElement('li');
+      mapEl.classList.add('map-list--item');
+      mapEl.setAttribute('data-name', name);
+      mapEl.innerText = name;
+      this.mapListEl.append(mapEl);
+    }
+  }
+
+  async generateMap(opts: any) {
+    if (this.loadingPreview) return;
+    this.loadingPreview = true;
+
+    const canvas = document.createElement('canvas');
+    const offscreenCanvas = canvas.transferControlToOffscreen && canvas.transferControlToOffscreen();
+    await this.controller.serverWorker.generateMap({
+      ...opts,
+      canvas: offscreenCanvas,
+    }).finally(() => this.loadingPreview = false);
+
+    this.previewEl.innerHTML = '';
+    this.previewEl.append(canvas);
+    this.selectBtn.classList.remove('hidden');
+  }
+
+  async onClickSelectBtn() {
+    const name = `default-world-${this.mapListEl.childElementCount}`;
+    await this.controller.serverWorker.saveGeneratedMap({ name });
+    this.controller.loadLocalStorageData(`worker-${name}`);
+    this.controller.client = await connectToServerWorker(this.controller.serverWorker, {
+      mapName: name,
+      dummyDelay: this.controller.qs.latency ?? 0,
+      verbose: false,
+    });
+    this.controller.pushScene(new SelectCharacterScene(this.controller));
+  }
+
+  onSelectMap(e: Event) {
+    // TODO: this is annoying.
+    if (!(e.target instanceof HTMLElement)) return;
+
+    const name = e.target.getAttribute('data-name') || '';
+    this.loadMap(name);
+  }
+
+  onShow() {
+    super.onShow();
+    this.selectBtn.addEventListener('click', this.onClickSelectBtn);
+    this.mapListEl.addEventListener('click', this.onSelectMap);
+    this.loadingPreview = false;
+    this.previewEl.innerHTML = '';
+    this.selectBtn.classList.add('hidden');
+    this.renderMapSelection();
+    createMapSelectForm(this.inputFormEl, this.generateMap.bind(this));
+  }
+
+  onHide() {
+    super.onHide();
+    this.selectBtn.removeEventListener('click', this.onClickSelectBtn);
+    this.mapListEl.removeEventListener('click', this.onSelectMap);
+  }
+
+  onDestroy() {
+    super.onDestroy();
+    this.controller.destoryWorker();
+  }
 }

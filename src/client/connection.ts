@@ -22,7 +22,7 @@ function debug(prefix: string, msg: Message) {
   const args = [
     `%c${prefix}`,
     `background: ${prefixColor}; color: white`,
-    msg.data?.type,
+    msg.data?.type || '(response)',
   ];
   if (json.length > 60) {
     args.push(value);
