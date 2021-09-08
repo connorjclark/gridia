@@ -1,9 +1,11 @@
 import * as idbKeyval from 'idb-keyval';
+
 import Client from '../client';
-import { ServerWorker } from '../server-worker';
 import * as Helper from '../helper';
-import { Scene } from './scene';
+import { ServerWorker } from '../server-worker';
+
 import { GameScene } from './game-scene';
+import { Scene } from './scene';
 
 interface LocalStorageData {
   username?: string;

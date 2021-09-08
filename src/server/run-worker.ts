@@ -1,10 +1,11 @@
 import * as Content from '../content';
-import * as WireSerializer from '../lib/wire-serializer';
+import { FsApiFs, IdbFs, IsoFs } from '../iso-fs';
 import { makeMapImage } from '../lib/map-generator/map-image-maker';
+import * as WireSerializer from '../lib/wire-serializer';
 import mapgen, { makeBareMap } from '../mapgen';
 import WorldMap from '../world-map';
 import WorldMapPartition from '../world-map-partition';
-import { FsApiFs, IdbFs, IsoFs } from '../iso-fs';
+
 import ClientConnection from './client-connection';
 import { startServer as _startServer } from './create-server';
 import Server from './server';

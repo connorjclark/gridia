@@ -1,36 +1,38 @@
 import 'event-target-shim';
 import { DateTime } from 'luxon';
+
 import { GFX_SIZE } from '../constants';
 import * as Content from '../content';
 import { game } from '../game-singleton';
 import { calcStraightLine } from '../lib/line';
 import * as CommandBuilder from '../protocol/command-builder';
+import { ProtocolEvent } from '../protocol/event-builder';
 import * as Utils from '../utils';
 import { WorldTime } from '../world-time';
-import { ProtocolEvent } from '../protocol/event-builder';
+
 import Client from './client';
+import { WorkerConnection } from './connection';
 import * as Draw from './draw';
 import { ItemMoveBeginEvent, ItemMoveEndEvent } from './event-emitter';
 import * as Helper from './helper';
 import KEYS from './keys';
 import LazyResourceLoader from './lazy-resource-loader';
 import AdminModule from './modules/admin-module';
+import MapModule from './modules/map-module';
 import MovementModule from './modules/movement-module';
 import SelectedViewModule from './modules/selected-view-module';
 import SettingsModule, { getDefaultSettings } from './modules/settings-module';
 import SkillsModule from './modules/skills-module';
+import SoundModule from './modules/sound-module';
 import UsageModule from './modules/usage-module';
-import { WorldContainer } from './world-container';
-import MapModule from './modules/map-module';
-import { makeHelpWindow } from './ui/help-window';
+import { ServerWorker } from './server-worker';
+import { makeAttributesWindow } from './ui/attributes-window';
 import { makeContainerWindow } from './ui/container-window';
 import { makeDialogueWindow } from './ui/dialogue-window';
-import { makeGraphicComponent } from './ui/ui-common';
-import { WorkerConnection } from './connection';
-import { ServerWorker } from './server-worker';
-import SoundModule from './modules/sound-module';
-import { makeAttributesWindow } from './ui/attributes-window';
+import { makeHelpWindow } from './ui/help-window';
 import { makeSpellsWindow } from './ui/spells-window';
+import { makeGraphicComponent } from './ui/ui-common';
+import { WorldContainer } from './world-container';
 
 // WIP lighting shaders.
 

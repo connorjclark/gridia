@@ -4,8 +4,9 @@ import { game } from '../game-singleton';
 import { Visibility } from '../lib/visibility';
 import * as Utils from '../utils';
 import WorldMap from '../world-map';
-import * as Helper from './helper';
+
 import * as Draw from './draw';
+import * as Helper from './helper';
 import { getMineItem, getWaterFloor } from './template-draw';
 
 const MAX_LIGHT_POWER = 6;

@@ -1,5 +1,7 @@
+import { MINE } from '../../constants';
 import * as Content from '../../content';
 import { findPath } from '../../path-finding';
+import * as Player from '../../player';
 import * as CommandBuilder from '../../protocol/command-builder';
 import * as Utils from '../../utils';
 import ClientModule from '../client-module';
@@ -7,8 +9,6 @@ import { GameActionEvent } from '../event-emitter';
 import Game from '../game';
 import * as Helper from '../helper';
 import KEYS from '../keys';
-import { MINE } from '../../constants';
-import * as Player from '../../player';
 
 const MOVEMENT_DURATION = 200;
 

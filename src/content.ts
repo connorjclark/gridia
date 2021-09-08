@@ -1,10 +1,6 @@
 import { ATTRIBUTES } from './player';
-// TODO: this json is bundled as JS - but it's much faster to parse
-// JSON at runtime via JSON.parse than as a JS object literal.
-
 import { randInt } from './utils';
 
-// https://github.com/parcel-bundler/parcel/issues/501
 let floors: MetaFloor[] = [];
 let items: MetaItem[] = [];
 let itemUses: ItemUse[] = [];
@@ -13,6 +9,10 @@ let monsters: Monster[] = [];
 let skills: Skill[] = [];
 let spells: Spell[] = [];
 let lootTables: Record<string, LootTable> = {};
+
+// TODO: this json is bundled as JS - but it's much faster to parse
+// JSON at runtime via JSON.parse than as a JS object literal.
+// https://github.com/parcel-bundler/parcel/issues/501
 
 // Parcel doesn't support dynamic imports for workers yet.
 // Until then, we do this hack to at least cut the content data out

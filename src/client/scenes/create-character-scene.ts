@@ -1,11 +1,12 @@
-import * as Content from '../../content';
-import * as Helper from '../helper';
-import * as Utils from '../../utils';
-import * as CommandBuilder from '../../protocol/command-builder';
 import { CREATE_CHARACTER_ATTRIBUTES, CREATE_CHARACTER_SKILL_POINTS } from '../../constants';
+import * as Content from '../../content';
 import { ATTRIBUTES } from '../../player';
-import { SceneController } from './scene-controller';
+import * as CommandBuilder from '../../protocol/command-builder';
+import * as Utils from '../../utils';
+import * as Helper from '../helper';
+
 import { Scene } from './scene';
+import { SceneController } from './scene-controller';
 
 export class CreateCharacterScene extends Scene {
   private createBtn: HTMLElement;

@@ -2,6 +2,7 @@
 
 import { execFileSync } from 'child_process';
 import * as fs from 'fs';
+
 import * as glob from 'glob';
 
 const graphicsManifest = [];

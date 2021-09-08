@@ -1,5 +1,5 @@
-import ClientModule from '../client-module';
 import * as Utils from '../../utils';
+import ClientModule from '../client-module';
 import { getMusicResource, SfxResources } from '../lazy-resource-loader';
 
 const SONGS = [

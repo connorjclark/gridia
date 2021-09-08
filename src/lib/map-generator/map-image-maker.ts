@@ -1,4 +1,5 @@
 import { CanvasRenderingContext2D, createCanvas } from 'canvas';
+
 import { Corner, MapGenerationResult } from './map-generator';
 
 function findCoastPaths(mapGenResult: MapGenerationResult) {

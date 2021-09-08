@@ -1,14 +1,16 @@
 import { MAX_STACK, MINE, SECTOR_SIZE, WATER } from '../constants';
+import * as Container from '../container';
 import * as Content from '../content';
-import * as Player from '../player';
 import * as CommandParser from '../lib/command-parser';
+import { makeBareMap } from '../mapgen';
+import * as Player from '../player';
+import { attributeCheck } from '../server/creature-utils';
 import Server from '../server/server';
 import * as Utils from '../utils';
-import { makeBareMap } from '../mapgen';
-import * as Container from '../container';
-import { attributeCheck } from '../server/creature-utils';
-import IServerInterface from './gen/server-interface';
+
 import * as EventBuilder from './event-builder';
+import IServerInterface from './gen/server-interface';
+
 import Commands = Protocol.Commands;
 
 export default class ServerInterface implements IServerInterface {

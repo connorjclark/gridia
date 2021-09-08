@@ -1,9 +1,11 @@
-import { render, h, Component, Fragment } from 'preact';
 import linkState from 'linkstate';
+import { render, h, Component, Fragment } from 'preact';
+
 import * as Content from '../../content';
-import * as Helper from '../helper';
 import * as Utils from '../../utils';
+import * as Helper from '../helper';
 import AdminModule from '../modules/admin-module';
+
 import { Graphic, makeUIWindow } from './ui-common';
 
 const TOOLS = ['point', 'rectangle', 'fill'] as const;

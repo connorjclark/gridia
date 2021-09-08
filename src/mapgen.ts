@@ -1,9 +1,10 @@
 import * as assert from 'assert';
-import * as Perlin from './lib/perlin/perlin';
+
 import { MINE, SECTOR_SIZE, WATER } from './constants';
-import * as Utils from './utils';
 import * as Content from './content';
 import { generate, GenerateOptions } from './lib/map-generator/map-generator';
+import * as Perlin from './lib/perlin/perlin';
+import * as Utils from './utils';
 import WorldMapPartition from './world-map-partition';
 
 function biomeToFloor(biome: string) {

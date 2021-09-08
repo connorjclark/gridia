@@ -1,7 +1,9 @@
 import { render, h, Component } from 'preact';
 import { useEffect } from 'preact/hooks';
+
 import * as Content from '../../content';
 import * as Helper from '../helper';
+
 import { Graphic, ComponentProps, createSubApp, makeUIWindow, TabbedPane, TabbedPaneProps } from './ui-common';
 
 interface State {

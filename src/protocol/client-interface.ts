@@ -2,8 +2,10 @@
 
 import Client from '../client/client';
 import * as Player from '../player';
+
 import * as CommandBuilder from './command-builder';
 import IClientInterface from './gen/client-interface';
+
 import Events = Protocol.Events;
 
 export default class ClientInterface implements IClientInterface {

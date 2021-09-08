@@ -1,9 +1,11 @@
+import bbCodeParser from 'js-bbcode-parser';
 import { render, h, Component } from 'preact';
 import { useEffect, useRef, useMemo } from 'preact/hooks';
-import bbCodeParser from 'js-bbcode-parser';
 import Typed from 'typed.js';
-import Game from '../game';
+
 import * as CommandBuilder from '../../protocol/command-builder';
+import Game from '../game';
+
 import { CustomCreatureGraphic, Graphic, makeUIWindow } from './ui-common';
 
 export function makeDialogueWindow(game: Game) {

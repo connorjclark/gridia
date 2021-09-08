@@ -1,6 +1,7 @@
 // For testing.
 
 import * as fs from 'fs';
+
 import { generate } from './map-generator';
 import { makeMapImage } from './map-image-maker';
 

@@ -1,7 +1,9 @@
 import { render, h, Component } from 'preact';
-import * as Utils from '../../utils';
+
 import * as Content from '../../content';
+import * as Utils from '../../utils';
 import Game from '../game';
+
 import { Graphic, ComponentProps, createSubApp, makeUIWindow, CustomCreatureGraphic } from './ui-common';
 
 interface State {

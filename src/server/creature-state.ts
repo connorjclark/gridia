@@ -1,15 +1,16 @@
-import { findPath } from '../path-finding';
+import { WATER } from '../constants';
+import * as Container from '../container';
 import * as Content from '../content';
+import { Context } from '../context';
+import { findPath } from '../path-finding';
+import * as EventBuilder from '../protocol/event-builder';
 import * as Utils from '../utils';
 import WorldMapPartition from '../world-map-partition';
-import { Context } from '../context';
-import * as Container from '../container';
-import * as EventBuilder from '../protocol/event-builder';
-import { WATER } from '../constants';
-import Server from './server';
-import aStar from './plan';
-import { adjustAttribute } from './creature-utils';
+
 import ClientConnection from './client-connection';
+import { adjustAttribute } from './creature-utils';
+import aStar from './plan';
+import Server from './server';
 
 interface Goal {
   desiredEffect: string;

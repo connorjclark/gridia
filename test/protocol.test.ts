@@ -11,6 +11,7 @@ jest.mock('../src/game-singleton', () => {
 });
 
 import * as assert from 'assert';
+
 import Client from '../src/client/client';
 import { Connection } from '../src/client/connection';
 import { CREATE_CHARACTER_ATTRIBUTES, MINE } from '../src/constants';
@@ -21,6 +22,7 @@ import Server from '../src/server/server';
 import { ServerContext } from '../src/server/server-context';
 import * as Utils from '../src/utils';
 import WorldMap from '../src/world-map';
+
 import { openAndConnectToServerInMemory } from './server-in-memory';
 
 let client: Client;

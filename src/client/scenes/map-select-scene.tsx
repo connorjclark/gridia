@@ -1,8 +1,12 @@
-import { render, h, Component, Fragment } from 'preact';
+/* eslint-disable max-len */
+
 import linkState from 'linkstate';
+import { render, h, Component, Fragment } from 'preact';
+
 import { randInt } from '../../utils';
-import * as Helper from '../helper';
 import { connectToServerWorker } from '../connect-to-server';
+import * as Helper from '../helper';
+
 import { Scene } from './scene';
 import { SceneController } from './scene-controller';
 import { SelectCharacterScene } from './select-character-scene';

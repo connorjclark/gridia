@@ -1,11 +1,12 @@
-import * as Helper from '../helper';
-import * as Utils from '../../utils';
-import * as CommandBuilder from '../../protocol/command-builder';
 import * as Player from '../../player';
+import * as CommandBuilder from '../../protocol/command-builder';
+import * as Utils from '../../utils';
+import * as Helper from '../helper';
 import { makeCustomCreatureGraphicComponent } from '../ui/ui-common';
-import { SceneController } from './scene-controller';
-import { Scene } from './scene';
+
 import { CreateCharacterScene } from './create-character-scene';
+import { Scene } from './scene';
+import { SceneController } from './scene-controller';
 
 export class SelectCharacterScene extends Scene {
   private createCharacterBtn: HTMLElement;

@@ -49,7 +49,7 @@
     "watch-no-server": "concurrently --kill-others --names Client,Static --prefix name \"node build/build-client.js --dev\" \"yarn run-static-server > /dev/null\"",
     "watch-ui": "open http://localhost:1234/ui.html && parcel serve src/client/ui.html",
     "type-check": "tsc --noEmit",
-    "lint": "eslint '{src,test,build}/**/*.{ts,js}'",
+    "lint": "eslint '{src,test,build}/**/*.{ts,tsx,js,jsx}'",
     "test": "yarn lint && yarn type-check && jest --testPathIgnorePatterns memory"
   },
   "devDependencies": {
@@ -65,7 +65,7 @@
     "@types/ws": "^6.0.1",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/eslint-plugin-tslint": "^4.17.0",
-    "@typescript-eslint/parser": "^4.17.0",
+    "@typescript-eslint/parser": "^4.31.0",
     "canvas": "^2.6.1",
     "concurrently": "^4.1.1",
     "eslint": "^7.16.0",

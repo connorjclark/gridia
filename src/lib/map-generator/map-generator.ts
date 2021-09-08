@@ -7,6 +7,7 @@ import { Delaunay } from 'd3-delaunay';
 import * as d3 from 'd3-polygon';
 import SeedRandomBrowser from 'seedrandom';
 import * as SeedRandomNode from 'seedrandom';
+
 import * as Perlin from '../perlin/perlin';
 
 // For some reason, different imports are needed for browser/node.

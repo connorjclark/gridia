@@ -1,6 +1,6 @@
+import * as Player from '../../player';
 import ClientConnection from '../client-connection';
 import { Script } from '../script';
-import * as Player from '../../player';
 import Server from '../server';
 
 const configDefinition = {

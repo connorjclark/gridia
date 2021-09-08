@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+
 import { IDBPDatabase, openDB } from 'idb';
 
 export abstract class IsoFs {

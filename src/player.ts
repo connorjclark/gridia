@@ -1,8 +1,8 @@
-import WorldMap from './world-map';
 import { SECTOR_SIZE } from './constants';
-import * as Utils from './utils';
-import * as Content from './content';
 import { EQUIP_SLOTS } from './container';
+import * as Content from './content';
+import * as Utils from './utils';
+import WorldMap from './world-map';
 
 export const ATTRIBUTES = [
   'dexterity',

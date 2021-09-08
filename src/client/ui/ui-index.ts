@@ -1,21 +1,22 @@
 import { GFX_SIZE } from '../../constants';
 import * as Content from '../../content';
-import * as Helper from '../helper';
+import { deserialize } from '../../lib/wire-serializer';
 import * as Utils from '../../utils';
-import SettingsModule, { getDefaultSettings } from '../modules/settings-module';
 import TypedEventEmitter from '../event-emitter';
+import * as Helper from '../helper';
+import AdminModule from '../modules/admin-module';
+import MapModule from '../modules/map-module';
 import MovementModule from '../modules/movement-module';
 import SelectedViewModule from '../modules/selected-view-module';
-import MapModule from '../modules/map-module';
+import SettingsModule, { getDefaultSettings } from '../modules/settings-module';
 import SkillsModule from '../modules/skills-module';
 import SoundModule from '../modules/sound-module';
 import UsageModule from '../modules/usage-module';
-import AdminModule from '../modules/admin-module';
-import { deserialize } from '../../lib/wire-serializer';
-import { makeSettingsWindow } from './settings-window';
-import { makePossibleUsagesWindow } from './possible-usages-window';
+
 import { makeContainerWindow } from './container-window';
 import { makeHelpWindow } from './help-window';
+import { makePossibleUsagesWindow } from './possible-usages-window';
+import { makeSettingsWindow } from './settings-window';
 
 // super hacky file to render UI, copies / fakes a bunch of stuff from game.ts
 

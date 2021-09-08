@@ -1,7 +1,7 @@
 import * as Content from '../../content';
+import { ItemLocation } from '../../utils';
 import ClientModule from '../client-module';
 import { makeViewWindow } from '../ui/view-window';
-import { ItemLocation } from '../../utils';
 
 class SelectedViewModule extends ClientModule {
   private viewWindow?: ReturnType<typeof makeViewWindow>;

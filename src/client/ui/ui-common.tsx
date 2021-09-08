@@ -3,6 +3,7 @@ import { useState } from 'preact/hooks';
 import createStore from 'redux-zero';
 import { Provider, connect } from 'redux-zero/preact';
 import { Actions, BoundActions } from 'redux-zero/types/Actions';
+
 import { GFX_SIZE } from '../../constants';
 import * as Utils from '../../utils';
 import * as Helper from '../helper';

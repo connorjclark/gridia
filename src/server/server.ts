@@ -1,23 +1,24 @@
 import { CREATE_CHARACTER_ATTRIBUTES, CREATE_CHARACTER_SKILL_POINTS, MAX_STACK, SECTOR_SIZE } from '../constants';
+import * as Container from '../container';
 import * as Content from '../content';
+import { calcStraightLine } from '../lib/line';
+import { roll } from '../lib/loot-table';
 import performance from '../performance';
 import * as Player from '../player';
-import ClientToServerProtocol from '../protocol/server-interface';
 import * as EventBuilder from '../protocol/event-builder';
+import { ProtocolEvent } from '../protocol/event-builder';
+import ClientToServerProtocol from '../protocol/server-interface';
 import * as Utils from '../utils';
 import WorldMapPartition from '../world-map-partition';
 import { WorldTime } from '../world-time';
-import { ProtocolEvent } from '../protocol/event-builder';
-import * as Container from '../container';
-import { calcStraightLine } from '../lib/line';
-import { roll } from '../lib/loot-table';
+
 import ClientConnection from './client-connection';
 import CreatureState from './creature-state';
+import { adjustAttribute, attributeCheck } from './creature-utils';
+import { Script } from './script';
+import { BasicScript } from './scripts/basic-script';
 import { ServerContext } from './server-context';
 import TaskRunner from './task-runner';
-import { Script } from './script';
-import { adjustAttribute, attributeCheck } from './creature-utils';
-import { BasicScript } from './scripts/basic-script';
 
 // TODO document how the f this works.
 

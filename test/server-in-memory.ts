@@ -2,14 +2,14 @@
 /// <reference path="../src/types.d.ts" />
 
 import Client from '../src/client/client';
-import * as WireSerializer from '../src/lib/wire-serializer';
 import { Connection } from '../src/client/connection';
 import { Context } from '../src/context';
+import * as WireSerializer from '../src/lib/wire-serializer';
+import { ProtocolCommand } from '../src/protocol/command-builder';
 import ClientConnection from '../src/server/client-connection';
 import Server from '../src/server/server';
 import { ServerContext } from '../src/server/server-context';
 import { createClientWorldMap } from '../src/world-map';
-import { ProtocolCommand } from '../src/protocol/command-builder';
 
 class MemoryConnection extends Connection {
   constructor(private _clientConnection: ClientConnection) {

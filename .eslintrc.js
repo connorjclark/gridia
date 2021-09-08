@@ -170,7 +170,11 @@ module.exports = {
         "guard-for-in": "error",
         "id-blacklist": "off",
         "id-match": "off",
-        "import/order": "error",
+        "import/order": ["error", {
+            'newlines-between': 'always',
+            'alphabetize': {order: 'asc'},
+        }],
+        // "import/extensions": ["error", "ignorePackages"],
         "jsdoc/check-alignment": "error",
         "jsdoc/check-indentation": "error",
         "jsdoc/newline-after-description": "error",

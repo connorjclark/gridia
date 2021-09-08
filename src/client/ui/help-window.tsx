@@ -2,7 +2,9 @@
 
 import { render, h, Component } from 'preact';
 import { useState } from 'preact/hooks';
+
 import Game from '../game';
+
 import { makeUIWindow } from './ui-common';
 
 const sections: Record<string, string> = {

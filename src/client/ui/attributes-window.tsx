@@ -1,4 +1,5 @@
 import { render, h, Component } from 'preact';
+
 import { Graphic, Bar, ComponentProps, createSubApp, makeUIWindow } from './ui-common';
 
 interface State {

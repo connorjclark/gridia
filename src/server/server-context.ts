@@ -1,10 +1,12 @@
 import * as path from 'path';
-import * as Utils from '../utils';
+
 import { Context } from '../context';
 import { IsoFs } from '../iso-fs';
+import * as WireSerializer from '../lib/wire-serializer';
+import * as Utils from '../utils';
 import WorldMap from '../world-map';
 import WorldMapPartition from '../world-map-partition';
-import * as WireSerializer from '../lib/wire-serializer';
+
 import ClientConnection from './client-connection';
 import { ScriptConfigStore } from './scripts/script-config-store';
 

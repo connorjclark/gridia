@@ -1,11 +1,12 @@
 // yarn build-server && rm -rf server-data && node dist/server/scripts/make-main-world.js
 
 import * as fs from 'fs';
+
 import * as Content from '../content';
-import { createTestPartitions } from '../world-map-debug';
+import { NodeFs } from '../iso-fs';
 import { ServerContext } from '../server/server-context';
 import WorldMap from '../world-map';
-import { NodeFs } from '../iso-fs';
+import { createTestPartitions } from '../world-map-debug';
 
 async function createMainWorldMap() {
   if (fs.existsSync('server-data')) {

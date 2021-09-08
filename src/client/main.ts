@@ -1,8 +1,9 @@
 import * as Content from '../content';
+
 import { connectWithWebSocket, connectWithWebRTC } from './connect-to-server';
 import * as Helper from './helper';
-import { Scene } from './scenes/scene';
 import { MapSelectScene } from './scenes/map-select-scene';
+import { Scene } from './scenes/scene';
 import { SceneController } from './scenes/scene-controller';
 import { SelectCharacterScene } from './scenes/select-character-scene';
 

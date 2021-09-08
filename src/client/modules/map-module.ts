@@ -1,7 +1,7 @@
-import ClientModule from '../client-module';
-import * as Helper from '../helper';
 import * as Content from '../../content';
 import * as Player from '../../player';
+import ClientModule from '../client-module';
+import * as Helper from '../helper';
 import { makeUIWindow } from '../ui/ui-common';
 
 class MapModule extends ClientModule {

@@ -10,8 +10,10 @@
 /* eslint-enable max-len */
 
 import * as http from 'http';
+
 // @ts-expect-error
 import { RTCPeerConnection as RTCPeerConnection_ } from 'wrtc';
+
 import { WEBRTC_CONFIG } from './config';
 
 const RTCPeerConnection: typeof globalThis.RTCPeerConnection = RTCPeerConnection_;
