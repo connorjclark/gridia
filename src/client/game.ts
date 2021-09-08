@@ -1193,7 +1193,7 @@ export class Game {
     const creatureSpritesNotSeen = new Set([...this.creatureSprites.keys()]);
 
     const start = {x: startTileX, y: startTileY, z};
-    for (const {pos, tile} of partition.getIteratorForArea(start, tilesWidth + 1, tilesHeight + 1)) {
+    for (const {pos, tile} of partition.getIteratorForArea(start, tilesWidth, tilesHeight)) {
       const {x, y} = pos;
       const creature = this.client.context.getCreatureAt({w, ...pos});
 
