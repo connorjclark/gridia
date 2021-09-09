@@ -18,10 +18,10 @@ import {CREATE_CHARACTER_ATTRIBUTES, MINE} from '../src/constants';
 import * as Content from '../src/content';
 import {makeBareMap} from '../src/mapgen';
 import * as CommandBuilder from '../src/protocol/command-builder';
-import Server from '../src/server/server';
+import {Server} from '../src/server/server';
 import {ServerContext} from '../src/server/server-context';
 import * as Utils from '../src/utils';
-import WorldMap from '../src/world-map';
+import {WorldMap} from '../src/world-map';
 
 import {openAndConnectToServerInMemory} from './server-in-memory';
 
@@ -53,18 +53,8 @@ beforeEach(async () => {
 
   server.context.saveAccount = () => Promise.resolve();
   server.context.savePlayer = () => Promise.resolve();
-  server.context.checkAccountPassword = () => Promise.resolve(true);
-  server.context.accountExists = () => Promise.resolve(true);
-  server.context.loadAccount = () => Promise.resolve({username: 'test-account', playerIds: []});
 
-  connection.sendCommand(CommandBuilder.registerAccount({
-    username: 'test-account',
-    password: '1234567890',
-  }));
-  connection.sendCommand(CommandBuilder.login({
-    username: 'test-account',
-    password: '1234567890',
-  }));
+  memoryServerData.clientConnection.account = {id: 'local', playerIds: []};
   connection.sendCommand(CommandBuilder.createPlayer({
     name: 'TestUser',
     attributes: new Map([
@@ -343,7 +333,7 @@ describe('use', () => {
   let container;
 
   beforeEach(() => {
-    container = server.clientConnections[0].container;
+    container = server.context.clientConnections[0].container;
   });
 
   it('cut down tree', async () => {

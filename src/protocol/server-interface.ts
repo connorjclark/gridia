@@ -86,7 +86,7 @@ export class ServerInterface implements ICommands {
   async onLogin(server: Server, {firebaseToken}: Commands.Login['params']): Promise<Commands.Login['response']> {
     if (server.currentClientConnection.account) throw new Error('Already logged in');
 
-    let account;
+    let account: GridiaAccount;
     if (process.title === 'browser') {
       if (firebaseToken !== 'local') throw new Error('expected token: local');
 
@@ -123,6 +123,8 @@ export class ServerInterface implements ICommands {
       imageDatas.push(server.makeCreatureImageData(equipment));
     }
 
+    // No real reason to keep this secret, but the client never needs to know this id.
+    account = {...account, id: '<removed>'};
     return {account, players, imageDatas};
   }
 

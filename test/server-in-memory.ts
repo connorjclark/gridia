@@ -56,5 +56,5 @@ export function openAndConnectToServerInMemory(
 
   const clientContext = new Context(createClientWorldMap(connection));
   const client = new Client(connection, clientContext);
-  return {client, server};
+  return {client, server, clientConnection};
 }
