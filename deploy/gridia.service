@@ -9,6 +9,7 @@ ExecStart=/root/gridia/gridia-2019-wip/deploy/start.sh
 Restart=always
 RestartSec=1
 Environment=NODE_ENV=production
+Environment=GOOGLE_APPLICATION_CREDENTIALS=/root/gridia/gridia-2019-wip/deploy/firebase-service-key.json
 WorkingDirectory=/root/gridia/gridia-2019-wip
 
 [Install]
