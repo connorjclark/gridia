@@ -69,7 +69,7 @@ export class ServerInterface implements ICommands {
   async onRegisterAccount(server: Server, {firebaseToken}: Commands.RegisterAccount['params']): Promise<Commands.RegisterAccount['response']> {
     if (server.currentClientConnection.account) return Promise.reject('Already logged in');
 
-    if (process.title !== 'browser') {
+    if (process.title === 'browser') {
       throw new Error('should not use firebase locally');
     }
 
