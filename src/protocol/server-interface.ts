@@ -105,6 +105,14 @@ export class ServerInterface implements ICommands {
       // TODO: do not include firebase-admin in worker server.
       const firebaseAdmin = await import('firebase-admin');
       const decodedToken = await firebaseAdmin.auth().verifyIdToken(firebaseToken, true);
+
+      // Account data is save on the filesystem, which is frequently cleared since
+      // the game is under heavy development. For now, just remake an account for this
+      // firebase id when needed.
+      if (!await server.context.accountExists(decodedToken.uid)) {
+        await server.registerAccount(server.currentClientConnection, {id: decodedToken.uid});
+      }
+
       account = await server.loginAccount(server.currentClientConnection, {
         id: decodedToken.uid,
       });
