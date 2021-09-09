@@ -3,6 +3,7 @@
 import linkState from 'linkstate';
 import {render, h, Component, Fragment} from 'preact';
 
+import * as CommandBuilder from '../../protocol/command-builder';
 import {randInt} from '../../utils';
 import {connectToServerWorker} from '../connect-to-server';
 import * as Helper from '../helper';
@@ -199,7 +200,7 @@ export class MapSelectScene extends Scene {
       verbose: false,
     });
     this.controller.loadLocalStorageData(`worker-${name}`);
-    this.controller.pushScene(new SelectCharacterScene(this.controller));
+    await this.loadSelectCharacterScene();
   }
 
   async renderMapSelection() {
@@ -240,7 +241,14 @@ export class MapSelectScene extends Scene {
       dummyDelay: this.controller.qs.latency ?? 0,
       verbose: false,
     });
-    this.controller.pushScene(new SelectCharacterScene(this.controller));
+    await this.loadSelectCharacterScene();
+  }
+
+  async loadSelectCharacterScene() {
+    const loginData = await this.controller.client.connection.sendCommand(CommandBuilder.login({
+      firebaseToken: 'local',
+    }));
+    this.controller.pushScene(new SelectCharacterScene(this.controller, loginData));
   }
 
   onSelectMap(e: Event) {

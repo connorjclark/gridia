@@ -45,7 +45,8 @@ type TilePoint = Point4; // `w` is world index
 type Region = Point4 & { width: number; height: number };
 
 interface GridiaAccount {
-  username: string;
+  /** A unique, secret id. */
+  id: string;
   playerIds: string[];
 }
 

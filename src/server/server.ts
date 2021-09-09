@@ -28,8 +28,7 @@ interface CtorOpts {
 }
 
 interface RegisterAccountOpts {
-  username: string;
-  password: string;
+  id: string;
 }
 
 interface AttackData {
@@ -205,24 +204,21 @@ export class Server {
   }
 
   async registerAccount(clientConnection: ClientConnection, opts: RegisterAccountOpts) {
-    if (await this.context.accountExists(opts.username)) {
+    if (await this.context.accountExists(opts.id)) {
       throw new Error('Username already taken');
     }
 
     const account: GridiaAccount = {
-      username: opts.username,
+      id: opts.id,
       playerIds: [],
     };
 
     await this.context.saveAccount(account);
-    await this.context.saveAccountPassword(account.username, opts.password);
   }
 
   async loginAccount(clientConnection: ClientConnection, opts: RegisterAccountOpts) {
-    const account = await this.context.accountExists(opts.username) && await this.context.loadAccount(opts.username);
-    const passwordMatches = account && await this.context.checkAccountPassword(opts.username, opts.password);
-
-    if (!account || !passwordMatches) {
+    const account = await this.context.accountExists(opts.id) && await this.context.loadAccount(opts.id);
+    if (!account) {
       throw new Error('Invalid login');
     }
 

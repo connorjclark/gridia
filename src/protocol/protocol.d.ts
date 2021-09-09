@@ -30,13 +30,13 @@ declare namespace Protocol {
     type DialogueResponse = Command<{ choiceIndex?: number }>;
     type EnterWorld = Command<{ playerId: string }>;
     type Login = Command<
-      { username: string; password: string },
+      { firebaseToken: string },
       { account: GridiaAccount; players: Player[]; imageDatas: CreatureImageData[] }
     >;
     type Logout = Command<{}>;
     type Move = Command<TilePoint>;
     type MoveItem = Command<{ from: ItemLocation; quantity?: number; to: ItemLocation }>;
-    type RegisterAccount = Command<{ username: string; password: string }>;
+    type RegisterAccount = Command<{ firebaseToken: string }>;
     type RequestContainer = Command<{ containerId?: string; loc?: TilePoint }>;
     type RequestCreature = Command<{ id: number }>;
     type RequestPartition = Command<{ w: number }>;

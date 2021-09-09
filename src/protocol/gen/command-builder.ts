@@ -114,7 +114,7 @@ export function dialogueResponse({ choiceIndex }: Protocol.Commands.DialogueResp
 export function enterWorld({ playerId }: Protocol.Commands.EnterWorld["params"]): EnterWorldCommand {
     return { type: "enterWorld", args: arguments[0] };
 }
-export function login({ username, password }: Protocol.Commands.Login["params"]): LoginCommand {
+export function login({ firebaseToken }: Protocol.Commands.Login["params"]): LoginCommand {
     return { type: "login", args: arguments[0] };
 }
 export function logout({}: Protocol.Commands.Logout["params"]): LogoutCommand {
@@ -126,7 +126,7 @@ export function move({ ...loc }: Protocol.Commands.Move["params"]): MoveCommand 
 export function moveItem({ from, quantity, to }: Protocol.Commands.MoveItem["params"]): MoveItemCommand {
     return { type: "moveItem", args: arguments[0] };
 }
-export function registerAccount({ username, password }: Protocol.Commands.RegisterAccount["params"]): RegisterAccountCommand {
+export function registerAccount({ firebaseToken }: Protocol.Commands.RegisterAccount["params"]): RegisterAccountCommand {
     return { type: "registerAccount", args: arguments[0] };
 }
 export function requestContainer({ containerId, loc }: Protocol.Commands.RequestContainer["params"]): RequestContainerCommand {

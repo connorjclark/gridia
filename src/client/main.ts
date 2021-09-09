@@ -2,6 +2,7 @@ import * as Content from '../content';
 
 import {connectWithWebSocket, connectWithWebRTC} from './connect-to-server';
 import * as Helper from './helper';
+import {AccountScene} from './scenes/account-scene';
 import {MapSelectScene} from './scenes/map-select-scene';
 import {Scene} from './scenes/scene';
 import {SceneController} from './scenes/scene-controller';
@@ -33,7 +34,7 @@ class StartScene extends Scene {
     // TODO
     this.controller.loadLocalStorageData('server-');
     this.controller.client = await this.createClientForServer(serverUrl);
-    this.controller.pushScene(new SelectCharacterScene(this.controller));
+    this.controller.pushScene(new AccountScene(this.controller));
   }
 
   onShow() {

@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as http from 'http';
 import * as https from 'https';
 
+import * as firebaseAdmin from 'firebase-admin';
 import * as nodeCleanup from 'node-cleanup';
 import {Server as WebSocketServer} from 'ws';
 import * as yargs from 'yargs';
@@ -25,6 +26,10 @@ async function onHttpRequest(req: http.IncomingMessage, res: http.ServerResponse
 
 async function main(options: CLIOptions) {
   global.node = true;
+
+  firebaseAdmin.initializeApp({
+    credential: firebaseAdmin.credential.applicationDefault(),
+  });
 
   const {port, ssl} = options;
 

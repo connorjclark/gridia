@@ -31,7 +31,6 @@ export class ServerContext extends Context {
   accountDir: string;
   containerDir: string;
   miscDir: string;
-  passwordDir: string;
   playerDir: string;
   sectorDir: string;
 
@@ -40,7 +39,6 @@ export class ServerContext extends Context {
     this.accountDir = 'accounts';
     this.containerDir = 'containers';
     this.miscDir = 'misc';
-    this.passwordDir = 'passwords';
     this.playerDir = 'players';
     this.sectorDir = 'sectors';
   }
@@ -52,7 +50,6 @@ export class ServerContext extends Context {
     await fs.mkdir(context.accountDir, {recursive: true});
     await fs.mkdir(context.containerDir, {recursive: true});
     await fs.mkdir(context.miscDir, {recursive: true});
-    await fs.mkdir(context.passwordDir, {recursive: true});
     await fs.mkdir(context.playerDir, {recursive: true});
     await fs.mkdir(context.sectorDir, {recursive: true});
 
@@ -139,17 +136,7 @@ export class ServerContext extends Context {
 
   async saveAccount(account: GridiaAccount) {
     const json = WireSerializer.serialize(account);
-    await this.fs.writeFile(this.accountPath(account.username), json);
-  }
-
-  async saveAccountPassword(username: string, password: string) {
-    // TODO salt n' pepper.
-    await this.fs.writeFile(this.accountPasswordPath(username), password);
-  }
-
-  async checkAccountPassword(username: string, password: string) {
-    const pswd = await this.fs.readFile(this.accountPasswordPath(username));
-    return pswd === password;
+    await this.fs.writeFile(this.accountPath(account.id), json);
   }
 
   async savePlayer(player: Player, creature?: Creature) {
@@ -217,7 +204,6 @@ export class ServerContext extends Context {
     await this.fs.mkdir(this.accountDir, {recursive: true});
     await this.fs.mkdir(this.containerDir, {recursive: true});
     await this.fs.mkdir(this.miscDir, {recursive: true});
-    await this.fs.mkdir(this.passwordDir, {recursive: true});
     await this.fs.mkdir(this.playerDir, {recursive: true});
     await this.fs.mkdir(this.sectorDir, {recursive: true});
 
@@ -310,9 +296,5 @@ export class ServerContext extends Context {
 
   protected accountPath(username: string) {
     return path.join(this.accountDir, `${username}.json`);
-  }
-
-  protected accountPasswordPath(username: string) {
-    return path.join(this.passwordDir, `${username}.json`);
   }
 }

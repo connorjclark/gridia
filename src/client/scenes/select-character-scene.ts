@@ -1,6 +1,5 @@
 import * as Player from '../../player';
 import * as CommandBuilder from '../../protocol/command-builder';
-import * as Utils from '../../utils';
 import * as Helper from '../helper';
 import {makeCustomCreatureGraphicComponent} from '../ui/ui-common';
 
@@ -12,7 +11,7 @@ export class SelectCharacterScene extends Scene {
   private createCharacterBtn: HTMLElement;
   private _eventAbortController = new AbortController();
 
-  constructor(private controller: SceneController) {
+  constructor(private controller: SceneController, private loginData: Protocol.Commands.Login['response']) {
     super(Helper.find('.select-character'));
     this.createCharacterBtn = Helper.find('.select-character__create-character-btn', this.element);
     this.onClickCreateCharacterBtn = this.onClickCreateCharacterBtn.bind(this);
@@ -21,48 +20,13 @@ export class SelectCharacterScene extends Scene {
     this.load();
   }
 
-  async load() {
-    let username = this.controller.localStorageData.username;
-    let password = this.controller.localStorageData.password;
-
-    if (!username || !password) {
-      this.controller.localStorageData.username = username = Utils.uuid().substr(0, 20);
-      this.controller.localStorageData.password = password = Utils.uuid();
-      await this.controller.client.connection.sendCommand(CommandBuilder.registerAccount({
-        username,
-        password,
-      }));
-      this.controller.saveLocalStorageData();
-    }
-
-    let response: Protocol.Commands.Login['response'];
-    try {
-      response = await this.controller.client.connection.sendCommand(CommandBuilder.login({
-        username,
-        password,
-      }));
-    } catch (error) {
-      console.error(error);
-
-      this.controller.localStorageData.username = username = Utils.uuid().substr(0, 20);
-      this.controller.localStorageData.password = password = Utils.uuid();
-      await this.controller.client.connection.sendCommand(CommandBuilder.registerAccount({
-        username,
-        password,
-      }));
-      this.controller.saveLocalStorageData();
-      response = await this.controller.client.connection.sendCommand(CommandBuilder.login({
-        username,
-        password,
-      }));
-    }
-
+  load() {
     const playersEl = Helper.find('.select-character__players', this.element);
     playersEl.innerHTML = '';
-    for (const [i, player] of Object.entries(response.players)) {
+    for (const [i, player] of Object.entries(this.loginData.players)) {
       const el = Helper.createChildOf(playersEl, 'div', 'select-character__player');
       el.dataset.index = i;
-      el.append(makeCustomCreatureGraphicComponent(response.imageDatas[Number(i)]));
+      el.append(makeCustomCreatureGraphicComponent(this.loginData.imageDatas[Number(i)]));
       const div2 = Helper.createChildOf(el, 'div');
       Helper.createChildOf(div2, 'div').textContent = player.name;
       Helper.createChildOf(div2, 'div').textContent = `Combat Level: ${Player.getCombatLevel(player).combatLevel}`;
@@ -73,7 +37,7 @@ export class SelectCharacterScene extends Scene {
       if (!playerEl) return;
 
       const index = Number(playerEl.dataset.index);
-      const player = response.players[index];
+      const player = this.loginData.players[index];
       await this.selectPlayer(player.id);
     }, {signal: this._eventAbortController.signal});
   }

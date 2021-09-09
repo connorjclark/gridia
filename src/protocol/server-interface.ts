@@ -66,29 +66,54 @@ export class ServerInterface implements ICommands {
   }
 
   // eslint-disable-next-line max-len
-  async onRegisterAccount(server: Server, {username, password}: Commands.RegisterAccount['params']): Promise<Commands.RegisterAccount['response']> {
+  async onRegisterAccount(server: Server, {firebaseToken}: Commands.RegisterAccount['params']): Promise<Commands.RegisterAccount['response']> {
     if (server.currentClientConnection.account) return Promise.reject('Already logged in');
-    if (username.length > 20) return Promise.reject('Username too long');
-    if (password.length < 8) return Promise.reject('Password too short');
+
+    if (process.title !== 'browser') {
+      throw new Error('should not use firebase locally');
+    }
+
+    // TODO: do not include firebase-admin in worker server.
+    const firebaseAdmin = await import('firebase-admin');
+    const decodedToken = await firebaseAdmin.auth().verifyIdToken(firebaseToken, true);
+    const id = decodedToken.uid;
 
     await server.registerAccount(server.currentClientConnection, {
-      username,
-      password,
+      id,
     });
   }
 
-  async onLogin(server: Server, {username, password}: Commands.Login['params']): Promise<Commands.Login['response']> {
+  async onLogin(server: Server, {firebaseToken}: Commands.Login['params']): Promise<Commands.Login['response']> {
     if (server.currentClientConnection.account) throw new Error('Already logged in');
 
-    const account = await server.loginAccount(server.currentClientConnection, {
-      username,
-      password,
-    });
+    let account;
+    if (process.title === 'browser') {
+      if (firebaseToken !== 'local') throw new Error('expected token: local');
+
+      // Create account if not already made.
+      try {
+        await server.registerAccount(server.currentClientConnection, {
+          id: 'local',
+        });
+      } catch {
+        // ...
+      }
+      account = await server.loginAccount(server.currentClientConnection, {
+        id: 'local',
+      });
+    } else {
+      // TODO: do not include firebase-admin in worker server.
+      const firebaseAdmin = await import('firebase-admin');
+      const decodedToken = await firebaseAdmin.auth().verifyIdToken(firebaseToken, true);
+      account = await server.loginAccount(server.currentClientConnection, {
+        id: decodedToken.uid,
+      });
+    }
 
     const players = [];
     const imageDatas = [];
-    for (const id of account.playerIds) {
-      const player = server.context.players.get(id) || await server.context.loadPlayer(id);
+    for (const playerId of account.playerIds) {
+      const player = server.context.players.get(playerId) || await server.context.loadPlayer(playerId);
       if (!player) continue;
 
       const equipment = await server.context.getContainer(player.equipmentContainerId);

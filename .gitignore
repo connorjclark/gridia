@@ -12,3 +12,5 @@ saved-maps/*/meta.json
 saved-maps/*/accounts
 saved-maps/*/containers
 saved-maps/*/players
+
+firebase-service-key.json
