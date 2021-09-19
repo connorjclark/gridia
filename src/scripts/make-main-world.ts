@@ -3,11 +3,13 @@
 import * as fs from 'fs';
 
 import * as Content from '../content';
-import {NodeFs} from '../iso-fs';
+import {LevelFs, NodeFs} from '../database';
 import {ServerContext} from '../server/server-context';
 import {WorldMap} from '../world-map';
 import {createTestPartitions} from '../world-map-debug';
 
+// Copies the map saved at `saved-maps/main` to `server-data`,
+// plus programatically creates a test map.
 async function createMainWorldMap() {
   if (fs.existsSync('server-data')) {
     console.log('server-data/ already exists');
@@ -19,7 +21,7 @@ async function createMainWorldMap() {
   context.map.loader = (pos) => context.loadSector(pos);
 
   let numMainPartitions = 0;
-  for (const _ of fs.readdirSync('saved-maps/main/sectors')) {
+  for (const _ of fs.readdirSync('saved-maps/main/sector')) {
     await context.loadPartition(numMainPartitions);
     const partition = map.getPartition(numMainPartitions);
     for (let sx = 0; sx < partition.sectors.length; sx++) {
@@ -50,7 +52,8 @@ async function createMainWorldMap() {
   };
 
   fs.mkdirSync('server-data', {recursive: true});
-  context.fs = new NodeFs('server-data');
+  // context.db = new NodeFs('server-data');
+  context.db = new LevelFs('server-data');
   await context.save();
 }
 

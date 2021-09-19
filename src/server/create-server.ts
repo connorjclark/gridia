@@ -1,28 +1,37 @@
 import * as Content from '../content';
-import {IsoFs} from '../iso-fs';
+import {Database, NodeFs} from '../database';
 import {makeMapImage} from '../lib/map-generator/map-image-maker';
 import {Server} from '../server/server';
-import {ServerContext} from '../server/server-context';
+import {ServerContext, Store} from '../server/server-context';
 import * as Utils from '../utils';
 import {createMainWorldMap} from '../world-map-debug';
 
-export async function startServer(options: ServerOptions, fs: IsoFs) {
+export async function startServer(options: ServerOptions, db: Database) {
   const {verbose} = options;
 
+  let isDbAlreadySetup = false;
+  try {
+    const keys = await db.getAllKeysInStore(Store.misc);
+    isDbAlreadySetup = keys.length > 0;
+  } catch {
+    // Nope.
+  }
+
   let context: ServerContext;
-  if ((await fs.readdir('')).length !== 0) {
-    context = await ServerContext.load(fs);
+  if (isDbAlreadySetup) {
+    context = await ServerContext.load(db);
   } else {
     // TODO: shouldn't create a world here...
     const {world, mapGenData} = createMainWorldMap();
-    context = new ServerContext(world, fs);
+    context = new ServerContext(world, db);
     await context.save();
 
     // Only save images in Node server.
-    if (global.node) {
+    // TODO: db is now longer a fs, where to save this?
+    if (db instanceof NodeFs) {
       for (let i = 0; i < mapGenData.length; i++) {
         const canvas = makeMapImage(mapGenData[i]);
-        fs.writeFile(`misc/map${i}.svg`, canvas.toBuffer().toString());
+        db.put(Store.misc, `map${i}.svg`, canvas.toBuffer().toString());
       }
     }
   }

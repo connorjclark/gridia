@@ -86,18 +86,19 @@ export class SceneController {
     if (this.serverWorker_) return;
 
     let directoryHandle: FileSystemDirectoryHandle | undefined;
-    if (self.showDirectoryPicker) {
-      directoryHandle = await idbKeyval.get('gridia-directory');
-      if (!directoryHandle) {
-        directoryHandle = await self.showDirectoryPicker();
-        if (!directoryHandle) throw new Error('did not get folder');
-      }
-      if (await directoryHandle.queryPermission({mode: 'readwrite'}) !== 'granted') {
-        const permissionState = await directoryHandle.requestPermission({mode: 'readwrite'});
-        if (permissionState !== 'granted') throw new Error('did not get permission');
-      }
-      idbKeyval.set('gridia-directory', directoryHandle);
-    }
+    // TODO: bring this back?
+    // if (self.showDirectoryPicker) {
+    //   directoryHandle = await idbKeyval.get('gridia-directory');
+    //   if (!directoryHandle) {
+    //     directoryHandle = await self.showDirectoryPicker();
+    //     if (!directoryHandle) throw new Error('did not get folder');
+    //   }
+    //   if (await directoryHandle.queryPermission({mode: 'readwrite'}) !== 'granted') {
+    //     const permissionState = await directoryHandle.requestPermission({mode: 'readwrite'});
+    //     if (permissionState !== 'granted') throw new Error('did not get permission');
+    //   }
+    //   idbKeyval.set('gridia-directory', directoryHandle);
+    // }
 
     this.serverWorker_ = new ServerWorker();
     await this.serverWorker_.init({directoryHandle});

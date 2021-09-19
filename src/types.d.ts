@@ -53,6 +53,7 @@ interface GridiaAccount {
 interface Player {
   id: string;
   name: string;
+  loggedIn: boolean;
   attributes: Map<string, { baseLevel: number; earnedLevel: number }>;
   skills: Map<number, { xp: number }>;
   skillPoints: number;

@@ -227,7 +227,7 @@ module.exports = {
             "error",
             "consistent-as-needed"
         ],
-        "radix": "error",
+        "radix": "off",
         "require-await": "off",
         "space-before-function-paren": [
             "error",

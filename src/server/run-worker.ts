@@ -1,5 +1,5 @@
 import * as Content from '../content';
-import {FsApiFs, IdbFs, IsoFs} from '../iso-fs';
+import {Database, FsApiFs, LevelFs} from '../database';
 import {makeMapImage} from '../lib/map-generator/map-image-maker';
 import * as WireSerializer from '../lib/wire-serializer';
 import {mapgen, makeBareMap} from '../mapgen';
@@ -18,7 +18,7 @@ let clientConnection: ClientConnection;
 let mapPreviewPartition: WorldMapPartition | null = null;
 let mapPreviewGenData: ReturnType<typeof mapgen>['mapGenResult'] | null = null;
 
-let mapsFs: IsoFs;
+let mapsDb: Database;
 
 function maybeDelay(fn: () => void) {
   if (opts.dummyDelay > 0) {
@@ -28,18 +28,17 @@ function maybeDelay(fn: () => void) {
   }
 }
 
-async function makeFsForMap(name: string) {
+async function makeFsForMap(mapName: string) {
   if (initArgs_.directoryHandle) {
-    return new FsApiFs(await initArgs_.directoryHandle.getDirectoryHandle(name));
+    return new FsApiFs(await initArgs_.directoryHandle.getDirectoryHandle(mapName));
   } else {
-    return new IdbFs(name);
+    return new LevelFs(mapName);
   }
 }
 
 async function saveMapGen(name: string) {
   if (!mapPreviewPartition) throw new Error('missing mapPreviewPartition');
 
-  await mapsFs.mkdir(name);
   const world = new WorldMap();
   world.addPartition(0, mapPreviewPartition);
 
@@ -54,18 +53,28 @@ let initArgs_: InitArgs;
 async function init(args: InitArgs) {
   initArgs_ = args;
   if (args.directoryHandle) {
-    mapsFs = new FsApiFs(args.directoryHandle);
+    mapsDb = new FsApiFs(args.directoryHandle);
   } else {
-    mapsFs = new IdbFs('');
+    // mapsDb = new LevelFs('default');
   }
   await Content.loadContentFromNetwork();
 }
 
 async function listMaps() {
-  // TODO: add {type: FOLDER} to readdir.
-  const mapNames = (await mapsFs.readdir('')).filter((name) => !name.startsWith('.'));
+  if (mapsDb instanceof FsApiFs) {
+    // TODO ?
+    return Promise.resolve({mapNames: [] as string[]});
+  }
+
+  const databases = await indexedDB.databases();
+  const mapNames = [];
+  for (const db of databases) {
+    if (db.name?.startsWith('level-js-')) {
+      mapNames.push(db.name.replace('level-js-', ''));
+    }
+  }
   mapNames.sort((a, b) => a.localeCompare(b, undefined, {numeric: true}));
-  return {mapNames};
+  return Promise.resolve({mapNames});
 }
 
 interface GenerateMapArgs {

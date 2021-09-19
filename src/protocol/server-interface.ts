@@ -106,7 +106,7 @@ export class ServerInterface implements ICommands {
       const firebaseAdmin = await import('firebase-admin');
       const decodedToken = await firebaseAdmin.auth().verifyIdToken(firebaseToken, true);
 
-      // Account data is save on the filesystem, which is frequently cleared since
+      // Account data is saved on the filesystem, which is frequently cleared since
       // the game is under heavy development. For now, just remake an account for this
       // firebase id when needed.
       if (!await server.context.accountExists(decodedToken.uid)) {
@@ -121,7 +121,7 @@ export class ServerInterface implements ICommands {
     const players = [];
     const imageDatas = [];
     for (const playerId of account.playerIds) {
-      const player = server.context.players.get(playerId) || await server.context.loadPlayer(playerId);
+      const player = await server.context.getPlayer(playerId);
       if (!player) continue;
 
       const equipment = await server.context.getContainer(player.equipmentContainerId);
@@ -151,7 +151,7 @@ export class ServerInterface implements ICommands {
     });
   }
 
-  onLogout(server: Server, { }: Commands.Logout['params']): Promise<Commands.Logout['response']> {
+  onLogout(server: Server): Promise<Commands.Logout['response']> {
     server.removeClient(server.currentClientConnection);
     return Promise.resolve();
   }

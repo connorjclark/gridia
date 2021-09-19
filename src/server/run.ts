@@ -7,7 +7,7 @@ import * as nodeCleanup from 'node-cleanup';
 import {Server as WebSocketServer} from 'ws';
 import * as yargs from 'yargs';
 
-import {NodeFs} from '../iso-fs';
+import {LevelFs} from '../database';
 import * as WireSerializer from '../lib/wire-serializer';
 import {WebRTCSignalServer} from '../lib/wrtc/signal-server';
 
@@ -47,7 +47,7 @@ async function main(options: CLIOptions) {
   });
   webserver.listen(port);
 
-  const server = await startServer(options, new NodeFs(options.directoryPath));
+  const server = await startServer(options, new LevelFs(options.directoryPath));
 
   wrtcSignalServer.onConnectionEstablished = (peerConnection) => {
     // @ts-expect-error

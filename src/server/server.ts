@@ -205,7 +205,7 @@ export class Server {
 
   async registerAccount(clientConnection: ClientConnection, opts: RegisterAccountOpts) {
     if (await this.context.accountExists(opts.id)) {
-      throw new Error('Username already taken');
+      throw new Error('Account with this id already exists');
     }
 
     const account: GridiaAccount = {
@@ -272,6 +272,7 @@ export class Server {
     const player: Player = {
       id: Utils.uuid(),
       name: opts.name,
+      loggedIn: true,
       attributes: new Map(),
       skills: new Map(),
       skillPoints: CREATE_CHARACTER_SKILL_POINTS,
@@ -332,7 +333,8 @@ export class Server {
     equipment.items[0] = {type: Content.getMetaItemByName('Iron Helmet Plate').id, quantity: 1};
     player.equipmentContainerId = equipment.id;
 
-    await this.context.savePlayer(player);
+    this.context.savePlayer(player);
+    await this.context.db.endTransaction();
 
     clientConnection.account.playerIds.push(player.id);
     await this.context.saveAccount(clientConnection.account);
@@ -349,7 +351,7 @@ export class Server {
     if (opts.player) {
       player = opts.player;
     } else {
-      player = this.context.players.get(opts.playerId) || await this.context.loadPlayer(opts.playerId);
+      player = await this.context.getPlayer(opts.playerId);
     }
 
     clientConnection.container = await this.context.getContainer(player.containerId);
@@ -414,6 +416,7 @@ export class Server {
     clientConnection.player = player;
     await this.initClient(clientConnection);
     this.broadcastChatFromServer(`${clientConnection.player.name} has entered the world.`);
+    player.loggedIn = true;
 
     if (opts.justCreated) {
       for (const script of this._scripts) {
@@ -445,7 +448,9 @@ export class Server {
     if (clientConnection.player) {
       this.context.savePlayer(clientConnection.player, clientConnection.creature);
       this.removeCreature(clientConnection.creature);
-      this.context.players.delete(clientConnection.player.id);
+      // Do not remove player yet, not until the next server.save(), in case player logs back in
+      // before the next save.
+      // this.context.players.delete(clientConnection.player.id);
       this.broadcastAnimation({
         name: 'WarpOut',
         path: [clientConnection.creature.pos],
@@ -1185,7 +1190,9 @@ export class Server {
   }
 
   getMessagePlayersOnline() {
-    const players = [...this.context.players.values()].map((player) => player.name);
+    const players = [...this.context.players.values()]
+      .filter((player) => player.loggedIn)
+      .map((player) => player.name);
     return `${players.length} players online: ${players.join(', ')}`;
   }
 
