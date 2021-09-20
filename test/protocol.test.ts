@@ -5,7 +5,6 @@
 
 // @ts-nocheck
 
-jest.mock('../src/database');
 jest.mock('../src/game-singleton', () => {
   return {};
 });

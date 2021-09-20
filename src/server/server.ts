@@ -778,7 +778,9 @@ export class Server {
         const xpModifier = otherCreature.combatLevel / thisCreature.combatLevel;
         const xp = Math.round(xpModifier * damage * 10);
         const skill = thisCreature === data.actor ? data.attackSkill : data.defenseSkill;
-        this.grantXp(clientConnection, skill.id, xp);
+        if (clientConnection.player.skills.has(skill.id)) {
+          this.grantXp(clientConnection, skill.id, xp);
+        }
       }
     };
 
