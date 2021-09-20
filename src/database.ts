@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 
-import {IDBPDatabase, openDB} from 'idb';
 import * as level from 'level';
 
 // Key-value database with supports for ranged queries and atomic transactions.
@@ -24,7 +23,7 @@ function check(store: string, key: string) {
 }
 
 // Main database, works in node and browser.
-export class LevelFs extends Database {
+export class LevelDb extends Database {
   private db: level.LevelDB;
 
   constructor(dbLocation: string) {
@@ -79,7 +78,7 @@ export class LevelFs extends Database {
 }
 
 // Saves data directly to filesystem. Doesn't support atomic transactions, so not safe for real usage.
-export class NodeFs extends Database {
+export class NodeFsDb extends Database {
   constructor(private rootDirectoryPath: string) {
     super();
 
@@ -128,25 +127,8 @@ export class NodeFs extends Database {
   }
 }
 
-const dbName = 'gridia';
-const defaultStoreName = 'defaultStore';
-let db_: IDBPDatabase;
-async function getDb() {
-  if (!db_) {
-    db_ = await openDB(dbName, 1, {
-      upgrade(db) {
-        db.createObjectStore(defaultStoreName);
-      },
-      blocked: console.error,
-      blocking: console.error,
-    });
-  }
-
-  return db_;
-}
-
 // TODO: currently not used. Probably not needed?
-export class FsApiFs extends Database {
+export class FsApiDb extends Database {
   private cache = new Map<string, FileSystemDirectoryHandle>();
 
   constructor(private rootDirectoryHandle: FileSystemDirectoryHandle) {
@@ -226,6 +208,42 @@ export class FsApiFs extends Database {
 
     this.cache.set(path, dir);
     return dir;
+  }
+
+  async endTransaction() {
+    for (const {store, key, value} of this._transaction) {
+      await this.put(store, key, value);
+    }
+  }
+}
+
+// Only used for tests.
+export class MemoryDb extends Database {
+  private stores: { [store: string]:  Map<string, string> } = {};
+
+  exists(store: string, key: string) {
+    return Promise.resolve(this.stores[store] && this.stores[store].has(key));
+  }
+
+  put(store: string, key: string, data: string) {
+    if (!this.stores[store]) {
+      this.stores[store] = new Map();
+    }
+
+    this.stores[store].set(key, data);
+    return Promise.resolve();
+  }
+
+  get(store: string, key: string) {
+    if (!this.stores[store]) throw new Error('invalid store ' + store);
+    const value = this.stores[store].get(key);
+    if (value === undefined) throw new Error('bad key');
+    return Promise.resolve(value);
+  }
+
+  getAllKeysInStore(store: string) {
+    if (!this.stores[store]) throw new Error('invalid store ' + store);
+    return Promise.resolve(Array.from(this.stores[store].keys()));
   }
 
   async endTransaction() {

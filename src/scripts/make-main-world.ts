@@ -3,7 +3,7 @@
 import * as fs from 'fs';
 
 import * as Content from '../content';
-import {LevelFs, NodeFs} from '../database';
+import {LevelDb, NodeFsDb} from '../database';
 import {ServerContext} from '../server/server-context';
 import {WorldMap} from '../world-map';
 import {createTestPartitions} from '../world-map-debug';
@@ -17,7 +17,7 @@ async function createMainWorldMap() {
   }
 
   const map = new WorldMap();
-  const context = new ServerContext(map, new NodeFs('saved-maps/main'));
+  const context = new ServerContext(map, new NodeFsDb('saved-maps/main'));
   context.map.loader = (pos) => context.loadSector(pos);
 
   let numMainPartitions = 0;
@@ -53,7 +53,7 @@ async function createMainWorldMap() {
 
   fs.mkdirSync('server-data', {recursive: true});
   // context.db = new NodeFs('server-data');
-  context.db = new LevelFs('server-data');
+  context.db = new LevelDb('server-data');
   await context.save();
 }
 

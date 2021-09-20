@@ -5,7 +5,7 @@
 
 // @ts-nocheck
 
-jest.mock('../src/iso-fs');
+jest.mock('../src/database');
 jest.mock('../src/game-singleton', () => {
   return {};
 });
@@ -19,7 +19,6 @@ import * as Content from '../src/content';
 import {makeBareMap} from '../src/mapgen';
 import * as CommandBuilder from '../src/protocol/command-builder';
 import {Server} from '../src/server/server';
-import {ServerContext} from '../src/server/server-context';
 import * as Utils from '../src/utils';
 import {WorldMap} from '../src/world-map';
 
@@ -45,14 +44,11 @@ beforeEach(async () => {
   const memoryServerData = openAndConnectToServerInMemory({
     dummyDelay: 0,
     verbose: false,
-    serverContext: new ServerContext(worldMap),
+    worldMap,
   });
   client = memoryServerData.client;
   connection = client.connection;
   server = memoryServerData.server;
-
-  server.context.saveAccount = () => Promise.resolve();
-  server.context.savePlayer = () => Promise.resolve();
 
   memoryServerData.clientConnection.account = {id: 'local', playerIds: []};
   connection.sendCommand(CommandBuilder.createPlayer({

@@ -4,12 +4,13 @@
 import {Client} from '../src/client/client';
 import {Connection} from '../src/client/connection';
 import {Context} from '../src/context';
+import {MemoryDb} from '../src/database';
 import * as WireSerializer from '../src/lib/wire-serializer';
 import {ProtocolCommand} from '../src/protocol/command-builder';
 import {ClientConnection} from '../src/server/client-connection';
 import {Server} from '../src/server/server';
 import {ServerContext} from '../src/server/server-context';
-import {createClientWorldMap} from '../src/world-map';
+import {createClientWorldMap, WorldMap} from '../src/world-map';
 
 class MemoryConnection extends Connection {
   constructor(private _clientConnection: ClientConnection) {
@@ -31,9 +32,10 @@ type OpenAndConnectToServerOpts = any; // ?what
 // This was used before workers, but now it's just for jest tests.
 // Clone messages so that mutations aren't depended on accidentally.
 export function openAndConnectToServerInMemory(
-  opts: OpenAndConnectToServerOpts & { serverContext: ServerContext }) {
+  opts: OpenAndConnectToServerOpts & { worldMap: WorldMap }) {
 
-  const {verbose, serverContext} = opts;
+  const {verbose, worldMap} = opts;
+  const serverContext = new ServerContext(worldMap, new MemoryDb());
   const server = new Server({
     context: serverContext,
     verbose,

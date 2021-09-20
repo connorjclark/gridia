@@ -1,5 +1,5 @@
 import * as Content from '../content';
-import {Database, NodeFs} from '../database';
+import {Database, NodeFsDb} from '../database';
 import {makeMapImage} from '../lib/map-generator/map-image-maker';
 import {Server} from '../server/server';
 import {ServerContext, Store} from '../server/server-context';
@@ -28,7 +28,7 @@ export async function startServer(options: ServerOptions, db: Database) {
 
     // Only save images in Node server.
     // TODO: db is now longer a fs, where to save this?
-    if (db instanceof NodeFs) {
+    if (db instanceof NodeFsDb) {
       for (let i = 0; i < mapGenData.length; i++) {
         const canvas = makeMapImage(mapGenData[i]);
         db.put(Store.misc, `map${i}.svg`, canvas.toBuffer().toString());

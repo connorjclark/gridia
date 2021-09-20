@@ -1,5 +1,5 @@
 import * as Content from '../content';
-import {Database, FsApiFs, LevelFs} from '../database';
+import {Database, FsApiDb, LevelDb} from '../database';
 import {makeMapImage} from '../lib/map-generator/map-image-maker';
 import * as WireSerializer from '../lib/wire-serializer';
 import {mapgen, makeBareMap} from '../mapgen';
@@ -30,9 +30,9 @@ function maybeDelay(fn: () => void) {
 
 async function makeFsForMap(mapName: string) {
   if (initArgs_.directoryHandle) {
-    return new FsApiFs(await initArgs_.directoryHandle.getDirectoryHandle(mapName));
+    return new FsApiDb(await initArgs_.directoryHandle.getDirectoryHandle(mapName));
   } else {
-    return new LevelFs(mapName);
+    return new LevelDb(mapName);
   }
 }
 
@@ -53,7 +53,7 @@ let initArgs_: InitArgs;
 async function init(args: InitArgs) {
   initArgs_ = args;
   if (args.directoryHandle) {
-    mapsDb = new FsApiFs(args.directoryHandle);
+    mapsDb = new FsApiDb(args.directoryHandle);
   } else {
     // mapsDb = new LevelFs('default');
   }
@@ -61,7 +61,7 @@ async function init(args: InitArgs) {
 }
 
 async function listMaps() {
-  if (mapsDb instanceof FsApiFs) {
+  if (mapsDb instanceof FsApiDb) {
     // TODO ?
     return Promise.resolve({mapNames: [] as string[]});
   }
