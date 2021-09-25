@@ -199,6 +199,14 @@ export class MapSelectScene extends Scene {
       dummyDelay: this.controller.qs.latency ?? 0,
       verbose: false,
     });
+
+    // TODO: this should be part of the `connectToX` flow ...
+    await new Promise<void>((resolve) => {
+      this.controller.client.eventEmitter.addListener('event', (e) => {
+        if (e.type === 'connect') resolve();
+      });
+    });
+
     this.controller.loadLocalStorageData(`worker-${name}`);
     await this.loadSelectCharacterScene();
   }

@@ -340,7 +340,7 @@ export const SfxResources: Record<string, string> = {
 };
 
 export function getMusicResource(name: string) {
-  return `./world/sound/music/${name}`;
+  return `./worlds/rpgwo-world/sound/music/${name}`;
 }
 
 function createPromiseAndResolve() {
