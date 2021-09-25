@@ -22,7 +22,7 @@ const __dirname = path.join(path.dirname(decodeURI(new URL(import.meta.url).path
 const assetFolder = `${__dirname}/../../assets/rpgwo-v1.15`;
 
 function loadContent(name: string) {
-  return JSON.parse(fs.readFileSync(`${__dirname}/../../world/content/${name}`, 'utf-8'));
+  return JSON.parse(fs.readFileSync(`${__dirname}/../../worlds/rpgwo-world/content/${name}`, 'utf-8'));
 }
 
 // Just for self-referential lookups - Can't use '../content.ts' b/c it loads data from disk,
@@ -722,6 +722,7 @@ function convertItems() {
     graphics: {
       file: 'rpgwo-templates0.png',
       frames: [50],
+      templateType: 'bit-offset',
     },
     class: 'Normal',
     walkable: false,
@@ -873,6 +874,7 @@ function convertFloors() {
     if (floor.id === 1) {
       floor.color = 'ADBCE6';
       floor.graphics.file = 'rpgwo-templates0.png';
+      floor.templateType = 'bit-offset';
       continue;
     }
 
@@ -1058,25 +1060,25 @@ function convertMonsters() {
 
 function run() {
   state.skills = convertSkills();
-  const skillsPath = path.join(__dirname, '..', '..', 'world', 'content', 'skills.json');
+  const skillsPath = path.join(__dirname, '..', '..', 'worlds/rpgwo-world', 'content', 'skills.json');
 
   state.items = convertItems();
-  const itemsPath = path.join(__dirname, '..', '..', 'world', 'content', 'items.json');
+  const itemsPath = path.join(__dirname, '..', '..', 'worlds/rpgwo-world', 'content', 'items.json');
 
   state.usages = convertItemUsages();
-  const usagesPath = path.join(__dirname, '..', '..', 'world', 'content', 'itemuses.json');
+  const usagesPath = path.join(__dirname, '..', '..', 'worlds/rpgwo-world', 'content', 'itemuses.json');
 
   state.floors = convertFloors();
-  const floorsPath = path.join(__dirname, '..', '..', 'world', 'content', 'floors.json');
+  const floorsPath = path.join(__dirname, '..', '..', 'worlds/rpgwo-world', 'content', 'floors.json');
 
   state.spells = convertSpells();
-  const spellsPath = path.join(__dirname, '..', '..', 'world', 'content', 'spells.json');
+  const spellsPath = path.join(__dirname, '..', '..', 'worlds/rpgwo-world', 'content', 'spells.json');
 
   state.lootTables = convertLootTables();
-  const lootTablesPath = path.join(__dirname, '..', '..', 'world', 'content', 'lootTables.json');
+  const lootTablesPath = path.join(__dirname, '..', '..', 'worlds/rpgwo-world', 'content', 'lootTables.json');
 
   state.monsters = convertMonsters();
-  const monstersPath = path.join(__dirname, '..', '..', 'world', 'content', 'monsters.json');
+  const monstersPath = path.join(__dirname, '..', '..', 'worlds/rpgwo-world', 'content', 'monsters.json');
 
   const removeUsage = (usage: ItemUse) => {
     const index = state.usages.indexOf(usage);

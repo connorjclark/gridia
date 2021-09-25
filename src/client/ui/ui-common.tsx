@@ -91,20 +91,25 @@ interface GraphicProps {
 export const Graphic = (props: GraphicProps) => {
   const baseDir = Content.getBaseDir();
   const res = ImageResources.find((r) => r.file === `${baseDir}/graphics/${props.file}`);
-  const width = res?.width || 320;
+  const defaultSpritesheetWidth = baseDir === 'worlds/rpgwo-world' ? 320 : 16*8;
+  const width = res?.width || defaultSpritesheetWidth;
+  const height = res?.height || defaultSpritesheetWidth;
   const tilesAcross = width / GFX_SIZE;
+  const tilesColumn = height / GFX_SIZE;
   const x = props.index % tilesAcross;
   const y = Math.floor(props.index / tilesAcross);
-  const backgroundImage = `url(${baseDir}/graphics/${props.file})`;
   const label = props.quantity !== undefined && props.quantity !== 1 ? Utils.formatQuantity(props.quantity) : '';
 
   let style: { [key: string]: string | number } = {
-    backgroundImage,
-    backgroundPosition: `-${x * 32}px -${y * 32}px`,
-    width: '32px',
-    maxWidth: '32px',
-    height: '32px',
+    backgroundImage: `url(${baseDir}/graphics/${props.file})`,
+    backgroundPosition: `-${x * 100}% -${y * 100}%`,
+    backgroundSize: `${tilesAcross * 100}% ${tilesColumn * 100}%`,
+    width: 32 + 'px',
+    maxWidth: 32 + 'px',
+    height: 32 + 'px',
   };
+
+  // TODO: remove? could just scale the width/height above ...
   if (props.scale) {
     style = {
       ...style,

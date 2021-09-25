@@ -50,9 +50,9 @@ export class ServerInterface implements ICommands {
     if (tile.floor === WATER) {
       server.creatureStates[creature.id].resetRegenerationTimer(server);
       if (attributeCheck(creature, 'stamina', 1)) {
-        server.modifyCreatureStamina(null, creature, -5);
+        server.modifyCreatureStamina(null, creature, -2);
       } else {
-        server.modifyCreatureLife(null, creature, -5);
+        server.modifyCreatureLife(null, creature, -2);
       }
     }
 

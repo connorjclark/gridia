@@ -1,18 +1,94 @@
-import {MINE, WATER} from '../constants';
+import * as Content from '../content';
 import {WorldMapPartition} from '../world-map-partition';
 
-export function getWaterFloor(partition: WorldMapPartition, point: PartitionPoint) {
-  const templateIndex = useTemplate(partition, 0, WATER, point, 'floor');
-  return templateIndex;
+export function getIndexOffsetForTemplate(partition: WorldMapPartition,
+                                          typeToMatch: number, loc: PartitionPoint,
+                                          templateType: TemplateType, match: 'item' | 'floor') {
+  if (templateType === 'bit-offset') {
+    return useBitOffsetTemplate(partition, typeToMatch, loc, match);
+  } else {
+    const offset = useVisualOffsetTemplate(partition, typeToMatch, loc, match);
+    const tilesAcross = Content.getBaseDir() === 'worlds/rpgwo-world' ? 10 : 8;
+    return offset.x + offset.y * tilesAcross;
+  }
 }
 
-export function getMineItem(partition: WorldMapPartition, point: PartitionPoint) {
-  const templateIndex = useTemplate(partition, 1, MINE, point, 'item');
-  return templateIndex;
+function useVisualOffsetTemplate(partition: WorldMapPartition,
+                                 typeToMatch: number, loc: PartitionPoint, match: 'item' | 'floor') {
+  const {x, y, z} = loc;
+  const xl = x - 1;
+  const xr = x + 1;
+  const yu = y + 1;
+  const yd = y - 1;
+
+  function matches(pos: PartitionPoint) {
+    if (!partition.inBounds(pos)) {
+      return true;
+    }
+
+    const tile = partition.getTile(pos);
+    if (match === 'floor') return tile.floor === typeToMatch;
+
+    return tile.item?.type === typeToMatch;
+  }
+
+  const below = matches({x, y: yu, z});
+  const above = matches({x, y: yd, z});
+  const left = matches({x: xl, y, z});
+  const right = matches({x: xr, y, z});
+  const downleft = matches({x: xl, y: yu, z});
+  const downright = matches({x: xr, y: yu, z});
+  const upleft = matches({x: xl, y: yd, z});
+  const upright = matches({x: xr, y: yd, z});
+  // @ts-expect-error: Boolean addition!
+  const cardinalSum = below + above + left + right;
+  // @ts-expect-error: Boolean addition!
+  const sum = below + above + left + right + downleft + downright + upleft + upright;
+
+  /*
+      ____
+     /....\
+     |....|
+     \____/
+     see tileset_1bit.png
+  */
+
+  // Surrounded by matches, so using the visual center.
+  if (sum === 8) return {x: 0, y: 0};
+
+  // One of the diagonals don't match.
+  if (cardinalSum === 4 && sum === 7) {
+    // The tiles that have just a single unmatched corner are a little below and to the left.
+    const o = {x: -1, y: 2};
+    if (!downleft) o.x += 1;
+    if (!downright) {
+      // all good!
+    }
+    if (!upleft) {
+      o.x += 1; o.y += 1;
+    }
+    if (!upright) o.y += 1;
+    return o;
+  }
+
+  // Check for cardinal edges.
+  if (!left && right && above && below) return {x: -1, y: 0};
+  if (!right && left && above && below) return {x: 1, y: 0};
+  if (!above && below && left && right) return {x: 0, y: -1};
+  if (!below && above && left && right) return {x: 0, y: 1};
+
+  // Check for corners.
+  if (right && below && !above && !left) return {x: -1, y: -1};
+  if (left && below && !above && !right) return {x: 1, y: -1};
+  if (left && above && !right && !below) return {x: 1, y: 1};
+  if (right && above && !left && !below) return {x: -1, y: 1};
+
+  // Some other combination (is this even possible?), just consider all sides to be matching.
+  return {x: 0, y: 0};
 }
 
-function useTemplate(partition: WorldMapPartition, templateId: number,
-                     typeToMatch: number, loc: PartitionPoint, match: 'item' | 'floor') {
+function useBitOffsetTemplate(partition: WorldMapPartition,
+                              typeToMatch: number, loc: PartitionPoint, match: 'item' | 'floor') {
   const {x, y, z} = loc;
   // const width = client.world.width;
   // const height = client.world.height;
@@ -41,7 +117,6 @@ function useTemplate(partition: WorldMapPartition, templateId: number,
   const left = matches({x: xl, y, z});
   const right = matches({x: xr, y, z});
 
-  const offset = templateId * 50;
   let v = (above ? 1 : 0) + (below ? 2 : 0) + (left ? 4 : 0) + (right ? 8 : 0);
 
   // this is where the complicated crap kicks in
@@ -128,5 +203,5 @@ function useTemplate(partition: WorldMapPartition, templateId: number,
     }
   }
 
-  return v + offset;
+  return v;
 }

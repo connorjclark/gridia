@@ -1,4 +1,4 @@
-import {GFX_SIZE, MINE, WATER, SECTOR_SIZE} from '../constants';
+import {GFX_SIZE, SECTOR_SIZE} from '../constants';
 import * as Content from '../content';
 import {game} from '../game-singleton';
 import {Visibility} from '../lib/visibility';
@@ -7,7 +7,7 @@ import {WorldMap} from '../world-map';
 
 import * as Draw from './draw';
 import * as Helper from './helper';
-import {getMineItem, getWaterFloor} from './template-draw';
+import {getIndexOffsetForTemplate} from './template-draw';
 
 const MAX_LIGHT_POWER = 6;
 
@@ -452,7 +452,8 @@ class Tile {
   setFloor(floor: number) {
     if (floor === this.floorValue) return;
 
-    const shouldRedrawNeighbors = floor === WATER || this.floorValue === WATER;
+    const shouldRedrawNeighbors =
+      Content.getMetaFloor(floor).graphics.templateType || Content.getMetaFloor(this.floorValue).graphics.templateType;
     this.floorValue = floor;
     this.redrawFloor();
 
@@ -477,11 +478,11 @@ class Tile {
 
     const meta = Content.getMetaFloor(this.floorValue);
     let texture;
-    // TODO
-    if (this.floorValue === WATER) {
+    if (meta.graphics.templateType) {
       const partition = this.worldContainer.map.getPartition(this.loc.w);
-      const templateIdx = getWaterFloor(partition, this.loc);
-      texture = Draw.getTexture(meta.graphics.file, templateIdx);
+      const offset =
+        getIndexOffsetForTemplate(partition, this.floorValue, this.loc, meta.graphics.templateType, 'floor');
+      texture = Draw.getTexture(meta.graphics.file, meta.graphics.frames[0] + offset);
     } else {
       texture = Draw.getTexture(meta.graphics.file, meta.graphics.frames[0]);
     }
@@ -500,7 +501,9 @@ class Tile {
   setItem(item?: Item) {
     if (item === this.itemValue) return;
 
-    const shouldRedrawNeighbors = item?.type === MINE || this.itemValue?.type === MINE;
+    const shouldRedrawNeighbors =
+      (item && Content.getMetaItem(item.type).graphics.templateType) ||
+      (this.itemValue && Content.getMetaItem(this.itemValue.type).graphics.templateType);
     this.itemValue = item;
     this.redrawItem();
 
@@ -524,12 +527,14 @@ class Tile {
     }
     if (!this.itemValue) return;
 
+    const meta = Content.getMetaItem(this.itemValue.type);
+
     let sprite;
-    // TODO
-    if (this.itemValue.type === MINE) {
+    if (meta.graphics.templateType) {
       const partition = this.worldContainer.map.getPartition(this.loc.w);
-      const templateIdx = getMineItem(partition, this.loc);
-      const texture = Draw.getTexture('rpgwo-templates0.png', templateIdx);
+      const offset =
+        getIndexOffsetForTemplate(partition, this.floorValue, this.loc, meta.graphics.templateType, 'item');
+      const texture = Draw.getTexture(meta.graphics.file, meta.graphics.frames[0] + offset);
       sprite = new PIXI.Sprite(texture);
     } else {
       sprite = Draw.makeItemSprite2(this.itemValue);

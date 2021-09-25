@@ -233,6 +233,7 @@ export class MapSelectScene extends Scene {
     await this.controller.serverWorker.generateMap({
       ...opts,
       canvas: offscreenCanvas,
+      bare: true,
     }).finally(() => this.loadingPreview = false);
 
     this.previewEl.innerHTML = '';

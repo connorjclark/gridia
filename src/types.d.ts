@@ -183,7 +183,10 @@ interface Graphics {
   file: string;
   frames: number[];
   imageHeight?: number;
+  templateType?: TemplateType;
 }
+
+type TemplateType = 'bit-offset' | 'visual-offset';
 
 interface MetaFloor {
   id: number;

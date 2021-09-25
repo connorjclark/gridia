@@ -38,8 +38,10 @@ export async function startServer(options: ServerOptions, db: Database) {
 
   const server = new Server({
     worldDataDef: {
-      tileSize: 32,
-      baseDir: 'worlds/rpgwo-world',
+      // tileSize: 32,
+      // baseDir: 'worlds/rpgwo-world',
+      tileSize: 16,
+      baseDir: 'worlds/bit-world',
     },
     context,
     verbose,
@@ -51,27 +53,29 @@ export async function startServer(options: ServerOptions, db: Database) {
   // This cyclical dependency between ServerContext and WorldMap could be improved.
   context.map.loader = (pos) => context.loadSector(pos);
 
-  server.taskRunner.registerTickSection({
-    description: 'cows',
-    rate: {seconds: 1},
-    fn: () => {
-      if (context.clientConnections.length > 0) {
-        if (Object.keys(server.creatureStates).length < 10) {
-          const x = Utils.randInt(width / 2 - 5, width / 2 + 5);
-          const y = Utils.randInt(height / 2 - 5, height / 2 + 5);
-          const pos = {w: 0, x, y, z: 0};
-          const monster = Content.getRandomMonsterTemplate();
-          if (monster && server.context.walkable(pos)) {
-            server.createCreature({type: monster.id}, pos);
+  if (server.worldDataDef.baseDir === 'worlds/rpgwo-world') {
+    server.taskRunner.registerTickSection({
+      description: 'cows',
+      rate: {seconds: 1},
+      fn: () => {
+        if (context.clientConnections.length > 0) {
+          if (Object.keys(server.creatureStates).length < 10) {
+            const x = Utils.randInt(width / 2 - 5, width / 2 + 5);
+            const y = Utils.randInt(height / 2 - 5, height / 2 + 5);
+            const pos = {w: 0, x, y, z: 0};
+            const monster = Content.getRandomMonsterTemplate();
+            if (monster && server.context.walkable(pos)) {
+              server.createCreature({type: monster.id}, pos);
+            }
+          }
+        } else {
+          for (const {creature} of Object.values(server.creatureStates)) {
+            server.removeCreature(creature);
           }
         }
-      } else {
-        for (const {creature} of Object.values(server.creatureStates)) {
-          server.removeCreature(creature);
-        }
-      }
-    },
-  });
+      },
+    });
+  }
 
   server.taskRunner.registerTickSection({
     description: 'save',

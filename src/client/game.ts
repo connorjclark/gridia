@@ -549,6 +549,10 @@ export class Game {
   start() {
     this.client.settings = getDefaultSettings();
 
+    if (Content.getBaseDir() === 'worlds/bit-world') {
+      this.client.settings.scale = 2.25;
+    }
+
     this.canvasesEl.appendChild(this.app.view);
 
     this.createChatSection('All');

@@ -323,7 +323,11 @@ export class Server {
 
     const container = this.context.makeContainer('normal');
     player.containerId = container.id;
-    if (opts.name !== 'TestUser') {
+
+    const equipment = this.context.makeContainer('equipment', Object.keys(Container.EQUIP_SLOTS).length);
+    player.equipmentContainerId = equipment.id;
+
+    if (opts.name !== 'TestUser' && this.worldDataDef.baseDir === 'worlds/rpgwo-world') {
       container.items[0] = {type: Content.getMetaItemByName('Wood Axe').id, quantity: 1};
       container.items[1] = {type: Content.getMetaItemByName('Fire Starter').id, quantity: 1};
       container.items[2] = {type: Content.getMetaItemByName('Pick').id, quantity: 1};
@@ -337,11 +341,9 @@ export class Server {
       container.items[10] = {type: Content.getMetaItemByName('Bow').id, quantity: 1};
       container.items[11] = {type: Content.getMetaItemByName('Arrow').id, quantity: 500};
       container.items[12] = {type: Content.getMetaItemByName('Iron Wand').id, quantity: 1};
-    }
 
-    const equipment = this.context.makeContainer('equipment', Object.keys(Container.EQUIP_SLOTS).length);
-    equipment.items[0] = {type: Content.getMetaItemByName('Iron Helmet Plate').id, quantity: 1};
-    player.equipmentContainerId = equipment.id;
+      equipment.items[0] = {type: Content.getMetaItemByName('Iron Helmet Plate').id, quantity: 1};
+    }
 
     this.context.savePlayer(player);
     await this.context.db.endTransaction();
@@ -417,6 +419,12 @@ export class Server {
       stats: {} as Creature['stats'],
       buffs: player.buffs,
     };
+
+    if (this.worldDataDef.baseDir === 'worlds/bit-world') {
+      creature.graphics = {
+        file: 'tileset_1bit.png', index: 5*8 + 4,
+      };
+    }
 
     this.updateCreatureDataBasedOnEquipment(creature, clientConnection.equipment, {broadcast: false});
     clientConnection.creature = creature;
@@ -1092,6 +1100,7 @@ export class Server {
   updateCreatureDataBasedOnEquipment(creature: Creature, equipment: Container, opts: { broadcast: boolean }) {
     creature.equipment = equipment.items;
     creature.imageData = this.makeCreatureImageData(equipment);
+    if (this.worldDataDef.baseDir === 'worlds/bit-world') creature.imageData = undefined;
     creature.stats = {
       ...creature.stats,
       armor: 0,

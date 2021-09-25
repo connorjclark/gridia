@@ -57,7 +57,8 @@ async function init(args: InitArgs) {
   } else {
     // mapsDb = new LevelFs('default');
   }
-  await Content.initializeWorldData({baseDir: 'worlds/rpgwo-world', tileSize: 32});
+  // await Content.initializeWorldData({baseDir: 'worlds/rpgwo-world', tileSize: 32});
+  await Content.initializeWorldData({baseDir: 'worlds/bit-world', tileSize: 16});
 }
 
 async function listMaps() {

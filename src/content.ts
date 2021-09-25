@@ -58,7 +58,44 @@ export async function initializeWorldData(worldDataDef_: WorldDataDefinition): P
       loadDataFile('worlds/rpgwo-world/content/lootTables.json'),
     ]);
   } else if (worldDataDef_.baseDir === 'worlds/bit-world') {
-    // nothing yet.
+    function addItem(item: Partial<MetaItem>, x?: number, y?: number) {
+      const graphics = x !== undefined && y !== undefined ?
+        {file: 'tileset_1bit.png', frames: [x + y * 8]} :
+        {file: 'tileset_1bit.png', frames: [63]};
+      items.push({
+        id: items.length,
+        name: 'Unnamed item',
+        class: 'Normal',
+        graphics,
+        burden: 0,
+        stackable: false,
+        moveable: true,
+        walkable: true,
+        light: 0,
+        blocksLight: false,
+        rarity: 0,
+        ...item,
+      });
+    }
+
+    addItem({name: 'Nothing'});
+    addItem({name: 'Block', walkable: false}, 0, 0);
+    addItem({name: 'Wood Wall', walkable: false}, 1, 0);
+    addItem({name: 'Block', walkable: false}, 2, 0);
+    addItem({name: 'Brick Wall', walkable: false}, 3, 0);
+    addItem({name: 'Ore', class: 'Ore', rarity: 1}, 6, 0);
+    addItem({name: 'Tree', walkable: false}, 7, 0);
+    addItem({name: 'Palm Tree', walkable: false}, 7, 1);
+
+    /* eslint-disable max-len */
+    floors = [
+      {id: 0, graphics: {file: 'tileset_1bit.png', frames: [63]}, color: '0xffffff'},
+      {id: 1, graphics: {file: 'tileset_1bit.png', frames: [2*8 + 1], templateType: 'visual-offset'}, color: '0x0000bb'},
+      {id: 2, graphics: {file: 'tileset_1bit.png', frames: [6]}, color: '0x00ff00'},
+    ];
+    /* eslint-enable max-len */
+
+    skills = await loadDataFile('worlds/rpgwo-world/content/skills.json');
   }
 
   data = {
@@ -265,6 +302,8 @@ export function getRandomMetaItemOfClass(itemClass: MetaItem['class']) {
     sumSoFar += item.rarity;
     if (value < sumSoFar) return item;
   }
+
+  console.log({itemClass});
 
   // Shouldn't ever reach here.
   console.error('unexpected behavior in getRandomMetaItemOfClass.');

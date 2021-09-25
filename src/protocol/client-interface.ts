@@ -10,7 +10,7 @@ import {IEvents} from './gen/client-interface';
 import Events = Protocol.Events;
 
 export class ClientInterface implements IEvents {
-  onAnimation(client: Client, animatonInstance: Events.Animation): void {
+  onAnimation(client: Client, animationInstance: Events.Animation): void {
     // handled by game.ts
   }
 
