@@ -1,63 +1,82 @@
+import {setGfxSize} from './constants';
 import {ATTRIBUTES} from './player';
 import {randInt} from './utils';
 
-let floors: MetaFloor[] = [];
-let items: MetaItem[] = [];
-let itemUses: ItemUse[] = [];
-let animations: GridiaAnimation[] = [];
-let monsters: Monster[] = [];
-let skills: Skill[] = [];
-let spells: Spell[] = [];
-let lootTables: Record<string, LootTable> = {};
-
-// TODO: this json is bundled as JS - but it's much faster to parse
-// JSON at runtime via JSON.parse than as a JS object literal.
-// https://github.com/parcel-bundler/parcel/issues/501
-
-// Parcel doesn't support dynamic imports for workers yet.
-// Until then, we do this hack to at least cut the content data out
-// of the web client bundle. Parcel 2 will support this.
-
-// Only the node server entry / tests uses this.
-function loadContentFromDisk() {
-  // Make the path dynamically so parcel doesn't bundle the data.
-  const prefix = '../world/content';
-
-  [floors, items, itemUses, animations, monsters, skills, spells, lootTables] = [
-    require(`${prefix}/floors.json`),
-    require(`${prefix}/items.json`),
-    require(`${prefix}/itemuses.json`),
-    require(`${prefix}/animations.json`),
-    require(`${prefix}/monsters.json`),
-    require(`${prefix}/skills.json`),
-    require(`${prefix}/spells.json`),
-    require(`${prefix}/lootTables.json`),
-  ];
-  prepareData();
+interface WorldData {
+  floors: MetaFloor[];
+  items: MetaItem[];
+  itemUses: ItemUse[];
+  animations: GridiaAnimation[];
+  monsters: Monster[];
+  skills: Skill[];
+  spells: Spell[];
+  lootTables: Record<string, LootTable>;
 }
 
-// Web client and worker entry uses this.
-export async function loadContentFromNetwork() {
-  // @ts-ignore
-  [floors, items, itemUses, animations, monsters, skills, spells, lootTables] = await Promise.all([
-    fetch('world/content/floors.json').then((r) => r.json()),
-    fetch('world/content/items.json').then((r) => r.json()),
-    fetch('world/content/itemuses.json').then((r) => r.json()),
-    fetch('world/content/animations.json').then((r) => r.json()),
-    fetch('world/content/monsters.json').then((r) => r.json()),
-    fetch('world/content/skills.json').then((r) => r.json()),
-    fetch('world/content/spells.json').then((r) => r.json()),
-    fetch('world/content/lootTables.json').then((r) => r.json()),
-  ]);
-  prepareData();
-}
+const isNode = typeof process !== 'undefined' && process.release && process.release.name === 'node';
 
-if (typeof process !== 'undefined' && process.release && process.release.name === 'node') {
-  loadContentFromDisk();
-}
+let worldDataDef: WorldDataDefinition;
+let data: WorldData = {
+  floors: [],
+  items: [],
+  itemUses: [],
+  animations: [],
+  monsters: [],
+  skills: [],
+  spells: [],
+  lootTables: {},
+};
+export async function initializeWorldData(worldDataDef_: WorldDataDefinition): Promise<void> {
+  worldDataDef = worldDataDef_;
 
-function prepareData() {
-  items = items.map((item, i) => {
+  let floors: MetaFloor[] = [];
+  let items: MetaItem[] = [];
+  let itemUses: ItemUse[] = [];
+  let animations: GridiaAnimation[] = [];
+  let monsters: Monster[] = [];
+  let skills: Skill[] = [];
+  let spells: Spell[] = [];
+  let lootTables: Record<string, LootTable> = {};
+
+  async function loadDataFile(pathRelativeToRoot: string) {
+    if (isNode) {
+      return require('../' + pathRelativeToRoot);
+    }
+
+    return fetch(pathRelativeToRoot).then((r) => r.json());
+  }
+
+  if (worldDataDef_.baseDir === 'worlds/rpgwo-world') {
+    [floors, items, itemUses, animations, monsters, skills, spells, lootTables] = await Promise.all([
+      loadDataFile('worlds/rpgwo-world/content/floors.json'),
+      loadDataFile('worlds/rpgwo-world/content/items.json'),
+      loadDataFile('worlds/rpgwo-world/content/itemuses.json'),
+      loadDataFile('worlds/rpgwo-world/content/animations.json'),
+      loadDataFile('worlds/rpgwo-world/content/monsters.json'),
+      loadDataFile('worlds/rpgwo-world/content/skills.json'),
+      loadDataFile('worlds/rpgwo-world/content/spells.json'),
+      loadDataFile('worlds/rpgwo-world/content/lootTables.json'),
+    ]);
+  } else if (worldDataDef_.baseDir === 'worlds/bit-world') {
+    // nothing yet.
+  }
+
+  data = {
+    floors,
+    items,
+    itemUses,
+    animations,
+    monsters,
+    skills,
+    spells,
+    lootTables,
+  };
+
+  setGfxSize(worldDataDef_.tileSize);
+
+  // Tweak some things.
+
+  data.items = items.map((item, i) => {
     return item || {
       id: i,
       name: 'Unknown',
@@ -88,6 +107,52 @@ function prepareData() {
   // globalThis.GridiaContent = {items, itemUses, animations, monsters, skills};
 }
 
+// TODO: this json is bundled as JS - but it's much faster to parse
+// JSON at runtime via JSON.parse than as a JS object literal.
+// https://github.com/parcel-bundler/parcel/issues/501
+
+// Parcel doesn't support dynamic imports for workers yet.
+// Until then, we do this hack to at least cut the content data out
+// of the web client bundle. Parcel 2 will support this.
+
+// Only the node server entry / tests uses this.
+// function loadContentFromDisk() {
+//   // Make the path dynamically so parcel doesn't bundle the data.
+//   const prefix = '../world/content';
+
+//   [floors, items, itemUses, animations, monsters, skills, spells, lootTables] = [
+//     require(`${prefix}/floors.json`),
+//     require(`${prefix}/items.json`),
+//     require(`${prefix}/itemuses.json`),
+//     require(`${prefix}/animations.json`),
+//     require(`${prefix}/monsters.json`),
+//     require(`${prefix}/skills.json`),
+//     require(`${prefix}/spells.json`),
+//     require(`${prefix}/lootTables.json`),
+//   ];
+//   prepareData();
+// }
+
+// Web client and worker entry uses this.
+// export async function loadContentFromNetwork() {
+//   // @ts-ignore
+//   [floors, items, itemUses, animations, monsters, skills, spells, lootTables] = await Promise.all([
+//     fetch('world/content/floors.json').then((r) => r.json()),
+//     fetch('world/content/items.json').then((r) => r.json()),
+//     fetch('world/content/itemuses.json').then((r) => r.json()),
+//     fetch('world/content/animations.json').then((r) => r.json()),
+//     fetch('world/content/monsters.json').then((r) => r.json()),
+//     fetch('world/content/skills.json').then((r) => r.json()),
+//     fetch('world/content/spells.json').then((r) => r.json()),
+//     fetch('world/content/lootTables.json').then((r) => r.json()),
+//   ]);
+//   prepareData();
+// }
+
+// if (typeof process !== 'undefined' && process.release && process.release.name === 'node') {
+//   loadContentFromDisk();
+// }
+
 // Add name properties for readability in the console.
 function getName(id: number) {
   if (id === -1) return 'Hand';
@@ -117,47 +182,55 @@ export class ItemWrapper {
   }
 }
 
+export function getBaseDir() {
+  return worldDataDef.baseDir;
+}
+
+export function getTileSize() {
+  return worldDataDef.tileSize;
+}
+
 export function getFloors() {
-  return floors;
+  return data.floors;
 }
 
 export function getMetaFloor(id: number): MetaFloor {
-  return floors[id];
+  return data.floors[id];
 }
 
 export function getMetaItems(): MetaItem[] {
-  return items;
+  return data.items;
 }
 
 export function getMetaItem(id: number): MetaItem {
-  return items[id];
+  return data.items[id];
 }
 
 export function getMetaItemByName(name: string): MetaItem {
   const lowerCaseName = name.toLowerCase();
-  const result = items.find((item) => Boolean(item && item.name.toLowerCase() === lowerCaseName));
+  const result = data.items.find((item) => Boolean(item && item.name.toLowerCase() === lowerCaseName));
   if (!result) throw new Error(`could not find item: ${name}`);
   return result;
 }
 
 export function findMetaItemByName(name: string): MetaItem | undefined {
   const lowerCaseName = name.toLowerCase();
-  const result = items.find((item) => Boolean(item && item.name.toLowerCase() === lowerCaseName));
+  const result = data.items.find((item) => Boolean(item && item.name.toLowerCase() === lowerCaseName));
   return result;
 }
 
 export function getAllItemUses() {
-  return itemUses;
+  return data.itemUses;
 }
 
 export function getItemUses(tool: number, focus: number) {
-  return itemUses.filter((item) => item.tool === tool && item.focus === focus);
+  return data.itemUses.filter((item) => item.tool === tool && item.focus === focus);
 }
 
 export function getItemUsesForTool(tool: number) {
   const usagesGroupedByFocus = new Map<number, ItemUse[]>();
 
-  for (const itemUse of itemUses) {
+  for (const itemUse of data.itemUses) {
     if (itemUse.tool === tool) {
       const usages = usagesGroupedByFocus.get(itemUse.focus) || [];
       usages.push(itemUse);
@@ -169,15 +242,16 @@ export function getItemUsesForTool(tool: number) {
 }
 
 export function getItemUsesForFocus(focus: number) {
-  return itemUses.filter((item) => item.focus === focus);
+  return data.itemUses.filter((item) => item.focus === focus);
 }
 
 export function getItemUsesForProduct(type: number) {
-  return itemUses.filter((item) => item.successTool === type || item.products.some((product) => product.type === type));
+  return data.itemUses.filter(
+    (item) => item.successTool === type || item.products.some((product) => product.type === type));
 }
 
 function getMetaItemsOfClass(itemClass: MetaItem['class']): MetaItem[] {
-  return items.filter((item) => Boolean(item && item.class === itemClass));
+  return data.items.filter((item) => Boolean(item && item.class === itemClass));
 }
 
 // Weighted by rarity.
@@ -198,48 +272,48 @@ export function getRandomMetaItemOfClass(itemClass: MetaItem['class']) {
 }
 
 export function getAnimation(key: string) {
-  return animations.find((a) => a.name === key);
+  return data.animations.find((a) => a.name === key);
 }
 
 export function getAnimationByIndex(index: number) {
-  return animations[index];
+  return data.animations[index];
 }
 
 export function getMonsterTemplate(id: number) {
-  return monsters[id];
+  return data.monsters[id];
 }
 
 export function getRandomMonsterTemplate() {
-  const id = randInt(0, monsters.length - 1);
-  return monsters[id];
+  const id = randInt(0, data.monsters.length - 1);
+  return data.monsters[id];
 }
 
 export function getMonsterTemplateByName(name: string) {
-  const result = monsters.find((m) => m && m.name === name);
+  const result = data.monsters.find((m) => m && m.name === name);
   if (!result) throw new Error(`could not find monster: ${name}`);
   return result;
 }
 
 // TODO
 export function getMonsterTemplateByNameNoError(name: string) {
-  return monsters.find((m) => m && m.name === name);
+  return data.monsters.find((m) => m && m.name === name);
 }
 
 export function getSkills() {
-  return skills;
+  return data.skills;
 }
 
 export function getSkill(id: number) {
-  return skills[id - 1];
+  return data.skills[id - 1];
 }
 
 export function getSkillByName(name: string) {
-  return skills.find((s) => s.name === name);
+  return data.skills.find((s) => s.name === name);
 }
 
 // TODO make default behavior?
 export function getSkillByNameOrThrowError(name: string) {
-  const skill = skills.find((s) => s.name === name);
+  const skill = data.skills.find((s) => s.name === name);
   if (!skill) throw new Error('no skill named ' + name);
   return skill;
 }
@@ -265,13 +339,13 @@ export function getSkillAttributeDescription(skill: Skill) {
 }
 
 export function getSpells() {
-  return spells;
+  return data.spells;
 }
 
 export function getSpell(id: number) {
-  return spells[id];
+  return data.spells[id];
 }
 
 export function getLootTables() {
-  return lootTables;
+  return data.lootTables;
 }

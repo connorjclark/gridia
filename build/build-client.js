@@ -53,7 +53,7 @@ async function main() {
     contentHash: !dev,
   });
   await bundler.bundle();
-  copyFolderRecursiveSync("world", path.join("dist", "client"));
+  copyFolderRecursiveSync("worlds", path.join("dist", "client"));
 }
 
 main().catch(console.error);

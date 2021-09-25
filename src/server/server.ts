@@ -25,6 +25,7 @@ import {TaskRunner} from './task-runner';
 interface CtorOpts {
   context: ServerContext;
   verbose: boolean;
+  worldDataDef: WorldDataDefinition;
 }
 
 interface RegisterAccountOpts {
@@ -59,6 +60,7 @@ export class Server {
   currentClientConnection: ClientConnection;
   creatureStates: Record<number, CreatureState> = {};
 
+  worldDataDef: WorldDataDefinition;
   verbose: boolean;
   taskRunner = new TaskRunner(50);
 
@@ -73,7 +75,15 @@ export class Server {
   constructor(opts: CtorOpts) {
     this.context = opts.context;
     this.verbose = opts.verbose;
+    this.worldDataDef = opts.worldDataDef;
     this.setupTickSections();
+  }
+
+  addClientConnection(clientConnection: ClientConnection) {
+    this.context.clientConnections.push(clientConnection);
+    this.send(EventBuilder.connect({
+      worldData: this.worldDataDef,
+    }), clientConnection);
   }
 
   reply(event: ProtocolEvent) {

@@ -5,6 +5,7 @@ import {Client} from '../../client/client'
 export interface IEvents {
     onAnimation(client: Client, { name, path }: Protocol.Events.Animation): void;
     onContainer(client: Client, { container }: Protocol.Events.Container): void;
+    onConnect(client: Client, { worldData }: Protocol.Events.Connect): void;
     onInitialize(client: Client, { player, creatureId, secondsPerWorldTick, ticksPerWorldDay }: Protocol.Events.Initialize): void;
     onInitializePartition(client: Client, { ...loc }: Protocol.Events.InitializePartition): void;
     onLog(client: Client, { msg }: Protocol.Events.Log): void;

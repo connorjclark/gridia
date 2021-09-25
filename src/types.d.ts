@@ -408,6 +408,11 @@ interface ServerWorkerOpts extends ServerOptions {
   useMapPreview?: boolean;
 }
 
+interface WorldDataDefinition {
+  tileSize: number;
+  baseDir: string;
+}
+
 declare module 'js-bbcode-parser' {
   // eslint-disable-next-line import/no-default-export
   export default {parse: (text: string) => string};

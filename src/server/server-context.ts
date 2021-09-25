@@ -1,3 +1,4 @@
+import * as Content from '../content';
 import {Context} from '../context';
 import {Database} from '../database';
 import * as WireSerializer from '../lib/wire-serializer';

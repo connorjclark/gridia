@@ -23,7 +23,7 @@ function makeTextureCache(file: string) {
       return texture;
     }
 
-    const resourceKey = 'world/graphics/' + file;
+    const resourceKey = `${Content.getBaseDir()}/graphics/${file}`;
     if (!game.loader.hasResourceLoaded(resourceKey)) {
       game.loader.loadResource(resourceKey);
       return PIXI.Texture.EMPTY;

@@ -37,6 +37,10 @@ export function openAndConnectToServerInMemory(
   const {verbose, worldMap} = opts;
   const serverContext = new ServerContext(worldMap, new MemoryDb());
   const server = new Server({
+    worldDataDef: {
+      baseDir: 'worlds/rpgwo-world',
+      tileSize: 32,
+    },
     context: serverContext,
     verbose,
   });
@@ -48,7 +52,7 @@ export function openAndConnectToServerInMemory(
     if (!cloned.id) client.eventEmitter.emit('event', cloned.data);
   };
   // TODO: why is this needed?
-  server.context.clientConnections.push(clientConnection);
+  server.addClientConnection(clientConnection);
 
   const connection = new MemoryConnection(clientConnection);
   connection.setOnEvent((event) => {

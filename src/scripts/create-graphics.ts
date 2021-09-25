@@ -1,4 +1,4 @@
-// yarn build-server && rm -rf world/graphics && node dist/server/scripts/create-graphics.js
+// yarn build-server && rm -rf worlds/rpgwo-world/graphics && node dist/server/scripts/create-graphics.js
 
 import {execFileSync} from 'child_process';
 import * as fs from 'fs';
@@ -7,7 +7,7 @@ import * as glob from 'glob';
 
 const graphicsManifest = [];
 
-fs.mkdirSync('world/graphics', {recursive: true});
+fs.mkdirSync('worlds/rpgwo-world/graphics', {recursive: true});
 fs.mkdirSync('.tmp', {recursive: true});
 
 for (const file of glob.sync('assets/**/*.{png,bmp}')) {
@@ -35,7 +35,7 @@ for (const file of glob.sync('assets/**/*.{png,bmp}')) {
     name = split[split.length - 1];
   }
 
-  const newPath = `world/graphics/${name}`;
+  const newPath = `worlds/rpgwo-world/graphics/${name}`;
   if (file.endsWith('.bmp')) {
     execFileSync('convert', [
       file,

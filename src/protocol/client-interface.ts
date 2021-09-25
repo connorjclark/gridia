@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import {Client} from '../client/client';
+import * as Content from '../content';
 import * as Player from '../player';
 
 import * as CommandBuilder from './command-builder';
@@ -17,11 +18,15 @@ export class ClientInterface implements IEvents {
     client.context.containers.set(container.id, container);
   }
 
-  onInitialize(client: Client, {player, creatureId, secondsPerWorldTick, ticksPerWorldDay}: Events.Initialize): void {
-    client.player = player;
-    client.creatureId = creatureId;
-    client.secondsPerWorldTick = secondsPerWorldTick;
-    client.ticksPerWorldDay = ticksPerWorldDay;
+  async onConnect(client: Client, opts: Events.Connect): Promise<void> {
+    await Content.initializeWorldData(opts.worldData);
+  }
+
+  onInitialize(client: Client, opts: Events.Initialize): void {
+    client.player = opts.player;
+    client.creatureId = opts.creatureId;
+    client.secondsPerWorldTick = opts.secondsPerWorldTick;
+    client.ticksPerWorldDay = opts.ticksPerWorldDay;
   }
 
   onInitializePartition(client: Client, {...pos}: Events.InitializePartition): void {

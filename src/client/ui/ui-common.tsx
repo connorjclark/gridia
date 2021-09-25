@@ -5,6 +5,7 @@ import {Provider, connect} from 'redux-zero/preact';
 import {Actions, BoundActions} from 'redux-zero/types/Actions';
 
 import {GFX_SIZE} from '../../constants';
+import * as Content from '../../content';
 import * as Utils from '../../utils';
 import * as Helper from '../helper';
 import {ImageResources} from '../lazy-resource-loader';
@@ -88,12 +89,13 @@ interface GraphicProps {
   scale?: number;
 }
 export const Graphic = (props: GraphicProps) => {
-  const res = ImageResources.find((r) => r.file === 'world/graphics/' + props.file);
+  const baseDir = Content.getBaseDir();
+  const res = ImageResources.find((r) => r.file === `${baseDir}/graphics/${props.file}`);
   const width = res?.width || 320;
   const tilesAcross = width / GFX_SIZE;
   const x = props.index % tilesAcross;
   const y = Math.floor(props.index / tilesAcross);
-  const backgroundImage = `url(world/graphics/${props.file})`;
+  const backgroundImage = `url(${baseDir}/graphics/${props.file})`;
   const label = props.quantity !== undefined && props.quantity !== 1 ? Utils.formatQuantity(props.quantity) : '';
 
   let style: { [key: string]: string | number } = {

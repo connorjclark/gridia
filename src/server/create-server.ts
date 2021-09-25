@@ -37,9 +37,14 @@ export async function startServer(options: ServerOptions, db: Database) {
   }
 
   const server = new Server({
+    worldDataDef: {
+      tileSize: 32,
+      baseDir: 'worlds/rpgwo-world',
+    },
     context,
     verbose,
   });
+  await Content.initializeWorldData(server.worldDataDef);
 
   const {width, height} = context.map.getPartition(0);
 

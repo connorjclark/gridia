@@ -78,7 +78,7 @@ async function main(options: CLIOptions) {
       }
     };
 
-    server.context.clientConnections.push(clientConnection);
+    server.addClientConnection(clientConnection);
   };
 
   wss.on('connection', (ws) => {
@@ -97,7 +97,7 @@ async function main(options: CLIOptions) {
       ws.send(WireSerializer.serialize(message));
     };
 
-    server.context.clientConnections.push(clientConnection);
+    server.addClientConnection(clientConnection);
   });
 
   nodeCleanup((exitCode, signal) => {

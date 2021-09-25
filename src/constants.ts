@@ -5,5 +5,9 @@ export const SECTOR_SIZE = 20;
 export const CREATE_CHARACTER_ATTRIBUTES = 1000;
 export const CREATE_CHARACTER_SKILL_POINTS = 50;
 
+// TODO: not-so-constant, but this makes the consuming code a bit simpler...
+export function setGfxSize(size: number) {
+  GFX_SIZE = size;
+}
 // Size of tile in sprite template and world coordinates.
-export const GFX_SIZE = 32;
+export let GFX_SIZE = 32;

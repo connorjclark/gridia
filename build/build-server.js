@@ -38,8 +38,8 @@ function copyFolderRecursiveSync(source, target) {
   }
 }
 
-// Server expected `world` to be in a parent directory.
-copyFolderRecursiveSync("world", "dist");
+// Server expected `worlds` to be in a parent directory.
+copyFolderRecursiveSync("worlds", "dist");
 
 // TODO exclude these folder in the tsconfig.
 rimraf.sync(path.join("dist", "server", "client"));

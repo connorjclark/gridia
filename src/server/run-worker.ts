@@ -57,7 +57,7 @@ async function init(args: InitArgs) {
   } else {
     // mapsDb = new LevelFs('default');
   }
-  await Content.loadContentFromNetwork();
+  await Content.initializeWorldData({baseDir: 'worlds/rpgwo-world', tileSize: 32});
 }
 
 async function listMaps() {
@@ -122,7 +122,7 @@ async function startServer(args: ServerWorkerOpts) {
   };
 
   server = await _startServer(args, await makeFsForMap(args.mapName));
-  server.context.clientConnections.push(clientConnection);
+  server.addClientConnection(clientConnection);
 }
 
 async function shutdown() {

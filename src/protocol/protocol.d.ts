@@ -57,6 +57,10 @@ declare namespace Protocol {
       container: Container_;
     }
 
+    interface Connect {
+      worldData: WorldDataDefinition;
+    }
+
     interface Initialize {
       player: Player;
       creatureId: number;

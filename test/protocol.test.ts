@@ -48,6 +48,7 @@ beforeEach(async () => {
   client = memoryServerData.client;
   connection = client.connection;
   server = memoryServerData.server;
+  await Content.initializeWorldData(server.worldDataDef);
 
   memoryServerData.clientConnection.account = {id: 'local', playerIds: []};
   connection.sendCommand(CommandBuilder.createPlayer({
@@ -117,13 +118,13 @@ function assertCreatureAt(location: TilePoint, creatureId: number) {
   expect(creature?.id).toEqual(creatureId);
 }
 
-assert(Content.getMetaItemByName('Cut Red Rose').walkable);
 function getWalkableItem(): Item {
+  assert(Content.getMetaItemByName('Cut Red Rose').walkable);
   return {type: Content.getMetaItemByName('Cut Red Rose').id, quantity: 1};
 }
 
-assert(!Content.getMetaItemByName('Granite Wall').walkable);
 function getUnwalkableItem(): Item {
+  assert(!Content.getMetaItemByName('Granite Wall').walkable);
   return {type: Content.getMetaItemByName('Granite Wall').id, quantity: 1};
 }
 
@@ -201,13 +202,12 @@ describe('move', () => {
 });
 
 describe('moveItem', () => {
-  assert(Content.getMetaItem(1).stackable);
-  assert(Content.getMetaItem(1).moveable);
-
   it('move item', async () => {
     const from = {w: 0, x: 0, y: 0, z: 0};
     const to = {w: 0, x: 1, y: 0, z: 0};
 
+    assert(Content.getMetaItem(1).stackable);
+    assert(Content.getMetaItem(1).moveable);
     setItem(from, {type: 1, quantity: 10});
 
     await send(CommandBuilder.moveItem({

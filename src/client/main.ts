@@ -105,8 +105,9 @@ function setupDebugging(controller: SceneController) {
 
 document.addEventListener('DOMContentLoaded', async () => {
   const controller = new SceneController();
+  // @ts-expect-error
+  window.gridiaController = controller;
   setupDebugging(controller);
-  await Content.loadContentFromNetwork();
 
   if (controller.qs.quick === 'server') {
     controller.pushScene(new StartScene(controller));

@@ -8,6 +8,10 @@ type ContainerEvent = {
     type: "container";
     args: Protocol.Events.Container;
 };
+type ConnectEvent = {
+    type: "connect";
+    args: Protocol.Events.Connect;
+};
 type InitializeEvent = {
     type: "initialize";
     args: Protocol.Events.Initialize;
@@ -61,13 +65,16 @@ type SetAttackTargetEvent = {
     args: Protocol.Events.SetAttackTarget;
 };
 
-export type ProtocolEvent = AnimationEvent | ContainerEvent | InitializeEvent | InitializePartitionEvent | LogEvent | RemoveCreatureEvent | SectorEvent | SetCreatureEvent | SetFloorEvent | SetItemEvent | XpEvent | ChatEvent | TimeEvent | DialogueEvent | SetAttackTargetEvent;
+export type ProtocolEvent = AnimationEvent | ContainerEvent | ConnectEvent | InitializeEvent | InitializePartitionEvent | LogEvent | RemoveCreatureEvent | SectorEvent | SetCreatureEvent | SetFloorEvent | SetItemEvent | XpEvent | ChatEvent | TimeEvent | DialogueEvent | SetAttackTargetEvent;
 
 export function animation({ name, path }: Protocol.Events.Animation): AnimationEvent {
     return { type: "animation", args: arguments[0] };
 }
 export function container({ container }: Protocol.Events.Container): ContainerEvent {
     return { type: "container", args: arguments[0] };
+}
+export function connect({ worldData }: Protocol.Events.Connect): ConnectEvent {
+    return { type: "connect", args: arguments[0] };
 }
 export function initialize({ player, creatureId, secondsPerWorldTick, ticksPerWorldDay }: Protocol.Events.Initialize): InitializeEvent {
     return { type: "initialize", args: arguments[0] };
