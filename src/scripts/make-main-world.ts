@@ -17,7 +17,8 @@ async function createMainWorldMap() {
   }
 
   const map = new WorldMap();
-  const context = new ServerContext(map, new NodeFsDb('saved-maps/main'));
+  await Content.initializeWorldData(Content.WORLD_DATA_DEFINITIONS.rpgwo);
+  const context = new ServerContext(Content.WORLD_DATA_DEFINITIONS.rpgwo, map, new NodeFsDb('saved-maps/main'));
   context.map.loader = (pos) => context.loadSector(pos);
 
   let numMainPartitions = 0;

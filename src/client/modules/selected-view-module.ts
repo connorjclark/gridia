@@ -74,7 +74,6 @@ export class SelectedViewModule extends ClientModule {
     }
 
     let data: Record<string, string | { type: 'bar'; color: string; current: number; max: number }>;
-    let meta;
     if (creature) {
       data = {
         'Name': creature.name,
@@ -85,7 +84,7 @@ export class SelectedViewModule extends ClientModule {
         'Food': String(creature.food),
       };
     } else if (item) {
-      meta = Content.getMetaItem(item.type);
+      const meta = Content.getMetaItem(item.type);
       data = {
         name: meta.name,
         quantity: item.quantity.toLocaleString(),

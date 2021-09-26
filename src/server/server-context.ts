@@ -9,6 +9,11 @@ import {WorldMapPartition} from '../world-map-partition';
 import {ClientConnection} from './client-connection';
 import {ScriptConfigStore} from './scripts/script-config-store';
 
+interface Meta {
+  nextCreatureId: number;
+  worldDataDefinition: WorldDataDefinition;
+}
+
 async function readJson(fs: Database, store: string, key: string) {
   const json = await fs.get(store, key);
 
@@ -34,15 +39,16 @@ export class ServerContext extends Context {
   nextCreatureId = 1;
   scriptConfigStore = new ScriptConfigStore({});
 
-  constructor(map: WorldMap, public db: Database) {
-    super(map);
+  constructor(worldDataDefinition: WorldDataDefinition, map: WorldMap, public db: Database) {
+    super(worldDataDefinition, map);
   }
 
-  static async load(fs: Database) {
-    const map = new WorldMap();
-    const context = new ServerContext(map, fs);
+  static async load(db: Database) {
+    const meta = await readJson(db, Store.misc, 'meta.json') as Meta;
+    await Content.initializeWorldData(meta.worldDataDefinition);
 
-    const meta = await readJson(fs, Store.misc, 'meta.json');
+    const map = new WorldMap();
+    const context = new ServerContext(meta.worldDataDefinition, map, db);
 
     // TODO: figure out if I want to save creatures at all.
     // const creatures = JSON.parse(await fs.readFile(context.creaturesPath()));
@@ -54,7 +60,7 @@ export class ServerContext extends Context {
     context.nextCreatureId = meta.nextCreatureId || 1;
 
     // Just load all the partitions for now.
-    const partitionIds = (await fs.getAllKeysInStore(Store.sector))
+    const partitionIds = (await db.getAllKeysInStore(Store.sector))
       .filter((k) => /^\d+\/meta\.json/.test(k))
       .map((key) => parseInt(key));
     for (const w of partitionIds) {
@@ -62,14 +68,14 @@ export class ServerContext extends Context {
     }
 
     context.playerNamesToIds.clear();
-    for (const key of await fs.getAllKeysInStore(Store.player)) {
-      const player: Player = await readJson(fs, Store.player, key);
+    for (const key of await db.getAllKeysInStore(Store.player)) {
+      const player: Player = await readJson(db, Store.player, key);
       context.playerNamesToIds.set(player.name, player.id);
     }
 
     const scriptConfigKey = 'script-config.json';
-    if (await fs.exists(Store.misc, scriptConfigKey)) {
-      context.scriptConfigStore = new ScriptConfigStore(await readJson(fs, Store.misc, scriptConfigKey));
+    if (await db.exists(Store.misc, scriptConfigKey)) {
+      context.scriptConfigStore = new ScriptConfigStore(await readJson(db, Store.misc, scriptConfigKey));
     } else {
       context.scriptConfigStore = new ScriptConfigStore({});
     }
@@ -220,8 +226,9 @@ export class ServerContext extends Context {
   }
 
   protected saveMeta() {
-    const meta = {
+    const meta: Meta = {
       nextCreatureId: this.nextCreatureId,
+      worldDataDefinition: this.worldDataDefinition,
     };
     this.db.addToTransaction(Store.misc, 'meta.json', JSON.stringify(meta, null, 2));
   }

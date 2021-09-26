@@ -126,6 +126,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         height: 100,
         depth: 1,
         seeds: {},
+        worldDataDefinition: Content.WORLD_DATA_DEFINITIONS.rpgwo,
       });
       await controller.serverWorker.saveGeneratedMap({name: 'quick-default'});
     }

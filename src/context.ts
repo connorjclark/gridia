@@ -5,7 +5,7 @@ export class Context {
   locationToCreature = new Map<string, Creature>();
   containers = new Map<string, Container>();
 
-  constructor(public map: WorldMap) {
+  constructor(public worldDataDefinition: WorldDataDefinition, public map: WorldMap) {
   }
 
   walkable(loc: TilePoint) {

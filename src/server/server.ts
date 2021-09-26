@@ -25,7 +25,6 @@ import {TaskRunner} from './task-runner';
 interface CtorOpts {
   context: ServerContext;
   verbose: boolean;
-  worldDataDef: WorldDataDefinition;
 }
 
 interface RegisterAccountOpts {
@@ -60,7 +59,6 @@ export class Server {
   currentClientConnection: ClientConnection;
   creatureStates: Record<number, CreatureState> = {};
 
-  worldDataDef: WorldDataDefinition;
   verbose: boolean;
   taskRunner = new TaskRunner(50);
 
@@ -75,14 +73,13 @@ export class Server {
   constructor(opts: CtorOpts) {
     this.context = opts.context;
     this.verbose = opts.verbose;
-    this.worldDataDef = opts.worldDataDef;
     this.setupTickSections();
   }
 
   addClientConnection(clientConnection: ClientConnection) {
     this.context.clientConnections.push(clientConnection);
     this.send(EventBuilder.connect({
-      worldData: this.worldDataDef,
+      worldData: this.context.worldDataDefinition,
     }), clientConnection);
   }
 
@@ -327,7 +324,7 @@ export class Server {
     const equipment = this.context.makeContainer('equipment', Object.keys(Container.EQUIP_SLOTS).length);
     player.equipmentContainerId = equipment.id;
 
-    if (opts.name !== 'TestUser' && this.worldDataDef.baseDir === 'worlds/rpgwo-world') {
+    if (opts.name !== 'TestUser' && this.context.worldDataDefinition.baseDir === 'worlds/rpgwo-world') {
       container.items[0] = {type: Content.getMetaItemByName('Wood Axe').id, quantity: 1};
       container.items[1] = {type: Content.getMetaItemByName('Fire Starter').id, quantity: 1};
       container.items[2] = {type: Content.getMetaItemByName('Pick').id, quantity: 1};
@@ -422,11 +419,11 @@ export class Server {
       buffs: player.buffs,
     };
 
-    if (this.worldDataDef.baseDir === 'worlds/16bit-world') {
+    if (this.context.worldDataDefinition.baseDir === 'worlds/16bit-world') {
       creature.graphics = {
         file: 'creatures_001.png', frames: [0, 18],
       };
-    } else if (this.worldDataDef.baseDir === 'worlds/bit-world') {
+    } else if (this.context.worldDataDefinition.baseDir === 'worlds/bit-world') {
       creature.graphics = {
         file: 'tileset_1bit.png', frames: [5*8 + 4],
       };

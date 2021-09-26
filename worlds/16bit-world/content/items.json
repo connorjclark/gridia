@@ -24,7 +24,8 @@
         9
       ],
       "templateType": "misc-offset-1"
-    }
+    },
+    "blocksMovement": true
   },
   {
     "id": 2,
@@ -47,7 +48,8 @@
         "lra": 178,
         "la": 179
       }
-    }
+    },
+    "blocksMovement": true
   },
   {
     "id": 3,
@@ -70,7 +72,8 @@
         "lra": 316,
         "la": 317
       }
-    }
+    },
+    "blocksMovement": true
   },
   {
     "id": 4,

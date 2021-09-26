@@ -6,6 +6,7 @@ import {ServerContext, Store} from '../server/server-context';
 import * as Utils from '../utils';
 import {createMainWorldMap} from '../world-map-debug';
 
+// TODO: separate initializing a world from starting a server
 export async function startServer(options: ServerOptions, db: Database) {
   const {verbose} = options;
 
@@ -23,7 +24,7 @@ export async function startServer(options: ServerOptions, db: Database) {
   } else {
     // TODO: shouldn't create a world here...
     const {world, mapGenData} = createMainWorldMap();
-    context = new ServerContext(world, db);
+    context = new ServerContext(options.worldDataDef, world, db);
     await context.save();
 
     // Only save images in Node server.
@@ -37,23 +38,16 @@ export async function startServer(options: ServerOptions, db: Database) {
   }
 
   const server = new Server({
-    worldDataDef: {
-      // tileSize: 32,
-      // baseDir: 'worlds/rpgwo-world',
-      tileSize: 24,
-      baseDir: 'worlds/16bit-world',
-    },
     context,
     verbose,
   });
-  await Content.initializeWorldData(server.worldDataDef);
 
   const {width, height} = context.map.getPartition(0);
 
   // This cyclical dependency between ServerContext and WorldMap could be improved.
   context.map.loader = (pos) => context.loadSector(pos);
 
-  if (server.worldDataDef.baseDir === 'worlds/rpgwo-world') {
+  if (server.context.worldDataDefinition.baseDir === 'worlds/rpgwo-world') {
     server.taskRunner.registerTickSection({
       description: 'cows',
       rate: {seconds: 1},

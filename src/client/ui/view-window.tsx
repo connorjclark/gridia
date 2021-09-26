@@ -60,7 +60,7 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
       }
 
       let img;
-      if (equipmentGraphics) {
+      if (equipmentGraphics && equipmentGraphics.length) {
         img = <CustomCreatureGraphic graphics={equipmentGraphics}></CustomCreatureGraphic>;
       } else if (file && index !== undefined) {
         img = <Graphic file={file} index={index} quantity={quantity}></Graphic>;

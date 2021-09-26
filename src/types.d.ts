@@ -400,6 +400,8 @@ type NoMethods<T> = Pick<T, NoMethodKeys<T>>;
 
 interface ServerOptions {
   verbose: boolean;
+  // TODO: this shouldn't be in options ...
+  worldDataDef: WorldDataDefinition;
 }
 
 interface CLIOptions extends ServerOptions {

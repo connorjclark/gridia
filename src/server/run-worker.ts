@@ -15,6 +15,7 @@ let opts: ServerWorkerOpts;
 let server: Server;
 let clientConnection: ClientConnection;
 
+let previewWorldDataDefinition: WorldDataDefinition | null = null;
 let mapPreviewPartition: WorldMapPartition | null = null;
 let mapPreviewGenData: ReturnType<typeof mapgen>['mapGenResult'] | null = null;
 
@@ -28,7 +29,7 @@ function maybeDelay(fn: () => void) {
   }
 }
 
-async function makeFsForMap(mapName: string) {
+async function makeDbForMap(mapName: string) {
   if (initArgs_.directoryHandle) {
     return new FsApiDb(await initArgs_.directoryHandle.getDirectoryHandle(mapName));
   } else {
@@ -38,11 +39,12 @@ async function makeFsForMap(mapName: string) {
 
 async function saveMapGen(name: string) {
   if (!mapPreviewPartition) throw new Error('missing mapPreviewPartition');
+  if (!previewWorldDataDefinition) throw new Error('missing previewWorldDataDefinition');
 
   const world = new WorldMap();
   world.addPartition(0, mapPreviewPartition);
 
-  const context = new ServerContext(world, await makeFsForMap(name));
+  const context = new ServerContext(previewWorldDataDefinition, world, await makeDbForMap(name));
   await context.save();
 }
 
@@ -50,15 +52,13 @@ interface InitArgs {
   directoryHandle?: FileSystemDirectoryHandle;
 }
 let initArgs_: InitArgs;
-async function init(args: InitArgs) {
+function init(args: InitArgs) {
   initArgs_ = args;
   if (args.directoryHandle) {
     mapsDb = new FsApiDb(args.directoryHandle);
   } else {
     // mapsDb = new LevelFs('default');
   }
-  // await Content.initializeWorldData({baseDir: 'worlds/rpgwo-world', tileSize: 32});
-  await Content.initializeWorldData({baseDir: 'worlds/16bit-world', tileSize: 24});
 }
 
 async function listMaps() {
@@ -79,21 +79,25 @@ async function listMaps() {
 }
 
 interface GenerateMapArgs {
+  worldDataDefinition: WorldDataDefinition;
   bare: boolean; width: number; height: number; depth: number; seeds: { [id: string]: number };
   canvas?: OffscreenCanvas;
 }
-function generateMap(args: GenerateMapArgs) {
+async function generateMap(args: GenerateMapArgs) {
+  await Content.initializeWorldData(args.worldDataDefinition);
+  previewWorldDataDefinition = args.worldDataDefinition;
+
   if (args.bare) {
     mapPreviewPartition = makeBareMap(args.width, args.height, args.depth);
   } else {
-    // @ts-ignore: TODO
+    // @ts-expect-error: TODO
     const mapGenResult = mapgen(args);
     mapPreviewPartition = mapGenResult.partition;
     mapPreviewGenData = mapGenResult.mapGenResult;
   }
 
   if (mapPreviewGenData && args.canvas) {
-    // @ts-ignore: Hack to make canvas-node use the given OffscreenCanvas.
+    // @ts-expect-error: Hack to make canvas-node use the given OffscreenCanvas.
     global.document = {
       createElement() {
         return args.canvas;
@@ -122,7 +126,9 @@ async function startServer(args: ServerWorkerOpts) {
     });
   };
 
-  server = await _startServer(args, await makeFsForMap(args.mapName));
+  const db = await makeDbForMap(args.mapName);
+
+  server = await _startServer(args, db);
   server.addClientConnection(clientConnection);
 }
 

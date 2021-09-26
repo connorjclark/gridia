@@ -1,5 +1,3 @@
-import * as idbKeyval from 'idb-keyval';
-
 import {Client} from '../client';
 import * as Helper from '../helper';
 import {ServerWorker} from '../server-worker';
@@ -30,7 +28,7 @@ export class SceneController {
   private backBtn_ = Helper.find('.scene-controller--back-btn');
   private localStorageKey = '';
   // @ts-expect-error
-  localStorageData: LocalStorageData;
+  localStorageData: LocalStorageData; // TODO: remove
   qs = parseQuery(window.location.search);
 
   constructor() {
@@ -82,7 +80,7 @@ export class SceneController {
     this.pushScene(new GameScene(this));
   }
 
-  async loadWorker() {
+  loadWorker() {
     if (this.serverWorker_) return;
 
     let directoryHandle: FileSystemDirectoryHandle | undefined;
@@ -101,7 +99,7 @@ export class SceneController {
     // }
 
     this.serverWorker_ = new ServerWorker();
-    await this.serverWorker_.init({directoryHandle});
+    this.serverWorker_.init({directoryHandle});
   }
 
   destoryWorker() {

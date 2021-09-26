@@ -4,7 +4,6 @@
     "name": "Nothing",
     "class": "Normal",
     "blocksLight": false,
-    "blocksMovement": true,
     "burden": 0,
     "graphics": {
       "file": "rpgwo-item0.png",
@@ -49777,7 +49776,7 @@
     "name": "Mine",
     "class": "Normal",
     "blocksLight": true,
-    "blocksMovement": false,
+    "blocksMovement": true,
     "graphics": {
       "file": "rpgwo-templates0.png",
       "frames": [

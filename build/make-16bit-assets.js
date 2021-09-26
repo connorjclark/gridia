@@ -76,6 +76,7 @@ items.push({
   id: items.length,
   name: 'Wall',
   graphics: {file: 'world_001.png', frames: [9], templateType: 'misc-offset-1'},
+  blocksMovement: true,
 });
 items.push({
   id: items.length,
@@ -99,6 +100,7 @@ items.push({
       la: 6*27 + 17,
     },
   },
+  blocksMovement: true,
 });
 items.push({
   id: items.length,
@@ -122,6 +124,7 @@ items.push({
       la: 11*27 + 20,
     },
   },
+  blocksMovement: true,
 });
 items.push({
   id: items.length,

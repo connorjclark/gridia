@@ -152,8 +152,8 @@ export const Graphic = (props: GraphicProps) => {
 
   if (!width || !height) return <div class="graphic">?</div>;
 
-  const tilesAcross = width / GFX_SIZE;
-  const tilesColumn = height / GFX_SIZE;
+  const tilesAcross = Math.round(width / GFX_SIZE);
+  const tilesColumn = Math.round(height / GFX_SIZE);
   const x = props.index % tilesAcross;
   const y = Math.floor(props.index / tilesAcross);
   const label = props.quantity !== undefined && props.quantity !== 1 ? Utils.formatQuantity(props.quantity) : '';

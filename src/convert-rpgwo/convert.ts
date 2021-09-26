@@ -704,7 +704,6 @@ function convertItems() {
       },
       class: 'Normal',
       burden: 0,
-      blocksMovement: true,
       light: 0,
       moveable: true,
       stackable: false,
@@ -723,7 +722,7 @@ function convertItems() {
       templateType: 'bit-offset',
     },
     class: 'Normal',
-    blocksMovement: false,
+    blocksMovement: true,
     moveable: false,
     blocksLight: true,
   });
@@ -871,8 +870,11 @@ function convertFloors() {
     // Water.
     if (floor.id === 1) {
       floor.color = 'ADBCE6';
-      floor.graphics.file = 'rpgwo-templates0.png';
-      floor.templateType = 'bit-offset';
+      floor.graphics = {
+        file: 'rpgwo-templates0.png',
+        frames: [0],
+        templateType: 'bit-offset',
+      };
       continue;
     }
 

@@ -12,7 +12,8 @@ function onProtocolEvent(client: Client, event: ProtocolEvent) {
 }
 
 function createClient(connection: Connection) {
-  const context = new Context(createClientWorldMap(connection));
+  // @ts-expect-error: ?
+  const context = new Context(null, createClientWorldMap(connection));
   const client = new Client(connection, context);
   connection.setOnEvent(onProtocolEvent.bind(undefined, client));
   return client;

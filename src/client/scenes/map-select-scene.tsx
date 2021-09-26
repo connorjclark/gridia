@@ -3,6 +3,7 @@
 import linkState from 'linkstate';
 import {render, h, Component, Fragment} from 'preact';
 
+import {WORLD_DATA_DEFINITIONS} from '../../content';
 import * as CommandBuilder from '../../protocol/command-builder';
 import {randInt} from '../../utils';
 import {connectToServerWorker} from '../connect-to-server';
@@ -13,6 +14,7 @@ import {SceneController} from './scene-controller';
 import {SelectCharacterScene} from './select-character-scene';
 
 const DEFAULT_MAP_FORM_STATE = {
+  worldDataDefinition: 'rpgwo',
   width: 200,
   height: 200,
   depth: 2,
@@ -115,9 +117,15 @@ function createMapSelectForm(inputFormEl: HTMLElement, onStateUpdate: (state: Fo
     }
 
     render(props: any, state: FormState) {
-
-
       return <div>
+        <div>
+          <label>World Type</label>
+          <select onInput={linkState(this, 'worldDataDefinition')} name="worldDataDefinition">
+            <option value="rpgwo">RPGWO World</option>
+            <option value="bit16">16-bit</option>
+            <option value="bit">1-bit</option>
+          </select>
+        </div>
         <div>
           <Input onInput={linkState(this, 'width')} name="width" type={'range'} min={100} value={state.width} max={1000} step={20}></Input>
           <Input onChange={linkState(this, 'height')} name="height" type={'range'} min={100} value={state.height} max={1000} step={20}></Input>
@@ -181,6 +189,7 @@ export class MapSelectScene extends Scene {
   private previewEl: HTMLElement;
   private inputFormEl: HTMLElement;
   private loadingPreview = false;
+  loadingPreviewName: string;
 
   constructor(private controller: SceneController) {
     super(Helper.find('.map-select'));
@@ -198,6 +207,9 @@ export class MapSelectScene extends Scene {
       mapName: name,
       dummyDelay: this.controller.qs.latency ?? 0,
       verbose: false,
+      // TODO: ?
+      // @ts-expect-error
+      worldDataDef: undefined,
     });
 
     // TODO: this should be part of the `connectToX` flow ...
@@ -228,10 +240,12 @@ export class MapSelectScene extends Scene {
     if (this.loadingPreview) return;
     this.loadingPreview = true;
 
+    this.loadingPreviewName = `World ${this.mapListEl.childElementCount + 1} (${opts.worldDataDefinition})`;
     const canvas = document.createElement('canvas');
     const offscreenCanvas = canvas.transferControlToOffscreen && canvas.transferControlToOffscreen();
     await this.controller.serverWorker.generateMap({
       ...opts,
+      worldDataDefinition: WORLD_DATA_DEFINITIONS[opts.worldDataDefinition],
       canvas: offscreenCanvas,
       bare: true,
     }).finally(() => this.loadingPreview = false);
@@ -242,13 +256,15 @@ export class MapSelectScene extends Scene {
   }
 
   async onClickSelectBtn() {
-    const name = `default-world-${this.mapListEl.childElementCount}`;
-    await this.controller.serverWorker.saveGeneratedMap({name});
-    this.controller.loadLocalStorageData(`worker-${name}`);
+    await this.controller.serverWorker.saveGeneratedMap({name: this.loadingPreviewName});
+    this.controller.loadLocalStorageData(`worker-${this.loadingPreviewName}`);
     this.controller.client = await connectToServerWorker(this.controller.serverWorker, {
-      mapName: name,
+      mapName: this.loadingPreviewName,
       dummyDelay: this.controller.qs.latency ?? 0,
       verbose: false,
+      // TODO remove... should already be saved in server!
+      // @ts-expect-error
+      worldDataDef: undefined,
     });
     await this.loadSelectCharacterScene();
   }

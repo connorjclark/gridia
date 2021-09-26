@@ -3,6 +3,7 @@
 
 import {Client} from '../src/client/client';
 import {Connection} from '../src/client/connection';
+import {WORLD_DATA_DEFINITIONS} from '../src/content';
 import {Context} from '../src/context';
 import {MemoryDb} from '../src/database';
 import * as WireSerializer from '../src/lib/wire-serializer';
@@ -35,12 +36,8 @@ export function openAndConnectToServerInMemory(
   opts: OpenAndConnectToServerOpts & { worldMap: WorldMap }) {
 
   const {verbose, worldMap} = opts;
-  const serverContext = new ServerContext(worldMap, new MemoryDb());
+  const serverContext = new ServerContext(WORLD_DATA_DEFINITIONS.rpgwo, worldMap, new MemoryDb());
   const server = new Server({
-    worldDataDef: {
-      baseDir: 'worlds/rpgwo-world',
-      tileSize: 32,
-    },
     context: serverContext,
     verbose,
   });
@@ -60,7 +57,7 @@ export function openAndConnectToServerInMemory(
     clientConnection.messageQueue.push({data: cloned});
   });
 
-  const clientContext = new Context(createClientWorldMap(connection));
+  const clientContext = new Context(WORLD_DATA_DEFINITIONS.rpgwo, createClientWorldMap(connection));
   const client = new Client(connection, clientContext);
   return {client, server, clientConnection};
 }

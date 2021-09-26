@@ -15,6 +15,21 @@ interface WorldData {
 
 const isNode = typeof process !== 'undefined' && process.release && process.release.name === 'node';
 
+export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
+  rpgwo: {
+    baseDir: 'worlds/rpgwo-world',
+    tileSize: 32,
+  },
+  bit16: {
+    baseDir: 'worlds/16bit-world',
+    tileSize: 24,
+  },
+  bit: {
+    baseDir: 'worlds/bit-world',
+    tileSize: 16,
+  },
+};
+
 let worldDataDef: WorldDataDefinition;
 let data: WorldData = {
   floors: [],
@@ -247,7 +262,11 @@ export function getMetaItems(): MetaItem[] {
 }
 
 export function getMetaItem(id: number): MetaItem {
-  return data.items[id];
+  return data.items[id] || {
+    ...data.items[0],
+    id,
+    name: 'Undefined item',
+  };
 }
 
 export function getMetaItemByName(name: string): MetaItem {

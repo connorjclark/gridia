@@ -36,6 +36,8 @@ async function send(message) {
 }
 
 beforeEach(async () => {
+  await Content.initializeWorldData(Content.WORLD_DATA_DEFINITIONS.rpgwo);
+
   const worldMap = new WorldMap();
   const partition = makeBareMap(20, 20, 1);
   worldMap.addPartition(0, partition);
@@ -48,7 +50,6 @@ beforeEach(async () => {
   client = memoryServerData.client;
   connection = client.connection;
   server = memoryServerData.server;
-  await Content.initializeWorldData(server.worldDataDef);
 
   memoryServerData.clientConnection.account = {id: 'local', playerIds: []};
   connection.sendCommand(CommandBuilder.createPlayer({

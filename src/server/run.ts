@@ -7,6 +7,7 @@ import * as nodeCleanup from 'node-cleanup';
 import {Server as WebSocketServer} from 'ws';
 import * as yargs from 'yargs';
 
+import {WORLD_DATA_DEFINITIONS} from '../content';
 import {LevelDb} from '../database';
 import * as WireSerializer from '../lib/wire-serializer';
 import {WebRTCSignalServer} from '../lib/wrtc/signal-server';
@@ -129,4 +130,5 @@ const {sslCert, sslKey, ...mostOfArgs} = argv;
 void main({
   ...mostOfArgs,
   ssl: sslKey && sslCert ? {cert: sslCert, key: sslKey} : undefined,
+  worldDataDef: WORLD_DATA_DEFINITIONS.bit16,
 });

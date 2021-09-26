@@ -17,8 +17,9 @@
     "graphics": {
       "file": "rpgwo-templates0.png",
       "frames": [
-        1
-      ]
+        0
+      ],
+      "templateType": "bit-offset"
     },
     "templateType": "bit-offset"
   },

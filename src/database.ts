@@ -2,6 +2,9 @@ import * as fs from 'fs';
 
 import * as level from 'level';
 
+// TODO: should be able to store objects.
+// TODO: 'get' should return undefined instead of throw an error.
+
 // Key-value database with supports for ranged queries and atomic transactions.
 // Keys are split up into multiple "stores".
 export abstract class Database {
