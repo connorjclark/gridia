@@ -392,7 +392,7 @@ export class Server {
       pos: {...player.loc},
       graphics: {
         file: 'rpgwo-player0.png',
-        frames: [Utils.randInt(0, 4)],
+        frames: [Utils.randInt(0, 3)],
       },
       isPlayer: true,
       // TODO
@@ -1103,6 +1103,14 @@ export class Server {
   updateCreatureDataBasedOnEquipment(creature: Creature, equipment: Container, opts: { broadcast: boolean }) {
     creature.equipment = equipment.items;
     creature.equipmentGraphics = this.makeCreatureImageData(equipment);
+
+    if (this.context.worldDataDefinition.baseDir === 'worlds/rpgwo-world') {
+      // Equipment graphics only makes sense for the first few creature sprites.
+      if (creature.graphics.frames[0] >= 4) {
+        creature.equipmentGraphics = [];
+      }
+    }
+
     creature.stats = {
       ...creature.stats,
       armor: 0,

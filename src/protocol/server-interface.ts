@@ -936,6 +936,26 @@ export class ServerInterface implements ICommands {
           ],
           do(args: { monsterId: number }) {
             const monster = Content.getMonsterTemplate(args.monsterId);
+
+            // Hacky way to allow setting graphic back to default 3 player images.
+            if (server.context.worldDataDefinition.baseDir === 'worlds/rpgwo-world') {
+              if (args.monsterId !== 0 && monster) {
+                server.currentClientConnection.creature.graphics = {
+                  ...monster.graphics,
+                };
+              } else {
+                server.currentClientConnection.creature.graphics = {
+                  file: 'rpgwo-player0.png',
+                  frames: [Utils.randInt(0, 3)],
+                };
+              }
+              server.broadcastPartialCreatureUpdate(server.currentClientConnection.creature, ['graphics']);
+              // Equipment graphics might change.
+              server.updateCreatureDataBasedOnEquipment(
+                server.currentClientConnection.creature, server.currentClientConnection.equipment, {broadcast: true});
+              return;
+            }
+
             if (!monster) return;
 
             server.currentClientConnection.creature.graphics = {
