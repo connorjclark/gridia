@@ -369,22 +369,24 @@ export class Server {
     clientConnection.container = await this.context.getContainer(player.containerId);
     clientConnection.equipment = await this.context.getContainer(player.equipmentContainerId);
 
-    player.buffs = [
-      {
-        id: 'fakebuff0',
-        expiresAt: Date.now() + Math.round(1000 * 60 * 60 * 10),
-        skill: 1,
-        percentChange: 0.1,
-        linearChange: 10,
-      },
-      {
-        id: 'fakebuff1',
-        expiresAt: Date.now() + Math.round(1000 * 60 * 60 * 10),
-        skill: 4,
-        percentChange: 0.2,
-        linearChange: 25,
-      },
-    ];
+    if (Content.getBaseDir() === 'worlds/rpgwo-world') {
+      player.buffs = [
+        {
+          id: 'fakebuff0',
+          expiresAt: Date.now() + Math.round(1000 * 60 * 60 * 10),
+          skill: 1,
+          percentChange: 0.1,
+          linearChange: 10,
+        },
+        {
+          id: 'fakebuff1',
+          expiresAt: Date.now() + Math.round(1000 * 60 * 60 * 10),
+          skill: 4,
+          percentChange: 0.2,
+          linearChange: 25,
+        },
+      ];
+    }
 
     const creature: Creature = {
       id: this.context.nextCreatureId++,

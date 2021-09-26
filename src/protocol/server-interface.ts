@@ -913,19 +913,33 @@ export class ServerInterface implements ICommands {
             });
           },
         },
+        // image: {
+        //   args: [
+        //     {name: 'index', type: 'number'},
+        //     {name: 'file', type: 'string', optional: true},
+        //     {name: 'width', type: 'number', optional: true},
+        //     {name: 'height', type: 'number', optional: true},
+        //   ],
+        //   do(args: { index: number; file?: string; width?: number; height?: number }) {
+        //     server.currentClientConnection.creature.graphics = {
+        //       file: args.file || 'rpgwo-player0.png',
+        //       frames: [args.index],
+        //       width: args.width || 1,
+        //       height: args.height || 1,
+        //     };
+        //     server.broadcastPartialCreatureUpdate(server.currentClientConnection.creature, ['graphics']);
+        //   },
+        // },
         image: {
           args: [
-            {name: 'index', type: 'number'},
-            {name: 'file', type: 'string', optional: true},
-            {name: 'width', type: 'number', optional: true},
-            {name: 'height', type: 'number', optional: true},
+            {name: 'monsterId', type: 'number'},
           ],
-          do(args: { index: number; file?: string; width?: number; height?: number }) {
+          do(args: { monsterId: number }) {
+            const monster = Content.getMonsterTemplate(args.monsterId);
+            if (!monster) return;
+
             server.currentClientConnection.creature.graphics = {
-              file: args.file || 'rpgwo-player0.png',
-              frames: [args.index],
-              width: args.width || 1,
-              height: args.height || 1,
+              ...monster.graphics,
             };
             server.broadcastPartialCreatureUpdate(server.currentClientConnection.creature, ['graphics']);
           },

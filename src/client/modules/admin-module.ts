@@ -35,10 +35,6 @@ export class AdminModule extends ClientModule {
     const scripts = await this.game.client.connection.sendCommand(CommandBuilder.requestScripts({}));
     console.log({scripts}); // TODO ?
 
-    // Must first load all the image resources.
-    // TODO This doesn't seem necessary?
-    // await this.game.loader.loadAllImageResources();
-
     let downAt: Point4 | undefined;
     this.game.client.eventEmitter.on('pointerDown', (loc) => {
       if (!this._state) return;

@@ -51,11 +51,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       // @ts-expect-error
       usage: new UsageModule(this),
     };
-    loader = {
-      loadAllImageResources() {
-        // ...
-      },
-    };
 
     possibleUsageCursor = {};
     registerCursor() {
