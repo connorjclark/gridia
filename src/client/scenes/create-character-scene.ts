@@ -157,7 +157,6 @@ export class CreateCharacterScene extends Scene {
         attributes,
         skills: [...this.selectedSkills],
       }));
-      this.controller.saveLocalStorageData();
       this.controller.startGame();
     } catch (error: any) {
       Helper.find('.create--errorlog', this.element).textContent = error;

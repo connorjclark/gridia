@@ -189,7 +189,7 @@ export class MapSelectScene extends Scene {
   private previewEl: HTMLElement;
   private inputFormEl: HTMLElement;
   private loadingPreview = false;
-  loadingPreviewName: string;
+  private loadingPreviewName = '';
 
   constructor(private controller: SceneController) {
     super(Helper.find('.map-select'));
@@ -219,7 +219,6 @@ export class MapSelectScene extends Scene {
       });
     });
 
-    this.controller.loadLocalStorageData(`worker-${name}`);
     await this.loadSelectCharacterScene();
   }
 
@@ -257,7 +256,6 @@ export class MapSelectScene extends Scene {
 
   async onClickSelectBtn() {
     await this.controller.serverWorker.saveGeneratedMap({name: this.loadingPreviewName});
-    this.controller.loadLocalStorageData(`worker-${this.loadingPreviewName}`);
     this.controller.client = await connectToServerWorker(this.controller.serverWorker, {
       mapName: this.loadingPreviewName,
       dummyDelay: this.controller.qs.latency ?? 0,

@@ -5,11 +5,6 @@ import {ServerWorker} from '../server-worker';
 import {GameScene} from './game-scene';
 import {Scene} from './scene';
 
-interface LocalStorageData {
-  username?: string;
-  password?: string;
-}
-
 function parseQuery(queryString: string) {
   const params = new URLSearchParams(queryString ? queryString.substr(1) : '');
   return {
@@ -26,9 +21,6 @@ export class SceneController {
   private client_: Client | null = null;
   private serverWorker_: ServerWorker | null = null;
   private backBtn_ = Helper.find('.scene-controller--back-btn');
-  private localStorageKey = '';
-  // @ts-expect-error
-  localStorageData: LocalStorageData; // TODO: remove
   qs = parseQuery(window.location.search);
 
   constructor() {
@@ -53,27 +45,6 @@ export class SceneController {
     }
     this.currentScene.onShow();
     this.setBackButtonClass();
-  }
-
-  loadLocalStorageData(key: string) {
-    this.localStorageKey = key;
-
-    let data = {};
-
-    const json = localStorage.getItem(`local-gridia-data-${key}`);
-    if (json) {
-      try {
-        data = JSON.parse(json);
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
-    this.localStorageData = data;
-  }
-
-  saveLocalStorageData() {
-    localStorage.setItem(`local-gridia-data-${this.localStorageKey}`, JSON.stringify(this.localStorageData));
   }
 
   startGame() {
