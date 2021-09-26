@@ -45,6 +45,16 @@ export class ServerContext extends Context {
 
   static async load(db: Database) {
     const meta = await readJson(db, Store.misc, 'meta.json') as Meta;
+
+    // Update stale world definitions with valid values.
+    // TODO: eventually delete this when world data definitions are not
+    // just carbon-copies of values from WORLD_DATA_DEFINITIONS.
+    {
+      const canonical = Object.values(Content.WORLD_DATA_DEFINITIONS)
+        .find((d) => d.baseDir === meta.worldDataDefinition.baseDir);
+      if (canonical) meta.worldDataDefinition = canonical;
+    }
+
     await Content.initializeWorldData(meta.worldDataDefinition);
 
     const map = new WorldMap();

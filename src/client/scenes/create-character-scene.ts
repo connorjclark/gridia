@@ -1,8 +1,6 @@
-import {CREATE_CHARACTER_ATTRIBUTES, CREATE_CHARACTER_SKILL_POINTS} from '../../constants';
 import * as Content from '../../content';
 import {ATTRIBUTES} from '../../player';
 import * as CommandBuilder from '../../protocol/command-builder';
-import * as Utils from '../../utils';
 import * as Helper from '../helper';
 
 import {Scene} from './scene';
@@ -20,24 +18,27 @@ export class CreateCharacterScene extends Scene {
     this.nameInput = Helper.find('#create--name', this.element) as HTMLInputElement;
     this.onClickCreateBtn = this.onClickCreateBtn.bind(this);
 
-    const parts1 = 'Small Smelly Quick Steely Quiet'.split(' ');
-    const parts2 = 'Jill Stranger Arthur Maz Harlet Worker'.split(' ');
-    this.nameInput.value = [
-      parts1[Utils.randInt(0, parts1.length - 1)],
-      parts2[Utils.randInt(0, parts2.length - 1)],
-      Utils.randInt(1, 1000),
-    ].join(' ');
+    this.nameInput.placeholder = '<enter player name>';
+    this.nameInput.value = '';
 
-    let attributePoints = CREATE_CHARACTER_ATTRIBUTES;
+    const {characterCreation} = Content.getWorldDataDefinition();
+
+    if (characterCreation.simple) {
+      Helper.find('.create--skills-and-attributes').hidden = true;
+    }
+
+    let attributePoints = characterCreation.attributePoints;
     const updateAttributes = () => {
-      attributePoints = CREATE_CHARACTER_ATTRIBUTES;
+      attributePoints = characterCreation.attributePoints;
       for (const attribute of Object.values(this.attributeEls)) {
         attributePoints -= attribute.valueAsNumber;
       }
 
       Helper.find('.create--attribute-points', this.element).textContent = attributePoints.toLocaleString();
 
-      this.createBtn.classList.toggle('red', attributePoints !== 0);
+      if (!characterCreation.simple) {
+        this.createBtn.classList.toggle('red', attributePoints !== 0);
+      }
     };
 
     const attributesSorted = Helper.sortByPrecedence([...ATTRIBUTES], [
@@ -84,10 +85,7 @@ export class CreateCharacterScene extends Scene {
       {type: 'predicate', fn: (kv) => kv[0] === 'crafts'},
     ]);
 
-    const requiredSkills = [
-      Content.getSkillByNameOrThrowError('Melee Defense'),
-      Content.getSkillByNameOrThrowError('Run'),
-    ];
+    const requiredSkills = characterCreation.requiredSkills || [];
 
     const skillsEl = Helper.find('.create--skills', this.element);
     for (const [category, skills] of skillsByCategoryOrdered) {
@@ -97,7 +95,7 @@ export class CreateCharacterScene extends Scene {
         const skill = Content.getSkill(id);
         const el = Helper.createChildOf(categoryEl, 'div', 'create--skill flex tooltip-on-hover');
         Helper.createChildOf(el, 'div').textContent = `${skill.name} (${skill.skillPoints})`;
-        const required = requiredSkills.includes(skill);
+        const required = requiredSkills.includes(id);
 
         let tooltip = skill.description + '<br> base level = ' + Content.getSkillAttributeDescription(skill);
         if (required) {
@@ -122,9 +120,9 @@ export class CreateCharacterScene extends Scene {
       }
     }
 
-    let skillPoints = CREATE_CHARACTER_SKILL_POINTS;
+    let skillPoints = characterCreation.skillPoints;
     const updateSkillPoints = () => {
-      skillPoints = CREATE_CHARACTER_SKILL_POINTS;
+      skillPoints = characterCreation.skillPoints;
       for (const id of this.selectedSkills) {
         skillPoints -= Content.getSkill(id).skillPoints;
       }
@@ -132,8 +130,8 @@ export class CreateCharacterScene extends Scene {
       Helper.find('.create--skill-points', this.element).textContent = skillPoints.toLocaleString();
     };
 
-    for (const skill of requiredSkills) {
-      this.selectedSkills.add(skill.id);
+    for (const id of requiredSkills) {
+      this.selectedSkills.add(id);
       for (const el of Helper.findAll('.create--skill.selected')) {
         el.classList.add('required');
       }
@@ -155,7 +153,7 @@ export class CreateCharacterScene extends Scene {
       await this.controller.client.connection.sendCommand(CommandBuilder.createPlayer({
         name,
         attributes,
-        skills: [...this.selectedSkills],
+        skills: this.selectedSkills,
       }));
       this.controller.startGame();
     } catch (error: any) {

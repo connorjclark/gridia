@@ -13,7 +13,7 @@ import * as assert from 'assert';
 
 import Client from '../src/client/client';
 import {Connection} from '../src/client/connection';
-import {CREATE_CHARACTER_ATTRIBUTES, MINE} from '../src/constants';
+import {MINE} from '../src/constants';
 import * as Content from '../src/content';
 import {makeBareMap} from '../src/mapgen';
 import * as CommandBuilder from '../src/protocol/command-builder';
@@ -55,7 +55,7 @@ beforeEach(async () => {
   connection.sendCommand(CommandBuilder.createPlayer({
     name: 'TestUser',
     attributes: new Map([
-      ['life', CREATE_CHARACTER_ATTRIBUTES - 20],
+      ['life', server.context.worldDataDefinition.characterCreation.attributePoints - 20],
       ['stamina', 20],
     ]),
     skills: [

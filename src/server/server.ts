@@ -1,4 +1,4 @@
-import {CREATE_CHARACTER_ATTRIBUTES, CREATE_CHARACTER_SKILL_POINTS, MAX_STACK, SECTOR_SIZE} from '../constants';
+import {MAX_STACK, SECTOR_SIZE} from '../constants';
 import * as Container from '../container';
 import * as Content from '../content';
 import {calcStraightLine} from '../lib/line';
@@ -255,7 +255,7 @@ export class Server {
 
   async createPlayer(clientConnection: ClientConnection, opts: Protocol.Commands.CreatePlayer['params']) {
     if (opts.name.length > 20) return Promise.reject('Name too long');
-    if (opts.name.length < 2) return Promise.reject('Name too short');
+    if (opts.name.length <= 2) return Promise.reject('Name too short');
     if (opts.name.match(/\s{2,}/) || opts.name.trim() !== opts.name) return Promise.reject('Name has bad spacing');
     if (!opts.name.match(/^[A-ZÀ-ÚÄ-Ü 0-9]+$/i)) return Promise.reject('Name has illegal characters');
 
@@ -263,16 +263,34 @@ export class Server {
       throw new Error('Name already taken');
     }
 
+    const characterCreation = this.context.worldDataDefinition.characterCreation;
+    if (characterCreation.simple) {
+      opts.attributes = new Map();
+      for (const key of Player.ATTRIBUTES) {
+        opts.attributes.set(key, 0);
+      }
+      for (let i = 0; i < characterCreation.attributePoints; i++) {
+        const key = Player.ATTRIBUTES[i % Player.ATTRIBUTES.length];
+        opts.attributes.set(key, 1 + (opts.attributes.get(key) || 0));
+      }
+
+      opts.skills = new Set([]);
+    }
+
+    for (const id of characterCreation.requiredSkills || []) {
+      opts.skills.add(id);
+    }
+
     let attributeValueSum = 0;
     for (const value of opts.attributes.values()) attributeValueSum += value;
-    if (attributeValueSum !== CREATE_CHARACTER_ATTRIBUTES) {
+    if (attributeValueSum !== characterCreation.attributePoints) {
       throw new Error('Must use all attribute points');
     }
 
     let skillPointSum = 0;
     for (const skill of opts.skills) skillPointSum += Content.getSkill(skill).skillPoints;
-    if (skillPointSum > CREATE_CHARACTER_SKILL_POINTS) {
-      throw new Error(`skill points can't be greater than ${CREATE_CHARACTER_SKILL_POINTS}`);
+    if (skillPointSum > characterCreation.skillPoints) {
+      throw new Error(`skill points can't be greater than ${characterCreation.skillPoints}`);
     }
 
     const loc = await this.getInitialSpawnLoc();
@@ -282,7 +300,7 @@ export class Server {
       loggedIn: true,
       attributes: new Map(),
       skills: new Map(),
-      skillPoints: CREATE_CHARACTER_SKILL_POINTS,
+      skillPoints: characterCreation.skillPoints,
       questStates: new Map(),
       tilesSeenLog: new Map(),
       // everyone is an admin, for now.

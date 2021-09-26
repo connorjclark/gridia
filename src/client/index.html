@@ -69,29 +69,32 @@
           <input type="text" name="name" id="create--name" maxlength="20"></label>
         </div>
 
-        <div>
-          <h2 class="tooltip-on-hover">Attributes</h2>
-          <div class="tooltip">
-            Attributes determine the base level of skills. As you train combat
-            skills, you can spend xp to increase attributes.
+        <div class="create--skills-and-attributes">
+          <div>
+            <h2 class="tooltip-on-hover">Attributes</h2>
+            <div class="tooltip">
+              Attributes determine the base level of skills. As you train combat
+              skills, you can spend xp to increase attributes.
+            </div>
+            Points available: <span class="create--attribute-points"></span>
+  
+            <div class="create--attributes flex flex-wrap"></div>
           </div>
-          Points available: <span class="create--attribute-points"></span>
-
-          <div class="create--attributes flex flex-wrap"></div>
+  
+          <div>
+            <h2 class="tooltip-on-hover">Skills</h2>
+            <div class="tooltip">
+              Skills allow you to equip certain weapons, craft certain items, and other
+              miscellaneous things. As you increase your combat level, you gain skill points
+              which can be used to learn more skills. Any points you don't spend now can be used
+              later.
+            </div>
+            Points available: <span class="create--skill-points"></span>
+  
+            <div class='create--skills flex justify-between flex-wrap'></div>
+          </div>
         </div>
 
-        <div>
-          <h2 class="tooltip-on-hover">Skills</h2>
-          <div class="tooltip">
-            Skills allow you to equip certain weapons, craft certain items, and other
-            miscellaneous things. As you increase your combat level, you gain skill points
-            which can be used to learn more skills. Any points you don't spend now can be used
-            later.
-          </div>
-          Points available: <span class="create--skill-points"></span>
-
-          <div class='create--skills flex justify-between flex-wrap'></div>
-        </div>
       </div>
       <button class="blue create-btn">Create</button>
       <div class='create--errorlog'></div>

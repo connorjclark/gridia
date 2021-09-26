@@ -422,6 +422,12 @@ interface ServerWorkerOpts extends ServerOptions {
 interface WorldDataDefinition {
   tileSize: number;
   baseDir: string;
+  characterCreation: {
+    attributePoints: number;
+    skillPoints: number;
+    requiredSkills?: number[];
+    simple?: boolean;
+  };
 }
 
 declare module 'js-bbcode-parser' {

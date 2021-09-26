@@ -19,14 +19,32 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
   rpgwo: {
     baseDir: 'worlds/rpgwo-world',
     tileSize: 32,
+    characterCreation: {
+      attributePoints: 1000,
+      skillPoints: 100,
+      requiredSkills: [
+        1, // Melee Defence
+        25, // Run
+      ],
+    },
   },
   bit16: {
     baseDir: 'worlds/16bit-world',
     tileSize: 24,
+    characterCreation: {
+      simple: true,
+      attributePoints: 1000,
+      skillPoints: 100,
+    },
   },
   bit: {
     baseDir: 'worlds/bit-world',
     tileSize: 16,
+    characterCreation: {
+      simple: true,
+      attributePoints: 1000,
+      skillPoints: 100,
+    },
   },
 };
 
@@ -243,6 +261,10 @@ export class ItemWrapper {
 
 export function getBaseDir() {
   return worldDataDef.baseDir;
+}
+
+export function getWorldDataDefinition() {
+  return worldDataDef;
 }
 
 export function getTileSize() {
