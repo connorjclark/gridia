@@ -40,8 +40,8 @@ export async function startServer(options: ServerOptions, db: Database) {
     worldDataDef: {
       // tileSize: 32,
       // baseDir: 'worlds/rpgwo-world',
-      tileSize: 16,
-      baseDir: 'worlds/bit-world',
+      tileSize: 24,
+      baseDir: 'worlds/16bit-world',
     },
     context,
     verbose,

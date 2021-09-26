@@ -63,7 +63,7 @@ export const SettingsSchema = {
   limitView: {
     type: 'boolean',
     label: 'Limit View',
-    default: true,
+    default: false,
   },
 } as const;
 

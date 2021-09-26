@@ -420,7 +420,11 @@ export class Server {
       buffs: player.buffs,
     };
 
-    if (this.worldDataDef.baseDir === 'worlds/bit-world') {
+    if (this.worldDataDef.baseDir === 'worlds/16bit-world') {
+      creature.graphics = {
+        file: 'creatures_001.png', index: 0,
+      };
+    } else if (this.worldDataDef.baseDir === 'worlds/bit-world') {
       creature.graphics = {
         file: 'tileset_1bit.png', index: 5*8 + 4,
       };
@@ -1101,6 +1105,7 @@ export class Server {
     creature.equipment = equipment.items;
     creature.imageData = this.makeCreatureImageData(equipment);
     if (this.worldDataDef.baseDir === 'worlds/bit-world') creature.imageData = undefined;
+    if (this.worldDataDef.baseDir === 'worlds/16bit-world') creature.imageData = undefined;
     creature.stats = {
       ...creature.stats,
       armor: 0,

@@ -1,0 +1,17 @@
+[
+  {
+    "tool": 5,
+    "focus": 2,
+    "focusQuantityConsumed": 1,
+    "products": [
+      {
+        "type": 4,
+        "quantity": 1
+      },
+      {
+        "type": 6,
+        "quantity": 3
+      }
+    ]
+  }
+]

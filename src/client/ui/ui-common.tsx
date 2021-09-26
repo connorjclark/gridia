@@ -1,5 +1,5 @@
 import {h, render, Component} from 'preact';
-import {useState} from 'preact/hooks';
+import {useEffect, useMemo, useState} from 'preact/hooks';
 import createStore from 'redux-zero';
 import {Provider, connect} from 'redux-zero/preact';
 import {Actions, BoundActions} from 'redux-zero/types/Actions';
@@ -8,7 +8,6 @@ import {GFX_SIZE} from '../../constants';
 import * as Content from '../../content';
 import * as Utils from '../../utils';
 import * as Helper from '../helper';
-import {ImageResources} from '../lazy-resource-loader';
 
 export type ComponentProps<S, T extends Actions<S>> = S & BoundActions<S, T>;
 type OmitFirstArg<F> = F extends (x: any, ...args: infer P) => infer R ? (...args: P) => R : never;
@@ -82,18 +81,77 @@ export class TabbedPane extends Component<TabbedPaneProps> {
   }
 }
 
+// source: https://github.com/konvajs/use-image/blob/master/index.js
+const defaultState = {image: undefined, status: 'loading'};
+function useImage(url: string, crossOrigin = null) {
+  const res = useState<{image?: HTMLImageElement; status: string}>(defaultState);
+  const image = res[0].image;
+  const status = res[0].status;
+
+  const setState = res[1];
+
+  useEffect(
+    function() {
+      if (!url) return;
+      const img = document.createElement('img');
+
+      function onload() {
+        setState({image: img, status: 'loaded'});
+      }
+
+      function onerror() {
+        setState({image: undefined, status: 'failed'});
+      }
+
+      img.addEventListener('load', onload);
+      img.addEventListener('error', onerror);
+      crossOrigin && (img.crossOrigin = crossOrigin);
+      img.src = url;
+
+      return function cleanup() {
+        img.removeEventListener('load', onload);
+        img.removeEventListener('error', onerror);
+        setState(defaultState);
+      };
+    },
+    [url, crossOrigin]
+  );
+
+  // return array because it it better to use in case of several useImage hooks
+  // const [background, backgroundStatus] = useImage(url1);
+  // const [patter] = useImage(url2);
+  return [image, status] as const;
+}
+
 interface GraphicProps {
   file: string;
   index: number;
   quantity?: number;
   scale?: number;
 }
+const dimensionsCache: Record<string, {width: number; height: number}|null> = {};
 export const Graphic = (props: GraphicProps) => {
   const baseDir = Content.getBaseDir();
-  const res = ImageResources.find((r) => r.file === `${baseDir}/graphics/${props.file}`);
-  const defaultSpritesheetWidth = baseDir === 'worlds/rpgwo-world' ? 320 : 16*8;
-  const width = res?.width || defaultSpritesheetWidth;
-  const height = res?.height || defaultSpritesheetWidth;
+  const templateImageSrc = `${baseDir}/graphics/${props.file}`;
+
+  let width, height;
+  const cached = dimensionsCache[props.file];
+  if (cached) {
+    ({width, height} = cached);
+  } else {
+    const [image, status] = useImage(templateImageSrc);
+    if (image && status === 'loaded') {
+      width = image.width;
+      height = image.height;
+      dimensionsCache[props.file] = {width, height};
+    } else if (status === 'failed') {
+      dimensionsCache[props.file] = null;
+      console.error(`failed to load image: ${props.file}`);
+    }
+  }
+
+  if (!width || !height) return <div class="graphic">?</div>;
+
   const tilesAcross = width / GFX_SIZE;
   const tilesColumn = height / GFX_SIZE;
   const x = props.index % tilesAcross;
@@ -101,7 +159,7 @@ export const Graphic = (props: GraphicProps) => {
   const label = props.quantity !== undefined && props.quantity !== 1 ? Utils.formatQuantity(props.quantity) : '';
 
   let style: { [key: string]: string | number } = {
-    backgroundImage: `url(${baseDir}/graphics/${props.file})`,
+    backgroundImage: `url(${templateImageSrc})`,
     backgroundPosition: `-${x * 100}% -${y * 100}%`,
     backgroundSize: `${tilesAcross * 100}% ${tilesColumn * 100}%`,
     width: 32 + 'px',

@@ -1,0 +1,803 @@
+[
+  null,
+  {
+    "id": 1,
+    "name": "Knight M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 0
+    }
+  },
+  {
+    "id": 2,
+    "name": "Thief M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 1
+    }
+  },
+  {
+    "id": 3,
+    "name": "Ranger M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 2
+    }
+  },
+  {
+    "id": 4,
+    "name": "Wizard M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 3
+    }
+  },
+  {
+    "id": 5,
+    "name": "Priest M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 4
+    }
+  },
+  {
+    "id": 6,
+    "name": "Shaman M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 5
+    }
+  },
+  {
+    "id": 7,
+    "name": "Berserker M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 6
+    }
+  },
+  {
+    "id": 8,
+    "name": "Swordsman M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 7
+    }
+  },
+  {
+    "id": 9,
+    "name": "Paladin M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 8
+    }
+  },
+  {
+    "id": 10,
+    "name": "Knight F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 9
+    }
+  },
+  {
+    "id": 11,
+    "name": "Thief F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 10
+    }
+  },
+  {
+    "id": 12,
+    "name": "Ranger F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 11
+    }
+  },
+  {
+    "id": 13,
+    "name": "Wizard F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 12
+    }
+  },
+  {
+    "id": 14,
+    "name": "Priest F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 13
+    }
+  },
+  {
+    "id": 15,
+    "name": "Shaman F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 14
+    }
+  },
+  {
+    "id": 16,
+    "name": "Berserker F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 15
+    }
+  },
+  {
+    "id": 17,
+    "name": "Swordsman F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 16
+    }
+  },
+  {
+    "id": 18,
+    "name": "Paladin F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 17
+    }
+  },
+  {
+    "id": 19,
+    "name": "Bandit",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 36
+    }
+  },
+  {
+    "id": 20,
+    "name": "Hooded Human",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 37
+    }
+  },
+  {
+    "id": 21,
+    "name": "Human M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 38
+    }
+  },
+  {
+    "id": 22,
+    "name": "Human F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 39
+    }
+  },
+  {
+    "id": 23,
+    "name": "Merchant",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 40
+    }
+  },
+  {
+    "id": 24,
+    "name": "Butcher",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 41
+    }
+  },
+  {
+    "id": 25,
+    "name": "Chef",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 42
+    }
+  },
+  {
+    "id": 26,
+    "name": "Bishop",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 43
+    }
+  },
+  {
+    "id": 27,
+    "name": "King",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 44
+    }
+  },
+  {
+    "id": 28,
+    "name": "Queen",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 45
+    }
+  },
+  {
+    "id": 29,
+    "name": "Prince",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 46
+    }
+  },
+  {
+    "id": 30,
+    "name": "Princess",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 47
+    }
+  },
+  {
+    "id": 31,
+    "name": "Guard M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 48
+    }
+  },
+  {
+    "id": 32,
+    "name": "Guard F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 49
+    }
+  },
+  {
+    "id": 33,
+    "name": "Knight",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 50
+    }
+  },
+  {
+    "id": 34,
+    "name": "Guard Alt M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 51
+    }
+  },
+  {
+    "id": 35,
+    "name": "Guard Alt F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 52
+    }
+  },
+  {
+    "id": 36,
+    "name": "Knight Alt",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 53
+    }
+  },
+  {
+    "id": 37,
+    "name": "Bandit",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 72
+    }
+  },
+  {
+    "id": 38,
+    "name": "Hooded Human",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 73
+    }
+  },
+  {
+    "id": 39,
+    "name": "Human M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 74
+    }
+  },
+  {
+    "id": 40,
+    "name": "Human F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 75
+    }
+  },
+  {
+    "id": 41,
+    "name": "Merchant",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 76
+    }
+  },
+  {
+    "id": 42,
+    "name": "Slave",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 77
+    }
+  },
+  {
+    "id": 43,
+    "name": "Alchemist",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 78
+    }
+  },
+  {
+    "id": 44,
+    "name": "Prophet",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 79
+    }
+  },
+  {
+    "id": 45,
+    "name": "King",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 80
+    }
+  },
+  {
+    "id": 46,
+    "name": "Queen",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 81
+    }
+  },
+  {
+    "id": 47,
+    "name": "Prince",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 82
+    }
+  },
+  {
+    "id": 48,
+    "name": "Princess",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 83
+    }
+  },
+  {
+    "id": 49,
+    "name": "Guard M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 84
+    }
+  },
+  {
+    "id": 50,
+    "name": "Guard F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 85
+    }
+  },
+  {
+    "id": 51,
+    "name": "Knight",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 86
+    }
+  },
+  {
+    "id": 52,
+    "name": "Guard Alt M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 87
+    }
+  },
+  {
+    "id": 53,
+    "name": "Guard Alt F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 88
+    }
+  },
+  {
+    "id": 54,
+    "name": "Knight Alt",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 89
+    }
+  },
+  {
+    "id": 55,
+    "name": "Assassin",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 108
+    }
+  },
+  {
+    "id": 56,
+    "name": "Bandit",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 109
+    }
+  },
+  {
+    "id": 57,
+    "name": "Dwarf",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 110
+    }
+  },
+  {
+    "id": 58,
+    "name": "Dwarf Alt",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 111
+    }
+  },
+  {
+    "id": 59,
+    "name": "Dwarf Priest",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 112
+    }
+  },
+  {
+    "id": 60,
+    "name": "Drow Assassin",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 113
+    }
+  },
+  {
+    "id": 61,
+    "name": "Drow Fighter",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 114
+    }
+  },
+  {
+    "id": 62,
+    "name": "Drow Ranger",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 115
+    }
+  },
+  {
+    "id": 63,
+    "name": "Drow Mage",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 116
+    }
+  },
+  {
+    "id": 64,
+    "name": "Drow Sorceress",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 117
+    }
+  },
+  {
+    "id": 65,
+    "name": "High Elf Fighter M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 118
+    }
+  },
+  {
+    "id": 66,
+    "name": "High Elf Shield Fighter M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 119
+    }
+  },
+  {
+    "id": 67,
+    "name": "High Elf Ranger M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 120
+    }
+  },
+  {
+    "id": 68,
+    "name": "High Elf Mage M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 121
+    }
+  },
+  {
+    "id": 69,
+    "name": "High Elf Fighter F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 122
+    }
+  },
+  {
+    "id": 70,
+    "name": "High Elf Shield Fighter F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 123
+    }
+  },
+  {
+    "id": 71,
+    "name": "High Elf Ranger F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 124
+    }
+  },
+  {
+    "id": 72,
+    "name": "High Elf Mage F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 125
+    }
+  },
+  {
+    "id": 73,
+    "name": "Wood Elf Fighter M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 144
+    }
+  },
+  {
+    "id": 74,
+    "name": "Wood Elf Shield Fighter M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 145
+    }
+  },
+  {
+    "id": 75,
+    "name": "Wood Elf Ranger M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 146
+    }
+  },
+  {
+    "id": 76,
+    "name": "Wood Elf Druid M",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 147
+    }
+  },
+  {
+    "id": 77,
+    "name": "Wood Elf Fighter F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 148
+    }
+  },
+  {
+    "id": 78,
+    "name": "Wood Elf Shield Fighter F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 149
+    }
+  },
+  {
+    "id": 79,
+    "name": "Wood Elf Ranger F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 150
+    }
+  },
+  {
+    "id": 80,
+    "name": "Wood Elf Druid F",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 151
+    }
+  },
+  {
+    "id": 81,
+    "name": "Lizardman Warrior",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 152
+    }
+  },
+  {
+    "id": 82,
+    "name": "Lizardman Archer",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 153
+    }
+  },
+  {
+    "id": 83,
+    "name": "Lizardman Captain",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 154
+    }
+  },
+  {
+    "id": 84,
+    "name": "Lizardman Shaman",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 155
+    }
+  },
+  {
+    "id": 85,
+    "name": "Lizardman High Shaman",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 156
+    }
+  },
+  {
+    "id": 86,
+    "name": "Gnome Fighter",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 157
+    }
+  },
+  {
+    "id": 87,
+    "name": "Gnome Fighter Alt",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 158
+    }
+  },
+  {
+    "id": 88,
+    "name": "Gnome Fighter Alt",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 159
+    }
+  },
+  {
+    "id": 89,
+    "name": "Gnome Wizard",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 160
+    }
+  },
+  {
+    "id": 90,
+    "name": "Gnome Wizard Alt",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 161
+    }
+  },
+  {
+    "id": 91,
+    "name": "Gnoll Fighter",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 180
+    }
+  },
+  {
+    "id": 92,
+    "name": "Gnoll Fighter Alt",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 181
+    }
+  },
+  {
+    "id": 93,
+    "name": "Gnoll Fighter Captain",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 182
+    }
+  },
+  {
+    "id": 94,
+    "name": "Gnoll Shaman",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 183
+    }
+  },
+  {
+    "id": 95,
+    "name": "Minotaur Axe",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 184
+    }
+  },
+  {
+    "id": 96,
+    "name": "Minotaur Club",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 185
+    }
+  },
+  {
+    "id": 97,
+    "name": "Minotaur Alt",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 186
+    }
+  },
+  {
+    "id": 98,
+    "name": "Elder Demon",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 187
+    }
+  },
+  {
+    "id": 99,
+    "name": "Fire Demon",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 188
+    }
+  },
+  {
+    "id": 100,
+    "name": "Horned Demon",
+    "graphics": {
+      "file": "creatures_001.png",
+      "index": 189
+    }
+  }
+]

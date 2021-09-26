@@ -30,7 +30,7 @@ function makeTextureCache(file: string) {
     }
 
     const loaderResource = PIXI.Loader.shared.resources[resourceKey];
-    if (!loaderResource.texture) {
+    if (!loaderResource.texture || loaderResource.error) {
       throw new Error('missing texture ' + resourceKey);
     }
 
@@ -83,7 +83,7 @@ export function makeItemTemplate(item: Item) {
 
 export function makeItemQuantity(quantity: number) {
   return text(Utils.formatQuantity(quantity), {
-    fontSize: 14,
+    fontSize: GFX_SIZE / 2,
     stroke: 0xffffff,
     strokeThickness: 4,
   });

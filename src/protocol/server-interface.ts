@@ -47,7 +47,8 @@ export class ServerInterface implements ICommands {
 
     if (!server.context.walkable(loc)) return Promise.reject('not walkable');
 
-    if (tile.floor === WATER) {
+    // TODO: generalize
+    if (tile.floor === WATER && Content.getBaseDir() === 'worlds/rpgwo-world') {
       server.creatureStates[creature.id].resetRegenerationTimer(server);
       if (attributeCheck(creature, 'stamina', 1)) {
         server.modifyCreatureStamina(null, creature, -2);

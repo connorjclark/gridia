@@ -3,10 +3,6 @@
     "id": 0,
     "movementModifier": 1,
     "color": "333333",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 0
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -18,25 +14,18 @@
     "id": 1,
     "movementModifier": 0.3,
     "color": "ADBCE6",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 1
-    },
     "graphics": {
       "file": "rpgwo-templates0.png",
       "frames": [
         1
       ]
-    }
+    },
+    "templateType": "bit-offset"
   },
   {
     "id": 2,
     "movementModifier": 1.75,
     "color": "808080",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 2
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -48,10 +37,6 @@
     "id": 3,
     "movementModifier": 1,
     "color": "FF6C55",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 3
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -63,10 +48,6 @@
     "id": 4,
     "movementModifier": 1,
     "color": "FFFFA8",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 4
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -78,10 +59,6 @@
     "id": 5,
     "movementModifier": 1,
     "color": "295CB0",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 5
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -93,10 +70,6 @@
     "id": 6,
     "movementModifier": 1,
     "color": "3E1E04",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 6
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -108,10 +81,6 @@
     "id": 7,
     "movementModifier": 1,
     "color": "3A3A3A",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 7
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -123,10 +92,6 @@
     "id": 8,
     "movementModifier": 1,
     "color": "221741",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 8
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -138,10 +103,6 @@
     "id": 9,
     "movementModifier": 1,
     "color": "7C7C7C",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 9
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -153,10 +114,6 @@
     "id": 10,
     "movementModifier": 1,
     "color": "BEB700",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 10
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -168,10 +125,6 @@
     "id": 11,
     "movementModifier": 1.75,
     "color": "A4A4A4",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 11
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -183,10 +136,6 @@
     "id": 12,
     "movementModifier": 1,
     "color": "F1A0A0",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 12
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -198,10 +147,6 @@
     "id": 13,
     "movementModifier": 1,
     "color": "321202",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 13
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -213,10 +158,6 @@
     "id": 14,
     "movementModifier": 1,
     "color": "733300",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 14
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -228,10 +169,6 @@
     "id": 15,
     "movementModifier": 1,
     "color": "B4B29B",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 15
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -243,10 +180,6 @@
     "id": 16,
     "movementModifier": 1,
     "color": "9A1615",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 16
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -258,10 +191,6 @@
     "id": 17,
     "movementModifier": 1,
     "color": "E1E3E1",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 17
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -273,10 +202,6 @@
     "id": 18,
     "movementModifier": 1.75,
     "color": "656565",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 18
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -288,10 +213,6 @@
     "id": 19,
     "movementModifier": 1,
     "color": "4A3722",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 19
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -303,10 +224,6 @@
     "id": 20,
     "movementModifier": 1,
     "color": "321202",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 20
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -318,10 +235,6 @@
     "id": 21,
     "movementModifier": 1,
     "color": "0B7C05",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 21
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -333,10 +246,6 @@
     "id": 22,
     "movementModifier": 1,
     "color": "001359",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 22
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -348,10 +257,6 @@
     "id": 23,
     "movementModifier": 1,
     "color": "173E08",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 23
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -363,10 +268,6 @@
     "id": 24,
     "movementModifier": 1,
     "color": "494949",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 24
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -378,10 +279,6 @@
     "id": 25,
     "movementModifier": 1,
     "color": "950007",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 25
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -393,10 +290,6 @@
     "id": 26,
     "movementModifier": 1,
     "color": "442807",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 26
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -408,10 +301,6 @@
     "id": 27,
     "movementModifier": 1.75,
     "color": "434343",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 27
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -423,10 +312,6 @@
     "id": 28,
     "movementModifier": 1,
     "color": "575757",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 28
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -438,10 +323,6 @@
     "id": 29,
     "movementModifier": 1,
     "color": "CD9666",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 29
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -453,10 +334,6 @@
     "id": 30,
     "movementModifier": 1.75,
     "color": "555557",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 30
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -468,10 +345,6 @@
     "id": 31,
     "movementModifier": 1,
     "color": "284390",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 31
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -483,10 +356,6 @@
     "id": 32,
     "movementModifier": 1,
     "color": "6A6A6A",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 32
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -498,10 +367,6 @@
     "id": 33,
     "movementModifier": 1.75,
     "color": "76767D",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 33
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -513,10 +378,6 @@
     "id": 34,
     "movementModifier": 1,
     "color": "372F1D",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 34
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -528,10 +389,6 @@
     "id": 35,
     "movementModifier": 1,
     "color": "8A7F7A",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 35
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -543,10 +400,6 @@
     "id": 36,
     "movementModifier": 1.75,
     "color": "404040",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 36
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -558,10 +411,6 @@
     "id": 37,
     "movementModifier": 1.75,
     "color": "323232",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 37
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -573,10 +422,6 @@
     "id": 38,
     "movementModifier": 1,
     "color": "AAAAAA",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 38
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -588,10 +433,6 @@
     "id": 39,
     "movementModifier": 1.75,
     "color": "503A05",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 39
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -603,10 +444,6 @@
     "id": 40,
     "movementModifier": 1,
     "color": "B29777",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 40
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -618,10 +455,6 @@
     "id": 41,
     "movementModifier": 1,
     "color": "D3AB7B",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 41
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -633,10 +466,6 @@
     "id": 42,
     "movementModifier": 1,
     "color": "DADCDA",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 42
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -648,10 +477,6 @@
     "id": 43,
     "movementModifier": 1.75,
     "color": "BA5D3F",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 43
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -663,10 +488,6 @@
     "id": 44,
     "movementModifier": 1,
     "color": "BA9262",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 44
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -678,10 +499,6 @@
     "id": 45,
     "movementModifier": 1,
     "color": "999999",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 45
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -693,10 +510,6 @@
     "id": 46,
     "movementModifier": 1.75,
     "color": "656565",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 46
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -708,10 +521,6 @@
     "id": 47,
     "movementModifier": 1,
     "color": "0B7C05",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 47
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -723,10 +532,6 @@
     "id": 48,
     "movementModifier": 1,
     "color": "B9160D",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 48
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -738,10 +543,6 @@
     "id": 49,
     "movementModifier": 1,
     "color": "442807",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 49
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -753,10 +554,6 @@
     "id": 50,
     "movementModifier": 1.75,
     "color": "97A5B1",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 50
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -768,10 +565,6 @@
     "id": 51,
     "movementModifier": 1,
     "color": "7B3908",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 51
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -783,10 +576,6 @@
     "id": 52,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 52
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -798,10 +587,6 @@
     "id": 53,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 53
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -813,10 +598,6 @@
     "id": 54,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 54
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -828,10 +609,6 @@
     "id": 55,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 55
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -843,10 +620,6 @@
     "id": 56,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 56
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -858,10 +631,6 @@
     "id": 57,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 57
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -873,10 +642,6 @@
     "id": 58,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 58
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -888,10 +653,6 @@
     "id": 59,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 59
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -903,10 +664,6 @@
     "id": 60,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 60
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -918,10 +675,6 @@
     "id": 61,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 61
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -933,10 +686,6 @@
     "id": 62,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 62
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -948,10 +697,6 @@
     "id": 63,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 63
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -963,10 +708,6 @@
     "id": 64,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 64
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -978,10 +719,6 @@
     "id": 65,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 65
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -993,10 +730,6 @@
     "id": 66,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 66
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1008,10 +741,6 @@
     "id": 67,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 67
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1023,10 +752,6 @@
     "id": 68,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 68
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1038,10 +763,6 @@
     "id": 69,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 69
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1053,10 +774,6 @@
     "id": 70,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 70
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1068,10 +785,6 @@
     "id": 71,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 71
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1083,10 +796,6 @@
     "id": 72,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 72
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1098,10 +807,6 @@
     "id": 73,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 73
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1113,10 +818,6 @@
     "id": 74,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 74
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1128,10 +829,6 @@
     "id": 75,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 75
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1143,10 +840,6 @@
     "id": 76,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 76
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1158,10 +851,6 @@
     "id": 77,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 77
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1173,10 +862,6 @@
     "id": 78,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 78
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1188,10 +873,6 @@
     "id": 79,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 79
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1203,10 +884,6 @@
     "id": 80,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 80
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1218,10 +895,6 @@
     "id": 81,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 81
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1233,10 +906,6 @@
     "id": 82,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 82
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1248,10 +917,6 @@
     "id": 83,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 83
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1263,10 +928,6 @@
     "id": 84,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 84
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1278,10 +939,6 @@
     "id": 85,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 85
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1293,10 +950,6 @@
     "id": 86,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 86
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1308,10 +961,6 @@
     "id": 87,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 87
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1323,10 +972,6 @@
     "id": 88,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 88
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1338,10 +983,6 @@
     "id": 89,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 89
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1353,10 +994,6 @@
     "id": 90,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 90
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1368,10 +1005,6 @@
     "id": 91,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 91
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1383,10 +1016,6 @@
     "id": 92,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 92
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1398,10 +1027,6 @@
     "id": 93,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 93
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1413,10 +1038,6 @@
     "id": 94,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 94
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1428,10 +1049,6 @@
     "id": 95,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 95
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1443,10 +1060,6 @@
     "id": 96,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 96
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1458,10 +1071,6 @@
     "id": 97,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 97
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1473,10 +1082,6 @@
     "id": 98,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 98
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1488,10 +1093,6 @@
     "id": 99,
     "movementModifier": 1,
     "color": "FFFFFF",
-    "graphic": {
-      "file": "rpgwo-floors0.png",
-      "index": 99
-    },
     "graphics": {
       "file": "rpgwo-floors0.png",
       "frames": [
@@ -1503,10 +1104,6 @@
     "id": 100,
     "movementModifier": 1,
     "color": "A67E4E",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 0
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1518,10 +1115,6 @@
     "id": 101,
     "movementModifier": 1,
     "color": "A67E4E",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 1
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1533,10 +1126,6 @@
     "id": 102,
     "movementModifier": 1,
     "color": "A67E4E",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 2
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1548,10 +1137,6 @@
     "id": 103,
     "movementModifier": 1,
     "color": "A67E4E",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 3
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1563,10 +1148,6 @@
     "id": 104,
     "movementModifier": 1,
     "color": "A67E4E",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 4
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1578,10 +1159,6 @@
     "id": 105,
     "movementModifier": 1,
     "color": "A67E4E",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 5
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1593,10 +1170,6 @@
     "id": 106,
     "movementModifier": 1,
     "color": "936F45",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 6
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1608,10 +1181,6 @@
     "id": 107,
     "movementModifier": 1,
     "color": "A78359",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 7
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1623,10 +1192,6 @@
     "id": 108,
     "movementModifier": 1,
     "color": "997448",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 8
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1638,10 +1203,6 @@
     "id": 109,
     "movementModifier": 1,
     "color": "B08D63",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 9
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1653,10 +1214,6 @@
     "id": 110,
     "movementModifier": 1,
     "color": "A47E50",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 10
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1668,10 +1225,6 @@
     "id": 111,
     "movementModifier": 1,
     "color": "B4926A",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 11
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1683,10 +1236,6 @@
     "id": 112,
     "movementModifier": 1,
     "color": "A78359",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 12
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1698,10 +1247,6 @@
     "id": 113,
     "movementModifier": 1,
     "color": "9D794F",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 13
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1713,10 +1258,6 @@
     "id": 114,
     "movementModifier": 1,
     "color": "8C6A41",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 14
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1728,10 +1269,6 @@
     "id": 115,
     "movementModifier": 1,
     "color": "A17E54",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 15
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1743,10 +1280,6 @@
     "id": 116,
     "movementModifier": 1,
     "color": "936F45",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 16
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1758,10 +1291,6 @@
     "id": 117,
     "movementModifier": 1,
     "color": "AD885C",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 17
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1773,10 +1302,6 @@
     "id": 118,
     "movementModifier": 1,
     "color": "9D794F",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 18
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1788,10 +1313,6 @@
     "id": 119,
     "movementModifier": 1,
     "color": "B18D63",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 19
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1803,10 +1324,6 @@
     "id": 120,
     "movementModifier": 1,
     "color": "9F7E4B",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 20
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1818,10 +1335,6 @@
     "id": 121,
     "movementModifier": 1,
     "color": "A17E4C",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 21
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1833,10 +1346,6 @@
     "id": 122,
     "movementModifier": 1,
     "color": "A07E4B",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 22
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1848,10 +1357,6 @@
     "id": 123,
     "movementModifier": 1,
     "color": "A17E4B",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 23
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1863,10 +1368,6 @@
     "id": 124,
     "movementModifier": 1,
     "color": "A27E4C",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 24
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1878,10 +1379,6 @@
     "id": 125,
     "movementModifier": 1,
     "color": "A17E4C",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 25
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1893,10 +1390,6 @@
     "id": 126,
     "movementModifier": 1,
     "color": "8F6F43",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 26
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1908,10 +1401,6 @@
     "id": 127,
     "movementModifier": 1,
     "color": "A38357",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 27
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1923,10 +1412,6 @@
     "id": 128,
     "movementModifier": 1,
     "color": "957446",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 28
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1938,10 +1423,6 @@
     "id": 129,
     "movementModifier": 1,
     "color": "AC8D60",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 29
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1953,10 +1434,6 @@
     "id": 130,
     "movementModifier": 1,
     "color": "9E7E4D",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 30
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1968,10 +1445,6 @@
     "id": 131,
     "movementModifier": 1,
     "color": "B09268",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 31
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1983,10 +1456,6 @@
     "id": 132,
     "movementModifier": 1,
     "color": "A38357",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 32
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -1998,10 +1467,6 @@
     "id": 133,
     "movementModifier": 1,
     "color": "98794D",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 33
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2013,10 +1478,6 @@
     "id": 134,
     "movementModifier": 1,
     "color": "896940",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 34
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2028,10 +1489,6 @@
     "id": 135,
     "movementModifier": 1,
     "color": "9E7E52",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 35
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2043,10 +1500,6 @@
     "id": 136,
     "movementModifier": 1,
     "color": "8F6F43",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 36
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2058,10 +1511,6 @@
     "id": 137,
     "movementModifier": 1,
     "color": "A88859",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 37
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2073,10 +1522,6 @@
     "id": 138,
     "movementModifier": 1,
     "color": "99794D",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 38
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2088,10 +1533,6 @@
     "id": 139,
     "movementModifier": 1,
     "color": "AC8D61",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 39
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2103,10 +1544,6 @@
     "id": 140,
     "movementModifier": 1,
     "color": "917D44",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 40
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2118,10 +1555,6 @@
     "id": 141,
     "movementModifier": 1,
     "color": "947E45",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 41
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2133,10 +1566,6 @@
     "id": 142,
     "movementModifier": 1,
     "color": "917E44",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 42
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2148,10 +1577,6 @@
     "id": 143,
     "movementModifier": 1,
     "color": "937D45",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 43
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2163,10 +1588,6 @@
     "id": 144,
     "movementModifier": 1,
     "color": "947E45",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 44
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2178,10 +1599,6 @@
     "id": 145,
     "movementModifier": 1,
     "color": "927E45",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 45
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2193,10 +1610,6 @@
     "id": 146,
     "movementModifier": 1,
     "color": "826F3D",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 46
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2208,10 +1621,6 @@
     "id": 147,
     "movementModifier": 1,
     "color": "94834F",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 47
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2223,10 +1632,6 @@
     "id": 148,
     "movementModifier": 1,
     "color": "887440",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 48
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2238,10 +1643,6 @@
     "id": 149,
     "movementModifier": 1,
     "color": "9C8C57",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 49
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2253,10 +1654,6 @@
     "id": 150,
     "movementModifier": 1,
     "color": "917D47",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 50
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2268,10 +1665,6 @@
     "id": 151,
     "movementModifier": 1,
     "color": "A1915F",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 51
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2283,10 +1676,6 @@
     "id": 152,
     "movementModifier": 1,
     "color": "958350",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 52
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2298,10 +1687,6 @@
     "id": 153,
     "movementModifier": 1,
     "color": "8B7946",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 53
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2313,10 +1698,6 @@
     "id": 154,
     "movementModifier": 1,
     "color": "7D693A",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 54
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2328,10 +1709,6 @@
     "id": 155,
     "movementModifier": 1,
     "color": "917E4C",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 55
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2343,10 +1720,6 @@
     "id": 156,
     "movementModifier": 1,
     "color": "836F3E",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 56
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2358,10 +1731,6 @@
     "id": 157,
     "movementModifier": 1,
     "color": "988851",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 57
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2373,10 +1742,6 @@
     "id": 158,
     "movementModifier": 1,
     "color": "8B7946",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 58
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2388,10 +1753,6 @@
     "id": 159,
     "movementModifier": 1,
     "color": "9D8D58",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 59
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2403,10 +1764,6 @@
     "id": 160,
     "movementModifier": 1,
     "color": "807E3C",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 60
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2418,10 +1775,6 @@
     "id": 161,
     "movementModifier": 1,
     "color": "847E3E",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 61
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2433,10 +1786,6 @@
     "id": 162,
     "movementModifier": 1,
     "color": "817E3D",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 62
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2448,10 +1797,6 @@
     "id": 163,
     "movementModifier": 1,
     "color": "847E3E",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 63
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2463,10 +1808,6 @@
     "id": 164,
     "movementModifier": 1,
     "color": "837E3E",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 64
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2478,10 +1819,6 @@
     "id": 165,
     "movementModifier": 1,
     "color": "837E3D",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 65
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2493,10 +1830,6 @@
     "id": 166,
     "movementModifier": 1,
     "color": "766F37",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 66
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2508,10 +1841,6 @@
     "id": 167,
     "movementModifier": 1,
     "color": "838346",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 67
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2523,10 +1852,6 @@
     "id": 168,
     "movementModifier": 1,
     "color": "797439",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 68
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2538,10 +1863,6 @@
     "id": 169,
     "movementModifier": 1,
     "color": "8B8C4E",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 69
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2553,10 +1874,6 @@
     "id": 170,
     "movementModifier": 1,
     "color": "827E3F",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 70
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2568,10 +1885,6 @@
     "id": 171,
     "movementModifier": 1,
     "color": "909155",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 71
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2583,10 +1896,6 @@
     "id": 172,
     "movementModifier": 1,
     "color": "868348",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 72
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2598,10 +1907,6 @@
     "id": 173,
     "movementModifier": 1,
     "color": "7C793E",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 73
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2613,10 +1918,6 @@
     "id": 174,
     "movementModifier": 1,
     "color": "6E6A34",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 74
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2628,10 +1929,6 @@
     "id": 175,
     "movementModifier": 1,
     "color": "837E44",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 75
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2643,10 +1940,6 @@
     "id": 176,
     "movementModifier": 1,
     "color": "766F38",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 76
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2658,10 +1951,6 @@
     "id": 177,
     "movementModifier": 1,
     "color": "868847",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 77
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2673,10 +1962,6 @@
     "id": 178,
     "movementModifier": 1,
     "color": "7B793E",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 78
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2688,10 +1973,6 @@
     "id": 179,
     "movementModifier": 1,
     "color": "8C8D4F",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 79
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2703,10 +1984,6 @@
     "id": 180,
     "movementModifier": 1,
     "color": "647D2F",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 80
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2718,10 +1995,6 @@
     "id": 181,
     "movementModifier": 1,
     "color": "697E31",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 81
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2733,10 +2006,6 @@
     "id": 182,
     "movementModifier": 1,
     "color": "647D2F",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 82
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2748,10 +2017,6 @@
     "id": 183,
     "movementModifier": 1,
     "color": "677D31",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 83
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2763,10 +2028,6 @@
     "id": 184,
     "movementModifier": 1,
     "color": "657E30",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 84
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2778,10 +2039,6 @@
     "id": 185,
     "movementModifier": 1,
     "color": "667E30",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 85
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2793,10 +2050,6 @@
     "id": 186,
     "movementModifier": 1,
     "color": "5C6F2B",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 86
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2808,10 +2061,6 @@
     "id": 187,
     "movementModifier": 1,
     "color": "658336",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 87
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2823,10 +2072,6 @@
     "id": 188,
     "movementModifier": 1,
     "color": "60742D",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 88
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2838,10 +2083,6 @@
     "id": 189,
     "movementModifier": 1,
     "color": "6B8C3C",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 89
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2853,10 +2094,6 @@
     "id": 190,
     "movementModifier": 1,
     "color": "667D32",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 90
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2868,10 +2105,6 @@
     "id": 191,
     "movementModifier": 1,
     "color": "719143",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 91
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2883,10 +2116,6 @@
     "id": 192,
     "movementModifier": 1,
     "color": "6A8339",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 92
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2898,10 +2127,6 @@
     "id": 193,
     "movementModifier": 1,
     "color": "5F7830",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 93
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2913,10 +2138,6 @@
     "id": 194,
     "movementModifier": 1,
     "color": "566928",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 94
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2928,10 +2149,6 @@
     "id": 195,
     "movementModifier": 1,
     "color": "677D36",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 95
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2943,10 +2160,6 @@
     "id": 196,
     "movementModifier": 1,
     "color": "5C6F2B",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 96
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2958,10 +2171,6 @@
     "id": 197,
     "movementModifier": 1,
     "color": "688737",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 97
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2973,10 +2182,6 @@
     "id": 198,
     "movementModifier": 1,
     "color": "5E7930",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 98
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -2988,10 +2193,6 @@
     "id": 199,
     "movementModifier": 1,
     "color": "6D8D3D",
-    "graphic": {
-      "file": "rpgwo-floors1.png",
-      "index": 99
-    },
     "graphics": {
       "file": "rpgwo-floors1.png",
       "frames": [
@@ -3003,10 +2204,6 @@
     "id": 200,
     "movementModifier": 1,
     "color": "4E7D24",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 0
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3018,10 +2215,6 @@
     "id": 201,
     "movementModifier": 1,
     "color": "527D26",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 1
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3033,10 +2226,6 @@
     "id": 202,
     "movementModifier": 1,
     "color": "4D7D24",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 2
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3048,10 +2237,6 @@
     "id": 203,
     "movementModifier": 1,
     "color": "507D26",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 3
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3063,10 +2248,6 @@
     "id": 204,
     "movementModifier": 1,
     "color": "4E7D25",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 4
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3078,10 +2259,6 @@
     "id": 205,
     "movementModifier": 1,
     "color": "4E7D25",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 5
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3093,10 +2270,6 @@
     "id": 206,
     "movementModifier": 1,
     "color": "476E21",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 6
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3108,10 +2281,6 @@
     "id": 207,
     "movementModifier": 1,
     "color": "4D8229",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 7
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3123,10 +2292,6 @@
     "id": 208,
     "movementModifier": 1,
     "color": "4B7323",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 8
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3138,10 +2303,6 @@
     "id": 209,
     "movementModifier": 1,
     "color": "528B2E",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 9
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3153,10 +2314,6 @@
     "id": 210,
     "movementModifier": 1,
     "color": "4E7D26",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 10
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3168,10 +2325,6 @@
     "id": 211,
     "movementModifier": 1,
     "color": "589034",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 11
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3183,10 +2336,6 @@
     "id": 212,
     "movementModifier": 1,
     "color": "53822C",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 12
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3198,10 +2347,6 @@
     "id": 213,
     "movementModifier": 1,
     "color": "497825",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 13
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3213,10 +2358,6 @@
     "id": 214,
     "movementModifier": 1,
     "color": "42691F",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 14
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3228,10 +2369,6 @@
     "id": 215,
     "movementModifier": 1,
     "color": "507D2A",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 15
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3243,10 +2380,6 @@
     "id": 216,
     "movementModifier": 1,
     "color": "466F21",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 16
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3258,10 +2391,6 @@
     "id": 217,
     "movementModifier": 1,
     "color": "50862B",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 17
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3273,10 +2402,6 @@
     "id": 218,
     "movementModifier": 1,
     "color": "487824",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 18
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3288,10 +2413,6 @@
     "id": 219,
     "movementModifier": 1,
     "color": "548C2F",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 19
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3303,10 +2424,6 @@
     "id": 220,
     "movementModifier": 1,
     "color": "3D7D1C",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 20
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3318,10 +2435,6 @@
     "id": 221,
     "movementModifier": 1,
     "color": "407D1E",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 21
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3333,10 +2446,6 @@
     "id": 222,
     "movementModifier": 1,
     "color": "3C7D1C",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 22
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3348,10 +2457,6 @@
     "id": 223,
     "movementModifier": 1,
     "color": "3F7C1D",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 23
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3363,10 +2468,6 @@
     "id": 224,
     "movementModifier": 1,
     "color": "3D7D1C",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 24
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3378,10 +2479,6 @@
     "id": 225,
     "movementModifier": 1,
     "color": "3D7D1D",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 25
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3393,10 +2490,6 @@
     "id": 226,
     "movementModifier": 1,
     "color": "376E1A",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 26
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3408,10 +2501,6 @@
     "id": 227,
     "movementModifier": 1,
     "color": "3C8220",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 27
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3423,10 +2512,6 @@
     "id": 228,
     "movementModifier": 1,
     "color": "3B731C",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 28
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3438,10 +2523,6 @@
     "id": 229,
     "movementModifier": 1,
     "color": "408B24",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 29
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3453,10 +2534,6 @@
     "id": 230,
     "movementModifier": 1,
     "color": "3C7C1D",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 30
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3468,10 +2545,6 @@
     "id": 231,
     "movementModifier": 1,
     "color": "459029",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 31
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3483,10 +2556,6 @@
     "id": 232,
     "movementModifier": 1,
     "color": "428223",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 32
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3498,10 +2567,6 @@
     "id": 233,
     "movementModifier": 1,
     "color": "39781D",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 33
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3513,10 +2578,6 @@
     "id": 234,
     "movementModifier": 1,
     "color": "346918",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 34
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3528,10 +2589,6 @@
     "id": 235,
     "movementModifier": 1,
     "color": "3E7D21",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 35
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3543,10 +2600,6 @@
     "id": 236,
     "movementModifier": 1,
     "color": "366E19",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 36
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3558,10 +2611,6 @@
     "id": 237,
     "movementModifier": 1,
     "color": "3E8621",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 37
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3573,10 +2622,6 @@
     "id": 238,
     "movementModifier": 1,
     "color": "37781C",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 38
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3588,10 +2633,6 @@
     "id": 239,
     "movementModifier": 1,
     "color": "428B25",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 39
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3603,10 +2644,6 @@
     "id": 240,
     "movementModifier": 1,
     "color": "2B7D14",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 40
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3618,10 +2655,6 @@
     "id": 241,
     "movementModifier": 1,
     "color": "2E7D16",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 41
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3633,10 +2666,6 @@
     "id": 242,
     "movementModifier": 1,
     "color": "2B7D14",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 42
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3648,10 +2677,6 @@
     "id": 243,
     "movementModifier": 1,
     "color": "2D7C15",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 43
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3663,10 +2688,6 @@
     "id": 244,
     "movementModifier": 1,
     "color": "2C7D14",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 44
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3678,10 +2699,6 @@
     "id": 245,
     "movementModifier": 1,
     "color": "2C7D15",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 45
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3693,10 +2710,6 @@
     "id": 246,
     "movementModifier": 1,
     "color": "276E12",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 46
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3708,10 +2721,6 @@
     "id": 247,
     "movementModifier": 1,
     "color": "2B8217",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 47
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3723,10 +2732,6 @@
     "id": 248,
     "movementModifier": 1,
     "color": "2B7314",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 48
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3738,10 +2743,6 @@
     "id": 249,
     "movementModifier": 1,
     "color": "2E8A1A",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 49
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3753,10 +2754,6 @@
     "id": 250,
     "movementModifier": 1,
     "color": "2B7D15",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 50
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3768,10 +2765,6 @@
     "id": 251,
     "movementModifier": 1,
     "color": "328F1D",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 51
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3783,10 +2776,6 @@
     "id": 252,
     "movementModifier": 1,
     "color": "308219",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 52
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3798,10 +2787,6 @@
     "id": 253,
     "movementModifier": 1,
     "color": "297715",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 53
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3813,10 +2798,6 @@
     "id": 254,
     "movementModifier": 1,
     "color": "256A12",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 54
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3828,10 +2809,6 @@
     "id": 255,
     "movementModifier": 1,
     "color": "2D7D17",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 55
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3843,10 +2820,6 @@
     "id": 256,
     "movementModifier": 1,
     "color": "276F12",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 56
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3858,10 +2831,6 @@
     "id": 257,
     "movementModifier": 1,
     "color": "2D8518",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 57
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3873,10 +2842,6 @@
     "id": 258,
     "movementModifier": 1,
     "color": "287814",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 58
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3888,10 +2853,6 @@
     "id": 259,
     "movementModifier": 1,
     "color": "2F8B1A",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 59
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3903,10 +2864,6 @@
     "id": 260,
     "movementModifier": 1,
     "color": "1E7C0E",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 60
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3918,10 +2875,6 @@
     "id": 261,
     "movementModifier": 1,
     "color": "207C0F",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 61
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3933,10 +2886,6 @@
     "id": 262,
     "movementModifier": 1,
     "color": "1E7C0E",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 62
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3948,10 +2897,6 @@
     "id": 263,
     "movementModifier": 1,
     "color": "1F7C0E",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 63
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3963,10 +2908,6 @@
     "id": 264,
     "movementModifier": 1,
     "color": "1E7C0E",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 64
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3978,10 +2919,6 @@
     "id": 265,
     "movementModifier": 1,
     "color": "1E7C0E",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 65
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -3993,10 +2930,6 @@
     "id": 266,
     "movementModifier": 1,
     "color": "1A6E0D",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 66
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4008,10 +2941,6 @@
     "id": 267,
     "movementModifier": 1,
     "color": "1E8110",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 67
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4023,10 +2952,6 @@
     "id": 268,
     "movementModifier": 1,
     "color": "1E730E",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 68
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4038,10 +2963,6 @@
     "id": 269,
     "movementModifier": 1,
     "color": "208A12",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 69
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4053,10 +2974,6 @@
     "id": 270,
     "movementModifier": 1,
     "color": "1D7C0E",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 70
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4068,10 +2985,6 @@
     "id": 271,
     "movementModifier": 1,
     "color": "228E14",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 71
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4083,10 +2996,6 @@
     "id": 272,
     "movementModifier": 1,
     "color": "218112",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 72
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4098,10 +3007,6 @@
     "id": 273,
     "movementModifier": 1,
     "color": "1C770E",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 73
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4113,10 +3018,6 @@
     "id": 274,
     "movementModifier": 1,
     "color": "1A6A0C",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 74
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4128,10 +3029,6 @@
     "id": 275,
     "movementModifier": 1,
     "color": "1F7C10",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 75
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4143,10 +3040,6 @@
     "id": 276,
     "movementModifier": 1,
     "color": "1A6E0D",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 76
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4158,10 +3051,6 @@
     "id": 277,
     "movementModifier": 1,
     "color": "1F8410",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 77
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4173,10 +3062,6 @@
     "id": 278,
     "movementModifier": 1,
     "color": "1B780E",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 78
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4188,10 +3073,6 @@
     "id": 279,
     "movementModifier": 1,
     "color": "208A12",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 79
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4203,10 +3084,6 @@
     "id": 280,
     "movementModifier": 1,
     "color": "0B7C05",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 80
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4218,10 +3095,6 @@
     "id": 281,
     "movementModifier": 1,
     "color": "0B7B05",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 81
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4233,10 +3106,6 @@
     "id": 282,
     "movementModifier": 1,
     "color": "0B7B05",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 82
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4248,10 +3117,6 @@
     "id": 283,
     "movementModifier": 1,
     "color": "0B7B05",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 83
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4263,10 +3128,6 @@
     "id": 284,
     "movementModifier": 1,
     "color": "0B7B05",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 84
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4278,10 +3139,6 @@
     "id": 285,
     "movementModifier": 1,
     "color": "0B7B05",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 85
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4293,10 +3150,6 @@
     "id": 286,
     "movementModifier": 1,
     "color": "0A6D05",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 86
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4308,10 +3161,6 @@
     "id": 287,
     "movementModifier": 1,
     "color": "0B8006",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 87
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4323,10 +3172,6 @@
     "id": 288,
     "movementModifier": 1,
     "color": "0A7205",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 88
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4338,10 +3183,6 @@
     "id": 289,
     "movementModifier": 1,
     "color": "0C8907",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 89
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4353,10 +3194,6 @@
     "id": 290,
     "movementModifier": 1,
     "color": "0B7C05",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 90
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4368,10 +3205,6 @@
     "id": 291,
     "movementModifier": 1,
     "color": "0C8D07",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 91
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4383,10 +3216,6 @@
     "id": 292,
     "movementModifier": 1,
     "color": "0B8006",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 92
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4398,10 +3227,6 @@
     "id": 293,
     "movementModifier": 1,
     "color": "0A7705",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 93
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4413,10 +3238,6 @@
     "id": 294,
     "movementModifier": 1,
     "color": "0A6A05",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 94
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4428,10 +3249,6 @@
     "id": 295,
     "movementModifier": 1,
     "color": "0B7C06",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 95
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4443,10 +3260,6 @@
     "id": 296,
     "movementModifier": 1,
     "color": "0A6E05",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 96
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4458,10 +3271,6 @@
     "id": 297,
     "movementModifier": 1,
     "color": "0A8305",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 97
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4473,10 +3282,6 @@
     "id": 298,
     "movementModifier": 1,
     "color": "0A7705",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 98
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4488,10 +3293,6 @@
     "id": 299,
     "movementModifier": 1,
     "color": "0B8906",
-    "graphic": {
-      "file": "rpgwo-floors2.png",
-      "index": 99
-    },
     "graphics": {
       "file": "rpgwo-floors2.png",
       "frames": [
@@ -4503,10 +3304,6 @@
     "id": 300,
     "movementModifier": 1,
     "color": "B29777",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 0
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4518,10 +3315,6 @@
     "id": 301,
     "movementModifier": 1,
     "color": "B49B7C",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 1
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4533,10 +3326,6 @@
     "id": 302,
     "movementModifier": 1,
     "color": "B79F82",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 2
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4548,10 +3337,6 @@
     "id": 303,
     "movementModifier": 1,
     "color": "B59B7C",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 3
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4563,10 +3348,6 @@
     "id": 304,
     "movementModifier": 1,
     "color": "B49A7A",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 4
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4578,10 +3359,6 @@
     "id": 305,
     "movementModifier": 1,
     "color": "B7A186",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 5
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4593,10 +3370,6 @@
     "id": 306,
     "movementModifier": 1,
     "color": "9B7E5A",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 6
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4608,10 +3381,6 @@
     "id": 307,
     "movementModifier": 1,
     "color": "B19472",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 7
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4623,10 +3392,6 @@
     "id": 308,
     "movementModifier": 1,
     "color": "A08059",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 8
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4638,10 +3403,6 @@
     "id": 309,
     "movementModifier": 1,
     "color": "BCA07F",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 9
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4653,10 +3414,6 @@
     "id": 310,
     "movementModifier": 1,
     "color": "B09573",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 10
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4668,10 +3425,6 @@
     "id": 311,
     "movementModifier": 1,
     "color": "C0A687",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 11
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4683,10 +3436,6 @@
     "id": 312,
     "movementModifier": 1,
     "color": "B19778",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 12
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4698,10 +3447,6 @@
     "id": 313,
     "movementModifier": 1,
     "color": "AB9579",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 13
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4713,10 +3458,6 @@
     "id": 314,
     "movementModifier": 1,
     "color": "957A5A",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 14
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4728,10 +3469,6 @@
     "id": 315,
     "movementModifier": 1,
     "color": "AF987B",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 15
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4743,10 +3480,6 @@
     "id": 316,
     "movementModifier": 1,
     "color": "9A7C58",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 16
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4758,10 +3491,6 @@
     "id": 317,
     "movementModifier": 1,
     "color": "BCA385",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 17
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4773,10 +3502,6 @@
     "id": 318,
     "movementModifier": 1,
     "color": "A58764",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 18
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4788,10 +3513,6 @@
     "id": 319,
     "movementModifier": 1,
     "color": "BCA07E",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 19
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4803,10 +3524,6 @@
     "id": 320,
     "movementModifier": 1,
     "color": "D4CFC7",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 20
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4818,10 +3535,6 @@
     "id": 321,
     "movementModifier": 1,
     "color": "D4CFC7",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 21
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4833,10 +3546,6 @@
     "id": 322,
     "movementModifier": 1,
     "color": "D3CEC5",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 22
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4848,10 +3557,6 @@
     "id": 323,
     "movementModifier": 1,
     "color": "D3CEC6",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 23
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4863,10 +3568,6 @@
     "id": 324,
     "movementModifier": 1,
     "color": "D2CCC2",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 24
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4878,10 +3579,6 @@
     "id": 325,
     "movementModifier": 1,
     "color": "D2CCC2",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 25
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4893,10 +3590,6 @@
     "id": 326,
     "movementModifier": 1,
     "color": "B1A492",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 26
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4908,10 +3601,6 @@
     "id": 327,
     "movementModifier": 1,
     "color": "CBC0B2",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 27
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4923,10 +3612,6 @@
     "id": 328,
     "movementModifier": 1,
     "color": "B7A893",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 28
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4938,10 +3623,6 @@
     "id": 329,
     "movementModifier": 1,
     "color": "DAD1C6",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 29
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4953,10 +3634,6 @@
     "id": 330,
     "movementModifier": 1,
     "color": "C9BEAF",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 30
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4968,10 +3645,6 @@
     "id": 331,
     "movementModifier": 1,
     "color": "DCD2C7",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 31
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4983,10 +3656,6 @@
     "id": 332,
     "movementModifier": 1,
     "color": "CEC4B6",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 32
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -4998,10 +3667,6 @@
     "id": 333,
     "movementModifier": 1,
     "color": "C6C0B6",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 33
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5013,10 +3678,6 @@
     "id": 334,
     "movementModifier": 1,
     "color": "ACA292",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 34
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5028,10 +3689,6 @@
     "id": 335,
     "movementModifier": 1,
     "color": "CBC4BA",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 35
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5043,10 +3700,6 @@
     "id": 336,
     "movementModifier": 1,
     "color": "B2A695",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 36
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5058,10 +3711,6 @@
     "id": 337,
     "movementModifier": 1,
     "color": "DEDAD4",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 37
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5073,10 +3722,6 @@
     "id": 338,
     "movementModifier": 1,
     "color": "C2BAAD",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 38
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5088,10 +3733,6 @@
     "id": 339,
     "movementModifier": 1,
     "color": "DBD3C7",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 39
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5103,10 +3744,6 @@
     "id": 340,
     "movementModifier": 1,
     "color": "DADCDA",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 40
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5118,10 +3755,6 @@
     "id": 341,
     "movementModifier": 1,
     "color": "DBDCDB",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 41
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5133,10 +3766,6 @@
     "id": 342,
     "movementModifier": 1,
     "color": "DBDCDB",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 42
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5148,10 +3777,6 @@
     "id": 343,
     "movementModifier": 1,
     "color": "DBDCDB",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 43
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5163,10 +3788,6 @@
     "id": 344,
     "movementModifier": 1,
     "color": "DBDCDB",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 44
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5178,10 +3799,6 @@
     "id": 345,
     "movementModifier": 1,
     "color": "DCDDDB",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 45
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5193,10 +3810,6 @@
     "id": 346,
     "movementModifier": 1,
     "color": "C3C5C2",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 46
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5208,10 +3821,6 @@
     "id": 347,
     "movementModifier": 1,
     "color": "DDDFDD",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 47
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5223,10 +3832,6 @@
     "id": 348,
     "movementModifier": 1,
     "color": "CCCECC",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 48
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5238,10 +3843,6 @@
     "id": 349,
     "movementModifier": 1,
     "color": "E8E9E8",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 49
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5253,10 +3854,6 @@
     "id": 350,
     "movementModifier": 1,
     "color": "D8DAD8",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 50
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5268,10 +3865,6 @@
     "id": 351,
     "movementModifier": 1,
     "color": "EDEDED",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 51
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5283,10 +3876,6 @@
     "id": 352,
     "movementModifier": 1,
     "color": "DEDFDE",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 52
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5298,10 +3887,6 @@
     "id": 353,
     "movementModifier": 1,
     "color": "D1D2D1",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 53
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5313,10 +3898,6 @@
     "id": 354,
     "movementModifier": 1,
     "color": "BCBEBB",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 54
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5328,10 +3909,6 @@
     "id": 355,
     "movementModifier": 1,
     "color": "D7D8D7",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 55
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5343,10 +3920,6 @@
     "id": 356,
     "movementModifier": 1,
     "color": "C3C5C3",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 56
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5358,10 +3931,6 @@
     "id": 357,
     "movementModifier": 1,
     "color": "E5E6E5",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 57
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5373,10 +3942,6 @@
     "id": 358,
     "movementModifier": 1,
     "color": "CED0CE",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 58
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5388,10 +3953,6 @@
     "id": 359,
     "movementModifier": 1,
     "color": "EAEBEA",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 59
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5403,10 +3964,6 @@
     "id": 360,
     "movementModifier": 1,
     "color": "BA5D3F",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 60
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5418,10 +3975,6 @@
     "id": 361,
     "movementModifier": 1,
     "color": "BB5D40",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 61
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5433,10 +3986,6 @@
     "id": 362,
     "movementModifier": 1,
     "color": "BB5D40",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 62
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5448,10 +3997,6 @@
     "id": 363,
     "movementModifier": 1,
     "color": "BA5D3F",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 63
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5463,10 +4008,6 @@
     "id": 364,
     "movementModifier": 1,
     "color": "BB5D40",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 64
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5478,10 +4019,6 @@
     "id": 365,
     "movementModifier": 1,
     "color": "BB5D40",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 65
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5493,10 +4030,6 @@
     "id": 366,
     "movementModifier": 1,
     "color": "AB5039",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 66
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5508,10 +4041,6 @@
     "id": 367,
     "movementModifier": 1,
     "color": "BB6349",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 67
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5523,10 +4052,6 @@
     "id": 368,
     "movementModifier": 1,
     "color": "B0543B",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 68
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5538,10 +4063,6 @@
     "id": 369,
     "movementModifier": 1,
     "color": "C36C51",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 69
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5553,10 +4074,6 @@
     "id": 370,
     "movementModifier": 1,
     "color": "B95D41",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 70
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5568,10 +4085,6 @@
     "id": 371,
     "movementModifier": 1,
     "color": "C67157",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 71
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5583,10 +4096,6 @@
     "id": 372,
     "movementModifier": 1,
     "color": "BB6249",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 72
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5598,10 +4107,6 @@
     "id": 373,
     "movementModifier": 1,
     "color": "B35941",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 73
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5613,10 +4118,6 @@
     "id": 374,
     "movementModifier": 1,
     "color": "A54B36",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 74
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5628,10 +4129,6 @@
     "id": 375,
     "movementModifier": 1,
     "color": "B75E45",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 75
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5643,10 +4140,6 @@
     "id": 376,
     "movementModifier": 1,
     "color": "AB5039",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 76
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5658,10 +4151,6 @@
     "id": 377,
     "movementModifier": 1,
     "color": "C0674B",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 77
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5673,10 +4162,6 @@
     "id": 378,
     "movementModifier": 1,
     "color": "B35941",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 78
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5688,10 +4173,6 @@
     "id": 379,
     "movementModifier": 1,
     "color": "C36D52",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 79
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5703,10 +4184,6 @@
     "id": 380,
     "movementModifier": 1,
     "color": "BA9262",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 80
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5718,10 +4195,6 @@
     "id": 381,
     "movementModifier": 1,
     "color": "BA9262",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 81
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5733,10 +4206,6 @@
     "id": 382,
     "movementModifier": 1,
     "color": "BA9262",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 82
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5748,10 +4217,6 @@
     "id": 383,
     "movementModifier": 1,
     "color": "BA9262",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 83
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5763,10 +4228,6 @@
     "id": 384,
     "movementModifier": 1,
     "color": "BA9262",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 84
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5778,10 +4239,6 @@
     "id": 385,
     "movementModifier": 1,
     "color": "BA9262",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 85
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5793,10 +4250,6 @@
     "id": 386,
     "movementModifier": 1,
     "color": "A78459",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 86
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5808,10 +4261,6 @@
     "id": 387,
     "movementModifier": 1,
     "color": "BB976D",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 87
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5823,10 +4272,6 @@
     "id": 388,
     "movementModifier": 1,
     "color": "AD885C",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 88
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5838,10 +4283,6 @@
     "id": 389,
     "movementModifier": 1,
     "color": "C4A177",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 89
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5853,10 +4294,6 @@
     "id": 390,
     "movementModifier": 1,
     "color": "B89264",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 90
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5868,10 +4305,6 @@
     "id": 391,
     "movementModifier": 1,
     "color": "C7A57D",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 91
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5883,10 +4316,6 @@
     "id": 392,
     "movementModifier": 1,
     "color": "BB976D",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 92
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5898,10 +4327,6 @@
     "id": 393,
     "movementModifier": 1,
     "color": "B18D63",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 93
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5913,10 +4338,6 @@
     "id": 394,
     "movementModifier": 1,
     "color": "A07E56",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 94
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5928,10 +4349,6 @@
     "id": 395,
     "movementModifier": 1,
     "color": "B59268",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 95
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5943,10 +4360,6 @@
     "id": 396,
     "movementModifier": 1,
     "color": "A78459",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 96
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5958,10 +4371,6 @@
     "id": 397,
     "movementModifier": 1,
     "color": "C09B6F",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 97
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5973,10 +4382,6 @@
     "id": 398,
     "movementModifier": 1,
     "color": "B18D63",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 98
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -5988,10 +4393,6 @@
     "id": 399,
     "movementModifier": 1,
     "color": "C5A177",
-    "graphic": {
-      "file": "rpgwo-floors3.png",
-      "index": 99
-    },
     "graphics": {
       "file": "rpgwo-floors3.png",
       "frames": [
@@ -6003,10 +4404,6 @@
     "id": 400,
     "movementModifier": 1,
     "color": "999999",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 0
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6018,10 +4415,6 @@
     "id": 401,
     "movementModifier": 1,
     "color": "999999",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 1
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6033,10 +4426,6 @@
     "id": 402,
     "movementModifier": 1,
     "color": "999999",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 2
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6048,10 +4437,6 @@
     "id": 403,
     "movementModifier": 1,
     "color": "999999",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 3
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6063,10 +4448,6 @@
     "id": 404,
     "movementModifier": 1,
     "color": "999999",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 4
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6078,10 +4459,6 @@
     "id": 405,
     "movementModifier": 1,
     "color": "999999",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 5
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6093,10 +4470,6 @@
     "id": 406,
     "movementModifier": 1,
     "color": "878787",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 6
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6108,10 +4481,6 @@
     "id": 407,
     "movementModifier": 1,
     "color": "999999",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 7
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6123,10 +4492,6 @@
     "id": 408,
     "movementModifier": 1,
     "color": "8D8D8D",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 8
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6138,10 +4503,6 @@
     "id": 409,
     "movementModifier": 1,
     "color": "A2A2A2",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 9
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6153,10 +4514,6 @@
     "id": 410,
     "movementModifier": 1,
     "color": "979797",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 10
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6168,10 +4525,6 @@
     "id": 411,
     "movementModifier": 1,
     "color": "A5A5A5",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 11
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6183,10 +4536,6 @@
     "id": 412,
     "movementModifier": 1,
     "color": "999999",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 12
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6198,10 +4547,6 @@
     "id": 413,
     "movementModifier": 1,
     "color": "909090",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 13
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6213,10 +4558,6 @@
     "id": 414,
     "movementModifier": 1,
     "color": "808080",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 14
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6228,10 +4569,6 @@
     "id": 415,
     "movementModifier": 1,
     "color": "949494",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 15
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6243,10 +4580,6 @@
     "id": 416,
     "movementModifier": 1,
     "color": "878787",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 16
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6258,10 +4591,6 @@
     "id": 417,
     "movementModifier": 1,
     "color": "9F9F9F",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 17
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6273,10 +4602,6 @@
     "id": 418,
     "movementModifier": 1,
     "color": "909090",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 18
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6288,10 +4613,6 @@
     "id": 419,
     "movementModifier": 1,
     "color": "A3A3A3",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 19
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6303,10 +4624,6 @@
     "id": 420,
     "movementModifier": 1,
     "color": "656565",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 20
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6318,10 +4635,6 @@
     "id": 421,
     "movementModifier": 1,
     "color": "656565",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 21
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6333,10 +4646,6 @@
     "id": 422,
     "movementModifier": 1,
     "color": "656565",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 22
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6348,10 +4657,6 @@
     "id": 423,
     "movementModifier": 1,
     "color": "656565",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 23
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6363,10 +4668,6 @@
     "id": 424,
     "movementModifier": 1,
     "color": "656565",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 24
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6378,10 +4679,6 @@
     "id": 425,
     "movementModifier": 1,
     "color": "656565",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 25
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6393,10 +4690,6 @@
     "id": 426,
     "movementModifier": 1,
     "color": "4D4D4D",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 26
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6408,10 +4701,6 @@
     "id": 427,
     "movementModifier": 1,
     "color": "6D6D6D",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 27
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6423,10 +4712,6 @@
     "id": 428,
     "movementModifier": 1,
     "color": "555555",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 28
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6438,10 +4723,6 @@
     "id": 429,
     "movementModifier": 1,
     "color": "7D7D7D",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 29
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6453,10 +4734,6 @@
     "id": 430,
     "movementModifier": 1,
     "color": "656565",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 30
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6468,10 +4745,6 @@
     "id": 431,
     "movementModifier": 1,
     "color": "858585",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 31
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6483,10 +4756,6 @@
     "id": 432,
     "movementModifier": 1,
     "color": "6D6D6D",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 32
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6498,10 +4767,6 @@
     "id": 433,
     "movementModifier": 1,
     "color": "5D5D5D",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 33
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6513,10 +4778,6 @@
     "id": 434,
     "movementModifier": 1,
     "color": "454545",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 34
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6528,10 +4789,6 @@
     "id": 435,
     "movementModifier": 1,
     "color": "6D6D6D",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 35
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6543,10 +4800,6 @@
     "id": 436,
     "movementModifier": 1,
     "color": "4D4D4D",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 36
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6558,10 +4811,6 @@
     "id": 437,
     "movementModifier": 1,
     "color": "757575",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 37
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6573,10 +4822,6 @@
     "id": 438,
     "movementModifier": 1,
     "color": "5D5D5D",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 38
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6588,10 +4833,6 @@
     "id": 439,
     "movementModifier": 1,
     "color": "7D7D7D",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 39
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6603,10 +4844,6 @@
     "id": 440,
     "movementModifier": 1,
     "color": "0B7C05",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 40
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6618,10 +4855,6 @@
     "id": 441,
     "movementModifier": 1,
     "color": "0B7B05",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 41
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6633,10 +4866,6 @@
     "id": 442,
     "movementModifier": 1,
     "color": "0B7B05",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 42
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6648,10 +4877,6 @@
     "id": 443,
     "movementModifier": 1,
     "color": "0B7B05",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 43
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6663,10 +4888,6 @@
     "id": 444,
     "movementModifier": 1,
     "color": "0B7B05",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 44
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6678,10 +4899,6 @@
     "id": 445,
     "movementModifier": 1,
     "color": "0B7B05",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 45
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6693,10 +4910,6 @@
     "id": 446,
     "movementModifier": 1,
     "color": "0A6D05",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 46
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6708,10 +4921,6 @@
     "id": 447,
     "movementModifier": 1,
     "color": "0B8006",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 47
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6723,10 +4932,6 @@
     "id": 448,
     "movementModifier": 1,
     "color": "0A7205",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 48
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6738,10 +4943,6 @@
     "id": 449,
     "movementModifier": 1,
     "color": "0C8907",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 49
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6753,10 +4954,6 @@
     "id": 450,
     "movementModifier": 1,
     "color": "0B7C05",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 50
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6768,10 +4965,6 @@
     "id": 451,
     "movementModifier": 1,
     "color": "0C8D07",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 51
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6783,10 +4976,6 @@
     "id": 452,
     "movementModifier": 1,
     "color": "0B8006",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 52
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6798,10 +4987,6 @@
     "id": 453,
     "movementModifier": 1,
     "color": "0A7705",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 53
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6813,10 +4998,6 @@
     "id": 454,
     "movementModifier": 1,
     "color": "0A6A05",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 54
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6828,10 +5009,6 @@
     "id": 455,
     "movementModifier": 1,
     "color": "0B7C06",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 55
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6843,10 +5020,6 @@
     "id": 456,
     "movementModifier": 1,
     "color": "0A6E05",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 56
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6858,10 +5031,6 @@
     "id": 457,
     "movementModifier": 1,
     "color": "0A8305",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 57
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6873,10 +5042,6 @@
     "id": 458,
     "movementModifier": 1,
     "color": "0A7705",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 58
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6888,10 +5053,6 @@
     "id": 459,
     "movementModifier": 1,
     "color": "0B8906",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 59
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6903,10 +5064,6 @@
     "id": 460,
     "movementModifier": 1,
     "color": "B9160D",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 60
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6918,10 +5075,6 @@
     "id": 461,
     "movementModifier": 1,
     "color": "B9160D",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 61
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6933,10 +5086,6 @@
     "id": 462,
     "movementModifier": 1,
     "color": "B9160D",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 62
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6948,10 +5097,6 @@
     "id": 463,
     "movementModifier": 1,
     "color": "B8160D",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 63
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6963,10 +5108,6 @@
     "id": 464,
     "movementModifier": 1,
     "color": "B9160D",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 64
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6978,10 +5119,6 @@
     "id": 465,
     "movementModifier": 1,
     "color": "B9170D",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 65
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -6993,10 +5130,6 @@
     "id": 466,
     "movementModifier": 1,
     "color": "A9130C",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 66
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7008,10 +5141,6 @@
     "id": 467,
     "movementModifier": 1,
     "color": "B9250F",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 67
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7023,10 +5152,6 @@
     "id": 468,
     "movementModifier": 1,
     "color": "AE140C",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 68
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7038,10 +5163,6 @@
     "id": 469,
     "movementModifier": 1,
     "color": "C12E11",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 69
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7053,10 +5174,6 @@
     "id": 470,
     "movementModifier": 1,
     "color": "B7180D",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 70
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7068,10 +5185,6 @@
     "id": 471,
     "movementModifier": 1,
     "color": "C43712",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 71
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7083,10 +5196,6 @@
     "id": 472,
     "movementModifier": 1,
     "color": "B9250F",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 72
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7098,10 +5207,6 @@
     "id": 473,
     "movementModifier": 1,
     "color": "B11B0D",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 73
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7113,10 +5218,6 @@
     "id": 474,
     "movementModifier": 1,
     "color": "A4120B",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 74
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7128,10 +5229,6 @@
     "id": 475,
     "movementModifier": 1,
     "color": "B5200E",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 75
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7143,10 +5240,6 @@
     "id": 476,
     "movementModifier": 1,
     "color": "AA130C",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 76
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7158,10 +5251,6 @@
     "id": 477,
     "movementModifier": 1,
     "color": "BE2510",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 77
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7173,10 +5262,6 @@
     "id": 478,
     "movementModifier": 1,
     "color": "B11B0D",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 78
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7188,10 +5273,6 @@
     "id": 479,
     "movementModifier": 1,
     "color": "C12F11",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 79
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7203,10 +5284,6 @@
     "id": 480,
     "movementModifier": 1,
     "color": "442807",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 80
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7218,10 +5295,6 @@
     "id": 481,
     "movementModifier": 1,
     "color": "442807",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 81
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7233,10 +5306,6 @@
     "id": 482,
     "movementModifier": 1,
     "color": "442807",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 82
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7248,10 +5317,6 @@
     "id": 483,
     "movementModifier": 1,
     "color": "442807",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 83
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7263,10 +5328,6 @@
     "id": 484,
     "movementModifier": 1,
     "color": "442807",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 84
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7278,10 +5339,6 @@
     "id": 485,
     "movementModifier": 1,
     "color": "442807",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 85
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7293,10 +5350,6 @@
     "id": 486,
     "movementModifier": 1,
     "color": "371E02",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 86
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7308,10 +5361,6 @@
     "id": 487,
     "movementModifier": 1,
     "color": "442C0F",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 87
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7323,10 +5372,6 @@
     "id": 488,
     "movementModifier": 1,
     "color": "3B2103",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 88
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7338,10 +5383,6 @@
     "id": 489,
     "movementModifier": 1,
     "color": "4B3215",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 89
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7353,10 +5394,6 @@
     "id": 490,
     "movementModifier": 1,
     "color": "422808",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 90
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7368,10 +5405,6 @@
     "id": 491,
     "movementModifier": 1,
     "color": "4E361A",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 91
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7383,10 +5416,6 @@
     "id": 492,
     "movementModifier": 1,
     "color": "442C0F",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 92
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7398,10 +5427,6 @@
     "id": 493,
     "movementModifier": 1,
     "color": "3E2508",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 93
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7413,10 +5438,6 @@
     "id": 494,
     "movementModifier": 1,
     "color": "321A00",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 94
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7428,10 +5449,6 @@
     "id": 495,
     "movementModifier": 1,
     "color": "41280C",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 95
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7443,10 +5460,6 @@
     "id": 496,
     "movementModifier": 1,
     "color": "371E02",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 96
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7458,10 +5471,6 @@
     "id": 497,
     "movementModifier": 1,
     "color": "492F11",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 97
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7473,10 +5482,6 @@
     "id": 498,
     "movementModifier": 1,
     "color": "3E2508",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 98
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7488,10 +5493,6 @@
     "id": 499,
     "movementModifier": 1,
     "color": "4C3316",
-    "graphic": {
-      "file": "rpgwo-floors4.png",
-      "index": 99
-    },
     "graphics": {
       "file": "rpgwo-floors4.png",
       "frames": [
@@ -7503,10 +5504,6 @@
     "id": 500,
     "movementModifier": 1,
     "color": "917D44",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 0
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7518,10 +5515,6 @@
     "id": 501,
     "movementModifier": 1,
     "color": "947E45",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 1
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7533,10 +5526,6 @@
     "id": 502,
     "movementModifier": 1,
     "color": "917E44",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 2
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7548,10 +5537,6 @@
     "id": 503,
     "movementModifier": 1,
     "color": "937D45",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 3
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7563,10 +5548,6 @@
     "id": 504,
     "movementModifier": 1,
     "color": "947E45",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 4
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7578,10 +5559,6 @@
     "id": 505,
     "movementModifier": 1,
     "color": "927E45",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 5
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7593,10 +5570,6 @@
     "id": 506,
     "movementModifier": 1,
     "color": "826F3D",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 6
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7608,10 +5581,6 @@
     "id": 507,
     "movementModifier": 1,
     "color": "94834F",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 7
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7623,10 +5592,6 @@
     "id": 508,
     "movementModifier": 1,
     "color": "887440",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 8
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7638,10 +5603,6 @@
     "id": 509,
     "movementModifier": 1,
     "color": "9C8C57",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 9
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7653,10 +5614,6 @@
     "id": 510,
     "movementModifier": 1,
     "color": "917D47",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 10
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7668,10 +5625,6 @@
     "id": 511,
     "movementModifier": 1,
     "color": "A1915F",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 11
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7683,10 +5636,6 @@
     "id": 512,
     "movementModifier": 1,
     "color": "958350",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 12
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7698,10 +5647,6 @@
     "id": 513,
     "movementModifier": 1,
     "color": "8B7946",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 13
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7713,10 +5658,6 @@
     "id": 514,
     "movementModifier": 1,
     "color": "7D693A",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 14
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7728,10 +5669,6 @@
     "id": 515,
     "movementModifier": 1,
     "color": "917E4C",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 15
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7743,10 +5680,6 @@
     "id": 516,
     "movementModifier": 1,
     "color": "836F3E",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 16
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7758,10 +5691,6 @@
     "id": 517,
     "movementModifier": 1,
     "color": "988851",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 17
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7773,10 +5702,6 @@
     "id": 518,
     "movementModifier": 1,
     "color": "8B7946",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 18
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7788,10 +5713,6 @@
     "id": 519,
     "movementModifier": 1,
     "color": "9D8D58",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 19
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7803,10 +5724,6 @@
     "id": 520,
     "movementModifier": 1,
     "color": "D3AB7B",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 20
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7818,10 +5735,6 @@
     "id": 521,
     "movementModifier": 1,
     "color": "D3AB7B",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 21
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7833,10 +5746,6 @@
     "id": 522,
     "movementModifier": 1,
     "color": "D3AB7B",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 22
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7848,10 +5757,6 @@
     "id": 523,
     "movementModifier": 1,
     "color": "D2AA7B",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 23
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7863,10 +5768,6 @@
     "id": 524,
     "movementModifier": 1,
     "color": "D3AB7B",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 24
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7878,10 +5779,6 @@
     "id": 525,
     "movementModifier": 1,
     "color": "D4AC7C",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 25
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7893,10 +5790,6 @@
     "id": 526,
     "movementModifier": 1,
     "color": "C09C72",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 26
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7908,10 +5801,6 @@
     "id": 527,
     "movementModifier": 1,
     "color": "D3B086",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 27
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7923,10 +5812,6 @@
     "id": 528,
     "movementModifier": 1,
     "color": "C7A276",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 28
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7938,10 +5823,6 @@
     "id": 529,
     "movementModifier": 1,
     "color": "DDBA90",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 29
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7953,10 +5834,6 @@
     "id": 530,
     "movementModifier": 1,
     "color": "D1AB7D",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 30
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7968,10 +5845,6 @@
     "id": 531,
     "movementModifier": 1,
     "color": "E0BE96",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 31
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7983,10 +5856,6 @@
     "id": 532,
     "movementModifier": 1,
     "color": "D3B086",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 32
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -7998,10 +5867,6 @@
     "id": 533,
     "movementModifier": 1,
     "color": "C9A67C",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 33
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8013,10 +5878,6 @@
     "id": 534,
     "movementModifier": 1,
     "color": "B9976E",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 34
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8028,10 +5889,6 @@
     "id": 535,
     "movementModifier": 1,
     "color": "CDAA80",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 35
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8043,10 +5900,6 @@
     "id": 536,
     "movementModifier": 1,
     "color": "BF9C72",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 36
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8058,10 +5911,6 @@
     "id": 537,
     "movementModifier": 1,
     "color": "DAB589",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 37
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8073,10 +5922,6 @@
     "id": 538,
     "movementModifier": 1,
     "color": "C9A67C",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 38
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8088,10 +5933,6 @@
     "id": 539,
     "movementModifier": 1,
     "color": "DEBB91",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 39
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8103,10 +5944,6 @@
     "id": 540,
     "movementModifier": 1,
     "color": "ABAAAA",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 40
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8118,10 +5955,6 @@
     "id": 541,
     "movementModifier": 1,
     "color": "A6A6A6",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 41
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8133,10 +5966,6 @@
     "id": 542,
     "movementModifier": 1,
     "color": "ACACAC",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 42
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8148,10 +5977,6 @@
     "id": 543,
     "movementModifier": 1,
     "color": "ACABAB",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 43
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8163,10 +5988,6 @@
     "id": 544,
     "movementModifier": 1,
     "color": "ABABAB",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 44
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8178,10 +5999,6 @@
     "id": 545,
     "movementModifier": 1,
     "color": "A8A8A8",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 45
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8193,10 +6010,6 @@
     "id": 546,
     "movementModifier": 1,
     "color": "959494",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 46
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8208,10 +6021,6 @@
     "id": 547,
     "movementModifier": 1,
     "color": "AEAEAE",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 47
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8223,10 +6032,6 @@
     "id": 548,
     "movementModifier": 1,
     "color": "9D9C9C",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 48
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8238,10 +6043,6 @@
     "id": 549,
     "movementModifier": 1,
     "color": "B9B8B8",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 49
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8253,10 +6054,6 @@
     "id": 550,
     "movementModifier": 1,
     "color": "A6A6A6",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 50
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8268,10 +6065,6 @@
     "id": 551,
     "movementModifier": 1,
     "color": "C0BFBF",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 51
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8283,10 +6076,6 @@
     "id": 552,
     "movementModifier": 1,
     "color": "AFAEAF",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 52
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8298,10 +6087,6 @@
     "id": 553,
     "movementModifier": 1,
     "color": "A4A3A4",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 53
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8313,10 +6098,6 @@
     "id": 554,
     "movementModifier": 1,
     "color": "939292",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 54
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8328,10 +6109,6 @@
     "id": 555,
     "movementModifier": 1,
     "color": "AAA9A9",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 55
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8343,10 +6120,6 @@
     "id": 556,
     "movementModifier": 1,
     "color": "9A9A9A",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 56
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8358,10 +6131,6 @@
     "id": 557,
     "movementModifier": 1,
     "color": "B3B2B3",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 57
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8373,10 +6142,6 @@
     "id": 558,
     "movementModifier": 1,
     "color": "A5A5A5",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 58
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8388,10 +6153,6 @@
     "id": 559,
     "movementModifier": 1,
     "color": "B9B9B9",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 59
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8403,10 +6164,6 @@
     "id": 560,
     "movementModifier": 1,
     "color": "686F40",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 60
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8418,10 +6175,6 @@
     "id": 561,
     "movementModifier": 1,
     "color": "6B7040",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 61
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8433,10 +6186,6 @@
     "id": 562,
     "movementModifier": 1,
     "color": "677041",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 62
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8448,10 +6197,6 @@
     "id": 563,
     "movementModifier": 1,
     "color": "697040",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 63
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8463,10 +6208,6 @@
     "id": 564,
     "movementModifier": 1,
     "color": "6A7040",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 64
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8478,10 +6219,6 @@
     "id": 565,
     "movementModifier": 1,
     "color": "697041",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 65
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8493,10 +6230,6 @@
     "id": 566,
     "movementModifier": 1,
     "color": "5C6137",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 66
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8508,10 +6241,6 @@
     "id": 567,
     "movementModifier": 1,
     "color": "6C764B",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 67
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8523,10 +6252,6 @@
     "id": 568,
     "movementModifier": 1,
     "color": "61663A",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 68
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8538,10 +6263,6 @@
     "id": 569,
     "movementModifier": 1,
     "color": "737F54",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 69
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8553,10 +6274,6 @@
     "id": 570,
     "movementModifier": 1,
     "color": "697041",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 70
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8568,10 +6285,6 @@
     "id": 571,
     "movementModifier": 1,
     "color": "78855B",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 71
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8583,10 +6296,6 @@
     "id": 572,
     "movementModifier": 1,
     "color": "6D764A",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 72
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8598,10 +6307,6 @@
     "id": 573,
     "movementModifier": 1,
     "color": "646C40",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 73
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8613,10 +6318,6 @@
     "id": 574,
     "movementModifier": 1,
     "color": "565C33",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 74
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8628,10 +6329,6 @@
     "id": 575,
     "movementModifier": 1,
     "color": "6A7145",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 75
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8643,10 +6340,6 @@
     "id": 576,
     "movementModifier": 1,
     "color": "5C6237",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 76
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8658,10 +6351,6 @@
     "id": 577,
     "movementModifier": 1,
     "color": "6F7B4E",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 77
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8673,10 +6362,6 @@
     "id": 578,
     "movementModifier": 1,
     "color": "636C41",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 78
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8688,10 +6373,6 @@
     "id": 579,
     "movementModifier": 1,
     "color": "748054",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 79
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8703,10 +6384,6 @@
     "id": 580,
     "movementModifier": 1,
     "color": "656B2B",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 80
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8718,10 +6395,6 @@
     "id": 581,
     "movementModifier": 1,
     "color": "696B2D",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 81
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8733,10 +6406,6 @@
     "id": 582,
     "movementModifier": 1,
     "color": "656B2B",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 82
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8748,10 +6417,6 @@
     "id": 583,
     "movementModifier": 1,
     "color": "676B2C",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 83
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8763,10 +6428,6 @@
     "id": 584,
     "movementModifier": 1,
     "color": "666B2C",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 84
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8778,10 +6439,6 @@
     "id": 585,
     "movementModifier": 1,
     "color": "666B2C",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 85
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8793,10 +6450,6 @@
     "id": 586,
     "movementModifier": 1,
     "color": "5C5E28",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 86
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8808,10 +6461,6 @@
     "id": 587,
     "movementModifier": 1,
     "color": "667131",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 87
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8823,10 +6472,6 @@
     "id": 588,
     "movementModifier": 1,
     "color": "606329",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 88
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8838,10 +6483,6 @@
     "id": 589,
     "movementModifier": 1,
     "color": "6C7937",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 89
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8853,10 +6494,6 @@
     "id": 590,
     "movementModifier": 1,
     "color": "666B2E",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 90
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8868,10 +6505,6 @@
     "id": 591,
     "movementModifier": 1,
     "color": "727E3D",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 91
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8883,10 +6516,6 @@
     "id": 592,
     "movementModifier": 1,
     "color": "6A7134",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 92
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8898,10 +6527,6 @@
     "id": 593,
     "movementModifier": 1,
     "color": "60682C",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 93
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8913,10 +6538,6 @@
     "id": 594,
     "movementModifier": 1,
     "color": "565A25",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 94
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8928,10 +6549,6 @@
     "id": 595,
     "movementModifier": 1,
     "color": "676C31",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 95
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8943,10 +6560,6 @@
     "id": 596,
     "movementModifier": 1,
     "color": "5C5F28",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 96
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8958,10 +6571,6 @@
     "id": 597,
     "movementModifier": 1,
     "color": "697532",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 97
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8973,10 +6582,6 @@
     "id": 598,
     "movementModifier": 1,
     "color": "5F682C",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 98
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [
@@ -8988,10 +6593,6 @@
     "id": 599,
     "movementModifier": 1,
     "color": "6E7A38",
-    "graphic": {
-      "file": "rpgwo-floors5.png",
-      "index": 99
-    },
     "graphics": {
       "file": "rpgwo-floors5.png",
       "frames": [

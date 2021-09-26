@@ -221,7 +221,11 @@ class CreatureSprite extends PIXI.Sprite {
 
     // Load all necessary textures.
     const textures: Record<string, PIXI.Texture> = {};
-    if (this.creature.graphics.index >= 0 && this.creature.graphics.index <= 4) {
+
+    // TODO: generalize
+    if (Content.getBaseDir() === 'worlds/rpgwo-world' &&
+      this.creature.graphics.index >= 0 && this.creature.graphics.index <= 4) {
+
       const data = this.creature.imageData || {
         arms: {file: 'rpgwo-arms0.png', frames: [0]},
         head: {file: 'rpgwo-head0.png', frames: [0]},
@@ -551,6 +555,9 @@ export class Game {
 
     if (Content.getBaseDir() === 'worlds/bit-world') {
       this.client.settings.scale = 2.25;
+    }
+    if (Content.getBaseDir() === 'worlds/16bit-world') {
+      this.client.settings.scale = 2.5;
     }
 
     this.canvasesEl.appendChild(this.app.view);

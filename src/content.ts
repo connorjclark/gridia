@@ -57,6 +57,14 @@ export async function initializeWorldData(worldDataDef_: WorldDataDefinition): P
       loadDataFile('worlds/rpgwo-world/content/spells.json'),
       loadDataFile('worlds/rpgwo-world/content/lootTables.json'),
     ]);
+  } else if (worldDataDef_.baseDir === 'worlds/16bit-world') {
+    [floors, items, itemUses, monsters, skills] = await Promise.all([
+      loadDataFile('worlds/16bit-world/content/floors.json'),
+      loadDataFile('worlds/16bit-world/content/items.json'),
+      loadDataFile('worlds/16bit-world/content/itemuses.json'),
+      loadDataFile('worlds/16bit-world/content/monsters.json'),
+      loadDataFile('worlds/rpgwo-world/content/skills.json'),
+    ]);
   } else if (worldDataDef_.baseDir === 'worlds/bit-world') {
     function addItem(item: Partial<MetaItem>, x?: number, y?: number) {
       const graphics = x !== undefined && y !== undefined ?

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <p></p>
+  <script>
+    const imgEl = document.createElement('img');
+    imgEl.src = document.location.search.substr(1);
+    document.body.prepend(imgEl);
+
+    imgEl.addEventListener('mousemove', e => {
+      const gfxSize = 24;
+      const tilesAcross = Math.round(imgEl.width / gfxSize);
+      const x = Math.floor(e.clientX / 24);
+      const y = Math.floor(e.clientY / 24);
+      const index = x + y * tilesAcross;
+      document.querySelector('p').textContent = `${x}, ${y}. index: ${index}`;
+    });
+  </script>
+</body>
+
+</html>

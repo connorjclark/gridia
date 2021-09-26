@@ -481,7 +481,7 @@ class Tile {
     if (meta.graphics.templateType) {
       const partition = this.worldContainer.map.getPartition(this.loc.w);
       const offset =
-        getIndexOffsetForTemplate(partition, this.floorValue, this.loc, meta.graphics.templateType, 'floor');
+        getIndexOffsetForTemplate(partition, this.floorValue, this.loc, meta.graphics, 'floor');
       texture = Draw.getTexture(meta.graphics.file, meta.graphics.frames[0] + offset);
     } else {
       texture = Draw.getTexture(meta.graphics.file, meta.graphics.frames[0]);
@@ -533,7 +533,7 @@ class Tile {
     if (meta.graphics.templateType) {
       const partition = this.worldContainer.map.getPartition(this.loc.w);
       const offset =
-        getIndexOffsetForTemplate(partition, this.floorValue, this.loc, meta.graphics.templateType, 'item');
+        getIndexOffsetForTemplate(partition, this.itemValue.type, this.loc, meta.graphics, 'item');
       const texture = Draw.getTexture(meta.graphics.file, meta.graphics.frames[0] + offset);
       sprite = new PIXI.Sprite(texture);
     } else {

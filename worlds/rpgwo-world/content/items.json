@@ -51902,7 +51902,8 @@
       "file": "rpgwo-templates0.png",
       "frames": [
         50
-      ]
+      ],
+      "templateType": "bit-offset"
     },
     "moveable": false,
     "walkable": false

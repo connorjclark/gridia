@@ -184,9 +184,24 @@ interface Graphics {
   frames: number[];
   imageHeight?: number;
   templateType?: TemplateType;
+  templateData?: TemplateData;
 }
 
-type TemplateType = 'bit-offset' | 'visual-offset';
+// TODO: as array?
+interface TemplateData {
+  0: number;
+  rb: number;
+  lrb: number;
+  lb: number;
+  rab: number;
+  lrab: number;
+  lab: number;
+  ra: number;
+  lra: number;
+  la: number;
+}
+
+type TemplateType = 'bit-offset' | 'visual-offset' | 'misc-offset-1' | 'data-offset';
 
 interface MetaFloor {
   id: number;
@@ -211,6 +226,7 @@ interface MetaItem {
   blocksLight: boolean;
   rarity: number;
   stackable: boolean;
+  // TODO: rename to "blocksMovement", and have default be false.
   walkable: boolean;
   trapEffect?: 'Warp';
   combatSkill?: number;

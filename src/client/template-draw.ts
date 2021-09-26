@@ -3,14 +3,145 @@ import {WorldMapPartition} from '../world-map-partition';
 
 export function getIndexOffsetForTemplate(partition: WorldMapPartition,
                                           typeToMatch: number, loc: PartitionPoint,
-                                          templateType: TemplateType, match: 'item' | 'floor') {
-  if (templateType === 'bit-offset') {
+                                          graphics: Graphics, match: 'item' | 'floor') {
+  if (graphics.templateType === 'bit-offset') {
     return useBitOffsetTemplate(partition, typeToMatch, loc, match);
-  } else {
+  } else if (graphics.templateType === 'visual-offset') {
     const offset = useVisualOffsetTemplate(partition, typeToMatch, loc, match);
     const tilesAcross = Content.getBaseDir() === 'worlds/rpgwo-world' ? 10 : 8;
     return offset.x + offset.y * tilesAcross;
+  } else if (graphics.templateType === 'data-offset') {
+    if (!graphics.templateData) throw new Error('missing template data');
+
+    const realIndex = useDataOffsetTemplate(partition, typeToMatch, graphics.templateData, loc, match);
+    return realIndex - graphics.frames[0];
+  } else if (graphics.templateType === 'misc-offset-1') {
+    return useMiscOffset1Template(partition, typeToMatch, loc, match);
+  } else {
+    throw new Error('unexpected template type: ' + graphics.templateType);
   }
+}
+
+// https://gamedev.stackexchange.com/a/125288/42994
+// https://gamedev.stackexchange.com/questions/46594/elegant-autotiling
+
+function useDataOffsetTemplate(partition: WorldMapPartition,
+                               typeToMatch: number, templateData: TemplateData,
+                               loc: PartitionPoint, match: 'item' | 'floor') {
+  const {x, y, z} = loc;
+  const xl = x - 1;
+  const xr = x + 1;
+  const yu = y + 1;
+  const yd = y - 1;
+
+  function matches(pos: PartitionPoint) {
+    if (!partition.inBounds(pos)) {
+      return true;
+    }
+
+    const tile = partition.getTile(pos);
+    if (match === 'floor') return tile.floor === typeToMatch;
+
+    return tile.item?.type === typeToMatch;
+  }
+
+  const below = matches({x, y: yu, z});
+  const above = matches({x, y: yd, z});
+  const left = matches({x: xl, y, z});
+  const right = matches({x: xr, y, z});
+  const left_below = matches({x: xl, y: yu, z});
+  const right_below = matches({x: xr, y: yu, z});
+  const left_above = matches({x: xl, y: yd, z});
+  const right_above = matches({x: xr, y: yd, z});
+  // @ts-expect-error: Boolean addition!
+  const cardinalSum: number = below + above + left + right;
+  // @ts-expect-error: Boolean addition!
+  const sum: number = cardinalSum + left_below + right_below + left_above + right_above;
+
+  if (sum === 8) {
+    return templateData.lrab;
+  }
+
+  // Inner edge.
+  if (cardinalSum === 4) {
+    if (!left_above && !right_above && left_below && right_below) return templateData.lrb;
+    if (!right_above && !right_below && left_above && left_below) return templateData.lab;
+    if (!left_above && !left_below && right_above && right_below) return templateData.rab;
+    if (!left_below && !right_below && left_above && right_above) return templateData.lra;
+  }
+  if (cardinalSum === 3) {
+    if (!above && left_below && right_below) return templateData.lrb;
+    if (!right && left_above && left_below) return templateData.lab;
+    if (!left && right_above && right_below) return templateData.rab;
+    if (!below && left_above && right_above) return templateData.lra;
+  }
+
+  // Corners.
+  if (left && above && left_above) return templateData.la;
+  if (left && below && left_below) return templateData.lb;
+  if (right && above && right_above) return templateData.ra;
+  if (right && below && right_below) return templateData.rb;
+
+  return templateData[0];
+}
+
+function useMiscOffset1Template(partition: WorldMapPartition,
+                                typeToMatch: number, loc: PartitionPoint, match: 'item' | 'floor') {
+  const {x, y, z} = loc;
+  const xl = x - 1;
+  const xr = x + 1;
+  const yu = y + 1;
+  const yd = y - 1;
+
+  function matches(pos: PartitionPoint) {
+    if (!partition.inBounds(pos)) {
+      return true;
+    }
+
+    const tile = partition.getTile(pos);
+    if (match === 'floor') return tile.floor === typeToMatch;
+
+    return tile.item?.type === typeToMatch;
+  }
+
+  const below = matches({x, y: yu, z});
+  const above = matches({x, y: yd, z});
+  const left = matches({x: xl, y, z});
+  const right = matches({x: xr, y, z});
+  // @ts-expect-error: Boolean addition!
+  const cardinalSum = below + above + left + right;
+
+  if (cardinalSum === 4) {
+    return 11;
+  }
+
+  // T-corner.
+  if (cardinalSum === 3) {
+    if (!above) return 12;
+    if (!right) return 13;
+    if (!left) return 14;
+    if (!below) return 15;
+  }
+
+  // Corner and straight edges.
+  if (cardinalSum === 2) {
+    if (left && right) return 2;
+    if (above && below) return 5;
+    if (below && right) return 7;
+    if (below && left) return 8;
+    if (above && right) return 9;
+    if (above && left) return 10;
+  }
+
+  // Ends.
+  if (cardinalSum === 1) {
+    if (right) return 1;
+    if (left) return 3;
+    if (below) return 4;
+    if (above) return 6;
+  }
+
+  return 0;
 }
 
 function useVisualOffsetTemplate(partition: WorldMapPartition,
@@ -41,9 +172,9 @@ function useVisualOffsetTemplate(partition: WorldMapPartition,
   const upleft = matches({x: xl, y: yd, z});
   const upright = matches({x: xr, y: yd, z});
   // @ts-expect-error: Boolean addition!
-  const cardinalSum = below + above + left + right;
+  const cardinalSum: number = below + above + left + right;
   // @ts-expect-error: Boolean addition!
-  const sum = below + above + left + right + downleft + downright + upleft + upright;
+  const sum = cardinalSum + downleft + downright + upleft + upright;
 
   /*
       ____
