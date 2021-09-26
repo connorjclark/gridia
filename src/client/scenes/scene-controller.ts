@@ -9,6 +9,7 @@ function parseQuery(queryString: string) {
   const params = new URLSearchParams(queryString ? queryString.substr(1) : '');
   return {
     map: params.get('map'),
+    type: params.get('type'),
     quick: params.get('quick'),
     playerId: params.get('playerId'),
     latency: params.has('latency') ? Number(params.get('latency')) : undefined,

@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   await Content.initializeWorldData({
     baseDir: 'worlds/rpgwo-world',
     tileSize: 32,
+    // @ts-expect-error
+    characterCreation: {},
   });
 
   class FakeGame {

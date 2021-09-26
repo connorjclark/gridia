@@ -60,6 +60,10 @@ export class SelectCharacterScene extends Scene {
     this.controller.pushScene(new CreateCharacterScene(this.controller));
   }
 
+  getExistingPlayers() {
+    return this.loginData.players;
+  }
+
   onShow() {
     super.onShow();
   }

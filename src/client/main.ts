@@ -1,4 +1,5 @@
 import * as Content from '../content';
+import * as CommandBuilder from '../protocol/command-builder';
 
 import {connectWithWebSocket, connectWithWebRTC} from './connect-to-server';
 import * as Helper from './helper';
@@ -114,21 +115,43 @@ document.addEventListener('DOMContentLoaded', async () => {
       (controller.currentScene as SelectCharacterScene).selectPlayer(controller.qs.playerId);
     }
   } else if (controller.qs.quick === 'local') {
+    const type = controller.qs.type || 'rpgwo';
+    if (!Content.WORLD_DATA_DEFINITIONS[type]) throw new Error('unknown type: ' + type);
+
     await controller.loadWorker();
 
+    // Create map.
+    const mapName = controller.qs.map || `quick-default (${type})`;
     const mapNames = await controller.getMapNames();
-    if (!controller.qs.map && !mapNames.includes('quick-default')) {
+    if (!mapNames.includes(mapName)) {
       await controller.serverWorker.generateMap({
         bare: true,
         width: 100,
         height: 100,
         depth: 1,
         seeds: {},
-        worldDataDefinition: Content.WORLD_DATA_DEFINITIONS.rpgwo,
+        worldDataDefinition: Content.WORLD_DATA_DEFINITIONS[type],
       });
-      await controller.serverWorker.saveGeneratedMap({name: 'quick-default'});
+      await controller.serverWorker.saveGeneratedMap({name: mapName});
     }
-    new MapSelectScene(controller).loadMap(controller.qs.map || 'quick-default');
+
+    // Select map.
+    await new MapSelectScene(controller).loadMap(controller.qs.map || mapName);
+
+    // Create player / enter world as player.
+    const players = (controller.currentScene as SelectCharacterScene).getExistingPlayers();
+    const playerName = controller.qs.playerId || 'Quicksilver'; // TODO ...
+    const existingPlayer = playerName && players.find((p) => p.name === playerName);
+    if (existingPlayer) {
+      (controller.currentScene as SelectCharacterScene).selectPlayer(existingPlayer.id);
+    } else {
+      await controller.client.connection.sendCommand(CommandBuilder.createPlayer({
+        name: playerName,
+        attributes: new Map(),
+        skills: new Set(),
+      }));
+      controller.startGame();
+    }
   } else {
     controller.pushScene(new StartScene(controller));
   }

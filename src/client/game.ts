@@ -555,7 +555,7 @@ export class Game {
       this.client.settings.scale = 2.25;
     }
     if (Content.getBaseDir() === 'worlds/16bit-world') {
-      this.client.settings.scale = 2.5;
+      this.client.settings.scale = 1.75;
     }
 
     this.canvasesEl.appendChild(this.app.view);
