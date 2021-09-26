@@ -884,6 +884,7 @@ function convertFloors() {
     const args = [
       'convert',
       imageName,
+      '+set', 'date:modify',
       ...`-crop 32x32+${x}+${y} +repage`.split(' '),
       ...'-resize 1x1 txt:-'.split(' '),
     ];
@@ -992,7 +993,7 @@ function parseMonsterIni() {
       // @ts-expect-error
       file: `rpgwo-player${Math.floor(monster.image / 100)}.png`,
       // @ts-expect-error
-      index: (monster.image % 100) - 1,
+      frames: [(monster.image % 100) - 1],
       // @ts-expect-error
       imageType: monster.image_type,
     };

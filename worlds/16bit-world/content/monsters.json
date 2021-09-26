@@ -5,7 +5,10 @@
     "name": "Knight M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 0
+      "frames": [
+        0,
+        18
+      ]
     }
   },
   {
@@ -13,7 +16,10 @@
     "name": "Thief M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 1
+      "frames": [
+        1,
+        19
+      ]
     }
   },
   {
@@ -21,7 +27,10 @@
     "name": "Ranger M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 2
+      "frames": [
+        2,
+        20
+      ]
     }
   },
   {
@@ -29,7 +38,10 @@
     "name": "Wizard M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 3
+      "frames": [
+        3,
+        21
+      ]
     }
   },
   {
@@ -37,7 +49,10 @@
     "name": "Priest M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 4
+      "frames": [
+        4,
+        22
+      ]
     }
   },
   {
@@ -45,7 +60,10 @@
     "name": "Shaman M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 5
+      "frames": [
+        5,
+        23
+      ]
     }
   },
   {
@@ -53,7 +71,10 @@
     "name": "Berserker M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 6
+      "frames": [
+        6,
+        24
+      ]
     }
   },
   {
@@ -61,7 +82,10 @@
     "name": "Swordsman M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 7
+      "frames": [
+        7,
+        25
+      ]
     }
   },
   {
@@ -69,7 +93,10 @@
     "name": "Paladin M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 8
+      "frames": [
+        8,
+        26
+      ]
     }
   },
   {
@@ -77,7 +104,10 @@
     "name": "Knight F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 9
+      "frames": [
+        9,
+        27
+      ]
     }
   },
   {
@@ -85,7 +115,10 @@
     "name": "Thief F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 10
+      "frames": [
+        10,
+        28
+      ]
     }
   },
   {
@@ -93,7 +126,10 @@
     "name": "Ranger F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 11
+      "frames": [
+        11,
+        29
+      ]
     }
   },
   {
@@ -101,7 +137,10 @@
     "name": "Wizard F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 12
+      "frames": [
+        12,
+        30
+      ]
     }
   },
   {
@@ -109,7 +148,10 @@
     "name": "Priest F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 13
+      "frames": [
+        13,
+        31
+      ]
     }
   },
   {
@@ -117,7 +159,10 @@
     "name": "Shaman F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 14
+      "frames": [
+        14,
+        32
+      ]
     }
   },
   {
@@ -125,7 +170,10 @@
     "name": "Berserker F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 15
+      "frames": [
+        15,
+        33
+      ]
     }
   },
   {
@@ -133,7 +181,10 @@
     "name": "Swordsman F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 16
+      "frames": [
+        16,
+        34
+      ]
     }
   },
   {
@@ -141,7 +192,10 @@
     "name": "Paladin F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 17
+      "frames": [
+        17,
+        35
+      ]
     }
   },
   {
@@ -149,7 +203,10 @@
     "name": "Bandit",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 36
+      "frames": [
+        36,
+        54
+      ]
     }
   },
   {
@@ -157,7 +214,10 @@
     "name": "Hooded Human",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 37
+      "frames": [
+        37,
+        55
+      ]
     }
   },
   {
@@ -165,7 +225,10 @@
     "name": "Human M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 38
+      "frames": [
+        38,
+        56
+      ]
     }
   },
   {
@@ -173,7 +236,10 @@
     "name": "Human F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 39
+      "frames": [
+        39,
+        57
+      ]
     }
   },
   {
@@ -181,7 +247,10 @@
     "name": "Merchant",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 40
+      "frames": [
+        40,
+        58
+      ]
     }
   },
   {
@@ -189,7 +258,10 @@
     "name": "Butcher",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 41
+      "frames": [
+        41,
+        59
+      ]
     }
   },
   {
@@ -197,7 +269,10 @@
     "name": "Chef",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 42
+      "frames": [
+        42,
+        60
+      ]
     }
   },
   {
@@ -205,7 +280,10 @@
     "name": "Bishop",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 43
+      "frames": [
+        43,
+        61
+      ]
     }
   },
   {
@@ -213,7 +291,10 @@
     "name": "King",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 44
+      "frames": [
+        44,
+        62
+      ]
     }
   },
   {
@@ -221,7 +302,10 @@
     "name": "Queen",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 45
+      "frames": [
+        45,
+        63
+      ]
     }
   },
   {
@@ -229,7 +313,10 @@
     "name": "Prince",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 46
+      "frames": [
+        46,
+        64
+      ]
     }
   },
   {
@@ -237,7 +324,10 @@
     "name": "Princess",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 47
+      "frames": [
+        47,
+        65
+      ]
     }
   },
   {
@@ -245,7 +335,10 @@
     "name": "Guard M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 48
+      "frames": [
+        48,
+        66
+      ]
     }
   },
   {
@@ -253,7 +346,10 @@
     "name": "Guard F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 49
+      "frames": [
+        49,
+        67
+      ]
     }
   },
   {
@@ -261,7 +357,10 @@
     "name": "Knight",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 50
+      "frames": [
+        50,
+        68
+      ]
     }
   },
   {
@@ -269,7 +368,10 @@
     "name": "Guard Alt M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 51
+      "frames": [
+        51,
+        69
+      ]
     }
   },
   {
@@ -277,7 +379,10 @@
     "name": "Guard Alt F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 52
+      "frames": [
+        52,
+        70
+      ]
     }
   },
   {
@@ -285,7 +390,10 @@
     "name": "Knight Alt",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 53
+      "frames": [
+        53,
+        71
+      ]
     }
   },
   {
@@ -293,7 +401,10 @@
     "name": "Bandit",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 72
+      "frames": [
+        72,
+        90
+      ]
     }
   },
   {
@@ -301,7 +412,10 @@
     "name": "Hooded Human",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 73
+      "frames": [
+        73,
+        91
+      ]
     }
   },
   {
@@ -309,7 +423,10 @@
     "name": "Human M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 74
+      "frames": [
+        74,
+        92
+      ]
     }
   },
   {
@@ -317,7 +434,10 @@
     "name": "Human F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 75
+      "frames": [
+        75,
+        93
+      ]
     }
   },
   {
@@ -325,7 +445,10 @@
     "name": "Merchant",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 76
+      "frames": [
+        76,
+        94
+      ]
     }
   },
   {
@@ -333,7 +456,10 @@
     "name": "Slave",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 77
+      "frames": [
+        77,
+        95
+      ]
     }
   },
   {
@@ -341,7 +467,10 @@
     "name": "Alchemist",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 78
+      "frames": [
+        78,
+        96
+      ]
     }
   },
   {
@@ -349,7 +478,10 @@
     "name": "Prophet",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 79
+      "frames": [
+        79,
+        97
+      ]
     }
   },
   {
@@ -357,7 +489,10 @@
     "name": "King",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 80
+      "frames": [
+        80,
+        98
+      ]
     }
   },
   {
@@ -365,7 +500,10 @@
     "name": "Queen",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 81
+      "frames": [
+        81,
+        99
+      ]
     }
   },
   {
@@ -373,7 +511,10 @@
     "name": "Prince",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 82
+      "frames": [
+        82,
+        100
+      ]
     }
   },
   {
@@ -381,7 +522,10 @@
     "name": "Princess",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 83
+      "frames": [
+        83,
+        101
+      ]
     }
   },
   {
@@ -389,7 +533,10 @@
     "name": "Guard M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 84
+      "frames": [
+        84,
+        102
+      ]
     }
   },
   {
@@ -397,7 +544,10 @@
     "name": "Guard F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 85
+      "frames": [
+        85,
+        103
+      ]
     }
   },
   {
@@ -405,7 +555,10 @@
     "name": "Knight",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 86
+      "frames": [
+        86,
+        104
+      ]
     }
   },
   {
@@ -413,7 +566,10 @@
     "name": "Guard Alt M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 87
+      "frames": [
+        87,
+        105
+      ]
     }
   },
   {
@@ -421,7 +577,10 @@
     "name": "Guard Alt F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 88
+      "frames": [
+        88,
+        106
+      ]
     }
   },
   {
@@ -429,7 +588,10 @@
     "name": "Knight Alt",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 89
+      "frames": [
+        89,
+        107
+      ]
     }
   },
   {
@@ -437,7 +599,10 @@
     "name": "Assassin",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 108
+      "frames": [
+        108,
+        126
+      ]
     }
   },
   {
@@ -445,7 +610,10 @@
     "name": "Bandit",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 109
+      "frames": [
+        109,
+        127
+      ]
     }
   },
   {
@@ -453,7 +621,10 @@
     "name": "Dwarf",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 110
+      "frames": [
+        110,
+        128
+      ]
     }
   },
   {
@@ -461,7 +632,10 @@
     "name": "Dwarf Alt",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 111
+      "frames": [
+        111,
+        129
+      ]
     }
   },
   {
@@ -469,7 +643,10 @@
     "name": "Dwarf Priest",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 112
+      "frames": [
+        112,
+        130
+      ]
     }
   },
   {
@@ -477,7 +654,10 @@
     "name": "Drow Assassin",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 113
+      "frames": [
+        113,
+        131
+      ]
     }
   },
   {
@@ -485,7 +665,10 @@
     "name": "Drow Fighter",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 114
+      "frames": [
+        114,
+        132
+      ]
     }
   },
   {
@@ -493,7 +676,10 @@
     "name": "Drow Ranger",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 115
+      "frames": [
+        115,
+        133
+      ]
     }
   },
   {
@@ -501,7 +687,10 @@
     "name": "Drow Mage",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 116
+      "frames": [
+        116,
+        134
+      ]
     }
   },
   {
@@ -509,7 +698,10 @@
     "name": "Drow Sorceress",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 117
+      "frames": [
+        117,
+        135
+      ]
     }
   },
   {
@@ -517,7 +709,10 @@
     "name": "High Elf Fighter M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 118
+      "frames": [
+        118,
+        136
+      ]
     }
   },
   {
@@ -525,7 +720,10 @@
     "name": "High Elf Shield Fighter M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 119
+      "frames": [
+        119,
+        137
+      ]
     }
   },
   {
@@ -533,7 +731,10 @@
     "name": "High Elf Ranger M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 120
+      "frames": [
+        120,
+        138
+      ]
     }
   },
   {
@@ -541,7 +742,10 @@
     "name": "High Elf Mage M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 121
+      "frames": [
+        121,
+        139
+      ]
     }
   },
   {
@@ -549,7 +753,10 @@
     "name": "High Elf Fighter F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 122
+      "frames": [
+        122,
+        140
+      ]
     }
   },
   {
@@ -557,7 +764,10 @@
     "name": "High Elf Shield Fighter F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 123
+      "frames": [
+        123,
+        141
+      ]
     }
   },
   {
@@ -565,7 +775,10 @@
     "name": "High Elf Ranger F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 124
+      "frames": [
+        124,
+        142
+      ]
     }
   },
   {
@@ -573,7 +786,10 @@
     "name": "High Elf Mage F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 125
+      "frames": [
+        125,
+        143
+      ]
     }
   },
   {
@@ -581,7 +797,10 @@
     "name": "Wood Elf Fighter M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 144
+      "frames": [
+        144,
+        162
+      ]
     }
   },
   {
@@ -589,7 +808,10 @@
     "name": "Wood Elf Shield Fighter M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 145
+      "frames": [
+        145,
+        163
+      ]
     }
   },
   {
@@ -597,7 +819,10 @@
     "name": "Wood Elf Ranger M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 146
+      "frames": [
+        146,
+        164
+      ]
     }
   },
   {
@@ -605,7 +830,10 @@
     "name": "Wood Elf Druid M",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 147
+      "frames": [
+        147,
+        165
+      ]
     }
   },
   {
@@ -613,7 +841,10 @@
     "name": "Wood Elf Fighter F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 148
+      "frames": [
+        148,
+        166
+      ]
     }
   },
   {
@@ -621,7 +852,10 @@
     "name": "Wood Elf Shield Fighter F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 149
+      "frames": [
+        149,
+        167
+      ]
     }
   },
   {
@@ -629,7 +863,10 @@
     "name": "Wood Elf Ranger F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 150
+      "frames": [
+        150,
+        168
+      ]
     }
   },
   {
@@ -637,7 +874,10 @@
     "name": "Wood Elf Druid F",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 151
+      "frames": [
+        151,
+        169
+      ]
     }
   },
   {
@@ -645,7 +885,10 @@
     "name": "Lizardman Warrior",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 152
+      "frames": [
+        152,
+        170
+      ]
     }
   },
   {
@@ -653,7 +896,10 @@
     "name": "Lizardman Archer",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 153
+      "frames": [
+        153,
+        171
+      ]
     }
   },
   {
@@ -661,7 +907,10 @@
     "name": "Lizardman Captain",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 154
+      "frames": [
+        154,
+        172
+      ]
     }
   },
   {
@@ -669,7 +918,10 @@
     "name": "Lizardman Shaman",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 155
+      "frames": [
+        155,
+        173
+      ]
     }
   },
   {
@@ -677,7 +929,10 @@
     "name": "Lizardman High Shaman",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 156
+      "frames": [
+        156,
+        174
+      ]
     }
   },
   {
@@ -685,7 +940,10 @@
     "name": "Gnome Fighter",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 157
+      "frames": [
+        157,
+        175
+      ]
     }
   },
   {
@@ -693,7 +951,10 @@
     "name": "Gnome Fighter Alt",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 158
+      "frames": [
+        158,
+        176
+      ]
     }
   },
   {
@@ -701,7 +962,10 @@
     "name": "Gnome Fighter Alt",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 159
+      "frames": [
+        159,
+        177
+      ]
     }
   },
   {
@@ -709,7 +973,10 @@
     "name": "Gnome Wizard",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 160
+      "frames": [
+        160,
+        178
+      ]
     }
   },
   {
@@ -717,7 +984,10 @@
     "name": "Gnome Wizard Alt",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 161
+      "frames": [
+        161,
+        179
+      ]
     }
   },
   {
@@ -725,7 +995,10 @@
     "name": "Gnoll Fighter",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 180
+      "frames": [
+        180,
+        198
+      ]
     }
   },
   {
@@ -733,7 +1006,10 @@
     "name": "Gnoll Fighter Alt",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 181
+      "frames": [
+        181,
+        199
+      ]
     }
   },
   {
@@ -741,7 +1017,10 @@
     "name": "Gnoll Fighter Captain",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 182
+      "frames": [
+        182,
+        200
+      ]
     }
   },
   {
@@ -749,7 +1028,10 @@
     "name": "Gnoll Shaman",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 183
+      "frames": [
+        183,
+        201
+      ]
     }
   },
   {
@@ -757,7 +1039,10 @@
     "name": "Minotaur Axe",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 184
+      "frames": [
+        184,
+        202
+      ]
     }
   },
   {
@@ -765,7 +1050,10 @@
     "name": "Minotaur Club",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 185
+      "frames": [
+        185,
+        203
+      ]
     }
   },
   {
@@ -773,7 +1061,10 @@
     "name": "Minotaur Alt",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 186
+      "frames": [
+        186,
+        204
+      ]
     }
   },
   {
@@ -781,7 +1072,10 @@
     "name": "Elder Demon",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 187
+      "frames": [
+        187,
+        205
+      ]
     }
   },
   {
@@ -789,7 +1083,10 @@
     "name": "Fire Demon",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 188
+      "frames": [
+        188,
+        206
+      ]
     }
   },
   {
@@ -797,7 +1094,10 @@
     "name": "Horned Demon",
     "graphics": {
       "file": "creatures_001.png",
-      "index": 189
+      "frames": [
+        189,
+        207
+      ]
     }
   }
 ]

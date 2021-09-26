@@ -393,7 +393,7 @@ export class Server {
       pos: {...player.loc},
       graphics: {
         file: 'rpgwo-player0.png',
-        index: Utils.randInt(0, 4),
+        frames: [Utils.randInt(0, 4)],
       },
       isPlayer: true,
       // TODO
@@ -422,11 +422,11 @@ export class Server {
 
     if (this.worldDataDef.baseDir === 'worlds/16bit-world') {
       creature.graphics = {
-        file: 'creatures_001.png', index: 0,
+        file: 'creatures_001.png', frames: [0, 18],
       };
     } else if (this.worldDataDef.baseDir === 'worlds/bit-world') {
       creature.graphics = {
-        file: 'tileset_1bit.png', index: 5*8 + 4,
+        file: 'tileset_1bit.png', frames: [5*8 + 4],
       };
     }
 

@@ -221,10 +221,11 @@ class CreatureSprite extends PIXI.Sprite {
 
     // Load all necessary textures.
     const textures: Record<string, PIXI.Texture> = {};
+    let animatedSprite;
 
     // TODO: generalize
     if (Content.getBaseDir() === 'worlds/rpgwo-world' &&
-      this.creature.graphics.index >= 0 && this.creature.graphics.index <= 4) {
+      this.creature.graphics.frames[0] >= 0 && this.creature.graphics.frames[1] <= 4) {
 
       const data = this.creature.imageData || {
         arms: {file: 'rpgwo-arms0.png', frames: [0]},
@@ -240,7 +241,18 @@ class CreatureSprite extends PIXI.Sprite {
       if (data.shield) textures.shield = Draw.getTexture(data.shield.file, data.shield.frames[0]);
       if (data.weapon) textures.weapon = Draw.getTexture(data.weapon.file, data.weapon.frames[0]);
     } else {
-      textures.main = Draw.getTexture(this.creature.graphics.file, this.creature.graphics.index, width, height);
+      // TODO
+      if (this.creature.graphics.frames.length === 1) {
+        textures.main = Draw.getTexture(this.creature.graphics.file, this.creature.graphics.frames[0], width, height);
+      } else {
+        const animTextures = this.creature.graphics.frames
+          .map((index) => Draw.getTexture(this.creature.graphics.file, index));
+        if (animTextures.some((t) => t === PIXI.Texture.EMPTY)) return;
+
+        animatedSprite = new PIXI.AnimatedSprite(animTextures);
+        animatedSprite.animationSpeed = 5 / 60;
+        animatedSprite.play();
+      }
     }
 
     const creatureGfx = new PIXI.Graphics();
@@ -268,6 +280,7 @@ class CreatureSprite extends PIXI.Sprite {
     this.removeChild(this.labelSprite);
     Draw.destroyChildren(this);
     this.addChild(creatureGfx);
+    if (animatedSprite) this.addChild(animatedSprite);
     this.addChild(this.labelSprite);
 
     this.labelSprite.alpha = 0;

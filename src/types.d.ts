@@ -130,7 +130,7 @@ interface Creature {
   dead: boolean;
   graphics: {
     file: string;
-    index: number;
+    frames: number[];
     // TODO
     imageType?: number;
   };

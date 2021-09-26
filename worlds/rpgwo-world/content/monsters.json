@@ -5,7 +5,9 @@
     "name": "Evil Elf",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 24
+      "frames": [
+        24
+      ]
     },
     "level": 2,
     "life": 20,
@@ -35,7 +37,9 @@
     "name": "Zombie",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 95
+      "frames": [
+        95
+      ]
     },
     "level": 5,
     "life": 30,
@@ -72,7 +76,9 @@
     "name": "Vile Elf",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 25
+      "frames": [
+        25
+      ]
     },
     "level": 8,
     "life": 60,
@@ -113,7 +119,9 @@
     "name": "Evil Santa",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 27
+      "frames": [
+        27
+      ]
     },
     "level": 15,
     "life": 100,
@@ -155,7 +163,9 @@
     "name": "Grinch Santa",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 28
+      "frames": [
+        28
+      ]
     },
     "level": 23,
     "life": 150,
@@ -209,7 +219,9 @@
     "name": "Mad Reindeer",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 1
+      "frames": [
+        1
+      ]
     },
     "level": 13,
     "life": 90,
@@ -240,7 +252,9 @@
     "eatGrass": true,
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 6
+      "frames": [
+        6
+      ]
     },
     "level": 1,
     "life": 10,
@@ -260,7 +274,9 @@
     "eatGrass": true,
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 9
+      "frames": [
+        9
+      ]
     },
     "level": 1,
     "life": 30,
@@ -279,7 +295,9 @@
     "name": "Psycho Rabbit",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 15
+      "frames": [
+        15
+      ]
     },
     "level": 35,
     "life": 200,
@@ -310,7 +328,9 @@
     "name": "Brigand",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 12,
     "life": 70,
@@ -347,7 +367,9 @@
     "name": "Brigand Captain",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 6
+      "frames": [
+        6
+      ]
     },
     "level": 15,
     "life": 90,
@@ -384,7 +406,9 @@
     "name": "Mutant",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 92
+      "frames": [
+        92
+      ]
     },
     "level": 7,
     "life": 75,
@@ -420,7 +444,9 @@
     "name": "Orc",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 91
+      "frames": [
+        91
+      ]
     },
     "level": 10,
     "life": 75,
@@ -452,7 +478,9 @@
     "name": "Mud Golem",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 97
+      "frames": [
+        97
+      ]
     },
     "level": 15,
     "life": 100,
@@ -482,7 +510,9 @@
     "name": "Iron Golem",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 88
+      "frames": [
+        88
+      ]
     },
     "level": 20,
     "life": 150,
@@ -512,7 +542,9 @@
     "name": "Fly",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 93
+      "frames": [
+        93
+      ]
     },
     "level": 4,
     "life": 20,
@@ -543,7 +575,9 @@
     "name": "Mole Man",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 94
+      "frames": [
+        94
+      ]
     },
     "level": 10,
     "life": 50,
@@ -570,7 +604,9 @@
     "name": "Nightopian",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 96
+      "frames": [
+        96
+      ]
     },
     "level": 20,
     "life": 300,
@@ -603,7 +639,9 @@
     "deadItem": 1085,
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 9
+      "frames": [
+        9
+      ]
     },
     "level": 20,
     "life": 50,
@@ -640,7 +678,9 @@
     "name": "Mole Cheif",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 33
+      "frames": [
+        33
+      ]
     },
     "level": 20,
     "life": 100,
@@ -668,7 +708,9 @@
     "deadItem": 1085,
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 32
+      "frames": [
+        32
+      ]
     },
     "level": 12,
     "life": 50,
@@ -694,7 +736,9 @@
     "name": "Bandit",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 32
+      "frames": [
+        32
+      ]
     },
     "level": 18,
     "life": 100,
@@ -731,7 +775,9 @@
     "name": "Bandit Archer",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 45
+      "frames": [
+        45
+      ]
     },
     "level": 20,
     "life": 100,
@@ -773,7 +819,9 @@
     "name": "Wraith",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": -1
+      "frames": [
+        -1
+      ]
     },
     "level": 35,
     "life": 150,
@@ -805,7 +853,9 @@
     "name": "Viscous Uparen",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 34
+      "frames": [
+        34
+      ]
     },
     "level": 25,
     "life": 150,
@@ -847,7 +897,9 @@
     "name": "Drej",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 35
+      "frames": [
+        35
+      ]
     },
     "level": 25,
     "life": 150,
@@ -877,7 +929,9 @@
     "name": "Mutant Sheep",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 98
+      "frames": [
+        98
+      ]
     },
     "level": 18,
     "life": 150,
@@ -907,7 +961,9 @@
     "name": "Gold Golem",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 73
+      "frames": [
+        73
+      ]
     },
     "level": 80,
     "life": 200,
@@ -937,7 +993,9 @@
     "name": "Mystic Knight",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 80
+      "frames": [
+        80
+      ]
     },
     "level": 80,
     "life": 200,
@@ -974,7 +1032,9 @@
     "name": "Elken Knight",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 81
+      "frames": [
+        81
+      ]
     },
     "level": 120,
     "life": 400,
@@ -1010,7 +1070,9 @@
     "name": "Elken Priestess",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 81
+      "frames": [
+        81
+      ]
     },
     "level": 120,
     "life": 400,
@@ -1051,7 +1113,9 @@
     "name": "Drake",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 83
+      "frames": [
+        83
+      ]
     },
     "level": 160,
     "life": 400,
@@ -1081,7 +1145,9 @@
     "name": "Magi Drake",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 70
+      "frames": [
+        70
+      ]
     },
     "level": 200,
     "life": 300,
@@ -1110,7 +1176,9 @@
     "name": "Snow Drake",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 71
+      "frames": [
+        71
+      ]
     },
     "level": 100,
     "life": 300,
@@ -1136,7 +1204,9 @@
     "name": "Fire Drake",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 72
+      "frames": [
+        72
+      ]
     },
     "level": 145,
     "life": 400,
@@ -1166,7 +1236,9 @@
     "name": "Dark Drake",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 73
+      "frames": [
+        73
+      ]
     },
     "level": 175,
     "life": 400,
@@ -1196,7 +1268,9 @@
     "name": "Magma Demon",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 40
+      "frames": [
+        40
+      ]
     },
     "level": 220,
     "life": 500,
@@ -1226,7 +1300,9 @@
     "name": "Mesa Scorpion",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 60
+      "frames": [
+        60
+      ]
     },
     "level": 50,
     "life": 250,
@@ -1248,7 +1324,9 @@
     "name": "Bat Swarm",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 46
+      "frames": [
+        46
+      ]
     },
     "level": 50,
     "life": 200,
@@ -1270,7 +1348,9 @@
     "name": "Guardian",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 67
+      "frames": [
+        67
+      ]
     },
     "level": 150,
     "life": 250,
@@ -1297,7 +1377,9 @@
     "name": "Baby Chicken",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 17
+      "frames": [
+        17
+      ]
     },
     "level": 1,
     "life": 10,
@@ -1316,7 +1398,9 @@
     "name": "Giant Roach",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 0
+      "frames": [
+        0
+      ]
     },
     "level": 3,
     "life": 20,
@@ -1343,7 +1427,9 @@
     "eatGrass": true,
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 83
+      "frames": [
+        83
+      ]
     },
     "level": 1,
     "life": 50,
@@ -1362,7 +1448,9 @@
     "name": "Grayvyn Soldier",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 85
+      "frames": [
+        85
+      ]
     },
     "level": 15,
     "life": 100,
@@ -1394,7 +1482,9 @@
     "name": "Grayvyn Ranger",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 20,
     "life": 200,
@@ -1426,7 +1516,9 @@
     "name": "Grayvyn Witch",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 84
+      "frames": [
+        84
+      ]
     },
     "level": 25,
     "life": 100,
@@ -1458,7 +1550,9 @@
     "name": "Grayvyn Hound",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 47
+      "frames": [
+        47
+      ]
     },
     "level": 10,
     "life": 75,
@@ -1484,7 +1578,9 @@
     "name": "Grayvyn Squire",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 45,
     "life": 150,
@@ -1516,7 +1612,9 @@
     "name": "Grayvyn Pike",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 84
+      "frames": [
+        84
+      ]
     },
     "level": 20,
     "life": 100,
@@ -1547,7 +1645,9 @@
     "name": "Grayvyn Knight",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 5
+      "frames": [
+        5
+      ]
     },
     "level": 125,
     "life": 200,
@@ -1579,7 +1679,9 @@
     "name": "Grayvyn WarMonger",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 49
+      "frames": [
+        49
+      ]
     },
     "level": 40,
     "life": 200,
@@ -1604,7 +1706,9 @@
     "name": "Grayvyn Warlord",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 5
+      "frames": [
+        5
+      ]
     },
     "level": 200,
     "life": 400,
@@ -1636,7 +1740,9 @@
     "name": "Grayvyn Warlock",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 84
+      "frames": [
+        84
+      ]
     },
     "level": 25,
     "life": 350,
@@ -1668,7 +1774,9 @@
     "name": "Grayvyn Asp",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 22
+      "frames": [
+        22
+      ]
     },
     "level": 40,
     "life": 40,
@@ -1694,7 +1802,9 @@
     "name": "Spitting Cobra",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 23
+      "frames": [
+        23
+      ]
     },
     "level": 15,
     "life": 40,
@@ -1720,7 +1830,9 @@
     "name": "Bandit Mage",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 31
+      "frames": [
+        31
+      ]
     },
     "level": 20,
     "life": 100,
@@ -1757,7 +1869,9 @@
     "name": "Bandit Scout",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 34
+      "frames": [
+        34
+      ]
     },
     "level": 20,
     "life": 100,
@@ -1798,7 +1912,9 @@
     "name": "Bandit Baron",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 35
+      "frames": [
+        35
+      ]
     },
     "level": 30,
     "life": 150,
@@ -1847,7 +1963,9 @@
     "name": "Bandit Rogue",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 33
+      "frames": [
+        33
+      ]
     },
     "level": 25,
     "life": 120,
@@ -1884,7 +2002,9 @@
     "name": "Bandit Spar",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 30
+      "frames": [
+        30
+      ]
     },
     "level": 25,
     "life": 100,
@@ -1921,7 +2041,9 @@
     "name": "Vampire",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 19
+      "frames": [
+        19
+      ]
     },
     "level": 30,
     "life": 200,
@@ -1952,7 +2074,9 @@
     "name": "Land Shark",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 90
+      "frames": [
+        90
+      ]
     },
     "level": 32,
     "life": 150,
@@ -1973,7 +2097,9 @@
     "name": "Wolf",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 80
+      "frames": [
+        80
+      ]
     },
     "level": 10,
     "life": 50,
@@ -1988,7 +2114,9 @@
     "name": "Dire Wolf",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 80
+      "frames": [
+        80
+      ]
     },
     "level": 20,
     "life": 100,
@@ -2004,7 +2132,9 @@
     "deadItem": 1085,
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 81
+      "frames": [
+        81
+      ]
     },
     "level": 25,
     "life": 75,
@@ -2036,7 +2166,9 @@
     "name": "Menacing Owl",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 82
+      "frames": [
+        82
+      ]
     },
     "level": 35,
     "life": 50,
@@ -2063,7 +2195,9 @@
     "name": "Rogue Knight",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 24
+      "frames": [
+        24
+      ]
     },
     "level": 50,
     "life": 250,
@@ -2095,7 +2229,9 @@
     "name": "Giant Skunk",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 85
+      "frames": [
+        85
+      ]
     },
     "level": 15,
     "life": 100,
@@ -2116,7 +2252,9 @@
     "name": "Vampire Bat",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 64
+      "frames": [
+        64
+      ]
     },
     "level": 30,
     "life": 100,
@@ -2137,7 +2275,9 @@
     "name": "Grayvyn Buzzard",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 65
+      "frames": [
+        65
+      ]
     },
     "level": 35,
     "life": 150,
@@ -2152,7 +2292,9 @@
     "name": "Venus Stalk",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 66
+      "frames": [
+        66
+      ]
     },
     "level": 25,
     "life": 200,
@@ -2167,7 +2309,9 @@
     "name": "Ghost",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 68
+      "frames": [
+        68
+      ]
     },
     "level": 15,
     "life": 50,
@@ -2188,7 +2332,9 @@
     "name": "Spine",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 69
+      "frames": [
+        69
+      ]
     },
     "level": 8,
     "life": 65,
@@ -2214,7 +2360,9 @@
     "name": "Spatial Ooze",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 48
+      "frames": [
+        48
+      ]
     },
     "level": 70,
     "life": 300,
@@ -2235,7 +2383,9 @@
     "name": "Spectral Wasp",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 57
+      "frames": [
+        57
+      ]
     },
     "level": 50,
     "life": 100,
@@ -2250,7 +2400,9 @@
     "name": "Grayvyn Stinger",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 58
+      "frames": [
+        58
+      ]
     },
     "level": 50,
     "life": 200,
@@ -2265,7 +2417,9 @@
     "name": "Blue Widow",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 59
+      "frames": [
+        59
+      ]
     },
     "level": 40,
     "life": 150,
@@ -2287,7 +2441,9 @@
     "name": "Green Widow",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 86
+      "frames": [
+        86
+      ]
     },
     "level": 45,
     "life": 150,
@@ -2309,7 +2465,9 @@
     "name": "Fly Swarm",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 86
+      "frames": [
+        86
+      ]
     },
     "level": 6,
     "life": 30,
@@ -2331,7 +2489,9 @@
     "name": "Jade Viper",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 87
+      "frames": [
+        87
+      ]
     },
     "level": 40,
     "life": 150,
@@ -2346,7 +2506,9 @@
     "name": "Dung Beatle",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 87
+      "frames": [
+        87
+      ]
     },
     "level": 110,
     "life": 300,
@@ -2361,7 +2523,9 @@
     "name": "Grayvyn Hive",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 88
+      "frames": [
+        88
+      ]
     },
     "level": 5,
     "life": 20,
@@ -2383,7 +2547,9 @@
     "name": "Pink Widow",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 89
+      "frames": [
+        89
+      ]
     },
     "level": 50,
     "life": 150,
@@ -2405,7 +2571,9 @@
     "name": "Necro Knight",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 23
+      "frames": [
+        23
+      ]
     },
     "level": 80,
     "life": 200,
@@ -2437,7 +2605,9 @@
     "name": "Corrupt Lord",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 7
+      "frames": [
+        7
+      ]
     },
     "level": 35,
     "life": 200,
@@ -2469,7 +2639,9 @@
     "name": "Xeros Orb",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 150,
     "life": 500,
@@ -2496,7 +2668,9 @@
     "name": "Dark Sithareen",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 13
+      "frames": [
+        13
+      ]
     },
     "level": 25,
     "life": 150,
@@ -2532,7 +2706,9 @@
     "name": "Bone Drake",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 10
+      "frames": [
+        10
+      ]
     },
     "level": 160,
     "life": 400,
@@ -2558,7 +2734,9 @@
     "name": "Magma Lord",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 42
+      "frames": [
+        42
+      ]
     },
     "level": 220,
     "life": 600,
@@ -2588,7 +2766,9 @@
     "name": "Infernal Machine",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 12
+      "frames": [
+        12
+      ]
     },
     "level": 125,
     "life": 400,
@@ -2610,7 +2790,9 @@
     "name": "Sithareen Knight",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 13
+      "frames": [
+        13
+      ]
     },
     "level": 125,
     "life": 500,
@@ -2647,7 +2829,9 @@
     "name": "Hydra",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 14
+      "frames": [
+        14
+      ]
     },
     "level": 125,
     "life": 750,
@@ -2662,7 +2846,9 @@
     "name": "Zyzyxx",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 16
+      "frames": [
+        16
+      ]
     },
     "level": 20,
     "life": 150,
@@ -2677,7 +2863,9 @@
     "name": "Screamer",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 18
+      "frames": [
+        18
+      ]
     },
     "level": 125,
     "life": 750,
@@ -2692,7 +2880,9 @@
     "name": "Dog",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 19
+      "frames": [
+        19
+      ]
     },
     "level": 1,
     "life": 10,
@@ -2705,7 +2895,9 @@
     "name": "Cat",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 20
+      "frames": [
+        20
+      ]
     },
     "level": 1,
     "life": 10,
@@ -2718,7 +2910,9 @@
     "name": "Chicken",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 21
+      "frames": [
+        21
+      ]
     },
     "level": 1,
     "life": 10,
@@ -2737,7 +2931,9 @@
     "name": "Skeleton",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "level": 5,
     "life": 30,
@@ -2768,7 +2964,9 @@
     "name": "Orc Skeleton",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "level": 5,
     "life": 50,
@@ -2794,7 +2992,9 @@
     "name": "Grayvyn Gate Keeper",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 45,
     "life": 150,
@@ -2830,7 +3030,9 @@
     "name": "Golden Keeper",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 73
+      "frames": [
+        73
+      ]
     },
     "level": 80,
     "life": 200,
@@ -2855,7 +3057,9 @@
     "name": "Bone Golem",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "level": 5,
     "life": 125,
@@ -2884,7 +3088,9 @@
     "name": "Bone Keeper",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "level": 5,
     "life": 150,
@@ -2917,7 +3123,9 @@
     "name": "Mars Stalk",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 66
+      "frames": [
+        66
+      ]
     },
     "level": 25,
     "life": 230,
@@ -2943,7 +3151,9 @@
     "name": "Old Skeleton Miner",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "level": 5,
     "life": 100,
@@ -2969,7 +3179,9 @@
     "name": "Skeleton Miner",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "level": 5,
     "life": 100,
@@ -2995,7 +3207,9 @@
     "name": "Toy Maker Elf",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 24
+      "frames": [
+        24
+      ]
     },
     "level": 2,
     "life": 30,
@@ -3026,7 +3240,9 @@
     "name": "Copper Golem",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 74
+      "frames": [
+        74
+      ]
     },
     "level": 20,
     "life": 130,
@@ -3051,7 +3267,9 @@
     "name": "Titanium Golem",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 82
+      "frames": [
+        82
+      ]
     },
     "level": 20,
     "life": 200,
@@ -3077,7 +3295,9 @@
     "name": "Silver Golem",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 76
+      "frames": [
+        76
+      ]
     },
     "level": 20,
     "life": 100,
@@ -3102,7 +3322,9 @@
     "name": "Zircon Golem",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 72
+      "frames": [
+        72
+      ]
     },
     "level": 20,
     "life": 200,
@@ -3128,7 +3350,9 @@
     "name": "Hessite Golem",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 61
+      "frames": [
+        61
+      ]
     },
     "level": 20,
     "life": 250,
@@ -3154,7 +3378,9 @@
     "name": "Magnetite Golem",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 63
+      "frames": [
+        63
+      ]
     },
     "level": 20,
     "life": 150,
@@ -3179,7 +3405,9 @@
     "name": "Mole Theif",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 33
+      "frames": [
+        33
+      ]
     },
     "level": 20,
     "life": 100,
@@ -3205,7 +3433,9 @@
     "deadItem": 1085,
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 81
+      "frames": [
+        81
+      ]
     },
     "level": 25,
     "life": 250,
@@ -3236,7 +3466,9 @@
     "name": "Brigand Chef",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 18
+      "frames": [
+        18
+      ]
     },
     "level": 12,
     "life": 100,
@@ -3271,7 +3503,9 @@
     "name": "Guard Dog",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 19
+      "frames": [
+        19
+      ]
     },
     "level": 10,
     "life": 50,
@@ -3292,7 +3526,9 @@
     "name": "Grayvyn Behemoth",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 0
+      "frames": [
+        0
+      ]
     },
     "level": 200,
     "life": 5000,
@@ -3323,7 +3559,9 @@
     "name": "Drej Mist",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 35
+      "frames": [
+        35
+      ]
     },
     "level": 25,
     "life": 100,
@@ -3348,7 +3586,9 @@
     "name": "Drej Vapor",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 35
+      "frames": [
+        35
+      ]
     },
     "level": 25,
     "life": 150,
@@ -3373,7 +3613,9 @@
     "name": "Drej Lord",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 35
+      "frames": [
+        35
+      ]
     },
     "level": 25,
     "life": 200,
@@ -3402,7 +3644,9 @@
     "name": "Tinker Elf",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 24
+      "frames": [
+        24
+      ]
     },
     "level": 2,
     "life": 20,
@@ -3437,7 +3681,9 @@
     "name": "Moo Guard",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 83
+      "frames": [
+        83
+      ]
     },
     "level": 1,
     "life": 100,
@@ -3468,7 +3714,9 @@
     "name": "Moo Ninja",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 83
+      "frames": [
+        83
+      ]
     },
     "level": 1,
     "life": 100,
@@ -3513,7 +3761,9 @@
     "name": "Moo Lord",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 83
+      "frames": [
+        83
+      ]
     },
     "level": 1,
     "life": 200,
@@ -3544,7 +3794,9 @@
     "name": "Moo Lady",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 83
+      "frames": [
+        83
+      ]
     },
     "level": 1,
     "life": 150,
@@ -3579,7 +3831,9 @@
     "name": "Moo Gate Keeper",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 83
+      "frames": [
+        83
+      ]
     },
     "level": 1,
     "life": 200,
@@ -3614,7 +3868,9 @@
     "name": "Moo Butler",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 83
+      "frames": [
+        83
+      ]
     },
     "level": 1,
     "life": 200,
@@ -3645,7 +3901,9 @@
     "name": "Moo Maid",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 83
+      "frames": [
+        83
+      ]
     },
     "level": 1,
     "life": 100,
@@ -3676,7 +3934,9 @@
     "name": "Moo Dancer",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 83
+      "frames": [
+        83
+      ]
     },
     "level": 1,
     "life": 200,
@@ -3706,7 +3966,9 @@
     "name": "Moo Master Butler",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 83
+      "frames": [
+        83
+      ]
     },
     "level": 1,
     "life": 200,
@@ -3737,7 +3999,9 @@
     "name": "Grayvyn Stalker",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 77
+      "frames": [
+        77
+      ]
     },
     "level": 15,
     "life": 50,
@@ -3764,7 +4028,9 @@
     "name": "Flumey Skunk",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 85
+      "frames": [
+        85
+      ]
     },
     "level": 15,
     "life": 120,
@@ -3790,7 +4056,9 @@
     "name": "Smelly Skunk",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 85
+      "frames": [
+        85
+      ]
     },
     "level": 15,
     "life": 140,
@@ -3816,7 +4084,9 @@
     "name": "Skunk King",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 85
+      "frames": [
+        85
+      ]
     },
     "level": 15,
     "life": 150,
@@ -3841,7 +4111,9 @@
     "name": "Elder Drake",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 42
+      "frames": [
+        42
+      ]
     },
     "level": 160,
     "life": 400,
@@ -3866,7 +4138,9 @@
     "name": "Wood Elf",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 25
+      "frames": [
+        25
+      ]
     },
     "level": 8,
     "life": 100,
@@ -3902,7 +4176,9 @@
     "name": "Wood Elf King",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 25
+      "frames": [
+        25
+      ]
     },
     "level": 8,
     "life": 120,
@@ -3942,7 +4218,9 @@
     "name": "Og Priest",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 7
+      "frames": [
+        7
+      ]
     },
     "level": 8,
     "life": 200,
@@ -3969,7 +4247,9 @@
     "name": "Og Priestess",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 8,
     "life": 180,
@@ -3996,7 +4276,9 @@
     "name": "Magma Hunter",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 40
+      "frames": [
+        40
+      ]
     },
     "level": 2,
     "life": 400,
@@ -4022,7 +4304,9 @@
     "name": "Magma Champion",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 11
+      "frames": [
+        11
+      ]
     },
     "level": 2,
     "life": 600,
@@ -4043,7 +4327,9 @@
     "name": "Magma Scout",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 75
+      "frames": [
+        75
+      ]
     },
     "level": 1,
     "life": 350,
@@ -4070,7 +4356,9 @@
     "name": "Magma Baby",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 75
+      "frames": [
+        75
+      ]
     },
     "level": 2,
     "life": 300,
@@ -4085,7 +4373,9 @@
     "name": "Rogue Sniper",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 24
+      "frames": [
+        24
+      ]
     },
     "level": 50,
     "life": 250,
@@ -4117,7 +4407,9 @@
     "name": "Rogue Paladin",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 24
+      "frames": [
+        24
+      ]
     },
     "level": 50,
     "life": 275,
@@ -4149,7 +4441,9 @@
     "name": "Rogue Champion",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 24
+      "frames": [
+        24
+      ]
     },
     "level": 50,
     "life": 300,
@@ -4181,7 +4475,9 @@
     "name": "Corrupt Soul",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 7
+      "frames": [
+        7
+      ]
     },
     "level": 35,
     "life": 230,
@@ -4213,7 +4509,9 @@
     "name": "Corrupt Hound",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 36
+      "frames": [
+        36
+      ]
     },
     "level": 35,
     "life": 250,
@@ -4245,7 +4543,9 @@
     "name": "Corrupt Paladin",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 24
+      "frames": [
+        24
+      ]
     },
     "level": 35,
     "life": 300,
@@ -4282,7 +4582,9 @@
     "name": "Corrupt Enchantress",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 21
+      "frames": [
+        21
+      ]
     },
     "level": 35,
     "life": 250,
@@ -4314,7 +4616,9 @@
     "name": "Corrupt Champion",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 11
+      "frames": [
+        11
+      ]
     },
     "level": 35,
     "life": 500,
@@ -4352,7 +4656,9 @@
     "deadItem": 406,
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 35,
     "life": 50,
@@ -4379,7 +4685,9 @@
     "name": "Corrupt Drake",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 42
+      "frames": [
+        42
+      ]
     },
     "level": 175,
     "life": 400,
@@ -4401,7 +4709,9 @@
     "name": "Sewer Hound",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 36
+      "frames": [
+        36
+      ]
     },
     "level": 35,
     "life": 60,
@@ -4428,7 +4738,9 @@
     "name": "Sewer Mutant",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 92
+      "frames": [
+        92
+      ]
     },
     "level": 7,
     "life": 75,
@@ -4459,7 +4771,9 @@
     "name": "Sewer Orc",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 38
+      "frames": [
+        38
+      ]
     },
     "life": 75,
     "lootTable": [
@@ -4495,7 +4809,9 @@
     "name": "Rancid Orc",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 38
+      "frames": [
+        38
+      ]
     },
     "life": 100,
     "lootTable": [
@@ -4531,7 +4847,9 @@
     "name": "Orc King",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 38
+      "frames": [
+        38
+      ]
     },
     "life": 110,
     "lootTable": [
@@ -4571,7 +4889,9 @@
     "name": "Putrid Orc",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 38
+      "frames": [
+        38
+      ]
     },
     "life": 75,
     "lootTable": [
@@ -4607,7 +4927,9 @@
     "name": "Sewer Skeleton",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "level": 5,
     "life": 70,
@@ -4638,7 +4960,9 @@
     "name": "Orc Knave",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 38
+      "frames": [
+        38
+      ]
     },
     "life": 100,
     "lootTable": [
@@ -4674,7 +4998,9 @@
     "name": "Killapillar",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 49
+      "frames": [
+        49
+      ]
     },
     "level": 30,
     "life": 150,
@@ -4697,7 +5023,9 @@
     "deadItem": 1086,
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 47
+      "frames": [
+        47
+      ]
     },
     "level": 58,
     "life": 225,
@@ -4719,7 +5047,9 @@
     "name": "Rhino Beetle",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 50
+      "frames": [
+        50
+      ]
     },
     "level": 40,
     "life": 200,
@@ -4741,7 +5071,9 @@
     "name": "Sithareen Fly",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 23
+      "frames": [
+        23
+      ]
     },
     "level": 38,
     "life": 175,
@@ -4763,7 +5095,9 @@
     "name": "Plague",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 88
+      "frames": [
+        88
+      ]
     },
     "level": 25,
     "life": 300,
@@ -4789,7 +5123,9 @@
     "name": "Sonic Moth",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 46
+      "frames": [
+        46
+      ]
     },
     "level": 37,
     "life": 200,
@@ -4816,7 +5152,9 @@
     "name": "Blue Keeper",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 87
+      "frames": [
+        87
+      ]
     },
     "level": 45,
     "life": 350,
@@ -4837,7 +5175,9 @@
     "name": "Pink Keeper",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 93
+      "frames": [
+        93
+      ]
     },
     "level": 50,
     "life": 400,
@@ -4863,7 +5203,9 @@
     "name": "Green Keeper",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 90
+      "frames": [
+        90
+      ]
     },
     "level": 60,
     "life": 500,
@@ -4889,7 +5231,9 @@
     "name": "Venom Soul",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 51
+      "frames": [
+        51
+      ]
     },
     "level": 200,
     "life": 500,
@@ -4924,7 +5268,9 @@
     "name": "Thunder Soul",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 52
+      "frames": [
+        52
+      ]
     },
     "level": 200,
     "life": 500,
@@ -4960,7 +5306,9 @@
     "deadItem": 4,
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 53
+      "frames": [
+        53
+      ]
     },
     "level": 200,
     "life": 500,
@@ -5000,7 +5348,9 @@
     "name": "Ice Soul",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 54
+      "frames": [
+        54
+      ]
     },
     "level": 200,
     "life": 500,
@@ -5045,7 +5395,9 @@
     "name": "Vexed Soul",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 55
+      "frames": [
+        55
+      ]
     },
     "level": 200,
     "life": 600,
@@ -5096,7 +5448,9 @@
     "deadItem": 4,
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "level": 200,
     "life": 600,
@@ -5141,7 +5495,9 @@
     "name": "Water Soul",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 57
+      "frames": [
+        57
+      ]
     },
     "level": 200,
     "life": 650,
@@ -5186,7 +5542,9 @@
     "name": "Dino Wizard",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 69
+      "frames": [
+        69
+      ]
     },
     "level": 15,
     "life": 250,
@@ -5218,7 +5576,9 @@
     "name": "Dino Mage",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 69
+      "frames": [
+        69
+      ]
     },
     "level": 15,
     "life": 200,
@@ -5250,7 +5610,9 @@
     "name": "Dino Ranger",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 64
+      "frames": [
+        64
+      ]
     },
     "level": 25,
     "life": 200,
@@ -5282,7 +5644,9 @@
     "name": "Dino Sniper",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 64
+      "frames": [
+        64
+      ]
     },
     "level": 25,
     "life": 300,
@@ -5314,7 +5678,9 @@
     "name": "Dino Squire",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 61
+      "frames": [
+        61
+      ]
     },
     "level": 43,
     "life": 150,
@@ -5351,7 +5717,9 @@
     "name": "Dino Knight",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 66
+      "frames": [
+        66
+      ]
     },
     "level": 61,
     "life": 200,
@@ -5383,7 +5751,9 @@
     "name": "Dino King",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 67
+      "frames": [
+        67
+      ]
     },
     "level": 75,
     "life": 400,
@@ -5414,7 +5784,9 @@
     "name": "Dino Assassin",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 60
+      "frames": [
+        60
+      ]
     },
     "level": 40,
     "life": 300,
@@ -5445,7 +5817,9 @@
     "name": "Dino Warlord",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 62
+      "frames": [
+        62
+      ]
     },
     "level": 80,
     "life": 350,
@@ -5482,7 +5856,9 @@
     "name": "Dino",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 44
+      "frames": [
+        44
+      ]
     },
     "level": 30,
     "life": 250,
@@ -5518,7 +5894,9 @@
     "name": "Dino Keeper",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 68
+      "frames": [
+        68
+      ]
     },
     "level": 55,
     "life": 500,
@@ -5544,7 +5922,9 @@
     "name": "Dino Lord Keeper",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 68
+      "frames": [
+        68
+      ]
     },
     "level": 65,
     "life": 500,
@@ -5570,7 +5950,9 @@
     "name": "Magma Drake",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 71
+      "frames": [
+        71
+      ]
     },
     "level": 175,
     "life": 400,
@@ -5592,7 +5974,9 @@
     "name": "Drake Enchantress",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 29
+      "frames": [
+        29
+      ]
     },
     "level": 35,
     "life": 300,
@@ -5633,7 +6017,9 @@
     "name": "Crystal Drake",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 39
+      "frames": [
+        39
+      ]
     },
     "life": 500,
     "lootTable": [
@@ -5654,7 +6040,9 @@
     "name": "Grayvyn Sniper",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 20,
     "life": 300,
@@ -5686,7 +6074,9 @@
     "name": "Baby Grayvyn Behemoth",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 59
+      "frames": [
+        59
+      ]
     },
     "level": 2,
     "life": 300,
@@ -5708,7 +6098,9 @@
     "name": "The Grayvyn Lord",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 2,
     "life": 500,
@@ -5730,7 +6122,9 @@
     "name": "Mega Drake",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 2
+      "frames": [
+        2
+      ]
     },
     "level": 160,
     "life": 2000,
@@ -5760,7 +6154,9 @@
     "name": "Bob the Collector",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 2
+      "frames": [
+        2
+      ]
     },
     "level": 1,
     "life": 20,
@@ -5775,7 +6171,9 @@
     "name": "King Mickey",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 35
+      "frames": [
+        35
+      ]
     },
     "level": 100,
     "life": 500,
@@ -5790,7 +6188,9 @@
     "name": "William the Scout",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 34
+      "frames": [
+        34
+      ]
     },
     "level": 20,
     "life": 100,
@@ -5805,7 +6205,9 @@
     "name": "Trader Joe",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 32
+      "frames": [
+        32
+      ]
     },
     "level": 20,
     "life": 50,
@@ -5820,7 +6222,9 @@
     "name": "Crazy Old Man",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 6
+      "frames": [
+        6
+      ]
     },
     "level": 1,
     "life": 15,
@@ -5835,7 +6239,9 @@
     "name": "Lady Charlette",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 9
+      "frames": [
+        9
+      ]
     },
     "level": 1,
     "life": 100,
@@ -5850,7 +6256,9 @@
     "name": "Gladis the Baker",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 1,
     "life": 100,
@@ -5865,7 +6273,9 @@
     "name": "Town Guard",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 1,
     "life": 100,
@@ -5880,7 +6290,9 @@
     "name": "Lisa the Beggar",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 1,
     "life": 20,
@@ -5892,7 +6304,9 @@
     "name": "Stacy the Mayor",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 1,
     "life": 30,
@@ -5904,7 +6318,9 @@
     "name": "Rueben's Skeleton",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "level": 5,
     "life": 40,
@@ -5934,7 +6350,9 @@
     "name": "Bill the Banker",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 33
+      "frames": [
+        33
+      ]
     },
     "level": 20,
     "life": 50,
@@ -5949,7 +6367,9 @@
     "name": "Evil Elf Theif",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 10
+      "frames": [
+        10
+      ]
     },
     "level": 2,
     "life": 30,
@@ -5979,7 +6399,9 @@
     "name": "Marion the Armorer",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 31
+      "frames": [
+        31
+      ]
     },
     "level": 20,
     "life": 50,
@@ -5994,7 +6416,9 @@
     "name": "Frank the Weaponsmith",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 0
+      "frames": [
+        0
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6009,7 +6433,9 @@
     "name": "Birgette the Bowyer",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 20
+      "frames": [
+        20
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6024,7 +6450,9 @@
     "name": "Brutus the Butcher",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 5
+      "frames": [
+        5
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6039,7 +6467,9 @@
     "name": "Farmer John",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6054,7 +6484,9 @@
     "name": "Jane the Banker",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 22
+      "frames": [
+        22
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6069,7 +6501,9 @@
     "name": "Mack the Fisher",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 9
+      "frames": [
+        9
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6084,7 +6518,9 @@
     "name": "Mike the Archmage",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 29
+      "frames": [
+        29
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6099,7 +6535,9 @@
     "name": "Sandy the Alchemist",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 42
+      "frames": [
+        42
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6114,7 +6552,9 @@
     "name": "Sally the Trader",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 15
+      "frames": [
+        15
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6129,7 +6569,9 @@
     "name": "Bubba the Tender",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 1
+      "frames": [
+        1
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6144,7 +6586,9 @@
     "name": "Rolo the Cat",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 20
+      "frames": [
+        20
+      ]
     },
     "level": 1,
     "life": 10,
@@ -6157,7 +6601,9 @@
     "name": "Dan the Furnisher",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 5
+      "frames": [
+        5
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6172,7 +6618,9 @@
     "name": "Hank the Bard",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 35
+      "frames": [
+        35
+      ]
     },
     "level": 1,
     "life": 100,
@@ -6184,7 +6632,9 @@
     "name": "Tara the Ranger",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 60
+      "frames": [
+        60
+      ]
     },
     "level": 1,
     "life": 100,
@@ -6196,7 +6646,9 @@
     "name": "Castle Guard",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 50
+      "frames": [
+        50
+      ]
     },
     "level": 1,
     "life": 150,
@@ -6211,7 +6663,9 @@
     "name": "Castle Archer",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 52
+      "frames": [
+        52
+      ]
     },
     "level": 1,
     "life": 100,
@@ -6226,7 +6680,9 @@
     "name": "Castle Mage",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 45
+      "frames": [
+        45
+      ]
     },
     "level": 1,
     "life": 100,
@@ -6241,7 +6697,9 @@
     "name": "Sheriff Roscoe",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 6
+      "frames": [
+        6
+      ]
     },
     "level": 1,
     "life": 150,
@@ -6256,7 +6714,9 @@
     "name": "Deputy Cletus",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 5
+      "frames": [
+        5
+      ]
     },
     "level": 1,
     "life": 100,
@@ -6271,7 +6731,9 @@
     "name": "Harry the Santa",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 27
+      "frames": [
+        27
+      ]
     },
     "level": 1,
     "life": 100,
@@ -6283,7 +6745,9 @@
     "name": "Mel the Magician",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 7
+      "frames": [
+        7
+      ]
     },
     "level": 1,
     "life": 100,
@@ -6295,7 +6759,9 @@
     "name": "Al the Miner",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 30
+      "frames": [
+        30
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6310,7 +6776,9 @@
     "name": "Castle Knight",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 38
+      "frames": [
+        38
+      ]
     },
     "level": 50,
     "life": 250,
@@ -6325,7 +6793,9 @@
     "name": "Castle Squire",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 38
+      "frames": [
+        38
+      ]
     },
     "level": 50,
     "life": 200,
@@ -6340,7 +6810,9 @@
     "name": "Semoor the Scribe",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 2
+      "frames": [
+        2
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6355,7 +6827,9 @@
     "name": "Becky the Jeweler",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 16
+      "frames": [
+        16
+      ]
     },
     "level": 20,
     "life": 100,
@@ -6370,7 +6844,9 @@
     "name": "Gwen Frolun",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 9
+      "frames": [
+        9
+      ]
     },
     "level": 1,
     "life": 100,
@@ -6385,7 +6861,9 @@
     "name": "Queen Alyssa",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 14
+      "frames": [
+        14
+      ]
     },
     "level": 1,
     "life": 100,
@@ -6400,7 +6878,9 @@
     "name": "Rancher Wilma",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 14
+      "frames": [
+        14
+      ]
     },
     "level": 15,
     "life": 50,
@@ -6415,7 +6895,9 @@
     "name": "Arcus Town Gaurd",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 91
+      "frames": [
+        91
+      ]
     },
     "level": 15,
     "life": 150,
@@ -6431,7 +6913,9 @@
     "deadItem": 406,
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 20
+      "frames": [
+        20
+      ]
     },
     "level": 1,
     "life": 150,
@@ -6446,7 +6930,9 @@
     "name": "Trader Bart",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 32
+      "frames": [
+        32
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6461,7 +6947,9 @@
     "name": "Danielle the Baker",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 1,
     "life": 100,
@@ -6476,7 +6964,9 @@
     "name": "Katrina Frolun",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 9
+      "frames": [
+        9
+      ]
     },
     "level": 1,
     "life": 20,
@@ -6491,7 +6981,9 @@
     "name": "Zappa the Trader",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 33
+      "frames": [
+        33
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6506,7 +6998,9 @@
     "name": "Ghost of Rommel",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 36
+      "frames": [
+        36
+      ]
     },
     "level": 100,
     "life": 500,
@@ -6521,7 +7015,9 @@
     "name": "Villager",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 1
+      "frames": [
+        1
+      ]
     },
     "level": 100,
     "life": 50,
@@ -6536,7 +7032,9 @@
     "name": "Orgulf",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 37
+      "frames": [
+        37
+      ]
     },
     "level": 100,
     "life": 500,
@@ -6557,7 +7055,9 @@
     "name": "Trader",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 32
+      "frames": [
+        32
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6572,7 +7072,9 @@
     "name": "Telone Villager",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 5
+      "frames": [
+        5
+      ]
     },
     "level": 100,
     "life": 50,
@@ -6587,7 +7089,9 @@
     "name": "Telone Villager",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 9
+      "frames": [
+        9
+      ]
     },
     "level": 100,
     "life": 50,
@@ -6602,7 +7106,9 @@
     "name": "Goethe Villager",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 100,
     "life": 50,
@@ -6617,7 +7123,9 @@
     "name": "Goethe Villager",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 9
+      "frames": [
+        9
+      ]
     },
     "level": 100,
     "life": 50,
@@ -6632,7 +7140,9 @@
     "name": "Gha'hun Villager",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 2
+      "frames": [
+        2
+      ]
     },
     "level": 100,
     "life": 50,
@@ -6647,7 +7157,9 @@
     "name": "Gha'hun Villager",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 16
+      "frames": [
+        16
+      ]
     },
     "level": 100,
     "life": 50,
@@ -6662,7 +7174,9 @@
     "name": "Telone Trader",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 30
+      "frames": [
+        30
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6677,7 +7191,9 @@
     "name": "Goethe Smithy",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 74
+      "frames": [
+        74
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6692,7 +7208,9 @@
     "name": "Sailia the Cook",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 9
+      "frames": [
+        9
+      ]
     },
     "level": 1,
     "life": 100,
@@ -6707,7 +7225,9 @@
     "name": "Gha'hun Archmage",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 59
+      "frames": [
+        59
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6723,7 +7243,9 @@
     "deadItem": 406,
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 84
+      "frames": [
+        84
+      ]
     },
     "level": 1,
     "life": 150,
@@ -6739,7 +7261,9 @@
     "name": "Lemuor Villager",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 19
+      "frames": [
+        19
+      ]
     },
     "level": 100,
     "life": 50,
@@ -6754,7 +7278,9 @@
     "name": "Lemuor Villager",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 20
+      "frames": [
+        20
+      ]
     },
     "level": 100,
     "life": 50,
@@ -6769,7 +7295,9 @@
     "name": "Lemuor Collector",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 21
+      "frames": [
+        21
+      ]
     },
     "level": 1,
     "life": 20,
@@ -6785,7 +7313,9 @@
     "deadItem": 406,
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 84
+      "frames": [
+        84
+      ]
     },
     "level": 1,
     "life": 150,
@@ -6801,7 +7331,9 @@
     "name": "Arcus Citizen",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 40
+      "frames": [
+        40
+      ]
     },
     "level": 100,
     "life": 50,
@@ -6816,7 +7348,9 @@
     "name": "Arcus Citizen",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 42
+      "frames": [
+        42
+      ]
     },
     "level": 100,
     "life": 50,
@@ -6831,7 +7365,9 @@
     "name": "Pharoh Villager",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 67
+      "frames": [
+        67
+      ]
     },
     "level": 100,
     "life": 50,
@@ -6846,7 +7382,9 @@
     "name": "Pharoh Villager",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 88
+      "frames": [
+        88
+      ]
     },
     "level": 100,
     "life": 50,
@@ -6861,7 +7399,9 @@
     "name": "Jean the Baker",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 1,
     "life": 100,
@@ -6876,7 +7416,9 @@
     "name": "Galoug Villager",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 62
+      "frames": [
+        62
+      ]
     },
     "level": 100,
     "life": 50,
@@ -6891,7 +7433,9 @@
     "name": "Galoug Villager",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 63
+      "frames": [
+        63
+      ]
     },
     "level": 100,
     "life": 50,
@@ -6906,7 +7450,9 @@
     "name": "Galoug Trader",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 63
+      "frames": [
+        63
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6921,7 +7467,9 @@
     "name": "Bloomington Villager",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 67
+      "frames": [
+        67
+      ]
     },
     "level": 100,
     "life": 50,
@@ -6936,7 +7484,9 @@
     "name": "Bloomington Villager",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 88
+      "frames": [
+        88
+      ]
     },
     "level": 100,
     "life": 50,
@@ -6951,7 +7501,9 @@
     "name": "Alexandra the Alchemist",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 25
+      "frames": [
+        25
+      ]
     },
     "level": 20,
     "life": 50,
@@ -6966,7 +7518,9 @@
     "name": "Aquagnome Villager",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 27
+      "frames": [
+        27
+      ]
     },
     "level": 100,
     "life": 50,
@@ -6981,7 +7535,9 @@
     "name": "Aquagnome Villager",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 60
+      "frames": [
+        60
+      ]
     },
     "level": 100,
     "life": 50,
@@ -6996,7 +7552,9 @@
     "name": "Nicole the Mayor",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 1,
     "life": 30,
@@ -7008,7 +7566,9 @@
     "name": "Secretary Tomas",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 5
+      "frames": [
+        5
+      ]
     },
     "level": 1,
     "life": 50,
@@ -7020,7 +7580,9 @@
     "name": "Quaigon the Trader",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 57
+      "frames": [
+        57
+      ]
     },
     "level": 20,
     "life": 50,
@@ -7036,7 +7598,9 @@
     "deadItem": 406,
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 84
+      "frames": [
+        84
+      ]
     },
     "level": 1,
     "life": 150,
@@ -7052,7 +7616,9 @@
     "name": "Solom Villager",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 0
+      "frames": [
+        0
+      ]
     },
     "level": 100,
     "life": 50,
@@ -7067,7 +7633,9 @@
     "name": "Solom Villager",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 100,
     "life": 50,
@@ -7082,7 +7650,9 @@
     "name": "Solom Armorer",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 31
+      "frames": [
+        31
+      ]
     },
     "level": 20,
     "life": 50,
@@ -7097,7 +7667,9 @@
     "name": "Merchant",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 32
+      "frames": [
+        32
+      ]
     },
     "level": 20,
     "life": 50,
@@ -7112,7 +7684,9 @@
     "name": "Bandit Prisoner",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 33
+      "frames": [
+        33
+      ]
     },
     "life": 80,
     "speed": 2,
@@ -7123,7 +7697,9 @@
     "name": "Natalie Change Lady",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 20,
     "life": 50,
@@ -7138,7 +7714,9 @@
     "name": "Bartender Bruce",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 1
+      "frames": [
+        1
+      ]
     },
     "level": 20,
     "life": 50,
@@ -7153,7 +7731,9 @@
     "name": "Old Blacksmith",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 62
+      "frames": [
+        62
+      ]
     },
     "level": 95,
     "life": 350,
@@ -7168,7 +7748,9 @@
     "name": "Mages son",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 1,
     "life": 5,
@@ -7183,7 +7765,9 @@
     "name": "Mage of Goethe",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 59
+      "frames": [
+        59
+      ]
     },
     "level": 20,
     "life": 50,
@@ -7198,7 +7782,9 @@
     "name": "Peter the Servant",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 39
+      "frames": [
+        39
+      ]
     },
     "level": 1,
     "life": 50,
@@ -7210,7 +7796,9 @@
     "name": "Adventurer Misha",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 78
+      "frames": [
+        78
+      ]
     },
     "life": 150,
     "magicDefense": 150,
@@ -7224,7 +7812,9 @@
     "name": "Brigand Saergent",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 12,
     "life": 80,
@@ -7262,7 +7852,9 @@
     "deadItem": 256,
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "life": 100,
     "lootTable": [
@@ -7289,7 +7881,9 @@
     "deadItem": 256,
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "life": 150,
     "lootTable": [
@@ -7316,7 +7910,9 @@
     "deadItem": 256,
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "life": 200,
     "lootTable": [
@@ -7343,7 +7939,9 @@
     "deadItem": 256,
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "life": 250,
     "lootTable": [
@@ -7370,7 +7968,9 @@
     "deadItem": 256,
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "life": 300,
     "lootTable": [
@@ -7397,7 +7997,9 @@
     "deadItem": 256,
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "life": 350,
     "lootTable": [
@@ -7424,7 +8026,9 @@
     "deadItem": 256,
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "life": 400,
     "lootTable": [
@@ -7451,7 +8055,9 @@
     "deadItem": 256,
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "life": 450,
     "lootTable": [
@@ -7478,7 +8084,9 @@
     "deadItem": 256,
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "life": 500,
     "lootTable": [
@@ -7505,7 +8113,9 @@
     "deadItem": 256,
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "life": 550,
     "lootTable": [
@@ -7532,7 +8142,9 @@
     "deadItem": 256,
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "life": 600,
     "lootTable": [
@@ -7558,7 +8170,9 @@
     "name": "Og Familiar",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 45
+      "frames": [
+        45
+      ]
     },
     "level": 35,
     "life": 250,
@@ -7595,7 +8209,9 @@
     "name": "Viking Assasin",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 46
+      "frames": [
+        46
+      ]
     },
     "level": 55,
     "life": 150,
@@ -7622,7 +8238,9 @@
     "name": "Viking Merchant",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "level": 15,
     "life": 50,
@@ -7645,7 +8263,9 @@
     "name": "Viking Guard",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 50
+      "frames": [
+        50
+      ]
     },
     "level": 55,
     "life": 250,
@@ -7672,7 +8292,9 @@
     "name": "Viking Force Guard",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 51
+      "frames": [
+        51
+      ]
     },
     "level": 65,
     "life": 300,
@@ -7699,7 +8321,9 @@
     "name": "Fred the Prisoner",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 1
+      "frames": [
+        1
+      ]
     },
     "level": 1,
     "life": 50,
@@ -7711,7 +8335,9 @@
     "name": "Fiolla the Wife",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 21
+      "frames": [
+        21
+      ]
     },
     "level": 60,
     "life": 50,
@@ -7723,7 +8349,9 @@
     "name": "Viking Blacksmith",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 61
+      "frames": [
+        61
+      ]
     },
     "level": 95,
     "life": 350,
@@ -7739,7 +8367,9 @@
     "deadItem": 1085,
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 81
+      "frames": [
+        81
+      ]
     },
     "level": 25,
     "life": 150,
@@ -7772,7 +8402,9 @@
     "deadItem": 1085,
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 81
+      "frames": [
+        81
+      ]
     },
     "level": 25,
     "life": 250,
@@ -7804,7 +8436,9 @@
     "name": "Gammut the Alchemist",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "life": 150,
     "magicDefense": 150,
@@ -7818,7 +8452,9 @@
     "name": "Sewer Gaurd",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 38
+      "frames": [
+        38
+      ]
     },
     "life": 200,
     "lootTable": [
@@ -7854,7 +8490,9 @@
     "name": "Vorth Queen",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": -1
+      "frames": [
+        -1
+      ]
     },
     "life": 500,
     "lootTable": [
@@ -7884,7 +8522,9 @@
     "name": "Gremlin",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 74
+      "frames": [
+        74
+      ]
     },
     "level": 10,
     "life": 100,
@@ -7915,7 +8555,9 @@
     "name": "Warrior Gremlin",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 75
+      "frames": [
+        75
+      ]
     },
     "level": 10,
     "life": 120,
@@ -7946,7 +8588,9 @@
     "name": "Lord Gremlin",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 76
+      "frames": [
+        76
+      ]
     },
     "level": 10,
     "life": 150,
@@ -7977,7 +8621,9 @@
     "name": "Semlok the Wise",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 62
+      "frames": [
+        62
+      ]
     },
     "level": 100,
     "life": 75,
@@ -7992,7 +8638,9 @@
     "name": "Harlok the Gaurd",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 63
+      "frames": [
+        63
+      ]
     },
     "level": 100,
     "life": 100,
@@ -8008,7 +8656,9 @@
     "deadItem": 2115,
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 79
+      "frames": [
+        79
+      ]
     },
     "level": 10,
     "life": 50,
@@ -8024,7 +8674,9 @@
     "deadItem": 1085,
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 20,
     "life": 50,
@@ -8057,7 +8709,9 @@
     "deadItem": 1085,
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 15
+      "frames": [
+        15
+      ]
     },
     "level": 20,
     "life": 60,
@@ -8095,7 +8749,9 @@
     "deadItem": 1085,
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 21
+      "frames": [
+        21
+      ]
     },
     "level": 20,
     "life": 100,
@@ -8133,7 +8789,9 @@
     "deadItem": 1085,
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 32
+      "frames": [
+        32
+      ]
     },
     "level": 12,
     "life": 75,
@@ -8160,7 +8818,9 @@
     "deadItem": 1085,
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 32
+      "frames": [
+        32
+      ]
     },
     "level": 12,
     "life": 100,
@@ -8186,7 +8846,9 @@
     "name": "Priscous Uparen",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 34
+      "frames": [
+        34
+      ]
     },
     "level": 25,
     "life": 175,
@@ -8228,7 +8890,9 @@
     "name": "Mitcous Uparen",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 34
+      "frames": [
+        34
+      ]
     },
     "life": 200,
     "lootTable": [
@@ -8269,7 +8933,9 @@
     "name": "Artifact Golem",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 86
+      "frames": [
+        86
+      ]
     },
     "level": 20,
     "life": 500,
@@ -8295,7 +8961,9 @@
     "name": "Bone Gorvor Guard",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 0
+      "frames": [
+        0
+      ]
     },
     "life": 500,
     "lootTable": [
@@ -8319,7 +8987,9 @@
     "name": "Grethe Gorvor Guard",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 2
+      "frames": [
+        2
+      ]
     },
     "life": 1000,
     "lootTable": [
@@ -8344,7 +9014,9 @@
     "name": "Milthe Gorvor Guard",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "life": 1100,
     "lootTable": [
@@ -8369,7 +9041,9 @@
     "name": "Blothe Gorvor Guard",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "life": 1200,
     "lootTable": [
@@ -8394,7 +9068,9 @@
     "name": "Pet Red Dino Behemoth",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 10
+      "frames": [
+        10
+      ]
     },
     "level": 160,
     "life": 4000,
@@ -8409,7 +9085,9 @@
     "name": "Scanner",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 12
+      "frames": [
+        12
+      ]
     },
     "level": 125,
     "life": 400,
@@ -8431,7 +9109,9 @@
     "name": "Ranthe Gorvor Guard",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 6
+      "frames": [
+        6
+      ]
     },
     "life": 1200,
     "lootTable": [
@@ -8456,7 +9136,9 @@
     "name": "Young Red  Spider",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 40
+      "frames": [
+        40
+      ]
     },
     "level": 2,
     "life": 300,
@@ -8477,7 +9159,9 @@
     "name": "Young Blue Spider",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 30
+      "frames": [
+        30
+      ]
     },
     "level": 2,
     "life": 300,
@@ -8498,7 +9182,9 @@
     "name": "Young Yellow Spider",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 43
+      "frames": [
+        43
+      ]
     },
     "level": 2,
     "life": 300,
@@ -8519,7 +9205,9 @@
     "name": "Teen Red  Spider",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 40
+      "frames": [
+        40
+      ]
     },
     "level": 2,
     "life": 300,
@@ -8540,7 +9228,9 @@
     "name": "Teen Blue Spider",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 30
+      "frames": [
+        30
+      ]
     },
     "level": 2,
     "life": 300,
@@ -8561,7 +9251,9 @@
     "name": "Teen Yellow Spider",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 43
+      "frames": [
+        43
+      ]
     },
     "level": 2,
     "life": 300,
@@ -8582,7 +9274,9 @@
     "name": "Young Adult Red  Spider",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 40
+      "frames": [
+        40
+      ]
     },
     "level": 2,
     "life": 300,
@@ -8603,7 +9297,9 @@
     "name": "Young Adult Blue Spider",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 30
+      "frames": [
+        30
+      ]
     },
     "level": 2,
     "life": 500,
@@ -8624,7 +9320,9 @@
     "name": "Young Adult Yellow Spider",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 43
+      "frames": [
+        43
+      ]
     },
     "level": 2,
     "life": 300,
@@ -8645,7 +9343,9 @@
     "name": "Adult Red  Spider",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 62
+      "frames": [
+        62
+      ]
     },
     "level": 2,
     "life": 300,
@@ -8666,7 +9366,9 @@
     "name": "Adult Blue Spider",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 66
+      "frames": [
+        66
+      ]
     },
     "level": 2,
     "life": 500,
@@ -8687,7 +9389,9 @@
     "name": "Adult Yellow Spider",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 64
+      "frames": [
+        64
+      ]
     },
     "level": 2,
     "life": 300,
@@ -8708,7 +9412,9 @@
     "name": "Warrior Red Spider",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 62
+      "frames": [
+        62
+      ]
     },
     "level": 2,
     "life": 300,
@@ -8729,7 +9435,9 @@
     "name": "Warrior Blue Spider",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 66
+      "frames": [
+        66
+      ]
     },
     "level": 2,
     "life": 500,
@@ -8750,7 +9458,9 @@
     "name": "Warrior Yellow Spider",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 64
+      "frames": [
+        64
+      ]
     },
     "level": 2,
     "life": 300,
@@ -8771,7 +9481,9 @@
     "name": "Old Paladin",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 96
+      "frames": [
+        96
+      ]
     },
     "life": 150,
     "magicDefense": 850,
@@ -8785,7 +9497,9 @@
     "name": "Elite Viking Axeman",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 49
+      "frames": [
+        49
+      ]
     },
     "level": 50,
     "life": 300,
@@ -8821,7 +9535,9 @@
     "name": "Elite Viking Swordsman",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 50
+      "frames": [
+        50
+      ]
     },
     "level": 50,
     "life": 300,
@@ -8857,7 +9573,9 @@
     "name": "Viking King",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 51
+      "frames": [
+        51
+      ]
     },
     "level": 50,
     "life": 350,
@@ -8897,7 +9615,9 @@
     "name": "Elite Viking Bowman",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 52
+      "frames": [
+        52
+      ]
     },
     "level": 50,
     "life": 300,
@@ -8933,7 +9653,9 @@
     "name": "Elite Viking Flailman",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 53
+      "frames": [
+        53
+      ]
     },
     "level": 50,
     "life": 300,
@@ -8969,7 +9691,9 @@
     "name": "Viking Flailman",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 54
+      "frames": [
+        54
+      ]
     },
     "level": 50,
     "life": 250,
@@ -9005,7 +9729,9 @@
     "name": "Viking Axeman",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 55
+      "frames": [
+        55
+      ]
     },
     "level": 50,
     "life": 250,
@@ -9041,7 +9767,9 @@
     "name": "Viking Beserker",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "level": 50,
     "life": 250,
@@ -9077,7 +9805,9 @@
     "name": "Viking Swordsman",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 57
+      "frames": [
+        57
+      ]
     },
     "level": 50,
     "life": 250,
@@ -9113,7 +9843,9 @@
     "name": "Viking Mage",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 45
+      "frames": [
+        45
+      ]
     },
     "level": 50,
     "life": 250,
@@ -9154,7 +9886,9 @@
     "name": "Viking Watchman",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 48
+      "frames": [
+        48
+      ]
     },
     "level": 50,
     "life": 250,
@@ -9190,7 +9924,9 @@
     "name": "Viking Keeper",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 43
+      "frames": [
+        43
+      ]
     },
     "level": 50,
     "life": 250,
@@ -9226,7 +9962,9 @@
     "name": "Viking Bowman",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 44
+      "frames": [
+        44
+      ]
     },
     "level": 50,
     "life": 250,
@@ -9262,7 +10000,9 @@
     "name": "Viking Caster",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 45
+      "frames": [
+        45
+      ]
     },
     "level": 50,
     "life": 250,
@@ -9303,7 +10043,9 @@
     "name": "Viking Grand Mage",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 46
+      "frames": [
+        46
+      ]
     },
     "level": 50,
     "life": 250,
@@ -9343,7 +10085,9 @@
     "name": "Terror Dino",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 6
+      "frames": [
+        6
+      ]
     },
     "level": 30,
     "life": 1250,
@@ -9378,7 +10122,9 @@
     "name": "Giant Iron Golem",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 22
+      "frames": [
+        22
+      ]
     },
     "level": 20,
     "life": 300,
@@ -9408,7 +10154,9 @@
     "name": "Giant Zircon Golem",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 23
+      "frames": [
+        23
+      ]
     },
     "level": 20,
     "life": 400,
@@ -9434,7 +10182,9 @@
     "name": "Giant Gold Golem",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 24
+      "frames": [
+        24
+      ]
     },
     "level": 80,
     "life": 400,
@@ -9464,7 +10214,9 @@
     "name": "Giant Titanium Golem",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 25
+      "frames": [
+        25
+      ]
     },
     "level": 20,
     "life": 400,
@@ -9490,7 +10242,9 @@
     "name": "Giant Copper Golem",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 26
+      "frames": [
+        26
+      ]
     },
     "level": 20,
     "life": 260,
@@ -9515,7 +10269,9 @@
     "name": "Giant Silver Golem",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 27
+      "frames": [
+        27
+      ]
     },
     "level": 20,
     "life": 200,
@@ -9540,7 +10296,9 @@
     "name": "Giant Hessite Golem",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 28
+      "frames": [
+        28
+      ]
     },
     "level": 20,
     "life": 500,
@@ -9566,7 +10324,9 @@
     "name": "Giant Magnetite Golem",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 29
+      "frames": [
+        29
+      ]
     },
     "level": 20,
     "life": 300,
@@ -9591,7 +10351,9 @@
     "name": "Shark",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 94
+      "frames": [
+        94
+      ]
     },
     "level": 32,
     "life": 150,
@@ -9612,7 +10374,9 @@
     "name": "Loken",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 95
+      "frames": [
+        95
+      ]
     },
     "level": 32,
     "life": 50,
@@ -9627,7 +10391,9 @@
     "name": "Octopus",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 96
+      "frames": [
+        96
+      ]
     },
     "level": 32,
     "life": 200,
@@ -9642,7 +10408,9 @@
     "name": "Sea Serpent",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 44
+      "frames": [
+        44
+      ]
     },
     "level": 32,
     "life": 500,
@@ -9657,7 +10425,9 @@
     "name": "Vorth Goblin",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 97
+      "frames": [
+        97
+      ]
     },
     "life": 200,
     "lootTable": [
@@ -9687,7 +10457,9 @@
     "name": "Vorth Giblitte",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 98
+      "frames": [
+        98
+      ]
     },
     "life": 250,
     "lootTable": [
@@ -9717,7 +10489,9 @@
     "name": "Vorth Hobgoblin",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": -1
+      "frames": [
+        -1
+      ]
     },
     "life": 300,
     "lootTable": [
@@ -9747,7 +10521,9 @@
     "name": "Grayvyn Male",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 77
+      "frames": [
+        77
+      ]
     },
     "level": 15,
     "life": 70,
@@ -9769,7 +10545,9 @@
     "name": "Grayvyn Female",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 78
+      "frames": [
+        78
+      ]
     },
     "level": 15,
     "life": 50,
@@ -9791,7 +10569,9 @@
     "name": "Grayvyn Child",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 79
+      "frames": [
+        79
+      ]
     },
     "level": 15,
     "life": 30,
@@ -9812,7 +10592,9 @@
     "name": "Skeleton Villager",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "level": 5,
     "life": 50,
@@ -9843,7 +10625,9 @@
     "name": "Skeleton Mayor",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "level": 5,
     "life": 30,
@@ -9878,7 +10662,9 @@
     "name": "Skeleton Warrior",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "level": 5,
     "life": 30,
@@ -9909,7 +10695,9 @@
     "name": "Green Dino Behemoth",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 5
+      "frames": [
+        5
+      ]
     },
     "level": 160,
     "life": 3000,
@@ -9924,7 +10712,9 @@
     "name": "Red Dino Behemoth",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 10
+      "frames": [
+        10
+      ]
     },
     "level": 160,
     "life": 4000,
@@ -9939,7 +10729,9 @@
     "name": "Grayvyn Clone",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 15,
     "life": 100,
@@ -9971,7 +10763,9 @@
     "name": "Elite Grayvyn Soldier",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 85
+      "frames": [
+        85
+      ]
     },
     "level": 15,
     "life": 100,
@@ -10003,7 +10797,9 @@
     "name": "Mongrim",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 13
+      "frames": [
+        13
+      ]
     },
     "level": 15,
     "life": 500,
@@ -10038,7 +10834,9 @@
     "name": "Mongrim Mogol",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 18
+      "frames": [
+        18
+      ]
     },
     "level": 15,
     "life": 525,
@@ -10073,7 +10871,9 @@
     "name": "Mongrim Flej",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 34
+      "frames": [
+        34
+      ]
     },
     "level": 15,
     "life": 500,
@@ -10108,7 +10908,9 @@
     "name": "Mongrim Flum",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 36
+      "frames": [
+        36
+      ]
     },
     "level": 15,
     "life": 500,
@@ -10143,7 +10945,9 @@
     "name": "Mongrim Fogol",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 38
+      "frames": [
+        38
+      ]
     },
     "level": 15,
     "life": 550,
@@ -10178,7 +10982,9 @@
     "name": "Mongrim Wika",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 40
+      "frames": [
+        40
+      ]
     },
     "level": 15,
     "life": 500,
@@ -10213,7 +11019,9 @@
     "name": "Mongrim Rika",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 42
+      "frames": [
+        42
+      ]
     },
     "level": 15,
     "life": 550,
@@ -10248,7 +11056,9 @@
     "name": "Mongrim Gepe",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 54
+      "frames": [
+        54
+      ]
     },
     "level": 15,
     "life": 600,
@@ -10283,7 +11093,9 @@
     "name": "Mongrim Faar",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 60
+      "frames": [
+        60
+      ]
     },
     "level": 15,
     "life": 600,
@@ -10318,7 +11130,9 @@
     "name": "Mongrim Moke",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 62
+      "frames": [
+        62
+      ]
     },
     "level": 15,
     "life": 600,
@@ -10353,7 +11167,9 @@
     "name": "Elite Grayvyn Ranger",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 20,
     "life": 200,
@@ -10385,7 +11201,9 @@
     "name": "Elite Grayvyn Witch",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 84
+      "frames": [
+        84
+      ]
     },
     "level": 25,
     "life": 100,
@@ -10417,7 +11235,9 @@
     "name": "Red Backed Spider",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 40
+      "frames": [
+        40
+      ]
     },
     "level": 2,
     "life": 300,
@@ -10439,7 +11259,9 @@
     "name": "Yellow Backed Spider",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 30
+      "frames": [
+        30
+      ]
     },
     "level": 2,
     "life": 300,
@@ -10461,7 +11283,9 @@
     "name": "Blue Backed Spider",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 43
+      "frames": [
+        43
+      ]
     },
     "level": 2,
     "life": 300,
@@ -10484,7 +11308,9 @@
     "eatGrass": true,
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 9
+      "frames": [
+        9
+      ]
     },
     "level": 1,
     "life": 25,
@@ -10503,7 +11329,9 @@
     "name": "Prickly Spine",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 69
+      "frames": [
+        69
+      ]
     },
     "level": 8,
     "life": 85,
@@ -10529,7 +11357,9 @@
     "name": "Maka Scorpion",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 39
+      "frames": [
+        39
+      ]
     },
     "level": 50,
     "life": 200,
@@ -10551,7 +11381,9 @@
     "name": "Tera Scorpion",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 49
+      "frames": [
+        49
+      ]
     },
     "level": 50,
     "life": 225,
@@ -10573,7 +11405,9 @@
     "name": "Cave Mutant",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 92
+      "frames": [
+        92
+      ]
     },
     "level": 7,
     "life": 85,
@@ -10609,7 +11443,9 @@
     "name": "Practice Target",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 85
+      "frames": [
+        85
+      ]
     },
     "level": 15,
     "life": 100,
@@ -10624,7 +11460,9 @@
     "name": "Anthrope",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 80
+      "frames": [
+        80
+      ]
     },
     "life": 200,
     "lootTable": [
@@ -10644,7 +11482,9 @@
     "name": "Minor Quiqe",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 81
+      "frames": [
+        81
+      ]
     },
     "life": 300,
     "magicDefense": 325,
@@ -10658,7 +11498,9 @@
     "name": "Major Quiqe",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 82
+      "frames": [
+        82
+      ]
     },
     "life": 500,
     "magicDefense": 525,
@@ -10672,7 +11514,9 @@
     "name": "Nobody",
     "graphics": {
       "file": "rpgwo-playerNaN.png",
-      "index": null
+      "frames": [
+        null
+      ]
     },
     "speed": 2
   },
@@ -10681,7 +11525,9 @@
     "name": "Joseq",
     "graphics": {
       "file": "rpgwo-playerNaN.png",
-      "index": null
+      "frames": [
+        null
+      ]
     },
     "speed": 2
   },
@@ -10690,7 +11536,9 @@
     "name": "Kleah",
     "graphics": {
       "file": "rpgwo-playerNaN.png",
-      "index": null
+      "frames": [
+        null
+      ]
     },
     "speed": 2
   },
@@ -10699,7 +11547,9 @@
     "name": "Agirsor",
     "graphics": {
       "file": "rpgwo-playerNaN.png",
-      "index": null
+      "frames": [
+        null
+      ]
     },
     "speed": 2
   },
@@ -10708,7 +11558,9 @@
     "name": "Trader Saya",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 15
+      "frames": [
+        15
+      ]
     },
     "level": 20,
     "life": 50,
@@ -10723,7 +11575,9 @@
     "name": "The Dino Baker",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 68
+      "frames": [
+        68
+      ]
     },
     "level": 1,
     "life": 100,
@@ -10738,7 +11592,9 @@
     "name": "Dino Tool Trader",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 15
+      "frames": [
+        15
+      ]
     },
     "level": 20,
     "life": 50,
@@ -10753,7 +11609,9 @@
     "name": "The Dino Armorer",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 62
+      "frames": [
+        62
+      ]
     },
     "level": 20,
     "life": 50,
@@ -10768,7 +11626,9 @@
     "name": "The Dino Weaponsmith",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 63
+      "frames": [
+        63
+      ]
     },
     "level": 20,
     "life": 50,
@@ -10783,7 +11643,9 @@
     "name": "Claims Dept Officer",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 65
+      "frames": [
+        65
+      ]
     },
     "level": 2,
     "life": 5500,
@@ -10799,7 +11661,9 @@
     "name": "Dwarven Bower",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 59
+      "frames": [
+        59
+      ]
     },
     "level": 2,
     "life": 40,
@@ -10825,7 +11689,9 @@
     "name": "Dwarven Crossbow",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 90
+      "frames": [
+        90
+      ]
     },
     "level": 2,
     "life": 60,
@@ -10851,7 +11717,9 @@
     "name": "Dwarven Sword",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 70
+      "frames": [
+        70
+      ]
     },
     "level": 2,
     "life": 60,
@@ -10877,7 +11745,9 @@
     "name": "Siege",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 57
+      "frames": [
+        57
+      ]
     },
     "level": 2,
     "life": 5500,
@@ -10893,7 +11763,9 @@
     "name": "Trivia",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "level": 2,
     "life": 5500,
@@ -10909,7 +11781,9 @@
     "name": "Mrs Rolo the Cat",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 59
+      "frames": [
+        59
+      ]
     },
     "level": 1,
     "life": 10,
@@ -10922,7 +11796,9 @@
     "name": "SomeGuy the Collector",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 2
+      "frames": [
+        2
+      ]
     },
     "level": 1,
     "life": 20,
@@ -10937,7 +11813,9 @@
     "name": "Trader Charlie",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 32
+      "frames": [
+        32
+      ]
     },
     "level": 20,
     "life": 50,
@@ -10952,7 +11830,9 @@
     "name": "Lady Sarah",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 9
+      "frames": [
+        9
+      ]
     },
     "level": 1,
     "life": 100,
@@ -10967,7 +11847,9 @@
     "name": "Gloria the Baker",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 1,
     "life": 100,
@@ -10982,7 +11864,9 @@
     "name": "Maria the Armorer",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 31
+      "frames": [
+        31
+      ]
     },
     "level": 20,
     "life": 50,
@@ -10997,7 +11881,9 @@
     "name": "Brian the Weaponsmith",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 0
+      "frames": [
+        0
+      ]
     },
     "level": 20,
     "life": 50,
@@ -11012,7 +11898,9 @@
     "name": "Tanya the Bowyer",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 20
+      "frames": [
+        20
+      ]
     },
     "level": 20,
     "life": 50,
@@ -11027,7 +11915,9 @@
     "name": "Bruno the Butcher",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 5
+      "frames": [
+        5
+      ]
     },
     "level": 20,
     "life": 50,
@@ -11042,7 +11932,9 @@
     "name": "Farmer James",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 20,
     "life": 50,
@@ -11057,7 +11949,9 @@
     "name": "Mark the Fisher",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 9
+      "frames": [
+        9
+      ]
     },
     "level": 20,
     "life": 50,
@@ -11072,7 +11966,9 @@
     "name": "Mick the Archmage",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 29
+      "frames": [
+        29
+      ]
     },
     "level": 20,
     "life": 50,
@@ -11087,7 +11983,9 @@
     "name": "Sandra the Alchemist",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 25
+      "frames": [
+        25
+      ]
     },
     "level": 20,
     "life": 50,
@@ -11102,7 +12000,9 @@
     "name": "Samantha the Trader",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 15
+      "frames": [
+        15
+      ]
     },
     "level": 20,
     "life": 50,
@@ -11117,7 +12017,9 @@
     "name": "Buddy the Tender",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 1
+      "frames": [
+        1
+      ]
     },
     "level": 20,
     "life": 50,
@@ -11132,7 +12034,9 @@
     "name": "Danny the Furnisher",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 5
+      "frames": [
+        5
+      ]
     },
     "level": 20,
     "life": 50,
@@ -11147,7 +12051,9 @@
     "name": "Semour the Scribe",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 2
+      "frames": [
+        2
+      ]
     },
     "level": 20,
     "life": 50,
@@ -11162,7 +12068,9 @@
     "name": "Vicky the Jeweler",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 24
+      "frames": [
+        24
+      ]
     },
     "level": 20,
     "life": 100,
@@ -11177,7 +12085,9 @@
     "name": "Trader Homer",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 32
+      "frames": [
+        32
+      ]
     },
     "level": 20,
     "life": 50,
@@ -11192,7 +12102,9 @@
     "name": "Danni the Baker",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 1,
     "life": 100,
@@ -11207,7 +12119,9 @@
     "name": "Soccer Player",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 0
+      "frames": [
+        0
+      ]
     },
     "level": 1,
     "life": 100,
@@ -11219,7 +12133,9 @@
     "name": "Grayvyn SwordsMan",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 45,
     "life": 550,
@@ -11251,7 +12167,9 @@
     "name": "Grayvyn Marksman",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 20,
     "life": 250,
@@ -11283,7 +12201,9 @@
     "name": "Grayvyn Elite Archer",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 20,
     "life": 250,
@@ -11320,7 +12240,9 @@
     "name": "Grayvyn High Mage",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 84
+      "frames": [
+        84
+      ]
     },
     "level": 25,
     "life": 100,
@@ -11352,7 +12274,9 @@
     "name": "Elite Grayvyn Squire",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 45,
     "life": 150,
@@ -11384,7 +12308,9 @@
     "name": "Elite Grayvyn Knight",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 5
+      "frames": [
+        5
+      ]
     },
     "level": 125,
     "life": 200,
@@ -11416,7 +12342,9 @@
     "name": "Grayvyn Paladin",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 5
+      "frames": [
+        5
+      ]
     },
     "level": 125,
     "life": 250,
@@ -11448,7 +12376,9 @@
     "name": "Elite Grayvyn Paladin",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 5
+      "frames": [
+        5
+      ]
     },
     "level": 125,
     "life": 250,
@@ -11480,7 +12410,9 @@
     "name": "Grayvyn Champion",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 5
+      "frames": [
+        5
+      ]
     },
     "level": 125,
     "life": 300,
@@ -11512,7 +12444,9 @@
     "name": "Elite Grayvyn Champion",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 5
+      "frames": [
+        5
+      ]
     },
     "level": 125,
     "life": 300,
@@ -11544,7 +12478,9 @@
     "name": "Elite Grayvyn Warlord",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 5
+      "frames": [
+        5
+      ]
     },
     "level": 200,
     "life": 450,
@@ -11576,7 +12512,9 @@
     "name": "Dino Child",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 83
+      "frames": [
+        83
+      ]
     },
     "level": 30,
     "life": 25,
@@ -11597,7 +12535,9 @@
     "name": "Dino Male",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 82
+      "frames": [
+        82
+      ]
     },
     "level": 30,
     "life": 75,
@@ -11612,7 +12552,9 @@
     "name": "Dino Female",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 81
+      "frames": [
+        81
+      ]
     },
     "level": 30,
     "life": 50,
@@ -11627,7 +12569,9 @@
     "name": "Dino Soldier",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 44
+      "frames": [
+        44
+      ]
     },
     "level": 15,
     "life": 100,
@@ -11659,7 +12603,9 @@
     "name": "Elite Dino Soldier",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 44
+      "frames": [
+        44
+      ]
     },
     "level": 15,
     "life": 100,
@@ -11691,7 +12637,9 @@
     "name": "Elite Dino Squire",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 61
+      "frames": [
+        61
+      ]
     },
     "level": 43,
     "life": 150,
@@ -11728,7 +12676,9 @@
     "name": "Elite Dino Knight",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 66
+      "frames": [
+        66
+      ]
     },
     "level": 61,
     "life": 200,
@@ -11760,7 +12710,9 @@
     "name": "Dino Paladin",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 66
+      "frames": [
+        66
+      ]
     },
     "level": 61,
     "life": 250,
@@ -11792,7 +12744,9 @@
     "name": "Elite Dino Paladin",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 66
+      "frames": [
+        66
+      ]
     },
     "level": 61,
     "life": 250,
@@ -11824,7 +12778,9 @@
     "name": "Dino Champion",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 66
+      "frames": [
+        66
+      ]
     },
     "level": 61,
     "life": 300,
@@ -11856,7 +12812,9 @@
     "name": "Elite Dino Champion",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 66
+      "frames": [
+        66
+      ]
     },
     "level": 61,
     "life": 300,
@@ -11888,7 +12846,9 @@
     "name": "Elite Dino Warlord",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 62
+      "frames": [
+        62
+      ]
     },
     "level": 80,
     "life": 350,
@@ -11925,7 +12885,9 @@
     "name": "Grayvyn Wicken",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 84
+      "frames": [
+        84
+      ]
     },
     "level": 25,
     "life": 150,
@@ -11957,7 +12919,9 @@
     "name": "Elite Grayvyn Wicken",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 84
+      "frames": [
+        84
+      ]
     },
     "level": 25,
     "life": 150,
@@ -11989,7 +12953,9 @@
     "name": "Grayvyn Mage",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 84
+      "frames": [
+        84
+      ]
     },
     "level": 25,
     "life": 200,
@@ -12021,7 +12987,9 @@
     "name": "Elite Grayvyn Mage",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 84
+      "frames": [
+        84
+      ]
     },
     "level": 25,
     "life": 200,
@@ -12053,7 +13021,9 @@
     "name": "Grayvyn Wizard",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 84
+      "frames": [
+        84
+      ]
     },
     "level": 25,
     "life": 250,
@@ -12085,7 +13055,9 @@
     "name": "Elite Grayvyn Wizard",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 84
+      "frames": [
+        84
+      ]
     },
     "level": 25,
     "life": 250,
@@ -12117,7 +13089,9 @@
     "name": "Grayvyn Necromancer",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 84
+      "frames": [
+        84
+      ]
     },
     "level": 25,
     "life": 300,
@@ -12149,7 +13123,9 @@
     "name": "Elite Grayvyn Necromancer",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 84
+      "frames": [
+        84
+      ]
     },
     "level": 25,
     "life": 300,
@@ -12181,7 +13157,9 @@
     "name": "Elite Grayvyn Warlock",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 84
+      "frames": [
+        84
+      ]
     },
     "level": 25,
     "life": 350,
@@ -12213,7 +13191,9 @@
     "name": "Dino Witch",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 69
+      "frames": [
+        69
+      ]
     },
     "level": 15,
     "life": 100,
@@ -12245,7 +13225,9 @@
     "name": "Elite Dino Witch",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 69
+      "frames": [
+        69
+      ]
     },
     "level": 15,
     "life": 100,
@@ -12277,7 +13259,9 @@
     "name": "Dino Wicken",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 69
+      "frames": [
+        69
+      ]
     },
     "level": 15,
     "life": 150,
@@ -12309,7 +13293,9 @@
     "name": "Elite Dino Wicken",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 69
+      "frames": [
+        69
+      ]
     },
     "level": 15,
     "life": 150,
@@ -12341,7 +13327,9 @@
     "name": "Elite Dino Mage",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 69
+      "frames": [
+        69
+      ]
     },
     "level": 15,
     "life": 200,
@@ -12373,7 +13361,9 @@
     "name": "Elite Dino Wizard",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 69
+      "frames": [
+        69
+      ]
     },
     "level": 15,
     "life": 250,
@@ -12405,7 +13395,9 @@
     "name": "Dino Necromancer",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 69
+      "frames": [
+        69
+      ]
     },
     "level": 15,
     "life": 300,
@@ -12437,7 +13429,9 @@
     "name": "Elite Dino Necromancer",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 69
+      "frames": [
+        69
+      ]
     },
     "level": 15,
     "life": 300,
@@ -12469,7 +13463,9 @@
     "name": "Dino Warlock",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 69
+      "frames": [
+        69
+      ]
     },
     "level": 15,
     "life": 350,
@@ -12501,7 +13497,9 @@
     "name": "Elite Dino Warlock",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 69
+      "frames": [
+        69
+      ]
     },
     "level": 15,
     "life": 350,
@@ -12533,7 +13531,9 @@
     "name": "Dino Archer",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 64
+      "frames": [
+        64
+      ]
     },
     "level": 15,
     "life": 100,
@@ -12565,7 +13565,9 @@
     "name": "Elite Dino Archer",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 64
+      "frames": [
+        64
+      ]
     },
     "level": 15,
     "life": 100,
@@ -12597,7 +13599,9 @@
     "name": "Dino Crossbowman",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 64
+      "frames": [
+        64
+      ]
     },
     "level": 15,
     "life": 150,
@@ -12629,7 +13633,9 @@
     "name": "Elite Dino Crossbowman",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 64
+      "frames": [
+        64
+      ]
     },
     "level": 15,
     "life": 150,
@@ -12661,7 +13667,9 @@
     "name": "Elite Dino Ranger",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 64
+      "frames": [
+        64
+      ]
     },
     "level": 25,
     "life": 200,
@@ -12693,7 +13701,9 @@
     "name": "Dino Marksman",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 64
+      "frames": [
+        64
+      ]
     },
     "level": 25,
     "life": 250,
@@ -12725,7 +13735,9 @@
     "name": "Elite Dino Marksman",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 64
+      "frames": [
+        64
+      ]
     },
     "level": 25,
     "life": 250,
@@ -12757,7 +13769,9 @@
     "name": "Elite Dino Sniper",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 64
+      "frames": [
+        64
+      ]
     },
     "level": 25,
     "life": 300,
@@ -12789,7 +13803,9 @@
     "name": "Grayvyn Archer",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 20,
     "life": 100,
@@ -12821,7 +13837,9 @@
     "name": "Elite Grayvyn Archer",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 20,
     "life": 100,
@@ -12853,7 +13871,9 @@
     "name": "Grayvyn Crossbowman",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 20,
     "life": 150,
@@ -12885,7 +13905,9 @@
     "name": "Elite Grayvyn Crossbowman",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 20,
     "life": 150,
@@ -12917,7 +13939,9 @@
     "name": "Elite Grayvyn Marksman",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 20,
     "life": 250,
@@ -12949,7 +13973,9 @@
     "name": "Elite Grayvyn Sniper",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 20,
     "life": 300,
@@ -12981,7 +14007,9 @@
     "name": "Elk Child",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 87
+      "frames": [
+        87
+      ]
     },
     "level": 1,
     "life": 25,
@@ -12996,7 +14024,9 @@
     "name": "Elk Male",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 85
+      "frames": [
+        85
+      ]
     },
     "level": 1,
     "life": 75,
@@ -13011,7 +14041,9 @@
     "name": "Elk Female",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 86
+      "frames": [
+        86
+      ]
     },
     "level": 1,
     "life": 50,
@@ -13026,7 +14058,9 @@
     "name": "Elk Soldier",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 15,
     "life": 100,
@@ -13058,7 +14092,9 @@
     "name": "Elite Elk Soldier",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 15,
     "life": 100,
@@ -13090,7 +14126,9 @@
     "name": "Elk Squire",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 15,
     "life": 150,
@@ -13122,7 +14160,9 @@
     "name": "Elite Elk Squire",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 15,
     "life": 150,
@@ -13154,7 +14194,9 @@
     "name": "Elk Knight",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 15,
     "life": 200,
@@ -13186,7 +14228,9 @@
     "name": "Elite Elk Knight",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 15,
     "life": 200,
@@ -13218,7 +14262,9 @@
     "name": "Elk Paladin",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 15,
     "life": 250,
@@ -13250,7 +14296,9 @@
     "name": "Elite Elk Paladin",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 15,
     "life": 250,
@@ -13282,7 +14330,9 @@
     "name": "Elk Champion",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 15,
     "life": 300,
@@ -13314,7 +14364,9 @@
     "name": "Elite Elk Champion",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 15,
     "life": 300,
@@ -13346,7 +14398,9 @@
     "name": "Elk Warlord",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 15,
     "life": 350,
@@ -13378,7 +14432,9 @@
     "name": "Elite Elk Warlord",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 15,
     "life": 350,
@@ -13410,7 +14466,9 @@
     "name": "Elk Archer",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 15,
     "life": 100,
@@ -13442,7 +14500,9 @@
     "name": "Elite Elk Archer",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 15,
     "life": 100,
@@ -13474,7 +14534,9 @@
     "name": "Elk Crossbowman",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 15,
     "life": 150,
@@ -13506,7 +14568,9 @@
     "name": "Elite Elk Crossbowman",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 15,
     "life": 150,
@@ -13538,7 +14602,9 @@
     "name": "Elk Ranger",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 15,
     "life": 200,
@@ -13570,7 +14636,9 @@
     "name": "Elite Elk Ranger",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 15,
     "life": 200,
@@ -13602,7 +14670,9 @@
     "name": "Elk Marksman",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 15,
     "life": 250,
@@ -13634,7 +14704,9 @@
     "name": "Elite Elk Marksman",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 15,
     "life": 250,
@@ -13666,7 +14738,9 @@
     "name": "Elk Sniper",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 15,
     "life": 300,
@@ -13698,7 +14772,9 @@
     "name": "Elite Elk Sniper",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 15,
     "life": 350,
@@ -13730,7 +14806,9 @@
     "name": "Elk Witch",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 1
+      "frames": [
+        1
+      ]
     },
     "level": 15,
     "life": 100,
@@ -13762,7 +14840,9 @@
     "name": "Elite Elk Witch",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 1
+      "frames": [
+        1
+      ]
     },
     "level": 15,
     "life": 100,
@@ -13794,7 +14874,9 @@
     "name": "Elk Wicken",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 1
+      "frames": [
+        1
+      ]
     },
     "level": 15,
     "life": 150,
@@ -13826,7 +14908,9 @@
     "name": "Elite Elk Wicken",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 1
+      "frames": [
+        1
+      ]
     },
     "level": 15,
     "life": 150,
@@ -13858,7 +14942,9 @@
     "name": "Elk Mage",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 1
+      "frames": [
+        1
+      ]
     },
     "level": 15,
     "life": 200,
@@ -13890,7 +14976,9 @@
     "name": "Elite Elk Mage",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 1
+      "frames": [
+        1
+      ]
     },
     "level": 15,
     "life": 200,
@@ -13922,7 +15010,9 @@
     "name": "Elk Wizard",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 1
+      "frames": [
+        1
+      ]
     },
     "level": 15,
     "life": 250,
@@ -13954,7 +15044,9 @@
     "name": "Elite Elk Wizard",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 1
+      "frames": [
+        1
+      ]
     },
     "level": 15,
     "life": 300,
@@ -13986,7 +15078,9 @@
     "name": "Elk Necromancer",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 1
+      "frames": [
+        1
+      ]
     },
     "level": 15,
     "life": 350,
@@ -14018,7 +15112,9 @@
     "name": "Elite Elk Necromancer",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 1
+      "frames": [
+        1
+      ]
     },
     "level": 15,
     "life": 350,
@@ -14050,7 +15146,9 @@
     "name": "Elk Warlock",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 1
+      "frames": [
+        1
+      ]
     },
     "level": 15,
     "life": 400,
@@ -14082,7 +15180,9 @@
     "name": "Elite Elk Warlock",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 1
+      "frames": [
+        1
+      ]
     },
     "level": 15,
     "life": 400,
@@ -14114,7 +15214,9 @@
     "name": "Grayvyn Miner",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 77
+      "frames": [
+        77
+      ]
     },
     "level": 15,
     "life": 70,
@@ -14136,7 +15238,9 @@
     "name": "Grayvyn Alchemist",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 77
+      "frames": [
+        77
+      ]
     },
     "level": 15,
     "life": 70,
@@ -14158,7 +15262,9 @@
     "name": "Dino Miner",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 82
+      "frames": [
+        82
+      ]
     },
     "level": 30,
     "life": 75,
@@ -14173,7 +15279,9 @@
     "name": "Dino Alchemist",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 82
+      "frames": [
+        82
+      ]
     },
     "level": 30,
     "life": 75,
@@ -14188,7 +15296,9 @@
     "name": "Dino Farmer",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 82
+      "frames": [
+        82
+      ]
     },
     "level": 30,
     "life": 75,
@@ -14203,7 +15313,9 @@
     "name": "Grayvyn Farmer",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 77
+      "frames": [
+        77
+      ]
     },
     "level": 15,
     "life": 70,
@@ -14225,7 +15337,9 @@
     "name": "Grayvyn Builder",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 77
+      "frames": [
+        77
+      ]
     },
     "level": 15,
     "life": 70,
@@ -14247,7 +15361,9 @@
     "name": "Dino Builder",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 82
+      "frames": [
+        82
+      ]
     },
     "level": 30,
     "life": 75,
@@ -14262,7 +15378,9 @@
     "name": "Elk Miner",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 85
+      "frames": [
+        85
+      ]
     },
     "level": 1,
     "life": 75,
@@ -14277,7 +15395,9 @@
     "name": "Elk Alchemist",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 85
+      "frames": [
+        85
+      ]
     },
     "level": 1,
     "life": 75,
@@ -14292,7 +15412,9 @@
     "name": "Elk Farmer",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 85
+      "frames": [
+        85
+      ]
     },
     "level": 1,
     "life": 75,
@@ -14307,7 +15429,9 @@
     "name": "Elk Builder",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 85
+      "frames": [
+        85
+      ]
     },
     "level": 1,
     "life": 75,
@@ -14323,7 +15447,9 @@
     "deadItem": 406,
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 35,
     "life": 100,
@@ -14351,7 +15477,9 @@
     "deadItem": 406,
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 35,
     "life": 150,
@@ -14379,7 +15507,9 @@
     "deadItem": 406,
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 35,
     "life": 50,
@@ -14407,7 +15537,9 @@
     "deadItem": 406,
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 35,
     "life": 100,
@@ -14435,7 +15567,9 @@
     "deadItem": 406,
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 35,
     "life": 150,
@@ -14463,7 +15597,9 @@
     "deadItem": 406,
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 35,
     "life": 50,
@@ -14491,7 +15627,9 @@
     "deadItem": 406,
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 35,
     "life": 100,
@@ -14519,7 +15657,9 @@
     "deadItem": 406,
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 35,
     "life": 150,
@@ -14546,7 +15686,9 @@
     "name": "Harpian Child",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 20
+      "frames": [
+        20
+      ]
     },
     "level": 1,
     "life": 25,
@@ -14561,7 +15703,9 @@
     "name": "Harpian Male",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 22
+      "frames": [
+        22
+      ]
     },
     "level": 1,
     "life": 75,
@@ -14576,7 +15720,9 @@
     "name": "Harpian Female",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 21
+      "frames": [
+        21
+      ]
     },
     "level": 1,
     "life": 50,
@@ -14591,7 +15737,9 @@
     "name": "Harpian Soldier",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 23
+      "frames": [
+        23
+      ]
     },
     "level": 15,
     "life": 100,
@@ -14623,7 +15771,9 @@
     "name": "Elite Harpian Soldier",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 23
+      "frames": [
+        23
+      ]
     },
     "level": 15,
     "life": 100,
@@ -14655,7 +15805,9 @@
     "name": "Harpian Squire",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 23
+      "frames": [
+        23
+      ]
     },
     "level": 15,
     "life": 150,
@@ -14687,7 +15839,9 @@
     "name": "Elite Harpian Squire",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 23
+      "frames": [
+        23
+      ]
     },
     "level": 15,
     "life": 150,
@@ -14719,7 +15873,9 @@
     "name": "Harpian Knight",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 23
+      "frames": [
+        23
+      ]
     },
     "level": 15,
     "life": 200,
@@ -14751,7 +15907,9 @@
     "name": "Elite Harpian Knight",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 23
+      "frames": [
+        23
+      ]
     },
     "level": 15,
     "life": 200,
@@ -14783,7 +15941,9 @@
     "name": "Harpian Paladin",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 28
+      "frames": [
+        28
+      ]
     },
     "level": 15,
     "life": 250,
@@ -14815,7 +15975,9 @@
     "name": "Elite Harpian Paladin",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 28
+      "frames": [
+        28
+      ]
     },
     "level": 15,
     "life": 250,
@@ -14847,7 +16009,9 @@
     "name": "Harpian Champion",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 28
+      "frames": [
+        28
+      ]
     },
     "level": 15,
     "life": 300,
@@ -14879,7 +16043,9 @@
     "name": "Elite Harpian Champion",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 28
+      "frames": [
+        28
+      ]
     },
     "level": 15,
     "life": 300,
@@ -14911,7 +16077,9 @@
     "name": "Harpian Warlord",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 28
+      "frames": [
+        28
+      ]
     },
     "level": 15,
     "life": 350,
@@ -14943,7 +16111,9 @@
     "name": "Elite Harpian Warlord",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 28
+      "frames": [
+        28
+      ]
     },
     "level": 15,
     "life": 350,
@@ -14975,7 +16145,9 @@
     "name": "Bone Gorvor",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 0
+      "frames": [
+        0
+      ]
     },
     "life": 500,
     "lootTable": [
@@ -14999,7 +16171,9 @@
     "name": "Grethe Gorvor",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 2
+      "frames": [
+        2
+      ]
     },
     "life": 1000,
     "lootTable": [
@@ -15024,7 +16198,9 @@
     "name": "Milthe Gorvor",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "life": 1100,
     "lootTable": [
@@ -15049,7 +16225,9 @@
     "name": "Ranthe Gorvor",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 6
+      "frames": [
+        6
+      ]
     },
     "life": 1200,
     "lootTable": [
@@ -15074,7 +16252,9 @@
     "name": "Blothe Gorvor",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "life": 1200,
     "lootTable": [
@@ -15099,7 +16279,9 @@
     "name": "Harpian Witch",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 25
+      "frames": [
+        25
+      ]
     },
     "level": 15,
     "life": 100,
@@ -15131,7 +16313,9 @@
     "name": "Elite Harpian Witch",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 25
+      "frames": [
+        25
+      ]
     },
     "level": 15,
     "life": 100,
@@ -15163,7 +16347,9 @@
     "name": "Harpian Wicken",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 25
+      "frames": [
+        25
+      ]
     },
     "level": 15,
     "life": 150,
@@ -15195,7 +16381,9 @@
     "name": "Elite Harpian Wicken",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 25
+      "frames": [
+        25
+      ]
     },
     "level": 15,
     "life": 150,
@@ -15227,7 +16415,9 @@
     "name": "Harpian Mage",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 26
+      "frames": [
+        26
+      ]
     },
     "level": 15,
     "life": 200,
@@ -15259,7 +16449,9 @@
     "name": "Elite Harpian Mage",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 26
+      "frames": [
+        26
+      ]
     },
     "level": 15,
     "life": 200,
@@ -15291,7 +16483,9 @@
     "name": "Harpian Wizard",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 26
+      "frames": [
+        26
+      ]
     },
     "level": 15,
     "life": 250,
@@ -15323,7 +16517,9 @@
     "name": "Elite Harpian Wizard",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 26
+      "frames": [
+        26
+      ]
     },
     "level": 15,
     "life": 250,
@@ -15355,7 +16551,9 @@
     "name": "Harpian Necromancer",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 29
+      "frames": [
+        29
+      ]
     },
     "level": 15,
     "life": 300,
@@ -15387,7 +16585,9 @@
     "name": "Elite Harpian Necromancer",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 29
+      "frames": [
+        29
+      ]
     },
     "level": 15,
     "life": 300,
@@ -15419,7 +16619,9 @@
     "name": "Harpian Warlock",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 29
+      "frames": [
+        29
+      ]
     },
     "level": 15,
     "life": 350,
@@ -15451,7 +16653,9 @@
     "name": "Elite Harpian Warlock",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 29
+      "frames": [
+        29
+      ]
     },
     "level": 15,
     "life": 350,
@@ -15484,7 +16688,9 @@
     "deadItem": 406,
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 35,
     "life": 50,
@@ -15512,7 +16718,9 @@
     "deadItem": 406,
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 35,
     "life": 100,
@@ -15540,7 +16748,9 @@
     "deadItem": 406,
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 35,
     "life": 150,
@@ -15567,7 +16777,9 @@
     "name": "Harpian Miner",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 22
+      "frames": [
+        22
+      ]
     },
     "level": 1,
     "life": 75,
@@ -15582,7 +16794,9 @@
     "name": "Harpian Alchemist",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 22
+      "frames": [
+        22
+      ]
     },
     "level": 1,
     "life": 75,
@@ -15597,7 +16811,9 @@
     "name": "Harpian Farmer",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 22
+      "frames": [
+        22
+      ]
     },
     "level": 1,
     "life": 75,
@@ -15612,7 +16828,9 @@
     "name": "Harpian Builder",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 22
+      "frames": [
+        22
+      ]
     },
     "level": 1,
     "life": 75,
@@ -15627,7 +16845,9 @@
     "name": "Reanimated Bones",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "level": 5,
     "life": 100,
@@ -15658,7 +16878,9 @@
     "name": "Spectre",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 68
+      "frames": [
+        68
+      ]
     },
     "level": 15,
     "life": 100,
@@ -15680,7 +16902,9 @@
     "name": "Old Town Mayor Bones",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 56
+      "frames": [
+        56
+      ]
     },
     "level": 5,
     "life": 100,
@@ -15711,7 +16935,9 @@
     "name": "Spectre of Zimmeron",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 68
+      "frames": [
+        68
+      ]
     },
     "level": 15,
     "life": 150,
@@ -15733,7 +16959,9 @@
     "name": "Stormy the Weaponsmith",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 0
+      "frames": [
+        0
+      ]
     },
     "level": 20,
     "life": 50,
@@ -15748,7 +16976,9 @@
     "name": "Lee the Butcher",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 5
+      "frames": [
+        5
+      ]
     },
     "level": 20,
     "life": 50,
@@ -15763,7 +16993,9 @@
     "name": "Farmer Jones",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 4
+      "frames": [
+        4
+      ]
     },
     "level": 20,
     "life": 50,
@@ -15778,7 +17010,9 @@
     "name": "Mary the Armorer",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 31
+      "frames": [
+        31
+      ]
     },
     "level": 20,
     "life": 50,
@@ -15793,7 +17027,9 @@
     "name": "Michael the Archmage",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 29
+      "frames": [
+        29
+      ]
     },
     "level": 20,
     "life": 50,
@@ -15808,7 +17044,9 @@
     "name": "Mickey the Collector",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 2
+      "frames": [
+        2
+      ]
     },
     "level": 1,
     "life": 20,
@@ -15823,7 +17061,9 @@
     "name": "Joanne the Baker",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 8
+      "frames": [
+        8
+      ]
     },
     "level": 1,
     "life": 100,
@@ -15838,7 +17078,9 @@
     "name": "Sewer Lord",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 38
+      "frames": [
+        38
+      ]
     },
     "life": 200,
     "lootTable": [
@@ -15878,7 +17120,9 @@
     "name": "Sewer Golem",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 48
+      "frames": [
+        48
+      ]
     },
     "life": 100,
     "lootTable": [
@@ -15914,7 +17158,9 @@
     "name": "Shadow Villager",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 50
+      "frames": [
+        50
+      ]
     },
     "level": 22,
     "life": 400,
@@ -15944,7 +17190,9 @@
     "name": "Shadow Knight",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 54
+      "frames": [
+        54
+      ]
     },
     "level": 22,
     "life": 600,
@@ -15974,7 +17222,9 @@
     "name": "Shadow Mage",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 53
+      "frames": [
+        53
+      ]
     },
     "life": 400,
     "lootTable": [
@@ -16009,7 +17259,9 @@
     "name": "Shadow Reaper",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 52
+      "frames": [
+        52
+      ]
     },
     "level": 21,
     "life": 500,
@@ -16040,7 +17292,9 @@
     "name": "Corrupt Queen",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 21
+      "frames": [
+        21
+      ]
     },
     "level": 35,
     "life": 550,
@@ -16072,7 +17326,9 @@
     "name": "Infernal Gazer",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 41
+      "frames": [
+        41
+      ]
     },
     "level": 125,
     "life": 500,
@@ -16104,7 +17360,9 @@
     "name": "Deranged Chef",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 18
+      "frames": [
+        18
+      ]
     },
     "level": 40,
     "life": 1000,
@@ -16126,7 +17384,9 @@
     "name": "Insane Groundskeeper",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 25
+      "frames": [
+        25
+      ]
     },
     "level": 40,
     "life": 400,
@@ -16157,7 +17417,9 @@
     "name": "Sarah the Harpian",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 21
+      "frames": [
+        21
+      ]
     },
     "level": 30,
     "life": 350,
@@ -16169,7 +17431,9 @@
     "name": "Evil Bee",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 78
+      "frames": [
+        78
+      ]
     },
     "level": 35,
     "life": 250,
@@ -16194,7 +17458,9 @@
     "name": "Shadow Priest",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 51
+      "frames": [
+        51
+      ]
     },
     "level": 30,
     "life": 600,
@@ -16234,7 +17500,9 @@
     "name": "Insane Wall",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 48
+      "frames": [
+        48
+      ]
     },
     "level": 50,
     "life": 200,
@@ -16249,7 +17517,9 @@
     "name": "Sheana the Bowyer",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 20
+      "frames": [
+        20
+      ]
     },
     "level": 20,
     "life": 50,
@@ -16264,7 +17534,9 @@
     "name": "Kyle the Realitor",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 0
+      "frames": [
+        0
+      ]
     },
     "level": 20,
     "life": 50,
@@ -16279,7 +17551,9 @@
     "name": "Cartman the Realitor",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 1
+      "frames": [
+        1
+      ]
     },
     "level": 20,
     "life": 50,
@@ -16294,7 +17568,9 @@
     "name": "Stan the Realitor",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 2
+      "frames": [
+        2
+      ]
     },
     "level": 20,
     "life": 50,
@@ -16309,7 +17585,9 @@
     "name": "Kenny the Realitor",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 20,
     "life": 50,
@@ -16324,7 +17602,9 @@
     "name": "Jane the Armorer",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 31
+      "frames": [
+        31
+      ]
     },
     "level": 20,
     "life": 50,
@@ -16339,7 +17619,9 @@
     "name": "Dick the Weaponsmith",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 0
+      "frames": [
+        0
+      ]
     },
     "level": 20,
     "life": 50,
@@ -16354,7 +17636,9 @@
     "name": "Brenda the Bowyer",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 20
+      "frames": [
+        20
+      ]
     },
     "level": 20,
     "life": 50,
@@ -16369,7 +17653,9 @@
     "name": "Tom the Archmage",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 29
+      "frames": [
+        29
+      ]
     },
     "level": 20,
     "life": 50,
@@ -16384,7 +17670,9 @@
     "name": "Ferral Koale",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 26
+      "frames": [
+        26
+      ]
     },
     "level": 35,
     "life": 200,
@@ -16411,7 +17699,9 @@
     "name": "Rabid Koale",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 26
+      "frames": [
+        26
+      ]
     },
     "level": 35,
     "life": 200,
@@ -16438,7 +17728,9 @@
     "name": "Minor Fire Elemental",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 58
+      "frames": [
+        58
+      ]
     },
     "level": 35,
     "life": 300,
@@ -16460,7 +17752,9 @@
     "name": "Major Fire Elemental",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 59
+      "frames": [
+        59
+      ]
     },
     "level": 35,
     "life": 400,
@@ -16482,7 +17776,9 @@
     "name": "Event",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 57
+      "frames": [
+        57
+      ]
     },
     "level": 2,
     "life": 5500,
@@ -16498,7 +17794,9 @@
     "name": "Last Man Standing",
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 57
+      "frames": [
+        57
+      ]
     },
     "level": 2,
     "life": 5500,
@@ -16514,7 +17812,9 @@
     "name": "Eldrid the Trademaster",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 40
+      "frames": [
+        40
+      ]
     },
     "level": 1,
     "life": 100,
@@ -16530,7 +17830,9 @@
     "deadItem": 406,
     "graphics": {
       "file": "rpgwo-player3.png",
-      "index": 88
+      "frames": [
+        88
+      ]
     },
     "level": 32,
     "life": 200,
@@ -16545,7 +17847,9 @@
     "name": "Grayvyn Scout",
     "graphics": {
       "file": "rpgwo-player2.png",
-      "index": 84
+      "frames": [
+        84
+      ]
     },
     "level": 20,
     "life": 100,
@@ -16576,7 +17880,9 @@
     "name": "Pack Mule",
     "graphics": {
       "file": "rpgwo-player5.png",
-      "index": 22
+      "frames": [
+        22
+      ]
     },
     "life": 500,
     "magicDefense": 750,
@@ -16590,7 +17896,9 @@
     "name": "Trader Tonk",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 32
+      "frames": [
+        32
+      ]
     },
     "level": 20,
     "life": 50,
@@ -16605,7 +17913,9 @@
     "name": "Drunkard",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 34
+      "frames": [
+        34
+      ]
     },
     "life": 150,
     "magicDefense": 10,
@@ -16619,7 +17929,9 @@
     "name": "insane Loremaster",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 77
+      "frames": [
+        77
+      ]
     },
     "life": 150,
     "magicDefense": 150,
@@ -16633,7 +17945,9 @@
     "name": "Blue Team Captain",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 88
+      "frames": [
+        88
+      ]
     },
     "level": 1,
     "life": 100,
@@ -16645,7 +17959,9 @@
     "name": "Red Team Captain",
     "graphics": {
       "file": "rpgwo-player4.png",
-      "index": 89
+      "frames": [
+        89
+      ]
     },
     "level": 1,
     "life": 100,
@@ -16657,7 +17973,9 @@
     "name": "Doorman",
     "graphics": {
       "file": "rpgwo-player0.png",
-      "index": 94
+      "frames": [
+        94
+      ]
     },
     "level": 1,
     "life": 100,
@@ -16669,7 +17987,9 @@
     "name": "Grayvyn Master Archer",
     "graphics": {
       "file": "rpgwo-player1.png",
-      "index": 3
+      "frames": [
+        3
+      ]
     },
     "level": 20,
     "life": 250,

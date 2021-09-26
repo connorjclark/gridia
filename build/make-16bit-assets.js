@@ -183,12 +183,13 @@ for (let i = 0; i < 100; i++) {
   creatures.push({
     id: i + 1,
     name: creatureNames[i],
-    graphics: { file: 'creatures_001.png', index },
+    graphics: { file: 'creatures_001.png', frames: [index, index + 18] },
   });
 }
 
 runImageMagick([
   'convert',
+  '+set', 'date:modify',
   '-crop', `${16 * 22}x${16 * 14}+16+16`,
   '-interpolate', 'Integer',
   '-filter', 'point',
