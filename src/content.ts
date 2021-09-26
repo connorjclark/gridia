@@ -129,9 +129,10 @@ export async function initializeWorldData(worldDataDef_: WorldDataDefinition): P
 
     /* eslint-disable max-len */
     floors = [
-      {id: 0, graphics: {file: 'tileset_1bit.png', frames: [63]}, color: '0xffffff'},
-      {id: 1, graphics: {file: 'tileset_1bit.png', frames: [2*8 + 1], templateType: 'visual-offset'}, color: '0x0000bb'},
-      {id: 2, graphics: {file: 'tileset_1bit.png', frames: [6]}, color: '0x00ff00'},
+      {id: 0, graphics: {file: 'tileset_1bit.png', frames: [63]}, color: '0'},
+      {id: 1, graphics: {file: 'tileset_1bit.png', frames: [63]}, color: '0xffffff'},
+      {id: 2, graphics: {file: 'tileset_1bit.png', frames: [2*8 + 1], templateType: 'visual-offset'}, color: '0x0000bb'},
+      {id: 3, graphics: {file: 'tileset_1bit.png', frames: [6]}, color: '0x00ff00'},
     ];
     /* eslint-enable max-len */
 
