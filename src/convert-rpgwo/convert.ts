@@ -190,7 +190,7 @@ function parseItemsIni() {
     } else if (key.match(/^notmovable/i)) {
       currentItem.moveable = false;
     } else if (key.match(/^imagetype/i)) {
-      currentItem.imageHeight = forcenum(value) + 1;
+      currentItem.height = forcenum(value) + 1;
     } else if (key.match(/^BlockMovement/i)) {
       currentItem.walkable = (value || '1') !== '1';
     } else if (key.match(/^OpenSightLine/i)) {
@@ -229,7 +229,7 @@ function parseItemsIni() {
 
   for (const item of items) {
     if (!item.graphics) item.graphics = { file: 'rpgwo-item0.png', frames: [1] };
-    if (item.imageHeight) item.graphics.imageHeight = item.imageHeight;
+    if (item.height) item.graphics.height = item.height;
   }
 
   // Only un-walkable items block light, unless 'OpenSightLine' was used.
@@ -989,13 +989,27 @@ function parseMonsterIni() {
   }
 
   for (const monster of monsters) {
+    // @ts-expect-error
+    const image = monster.image;
+    // @ts-expect-error
+    const imageType = monster.imageType || 0;
+
+    let width, height;
+    if (imageType === 1) {
+      height = 2;
+    } else if (imageType === 2) {
+      width = 2;
+      height = 2;
+    } else if (imageType === 3) {
+      width = 3;
+      height = 3;
+    }
+
     monster.graphics = {
-      // @ts-expect-error
-      file: `rpgwo-player${Math.floor(monster.image / 100)}.png`,
-      // @ts-expect-error
-      frames: [(monster.image % 100) - 1],
-      // @ts-expect-error
-      imageType: monster.image_type,
+      file: `rpgwo-player${Math.floor(image / 100)}.png`,
+      frames: [(image % 100) - 1],
+      width,
+      height,
     };
 
     if (monster.speed === undefined) monster.speed = 2;

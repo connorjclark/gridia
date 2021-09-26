@@ -78,7 +78,7 @@ export function makeItemTemplate(item: Item) {
     index = meta.graphics.frames[Math.floor((game.state.elapsedFrames * (60 / 1000)) % numFrames)];
   }
 
-  return getTexture(meta.graphics.file, index, meta.graphics.imageHeight);
+  return getTexture(meta.graphics.file, index, meta.graphics.height);
 }
 
 export function makeItemQuantity(quantity: number) {
@@ -119,14 +119,14 @@ export function makeItemSprite2(item: Item) {
     }
 
     if (meta.graphics.frames.length === 1) {
-      const texture = getTexture(meta.graphics.file, meta.graphics.frames[0], 1, meta.graphics.imageHeight);
+      const texture = getTexture(meta.graphics.file, meta.graphics.frames[0], 1, meta.graphics.height);
       if (texture === PIXI.Texture.EMPTY) return null;
       return new PIXI.Sprite(texture);
     }
 
     const textures = [];
     for (const frame of meta.graphics.frames) {
-      const texture = getTexture(meta.graphics.file, frame, 1, meta.graphics.imageHeight);
+      const texture = getTexture(meta.graphics.file, frame, 1, meta.graphics.height);
       if (texture === PIXI.Texture.EMPTY) return null;
       textures.push(texture);
     }

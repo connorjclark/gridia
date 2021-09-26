@@ -30,15 +30,15 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
       if (!props.selectedView) return <div></div>;
       const selectedView = props.selectedView;
 
-      let imageData;
+      let equipmentGraphics;
       let file = '';
       let index;
       let quantity = 1;
       if (selectedView.creatureId) {
         const creature = selectedViewModule.game.client.context.getCreature(selectedView.creatureId);
         file = creature.graphics.file;
-        index = creature.graphics.index;
-        imageData = creature.imageData;
+        index = creature.graphics.frames[0];
+        equipmentGraphics = creature.equipmentGraphics;
       } else if (selectedView.location?.source === 'world') {
         const item = selectedViewModule.game.client.context.map.getItem(selectedView.location.loc);
         const metaItem = item && Content.getMetaItem(item.type);
@@ -60,8 +60,8 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
       }
 
       let img;
-      if (imageData) {
-        img = <CustomCreatureGraphic {...imageData}></CustomCreatureGraphic>;
+      if (equipmentGraphics) {
+        img = <CustomCreatureGraphic graphics={equipmentGraphics}></CustomCreatureGraphic>;
       } else if (file && index !== undefined) {
         img = <Graphic file={file} index={index} quantity={quantity}></Graphic>;
       }

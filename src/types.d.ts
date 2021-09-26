@@ -114,27 +114,24 @@ interface Item {
   oreType?: number;
 }
 
-interface CreatureImageData {
-  arms: { file: string; frames: number[] };
-  chest: { file: string; frames: number[] };
-  head: { file: string; frames: number[] };
-  legs: { file: string; frames: number[] };
-  shield?: { file: string; frames: number[] };
-  weapon?: { file: string; frames: number[] };
-}
+// interface CreatureImageData {
+//   arms: { file: string; frames: number[] };
+//   chest: { file: string; frames: number[] };
+//   head: { file: string; frames: number[] };
+//   legs: { file: string; frames: number[] };
+//   shield?: { file: string; frames: number[] };
+//   weapon?: { file: string; frames: number[] };
+// }
 
 interface Creature {
   id: number;
-  // Refers to monster template id, if used.
+  /** Refers to monster template id, if used. */
   type?: number;
   dead: boolean;
-  graphics: {
-    file: string;
-    frames: number[];
-    // TODO
-    imageType?: number;
-  };
-  imageData?: CreatureImageData;
+  graphics: Graphics;
+  /** If set, these graphics are composed on top of the main graphic. */
+  equipmentGraphics?: Graphics[];
+  // imageData?: CreatureImageData;
   name: string;
   canSpeak?: boolean;
   pos: TilePoint;
@@ -182,7 +179,10 @@ interface Buff {
 interface Graphics {
   file: string;
   frames: number[];
-  imageHeight?: number;
+  /** How many tiles wide a frame is. The anchor point is the top-left tile. */
+  width?: number;
+  /** How many tiles tall a frame is. The anchor point is the top-left tile. */
+  height?: number;
   templateType?: TemplateType;
   templateData?: TemplateData;
 }

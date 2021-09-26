@@ -120,7 +120,8 @@ export class ServerInterface implements ICommands {
     }
 
     const players = [];
-    const imageDatas = [];
+    const graphics: Graphics[] = [];
+    const equipmentGraphics = [];
     for (const playerId of account.playerIds) {
       const player = await server.context.getPlayer(playerId);
       if (!player) continue;
@@ -129,12 +130,14 @@ export class ServerInterface implements ICommands {
       if (!equipment) continue;
 
       players.push(player);
-      imageDatas.push(server.makeCreatureImageData(equipment));
+      // TODO: should save graphics to Player.
+      // graphics.push(...);
+      equipmentGraphics.push(server.makeCreatureImageData(equipment));
     }
 
     // No real reason to keep this secret, but the client never needs to know this id.
     account = {...account, id: '<removed>'};
-    return {account, players, imageDatas};
+    return {account, players, graphics, equipmentGraphics};
   }
 
   onCreatePlayer(server: Server, args: Commands.CreatePlayer['params']): Promise<void> {
@@ -914,13 +917,15 @@ export class ServerInterface implements ICommands {
           args: [
             {name: 'index', type: 'number'},
             {name: 'file', type: 'string', optional: true},
-            {name: 'type', type: 'number', optional: true},
+            {name: 'width', type: 'number', optional: true},
+            {name: 'height', type: 'number', optional: true},
           ],
-          do(args: { index: number; file?: string; type?: number }) {
+          do(args: { index: number; file?: string; width?: number; height?: number }) {
             server.currentClientConnection.creature.graphics = {
               file: args.file || 'rpgwo-player0.png',
-              index: args.index,
-              imageType: args.type || 0,
+              frames: [args.index],
+              width: args.width || 1,
+              height: args.height || 1,
             };
             server.broadcastPartialCreatureUpdate(server.currentClientConnection.creature, ['graphics']);
           },

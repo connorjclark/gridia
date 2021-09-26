@@ -181,12 +181,7 @@ export const Graphic = (props: GraphicProps) => {
 };
 
 interface CustomCreatureGraphicProps {
-  arms: { file: string; frames: number[] };
-  head: { file: string; frames: number[] };
-  chest: { file: string; frames: number[] };
-  legs: { file: string; frames: number[] };
-  shield?: { file: string; frames: number[] };
-  weapon?: { file: string; frames: number[] };
+  graphics: Graphics[];
   scale?: number;
 }
 export function CustomCreatureGraphic(props: CustomCreatureGraphicProps) {
@@ -194,11 +189,9 @@ export function CustomCreatureGraphic(props: CustomCreatureGraphicProps) {
   // TODO: using margin here is a hack ...
   return <div class="custom-creature-graphic" style={
     {width: size + 'px', height: size + 'px', marginRight: size + 'px'}}>
-    {Object.entries(props).map(([key, value]) => {
-      if (key === 'scale' || value === undefined) return;
-
+    {props.graphics.map((graphic) => {
       return <div style={{position: 'absolute'}}>
-        <Graphic file={value.file} index={value.frames[0]} scale={props.scale}></Graphic>
+        <Graphic file={graphic.file} index={graphic.frames[0]} scale={props.scale}></Graphic>
       </div>;
     })}
   </div>;

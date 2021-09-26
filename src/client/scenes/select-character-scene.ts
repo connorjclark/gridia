@@ -26,7 +26,9 @@ export class SelectCharacterScene extends Scene {
     for (const [i, player] of Object.entries(this.loginData.players)) {
       const el = Helper.createChildOf(playersEl, 'div', 'select-character__player');
       el.dataset.index = i;
-      el.append(makeCustomCreatureGraphicComponent(this.loginData.imageDatas[Number(i)]));
+      el.append(makeCustomCreatureGraphicComponent({
+        graphics: this.loginData.equipmentGraphics[Number(i)],
+      }));
       const div2 = Helper.createChildOf(el, 'div');
       Helper.createChildOf(div2, 'div').textContent = player.name;
       Helper.createChildOf(div2, 'div').textContent = `Combat Level: ${Player.getCombatLevel(player).combatLevel}`;

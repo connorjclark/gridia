@@ -77,11 +77,12 @@ export function makeDialogueWindow(game: Game) {
       const creature = game.client.context.getCreature(creatureId);
 
       let speakerGfx;
-      if (creature.imageData) {
+      if (creature.equipmentGraphics) {
         speakerGfx =
-          <CustomCreatureGraphic {...creature.imageData} scale={2}></CustomCreatureGraphic>;
+          <CustomCreatureGraphic graphics={creature.equipmentGraphics} scale={2}></CustomCreatureGraphic>;
       } else {
-        speakerGfx = <Graphic file={creature.graphics.file} index={creature.graphics.index} scale={2}></Graphic>;
+        // TODO: just pass the entire graphic object, allow for animation.
+        speakerGfx = <Graphic file={creature.graphics.file} index={creature.graphics.frames[0]} scale={2}></Graphic>;
       }
 
       return speakerGfx;

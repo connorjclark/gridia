@@ -1103,9 +1103,7 @@ export class Server {
 
   updateCreatureDataBasedOnEquipment(creature: Creature, equipment: Container, opts: { broadcast: boolean }) {
     creature.equipment = equipment.items;
-    creature.imageData = this.makeCreatureImageData(equipment);
-    if (this.worldDataDef.baseDir === 'worlds/bit-world') creature.imageData = undefined;
-    if (this.worldDataDef.baseDir === 'worlds/16bit-world') creature.imageData = undefined;
+    creature.equipmentGraphics = this.makeCreatureImageData(equipment);
     creature.stats = {
       ...creature.stats,
       armor: 0,
@@ -1132,19 +1130,26 @@ export class Server {
     creature.stats.damageHigh = Math.max(1, creature.stats.damageHigh);
     creature.stats.attackSpeed = Math.max(1, creature.stats.attackSpeed);
 
-    if (opts.broadcast) this.broadcastPartialCreatureUpdate(creature, ['imageData', 'stats']);
+    if (opts.broadcast) this.broadcastPartialCreatureUpdate(creature, ['equipmentGraphics', 'stats']);
   }
 
-  makeCreatureImageData(container: Container): CreatureImageData {
-    const getEquipImage = (i: Item | null) => i ? Content.getMetaItem(i.type).equipImage : undefined;
-    return {
-      arms: {file: 'rpgwo-arms0.png', frames: [0]},
-      chest: getEquipImage(container.items[Container.EQUIP_SLOTS.Chest]) || {file: 'rpgwo-chest0.png', frames: [0]},
-      head: getEquipImage(container.items[Container.EQUIP_SLOTS.Head]) || {file: 'rpgwo-head0.png', frames: [0]},
-      legs: getEquipImage(container.items[Container.EQUIP_SLOTS.Legs]) || {file: 'rpgwo-legs0.png', frames: [0]},
-      shield: getEquipImage(container.items[Container.EQUIP_SLOTS.Shield]),
-      weapon: getEquipImage(container.items[Container.EQUIP_SLOTS.Weapon]),
-    };
+  makeCreatureImageData(container: Container): Graphics[] {
+    if (Content.getBaseDir() === 'worlds/rpgwo-world') {
+      const getEquipImage = (i: Item | null) => i ? Content.getMetaItem(i.type).equipImage : undefined;
+      const graphics = [
+        {file: 'rpgwo-arms0.png', frames: [0]},
+        getEquipImage(container.items[Container.EQUIP_SLOTS.Chest]) || {file: 'rpgwo-chest0.png', frames: [0]},
+        getEquipImage(container.items[Container.EQUIP_SLOTS.Head]) || {file: 'rpgwo-head0.png', frames: [0]},
+        getEquipImage(container.items[Container.EQUIP_SLOTS.Legs]) || {file: 'rpgwo-legs0.png', frames: [0]},
+      ];
+      const shieldGraphics = getEquipImage(container.items[Container.EQUIP_SLOTS.Shield]);
+      if (shieldGraphics) graphics.push(shieldGraphics);
+      const weaponGraphics = getEquipImage(container.items[Container.EQUIP_SLOTS.Weapon]);
+      if (weaponGraphics) graphics.push(weaponGraphics);
+      return graphics;
+    }
+
+    return [];
   }
 
   grantXp(clientConnection: ClientConnection, skill: number, xp: number) {

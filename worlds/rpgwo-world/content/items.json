@@ -20284,7 +20284,7 @@
       "frames": [
         0
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 1006,
@@ -20305,7 +20305,7 @@
       "frames": [
         1
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 1008,
@@ -20326,7 +20326,7 @@
       "frames": [
         2
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 1009,
@@ -20347,7 +20347,7 @@
       "frames": [
         3
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 1009,
@@ -22317,7 +22317,7 @@
       "frames": [
         32
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "light": 0,
     "moveable": false,
@@ -24371,7 +24371,7 @@
       "frames": [
         4
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "light": 0,
     "moveable": false,
@@ -27857,7 +27857,7 @@
       "frames": [
         30
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 1367,
@@ -27878,7 +27878,7 @@
       "frames": [
         31
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 1006,
@@ -29051,7 +29051,7 @@
       "frames": [
         62
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 1428,
@@ -29072,7 +29072,7 @@
       "frames": [
         63
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 1429,
@@ -29093,7 +29093,7 @@
       "frames": [
         64
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 1430,
@@ -29114,7 +29114,7 @@
       "frames": [
         65
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 1430,
@@ -29195,7 +29195,7 @@
       "frames": [
         67
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 1435,
@@ -29216,7 +29216,7 @@
       "frames": [
         68
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 1436,
@@ -29237,7 +29237,7 @@
       "frames": [
         69
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 1437,
@@ -29258,7 +29258,7 @@
       "frames": [
         89
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 1437,
@@ -40814,7 +40814,7 @@
       "frames": [
         38
       ],
-      "imageHeight": 3
+      "height": 3
     },
     "growthDelta": 100,
     "growthItem": 1110,
@@ -40835,7 +40835,7 @@
       "frames": [
         36
       ],
-      "imageHeight": 3
+      "height": 3
     },
     "growthDelta": 100,
     "growthItem": 1110,
@@ -40856,7 +40856,7 @@
       "frames": [
         46
       ],
-      "imageHeight": 3
+      "height": 3
     },
     "growthDelta": 100,
     "growthItem": 1110,
@@ -40971,7 +40971,7 @@
       "frames": [
         50
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 2046,
@@ -40991,7 +40991,7 @@
       "frames": [
         51
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 2047,
@@ -41011,7 +41011,7 @@
       "frames": [
         52
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 2048,
@@ -41031,7 +41031,7 @@
       "frames": [
         53
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 2048,
@@ -42458,7 +42458,7 @@
       "frames": [
         51
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "light": 0,
     "moveable": false,
@@ -42477,7 +42477,7 @@
       "frames": [
         53
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "light": 0,
     "moveable": false,
@@ -42496,7 +42496,7 @@
       "frames": [
         5
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "light": 0,
     "moveable": false,
@@ -43139,7 +43139,7 @@
       "frames": [
         20
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 2154,
@@ -43159,7 +43159,7 @@
       "frames": [
         21
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 2155,
@@ -43179,7 +43179,7 @@
       "frames": [
         22
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 2155,
@@ -43275,7 +43275,7 @@
       "frames": [
         23
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 2161,
@@ -43295,7 +43295,7 @@
       "frames": [
         24
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 2162,
@@ -43315,7 +43315,7 @@
       "frames": [
         25
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "growthDelta": 5000,
     "growthItem": 2162,
@@ -45094,7 +45094,7 @@
       "frames": [
         0
       ],
-      "imageHeight": 4
+      "height": 4
     },
     "light": 0,
     "moveable": true,
@@ -49018,7 +49018,7 @@
       "frames": [
         51
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "light": 0,
     "moveable": true,
@@ -49239,7 +49239,7 @@
       "frames": [
         88
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "light": 0,
     "moveable": true,
@@ -49258,7 +49258,7 @@
       "frames": [
         89
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "light": 0,
     "moveable": true,
@@ -49277,7 +49277,7 @@
       "frames": [
         88
       ],
-      "imageHeight": 4
+      "height": 4
     },
     "light": 0,
     "moveable": true,
@@ -50695,7 +50695,7 @@
       "frames": [
         8
       ],
-      "imageHeight": 4
+      "height": 4
     },
     "light": 0,
     "moveable": true,
@@ -51695,7 +51695,7 @@
       "frames": [
         0
       ],
-      "imageHeight": 4
+      "height": 4
     },
     "light": 0,
     "moveable": true,
@@ -51714,7 +51714,7 @@
       "frames": [
         2
       ],
-      "imageHeight": 2
+      "height": 2
     },
     "light": 0,
     "moveable": false,

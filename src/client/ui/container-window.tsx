@@ -12,7 +12,7 @@ interface State {
   selectedIndex: number | null;
   // TODO: this should be a separate component.
   equipmentWindow?: {
-    imageData: Creature['imageData'];
+    equipmentGraphics: Creature['equipmentGraphics'];
     stats: Creature['stats'];
   };
 }
@@ -51,8 +51,8 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
   class ContainerWindow extends Component<Props> {
     render(props: Props) {
       let previewEl = <div></div>;
-      if (props.equipmentWindow && props.equipmentWindow.imageData) {
-        previewEl = <CustomCreatureGraphic {...props.equipmentWindow.imageData}></CustomCreatureGraphic>;
+      if (props.equipmentWindow && props.equipmentWindow.equipmentGraphics) {
+        previewEl = <CustomCreatureGraphic graphics={props.equipmentWindow.equipmentGraphics}></CustomCreatureGraphic>;
       }
 
       let statsEl = null;

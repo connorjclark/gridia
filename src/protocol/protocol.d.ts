@@ -31,7 +31,7 @@ declare namespace Protocol {
     type EnterWorld = Command<{ playerId: string }>;
     type Login = Command<
       { firebaseToken: string },
-      { account: GridiaAccount; players: Player[]; imageDatas: CreatureImageData[] }
+      { account: GridiaAccount; players: Player[]; graphics: Graphics[]; equipmentGraphics: Array<Graphics[]> }
     >;
     type Logout = Command<{}>;
     type Move = Command<TilePoint>;

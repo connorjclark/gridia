@@ -165,11 +165,11 @@ class CreatureSprite extends PIXI.Sprite {
   }
 
   get tileWidth() {
-    return this.creature.graphics.imageType || 1;
+    return this.creature.graphics.width || 1;
   }
 
   get tileHeight() {
-    return this.creature.graphics.imageType || 1;
+    return this.creature.graphics.height || 1;
   }
 
   tick() {
@@ -218,45 +218,30 @@ class CreatureSprite extends PIXI.Sprite {
   private drawCreature() {
     const width = this.tileWidth;
     const height = this.tileHeight;
+    const textures: PIXI.Texture[] = [];
 
-    // Load all necessary textures.
-    const textures: Record<string, PIXI.Texture> = {};
     let animatedSprite;
-
-    // TODO: generalize
-    if (Content.getBaseDir() === 'worlds/rpgwo-world' &&
-      this.creature.graphics.frames[0] >= 0 && this.creature.graphics.frames[1] <= 4) {
-
-      const data = this.creature.imageData || {
-        arms: {file: 'rpgwo-arms0.png', frames: [0]},
-        head: {file: 'rpgwo-head0.png', frames: [0]},
-        chest: {file: 'rpgwo-chest0.png', frames: [0]},
-        legs: {file: 'rpgwo-legs0.png', frames: [0]},
-      };
-
-      textures.arms = Draw.getTexture(data.arms.file, data.arms.frames[0]);
-      textures.head = Draw.getTexture(data.head.file, data.head.frames[0]);
-      textures.chest = Draw.getTexture(data.chest.file, data.chest.frames[0]);
-      textures.legs = Draw.getTexture(data.legs.file, data.legs.frames[0]);
-      if (data.shield) textures.shield = Draw.getTexture(data.shield.file, data.shield.frames[0]);
-      if (data.weapon) textures.weapon = Draw.getTexture(data.weapon.file, data.weapon.frames[0]);
+    if (this.creature.graphics.frames.length === 1) {
+      textures.push(Draw.getTexture(this.creature.graphics.file, this.creature.graphics.frames[0], width, height));
     } else {
-      // TODO
-      if (this.creature.graphics.frames.length === 1) {
-        textures.main = Draw.getTexture(this.creature.graphics.file, this.creature.graphics.frames[0], width, height);
-      } else {
-        const animTextures = this.creature.graphics.frames
-          .map((index) => Draw.getTexture(this.creature.graphics.file, index));
-        if (animTextures.some((t) => t === PIXI.Texture.EMPTY)) return;
+      const animTextures = this.creature.graphics.frames
+        .map((index) => Draw.getTexture(this.creature.graphics.file, index));
+      if (animTextures.some((t) => t === PIXI.Texture.EMPTY)) return;
 
-        animatedSprite = new PIXI.AnimatedSprite(animTextures);
-        animatedSprite.animationSpeed = 5 / 60;
-        animatedSprite.play();
+      animatedSprite = new PIXI.AnimatedSprite(animTextures);
+      animatedSprite.animationSpeed = 5 / 60;
+      animatedSprite.play();
+    }
+
+    if (this.creature.equipmentGraphics) {
+      for (const graphic of this.creature.equipmentGraphics) {
+        textures.push(Draw.getTexture(graphic.file, graphic.frames[0]));
       }
     }
 
     const creatureGfx = new PIXI.Graphics();
     for (const texture of Object.values(textures)) {
+      // Missing a necessary texture: bail for now.
       if (texture === PIXI.Texture.EMPTY) return false;
 
       creatureGfx
@@ -279,8 +264,8 @@ class CreatureSprite extends PIXI.Sprite {
 
     this.removeChild(this.labelSprite);
     Draw.destroyChildren(this);
-    this.addChild(creatureGfx);
     if (animatedSprite) this.addChild(animatedSprite);
+    this.addChild(creatureGfx);
     this.addChild(this.labelSprite);
 
     this.labelSprite.alpha = 0;
@@ -498,11 +483,11 @@ export class Game {
           };
         }));
 
-        const updateEquipmentWindow = event.args.stats || event.args.graphics || event.args.imageData;
+        const updateEquipmentWindow = event.args.stats || event.args.graphics || event.args.equipmentGraphics;
         if (this.client.equipment && updateEquipmentWindow) {
           const equipmentWindow = this.containerWindows.get(this.client.equipment.id);
           equipmentWindow?.actions.setEquipmentWindow({
-            imageData: this.client.creature.imageData,
+            equipmentGraphics: this.client.creature.equipmentGraphics,
             stats: this.client.creature.stats,
           });
         }
@@ -1151,7 +1136,7 @@ export class Game {
 
       if (container.type === 'equipment') {
         containerWindow.actions.setEquipmentWindow({
-          imageData: this.client.creature.imageData,
+          equipmentGraphics: this.client.creature.equipmentGraphics,
           stats: this.client.creature.stats,
         });
       }
