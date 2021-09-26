@@ -24,7 +24,8 @@ class StartScene extends Scene {
     this.serverLocationInput.value = `${window.location.hostname}:9001`;
   }
 
-  onClickLocalBtn() {
+  async onClickLocalBtn() {
+    await this.controller.loadWorker();
     this.controller.pushScene(new MapSelectScene(this.controller));
   }
 
@@ -113,7 +114,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       (controller.currentScene as SelectCharacterScene).selectPlayer(controller.qs.playerId);
     }
   } else if (controller.qs.quick === 'local') {
-    controller.loadWorker();
+    await controller.loadWorker();
 
     const mapNames = await controller.getMapNames();
     if (!controller.qs.map && !mapNames.includes('quick-default')) {

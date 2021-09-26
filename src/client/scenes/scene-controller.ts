@@ -51,7 +51,7 @@ export class SceneController {
     this.pushScene(new GameScene(this));
   }
 
-  loadWorker() {
+  async loadWorker() {
     if (this.serverWorker_) return;
 
     let directoryHandle: FileSystemDirectoryHandle | undefined;
@@ -70,7 +70,7 @@ export class SceneController {
     // }
 
     this.serverWorker_ = new ServerWorker();
-    this.serverWorker_.init({directoryHandle});
+    await this.serverWorker_.init({directoryHandle});
   }
 
   destoryWorker() {

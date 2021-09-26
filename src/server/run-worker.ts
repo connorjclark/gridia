@@ -52,13 +52,15 @@ interface InitArgs {
   directoryHandle?: FileSystemDirectoryHandle;
 }
 let initArgs_: InitArgs;
-function init(args: InitArgs) {
+function init(args: InitArgs): Promise<void> {
   initArgs_ = args;
   if (args.directoryHandle) {
     mapsDb = new FsApiDb(args.directoryHandle);
   } else {
     // mapsDb = new LevelFs('default');
   }
+
+  return Promise.resolve();
 }
 
 async function listMaps() {
@@ -83,7 +85,7 @@ interface GenerateMapArgs {
   bare: boolean; width: number; height: number; depth: number; seeds: { [id: string]: number };
   canvas?: OffscreenCanvas;
 }
-async function generateMap(args: GenerateMapArgs) {
+async function generateMap(args: GenerateMapArgs): Promise<void> {
   await Content.initializeWorldData(args.worldDataDefinition);
   previewWorldDataDefinition = args.worldDataDefinition;
 
@@ -111,11 +113,11 @@ async function generateMap(args: GenerateMapArgs) {
   return Promise.resolve();
 }
 
-async function saveGeneratedMap(args: { name: string }) {
+async function saveGeneratedMap(args: { name: string }): Promise<void> {
   await saveMapGen(args.name);
 }
 
-async function startServer(args: ServerWorkerOpts) {
+async function startServer(args: ServerWorkerOpts): Promise<void> {
   opts = args; // :(
 
   clientConnection = new ClientConnection();
@@ -132,7 +134,7 @@ async function startServer(args: ServerWorkerOpts) {
   server.addClientConnection(clientConnection);
 }
 
-async function shutdown() {
+async function shutdown(): Promise<void> {
   if (!server) return;
 
   await server.save();
