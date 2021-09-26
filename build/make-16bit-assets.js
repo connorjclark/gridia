@@ -71,7 +71,6 @@ items.push({
   "light": 0,
   "moveable": true,
   "stackable": false,
-  "walkable": true
 });
 items.push({
   id: items.length,
@@ -128,19 +127,19 @@ items.push({
   id: items.length,
   name: 'Tree Stump',
   graphics: {file: 'world_002.png', frames: [100]},
-  walkable: false,
+  blocksMovement: true,
 });
 items.push({
   id: items.length,
   name: 'Woodcutting Axe',
   graphics: {file: 'items_001.png', frames: [167]},
-  walkable: true,
+  blocksMovement: true,
 });
 items.push({
   id: items.length,
   name: 'Branches',
   graphics: {file: 'items_001.png', frames: [178]},
-  walkable: true,
+  blocksMovement: true,
   stackable: true,
 });
 itemUses.push({

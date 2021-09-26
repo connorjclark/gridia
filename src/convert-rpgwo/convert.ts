@@ -161,7 +161,6 @@ function parseItemsIni() {
     moveable: true,
     rarity: 1,
     stackable: false,
-    walkable: true,
     light: 0,
   };
   const items = [];
@@ -192,7 +191,7 @@ function parseItemsIni() {
     } else if (key.match(/^imagetype/i)) {
       currentItem.height = forcenum(value) + 1;
     } else if (key.match(/^BlockMovement/i)) {
-      currentItem.walkable = (value || '1') !== '1';
+      if (value === '1') currentItem.blocksMovement = true;
     } else if (key.match(/^OpenSightLine/i)) {
       currentItem.blocksLight = false;
     } else if (key.match(/^WearImage/i)) {
@@ -234,7 +233,7 @@ function parseItemsIni() {
 
   // Only un-walkable items block light, unless 'OpenSightLine' was used.
   for (const item of items) {
-    if (!item.walkable && !('blocksLight' in item)) {
+    if (item.blocksMovement && !('blocksLight' in item)) {
       item.blocksLight = true;
     } else {
       item.blocksLight = false;
@@ -285,7 +284,7 @@ function parseItemsIni() {
     'name',
     'rarity',
     'stackable',
-    'walkable',
+    'blocksMovement',
     'trapEffect',
     'light',
     'blocksLight',
@@ -314,7 +313,6 @@ function parseItemUsagesIni(): ItemUse[] {
     // burden: 10000,
     // moveable: true,
     // stackable: false,
-    // walkable: true,
   };
   const usages: ItemUse[] = [];
 
@@ -706,7 +704,7 @@ function convertItems() {
       },
       class: 'Normal',
       burden: 0,
-      walkable: true,
+      blocksMovement: true,
       light: 0,
       moveable: true,
       stackable: false,
@@ -725,7 +723,7 @@ function convertItems() {
       templateType: 'bit-offset',
     },
     class: 'Normal',
-    walkable: false,
+    blocksMovement: false,
     moveable: false,
     blocksLight: true,
   });

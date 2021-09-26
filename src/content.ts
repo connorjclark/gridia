@@ -78,7 +78,6 @@ export async function initializeWorldData(worldDataDef_: WorldDataDefinition): P
         burden: 0,
         stackable: false,
         moveable: true,
-        walkable: true,
         light: 0,
         blocksLight: false,
         rarity: 0,
@@ -87,13 +86,13 @@ export async function initializeWorldData(worldDataDef_: WorldDataDefinition): P
     }
 
     addItem({name: 'Nothing'});
-    addItem({name: 'Block', walkable: false}, 0, 0);
-    addItem({name: 'Wood Wall', walkable: false}, 1, 0);
-    addItem({name: 'Block', walkable: false}, 2, 0);
-    addItem({name: 'Brick Wall', walkable: false}, 3, 0);
+    addItem({name: 'Block', blocksMovement: true}, 0, 0);
+    addItem({name: 'Wood Wall', blocksMovement: true}, 1, 0);
+    addItem({name: 'Block', blocksMovement: true}, 2, 0);
+    addItem({name: 'Brick Wall', blocksMovement: true}, 3, 0);
     addItem({name: 'Ore', class: 'Ore', rarity: 1}, 6, 0);
-    addItem({name: 'Tree', walkable: false}, 7, 0);
-    addItem({name: 'Palm Tree', walkable: false}, 7, 1);
+    addItem({name: 'Tree', blocksMovement: true}, 7, 0);
+    addItem({name: 'Palm Tree', blocksMovement: true}, 7, 1);
 
     /* eslint-disable max-len */
     floors = [
@@ -126,7 +125,7 @@ export async function initializeWorldData(worldDataDef_: WorldDataDefinition): P
       id: i,
       name: 'Unknown',
       burden: 0,
-      walkable: true,
+      blocksMovement: true,
       light: 0,
       moveable: true,
       stackable: false,

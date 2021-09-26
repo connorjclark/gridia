@@ -43,7 +43,6 @@ function item(partial: ItemOpts) {
     rarity: 1,
     light: 0,
     stackable: true,
-    walkable: true,
     moveable: true,
     blocksLight: false,
     ...partial,

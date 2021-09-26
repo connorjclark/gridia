@@ -30,7 +30,7 @@ export class WorldMapPartition {
     if (!this.inBounds(point)) return false;
 
     const tile = this.getTile(point);
-    if (tile.item && !Content.getMetaItem(tile.item.type).walkable) return false;
+    if (tile.item && Content.getMetaItem(tile.item.type).blocksMovement) return false;
 
     return true;
   }

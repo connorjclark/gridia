@@ -119,12 +119,12 @@ function assertCreatureAt(location: TilePoint, creatureId: number) {
 }
 
 function getWalkableItem(): Item {
-  assert(Content.getMetaItemByName('Cut Red Rose').walkable);
+  assert(!Content.getMetaItemByName('Cut Red Rose').blocksMovement);
   return {type: Content.getMetaItemByName('Cut Red Rose').id, quantity: 1};
 }
 
 function getUnwalkableItem(): Item {
-  assert(!Content.getMetaItemByName('Granite Wall').walkable);
+  assert(Content.getMetaItemByName('Granite Wall').blocksMovement);
   return {type: Content.getMetaItemByName('Granite Wall').id, quantity: 1};
 }
 

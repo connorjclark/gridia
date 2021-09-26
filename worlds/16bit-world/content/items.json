@@ -13,8 +13,7 @@
     },
     "light": 0,
     "moveable": true,
-    "stackable": false,
-    "walkable": true
+    "stackable": false
   },
   {
     "id": 1,
@@ -82,7 +81,7 @@
         100
       ]
     },
-    "walkable": false
+    "blocksMovement": true
   },
   {
     "id": 5,
@@ -93,7 +92,7 @@
         167
       ]
     },
-    "walkable": true
+    "blocksMovement": true
   },
   {
     "id": 6,
@@ -104,7 +103,7 @@
         178
       ]
     },
-    "walkable": true,
+    "blocksMovement": true,
     "stackable": true
   },
   {

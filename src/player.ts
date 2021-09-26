@@ -266,7 +266,7 @@ export function markTileSeen(player: Player, map: WorldMap, point: TilePoint) {
 
   const data = getTileSeenSectorData(player, point);
   const tile = map.getTile(point);
-  const walkable = !tile.item || Content.getMetaItem(tile.item.type).walkable;
+  const walkable = !tile.item || !Content.getMetaItem(tile.item.type).blocksMovement;
   sectorTileSeenLogSet(data, point.x % SECTOR_SIZE, point.y % SECTOR_SIZE, tile.floor, walkable);
 }
 

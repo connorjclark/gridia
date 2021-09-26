@@ -217,8 +217,7 @@ interface MetaItem {
   blocksLight: boolean;
   rarity: number;
   stackable: boolean;
-  // TODO: rename to "blocksMovement", and have default be false.
-  walkable: boolean;
+  blocksMovement?: boolean;
   trapEffect?: 'Warp';
   combatSkill?: number;
   armorLevel?: number;
