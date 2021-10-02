@@ -1,6 +1,5 @@
 #!/bin/bash -ex
 
-yarn clean
 yarn build-prod
 yarn test
 
