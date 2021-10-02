@@ -453,8 +453,8 @@ class Tile {
     if (floor === this.floorValue) return;
 
     const shouldRedrawNeighbors =
-      Content.getMetaFloor(floor)?.graphics.templateType ||
-      Content.getMetaFloor(this.floorValue)?.graphics.templateType;
+      Content.getMetaFloor(floor).graphics.templateType ||
+      Content.getMetaFloor(this.floorValue).graphics.templateType;
     this.floorValue = floor;
     this.redrawFloor();
 
@@ -504,8 +504,8 @@ class Tile {
     if (item === this.itemValue) return;
 
     const shouldRedrawNeighbors =
-      (item && Content.getMetaItem(item.type)?.graphics.templateType) ||
-      (this.itemValue && Content.getMetaItem(this.itemValue.type)?.graphics.templateType);
+      (item && Content.getMetaItem(item.type).graphics.templateType) ||
+      (this.itemValue && Content.getMetaItem(this.itemValue.type).graphics.templateType);
     this.itemValue = item;
     this.redrawItem();
 

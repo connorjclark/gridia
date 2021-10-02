@@ -3,5 +3,14 @@
     "author": "Admurin",
     "url": "https://admurin.itch.io/",
     "attribution": ""
+  },
+  {
+    "author": "Urizen",
+    "url": "https://vurmux.itch.io/urizen-onebit-tilesets"
+  },
+  {
+    "author": "Ma3vis",
+    "url": "http://pixeljoint.com/forum/forum_posts.asp?TID=25568",
+    "files": ["worlds/bit-world/graphics/tileset_1bit_002.png"]
   }
 ]

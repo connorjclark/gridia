@@ -1,0 +1,144 @@
+[
+  {
+    "id": 0,
+    "name": "Nothing",
+    "class": "Normal",
+    "graphics": {
+      "file": "tileset_1bit_001.png",
+      "frames": [
+        63
+      ]
+    },
+    "burden": 0,
+    "stackable": false,
+    "moveable": true,
+    "light": 0,
+    "blocksLight": false,
+    "rarity": 0
+  },
+  {
+    "id": 1,
+    "name": "Block",
+    "class": "Normal",
+    "graphics": {
+      "file": "tileset_1bit_001.png",
+      "frames": [
+        0
+      ]
+    },
+    "burden": 0,
+    "stackable": false,
+    "moveable": true,
+    "light": 0,
+    "blocksLight": false,
+    "rarity": 0,
+    "blocksMovement": true
+  },
+  {
+    "id": 2,
+    "name": "Wood Wall",
+    "class": "Normal",
+    "graphics": {
+      "file": "tileset_1bit_001.png",
+      "frames": [
+        1
+      ]
+    },
+    "burden": 0,
+    "stackable": false,
+    "moveable": true,
+    "light": 0,
+    "blocksLight": false,
+    "rarity": 0,
+    "blocksMovement": true
+  },
+  {
+    "id": 3,
+    "name": "Block",
+    "class": "Normal",
+    "graphics": {
+      "file": "tileset_1bit_001.png",
+      "frames": [
+        2
+      ]
+    },
+    "burden": 0,
+    "stackable": false,
+    "moveable": true,
+    "light": 0,
+    "blocksLight": false,
+    "rarity": 0,
+    "blocksMovement": true
+  },
+  {
+    "id": 4,
+    "name": "Brick Wall",
+    "class": "Normal",
+    "graphics": {
+      "file": "tileset_1bit_001.png",
+      "frames": [
+        3
+      ]
+    },
+    "burden": 0,
+    "stackable": false,
+    "moveable": true,
+    "light": 0,
+    "blocksLight": false,
+    "rarity": 0,
+    "blocksMovement": true
+  },
+  {
+    "id": 5,
+    "name": "Ore",
+    "class": "Ore",
+    "graphics": {
+      "file": "tileset_1bit_001.png",
+      "frames": [
+        6
+      ]
+    },
+    "burden": 0,
+    "stackable": false,
+    "moveable": true,
+    "light": 0,
+    "blocksLight": false,
+    "rarity": 1
+  },
+  {
+    "id": 6,
+    "name": "Tree",
+    "class": "Normal",
+    "graphics": {
+      "file": "tileset_1bit_001.png",
+      "frames": [
+        7
+      ]
+    },
+    "burden": 0,
+    "stackable": false,
+    "moveable": true,
+    "light": 0,
+    "blocksLight": false,
+    "rarity": 0,
+    "blocksMovement": true
+  },
+  {
+    "id": 7,
+    "name": "Palm Tree",
+    "class": "Normal",
+    "graphics": {
+      "file": "tileset_1bit_001.png",
+      "frames": [
+        15
+      ]
+    },
+    "burden": 0,
+    "stackable": false,
+    "moveable": true,
+    "light": 0,
+    "blocksLight": false,
+    "rarity": 0,
+    "blocksMovement": true
+  }
+]

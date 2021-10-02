@@ -181,7 +181,7 @@ function useVisualOffsetTemplate(partition: WorldMapPartition,
      /....\
      |....|
      \____/
-     see tileset_1bit.png
+     see tileset_1bit_001.png
   */
 
   // Surrounded by matches, so using the visual center.

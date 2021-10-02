@@ -46,6 +46,16 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
       skillPoints: 100,
     },
   },
+  // TODO
+  // urizen: {
+  //   baseDir: 'worlds/urizen-world',
+  //   tileSize: 12,
+  //   characterCreation: {
+  //     simple: true,
+  //     attributePoints: 1000,
+  //     skillPoints: 100,
+  //   },
+  // },
 };
 
 let worldDataDef: WorldDataDefinition;
@@ -99,10 +109,17 @@ export async function initializeWorldData(worldDataDef_: WorldDataDefinition): P
       loadDataFile('worlds/rpgwo-world/content/skills.json'),
     ]);
   } else if (worldDataDef_.baseDir === 'worlds/bit-world') {
+    [floors, items, itemUses, skills] = await Promise.all([
+      loadDataFile('worlds/bit-world/content/floors.json'),
+      loadDataFile('worlds/bit-world/content/items.json'),
+      loadDataFile('worlds/bit-world/content/itemuses.json'),
+      loadDataFile('worlds/rpgwo-world/content/skills.json'),
+    ]);
+  } else if (worldDataDef_.baseDir === 'worlds/urizen-world') {
     function addItem(item: Partial<MetaItem>, x?: number, y?: number) {
       const graphics = x !== undefined && y !== undefined ?
-        {file: 'tileset_1bit.png', frames: [x + y * 8]} :
-        {file: 'tileset_1bit.png', frames: [63]};
+        {file: 'tileset.png', frames: [x + y * 50]} :
+        {file: 'tileset.png', frames: [20]};
       items.push({
         id: items.length,
         name: 'Unnamed item',
@@ -118,24 +135,15 @@ export async function initializeWorldData(worldDataDef_: WorldDataDefinition): P
       });
     }
 
-    addItem({name: 'Nothing'});
-    addItem({name: 'Block', blocksMovement: true}, 0, 0);
-    addItem({name: 'Wood Wall', blocksMovement: true}, 1, 0);
-    addItem({name: 'Block', blocksMovement: true}, 2, 0);
-    addItem({name: 'Brick Wall', blocksMovement: true}, 3, 0);
-    addItem({name: 'Ore', class: 'Ore', rarity: 1}, 6, 0);
-    addItem({name: 'Tree', blocksMovement: true}, 7, 0);
-    addItem({name: 'Palm Tree', blocksMovement: true}, 7, 1);
+    for (let x = 0; x < 10; x++) {
+      for (let y = 0; y < 10; y++) {
+        addItem({}, x, y);
+      }
+    }
 
-    /* eslint-disable max-len */
     floors = [
-      {id: 0, graphics: {file: 'tileset_1bit.png', frames: [63]}, color: '0'},
-      {id: 1, graphics: {file: 'tileset_1bit.png', frames: [63]}, color: '0xffffff'},
-      {id: 2, graphics: {file: 'tileset_1bit.png', frames: [2*8 + 1], templateType: 'visual-offset'}, color: '0x0000bb'},
-      {id: 3, graphics: {file: 'tileset_1bit.png', frames: [6]}, color: '0x00ff00'},
+      {id: 0, graphics: {file: 'tileset.png', frames: [15]}, color: '0'},
     ];
-    /* eslint-enable max-len */
-
     skills = await loadDataFile('worlds/rpgwo-world/content/skills.json');
   }
 
@@ -277,7 +285,7 @@ export function getFloors() {
 }
 
 export function getMetaFloor(id: number): MetaFloor {
-  return data.floors[id];
+  return data.floors[id] || {...data.floors[0]};
 }
 
 export function getMetaItems(): MetaItem[] {
@@ -351,8 +359,6 @@ export function getRandomMetaItemOfClass(itemClass: MetaItem['class']) {
     sumSoFar += item.rarity;
     if (value < sumSoFar) return item;
   }
-
-  console.log({itemClass});
 
   // Shouldn't ever reach here.
   console.error('unexpected behavior in getRandomMetaItemOfClass.');

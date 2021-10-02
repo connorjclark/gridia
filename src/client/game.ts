@@ -557,6 +557,9 @@ export class Game {
     if (Content.getBaseDir() === 'worlds/16bit-world') {
       this.client.settings.scale = 1.75;
     }
+    if (Content.getBaseDir() === 'worlds/urizen-world') {
+      this.client.settings.scale = 1.75;
+    }
 
     this.canvasesEl.appendChild(this.app.view);
 

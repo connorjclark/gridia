@@ -1,5 +1,5 @@
 import {h, render, Component} from 'preact';
-import {useEffect, useMemo, useState} from 'preact/hooks';
+import {useEffect, useState} from 'preact/hooks';
 import createStore from 'redux-zero';
 import {Provider, connect} from 'redux-zero/preact';
 import {Actions, BoundActions} from 'redux-zero/types/Actions';
@@ -82,8 +82,8 @@ export class TabbedPane extends Component<TabbedPaneProps> {
 }
 
 // source: https://github.com/konvajs/use-image/blob/master/index.js
-const defaultState = {image: undefined, status: 'loading'};
 function useImage(url: string, crossOrigin = null) {
+  const defaultState = {image: undefined, status: 'loading'};
   const res = useState<{image?: HTMLImageElement; status: string}>(defaultState);
   const image = res[0].image;
   const status = res[0].status;
@@ -93,6 +93,7 @@ function useImage(url: string, crossOrigin = null) {
   useEffect(
     function() {
       if (!url) return;
+
       const img = document.createElement('img');
 
       function onload() {
@@ -117,9 +118,6 @@ function useImage(url: string, crossOrigin = null) {
     [url, crossOrigin]
   );
 
-  // return array because it it better to use in case of several useImage hooks
-  // const [background, backgroundStatus] = useImage(url1);
-  // const [patter] = useImage(url2);
   return [image, status] as const;
 }
 
@@ -129,25 +127,17 @@ interface GraphicProps {
   quantity?: number;
   scale?: number;
 }
-const dimensionsCache: Record<string, {width: number; height: number}|null> = {};
 export const Graphic = (props: GraphicProps) => {
   const baseDir = Content.getBaseDir();
   const templateImageSrc = `${baseDir}/graphics/${props.file}`;
+  const [image, status] = useImage(templateImageSrc);
 
   let width, height;
-  const cached = dimensionsCache[props.file];
-  if (cached) {
-    ({width, height} = cached);
-  } else {
-    const [image, status] = useImage(templateImageSrc);
-    if (image && status === 'loaded') {
-      width = image.width;
-      height = image.height;
-      dimensionsCache[props.file] = {width, height};
-    } else if (status === 'failed') {
-      dimensionsCache[props.file] = null;
-      console.error(`failed to load image: ${props.file}`);
-    }
+  if (image && status === 'loaded') {
+    width = image.width;
+    height = image.height;
+  } else if (status === 'failed') {
+    console.error(`failed to load image: ${props.file}`);
   }
 
   if (!width || !height) return <div class="graphic">?</div>;

@@ -9,25 +9,28 @@
     body {
       margin: 0;
     }
+
+    img {
+      width: 300px;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+    }
+    .item__graphics {
+      border: 1px solid black;
+    }
+
+    .item.selected {
+      background-color: rgb(93, 128, 131);
+    }
   </style>
+  <script src="../src/pixi/index.ts"></script>
+  <script src="spritesheets.tsx"></script>
 </head>
 
 <body>
-  <p></p>
-  <script>
-    const imgEl = document.createElement('img');
-    imgEl.src = document.location.search.substr(1);
-    document.body.prepend(imgEl);
-
-    imgEl.addEventListener('mousemove', e => {
-      const gfxSize = 24;
-      const tilesAcross = Math.round(imgEl.width / gfxSize);
-      const x = Math.floor(e.clientX / 24);
-      const y = Math.floor(e.clientY / 24);
-      const index = x + y * tilesAcross;
-      document.querySelector('p').textContent = `${x}, ${y}. index: ${index}`;
-    });
-  </script>
 </body>
 
 </html>

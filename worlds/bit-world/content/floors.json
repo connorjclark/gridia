@@ -1,0 +1,43 @@
+[
+  {
+    "id": 0,
+    "graphics": {
+      "file": "tileset_1bit_001.png",
+      "frames": [
+        63
+      ]
+    },
+    "color": "0"
+  },
+  {
+    "id": 1,
+    "graphics": {
+      "file": "tileset_1bit_001.png",
+      "frames": [
+        63
+      ]
+    },
+    "color": "0xffffff"
+  },
+  {
+    "id": 2,
+    "graphics": {
+      "file": "tileset_1bit_001.png",
+      "frames": [
+        17
+      ],
+      "templateType": "visual-offset"
+    },
+    "color": "0x0000bb"
+  },
+  {
+    "id": 3,
+    "graphics": {
+      "file": "tileset_1bit_001.png",
+      "frames": [
+        6
+      ]
+    },
+    "color": "0x00ff00"
+  }
+]

@@ -443,7 +443,11 @@ export class Server {
       };
     } else if (this.context.worldDataDefinition.baseDir === 'worlds/bit-world') {
       creature.graphics = {
-        file: 'tileset_1bit.png', frames: [5*8 + 4],
+        file: 'tileset_1bit_001.png', frames: [5*8 + 4],
+      };
+    } else if (this.context.worldDataDefinition.baseDir === 'worlds/urizen-world') {
+      creature.graphics = {
+        file: 'tileset.png', frames: [29],
       };
     }
 
