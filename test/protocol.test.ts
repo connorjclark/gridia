@@ -2,13 +2,12 @@
 
 // TODO: can't get tests to run anymore ...
 
+import * as assert from 'assert';
 import {jest} from '@jest/globals';
 
 jest.unstable_mockModule('../src/game.js', () => {
   return {};
 });
-
-import * as assert from 'assert';
 
 import Client from '../src/client/client.js';
 import {Connection} from '../src/client/connection.js';
