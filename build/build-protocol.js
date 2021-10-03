@@ -161,6 +161,8 @@ function createMessageParamsBinding({ qualifier, messageDeclaration, commandOrEv
         bindName = "loc";
       } else if (extendedType === "Creature") {
         bindName = "creature";
+      } else if (extendedType === "GridiaAnimationInstance") {
+        bindName = "animationInstance";
       } else {
         throw new Error("unexpected type: " + extendedType);
       }

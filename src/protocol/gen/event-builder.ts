@@ -63,7 +63,7 @@ type SetAttackTargetEvent = {
 
 export type ProtocolEvent = AnimationEvent | ContainerEvent | InitializeEvent | InitializePartitionEvent | LogEvent | RemoveCreatureEvent | SectorEvent | SetCreatureEvent | SetFloorEvent | SetItemEvent | XpEvent | ChatEvent | TimeEvent | DialogueEvent | SetAttackTargetEvent;
 
-export function animation({ name, path }: Protocol.Events.Animation): AnimationEvent {
+export function animation({ ...animationInstance }: Protocol.Events.Animation): AnimationEvent {
     return { type: "animation", args: arguments[0] };
 }
 export function container({ container }: Protocol.Events.Container): ContainerEvent {

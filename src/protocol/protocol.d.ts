@@ -47,11 +47,7 @@ declare namespace Protocol {
   }
 
   namespace Events {
-    interface Animation {
-      // TODO TSC bug?! why can't I use GridiaAnimationInstance?
-      name: string;
-      path: Point4[];
-    }
+    type Animation = GridiaAnimationInstance;
 
     interface Container {
       container: Container_;
@@ -60,6 +56,7 @@ declare namespace Protocol {
     interface Initialize {
       player: Player;
       creatureId: number;
+      // TODO: move to Login
       secondsPerWorldTick: number;
       ticksPerWorldDay: number;
       // quests: Array<{id: string, name: string, started: boolean}>;
