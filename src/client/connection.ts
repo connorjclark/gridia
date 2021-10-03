@@ -118,6 +118,7 @@ export class WebRTCConnection extends Connection {
   close() {
     this._peerConnection.removeEventListener('connectionstatechange', this._connectionstatechangeListener);
     this._peerConnection.close();
+    this.onClose();
   }
 
   private onClose() {
@@ -153,6 +154,7 @@ export class WebSocketConnection extends Connection {
   close() {
     this._ws.removeEventListener('close', this.onClose);
     this._ws.close();
+    this.onClose();
   }
 
   private onClose() {
