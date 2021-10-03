@@ -42,7 +42,7 @@ export function openAndConnectToServerInMemory(
   const clientConnection = new ClientConnection();
   clientConnection.send = (message) => {
     const cloned = WireSerializer.deserialize<Message>(WireSerializer.serialize(message));
-    // ?
+    // TODO ?
     if (!cloned.id) client.eventEmitter.emit('event', cloned.data);
   };
   // TODO: why is this needed?

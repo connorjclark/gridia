@@ -8,7 +8,6 @@ import {calcStraightLine} from '../lib/line.js';
 import * as CommandBuilder from '../protocol/command-builder.js';
 import {ProtocolEvent} from '../protocol/event-builder.js';
 import * as Utils from '../utils.js';
-import {WorldTime} from '../world-time.js';
 
 import {Client} from './client.js';
 import {reconnectToServer} from './connect-to-server.js';
@@ -368,13 +367,10 @@ export class Game {
     this.app.ticker.remove(this.tick);
     document.body.classList.add('disconnected');
 
-    const deadClient = this.client;
     for (let i = 0; i < 20; i++) {
       const {status} = await reconnectToServer(this.client);
       if (status === 'success') {
         console.log('reconnected!');
-        // TODO: untangle Client from Connection creation.
-        this.client.eventEmitter = deadClient.eventEmitter;
         this.app.ticker.add(this.tick);
         this.worldContainer.map = this.client.context.map;
         document.body.classList.remove('disconnected');

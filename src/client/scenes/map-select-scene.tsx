@@ -6,7 +6,7 @@ import {render, h, Component, Fragment} from 'preact';
 import {WORLD_DATA_DEFINITIONS} from '../../content.js';
 import * as CommandBuilder from '../../protocol/command-builder.js';
 import {randInt} from '../../utils.js';
-import {connectToServerWorker} from '../connect-to-server.js';
+import {connectToServer} from '../connect-to-server.js';
 import * as Helper from '../helper.js';
 
 import {SceneController} from './scene-controller.js';
@@ -203,13 +203,17 @@ export class MapSelectScene extends Scene {
   }
 
   async loadMap(name: string) {
-    this.controller.client = await connectToServerWorker(this.controller.serverWorker, {
-      mapName: name,
-      dummyDelay: this.controller.qs.latency ?? 0,
-      verbose: false,
-      // TODO: ?
-      // @ts-expect-error
-      worldDataDef: undefined,
+    this.controller.client = await connectToServer({
+      type: 'serverworker',
+      serverWorker: this.controller.serverWorker,
+      opts: {
+        mapName: name,
+        dummyDelay: this.controller.qs.latency ?? 0,
+        verbose: false,
+        // TODO: ?
+        // @ts-expect-error
+        worldDataDef: undefined,
+      },
     });
 
     await this.loadSelectCharacterScene();
@@ -249,13 +253,17 @@ export class MapSelectScene extends Scene {
 
   async onClickSelectBtn() {
     await this.controller.serverWorker.saveGeneratedMap({name: this.loadingPreviewName});
-    this.controller.client = await connectToServerWorker(this.controller.serverWorker, {
-      mapName: this.loadingPreviewName,
-      dummyDelay: this.controller.qs.latency ?? 0,
-      verbose: false,
-      // TODO remove... should already be saved in server!
-      // @ts-expect-error
-      worldDataDef: undefined,
+    this.controller.client = await connectToServer({
+      type: 'serverworker',
+      serverWorker: this.controller.serverWorker,
+      opts: {
+        mapName: this.loadingPreviewName,
+        dummyDelay: this.controller.qs.latency ?? 0,
+        verbose: false,
+        // TODO remove... should already be saved in server!
+        // @ts-expect-error
+        worldDataDef: undefined,
+      },
     });
     await this.loadSelectCharacterScene();
   }

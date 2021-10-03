@@ -1,7 +1,7 @@
 import * as Content from '../content.js';
 import * as CommandBuilder from '../protocol/command-builder.js';
 
-import {connectWithWebSocket, connectWithWebRTC} from './connect-to-server.js';
+import {connectToServer} from './connect-to-server.js';
 import * as Helper from './helper.js';
 import {AccountScene} from './scenes/account-scene.js';
 import {MapSelectScene} from './scenes/map-select-scene.js';
@@ -63,13 +63,21 @@ class StartScene extends Scene {
 
     try {
       if (useWebRTC) {
-        return connectWithWebRTC(hostname, Number(port));
+        return connectToServer({
+          type: 'webrtc',
+          hostname,
+          port: Number(port),
+        });
       }
     } catch (err) {
       console.error(err);
     }
 
-    return connectWithWebSocket(hostname, Number(port));
+    return connectToServer({
+      type: 'ws',
+      hostname,
+      port: Number(port),
+    });
   }
 }
 

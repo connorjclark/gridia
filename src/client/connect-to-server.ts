@@ -1,72 +1,45 @@
 import {Context} from '../context.js';
-import {game} from '../game-singleton.js';
 import {WEBRTC_CONFIG} from '../lib/wrtc/config.js';
 import * as CommandBuilder from '../protocol/command-builder.js';
-import {ProtocolEvent} from '../protocol/event-builder.js';
 import {createClientWorldMap} from '../world-map.js';
 
 import {Client} from './client.js';
 import {Connection, WebRTCConnection, WebSocketConnection, WorkerConnection} from './connection.js';
 import {ServerWorker} from './server-worker.js';
 
-function onProtocolEvent(client: Client, event: ProtocolEvent) {
-  client.eventEmitter.emit('event', event);
-}
-
 function createClient(connection: Connection) {
   // @ts-expect-error: ?
   const context = new Context(null, createClientWorldMap(connection));
   const client = new Client(connection, context);
-  connection.setOnEvent(onProtocolEvent.bind(undefined, client));
   return client;
 }
 
-export async function reconnectToServer(deadClient: Client): Promise<{status: 'try-again'|'failure'|'success'}> {
-  let newConnection;
-  try {
-    if (deadClient.connection instanceof WebSocketConnection) {
-      const newClient = await connectWithWebSocket(deadClient.connection.hostname, deadClient.connection.port);
-      newConnection = newClient.connection;
-    } else {
-      return {status: 'failure'};
-    }
-  } catch (err) {
-    if (err instanceof CloseEvent) {
-      // ok
-    } else {
-      console.error(err);
-    }
-    return {status: 'try-again'};
+type ConnectToServerOpts = {
+  type: 'webrtc';
+  hostname: string;
+  port: number;
+} | {
+  type: 'ws';
+  hostname: string;
+  port: number;
+} | {
+  type: 'serverworker';
+  serverWorker: ServerWorker;
+  opts: ServerWorkerOpts;
+};
+export async function connectToServer(opts: ConnectToServerOpts): Promise<Client> {
+  if (opts.type === 'webrtc') {
+    return createClient(await connectWithWebRTC(opts.hostname, opts.port));
+  } else if (opts.type === 'ws') {
+    return createClient(await connectWithWebSocket(opts.hostname, opts.port));
+  } else if (opts.type === 'serverworker') {
+    return createClient(await connectWithServerWorker(opts.serverWorker, opts.opts));
+  } else {
+    throw new Error('invalid opts: ' + opts);
   }
-
-  // Established a connection, now initialize server/client state.
-
-  try {
-    const newClient = createClient(newConnection);
-    game.client = newClient;
-    if (deadClient.firebaseToken) {
-      await newConnection.sendCommand(CommandBuilder.login({
-        firebaseToken: deadClient.firebaseToken,
-      }));
-    }
-    if (deadClient.player) {
-      await newConnection.sendCommand(CommandBuilder.enterWorld({
-        playerId: deadClient.player.id,
-      }));
-    }
-  } catch (err) {
-    console.error(err);
-    game.client = deadClient;
-    return {status: 'failure'};
-  }
-
-  // Shouldn't be necessary to replace this listener, but just in case.
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  deadClient.connection.setOnEvent(() => {});
-  return {status: 'success'};
 }
 
-export async function connectWithWebRTC(hostname: string, port: number): Promise<Client> {
+async function connectWithWebRTC(hostname: string, port: number): Promise<Connection> {
   const res = await fetch(`${window.location.protocol}//${hostname}:${port}/webrtc`);
   const {id, offer} = await res.json();
 
@@ -99,24 +72,61 @@ export async function connectWithWebRTC(hostname: string, port: number): Promise
 
   await channelsOpenPromise;
 
-  const connection = new WebRTCConnection(peerConnection, dataChannels);
-  return createClient(connection);
+  return new WebRTCConnection(peerConnection, dataChannels);
 }
 
-export async function connectWithWebSocket(hostname: string, port: number): Promise<Client> {
+async function connectWithWebSocket(hostname: string, port: number): Promise<Connection> {
   const scheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
   const ws = new WebSocket(`${scheme}://${hostname}:${port}`);
   await new Promise((resolve, reject) => {
     ws.addEventListener('open', resolve);
     ws.addEventListener('close', reject);
   });
-
-  const connection = new WebSocketConnection(hostname, port, ws);
-  return createClient(connection);
+  return new WebSocketConnection(hostname, port, ws);
 }
 
-export async function connectToServerWorker(serverWorker: ServerWorker, opts: ServerWorkerOpts): Promise<Client> {
+async function connectWithServerWorker(serverWorker: ServerWorker, opts: ServerWorkerOpts): Promise<Connection> {
   await serverWorker.startServer(opts);
-  const connection = new WorkerConnection(serverWorker.worker);
-  return createClient(connection);
+  return new WorkerConnection(serverWorker.worker);
+}
+
+export async function reconnectToServer(deadClient: Client): Promise<{status: 'try-again'|'failure'|'success'}> {
+  let newConnection;
+  try {
+    if (deadClient.connection instanceof WebSocketConnection) {
+      newConnection = await connectWithWebSocket(deadClient.connection.hostname, deadClient.connection.port);
+    } else {
+      return {status: 'failure'};
+    }
+  } catch (err) {
+    if (err instanceof CloseEvent) {
+      // ok
+    } else {
+      console.error(err);
+    }
+    return {status: 'try-again'};
+  }
+
+  // Established a connection, now initialize server/client state.
+
+  try {
+    // @ts-expect-error
+    deadClient.context = new Context(null, createClientWorldMap(newConnection));
+    deadClient.connection = newConnection;
+    if (deadClient.firebaseToken) {
+      await newConnection.sendCommand(CommandBuilder.login({
+        firebaseToken: deadClient.firebaseToken,
+      }));
+    }
+    if (deadClient.player) {
+      await newConnection.sendCommand(CommandBuilder.enterWorld({
+        playerId: deadClient.player.id,
+      }));
+    }
+  } catch (err) {
+    console.error(err);
+    return {status: 'failure'};
+  }
+
+  return {status: 'success'};
 }

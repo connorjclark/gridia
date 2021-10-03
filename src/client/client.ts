@@ -25,8 +25,18 @@ export class Client {
   private _protocol = new ClientInterface();
   firebaseToken?: string;
 
-  constructor(public connection: Connection, public context: Context) {
+  constructor(private connection_: Connection, public context: Context) {
     this.eventEmitter.on('event', this.handleEventFromServer.bind(this));
+    this.connection = connection_;
+  }
+
+  get connection() {
+    return this.connection_;
+  }
+
+  set connection(connection: Connection) {
+    this.connection_ = connection;
+    connection.setOnEvent((event) => this.eventEmitter.emit('event', event));
   }
 
   handleEventFromServer(event: ProtocolEvent) {
@@ -38,9 +48,7 @@ export class Client {
     const onMethodName = 'on' + event.type[0].toUpperCase() + event.type.substr(1);
     // @ts-expect-error
     const p = this._protocol[onMethodName];
-    // p(this, event.args);
-    // TODO :( must pass singleton version for reconnection to work; because of how tangled Client/Connection is.
-    p(game?.client || this, event.args);
+    p(this, event.args);
   }
 
   get worldTime() {
