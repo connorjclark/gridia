@@ -1,5 +1,3 @@
-/// <reference path="../types.d.ts" />
-
 import {h, render, Component} from 'preact';
 
 import {Graphic} from '../client/ui/ui-common.js';

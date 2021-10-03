@@ -1,6 +1,3 @@
-// tslint:disable-next-line: no-reference
-/// <reference path="../src/types.d.ts" />
-
 // TODO: add test/ to tsconfig
 
 // @ts-nocheck

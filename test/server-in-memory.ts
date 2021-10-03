@@ -1,6 +1,3 @@
-// tslint:disable-next-line: no-reference
-/// <reference path="../src/types.d.ts" />
-
 import {Client} from '../src/client/client.js';
 import {Connection} from '../src/client/connection.js';
 import {WORLD_DATA_DEFINITIONS} from '../src/content.js';
