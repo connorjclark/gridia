@@ -38,7 +38,7 @@ export class MapModule extends ClientModule {
     Helper.find('.location', this.mapWindow).innerText =
       `${playerLoc.x}, ${playerLoc.y}, ${playerLoc.z} (map ${playerLoc.w})`;
 
-    const worldTime = this.game.worldTime;
+    const worldTime = this.game.client.worldTime;
     Helper.find('.time', this.mapWindow).innerText = `Time: ${worldTime}`;
 
     if (now < this.nextDrawAt) return;

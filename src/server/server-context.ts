@@ -5,7 +5,6 @@ import * as WireSerializer from '../lib/wire-serializer.js';
 import * as Utils from '../utils.js';
 import {WorldMapPartition} from '../world-map-partition.js';
 import {WorldMap} from '../world-map.js';
-import {WorldTime} from '../world-time.js';
 
 import {ClientConnection} from './client-connection.js';
 import {ScriptConfigStore} from './scripts/script-config-store.js';
@@ -40,11 +39,6 @@ export class ServerContext extends Context {
   claims: Record<string, string> = {};
   nextCreatureId = 1;
   scriptConfigStore = new ScriptConfigStore({});
-
-  secondsPerWorldTick = 20;
-  ticksPerWorldDay = 24 * 60 * 60 / this.secondsPerWorldTick / 8;
-  // Start new worlds at mid-day.
-  time = new WorldTime(this.ticksPerWorldDay, this.ticksPerWorldDay / 2);
 
   constructor(worldDataDefinition: WorldDataDefinition, map: WorldMap, public db: Database) {
     super(worldDataDefinition, map);

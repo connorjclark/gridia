@@ -1,9 +1,14 @@
 import {WorldMap} from './world-map.js';
+import {WorldTime} from './world-time.js';
 
 export class Context {
   creatures = new Map<number, Creature>();
   locationToCreature = new Map<string, Creature>();
   containers = new Map<string, Container>();
+  secondsPerWorldTick = 20;
+  ticksPerWorldDay = 24 * 60 * 60 / this.secondsPerWorldTick / 8;
+  // Start new worlds at mid-day.
+  time = new WorldTime(this.ticksPerWorldDay, this.ticksPerWorldDay / 2);
 
   constructor(public worldDataDefinition: WorldDataDefinition, public map: WorldMap) {
   }

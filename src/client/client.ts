@@ -2,6 +2,7 @@ import {Context} from '../context.js';
 import {game} from '../game-singleton.js';
 import {ClientInterface} from '../protocol/client-interface.js';
 import {ProtocolEvent} from '../protocol/event-builder.js';
+import {WorldTime} from '../world-time.js';
 
 import {Connection} from './connection.js';
 import {TypedEventEmitter} from './event-emitter.js';
@@ -13,8 +14,9 @@ export class Client {
   creatureId = 0;
   attackingCreatureId: number | null = 0;
 
-  secondsPerWorldTick = 0;
-  ticksPerWorldDay = 0;
+  // TODO: mark private
+  _lastSyncedEpoch = 0;
+  _lastSyncedRealTime = 0;
 
   eventEmitter = new TypedEventEmitter();
   settings: Settings = getDefaultSettings();
@@ -39,6 +41,13 @@ export class Client {
     // p(this, event.args);
     // TODO :( must pass singleton version for reconnection to work; because of how tangled Client/Connection is.
     p(game?.client || this, event.args);
+  }
+
+  get worldTime() {
+    const realSecondsSinceLastSync = (Date.now() - this._lastSyncedRealTime) / 1000;
+    const epoch = this._lastSyncedEpoch + realSecondsSinceLastSync / this.context.secondsPerWorldTick;
+    // return new WorldTime(this.client.ticksPerWorldDay, epoch).time; // TODO ?
+    return new WorldTime(this.context.ticksPerWorldDay, epoch);
   }
 
   get creature() {

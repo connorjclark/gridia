@@ -315,9 +315,6 @@ export class Game {
   new PIXI.Text('', {fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round'});
   private _isEditing = false;
 
-  private _lastSyncedEpoch = 0;
-  private _lastSyncedRealTime = 0;
-
   private _cursors: CursorReference[] = [];
   private _mouseCursor = this.registerCursor({color: 'gold'});
   private _selectedViewCursor = this.registerCursor({color: 'white'});
@@ -365,13 +362,6 @@ export class Game {
     }
 
     this.tick = this.tick.bind(this);
-  }
-
-  get worldTime() {
-    const realSecondsSinceLastSync = (Date.now() - this._lastSyncedRealTime) / 1000;
-    const epoch = this._lastSyncedEpoch + realSecondsSinceLastSync / this.client.secondsPerWorldTick;
-    // return new WorldTime(this.client.ticksPerWorldDay, epoch).time; // TODO ?
-    return new WorldTime(this.client.ticksPerWorldDay, epoch);
   }
 
   async onDisconnect() {
@@ -564,8 +554,8 @@ export class Game {
     }
 
     if (event.type === 'time') {
-      this._lastSyncedEpoch = event.args.epoch;
-      this._lastSyncedRealTime = Date.now();
+      this.client._lastSyncedEpoch = event.args.epoch;
+      this.client._lastSyncedRealTime = Date.now();
     }
   }
 
@@ -1126,7 +1116,7 @@ export class Game {
   tick() {
     const now = performance.now();
     this.state.elapsedFrames = (this.state.elapsedFrames + 1) % 60000;
-    const worldTime = this.worldTime;
+    const worldTime = this.client.worldTime;
 
     Draw.sweepTexts();
     // super lame.

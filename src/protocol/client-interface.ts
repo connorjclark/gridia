@@ -21,8 +21,9 @@ export class ClientInterface implements IEvents {
   onInitialize(client: Client, opts: Events.Initialize): void {
     client.player = opts.player;
     client.creatureId = opts.creatureId;
-    client.secondsPerWorldTick = opts.secondsPerWorldTick;
-    client.ticksPerWorldDay = opts.ticksPerWorldDay;
+    // TODO: move to login.
+    client.context.secondsPerWorldTick = opts.secondsPerWorldTick;
+    client.context.ticksPerWorldDay = opts.ticksPerWorldDay;
   }
 
   onInitializePartition(client: Client, {...pos}: Events.InitializePartition): void {
