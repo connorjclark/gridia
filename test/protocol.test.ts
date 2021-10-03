@@ -1,5 +1,3 @@
-// TODO: add test/ to tsconfig
-
 // @ts-nocheck
 
 jest.mock('../src/game-singleton', () => {
