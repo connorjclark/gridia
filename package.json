@@ -41,7 +41,7 @@
     "build": "yarn build-client",
     "build-prod": "NODE_ENV=production yarn build-client",
     "build-client": "node build/build-client.js",
-    "convert": "src/convert-rpgwo/convert.sh",
+    "convert": "yarn ts-node src/convert-rpgwo/convert.ts",
     "run-server": "GOOGLE_APPLICATION_CREDENTIALS=$PWD/deploy/firebase-service-key.json GRIDIA_EXECUTION_ENV=node node --loader ts-node/esm src/server/run.ts",
     "run-static-server": "http-server dist/client -c-1",
     "clean": "rimraf dist .cache",

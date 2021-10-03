@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       player: deserialize('{"id":"b31f3f4d-859b-41d8-b218-d262ca0f9358","name":"Quick Jill 161","attributes":{"$m":[["dexterity",{"baseLevel":100,"earnedLevel":0}],["intelligence",{"baseLevel":200,"earnedLevel":0}],["life",{"baseLevel":200,"earnedLevel":0}],["mana",{"baseLevel":100,"earnedLevel":0}],["quickness",{"baseLevel":100,"earnedLevel":0}],["stamina",{"baseLevel":100,"earnedLevel":0}],["strength",{"baseLevel":100,"earnedLevel":0}],["wisdom",{"baseLevel":100,"earnedLevel":0}]]},"skills":{"$m":[[1,{"xp":1230}],[25,{"xp":33310}]]},"skillPoints":38,"questStates":{"$m":[]},"tilesSeenLog":{"$m":[]},"isAdmin":true,"containerId":"113cc044-544b-4f1c-a15a-02a4a2d4b651","equipmentContainerId":"1bd2bd07-d270-439d-b780-79e0dc1cef88","loc":{"w":0,"x":50,"y":53,"z":0},"life":200,"stamina":100,"mana":100,"buffs":[{"expiresAt":1620023415194,"skill":1,"percentChange":0.1,"linearChange":10},{"expiresAt":1620023415194,"skill":4,"percentChange":0.2,"linearChange":25}]}'),
       creature: {buffs: []},
     };
+    // @ts-expect-error
     modules = {
       // @ts-expect-error
       admin: new AdminModule(this),

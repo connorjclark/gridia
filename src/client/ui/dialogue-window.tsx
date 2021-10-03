@@ -34,12 +34,13 @@ export function makeDialogueWindow(game: Game) {
 
       if (!part) return;
 
-      const textEl = useRef(null);
+      const textEl = useRef<HTMLDivElement>(null);
       useEffect(
         () => {
+          if (!textEl.current) return;
+
           const string = bbCodeParser.parse(part.text);
-          // @ts-expect-error
-          const el = textEl.current as string;
+          const el = textEl.current.id;
           const typed = new Typed(el, {
             strings: [string],
             typeSpeed: 10,
@@ -47,7 +48,7 @@ export function makeDialogueWindow(game: Game) {
           });
           return () => typed.destroy();
         },
-        [part]
+        [part, textEl.current]
       );
 
       const speakerGfx1 = this.createSpeakerGfx(this.state.dialogue.speakers[0].id);

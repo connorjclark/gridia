@@ -212,13 +212,6 @@ export class MapSelectScene extends Scene {
       worldDataDef: undefined,
     });
 
-    // TODO: this should be part of the `connectToX` flow ...
-    await new Promise<void>((resolve) => {
-      this.controller.client.eventEmitter.addListener('event', (e) => {
-        if (e.type === 'connect') resolve();
-      });
-    });
-
     await this.loadSelectCharacterScene();
   }
 

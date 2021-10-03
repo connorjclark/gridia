@@ -1,20 +1,9 @@
-/// <reference types="../types" />
-
 /* eslint-disable */
 
-import * as fs from 'fs';
-import * as path from 'path';
-import { execFileSync } from 'child_process';
-// import { EQUIP_SLOTS } from '../container.js';
-// TODO
-const EQUIP_SLOTS = {
-  Head: 0,
-  Weapon: 1,
-  Chest: 2,
-  Shield: 3,
-  Legs: 4,
-  Ammo: 5,
-};
+import fs from 'fs';
+import path from 'path';
+import childProcess from 'child_process';
+import { EQUIP_SLOTS } from '../container.js';
 
 // lol esmodules.
 const __dirname = path.join(path.dirname(decodeURI(new URL(import.meta.url).pathname))).replace(/^\\([A-Z]:\\)/, '$1');
@@ -888,7 +877,7 @@ function convertFloors() {
       ...`-crop 32x32+${x}+${y} +repage`.split(' '),
       ...'-resize 1x1 txt:-'.split(' '),
     ];
-    const output = execFileSync('magick', args, { encoding: 'utf-8' });
+    const output = childProcess.execFileSync('magick', args, { encoding: 'utf-8' });
     // # ImageMagick pixel enumeration: 1,1,255,srgb
     // 0,0: (80.0724,126.613,38.5971)  #507F27  srgb(31.4009%,49.6523%,15.1361%)
     const hex = output.split('#')[2].substr(0, 6);

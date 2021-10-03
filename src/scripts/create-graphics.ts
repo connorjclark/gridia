@@ -1,9 +1,9 @@
 // rm -rf worlds/rpgwo-world/graphics && yarn ts-node src/scripts/create-graphics.ts
 
 import {execFileSync} from 'child_process';
-import * as fs from 'fs';
+import fs from 'fs';
 
-import * as glob from 'glob';
+import glob from 'glob';
 
 const graphicsManifest = [];
 

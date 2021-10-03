@@ -1,4 +1,4 @@
-// npx ts-node -P tsconfig.json src/lib/experiment-item-def.ts
+// yarn ts-node src/lib/experiment-item-def.ts
 
 /*
 (old notes)
