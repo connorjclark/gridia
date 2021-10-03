@@ -358,7 +358,6 @@ export class Game {
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
     if (client.player.isAdmin) {
-      // @ts-ignore
       this.modules.admin = new AdminModule(this);
     } else {
       // TODO: AdminClientModule should create the panel. Until then, manually remove panel.
@@ -660,7 +659,7 @@ export class Game {
       if (!e.target.classList.contains('action')) return;
 
       const dataset = e.target.dataset;
-      // @ts-ignore
+      // @ts-expect-error
       const action = JSON.parse(dataset.action) as GameAction;
       let location = dataset.location ? JSON.parse(dataset.location) as ItemLocation : null;
       const creatureId = Number(dataset.creatureId);
@@ -1053,7 +1052,7 @@ export class Game {
         e.preventDefault();
         e.returnValue = '';
 
-        // @ts-ignore
+        // @ts-expect-error
         const serverWorker: ServerWorker = window.Gridia.controller.serverWorker;
         // The browser will display an alert box, which is very likely enough
         // time to do the saving. However, the alert box message is not customizable
@@ -1112,7 +1111,7 @@ export class Game {
     const partition = this.client.context.map.partitions.get(w);
 
     if (!partition) {
-      // @ts-ignore
+      // @ts-expect-error
       const lazy = window.lol_lazy = window.lol_lazy || [];
       if (!lazy.includes(w)) {
         lazy.push(w);

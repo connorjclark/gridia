@@ -4,11 +4,11 @@ import {ProtocolCommand} from '../protocol/command-builder.js';
 import {ProtocolEvent} from '../protocol/event-builder.js';
 
 function debug(prefix: string, msg: Message) {
-  // @ts-ignore
+  // @ts-expect-error
   if (!window.Gridia.debug && !window.Gridia.debugn) return;
-  // @ts-ignore
+  // @ts-expect-error
   if (window.Gridia.debug instanceof RegExp && !window.Gridia.debug.test(msg.type)) return;
-  // @ts-ignore
+  // @ts-expect-error
   if (window.Gridia.debugn instanceof RegExp && window.Gridia.debugn.test(msg.type)) return;
 
   let value = '';
@@ -51,7 +51,7 @@ export abstract class Connection {
       id,
       data: command,
     });
-    // @ts-ignore
+    // @ts-expect-error
     return promise;
   }
 

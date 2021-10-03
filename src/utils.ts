@@ -43,7 +43,7 @@ export function dist(p1: PartitionPoint, p2: PartitionPoint): number {
 export function equalPoints(p1?: TilePoint | PartitionPoint, p2?: TilePoint | PartitionPoint) {
   if (!p1 && !p2) return true;
   if (!p1 || !p2) return false;
-  // @ts-ignore - ignore `w` if either parameter is a partition point
+  // @ts-expect-error - ignore `w` if either parameter is a partition point
   if (typeof p1.w !== 'undefined' && typeof p2.w !== 'undefined' && p1.w !== p2.w) return false;
   return p1.x === p2.x && p1.y === p2.y && p1.z === p2.z;
 }

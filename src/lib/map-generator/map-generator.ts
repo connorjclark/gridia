@@ -241,7 +241,7 @@ function voronoiPartition(partitionStrategy: VoronoiPartitionStrategy, ctx: Cont
       points[i * 2] = centroid[0];
       points[i * 2 + 1] = centroid[1];
 
-      // @ts-ignore
+      // @ts-expect-error
       voronoi.update();
     }
   }
@@ -295,7 +295,7 @@ function setWater(ctx: Context) {
     const threshold = [...noise].sort((a, b) => b - a)[index] || -Infinity;
     isWaterFilter = ({x, y}) => noise[x + y * ctx.options.width] > threshold;
   } else {
-    // @ts-ignore
+    // @ts-expect-error
     throw new Error(`invalid water strategy ${waterStrategy.type}`);
   }
 

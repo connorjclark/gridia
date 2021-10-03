@@ -40,7 +40,7 @@ function createPromiseAndResolve() {
   const promise = new Promise<void>((r) => resolve = r);
   return {
     promise,
-    // @ts-ignore
+    // @ts-expect-error
     resolve,
   };
 }

@@ -153,9 +153,9 @@ Sword:
 YAML good?
 */
 
-// @ts-ignore
+// @ts-expect-error
 type MetaItem = any; // ...
-// @ts-ignore
+// @ts-expect-error
 type ItemUse = any; // ...
 
 type Property = { [key: string]: Property } | Property[] | ProgramNode | string | number | boolean | null | undefined;
@@ -442,7 +442,6 @@ class Program {
     }
     for (const node of usageNodes) {
       const itemUse: ItemUse = node.data as any;
-      // @ts-ignore
       itemUse.products = itemUse.products.map((product) => {
         if (typeof product === 'number') return {type: product, quantity: 1};
         return product;

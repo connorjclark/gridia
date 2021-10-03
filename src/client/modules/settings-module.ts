@@ -68,11 +68,11 @@ export const SettingsSchema = {
 } as const;
 
 export function getDefaultSettings() {
-  // @ts-ignore
+  // @ts-expect-error
   const settings: Settings = {};
 
   for (const [id, options] of Object.entries(SettingsSchema)) {
-    // @ts-ignore
+    // @ts-expect-error
     settings[id] = options.default;
   }
 

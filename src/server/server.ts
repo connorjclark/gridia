@@ -54,7 +54,7 @@ export class Server {
     to?: ClientConnection;
     filter?: (client: ClientConnection) => boolean;
   }>;
-  // @ts-ignore: this is always defined when accessed.
+  // @ts-expect-error: this is always defined when accessed.
   currentClientConnection: ClientConnection;
   creatureStates: Record<number, CreatureState> = {};
 
@@ -568,7 +568,7 @@ export class Server {
       id: creature.id,
     };
     for (const key of keys) {
-      // @ts-ignore
+      // @ts-expect-error
       partialCreature[key] = creature[key];
     }
     this.conditionalBroadcast(EventBuilder.setCreature({
@@ -1581,7 +1581,7 @@ export class Server {
             // performance.mark(`${message.type}-start`);
             try {
               const onMethodName = 'on' + command.type[0].toUpperCase() + command.type.substr(1);
-              // @ts-ignore
+              // @ts-expect-error
               // eslint-disable-next-line
               await Promise.resolve(this._serverInterface[onMethodName](this, command.args))
                 .then((data: any) => clientConnection.send({id: message.id, data}))
@@ -1614,7 +1614,7 @@ export class Server {
             // performance.mark(`${message.type}-end`);
             // performance.measure(message.type, `${message.type}-start`, `${message.type}-end`);
           }
-          // @ts-ignore
+          // @ts-expect-error
           this.currentClientConnection = undefined;
         }
 

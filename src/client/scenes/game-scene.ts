@@ -196,7 +196,7 @@ export class GameScene extends Scene {
     // Once in game, too complicated to go back. For now, must refresh the page.
     Helper.find('.scene-controller').classList.add('hidden');
 
-    // @ts-ignore
+    // @ts-expect-error
     window.Gridia.game = gameSingleton;
   }
 }

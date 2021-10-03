@@ -164,7 +164,7 @@ function parseItemsIni() {
       items.push(currentItem);
     } else if (!currentItem) {
       // defaults come first.
-      // @ts-ignore
+      // @ts-expect-error
       defaults[camelCase(key.replace('default', ''))] = value;
     } else if (key.match(/^animation/i)) {
       const num = forcenum(value);
@@ -190,12 +190,10 @@ function parseItemsIni() {
     } else if (key.match(/^WeaponMaxRange/i)) {
       currentItem.maxRange = forcenum(value);
     } else if (key.match(/^ArmorSpot/i)) {
-      // @ts-ignore
       currentItem.equipSlot = uppercaseFirstLetter(value);
     } else if (key.match(/^Ammo/i)) {
       currentItem.ammoType = forcenum(value);
     } else if (key.match(/^CombatSkill/i)) {
-      // @ts-ignore
       currentItem.combatSkill = getSkillByName(value)?.id;
     } else {
       // Most properties are unchanged, except for being camelCase.
@@ -210,7 +208,6 @@ function parseItemsIni() {
         convertedValue = true;
       }
 
-      // @ts-ignore
       currentItem[camelCaseKey] = convertedValue;
     }
   }
@@ -230,9 +227,7 @@ function parseItemsIni() {
   }
 
   for (const item of items) {
-    // @ts-ignore
     if (item.class === 'PLANT') item.class = 'Plant';
-    // @ts-ignore
     if (item.class) item.class = uppercaseFirstLetter(item.class);
 
     item.growthItem = item.growthItem || item.degradeItem;
@@ -312,7 +307,7 @@ function parseItemUsagesIni(): ItemUse[] {
         ...defaults,
         products: [],
       };
-      // @ts-ignore
+      // @ts-expect-error
       usages.push(currentUsage);
     } else if (key.match(/^itemtool$/i)) {
       currentUsage.tool = parseItemId(value);
@@ -326,27 +321,26 @@ function parseItemUsagesIni(): ItemUse[] {
       currentUsage.toolQuantityConsumed = 1;
     } else if (key.match(/^successitemqty/i)) {
       const index = forcenum(key.replace(/successitemqty/i, '')) - 1;
-      // @ts-ignore
+      // @ts-expect-error
       currentUsage.products[index].quantity = forcenum(value);
     } else if (key.match(/^successitem/i)) {
       // Currently don't handle things like <fish>.
       if (!value.startsWith('<')) {
         const index = forcenum(key.replace(/successitem/i, '')) - 1;
-        // @ts-ignore
+        // @ts-expect-error
         currentUsage.products[index] = {
           type: parseItemId(value),
           quantity: 1,
         };
       }
     } else if (key.match(/^successfocus$/i)) {
-      // @ts-ignore
+      // @ts-expect-error
       currentUsage.successFocus = {
         type: parseItemId(value),
         quantity: 1,
       };
       currentUsage.focusQuantityConsumed = 1;
     } else if (key.match(/^surfaceground$/i)) {
-      // @ts-ignore
       const num = {
         1: 44,
         16: 3,
@@ -360,7 +354,7 @@ function parseItemUsagesIni(): ItemUse[] {
       // Normalize skill name.
       const skills = loadContent('skills.json');
       if (value === 'Leather') currentUsage.skill = 'Tailor';
-      // @ts-ignore
+      // @ts-expect-error
       else currentUsage.skill = skills.find((skill) => skill.name.toLowerCase() === value.toLowerCase()).name;
     } else if (key.match(/^skillxpsuccess$/i)) {
       currentUsage.skillSuccessXp = forcenum(value);
@@ -381,13 +375,13 @@ function parseItemUsagesIni(): ItemUse[] {
         convertedValue = true;
       }
 
-      // @ts-ignore
+      // @ts-expect-error
       currentUsage[camelCaseKey] = convertedValue;
     }
   }
 
   for (const usage of usages) {
-    // @ts-ignore
+    // @ts-expect-error
     if (usage.successFocus) usage.products.unshift(usage.successFocus);
     usage.products = usage.products.filter(Boolean);
 
@@ -420,9 +414,9 @@ function parseItemUsagesIni(): ItemUse[] {
 
   if (process.env.DEBUG === '1') {
     for (const usage of usages) {
-      // @ts-ignore
+      // @ts-expect-error
       if (usage.tool >= 0) usage.tool_ = state.items[usage.tool].name;
-      // @ts-ignore
+      // @ts-expect-error
       if (usage.focus >= 0) usage.focus_ = state.items[usage.focus].name;
     }
   }
@@ -444,7 +438,6 @@ function parseSkillsIni() {
       // @ts-expect-error
       skills.push(currentSkill);
     } else if (key.match(/quick|dex|str|intel|wisdom/i)) {
-      // @ts-ignore
       const newKey = {
         quick: 'quickness',
         dex: 'dexterity',
@@ -452,6 +445,7 @@ function parseSkillsIni() {
         intel: 'intelligence',
         wisdom: 'wisdom',
       }[key.toLowerCase()];
+      if (!newKey) throw new Error('unexpected key: ' + key);
       // @ts-expect-error
       currentSkill[newKey] = forcenum(value);
     } else {
@@ -467,7 +461,7 @@ function parseSkillsIni() {
         convertedValue = true;
       }
 
-      // @ts-ignore
+      // @ts-expect-error
       currentSkill[camelCaseKey] = convertedValue;
     }
   }
@@ -919,7 +913,7 @@ function parseMonsterIni() {
       monsters.push(currentMonster);
     } else if (!currentMonster) {
       // defaults come first.
-      // @ts-ignore
+      // @ts-expect-error
       defaults[camelCase(key.replace('default', ''))] = value;
     } else if (armorKeys.includes(key)) {
       currentMonster.equipment = currentMonster.equipment || [];

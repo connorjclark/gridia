@@ -168,9 +168,9 @@ function stateToMapGenOptions(data: any) {
   function handle(src: any, dest: any) {
     for (const [key, value] of Object.entries(src)) {
       if (value && typeof value === 'object' && key !== 'seeds') {
-        // @ts-ignore
+        // @ts-expect-error
         dest[key] = {type: value.choice};
-        // @ts-ignore
+        // @ts-expect-error
         handle(value.options[value.choice], dest[key]);
       } else {
         // coerce to number, because linkState saves number values as strings.

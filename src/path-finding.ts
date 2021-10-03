@@ -46,7 +46,7 @@ function _findPath({width, height, from, to, walkable}: Options) {
     const path = [toEncoded];
     let current = toEncoded;
     while (cameFrom.has(current)) {
-      // @ts-ignore
+      // @ts-expect-error
       current = cameFrom.get(current);
       path.push(current);
     }

@@ -4,21 +4,21 @@ import {ProtocolEvent} from '../protocol/event-builder.js';
 
 export class ClientConnection {
   messageQueue: Message[] = [];
-  // @ts-ignore
+  // @ts-expect-error
   account: GridiaAccount;
-  // @ts-ignore
+  // @ts-expect-error
   player: Player;
-  // @ts-ignore
+  // @ts-expect-error
   creature: Creature;
-  // @ts-ignore
+  // @ts-expect-error
   container: Container;
-  // @ts-ignore
+  // @ts-expect-error
   equipment: Container;
   subscribedCreatureIds = new Set<number>();
   registeredContainers = [] as string[];
   activeDialogue?: { dialogue: Dialogue; partIndex: number };
 
-  // @ts-ignore
+  // @ts-expect-error
   send: (message: Message) => void;
 
   sendEvent(event: ProtocolEvent) {

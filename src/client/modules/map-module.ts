@@ -51,7 +51,6 @@ export class MapModule extends ClientModule {
     if (!this.context || !this.mapEl) throw new Error('could not make context');
 
     this.context.fillStyle = 'grey';
-    // @ts-ignore
     this.context.fillRect(0, 0, this.mapEl.width, this.mapEl.height);
 
     const chunk = this.mapEl.width;

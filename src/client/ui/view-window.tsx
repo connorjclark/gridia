@@ -103,7 +103,7 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
                   step="1">
                 </input>
               );
-              // @ts-ignore
+              // @ts-expect-error
               dataset['data-quantity'] = quantityToSplit;
             }
 

@@ -185,16 +185,13 @@ export async function initializeWorldData(worldDataDef_: WorldDataDefinition): P
   }
 
   for (const use of itemUses) {
-    // @ts-ignore
+    // @ts-expect-error
     use.toolName = getName(use.tool);
-    // @ts-ignore
+    // @ts-expect-error
     use.focusName = getName(use.focus);
-    // @ts-ignore
+    // @ts-expect-error
     use.productNames = use.products.map((product) => getName(product.type));
   }
-
-  // @ts-ignore
-  // globalThis.GridiaContent = {items, itemUses, animations, monsters, skills};
 }
 
 // Add name properties for readability in the console.

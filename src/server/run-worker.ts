@@ -123,7 +123,6 @@ async function startServer(args: ServerWorkerOpts): Promise<void> {
   clientConnection = new ClientConnection();
   clientConnection.send = (message) => {
     maybeDelay(() => {
-      // @ts-ignore
       self.postMessage(WireSerializer.serialize(message));
     });
   };
@@ -149,17 +148,13 @@ export const RpcMap = {
   shutdown,
 };
 
+// TODO: can this event be type checked?
 self.addEventListener('message', async (e) => {
-  // eslint-disable-next-line
   if (e.data.type === 'rpc') {
-    // @ts-ignore
-    // eslint-disable-next-line
+    // @ts-expect-error
     const result = await RpcMap[e.data.method](e.data.args);
-    // @ts-ignore
     self.postMessage({
-      // eslint-disable-next-line
       rpc: e.data.id,
-      // eslint-disable-next-line
       result,
     });
 

@@ -209,7 +209,6 @@ export class ServerInterface implements ICommands {
 
     const isClose = true; // TODO
     if (!isClose) {
-      // @ts-ignore
       return;
     }
 
@@ -1024,7 +1023,6 @@ export class ServerInterface implements ICommands {
         },
       };
 
-      // @ts-ignore
       const command = COMMANDS[parsedCommand.commandName];
       if (!command) {
         server.reply(EventBuilder.chat({

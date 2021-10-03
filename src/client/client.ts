@@ -8,7 +8,7 @@ import {TypedEventEmitter} from './event-emitter.js';
 import {Settings} from './modules/settings-module.js';
 
 export class Client {
-  // @ts-ignore set later.
+  // @ts-expect-error set later.
   player: Player;
   creatureId = 0;
   attackingCreatureId: number | null = 0;
@@ -17,7 +17,7 @@ export class Client {
   ticksPerWorldDay = 0;
 
   eventEmitter = new TypedEventEmitter();
-  // @ts-ignore set later.
+  // @ts-expect-error set later.
   settings: Settings = {};
   storedEvents: ProtocolEvent[] = [];
 
@@ -34,7 +34,7 @@ export class Client {
 
     // if (opts.verbose) console.log('from server', event.type, event.args);
     const onMethodName = 'on' + event.type[0].toUpperCase() + event.type.substr(1);
-    // @ts-ignore
+    // @ts-expect-error
     const p = this._protocol[onMethodName];
     p(this, event.args);
   }

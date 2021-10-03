@@ -156,7 +156,7 @@ export class CreatureState {
 
   currentSpell?: Spell;
 
-  // @ts-ignore
+  // @ts-expect-error
   partition: WorldMapPartition;
   private ticksUntilNotIdle = 0;
   private ticksUntilNextMovement = 0;
@@ -389,7 +389,7 @@ export class CreatureState {
       return;
     }
 
-    // @ts-ignore
+    // @ts-expect-error
     this.plannedActions = result.path.map((p) => p.edge && p.edge.action).filter(Boolean).reverse();
     // console.log(this.plannedActions.map((a) => a.name).reverse());
   }

@@ -14,7 +14,7 @@ export class Context {
 
   getCreature(id: number): Creature {
     // TODO omg rm this.
-    // @ts-ignore: how to handle when creature does not exist?
+    // @ts-expect-error: how to handle when creature does not exist?
     return this.creatures.get(id);
   }
 

@@ -35,7 +35,6 @@ export class ServerWorker {
     return (args: any = []) => {
       const transfers: Transferable[] = [];
       for (const key of transferKeys) {
-        // @ts-ignore
         if (args[key]) transfers.push(args[key]);
       }
 

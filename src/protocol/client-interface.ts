@@ -51,7 +51,7 @@ export class ClientInterface implements IEvents {
       if (partial) {
         client.connection.sendCommand(CommandBuilder.requestCreature({id}));
       } else {
-        // @ts-ignore - it's not a partial creature.
+        // @ts-expect-error - it's not a partial creature.
         client.context.setCreature(partialCreature);
       }
       return;

@@ -74,7 +74,7 @@ class StartScene extends Scene {
 }
 
 function setupDebugging(controller: SceneController) {
-  // @ts-ignore
+  // @ts-expect-error
   window.Gridia = {
     controller,
     item(itemType: number) {
@@ -85,7 +85,7 @@ function setupDebugging(controller: SceneController) {
     },
     clearMapCaches() {
       for (const partition of controller.client?.context.map.getPartitions().values()) {
-        // @ts-ignore
+        // @ts-expect-error
         partition._clear();
       }
     },
