@@ -1,6 +1,10 @@
 // @ts-nocheck
 
-jest.mock('../src/game-singleton', () => {
+// TODO: can't get tests to run anymore ...
+
+import {jest} from '@jest/globals';
+
+jest.unstable_mockModule('../src/game.js', () => {
   return {};
 });
 
@@ -16,8 +20,6 @@ import {Server} from '../src/server/server.js';
 import * as Utils from '../src/utils.js';
 import {WorldMap} from '../src/world-map.js';
 
-import {openAndConnectToServerInMemory} from './server-in-memory.js';
-
 let client: Client;
 let server: Server;
 let connection: Connection;
@@ -31,6 +33,8 @@ async function send(message) {
 }
 
 beforeEach(async () => {
+  const {openAndConnectToServerInMemory} = await import('./server-in-memory.js');
+
   await Content.initializeWorldData(Content.WORLD_DATA_DEFINITIONS.rpgwo);
 
   const worldMap = new WorldMap();
