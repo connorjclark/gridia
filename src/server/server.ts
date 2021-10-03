@@ -61,10 +61,6 @@ export class Server {
   verbose: boolean;
   taskRunner = new TaskRunner(50);
 
-  secondsPerWorldTick = 20;
-  ticksPerWorldDay = 24 * 60 * 60 / this.secondsPerWorldTick / 8;
-  time = new WorldTime(this.ticksPerWorldDay, this.ticksPerWorldDay / 2);
-
   private _serverInterface = new ServerInterface();
   private _scripts: Array<Script<any>> = [];
   private _quests: Quest[] = [];
@@ -1230,8 +1226,8 @@ export class Server {
 
   advanceTime(ticks: number) {
     // const ticks = gameHours * (this.ticksPerWorldDay / 24);
-    this.time.epoch += ticks;
-    this.broadcast(EventBuilder.time({epoch: this.time.epoch}));
+    this.context.time.epoch += ticks;
+    this.broadcast(EventBuilder.time({epoch: this.context.time.epoch}));
 
     // TODO
     // for (let i = 0; i < ticks; i++) {
@@ -1242,7 +1238,7 @@ export class Server {
   }
 
   getMessageTime() {
-    return `The time is ${this.time.toString()}`;
+    return `The time is ${this.context.time.toString()}`;
   }
 
   getMessagePlayersOnline() {
@@ -1297,8 +1293,8 @@ export class Server {
     clientConnection.sendEvent(EventBuilder.initialize({
       player: clientConnection.player,
       creatureId: clientConnection.creature.id,
-      secondsPerWorldTick: this.secondsPerWorldTick,
-      ticksPerWorldDay: this.ticksPerWorldDay,
+      secondsPerWorldTick: this.context.secondsPerWorldTick,
+      ticksPerWorldDay: this.context.ticksPerWorldDay,
     }));
   }
 
@@ -1313,10 +1309,10 @@ export class Server {
     clientConnection.sendEvent(EventBuilder.initialize({
       player,
       creatureId: clientConnection.creature.id,
-      secondsPerWorldTick: this.secondsPerWorldTick,
-      ticksPerWorldDay: this.ticksPerWorldDay,
+      secondsPerWorldTick: this.context.secondsPerWorldTick,
+      ticksPerWorldDay: this.context.ticksPerWorldDay,
     }));
-    clientConnection.sendEvent(EventBuilder.time({epoch: this.time.epoch}));
+    clientConnection.sendEvent(EventBuilder.time({epoch: this.context.time.epoch}));
 
     clientConnection.sendEvent(EventBuilder.chat({
       section: 'World',
@@ -1518,9 +1514,9 @@ export class Server {
     this.taskRunner.registerTickSection({
       description: 'time',
       // RPGWO does 20 second growth intervals.
-      rate: {seconds: this.secondsPerWorldTick},
+      rate: {seconds: this.context.secondsPerWorldTick},
       *generator() {
-        server.time.epoch += 1;
+        server.context.time.epoch += 1;
 
         for (const [w, partition] of server.context.map.getPartitions()) {
           yield* server.growPartition(w, partition);
@@ -1532,7 +1528,7 @@ export class Server {
       description: 'sync time',
       rate: {minutes: 1},
       fn: () => {
-        server.broadcast(EventBuilder.time({epoch: server.time.epoch}));
+        server.broadcast(EventBuilder.time({epoch: server.context.time.epoch}));
       },
     });
 

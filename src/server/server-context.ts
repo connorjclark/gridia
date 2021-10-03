@@ -5,6 +5,7 @@ import * as WireSerializer from '../lib/wire-serializer.js';
 import * as Utils from '../utils.js';
 import {WorldMapPartition} from '../world-map-partition.js';
 import {WorldMap} from '../world-map.js';
+import {WorldTime} from '../world-time.js';
 
 import {ClientConnection} from './client-connection.js';
 import {ScriptConfigStore} from './scripts/script-config-store.js';
@@ -12,6 +13,7 @@ import {ScriptConfigStore} from './scripts/script-config-store.js';
 interface Meta {
   nextCreatureId: number;
   worldDataDefinition: WorldDataDefinition;
+  time: number;
 }
 
 async function readJson(fs: Database, store: string, key: string) {
@@ -39,12 +41,22 @@ export class ServerContext extends Context {
   nextCreatureId = 1;
   scriptConfigStore = new ScriptConfigStore({});
 
+  secondsPerWorldTick = 20;
+  ticksPerWorldDay = 24 * 60 * 60 / this.secondsPerWorldTick / 8;
+  // Start new worlds at mid-day.
+  time = new WorldTime(this.ticksPerWorldDay, this.ticksPerWorldDay / 2);
+
   constructor(worldDataDefinition: WorldDataDefinition, map: WorldMap, public db: Database) {
     super(worldDataDefinition, map);
   }
 
   static async load(db: Database) {
-    const meta = await readJson(db, Store.misc, 'meta.json') as Meta;
+    const meta: Meta = {
+      nextCreatureId: 0,
+      worldDataDefinition: Content.WORLD_DATA_DEFINITIONS.rpgwo,
+      time: 0,
+      ...await readJson(db, Store.misc, 'meta.json'),
+    };
 
     // Update stale world definitions with valid values.
     // TODO: eventually delete this when world data definitions are not
@@ -68,6 +80,7 @@ export class ServerContext extends Context {
     // }
 
     context.nextCreatureId = meta.nextCreatureId || 1;
+    context.time.epoch = meta.time;
 
     // Just load all the partitions for now.
     const partitionIds = (await db.getAllKeysInStore(Store.sector))
@@ -239,6 +252,7 @@ export class ServerContext extends Context {
     const meta: Meta = {
       nextCreatureId: this.nextCreatureId,
       worldDataDefinition: this.worldDataDefinition,
+      time: this.time.epoch,
     };
     this.db.addToTransaction(Store.misc, 'meta.json', JSON.stringify(meta, null, 2));
   }

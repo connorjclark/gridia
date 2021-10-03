@@ -3,6 +3,7 @@
 // TODO: can't get tests to run anymore ...
 
 import * as assert from 'assert';
+
 import {jest} from '@jest/globals';
 
 jest.unstable_mockModule('../src/game.js', () => {

@@ -813,7 +813,7 @@ export class ServerInterface implements ICommands {
             server.currentClientConnection.sendEvent(EventBuilder.chat({
               section: 'World',
               from: 'World',
-              text: `The time is ${server.time.toString()}`,
+              text: `The time is ${server.context.time.toString()}`,
             }));
           },
         },
@@ -896,7 +896,7 @@ export class ServerInterface implements ICommands {
           args: [
             {name: 'ticks', type: 'number'},
           ],
-          help: `1 hour=${server.ticksPerWorldDay / 24}`,
+          help: `1 hour=${server.context.ticksPerWorldDay / 24}`,
           do(args: { ticks: number }) {
             server.advanceTime(args.ticks);
           },
