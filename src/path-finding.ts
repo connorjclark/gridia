@@ -1,6 +1,6 @@
-import {Context} from './context';
-import * as Utils from './utils';
-import {WorldMapPartition} from './world-map-partition';
+import {Context} from './context.js';
+import * as Utils from './utils.js';
+import {WorldMapPartition} from './world-map-partition.js';
 
 interface Options {
   width: number;

@@ -2,12 +2,12 @@ import {initializeApp} from 'firebase/app';
 import {getAuth, EmailAuthProvider, GoogleAuthProvider} from 'firebase/auth';
 import * as firebaseui from 'firebaseui';
 
-import * as CommandBuilder from '../../protocol/command-builder';
-import * as Helper from '../helper';
+import * as CommandBuilder from '../../protocol/command-builder.js';
+import * as Helper from '../helper.js';
 
-import {Scene} from './scene';
-import {SceneController} from './scene-controller';
-import {SelectCharacterScene} from './select-character-scene';
+import {SceneController} from './scene-controller.js';
+import {Scene} from './scene.js';
+import {SelectCharacterScene} from './select-character-scene.js';
 
 export class AccountScene extends Scene {
   private firebaseApp = initializeApp({

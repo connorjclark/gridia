@@ -1,13 +1,13 @@
-import * as Content from '../content';
-import {Context} from '../context';
-import {Database} from '../database';
-import * as WireSerializer from '../lib/wire-serializer';
-import * as Utils from '../utils';
-import {WorldMap} from '../world-map';
-import {WorldMapPartition} from '../world-map-partition';
+import * as Content from '../content.js';
+import {Context} from '../context.js';
+import {Database} from '../database.js';
+import * as WireSerializer from '../lib/wire-serializer.js';
+import * as Utils from '../utils.js';
+import {WorldMapPartition} from '../world-map-partition.js';
+import {WorldMap} from '../world-map.js';
 
-import {ClientConnection} from './client-connection';
-import {ScriptConfigStore} from './scripts/script-config-store';
+import {ClientConnection} from './client-connection.js';
+import {ScriptConfigStore} from './scripts/script-config-store.js';
 
 interface Meta {
   nextCreatureId: number;

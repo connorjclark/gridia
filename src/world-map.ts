@@ -1,7 +1,7 @@
-import {Connection} from './client/connection';
-import {SECTOR_SIZE} from './constants';
-import * as CommandBuilder from './protocol/command-builder';
-import {WorldMapPartition} from './world-map-partition';
+import {Connection} from './client/connection.js';
+import {SECTOR_SIZE} from './constants.js';
+import * as CommandBuilder from './protocol/command-builder.js';
+import {WorldMapPartition} from './world-map-partition.js';
 
 export class WorldMap {
   partitions = new Map<number, WorldMapPartition>();

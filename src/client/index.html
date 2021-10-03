@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <title>Gridia</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <script src="../pixi/index.ts"></script>
-  <script src="./main.ts"></script>
+  <script src="../pixi/index.ts" type="module"></script>
+  <script src="./main.ts" type="module"></script>
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="../../node_modules/basscss/css/basscss.css">
   <link rel="stylesheet" href="styles/buttons.css">
@@ -140,7 +140,7 @@
   </div>
 
   <script>
-    if (process.env.NODE_ENV === 'production') {
+    if (window.location.hostname !== 'localhost') {
       window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
       ga('create', 'UA-40937100-4', 'auto');
       ga('send', 'pageview');

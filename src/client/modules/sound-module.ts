@@ -1,6 +1,6 @@
-import * as Utils from '../../utils';
-import {ClientModule} from '../client-module';
-import {getMusicResource, SfxResources} from '../lazy-resource-loader';
+import * as Utils from '../../utils.js';
+import {ClientModule} from '../client-module.js';
+import {getMusicResource, SfxResources} from '../lazy-resource-loader.js';
 
 const SONGS = [
   'aaron-anderson-11/Good Memories.mp3',

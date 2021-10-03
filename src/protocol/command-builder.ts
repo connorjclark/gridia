@@ -1,1 +1,1 @@
-export * from './gen/command-builder';
+export * from './gen/command-builder.js';

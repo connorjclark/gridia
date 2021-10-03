@@ -1,10 +1,10 @@
-import * as Content from '../../content';
-import {ATTRIBUTES} from '../../player';
-import * as CommandBuilder from '../../protocol/command-builder';
-import * as Helper from '../helper';
+import * as Content from '../../content.js';
+import {ATTRIBUTES} from '../../player.js';
+import * as CommandBuilder from '../../protocol/command-builder.js';
+import * as Helper from '../helper.js';
 
-import {Scene} from './scene';
-import {SceneController} from './scene-controller';
+import {SceneController} from './scene-controller.js';
+import {Scene} from './scene.js';
 
 export class CreateCharacterScene extends Scene {
   private createBtn: HTMLElement;

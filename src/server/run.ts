@@ -1,19 +1,19 @@
 import * as fs from 'fs';
 import * as http from 'http';
 import * as https from 'https';
+import {performance} from 'perf_hooks';
 
-import * as firebaseAdmin from 'firebase-admin';
-import * as nodeCleanup from 'node-cleanup';
-import {Server as WebSocketServer} from 'ws';
-import * as yargs from 'yargs';
+import nodeCleanup from 'node-cleanup';
+import WS from 'ws';
+import yargs from 'yargs';
 
-import {WORLD_DATA_DEFINITIONS} from '../content';
-import {LevelDb} from '../database';
-import * as WireSerializer from '../lib/wire-serializer';
-import {WebRTCSignalServer} from '../lib/wrtc/signal-server';
+import {WORLD_DATA_DEFINITIONS} from '../content.js';
+import {LevelDb} from '../database.js';
+import * as WireSerializer from '../lib/wire-serializer.js';
+import {WebRTCSignalServer} from '../lib/wrtc/signal-server.js';
 
-import {ClientConnection} from './client-connection';
-import {startServer} from './create-server';
+import {ClientConnection} from './client-connection.js';
+import {startServer} from './create-server.js';
 
 const wrtcSignalServer = new WebRTCSignalServer();
 
@@ -26,11 +26,15 @@ async function onHttpRequest(req: http.IncomingMessage, res: http.ServerResponse
 }
 
 async function main(options: CLIOptions) {
-  global.node = true;
+  // @ts-expect-error
+  global.performance = performance;
 
-  firebaseAdmin.initializeApp({
-    credential: firebaseAdmin.credential.applicationDefault(),
-  });
+  if (process.env.GRIDIA_EXECUTION_ENV === 'node') {
+    const firebaseAdmin = (await import('firebase-admin')).default;
+    firebaseAdmin.initializeApp({
+      credential: firebaseAdmin.credential.applicationDefault(),
+    });
+  }
 
   const {port, ssl} = options;
 
@@ -43,7 +47,7 @@ async function main(options: CLIOptions) {
   } else {
     webserver = http.createServer(onHttpRequest);
   }
-  const wss = new WebSocketServer({
+  const wss = new WS.Server({
     server: webserver,
   });
   webserver.listen(port);

@@ -1,12 +1,12 @@
-// yarn build-server && rm -rf server-data && node dist/server/scripts/make-main-world.js
+// rm -rf server-data && yarn ts-node src/scripts/make-main-world.ts
 
 import * as fs from 'fs';
 
-import * as Content from '../content';
-import {LevelDb, NodeFsDb} from '../database';
-import {ServerContext} from '../server/server-context';
-import {WorldMap} from '../world-map';
-import {createTestPartitions} from '../world-map-debug';
+import * as Content from '../content.js';
+import {LevelDb, NodeFsDb} from '../database.js';
+import {ServerContext} from '../server/server-context.js';
+import {createTestPartitions} from '../world-map-debug.js';
+import {WorldMap} from '../world-map.js';
 
 // Copies the map saved at `saved-maps/main` to `server-data`,
 // plus programatically creates a test map.

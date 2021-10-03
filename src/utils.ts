@@ -7,7 +7,7 @@
 
 import {v4 as uuidv4} from 'uuid';
 
-import {GFX_SIZE} from './constants';
+import {GFX_SIZE} from './constants.js';
 
 export function uuid() {
   return uuidv4();

@@ -1,6 +1,6 @@
-import {setGfxSize} from './constants';
-import {ATTRIBUTES} from './player';
-import {randInt} from './utils';
+import {setGfxSize} from './constants.js';
+import {ATTRIBUTES} from './player.js';
+import {randInt} from './utils.js';
 
 interface WorldData {
   floors: MetaFloor[];
@@ -12,8 +12,6 @@ interface WorldData {
   spells: Spell[];
   lootTables: Record<string, LootTable>;
 }
-
-const isNode = typeof process !== 'undefined' && process.release && process.release.name === 'node';
 
 export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
   rpgwo: {
@@ -82,11 +80,17 @@ export async function initializeWorldData(worldDataDef_: WorldDataDefinition): P
   let lootTables: Record<string, LootTable> = {};
 
   async function loadDataFile(pathRelativeToRoot: string) {
-    if (isNode) {
-      return require('../' + pathRelativeToRoot);
+    if (process.env.GRIDIA_EXECUTION_ENV === 'node') {
+      const fs = await import('fs');
+      const url = await import('url');
+      const path = await import('path');
+      const dir = path.dirname(url.fileURLToPath(import.meta.url));
+      return JSON.parse(fs.readFileSync(dir + '/../' + pathRelativeToRoot, 'utf-8'));
+    } else if (process.env.GRIDIA_EXECUTION_ENV === 'browser') {
+      return fetch(pathRelativeToRoot).then((r) => r.json());
+    } else {
+      throw new Error('GRIDIA_EXECUTION_ENV not set');
     }
-
-    return fetch(pathRelativeToRoot).then((r) => r.json());
   }
 
   if (worldDataDef_.baseDir === 'worlds/rpgwo-world') {
@@ -192,52 +196,6 @@ export async function initializeWorldData(worldDataDef_: WorldDataDefinition): P
   // @ts-ignore
   // globalThis.GridiaContent = {items, itemUses, animations, monsters, skills};
 }
-
-// TODO: this json is bundled as JS - but it's much faster to parse
-// JSON at runtime via JSON.parse than as a JS object literal.
-// https://github.com/parcel-bundler/parcel/issues/501
-
-// Parcel doesn't support dynamic imports for workers yet.
-// Until then, we do this hack to at least cut the content data out
-// of the web client bundle. Parcel 2 will support this.
-
-// Only the node server entry / tests uses this.
-// function loadContentFromDisk() {
-//   // Make the path dynamically so parcel doesn't bundle the data.
-//   const prefix = '../world/content';
-
-//   [floors, items, itemUses, animations, monsters, skills, spells, lootTables] = [
-//     require(`${prefix}/floors.json`),
-//     require(`${prefix}/items.json`),
-//     require(`${prefix}/itemuses.json`),
-//     require(`${prefix}/animations.json`),
-//     require(`${prefix}/monsters.json`),
-//     require(`${prefix}/skills.json`),
-//     require(`${prefix}/spells.json`),
-//     require(`${prefix}/lootTables.json`),
-//   ];
-//   prepareData();
-// }
-
-// Web client and worker entry uses this.
-// export async function loadContentFromNetwork() {
-//   // @ts-ignore
-//   [floors, items, itemUses, animations, monsters, skills, spells, lootTables] = await Promise.all([
-//     fetch('world/content/floors.json').then((r) => r.json()),
-//     fetch('world/content/items.json').then((r) => r.json()),
-//     fetch('world/content/itemuses.json').then((r) => r.json()),
-//     fetch('world/content/animations.json').then((r) => r.json()),
-//     fetch('world/content/monsters.json').then((r) => r.json()),
-//     fetch('world/content/skills.json').then((r) => r.json()),
-//     fetch('world/content/spells.json').then((r) => r.json()),
-//     fetch('world/content/lootTables.json').then((r) => r.json()),
-//   ]);
-//   prepareData();
-// }
-
-// if (typeof process !== 'undefined' && process.release && process.release.name === 'node') {
-//   loadContentFromDisk();
-// }
 
 // Add name properties for readability in the console.
 function getName(id: number) {

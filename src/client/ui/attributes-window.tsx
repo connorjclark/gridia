@@ -1,6 +1,6 @@
 import {render, h, Component} from 'preact';
 
-import {Graphic, Bar, ComponentProps, createSubApp, makeUIWindow} from './ui-common';
+import {Graphic, Bar, ComponentProps, createSubApp, makeUIWindow} from './ui-common.js';
 
 interface State {
   life: { current: number; max: number };

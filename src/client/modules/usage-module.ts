@@ -1,12 +1,12 @@
-import * as Container from '../../container';
-import * as Content from '../../content';
-import * as CommandBuilder from '../../protocol/command-builder';
-import * as Utils from '../../utils';
-import {ClientModule} from '../client-module';
-import {Game, CursorReference} from '../game';
-import * as Helper from '../helper';
-import {makePossibleUsagesWindow} from '../ui/possible-usages-window';
-import {makeUsagesWindow} from '../ui/usages-window';
+import * as Container from '../../container.js';
+import * as Content from '../../content.js';
+import * as CommandBuilder from '../../protocol/command-builder.js';
+import * as Utils from '../../utils.js';
+import {ClientModule} from '../client-module.js';
+import {Game, CursorReference} from '../game.js';
+import * as Helper from '../helper.js';
+import {makePossibleUsagesWindow} from '../ui/possible-usages-window.js';
+import {makeUsagesWindow} from '../ui/usages-window.js';
 
 export class UsageModule extends ClientModule {
   possibleUsageCursor: CursorReference;

@@ -1,7 +1,7 @@
-import * as Content from '../../content';
-import {ItemLocation} from '../../utils';
-import {ClientModule} from '../client-module';
-import {makeViewWindow} from '../ui/view-window';
+import * as Content from '../../content.js';
+import {ItemLocation} from '../../utils.js';
+import {ClientModule} from '../client-module.js';
+import {makeViewWindow} from '../ui/view-window.js';
 
 export class SelectedViewModule extends ClientModule {
   private viewWindow?: ReturnType<typeof makeViewWindow>;

@@ -1,7 +1,7 @@
-import * as CommandBuilder from '../../protocol/command-builder';
-import * as Utils from '../../utils';
-import {ClientModule} from '../client-module';
-import {makeAdminWindow, State} from '../ui/admin-window';
+import * as CommandBuilder from '../../protocol/command-builder.js';
+import * as Utils from '../../utils.js';
+import {ClientModule} from '../client-module.js';
+import {makeAdminWindow, State} from '../ui/admin-window.js';
 
 export class AdminModule extends ClientModule {
   private _adminWindow?: HTMLElement;

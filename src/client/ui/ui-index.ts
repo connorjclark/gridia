@@ -1,21 +1,21 @@
-import {GFX_SIZE} from '../../constants';
-import * as Content from '../../content';
-import {deserialize} from '../../lib/wire-serializer';
-import * as Utils from '../../utils';
-import {TypedEventEmitter} from '../event-emitter';
-import * as Helper from '../helper';
-import {AdminModule} from '../modules/admin-module';
-import {MapModule} from '../modules/map-module';
-import {MovementModule} from '../modules/movement-module';
-import {SelectedViewModule} from '../modules/selected-view-module';
-import {SettingsModule} from '../modules/settings-module';
-import {SkillsModule} from '../modules/skills-module';
-import {SoundModule} from '../modules/sound-module';
-import {UsageModule} from '../modules/usage-module';
+import {GFX_SIZE} from '../../constants.js';
+import * as Content from '../../content.js';
+import {deserialize} from '../../lib/wire-serializer.js';
+import * as Utils from '../../utils.js';
+import {TypedEventEmitter} from '../event-emitter.js';
+import * as Helper from '../helper.js';
+import {AdminModule} from '../modules/admin-module.js';
+import {MapModule} from '../modules/map-module.js';
+import {MovementModule} from '../modules/movement-module.js';
+import {SelectedViewModule} from '../modules/selected-view-module.js';
+import {SettingsModule} from '../modules/settings-module.js';
+import {SkillsModule} from '../modules/skills-module.js';
+import {SoundModule} from '../modules/sound-module.js';
+import {UsageModule} from '../modules/usage-module.js';
 
-import {makeContainerWindow} from './container-window';
-import {makeHelpWindow} from './help-window';
-import {makePossibleUsagesWindow} from './possible-usages-window';
+import {makeContainerWindow} from './container-window.js';
+import {makeHelpWindow} from './help-window.js';
+import {makePossibleUsagesWindow} from './possible-usages-window.js';
 
 // super hacky file to render UI, copies / fakes a bunch of stuff from game.ts
 

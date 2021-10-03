@@ -1,7 +1,7 @@
 // tslint:disable-next-line: no-reference
 /// <reference path="../src/types.d.ts" />
 
-import * as WireSerializer from '../src/lib/wire-serializer';
+import * as WireSerializer from '../src/lib/wire-serializer.js';
 
 function roundTrip<T>(object: T) {
   const result = WireSerializer.deserialize<T>(WireSerializer.serialize(object));

@@ -1,7 +1,7 @@
-import * as Content from './content';
-import {mapgen, makeBareMap} from './mapgen';
-import {WorldMap} from './world-map';
-import {WorldMapPartition} from './world-map-partition';
+import * as Content from './content.js';
+import {mapgen, makeBareMap} from './mapgen.js';
+import {WorldMapPartition} from './world-map-partition.js';
+import {WorldMap} from './world-map.js';
 
 function addDebugStuff(map: WorldMapPartition) {
   const treeType = Content.getMetaItemByName('Pine Tree').id;
@@ -98,6 +98,11 @@ export function createTestPartitions(map: WorldMap) {
   const testPartition = testMapResult.partition;
   const testPartitionW = map.partitions.size;
   map.addPartition(testPartitionW, testPartition);
+
+  if (Content.getBaseDir() !== 'worlds/rpgwo-world') {
+    return testMapResult.mapGenResult;
+  }
+
   addDebugStuff(testPartition);
 
   const smallPartition = makeBareMap(20, 20, 1);

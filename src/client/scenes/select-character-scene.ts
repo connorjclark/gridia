@@ -1,11 +1,12 @@
-import * as Player from '../../player';
-import * as CommandBuilder from '../../protocol/command-builder';
-import * as Helper from '../helper';
-import {makeCustomCreatureGraphicComponent} from '../ui/ui-common';
+import {initializeWorldData} from '../../content.js';
+import * as Player from '../../player.js';
+import * as CommandBuilder from '../../protocol/command-builder.js';
+import * as Helper from '../helper.js';
+import {makeCustomCreatureGraphicComponent} from '../ui/ui-common.js';
 
-import {CreateCharacterScene} from './create-character-scene';
-import {Scene} from './scene';
-import {SceneController} from './scene-controller';
+import {CreateCharacterScene} from './create-character-scene.js';
+import {SceneController} from './scene-controller.js';
+import {Scene} from './scene.js';
 
 export class SelectCharacterScene extends Scene {
   private createCharacterBtn: HTMLElement;
@@ -20,7 +21,9 @@ export class SelectCharacterScene extends Scene {
     this.load();
   }
 
-  load() {
+  async load() {
+    await initializeWorldData(this.loginData.worldData);
+
     const playersEl = Helper.find('.select-character__players', this.element);
     playersEl.innerHTML = '';
     for (const [i, player] of Object.entries(this.loginData.players)) {

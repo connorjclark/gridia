@@ -1,6 +1,6 @@
-import {SECTOR_SIZE} from './constants';
-import * as Content from './content';
-import * as Utils from './utils';
+import {SECTOR_SIZE} from './constants.js';
+import * as Content from './content.js';
+import * as Utils from './utils.js';
 
 export class WorldMapPartition {
   // TODO remove?

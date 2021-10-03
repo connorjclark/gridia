@@ -1,15 +1,15 @@
-import * as Content from '../content';
-import {Database, FsApiDb, LevelDb} from '../database';
-import {makeMapImage} from '../lib/map-generator/map-image-maker';
-import * as WireSerializer from '../lib/wire-serializer';
-import {mapgen, makeBareMap} from '../mapgen';
-import {WorldMap} from '../world-map';
-import {WorldMapPartition} from '../world-map-partition';
+import * as Content from '../content.js';
+import {Database, FsApiDb, LevelDb} from '../database.js';
+import {makeMapImage} from '../lib/map-generator/map-image-maker.js';
+import * as WireSerializer from '../lib/wire-serializer.js';
+import {mapgen, makeBareMap} from '../mapgen.js';
+import {WorldMapPartition} from '../world-map-partition.js';
+import {WorldMap} from '../world-map.js';
 
-import {ClientConnection} from './client-connection';
-import {startServer as _startServer} from './create-server';
-import {Server} from './server';
-import {ServerContext} from './server-context';
+import {ClientConnection} from './client-connection.js';
+import {startServer as _startServer} from './create-server.js';
+import {ServerContext} from './server-context.js';
+import {Server} from './server.js';
 
 let opts: ServerWorkerOpts;
 let server: Server;

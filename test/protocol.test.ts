@@ -11,17 +11,17 @@ jest.mock('../src/game-singleton', () => {
 
 import * as assert from 'assert';
 
-import Client from '../src/client/client';
-import {Connection} from '../src/client/connection';
-import {MINE} from '../src/constants';
-import * as Content from '../src/content';
-import {makeBareMap} from '../src/mapgen';
-import * as CommandBuilder from '../src/protocol/command-builder';
-import {Server} from '../src/server/server';
-import * as Utils from '../src/utils';
-import {WorldMap} from '../src/world-map';
+import Client from '../src/client/client.js';
+import {Connection} from '../src/client/connection.js';
+import {MINE} from '../src/constants.js';
+import * as Content from '../src/content.js';
+import {makeBareMap} from '../src/mapgen.js';
+import * as CommandBuilder from '../src/protocol/command-builder.js';
+import {Server} from '../src/server/server.js';
+import * as Utils from '../src/utils.js';
+import {WorldMap} from '../src/world-map.js';
 
-import {openAndConnectToServerInMemory} from './server-in-memory';
+import {openAndConnectToServerInMemory} from './server-in-memory.js';
 
 let client: Client;
 let server: Server;

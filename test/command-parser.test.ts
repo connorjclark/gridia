@@ -1,7 +1,7 @@
 // tslint:disable-next-line: no-reference
 /// <reference path="../src/types.d.ts" />
 
-import * as CommandParser from '../src/lib/command-parser';
+import * as CommandParser from '../src/lib/command-parser.js';
 
 describe('command parser', () => {
   it('single number arg', () => {

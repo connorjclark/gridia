@@ -1,7 +1,7 @@
-import * as Player from '../../player';
-import {ClientConnection} from '../client-connection';
-import {Script} from '../script';
-import {Server} from '../server';
+import * as Player from '../../player.js';
+import {ClientConnection} from '../client-connection.js';
+import {Script} from '../script.js';
+import {Server} from '../server.js';
 
 const configDefinition = {
   captainRegion: 'Region',

@@ -1,13 +1,13 @@
-import {GFX_SIZE, SECTOR_SIZE} from '../constants';
-import * as Content from '../content';
-import {game} from '../game-singleton';
-import {Visibility} from '../lib/visibility';
-import * as Utils from '../utils';
-import {WorldMap} from '../world-map';
+import {GFX_SIZE, SECTOR_SIZE} from '../constants.js';
+import * as Content from '../content.js';
+import {game} from '../game-singleton.js';
+import {Visibility} from '../lib/visibility.js';
+import * as Utils from '../utils.js';
+import {WorldMap} from '../world-map.js';
 
-import * as Draw from './draw';
-import * as Helper from './helper';
-import {getIndexOffsetForTemplate} from './template-draw';
+import * as Draw from './draw.js';
+import * as Helper from './helper.js';
+import {getIndexOffsetForTemplate} from './template-draw.js';
 
 const MAX_LIGHT_POWER = 6;
 

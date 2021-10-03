@@ -1,7 +1,7 @@
 import {render, h, Component} from 'preact';
 import {useState} from 'preact/hooks';
 
-import {ComponentProps, makeUIWindow, createSubApp, TabbedPane, TabbedPaneProps} from './ui-common';
+import {ComponentProps, makeUIWindow, createSubApp, TabbedPane, TabbedPaneProps} from './ui-common.js';
 
 export interface State {
   combatLevel: {

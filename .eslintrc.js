@@ -174,7 +174,7 @@ module.exports = {
             'alphabetize': {order: 'asc'},
         }],
         "import/no-default-export": "error",
-        // "import/extensions": ["error", "ignorePackages"],
+        "import/extensions": ["error", "ignorePackages"],
         "object-curly-spacing": "error",
         "jsdoc/check-alignment": "error",
         "jsdoc/check-indentation": "error",

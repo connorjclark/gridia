@@ -1,9 +1,9 @@
-import * as Content from '../../content';
-import * as Player from '../../player';
-import * as CommandBuilder from '../../protocol/command-builder';
-import {ClientModule} from '../client-module';
-import * as Helper from '../helper';
-import {State, makeSkillsWindow} from '../ui/skills-window';
+import * as Content from '../../content.js';
+import * as Player from '../../player.js';
+import * as CommandBuilder from '../../protocol/command-builder.js';
+import {ClientModule} from '../client-module.js';
+import * as Helper from '../helper.js';
+import {State, makeSkillsWindow} from '../ui/skills-window.js';
 
 export class SkillsModule extends ClientModule {
   protected skillsWindow?: ReturnType<typeof makeSkillsWindow>;

@@ -1,4 +1,4 @@
-import {Game} from './game';
+import {Game} from './game.js';
 
 export abstract class ClientModule {
   constructor(public game: Game) {}

@@ -1,5 +1,5 @@
-import * as Content from '../content';
-import {WorldMapPartition} from '../world-map-partition';
+import * as Content from '../content.js';
+import {WorldMapPartition} from '../world-map-partition.js';
 
 export function getIndexOffsetForTemplate(partition: WorldMapPartition,
                                           typeToMatch: number, loc: PartitionPoint,

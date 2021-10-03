@@ -1,7 +1,7 @@
-import {GFX_SIZE} from '../constants';
-import * as Content from '../content';
-import {game} from '../game-singleton';
-import * as Utils from '../utils';
+import {GFX_SIZE} from '../constants.js';
+import * as Content from '../content.js';
+import {game} from '../game-singleton.js';
+import * as Utils from '../utils.js';
 
 export function destroyChildren(displayObject: PIXI.Container) {
   if (displayObject.children.length === 0) return;

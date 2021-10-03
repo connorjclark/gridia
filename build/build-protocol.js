@@ -49,7 +49,7 @@ function collect({ node, commandOrEvent }) {
   ].join("\n\n");
   const protocolInterfaceCode = [
     autoGenComment,
-    isServerInterface ? `import {Server} from '../../server/server'` : `import {Client} from '../../client/client'`,
+    isServerInterface ? `import {Server} from '../../server/server.js'` : `import {Client} from '../../client/client.js'`,
     printNode(protocolInterface),
   ].join("\n\n");
 

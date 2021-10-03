@@ -1,6 +1,6 @@
-import {MAX_STACK} from './constants';
-import * as Content from './content';
-import * as Utils from './utils';
+import {MAX_STACK} from './constants.js';
+import * as Content from './content.js';
+import * as Utils from './utils.js';
 
 export const EQUIP_SLOTS = {
   Head: 0,

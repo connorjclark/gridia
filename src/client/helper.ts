@@ -1,7 +1,7 @@
-import * as Content from '../content';
-import {game} from '../game-singleton';
-import * as CommandBuilder from '../protocol/command-builder';
-import * as Utils from '../utils';
+import * as Content from '../content.js';
+import {game} from '../game-singleton.js';
+import * as CommandBuilder from '../protocol/command-builder.js';
+import * as Utils from '../utils.js';
 
 export function canUseHand(itemType: number) {
   return usageExists(0, itemType);

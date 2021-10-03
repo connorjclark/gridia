@@ -1,6 +1,5 @@
 {
-  "__TODO": "This is pretty slow. look into a tsc-first watch utility.",
   "watch": ["src/*.ts", "src/server/**/*.ts"],
   "ext": "ts",
-  "exec": "yarn build-server-watch && yarn run-server"
+  "exec": "yarn run-server"
 }

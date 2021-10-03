@@ -1,9 +1,9 @@
 import {render, h, Component} from 'preact';
 
-import {val} from '../../lib/link-state';
-import {SettingsSchema, Settings} from '../modules/settings-module';
+import {val} from '../../lib/link-state.js';
+import {SettingsSchema, Settings} from '../modules/settings-module.js';
 
-import {ComponentProps, createSubApp, makeUIWindow} from './ui-common';
+import {ComponentProps, createSubApp, makeUIWindow} from './ui-common.js';
 
 interface State {
   settings: Settings;

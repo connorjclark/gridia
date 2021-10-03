@@ -4,10 +4,10 @@ import createStore from 'redux-zero';
 import {Provider, connect} from 'redux-zero/preact';
 import {Actions, BoundActions} from 'redux-zero/types/Actions';
 
-import {GFX_SIZE} from '../../constants';
-import * as Content from '../../content';
-import * as Utils from '../../utils';
-import * as Helper from '../helper';
+import {GFX_SIZE} from '../../constants.js';
+import * as Content from '../../content.js';
+import * as Utils from '../../utils.js';
+import * as Helper from '../helper.js';
 
 export type ComponentProps<S, T extends Actions<S>> = S & BoundActions<S, T>;
 type OmitFirstArg<F> = F extends (x: any, ...args: infer P) => infer R ? (...args: P) => R : never;

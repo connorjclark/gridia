@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "nodenext",
+    // "moduleResolution": "node",
+    "esModuleInterop": true,
     "target": "ES2018",
     "strict": true,
     "diagnostics": true,
     "sourceMap": true,
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "jsx": "react",
-    "jsxFactory": "h",
-    "jsxFragmentFactory": "Fragment",
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
     "skipLibCheck": true,
     // PIXI Loaders needs this to use the more strict mini-signal types
     "paths": {
@@ -23,6 +23,8 @@
   "include": [
     "src",
     "test",
-    "tools"
   ],
+  "ts-node": {
+    "files": true
+  }
 }

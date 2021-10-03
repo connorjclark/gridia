@@ -1,15 +1,15 @@
-import {MAX_STACK, MINE, SECTOR_SIZE, WATER} from '../constants';
-import * as Container from '../container';
-import * as Content from '../content';
-import * as CommandParser from '../lib/command-parser';
-import {makeBareMap} from '../mapgen';
-import * as Player from '../player';
-import {attributeCheck} from '../server/creature-utils';
-import {Server} from '../server/server';
-import * as Utils from '../utils';
+import {MAX_STACK, MINE, SECTOR_SIZE, WATER} from '../constants.js';
+import * as Container from '../container.js';
+import * as Content from '../content.js';
+import * as CommandParser from '../lib/command-parser.js';
+import {makeBareMap} from '../mapgen.js';
+import * as Player from '../player.js';
+import {attributeCheck} from '../server/creature-utils.js';
+import {Server} from '../server/server.js';
+import * as Utils from '../utils.js';
 
-import * as EventBuilder from './event-builder';
-import {ICommands} from './gen/server-interface';
+import * as EventBuilder from './event-builder.js';
+import {ICommands} from './gen/server-interface.js';
 
 import Commands = Protocol.Commands;
 
@@ -70,12 +70,12 @@ export class ServerInterface implements ICommands {
   async onRegisterAccount(server: Server, {firebaseToken}: Commands.RegisterAccount['params']): Promise<Commands.RegisterAccount['response']> {
     if (server.currentClientConnection.account) return Promise.reject('Already logged in');
 
-    if (process.title === 'browser') {
+    if (process.env.GRIDIA_EXECUTION_ENV === 'browser') {
       throw new Error('should not use firebase locally');
     }
 
     // TODO: do not include firebase-admin in worker server.
-    const firebaseAdmin = await import('firebase-admin');
+    const firebaseAdmin = (await import('firebase-admin')).default;
     const decodedToken = await firebaseAdmin.auth().verifyIdToken(firebaseToken, true);
     const id = decodedToken.uid;
 
@@ -88,7 +88,7 @@ export class ServerInterface implements ICommands {
     if (server.currentClientConnection.account) throw new Error('Already logged in');
 
     let account: GridiaAccount;
-    if (process.title === 'browser') {
+    if (process.env.GRIDIA_EXECUTION_ENV === 'browser') {
       if (firebaseToken !== 'local') throw new Error('expected token: local');
 
       // Create account if not already made.
@@ -104,7 +104,7 @@ export class ServerInterface implements ICommands {
       });
     } else {
       // TODO: do not include firebase-admin in worker server.
-      const firebaseAdmin = await import('firebase-admin');
+      const firebaseAdmin = (await import('firebase-admin')).default;
       const decodedToken = await firebaseAdmin.auth().verifyIdToken(firebaseToken, true);
 
       // Account data is saved on the filesystem, which is frequently cleared since
@@ -137,7 +137,7 @@ export class ServerInterface implements ICommands {
 
     // No real reason to keep this secret, but the client never needs to know this id.
     account = {...account, id: '<removed>'};
-    return {account, players, graphics, equipmentGraphics};
+    return {worldData: server.context.worldDataDefinition, account, players, graphics, equipmentGraphics};
   }
 
   onCreatePlayer(server: Server, args: Commands.CreatePlayer['params']): Promise<void> {
@@ -905,11 +905,12 @@ export class ServerInterface implements ICommands {
           args: [],
           do() {
             server.save().then(() => {
-              server.currentClientConnection.sendEvent(EventBuilder.chat({
-                section: 'World',
-                from: 'World',
-                text: 'Server saved.',
-              }));
+              // TODO: commands can't be async
+              // server.currentClientConnection.sendEvent(EventBuilder.chat({
+              //   section: 'World',
+              //   from: 'World',
+              //   text: 'Server saved.',
+              // }));
             });
           },
         },

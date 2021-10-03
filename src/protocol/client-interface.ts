@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import {Client} from '../client/client';
-import * as Content from '../content';
-import * as Player from '../player';
+import {Client} from '../client/client.js';
+import * as Content from '../content.js';
+import * as Player from '../player.js';
 
-import * as CommandBuilder from './command-builder';
-import {IEvents} from './gen/client-interface';
+import * as CommandBuilder from './command-builder.js';
+import {IEvents} from './gen/client-interface.js';
 
 import Events = Protocol.Events;
 
@@ -16,10 +16,6 @@ export class ClientInterface implements IEvents {
 
   onContainer(client: Client, {container}: Events.Container): void {
     client.context.containers.set(container.id, container);
-  }
-
-  async onConnect(client: Client, opts: Events.Connect): Promise<void> {
-    await Content.initializeWorldData(opts.worldData);
   }
 
   onInitialize(client: Client, opts: Events.Initialize): void {

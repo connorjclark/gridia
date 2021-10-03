@@ -1,11 +1,11 @@
-import {Context} from '../context';
-import {game} from '../game-singleton';
-import {ClientInterface} from '../protocol/client-interface';
-import {ProtocolEvent} from '../protocol/event-builder';
+import {Context} from '../context.js';
+import {game} from '../game-singleton.js';
+import {ClientInterface} from '../protocol/client-interface.js';
+import {ProtocolEvent} from '../protocol/event-builder.js';
 
-import {Connection} from './connection';
-import {TypedEventEmitter} from './event-emitter';
-import {Settings} from './modules/settings-module';
+import {Connection} from './connection.js';
+import {TypedEventEmitter} from './event-emitter.js';
+import {Settings} from './modules/settings-module.js';
 
 export class Client {
   // @ts-ignore set later.

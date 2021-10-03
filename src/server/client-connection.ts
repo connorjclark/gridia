@@ -1,4 +1,4 @@
-import {ProtocolEvent} from '../protocol/event-builder';
+import {ProtocolEvent} from '../protocol/event-builder.js';
 
 // TODO: this whole thing smells.
 

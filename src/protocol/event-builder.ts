@@ -1,1 +1,1 @@
-export * from './gen/event-builder';
+export * from './gen/event-builder.js';

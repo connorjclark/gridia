@@ -1,4 +1,4 @@
-import {WorldMap} from './world-map';
+import {WorldMap} from './world-map.js';
 
 export class Context {
   creatures = new Map<number, Creature>();

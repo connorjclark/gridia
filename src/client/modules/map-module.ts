@@ -1,8 +1,8 @@
-import * as Content from '../../content';
-import * as Player from '../../player';
-import {ClientModule} from '../client-module';
-import * as Helper from '../helper';
-import {makeUIWindow} from '../ui/ui-common';
+import * as Content from '../../content.js';
+import * as Player from '../../player.js';
+import {ClientModule} from '../client-module.js';
+import * as Helper from '../helper.js';
+import {makeUIWindow} from '../ui/ui-common.js';
 
 export class MapModule extends ClientModule {
   private mapEl?: HTMLCanvasElement;

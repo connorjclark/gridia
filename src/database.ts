@@ -1,6 +1,4 @@
-import * as fs from 'fs';
-
-import * as level from 'level';
+import level from 'level';
 
 // TODO: should be able to store objects.
 // TODO: 'get' should return undefined instead of throw an error.
@@ -31,9 +29,7 @@ export class LevelDb extends Database {
 
   constructor(dbLocation: string) {
     super();
-    // @ts-expect-error: Issue bundling for browser ...
-    const fn = level.default || level;
-    this.db = fn(dbLocation);
+    this.db = level(dbLocation);
   }
 
   async exists(store: string, key: string) {
@@ -82,6 +78,9 @@ export class LevelDb extends Database {
 
 // Saves data directly to filesystem. Doesn't support atomic transactions, so not safe for real usage.
 export class NodeFsDb extends Database {
+  // TODO: move to separate file?
+  fs_ = import('fs');
+
   constructor(private rootDirectoryPath: string) {
     super();
 
@@ -89,11 +88,17 @@ export class NodeFsDb extends Database {
     if (!isNode) throw new Error('not in node');
   }
 
+  private async fs() {
+    const fs = await this.fs_;
+    return fs.promises;
+  }
+
   async exists(store: string, key: string) {
     check(store, key);
     const path = `${this.rootDirectoryPath}/${store}/${key}`;
     try {
-      await fs.promises.stat(path);
+      const fs = await this.fs();
+      await fs.stat(path);
       return true;
     } catch (err: any) {
       if (err.code === 'ENOENT') {
@@ -107,20 +112,23 @@ export class NodeFsDb extends Database {
   async put(store: string, key: string, data: string) {
     check(store, key);
     const path = `${this.rootDirectoryPath}/${store}/${key}`;
-    await fs.promises.mkdir(`${this.rootDirectoryPath}/${store}`, {recursive: true});
-    return fs.promises.writeFile(path, data);
+    const fs = await this.fs();
+    await fs.mkdir(`${this.rootDirectoryPath}/${store}`, {recursive: true});
+    return fs.writeFile(path, data);
   }
 
-  get(store: string, key: string) {
+  async get(store: string, key: string) {
     check(store, key);
     const path = `${this.rootDirectoryPath}/${store}/${key}`;
-    return fs.promises.readFile(path, 'utf-8');
+    const fs = await this.fs();
+    return fs.readFile(path, 'utf-8');
   }
 
-  getAllKeysInStore(store: string) {
+  async getAllKeysInStore(store: string) {
     check(store, '');
     const path = `${this.rootDirectoryPath}/${store}`;
-    return fs.promises.readdir(path);
+    const fs = await this.fs();
+    return fs.readdir(path);
   }
 
   async endTransaction() {

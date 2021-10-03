@@ -1,9 +1,9 @@
-import {Client} from '../client';
-import * as Helper from '../helper';
-import {ServerWorker} from '../server-worker';
+import {Client} from '../client.js';
+import * as Helper from '../helper.js';
+import {ServerWorker} from '../server-worker.js';
 
-import {GameScene} from './game-scene';
-import {Scene} from './scene';
+import {GameScene} from './game-scene.js';
+import {Scene} from './scene.js';
 
 function parseQuery(queryString: string) {
   const params = new URLSearchParams(queryString ? queryString.substr(1) : '');

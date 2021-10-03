@@ -1,17 +1,17 @@
 // tslint:disable-next-line: no-reference
 /// <reference path="../src/types.d.ts" />
 
-import {Client} from '../src/client/client';
-import {Connection} from '../src/client/connection';
-import {WORLD_DATA_DEFINITIONS} from '../src/content';
-import {Context} from '../src/context';
-import {MemoryDb} from '../src/database';
-import * as WireSerializer from '../src/lib/wire-serializer';
-import {ProtocolCommand} from '../src/protocol/command-builder';
-import {ClientConnection} from '../src/server/client-connection';
-import {Server} from '../src/server/server';
-import {ServerContext} from '../src/server/server-context';
-import {createClientWorldMap, WorldMap} from '../src/world-map';
+import {Client} from '../src/client/client.js';
+import {Connection} from '../src/client/connection.js';
+import {WORLD_DATA_DEFINITIONS} from '../src/content.js';
+import {Context} from '../src/context.js';
+import {MemoryDb} from '../src/database.js';
+import * as WireSerializer from '../src/lib/wire-serializer.js';
+import {ProtocolCommand} from '../src/protocol/command-builder.js';
+import {ClientConnection} from '../src/server/client-connection.js';
+import {ServerContext} from '../src/server/server-context.js';
+import {Server} from '../src/server/server.js';
+import {createClientWorldMap, WorldMap} from '../src/world-map.js';
 
 class MemoryConnection extends Connection {
   constructor(private _clientConnection: ClientConnection) {

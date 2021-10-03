@@ -1,5 +1,5 @@
-import {ClientModule} from '../client-module';
-import {makeSettingsWindow} from '../ui/settings-window';
+import {ClientModule} from '../client-module.js';
+import {makeSettingsWindow} from '../ui/settings-window.js';
 
 export interface Settings {
   showGrid: boolean;

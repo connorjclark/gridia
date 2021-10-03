@@ -1,10 +1,10 @@
-import * as Content from '../content';
-import {Database, NodeFsDb} from '../database';
-import {makeMapImage} from '../lib/map-generator/map-image-maker';
-import {Server} from '../server/server';
-import {ServerContext, Store} from '../server/server-context';
-import * as Utils from '../utils';
-import {createMainWorldMap} from '../world-map-debug';
+import * as Content from '../content.js';
+import {Database, NodeFsDb} from '../database.js';
+import {makeMapImage} from '../lib/map-generator/map-image-maker.js';
+import {ServerContext, Store} from '../server/server-context.js';
+import {Server} from '../server/server.js';
+import * as Utils from '../utils.js';
+import {createMainWorldMap} from '../world-map-debug.js';
 
 // TODO: separate initializing a world from starting a server
 export async function startServer(options: ServerOptions, db: Database) {
@@ -24,7 +24,7 @@ export async function startServer(options: ServerOptions, db: Database) {
   } else {
     // TODO: shouldn't create a world here...
     const {world, mapGenData} = createMainWorldMap();
-    context = new ServerContext(options.worldDataDef, world, db);
+    context = new ServerContext(Content.getWorldDataDefinition(), world, db);
     await context.save();
 
     // Only save images in Node server.

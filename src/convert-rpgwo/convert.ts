@@ -5,7 +5,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { execFileSync } from 'child_process';
-// import { EQUIP_SLOTS } from '../container';
+// import { EQUIP_SLOTS } from '../container.js';
 // TODO
 const EQUIP_SLOTS = {
   Head: 0,

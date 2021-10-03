@@ -1,13 +1,13 @@
-import * as Content from '../../content';
-import {game, makeGame} from '../../game-singleton';
-import * as CommandBuilder from '../../protocol/command-builder';
-import * as Utils from '../../utils';
-import {Client} from '../client';
-import {GameActionEvent} from '../event-emitter';
-import * as Helper from '../helper';
+import * as Content from '../../content.js';
+import {game, makeGame} from '../../game-singleton.js';
+import * as CommandBuilder from '../../protocol/command-builder.js';
+import * as Utils from '../../utils.js';
+import {Client} from '../client.js';
+import {GameActionEvent} from '../event-emitter.js';
+import * as Helper from '../helper.js';
 
-import {Scene} from './scene';
-import {SceneController} from './scene-controller';
+import {SceneController} from './scene-controller.js';
+import {Scene} from './scene.js';
 
 function globalActionCreator(location: ItemLocation): GameAction[] {
   let item;

@@ -3,9 +3,9 @@
 import {render, h, Component} from 'preact';
 import {useState} from 'preact/hooks';
 
-import {Game} from '../game';
+import {Game} from '../game.js';
 
-import {makeUIWindow} from './ui-common';
+import {makeUIWindow} from './ui-common.js';
 
 const sections: Record<string, string> = {
   'General': `

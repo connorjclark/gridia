@@ -1,16 +1,16 @@
-import {WATER} from '../constants';
-import * as Container from '../container';
-import * as Content from '../content';
-import {Context} from '../context';
-import {findPath} from '../path-finding';
-import * as EventBuilder from '../protocol/event-builder';
-import * as Utils from '../utils';
-import {WorldMapPartition} from '../world-map-partition';
+import {WATER} from '../constants.js';
+import * as Container from '../container.js';
+import * as Content from '../content.js';
+import {Context} from '../context.js';
+import {findPath} from '../path-finding.js';
+import * as EventBuilder from '../protocol/event-builder.js';
+import * as Utils from '../utils.js';
+import {WorldMapPartition} from '../world-map-partition.js';
 
-import {ClientConnection} from './client-connection';
-import {adjustAttribute} from './creature-utils';
-import {aStar} from './plan';
-import {Server} from './server';
+import {ClientConnection} from './client-connection.js';
+import {adjustAttribute} from './creature-utils.js';
+import {aStar} from './plan.js';
+import {Server} from './server.js';
 
 interface Goal {
   desiredEffect: string;

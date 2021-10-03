@@ -1,9 +1,9 @@
-import * as Utils from '../utils';
+import * as Utils from '../utils.js';
 
-import {ClientConnection} from './client-connection';
-import {ScriptConfigStore} from './scripts/script-config-store';
-import {Server} from './server';
-import {Rate} from './task-runner';
+import {ClientConnection} from './client-connection.js';
+import {ScriptConfigStore} from './scripts/script-config-store.js';
+import {Server} from './server.js';
+import {Rate} from './task-runner.js';
 
 interface CreatureSpawner {
   descriptors: CreatureDescriptor[];

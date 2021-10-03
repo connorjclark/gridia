@@ -1,11 +1,11 @@
 import * as assert from 'assert';
 
-import {MINE, SECTOR_SIZE, WATER} from './constants';
-import * as Content from './content';
-import {generate, GenerateOptions} from './lib/map-generator/map-generator';
-import * as Perlin from './lib/perlin/perlin';
-import * as Utils from './utils';
-import {WorldMapPartition} from './world-map-partition';
+import {MINE, SECTOR_SIZE, WATER} from './constants.js';
+import * as Content from './content.js';
+import {generate, GenerateOptions} from './lib/map-generator/map-generator.js';
+import * as Perlin from './lib/perlin/perlin.js';
+import * as Utils from './utils.js';
+import {WorldMapPartition} from './world-map-partition.js';
 
 function biomeToFloor(biome: string) {
   if (biome === 'BARE') return 49;

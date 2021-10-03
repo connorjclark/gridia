@@ -1,10 +1,10 @@
 import {render, h, Component} from 'preact';
 
-import * as Content from '../../content';
-import * as Utils from '../../utils';
-import {Game} from '../game';
+import * as Content from '../../content.js';
+import * as Utils from '../../utils.js';
+import {Game} from '../game.js';
 
-import {Graphic, ComponentProps, createSubApp, makeUIWindow, CustomCreatureGraphic} from './ui-common';
+import {Graphic, ComponentProps, createSubApp, makeUIWindow, CustomCreatureGraphic} from './ui-common.js';
 
 interface State {
   name?: string;

@@ -1,7 +1,7 @@
-import type {RpcMap} from '../server/run-worker';
+import type {RpcMap} from '../server/run-worker.js';
 
 export class ServerWorker {
-  worker = new Worker('../server/run-worker.ts');
+  worker = new Worker(process.env.GRIDIA_SERVER_WORKER_PATH || 'unknown');
 
   init = this._createRpc('init') as typeof RpcMap['init'];
   listMaps = this._createRpc('listMaps') as typeof RpcMap['listMaps'];

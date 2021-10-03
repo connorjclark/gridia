@@ -3,15 +3,15 @@
 import linkState from 'linkstate';
 import {render, h, Component, Fragment} from 'preact';
 
-import {WORLD_DATA_DEFINITIONS} from '../../content';
-import * as CommandBuilder from '../../protocol/command-builder';
-import {randInt} from '../../utils';
-import {connectToServerWorker} from '../connect-to-server';
-import * as Helper from '../helper';
+import {WORLD_DATA_DEFINITIONS} from '../../content.js';
+import * as CommandBuilder from '../../protocol/command-builder.js';
+import {randInt} from '../../utils.js';
+import {connectToServerWorker} from '../connect-to-server.js';
+import * as Helper from '../helper.js';
 
-import {Scene} from './scene';
-import {SceneController} from './scene-controller';
-import {SelectCharacterScene} from './select-character-scene';
+import {SceneController} from './scene-controller.js';
+import {Scene} from './scene.js';
+import {SelectCharacterScene} from './select-character-scene.js';
 
 const DEFAULT_MAP_FORM_STATE = {
   worldDataDefinition: 'rpgwo',

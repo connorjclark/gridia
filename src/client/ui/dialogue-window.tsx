@@ -3,10 +3,10 @@ import {render, h, Component} from 'preact';
 import {useEffect, useRef, useMemo} from 'preact/hooks';
 import Typed from 'typed.js';
 
-import * as CommandBuilder from '../../protocol/command-builder';
-import {Game} from '../game';
+import * as CommandBuilder from '../../protocol/command-builder.js';
+import {Game} from '../game.js';
 
-import {CustomCreatureGraphic, Graphic, makeUIWindow} from './ui-common';
+import {CustomCreatureGraphic, Graphic, makeUIWindow} from './ui-common.js';
 
 export function makeDialogueWindow(game: Game) {
   let setState = (_: Partial<State>) => {

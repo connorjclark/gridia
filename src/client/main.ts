@@ -1,13 +1,13 @@
-import * as Content from '../content';
-import * as CommandBuilder from '../protocol/command-builder';
+import * as Content from '../content.js';
+import * as CommandBuilder from '../protocol/command-builder.js';
 
-import {connectWithWebSocket, connectWithWebRTC} from './connect-to-server';
-import * as Helper from './helper';
-import {AccountScene} from './scenes/account-scene';
-import {MapSelectScene} from './scenes/map-select-scene';
-import {Scene} from './scenes/scene';
-import {SceneController} from './scenes/scene-controller';
-import {SelectCharacterScene} from './scenes/select-character-scene';
+import {connectWithWebSocket, connectWithWebRTC} from './connect-to-server.js';
+import * as Helper from './helper.js';
+import {AccountScene} from './scenes/account-scene.js';
+import {MapSelectScene} from './scenes/map-select-scene.js';
+import {SceneController} from './scenes/scene-controller.js';
+import {Scene} from './scenes/scene.js';
+import {SelectCharacterScene} from './scenes/select-character-scene.js';
 
 class StartScene extends Scene {
   private localBtn: HTMLElement;

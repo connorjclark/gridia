@@ -1,11 +1,11 @@
-import {Context} from '../context';
-import {WEBRTC_CONFIG} from '../lib/wrtc/config';
-import {ProtocolEvent} from '../protocol/event-builder';
-import {createClientWorldMap} from '../world-map';
+import {Context} from '../context.js';
+import {WEBRTC_CONFIG} from '../lib/wrtc/config.js';
+import {ProtocolEvent} from '../protocol/event-builder.js';
+import {createClientWorldMap} from '../world-map.js';
 
-import {Client} from './client';
-import {Connection, WebRTCConnection, WebSocketConnection, WorkerConnection} from './connection';
-import {ServerWorker} from './server-worker';
+import {Client} from './client.js';
+import {Connection, WebRTCConnection, WebSocketConnection, WorkerConnection} from './connection.js';
+import {ServerWorker} from './server-worker.js';
 
 function onProtocolEvent(client: Client, event: ProtocolEvent) {
   client.eventEmitter.emit('event', event);

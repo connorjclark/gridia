@@ -1,10 +1,10 @@
-/// <reference path="../src/types.d.ts" />
+/// <reference path="../types.d.ts" />
 
 import {h, render, Component} from 'preact';
 
-import {Graphic} from '../src/client/ui/ui-common';
-import * as Content from '../src/content';
-import {clamp} from '../src/utils';
+import {Graphic} from '../client/ui/ui-common.js';
+import * as Content from '../content.js';
+import {clamp} from '../utils.js';
 
 interface Props {
   worldDataDef: WorldDataDefinition;
@@ -108,7 +108,7 @@ class App extends Component<Props, State> {
     });
   }
 
-  onClickImage(e: React.MouseEvent) {
+  onClickImage(e: MouseEvent) {
     if (!this.state.currentSelection) return;
 
     const imgEl = e.target as HTMLImageElement;

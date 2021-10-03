@@ -1,7 +1,7 @@
-import {game} from '../game-singleton';
-import * as WireSerializer from '../lib/wire-serializer';
-import {ProtocolCommand} from '../protocol/command-builder';
-import {ProtocolEvent} from '../protocol/event-builder';
+import {game} from '../game-singleton.js';
+import * as WireSerializer from '../lib/wire-serializer.js';
+import {ProtocolCommand} from '../protocol/command-builder.js';
+import {ProtocolEvent} from '../protocol/event-builder.js';
 
 function debug(prefix: string, msg: Message) {
   // @ts-ignore

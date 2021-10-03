@@ -1,10 +1,10 @@
 import {render, h, Component} from 'preact';
 
-import * as Content from '../../content';
-import * as Utils from '../../utils';
-import {UsageModule} from '../modules/usage-module';
+import * as Content from '../../content.js';
+import * as Utils from '../../utils.js';
+import {UsageModule} from '../modules/usage-module.js';
 
-import {ComponentProps, Graphic, makeUIWindow, createSubApp} from './ui-common';
+import {ComponentProps, Graphic, makeUIWindow, createSubApp} from './ui-common.js';
 
 interface State {
   possibleUsages: PossibleUsage[];

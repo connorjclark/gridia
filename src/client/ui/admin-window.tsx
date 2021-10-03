@@ -1,12 +1,12 @@
 import linkState from 'linkstate';
 import {render, h, Component, Fragment} from 'preact';
 
-import * as Content from '../../content';
-import * as Utils from '../../utils';
-import * as Helper from '../helper';
-import {AdminModule} from '../modules/admin-module';
+import * as Content from '../../content.js';
+import * as Utils from '../../utils.js';
+import * as Helper from '../helper.js';
+import {AdminModule} from '../modules/admin-module.js';
 
-import {Graphic, makeUIWindow} from './ui-common';
+import {Graphic, makeUIWindow} from './ui-common.js';
 
 const TOOLS = ['point', 'rectangle', 'fill'] as const;
 type Tool = typeof TOOLS[number];

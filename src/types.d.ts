@@ -1,6 +1,6 @@
 declare namespace NodeJS {
   interface Global {
-    node: boolean;
+    performance: typeof window.performance;
   }
 }
 

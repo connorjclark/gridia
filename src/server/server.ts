@@ -1,24 +1,23 @@
-import {MAX_STACK, SECTOR_SIZE} from '../constants';
-import * as Container from '../container';
-import * as Content from '../content';
-import {calcStraightLine} from '../lib/line';
-import {roll} from '../lib/loot-table';
-import {performance} from '../performance';
-import * as Player from '../player';
-import * as EventBuilder from '../protocol/event-builder';
-import {ProtocolEvent} from '../protocol/event-builder';
-import {ServerInterface} from '../protocol/server-interface';
-import * as Utils from '../utils';
-import {WorldMapPartition} from '../world-map-partition';
-import {WorldTime} from '../world-time';
+import {MAX_STACK, SECTOR_SIZE} from '../constants.js';
+import * as Container from '../container.js';
+import * as Content from '../content.js';
+import {calcStraightLine} from '../lib/line.js';
+import {roll} from '../lib/loot-table.js';
+import * as Player from '../player.js';
+import * as EventBuilder from '../protocol/event-builder.js';
+import {ProtocolEvent} from '../protocol/event-builder.js';
+import {ServerInterface} from '../protocol/server-interface.js';
+import * as Utils from '../utils.js';
+import {WorldMapPartition} from '../world-map-partition.js';
+import {WorldTime} from '../world-time.js';
 
-import {ClientConnection} from './client-connection';
-import {CreatureState} from './creature-state';
-import {adjustAttribute, attributeCheck} from './creature-utils';
-import {Script} from './script';
-import {BasicScript} from './scripts/basic-script';
-import {ServerContext} from './server-context';
-import {TaskRunner} from './task-runner';
+import {ClientConnection} from './client-connection.js';
+import {CreatureState} from './creature-state.js';
+import {adjustAttribute, attributeCheck} from './creature-utils.js';
+import {Script} from './script.js';
+import {BasicScript} from './scripts/basic-script.js';
+import {ServerContext} from './server-context.js';
+import {TaskRunner} from './task-runner.js';
 
 // TODO document how the f this works.
 
@@ -78,9 +77,6 @@ export class Server {
 
   addClientConnection(clientConnection: ClientConnection) {
     this.context.clientConnections.push(clientConnection);
-    this.send(EventBuilder.connect({
-      worldData: this.context.worldDataDefinition,
-    }), clientConnection);
   }
 
   reply(event: ProtocolEvent) {
@@ -1595,13 +1591,29 @@ export class Server {
                 .then((data: any) => clientConnection.send({id: message.id, data}))
                 .catch((e?: Error | string) => {
                   // TODO: why is this catch AND the try/catch needed?
-                  const error = e ? e.toString() : 'Unknown error';
+                  let error = 'SERVER_ERROR: ';
+                  if (e && e instanceof Error) {
+                    error += e.message;
+                    error += e.stack;
+                  } else {
+                    error += e || 'Unknown error';
+                  }
                   clientConnection.send({id: message.id, data: {error}});
                 });
-            } catch (error: any) {
+            } catch (e: any) {
               // Don't let a bad message kill the message loop.
-              console.error(error, message);
-              clientConnection.send({id: message.id, data: {error: error ? error.toString() : 'Unknown error'}});
+              console.error(e, message);
+              let error = 'SERVER_ERROR: ';
+              if (e && e instanceof Error) {
+                error += e.message;
+                error += e.stack;
+              } else {
+                error += e || 'Unknown error';
+              }
+              clientConnection.send({
+                id: message.id,
+                data: {error},
+              });
             }
             // performance.mark(`${message.type}-end`);
             // performance.measure(message.type, `${message.type}-start`, `${message.type}-end`);

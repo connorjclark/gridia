@@ -2,5 +2,5 @@
 
 systemctl stop gridia
 rm -rf server-data
-node dist/server/scripts/make-main-world.js
+yarn ts-node src/scripts/make-main-world.ts
 systemctl start gridia

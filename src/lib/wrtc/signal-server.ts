@@ -12,11 +12,11 @@
 import * as http from 'http';
 
 // @ts-expect-error
-import {RTCPeerConnection as RTCPeerConnection_} from 'wrtc';
+import wrtc from 'wrtc';
 
-import {WEBRTC_CONFIG} from './config';
+import {WEBRTC_CONFIG} from './config.js';
 
-const RTCPeerConnection: typeof globalThis.RTCPeerConnection = RTCPeerConnection_;
+const RTCPeerConnection: typeof globalThis.RTCPeerConnection = wrtc.RTCPeerConnection;
 
 function createConnection() {
   const peerConnection = new RTCPeerConnection(WEBRTC_CONFIG);

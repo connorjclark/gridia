@@ -1,5 +1,3 @@
-import {performance} from '../performance';
-
 export interface Rate {
   days?: number;
   hours?: number;

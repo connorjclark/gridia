@@ -1,4 +1,4 @@
-// yarn build-server && rm -rf worlds/rpgwo-world/graphics && node dist/server/scripts/create-graphics.js
+// rm -rf worlds/rpgwo-world/graphics && yarn ts-node src/scripts/create-graphics.ts
 
 import {execFileSync} from 'child_process';
 import * as fs from 'fs';
