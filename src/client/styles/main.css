@@ -36,6 +36,10 @@ body {
   background-color: darkgrey;
 }
 
+body.disconnected {
+  opacity: 0.5;
+}
+
 button {
   margin: 5px;
 }

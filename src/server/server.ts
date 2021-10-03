@@ -9,7 +9,6 @@ import {ProtocolEvent} from '../protocol/event-builder.js';
 import {ServerInterface} from '../protocol/server-interface.js';
 import * as Utils from '../utils.js';
 import {WorldMapPartition} from '../world-map-partition.js';
-import {WorldTime} from '../world-time.js';
 
 import {ClientConnection} from './client-connection.js';
 import {CreatureState} from './creature-state.js';

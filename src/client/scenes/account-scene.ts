@@ -80,6 +80,7 @@ export class AccountScene extends Scene {
     const response = await this.controller.client.connection.sendCommand(CommandBuilder.login({
       firebaseToken,
     }));
+    this.controller.client.firebaseToken = firebaseToken;
     this.controller.pushScene(new SelectCharacterScene(this.controller, response));
   }
 }

@@ -1,5 +1,7 @@
 import {Context} from '../context.js';
+import {game} from '../game-singleton.js';
 import {WEBRTC_CONFIG} from '../lib/wrtc/config.js';
+import * as CommandBuilder from '../protocol/command-builder.js';
 import {ProtocolEvent} from '../protocol/event-builder.js';
 import {createClientWorldMap} from '../world-map.js';
 
@@ -17,6 +19,51 @@ function createClient(connection: Connection) {
   const client = new Client(connection, context);
   connection.setOnEvent(onProtocolEvent.bind(undefined, client));
   return client;
+}
+
+export async function reconnectToServer(deadClient: Client): Promise<{status: 'try-again'|'failure'|'success'}> {
+  let newConnection;
+  try {
+    if (deadClient.connection instanceof WebSocketConnection) {
+      const newClient = await connectWithWebSocket(deadClient.connection.hostname, deadClient.connection.port);
+      newConnection = newClient.connection;
+    } else {
+      return {status: 'failure'};
+    }
+  } catch (err) {
+    if (err instanceof CloseEvent) {
+      // ok
+    } else {
+      console.error(err);
+    }
+    return {status: 'try-again'};
+  }
+
+  // Established a connection, now initialize server/client state.
+
+  try {
+    const newClient = createClient(newConnection);
+    game.client = newClient;
+    if (deadClient.firebaseToken) {
+      await newConnection.sendCommand(CommandBuilder.login({
+        firebaseToken: deadClient.firebaseToken,
+      }));
+    }
+    if (deadClient.player) {
+      await newConnection.sendCommand(CommandBuilder.enterWorld({
+        playerId: deadClient.player.id,
+      }));
+    }
+  } catch (err) {
+    console.error(err);
+    game.client = deadClient;
+    return {status: 'failure'};
+  }
+
+  // Shouldn't be necessary to replace this listener, but just in case.
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  deadClient.connection.setOnEvent(() => {});
+  return {status: 'success'};
 }
 
 export async function connectWithWebRTC(hostname: string, port: number): Promise<Client> {
@@ -64,7 +111,7 @@ export async function connectWithWebSocket(hostname: string, port: number): Prom
     ws.addEventListener('close', reject);
   });
 
-  const connection = new WebSocketConnection(ws);
+  const connection = new WebSocketConnection(hostname, port, ws);
   return createClient(connection);
 }
 

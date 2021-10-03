@@ -2,7 +2,6 @@ import * as Content from '../../content.js';
 import {game, makeGame} from '../../game-singleton.js';
 import * as CommandBuilder from '../../protocol/command-builder.js';
 import * as Utils from '../../utils.js';
-import {Client} from '../client.js';
 import {GameActionEvent} from '../event-emitter.js';
 import * as Helper from '../helper.js';
 
@@ -132,7 +131,9 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
   return actions;
 }
 
-function globalOnActionHandler(client: Client, e: GameActionEvent) {
+function globalOnActionHandler(e: GameActionEvent) {
+  const client = game.client;
+
   const type = e.action.type;
   const {creature, location, quantity} = e;
 
@@ -190,7 +191,7 @@ export class GameScene extends Scene {
     const client = this.controller.client;
     const gameSingleton = makeGame(client);
     gameSingleton.addActionCreator(globalActionCreator);
-    client.eventEmitter.on('action', globalOnActionHandler.bind(globalOnActionHandler, client));
+    client.eventEmitter.on('action', globalOnActionHandler);
     gameSingleton.start();
 
     // Once in game, too complicated to go back. For now, must refresh the page.

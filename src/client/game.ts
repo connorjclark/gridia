@@ -11,6 +11,7 @@ import * as Utils from '../utils.js';
 import {WorldTime} from '../world-time.js';
 
 import {Client} from './client.js';
+import {reconnectToServer} from './connect-to-server.js';
 import {WorkerConnection} from './connection.js';
 import * as Draw from './draw.js';
 import {ItemMoveBeginEvent, ItemMoveEndEvent} from './event-emitter.js';
@@ -310,7 +311,6 @@ export class Game {
 
   private _eventAbortController = new AbortController();
   private _currentPanel = '';
-  private _playerCreature?: Creature;
   private _currentHoverItemText =
   new PIXI.Text('', {fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round'});
   private _isEditing = false;
@@ -363,6 +363,8 @@ export class Game {
       // TODO: AdminClientModule should create the panel. Until then, manually remove panel.
       Helper.find('.panels__tab[data-panel="admin"]').remove();
     }
+
+    this.tick = this.tick.bind(this);
   }
 
   get worldTime() {
@@ -372,7 +374,28 @@ export class Game {
     return new WorldTime(this.client.ticksPerWorldDay, epoch);
   }
 
-  onDisconnect() {
+  async onDisconnect() {
+    this.app.ticker.remove(this.tick);
+    document.body.classList.add('disconnected');
+
+    const deadClient = this.client;
+    for (let i = 0; i < 20; i++) {
+      const {status} = await reconnectToServer(this.client);
+      if (status === 'success') {
+        console.log('reconnected!');
+        // TODO: untangle Client from Connection creation.
+        this.client.eventEmitter = deadClient.eventEmitter;
+        this.app.ticker.add(this.tick);
+        this.worldContainer.map = this.client.context.map;
+        document.body.classList.remove('disconnected');
+        return;
+      } else if (status === 'failure') {
+        break;
+      } else if (status === 'try-again') {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      }
+    }
+
     this._eventAbortController.abort();
     window.document.body.innerText = 'Lost connection to server. Please refresh.';
   }
@@ -418,8 +441,7 @@ export class Game {
   }
 
   getPlayerCreature() {
-    if (!this._playerCreature) this._playerCreature = this.client.creature;
-    return this._playerCreature;
+    return this.client.creature;
   }
 
   // Should only be used for refreshing UI, not updating game state.
@@ -587,7 +609,7 @@ export class Game {
       module.onStart();
     }
 
-    this.app.ticker.add(this.tick.bind(this));
+    this.app.ticker.add(this.tick);
     this.registerListeners();
 
     this.app.stage.addChild(this._currentHoverItemText);
@@ -647,12 +669,101 @@ export class Game {
     // }, 1000 * 10);
   }
 
-  registerListeners() {
-    const evtOptions = {signal: this._eventAbortController.signal};
-
+  registerClientEventListeners() {
     this.client.eventEmitter.on('event', (e) => {
       if (this.started) this.onProtocolEvent(e);
     });
+
+    this.client.eventEmitter.on('itemMoveBegin', (e: ItemMoveBeginEvent) => {
+      if (!e.item) return;
+
+      this.itemMovingState = e;
+      const metaItem = Content.getMetaItem(e.item.type);
+      this.itemMovingGraphic.setState({
+        graphic: {
+          file: metaItem.graphics.file,
+          index: metaItem.graphics.frames[0],
+        },
+      });
+    });
+    this.client.eventEmitter.on('itemMoveEnd', (e: ItemMoveEndEvent) => {
+      if (!this.itemMovingState) return;
+
+      const from = this.itemMovingState.location;
+      const to = e.location;
+      if (!Utils.ItemLocation.Equal(from, to)) {
+        this.client.connection.sendCommand(CommandBuilder.moveItem({
+          from,
+          to,
+        }));
+      }
+
+      this.itemMovingState = undefined;
+    });
+
+    this.client.eventEmitter.on('containerWindowSelectedIndexChanged', () => {
+      this.modules.selectedView.renderSelectedView();
+      this.modules.usage.updatePossibleUsages();
+    });
+
+    this.client.eventEmitter.on('playerMove', (e) => {
+      if (!this.state.selectedView.creatureId) this.modules.selectedView.clearSelectedView();
+      ContextMenu.close();
+      this.modules.usage.updatePossibleUsages(e.to);
+      this.itemMovingState = undefined;
+      this._mouseCursor.location = null;
+    });
+
+    this.client.eventEmitter.on('action', () => ContextMenu.close());
+
+    this.client.eventEmitter.on('editingMode', ({enabled}) => {
+      this._isEditing = enabled;
+    });
+
+    // this.client.eventEmitter.on('mouseMovedOverTile', (loc) => {
+    //  const tile = this.client.context.map.getTile(loc);
+    //  if (!tile.creature) return;
+    // });
+
+    let helpWindow: ReturnType<typeof makeHelpWindow>;
+    this.client.eventEmitter.on('panelFocusChanged', ({panelName}) => {
+      if (panelName === 'help') {
+        if (!helpWindow) helpWindow = makeHelpWindow(this);
+        helpWindow.el.hidden = false;
+      } else if (helpWindow) {
+        helpWindow.el.hidden = true;
+      }
+    });
+
+    let spellsWindow: ReturnType<typeof makeSpellsWindow>;
+    this.client.eventEmitter.on('panelFocusChanged', ({panelName}) => {
+      if (panelName === 'spells') {
+        if (!helpWindow) {
+          spellsWindow = makeSpellsWindow((spell) => {
+            const creatureId = this.state.selectedView.creatureId;
+            let loc;
+            if (spell.target === 'world' && !creatureId) {
+              if (this.state.selectedView.location?.source === 'world') {
+                loc = this.state.selectedView.location.loc;
+              } else {
+                loc = this.client.creature.pos;
+              }
+            }
+
+            this.client.connection.sendCommand(CommandBuilder.castSpell({id: spell.id, creatureId, loc}));
+          });
+        }
+        spellsWindow.el.hidden = false;
+      } else if (spellsWindow) {
+        spellsWindow.el.hidden = true;
+      }
+    });
+  }
+
+  registerListeners() {
+    this.registerClientEventListeners();
+
+    const evtOptions = {signal: this._eventAbortController.signal};
 
     const onActionSelection = (e: Event) => {
       if (!(e.target instanceof HTMLElement)) return;
@@ -827,7 +938,7 @@ export class Game {
 
       // TODO replace with something better - game loaded / ready.
       // or just don't register these events until ready?
-      if (!this._playerCreature) return;
+      if (!this.getPlayerCreature()) return;
       const focusPos = this.getPlayerPosition();
 
       const inventoryWindow = this.containerWindows.get(this.client.player.containerId);
@@ -926,57 +1037,6 @@ export class Game {
     window.addEventListener('resize', resize, evtOptions);
     resize();
 
-    this.client.eventEmitter.on('itemMoveBegin', (e: ItemMoveBeginEvent) => {
-      if (!e.item) return;
-
-      this.itemMovingState = e;
-      const metaItem = Content.getMetaItem(e.item.type);
-      this.itemMovingGraphic.setState({
-        graphic: {
-          file: metaItem.graphics.file,
-          index: metaItem.graphics.frames[0],
-        },
-      });
-    });
-    this.client.eventEmitter.on('itemMoveEnd', (e: ItemMoveEndEvent) => {
-      if (!this.itemMovingState) return;
-
-      const from = this.itemMovingState.location;
-      const to = e.location;
-      if (!Utils.ItemLocation.Equal(from, to)) {
-        this.client.connection.sendCommand(CommandBuilder.moveItem({
-          from,
-          to,
-        }));
-      }
-
-      this.itemMovingState = undefined;
-    });
-
-    this.client.eventEmitter.on('containerWindowSelectedIndexChanged', () => {
-      this.modules.selectedView.renderSelectedView();
-      this.modules.usage.updatePossibleUsages();
-    });
-
-    this.client.eventEmitter.on('playerMove', (e) => {
-      if (!this.state.selectedView.creatureId) this.modules.selectedView.clearSelectedView();
-      ContextMenu.close();
-      this.modules.usage.updatePossibleUsages(e.to);
-      this.itemMovingState = undefined;
-      this._mouseCursor.location = null;
-    });
-
-    this.client.eventEmitter.on('action', () => ContextMenu.close());
-
-    this.client.eventEmitter.on('editingMode', ({enabled}) => {
-      this._isEditing = enabled;
-    });
-
-    // this.client.eventEmitter.on('mouseMovedOverTile', (loc) => {
-    //  const tile = this.client.context.map.getTile(loc);
-    //  if (!tile.creature) return;
-    // });
-
     const chatInput = Helper.find('.chat-input') as HTMLInputElement;
     const chatForm = Helper.find('.chat-form');
     const chatTextarea = Helper.find('.chat-area');
@@ -1005,40 +1065,6 @@ export class Game {
 
       targetEl.classList.toggle('panels__tab--active');
     }, evtOptions);
-
-    let helpWindow: ReturnType<typeof makeHelpWindow>;
-    this.client.eventEmitter.on('panelFocusChanged', ({panelName}) => {
-      if (panelName === 'help') {
-        if (!helpWindow) helpWindow = makeHelpWindow(this);
-        helpWindow.el.hidden = false;
-      } else if (helpWindow) {
-        helpWindow.el.hidden = true;
-      }
-    });
-
-    let spellsWindow: ReturnType<typeof makeSpellsWindow>;
-    this.client.eventEmitter.on('panelFocusChanged', ({panelName}) => {
-      if (panelName === 'spells') {
-        if (!helpWindow) {
-          spellsWindow = makeSpellsWindow((spell) => {
-            const creatureId = this.state.selectedView.creatureId;
-            let loc;
-            if (spell.target === 'world' && !creatureId) {
-              if (this.state.selectedView.location?.source === 'world') {
-                loc = this.state.selectedView.location.loc;
-              } else {
-                loc = this.client.creature.pos;
-              }
-            }
-
-            this.client.connection.sendCommand(CommandBuilder.castSpell({id: spell.id, creatureId, loc}));
-          });
-        }
-        spellsWindow.el.hidden = false;
-      } else if (spellsWindow) {
-        spellsWindow.el.hidden = true;
-      }
-    });
 
     Helper.find('.chat-sections').addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
@@ -1120,7 +1146,7 @@ export class Game {
       return;
     }
 
-    if (!this._playerCreature) return;
+    if (!this.getPlayerCreature()) return;
     if (partition.width === 0) return;
 
     // Make container windows.
@@ -1154,7 +1180,7 @@ export class Game {
       }
     }
 
-    const scale = this.client.settings.scale;
+    const scale = this.client.settings.scale || 1;
     this.app.stage.scale.set(scale);
     let tilesWidth = Math.ceil(this.app.view.width / GFX_SIZE / scale);
     let tilesHeight = Math.ceil(this.app.view.height / GFX_SIZE / scale);

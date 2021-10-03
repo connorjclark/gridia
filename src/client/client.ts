@@ -5,7 +5,7 @@ import {ProtocolEvent} from '../protocol/event-builder.js';
 
 import {Connection} from './connection.js';
 import {TypedEventEmitter} from './event-emitter.js';
-import {Settings} from './modules/settings-module.js';
+import {getDefaultSettings, Settings} from './modules/settings-module.js';
 
 export class Client {
   // @ts-expect-error set later.
@@ -17,11 +17,11 @@ export class Client {
   ticksPerWorldDay = 0;
 
   eventEmitter = new TypedEventEmitter();
-  // @ts-expect-error set later.
-  settings: Settings = {};
+  settings: Settings = getDefaultSettings();
   storedEvents: ProtocolEvent[] = [];
 
   private _protocol = new ClientInterface();
+  firebaseToken?: string;
 
   constructor(public connection: Connection, public context: Context) {
     this.eventEmitter.on('event', this.handleEventFromServer.bind(this));
@@ -36,7 +36,9 @@ export class Client {
     const onMethodName = 'on' + event.type[0].toUpperCase() + event.type.substr(1);
     // @ts-expect-error
     const p = this._protocol[onMethodName];
-    p(this, event.args);
+    // p(this, event.args);
+    // TODO :( must pass singleton version for reconnection to work; because of how tangled Client/Connection is.
+    p(game?.client || this, event.args);
   }
 
   get creature() {

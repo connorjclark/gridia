@@ -19,6 +19,7 @@ export class ServerInterface implements ICommands {
       return Promise.reject('out of bounds');
     }
 
+    // TODO: pass connection as second parameter.
     const creature = server.currentClientConnection.creature;
 
     const tile = server.context.map.getTile(loc);

@@ -126,7 +126,7 @@ export class WebRTCConnection extends Connection {
 }
 
 export class WebSocketConnection extends Connection {
-  constructor(private _ws: WebSocket) {
+  constructor(public hostname: string, public port: number, private _ws: WebSocket) {
     super();
     _ws.addEventListener('message', (e) => {
       if (e.data.rpc) return;
