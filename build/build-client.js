@@ -74,8 +74,6 @@ async function buildClient({ workerFileName }) {
     minify: true,
     sourcemap: true,
   });
-
-  copyFolderRecursiveSync("worlds", path.join("dist", "client"));
 }
 
 async function buildWorker() {
@@ -118,6 +116,7 @@ async function main() {
   fs.mkdirSync(__dirname + '/../dist/client', { recursive: true });
   const { workerFileName } = await buildWorker();
   await buildClient({ workerFileName });
+  copyFolderRecursiveSync("worlds", path.join("dist", "client"));
 }
 
 main().catch(console.error);

@@ -1,5 +1,0 @@
-{
-  "watch": ["src/*.ts", "src/server/**/*.ts"],
-  "ext": "ts",
-  "exec": "yarn run-server"
-}
