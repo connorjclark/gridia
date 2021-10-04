@@ -91,6 +91,7 @@ async function generateMap(args: GenerateMapArgs): Promise<void> {
 
   if (args.bare) {
     mapPreviewPartition = makeBareMap(args.width, args.height, args.depth);
+    mapPreviewGenData = null;
   } else {
     // @ts-expect-error: TODO
     const mapGenResult = mapgen(args);

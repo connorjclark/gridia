@@ -235,19 +235,23 @@ export class MapSelectScene extends Scene {
   async generateMap(opts: any) {
     if (this.loadingPreview) return;
     this.loadingPreview = true;
+    this.previewEl.innerHTML = '?';
+
+    const worldDataDefinition = WORLD_DATA_DEFINITIONS[opts.worldDataDefinition];
+    let bare = true;
+    if (worldDataDefinition.baseDir === 'worlds/rpgwo-world') bare = false;
 
     this.loadingPreviewName = `World ${this.mapListEl.childElementCount + 1} (${opts.worldDataDefinition})`;
     const canvas = document.createElement('canvas');
     const offscreenCanvas = canvas.transferControlToOffscreen && canvas.transferControlToOffscreen();
     await this.controller.serverWorker.generateMap({
       ...opts,
-      worldDataDefinition: WORLD_DATA_DEFINITIONS[opts.worldDataDefinition],
+      worldDataDefinition,
       canvas: offscreenCanvas,
-      bare: true,
+      bare,
     }).finally(() => this.loadingPreview = false);
 
-    this.previewEl.innerHTML = '';
-    this.previewEl.append(canvas);
+    if (!bare) this.previewEl.append(canvas);
     this.selectBtn.classList.remove('hidden');
   }
 
