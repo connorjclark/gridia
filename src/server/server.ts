@@ -53,8 +53,6 @@ export class Server {
     to?: ClientConnection;
     filter?: (client: ClientConnection) => boolean;
   }>;
-  // @ts-expect-error: this is always defined when accessed.
-  currentClientConnection: ClientConnection;
   creatureStates: Record<number, CreatureState> = {};
 
   verbose: boolean;
@@ -72,11 +70,6 @@ export class Server {
 
   addClientConnection(clientConnection: ClientConnection) {
     this.context.clientConnections.push(clientConnection);
-  }
-
-  reply(event: ProtocolEvent) {
-    const message = {data: event};
-    this.outboundMessages.push({to: this.currentClientConnection, message});
   }
 
   broadcast(event: ProtocolEvent) {
@@ -1570,7 +1563,6 @@ export class Server {
         for (const clientConnection of this.context.clientConnections) {
           if (clientConnection.messageQueue.length === 0) continue;
 
-          this.currentClientConnection = clientConnection;
           const messages = [...clientConnection.messageQueue];
           clientConnection.messageQueue.length = 0;
 
@@ -1581,8 +1573,7 @@ export class Server {
             try {
               const onMethodName = 'on' + command.type[0].toUpperCase() + command.type.substr(1);
               // @ts-expect-error
-              // eslint-disable-next-line
-              await Promise.resolve(this._serverInterface[onMethodName](this, command.args))
+              await Promise.resolve(this._serverInterface[onMethodName](this, clientConnection, command.args))
                 .then((data: any) => clientConnection.send({id: message.id, data}))
                 .catch((e?: Error | string) => {
                   // TODO: why is this catch AND the try/catch needed?
@@ -1613,8 +1604,6 @@ export class Server {
             // performance.mark(`${message.type}-end`);
             // performance.measure(message.type, `${message.type}-start`, `${message.type}-end`);
           }
-          // @ts-expect-error
-          this.currentClientConnection = undefined;
         }
 
         // TODO stream marks somewhere, and pull in isomorphic node/browser performance.
