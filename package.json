@@ -39,7 +39,7 @@
     "build-prod": "NODE_ENV=production yarn build-client",
     "build-client": "node build/build-client.js",
     "convert": "yarn ts-node src/convert-rpgwo/convert.ts",
-    "run-server": "GOOGLE_APPLICATION_CREDENTIALS=$PWD/deploy/firebase-service-key.json GRIDIA_EXECUTION_ENV=node node --loader ts-node/esm src/server/run.ts",
+    "run-server": "GOOGLE_APPLICATION_CREDENTIALS=$PWD/deploy/firebase-service-key.json GRIDIA_EXECUTION_ENV=node yarn ts-node src/server/run.ts",
     "run-static-server": "http-server dist/client -c-1",
     "clean": "rimraf dist .cache",
     "watch": "concurrently --kill-others --names Server,Client,Static --prefix name \"yarn watch-server\" \"yarn watch-client\" \"yarn run-static-server > /dev/null\"",
@@ -49,7 +49,7 @@
     "type-check": "tsc --noEmit",
     "lint": "eslint '{src,test,build}/**/*.{ts,tsx,js,jsx}'",
     "test": "yarn lint && yarn type-check && jest --testPathIgnorePatterns memory",
-    "ts-node": "node --loader ts-node/esm"
+    "ts-node": "TS_NODE_TRANSPILE_ONLY=1 node --loader ts-node/esm"
   },
   "devDependencies": {
     "@chialab/esbuild-plugin-html": "^0.12.2",
