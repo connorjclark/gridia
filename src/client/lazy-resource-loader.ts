@@ -1,3 +1,6 @@
+import type {LoaderResource} from '@pixi/loaders';
+import type {Dict} from '@pixi/utils';
+
 // TODO: sounds per-world.
 export const SfxResources: Record<string, string> = {
   beep: './worlds/rpgwo-world/sound/sfx/rpgwo/beep.WAV',
@@ -74,7 +77,7 @@ export class LazyResourceLoader {
     const queue = [...this.loadQueue];
     this.loadQueue.splice(0, this.loadQueue.length);
 
-    PIXI.Loader.shared.add(queue).load((_, resources: PIXI.ILoaderResource[]) => {
+    PIXI.Loader.shared.add(queue).load((_, resources: Dict<LoaderResource>) => {
       for (const resource of Object.values(resources)) {
         if (!resource) continue;
 
