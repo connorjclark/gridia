@@ -294,8 +294,9 @@ export class MapSelectScene extends Scene {
     this.loadingPreview = false;
     this.previewEl.innerHTML = '';
     this.selectBtn.classList.add('hidden');
-    this.renderMapSelection();
-    createMapSelectForm(this.inputFormEl, this.generateMap.bind(this));
+    this.renderMapSelection().then(() => {
+      createMapSelectForm(this.inputFormEl, this.generateMap.bind(this));
+    });
   }
 
   onHide() {

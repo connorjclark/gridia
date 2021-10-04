@@ -896,7 +896,7 @@ export class Game {
       }
 
       // Temporary.
-      if (this.client.settings.clickMagic) {
+      if (this.client.settings.clickMagic && Content.getBaseDir() === 'worlds/rpgwo-world') {
         const graphics = Math.random() > 0.5 ? {graphic: 60, graphicFrames: 10} : {graphic: 80, graphicFrames: 5};
         const frames: GridiaAnimation['frames'] =
           Utils.emptyArray(graphics.graphicFrames).map((_, i) => ({sprite: graphics.graphic + i}));
