@@ -97,7 +97,7 @@ async function buildWorker() {
       'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`,
       'process.env.GRIDIA_EXECUTION_ENV': '"browser"',
       'process.env.NODE_DEBUG': 'false',
-      'global': 'globalThis', // TODO just use globalThis ?
+      'global': 'globalThis',
     },
     outdir: 'dist/client',
     minify: true,

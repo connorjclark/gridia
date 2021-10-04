@@ -27,7 +27,7 @@ async function onHttpRequest(req: http.IncomingMessage, res: http.ServerResponse
 
 async function main(options: CLIOptions) {
   // @ts-expect-error
-  global.performance = performance;
+  globalThis.performance = performance;
 
   if (process.env.GRIDIA_EXECUTION_ENV === 'node') {
     const firebaseAdmin = (await import('firebase-admin')).default;

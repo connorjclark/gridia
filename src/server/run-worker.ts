@@ -100,8 +100,8 @@ async function generateMap(args: GenerateMapArgs): Promise<void> {
   }
 
   if (mapPreviewGenData && args.canvas) {
-    // @ts-expect-error: Hack to make canvas-node use the given OffscreenCanvas.
-    global.document = {
+    globalThis.document = {
+      // @ts-expect-error: Hack to make canvas-node use the given OffscreenCanvas.
       createElement() {
         return args.canvas;
       },
@@ -109,6 +109,9 @@ async function generateMap(args: GenerateMapArgs): Promise<void> {
 
     // This draws to the OffscreenCanvas.
     makeMapImage(mapPreviewGenData);
+
+    // @ts-expect-error
+    delete globalThis.document;
   }
 
   return Promise.resolve();
