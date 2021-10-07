@@ -4,7 +4,7 @@ import * as Content from '../../content.js';
 import * as Utils from '../../utils.js';
 import {Game} from '../game.js';
 
-import {Graphic, ComponentProps, createSubApp, makeUIWindow, CustomCreatureGraphic} from './ui-common.js';
+import {Graphic, ComponentProps, createSubApp, CustomCreatureGraphic} from './ui-common.js';
 
 interface State {
   name?: string;
@@ -97,12 +97,41 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
   }
 
   const {SubApp, exportedActions, subscribe} = createSubApp(ContainerWindow, initialState, actions);
-  const cell = container.type === 'equipment' ? 'center' : 'right';
-  const el = makeUIWindow({name: 'container', cell, noscroll: true});
-  render(<SubApp />, el);
 
-  if (container.type === 'equipment') {
-    el.classList.add('window--equipment');
+  let id;
+  if (container.type === 'equipment' && container.id === game.client.player.equipmentContainerId) {
+    id = game.windowManager.createWindow({
+      id: 'equipment',
+      cell: 'center',
+      tabLabel: 'Equipment',
+      noscroll: true,
+      onInit(el) {
+        render(<SubApp />, el);
+        addListeners(el);
+      },
+    }).id;
+  } else if (container.type === 'normal' && container.id === game.client.player.containerId) {
+    id = game.windowManager.createWindow({
+      id: 'inventory',
+      cell: 'right',
+      tabLabel: 'Inventory',
+      show: true,
+      noscroll: true,
+      onInit(el) {
+        render(<SubApp />, el);
+        addListeners(el);
+      },
+    }).id;
+  } else {
+    id = game.windowManager.createWindow({
+      id: `container${container.id}`,
+      cell: 'center',
+      noscroll: true,
+      onInit(el) {
+        render(<SubApp />, el);
+        addListeners(el);
+      },
+    }).id;
   }
 
   let mouseDownIndex: number;
@@ -117,48 +146,50 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
     return index;
   };
 
-  el.addEventListener('pointerdown', (e) => {
-    // lol
-    // @ts-expect-error
-    container = game.client.context.containers.get(container.id);
+  function addListeners(el: HTMLElement) {
+    el.addEventListener('pointerdown', (e) => {
+      // lol
+      // @ts-expect-error
+      container = game.client.context.containers.get(container.id);
 
-    const index = getIndex(e);
-    if (index === undefined || !container.items[index]) return;
+      const index = getIndex(e);
+      if (index === undefined || !container.items[index]) return;
 
-    mouseDownIndex = index;
+      mouseDownIndex = index;
 
-    game.client.eventEmitter.emit('itemMoveBegin', {
-      location: Utils.ItemLocation.Container(container.id, index),
-      item: container.items[index] || undefined,
-    });
-  });
-
-  el.addEventListener('pointermove', (e) => {
-    const index = getIndex(e);
-    if (index === undefined) return;
-
-    mouseOverIndex = index;
-    // TODO: show selected view temporarily when hovering.
-    // game.modules.selectedView.selectView(Utils.ItemLocation.Container(container.id, index));
-  });
-
-  // el.addEventListener('pointerout', () => {
-  //   if (game.state.selectedView.location?.source === 'container') {
-  //     game.modules.selectedView.clearSelectedView();
-  //   }
-  // });
-
-  el.addEventListener('pointerup', () => {
-    if (mouseOverIndex !== undefined) {
-      game.client.eventEmitter.emit('itemMoveEnd', {
-        location: Utils.ItemLocation.Container(container.id, mouseOverIndex),
+      game.client.eventEmitter.emit('itemMoveBegin', {
+        location: Utils.ItemLocation.Container(container.id, index),
+        item: container.items[index] || undefined,
       });
-    }
-    if (mouseDownIndex === mouseOverIndex) {
-      if (container.type === 'normal') exportedActions.setSelectedIndex(mouseDownIndex);
-      game.modules.selectedView.selectView(Utils.ItemLocation.Container(container.id, mouseDownIndex));
-    }
-  });
+    });
 
-  return {el, actions: exportedActions, subscribe};
+    el.addEventListener('pointermove', (e) => {
+      const index = getIndex(e);
+      if (index === undefined) return;
+
+      mouseOverIndex = index;
+      // TODO: show selected view temporarily when hovering.
+      // game.modules.selectedView.selectView(Utils.ItemLocation.Container(container.id, index));
+    });
+
+    // el.addEventListener('pointerout', () => {
+    //   if (game.state.selectedView.location?.source === 'container') {
+    //     game.modules.selectedView.clearSelectedView();
+    //   }
+    // });
+
+    el.addEventListener('pointerup', () => {
+      if (mouseOverIndex !== undefined) {
+        game.client.eventEmitter.emit('itemMoveEnd', {
+          location: Utils.ItemLocation.Container(container.id, mouseOverIndex),
+        });
+      }
+      if (mouseDownIndex === mouseOverIndex) {
+        if (container.type === 'normal') exportedActions.setSelectedIndex(mouseDownIndex);
+        game.modules.selectedView.selectView(Utils.ItemLocation.Container(container.id, mouseDownIndex));
+      }
+    });
+  }
+
+  return {id, actions: exportedActions, subscribe};
 }

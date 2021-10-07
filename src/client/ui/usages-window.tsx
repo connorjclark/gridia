@@ -3,7 +3,7 @@ import {render, h, Component} from 'preact';
 import * as Content from '../../content.js';
 import {UsageModule} from '../modules/usage-module.js';
 
-import {Graphic, makeUIWindow} from './ui-common.js';
+import {Graphic} from './ui-common.js';
 
 export function makeUsagesWindow(usageModule: UsageModule) {
   let setState = (_: Partial<State>) => {
@@ -44,8 +44,19 @@ export function makeUsagesWindow(usageModule: UsageModule) {
     }
   }
 
-  const el = makeUIWindow({name: 'usages', cell: 'center'});
-  render(<UsagesWindow />, el);
+  const {id} = usageModule.game.windowManager.createWindow({
+    id: 'usages',
+    cell: 'center',
+    onInit(el) {
+      render(<UsagesWindow />, el);
+      el.addEventListener('pointerup', (e) => {
+        const index = getIndex(e);
+        if (index === undefined) return;
+
+        usageModule.selectUsage(index);
+      });
+    },
+  });
 
   const getIndex = (e: PointerEvent): number | undefined => {
     const target = e.target as HTMLElement;
@@ -56,15 +67,9 @@ export function makeUsagesWindow(usageModule: UsageModule) {
     return index;
   };
 
-  el.addEventListener('pointerup', (e) => {
-    const index = getIndex(e);
-    if (index === undefined) return;
-
-    usageModule.selectUsage(index);
-  });
 
   return {
-    el,
+    id,
     setState: (s: Partial<State>) => setState(s),
   };
 }

@@ -1,7 +1,9 @@
 import {render, h, Component} from 'preact';
 import {useState} from 'preact/hooks';
 
-import {ComponentProps, makeUIWindow, createSubApp, TabbedPane, TabbedPaneProps} from './ui-common.js';
+import {Game} from '../game.js';
+
+import {ComponentProps, createSubApp, TabbedPane, TabbedPaneProps} from './ui-common.js';
 
 export interface State {
   combatLevel: {
@@ -29,7 +31,7 @@ export interface State {
   onLearnSkill: (id: number) => void;
 }
 
-export function makeSkillsWindow(initialState: State) {
+export function makeSkillsWindow(game: Game, initialState: State) {
   const actions = () => ({
     setState(state: State, newState: State) {
       return {
@@ -180,8 +182,14 @@ export function makeSkillsWindow(initialState: State) {
   }
 
   const {SubApp, exportedActions, subscribe} = createSubApp(SkillsWindow, initialState, actions);
-  const el = makeUIWindow({name: 'skills', cell: 'center'});
-  render(<SubApp />, el);
+  game.windowManager.createWindow({
+    id: 'skills',
+    cell: 'center',
+    tabLabel: 'Skills',
+    onInit(el) {
+      render(<SubApp />, el);
+    },
+  });
 
-  return {el, actions: exportedActions, subscribe};
+  return {actions: exportedActions, subscribe};
 }

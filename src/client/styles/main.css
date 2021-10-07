@@ -97,6 +97,7 @@ button {
 
 .chat {
   flex-grow: 2;
+  max-width: 40%;
   margin: 0 10px;
   opacity: 0.8;
   pointer-events: all;
@@ -299,6 +300,10 @@ button {
   height: 97vh;
 }
 
+.ui .grid-container.large-right {
+  grid-template-columns: 0.2fr 1.5fr 2fr;
+}
+
 .grid-container > div {
   margin: 5px;
   min-height: 0;
@@ -366,6 +371,9 @@ button {
   border-image-slice: 1;
 }
 
+.window--admin {
+  order: 1;
+}
 .window--admin > div {
   display: flex;
 }
@@ -397,10 +405,11 @@ button {
 }
 
 .window--view {
-  order: 1;
+  order: 2;
 }
 
 .window--map {
+  order: 0;
   display: flex;
   flex-direction: column;
   font-family: monospace;
@@ -411,7 +420,7 @@ button {
 }
 
 .window--container {
-  order: 0;
+  order: 1;
   max-height: 30vh;
 }
 .container__slots {
@@ -480,6 +489,7 @@ button {
 
 .window--attributes {
   flex-grow: 1;
+  max-width: 20%;
   height: min-content;
   align-self: flex-end;
 }

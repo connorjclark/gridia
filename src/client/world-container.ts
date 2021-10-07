@@ -278,7 +278,9 @@ export class WorldContainer extends PIXI.Container {
   }
 
   tick() {
-    if (Helper.maybeFind('.grid-container .center > div:not([hidden])')) {
+    if (Helper.maybeFind('.grid-container.large-right')) {
+      this.camera.centerElasticity = {left: 0.2, right: 0.3, top: 0.4, bottom: 0.6};
+    } else if (Helper.maybeFind('.grid-container .center > div:not([hidden])')) {
       this.camera.centerElasticity = this.camera.RIGHT_CENTER_ELASTICITY;
     } else {
       this.camera.centerElasticity = this.camera.DEFAULT_CENTER_ELASTICITY;

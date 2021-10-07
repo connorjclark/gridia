@@ -84,7 +84,7 @@ export class SettingsModule extends ClientModule {
 
   getSettingsWindow() {
     if (this.settingsWindow) return this.settingsWindow;
-    this.settingsWindow = makeSettingsWindow({settings: this.game.client.settings});
+    this.settingsWindow = makeSettingsWindow(this.game, {settings: this.game.client.settings});
     this.settingsWindow.subscribe((state) => {
       if (state.settings) this.game.client.settings = state.settings;
     });
@@ -92,15 +92,6 @@ export class SettingsModule extends ClientModule {
   }
 
   onStart() {
-    this.game.client.eventEmitter.on('windowTabSelected', ({name, active}) => {
-      if (name !== 'settings') return;
-
-      if (active) {
-        this.getSettingsWindow().el.hidden = false;
-        this.getSettingsWindow().actions.setSettings({...this.game.client.settings});
-      } else if (this.settingsWindow) {
-        this.getSettingsWindow().el.hidden = true;
-      }
-    });
+    this.getSettingsWindow();
   }
 }

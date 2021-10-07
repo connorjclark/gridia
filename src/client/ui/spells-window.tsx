@@ -2,9 +2,10 @@ import {render, h, Component} from 'preact';
 import {useEffect} from 'preact/hooks';
 
 import * as Content from '../../content.js';
+import {game} from '../../game-singleton.js';
 import * as Helper from '../helper.js';
 
-import {Graphic, ComponentProps, createSubApp, makeUIWindow, TabbedPane, TabbedPaneProps} from './ui-common.js';
+import {Graphic, ComponentProps, createSubApp, TabbedPane, TabbedPaneProps} from './ui-common.js';
 
 interface State {
   spells: Spell[];
@@ -89,8 +90,10 @@ export function makeSpellsWindow(onCastSpell: (spell: Spell) => void) {
     render(props: Props) {
       useEffect(() => {
         const handle = setInterval(() => {
+          if (!el_) return;
+
           const now = Date.now();
-          for (const spellEl of Helper.findAll('.spell', el)) {
+          for (const spellEl of Helper.findAll('.spell', el_)) {
             const cooldown = Number(spellEl.getAttribute('data-cooldown'));
             const seconds = cooldown > now ? (cooldown - now) / 1000 : 0;
             const timerEl = Helper.find('.timer', spellEl);
@@ -109,8 +112,17 @@ export function makeSpellsWindow(onCastSpell: (spell: Spell) => void) {
   }
 
   const {SubApp, exportedActions, subscribe} = createSubApp(SpellsWindow, initialState, actions);
-  const el = makeUIWindow({name: 'spells', cell: 'center', noscroll: true});
-  render(<SubApp />, el);
+  let el_: HTMLElement; // TODO: remove
+  game.windowManager.createWindow({
+    id: 'spells',
+    cell: 'center',
+    tabLabel: 'Spells',
+    noscroll: true,
+    onInit(el) {
+      el_ = el;
+      render(<SubApp />, el);
+    },
+  });
 
-  return {el, actions: exportedActions, subscribe};
+  return {actions: exportedActions, subscribe};
 }

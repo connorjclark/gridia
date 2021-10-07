@@ -6,7 +6,7 @@ import * as Utils from '../../utils.js';
 import * as Helper from '../helper.js';
 import {AdminModule} from '../modules/admin-module.js';
 
-import {Graphic, makeUIWindow} from './ui-common.js';
+import {Graphic} from './ui-common.js';
 
 const TOOLS = ['point', 'rectangle', 'fill'] as const;
 type Tool = typeof TOOLS[number];
@@ -117,7 +117,7 @@ function tryRegex(value: string, flags = '') {
   }
 }
 
-export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
+export function makeAdminWindow(adminModule: AdminModule) {
   const validMetaItems = Content.getMetaItems().filter((item) => item.name !== 'Unknown');
 
   const classToMetaItem = new Map<string, MetaItem[]>();
@@ -282,7 +282,17 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
     }
   }
 
-  const el = makeUIWindow({name: 'admin', cell: 'right'});
-  render(<AdminWindow />, el);
-  return el;
+  adminModule.game.windowManager.createWindow({
+    id: 'admin', cell: 'right', tabLabel: 'Admin',
+    onShow() {
+      adminModule.game.windowManager.hideWindowsInCell('right');
+      Helper.find('.grid-container').classList.toggle('large-right', true);
+    },
+    onHide() {
+      Helper.find('.grid-container').classList.toggle('large-right', false);
+    },
+    onInit(el) {
+      render(<AdminWindow />, el);
+    },
+  });
 }

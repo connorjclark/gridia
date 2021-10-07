@@ -5,8 +5,6 @@ import {useState} from 'preact/hooks';
 
 import {Game} from '../game.js';
 
-import {makeUIWindow} from './ui-common.js';
-
 const sections: Record<string, string> = {
   'General': `
     <a href="https://github.com/connorjclark/gridia-2019-wip" target="_blank">GitHub</a>
@@ -78,7 +76,12 @@ export function makeHelpWindow(game: Game) {
     }
   }
 
-  const el = makeUIWindow({name: 'help', cell: 'center'});
-  render(<HelpWindow />, el);
-  return {el};
+  game.windowManager.createWindow({
+    id: 'help',
+    cell: 'center',
+    tabLabel: 'Help',
+    onInit(el) {
+      render(<HelpWindow />, el);
+    },
+  });
 }

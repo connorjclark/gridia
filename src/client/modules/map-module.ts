@@ -2,21 +2,36 @@ import * as Content from '../../content.js';
 import * as Player from '../../player.js';
 import {ClientModule} from '../client-module.js';
 import * as Helper from '../helper.js';
-import {makeUIWindow} from '../ui/ui-common.js';
 
 export class MapModule extends ClientModule {
   private mapEl?: HTMLCanvasElement;
   private context?: CanvasRenderingContext2D;
-  private mapWindow = makeUIWindow({name: 'map', cell: 'right', noscroll: true});
+  private mapWindowEl?: HTMLElement;
 
   private nextDrawAt = 0;
   private numDraws = 0;
 
   onStart() {
-    this.mapEl = Helper.createChildOf(this.mapWindow, 'canvas', 'map');
+    this.game.windowManager.createWindow({
+      id: 'map',
+      tabLabel: 'Map',
+      cell: 'right',
+      noscroll: true,
+      onInit: (el) => {
+        this.mapWindowEl = el;
+        this.createMapView();
+      },
+      show: true,
+    });
+  }
+
+  createMapView() {
+    if (!this.mapWindowEl) return;
+
+    this.mapEl = Helper.createChildOf(this.mapWindowEl, 'canvas', 'map');
     this.mapEl.width = this.mapEl.height; // TODO: css?
 
-    const wrapper = Helper.createChildOf(this.mapWindow, 'div');
+    const wrapper = Helper.createChildOf(this.mapWindowEl, 'div');
     Helper.createChildOf(wrapper, 'div', 'location');
     Helper.createChildOf(wrapper, 'div', 'time');
 
@@ -33,12 +48,14 @@ export class MapModule extends ClientModule {
   }
 
   onTick(now: number) {
+    if (!this.mapWindowEl) return;
+
     const playerLoc = this.game.getPlayerPosition();
-    Helper.find('.location', this.mapWindow).innerText =
+    Helper.find('.location', this.mapWindowEl).innerText =
       `${playerLoc.x}, ${playerLoc.y}, ${playerLoc.z} (map ${playerLoc.w})`;
 
     const worldTime = this.game.client.worldTime;
-    Helper.find('.time', this.mapWindow).innerText = `Time: ${worldTime}`;
+    Helper.find('.time', this.mapWindowEl).innerText = `Time: ${worldTime}`;
 
     if (now < this.nextDrawAt) return;
     this.nextDrawAt = now + 500;

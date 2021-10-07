@@ -32,6 +32,7 @@ import {makeDialogueWindow} from './ui/dialogue-window.js';
 import {makeHelpWindow} from './ui/help-window.js';
 import {makeSpellsWindow} from './ui/spells-window.js';
 import {makeGraphicComponent} from './ui/ui-common.js';
+import {WindowManager} from './window-manager.js';
 import {WorldContainer} from './world-container.js';
 
 // WIP lighting shaders.
@@ -295,6 +296,7 @@ export class Game {
   loader = new LazyResourceLoader();
   started = false;
 
+  windowManager = new WindowManager();
   worldContainer: WorldContainer;
   protected app = new PIXI.Application();
   protected canvasesEl = Helper.find('#canvases');
@@ -305,7 +307,7 @@ export class Game {
 
   protected creatureSprites = new Map<number, CreatureSprite>();
   protected containerWindows = new Map<string, ReturnType<typeof makeContainerWindow>>();
-  protected attributesWindow = makeAttributesWindow();
+  protected attributesWindow = makeAttributesWindow(this);
   protected dialogueWindow?: ReturnType<typeof makeDialogueWindow>;
 
   private _eventAbortController = new AbortController();
@@ -542,7 +544,7 @@ export class Game {
 
       // TODO: better window management.
       function closeDialogueWindow() {
-        game.dialogueWindow?.el.remove();
+        game.windowManager.hideWindow('dialogue');
         game.dialogueWindow = undefined;
         game.client.eventEmitter.removeListener('playerMove', closeDialogueWindow);
       }
@@ -705,47 +707,20 @@ export class Game {
       this._isEditing = enabled;
     });
 
-    // this.client.eventEmitter.on('mouseMovedOverTile', (loc) => {
-    //  const tile = this.client.context.map.getTile(loc);
-    //  if (!tile.creature) return;
-    // });
+    makeHelpWindow(this);
 
-    let helpWindow: ReturnType<typeof makeHelpWindow>;
-    this.client.eventEmitter.on('windowTabSelected', ({name, active}) => {
-      if (name !== 'help') return;
-
-      if (active) {
-        if (!helpWindow) helpWindow = makeHelpWindow(this);
-        helpWindow.el.hidden = false;
-      } else if (helpWindow) {
-        helpWindow.el.hidden = true;
-      }
-    });
-
-    let spellsWindow: ReturnType<typeof makeSpellsWindow>;
-    this.client.eventEmitter.on('windowTabSelected', ({name, active}) => {
-      if (name !== 'spells') return;
-
-      if (active) {
-        if (!helpWindow) {
-          spellsWindow = makeSpellsWindow((spell) => {
-            const creatureId = this.state.selectedView.creatureId;
-            let loc;
-            if (spell.target === 'world' && !creatureId) {
-              if (this.state.selectedView.location?.source === 'world') {
-                loc = this.state.selectedView.location.loc;
-              } else {
-                loc = this.client.creature.pos;
-              }
-            }
-
-            this.client.connection.sendCommand(CommandBuilder.castSpell({id: spell.id, creatureId, loc}));
-          });
+    makeSpellsWindow((spell) => {
+      const creatureId = this.state.selectedView.creatureId;
+      let loc;
+      if (spell.target === 'world' && !creatureId) {
+        if (this.state.selectedView.location?.source === 'world') {
+          loc = this.state.selectedView.location.loc;
+        } else {
+          loc = this.client.creature.pos;
         }
-        spellsWindow.el.hidden = false;
-      } else if (spellsWindow) {
-        spellsWindow.el.hidden = true;
       }
+
+      this.client.connection.sendCommand(CommandBuilder.castSpell({id: spell.id, creatureId, loc}));
     });
   }
 
@@ -1046,7 +1021,12 @@ export class Game {
       const name = targetEl.dataset.panel as string;
       targetEl.classList.toggle('panels__tab--active');
       const active = targetEl.classList.contains('panels__tab--active');
-      game.client.eventEmitter.emit('windowTabSelected', {name, active});
+
+      if (active) {
+        this.windowManager.showWindow(name);
+      } else {
+        this.windowManager.hideWindow(name);
+      }
     }, evtOptions);
 
     Helper.find('.chat-sections').addEventListener('click', (e) => {
@@ -1156,7 +1136,7 @@ export class Game {
         game.client.eventEmitter.on('playerMove', close);
       }
       function close() {
-        containerWindow?.el.remove();
+        if (containerWindow) game.windowManager.deleteWindow(containerWindow.id);
         game.client.eventEmitter.removeListener('playerMove', close);
         game.containerWindows.delete(container.id);
         game.client.context.containers.delete(container.id);

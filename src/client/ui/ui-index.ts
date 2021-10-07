@@ -12,6 +12,7 @@ import {SettingsModule} from '../modules/settings-module.js';
 import {SkillsModule} from '../modules/skills-module.js';
 import {SoundModule} from '../modules/sound-module.js';
 import {UsageModule} from '../modules/usage-module.js';
+import {WindowManager} from '../window-manager.js';
 
 import {makeContainerWindow} from './container-window.js';
 import {makeHelpWindow} from './help-window.js';
@@ -28,6 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   class FakeGame {
+    windowManager = new WindowManager();
     client = {
       eventEmitter: new TypedEventEmitter(),
       settings: {},
@@ -229,7 +231,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         null,
       ],
     };
-    const {el, actions} = makeContainerWindow(game, container);
+    makeContainerWindow(game, container);
   }
 
   const scale = 1.5;
@@ -267,28 +269,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  // TODO: also copied
-  function registerPanelListeners() {
-    Helper.find('.panels__tabs').addEventListener('click', (e) => {
-      const targetEl = e.target as HTMLElement;
-      const name = targetEl.dataset.panel as string;
-      targetEl.classList.toggle('panels__tab--active');
-      const active = targetEl.classList.contains('panels__tab--active');
-      game.client.eventEmitter.emit('windowTabSelected', {name, active});
-    });
-  }
-  registerPanelListeners();
+  makeHelpWindow(game);
 
-  let helpWindow: ReturnType<typeof makeHelpWindow>;
-  // @ts-expect-error
-  game.client.eventEmitter.on('windowTabSelected', ({name, active}) => {
-    if (name !== 'help') return;
+  // TODO: also copied
+  Helper.find('.panels__tabs').addEventListener('click', (e) => {
+    const targetEl = e.target as HTMLElement;
+    const name = targetEl.dataset.panel as string;
+    targetEl.classList.toggle('panels__tab--active');
+    const active = targetEl.classList.contains('panels__tab--active');
 
     if (active) {
-      if (!helpWindow) helpWindow = makeHelpWindow(game);
-      helpWindow.el.hidden = false;
-    } else if (helpWindow) {
-      helpWindow.el.hidden = true;
+      game.windowManager.showWindow(name);
+    } else {
+      game.windowManager.hideWindow(name);
     }
   });
 });

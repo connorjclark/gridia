@@ -6,7 +6,7 @@ import Typed from 'typed.js';
 import * as CommandBuilder from '../../protocol/command-builder.js';
 import {Game} from '../game.js';
 
-import {CustomCreatureGraphic, Graphic, makeUIWindow} from './ui-common.js';
+import {CustomCreatureGraphic, Graphic} from './ui-common.js';
 
 export function makeDialogueWindow(game: Game) {
   let setState = (_: Partial<State>) => {
@@ -95,7 +95,12 @@ export function makeDialogueWindow(game: Game) {
     }
   }
 
-  const windowEl = makeUIWindow({name: 'dialogue', cell: 'center'});
-  render(<DialogueWindow />, windowEl);
-  return {el: windowEl, setState: (s: Partial<State>) => setState(s)};
+  game.windowManager.createWindow({
+    id: 'dialogue',
+    cell: 'center',
+    onInit(el) {
+      render(<DialogueWindow />, el);
+    },
+  });
+  return {setState: (s: Partial<State>) => setState(s)};
 }

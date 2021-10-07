@@ -1,15 +1,16 @@
 import {render, h, Component} from 'preact';
 
 import {val} from '../../lib/link-state.js';
+import {Game} from '../game.js';
 import {SettingsSchema, Settings} from '../modules/settings-module.js';
 
-import {ComponentProps, createSubApp, makeUIWindow} from './ui-common.js';
+import {ComponentProps, createSubApp} from './ui-common.js';
 
 interface State {
   settings: Settings;
 }
 
-export function makeSettingsWindow(initialState: State) {
+export function makeSettingsWindow(game: Game, initialState: State) {
   const actions = () => ({
     setSettings: (state: State, settings: Settings): State => {
       return {...state, settings};
@@ -65,8 +66,14 @@ export function makeSettingsWindow(initialState: State) {
   }
 
   const {SubApp, exportedActions, subscribe} = createSubApp(SettingsWindow, initialState, actions);
-  const el = makeUIWindow({name: 'settings', cell: 'center'});
-  render(<SubApp />, el);
+  game.windowManager.createWindow({
+    id: 'settings',
+    cell: 'center',
+    tabLabel: 'Settings',
+    onInit(el) {
+      render(<SubApp />, el);
+    },
+  });
 
-  return {el, actions: exportedActions, subscribe};
+  return {actions: exportedActions, subscribe};
 }

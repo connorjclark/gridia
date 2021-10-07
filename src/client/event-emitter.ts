@@ -28,7 +28,6 @@ interface Events {
   itemMoveEnd: ItemMoveEndEvent;
   event: ProtocolEvent;
   mouseMovedOverTile: TilePoint;
-  windowTabSelected: {name: string; active: boolean};
   playerMove: {from: TilePoint; to: TilePoint};
   tileClicked: TilePoint;
   pointerDown: TilePoint;

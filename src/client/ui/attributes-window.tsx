@@ -1,6 +1,8 @@
 import {render, h, Component} from 'preact';
 
-import {Graphic, Bar, ComponentProps, createSubApp, makeUIWindow} from './ui-common.js';
+import {Game} from '../game.js';
+
+import {Graphic, Bar, ComponentProps, createSubApp} from './ui-common.js';
 
 interface State {
   life: { current: number; max: number };
@@ -9,7 +11,7 @@ interface State {
   buffs: Array<{ name: string; expiresAt: number; skillName: string; percentChange?: number; linearChange?: number }>;
 }
 
-export function makeAttributesWindow() {
+export function makeAttributesWindow(game: Game) {
   const initialState: State = {
     life: {current: 0, max: 0},
     stamina: {current: 0, max: 0},
@@ -57,8 +59,15 @@ export function makeAttributesWindow() {
   }
 
   const {SubApp, exportedActions, subscribe} = createSubApp(AttributesWindow, initialState, actions);
-  const el = makeUIWindow({name: 'attributes', cell: 'bottom', noscroll: true});
-  render(<SubApp />, el);
+  game.windowManager.createWindow({
+    id: 'attributes',
+    cell: 'bottom',
+    show: true,
+    noscroll: true,
+    onInit(el) {
+      render(<SubApp />, el);
+    },
+  });
 
-  return {el, actions: exportedActions, subscribe};
+  return {actions: exportedActions, subscribe};
 }

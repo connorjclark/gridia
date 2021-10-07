@@ -4,7 +4,7 @@ import * as Content from '../../content.js';
 import * as Utils from '../../utils.js';
 import {UsageModule} from '../modules/usage-module.js';
 
-import {ComponentProps, Graphic, makeUIWindow, createSubApp} from './ui-common.js';
+import {ComponentProps, Graphic, createSubApp} from './ui-common.js';
 
 interface State {
   possibleUsages: PossibleUsage[];
@@ -88,8 +88,39 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
   }
 
   const {SubApp, exportedActions, subscribe} = createSubApp(PossibleUsagesWindow, initialState, actions);
-  const el = makeUIWindow({name: 'possible-usages', cell: 'left'});
-  render(<SubApp />, el);
+  const id = usageModule.game.windowManager.createWindow({
+    id: 'possible-usages',
+    cell: 'left',
+    onInit(el) {
+      render(<SubApp />, el);
+      addListeners(el);
+    },
+  }).id;
+
+  function addListeners(el: HTMLElement) {
+    el.addEventListener('pointerup', (e) => {
+      const index = getIndex(e);
+      if (index === undefined) return;
+
+      // TODO: Choose which possible usage, somehow.
+      usageModule.selectPossibleUsage(possibleUsagesGrouped[index][0]);
+    });
+
+    el.addEventListener('pointerover', (e) => {
+      const index = getIndex(e);
+      if (index === undefined) {
+        usageModule.possibleUsageCursor.location = null;
+        return;
+      }
+
+      // Highlight the usage focus (the first one...) that would be used.
+      const possibleUsage = possibleUsagesGrouped[index][0];
+      usageModule.possibleUsageCursor.location = possibleUsage.focusLocation;
+    });
+    el.addEventListener('pointerleave', () => {
+      usageModule.possibleUsageCursor.location = null;
+    });
+  }
 
   const getIndex = (e: PointerEvent): number | undefined => {
     const target = e.target as HTMLElement;
@@ -100,28 +131,5 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
     return index;
   };
 
-  el.addEventListener('pointerup', (e) => {
-    const index = getIndex(e);
-    if (index === undefined) return;
-
-    // TODO: Choose which possible usage, somehow.
-    usageModule.selectPossibleUsage(possibleUsagesGrouped[index][0]);
-  });
-
-  el.addEventListener('pointerover', (e) => {
-    const index = getIndex(e);
-    if (index === undefined) {
-      usageModule.possibleUsageCursor.location = null;
-      return;
-    }
-
-    // Highlight the usage focus (the first one...) that would be used.
-    const possibleUsage = possibleUsagesGrouped[index][0];
-    usageModule.possibleUsageCursor.location = possibleUsage.focusLocation;
-  });
-  el.addEventListener('pointerleave', () => {
-    usageModule.possibleUsageCursor.location = null;
-  });
-
-  return {el, actions: exportedActions, subscribe};
+  return {id, actions: exportedActions, subscribe};
 }

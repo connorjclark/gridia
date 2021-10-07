@@ -4,7 +4,7 @@ import * as Content from '../../content.js';
 import {val} from '../../lib/link-state.js';
 import {SelectedViewModule} from '../modules/selected-view-module.js';
 
-import {Graphic, ComponentProps, createSubApp, makeUIWindow, Bar, CustomCreatureGraphic} from './ui-common.js';
+import {Graphic, ComponentProps, createSubApp, Bar, CustomCreatureGraphic} from './ui-common.js';
 
 interface State {
   selectedView?: UIState['selectedView'];
@@ -118,8 +118,14 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
   }
 
   const {SubApp, exportedActions, subscribe} = createSubApp(ViewWindow, initialState, actions);
-  const el = makeUIWindow({name: 'view', cell: 'right', noscroll: true});
-  render(<SubApp />, el);
+  const {id} = selectedViewModule.game.windowManager.createWindow({
+    id: 'view',
+    cell: 'right',
+    noscroll: true,
+    onInit(el) {
+      render(<SubApp />, el);
+    },
+  });
 
-  return {el, actions: exportedActions, subscribe};
+  return {id, actions: exportedActions, subscribe};
 }

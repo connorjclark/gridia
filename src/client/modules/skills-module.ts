@@ -24,7 +24,7 @@ export class SkillsModule extends ClientModule {
   getSkillsWindow() {
     if (this.skillsWindow) return this.skillsWindow;
 
-    this.skillsWindow = makeSkillsWindow(this.makeUIState());
+    this.skillsWindow = makeSkillsWindow(this.game, this.makeUIState());
     return this.skillsWindow;
   }
 
@@ -51,16 +51,7 @@ export class SkillsModule extends ClientModule {
       }
     });
 
-    this.game.client.eventEmitter.on('windowTabSelected', ({name, active}) => {
-      if (name !== 'skills') return;
-
-      if (active) {
-        this.getSkillsWindow().el.hidden = false;
-        this.getSkillsWindow().actions.setSkills(this.getSkills());
-      } else if (this.skillsWindow) {
-        this.getSkillsWindow().el.hidden = true;
-      }
-    });
+    this.getSkillsWindow();
   }
 
   getCombatLevel() {

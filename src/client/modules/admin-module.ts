@@ -2,26 +2,13 @@ import * as CommandBuilder from '../../protocol/command-builder.js';
 import * as Utils from '../../utils.js';
 import {ClientModule} from '../client-module.js';
 import {makeAdminWindow, State} from '../ui/admin-window.js';
-import {hideWindowsInCell, showWindow} from '../ui/ui-common.js';
 
 export class AdminModule extends ClientModule {
-  private _adminWindow?: HTMLElement;
   private _state?: State;
 
   onStart() {
-    this.game.client.eventEmitter.on('windowTabSelected', async ({name, active}) => {
-      if (name !== 'admin') return;
-
-      if (active) {
-        await this.init();
-        hideWindowsInCell('right');
-        this.getAdminWindow().hidden = false;
-      } else if (this._adminWindow) {
-        this.setUIState(undefined);
-        this._adminWindow.hidden = true;
-        showWindow('inventory');
-      }
-    });
+    this.init();
+    makeAdminWindow(this);
   }
 
   setUIState(state?: State) {
@@ -34,11 +21,9 @@ export class AdminModule extends ClientModule {
     this._state = state;
   }
 
-  private async init() {
-    if (this._adminWindow) return;
-
-    const scripts = await this.game.client.connection.sendCommand(CommandBuilder.requestScripts({}));
-    console.log({scripts}); // TODO ?
+  private init() {
+    // const scripts = await this.game.client.connection.sendCommand(CommandBuilder.requestScripts({}));
+    // console.log({scripts}); // TODO ?
 
     let downAt: Point4 | undefined;
     this.game.client.eventEmitter.on('pointerDown', (loc) => {
@@ -147,11 +132,5 @@ export class AdminModule extends ClientModule {
       }));
       this.game.client.context.map.getTile(loc).floor = floor;
     }
-  }
-
-  private getAdminWindow() {
-    if (this._adminWindow) return this._adminWindow;
-    this._adminWindow = makeAdminWindow(this);
-    return this._adminWindow;
   }
 }

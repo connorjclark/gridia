@@ -45,24 +45,6 @@ export function createSubApp<S, A>(component: any, initialState: S, actions: () 
   return {SubApp, exportedActions, subscribe};
 }
 
-export function hideWindowsInCell(cell: string) {
-  for (const el of Helper.find(`.ui .grid-container > .${cell}`).children) {
-    // @ts-expect-error
-    el.hidden = true;
-  }
-}
-
-export function showWindow(name: string) {
-  Helper.find(`window window--${name}`).hidden = false;
-}
-
-export function makeUIWindow(opts: { name: string; cell: string; noscroll?: boolean }) {
-  const cellEl = Helper.find(`.ui .grid-container > .${opts.cell}`);
-  const el = Helper.createChildOf(cellEl, 'div', `window window--${opts.name}`);
-  el.classList.toggle('window--noscroll', Boolean(opts.noscroll));
-  return el;
-}
-
 export interface TabbedPaneProps {
   tabs: Record<string, {label: string; content: Component['constructor']}>;
   childProps: any;
