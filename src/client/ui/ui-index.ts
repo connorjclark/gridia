@@ -268,28 +268,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // TODO: also copied
-  let currentPanel = '';
   function registerPanelListeners() {
     Helper.find('.panels__tabs').addEventListener('click', (e) => {
-      Helper.maybeFind('.panels__tab--active')?.classList.toggle('panels__tab--active');
-
       const targetEl = e.target as HTMLElement;
-      let panelName = targetEl.dataset.panel as string;
-      if (panelName === currentPanel) panelName = '';
-
-      game.client.eventEmitter.emit('panelFocusChanged', {panelName});
-      currentPanel = panelName;
-      if (!panelName) return;
-
+      const name = targetEl.dataset.panel as string;
       targetEl.classList.toggle('panels__tab--active');
+      const active = targetEl.classList.contains('panels__tab--active');
+      game.client.eventEmitter.emit('windowTabSelected', {name, active});
     });
   }
   registerPanelListeners();
 
   let helpWindow: ReturnType<typeof makeHelpWindow>;
   // @ts-expect-error
-  game.client.eventEmitter.on('panelFocusChanged', ({panelName}) => {
-    if (panelName === 'help') {
+  game.client.eventEmitter.on('windowTabSelected', ({name, active}) => {
+    if (name !== 'help') return;
+
+    if (active) {
       if (!helpWindow) helpWindow = makeHelpWindow(game);
       helpWindow.el.hidden = false;
     } else if (helpWindow) {

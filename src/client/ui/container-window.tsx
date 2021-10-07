@@ -97,7 +97,8 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
   }
 
   const {SubApp, exportedActions, subscribe} = createSubApp(ContainerWindow, initialState, actions);
-  const el = makeUIWindow({name: 'container', cell: 'right', noscroll: true});
+  const cell = container.type === 'equipment' ? 'center' : 'right';
+  const el = makeUIWindow({name: 'container', cell, noscroll: true});
   render(<SubApp />, el);
 
   if (container.type === 'equipment') {

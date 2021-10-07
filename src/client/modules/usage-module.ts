@@ -81,8 +81,10 @@ export class UsageModule extends ClientModule {
   }
 
   updatePossibleUsages(center?: TilePoint) {
-    this.getPossibleUsagesWindow().actions.setPossibleUsages(this.getPossibleUsages(center));
+    const usages = this.getPossibleUsages(center);
+    this.getPossibleUsagesWindow().actions.setPossibleUsages(usages);
     this.getPossibleUsagesWindow().actions.setSelectedTool(Helper.getSelectedTool());
+    this.getPossibleUsagesWindow().el.hidden = usages.length === 0;
   }
 
   // TODO: better comment. maybe some bullet points. mhm.

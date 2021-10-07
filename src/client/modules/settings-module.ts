@@ -92,8 +92,10 @@ export class SettingsModule extends ClientModule {
   }
 
   onStart() {
-    this.game.client.eventEmitter.on('panelFocusChanged', ({panelName}) => {
-      if (panelName === 'settings') {
+    this.game.client.eventEmitter.on('windowTabSelected', ({name, active}) => {
+      if (name !== 'settings') return;
+
+      if (active) {
         this.getSettingsWindow().el.hidden = false;
         this.getSettingsWindow().actions.setSettings({...this.game.client.settings});
       } else if (this.settingsWindow) {

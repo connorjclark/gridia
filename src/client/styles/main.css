@@ -96,7 +96,7 @@ button {
 }
 
 .chat {
-  width: 35%;
+  flex-grow: 2;
   margin: 0 10px;
   opacity: 0.8;
   pointer-events: all;
@@ -156,14 +156,10 @@ button {
 }
 
 .panels-container {
-  width: 50%;
   pointer-events: all;
 }
 
 .panels__tabs {
-  position: absolute;
-  bottom: 0;
-  right: 0;
   display: flex;
   margin: 5px 0;
 }
@@ -271,6 +267,9 @@ button {
   z-index: 1;
   /* TODO: this pointer event shuffling seems wrong... is there a better way? */
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* always show scrollbars */
@@ -285,36 +284,42 @@ button {
   /* box-shadow: 0 0 1px rgba(0, 0, 0, .5); */
 }
 
-/* https://grid.layoutit.com/?id=9luxXD0 */
+/* https://grid.layoutit.com/?id=5sEXk6x */
 .ui .grid-container {
   display: grid;
-  grid-template-columns: 0.2fr 2.2fr 0.6fr;
-  grid-template-rows: 0.3fr 0.5fr 2.5fr 0.7fr;
+  grid-template-columns: 0.2fr 1.5fr min-content;
+  grid-template-rows: 0.3fr 0.5fr 2.5fr 0.8fr;
   gap: 1px 1px;
+  grid-auto-flow: row;
   grid-template-areas:
-    "left top map"
-    "left center map"
+    "left top right"
+    "left center right"
     "left center right"
     "bottom bottom bottom";
-  height: 100vh;
+  height: 97vh;
 }
+
 .grid-container > div {
   margin: 5px;
   min-height: 0;
 }
-.grid-container .bottom { grid-area: bottom; }
+.grid-container .bottom { grid-area: bottom; display: flex; justify-content: space-between; }
 .grid-container .center { grid-area: center; }
-.grid-container .map { grid-area: map; }
 .grid-container .right { grid-area: right; display: flex; flex-direction: column; }
 .grid-container .left { grid-area: left; }
 .grid-container .top { grid-area: top; }
 
+.ui .toolbar {
+  align-self: flex-end;
+}
+
 .window {
   max-height: 100%;
   padding: 3px;
-  border: solid 2px gold;
+  margin: 2px;
+  border: solid 1px rgb(107 103 81);
   color: white;
-  background-color: rgba(50, 49, 50, 0.85);
+  background-color: rgb(50 49 50 / 86%);
   pointer-events: all;
   overflow-y: scroll;
 }
@@ -396,7 +401,13 @@ button {
 }
 
 .window--map {
-  right: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: monospace;
+}
+.window--map .map {
+  width: 150px;
+  height: 150px;
 }
 
 .window--container {
@@ -468,9 +479,9 @@ button {
 }
 
 .window--attributes {
-  width: 30%;
-  max-height: unset;
-  float: right;
+  flex-grow: 1;
+  height: min-content;
+  align-self: flex-end;
 }
 
 .bar {

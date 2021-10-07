@@ -251,7 +251,10 @@ export class MapSelectScene extends Scene {
       bare,
     }).finally(() => this.loadingPreview = false);
 
-    if (!bare) this.previewEl.append(canvas);
+    if (!bare) {
+      this.previewEl.innerHTML = '';
+      this.previewEl.append(canvas);
+    }
     this.selectBtn.classList.remove('hidden');
   }
 

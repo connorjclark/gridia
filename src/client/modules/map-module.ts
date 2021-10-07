@@ -7,13 +7,12 @@ import {makeUIWindow} from '../ui/ui-common.js';
 export class MapModule extends ClientModule {
   private mapEl?: HTMLCanvasElement;
   private context?: CanvasRenderingContext2D;
-  private mapWindow = makeUIWindow({name: 'map', cell: 'map', noscroll: true});
+  private mapWindow = makeUIWindow({name: 'map', cell: 'right', noscroll: true});
 
   private nextDrawAt = 0;
   private numDraws = 0;
 
   onStart() {
-    this.mapWindow.classList.add('ui-map', 'flex');
     this.mapEl = Helper.createChildOf(this.mapWindow, 'canvas', 'map');
     this.mapEl.width = this.mapEl.height; // TODO: css?
 

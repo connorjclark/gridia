@@ -65,7 +65,7 @@ export function makeSettingsWindow(initialState: State) {
   }
 
   const {SubApp, exportedActions, subscribe} = createSubApp(SettingsWindow, initialState, actions);
-  const el = makeUIWindow({name: 'settings', cell: 'right'});
+  const el = makeUIWindow({name: 'settings', cell: 'center'});
   render(<SubApp />, el);
 
   return {el, actions: exportedActions, subscribe};

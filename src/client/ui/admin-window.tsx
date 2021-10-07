@@ -282,7 +282,7 @@ export function makeAdminWindow(adminModule: AdminModule): HTMLElement {
     }
   }
 
-  const el = makeUIWindow({name: 'admin', cell: 'center'});
+  const el = makeUIWindow({name: 'admin', cell: 'right'});
   render(<AdminWindow />, el);
   return el;
 }

@@ -51,8 +51,10 @@ export class SkillsModule extends ClientModule {
       }
     });
 
-    this.game.client.eventEmitter.on('panelFocusChanged', ({panelName}) => {
-      if (panelName === 'skills') {
+    this.game.client.eventEmitter.on('windowTabSelected', ({name, active}) => {
+      if (name !== 'skills') return;
+
+      if (active) {
         this.getSkillsWindow().el.hidden = false;
         this.getSkillsWindow().actions.setSkills(this.getSkills());
       } else if (this.skillsWindow) {

@@ -57,7 +57,7 @@ export function makeAttributesWindow() {
   }
 
   const {SubApp, exportedActions, subscribe} = createSubApp(AttributesWindow, initialState, actions);
-  const el = makeUIWindow({name: 'attributes', cell: 'top', noscroll: true});
+  const el = makeUIWindow({name: 'attributes', cell: 'bottom', noscroll: true});
   render(<SubApp />, el);
 
   return {el, actions: exportedActions, subscribe};

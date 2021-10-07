@@ -309,7 +309,6 @@ export class Game {
   protected dialogueWindow?: ReturnType<typeof makeDialogueWindow>;
 
   private _eventAbortController = new AbortController();
-  private _currentPanel = '';
   private _currentHoverItemText =
   new PIXI.Text('', {fill: 'white', stroke: 'black', strokeThickness: 6, lineJoin: 'round'});
   private _isEditing = false;
@@ -712,8 +711,10 @@ export class Game {
     // });
 
     let helpWindow: ReturnType<typeof makeHelpWindow>;
-    this.client.eventEmitter.on('panelFocusChanged', ({panelName}) => {
-      if (panelName === 'help') {
+    this.client.eventEmitter.on('windowTabSelected', ({name, active}) => {
+      if (name !== 'help') return;
+
+      if (active) {
         if (!helpWindow) helpWindow = makeHelpWindow(this);
         helpWindow.el.hidden = false;
       } else if (helpWindow) {
@@ -722,8 +723,10 @@ export class Game {
     });
 
     let spellsWindow: ReturnType<typeof makeSpellsWindow>;
-    this.client.eventEmitter.on('panelFocusChanged', ({panelName}) => {
-      if (panelName === 'spells') {
+    this.client.eventEmitter.on('windowTabSelected', ({name, active}) => {
+      if (name !== 'spells') return;
+
+      if (active) {
         if (!helpWindow) {
           spellsWindow = makeSpellsWindow((spell) => {
             const creatureId = this.state.selectedView.creatureId;
@@ -1039,17 +1042,11 @@ export class Game {
 
     // TODO: rename panels cuz they aren't panels anymore.
     Helper.find('.panels__tabs').addEventListener('click', (e) => {
-      Helper.maybeFind('.panels__tab--active')?.classList.toggle('panels__tab--active');
-
       const targetEl = e.target as HTMLElement;
-      let panelName = targetEl.dataset.panel as string;
-      if (panelName === this._currentPanel) panelName = '';
-
-      game.client.eventEmitter.emit('panelFocusChanged', {panelName});
-      this._currentPanel = panelName;
-      if (!panelName) return;
-
+      const name = targetEl.dataset.panel as string;
       targetEl.classList.toggle('panels__tab--active');
+      const active = targetEl.classList.contains('panels__tab--active');
+      game.client.eventEmitter.emit('windowTabSelected', {name, active});
     }, evtOptions);
 
     Helper.find('.chat-sections').addEventListener('click', (e) => {
