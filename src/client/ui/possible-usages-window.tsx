@@ -54,32 +54,50 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
         const possibleUsage = possibleUsagesGroup[0];
         const products = possibleUsage.use.products.filter((p) => p.type);
         if (possibleUsage.use.successTool) products.unshift({type: possibleUsage.use.successTool, quantity: 1});
-        entries.push(products);
+        entries.push({
+          tool: {
+            type: possibleUsage.use.tool,
+            quantity: possibleUsage.use.toolQuantityConsumed,
+          },
+          focus: {
+            type: possibleUsage.use.focus,
+            quantity: possibleUsage.use.focusQuantityConsumed,
+          },
+          products,
+        });
       }
 
       let title = 'Possible Usages';
       if (props.selectedTool) title += ` (using ${Content.getMetaItem(props.selectedTool.type).name})`;
+
+      const makeGraphicForItem = (item: Item) => {
+        const metaItem = Content.getMetaItem(item.type);
+        if (!metaItem.graphics) return;
+
+        const graphicIndex = metaItem.graphics.frames[0] || 0;
+        return <Graphic
+          file={metaItem.graphics.file}
+          index={graphicIndex}
+          quantity={item.quantity}
+        ></Graphic>;
+      };
 
       return <div>
         <div>
           {title}
         </div>
         <div class="possible-usages__usages">
-          {entries.map((products, i) => {
-            if (products.length === 0) return;
-
+          {entries.map(({tool, focus, products}, i) => {
             return <div class="possible-usages__usage" data-index={i}>
-              {products.map((product) => {
-                const metaItem = Content.getMetaItem(product.type);
-                if (!metaItem.graphics) return;
-
-                const graphicIndex = metaItem.graphics.frames[0] || 0;
-                return <Graphic
-                  file={metaItem.graphics.file}
-                  index={graphicIndex}
-                  quantity={product.quantity}
-                ></Graphic>;
-              })}
+              <div class="possible-usages__usage__tool">
+                {makeGraphicForItem(tool)}
+              </div>
+              <div class="possible-usages__usage__focus">
+                {makeGraphicForItem(focus)}
+              </div>
+              <div class="possible-usages__usage__products">
+                {products.map(makeGraphicForItem)}
+              </div>
             </div>;
           })}
         </div>

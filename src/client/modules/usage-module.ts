@@ -84,7 +84,7 @@ export class UsageModule extends ClientModule {
     const usages = this.getPossibleUsages(center);
     this.getPossibleUsagesWindow().actions.setPossibleUsages(usages);
     this.getPossibleUsagesWindow().actions.setSelectedTool(Helper.getSelectedTool());
-    this.getPossibleUsagesWindow().delegate.toggle(usages.length === 0);
+    this.getPossibleUsagesWindow().delegate.toggle(usages.length !== 0);
   }
 
   // TODO: better comment. maybe some bullet points. mhm.
