@@ -537,6 +537,7 @@ button {
   position: relative;
   background-color: #cf8989;
   z-index: 10;
+  transform: translateY(-200%);
 }
 .tooltip-on-hover:hover + .tooltip {
   display: block;
