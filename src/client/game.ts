@@ -333,6 +333,16 @@ export class Game {
 
   protected creatureSprites = new Map<number, CreatureSprite>();
   protected containerWindows = new Map<string, ReturnType<typeof makeContainerWindow>>();
+  protected chatWindow = this.windowManager.createWindow({
+    id: 'chat',
+    tabLabel: 'Chat',
+    cell: 'bottom',
+    show: true,
+    noscroll: true,
+    onInit(el) {
+      el.append(Helper.find('.chat'));
+    },
+  });
   protected attributesWindow = makeAttributesWindow(this);
   protected dialogueWindow?: ReturnType<typeof makeDialogueWindow>;
 

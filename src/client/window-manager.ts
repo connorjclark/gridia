@@ -67,10 +67,22 @@ export class WindowManager {
       win.initialized = true;
     }
 
+    // Only allow one window in the center.
+    if (win.cell === 'center') {
+      this.hideWindowsInCell(win.cell);
+    }
+
     if (win.onShow) win.onShow();
     win.el.classList.remove('hidden');
     if (win.tabLabel) {
       Helper.find(`.panels__tab[data-panel="${id}"]`).classList.toggle('panels__tab--active', true);
+    }
+
+    // Only show one window at a time on narrow viewport.
+    if (window.innerWidth < 650) {
+      for (const w of Object.values(this.windows)) {
+        if (w.id !== id) this.hideWindow(w.id);
+      }
     }
   }
 
