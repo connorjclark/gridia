@@ -7,8 +7,8 @@ interface GridiaWindowOptions {
   tabLabel?: string;
   noscroll?: boolean;
   show?: boolean;
-  onShow?: () => void;
-  onHide?: () => void;
+  onShow?: (el: HTMLElement) => void;
+  onHide?: (el: HTMLElement) => void;
 }
 
 export type WindowDelegate = ReturnType<WindowManager['createWindow']>;
@@ -72,23 +72,23 @@ export class WindowManager {
       this.hideWindowsInCell(win.cell);
     }
 
-    if (win.onShow) win.onShow();
+    if (win.onShow) win.onShow(win.el);
     win.el.classList.remove('hidden');
     if (win.tabLabel) {
       Helper.find(`.panels__tab[data-panel="${id}"]`).classList.toggle('panels__tab--active', true);
     }
 
-    // Only show one window at a time on narrow viewport.
+    // Only show one tab at a time on narrow viewport.
     if (window.innerWidth < 650) {
       for (const w of Object.values(this.windows)) {
-        if (w.id !== id) this.hideWindow(w.id);
+        if (w.initialized && w.tabLabel && w.id !== id) this.hideWindow(w.id);
       }
     }
   }
 
   hideWindow(id: string) {
     const win = this.windows[id];
-    if (win.onHide) win.onHide();
+    if (win.onHide) win.onHide(win.el);
     win.el.classList.add('hidden');
     if (win.tabLabel) {
       Helper.find(`.panels__tab[data-panel="${id}"]`).classList.toggle('panels__tab--active', false);

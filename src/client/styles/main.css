@@ -304,7 +304,7 @@ button {
   grid-template-columns: 0.2fr 1.5fr 2fr;
 }
 
-.grid-container > div {
+.grid-container .grid-section {
   margin: 5px;
   min-height: 0;
 }
