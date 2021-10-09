@@ -55,11 +55,23 @@ export class ServerInterface implements ICommands {
 
     // TODO: generalize
     if (tile.floor === WATER && Content.getBaseDir() === 'worlds/rpgwo-world') {
-      server.creatureStates[creature.id].resetRegenerationTimer(server);
-      if (attributeCheck(creature, 'stamina', 1)) {
-        server.modifyCreatureStamina(null, creature, -2);
-      } else {
-        server.modifyCreatureLife(null, creature, -2);
+      const isRaft = (item?: Item) => item && Content.getMetaItem(item.type).class === 'Raft';
+      const itemBelowPlayer = server.context.map.getItem(clientConnection.creature.pos);
+      const itemBelowPlayerDest = server.context.map.getItem(loc);
+      const isOnRaft = isRaft(itemBelowPlayer) || isRaft(itemBelowPlayerDest);
+
+      if (isRaft(itemBelowPlayer) && !server.context.map.getItem(loc)) {
+        server.setItem(clientConnection.creature.pos, undefined);
+        server.setItem(loc, itemBelowPlayer);
+      }
+
+      if (!isOnRaft) {
+        server.creatureStates[creature.id].resetRegenerationTimer(server);
+        if (attributeCheck(creature, 'stamina', 1)) {
+          server.modifyCreatureStamina(null, creature, -2);
+        } else {
+          server.modifyCreatureLife(null, creature, -2);
+        }
       }
     }
 

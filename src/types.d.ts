@@ -205,7 +205,7 @@ interface MetaItem {
   name: string;
   class:
   'Normal' | 'Armor' | 'Ore' | 'CaveDown' | 'CaveUp' | 'Container' |
-  'Ball' | 'Weapon' | 'Ammo' | 'Plant' | 'Shield' | 'Wand';
+  'Ball' | 'Weapon' | 'Ammo' | 'Plant' | 'Shield' | 'Wand' | 'Raft';
   equipSlot?: 'Head' | 'Weapon' | 'Chest' | 'Shield' | 'Legs' | 'Ammo';
   equipImage?: Graphics;
   graphics: Graphics;
