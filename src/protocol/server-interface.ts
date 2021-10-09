@@ -28,7 +28,10 @@ export class ServerInterface implements ICommands {
     if (tile.item?.type === MINE) {
       const player = clientConnection.player;
       const miningSkill = Content.getSkillByName('Mining');
-      if (!miningSkill || !player.skills.has(miningSkill.id)) return Promise.reject('need mining skill');
+      if (!miningSkill) return Promise.reject('no mining skill');
+      if (!clientConnection.player.isAdmin) {
+        if (!miningSkill || !player.skills.has(miningSkill.id)) return Promise.reject('need mining skill');
+      }
 
       const container = clientConnection.container;
       const playerHasPick = Container.hasItem(container, Content.getMetaItemByName('Pick').id);
@@ -345,8 +348,10 @@ export class ServerInterface implements ICommands {
 
     // TODO: use.skill should be a skill id
     const skill = use.skill && Content.getSkillByName(use.skill);
-    if (skill && !clientConnection.player.skills.has(skill.id)) {
-      return Promise.reject('missing required skill: ' + skill.name);
+    if (!clientConnection.player.isAdmin) {
+      if (skill && !clientConnection.player.skills.has(skill.id)) {
+        return Promise.reject('missing required skill: ' + skill.name);
+      }
     }
 
     const usageResult = {
