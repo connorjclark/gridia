@@ -11,19 +11,17 @@
 }
 
 * {
-  font-family: 'Jura';
   user-select: none;
 }
 
 html {
+  font-family: 'Jura';
+  box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: hidden;
   width: 100%;
 }
 
-html {
-  box-sizing: border-box;
-}
 *, *:before, *:after {
   box-sizing: inherit;
 }
