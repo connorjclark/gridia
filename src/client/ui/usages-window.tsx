@@ -36,6 +36,7 @@ export function makeUsagesWindow(usageModule: UsageModule) {
                 file={metaItem.graphics.file}
                 index={metaItem.graphics.frames[0]}
                 quantity={item.quantity}
+                title={metaItem.name}
               ></Graphic>
             </div>;
           })}

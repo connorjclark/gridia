@@ -82,6 +82,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
                 file={metaItem.graphics.file}
                 index={metaItem.graphics.frames[0]}
                 quantity={item.quantity}
+                title={metaItem.name}
               ></Graphic>;
             }
 

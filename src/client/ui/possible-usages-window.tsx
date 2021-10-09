@@ -79,6 +79,7 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
           file={metaItem.graphics.file}
           index={graphicIndex}
           quantity={item.quantity}
+          title={metaItem.name}
         ></Graphic>;
       };
 

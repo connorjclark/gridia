@@ -119,6 +119,7 @@ interface GraphicProps {
   index: number;
   quantity?: number;
   scale?: number;
+  title?: string;
 }
 export const Graphic = (props: GraphicProps) => {
   const baseDir = Content.getBaseDir();
@@ -160,7 +161,7 @@ export const Graphic = (props: GraphicProps) => {
     };
   }
 
-  return <div class="graphic" style={style}>{label}</div>;
+  return <div class="graphic" style={style} title={props.title}>{label}</div>;
 };
 
 interface CustomCreatureGraphicProps {
