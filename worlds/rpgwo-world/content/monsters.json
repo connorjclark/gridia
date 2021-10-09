@@ -11660,50 +11660,10 @@
   null,
   null,
   null,
-  {
-    "id": 500,
-    "name": "Nobody",
-    "graphics": {
-      "file": "rpgwo-playerNaN.png",
-      "frames": [
-        null
-      ]
-    },
-    "speed": 2
-  },
-  {
-    "id": 501,
-    "name": "Joseq",
-    "graphics": {
-      "file": "rpgwo-playerNaN.png",
-      "frames": [
-        null
-      ]
-    },
-    "speed": 2
-  },
-  {
-    "id": 502,
-    "name": "Kleah",
-    "graphics": {
-      "file": "rpgwo-playerNaN.png",
-      "frames": [
-        null
-      ]
-    },
-    "speed": 2
-  },
-  {
-    "id": 503,
-    "name": "Agirsor",
-    "graphics": {
-      "file": "rpgwo-playerNaN.png",
-      "frames": [
-        null
-      ]
-    },
-    "speed": 2
-  },
+  null,
+  null,
+  null,
+  null,
   {
     "id": 504,
     "name": "Trader Saya",

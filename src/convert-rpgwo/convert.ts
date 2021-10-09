@@ -899,7 +899,7 @@ function parseMonsterIni() {
   ];
 
   const defaults: Partial<Monster> = {};
-  const monsters: Monster[] = [];
+  let monsters: Monster[] = [];
 
   let currentMonster: Monster | undefined = undefined;
   for (const [key, value] of monsterIni) {
@@ -970,6 +970,9 @@ function parseMonsterIni() {
       currentMonster[camelCaseKey] = convertedValue;
     }
   }
+
+  // @ts-expect-error
+  monsters = monsters.filter(m => m.image !== undefined);
 
   for (const monster of monsters) {
     // @ts-expect-error
