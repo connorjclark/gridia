@@ -282,8 +282,10 @@ export function makeAdminWindow(adminModule: AdminModule) {
     }
   }
 
-  adminModule.game.windowManager.createWindow({
-    id: 'admin', cell: 'right', tabLabel: 'Admin',
+  const delegate = adminModule.game.windowManager.createWindow({
+    id: 'admin',
+    cell: 'right',
+    tabLabel: 'Admin',
     onShow() {
       adminModule.game.windowManager.hideWindowsInCell('right');
       Helper.find('.grid-container').classList.toggle('large-right', true);
@@ -295,4 +297,6 @@ export function makeAdminWindow(adminModule: AdminModule) {
       render(<AdminWindow />, el);
     },
   });
+
+  return {delegate};
 }

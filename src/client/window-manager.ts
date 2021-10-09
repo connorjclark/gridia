@@ -11,6 +11,8 @@ interface GridiaWindowOptions {
   onHide?: () => void;
 }
 
+export type WindowDelegate = ReturnType<WindowManager['createWindow']>;
+
 export class WindowManager {
   private windows: Record<string, {el: HTMLElement; initialized: boolean} & GridiaWindowOptions> = {};
 
@@ -40,7 +42,16 @@ export class WindowManager {
       el.classList.add('hidden');
     }
 
-    return {id: opts.id};
+    return {
+      id: opts.id,
+      hide: () => this.hideWindow(opts.id),
+      show: () => this.showWindow(opts.id),
+      toggle: (force?: boolean) => {
+        return force ?? el.classList.contains('hidden') ? this.showWindow(opts.id) : this.hideWindow(opts.id);
+      },
+      remove: () => this.removeWindow(opts.id),
+      isOpen: () => !el.classList.contains('hidden'),
+    };
   }
 
   hideWindowsInCell(cell: string) {
@@ -72,7 +83,7 @@ export class WindowManager {
     }
   }
 
-  deleteWindow(id: string) {
+  removeWindow(id: string) {
     const win = this.windows[id];
     this.hideWindow(id);
     win.el.remove();

@@ -121,10 +121,6 @@ export class SelectedViewModule extends ClientModule {
     }
 
     this.getViewWindow().actions.setView({selectedView: this.game.state.selectedView, data});
-    if (creature || item) {
-      this.game.windowManager.showWindow(this.getViewWindow().id);
-    } else {
-      this.game.windowManager.hideWindow(this.getViewWindow().id);
-    }
+    this.getViewWindow().delegate.toggle(Boolean(creature || item));
   }
 }

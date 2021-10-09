@@ -5,10 +5,10 @@ import {makeAdminWindow, State} from '../ui/admin-window.js';
 
 export class AdminModule extends ClientModule {
   private _state?: State;
+  private _adminWindow = makeAdminWindow(this);
 
   onStart() {
     this.init();
-    makeAdminWindow(this);
   }
 
   setUIState(state?: State) {
@@ -27,6 +27,7 @@ export class AdminModule extends ClientModule {
 
     let downAt: Point4 | undefined;
     this.game.client.eventEmitter.on('pointerDown', (loc) => {
+      if (!this._adminWindow.delegate.isOpen()) return;
       if (!this._state) return;
 
       downAt = loc;
@@ -35,6 +36,7 @@ export class AdminModule extends ClientModule {
       }
     });
     this.game.client.eventEmitter.on('pointerMove', (loc) => {
+      if (!this._adminWindow.delegate.isOpen()) return;
       if (!this._state || !this._state.selected || !downAt) return;
 
       if (this._state.tool === 'point') {
@@ -42,6 +44,8 @@ export class AdminModule extends ClientModule {
       }
     });
     this.game.client.eventEmitter.on('pointerUp', (loc) => {
+      if (!this._adminWindow.delegate.isOpen()) return;
+
       if (!this.game.client.context.map.inBounds(loc)) {
         downAt = undefined;
         return;
@@ -105,6 +109,7 @@ export class AdminModule extends ClientModule {
   }
 
   private setTile(loc: Point4) {
+    if (!this._adminWindow.delegate.isOpen()) return;
     if (!this._state?.selected) return;
 
     if (this._state.selected.type === 'items') {

@@ -98,9 +98,9 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
 
   const {SubApp, exportedActions, subscribe} = createSubApp(ContainerWindow, initialState, actions);
 
-  let id;
+  let delegate;
   if (container.type === 'equipment' && container.id === game.client.player.equipmentContainerId) {
-    id = game.windowManager.createWindow({
+    delegate = game.windowManager.createWindow({
       id: 'equipment',
       cell: 'center',
       tabLabel: 'Equipment',
@@ -109,9 +109,9 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
         render(<SubApp />, el);
         addListeners(el);
       },
-    }).id;
+    });
   } else if (container.type === 'normal' && container.id === game.client.player.containerId) {
-    id = game.windowManager.createWindow({
+    delegate = game.windowManager.createWindow({
       id: 'inventory',
       cell: 'right',
       tabLabel: 'Inventory',
@@ -121,9 +121,9 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
         render(<SubApp />, el);
         addListeners(el);
       },
-    }).id;
+    });
   } else {
-    id = game.windowManager.createWindow({
+    delegate = game.windowManager.createWindow({
       id: `container${container.id}`,
       cell: 'center',
       noscroll: true,
@@ -131,7 +131,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
         render(<SubApp />, el);
         addListeners(el);
       },
-    }).id;
+    });
   }
 
   let mouseDownIndex: number;
@@ -191,5 +191,5 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
     });
   }
 
-  return {id, actions: exportedActions, subscribe};
+  return {delegate, actions: exportedActions, subscribe};
 }

@@ -37,7 +37,7 @@ export class UsageModule extends ClientModule {
   onStart() {
     this.game.client.eventEmitter.on('playerMove', () => {
       if (this.usagesWindow) {
-        this.game.windowManager.hideWindow(this.usagesWindow.id);
+        this.usagesWindow.delegate.hide();
         this.usagesWindow.setState({usages: []});
       }
 
@@ -52,7 +52,7 @@ export class UsageModule extends ClientModule {
   openUsages(usages: ItemUse[], loc: TilePoint, toolIndex: number) {
     this.currentUsagesLoc = loc;
     this.currentUsagesToolIndex = toolIndex;
-    this.game.windowManager.showWindow(this.getUsagesWindow().id);
+    this.getUsagesWindow().delegate.show();
     this.getUsagesWindow().setState({usages});
   }
 
@@ -68,7 +68,7 @@ export class UsageModule extends ClientModule {
     this.currentUsagesToolIndex = undefined;
     if (this.usagesWindow) {
       this.usagesWindow.setState({usages: []});
-      this.game.windowManager.hideWindow(this.usagesWindow.id);
+      this.usagesWindow.delegate.hide();
     }
   }
 
@@ -84,11 +84,7 @@ export class UsageModule extends ClientModule {
     const usages = this.getPossibleUsages(center);
     this.getPossibleUsagesWindow().actions.setPossibleUsages(usages);
     this.getPossibleUsagesWindow().actions.setSelectedTool(Helper.getSelectedTool());
-    if (usages.length === 0) {
-      this.game.windowManager.hideWindow(this.getPossibleUsagesWindow().id);
-    } else {
-      this.game.windowManager.showWindow(this.getPossibleUsagesWindow().id);
-    }
+    this.getPossibleUsagesWindow().delegate.toggle(usages.length === 0);
   }
 
   // TODO: better comment. maybe some bullet points. mhm.

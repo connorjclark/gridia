@@ -44,7 +44,7 @@ export function makeUsagesWindow(usageModule: UsageModule) {
     }
   }
 
-  const {id} = usageModule.game.windowManager.createWindow({
+  const delegate = usageModule.game.windowManager.createWindow({
     id: 'usages',
     cell: 'center',
     onInit(el) {
@@ -69,7 +69,7 @@ export function makeUsagesWindow(usageModule: UsageModule) {
 
 
   return {
-    id,
+    delegate,
     setState: (s: Partial<State>) => setState(s),
   };
 }

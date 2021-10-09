@@ -350,7 +350,8 @@ export class Game {
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   modules = {
-    admin: new AdminModule(this),
+    // @ts-expect-error
+    admin: null as AdminModule,
     movement: new MovementModule(this),
     selectedView: new SelectedViewModule(this),
     settings: new SettingsModule(this),
@@ -1172,7 +1173,7 @@ export class Game {
         game.client.eventEmitter.on('playerMove', close);
       }
       function close() {
-        if (containerWindow) game.windowManager.deleteWindow(containerWindow.id);
+        if (containerWindow) containerWindow.delegate.remove();
         game.client.eventEmitter.removeListener('playerMove', close);
         game.containerWindows.delete(container.id);
         game.client.context.containers.delete(container.id);

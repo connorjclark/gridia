@@ -88,14 +88,14 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
   }
 
   const {SubApp, exportedActions, subscribe} = createSubApp(PossibleUsagesWindow, initialState, actions);
-  const id = usageModule.game.windowManager.createWindow({
+  const delegate = usageModule.game.windowManager.createWindow({
     id: 'possible-usages',
     cell: 'left',
     onInit(el) {
       render(<SubApp />, el);
       addListeners(el);
     },
-  }).id;
+  });
 
   function addListeners(el: HTMLElement) {
     el.addEventListener('pointerup', (e) => {
@@ -131,5 +131,5 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
     return index;
   };
 
-  return {id, actions: exportedActions, subscribe};
+  return {delegate, actions: exportedActions, subscribe};
 }

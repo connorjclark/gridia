@@ -118,7 +118,7 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
   }
 
   const {SubApp, exportedActions, subscribe} = createSubApp(ViewWindow, initialState, actions);
-  const {id} = selectedViewModule.game.windowManager.createWindow({
+  const delegate = selectedViewModule.game.windowManager.createWindow({
     id: 'view',
     cell: 'right',
     noscroll: true,
@@ -127,5 +127,5 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
     },
   });
 
-  return {id, actions: exportedActions, subscribe};
+  return {delegate, actions: exportedActions, subscribe};
 }
