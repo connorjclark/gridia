@@ -116,5 +116,11 @@ declare namespace Protocol {
     interface SetAttackTarget {
       creatureId: number | null;
     }
+
+    interface CreatureStatus {
+      creatureId: number;
+      text: string;
+      color?: string;
+    }
   }
 }

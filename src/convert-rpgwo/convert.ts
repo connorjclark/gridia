@@ -1052,7 +1052,6 @@ function convertLootTables() {
 function convertMonsters() {
   const explicitOrder = ['id', 'name'];
   const monsters = parseMonsterIni().map((monster) => sortObject(monster, explicitOrder));
-  monsters.unshift(null);
   return monsters;
 }
 
@@ -1104,6 +1103,7 @@ function run() {
 
   state.items = fillGaps(state.items);
   state.spells = fillGaps(state.spells);
+  state.monsters = fillGaps(state.monsters);
 
   const blackMagic = state.skills.find(skill => skill.name === 'Black Magic');
   if (blackMagic) blackMagic.name = 'Dark Magic';

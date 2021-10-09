@@ -249,6 +249,7 @@ export class WorldContainer extends PIXI.Container {
     tint: new PIXI.Container(),
     light: new PIXI.Container(),
     top: new PIXI.Container(),
+    statuses: new PIXI.Container(),
   };
 
   camera = new Camera(this);

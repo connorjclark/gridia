@@ -146,15 +146,16 @@ function mouseToWorld(pm: ScreenPoint): ScreenPoint {
 class CreatureSprite extends PIXI.Sprite {
   dirty = false;
 
-  protected label = Draw.pooledText(`creature-label-${this.creature.id}`, '', {
+  private label = Draw.pooledText(`creature-label-${this.creature.id}`, '', {
     fontSize: 20,
     fill: '#f4f1f1',
     lineJoin: 'bevel',
     miterLimit: 1,
     strokeThickness: 5,
   });
-  protected labelGfx = new PIXI.Graphics();
-  protected labelSprite = new PIXI.Sprite();
+  private labelGfx = new PIXI.Graphics();
+  private labelSprite = new PIXI.Sprite();
+  private statusTextsEl?: HTMLElement;
 
   constructor(public creature: Creature) {
     super();
@@ -174,6 +175,12 @@ class CreatureSprite extends PIXI.Sprite {
   }
 
   tick() {
+    if (this.statusTextsEl) {
+      const screenCoords = this.toGlobal({x:0, y: -GFX_SIZE/2});
+      this.statusTextsEl.style.left = screenCoords.x + 'px';
+      this.statusTextsEl.style.bottom = (window.innerHeight - screenCoords.y) + 'px';
+    }
+
     this.labelSprite.transform.scale.set(1 / game.client.settings.scale);
 
     if (this.children.length === 0 || this.dirty) {
@@ -213,6 +220,25 @@ class CreatureSprite extends PIXI.Sprite {
         this.labelGfx.endFill();
       }
     }
+  }
+
+  addStatusText(opts: {text: string; color?: string}) {
+    if (!this.statusTextsEl) this.statusTextsEl = Helper.createChildOf(document.body, 'div', 'status-texts');
+
+    const textEl = Helper.createChildOf(this.statusTextsEl, 'div', 'status-text');
+    textEl.textContent = opts.text;
+    if (opts.color) textEl.style.color = opts.color;
+    textEl.style.fontSize = '20px';
+    this.statusTextsEl.append(textEl);
+
+    setTimeout(() => textEl.classList.add('status-text--remove'), 500);
+    textEl.addEventListener('transitionend', () => {
+      textEl.remove();
+      if (this.statusTextsEl && !this.statusTextsEl?.children.length) {
+        this.statusTextsEl.remove();
+        this.statusTextsEl = undefined;
+      }
+    }, {once: true});
   }
 
   // Returns false if textures are not loaded yet.
@@ -527,6 +553,16 @@ export class Game {
 
     if (event.type === 'chat') {
       this.addToChat(event.args.section, event.args.text, event.args.from);
+    }
+
+    if (event.type === 'creatureStatus') {
+      const creatureSprite = game.creatureSprites.get(event.args.creatureId);
+      if (creatureSprite) {
+        creatureSprite.addStatusText({
+          text: event.args.text,
+          color: event.args.color,
+        });
+      }
     }
 
     if (event.type === 'dialogue') {
@@ -1335,6 +1371,7 @@ export class Game {
     }
   }
 
+  // TODO: combine with creatureSprite.addSTatusText ...
   addStatusText(text: string) {
     Helper.find('.status-texts').style.bottom = Helper.find('.panels__tabs').offsetHeight + 'px';
 
@@ -1343,7 +1380,7 @@ export class Game {
     setTimeout(() => statusTextEl.classList.add('status-text--remove'), 500);
     statusTextEl.textContent = text;
     // TODO: add one listener to .status-texts
-    statusTextEl.addEventListener('transitionend', () => statusTextEl.remove());
+    statusTextEl.addEventListener('transitionend', () => statusTextEl.remove(), {once: true});
     Helper.find('.status-texts').appendChild(statusTextEl);
   }
 

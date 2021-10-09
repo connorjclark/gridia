@@ -825,6 +825,11 @@ export class Server {
     adjustAttribute(creature, 'life', delta);
 
     this.broadcastPartialCreatureUpdate(creature, ['life']);
+    this.conditionalBroadcast(EventBuilder.creatureStatus({
+      creatureId: creature.id,
+      text: delta > 0 ? `+${delta}` : `${delta}`,
+      color: 'red',
+    }), (client) => client.subscribedCreatureIds.has(creature.id));
 
     // if (delta < 0) {
     //   this.broadcastAnimation({
@@ -885,6 +890,11 @@ export class Server {
   modifyCreatureStamina(actor: Creature | null, creature: Creature, delta: number) {
     adjustAttribute(creature, 'stamina', delta);
     this.broadcastPartialCreatureUpdate(creature, ['stamina']);
+    this.conditionalBroadcast(EventBuilder.creatureStatus({
+      creatureId: creature.id,
+      text: delta > 0 ? `+${delta}` : `${delta}`,
+      color: 'gold',
+    }), (client) => client.subscribedCreatureIds.has(creature.id));
   }
 
   assignCreatureBuff(creature: Creature, buff: Buff) {

@@ -18,4 +18,5 @@ export interface IEvents {
     onTime(client: Client, { epoch }: Protocol.Events.Time): void;
     onDialogue(client: Client, { dialogue, index }: Protocol.Events.Dialogue): void;
     onSetAttackTarget(client: Client, { creatureId }: Protocol.Events.SetAttackTarget): void;
+    onCreatureStatus(client: Client, { creatureId, text, color }: Protocol.Events.CreatureStatus): void;
 }

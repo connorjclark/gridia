@@ -84,10 +84,12 @@ button {
   pointer-events: none;
   color: yellow;
   padding: 5px;
+  z-index: 10;
 }
 
 .status-text {
   transition: 2s ease-in-out;
+  -webkit-text-stroke: medium;
 }
 
 .status-text--remove {

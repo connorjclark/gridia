@@ -99,4 +99,8 @@ export class ClientInterface implements IEvents {
   onSetAttackTarget(client: Client, {creatureId}: Events.SetAttackTarget): void {
     client.attackingCreatureId = creatureId;
   }
+
+  onCreatureStatus(client: Client, {creatureId, text, color}: Events.CreatureStatus): void {
+    // handled by game.ts
+  }
 }
