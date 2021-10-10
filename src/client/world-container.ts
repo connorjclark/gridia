@@ -287,14 +287,6 @@ export class WorldContainer extends PIXI.Container {
       } else {
         this.camera.centerElasticity = this.camera.DEFAULT_CENTER_ELASTICITY;
       }
-      // const windows = game.windowManager.getOpenWindows()
-      //   .filter((win) => !['attributes', 'possible-usages', 'view'].includes(win.id));
-      // if (windows.some((win) => win.cell === 'left')) {
-      //   this.camera.centerElasticity = this.camera.RIGHT_ELASTICITY;
-      // } else {
-      //   this.camera.centerElasticity = this.camera.DEFAULT_CENTER_ELASTICITY;
-      // }
-      this.camera.centerElasticity = this.camera.DEFAULT_CENTER_ELASTICITY;
     } else {
       if (game.windowManager.isWindowOpen('admin')) {
         this.camera.centerElasticity = this.camera.LEFT_ELASTICITY;
@@ -302,14 +294,6 @@ export class WorldContainer extends PIXI.Container {
         this.camera.centerElasticity = this.camera.DEFAULT_CENTER_ELASTICITY;
       }
     }
-
-    // if (Helper.maybeFind('.grid-container.large-right')) {
-    //   this.camera.centerElasticity = this.camera.LEFT_ELASTICITY;
-    // } else if (Helper.maybeFind('.grid-container .center > div:not(.hidden)')) {
-    //   this.camera.centerElasticity = this.camera.RIGHT_CENTER_ELASTICITY;
-    // } else {
-    //   this.camera.centerElasticity = this.camera.DEFAULT_CENTER_ELASTICITY;
-    // }
 
     this.animationController.tick();
     this.forEachInCamera((tile, loc) => {
