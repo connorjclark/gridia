@@ -28,15 +28,16 @@ class StartScene extends Scene {
   async onClickLocalBtn() {
     await this.controller.loadWorker();
     this.controller.pushScene(new MapSelectScene(this.controller));
+    await window.document.documentElement.requestFullscreen().catch(console.error);
   }
 
   async onClickConnectBtn() {
     const serverUrl = this.serverLocationInput.value;
     this.controller.client = await this.createClientForServer(serverUrl);
     this.controller.pushScene(new AccountScene(this.controller));
-
     // TODO: Back doesn't work here.
     Helper.find('.scene-controller').classList.add('hidden');
+    await window.document.documentElement.requestFullscreen().catch(console.error);
   }
 
   onShow() {

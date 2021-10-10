@@ -1,3 +1,5 @@
+// TODO: resolve util.ts and helper.ts
+
 // export function mouseToWorld(pm: TilePoint): TilePoint {
 //     return {
 //       x: pm.x + state.viewport.x,
@@ -8,6 +10,10 @@
 import {v4 as uuidv4} from 'uuid';
 
 import {GFX_SIZE} from './constants.js';
+
+export function isNarrowViewport() {
+  return window.innerWidth < 1000;
+}
 
 export function uuid() {
   return uuidv4();

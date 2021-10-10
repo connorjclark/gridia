@@ -1,3 +1,5 @@
+import * as Utils from '../utils.js';
+
 import * as Helper from './helper.js';
 
 interface GridiaWindowOptions {
@@ -21,7 +23,7 @@ export class WindowManager {
   }
 
   createWindow(opts: GridiaWindowOptions) {
-    if (this.isNarrowViewport()) {
+    if (Utils.isNarrowViewport()) {
       if (opts.id === 'map') {
         opts.cell = 'right';
       } else if (opts.id === 'attributes') {
@@ -52,7 +54,7 @@ export class WindowManager {
       el.classList.add('hidden');
     }
 
-    if (!this.isNarrowViewport()) {
+    if (!Utils.isNarrowViewport()) {
       if (opts.id === 'admin') {
         Helper.find('.ui .grid-container').append(el);
         el.style.gridColumn = '3 / 5';
@@ -97,7 +99,7 @@ export class WindowManager {
       Helper.find(`.panels__tab[data-panel="${id}"]`).classList.toggle('panels__tab--active', true);
     }
 
-    if (this.isNarrowViewport()) {
+    if (Utils.isNarrowViewport()) {
       // Only show one tab at a time.
       for (const w of Object.values(this.windows)) {
         if (w.initialized && w.tabLabel && w.id !== id && w.id !== 'map') this.hideWindow(w.id);
@@ -126,10 +128,6 @@ export class WindowManager {
       Helper.find(`.panels__tab[data-panel="${id}"]`).remove();
     }
     delete this.windows[id];
-  }
-
-  isNarrowViewport() {
-    return window.innerWidth < 1000;
   }
 
   getOpenWindows() {

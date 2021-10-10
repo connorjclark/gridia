@@ -281,7 +281,7 @@ export class WorldContainer extends PIXI.Container {
   }
 
   tick() {
-    if (game.windowManager.isNarrowViewport()) {
+    if (Utils.isNarrowViewport()) {
       if (game.windowManager.isWindowOpen('admin')) {
         this.camera.centerElasticity = this.camera.RIGHT_ELASTICITY;
       } else {
