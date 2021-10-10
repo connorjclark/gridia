@@ -52,6 +52,29 @@ export class MovementModule extends ClientModule {
         };
       }
     });
+
+    Helper.find('.dpad').addEventListener('touchstart', (e) => {
+      if (!(e.target instanceof HTMLElement)) return;
+
+      const x = Number(e.target.getAttribute('data-x'));
+      const y = Number(e.target.getAttribute('data-y'));
+
+      if (x === -1) this.game.keys[KEYS.A] = true;
+      else if (x === 1) this.game.keys[KEYS.D] = true;
+      if (y === -1) this.game.keys[KEYS.W] = true;
+      else if (y === 1) this.game.keys[KEYS.S] = true;
+    });
+    Helper.find('.dpad').addEventListener('touchend', (e) => {
+      if (!(e.target instanceof HTMLElement)) return;
+
+      const x = Number(e.target.getAttribute('data-x'));
+      const y = Number(e.target.getAttribute('data-y'));
+
+      if (x === -1) this.game.keys[KEYS.A] = false;
+      else if (x === 1) this.game.keys[KEYS.D] = false;
+      if (y === -1) this.game.keys[KEYS.W] = false;
+      else if (y === 1) this.game.keys[KEYS.S] = false;
+    });
   }
 
   onTick(now: number) {

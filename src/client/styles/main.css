@@ -318,6 +318,20 @@ button {
 .ui .toolbar {
   align-self: flex-end;
 }
+@media only screen and (max-width: 1000px) {
+  .ui .toolbar {
+    align-self: unset;
+  }
+}
+
+.mobile {
+  display: none;
+}
+@media only screen and (max-width: 1000px) {
+  .mobile {
+    display: unset;
+  } 
+}
 
 .window {
   max-height: 100%;
@@ -608,4 +622,23 @@ button {
   background-repeat: no-repeat;
   box-sizing: content-box;
   pointer-events: none;
+}
+
+.dpad {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 30px 40px;
+  pointer-events: all;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
+
+.dpad__button {
+  padding: 4px;
+  color: white;
+  background-color: black;
+  font-weight: bold;
 }
