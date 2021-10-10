@@ -21,6 +21,16 @@ export class WindowManager {
   }
 
   createWindow(opts: GridiaWindowOptions) {
+    if (this.isNarrowViewport()) {
+      if (opts.id === 'map') {
+        opts.cell = 'right';
+      } else if (opts.id === 'attributes') {
+        opts.cell = 'top';
+      } else {
+        opts.cell = 'left';
+      }
+    }
+
     const cellEl = Helper.find(`.ui .grid-container > .${opts.cell}`);
     const el = Helper.createChildOf(cellEl, 'div', `window window--${opts.id}`);
     el.classList.toggle('window--noscroll', Boolean(opts.noscroll));
@@ -42,6 +52,15 @@ export class WindowManager {
       el.classList.add('hidden');
     }
 
+    if (!this.isNarrowViewport()) {
+      if (opts.id === 'admin') {
+        Helper.find('.ui .grid-container').append(el);
+        el.style.gridColumn = '3 / 5';
+        el.style.gridRow = '1 / 4';
+        this.windows[opts.id].onShow = () => this.hideWindowsInCell('right');
+      }
+    }
+
     return {
       id: opts.id,
       hide: () => this.hideWindow(opts.id),
@@ -50,7 +69,7 @@ export class WindowManager {
         return force ?? el.classList.contains('hidden') ? this.showWindow(opts.id) : this.hideWindow(opts.id);
       },
       remove: () => this.removeWindow(opts.id),
-      isOpen: () => !el.classList.contains('hidden'),
+      isOpen: () => this.isWindowOpen(opts.id),
     };
   }
 
@@ -78,10 +97,10 @@ export class WindowManager {
       Helper.find(`.panels__tab[data-panel="${id}"]`).classList.toggle('panels__tab--active', true);
     }
 
-    // Only show one tab at a time on narrow viewport.
-    if (window.innerWidth < 650) {
+    if (this.isNarrowViewport()) {
+      // Only show one tab at a time.
       for (const w of Object.values(this.windows)) {
-        if (w.initialized && w.tabLabel && w.id !== id) this.hideWindow(w.id);
+        if (w.initialized && w.tabLabel && w.id !== id && w.id !== 'map') this.hideWindow(w.id);
       }
     }
   }
@@ -95,6 +114,10 @@ export class WindowManager {
     }
   }
 
+  isWindowOpen(id: string) {
+    return !this.windows[id].el.classList.contains('hidden');
+  }
+
   removeWindow(id: string) {
     const win = this.windows[id];
     this.hideWindow(id);
@@ -103,5 +126,13 @@ export class WindowManager {
       Helper.find(`.panels__tab[data-panel="${id}"]`).remove();
     }
     delete this.windows[id];
+  }
+
+  isNarrowViewport() {
+    return window.innerWidth < 1000;
+  }
+
+  getOpenWindows() {
+    return Object.values(this.windows).filter((win) => this.isWindowOpen(win.id));
   }
 }

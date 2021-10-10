@@ -170,6 +170,7 @@ class Camera {
   DEFAULT_CENTER_ELASTICITY = {left: 0.4, right: 0.6, top: 0.4, bottom: 0.6};
   RIGHT_CENTER_ELASTICITY = {left: 0.5, right: 0.75, top: 0.4, bottom: 0.6};
   LEFT_ELASTICITY = {left: 0.2, right: 0.3, top: 0.4, bottom: 0.6};
+  RIGHT_ELASTICITY = {left: 0.7, right: 0.8, top: 0.4, bottom: 0.6};
 
   left = 0;
   top = 0;
@@ -280,13 +281,35 @@ export class WorldContainer extends PIXI.Container {
   }
 
   tick() {
-    if (Helper.maybeFind('.grid-container.large-right')) {
-      this.camera.centerElasticity = this.camera.LEFT_ELASTICITY;
-    } else if (Helper.maybeFind('.grid-container .center > div:not(.hidden)')) {
-      this.camera.centerElasticity = this.camera.RIGHT_CENTER_ELASTICITY;
-    } else {
+    if (game.windowManager.isNarrowViewport()) {
+      if (game.windowManager.isWindowOpen('admin')) {
+        this.camera.centerElasticity = this.camera.RIGHT_ELASTICITY;
+      } else {
+        this.camera.centerElasticity = this.camera.DEFAULT_CENTER_ELASTICITY;
+      }
+      // const windows = game.windowManager.getOpenWindows()
+      //   .filter((win) => !['attributes', 'possible-usages', 'view'].includes(win.id));
+      // if (windows.some((win) => win.cell === 'left')) {
+      //   this.camera.centerElasticity = this.camera.RIGHT_ELASTICITY;
+      // } else {
+      //   this.camera.centerElasticity = this.camera.DEFAULT_CENTER_ELASTICITY;
+      // }
       this.camera.centerElasticity = this.camera.DEFAULT_CENTER_ELASTICITY;
+    } else {
+      if (game.windowManager.isWindowOpen('admin')) {
+        this.camera.centerElasticity = this.camera.LEFT_ELASTICITY;
+      } else {
+        this.camera.centerElasticity = this.camera.DEFAULT_CENTER_ELASTICITY;
+      }
     }
+
+    // if (Helper.maybeFind('.grid-container.large-right')) {
+    //   this.camera.centerElasticity = this.camera.LEFT_ELASTICITY;
+    // } else if (Helper.maybeFind('.grid-container .center > div:not(.hidden)')) {
+    //   this.camera.centerElasticity = this.camera.RIGHT_CENTER_ELASTICITY;
+    // } else {
+    //   this.camera.centerElasticity = this.camera.DEFAULT_CENTER_ELASTICITY;
+    // }
 
     this.animationController.tick();
     this.forEachInCamera((tile, loc) => {

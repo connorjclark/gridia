@@ -283,36 +283,37 @@ button {
 /* https://grid.layoutit.com/?id=5sEXk6x */
 .ui .grid-container {
   display: grid;
-  grid-template-columns: 0.2fr 1.5fr min-content;
-  grid-template-rows: 0.3fr 0.5fr 2.5fr 0.8fr;
+  grid-template-columns: .2fr 1fr 1fr .2fr;
+  grid-template-rows: .3fr .5fr 2.5fr .8fr;
   gap: 1px 1px;
   grid-auto-flow: row;
   grid-template-areas:
-    "left top right"
-    "left center right"
-    "left center right"
-    "bottom bottom bottom";
-  height: 96vh;
+      "left top top right"
+      "left center center right"
+      "left center center right"
+      "bottom bottom bottom bottom";
+  flex-grow: 1;
+  height: 0;
 }
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 1000px) {
   .ui .grid-container {
-    display: block;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: .3fr .5fr 2.5fr;
   }
-}
-
-.ui .grid-container.large-right {
-  grid-template-columns: 0.2fr 1.5fr 2fr;
+  .grid-container .left {
+    width: 100%;
+  }
 }
 
 .grid-container .grid-section {
   margin: 5px;
   min-height: 0;
 }
-.grid-container .bottom { grid-area: bottom; display: flex; justify-content: space-between; }
+.grid-container .bottom { grid-area: bottom; display: flex; justify-content: space-between; flex-flow: row-reverse; }
 .grid-container .center { grid-area: center; }
 .grid-container .right { grid-area: right; display: flex; flex-direction: column; }
 .grid-container .left { grid-area: left; }
-.grid-container .top { grid-area: top; }
+.grid-container .top { grid-area: top; display: flex; flex-flow: row-reverse; }
 
 .ui .toolbar {
   align-self: flex-end;
@@ -377,9 +378,6 @@ button {
   border-image-slice: 1;
 }
 
-.window--admin {
-  order: 1;
-}
 .window--admin > div {
   display: flex;
 }
@@ -495,9 +493,10 @@ button {
 
 .window--attributes {
   flex-grow: 1;
-  max-width: 20%;
-  height: min-content;
+  max-width: 20vw;
   align-self: flex-end;
+  background-color: unset;
+  border: unset;
 }
 
 .bar {

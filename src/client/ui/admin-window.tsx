@@ -286,13 +286,6 @@ export function makeAdminWindow(adminModule: AdminModule) {
     id: 'admin',
     cell: 'right',
     tabLabel: 'Admin',
-    onShow() {
-      adminModule.game.windowManager.hideWindowsInCell('right');
-      Helper.find('.grid-container').classList.toggle('large-right', true);
-    },
-    onHide() {
-      Helper.find('.grid-container').classList.toggle('large-right', false);
-    },
     onInit(el) {
       render(<AdminWindow />, el);
     },
