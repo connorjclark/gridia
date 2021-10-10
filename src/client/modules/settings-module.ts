@@ -16,7 +16,7 @@ export const SettingsSchema = {
   sfxVolume: {
     type: 'number',
     label: 'SFX Volume',
-    default: process.env.NODE_ENV === 'production' ? 0.6 : 0,
+    default: process.env.NODE_ENV === 'production' ? 0.2 : 0,
     min: 0,
     max: 1,
     step: 0.01,
