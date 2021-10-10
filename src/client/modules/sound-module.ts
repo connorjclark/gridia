@@ -48,7 +48,7 @@ export class SoundModule extends ClientModule {
     }
   }
 
-  playSfx(name: string, loc?: Point4) {
+  playSfx(name: string, loc?: Point4, globalVolume = 1) {
     if (this.game.client.settings.sfxVolume === 0) return;
 
     if (!this._soundCache[name]) {
@@ -65,7 +65,7 @@ export class SoundModule extends ClientModule {
       multiplier = Utils.clamp(1.1 - 3.6 * Math.log10(x + 1), 0, 1);
     }
 
-    const volume = multiplier * this.game.client.settings.sfxVolume;
+    const volume = globalVolume * multiplier * this.game.client.settings.sfxVolume;
     void this._soundCache[name].play({volume});
   }
 

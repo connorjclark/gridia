@@ -154,7 +154,7 @@ export class MovementModule extends ClientModule {
         // this.game.client.context.map.moveCreature(focusCreature, dest);
         this.game.client.connection.sendCommand(CommandBuilder.move(dest));
         this.game.client.eventEmitter.emit('playerMove', {from: focusCreature.pos, to: dest});
-        this.game.modules.sound.playSfx('move');
+        this.game.modules.sound.playSfx('move', undefined, 0.5);
         delete this.game.state.mouse.tile;
       }
     }
