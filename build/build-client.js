@@ -68,7 +68,7 @@ async function buildClient({ workerFileName }) {
     define: {
       'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`,
       'process.env.GRIDIA_EXECUTION_ENV': '"browser"',
-      'process.env.GRIDIA_SERVER_WORKER_PATH': `"../${workerFileName}"`,
+      'process.env.GRIDIA_SERVER_WORKER_PATH': `"${workerFileName}"`,
     },
     outdir: 'dist',
     minify: true,
