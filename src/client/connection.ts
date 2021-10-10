@@ -122,7 +122,7 @@ export class WebRTCConnection extends Connection {
   }
 
   private onClose() {
-    game.onDisconnect();
+    game?.onDisconnect();
   }
 }
 
@@ -158,7 +158,7 @@ export class WebSocketConnection extends Connection {
   }
 
   private onClose() {
-    game.onDisconnect();
+    game?.onDisconnect();
   }
 }
 

@@ -34,6 +34,9 @@ class StartScene extends Scene {
     const serverUrl = this.serverLocationInput.value;
     this.controller.client = await this.createClientForServer(serverUrl);
     this.controller.pushScene(new AccountScene(this.controller));
+
+    // TODO: Back doesn't work here.
+    Helper.find('.scene-controller').classList.add('hidden');
   }
 
   onShow() {

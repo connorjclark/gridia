@@ -28,11 +28,6 @@ html {
 
 body {
   margin: 0;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
   background-color: darkgrey;
 }
 
@@ -64,6 +59,11 @@ button {
   justify-content: center;
   align-items: center;
   height: 100%;
+  overflow: auto;
+}
+
+.scene-controller {
+  border-bottom: solid 1px black;
 }
 
 #canvases {
