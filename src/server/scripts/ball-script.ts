@@ -23,8 +23,12 @@ export class BallScript extends Script<{}> {
           const ballDestY = kick.loc.y + Math.round(Utils.clamp(kick.dir.y, -1, 1));
           const newLoc = {...kick.loc, x: ballDestX, y: ballDestY};
           if (this.server.context.map.getItem(newLoc)) {
-            kick.dir.x *= -1;
-            kick.dir.y *= -1;
+            if (kick.dir.x && kick.dir.y) {
+              kick.dir.y *= -1;
+            } else {
+              kick.dir.x *= -1;
+              kick.dir.y *= -1;
+            }
           } else {
             this.server.setItem(kick.loc, undefined);
             this.server.setItem(newLoc, kick.item);
