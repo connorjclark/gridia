@@ -51,20 +51,20 @@ export class BallScript extends Script<{}> {
   onPlayerMove(opts: {clientConnection: ClientConnection; from: Point4; to: Point4}) {
     const item = this.server.context.map.getItem(opts.to);
     if (!item || Content.getMetaItem(item.type).class !== 'Ball') return;
-    if (this.activeKicks.some((kick) => kick.item === item)) return;
-
-    // TODO ... support kicking ball already in motion. Results in cloning ...
-    // const indexOfActiveKick = this.activeKicks.findIndex((kick) => kick.item === item);
-    // if (indexOfActiveKick !== -1) {
-    //   this.activeKicks.slice(indexOfActiveKick, 1);
-    // }
 
     const dir = Utils.direction(opts.from, opts.to);
-    this.activeKicks.push({
-      item,
-      loc: opts.to,
-      dir,
-      momentum: 5,
-    });
+    const momentum = Utils.randInt(3, 5);
+    const indexOfActiveKick = this.activeKicks.findIndex((kick) => kick.item === item);
+    if (indexOfActiveKick !== -1) {
+      this.activeKicks[indexOfActiveKick].dir = dir;
+      this.activeKicks[indexOfActiveKick].momentum = momentum;
+    } else {
+      this.activeKicks.push({
+        item,
+        loc: opts.to,
+        dir,
+        momentum,
+      });
+    }
   }
 }
