@@ -215,6 +215,9 @@ export function makeAdminWindow(adminModule: AdminModule) {
             Name Filter
           </Input>
 
+          <button title="Cmd-Z" onClick={() => adminModule.undo()}>Undo</button>
+          <button title="Shift-Cmd-Z"onClick={() => adminModule.redo()}>Redo</button>
+
           {TOOLS.map((tool) => {
             return <div
               class={`admin__tool ${state.tool === tool ? 'admin__tool--selected' : ''}`}

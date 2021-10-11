@@ -1,11 +1,19 @@
 import * as CommandBuilder from '../../protocol/command-builder.js';
 import * as Utils from '../../utils.js';
 import {ClientModule} from '../client-module.js';
+import {KEYS} from '../keys.js';
 import {makeAdminWindow, State} from '../ui/admin-window.js';
 
+interface HistoryEntry {
+  floors?: Array<{loc: Point4; from: number; to: number}>;
+  items?: Array<{loc: Point4; from: Item|undefined; to: Item|undefined}>;
+}
+
 export class AdminModule extends ClientModule {
+  window = makeAdminWindow(this);
   private _state?: State;
-  private _adminWindow = makeAdminWindow(this);
+  private _history: HistoryEntry[] = [];
+  private _historyIndex = 0;
 
   onStart() {
     this.init();
@@ -21,30 +29,44 @@ export class AdminModule extends ClientModule {
     this._state = state;
   }
 
+  addToHistory(entry: HistoryEntry) {
+    if (!entry.items?.length && !entry.floors?.length) return;
+
+    if (this._historyIndex !== this._history.length - 1) {
+      this._history = this._history.slice(0, this._historyIndex + 1);
+    }
+    this._history.push(entry);
+    this._historyIndex = this._history.length - 1;
+  }
+
+
   private init() {
     // const scripts = await this.game.client.connection.sendCommand(CommandBuilder.requestScripts({}));
     // console.log({scripts}); // TODO ?
 
+    let uncommitedHistoryEntry: HistoryEntry = {};
+
     let downAt: Point4 | undefined;
     this.game.client.eventEmitter.on('pointerDown', (loc) => {
-      if (!this._adminWindow.delegate.isOpen()) return;
+      if (!this.window.delegate.isOpen()) return;
       if (!this._state) return;
 
+      uncommitedHistoryEntry = {};
       downAt = loc;
       if (this._state.tool === 'point') {
-        this.setTile(loc);
+        this.setTile(loc, uncommitedHistoryEntry);
       }
     });
     this.game.client.eventEmitter.on('pointerMove', (loc) => {
-      if (!this._adminWindow.delegate.isOpen()) return;
+      if (!this.window.delegate.isOpen()) return;
       if (!this._state || !this._state.selected || !downAt) return;
 
       if (this._state.tool === 'point') {
-        this.setTile(loc);
+        this.setTile(loc, uncommitedHistoryEntry);
       }
     });
     this.game.client.eventEmitter.on('pointerUp', (loc) => {
-      if (!this._adminWindow.delegate.isOpen()) return;
+      if (!this.window.delegate.isOpen()) return;
 
       if (!this.game.client.context.map.inBounds(loc)) {
         downAt = undefined;
@@ -58,7 +80,7 @@ export class AdminModule extends ClientModule {
         const maxy = Math.max(downAt.y, loc.y);
         for (let x = minx; x <= maxx; x++) {
           for (let y = miny; y <= maxy; y++) {
-            this.setTile({x, y, w: loc.w, z: loc.z});
+            this.setTile({x, y, w: loc.w, z: loc.z}, uncommitedHistoryEntry);
           }
         }
       }
@@ -100,16 +122,36 @@ export class AdminModule extends ClientModule {
         }
 
         for (const l of locsToSet) {
-          this.setTile(l);
+          this.setTile(l, uncommitedHistoryEntry);
         }
+      }
+
+      if (this._state?.tool) {
+        this.addToHistory(uncommitedHistoryEntry);
+        uncommitedHistoryEntry = {};
       }
 
       downAt = undefined;
     });
+
+    const cmdKeys = [...KEYS.COMMAND, KEYS.CONTROL];
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'z') {
+        if (!this.window.delegate.isOpen()) return;
+
+        const cmdDown = cmdKeys.some((k) => this.game.keys[k]);
+        const shiftDown = this.game.keys[KEYS.SHIFT];
+        if (cmdDown && shiftDown) {
+          this.redo();
+        } else if (cmdDown) {
+          this.undo();
+        }
+      }
+    });
   }
 
-  private setTile(loc: Point4) {
-    if (!this._adminWindow.delegate.isOpen()) return;
+  private setTile(loc: Point4, historyEntry: HistoryEntry) {
+    if (!this.window.delegate.isOpen()) return;
     if (!this._state?.selected) return;
 
     if (this._state.selected.type === 'items') {
@@ -124,18 +166,77 @@ export class AdminModule extends ClientModule {
         ...loc,
         item,
       }));
+
+      historyEntry.items = historyEntry.items || [];
+      historyEntry.items.push({
+        loc,
+        from: currentItem,
+        to: item,
+      });
+
       // Set immeditely in client, b/c server will take a while to respond and this prevents sending multiple
       // messages for the same tile.
       // TODO: seems like a bad idea.
       this.game.client.context.map.getTile(loc).item = item;
     } else if (this._state.selected.type === 'floors') {
+      const currentFloor = this.game.client.context.map.getTile(loc).floor;
       const floor = this._state.selected.id;
-      if (this.game.client.context.map.getTile(loc).floor === floor) return;
+      if (currentFloor === floor) return;
       this.game.client.connection.sendCommand(CommandBuilder.adminSetFloor({
         ...loc,
         floor,
       }));
+
+      historyEntry.floors = historyEntry.floors || [];
+      historyEntry.floors.push({
+        loc,
+        from: currentFloor,
+        to: floor,
+      });
+
       this.game.client.context.map.getTile(loc).floor = floor;
     }
+  }
+
+  undo() {
+    const entry = this._history[this._historyIndex];
+    if (!entry) return;
+
+    for (const item of entry.items || []) {
+      this.game.client.connection.sendCommand(CommandBuilder.adminSetItem({
+        ...item.loc,
+        item: item.from,
+      }));
+    }
+
+    for (const floor of entry.floors || []) {
+      this.game.client.connection.sendCommand(CommandBuilder.adminSetFloor({
+        ...floor.loc,
+        floor: floor.from,
+      }));
+    }
+
+    this._historyIndex = Utils.clamp(this._historyIndex - 1, 0, this._history.length - 1);
+  }
+
+  redo() {
+    const entry = this._history[this._historyIndex + 1];
+    if (!entry) return;
+
+    for (const item of entry.items || []) {
+      this.game.client.connection.sendCommand(CommandBuilder.adminSetItem({
+        ...item.loc,
+        item: item.to,
+      }));
+    }
+
+    for (const floor of entry.floors || []) {
+      this.game.client.connection.sendCommand(CommandBuilder.adminSetFloor({
+        ...floor.loc,
+        floor: floor.to,
+      }));
+    }
+
+    this._historyIndex = Utils.clamp(this._historyIndex + 1, 0, this._history.length - 1);
   }
 }

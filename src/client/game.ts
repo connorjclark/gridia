@@ -1000,7 +1000,7 @@ export class Game {
       }
 
       // Shift to pick up item.
-      if (e.keyCode === KEYS.SHIFT) {
+      if (e.keyCode === KEYS.SHIFT && !this.modules.admin?.window.delegate.isOpen()) {
         let location;
         if (this.state.selectedView.location?.source === 'world') {
           location = this.state.selectedView.location;
