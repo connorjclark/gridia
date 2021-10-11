@@ -23,9 +23,7 @@ export class ServerInterface implements ICommands {
     }
 
     const creature = clientConnection.creature;
-
     const tile = server.context.map.getTile(loc);
-    const metaItem = tile.item && Content.getMetaItem(tile.item.type);
 
     if (tile.item?.type === MINE) {
       const player = clientConnection.player;
@@ -77,21 +75,13 @@ export class ServerInterface implements ICommands {
       }
     }
 
-    if (tile.item && metaItem?.class === 'Ball') {
-      const ballItem = tile.item;
-      const dir = Utils.direction(creature.pos, loc);
-      const ballDestX = loc.x + Math.round(Utils.clamp(dir.x, -1, 1));
-      const ballDestY = loc.y + Math.round(Utils.clamp(dir.y, -1, 1));
-      console.log('kick', dir);
-      server.setItem(loc, undefined);
-      server.addItemNear({...loc, x: ballDestX, y: ballDestY}, ballItem);
-    }
+    server.scriptDelegates.onPlayerMove({clientConnection, from: creature.pos, to: loc});
 
     // if (!server.inView(loc)) {
     //   return false
     // }
 
-    server.moveCreature(creature, loc);
+    server.moveCreature(creature, {...loc});
 
     return Promise.resolve();
   }

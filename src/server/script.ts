@@ -88,6 +88,10 @@ export abstract class Script<C extends ConfigDefinition> {
     // Can override.
   }
 
+  onPlayerMove(opts: {clientConnection: ClientConnection; from: Point4; to: Point4}) {
+    throw new Error('Method not implemented.');
+  }
+
   // TODO: time budget for tick.
   // TODO: only run script if player is nearby.
   tick(): Promise<void> | void {

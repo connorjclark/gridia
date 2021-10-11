@@ -14,6 +14,7 @@ import {ClientConnection} from './client-connection.js';
 import {CreatureState} from './creature-state.js';
 import {adjustAttribute, attributeCheck} from './creature-utils.js';
 import {Script} from './script.js';
+import {BallScript} from './scripts/ball-script.js';
 import {BasicScript} from './scripts/basic-script.js';
 import {ServerContext} from './server-context.js';
 import {TaskRunner} from './task-runner.js';
@@ -61,6 +62,30 @@ export class Server {
   private _serverInterface = new ServerInterface();
   private _scripts: Array<Script<any>> = [];
   private _quests: Quest[] = [];
+
+  scriptDelegates = {
+    onPlayerCreated: (player: Player, clientConnection: ClientConnection) => {
+      for (const script of this._scripts) {
+        script.onPlayerCreated(player, clientConnection);
+      }
+    },
+    onPlayerEnterWorld: (player: Player, clientConnection: ClientConnection) => {
+      for (const script of this._scripts) {
+        script.onPlayerEnterWorld(player, clientConnection);
+      }
+    },
+    onPlayerKillCreature: (player: Player, creature: Creature) => {
+      for (const script of this._scripts) {
+        script.onPlayerKillCreature(player, creature);
+      }
+    },
+    onPlayerMove: (opts: {clientConnection: ClientConnection; from: Point4; to: Point4}) => {
+      Object.freeze(opts);
+      for (const script of this._scripts) {
+        script.onPlayerMove(opts);
+      }
+    },
+  };
 
   constructor(opts: CtorOpts) {
     this.context = opts.context;
@@ -446,13 +471,9 @@ export class Server {
     player.loggedIn = true;
 
     if (opts.justCreated) {
-      for (const script of this._scripts) {
-        script.onPlayerCreated(player, clientConnection);
-      }
+      this.scriptDelegates.onPlayerCreated(player, clientConnection);
     }
-    for (const script of this._scripts) {
-      script.onPlayerEnterWorld(player, clientConnection);
-    }
+    this.scriptDelegates.onPlayerEnterWorld(player, clientConnection);
   }
 
   getClientConnectionForCreature(creature: Creature) {
@@ -859,9 +880,7 @@ export class Server {
       if (actor?.isPlayer) {
         const player = this.findPlayerForCreature(actor);
         if (player) {
-          for (const script of this._scripts) {
-            script.onPlayerKillCreature(player, creature);
-          }
+          this.scriptDelegates.onPlayerKillCreature(player, creature);
         }
       }
 
@@ -1377,6 +1396,7 @@ export class Server {
     });
 
     this.addScript(BasicScript);
+    this.addScript(BallScript);
     this.taskRunner.registerTickSection({
       description: 'scripts',
       fn: async () => {
