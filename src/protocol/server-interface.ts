@@ -25,6 +25,8 @@ export class ServerInterface implements ICommands {
     const creature = clientConnection.creature;
 
     const tile = server.context.map.getTile(loc);
+    const metaItem = tile.item && Content.getMetaItem(tile.item.type);
+
     if (tile.item?.type === MINE) {
       const player = clientConnection.player;
       const miningSkill = Content.getSkillByName('Mining');
@@ -73,6 +75,16 @@ export class ServerInterface implements ICommands {
           server.modifyCreatureLife(null, creature, -2);
         }
       }
+    }
+
+    if (tile.item && metaItem?.class === 'Ball') {
+      const ballItem = tile.item;
+      const dir = Utils.direction(creature.pos, loc);
+      const ballDestX = loc.x + Math.round(Utils.clamp(dir.x, -1, 1));
+      const ballDestY = loc.y + Math.round(Utils.clamp(dir.y, -1, 1));
+      console.log('kick', dir);
+      server.setItem(loc, undefined);
+      server.addItemNear({...loc, x: ballDestX, y: ballDestY}, ballItem);
     }
 
     // if (!server.inView(loc)) {
@@ -362,7 +374,7 @@ export class ServerInterface implements ICommands {
     const skill = use.skill && Content.getSkillByName(use.skill);
     if (!clientConnection.player.isAdmin) {
       if (skill && !clientConnection.player.skills.has(skill.id)) {
-        return Promise.reject('missing required skill: ' + skill.name);
+        throw new Error('missing required skill: ' + skill.name);
       }
     }
 

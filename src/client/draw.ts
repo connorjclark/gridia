@@ -31,7 +31,8 @@ function makeTextureCache(file: string) {
 
     const loaderResource = PIXI.Loader.shared.resources[resourceKey];
     if (!loaderResource.texture || loaderResource.error) {
-      throw new Error('missing texture ' + resourceKey);
+      console.error('missing texture ' + resourceKey);
+      return PIXI.Texture.EMPTY;
     }
 
     const tilesAcross = loaderResource.texture.baseTexture.width / GFX_SIZE;

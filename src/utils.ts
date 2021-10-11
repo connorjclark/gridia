@@ -46,6 +46,16 @@ export function dist(p1: PartitionPoint, p2: PartitionPoint): number {
   return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
 }
 
+export function direction(p1: Point2, p2: Point2): Point2 {
+  const x = p2.x - p1.x;
+  const y = p2.y - p1.y;
+  const m = Math.sqrt(x * x + y * y);
+  return {
+    x: x / m,
+    y: y / m,
+  };
+}
+
 export function equalPoints(p1?: TilePoint | PartitionPoint, p2?: TilePoint | PartitionPoint) {
   if (!p1 && !p2) return true;
   if (!p1 || !p2) return false;
