@@ -22,7 +22,13 @@ export class BallScript extends Script<{}> {
           const ballDestX = kick.loc.x + Math.round(Utils.clamp(kick.dir.x, -1, 1));
           const ballDestY = kick.loc.y + Math.round(Utils.clamp(kick.dir.y, -1, 1));
           const newLoc = {...kick.loc, x: ballDestX, y: ballDestY};
-          if (this.server.context.map.getItem(newLoc)) {
+          const itemAtNewLoc = this.server.context.map.getItem(newLoc);
+
+          if (itemAtNewLoc && Content.getMetaItem(itemAtNewLoc.type).class === 'Goal') {
+            this.server.setItem(kick.loc, undefined);
+            this.server.setItem(newLoc, {type: itemAtNewLoc.type + 1, quantity: 1});
+            kick.momentum = 0;
+          } else if (itemAtNewLoc) {
             if (kick.dir.x && kick.dir.y) {
               kick.dir.y *= -1;
             } else {
@@ -36,7 +42,7 @@ export class BallScript extends Script<{}> {
           }
 
           kick.momentum -= 1;
-          if (kick.momentum === 0) this.activeKicks.splice(i, 1);
+          if (kick.momentum <= 0) this.activeKicks.splice(i, 1);
         }
       },
     });
@@ -46,6 +52,12 @@ export class BallScript extends Script<{}> {
     const item = this.server.context.map.getItem(opts.to);
     if (!item || Content.getMetaItem(item.type).class !== 'Ball') return;
     if (this.activeKicks.some((kick) => kick.item === item)) return;
+
+    // TODO ... support kicking ball already in motion. Results in cloning ...
+    // const indexOfActiveKick = this.activeKicks.findIndex((kick) => kick.item === item);
+    // if (indexOfActiveKick !== -1) {
+    //   this.activeKicks.slice(indexOfActiveKick, 1);
+    // }
 
     const dir = Utils.direction(opts.from, opts.to);
     this.activeKicks.push({
