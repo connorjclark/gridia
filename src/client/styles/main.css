@@ -54,12 +54,15 @@ button {
 }
 
 .scene {
-  height: 100%;
-  margin: 30px;
+  height: calc(100% - 40px);
   overflow: auto;
+}
+.scene-controller.hidden ~ .scene {
+  height: 100%;
 }
 
 .scene-controller {
+  height: 40px;
   border-bottom: solid 1px black;
 }
 
@@ -198,6 +201,7 @@ button {
 }
 
 .create--form {
+  padding: 20px;
   width: 100%;
   padding-left: 15vw;
   padding-right: 15vw;

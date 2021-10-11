@@ -44,12 +44,14 @@ class StartScene extends Scene {
     super.onShow();
     this.localBtn.addEventListener('click', this.onClickLocalBtn);
     this.connectBtn.addEventListener('click', this.onClickConnectBtn);
+    Helper.find('.scene-controller').classList.add('hidden');
   }
 
   onHide() {
     super.onHide();
     this.localBtn.removeEventListener('click', this.onClickLocalBtn);
     this.connectBtn.removeEventListener('click', this.onClickConnectBtn);
+    Helper.find('.scene-controller').classList.remove('hidden');
   }
 
   private createClientForServer(hostnameAndPort: string) {
