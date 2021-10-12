@@ -315,7 +315,7 @@ button {
 .grid-container .bottom { grid-area: bottom; display: flex; justify-content: space-between; flex-flow: row-reverse; }
 .grid-container .center { grid-area: center; }
 .grid-container .right { grid-area: right; display: flex; flex-direction: column; }
-.grid-container .left { grid-area: left; }
+.grid-container .left { grid-area: left; display: flex; flex-direction: column; }
 .grid-container .top { grid-area: top; display: flex; flex-flow: row-reverse; }
 
 .ui .toolbar {
@@ -356,6 +356,11 @@ button {
   flex-grow: 0.25;
   background-color: unset;
   border: none;
+}
+@media only screen and (max-width: 1000px) {
+  .window--chat {
+    flex-grow: 1;
+  }
 }
 
 .tabbed-pane__tabs {
@@ -583,6 +588,9 @@ button {
   padding-right: 5px;
   margin-right: 5px;
   border-right: 1px solid #cf8989;
+}
+.possible-usages__usage__products {
+  display: flex;
 }
 
 .moving-item {
