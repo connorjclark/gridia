@@ -24,7 +24,7 @@ export class WindowManager {
 
   createWindow(opts: GridiaWindowOptions) {
     if (Utils.isNarrowViewport()) {
-      if (opts.id === 'map') {
+      if (opts.id === 'map' || opts.id === 'view') {
         opts.cell = 'right';
       } else if (opts.id === 'attributes') {
         opts.cell = 'top';
@@ -99,10 +99,19 @@ export class WindowManager {
       Helper.find(`.panels__tab[data-panel="${id}"]`).classList.toggle('panels__tab--active', true);
     }
 
-    if (Utils.isNarrowViewport() && id !== 'map') {
-      // Only show one tab at a time.
-      for (const w of Object.values(this.windows)) {
-        if (w.initialized && w.tabLabel && w.id !== id && w.id !== 'map') this.hideWindow(w.id);
+    if (Utils.isNarrowViewport()) {
+      // Only show one window in the left cell at any time (ignoring windows that don't have a tab).
+      if (win.cell === 'left' && win.tabLabel) {
+        for (const w of Object.values(this.windows)) {
+          if (w.cell === 'left' && w.initialized && w.tabLabel && w.id !== id) this.hideWindow(w.id);
+        }
+      }
+
+      // Only show map or view at any one time.
+      if (win.id === 'map' || win.id === 'view') {
+        for (const w of Object.values(this.windows)) {
+          if ((w.id === 'map' || w.id === 'view') && w.initialized && w.id !== id) this.hideWindow(w.id);
+        }
       }
     }
   }
@@ -113,6 +122,10 @@ export class WindowManager {
     win.el.classList.add('hidden');
     if (win.tabLabel) {
       Helper.find(`.panels__tab[data-panel="${id}"]`).classList.toggle('panels__tab--active', false);
+    }
+
+    if (Utils.isNarrowViewport()) {
+      if (win.id === 'view' && !this.isWindowOpen('map')) this.showWindow('map');
     }
   }
 
