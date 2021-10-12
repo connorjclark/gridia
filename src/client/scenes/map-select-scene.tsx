@@ -54,11 +54,11 @@ type FormState = typeof DEFAULT_MAP_FORM_STATE;
 
 function createMapSelectForm(inputFormEl: HTMLElement, onStateUpdate: (state: FormState) => void) {
   const Input = (props: any) => {
-    return <Fragment>
+    return <div>
       <label>{props.children || props.name}</label>
       <input {...props}></input>
       {props.type === 'range' && props.value}
-    </Fragment>;
+    </div>;
   };
 
   // Pass `parent` so `linkState` works. Could use `this` if these components were defined inside `MapSelectForm.render`,
@@ -126,28 +126,30 @@ function createMapSelectForm(inputFormEl: HTMLElement, onStateUpdate: (state: Fo
             <option value="bit">1-bit</option>
           </select>
         </div>
-        <div>
-          <Input onInput={linkState(this, 'width')} name="width" type={'range'} min={100} value={state.width} max={1000} step={20}></Input>
-          <Input onChange={linkState(this, 'height')} name="height" type={'range'} min={100} value={state.height} max={1000} step={20}></Input>
-          <Input onChange={linkState(this, 'depth')} name="depth" type={'range'} min={1} value={state.depth} max={5} step={1}></Input>
-        </div>
-        <div>
-          <Input onChange={linkState(this, 'borderIsAlwaysWater')} name="borderIsAlwaysWater" type={'checkbox'} value={state.borderIsAlwaysWater}>Border Is Always Water</Input>
-        </div>
 
-        <div>
-          <label for="partitionStrategy">Partition Strategy</label>
-          <Input onInput={linkState(this, 'partitionStrategy.choice', 'target.value')} type={'radio'} name="partitionStrategy" value={'voronoi'} checked={state.partitionStrategy.choice === 'voronoi'}>Voronoi</Input>
-          <Input onInput={linkState(this, 'partitionStrategy.choice', 'target.value')} type={'radio'} name="partitionStrategy" value={'square'} checked={state.partitionStrategy.choice === 'square'}>Square</Input>
-          <PartitionStrategy parent={this} {...state.partitionStrategy}></PartitionStrategy>
-        </div>
+        <Input onInput={linkState(this, 'width')} name="width" type={'range'} min={100} value={state.width} max={1000} step={20}></Input>
+        <Input onChange={linkState(this, 'height')} name="height" type={'range'} min={100} value={state.height} max={1000} step={20}></Input>
+        <Input onChange={linkState(this, 'depth')} name="depth" type={'range'} min={1} value={state.depth} max={5} step={1}></Input>
 
-        <div>
-          <label for="waterStrategy">Water Strategy</label>
-          <Input onInput={linkState(this, 'waterStrategy.choice', 'target.value')} type={'radio'} name="waterStrategy" value={'perlin'} checked={state.waterStrategy.choice === 'perlin'}>Perlin</Input>
-          <Input onInput={linkState(this, 'waterStrategy.choice', 'target.value')} type={'radio'} name="waterStrategy" value={'radial'} checked={state.waterStrategy.choice === 'radial'}>Radial</Input>
-          <WaterStrategy parent={this} {...state.waterStrategy}></WaterStrategy>
-        </div>
+        <div class='generate__separator'></div>
+
+        <Input onChange={linkState(this, 'borderIsAlwaysWater')} name="borderIsAlwaysWater" type={'checkbox'} value={state.borderIsAlwaysWater}>Border Is Always Water</Input>
+
+        <div class='generate__separator'></div>
+
+        <label for="partitionStrategy">Partition Strategy</label>
+        <Input onInput={linkState(this, 'partitionStrategy.choice', 'target.value')} type={'radio'} name="partitionStrategy" value={'voronoi'} checked={state.partitionStrategy.choice === 'voronoi'}>Voronoi</Input>
+        <Input onInput={linkState(this, 'partitionStrategy.choice', 'target.value')} type={'radio'} name="partitionStrategy" value={'square'} checked={state.partitionStrategy.choice === 'square'}>Square</Input>
+        <PartitionStrategy parent={this} {...state.partitionStrategy}></PartitionStrategy>
+
+        <div class='generate__separator'></div>
+
+        <label for="waterStrategy">Water Strategy</label>
+        <Input onInput={linkState(this, 'waterStrategy.choice', 'target.value')} type={'radio'} name="waterStrategy" value={'perlin'} checked={state.waterStrategy.choice === 'perlin'}>Perlin</Input>
+        <Input onInput={linkState(this, 'waterStrategy.choice', 'target.value')} type={'radio'} name="waterStrategy" value={'radial'} checked={state.waterStrategy.choice === 'radial'}>Radial</Input>
+        <WaterStrategy parent={this} {...state.waterStrategy}></WaterStrategy>
+
+        <div class='generate__separator'></div>
 
         {Object.entries(state.seeds).map(([name, value]) => {
           const key = `seeds.${name}`;

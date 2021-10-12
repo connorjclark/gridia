@@ -211,7 +211,7 @@ button {
 }
 .create--attribute {
   display: flex;
-  width: 25%;
+  width: 33%;
 }
 .create--skill-category {
   margin: 10px;
@@ -237,6 +237,10 @@ button {
 
 .generate--select-btn {
   width: 200px;
+}
+
+.generate__separator {
+  border-bottom: 1px solid black;
 }
 
 .map-list {
