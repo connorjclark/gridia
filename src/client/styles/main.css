@@ -70,11 +70,6 @@ button {
 }
 
 #canvases {
-  flex-grow: 1;
-  height: 75%;
-  position: relative;
-  border: 1px solid black;
-  outline: none;
   cursor: cell;
 }
 
