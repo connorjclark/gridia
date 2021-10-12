@@ -72,7 +72,7 @@ export function makeSpellsWindow(onCastSpell: (spell: Spell) => void) {
         </div>);
       }
 
-      return <div class="flex flex-wrap" style={{maxHeight: '20vh', overflow: 'scroll'}}>
+      return <div class="flex flex-wrap" style={{overflow: 'auto'}}>
         {spells}
       </div>;
     }

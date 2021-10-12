@@ -297,6 +297,7 @@ button {
       "bottom bottom bottom bottom";
   flex-grow: 1;
   height: 0;
+  margin: 5px;
 }
 @media only screen and (max-width: 1000px) {
   .ui .grid-container {
@@ -309,7 +310,6 @@ button {
 }
 
 .grid-container .grid-section {
-  margin: 5px;
   min-height: 0;
 }
 .grid-container .bottom { grid-area: bottom; display: flex; justify-content: space-between; flex-flow: row-reverse; }
@@ -338,7 +338,6 @@ button {
 
 .window {
   max-height: 100%;
-  padding: 3px;
   margin: 2px;
   border: solid 1px rgb(107 103 81);
   color: white;
@@ -631,7 +630,7 @@ button {
   position: absolute;
   right: 0;
   bottom: 0;
-  margin: 30px 40px;
+  margin: 0.5in 0.75in;
   pointer-events: all;
 
   display: grid;

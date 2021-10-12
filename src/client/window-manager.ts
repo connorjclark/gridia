@@ -99,7 +99,7 @@ export class WindowManager {
       Helper.find(`.panels__tab[data-panel="${id}"]`).classList.toggle('panels__tab--active', true);
     }
 
-    if (Utils.isNarrowViewport()) {
+    if (Utils.isNarrowViewport() && id !== 'map') {
       // Only show one tab at a time.
       for (const w of Object.values(this.windows)) {
         if (w.initialized && w.tabLabel && w.id !== id && w.id !== 'map') this.hideWindow(w.id);
