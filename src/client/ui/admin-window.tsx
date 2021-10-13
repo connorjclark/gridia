@@ -101,7 +101,7 @@ const FloorSelections = (props: FloorSelectionsProps) => {
         id={floor.id}
         graphicFile={floor.graphics.file}
         graphicIndex={floor.graphics.frames[0]}
-        title={'Floor'}
+        title={`Floor ${floor.id}`}
         selected={props.selectedId === floor.id}
         onClickSelection={props.onClickSelection}
       ></Selection>;

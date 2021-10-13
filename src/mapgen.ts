@@ -13,9 +13,8 @@ function biomeToFloor(biome: string) {
   if (biome === 'LAKE') return WATER;
   if (biome === 'OCEAN') return WATER;
   if (biome === 'SNOW') return 42;
-  if (biome === 'TUNDRA') return 300;
-
-  if (biome === 'GRASSLAND') return 200;
+  if (biome === 'TUNDRA') return 62;
+  if (biome === 'GRASSLAND') return 57;
 
   // if (biome === 'DESERT_SHRUBLAND') return 'tan';
   // if (biome === 'GRASSLAND') return 'lightgreen';
@@ -28,7 +27,7 @@ function biomeToFloor(biome: string) {
   // if (biome === 'TROPICAL_SEASONAL_FOREST') return 'green';
 
   // TODO
-  return 200;
+  return 57;
 }
 
 function sanityCheck(width: number, height: number, depth: number) {
@@ -210,7 +209,6 @@ export function mapgen(opts: MapGenOptions) {
       }
     }
   }
-
 
   return {
     partition: map,

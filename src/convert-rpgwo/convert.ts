@@ -842,41 +842,58 @@ function convertSkills() {
   return skills.map((usage) => sortObject(usage, explicitOrder));
 }
 
+function calculateFloorColor(id: number) {
+  const imageName = `${assetFolder}/gfx/floors${Math.floor(id / 100)}.png`;
+  const x = (id % 10) * 32;
+  const y = Math.floor((id % 100) / 10) * 32;
+  const args = [
+    'convert',
+    imageName,
+    '+set', 'date:modify',
+    ...`-crop 32x32+${x}+${y} +repage`.split(' '),
+    ...'-resize 1x1 txt:-'.split(' '),
+  ];
+  const output = childProcess.execFileSync('magick', args, { encoding: 'utf-8' });
+  // # ImageMagick pixel enumeration: 1,1,255,srgb
+  // 0,0: (80.0724,126.613,38.5971)  #507F27  srgb(31.4009%,49.6523%,15.1361%)
+  const hex = output.split('#')[2].substr(0, 6);
+  return hex;
+}
+
 function convertFloors() {
-  const floors = loadContent('floors.json');
-  for (const floor of floors) {
-    floor.graphics = {
-      file: `rpgwo-floors${Math.floor(floor.id / 100)}.png`,
-      frames: [floor.id % 100],
-    };
+  const floors: MetaFloor[] = [];
+  const oldFloors = loadContent('floors.json');
 
-    // Water.
-    if (floor.id === 1) {
-      floor.color = 'ADBCE6';
-      floor.graphics = {
-        file: 'rpgwo-templates0.png',
-        frames: [0],
-        templateType: 'bit-offset',
-      };
-      continue;
-    }
-
-    const imageName = `${assetFolder}/gfx/floors${Math.floor(floor.id / 100)}.png`;
-    const x = (floor.id % 10) * 32;
-    const y = Math.floor((floor.id % 100) / 10) * 32;
-    const args = [
-      'convert',
-      imageName,
-      '+set', 'date:modify',
-      ...`-crop 32x32+${x}+${y} +repage`.split(' '),
-      ...'-resize 1x1 txt:-'.split(' '),
-    ];
-    const output = childProcess.execFileSync('magick', args, { encoding: 'utf-8' });
-    // # ImageMagick pixel enumeration: 1,1,255,srgb
-    // 0,0: (80.0724,126.613,38.5971)  #507F27  srgb(31.4009%,49.6523%,15.1361%)
-    const hex = output.split('#')[2].substr(0, 6);
-    floor.color = hex;
+  for (let i = 0; i <= 51; i++) {
+    floors.push({
+      id: i,
+      graphics: {
+        file: 'rpgwo-floors0.png',
+        frames: [i],
+      },
+      color: oldFloors[i]?.color || calculateFloorColor(i),
+    });
   }
+  for (let i = 0; i < 25; i++) {
+    const graphicIndex = 100 + i * 20;
+    const id = 52 + i;
+    floors.push({
+      id,
+      graphics: {
+        file: `rpgwo-floors${Math.floor(graphicIndex / 100)}.png`,
+        frames: [graphicIndex % 100],
+      },
+      color: oldFloors[id]?.color || calculateFloorColor(i),
+    });
+  }
+
+  // Water
+  floors[1].color = 'ADBCE6';
+  floors[1].graphics = {
+    file: 'rpgwo-templates0.png',
+    frames: [0],
+    templateType: 'bit-offset',
+  };
 
   return floors;
 }
