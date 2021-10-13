@@ -436,7 +436,7 @@ export class Game {
   }
 
   isEditingMode() {
-    return this._isEditing;
+    return this._isEditing && this.modules?.admin.window.delegate.isOpen();
   }
 
   addActionCreator(actionCreator: GameActionCreator) {
