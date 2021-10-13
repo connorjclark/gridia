@@ -48,6 +48,7 @@ export class CreateCharacterScene extends Scene {
     ]);
 
     const attributesEl = Helper.find('.create--attributes', this.element);
+    attributesEl.textContent = '';
     for (const attribute of attributesSorted) {
       const el = Helper.createChildOf(attributesEl, 'div', 'create--attribute');
       const el2 = Helper.createChildOf(el, 'div');
@@ -88,6 +89,7 @@ export class CreateCharacterScene extends Scene {
     const requiredSkills = characterCreation.requiredSkills || [];
 
     const skillsEl = Helper.find('.create--skills', this.element);
+    skillsEl.textContent = '';
     for (const [category, skills] of skillsByCategoryOrdered) {
       const categoryEl = Helper.createChildOf(skillsEl, 'div', 'create--skill-category');
       Helper.createChildOf(categoryEl, 'h3').textContent = category;
