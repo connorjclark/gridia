@@ -125,11 +125,12 @@ export class Server {
     this.broadcastInRange(EventBuilder.animation({...animationInstance}), animationInstance.path[0], 30);
   }
 
-  broadcastChat(opts: { from: string; text: string }) {
+  broadcastChat(opts: { from: string; creatureId?: number; text: string }) {
     console.log(`${opts.from}: ${opts.text}`);
     this.broadcast(EventBuilder.chat({
       section: 'Global',
       from: opts.from,
+      creatureId: opts.creatureId,
       text: opts.text,
     }));
   }

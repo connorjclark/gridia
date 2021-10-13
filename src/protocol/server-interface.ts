@@ -323,6 +323,7 @@ export class ServerInterface implements ICommands {
         server.send(EventBuilder.chat({
           section: 'World',
           from: creature.name,
+          creatureId: creature.id,
           text: '...',
         }), clientConnection);
       }
@@ -1065,6 +1066,7 @@ export class ServerInterface implements ICommands {
     } else {
       server.broadcastChat({
         from: clientConnection.player.name,
+        creatureId: clientConnection.creature.id,
         text,
       });
     }

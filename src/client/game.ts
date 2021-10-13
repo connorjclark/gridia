@@ -176,7 +176,7 @@ class CreatureSprite extends PIXI.Sprite {
 
   tick() {
     if (this.statusTextsEl) {
-      const screenCoords = this.toGlobal({x:0, y: -GFX_SIZE/2});
+      const screenCoords = this.toGlobal({x: GFX_SIZE/2, y: -GFX_SIZE/2});
       this.statusTextsEl.style.left = screenCoords.x + 'px';
       this.statusTextsEl.style.bottom = (window.innerHeight - screenCoords.y) + 'px';
     }
@@ -222,8 +222,10 @@ class CreatureSprite extends PIXI.Sprite {
     }
   }
 
-  addStatusText(opts: {text: string; color?: string}) {
-    if (!this.statusTextsEl) this.statusTextsEl = Helper.createChildOf(document.body, 'div', 'status-texts');
+  addStatusText(opts: {text: string; color?: string; msUntilFade?: number}) {
+    if (!this.statusTextsEl) {
+      this.statusTextsEl = Helper.createChildOf(document.body, 'div', 'status-texts status-texts--creature');
+    }
 
     const textEl = Helper.createChildOf(this.statusTextsEl, 'div', 'status-text');
     textEl.textContent = opts.text;
@@ -231,7 +233,7 @@ class CreatureSprite extends PIXI.Sprite {
     textEl.style.fontSize = '20px';
     this.statusTextsEl.append(textEl);
 
-    setTimeout(() => textEl.classList.add('status-text--remove'), 500);
+    setTimeout(() => textEl.classList.add('status-text--remove'), opts.msUntilFade || 500);
     textEl.addEventListener('transitionend', () => {
       textEl.remove();
       if (this.statusTextsEl && !this.statusTextsEl?.children.length) {
@@ -564,6 +566,15 @@ export class Game {
 
     if (event.type === 'chat') {
       this.addToChat(event.args.section, event.args.text, event.args.from);
+      if (event.args.creatureId) {
+        const creatureSprite = this.creatureSprites.get(event.args.creatureId);
+        if (creatureSprite) {
+          creatureSprite.addStatusText({
+            text: event.args.text,
+            msUntilFade: 5000,
+          });
+        }
+      }
     }
 
     if (event.type === 'creatureStatus') {

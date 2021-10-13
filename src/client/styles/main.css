@@ -82,6 +82,10 @@ button {
   padding: 5px;
   z-index: 10;
 }
+.status-texts--creature {
+  transform: translateX(-50%);
+  text-align: center;
+}
 
 .status-text {
   transition: 2s ease-in-out;

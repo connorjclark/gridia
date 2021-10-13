@@ -14,7 +14,7 @@ export interface IEvents {
     onSetFloor(client: Client, { floor, ...loc }: Protocol.Events.SetFloor): void;
     onSetItem(client: Client, { location, item }: Protocol.Events.SetItem): void;
     onXp(client: Client, { skill, xp }: Protocol.Events.Xp): void;
-    onChat(client: Client, { section, from, text }: Protocol.Events.Chat): void;
+    onChat(client: Client, { section, from, creatureId, text }: Protocol.Events.Chat): void;
     onTime(client: Client, { epoch }: Protocol.Events.Time): void;
     onDialogue(client: Client, { dialogue, index }: Protocol.Events.Dialogue): void;
     onSetAttackTarget(client: Client, { creatureId }: Protocol.Events.SetAttackTarget): void;

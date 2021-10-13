@@ -98,6 +98,7 @@ declare namespace Protocol {
     interface Chat {
       section: string;
       from?: string;
+      creatureId?: number;
       text: string;
     }
 

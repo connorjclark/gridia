@@ -100,7 +100,7 @@ export function setItem({ location, item }: Protocol.Events.SetItem): SetItemEve
 export function xp({ skill, xp }: Protocol.Events.Xp): XpEvent {
     return { type: "xp", args: arguments[0] };
 }
-export function chat({ section, from, text }: Protocol.Events.Chat): ChatEvent {
+export function chat({ section, from, creatureId, text }: Protocol.Events.Chat): ChatEvent {
     return { type: "chat", args: arguments[0] };
 }
 export function time({ epoch }: Protocol.Events.Time): TimeEvent {
