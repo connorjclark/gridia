@@ -14,16 +14,26 @@ export class AdminModule extends ClientModule {
   private _state?: State;
   private _history: HistoryEntry[] = [];
   private _historyIndex = 0;
+  private _uncommitedHistoryEntry: HistoryEntry = {};
 
   onStart() {
     this.init();
+
+    this.game.client.eventEmitter.on('event', (e) => {
+      if (e.type === 'setFloor') {
+        this.removeFromHistory(e.args, e.args.floor, 'floor');
+      }
+      if (e.type === 'setItem' && e.args.location.source === 'world') {
+        this.removeFromHistory(e.args.location.loc, e.args.item?.type, 'item');
+      }
+    });
   }
 
-  setUIState(state?: State) {
-    if (this._state && !state) {
-      this.game.client.eventEmitter.emit('editingMode', {enabled: false});
-    } else if (!this._state && state) {
+  setUIState(state: State) {
+    if (state.selected) {
       this.game.client.eventEmitter.emit('editingMode', {enabled: true});
+    } else {
+      this.game.client.eventEmitter.emit('editingMode', {enabled: false});
     }
 
     this._state = state;
@@ -39,22 +49,19 @@ export class AdminModule extends ClientModule {
     this._historyIndex = this._history.length - 1;
   }
 
-
   private init() {
     // const scripts = await this.game.client.connection.sendCommand(CommandBuilder.requestScripts({}));
     // console.log({scripts}); // TODO ?
-
-    let uncommitedHistoryEntry: HistoryEntry = {};
 
     let downAt: Point4 | undefined;
     this.game.client.eventEmitter.on('pointerDown', (loc) => {
       if (!this.window.delegate.isOpen()) return;
       if (!this._state) return;
 
-      uncommitedHistoryEntry = {};
+      this._uncommitedHistoryEntry = {};
       downAt = loc;
       if (this._state.tool === 'point') {
-        this.setTile(loc, uncommitedHistoryEntry);
+        this.setTile(loc, this._uncommitedHistoryEntry);
       }
     });
     this.game.client.eventEmitter.on('pointerMove', (loc) => {
@@ -62,7 +69,7 @@ export class AdminModule extends ClientModule {
       if (!this._state || !this._state.selected || !downAt) return;
 
       if (this._state.tool === 'point') {
-        this.setTile(loc, uncommitedHistoryEntry);
+        this.setTile(loc, this._uncommitedHistoryEntry);
       }
     });
     this.game.client.eventEmitter.on('pointerUp', (loc) => {
@@ -80,7 +87,7 @@ export class AdminModule extends ClientModule {
         const maxy = Math.max(downAt.y, loc.y);
         for (let x = minx; x <= maxx; x++) {
           for (let y = miny; y <= maxy; y++) {
-            this.setTile({x, y, w: loc.w, z: loc.z}, uncommitedHistoryEntry);
+            this.setTile({x, y, w: loc.w, z: loc.z}, this._uncommitedHistoryEntry);
           }
         }
       }
@@ -122,13 +129,13 @@ export class AdminModule extends ClientModule {
         }
 
         for (const l of locsToSet) {
-          this.setTile(l, uncommitedHistoryEntry);
+          this.setTile(l, this._uncommitedHistoryEntry);
         }
       }
 
       if (this._state?.tool) {
-        this.addToHistory(uncommitedHistoryEntry);
-        uncommitedHistoryEntry = {};
+        this.addToHistory(this._uncommitedHistoryEntry);
+        this._uncommitedHistoryEntry = {};
       }
 
       downAt = undefined;
@@ -198,6 +205,25 @@ export class AdminModule extends ClientModule {
     }
   }
 
+  private removeFromHistory(loc: Point4, id: number | undefined, type: 'floor' | 'item') {
+    function handleEntry(entry: HistoryEntry) {
+      if (type === 'floor' && entry.floors) {
+        const index = entry.floors.findIndex((f) => Utils.equalPoints(loc, f.loc) && f.to !== id);
+        if (index !== -1) entry.floors.splice(index, 1);
+      }
+      if (type === 'item' && entry.items) {
+        const index = entry.items.findIndex((i) => Utils.equalPoints(loc, i.loc) && i.to?.type !== id);
+        if (index !== -1) entry.items.splice(index, 1);
+      }
+    }
+
+    // TODO: this doesn't work because don't know how to differntiate setItem/setFloor updates caused by redo/undo
+    // for (const entry of this._history) {
+    //   handleEntry(entry);
+    // }
+    // handleEntry(this._uncommitedHistoryEntry);
+  }
+
   undo() {
     const entry = this._history[this._historyIndex];
     if (!entry) return;
@@ -220,7 +246,7 @@ export class AdminModule extends ClientModule {
   }
 
   redo() {
-    const entry = this._history[this._historyIndex + 1];
+    const entry = this._history[this._historyIndex];
     if (!entry) return;
 
     for (const item of entry.items || []) {
