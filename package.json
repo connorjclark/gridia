@@ -71,7 +71,7 @@
     "canvas": "^2.8.0",
     "chokidar-cli": "^3.0.0",
     "concurrently": "^4.1.1",
-    "esbuild": "^0.13.3",
+    "esbuild": "^0.14.2",
     "esbuild-node-builtins": "^0.1.0",
     "eslint": "^7.16.0",
     "eslint-plugin-import": "^2.22.1",
