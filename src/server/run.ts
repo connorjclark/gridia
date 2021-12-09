@@ -4,7 +4,7 @@ import * as https from 'https';
 import {performance} from 'perf_hooks';
 
 import nodeCleanup from 'node-cleanup';
-import WS from 'ws';
+import {WebSocketServer} from 'ws';
 import yargs from 'yargs';
 
 import {WORLD_DATA_DEFINITIONS} from '../content.js';
@@ -47,7 +47,7 @@ async function main(options: CLIOptions) {
   } else {
     webserver = http.createServer(onHttpRequest);
   }
-  const wss = new WS.Server({
+  const wss = new WebSocketServer({
     server: webserver,
   });
   webserver.listen(port);

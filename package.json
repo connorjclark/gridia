@@ -27,7 +27,7 @@
     "typed.js": "^2.0.11",
     "uuid": "^8.3.2",
     "wrtc": "^0.4.7",
-    "ws": "*",
+    "ws": "8.3.0",
     "yargs": "^13.2.2"
   },
   "engines": {
@@ -64,7 +64,7 @@
     "@types/puppeteer": "^1.19.1",
     "@types/seedrandom": "^2.4.28",
     "@types/wicg-file-system-access": "^2020.9.1",
-    "@types/ws": "^6.0.1",
+    "@types/ws": "^8.2.2",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/eslint-plugin-tslint": "^4.17.0",
     "@typescript-eslint/parser": "^4.31.0",
