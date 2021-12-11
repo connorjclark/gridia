@@ -123,5 +123,21 @@ declare namespace Protocol {
       text: string;
       color?: string;
     }
+
+    interface Notifaction {
+      details: NotifactionSkillLevelDetails | NotifactionTextDetails;
+    }
   }
+}
+
+interface NotifactionSkillLevelDetails {
+  type: 'skill-level';
+  skillId: number;
+  from: number;
+  to: number;
+}
+
+interface NotifactionTextDetails {
+  type: 'text';
+  text: string;
 }

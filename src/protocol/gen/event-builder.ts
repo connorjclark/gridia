@@ -64,8 +64,12 @@ type CreatureStatusEvent = {
     type: "creatureStatus";
     args: Protocol.Events.CreatureStatus;
 };
+type NotifactionEvent = {
+    type: "notifaction";
+    args: Protocol.Events.Notifaction;
+};
 
-export type ProtocolEvent = AnimationEvent | ContainerEvent | InitializeEvent | InitializePartitionEvent | LogEvent | RemoveCreatureEvent | SectorEvent | SetCreatureEvent | SetFloorEvent | SetItemEvent | XpEvent | ChatEvent | TimeEvent | DialogueEvent | SetAttackTargetEvent | CreatureStatusEvent;
+export type ProtocolEvent = AnimationEvent | ContainerEvent | InitializeEvent | InitializePartitionEvent | LogEvent | RemoveCreatureEvent | SectorEvent | SetCreatureEvent | SetFloorEvent | SetItemEvent | XpEvent | ChatEvent | TimeEvent | DialogueEvent | SetAttackTargetEvent | CreatureStatusEvent | NotifactionEvent;
 
 export function animation({ ...animationInstance }: Protocol.Events.Animation): AnimationEvent {
     return { type: "animation", args: arguments[0] };
@@ -114,4 +118,7 @@ export function setAttackTarget({ creatureId }: Protocol.Events.SetAttackTarget)
 }
 export function creatureStatus({ creatureId, text, color }: Protocol.Events.CreatureStatus): CreatureStatusEvent {
     return { type: "creatureStatus", args: arguments[0] };
+}
+export function notifaction({ details }: Protocol.Events.Notifaction): NotifactionEvent {
+    return { type: "notifaction", args: arguments[0] };
 }

@@ -612,6 +612,16 @@ export class Game {
       this.client._lastSyncedEpoch = event.args.epoch;
       this.client._lastSyncedRealTime = Date.now();
     }
+
+    if (event.type === 'notifaction') {
+      // TODO special ui
+      const details = event.args.details;
+      if (details.type === 'skill-level') {
+        // this.addToChat('', `${Content.getSkill(details.skillId).name} is now level ${details.to}!`);
+      } else if (details.type === 'text') {
+        this.addToChat('', details.text);
+      }
+    }
   }
 
   start() {

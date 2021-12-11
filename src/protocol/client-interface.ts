@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import {Client} from '../client/client.js';
-import * as Content from '../content.js';
 import * as Player from '../player.js';
 
 import * as CommandBuilder from './command-builder.js';
@@ -81,7 +80,8 @@ export class ClientInterface implements IEvents {
   }
 
   onXp(client: Client, {skill, xp}: Events.Xp): void {
-    Player.incrementSkillXp(client.player, skill, xp);
+    // Player.incrementSkillXp(client.player, skill, xp);
+    // handled by skills-module.ts
   }
 
   onChat(client: Client, {section, from, text}: Events.Chat): void {
@@ -101,6 +101,10 @@ export class ClientInterface implements IEvents {
   }
 
   onCreatureStatus(client: Client, {creatureId, text, color}: Events.CreatureStatus): void {
+    // handled by game.ts
+  }
+
+  onNotifaction(client: Client, {details}: Events.Notifaction): void {
     // handled by game.ts
   }
 }

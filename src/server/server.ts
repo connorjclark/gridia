@@ -1197,15 +1197,29 @@ export class Server {
 
   grantXp(clientConnection: ClientConnection, skill: number, xp: number) {
     if (xp <= 0) return;
+    if (!Player.hasSkill(clientConnection.player, skill)) return;
 
+    const skillValueBefore = Player.getSkillValue(clientConnection.player, clientConnection.creature.buffs, skill);
     const {skillLevelIncreased, combatLevelIncreased} =
       Player.incrementSkillXp(clientConnection.player, skill, xp) || {};
+    const skillValueAfter =
+      skillLevelIncreased && Player.getSkillValue(clientConnection.player, clientConnection.creature.buffs, skill);
 
-    if (skillLevelIncreased) {
-      const value = Player.getSkillValue(clientConnection.player, clientConnection.creature.buffs, skill);
+    if (skillLevelIncreased && skillValueAfter) {
+      const skillName = Content.getSkill(skill).name;
       this.send(EventBuilder.chat({
         section: 'Skills',
-        text: `${Content.getSkill(skill).name} is now level ${value.level}`,
+        text: skillValueAfter.buffAmount ?
+          `${skillName} is now level ${skillValueAfter.unbuffedLevel}! (${skillValueAfter.level} buffed)` :
+          `${skillName} is now level ${skillValueAfter.level}!`,
+      }), clientConnection);
+      this.send(EventBuilder.notifaction({
+        details: {
+          type: 'skill-level',
+          skillId: skill,
+          from: skillValueBefore.unbuffedLevel,
+          to: skillValueAfter.unbuffedLevel,
+        },
       }), clientConnection);
     }
 

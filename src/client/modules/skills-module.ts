@@ -31,6 +31,7 @@ export class SkillsModule extends ClientModule {
   onStart() {
     this.game.client.eventEmitter.on('event', (e) => {
       if (e.type === 'xp') {
+        Player.incrementSkillXp(this.game.client.player, e.args.skill, e.args.xp);
         this.game.addStatusText(`+${e.args.xp}xp ${Content.getSkill(e.args.skill).name}`);
 
         if (this.skillsWindow) {

@@ -149,6 +149,7 @@ export function getSkillValue(player: Player, buffs: Buff[], id: number) {
     earnedLevel,
     buffAmount,
     level,
+    unbuffedLevel: baseLevel + earnedLevel,
     xpUntilNextLevel: attributeLevelToXpTotal[earnedLevel + 1] - xp,
   };
 }
