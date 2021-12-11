@@ -402,6 +402,9 @@ button {
   border-image: linear-gradient(to right, #e6cf54 calc(var(--percent) * 100%), rgb(119, 57, 57) calc(var(--percent) * 100%)); /* to top - at 50% transparent */
   border-image-slice: 1;
 }
+.skill.selected {
+  color: gold;
+}
 
 .window--admin > div {
   display: flex;
