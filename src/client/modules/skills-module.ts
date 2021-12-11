@@ -69,14 +69,14 @@ export class SkillsModule extends ClientModule {
 
   getSkill(id: number) {
     const skill = Content.getSkill(id);
-    const value = Player.getSkillValue(this.game.client.player, this.game.client.creature.buffs, skill.id);
+    const summary = Player.getSkillSummary(this.game.client.player, this.game.client.creature.buffs, skill.id);
 
     return {
       ...skill,
-      ...value,
+      ...summary,
       xpBar: {
-        current: value.xp - Player.getXpTotalForLevel(value.earnedLevel),
-        max: Player.getXpTotalForLevel(value.earnedLevel + 1) - Player.getXpTotalForLevel(value.earnedLevel),
+        current: summary.xp - Player.getXpTotalForLevel(summary.earnedLevel),
+        max: Player.getXpTotalForLevel(summary.earnedLevel + 1) - Player.getXpTotalForLevel(summary.earnedLevel),
       },
       baseLevelFormula: Content.getSkillAttributeDescription(skill),
     };

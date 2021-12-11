@@ -1199,26 +1199,26 @@ export class Server {
     if (xp <= 0) return;
     if (!Player.hasSkill(clientConnection.player, skill)) return;
 
-    const skillValueBefore = Player.getSkillValue(clientConnection.player, clientConnection.creature.buffs, skill);
+    const skillSummaryBefore = Player.getSkillSummary(clientConnection.player, clientConnection.creature.buffs, skill);
     const {skillLevelIncreased, combatLevelIncreased} =
       Player.incrementSkillXp(clientConnection.player, skill, xp) || {};
-    const skillValueAfter =
-      skillLevelIncreased && Player.getSkillValue(clientConnection.player, clientConnection.creature.buffs, skill);
+    const skillSummaryAfter =
+      skillLevelIncreased && Player.getSkillSummary(clientConnection.player, clientConnection.creature.buffs, skill);
 
-    if (skillLevelIncreased && skillValueAfter) {
+    if (skillLevelIncreased && skillSummaryAfter) {
       const skillName = Content.getSkill(skill).name;
       this.send(EventBuilder.chat({
         section: 'Skills',
-        text: skillValueAfter.buffAmount ?
-          `${skillName} is now level ${skillValueAfter.unbuffedLevel}! (${skillValueAfter.level} buffed)` :
-          `${skillName} is now level ${skillValueAfter.level}!`,
+        text: skillSummaryAfter.buffAmount ?
+          `${skillName} is now level ${skillSummaryAfter.unbuffedLevel}! (${skillSummaryAfter.level} buffed)` :
+          `${skillName} is now level ${skillSummaryAfter.level}!`,
       }), clientConnection);
       this.send(EventBuilder.notifaction({
         details: {
           type: 'skill-level',
           skillId: skill,
-          from: skillValueBefore.unbuffedLevel,
-          to: skillValueAfter.unbuffedLevel,
+          from: skillSummaryBefore.unbuffedLevel,
+          to: skillSummaryAfter.unbuffedLevel,
         },
       }), clientConnection);
     }

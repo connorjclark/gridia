@@ -138,8 +138,7 @@ function getSkillLevel(player: Player, id: number, buffs: Buff[] = []) {
   return {baseLevel, earnedLevel, buffAmount, level};
 }
 
-// TODO rename details
-export function getSkillValue(player: Player, buffs: Buff[], id: number) {
+export function getSkillSummary(player: Player, buffs: Buff[], id: number) {
   const xp = player.skills.get(id)?.xp || 0;
   const {baseLevel, earnedLevel, buffAmount, level} = getSkillLevel(player, id, buffs);
 
