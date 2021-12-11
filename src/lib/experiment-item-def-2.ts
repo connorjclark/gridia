@@ -65,6 +65,7 @@ function tick(from: MetaItem, to: MetaItem, opts: TickOpts) {
 
 type UsageOpts = Partial<Omit<ItemUse, 'tool' | 'focus' | 'products'>> & {
   products: Array<MetaItem & { quantity?: number }>;
+  skill?: string;
 };
 function usage(tool: MetaItem, focus: MetaItem, {products, ...opts}: UsageOpts) {
   result.usages.push({

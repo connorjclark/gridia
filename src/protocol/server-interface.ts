@@ -361,11 +361,19 @@ export class ServerInterface implements ICommands {
     if (!uses.length) return Promise.reject(); // TODO
     const use = uses[usageIndex || 0];
 
-    // TODO: use.skill should be a skill id
-    const skill = use.skill && Content.getSkillByName(use.skill);
+    const skill = use.skillId && Content.getSkill(use.skillId);
     if (!clientConnection.player.isAdmin) {
       if (skill && !clientConnection.player.skills.has(skill.id)) {
         throw new Error('missing required skill: ' + skill.name);
+      }
+
+      if (use.minimumSkillLevel !== undefined) {
+        const minLevel = use.minimumSkillLevel;
+        const maxLevel = use.minimumSkillLevel || minLevel;
+        const successRate = Math.min(0.01, minLevel / maxLevel);
+        if (Math.random() <= successRate) {
+          return Promise.reject('You fumble it!');
+        }
       }
     }
 

@@ -351,11 +351,15 @@ function parseItemUsagesIni(): ItemUse[] {
     } else if (key.match(/^successmsg$/i)) {
       currentUsage.successMessage = value;
     } else if (key.match(/^skill$/i)) {
-      // Normalize skill name.
-      const skills = loadContent('skills.json');
-      if (value === 'Leather') currentUsage.skill = 'Tailor';
+      let skillName = value.toLowerCase();
+      if (skillName === 'leather') skillName = 'tailor';
+
       // @ts-expect-error
-      else currentUsage.skill = skills.find((skill) => skill.name.toLowerCase() === value.toLowerCase()).name;
+      currentUsage.skillId = state.skills.find((skill) => skill.name.toLowerCase() === skillName).id;
+    } else if (key.match(/^skillmin$/i)) {
+      currentUsage.minimumSkillLevel = forcenum(value);
+    } else if (key.match(/^skillmax$/i)) {
+      currentUsage.maximumSkillLevel = forcenum(value);
     } else if (key.match(/^skillxpsuccess$/i)) {
       currentUsage.skillSuccessXp = forcenum(value);
     } else if (key.match(/^animation$/i)) {
@@ -400,7 +404,9 @@ function parseItemUsagesIni(): ItemUse[] {
     'focus',
     'focusQuantityConsumed',
     'products',
-    'skill',
+    'skillId',
+    'minimumSkillLevel',
+    'maximumSkillLevel',
     'skillSuccessXp',
     'successFloor',
     'successMessage',
@@ -779,7 +785,7 @@ function convertItemUsages() {
     return 0;
   });
 
-  const explicitOrder = ['tool', 'focus', 'skill'];
+  const explicitOrder = ['tool', 'focus', 'skill', 'minimumSkillLevel', 'maximumSkillLevel'];
   return usages.map((usage) => sortObject(usage, explicitOrder));
 }
 

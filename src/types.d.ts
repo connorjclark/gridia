@@ -240,7 +240,11 @@ interface ItemUse {
   successTool?: number;
   successFloor?: number;
   products: Array<{ type: number; quantity: number }>;
-  skill?: string;
+  skillId?: number;
+  /** When usage starts to be possible 0% of the time (but with a min of 1%) */
+  minimumSkillLevel?: number;
+  /** When usage starts to be possible 100% of the time */
+  maximumSkillLevel?: number;
   skillSuccessXp?: number;
 }
 

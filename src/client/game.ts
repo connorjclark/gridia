@@ -108,7 +108,6 @@ const ContextMenu = {
     contextMenuEl.style.top = `${screen.y}px`;
 
     contextMenuEl.innerHTML = '';
-    const tile = game.client.context.map.getTile(loc);
     const creature = game.client.context.getCreatureAt(loc);
     const actions = game.getActionsFor(Utils.ItemLocation.World(loc));
     actions.push({
@@ -617,6 +616,13 @@ export class Game {
       // TODO special ui
       const details = event.args.details;
       if (details.type === 'skill-level') {
+        const usagesBefore = new Set(Content.getItemUsesForSkill(details.skillId, details.from));
+        const newUsages = new Set(Content.getItemUsesForSkill(details.skillId, details.to));
+        for (const usage of usagesBefore) newUsages.delete(usage);
+
+        if (newUsages.size) {
+          this.addToChat('', `You can now do ${newUsages.size} new things!`);
+        }
         // this.addToChat('', `${Content.getSkill(details.skillId).name} is now level ${details.to}!`);
       } else if (details.type === 'text') {
         this.addToChat('', details.text);

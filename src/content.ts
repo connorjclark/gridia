@@ -299,6 +299,16 @@ export function getItemUsesForProduct(type: number) {
     (item) => item.successTool === type || item.products.some((product) => product.type === type));
 }
 
+export function getItemUsesForSkill(skillId: number, level?: number) {
+  return data.itemUses.filter((usage) => {
+    if (usage.skillId !== skillId) return false;
+    if (level !== undefined && usage.minimumSkillLevel !== undefined && level < usage.minimumSkillLevel) {
+      return false;
+    }
+    return true;
+  });
+}
+
 function getMetaItemsOfClass(itemClass: MetaItem['class']): MetaItem[] {
   return data.items.filter((item) => Boolean(item && item.class === itemClass));
 }
