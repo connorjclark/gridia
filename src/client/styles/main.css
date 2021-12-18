@@ -254,11 +254,30 @@ button {
   background-color: #cccca9;
 }
 
+.pd-5 {
+  padding: 5px;
+}
+
 .flex {
   display: flex;
 }
 .flex-grow {
   flex-grow: 1;
+}
+
+.grid {
+  display: grid;
+}
+.grid-contents {
+  display: contents;
+}
+
+.item-usages-search {
+  grid-template-columns: max-content min-content min-content 1fr;
+}
+.item-usages-search__header > div {
+  padding: 5px;
+  border-bottom: solid 1px white;
 }
 
 .ui {

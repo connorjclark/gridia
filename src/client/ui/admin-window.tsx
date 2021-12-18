@@ -1,12 +1,11 @@
 import linkState from 'linkstate';
-import {render, h, Component, Fragment} from 'preact';
+import {render, h, Component} from 'preact';
 
 import * as Content from '../../content.js';
-import * as Utils from '../../utils.js';
 import * as Helper from '../helper.js';
 import {AdminModule} from '../modules/admin-module.js';
 
-import {Graphic} from './ui-common.js';
+import {Graphic, Input, PaginatedContent} from './ui-common.js';
 
 const TOOLS = ['point', 'rectangle', 'fill'] as const;
 type Tool = typeof TOOLS[number];
@@ -15,7 +14,6 @@ export interface State {
   selectionFilter: {
     itemClass: string;
     text: string;
-    page: number;
   };
   tool: Tool;
   safeMode: boolean;
@@ -24,18 +22,9 @@ const DEFAULT_STATE: State = {
   selectionFilter: {
     itemClass: '',
     text: '',
-    page: 0,
   },
   tool: 'point',
   safeMode: true,
-};
-
-const Input = (props: any) => {
-  return <Fragment>
-    <label>{props.children || props.name}</label>
-    <input {...props}></input>
-    {props.type === 'range' && props.value}
-  </Fragment>;
 };
 
 type SelectionType = 'items' | 'floors';
@@ -153,9 +142,21 @@ export function makeAdminWindow(adminModule: AdminModule) {
   class AdminWindow extends Component<any, State> {
     state = DEFAULT_STATE;
 
+    renderFloorSelections = (floors: MetaFloor[]) => <FloorSelections
+      onClickSelection={this.onClickSelection}
+      selectedId={this.state.selected?.type === 'floors' ? this.state.selected?.id : undefined}
+      floors={floors}></FloorSelections>;
+
+    renderItemSelections = (items: MetaItem[]) => <ItemSelections
+      onClickSelection={this.onClickSelection}
+      selectedId={this.state.selected?.type === 'items' ? this.state.selected?.id : undefined}
+      metaItems={items}></ItemSelections>;
+
     constructor() {
       super();
       this.onClickSelection = this.onClickSelection.bind(this);
+      this.renderFloorSelections = this.renderFloorSelections.bind(this);
+      this.renderItemSelections = this.renderItemSelections.bind(this);
     }
 
     render(props: any, state: State) {
@@ -182,22 +183,11 @@ export function makeAdminWindow(adminModule: AdminModule) {
       });
 
       const isFloors = state.selectionFilter.itemClass === 'Floors';
-      const selectionsPerPage = 300;
       const filteredItems = isFloors ?
         Content.getFloors() :
         filterMetaItems(state.selectionFilter.itemClass, state.selectionFilter.text);
-      const numPages = Math.ceil(filteredItems.length / selectionsPerPage);
-      const startIndex = selectionsPerPage * state.selectionFilter.page;
-      const paginatedItems = filteredItems.slice(startIndex, startIndex + selectionsPerPage);
-      const Selections = isFloors ?
-        <FloorSelections
-          onClickSelection={this.onClickSelection}
-          selectedId={state.selected?.type === 'floors' ? state.selected?.id : undefined}
-          floors={paginatedItems as MetaFloor[]}></FloorSelections> :
-        <ItemSelections
-          onClickSelection={this.onClickSelection}
-          selectedId={state.selected?.type === 'items' ? state.selected?.id : undefined}
-          metaItems={paginatedItems as MetaItem[]}></ItemSelections>;
+
+      const renderSelections = isFloors ? this.renderFloorSelections : this.renderItemSelections;
 
       return <div>
         <div>
@@ -207,10 +197,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
           <Input
             name="textFilter"
             type={'text'}
-            onInput={(e: InputEvent) => {
-              linkState(this, 'selectionFilter.text')(e);
-              this.setPage(0, numPages);
-            }}
+            onInput={linkState(this, 'selectionFilter.text')}
             value={state.selectionFilter.text}>
             Name Filter
           </Input>
@@ -231,12 +218,10 @@ export function makeAdminWindow(adminModule: AdminModule) {
             onClick={() => this.onClickSafeMode()}
           >Safe Mode</div>
 
-          <div>
-            <button onClick={() => this.setPage(state.selectionFilter.page - 1, numPages)}>{'<'}</button>
-            <button onClick={() => this.setPage(state.selectionFilter.page + 1, numPages)}>{'>'}</button>
-            page {state.selectionFilter.page + 1} of {numPages}
-            {Selections}
-          </div>
+          <PaginatedContent
+            itemsPerPage={300}
+            items={filteredItems}
+            renderItems={renderSelections}></PaginatedContent>
         </div>
       </div>;
     }
@@ -267,18 +252,12 @@ export function makeAdminWindow(adminModule: AdminModule) {
       adminModule.setUIState({...this.state});
     }
 
-    setPage(page: number, numPages: number) {
-      const newPage = Utils.clamp(page, 0, numPages - 1);
-      this.setState({selectionFilter: {...this.state.selectionFilter, page: newPage}});
-    }
-
     setItemClassFilter(itemClass: string) {
       const isSame = itemClass === this.state.selectionFilter.itemClass;
       const newValue = isSame ? '' : itemClass;
       this.setState({
         selectionFilter: {
           ...this.state.selectionFilter,
-          page: 0,
           itemClass: newValue,
         },
       });

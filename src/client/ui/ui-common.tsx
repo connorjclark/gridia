@@ -1,4 +1,4 @@
-import {h, render, Component} from 'preact';
+import {h, render, Component, Fragment, VNode} from 'preact';
 import {useEffect, useState} from 'preact/hooks';
 import createStore from 'redux-zero';
 import {Provider, connect} from 'redux-zero/preact';
@@ -164,6 +164,19 @@ export const Graphic = (props: GraphicProps) => {
   return <div class="graphic" style={style} title={props.title}>{label}</div>;
 };
 
+export const ItemGraphic = (props: {item: Item}) => {
+  const metaItem = Content.getMetaItem(props.item.type);
+  if (!metaItem.graphics) return <></>;
+
+  const graphicIndex = metaItem.graphics.frames[0] || 0;
+  return <Graphic
+    file={metaItem.graphics.file}
+    index={graphicIndex}
+    quantity={props.item.quantity}
+    title={metaItem.name}
+  ></Graphic>;
+};
+
 interface CustomCreatureGraphicProps {
   graphics: Graphics[];
   scale?: number;
@@ -227,3 +240,38 @@ export const Bar = (props: { label: string; color: string; current: number; max:
     <div class="bar__bg" style={{width: `${percent}%`, backgroundColor: props.color}}>&nbsp;</div>
   </div>;
 };
+
+export const Input = (props: any) => {
+  return <Fragment>
+    <label>{props.children || props.name}</label>
+    <input {...props}></input>
+    {props.type === 'range' && props.value}
+  </Fragment>;
+};
+
+interface PaginatedContentProps {
+  itemsPerPage: number;
+  items: any[];
+  renderItems: (items: any[]) => VNode;
+}
+
+export class PaginatedContent extends Component<PaginatedContentProps> {
+  render() {
+    const {itemsPerPage, items, renderItems} = this.props;
+    const [currentPage, setCurrentPage] = useState(0);
+    useEffect(() => {
+      setCurrentPage(0);
+    }, [items]);
+
+    const numPages = Math.ceil(items.length / itemsPerPage);
+    const startIndex = itemsPerPage * currentPage;
+    const paginatedItems = items.slice(startIndex, startIndex + itemsPerPage);
+
+    return <div>
+      <button disabled={currentPage === 0} onClick={() => setCurrentPage(currentPage - 1)}>{'<'}</button>
+      <button disabled={currentPage === numPages - 1} onClick={() => setCurrentPage(currentPage + 1)}>{'>'}</button>
+      page {currentPage + 1} of {numPages}
+      {renderItems(paginatedItems)}
+    </div>;
+  }
+}

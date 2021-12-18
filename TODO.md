@@ -4,6 +4,7 @@
 * "Reset" button for settings
 * trash can
 * selected tool + space (with no selected view) should use the item on tile below player.
+* Signs
 
 ____
 

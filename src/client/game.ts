@@ -32,6 +32,7 @@ import {makeDialogueWindow} from './ui/dialogue-window.js';
 import {makeHelpWindow} from './ui/help-window.js';
 import {makeSpellsWindow} from './ui/spells-window.js';
 import {makeGraphicComponent} from './ui/ui-common.js';
+import {makeUsageSearchWindow} from './ui/usage-search-window.js';
 import {WindowManager} from './window-manager.js';
 import {WorldContainer} from './world-container.js';
 
@@ -785,6 +786,8 @@ export class Game {
     });
 
     makeHelpWindow(this);
+
+    makeUsageSearchWindow(this);
 
     makeSpellsWindow((spell) => {
       const creatureId = this.state.selectedView.creatureId;

@@ -4,7 +4,7 @@ import * as Content from '../../content.js';
 import * as Utils from '../../utils.js';
 import {UsageModule} from '../modules/usage-module.js';
 
-import {ComponentProps, Graphic, createSubApp} from './ui-common.js';
+import {ComponentProps, Graphic, createSubApp, ItemGraphic} from './ui-common.js';
 
 interface State {
   possibleUsages: PossibleUsage[];
@@ -70,19 +70,6 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
       let title = 'Possible Usages';
       if (props.selectedTool) title += ` (using ${Content.getMetaItem(props.selectedTool.type).name})`;
 
-      const makeGraphicForItem = (item: Item) => {
-        const metaItem = Content.getMetaItem(item.type);
-        if (!metaItem.graphics) return;
-
-        const graphicIndex = metaItem.graphics.frames[0] || 0;
-        return <Graphic
-          file={metaItem.graphics.file}
-          index={graphicIndex}
-          quantity={item.quantity}
-          title={metaItem.name}
-        ></Graphic>;
-      };
-
       return <div>
         <div>
           {title}
@@ -91,13 +78,13 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
           {entries.map(({tool, focus, products}, i) => {
             return <div class="possible-usages__usage" data-index={i}>
               <div class="possible-usages__usage__tool">
-                {makeGraphicForItem(tool)}
+                <ItemGraphic item={tool}></ItemGraphic>
               </div>
               <div class="possible-usages__usage__focus">
-                {makeGraphicForItem(focus)}
+                <ItemGraphic item={focus}></ItemGraphic>
               </div>
               <div class="possible-usages__usage__products">
-                {products.map(makeGraphicForItem)}
+                {products.map((product) => <ItemGraphic item={product}></ItemGraphic>)}
               </div>
             </div>;
           })}
