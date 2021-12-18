@@ -195,6 +195,8 @@ function parseItemsIni() {
       currentItem.ammoType = forcenum(value);
     } else if (key.match(/^CombatSkill/i)) {
       currentItem.combatSkill = getSkillByName(value)?.id;
+    } else if (key.match(/^Readable/i)) {
+      currentItem.readable = true;
     } else {
       // Most properties are unchanged, except for being camelCase.
       const camelCaseKey = camelCase(key);
@@ -282,6 +284,7 @@ function parseItemsIni() {
     'ammoType',
     'minRange',
     'maxRange',
+    'readable',
   ];
   for (const item of items) {
     filterProperties(item, allowlist);

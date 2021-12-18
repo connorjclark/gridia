@@ -281,9 +281,8 @@ export class ServerInterface implements ICommands {
     for (let i = 0; i < tiles.length; i++) {
       for (let j = 0; j < tiles[0].length; j++) {
         const tile = tiles[i][j];
-        if (tile.item?.oreType) {
-          delete tile.item.oreType;
-        }
+        delete tile.item?.oreType;
+        delete tile.item?.textContent;
       }
     }
 
@@ -1023,6 +1022,20 @@ export class ServerInterface implements ICommands {
             });
           },
         },
+        write: {
+          args: [
+            {name: 'content', type: 'string'},
+          ],
+          do(args: { content: string }) {
+            const loc = {...clientConnection.creature.pos};
+            loc.y -= 1;
+
+            const item = server.context.map.getItem(loc);
+            if (!item || !Content.getMetaItem(item.type).readable) return 'invalid item';
+
+            item.textContent = args.content;
+          },
+        },
         help: {
           args: [],
           do() {
@@ -1080,5 +1093,14 @@ export class ServerInterface implements ICommands {
     }
 
     return Promise.resolve();
+  }
+
+  onReadItem(server: Server, clientConnection: ClientConnection, {location}: { location: ItemLocation }): Promise<{ content: string }> {
+    const item = location.source === 'world' ? server.context.map.getItem(location.loc) : undefined;
+    if (!item || !Content.getMetaItem(item.type).readable) return Promise.reject('invalid item');
+
+    return Promise.resolve({
+      content: item.textContent || 'It\'s blank.',
+    });
   }
 }

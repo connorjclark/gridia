@@ -3317,6 +3317,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -3410,6 +3411,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -7169,6 +7171,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -7187,6 +7190,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -17693,6 +17697,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -17710,6 +17715,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -17727,6 +17733,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -17744,6 +17751,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -17761,6 +17769,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -17778,6 +17787,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -17795,6 +17805,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -17812,6 +17823,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -17829,6 +17841,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -17846,6 +17859,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -19206,6 +19220,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": true
   },
   {
@@ -19223,6 +19238,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": true
   },
   {
@@ -24110,6 +24126,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -26476,6 +26493,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -26668,6 +26686,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -26685,6 +26704,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -28480,6 +28500,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -32861,6 +32882,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -35709,6 +35731,7 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -36009,6 +36032,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -36026,6 +36050,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": true
   },
   {
@@ -36385,6 +36410,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   null,
@@ -42280,6 +42306,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -42297,6 +42324,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -42314,6 +42342,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -42331,6 +42360,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -42348,6 +42378,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   null,
@@ -46299,6 +46330,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -46316,6 +46348,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -46412,6 +46445,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -46429,6 +46463,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -47171,6 +47206,7 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -47410,6 +47446,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -47427,6 +47464,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -47444,6 +47482,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -47934,6 +47973,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -48002,6 +48042,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -48019,6 +48060,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -48036,6 +48078,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -48053,6 +48096,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": true
   },
   {
@@ -48621,6 +48665,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -48638,6 +48683,7 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {
@@ -48655,6 +48701,7 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
+    "readable": true,
     "stackable": false
   },
   {

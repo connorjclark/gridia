@@ -55,6 +55,14 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
     return actions;
   }
 
+  if (item && meta.readable) {
+    actions.push({
+      type: 'read',
+      innerText: 'Read',
+      title: '',
+    });
+  }
+
   if (item && meta.moveable) {
     if (location.source === 'world') {
       actions.push({
@@ -176,6 +184,13 @@ function globalOnActionHandler(e: GameActionEvent) {
     break;
   case 'throw':
     // TODO
+    break;
+  case 'read':
+    client.connection.sendCommand(CommandBuilder.readItem({
+      location,
+    })).then((response) => {
+      game.addToChat('World', response.content);
+    });
     break;
   }
 }

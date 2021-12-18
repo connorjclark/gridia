@@ -84,8 +84,12 @@ type RequestScriptsCommand = {
     type: "requestScripts";
     args: Protocol.Commands.RequestScripts;
 };
+type ReadItemCommand = {
+    type: "readItem";
+    args: Protocol.Commands.ReadItem;
+};
 
-export type ProtocolCommand = AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | RequestScriptsCommand;
+export type ProtocolCommand = AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | RequestScriptsCommand | ReadItemCommand;
 
 export function adminSetFloor({ floor, ...loc }: Protocol.Commands.AdminSetFloor["params"]): AdminSetFloorCommand {
     return { type: "adminSetFloor", args: arguments[0] };
@@ -149,4 +153,7 @@ export function learnSkill({ id }: Protocol.Commands.LearnSkill["params"]): Lear
 }
 export function requestScripts({}: Protocol.Commands.RequestScripts["params"]): RequestScriptsCommand {
     return { type: "requestScripts", args: arguments[0] };
+}
+export function readItem({ location }: Protocol.Commands.ReadItem["params"]): ReadItemCommand {
+    return { type: "readItem", args: arguments[0] };
 }

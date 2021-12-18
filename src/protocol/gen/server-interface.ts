@@ -25,4 +25,5 @@ export interface ICommands {
     onUse(server: Server, clientConnection: ClientConnection, { toolIndex, location, usageIndex }: Protocol.Commands.Use["params"]): Promise<Protocol.Commands.Use["response"]>;
     onLearnSkill(server: Server, clientConnection: ClientConnection, { id }: Protocol.Commands.LearnSkill["params"]): Promise<Protocol.Commands.LearnSkill["response"]>;
     onRequestScripts(server: Server, clientConnection: ClientConnection, {}: Protocol.Commands.RequestScripts["params"]): Promise<Protocol.Commands.RequestScripts["response"]>;
+    onReadItem(server: Server, clientConnection: ClientConnection, { location }: Protocol.Commands.ReadItem["params"]): Promise<Protocol.Commands.ReadItem["response"]>;
 }

@@ -112,6 +112,7 @@ interface Item {
   containerId?: string;
   warpTo?: TilePoint;
   oreType?: number;
+  textContent?: string;
 }
 
 interface Creature {
@@ -228,6 +229,7 @@ interface MetaItem {
   ammoType?: number;
   minRange?: number;
   maxRange?: number;
+  readable?: boolean;
 }
 
 interface ItemUse {
