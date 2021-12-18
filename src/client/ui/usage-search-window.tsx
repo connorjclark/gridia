@@ -23,10 +23,26 @@ function renderItemUsages(usages: ItemUse[]) {
       <div>Skill</div>
     </div>
     {usages.map((usage) => {
+      const textParts = [];
+      if (usage.tool === -1) {
+        textParts.push('anything');
+      } else if (usage.tool === 0) {
+        textParts.push('hand');
+      } else {
+        textParts.push(Content.getMetaItem(usage.tool).name);
+      }
+      textParts.push('+');
+      textParts.push(usage.focus === 0 ? '' : Content.getMetaItem(usage.focus).name);
+      textParts.push('=');
+      textParts.push(usage.products
+        .filter((p) => p.type !== 0)
+        .map((p) => Content.getMetaItem(p.type).name)
+        .join(', ')
+      );
+
       return <div class="grid-contents">
         <div class="possible-usages__usage__tool">
-          {usage.tool === 0 ? 'hand' :
-            <ItemGraphic item={{type: usage.tool, quantity: usage.toolQuantityConsumed}}></ItemGraphic>}
+          <ItemGraphic item={{type: usage.tool, quantity: usage.toolQuantityConsumed}}></ItemGraphic>
         </div>
         <div class="possible-usages__usage__focus">
           <ItemGraphic item={{type: usage.focus, quantity: usage.focusQuantityConsumed}}></ItemGraphic>
@@ -39,9 +55,8 @@ function renderItemUsages(usages: ItemUse[]) {
             `${Content.getSkill(usage.skillId).name} ${usage.minimumSkillLevel}–${usage.maximumSkillLevel}` :
             null}
         </div>
+        <div class="item-usages-search__text">{textParts.join(' ')}</div>
       </div>;
-
-      // return <div>{usage.toolName} on {usage.focusName} = {usage.productNames.join(', ')}</div>;
     })}
   </div>;
 }

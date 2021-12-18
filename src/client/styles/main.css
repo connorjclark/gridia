@@ -264,6 +264,12 @@ button {
 .flex-grow {
   flex-grow: 1;
 }
+.flex-column {
+  flex-direction: column;
+}
+.align-items-center {
+  align-items: center;
+}
 
 .grid {
   display: grid;
@@ -273,11 +279,17 @@ button {
 }
 
 .item-usages-search {
-  grid-template-columns: max-content min-content min-content 1fr;
+  grid-template-columns: max-content max-content max-content 1fr;
 }
 .item-usages-search__header > div {
   padding: 5px;
-  border-bottom: solid 1px white;
+  border-bottom: 1px solid white;
+}
+.item-usages-search__text {
+  grid-column: 1/5;
+  text-align: left;
+  border-bottom: 1px solid grey;
+  padding: 5px;
 }
 
 .ui {

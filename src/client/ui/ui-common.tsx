@@ -164,17 +164,18 @@ export const Graphic = (props: GraphicProps) => {
   return <div class="graphic" style={style} title={props.title}>{label}</div>;
 };
 
-export const ItemGraphic = (props: {item: Item}) => {
+export const ItemGraphic = (props: {item: Item; showLabel?: boolean}) => {
   const metaItem = Content.getMetaItem(props.item.type);
-  if (!metaItem.graphics) return <></>;
-
-  const graphicIndex = metaItem.graphics.frames[0] || 0;
-  return <Graphic
-    file={metaItem.graphics.file}
-    index={graphicIndex}
-    quantity={props.item.quantity}
-    title={metaItem.name}
-  ></Graphic>;
+  const graphicIndex = metaItem.graphics?.frames[0] || 0;
+  return <div class="flex flex-column align-items-center">
+    {metaItem.graphics ? <Graphic
+      file={metaItem.graphics.file}
+      index={graphicIndex}
+      quantity={props.item.quantity}
+      title={metaItem.name}
+    ></Graphic> : undefined}
+    {props.showLabel ? metaItem.name : undefined}
+  </div>;
 };
 
 interface CustomCreatureGraphicProps {

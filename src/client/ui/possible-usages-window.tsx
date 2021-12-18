@@ -78,13 +78,13 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
           {entries.map(({tool, focus, products}, i) => {
             return <div class="possible-usages__usage" data-index={i}>
               <div class="possible-usages__usage__tool">
-                <ItemGraphic item={tool}></ItemGraphic>
+                <ItemGraphic item={tool} showLabel={true}></ItemGraphic>
               </div>
               <div class="possible-usages__usage__focus">
-                <ItemGraphic item={focus}></ItemGraphic>
+                <ItemGraphic item={focus} showLabel={true}></ItemGraphic>
               </div>
               <div class="possible-usages__usage__products">
-                {products.map((product) => <ItemGraphic item={product}></ItemGraphic>)}
+                {products.map((product) => <ItemGraphic item={product} showLabel={true}></ItemGraphic>)}
               </div>
             </div>;
           })}
