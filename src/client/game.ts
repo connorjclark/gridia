@@ -21,7 +21,7 @@ import {AdminModule} from './modules/admin-module.js';
 import {MapModule} from './modules/map-module.js';
 import {MovementModule} from './modules/movement-module.js';
 import {SelectedViewModule} from './modules/selected-view-module.js';
-import {SettingsModule, getDefaultSettings} from './modules/settings-module.js';
+import {SettingsModule, getDefaultSettings, Settings} from './modules/settings-module.js';
 import {SkillsModule} from './modules/skills-module.js';
 import {SoundModule} from './modules/sound-module.js';
 import {UsageModule} from './modules/usage-module.js';
@@ -102,21 +102,23 @@ const ContextMenu = {
     ContextMenu.get().style.display = 'none';
   },
 
-  openForTile(screen: ScreenPoint, loc: TilePoint) {
+  openForLocation(screen: ScreenPoint, location: ItemLocation) {
+    if (location.source !== 'world') return;
+
     const contextMenuEl = ContextMenu.get();
     contextMenuEl.style.display = 'block';
     contextMenuEl.style.left = `${screen.x}px`;
     contextMenuEl.style.top = `${screen.y}px`;
 
     contextMenuEl.innerHTML = '';
-    const creature = game.client.context.getCreatureAt(loc);
-    const actions = game.getActionsFor(Utils.ItemLocation.World(loc));
+    const creature = game.client.context.getCreatureAt(location.loc);
+    const actions = game.getActionsFor(Utils.ItemLocation.World(location.loc));
     actions.push({
       type: 'cancel',
       innerText: 'Cancel',
       title: '',
     });
-    if (game.client.context.walkable(loc)) {
+    if (game.client.context.walkable(location.loc)) {
       actions.push({
         type: 'move-here',
         innerText: 'Move Here',
@@ -127,7 +129,7 @@ const ContextMenu = {
       const actionEl = document.createElement('div');
       game.addDataToActionEl(actionEl, {
         action,
-        location: Utils.ItemLocation.World(loc),
+        location: Utils.ItemLocation.World(location.loc),
         creatureId: creature?.id,
       });
       contextMenuEl.appendChild(actionEl);
@@ -675,6 +677,23 @@ export class Game {
     }
 
     this.app.ticker.add(this.tick);
+
+    makeHelpWindow(this);
+    makeUsageSearchWindow(this);
+    makeSpellsWindow((spell) => {
+      const creatureId = this.state.selectedView.creatureId;
+      let loc;
+      if (spell.target === 'world' && !creatureId) {
+        if (this.state.selectedView.location?.source === 'world') {
+          loc = this.state.selectedView.location.loc;
+        } else {
+          loc = this.client.creature.pos;
+        }
+      }
+
+      this.client.connection.sendCommand(CommandBuilder.castSpell({id: spell.id, creatureId, loc}));
+    });
+
     this.registerListeners();
 
     this.app.stage.addChild(this._currentHoverItemText);
@@ -784,24 +803,6 @@ export class Game {
     this.client.eventEmitter.on('editingMode', ({enabled}) => {
       this._isEditing = enabled;
     });
-
-    makeHelpWindow(this);
-
-    makeUsageSearchWindow(this);
-
-    makeSpellsWindow((spell) => {
-      const creatureId = this.state.selectedView.creatureId;
-      let loc;
-      if (spell.target === 'world' && !creatureId) {
-        if (this.state.selectedView.location?.source === 'world') {
-          loc = this.state.selectedView.location.loc;
-        } else {
-          loc = this.client.creature.pos;
-        }
-      }
-
-      this.client.connection.sendCommand(CommandBuilder.castSpell({id: spell.id, creatureId, loc}));
-    });
   }
 
   registerListeners() {
@@ -877,9 +878,6 @@ export class Game {
 
     this.canvasesEl.addEventListener('contextmenu', (e: MouseEvent) => {
       e.preventDefault();
-      const mouse = {x: e.pageX, y: e.pageY};
-      const tile = worldToTile(mouseToWorld(mouse));
-      ContextMenu.openForTile(mouse, tile);
     }, evtOptions);
 
     // TODO: touch doesn't really work well.
@@ -892,7 +890,7 @@ export class Game {
         if (!touch) return;
         const mouse = {x: touch.pageX, y: touch.pageY};
         const tile = worldToTile(mouseToWorld(mouse));
-        ContextMenu.openForTile(mouse, tile);
+        ContextMenu.openForLocation(mouse, Utils.ItemLocation.World(tile));
         longTouchTimer = null;
       }, 1000);
     }, {capture: false, signal: this._eventAbortController.signal});
@@ -1027,29 +1025,18 @@ export class Game {
         this.modules.selectedView.selectView(Utils.ItemLocation.World(currentCursor));
       }
 
-      // Space bar to use selected tool.
-      if (e.keyCode === KEYS.SPACE_BAR && this.state.selectedView.location?.source === 'world') {
-        Helper.useTool(this.state.selectedView.location.loc, {toolIndex: Helper.getSelectedToolIndex()});
+      let location;
+      if (this.state.selectedView.location?.source === 'world') {
+        location = this.state.selectedView.location;
+      } else {
+        location = Utils.ItemLocation.World(this.client.creature.pos);
       }
+      for (const [controlName, binding] of Object.entries(this.client.settings.controls)) {
+        if (binding.key !== e.keyCode) continue;
+        if ((binding.shift || false) !== e.shiftKey) continue;
+        if ((binding.control || false) !== e.ctrlKey) continue;
 
-      // Shift to pick up item.
-      if (e.keyCode === KEYS.SHIFT && !this.modules.admin?.window.delegate.isOpen()) {
-        let location;
-        if (this.state.selectedView.location?.source === 'world') {
-          location = this.state.selectedView.location;
-        } else {
-          location = Utils.ItemLocation.World(this.client.creature.pos);
-        }
-
-        this.client.connection.sendCommand(CommandBuilder.moveItem({
-          from: Utils.ItemLocation.World(location.loc),
-          to: Utils.ItemLocation.Container(this.client.player.containerId),
-        }));
-      }
-
-      // Alt to use hand on item.
-      if (e.key === 'Alt' && this.state.selectedView.location?.source === 'world') {
-        Helper.useHand(this.state.selectedView.location.loc);
+        this.handleControl(controlName as keyof Settings['controls'], location);
       }
 
       // T to toggle z.
@@ -1060,19 +1047,23 @@ export class Game {
           z: (focusPos.z + 1) % partition.depth,
         }));
       }
-
-      // Q/E to cycle targets.
-      if (e.key === 'q') this.cycleSelectedTarget(-1);
-      if (e.key === 'e') this.cycleSelectedTarget(1);
-
-      // R to attack.
-      if (e.key === 'r' && this.state.selectedView.creatureId) {
-        this.client.connection.sendCommand(CommandBuilder.creatureAction({
-          creatureId: this.state.selectedView.creatureId,
-          type: 'attack',
-        }));
-      }
     }, evtOptions);
+
+    const onClickCallback = (e: MouseEvent) => {
+      const mouse = {x: e.pageX, y: e.pageY};
+      const loc = worldToTile(mouseToWorld(mouse));
+      const location = Utils.ItemLocation.World(loc);
+
+      for (const [controlName, binding] of Object.entries(this.client.settings.controls)) {
+        if (binding.mouse !== e.button) continue;
+        if ((binding.shift || false) !== e.shiftKey) continue;
+        if ((binding.control || false) !== e.ctrlKey) continue;
+
+        this.handleControl(controlName as keyof Settings['controls'], location);
+      }
+    };
+    this.canvasesEl.addEventListener('auxclick', onClickCallback);
+    this.canvasesEl.addEventListener('click', onClickCallback);
 
     // resize the canvas to fill browser window dynamically
     const resize = () => {
@@ -1128,6 +1119,54 @@ export class Game {
         // and will say "Data may not be saved".
         serverWorker.shutdown().then(() => console.log('saved!'));
       }, evtOptions);
+    }
+  }
+
+  handleControl(controlName: keyof Settings['controls'], location: ItemLocation) {
+    switch (controlName) {
+    case 'actionMenu':
+      ContextMenu.openForLocation(this.state.mouse, location);
+      break;
+    case 'pickup':
+      if (this.modules.admin?.window.delegate.isOpen()) return;
+      if (location.source !== 'world') return;
+
+      this.client.connection.sendCommand(CommandBuilder.moveItem({
+        from: Utils.ItemLocation.World(location.loc),
+        to: Utils.ItemLocation.Container(this.client.player.containerId),
+      }));
+      break;
+    case 'useHand':
+      if (this.state.selectedView.location?.source === 'world') {
+        Helper.useHand(this.state.selectedView.location.loc);
+      }
+      break;
+    case 'useTool':
+      if (location.source !== 'world') return;
+
+      Helper.useTool(location.loc, {toolIndex: Helper.getSelectedToolIndex()});
+      break;
+    case 'moveTo':
+      if (location.source !== 'world') return;
+
+      this.modules.movement.moveTo(location.loc);
+      break;
+    case 'previousTarget':
+      this.cycleSelectedTarget(-1);
+      break;
+    case 'nextTarget':
+      this.cycleSelectedTarget(1);
+      break;
+    case 'attack':
+      if (!this.state.selectedView.creatureId) return;
+
+      this.client.connection.sendCommand(CommandBuilder.creatureAction({
+        creatureId: this.state.selectedView.creatureId,
+        type: 'attack',
+      }));
+      break;
+    default:
+      throw new Error('unknown control: ' + controlName);
     }
   }
 

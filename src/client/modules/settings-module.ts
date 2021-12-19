@@ -1,7 +1,30 @@
 import {ClientModule} from '../client-module.js';
+import {KEYS} from '../keys.js';
 import {makeSettingsWindow} from '../ui/settings-window.js';
 
+type ControlsKey = |
+'actionMenu' |
+'attack' |
+'moveTo' |
+'nextTarget' |
+'pickup' |
+'previousTarget' |
+'useHand' |
+'useTool';
+
+const defaultControls: Settings['controls'] = {
+  attack: {key: KEYS.R},
+  actionMenu: {mouse: 2},
+  moveTo: {mouse: 0, shift: true},
+  nextTarget: {key: KEYS.E},
+  pickup: {key: KEYS.SHIFT},
+  previousTarget: {key: KEYS.Q},
+  useHand: {key: KEYS.ALT},
+  useTool: {key: KEYS.SPACE_BAR},
+};
+
 export interface Settings {
+  controls: Record<ControlsKey, { key?: number; mouse?: number; shift?: boolean; control?: boolean }>;
   showGrid: boolean;
   sfxVolume: number;
   musicVolume: number;
@@ -64,6 +87,11 @@ export const SettingsSchema = {
     type: 'boolean',
     label: 'Limit View',
     default: false,
+  },
+  // TODO: support customizing controls
+  controls: {
+    type: 'object',
+    default: defaultControls,
   },
 } as const;
 

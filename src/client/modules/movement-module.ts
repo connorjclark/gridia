@@ -160,17 +160,21 @@ export class MovementModule extends ClientModule {
     }
   }
 
+  moveTo(loc: TilePoint) {
+    const focusPos = this.game.getPlayerPosition();
+    const partition = this.game.client.context.map.getPartition(focusPos.w);
+
+    this.pathToDestination = findPath(this.game.client.context, partition, focusPos, loc);
+    this.followCreature = undefined;
+  }
+
   onAction(e: GameActionEvent) {
     const type = e.action.type;
     const {location} = e;
     if (location.source !== 'world') return;
 
     if (type === 'move-here') {
-      const focusPos = this.game.getPlayerPosition();
-      const partition = this.game.client.context.map.getPartition(focusPos.w);
-
-      this.pathToDestination = findPath(this.game.client.context, partition, focusPos, location.loc);
-      this.followCreature = undefined;
+      this.moveTo(location.loc);
     } else if (type === 'follow') {
       this.followCreature = e.creature;
       this.pathToDestination = undefined;
