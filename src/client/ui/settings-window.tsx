@@ -1,4 +1,5 @@
 import {render, h, Component, Fragment} from 'preact';
+import {useEffect, useState} from 'preact/hooks';
 
 import {val} from '../../lib/link-state.js';
 import {Game} from '../game.js';
@@ -22,8 +23,11 @@ function bindingToString(binding: Binding) {
   }
 
   const modifiers = [];
-  if (binding.control) modifiers.push('Control');
   if (binding.shift) modifiers.push('Shift');
+  if (binding.control) modifiers.push('Control');
+  if (binding.alt) modifiers.push('Alt');
+  // @ts-expect-error
+  if (binding.meta) modifiers.push(navigator.userAgentData.platform === 'macOS' ? 'Command' : 'Meta');
 
   if (modifiers.length) {
     result = [...modifiers, result].join(' + ');
@@ -32,12 +36,60 @@ function bindingToString(binding: Binding) {
   return result;
 }
 
-const Bindings = (bindings: Settings['bindings']) => {
+interface BindingsProps {
+  bindings: Settings['bindings'];
+  setBindings: (newBindings: Settings['bindings']) => void;
+}
+const Bindings = (props: BindingsProps) => {
+  const [selectedBinding, setSelectedBinding] = useState<keyof Settings['bindings'] | null>(null);
+
+  useEffect(() => {
+    const fn = (e: KeyboardEvent) => {
+      if (e.keyCode === KEYS.ESCAPE) setSelectedBinding(null);
+    };
+    document.addEventListener('keyup', fn);
+
+    return () => document.removeEventListener('keyup', fn);
+  }, []);
+
+  useEffect(() => {
+    const fn1 = (e: KeyboardEvent) => {
+      if (selectedBinding) {
+        props.setBindings({
+          ...props.bindings,
+          [selectedBinding]: {key: e.keyCode, shift: e.shiftKey, control: e.ctrlKey, alt: e.altKey, meta: e.metaKey},
+        });
+        setSelectedBinding(null);
+      }
+    };
+    const fn2 = (e: MouseEvent) => {
+      if (selectedBinding) {
+        props.setBindings({
+          ...props.bindings,
+          [selectedBinding]: {mouse: e.button, shift: e.shiftKey, control: e.ctrlKey, alt: e.altKey, meta: e.metaKey},
+        });
+        setSelectedBinding(null);
+      }
+    };
+    document.addEventListener('keyup', fn1, {once: true});
+    document.addEventListener('click', fn2, {once: true});
+    document.addEventListener('auxclick', fn2, {once: true});
+
+    return () => {
+      document.removeEventListener('keyup', fn1);
+      document.removeEventListener('click', fn2);
+      document.removeEventListener('auxclick', fn2);
+    };
+  }, [selectedBinding]);
+
   return <div class="bindings">
-    {Object.entries(bindings).map(([bindingName, binding]) => {
-      return <div class="grid-contents">
+    {Object.entries(props.bindings).map(([bindingName, binding]) => {
+      return <div class={`grid-contents binding ${selectedBinding === bindingName ? 'binding--selected' : ''}`}>
         <label>{bindingName}</label>
-        <span class="binding__span">{bindingToString(binding)}</span>
+        <span class='binding__span'
+          onContextMenu={(e) => e.preventDefault()}
+          onClick={() => setSelectedBinding(bindingName as keyof Settings['bindings'])}
+        >{bindingToString(binding)}</span>
       </div>;
     })}
   </div>;
@@ -94,7 +146,9 @@ export function makeSettingsWindow(game: Game, initialState: State) {
             }
           })}
 
-          <Bindings {...props.settings.bindings}></Bindings>
+          <Bindings
+            bindings={props.settings.bindings}
+            setBindings={(bindings) => props.setSettings({...props.settings, bindings})}></Bindings>
         </div>
       </div>;
     }

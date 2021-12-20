@@ -1035,6 +1035,8 @@ export class Game {
         if (binding.key !== e.keyCode) continue;
         if ((binding.shift || false) !== e.shiftKey) continue;
         if ((binding.control || false) !== e.ctrlKey) continue;
+        if ((binding.alt || false) !== e.altKey) continue;
+        if ((binding.meta || false) !== e.metaKey) continue;
 
         this.handleControl(controlName as keyof Settings['bindings'], location);
       }
@@ -1058,6 +1060,8 @@ export class Game {
         if (binding.mouse !== e.button) continue;
         if ((binding.shift || false) !== e.shiftKey) continue;
         if ((binding.control || false) !== e.ctrlKey) continue;
+        if ((binding.alt || false) !== e.altKey) continue;
+        if ((binding.meta || false) !== e.metaKey) continue;
 
         this.handleControl(controlName as keyof Settings['bindings'], location);
       }

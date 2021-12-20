@@ -17,6 +17,8 @@ export interface Binding {
   mouse?: number;
   shift?: boolean;
   control?: boolean;
+  alt?: boolean;
+  meta?: boolean;
 }
 
 const defaultBindings: Settings['bindings'] = {

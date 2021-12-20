@@ -700,3 +700,6 @@ button {
   padding: 5px;
   background-color: #505043;
 }
+.binding--selected .binding__span {
+  background-color: #777727;
+}
