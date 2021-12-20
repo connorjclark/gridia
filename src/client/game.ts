@@ -1031,12 +1031,12 @@ export class Game {
       } else {
         location = Utils.ItemLocation.World(this.client.creature.pos);
       }
-      for (const [controlName, binding] of Object.entries(this.client.settings.controls)) {
+      for (const [controlName, binding] of Object.entries(this.client.settings.bindings)) {
         if (binding.key !== e.keyCode) continue;
         if ((binding.shift || false) !== e.shiftKey) continue;
         if ((binding.control || false) !== e.ctrlKey) continue;
 
-        this.handleControl(controlName as keyof Settings['controls'], location);
+        this.handleControl(controlName as keyof Settings['bindings'], location);
       }
 
       // T to toggle z.
@@ -1054,12 +1054,12 @@ export class Game {
       const loc = worldToTile(mouseToWorld(mouse));
       const location = Utils.ItemLocation.World(loc);
 
-      for (const [controlName, binding] of Object.entries(this.client.settings.controls)) {
+      for (const [controlName, binding] of Object.entries(this.client.settings.bindings)) {
         if (binding.mouse !== e.button) continue;
         if ((binding.shift || false) !== e.shiftKey) continue;
         if ((binding.control || false) !== e.ctrlKey) continue;
 
-        this.handleControl(controlName as keyof Settings['controls'], location);
+        this.handleControl(controlName as keyof Settings['bindings'], location);
       }
     };
     this.canvasesEl.addEventListener('auxclick', onClickCallback);
@@ -1122,7 +1122,7 @@ export class Game {
     }
   }
 
-  handleControl(controlName: keyof Settings['controls'], location: ItemLocation) {
+  handleControl(controlName: keyof Settings['bindings'], location: ItemLocation) {
     switch (controlName) {
     case 'actionMenu':
       ContextMenu.openForLocation(this.state.mouse, location);
@@ -1151,10 +1151,10 @@ export class Game {
 
       this.modules.movement.moveTo(location.loc);
       break;
-    case 'previousTarget':
+    case 'targetPrevious':
       this.cycleSelectedTarget(-1);
       break;
-    case 'nextTarget':
+    case 'targetNext':
       this.cycleSelectedTarget(1);
       break;
     case 'attack':

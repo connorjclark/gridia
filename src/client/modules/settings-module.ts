@@ -2,29 +2,36 @@ import {ClientModule} from '../client-module.js';
 import {KEYS} from '../keys.js';
 import {makeSettingsWindow} from '../ui/settings-window.js';
 
-type ControlsKey = |
+type BindingsNames = |
 'actionMenu' |
 'attack' |
 'moveTo' |
-'nextTarget' |
 'pickup' |
-'previousTarget' |
+'targetNext' |
+'targetPrevious' |
 'useHand' |
 'useTool';
 
-const defaultControls: Settings['controls'] = {
-  attack: {key: KEYS.R},
+export interface Binding {
+  key?: number;
+  mouse?: number;
+  shift?: boolean;
+  control?: boolean;
+}
+
+const defaultBindings: Settings['bindings'] = {
   actionMenu: {mouse: 2},
+  attack: {key: KEYS.R},
   moveTo: {mouse: 0, shift: true},
-  nextTarget: {key: KEYS.E},
   pickup: {key: KEYS.SHIFT},
-  previousTarget: {key: KEYS.Q},
+  targetNext: {key: KEYS.E},
+  targetPrevious: {key: KEYS.Q},
   useHand: {key: KEYS.ALT},
   useTool: {key: KEYS.SPACE_BAR},
 };
 
 export interface Settings {
-  controls: Record<ControlsKey, { key?: number; mouse?: number; shift?: boolean; control?: boolean }>;
+  bindings: Record<BindingsNames, Binding>;
   showGrid: boolean;
   sfxVolume: number;
   musicVolume: number;
@@ -88,10 +95,9 @@ export const SettingsSchema = {
     label: 'Limit View',
     default: false,
   },
-  // TODO: support customizing controls
-  controls: {
+  bindings: {
     type: 'object',
-    default: defaultControls,
+    default: defaultBindings,
   },
 } as const;
 

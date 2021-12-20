@@ -133,3 +133,9 @@ export const KEYS = {
   NUMPAD_EIGHT: 104,
   NUMPAD_NINE: 105,
 };
+
+export function findKeyNameForValue(key: number) {
+  for (const [name, keyCode] of Object.entries(KEYS)) {
+    if (key === keyCode) return name;
+  }
+}

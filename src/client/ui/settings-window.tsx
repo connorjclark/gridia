@@ -1,14 +1,47 @@
-import {render, h, Component} from 'preact';
+import {render, h, Component, Fragment} from 'preact';
 
 import {val} from '../../lib/link-state.js';
 import {Game} from '../game.js';
-import {SettingsSchema, Settings} from '../modules/settings-module.js';
+import {findKeyNameForValue, KEYS} from '../keys.js';
+import {SettingsSchema, Settings, Binding} from '../modules/settings-module.js';
 
 import {ComponentProps, createSubApp} from './ui-common.js';
 
 interface State {
   settings: Settings;
 }
+
+function bindingToString(binding: Binding) {
+  let result;
+  if (binding.key !== undefined) {
+    result = findKeyNameForValue(binding.key);
+  } else if (binding.mouse !== undefined) {
+    result = ['left click', 'middle click', 'right click'][binding.mouse] || '?';
+  } else {
+    result = '?';
+  }
+
+  const modifiers = [];
+  if (binding.control) modifiers.push('Control');
+  if (binding.shift) modifiers.push('Shift');
+
+  if (modifiers.length) {
+    result = [...modifiers, result].join(' + ');
+  }
+
+  return result;
+}
+
+const Bindings = (bindings: Settings['bindings']) => {
+  return <div class="bindings">
+    {Object.entries(bindings).map(([bindingName, binding]) => {
+      return <div class="grid-contents">
+        <label>{bindingName}</label>
+        <span class="binding__span">{bindingToString(binding)}</span>
+      </div>;
+    })}
+  </div>;
+};
 
 export function makeSettingsWindow(game: Game, initialState: State) {
   const actions = () => ({
@@ -60,6 +93,8 @@ export function makeSettingsWindow(game: Game, initialState: State) {
               </div>;
             }
           })}
+
+          <Bindings {...props.settings.bindings}></Bindings>
         </div>
       </div>;
     }

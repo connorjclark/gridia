@@ -690,3 +690,13 @@ button {
   background-color: black;
   font-weight: bold;
 }
+
+.bindings {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+}
+.binding__span {
+  padding: 5px;
+  background-color: #505043;
+}
