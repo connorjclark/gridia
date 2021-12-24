@@ -150,7 +150,7 @@ export class ServerInterface implements ICommands {
       players.push(player);
       // TODO: should save graphics to Player.
       // graphics.push(...);
-      equipmentGraphics.push(server.makeCreatureImageData(equipment));
+      equipmentGraphics.push(server.makeCreatureImageData(equipment.items));
     }
 
     // No real reason to keep this secret, but the client never needs to know this id.

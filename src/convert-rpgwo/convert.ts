@@ -1027,7 +1027,7 @@ function parseMonsterIni() {
     if (monster.speed === undefined) monster.speed = 2;
   }
 
-  // Just in case items are defined out of order.
+  // Just in case monsters are defined out of order.
   monsters.sort((a, b) => a.id - b.id);
 
   // printUniqueKeys(monsters);
@@ -1036,15 +1036,16 @@ function parseMonsterIni() {
   const allowlist = [
     'deadItem',
     'eatGrass',
+    'equipment',
     'graphics',
     'id',
     'level',
     'life',
+    'lootTable',
     'magicDefense',
     'meleeDefense',
     'missleDefense',
     'name',
-    'lootTable',
     'roam',
     'speed',
     'stamina',

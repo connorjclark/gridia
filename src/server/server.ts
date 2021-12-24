@@ -543,6 +543,7 @@ export class Server {
       food: 10,
       eatGrass: template.eatGrass,
       light: 0,
+      equipment: template.equipment ? [...template.equipment] : undefined,
       // @ts-expect-error TODO
       combatLevel: template.level || 5,
       // TODO: get stats from monster.ini
@@ -558,6 +559,16 @@ export class Server {
       buffs: [],
       ...descriptor.partial,
     };
+
+    if (creature.equipment) {
+      Object.assign(creature, this.deriveCreaturePropertiesFromEquipment(creature, creature.equipment));
+      creature.stats.magicDefense = template.magicDefense || 0;
+      creature.stats.meleeDefense = template.meleeDefense || 0;
+      creature.stats.missleDefense = template.missleDefense || 0;
+      // magicDefense: template.magicDefense || 0,
+      // meleeDefense: template.meleeDefense || 0,
+      // missleDefense: template.missleDefense || 0,
+    }
 
     this.registerCreature(creature);
 
@@ -706,9 +717,12 @@ export class Server {
     let path;
     let damage = 0;
     if (!missReason && data.damage) {
+      // Armor can absorb some damage.
+      // TODO: wear down / break armor
       damage = data.damage;
       const armor = data.target.stats.armor;
-      damage = Math.round(damage * damage / (damage + armor));
+      const damageAbsorbedByArmor = Utils.randInt(0, Math.min(armor, damage));
+      damage -= damageAbsorbedByArmor;
       damage = Utils.clamp(damage, 0, data.target.life.current);
     }
 
@@ -1136,58 +1150,74 @@ export class Server {
     }
   }
 
-  updateCreatureDataBasedOnEquipment(creature: Creature, equipment: Container, opts: { broadcast: boolean }) {
-    creature.equipment = equipment.items;
-    creature.equipmentGraphics = this.makeCreatureImageData(equipment);
-
-    if (this.context.worldDataDefinition.baseDir === 'worlds/rpgwo-world') {
+  deriveCreaturePropertiesFromEquipment(creature: Creature, equipmentItems: Array<Item | null>) {
+    let equipmentGraphics: Graphics[];
+    if (this.context.worldDataDefinition.baseDir === 'worlds/rpgwo-world' && creature.graphics.frames[0] >= 4) {
       // Equipment graphics only makes sense for the first few creature sprites.
-      if (creature.graphics.frames[0] >= 4) {
-        creature.equipmentGraphics = [];
-      }
+      equipmentGraphics = [];
+    } else {
+      equipmentGraphics = this.makeCreatureImageData(equipmentItems);
     }
 
-    creature.stats = {
-      ...creature.stats,
+    // TODO: should these things be elsewhere? Only monsters use stats.x_defense ... player creatures
+    // use their skill values.
+    const stats: Omit<Creature['stats'], 'magicDefense'|'meleeDefense'|'missleDefense'> = {
       armor: 0,
       attackSpeed: 0,
       damageLow: 0,
       damageHigh: 0,
     };
-    for (const item of equipment.items) {
+
+    for (const item of equipmentItems) {
       const meta = item && Content.getMetaItem(item.type);
       if (!meta) continue;
 
       if (meta.equipSlot === 'Ammo' &&
-        Content.getMetaItem(equipment.items[Container.EQUIP_SLOTS.Weapon]?.type || 0).ammoType !== meta.ammoType) {
+        Content.getMetaItem(equipmentItems[Container.EQUIP_SLOTS.Weapon]?.type || 0).ammoType !== meta.ammoType) {
         continue;
       }
 
-      creature.stats.damageLow += meta.damageLow || 0;
-      creature.stats.damageHigh += meta.damageHigh || 0;
-      creature.stats.attackSpeed += meta.attackSpeed || 0;
-      creature.stats.armor += meta.armorLevel || 0;
+      stats.damageLow += meta.damageLow || 0;
+      stats.damageHigh += meta.damageHigh || 0;
+      stats.attackSpeed += meta.attackSpeed || 0;
+      stats.armor += meta.armorLevel || 0;
     }
 
-    creature.stats.damageLow = Math.max(1, creature.stats.damageLow);
-    creature.stats.damageHigh = Math.max(1, creature.stats.damageHigh);
-    creature.stats.attackSpeed = Math.max(1, creature.stats.attackSpeed);
+    stats.damageLow = Math.max(1, stats.damageLow);
+    stats.damageHigh = Math.max(1, stats.damageHigh);
+    stats.attackSpeed = Math.max(1, stats.attackSpeed);
 
+    return {
+      equipmentGraphics,
+      stats,
+    };
+  }
+
+  updateCreatureDataBasedOnEquipment(creature: Creature, equipment: Container, opts: { broadcast: boolean }) {
+    const {equipmentGraphics, stats} = this.deriveCreaturePropertiesFromEquipment(creature, equipment.items);
+    creature.equipment = equipment.items;
+    creature.equipmentGraphics = equipmentGraphics;
+    creature.stats = {
+      ...stats,
+      missleDefense: 0,
+      magicDefense: 0,
+      meleeDefense: 0,
+    };
     if (opts.broadcast) this.broadcastPartialCreatureUpdate(creature, ['equipmentGraphics', 'stats']);
   }
 
-  makeCreatureImageData(container: Container): Graphics[] {
+  makeCreatureImageData(equipmentItems: Array<Item | null>): Graphics[] {
     if (Content.getBaseDir() === 'worlds/rpgwo-world') {
       const getEquipImage = (i: Item | null) => i ? Content.getMetaItem(i.type).equipImage : undefined;
       const graphics = [
         {file: 'rpgwo-arms0.png', frames: [0]},
-        getEquipImage(container.items[Container.EQUIP_SLOTS.Chest]) || {file: 'rpgwo-chest0.png', frames: [0]},
-        getEquipImage(container.items[Container.EQUIP_SLOTS.Head]) || {file: 'rpgwo-head0.png', frames: [0]},
-        getEquipImage(container.items[Container.EQUIP_SLOTS.Legs]) || {file: 'rpgwo-legs0.png', frames: [0]},
+        getEquipImage(equipmentItems[Container.EQUIP_SLOTS.Chest]) || {file: 'rpgwo-chest0.png', frames: [0]},
+        getEquipImage(equipmentItems[Container.EQUIP_SLOTS.Head]) || {file: 'rpgwo-head0.png', frames: [0]},
+        getEquipImage(equipmentItems[Container.EQUIP_SLOTS.Legs]) || {file: 'rpgwo-legs0.png', frames: [0]},
       ];
-      const shieldGraphics = getEquipImage(container.items[Container.EQUIP_SLOTS.Shield]);
+      const shieldGraphics = getEquipImage(equipmentItems[Container.EQUIP_SLOTS.Shield]);
       if (shieldGraphics) graphics.push(shieldGraphics);
-      const weaponGraphics = getEquipImage(container.items[Container.EQUIP_SLOTS.Weapon]);
+      const weaponGraphics = getEquipImage(equipmentItems[Container.EQUIP_SLOTS.Weapon]);
       if (weaponGraphics) graphics.push(weaponGraphics);
       return graphics;
     }

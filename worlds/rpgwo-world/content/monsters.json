@@ -3,6 +3,13 @@
   {
     "id": 1,
     "name": "Evil Elf",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -35,6 +42,13 @@
   {
     "id": 2,
     "name": "Zombie",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -74,6 +88,13 @@
   {
     "id": 3,
     "name": "Vile Elf",
+    "equipment": [
+      null,
+      {
+        "type": 1122,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -117,6 +138,13 @@
   {
     "id": 4,
     "name": "Evil Santa",
+    "equipment": [
+      null,
+      {
+        "type": 1332,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -161,6 +189,13 @@
   {
     "id": 5,
     "name": "Grinch Santa",
+    "equipment": [
+      null,
+      {
+        "type": 1332,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -217,6 +252,13 @@
   {
     "id": 6,
     "name": "Mad Reindeer",
+    "equipment": [
+      null,
+      {
+        "type": 2066,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -293,6 +335,13 @@
   {
     "id": 9,
     "name": "Psycho Rabbit",
+    "equipment": [
+      null,
+      {
+        "type": 2067,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -326,6 +375,13 @@
   {
     "id": 10,
     "name": "Brigand",
+    "equipment": [
+      null,
+      {
+        "type": 42,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -365,6 +421,13 @@
   {
     "id": 11,
     "name": "Brigand Captain",
+    "equipment": [
+      null,
+      {
+        "type": 42,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -404,6 +467,13 @@
   {
     "id": 12,
     "name": "Mutant",
+    "equipment": [
+      null,
+      {
+        "type": 52,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -442,6 +512,13 @@
   {
     "id": 13,
     "name": "Orc",
+    "equipment": [
+      null,
+      {
+        "type": 31,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -476,6 +553,13 @@
   {
     "id": 14,
     "name": "Mud Golem",
+    "equipment": [
+      null,
+      {
+        "type": 2068,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -508,6 +592,13 @@
   {
     "id": 15,
     "name": "Iron Golem",
+    "equipment": [
+      null,
+      {
+        "type": 2069,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -540,6 +631,13 @@
   {
     "id": 16,
     "name": "Fly",
+    "equipment": [
+      null,
+      {
+        "type": 2070,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -573,6 +671,13 @@
   {
     "id": 17,
     "name": "Mole Man",
+    "equipment": [
+      null,
+      {
+        "type": 2071,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -637,6 +742,13 @@
     "id": 19,
     "name": "Witch",
     "deadItem": 1085,
+    "equipment": [
+      null,
+      {
+        "type": 22,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -676,6 +788,13 @@
   {
     "id": 20,
     "name": "Mole Cheif",
+    "equipment": [
+      null,
+      {
+        "type": 2072,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -706,6 +825,13 @@
     "id": 21,
     "name": "Imp",
     "deadItem": 1085,
+    "equipment": [
+      null,
+      {
+        "type": 1331,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -734,6 +860,13 @@
   {
     "id": 22,
     "name": "Bandit",
+    "equipment": [
+      null,
+      {
+        "type": 82,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -773,6 +906,13 @@
   {
     "id": 23,
     "name": "Bandit Archer",
+    "equipment": [
+      null,
+      {
+        "type": 1122,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -817,6 +957,13 @@
   {
     "id": 24,
     "name": "Wraith",
+    "equipment": [
+      null,
+      {
+        "type": 1275,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -851,6 +998,13 @@
   {
     "id": 25,
     "name": "Viscous Uparen",
+    "equipment": [
+      null,
+      {
+        "type": 1512,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -895,6 +1049,13 @@
   {
     "id": 26,
     "name": "Drej",
+    "equipment": [
+      null,
+      {
+        "type": 1513,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -927,6 +1088,13 @@
   {
     "id": 27,
     "name": "Mutant Sheep",
+    "equipment": [
+      null,
+      {
+        "type": 2073,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -959,6 +1127,13 @@
   {
     "id": 28,
     "name": "Gold Golem",
+    "equipment": [
+      null,
+      {
+        "type": 2074,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -991,6 +1166,13 @@
   {
     "id": 29,
     "name": "Mystic Knight",
+    "equipment": [
+      null,
+      {
+        "type": 36,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -1030,6 +1212,13 @@
   {
     "id": 30,
     "name": "Elken Knight",
+    "equipment": [
+      null,
+      {
+        "type": 55,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -1068,6 +1257,13 @@
   {
     "id": 31,
     "name": "Elken Priestess",
+    "equipment": [
+      null,
+      {
+        "type": 55,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -1111,6 +1307,13 @@
   {
     "id": 32,
     "name": "Drake",
+    "equipment": [
+      null,
+      {
+        "type": 2075,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -1143,6 +1346,13 @@
   {
     "id": 33,
     "name": "Magi Drake",
+    "equipment": [
+      null,
+      {
+        "type": 2076,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -1174,6 +1384,13 @@
   {
     "id": 34,
     "name": "Snow Drake",
+    "equipment": [
+      null,
+      {
+        "type": 2075,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -1202,6 +1419,13 @@
   {
     "id": 35,
     "name": "Fire Drake",
+    "equipment": [
+      null,
+      {
+        "type": 2075,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -1234,6 +1458,13 @@
   {
     "id": 36,
     "name": "Dark Drake",
+    "equipment": [
+      null,
+      {
+        "type": 2075,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -1266,6 +1497,13 @@
   {
     "id": 37,
     "name": "Magma Demon",
+    "equipment": [
+      null,
+      {
+        "type": 1514,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -1300,6 +1538,13 @@
   {
     "id": 38,
     "name": "Mesa Scorpion",
+    "equipment": [
+      null,
+      {
+        "type": 2049,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -1324,6 +1569,13 @@
   {
     "id": 39,
     "name": "Bat Swarm",
+    "equipment": [
+      null,
+      {
+        "type": 2078,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -1348,6 +1600,13 @@
   {
     "id": 40,
     "name": "Guardian",
+    "equipment": [
+      null,
+      {
+        "type": 2079,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -1398,6 +1657,13 @@
   {
     "id": 42,
     "name": "Giant Roach",
+    "equipment": [
+      null,
+      {
+        "type": 2080,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -1448,6 +1714,25 @@
   {
     "id": 44,
     "name": "Grayvyn Soldier",
+    "equipment": [
+      {
+        "type": 758,
+        "quantity": 1
+      },
+      {
+        "type": 32,
+        "quantity": 1
+      },
+      {
+        "type": 519,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 734,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -1482,6 +1767,25 @@
   {
     "id": 45,
     "name": "Grayvyn Ranger",
+    "equipment": [
+      {
+        "type": 755,
+        "quantity": 1
+      },
+      {
+        "type": 1555,
+        "quantity": 1
+      },
+      {
+        "type": 14,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 731,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -1516,6 +1820,25 @@
   {
     "id": 46,
     "name": "Grayvyn Witch",
+    "equipment": [
+      {
+        "type": 756,
+        "quantity": 1
+      },
+      {
+        "type": 37,
+        "quantity": 1
+      },
+      {
+        "type": 517,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 732,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -1550,6 +1873,13 @@
   {
     "id": 47,
     "name": "Grayvyn Hound",
+    "equipment": [
+      null,
+      {
+        "type": 2081,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -1578,6 +1908,25 @@
   {
     "id": 48,
     "name": "Grayvyn Squire",
+    "equipment": [
+      {
+        "type": 754,
+        "quantity": 1
+      },
+      {
+        "type": 33,
+        "quantity": 1
+      },
+      {
+        "type": 13,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 730,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -1612,6 +1961,25 @@
   {
     "id": 49,
     "name": "Grayvyn Pike",
+    "equipment": [
+      {
+        "type": 768,
+        "quantity": 1
+      },
+      {
+        "type": 64,
+        "quantity": 1
+      },
+      {
+        "type": 529,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 744,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -1645,6 +2013,25 @@
   {
     "id": 50,
     "name": "Grayvyn Knight",
+    "equipment": [
+      {
+        "type": 773,
+        "quantity": 1
+      },
+      {
+        "type": 36,
+        "quantity": 1
+      },
+      {
+        "type": 534,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 749,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -1679,6 +2066,13 @@
   {
     "id": 51,
     "name": "Grayvyn WarMonger",
+    "equipment": [
+      null,
+      {
+        "type": 2082,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -1706,6 +2100,25 @@
   {
     "id": 52,
     "name": "Grayvyn Warlord",
+    "equipment": [
+      {
+        "type": 775,
+        "quantity": 1
+      },
+      {
+        "type": 1539,
+        "quantity": 1
+      },
+      {
+        "type": 536,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 751,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -1740,6 +2153,25 @@
   {
     "id": 53,
     "name": "Grayvyn Warlock",
+    "equipment": [
+      {
+        "type": 774,
+        "quantity": 1
+      },
+      {
+        "type": 869,
+        "quantity": 1
+      },
+      {
+        "type": 535,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 750,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -1774,6 +2206,13 @@
   {
     "id": 54,
     "name": "Grayvyn Asp",
+    "equipment": [
+      null,
+      {
+        "type": 2083,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -1802,6 +2241,13 @@
   {
     "id": 55,
     "name": "Spitting Cobra",
+    "equipment": [
+      null,
+      {
+        "type": 109,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -1830,6 +2276,13 @@
   {
     "id": 56,
     "name": "Bandit Mage",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -1869,6 +2322,13 @@
   {
     "id": 57,
     "name": "Bandit Scout",
+    "equipment": [
+      null,
+      {
+        "type": 61,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -1912,6 +2372,13 @@
   {
     "id": 58,
     "name": "Bandit Baron",
+    "equipment": [
+      null,
+      {
+        "type": 841,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -1963,6 +2430,13 @@
   {
     "id": 59,
     "name": "Bandit Rogue",
+    "equipment": [
+      null,
+      {
+        "type": 83,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -2002,6 +2476,13 @@
   {
     "id": 60,
     "name": "Bandit Spar",
+    "equipment": [
+      null,
+      {
+        "type": 56,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -2041,6 +2522,13 @@
   {
     "id": 61,
     "name": "Vampire",
+    "equipment": [
+      null,
+      {
+        "type": 1515,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -2074,6 +2562,13 @@
   {
     "id": 62,
     "name": "Land Shark",
+    "equipment": [
+      null,
+      {
+        "type": 2085,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -2097,6 +2592,13 @@
   {
     "id": 63,
     "name": "Wolf",
+    "equipment": [
+      null,
+      {
+        "type": 2086,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -2114,6 +2616,13 @@
   {
     "id": 64,
     "name": "Dire Wolf",
+    "equipment": [
+      null,
+      {
+        "type": 2086,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -2132,6 +2641,13 @@
     "id": 65,
     "name": "Wicken",
     "deadItem": 1085,
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -2166,6 +2682,13 @@
   {
     "id": 66,
     "name": "Menacing Owl",
+    "equipment": [
+      null,
+      {
+        "type": 2087,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -2195,6 +2718,25 @@
   {
     "id": 67,
     "name": "Rogue Knight",
+    "equipment": [
+      {
+        "type": 753,
+        "quantity": 1
+      },
+      {
+        "type": 36,
+        "quantity": 1
+      },
+      {
+        "type": 12,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 729,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -2229,6 +2771,13 @@
   {
     "id": 68,
     "name": "Giant Skunk",
+    "equipment": [
+      null,
+      {
+        "type": 2088,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -2252,6 +2801,13 @@
   {
     "id": 69,
     "name": "Vampire Bat",
+    "equipment": [
+      null,
+      {
+        "type": 2090,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -2275,6 +2831,13 @@
   {
     "id": 70,
     "name": "Grayvyn Buzzard",
+    "equipment": [
+      null,
+      {
+        "type": 105,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -2292,6 +2855,13 @@
   {
     "id": 71,
     "name": "Venus Stalk",
+    "equipment": [
+      null,
+      {
+        "type": 103,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -2309,6 +2879,13 @@
   {
     "id": 72,
     "name": "Ghost",
+    "equipment": [
+      null,
+      {
+        "type": 102,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -2332,6 +2909,13 @@
   {
     "id": 73,
     "name": "Spine",
+    "equipment": [
+      null,
+      {
+        "type": 101,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -2360,6 +2944,13 @@
   {
     "id": 74,
     "name": "Spatial Ooze",
+    "equipment": [
+      null,
+      {
+        "type": 107,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -2383,6 +2974,13 @@
   {
     "id": 75,
     "name": "Spectral Wasp",
+    "equipment": [
+      null,
+      {
+        "type": 1594,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -2400,6 +2998,13 @@
   {
     "id": 76,
     "name": "Grayvyn Stinger",
+    "equipment": [
+      null,
+      {
+        "type": 107,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -2417,6 +3022,13 @@
   {
     "id": 77,
     "name": "Blue Widow",
+    "equipment": [
+      null,
+      {
+        "type": 111,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -2441,6 +3053,13 @@
   {
     "id": 78,
     "name": "Green Widow",
+    "equipment": [
+      null,
+      {
+        "type": 107,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -2465,6 +3084,13 @@
   {
     "id": 79,
     "name": "Fly Swarm",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -2489,6 +3115,13 @@
   {
     "id": 80,
     "name": "Jade Viper",
+    "equipment": [
+      null,
+      {
+        "type": 111,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -2506,6 +3139,13 @@
   {
     "id": 81,
     "name": "Dung Beatle",
+    "equipment": [
+      null,
+      {
+        "type": 105,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -2523,6 +3163,13 @@
   {
     "id": 82,
     "name": "Grayvyn Hive",
+    "equipment": [
+      null,
+      {
+        "type": 101,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -2547,6 +3194,13 @@
   {
     "id": 83,
     "name": "Pink Widow",
+    "equipment": [
+      null,
+      {
+        "type": 107,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -2571,6 +3225,25 @@
   {
     "id": 84,
     "name": "Necro Knight",
+    "equipment": [
+      {
+        "type": 773,
+        "quantity": 1
+      },
+      {
+        "type": 55,
+        "quantity": 1
+      },
+      {
+        "type": 534,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 749,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -2605,6 +3278,13 @@
   {
     "id": 85,
     "name": "Corrupt Lord",
+    "equipment": [
+      null,
+      {
+        "type": 46,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -2639,6 +3319,25 @@
   {
     "id": 86,
     "name": "Xeros Orb",
+    "equipment": [
+      {
+        "type": 764,
+        "quantity": 1
+      },
+      {
+        "type": 100,
+        "quantity": 1
+      },
+      {
+        "type": 525,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 740,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -2668,6 +3367,25 @@
   {
     "id": 87,
     "name": "Dark Sithareen",
+    "equipment": [
+      {
+        "type": 758,
+        "quantity": 1
+      },
+      {
+        "type": 842,
+        "quantity": 1
+      },
+      {
+        "type": 519,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 734,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -2706,6 +3424,13 @@
   {
     "id": 88,
     "name": "Bone Drake",
+    "equipment": [
+      null,
+      {
+        "type": 105,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -2734,6 +3459,13 @@
   {
     "id": 89,
     "name": "Magma Lord",
+    "equipment": [
+      null,
+      {
+        "type": 106,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -2768,6 +3500,25 @@
   {
     "id": 90,
     "name": "Infernal Machine",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 106,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -2792,6 +3543,25 @@
   {
     "id": 91,
     "name": "Sithareen Knight",
+    "equipment": [
+      {
+        "type": 767,
+        "quantity": 1
+      },
+      {
+        "type": 85,
+        "quantity": 1
+      },
+      {
+        "type": 528,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 743,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -2831,6 +3601,13 @@
   {
     "id": 92,
     "name": "Hydra",
+    "equipment": [
+      null,
+      {
+        "type": 106,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -2848,6 +3625,13 @@
   {
     "id": 93,
     "name": "Zyzyxx",
+    "equipment": [
+      null,
+      {
+        "type": 103,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -2866,6 +3650,13 @@
   {
     "id": 95,
     "name": "Screamer",
+    "equipment": [
+      null,
+      {
+        "type": 106,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -2934,6 +3725,13 @@
   {
     "id": 99,
     "name": "Skeleton",
+    "equipment": [
+      null,
+      {
+        "type": 32,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -2967,6 +3765,13 @@
   {
     "id": 100,
     "name": "Orc Skeleton",
+    "equipment": [
+      null,
+      {
+        "type": 32,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -2995,6 +3800,25 @@
   {
     "id": 101,
     "name": "Grayvyn Gate Keeper",
+    "equipment": [
+      {
+        "type": 753,
+        "quantity": 1
+      },
+      {
+        "type": 33,
+        "quantity": 1
+      },
+      {
+        "type": 12,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 729,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -3033,6 +3857,13 @@
   {
     "id": 102,
     "name": "Golden Keeper",
+    "equipment": [
+      null,
+      {
+        "type": 104,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -3060,6 +3891,13 @@
   {
     "id": 103,
     "name": "Bone Golem",
+    "equipment": [
+      null,
+      {
+        "type": 104,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -3091,6 +3929,13 @@
   {
     "id": 104,
     "name": "Bone Keeper",
+    "equipment": [
+      null,
+      {
+        "type": 104,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -3126,6 +3971,13 @@
   {
     "id": 105,
     "name": "Mars Stalk",
+    "equipment": [
+      null,
+      {
+        "type": 1123,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -3154,6 +4006,13 @@
   {
     "id": 106,
     "name": "Old Skeleton Miner",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -3182,6 +4041,13 @@
   {
     "id": 107,
     "name": "Skeleton Miner",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -3210,6 +4076,13 @@
   {
     "id": 108,
     "name": "Toy Maker Elf",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -3243,6 +4116,13 @@
   {
     "id": 109,
     "name": "Copper Golem",
+    "equipment": [
+      null,
+      {
+        "type": 103,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -3270,6 +4150,13 @@
   {
     "id": 110,
     "name": "Titanium Golem",
+    "equipment": [
+      null,
+      {
+        "type": 105,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -3298,6 +4185,13 @@
   {
     "id": 111,
     "name": "Silver Golem",
+    "equipment": [
+      null,
+      {
+        "type": 102,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -3325,6 +4219,13 @@
   {
     "id": 112,
     "name": "Zircon Golem",
+    "equipment": [
+      null,
+      {
+        "type": 105,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -3353,6 +4254,13 @@
   {
     "id": 113,
     "name": "Hessite Golem",
+    "equipment": [
+      null,
+      {
+        "type": 106,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -3381,6 +4289,13 @@
   {
     "id": 114,
     "name": "Magnetite Golem",
+    "equipment": [
+      null,
+      {
+        "type": 102,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -3408,6 +4323,13 @@
   {
     "id": 115,
     "name": "Mole Theif",
+    "equipment": [
+      null,
+      {
+        "type": 103,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -3437,6 +4359,13 @@
     "id": 117,
     "name": "High Wicken",
     "deadItem": 1085,
+    "equipment": [
+      null,
+      {
+        "type": 22,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -3470,6 +4399,13 @@
   {
     "id": 118,
     "name": "Brigand Chef",
+    "equipment": [
+      null,
+      {
+        "type": 22,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -3507,6 +4443,13 @@
   {
     "id": 119,
     "name": "Guard Dog",
+    "equipment": [
+      null,
+      {
+        "type": 102,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -3530,6 +4473,20 @@
   {
     "id": 120,
     "name": "Grayvyn Behemoth",
+    "equipment": [
+      {
+        "type": 776,
+        "quantity": 1
+      },
+      {
+        "type": 1213,
+        "quantity": 1
+      },
+      {
+        "type": 537,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -3565,6 +4522,13 @@
   {
     "id": 121,
     "name": "Drej Mist",
+    "equipment": [
+      null,
+      {
+        "type": 1513,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -3592,6 +4556,13 @@
   {
     "id": 122,
     "name": "Drej Vapor",
+    "equipment": [
+      null,
+      {
+        "type": 1513,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -3619,6 +4590,13 @@
   {
     "id": 123,
     "name": "Drej Lord",
+    "equipment": [
+      null,
+      {
+        "type": 1513,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -3650,6 +4628,13 @@
   {
     "id": 124,
     "name": "Tinker Elf",
+    "equipment": [
+      null,
+      {
+        "type": 1138,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -3687,6 +4672,13 @@
   {
     "id": 125,
     "name": "Moo Guard",
+    "equipment": [
+      null,
+      {
+        "type": 42,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -3720,6 +4712,13 @@
   {
     "id": 126,
     "name": "Moo Ninja",
+    "equipment": [
+      null,
+      {
+        "type": 841,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -3767,6 +4766,13 @@
   {
     "id": 127,
     "name": "Moo Lord",
+    "equipment": [
+      null,
+      {
+        "type": 85,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -3800,6 +4806,13 @@
   {
     "id": 128,
     "name": "Moo Lady",
+    "equipment": [
+      null,
+      {
+        "type": 139,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -3837,6 +4850,13 @@
   {
     "id": 129,
     "name": "Moo Gate Keeper",
+    "equipment": [
+      null,
+      {
+        "type": 43,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -3874,6 +4894,13 @@
   {
     "id": 130,
     "name": "Moo Butler",
+    "equipment": [
+      null,
+      {
+        "type": 45,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -3907,6 +4934,13 @@
   {
     "id": 131,
     "name": "Moo Maid",
+    "equipment": [
+      null,
+      {
+        "type": 22,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -3940,6 +4974,13 @@
   {
     "id": 132,
     "name": "Moo Dancer",
+    "equipment": [
+      null,
+      {
+        "type": 1142,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -3972,6 +5013,13 @@
   {
     "id": 133,
     "name": "Moo Master Butler",
+    "equipment": [
+      null,
+      {
+        "type": 46,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -4005,6 +5053,13 @@
   {
     "id": 134,
     "name": "Grayvyn Stalker",
+    "equipment": [
+      null,
+      {
+        "type": 44,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -4034,6 +5089,13 @@
   {
     "id": 135,
     "name": "Flumey Skunk",
+    "equipment": [
+      null,
+      {
+        "type": 2088,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -4062,6 +5124,13 @@
   {
     "id": 136,
     "name": "Smelly Skunk",
+    "equipment": [
+      null,
+      {
+        "type": 2088,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -4090,6 +5159,13 @@
   {
     "id": 137,
     "name": "Skunk King",
+    "equipment": [
+      null,
+      {
+        "type": 2088,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -4117,6 +5193,13 @@
   {
     "id": 138,
     "name": "Elder Drake",
+    "equipment": [
+      null,
+      {
+        "type": 105,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -4144,6 +5227,25 @@
   {
     "id": 139,
     "name": "Wood Elf",
+    "equipment": [
+      {
+        "type": 1261,
+        "quantity": 1
+      },
+      {
+        "type": 1122,
+        "quantity": 1
+      },
+      {
+        "type": 48,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 1262,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -4182,6 +5284,25 @@
   {
     "id": 140,
     "name": "Wood Elf King",
+    "equipment": [
+      {
+        "type": 1261,
+        "quantity": 1
+      },
+      {
+        "type": 1122,
+        "quantity": 1
+      },
+      {
+        "type": 48,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 1262,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -4224,6 +5345,13 @@
   {
     "id": 141,
     "name": "Og Priest",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -4253,6 +5381,13 @@
   {
     "id": 142,
     "name": "Og Priestess",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -4282,6 +5417,20 @@
   {
     "id": 143,
     "name": "Magma Hunter",
+    "equipment": [
+      {
+        "type": 773,
+        "quantity": 1
+      },
+      {
+        "type": 1124,
+        "quantity": 1
+      },
+      {
+        "type": 534,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -4312,6 +5461,20 @@
   {
     "id": 144,
     "name": "Magma Champion",
+    "equipment": [
+      {
+        "type": 776,
+        "quantity": 1
+      },
+      {
+        "type": 44,
+        "quantity": 1
+      },
+      {
+        "type": 537,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -4335,6 +5498,20 @@
   {
     "id": 145,
     "name": "Magma Scout",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 1124,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -4364,6 +5541,13 @@
   {
     "id": 146,
     "name": "Magma Baby",
+    "equipment": [
+      null,
+      {
+        "type": 1122,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -4381,6 +5565,20 @@
   {
     "id": 147,
     "name": "Rogue Sniper",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 1143,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -4415,6 +5613,20 @@
   {
     "id": 148,
     "name": "Rogue Paladin",
+    "equipment": [
+      {
+        "type": 767,
+        "quantity": 1
+      },
+      {
+        "type": 36,
+        "quantity": 1
+      },
+      {
+        "type": 528,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -4449,6 +5661,20 @@
   {
     "id": 149,
     "name": "Rogue Champion",
+    "equipment": [
+      {
+        "type": 776,
+        "quantity": 1
+      },
+      {
+        "type": 36,
+        "quantity": 1
+      },
+      {
+        "type": 537,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -4483,6 +5709,13 @@
   {
     "id": 150,
     "name": "Corrupt Soul",
+    "equipment": [
+      null,
+      {
+        "type": 105,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -4517,6 +5750,13 @@
   {
     "id": 151,
     "name": "Corrupt Hound",
+    "equipment": [
+      null,
+      {
+        "type": 105,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -4551,6 +5791,13 @@
   {
     "id": 152,
     "name": "Corrupt Paladin",
+    "equipment": [
+      null,
+      {
+        "type": 47,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -4590,6 +5837,13 @@
   {
     "id": 153,
     "name": "Corrupt Enchantress",
+    "equipment": [
+      null,
+      {
+        "type": 23,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -4624,6 +5878,13 @@
   {
     "id": 154,
     "name": "Corrupt Champion",
+    "equipment": [
+      null,
+      {
+        "type": 47,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -4664,6 +5925,13 @@
     "id": 155,
     "name": "Grayvyn Catapult",
     "deadItem": 406,
+    "equipment": [
+      null,
+      {
+        "type": 273,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -4695,6 +5963,13 @@
   {
     "id": 156,
     "name": "Corrupt Drake",
+    "equipment": [
+      null,
+      {
+        "type": 105,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -4719,6 +5994,13 @@
   {
     "id": 157,
     "name": "Sewer Hound",
+    "equipment": [
+      null,
+      {
+        "type": 102,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -4748,6 +6030,13 @@
   {
     "id": 158,
     "name": "Sewer Mutant",
+    "equipment": [
+      null,
+      {
+        "type": 102,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -4781,6 +6070,13 @@
   {
     "id": 159,
     "name": "Sewer Orc",
+    "equipment": [
+      null,
+      {
+        "type": 42,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -4819,6 +6115,13 @@
   {
     "id": 160,
     "name": "Rancid Orc",
+    "equipment": [
+      null,
+      {
+        "type": 42,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -4857,6 +6160,13 @@
   {
     "id": 161,
     "name": "Orc King",
+    "equipment": [
+      null,
+      {
+        "type": 42,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -4899,6 +6209,13 @@
   {
     "id": 162,
     "name": "Putrid Orc",
+    "equipment": [
+      null,
+      {
+        "type": 1136,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -4937,6 +6254,13 @@
   {
     "id": 163,
     "name": "Sewer Skeleton",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -4970,6 +6294,13 @@
   {
     "id": 164,
     "name": "Orc Knave",
+    "equipment": [
+      null,
+      {
+        "type": 72,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5008,6 +6339,13 @@
   {
     "id": 165,
     "name": "Killapillar",
+    "equipment": [
+      null,
+      {
+        "type": 103,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5033,6 +6371,13 @@
     "id": 166,
     "name": "Fire Ant",
     "deadItem": 1086,
+    "equipment": [
+      null,
+      {
+        "type": 105,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5057,6 +6402,13 @@
   {
     "id": 167,
     "name": "Rhino Beetle",
+    "equipment": [
+      null,
+      {
+        "type": 105,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5081,6 +6433,13 @@
   {
     "id": 168,
     "name": "Sithareen Fly",
+    "equipment": [
+      null,
+      {
+        "type": 104,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -5105,6 +6464,13 @@
   {
     "id": 169,
     "name": "Plague",
+    "equipment": [
+      null,
+      {
+        "type": 104,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -5133,6 +6499,13 @@
   {
     "id": 170,
     "name": "Sonic Moth",
+    "equipment": [
+      null,
+      {
+        "type": 1124,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5162,6 +6535,13 @@
   {
     "id": 171,
     "name": "Blue Keeper",
+    "equipment": [
+      null,
+      {
+        "type": 107,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -5185,6 +6565,13 @@
   {
     "id": 172,
     "name": "Pink Keeper",
+    "equipment": [
+      null,
+      {
+        "type": 107,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -5213,6 +6600,13 @@
   {
     "id": 173,
     "name": "Green Keeper",
+    "equipment": [
+      null,
+      {
+        "type": 107,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -5241,6 +6635,13 @@
   {
     "id": 174,
     "name": "Venom Soul",
+    "equipment": [
+      null,
+      {
+        "type": 107,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5278,6 +6679,13 @@
   {
     "id": 175,
     "name": "Thunder Soul",
+    "equipment": [
+      null,
+      {
+        "type": 106,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5316,6 +6724,13 @@
     "id": 176,
     "name": "Stone Soul",
     "deadItem": 4,
+    "equipment": [
+      null,
+      {
+        "type": 106,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5358,6 +6773,13 @@
   {
     "id": 177,
     "name": "Ice Soul",
+    "equipment": [
+      null,
+      {
+        "type": 1124,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5405,6 +6827,13 @@
   {
     "id": 178,
     "name": "Vexed Soul",
+    "equipment": [
+      null,
+      {
+        "type": 1294,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5458,6 +6887,13 @@
     "id": 179,
     "name": "Earth Soul",
     "deadItem": 4,
+    "equipment": [
+      null,
+      {
+        "type": 85,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5505,6 +6941,13 @@
   {
     "id": 180,
     "name": "Water Soul",
+    "equipment": [
+      null,
+      {
+        "type": 85,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5552,6 +6995,25 @@
   {
     "id": 181,
     "name": "Dino Wizard",
+    "equipment": [
+      {
+        "type": 771,
+        "quantity": 1
+      },
+      {
+        "type": 28,
+        "quantity": 1
+      },
+      {
+        "type": 532,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 747,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5586,6 +7048,25 @@
   {
     "id": 182,
     "name": "Dino Mage",
+    "equipment": [
+      {
+        "type": 755,
+        "quantity": 1
+      },
+      {
+        "type": 26,
+        "quantity": 1
+      },
+      {
+        "type": 14,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 731,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5620,6 +7101,25 @@
   {
     "id": 183,
     "name": "Dino Ranger",
+    "equipment": [
+      {
+        "type": 755,
+        "quantity": 1
+      },
+      {
+        "type": 1579,
+        "quantity": 1
+      },
+      {
+        "type": 14,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 731,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5654,6 +7154,25 @@
   {
     "id": 184,
     "name": "Dino Sniper",
+    "equipment": [
+      {
+        "type": 762,
+        "quantity": 1
+      },
+      {
+        "type": 1582,
+        "quantity": 1
+      },
+      {
+        "type": 523,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 738,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5688,6 +7207,25 @@
   {
     "id": 185,
     "name": "Dino Squire",
+    "equipment": [
+      {
+        "type": 769,
+        "quantity": 1
+      },
+      {
+        "type": 83,
+        "quantity": 1
+      },
+      {
+        "type": 530,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 745,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5727,6 +7265,25 @@
   {
     "id": 186,
     "name": "Dino Knight",
+    "equipment": [
+      {
+        "type": 754,
+        "quantity": 1
+      },
+      {
+        "type": 85,
+        "quantity": 1
+      },
+      {
+        "type": 13,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 730,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5761,6 +7318,25 @@
   {
     "id": 187,
     "name": "Dino King",
+    "equipment": [
+      {
+        "type": 1265,
+        "quantity": 1
+      },
+      {
+        "type": 74,
+        "quantity": 1
+      },
+      {
+        "type": 17,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 1266,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5794,6 +7370,13 @@
   {
     "id": 188,
     "name": "Dino Assassin",
+    "equipment": [
+      null,
+      {
+        "type": 24,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5827,6 +7410,25 @@
   {
     "id": 189,
     "name": "Dino Warlord",
+    "equipment": [
+      {
+        "type": 775,
+        "quantity": 1
+      },
+      {
+        "type": 1546,
+        "quantity": 1
+      },
+      {
+        "type": 536,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 739,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5866,6 +7468,25 @@
   {
     "id": 190,
     "name": "Dino",
+    "equipment": [
+      {
+        "type": 762,
+        "quantity": 1
+      },
+      {
+        "type": 83,
+        "quantity": 1
+      },
+      {
+        "type": 523,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 738,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5904,6 +7525,13 @@
   {
     "id": 191,
     "name": "Dino Keeper",
+    "equipment": [
+      null,
+      {
+        "type": 841,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5932,6 +7560,13 @@
   {
     "id": 192,
     "name": "Dino Lord Keeper",
+    "equipment": [
+      null,
+      {
+        "type": 841,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5960,6 +7595,13 @@
   {
     "id": 193,
     "name": "Magma Drake",
+    "equipment": [
+      null,
+      {
+        "type": 105,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -5984,6 +7626,22 @@
   {
     "id": 194,
     "name": "Drake Enchantress",
+    "equipment": [
+      null,
+      {
+        "type": 842,
+        "quantity": 1
+      },
+      {
+        "type": 522,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 737,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -6027,6 +7685,13 @@
   {
     "id": 195,
     "name": "Crystal Drake",
+    "equipment": [
+      null,
+      {
+        "type": 105,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -6050,6 +7715,25 @@
   {
     "id": 196,
     "name": "Grayvyn Sniper",
+    "equipment": [
+      {
+        "type": 762,
+        "quantity": 1
+      },
+      {
+        "type": 1557,
+        "quantity": 1
+      },
+      {
+        "type": 523,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 738,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -6084,6 +7768,25 @@
   {
     "id": 197,
     "name": "Baby Grayvyn Behemoth",
+    "equipment": [
+      {
+        "type": 753,
+        "quantity": 1
+      },
+      {
+        "type": 36,
+        "quantity": 1
+      },
+      {
+        "type": 12,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 729,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6108,6 +7811,25 @@
   {
     "id": 198,
     "name": "The Grayvyn Lord",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 1209,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -6134,6 +7856,13 @@
   {
     "id": 199,
     "name": "Mega Drake",
+    "equipment": [
+      null,
+      {
+        "type": 105,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -6168,6 +7897,13 @@
   {
     "id": 200,
     "name": "Bob the Collector",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6185,6 +7921,20 @@
   {
     "id": 201,
     "name": "King Mickey",
+    "equipment": [
+      {
+        "type": 776,
+        "quantity": 1
+      },
+      {
+        "type": 36,
+        "quantity": 1
+      },
+      {
+        "type": 537,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6202,6 +7952,13 @@
   {
     "id": 202,
     "name": "William the Scout",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6219,6 +7976,13 @@
   {
     "id": 203,
     "name": "Trader Joe",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6236,6 +8000,13 @@
   {
     "id": 204,
     "name": "Crazy Old Man",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6253,6 +8024,13 @@
   {
     "id": 205,
     "name": "Lady Charlette",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6270,6 +8048,13 @@
   {
     "id": 206,
     "name": "Gladis the Baker",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6287,6 +8072,20 @@
   {
     "id": 207,
     "name": "Town Guard",
+    "equipment": [
+      {
+        "type": 755,
+        "quantity": 1
+      },
+      {
+        "type": 32,
+        "quantity": 1
+      },
+      {
+        "type": 14,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6332,6 +8131,13 @@
   {
     "id": 210,
     "name": "Rueben's Skeleton",
+    "equipment": [
+      null,
+      {
+        "type": 32,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -6364,6 +8170,13 @@
   {
     "id": 211,
     "name": "Bill the Banker",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6381,6 +8194,13 @@
   {
     "id": 212,
     "name": "Evil Elf Theif",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6413,6 +8233,13 @@
   {
     "id": 213,
     "name": "Marion the Armorer",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6430,6 +8257,13 @@
   {
     "id": 214,
     "name": "Frank the Weaponsmith",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6447,6 +8281,13 @@
   {
     "id": 215,
     "name": "Birgette the Bowyer",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6464,6 +8305,13 @@
   {
     "id": 216,
     "name": "Brutus the Butcher",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6481,6 +8329,13 @@
   {
     "id": 217,
     "name": "Farmer John",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6498,6 +8353,13 @@
   {
     "id": 218,
     "name": "Jane the Banker",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6515,6 +8377,13 @@
   {
     "id": 219,
     "name": "Mack the Fisher",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6532,6 +8401,13 @@
   {
     "id": 220,
     "name": "Mike the Archmage",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6549,6 +8425,13 @@
   {
     "id": 221,
     "name": "Sandy the Alchemist",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6566,6 +8449,13 @@
   {
     "id": 222,
     "name": "Sally the Trader",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6583,6 +8473,13 @@
   {
     "id": 223,
     "name": "Bubba the Tender",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6615,6 +8512,13 @@
   {
     "id": 225,
     "name": "Dan the Furnisher",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6660,6 +8564,20 @@
   {
     "id": 228,
     "name": "Castle Guard",
+    "equipment": [
+      {
+        "type": 753,
+        "quantity": 1
+      },
+      {
+        "type": 33,
+        "quantity": 1
+      },
+      {
+        "type": 12,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6677,6 +8595,20 @@
   {
     "id": 229,
     "name": "Castle Archer",
+    "equipment": [
+      {
+        "type": 753,
+        "quantity": 1
+      },
+      {
+        "type": 1123,
+        "quantity": 1
+      },
+      {
+        "type": 12,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6694,6 +8626,20 @@
   {
     "id": 230,
     "name": "Castle Mage",
+    "equipment": [
+      {
+        "type": 762,
+        "quantity": 1
+      },
+      {
+        "type": 21,
+        "quantity": 1
+      },
+      {
+        "type": 523,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6711,6 +8657,20 @@
   {
     "id": 231,
     "name": "Sheriff Roscoe",
+    "equipment": [
+      {
+        "type": 755,
+        "quantity": 1
+      },
+      {
+        "type": 33,
+        "quantity": 1
+      },
+      {
+        "type": 14,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6728,6 +8688,20 @@
   {
     "id": 232,
     "name": "Deputy Cletus",
+    "equipment": [
+      {
+        "type": 755,
+        "quantity": 1
+      },
+      {
+        "type": 33,
+        "quantity": 1
+      },
+      {
+        "type": 14,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6775,6 +8749,13 @@
   {
     "id": 237,
     "name": "Al the Miner",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6793,6 +8774,20 @@
   {
     "id": 239,
     "name": "Castle Knight",
+    "equipment": [
+      {
+        "type": 753,
+        "quantity": 1
+      },
+      {
+        "type": 36,
+        "quantity": 1
+      },
+      {
+        "type": 12,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6810,6 +8805,20 @@
   {
     "id": 240,
     "name": "Castle Squire",
+    "equipment": [
+      {
+        "type": 753,
+        "quantity": 1
+      },
+      {
+        "type": 36,
+        "quantity": 1
+      },
+      {
+        "type": 12,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6827,6 +8836,13 @@
   {
     "id": 241,
     "name": "Semoor the Scribe",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6844,6 +8860,13 @@
   {
     "id": 242,
     "name": "Becky the Jeweler",
+    "equipment": [
+      null,
+      {
+        "type": 37,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6861,6 +8884,13 @@
   {
     "id": 243,
     "name": "Gwen Frolun",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6878,6 +8908,13 @@
   {
     "id": 244,
     "name": "Queen Alyssa",
+    "equipment": [
+      null,
+      {
+        "type": 1124,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6895,6 +8932,13 @@
   {
     "id": 245,
     "name": "Rancher Wilma",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6912,6 +8956,13 @@
   {
     "id": 246,
     "name": "Arcus Town Gaurd",
+    "equipment": [
+      null,
+      {
+        "type": 1580,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6930,6 +8981,13 @@
     "id": 247,
     "name": "Castle Catapult",
     "deadItem": 406,
+    "equipment": [
+      null,
+      {
+        "type": 273,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -6949,6 +9007,13 @@
   {
     "id": 248,
     "name": "Trader Bart",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -6966,6 +9031,13 @@
   {
     "id": 249,
     "name": "Danielle the Baker",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7000,6 +9072,13 @@
   {
     "id": 251,
     "name": "Zappa the Trader",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7034,6 +9113,13 @@
   {
     "id": 253,
     "name": "Villager",
+    "equipment": [
+      null,
+      {
+        "type": 51,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7051,6 +9137,13 @@
   {
     "id": 254,
     "name": "Orgulf",
+    "equipment": [
+      null,
+      {
+        "type": 869,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -7074,6 +9167,13 @@
   {
     "id": 255,
     "name": "Trader",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7091,6 +9191,13 @@
   {
     "id": 256,
     "name": "Telone Villager",
+    "equipment": [
+      null,
+      {
+        "type": 51,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7108,6 +9215,13 @@
   {
     "id": 257,
     "name": "Telone Villager",
+    "equipment": [
+      null,
+      {
+        "type": 51,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7125,6 +9239,13 @@
   {
     "id": 258,
     "name": "Goethe Villager",
+    "equipment": [
+      null,
+      {
+        "type": 51,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7142,6 +9263,13 @@
   {
     "id": 259,
     "name": "Goethe Villager",
+    "equipment": [
+      null,
+      {
+        "type": 51,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7159,6 +9287,13 @@
   {
     "id": 260,
     "name": "Gha'hun Villager",
+    "equipment": [
+      null,
+      {
+        "type": 51,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7176,6 +9311,13 @@
   {
     "id": 261,
     "name": "Gha'hun Villager",
+    "equipment": [
+      null,
+      {
+        "type": 51,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7193,6 +9335,13 @@
   {
     "id": 262,
     "name": "Telone Trader",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7210,6 +9359,13 @@
   {
     "id": 263,
     "name": "Goethe Smithy",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7227,6 +9383,13 @@
   {
     "id": 264,
     "name": "Sailia the Cook",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7244,6 +9407,13 @@
   {
     "id": 265,
     "name": "Gha'hun Archmage",
+    "equipment": [
+      null,
+      {
+        "type": 37,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7262,6 +9432,13 @@
     "id": 266,
     "name": "Gha'hun Fishing Boat",
     "deadItem": 406,
+    "equipment": [
+      null,
+      {
+        "type": 1122,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -7282,6 +9459,13 @@
   {
     "id": 267,
     "name": "Lemuor Villager",
+    "equipment": [
+      null,
+      {
+        "type": 51,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7299,6 +9483,13 @@
   {
     "id": 268,
     "name": "Lemuor Villager",
+    "equipment": [
+      null,
+      {
+        "type": 51,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7316,6 +9507,13 @@
   {
     "id": 269,
     "name": "Lemuor Collector",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7334,6 +9532,13 @@
     "id": 270,
     "name": "Lemuor Fishing Boat",
     "deadItem": 406,
+    "equipment": [
+      null,
+      {
+        "type": 1122,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -7354,6 +9559,13 @@
   {
     "id": 271,
     "name": "Arcus Citizen",
+    "equipment": [
+      null,
+      {
+        "type": 51,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7371,6 +9583,13 @@
   {
     "id": 272,
     "name": "Arcus Citizen",
+    "equipment": [
+      null,
+      {
+        "type": 51,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7388,6 +9607,13 @@
   {
     "id": 273,
     "name": "Pharoh Villager",
+    "equipment": [
+      null,
+      {
+        "type": 120,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7405,6 +9631,13 @@
   {
     "id": 274,
     "name": "Pharoh Villager",
+    "equipment": [
+      null,
+      {
+        "type": 120,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7422,6 +9655,13 @@
   {
     "id": 275,
     "name": "Jean the Baker",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7439,6 +9679,13 @@
   {
     "id": 276,
     "name": "Galoug Villager",
+    "equipment": [
+      null,
+      {
+        "type": 41,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7456,6 +9703,13 @@
   {
     "id": 277,
     "name": "Galoug Villager",
+    "equipment": [
+      null,
+      {
+        "type": 41,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7473,6 +9727,13 @@
   {
     "id": 278,
     "name": "Galoug Trader",
+    "equipment": [
+      null,
+      {
+        "type": 71,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7490,6 +9751,13 @@
   {
     "id": 279,
     "name": "Bloomington Villager",
+    "equipment": [
+      null,
+      {
+        "type": 120,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7507,6 +9775,13 @@
   {
     "id": 280,
     "name": "Bloomington Villager",
+    "equipment": [
+      null,
+      {
+        "type": 120,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7524,6 +9799,13 @@
   {
     "id": 281,
     "name": "Alexandra the Alchemist",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -7541,6 +9823,13 @@
   {
     "id": 282,
     "name": "Aquagnome Villager",
+    "equipment": [
+      null,
+      {
+        "type": 120,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7558,6 +9847,13 @@
   {
     "id": 283,
     "name": "Aquagnome Villager",
+    "equipment": [
+      null,
+      {
+        "type": 120,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7603,6 +9899,13 @@
   {
     "id": 286,
     "name": "Quaigon the Trader",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7621,6 +9924,13 @@
     "id": 287,
     "name": "Aquagnome Fishing Boat",
     "deadItem": 406,
+    "equipment": [
+      null,
+      {
+        "type": 1122,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -7641,6 +9951,13 @@
   {
     "id": 288,
     "name": "Solom Villager",
+    "equipment": [
+      null,
+      {
+        "type": 120,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7658,6 +9975,13 @@
   {
     "id": 289,
     "name": "Solom Villager",
+    "equipment": [
+      null,
+      {
+        "type": 120,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7675,6 +9999,13 @@
   {
     "id": 290,
     "name": "Solom Armorer",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7692,6 +10023,13 @@
   {
     "id": 291,
     "name": "Merchant",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7722,6 +10060,13 @@
   {
     "id": 293,
     "name": "Natalie Change Lady",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7739,6 +10084,13 @@
   {
     "id": 294,
     "name": "Bartender Bruce",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7756,6 +10108,13 @@
   {
     "id": 295,
     "name": "Old Blacksmith",
+    "equipment": [
+      null,
+      {
+        "type": 140,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7790,6 +10149,13 @@
   {
     "id": 297,
     "name": "Mage of Goethe",
+    "equipment": [
+      null,
+      {
+        "type": 37,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7821,6 +10187,13 @@
   {
     "id": 299,
     "name": "Adventurer Misha",
+    "equipment": [
+      null,
+      {
+        "type": 32,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7837,6 +10210,13 @@
   {
     "id": 300,
     "name": "Brigand Saergent",
+    "equipment": [
+      null,
+      {
+        "type": 42,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -7877,6 +10257,13 @@
     "id": 301,
     "name": "Anamer Trolkin",
     "deadItem": 256,
+    "equipment": [
+      null,
+      {
+        "type": 2052,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -7906,6 +10293,13 @@
     "id": 302,
     "name": "Baimmer Trolkin",
     "deadItem": 256,
+    "equipment": [
+      null,
+      {
+        "type": 2052,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -7935,6 +10329,13 @@
     "id": 303,
     "name": "Caisen Trolkin",
     "deadItem": 256,
+    "equipment": [
+      null,
+      {
+        "type": 2052,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -7964,6 +10365,13 @@
     "id": 304,
     "name": "Deamded Trolkin",
     "deadItem": 256,
+    "equipment": [
+      null,
+      {
+        "type": 2052,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -7993,6 +10401,13 @@
     "id": 305,
     "name": "Eleran Trolkin",
     "deadItem": 256,
+    "equipment": [
+      null,
+      {
+        "type": 2052,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -8022,6 +10437,13 @@
     "id": 306,
     "name": "Fequar Trolkin",
     "deadItem": 256,
+    "equipment": [
+      null,
+      {
+        "type": 2052,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -8051,6 +10473,13 @@
     "id": 307,
     "name": "Gloke Trolkin",
     "deadItem": 256,
+    "equipment": [
+      null,
+      {
+        "type": 2063,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -8080,6 +10509,13 @@
     "id": 308,
     "name": "Houn Trolkin",
     "deadItem": 256,
+    "equipment": [
+      null,
+      {
+        "type": 2063,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -8109,6 +10545,13 @@
     "id": 309,
     "name": "Ingess Trolkin",
     "deadItem": 256,
+    "equipment": [
+      null,
+      {
+        "type": 2063,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -8138,6 +10581,13 @@
     "id": 310,
     "name": "Jool Trolkin",
     "deadItem": 256,
+    "equipment": [
+      null,
+      {
+        "type": 2063,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -8167,6 +10617,13 @@
     "id": 311,
     "name": "Kuln Trolkin",
     "deadItem": 256,
+    "equipment": [
+      null,
+      {
+        "type": 2063,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -8195,6 +10652,13 @@
   {
     "id": 312,
     "name": "Og Familiar",
+    "equipment": [
+      null,
+      {
+        "type": 3004,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -8234,6 +10698,25 @@
   {
     "id": 313,
     "name": "Viking Assasin",
+    "equipment": [
+      {
+        "type": 787,
+        "quantity": 1
+      },
+      {
+        "type": 1898,
+        "quantity": 1
+      },
+      {
+        "type": 15,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 788,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -8263,6 +10746,25 @@
   {
     "id": 314,
     "name": "Viking Merchant",
+    "equipment": [
+      {
+        "type": 787,
+        "quantity": 1
+      },
+      {
+        "type": 21,
+        "quantity": 1
+      },
+      {
+        "type": 15,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 788,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -8288,6 +10790,25 @@
   {
     "id": 315,
     "name": "Viking Guard",
+    "equipment": [
+      {
+        "type": 776,
+        "quantity": 1
+      },
+      {
+        "type": 55,
+        "quantity": 1
+      },
+      {
+        "type": 537,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 752,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -8317,6 +10838,25 @@
   {
     "id": 316,
     "name": "Viking Force Guard",
+    "equipment": [
+      {
+        "type": 1812,
+        "quantity": 1
+      },
+      {
+        "type": 1899,
+        "quantity": 1
+      },
+      {
+        "type": 525,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 740,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -8374,6 +10914,13 @@
   {
     "id": 319,
     "name": "Viking Blacksmith",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -8392,6 +10939,13 @@
     "id": 320,
     "name": "Monk Wicken",
     "deadItem": 1085,
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -8427,6 +10981,13 @@
     "id": 321,
     "name": "Deacon Wicken",
     "deadItem": 1085,
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -8461,6 +11022,13 @@
   {
     "id": 322,
     "name": "Gammut the Alchemist",
+    "equipment": [
+      null,
+      {
+        "type": 58,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -8477,6 +11045,25 @@
   {
     "id": 323,
     "name": "Sewer Gaurd",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 42,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -8515,6 +11102,13 @@
   {
     "id": 324,
     "name": "Vorth Queen",
+    "equipment": [
+      null,
+      {
+        "type": 104,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -8547,6 +11141,13 @@
   {
     "id": 325,
     "name": "Gremlin",
+    "equipment": [
+      null,
+      {
+        "type": 2112,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -8580,6 +11181,13 @@
   {
     "id": 326,
     "name": "Warrior Gremlin",
+    "equipment": [
+      null,
+      {
+        "type": 2113,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -8613,6 +11221,13 @@
   {
     "id": 327,
     "name": "Lord Gremlin",
+    "equipment": [
+      null,
+      {
+        "type": 2114,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -8646,6 +11261,13 @@
   {
     "id": 328,
     "name": "Semlok the Wise",
+    "equipment": [
+      null,
+      {
+        "type": 869,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -8663,6 +11285,13 @@
   {
     "id": 329,
     "name": "Harlok the Gaurd",
+    "equipment": [
+      null,
+      {
+        "type": 41,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -8699,6 +11328,13 @@
     "id": 331,
     "name": "Apprentice Witch",
     "deadItem": 1085,
+    "equipment": [
+      null,
+      {
+        "type": 22,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -8734,6 +11370,13 @@
     "id": 332,
     "name": "Veteran Witch",
     "deadItem": 1085,
+    "equipment": [
+      null,
+      {
+        "type": 22,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -8774,6 +11417,13 @@
     "id": 333,
     "name": "Elder Witch",
     "deadItem": 1085,
+    "equipment": [
+      null,
+      {
+        "type": 22,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -8814,6 +11464,13 @@
     "id": 334,
     "name": "Veteran Imp",
     "deadItem": 1085,
+    "equipment": [
+      null,
+      {
+        "type": 1331,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -8843,6 +11500,13 @@
     "id": 335,
     "name": "Elder Imp",
     "deadItem": 1085,
+    "equipment": [
+      null,
+      {
+        "type": 1273,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -8871,6 +11535,13 @@
   {
     "id": 336,
     "name": "Priscous Uparen",
+    "equipment": [
+      null,
+      {
+        "type": 1512,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -8915,6 +11586,13 @@
   {
     "id": 337,
     "name": "Mitcous Uparen",
+    "equipment": [
+      null,
+      {
+        "type": 1512,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -8958,6 +11636,13 @@
   {
     "id": 338,
     "name": "Artifact Golem",
+    "equipment": [
+      null,
+      {
+        "type": 106,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -8988,6 +11673,13 @@
   {
     "id": 340,
     "name": "Bone Gorvor Guard",
+    "equipment": [
+      null,
+      {
+        "type": 1838,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -9016,6 +11708,13 @@
   {
     "id": 341,
     "name": "Grethe Gorvor Guard",
+    "equipment": [
+      null,
+      {
+        "type": 1841,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -9045,6 +11744,13 @@
   {
     "id": 342,
     "name": "Milthe Gorvor Guard",
+    "equipment": [
+      null,
+      {
+        "type": 1842,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -9074,6 +11780,13 @@
   {
     "id": 343,
     "name": "Blothe Gorvor Guard",
+    "equipment": [
+      null,
+      {
+        "type": 1845,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -9103,6 +11816,13 @@
   {
     "id": 344,
     "name": "Pet Red Dino Behemoth",
+    "equipment": [
+      null,
+      {
+        "type": 1476,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -9122,6 +11842,22 @@
   {
     "id": 345,
     "name": "Scanner",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -9146,6 +11882,13 @@
   {
     "id": 346,
     "name": "Ranthe Gorvor Guard",
+    "equipment": [
+      null,
+      {
+        "type": 1843,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -9175,6 +11918,13 @@
   {
     "id": 347,
     "name": "Young Red  Spider",
+    "equipment": [
+      null,
+      {
+        "type": 1586,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -9198,6 +11948,13 @@
   {
     "id": 348,
     "name": "Young Blue Spider",
+    "equipment": [
+      null,
+      {
+        "type": 1122,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -9244,6 +12001,25 @@
   {
     "id": 350,
     "name": "Teen Red  Spider",
+    "equipment": [
+      {
+        "type": 769,
+        "quantity": 1
+      },
+      {
+        "type": 94,
+        "quantity": 1
+      },
+      {
+        "type": 530,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 745,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -9267,6 +12043,25 @@
   {
     "id": 351,
     "name": "Teen Blue Spider",
+    "equipment": [
+      {
+        "type": 763,
+        "quantity": 1
+      },
+      {
+        "type": 1123,
+        "quantity": 1
+      },
+      {
+        "type": 524,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 739,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -9313,6 +12108,25 @@
   {
     "id": 353,
     "name": "Young Adult Red  Spider",
+    "equipment": [
+      {
+        "type": 769,
+        "quantity": 1
+      },
+      {
+        "type": 93,
+        "quantity": 1
+      },
+      {
+        "type": 530,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 745,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -9336,6 +12150,13 @@
   {
     "id": 354,
     "name": "Young Adult Blue Spider",
+    "equipment": [
+      null,
+      {
+        "type": 1152,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -9382,6 +12203,25 @@
   {
     "id": 356,
     "name": "Adult Red  Spider",
+    "equipment": [
+      {
+        "type": 775,
+        "quantity": 1
+      },
+      {
+        "type": 369,
+        "quantity": 1
+      },
+      {
+        "type": 536,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 751,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -9405,6 +12245,25 @@
   {
     "id": 357,
     "name": "Adult Blue Spider",
+    "equipment": [
+      {
+        "type": 775,
+        "quantity": 1
+      },
+      {
+        "type": 1152,
+        "quantity": 1
+      },
+      {
+        "type": 536,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 751,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -9428,6 +12287,22 @@
   {
     "id": 358,
     "name": "Adult Yellow Spider",
+    "equipment": [
+      {
+        "type": 775,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 536,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 751,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -9451,6 +12326,25 @@
   {
     "id": 359,
     "name": "Warrior Red Spider",
+    "equipment": [
+      {
+        "type": 29,
+        "quantity": 1
+      },
+      {
+        "type": 369,
+        "quantity": 1
+      },
+      {
+        "type": 19,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 18,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -9474,6 +12368,25 @@
   {
     "id": 360,
     "name": "Warrior Blue Spider",
+    "equipment": [
+      {
+        "type": 29,
+        "quantity": 1
+      },
+      {
+        "type": 1152,
+        "quantity": 1
+      },
+      {
+        "type": 19,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 18,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -9497,6 +12410,25 @@
   {
     "id": 361,
     "name": "Warrior Yellow Spider",
+    "equipment": [
+      {
+        "type": 29,
+        "quantity": 1
+      },
+      {
+        "type": 77,
+        "quantity": 1
+      },
+      {
+        "type": 19,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 18,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -9520,6 +12452,13 @@
   {
     "id": 362,
     "name": "Old Paladin",
+    "equipment": [
+      null,
+      {
+        "type": 32,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -9573,6 +12512,25 @@
   {
     "id": 400,
     "name": "Elite Viking Axeman",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 43,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -9611,6 +12569,25 @@
   {
     "id": 401,
     "name": "Elite Viking Swordsman",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 36,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -9649,6 +12626,25 @@
   {
     "id": 402,
     "name": "Viking King",
+    "equipment": [
+      {
+        "type": 767,
+        "quantity": 1
+      },
+      {
+        "type": 44,
+        "quantity": 1
+      },
+      {
+        "type": 528,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 743,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -9691,6 +12687,25 @@
   {
     "id": 403,
     "name": "Elite Viking Bowman",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 1123,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -9729,6 +12744,25 @@
   {
     "id": 404,
     "name": "Elite Viking Flailman",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 85,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -9767,6 +12801,25 @@
   {
     "id": 405,
     "name": "Viking Flailman",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 83,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -9805,6 +12858,25 @@
   {
     "id": 406,
     "name": "Viking Axeman",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 42,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -9843,6 +12915,22 @@
   {
     "id": 407,
     "name": "Viking Beserker",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -9881,6 +12969,25 @@
   {
     "id": 408,
     "name": "Viking Swordsman",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 33,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -9919,6 +13026,25 @@
   {
     "id": 409,
     "name": "Viking Mage",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 33,
+        "quantity": 1
+      },
+      {
+        "type": 522,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -9962,6 +13088,25 @@
   {
     "id": 410,
     "name": "Viking Watchman",
+    "equipment": [
+      {
+        "type": 767,
+        "quantity": 1
+      },
+      {
+        "type": 139,
+        "quantity": 1
+      },
+      {
+        "type": 528,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 743,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -10000,6 +13145,25 @@
   {
     "id": 411,
     "name": "Viking Keeper",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 33,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -10038,6 +13202,25 @@
   {
     "id": 412,
     "name": "Viking Bowman",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 1122,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -10076,6 +13259,25 @@
   {
     "id": 413,
     "name": "Viking Caster",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 33,
+        "quantity": 1
+      },
+      {
+        "type": 522,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -10119,6 +13321,25 @@
   {
     "id": 414,
     "name": "Viking Grand Mage",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 1209,
+        "quantity": 1
+      },
+      {
+        "type": 522,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -10161,6 +13382,25 @@
   {
     "id": 415,
     "name": "Terror Dino",
+    "equipment": [
+      {
+        "type": 764,
+        "quantity": 1
+      },
+      {
+        "type": 1214,
+        "quantity": 1
+      },
+      {
+        "type": 525,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 740,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -10200,6 +13440,13 @@
   {
     "id": 416,
     "name": "Giant Iron Golem",
+    "equipment": [
+      null,
+      {
+        "type": 104,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -10233,6 +13480,13 @@
   {
     "id": 417,
     "name": "Giant Zircon Golem",
+    "equipment": [
+      null,
+      {
+        "type": 105,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -10262,6 +13516,13 @@
   {
     "id": 418,
     "name": "Giant Gold Golem",
+    "equipment": [
+      null,
+      {
+        "type": 104,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -10295,6 +13556,13 @@
   {
     "id": 419,
     "name": "Giant Titanium Golem",
+    "equipment": [
+      null,
+      {
+        "type": 105,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -10324,6 +13592,13 @@
   {
     "id": 420,
     "name": "Giant Copper Golem",
+    "equipment": [
+      null,
+      {
+        "type": 104,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -10352,6 +13627,13 @@
   {
     "id": 421,
     "name": "Giant Silver Golem",
+    "equipment": [
+      null,
+      {
+        "type": 103,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -10380,6 +13662,13 @@
   {
     "id": 422,
     "name": "Giant Hessite Golem",
+    "equipment": [
+      null,
+      {
+        "type": 106,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -10409,6 +13698,13 @@
   {
     "id": 423,
     "name": "Giant Magnetite Golem",
+    "equipment": [
+      null,
+      {
+        "type": 103,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -10437,6 +13733,13 @@
   {
     "id": 424,
     "name": "Shark",
+    "equipment": [
+      null,
+      {
+        "type": 103,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -10460,6 +13763,13 @@
   {
     "id": 425,
     "name": "Loken",
+    "equipment": [
+      null,
+      {
+        "type": 101,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -10477,6 +13787,13 @@
   {
     "id": 426,
     "name": "Octopus",
+    "equipment": [
+      null,
+      {
+        "type": 104,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -10494,6 +13811,13 @@
   {
     "id": 427,
     "name": "Sea Serpent",
+    "equipment": [
+      null,
+      {
+        "type": 105,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -10513,6 +13837,13 @@
   {
     "id": 428,
     "name": "Vorth Goblin",
+    "equipment": [
+      null,
+      {
+        "type": 102,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -10545,6 +13876,13 @@
   {
     "id": 429,
     "name": "Vorth Giblitte",
+    "equipment": [
+      null,
+      {
+        "type": 103,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -10577,6 +13915,13 @@
   {
     "id": 430,
     "name": "Vorth Hobgoblin",
+    "equipment": [
+      null,
+      {
+        "type": 104,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -10657,6 +14002,13 @@
   {
     "id": 433,
     "name": "Grayvyn Child",
+    "equipment": [
+      null,
+      {
+        "type": 272,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -10680,6 +14032,13 @@
   {
     "id": 434,
     "name": "Skeleton Villager",
+    "equipment": [
+      null,
+      {
+        "type": 32,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -10713,6 +14072,13 @@
   {
     "id": 435,
     "name": "Skeleton Mayor",
+    "equipment": [
+      null,
+      {
+        "type": 32,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -10750,6 +14116,13 @@
   {
     "id": 436,
     "name": "Skeleton Warrior",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -10783,6 +14156,13 @@
   {
     "id": 437,
     "name": "Green Dino Behemoth",
+    "equipment": [
+      null,
+      {
+        "type": 1476,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -10802,6 +14182,13 @@
   {
     "id": 438,
     "name": "Red Dino Behemoth",
+    "equipment": [
+      null,
+      {
+        "type": 1476,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -10821,6 +14208,22 @@
   {
     "id": 439,
     "name": "Grayvyn Clone",
+    "equipment": [
+      {
+        "type": 753,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 12,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 729,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -10855,6 +14258,25 @@
   {
     "id": 440,
     "name": "Elite Grayvyn Soldier",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 33,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -10889,6 +14311,13 @@
   {
     "id": 441,
     "name": "Mongrim",
+    "equipment": [
+      null,
+      {
+        "type": 1477,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -10928,6 +14357,13 @@
   {
     "id": 442,
     "name": "Mongrim Mogol",
+    "equipment": [
+      null,
+      {
+        "type": 1477,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -10967,6 +14403,13 @@
   {
     "id": 443,
     "name": "Mongrim Flej",
+    "equipment": [
+      null,
+      {
+        "type": 1478,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -11006,6 +14449,13 @@
   {
     "id": 444,
     "name": "Mongrim Flum",
+    "equipment": [
+      null,
+      {
+        "type": 1478,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -11045,6 +14495,13 @@
   {
     "id": 445,
     "name": "Mongrim Fogol",
+    "equipment": [
+      null,
+      {
+        "type": 1477,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -11084,6 +14541,13 @@
   {
     "id": 446,
     "name": "Mongrim Wika",
+    "equipment": [
+      null,
+      {
+        "type": 67,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -11123,6 +14587,13 @@
   {
     "id": 447,
     "name": "Mongrim Rika",
+    "equipment": [
+      null,
+      {
+        "type": 26,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -11162,6 +14633,13 @@
   {
     "id": 448,
     "name": "Mongrim Gepe",
+    "equipment": [
+      null,
+      {
+        "type": 1477,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -11201,6 +14679,13 @@
   {
     "id": 449,
     "name": "Mongrim Faar",
+    "equipment": [
+      null,
+      {
+        "type": 1478,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -11240,6 +14725,13 @@
   {
     "id": 450,
     "name": "Mongrim Moke",
+    "equipment": [
+      null,
+      {
+        "type": 1477,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -11279,6 +14771,25 @@
   {
     "id": 451,
     "name": "Elite Grayvyn Ranger",
+    "equipment": [
+      {
+        "type": 753,
+        "quantity": 1
+      },
+      {
+        "type": 1555,
+        "quantity": 1
+      },
+      {
+        "type": 12,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 729,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -11313,6 +14824,25 @@
   {
     "id": 452,
     "name": "Elite Grayvyn Witch",
+    "equipment": [
+      {
+        "type": 758,
+        "quantity": 1
+      },
+      {
+        "type": 37,
+        "quantity": 1
+      },
+      {
+        "type": 519,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 734,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -11347,6 +14877,13 @@
   {
     "id": 453,
     "name": "Red Backed Spider",
+    "equipment": [
+      null,
+      {
+        "type": 1586,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -11371,6 +14908,13 @@
   {
     "id": 454,
     "name": "Yellow Backed Spider",
+    "equipment": [
+      null,
+      {
+        "type": 1587,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -11441,6 +14985,13 @@
   {
     "id": 457,
     "name": "Prickly Spine",
+    "equipment": [
+      null,
+      {
+        "type": 102,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -11469,6 +15020,13 @@
   {
     "id": 458,
     "name": "Maka Scorpion",
+    "equipment": [
+      null,
+      {
+        "type": 2050,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -11493,6 +15051,13 @@
   {
     "id": 459,
     "name": "Tera Scorpion",
+    "equipment": [
+      null,
+      {
+        "type": 2051,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -11517,6 +15082,13 @@
   {
     "id": 460,
     "name": "Cave Mutant",
+    "equipment": [
+      null,
+      {
+        "type": 53,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -11572,6 +15144,13 @@
   {
     "id": 462,
     "name": "Anthrope",
+    "equipment": [
+      null,
+      {
+        "type": 1883,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -11594,6 +15173,13 @@
   {
     "id": 463,
     "name": "Minor Quiqe",
+    "equipment": [
+      null,
+      {
+        "type": 1882,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -11610,6 +15196,13 @@
   {
     "id": 464,
     "name": "Major Quiqe",
+    "equipment": [
+      null,
+      {
+        "type": 1881,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -11667,6 +15260,13 @@
   {
     "id": 504,
     "name": "Trader Saya",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -11684,6 +15284,13 @@
   {
     "id": 505,
     "name": "The Dino Baker",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -11701,6 +15308,13 @@
   {
     "id": 506,
     "name": "Dino Tool Trader",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -11718,6 +15332,13 @@
   {
     "id": 507,
     "name": "The Dino Armorer",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -11735,6 +15356,13 @@
   {
     "id": 508,
     "name": "The Dino Weaponsmith",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -11752,6 +15380,22 @@
   {
     "id": 509,
     "name": "Claims Dept Officer",
+    "equipment": [
+      {
+        "type": 776,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 537,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 752,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -11770,6 +15414,13 @@
   {
     "id": 510,
     "name": "Dwarven Bower",
+    "equipment": [
+      null,
+      {
+        "type": 1122,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -11798,6 +15449,13 @@
   {
     "id": 511,
     "name": "Dwarven Crossbow",
+    "equipment": [
+      null,
+      {
+        "type": 1136,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -11826,6 +15484,13 @@
   {
     "id": 512,
     "name": "Dwarven Sword",
+    "equipment": [
+      null,
+      {
+        "type": 32,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -11854,6 +15519,22 @@
   {
     "id": 513,
     "name": "Siege",
+    "equipment": [
+      {
+        "type": 776,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 537,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 752,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -11872,6 +15553,22 @@
   {
     "id": 514,
     "name": "Trivia",
+    "equipment": [
+      {
+        "type": 776,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 537,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 752,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -11905,6 +15602,13 @@
   {
     "id": 516,
     "name": "SomeGuy the Collector",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -11922,6 +15626,13 @@
   {
     "id": 517,
     "name": "Trader Charlie",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -11939,6 +15650,13 @@
   {
     "id": 518,
     "name": "Lady Sarah",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -11956,6 +15674,13 @@
   {
     "id": 519,
     "name": "Gloria the Baker",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -11973,6 +15698,13 @@
   {
     "id": 520,
     "name": "Maria the Armorer",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -11990,6 +15722,13 @@
   {
     "id": 521,
     "name": "Brian the Weaponsmith",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -12007,6 +15746,13 @@
   {
     "id": 522,
     "name": "Tanya the Bowyer",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -12024,6 +15770,13 @@
   {
     "id": 523,
     "name": "Bruno the Butcher",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -12041,6 +15794,13 @@
   {
     "id": 524,
     "name": "Farmer James",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -12058,6 +15818,13 @@
   {
     "id": 525,
     "name": "Mark the Fisher",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -12075,6 +15842,13 @@
   {
     "id": 526,
     "name": "Mick the Archmage",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -12092,6 +15866,13 @@
   {
     "id": 527,
     "name": "Sandra the Alchemist",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12109,6 +15890,13 @@
   {
     "id": 528,
     "name": "Samantha the Trader",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -12126,6 +15914,13 @@
   {
     "id": 529,
     "name": "Buddy the Tender",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -12143,6 +15938,13 @@
   {
     "id": 530,
     "name": "Danny the Furnisher",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -12160,6 +15962,13 @@
   {
     "id": 531,
     "name": "Semour the Scribe",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -12177,6 +15986,13 @@
   {
     "id": 532,
     "name": "Vicky the Jeweler",
+    "equipment": [
+      null,
+      {
+        "type": 37,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12194,6 +16010,13 @@
   {
     "id": 533,
     "name": "Trader Homer",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -12211,6 +16034,13 @@
   {
     "id": 534,
     "name": "Danni the Baker",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -12256,6 +16086,25 @@
   {
     "id": 550,
     "name": "Grayvyn SwordsMan",
+    "equipment": [
+      {
+        "type": 769,
+        "quantity": 1
+      },
+      {
+        "type": 36,
+        "quantity": 1
+      },
+      {
+        "type": 530,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 745,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12290,6 +16139,25 @@
   {
     "id": 551,
     "name": "Grayvyn Marksman",
+    "equipment": [
+      {
+        "type": 771,
+        "quantity": 1
+      },
+      {
+        "type": 1556,
+        "quantity": 1
+      },
+      {
+        "type": 532,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 747,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12324,6 +16192,25 @@
   {
     "id": 552,
     "name": "Grayvyn Elite Archer",
+    "equipment": [
+      {
+        "type": 758,
+        "quantity": 1
+      },
+      {
+        "type": 1137,
+        "quantity": 1
+      },
+      {
+        "type": 519,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 734,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12363,6 +16250,25 @@
   {
     "id": 553,
     "name": "Grayvyn High Mage",
+    "equipment": [
+      {
+        "type": 756,
+        "quantity": 1
+      },
+      {
+        "type": 26,
+        "quantity": 1
+      },
+      {
+        "type": 517,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 732,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -12397,6 +16303,25 @@
   {
     "id": 554,
     "name": "Elite Grayvyn Squire",
+    "equipment": [
+      {
+        "type": 1532,
+        "quantity": 1
+      },
+      {
+        "type": 1538,
+        "quantity": 1
+      },
+      {
+        "type": 1527,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 1535,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12431,6 +16356,25 @@
   {
     "id": 555,
     "name": "Elite Grayvyn Knight",
+    "equipment": [
+      {
+        "type": 773,
+        "quantity": 1
+      },
+      {
+        "type": 36,
+        "quantity": 1
+      },
+      {
+        "type": 534,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 749,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12465,6 +16409,25 @@
   {
     "id": 556,
     "name": "Grayvyn Paladin",
+    "equipment": [
+      {
+        "type": 763,
+        "quantity": 1
+      },
+      {
+        "type": 1539,
+        "quantity": 1
+      },
+      {
+        "type": 524,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 739,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12499,6 +16462,25 @@
   {
     "id": 557,
     "name": "Elite Grayvyn Paladin",
+    "equipment": [
+      {
+        "type": 764,
+        "quantity": 1
+      },
+      {
+        "type": 1539,
+        "quantity": 1
+      },
+      {
+        "type": 525,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 740,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12533,6 +16515,25 @@
   {
     "id": 558,
     "name": "Grayvyn Champion",
+    "equipment": [
+      {
+        "type": 766,
+        "quantity": 1
+      },
+      {
+        "type": 1539,
+        "quantity": 1
+      },
+      {
+        "type": 527,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 742,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12567,6 +16568,25 @@
   {
     "id": 559,
     "name": "Elite Grayvyn Champion",
+    "equipment": [
+      {
+        "type": 767,
+        "quantity": 1
+      },
+      {
+        "type": 1539,
+        "quantity": 1
+      },
+      {
+        "type": 528,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 743,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12601,6 +16621,25 @@
   {
     "id": 560,
     "name": "Elite Grayvyn Warlord",
+    "equipment": [
+      {
+        "type": 776,
+        "quantity": 1
+      },
+      {
+        "type": 1539,
+        "quantity": 1
+      },
+      {
+        "type": 537,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 752,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12635,6 +16674,13 @@
   {
     "id": 561,
     "name": "Dino Child",
+    "equipment": [
+      null,
+      {
+        "type": 272,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -12692,6 +16738,25 @@
   {
     "id": 564,
     "name": "Dino Soldier",
+    "equipment": [
+      {
+        "type": 758,
+        "quantity": 1
+      },
+      {
+        "type": 82,
+        "quantity": 1
+      },
+      {
+        "type": 519,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 734,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12726,6 +16791,25 @@
   {
     "id": 565,
     "name": "Elite Dino Soldier",
+    "equipment": [
+      {
+        "type": 758,
+        "quantity": 1
+      },
+      {
+        "type": 82,
+        "quantity": 1
+      },
+      {
+        "type": 519,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 734,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12760,6 +16844,25 @@
   {
     "id": 566,
     "name": "Elite Dino Squire",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 83,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12799,6 +16902,25 @@
   {
     "id": 567,
     "name": "Elite Dino Knight",
+    "equipment": [
+      {
+        "type": 753,
+        "quantity": 1
+      },
+      {
+        "type": 85,
+        "quantity": 1
+      },
+      {
+        "type": 12,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 729,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12833,6 +16955,25 @@
   {
     "id": 568,
     "name": "Dino Paladin",
+    "equipment": [
+      {
+        "type": 772,
+        "quantity": 1
+      },
+      {
+        "type": 1546,
+        "quantity": 1
+      },
+      {
+        "type": 533,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 748,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12867,6 +17008,25 @@
   {
     "id": 569,
     "name": "Elite Dino Paladin",
+    "equipment": [
+      {
+        "type": 773,
+        "quantity": 1
+      },
+      {
+        "type": 1546,
+        "quantity": 1
+      },
+      {
+        "type": 534,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 749,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12901,6 +17061,25 @@
   {
     "id": 570,
     "name": "Dino Champion",
+    "equipment": [
+      {
+        "type": 764,
+        "quantity": 1
+      },
+      {
+        "type": 1546,
+        "quantity": 1
+      },
+      {
+        "type": 525,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 740,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12935,6 +17114,25 @@
   {
     "id": 571,
     "name": "Elite Dino Champion",
+    "equipment": [
+      {
+        "type": 767,
+        "quantity": 1
+      },
+      {
+        "type": 1546,
+        "quantity": 1
+      },
+      {
+        "type": 528,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 743,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -12969,6 +17167,25 @@
   {
     "id": 572,
     "name": "Elite Dino Warlord",
+    "equipment": [
+      {
+        "type": 776,
+        "quantity": 1
+      },
+      {
+        "type": 1546,
+        "quantity": 1
+      },
+      {
+        "type": 537,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 740,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13008,6 +17225,25 @@
   {
     "id": 573,
     "name": "Grayvyn Wicken",
+    "equipment": [
+      {
+        "type": 768,
+        "quantity": 1
+      },
+      {
+        "type": 67,
+        "quantity": 1
+      },
+      {
+        "type": 529,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 744,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -13042,6 +17278,25 @@
   {
     "id": 574,
     "name": "Elite Grayvyn Wicken",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 67,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -13076,6 +17331,25 @@
   {
     "id": 575,
     "name": "Grayvyn Mage",
+    "equipment": [
+      {
+        "type": 755,
+        "quantity": 1
+      },
+      {
+        "type": 26,
+        "quantity": 1
+      },
+      {
+        "type": 14,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 731,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -13110,6 +17384,25 @@
   {
     "id": 576,
     "name": "Elite Grayvyn Mage",
+    "equipment": [
+      {
+        "type": 753,
+        "quantity": 1
+      },
+      {
+        "type": 26,
+        "quantity": 1
+      },
+      {
+        "type": 12,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 729,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -13144,6 +17437,25 @@
   {
     "id": 577,
     "name": "Grayvyn Wizard",
+    "equipment": [
+      {
+        "type": 771,
+        "quantity": 1
+      },
+      {
+        "type": 28,
+        "quantity": 1
+      },
+      {
+        "type": 532,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 747,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -13178,6 +17490,25 @@
   {
     "id": 578,
     "name": "Elite Grayvyn Wizard",
+    "equipment": [
+      {
+        "type": 773,
+        "quantity": 1
+      },
+      {
+        "type": 28,
+        "quantity": 1
+      },
+      {
+        "type": 534,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 749,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -13212,6 +17543,25 @@
   {
     "id": 579,
     "name": "Grayvyn Necromancer",
+    "equipment": [
+      {
+        "type": 765,
+        "quantity": 1
+      },
+      {
+        "type": 867,
+        "quantity": 1
+      },
+      {
+        "type": 526,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 741,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -13246,6 +17596,25 @@
   {
     "id": 580,
     "name": "Elite Grayvyn Necromancer",
+    "equipment": [
+      {
+        "type": 767,
+        "quantity": 1
+      },
+      {
+        "type": 867,
+        "quantity": 1
+      },
+      {
+        "type": 528,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 743,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -13281,6 +17650,25 @@
   {
     "id": 582,
     "name": "Elite Grayvyn Warlock",
+    "equipment": [
+      {
+        "type": 776,
+        "quantity": 1
+      },
+      {
+        "type": 869,
+        "quantity": 1
+      },
+      {
+        "type": 537,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 752,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -13315,6 +17703,25 @@
   {
     "id": 583,
     "name": "Dino Witch",
+    "equipment": [
+      {
+        "type": 756,
+        "quantity": 1
+      },
+      {
+        "type": 37,
+        "quantity": 1
+      },
+      {
+        "type": 517,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 732,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13349,6 +17756,25 @@
   {
     "id": 584,
     "name": "Elite Dino Witch",
+    "equipment": [
+      {
+        "type": 758,
+        "quantity": 1
+      },
+      {
+        "type": 37,
+        "quantity": 1
+      },
+      {
+        "type": 519,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 734,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13383,6 +17809,25 @@
   {
     "id": 585,
     "name": "Dino Wicken",
+    "equipment": [
+      {
+        "type": 768,
+        "quantity": 1
+      },
+      {
+        "type": 67,
+        "quantity": 1
+      },
+      {
+        "type": 529,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 744,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13417,6 +17862,25 @@
   {
     "id": 586,
     "name": "Elite Dino Wicken",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 67,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13452,6 +17916,25 @@
   {
     "id": 588,
     "name": "Elite Dino Mage",
+    "equipment": [
+      {
+        "type": 753,
+        "quantity": 1
+      },
+      {
+        "type": 26,
+        "quantity": 1
+      },
+      {
+        "type": 12,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 729,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13487,6 +17970,25 @@
   {
     "id": 590,
     "name": "Elite Dino Wizard",
+    "equipment": [
+      {
+        "type": 773,
+        "quantity": 1
+      },
+      {
+        "type": 28,
+        "quantity": 1
+      },
+      {
+        "type": 534,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 749,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13521,6 +18023,25 @@
   {
     "id": 591,
     "name": "Dino Necromancer",
+    "equipment": [
+      {
+        "type": 762,
+        "quantity": 1
+      },
+      {
+        "type": 867,
+        "quantity": 1
+      },
+      {
+        "type": 523,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 738,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13555,6 +18076,25 @@
   {
     "id": 592,
     "name": "Elite Dino Necromancer",
+    "equipment": [
+      {
+        "type": 764,
+        "quantity": 1
+      },
+      {
+        "type": 867,
+        "quantity": 1
+      },
+      {
+        "type": 525,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 740,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13589,6 +18129,25 @@
   {
     "id": 593,
     "name": "Dino Warlock",
+    "equipment": [
+      {
+        "type": 765,
+        "quantity": 1
+      },
+      {
+        "type": 869,
+        "quantity": 1
+      },
+      {
+        "type": 526,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 741,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13623,6 +18182,25 @@
   {
     "id": 594,
     "name": "Elite Dino Warlock",
+    "equipment": [
+      {
+        "type": 774,
+        "quantity": 1
+      },
+      {
+        "type": 869,
+        "quantity": 1
+      },
+      {
+        "type": 535,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 750,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13657,6 +18235,25 @@
   {
     "id": 595,
     "name": "Dino Archer",
+    "equipment": [
+      {
+        "type": 756,
+        "quantity": 1
+      },
+      {
+        "type": 1577,
+        "quantity": 1
+      },
+      {
+        "type": 517,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 732,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13691,6 +18288,25 @@
   {
     "id": 596,
     "name": "Elite Dino Archer",
+    "equipment": [
+      {
+        "type": 758,
+        "quantity": 1
+      },
+      {
+        "type": 1577,
+        "quantity": 1
+      },
+      {
+        "type": 519,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 734,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13725,6 +18341,25 @@
   {
     "id": 597,
     "name": "Dino Crossbowman",
+    "equipment": [
+      {
+        "type": 768,
+        "quantity": 1
+      },
+      {
+        "type": 1578,
+        "quantity": 1
+      },
+      {
+        "type": 529,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 744,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13759,6 +18394,25 @@
   {
     "id": 598,
     "name": "Elite Dino Crossbowman",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 1578,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13793,6 +18447,25 @@
   {
     "id": 599,
     "name": "Elite Dino Ranger",
+    "equipment": [
+      {
+        "type": 753,
+        "quantity": 1
+      },
+      {
+        "type": 1579,
+        "quantity": 1
+      },
+      {
+        "type": 12,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 729,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13827,6 +18500,25 @@
   {
     "id": 600,
     "name": "Dino Marksman",
+    "equipment": [
+      {
+        "type": 771,
+        "quantity": 1
+      },
+      {
+        "type": 1581,
+        "quantity": 1
+      },
+      {
+        "type": 532,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 747,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13861,6 +18553,25 @@
   {
     "id": 601,
     "name": "Elite Dino Marksman",
+    "equipment": [
+      {
+        "type": 773,
+        "quantity": 1
+      },
+      {
+        "type": 1581,
+        "quantity": 1
+      },
+      {
+        "type": 534,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 749,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13895,6 +18606,25 @@
   {
     "id": 602,
     "name": "Elite Dino Sniper",
+    "equipment": [
+      {
+        "type": 764,
+        "quantity": 1
+      },
+      {
+        "type": 1582,
+        "quantity": 1
+      },
+      {
+        "type": 525,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 740,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13929,6 +18659,25 @@
   {
     "id": 603,
     "name": "Grayvyn Archer",
+    "equipment": [
+      {
+        "type": 756,
+        "quantity": 1
+      },
+      {
+        "type": 1553,
+        "quantity": 1
+      },
+      {
+        "type": 517,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 732,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13963,6 +18712,25 @@
   {
     "id": 604,
     "name": "Elite Grayvyn Archer",
+    "equipment": [
+      {
+        "type": 758,
+        "quantity": 1
+      },
+      {
+        "type": 1553,
+        "quantity": 1
+      },
+      {
+        "type": 519,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 734,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -13997,6 +18765,25 @@
   {
     "id": 605,
     "name": "Grayvyn Crossbowman",
+    "equipment": [
+      {
+        "type": 768,
+        "quantity": 1
+      },
+      {
+        "type": 1554,
+        "quantity": 1
+      },
+      {
+        "type": 529,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 744,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -14031,6 +18818,25 @@
   {
     "id": 606,
     "name": "Elite Grayvyn Crossbowman",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 1554,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -14065,6 +18871,25 @@
   {
     "id": 607,
     "name": "Elite Grayvyn Marksman",
+    "equipment": [
+      {
+        "type": 773,
+        "quantity": 1
+      },
+      {
+        "type": 1556,
+        "quantity": 1
+      },
+      {
+        "type": 534,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 749,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -14099,6 +18924,25 @@
   {
     "id": 608,
     "name": "Elite Grayvyn Sniper",
+    "equipment": [
+      {
+        "type": 764,
+        "quantity": 1
+      },
+      {
+        "type": 1557,
+        "quantity": 1
+      },
+      {
+        "type": 525,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 740,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -14133,6 +18977,13 @@
   {
     "id": 609,
     "name": "Elk Child",
+    "equipment": [
+      null,
+      {
+        "type": 272,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14184,6 +19035,25 @@
   {
     "id": 612,
     "name": "Elk Soldier",
+    "equipment": [
+      {
+        "type": 758,
+        "quantity": 1
+      },
+      {
+        "type": 42,
+        "quantity": 1
+      },
+      {
+        "type": 519,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 734,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14218,6 +19088,25 @@
   {
     "id": 613,
     "name": "Elite Elk Soldier",
+    "equipment": [
+      {
+        "type": 758,
+        "quantity": 1
+      },
+      {
+        "type": 42,
+        "quantity": 1
+      },
+      {
+        "type": 519,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 734,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14252,6 +19141,25 @@
   {
     "id": 614,
     "name": "Elk Squire",
+    "equipment": [
+      {
+        "type": 769,
+        "quantity": 1
+      },
+      {
+        "type": 42,
+        "quantity": 1
+      },
+      {
+        "type": 530,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 745,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14286,6 +19194,25 @@
   {
     "id": 615,
     "name": "Elite Elk Squire",
+    "equipment": [
+      {
+        "type": 769,
+        "quantity": 1
+      },
+      {
+        "type": 42,
+        "quantity": 1
+      },
+      {
+        "type": 530,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 745,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14320,6 +19247,25 @@
   {
     "id": 616,
     "name": "Elk Knight",
+    "equipment": [
+      {
+        "type": 754,
+        "quantity": 1
+      },
+      {
+        "type": 1542,
+        "quantity": 1
+      },
+      {
+        "type": 13,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 730,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14354,6 +19300,25 @@
   {
     "id": 617,
     "name": "Elite Elk Knight",
+    "equipment": [
+      {
+        "type": 754,
+        "quantity": 1
+      },
+      {
+        "type": 1542,
+        "quantity": 1
+      },
+      {
+        "type": 13,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 730,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14388,6 +19353,25 @@
   {
     "id": 618,
     "name": "Elk Paladin",
+    "equipment": [
+      {
+        "type": 772,
+        "quantity": 1
+      },
+      {
+        "type": 43,
+        "quantity": 1
+      },
+      {
+        "type": 533,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 748,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14422,6 +19406,25 @@
   {
     "id": 619,
     "name": "Elite Elk Paladin",
+    "equipment": [
+      {
+        "type": 772,
+        "quantity": 1
+      },
+      {
+        "type": 43,
+        "quantity": 1
+      },
+      {
+        "type": 533,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 748,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14456,6 +19459,25 @@
   {
     "id": 620,
     "name": "Elk Champion",
+    "equipment": [
+      {
+        "type": 763,
+        "quantity": 1
+      },
+      {
+        "type": 1543,
+        "quantity": 1
+      },
+      {
+        "type": 524,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 739,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14490,6 +19512,25 @@
   {
     "id": 621,
     "name": "Elite Elk Champion",
+    "equipment": [
+      {
+        "type": 763,
+        "quantity": 1
+      },
+      {
+        "type": 1543,
+        "quantity": 1
+      },
+      {
+        "type": 524,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 739,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14524,6 +19565,25 @@
   {
     "id": 622,
     "name": "Elk Warlord",
+    "equipment": [
+      {
+        "type": 766,
+        "quantity": 1
+      },
+      {
+        "type": 1543,
+        "quantity": 1
+      },
+      {
+        "type": 527,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 742,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14558,6 +19618,25 @@
   {
     "id": 623,
     "name": "Elite Elk Warlord",
+    "equipment": [
+      {
+        "type": 775,
+        "quantity": 1
+      },
+      {
+        "type": 1543,
+        "quantity": 1
+      },
+      {
+        "type": 536,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 751,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14592,6 +19671,25 @@
   {
     "id": 624,
     "name": "Elk Archer",
+    "equipment": [
+      {
+        "type": 758,
+        "quantity": 1
+      },
+      {
+        "type": 1577,
+        "quantity": 1
+      },
+      {
+        "type": 519,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 734,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14626,6 +19724,25 @@
   {
     "id": 625,
     "name": "Elite Elk Archer",
+    "equipment": [
+      {
+        "type": 758,
+        "quantity": 1
+      },
+      {
+        "type": 1577,
+        "quantity": 1
+      },
+      {
+        "type": 519,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 734,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14660,6 +19777,25 @@
   {
     "id": 626,
     "name": "Elk Crossbowman",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 1578,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14694,6 +19830,25 @@
   {
     "id": 627,
     "name": "Elite Elk Crossbowman",
+    "equipment": [
+      {
+        "type": 770,
+        "quantity": 1
+      },
+      {
+        "type": 1578,
+        "quantity": 1
+      },
+      {
+        "type": 531,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 746,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14728,6 +19883,25 @@
   {
     "id": 628,
     "name": "Elk Ranger",
+    "equipment": [
+      {
+        "type": 753,
+        "quantity": 1
+      },
+      {
+        "type": 1579,
+        "quantity": 1
+      },
+      {
+        "type": 12,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 729,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14762,6 +19936,25 @@
   {
     "id": 629,
     "name": "Elite Elk Ranger",
+    "equipment": [
+      {
+        "type": 753,
+        "quantity": 1
+      },
+      {
+        "type": 1579,
+        "quantity": 1
+      },
+      {
+        "type": 12,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 729,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14796,6 +19989,25 @@
   {
     "id": 630,
     "name": "Elk Marksman",
+    "equipment": [
+      {
+        "type": 773,
+        "quantity": 1
+      },
+      {
+        "type": 1581,
+        "quantity": 1
+      },
+      {
+        "type": 534,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 749,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14830,6 +20042,25 @@
   {
     "id": 631,
     "name": "Elite Elk Marksman",
+    "equipment": [
+      {
+        "type": 773,
+        "quantity": 1
+      },
+      {
+        "type": 1581,
+        "quantity": 1
+      },
+      {
+        "type": 534,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 749,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14864,6 +20095,25 @@
   {
     "id": 632,
     "name": "Elk Sniper",
+    "equipment": [
+      {
+        "type": 764,
+        "quantity": 1
+      },
+      {
+        "type": 1582,
+        "quantity": 1
+      },
+      {
+        "type": 525,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 740,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14898,6 +20148,25 @@
   {
     "id": 633,
     "name": "Elite Elk Sniper",
+    "equipment": [
+      {
+        "type": 764,
+        "quantity": 1
+      },
+      {
+        "type": 1582,
+        "quantity": 1
+      },
+      {
+        "type": 525,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 740,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14932,6 +20201,25 @@
   {
     "id": 634,
     "name": "Elk Witch",
+    "equipment": [
+      {
+        "type": 757,
+        "quantity": 1
+      },
+      {
+        "type": 58,
+        "quantity": 1
+      },
+      {
+        "type": 518,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 733,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -14966,6 +20254,25 @@
   {
     "id": 635,
     "name": "Elite Elk Witch",
+    "equipment": [
+      {
+        "type": 757,
+        "quantity": 1
+      },
+      {
+        "type": 58,
+        "quantity": 1
+      },
+      {
+        "type": 518,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 733,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -15000,6 +20307,25 @@
   {
     "id": 636,
     "name": "Elk Wicken",
+    "equipment": [
+      {
+        "type": 769,
+        "quantity": 1
+      },
+      {
+        "type": 37,
+        "quantity": 1
+      },
+      {
+        "type": 530,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 745,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -15034,6 +20360,25 @@
   {
     "id": 637,
     "name": "Elite Elk Wicken",
+    "equipment": [
+      {
+        "type": 769,
+        "quantity": 1
+      },
+      {
+        "type": 37,
+        "quantity": 1
+      },
+      {
+        "type": 530,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 745,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -15068,6 +20413,25 @@
   {
     "id": 638,
     "name": "Elk Mage",
+    "equipment": [
+      {
+        "type": 754,
+        "quantity": 1
+      },
+      {
+        "type": 67,
+        "quantity": 1
+      },
+      {
+        "type": 13,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 730,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -15102,6 +20466,25 @@
   {
     "id": 639,
     "name": "Elite Elk Mage",
+    "equipment": [
+      {
+        "type": 754,
+        "quantity": 1
+      },
+      {
+        "type": 67,
+        "quantity": 1
+      },
+      {
+        "type": 13,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 730,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -15136,6 +20519,25 @@
   {
     "id": 640,
     "name": "Elk Wizard",
+    "equipment": [
+      {
+        "type": 772,
+        "quantity": 1
+      },
+      {
+        "type": 26,
+        "quantity": 1
+      },
+      {
+        "type": 533,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 748,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -15170,6 +20572,25 @@
   {
     "id": 641,
     "name": "Elite Elk Wizard",
+    "equipment": [
+      {
+        "type": 772,
+        "quantity": 1
+      },
+      {
+        "type": 26,
+        "quantity": 1
+      },
+      {
+        "type": 533,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 748,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -15204,6 +20625,25 @@
   {
     "id": 642,
     "name": "Elk Necromancer",
+    "equipment": [
+      {
+        "type": 763,
+        "quantity": 1
+      },
+      {
+        "type": 28,
+        "quantity": 1
+      },
+      {
+        "type": 524,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 739,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -15238,6 +20678,25 @@
   {
     "id": 643,
     "name": "Elite Elk Necromancer",
+    "equipment": [
+      {
+        "type": 763,
+        "quantity": 1
+      },
+      {
+        "type": 28,
+        "quantity": 1
+      },
+      {
+        "type": 524,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 739,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -15272,6 +20731,25 @@
   {
     "id": 644,
     "name": "Elk Warlock",
+    "equipment": [
+      {
+        "type": 766,
+        "quantity": 1
+      },
+      {
+        "type": 867,
+        "quantity": 1
+      },
+      {
+        "type": 527,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 742,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -15306,6 +20784,25 @@
   {
     "id": 645,
     "name": "Elite Elk Warlock",
+    "equipment": [
+      {
+        "type": 775,
+        "quantity": 1
+      },
+      {
+        "type": 869,
+        "quantity": 1
+      },
+      {
+        "type": 536,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 751,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -15573,6 +21070,13 @@
     "id": 658,
     "name": "Veteran Grayvyn Catapult",
     "deadItem": 406,
+    "equipment": [
+      null,
+      {
+        "type": 273,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -15605,6 +21109,13 @@
     "id": 659,
     "name": "Elite Grayvyn Catapult",
     "deadItem": 406,
+    "equipment": [
+      null,
+      {
+        "type": 273,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -15647,6 +21158,13 @@
     "id": 670,
     "name": "Dino Catapult",
     "deadItem": 406,
+    "equipment": [
+      null,
+      {
+        "type": 273,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -15679,6 +21197,13 @@
     "id": 671,
     "name": "Veteran Dino Catapult",
     "deadItem": 406,
+    "equipment": [
+      null,
+      {
+        "type": 273,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -15711,6 +21236,13 @@
     "id": 672,
     "name": "Elite Dino Catapult",
     "deadItem": 406,
+    "equipment": [
+      null,
+      {
+        "type": 273,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -15743,6 +21275,13 @@
     "id": 673,
     "name": "Elk Catapult",
     "deadItem": 406,
+    "equipment": [
+      null,
+      {
+        "type": 273,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -15775,6 +21314,13 @@
     "id": 674,
     "name": "Veteran Elk Catapult",
     "deadItem": 406,
+    "equipment": [
+      null,
+      {
+        "type": 273,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -15807,6 +21353,13 @@
     "id": 675,
     "name": "Elite Elk Catapult",
     "deadItem": 406,
+    "equipment": [
+      null,
+      {
+        "type": 273,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -15838,6 +21391,13 @@
   {
     "id": 676,
     "name": "Harpian Child",
+    "equipment": [
+      null,
+      {
+        "type": 272,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -15889,6 +21449,25 @@
   {
     "id": 679,
     "name": "Harpian Soldier",
+    "equipment": [
+      {
+        "type": 758,
+        "quantity": 1
+      },
+      {
+        "type": 45,
+        "quantity": 1
+      },
+      {
+        "type": 519,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 734,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -15923,6 +21502,25 @@
   {
     "id": 680,
     "name": "Elite Harpian Soldier",
+    "equipment": [
+      {
+        "type": 758,
+        "quantity": 1
+      },
+      {
+        "type": 45,
+        "quantity": 1
+      },
+      {
+        "type": 519,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 734,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -15957,6 +21555,25 @@
   {
     "id": 681,
     "name": "Harpian Squire",
+    "equipment": [
+      {
+        "type": 769,
+        "quantity": 1
+      },
+      {
+        "type": 46,
+        "quantity": 1
+      },
+      {
+        "type": 530,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 745,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -15991,6 +21608,25 @@
   {
     "id": 682,
     "name": "Elite Harpian Squire",
+    "equipment": [
+      {
+        "type": 769,
+        "quantity": 1
+      },
+      {
+        "type": 46,
+        "quantity": 1
+      },
+      {
+        "type": 530,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 745,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16025,6 +21661,25 @@
   {
     "id": 683,
     "name": "Harpian Knight",
+    "equipment": [
+      {
+        "type": 754,
+        "quantity": 1
+      },
+      {
+        "type": 1544,
+        "quantity": 1
+      },
+      {
+        "type": 13,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 730,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16059,6 +21714,25 @@
   {
     "id": 684,
     "name": "Elite Harpian Knight",
+    "equipment": [
+      {
+        "type": 754,
+        "quantity": 1
+      },
+      {
+        "type": 1544,
+        "quantity": 1
+      },
+      {
+        "type": 13,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 730,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16093,6 +21767,25 @@
   {
     "id": 685,
     "name": "Harpian Paladin",
+    "equipment": [
+      {
+        "type": 772,
+        "quantity": 1
+      },
+      {
+        "type": 1346,
+        "quantity": 1
+      },
+      {
+        "type": 533,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 748,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16127,6 +21820,25 @@
   {
     "id": 686,
     "name": "Elite Harpian Paladin",
+    "equipment": [
+      {
+        "type": 772,
+        "quantity": 1
+      },
+      {
+        "type": 1346,
+        "quantity": 1
+      },
+      {
+        "type": 533,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 748,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16161,6 +21873,25 @@
   {
     "id": 687,
     "name": "Harpian Champion",
+    "equipment": [
+      {
+        "type": 763,
+        "quantity": 1
+      },
+      {
+        "type": 1348,
+        "quantity": 1
+      },
+      {
+        "type": 524,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 739,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16195,6 +21926,25 @@
   {
     "id": 688,
     "name": "Elite Harpian Champion",
+    "equipment": [
+      {
+        "type": 763,
+        "quantity": 1
+      },
+      {
+        "type": 1348,
+        "quantity": 1
+      },
+      {
+        "type": 524,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 739,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16229,6 +21979,25 @@
   {
     "id": 689,
     "name": "Harpian Warlord",
+    "equipment": [
+      {
+        "type": 766,
+        "quantity": 1
+      },
+      {
+        "type": 47,
+        "quantity": 1
+      },
+      {
+        "type": 527,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 742,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16263,6 +22032,25 @@
   {
     "id": 690,
     "name": "Elite Harpian Warlord",
+    "equipment": [
+      {
+        "type": 766,
+        "quantity": 1
+      },
+      {
+        "type": 47,
+        "quantity": 1
+      },
+      {
+        "type": 527,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 742,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16297,6 +22085,13 @@
   {
     "id": 691,
     "name": "Bone Gorvor",
+    "equipment": [
+      null,
+      {
+        "type": 1838,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16325,6 +22120,13 @@
   {
     "id": 692,
     "name": "Grethe Gorvor",
+    "equipment": [
+      null,
+      {
+        "type": 1841,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16354,6 +22156,13 @@
   {
     "id": 693,
     "name": "Milthe Gorvor",
+    "equipment": [
+      null,
+      {
+        "type": 1842,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16383,6 +22192,13 @@
   {
     "id": 694,
     "name": "Ranthe Gorvor",
+    "equipment": [
+      null,
+      {
+        "type": 1843,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16412,6 +22228,13 @@
   {
     "id": 695,
     "name": "Blothe Gorvor",
+    "equipment": [
+      null,
+      {
+        "type": 1845,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16441,6 +22264,25 @@
   {
     "id": 696,
     "name": "Harpian Witch",
+    "equipment": [
+      {
+        "type": 758,
+        "quantity": 1
+      },
+      {
+        "type": 58,
+        "quantity": 1
+      },
+      {
+        "type": 519,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 734,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16475,6 +22317,25 @@
   {
     "id": 697,
     "name": "Elite Harpian Witch",
+    "equipment": [
+      {
+        "type": 758,
+        "quantity": 1
+      },
+      {
+        "type": 58,
+        "quantity": 1
+      },
+      {
+        "type": 519,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 734,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16509,6 +22370,25 @@
   {
     "id": 698,
     "name": "Harpian Wicken",
+    "equipment": [
+      {
+        "type": 769,
+        "quantity": 1
+      },
+      {
+        "type": 37,
+        "quantity": 1
+      },
+      {
+        "type": 530,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 745,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16543,6 +22423,25 @@
   {
     "id": 699,
     "name": "Elite Harpian Wicken",
+    "equipment": [
+      {
+        "type": 769,
+        "quantity": 1
+      },
+      {
+        "type": 37,
+        "quantity": 1
+      },
+      {
+        "type": 530,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 745,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16577,6 +22476,25 @@
   {
     "id": 700,
     "name": "Harpian Mage",
+    "equipment": [
+      {
+        "type": 754,
+        "quantity": 1
+      },
+      {
+        "type": 67,
+        "quantity": 1
+      },
+      {
+        "type": 13,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 730,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16611,6 +22529,25 @@
   {
     "id": 701,
     "name": "Elite Harpian Mage",
+    "equipment": [
+      {
+        "type": 754,
+        "quantity": 1
+      },
+      {
+        "type": 67,
+        "quantity": 1
+      },
+      {
+        "type": 13,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 730,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16645,6 +22582,25 @@
   {
     "id": 702,
     "name": "Harpian Wizard",
+    "equipment": [
+      {
+        "type": 772,
+        "quantity": 1
+      },
+      {
+        "type": 26,
+        "quantity": 1
+      },
+      {
+        "type": 533,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 748,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16679,6 +22635,25 @@
   {
     "id": 703,
     "name": "Elite Harpian Wizard",
+    "equipment": [
+      {
+        "type": 772,
+        "quantity": 1
+      },
+      {
+        "type": 26,
+        "quantity": 1
+      },
+      {
+        "type": 533,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 748,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16713,6 +22688,25 @@
   {
     "id": 704,
     "name": "Harpian Necromancer",
+    "equipment": [
+      {
+        "type": 763,
+        "quantity": 1
+      },
+      {
+        "type": 867,
+        "quantity": 1
+      },
+      {
+        "type": 524,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 739,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16747,6 +22741,25 @@
   {
     "id": 705,
     "name": "Elite Harpian Necromancer",
+    "equipment": [
+      {
+        "type": 763,
+        "quantity": 1
+      },
+      {
+        "type": 867,
+        "quantity": 1
+      },
+      {
+        "type": 524,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 739,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16781,6 +22794,25 @@
   {
     "id": 706,
     "name": "Harpian Warlock",
+    "equipment": [
+      {
+        "type": 766,
+        "quantity": 1
+      },
+      {
+        "type": 869,
+        "quantity": 1
+      },
+      {
+        "type": 527,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 742,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16815,6 +22847,25 @@
   {
     "id": 707,
     "name": "Elite Harpian Warlock",
+    "equipment": [
+      {
+        "type": 766,
+        "quantity": 1
+      },
+      {
+        "type": 869,
+        "quantity": 1
+      },
+      {
+        "type": 527,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 742,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -16850,6 +22901,13 @@
     "id": 708,
     "name": "Harpian Catapult",
     "deadItem": 406,
+    "equipment": [
+      null,
+      {
+        "type": 273,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -16882,6 +22940,13 @@
     "id": 709,
     "name": "Veteran Harpian Catapult",
     "deadItem": 406,
+    "equipment": [
+      null,
+      {
+        "type": 273,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -16914,6 +22979,13 @@
     "id": 710,
     "name": "Elite Harpian Catapult",
     "deadItem": 406,
+    "equipment": [
+      null,
+      {
+        "type": 273,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -17013,6 +23085,13 @@
   {
     "id": 715,
     "name": "Reanimated Bones",
+    "equipment": [
+      null,
+      {
+        "type": 1882,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -17046,6 +23125,13 @@
   {
     "id": 716,
     "name": "Spectre",
+    "equipment": [
+      null,
+      {
+        "type": 1883,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -17070,6 +23156,13 @@
   {
     "id": 717,
     "name": "Old Town Mayor Bones",
+    "equipment": [
+      null,
+      {
+        "type": 1882,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -17103,6 +23196,13 @@
   {
     "id": 718,
     "name": "Spectre of Zimmeron",
+    "equipment": [
+      null,
+      {
+        "type": 1883,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -17128,6 +23228,13 @@
   {
     "id": 720,
     "name": "Stormy the Weaponsmith",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -17145,6 +23252,13 @@
   {
     "id": 721,
     "name": "Lee the Butcher",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -17162,6 +23276,13 @@
   {
     "id": 722,
     "name": "Farmer Jones",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -17179,6 +23300,13 @@
   {
     "id": 723,
     "name": "Mary the Armorer",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -17196,6 +23324,13 @@
   {
     "id": 724,
     "name": "Michael the Archmage",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -17213,6 +23348,13 @@
   {
     "id": 725,
     "name": "Mickey the Collector",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -17230,6 +23372,13 @@
   {
     "id": 726,
     "name": "Joanne the Baker",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -17247,6 +23396,25 @@
   {
     "id": 727,
     "name": "Sewer Lord",
+    "equipment": [
+      {
+        "type": 753,
+        "quantity": 1
+      },
+      {
+        "type": 42,
+        "quantity": 1
+      },
+      {
+        "type": 12,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 729,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -17289,6 +23457,13 @@
   {
     "id": 728,
     "name": "Sewer Golem",
+    "equipment": [
+      null,
+      {
+        "type": 867,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -17327,6 +23502,13 @@
   {
     "id": 729,
     "name": "Shadow Villager",
+    "equipment": [
+      null,
+      {
+        "type": 46,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -17359,6 +23541,13 @@
   {
     "id": 730,
     "name": "Shadow Knight",
+    "equipment": [
+      null,
+      {
+        "type": 36,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -17391,6 +23580,13 @@
   {
     "id": 731,
     "name": "Shadow Mage",
+    "equipment": [
+      null,
+      {
+        "type": 24,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -17428,6 +23624,13 @@
   {
     "id": 732,
     "name": "Shadow Reaper",
+    "equipment": [
+      null,
+      {
+        "type": 47,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -17461,6 +23664,13 @@
   {
     "id": 733,
     "name": "Corrupt Queen",
+    "equipment": [
+      null,
+      {
+        "type": 23,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -17529,6 +23739,13 @@
   {
     "id": 735,
     "name": "Deranged Chef",
+    "equipment": [
+      null,
+      {
+        "type": 43,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -17553,6 +23770,13 @@
   {
     "id": 736,
     "name": "Insane Groundskeeper",
+    "equipment": [
+      null,
+      {
+        "type": 1027,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -17586,6 +23810,13 @@
   {
     "id": 737,
     "name": "Sarah the Harpian",
+    "equipment": [
+      null,
+      {
+        "type": 1346,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -17600,6 +23831,13 @@
   {
     "id": 738,
     "name": "Evil Bee",
+    "equipment": [
+      null,
+      {
+        "type": 1919,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -17627,6 +23865,13 @@
   {
     "id": 739,
     "name": "Shadow Priest",
+    "equipment": [
+      null,
+      {
+        "type": 1289,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -17669,6 +23914,13 @@
   {
     "id": 740,
     "name": "Insane Wall",
+    "equipment": [
+      null,
+      {
+        "type": 101,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -17686,6 +23938,13 @@
   {
     "id": 741,
     "name": "Sheana the Bowyer",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -17703,6 +23962,13 @@
   {
     "id": 742,
     "name": "Kyle the Realitor",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -17720,6 +23986,13 @@
   {
     "id": 743,
     "name": "Cartman the Realitor",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -17737,6 +24010,13 @@
   {
     "id": 744,
     "name": "Stan the Realitor",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -17754,6 +24034,13 @@
   {
     "id": 745,
     "name": "Kenny the Realitor",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -17771,6 +24058,13 @@
   {
     "id": 746,
     "name": "Jane the Armorer",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -17788,6 +24082,13 @@
   {
     "id": 747,
     "name": "Dick the Weaponsmith",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -17805,6 +24106,13 @@
   {
     "id": 748,
     "name": "Brenda the Bowyer",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -17822,6 +24130,13 @@
   {
     "id": 749,
     "name": "Tom the Archmage",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -17856,6 +24171,13 @@
   {
     "id": 767,
     "name": "Ferral Koale",
+    "equipment": [
+      null,
+      {
+        "type": 3014,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -17885,6 +24207,13 @@
   {
     "id": 768,
     "name": "Rabid Koale",
+    "equipment": [
+      null,
+      {
+        "type": 3014,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [
@@ -17914,6 +24243,13 @@
   {
     "id": 769,
     "name": "Minor Fire Elemental",
+    "equipment": [
+      null,
+      {
+        "type": 3004,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -17938,6 +24274,13 @@
   {
     "id": 770,
     "name": "Major Fire Elemental",
+    "equipment": [
+      null,
+      {
+        "type": 3004,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player4.png",
       "frames": [
@@ -17963,6 +24306,22 @@
   {
     "id": 771,
     "name": "Event",
+    "equipment": [
+      {
+        "type": 776,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 537,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 752,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -17981,6 +24340,22 @@
   {
     "id": 772,
     "name": "Last Man Standing",
+    "equipment": [
+      {
+        "type": 776,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 537,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 752,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -17999,6 +24374,13 @@
   {
     "id": 773,
     "name": "Eldrid the Trademaster",
+    "equipment": [
+      null,
+      {
+        "type": 21,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -18043,6 +24425,13 @@
     "id": 800,
     "name": "Grayvyn Trimere",
     "deadItem": 406,
+    "equipment": [
+      null,
+      {
+        "type": 1137,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player3.png",
       "frames": [
@@ -18062,6 +24451,25 @@
   {
     "id": 801,
     "name": "Grayvyn Scout",
+    "equipment": [
+      {
+        "type": 768,
+        "quantity": 1
+      },
+      {
+        "type": 64,
+        "quantity": 1
+      },
+      {
+        "type": 529,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 744,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player2.png",
       "frames": [
@@ -18097,6 +24505,13 @@
   {
     "id": 804,
     "name": "Pack Mule",
+    "equipment": [
+      null,
+      {
+        "type": 102,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player5.png",
       "frames": [
@@ -18113,6 +24528,13 @@
   {
     "id": 805,
     "name": "Trader Tonk",
+    "equipment": [
+      null,
+      {
+        "type": 33,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -18146,6 +24568,13 @@
   {
     "id": 807,
     "name": "insane Loremaster",
+    "equipment": [
+      null,
+      {
+        "type": 32,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player0.png",
       "frames": [
@@ -18204,6 +24633,25 @@
   {
     "id": 811,
     "name": "Grayvyn Master Archer",
+    "equipment": [
+      {
+        "type": 29,
+        "quantity": 1
+      },
+      {
+        "type": 1153,
+        "quantity": 1
+      },
+      {
+        "type": 19,
+        "quantity": 1
+      },
+      null,
+      {
+        "type": 18,
+        "quantity": 1
+      }
+    ],
     "graphics": {
       "file": "rpgwo-player1.png",
       "frames": [

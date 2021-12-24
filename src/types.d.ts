@@ -375,7 +375,7 @@ interface Monster {
   roam?: number;
   eatGrass: boolean;
   deadItem?: number;
-  equipment?: Item[];
+  equipment?: Array<Item | null>;
   lootTable?: LootTable;
 }
 
