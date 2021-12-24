@@ -44,10 +44,42 @@ type TilePoint = Point4; // `w` is world index
 
 type Region = Point4 & { width: number; height: number };
 
+interface Binding {
+  key?: number;
+  mouse?: number;
+  shift?: boolean;
+  control?: boolean;
+  alt?: boolean;
+  meta?: boolean;
+}
+
+type BindingsNames = |
+'actionMenu' |
+'attack' |
+'moveTo' |
+'pickup' |
+'targetNext' |
+'targetPrevious' |
+'useHand' |
+'useTool';
+
+interface Settings {
+  bindings: Record<BindingsNames, Binding>;
+  showGrid: boolean;
+  sfxVolume: number;
+  musicVolume: number;
+  lightMode: number;
+  clickMagic: boolean;
+  labelBackground: boolean;
+  scale: number;
+  limitView: boolean;
+}
+
 interface GridiaAccount {
   /** A unique, secret id. */
   id: string;
   playerIds: string[];
+  settings?: Partial<Settings>;
 }
 
 interface Player {

@@ -26,4 +26,5 @@ export interface ICommands {
     onLearnSkill(server: Server, clientConnection: ClientConnection, { id }: Protocol.Commands.LearnSkill["params"]): Promise<Protocol.Commands.LearnSkill["response"]>;
     onRequestScripts(server: Server, clientConnection: ClientConnection, {}: Protocol.Commands.RequestScripts["params"]): Promise<Protocol.Commands.RequestScripts["response"]>;
     onReadItem(server: Server, clientConnection: ClientConnection, { location }: Protocol.Commands.ReadItem["params"]): Promise<Protocol.Commands.ReadItem["response"]>;
+    onSaveSettings(server: Server, clientConnection: ClientConnection, { settings }: Protocol.Commands.SaveSettings["params"]): Promise<Protocol.Commands.SaveSettings["response"]>;
 }

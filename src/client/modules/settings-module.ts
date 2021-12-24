@@ -2,25 +2,6 @@ import {ClientModule} from '../client-module.js';
 import {KEYS} from '../keys.js';
 import {makeSettingsWindow} from '../ui/settings-window.js';
 
-type BindingsNames = |
-'actionMenu' |
-'attack' |
-'moveTo' |
-'pickup' |
-'targetNext' |
-'targetPrevious' |
-'useHand' |
-'useTool';
-
-export interface Binding {
-  key?: number;
-  mouse?: number;
-  shift?: boolean;
-  control?: boolean;
-  alt?: boolean;
-  meta?: boolean;
-}
-
 const defaultBindings: Settings['bindings'] = {
   actionMenu: {mouse: 2},
   attack: {key: KEYS.R},
@@ -31,18 +12,6 @@ const defaultBindings: Settings['bindings'] = {
   useHand: {key: KEYS.ALT},
   useTool: {key: KEYS.SPACE_BAR},
 };
-
-export interface Settings {
-  bindings: Record<BindingsNames, Binding>;
-  showGrid: boolean;
-  sfxVolume: number;
-  musicVolume: number;
-  lightMode: number;
-  clickMagic: boolean;
-  labelBackground: boolean;
-  scale: number;
-  limitView: boolean;
-}
 
 export const SettingsSchema = {
   sfxVolume: {
@@ -103,7 +72,7 @@ export const SettingsSchema = {
   },
 } as const;
 
-export function getDefaultSettings() {
+function getDefaultSettings() {
   // @ts-expect-error
   const settings: Settings = {};
 
@@ -112,6 +81,12 @@ export function getDefaultSettings() {
     settings[id] = options.default;
   }
 
+  return settings;
+}
+
+export function getSettings(savedSettings: Partial<Settings>): Settings {
+  const settings = {...getDefaultSettings(), ...savedSettings};
+  if (savedSettings.bindings) settings.bindings = {...settings.bindings, ...savedSettings.bindings};
   return settings;
 }
 

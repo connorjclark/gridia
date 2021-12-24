@@ -21,7 +21,7 @@ import {AdminModule} from './modules/admin-module.js';
 import {MapModule} from './modules/map-module.js';
 import {MovementModule} from './modules/movement-module.js';
 import {SelectedViewModule} from './modules/selected-view-module.js';
-import {SettingsModule, getDefaultSettings, Settings} from './modules/settings-module.js';
+import {getSettings, SettingsModule} from './modules/settings-module.js';
 import {SkillsModule} from './modules/skills-module.js';
 import {SoundModule} from './modules/sound-module.js';
 import {UsageModule} from './modules/usage-module.js';
@@ -634,7 +634,7 @@ export class Game {
   }
 
   start() {
-    this.client.settings = getDefaultSettings();
+    this.client.settings = getSettings(this.client.account.settings || {});
 
     if (Content.getBaseDir() === 'worlds/bit-world') {
       this.client.settings.scale = 2.25;

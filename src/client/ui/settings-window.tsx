@@ -1,10 +1,11 @@
-import {render, h, Component, Fragment} from 'preact';
+import {render, h, Component} from 'preact';
 import {useEffect, useState} from 'preact/hooks';
 
 import {val} from '../../lib/link-state.js';
+import * as CommandBuilder from '../../protocol/command-builder.js';
 import {Game} from '../game.js';
 import {findKeyNameForValue, KEYS} from '../keys.js';
-import {SettingsSchema, Settings, Binding} from '../modules/settings-module.js';
+import {SettingsSchema} from '../modules/settings-module.js';
 
 import {ComponentProps, createSubApp} from './ui-common.js';
 
@@ -161,6 +162,9 @@ export function makeSettingsWindow(game: Game, initialState: State) {
     tabLabel: 'Settings',
     onInit(el) {
       render(<SubApp />, el);
+    },
+    onHide() {
+      game.client.connection.sendCommand(CommandBuilder.saveSettings({settings: game.client.settings}));
     },
   });
 

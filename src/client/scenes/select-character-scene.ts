@@ -18,6 +18,7 @@ export class SelectCharacterScene extends Scene {
     this.onClickCreateCharacterBtn = this.onClickCreateCharacterBtn.bind(this);
     this.createCharacterBtn.addEventListener(
       'click', this.onClickCreateCharacterBtn, {signal: this._eventAbortController.signal});
+    this.controller.client.account = this.loginData.account;
     this.load();
   }
 

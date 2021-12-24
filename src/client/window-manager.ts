@@ -118,6 +118,8 @@ export class WindowManager {
 
   hideWindow(id: string) {
     const win = this.windows[id];
+    if (win.el.classList.contains('hidden')) return;
+
     if (win.onHide) win.onHide(win.el);
     win.el.classList.add('hidden');
     if (win.tabLabel) {

@@ -6,11 +6,15 @@ import {WorldTime} from '../world-time.js';
 
 import {Connection} from './connection.js';
 import {TypedEventEmitter} from './event-emitter.js';
-import {getDefaultSettings, Settings} from './modules/settings-module.js';
 
 export class Client {
   // @ts-expect-error set later.
   player: Player;
+  // @ts-expect-error set later.
+  account: GridiaAccount;
+  // @ts-expect-error set later.
+  settings: Settings = {};
+
   creatureId = 0;
   attackingCreatureId: number | null = 0;
 
@@ -19,7 +23,6 @@ export class Client {
   _lastSyncedRealTime = 0;
 
   eventEmitter = new TypedEventEmitter();
-  settings: Settings = getDefaultSettings();
   storedEvents: ProtocolEvent[] = [];
 
   private _protocol = new ClientInterface();

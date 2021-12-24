@@ -731,4 +731,9 @@ export class ServerInterface implements ICommands {
       content: item.textContent || 'It\'s blank.',
     });
   }
+
+  async onSaveSettings(server: Server, clientConnection: ClientConnection, {settings}: { settings: Settings }): Promise<void> {
+    clientConnection.account.settings = settings;
+    await server.context.saveAccount(clientConnection.account);
+  }
 }

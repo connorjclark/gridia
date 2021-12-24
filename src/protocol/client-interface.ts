@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import {Client} from '../client/client.js';
-import * as Player from '../player.js';
 
 import * as CommandBuilder from './command-builder.js';
 import {IEvents} from './gen/client-interface.js';

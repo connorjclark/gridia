@@ -88,8 +88,12 @@ type ReadItemCommand = {
     type: "readItem";
     args: Protocol.Commands.ReadItem;
 };
+type SaveSettingsCommand = {
+    type: "saveSettings";
+    args: Protocol.Commands.SaveSettings;
+};
 
-export type ProtocolCommand = AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | RequestScriptsCommand | ReadItemCommand;
+export type ProtocolCommand = AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | RequestScriptsCommand | ReadItemCommand | SaveSettingsCommand;
 
 export function adminSetFloor({ floor, ...loc }: Protocol.Commands.AdminSetFloor["params"]): AdminSetFloorCommand {
     return { type: "adminSetFloor", args: arguments[0] };
@@ -156,4 +160,7 @@ export function requestScripts({}: Protocol.Commands.RequestScripts["params"]): 
 }
 export function readItem({ location }: Protocol.Commands.ReadItem["params"]): ReadItemCommand {
     return { type: "readItem", args: arguments[0] };
+}
+export function saveSettings({ settings }: Protocol.Commands.SaveSettings["params"]): SaveSettingsCommand {
+    return { type: "saveSettings", args: arguments[0] };
 }
