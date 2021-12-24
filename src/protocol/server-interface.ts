@@ -292,6 +292,12 @@ export class ServerInterface implements ICommands {
   }
 
   onCreatureAction(server: Server, clientConnection: ClientConnection, {creatureId, type}: Commands.CreatureAction['params']): Promise<Commands.CreatureAction['response']> {
+    if (type === 'attack' && creatureId === 0) {
+      server.creatureStates[clientConnection.creature.id].targetCreature = null;
+      clientConnection.sendEvent(EventBuilder.setAttackTarget({creatureId: null}));
+      return Promise.resolve();
+    }
+
     const creature = server.context.getCreature(creatureId);
     const creatureState = server.creatureStates[creatureId];
     const isClose = true; // TODO
@@ -299,7 +305,8 @@ export class ServerInterface implements ICommands {
       return Promise.reject('Too far away');
     }
 
-    if (!creature || creature.isPlayer) return Promise.reject('Cannot do that to another player');
+    if (!creature) return Promise.reject('Cannot find creature');
+    if (creature.isPlayer) return Promise.reject('Cannot do that to another player');
 
     if (type === 'attack') {
       server.creatureStates[clientConnection.creature.id].targetCreature = creatureState;

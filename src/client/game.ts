@@ -1162,12 +1162,19 @@ export class Game {
       this.cycleSelectedTarget(1);
       break;
     case 'attack':
-      if (!this.state.selectedView.creatureId) return;
+      if (this.state.selectedView.creatureId) {
+        this.client.connection.sendCommand(CommandBuilder.creatureAction({
+          type: 'attack',
+          creatureId: this.state.selectedView.creatureId,
+        }));
+      } else {
+        // Disable attack.
+        this.client.connection.sendCommand(CommandBuilder.creatureAction({
+          type: 'attack',
+          creatureId: 0,
+        }));
+      }
 
-      this.client.connection.sendCommand(CommandBuilder.creatureAction({
-        creatureId: this.state.selectedView.creatureId,
-        type: 'attack',
-      }));
       break;
     default:
       throw new Error('unknown control: ' + controlName);

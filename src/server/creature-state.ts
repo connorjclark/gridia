@@ -499,7 +499,6 @@ export class CreatureState {
       }
     } else {
       damage = Utils.randInt(this.creature.stats.damageLow, this.creature.stats.damageHigh);
-      console.log(this.creature.stats, '', damage);
     }
 
     let attackAttributeCost = 1;
