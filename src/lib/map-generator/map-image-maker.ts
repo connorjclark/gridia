@@ -7,14 +7,24 @@ function findCoastPaths(mapGenResult: MapGenerationResult) {
   const seen = new Set<Corner>();
   let currentPath: Corner[] = [];
 
-  for (const corner of mapGenResult.corners.filter((c) => c.coast)) {
+  const coastCorners = mapGenResult.corners
+    .filter((c) => c.coast)
+    // Process corners with just one coast first: this will start the paths on the edge of the map
+    // rather than at some random corner of the coast.
+    .sort((a, b) => a.adjacent.filter((c) => c.coast).length - b.adjacent.filter((c) => c.coast).length);
+
+  for (const corner of coastCorners) {
     let cur = corner;
     while (!seen.has(cur)) {
       seen.add(cur);
       currentPath.push(cur);
 
       const next = cur.adjacent.find((c) => c.coast && !seen.has(c));
-      if (!next) break;
+      if (!next) {
+        // No more, but attempt to close the path by adding the first corner, if it connects.
+        if (cur.adjacent.includes(currentPath[0])) currentPath.push(currentPath[0]);
+        break;
+      }
       cur = next;
     }
 
@@ -60,7 +70,6 @@ function drawPath(ctx: CanvasRenderingContext2D, path: Corner[]) {
   for (const {x, y} of path) {
     ctx.lineTo(x, y);
   }
-  ctx.closePath();
   ctx.stroke();
 }
 
