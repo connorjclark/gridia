@@ -9,6 +9,9 @@ const defaultBindings: Settings['bindings'] = {
   pickup: {key: KEYS.SHIFT},
   targetNext: {key: KEYS.E},
   targetPrevious: {key: KEYS.Q},
+  toggleInventory: {key: KEYS.I},
+  toggleMap: {key: KEYS.M},
+  toggleSkills: {key: KEYS.K},
   useHand: {key: KEYS.ALT},
   useTool: {key: KEYS.SPACE_BAR},
 };
@@ -85,8 +88,9 @@ function getDefaultSettings() {
 }
 
 export function getSettings(savedSettings: Partial<Settings>): Settings {
-  const settings = {...getDefaultSettings(), ...savedSettings};
-  if (savedSettings.bindings) settings.bindings = {...settings.bindings, ...savedSettings.bindings};
+  const defaultSettings = getDefaultSettings();
+  const settings = {...defaultSettings, ...savedSettings};
+  if (savedSettings.bindings) settings.bindings = {...defaultSettings.bindings, ...savedSettings.bindings};
   return settings;
 }
 

@@ -17,9 +17,14 @@ export type WindowDelegate = ReturnType<WindowManager['createWindow']>;
 
 export class WindowManager {
   private windows: Record<string, {el: HTMLElement; initialized: boolean} & GridiaWindowOptions> = {};
+  private windowDelegates: Record<string, ReturnType<WindowManager['createWindow']>> = {};
 
   hasWindow(id: string) {
     return Boolean(this.windows[id]);
+  }
+
+  getWindow(id: string) {
+    return this.windowDelegates[id];
   }
 
   createWindow(opts: GridiaWindowOptions) {
@@ -63,7 +68,7 @@ export class WindowManager {
       }
     }
 
-    return {
+    const delegate = {
       id: opts.id,
       hide: () => this.hideWindow(opts.id),
       show: () => this.showWindow(opts.id),
@@ -73,11 +78,22 @@ export class WindowManager {
       remove: () => this.removeWindow(opts.id),
       isOpen: () => this.isWindowOpen(opts.id),
     };
+    this.windowDelegates[opts.id] = delegate;
+    return delegate;
   }
 
   hideWindowsInCell(cell: string) {
     for (const win of Object.values(this.windows)) {
       if (win.cell === cell) this.hideWindow(win.id);
+    }
+  }
+
+  toggleWindow(id: string) {
+    const win = this.windows[id];
+    win;
+    if (!win.initialized) {
+      win.onInit(win.el);
+      win.initialized = true;
     }
   }
 

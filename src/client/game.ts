@@ -1038,7 +1038,7 @@ export class Game {
         if ((binding.alt || false) !== e.altKey) continue;
         if ((binding.meta || false) !== e.metaKey) continue;
 
-        this.handleControl(controlName as keyof Settings['bindings'], location);
+        this.handleBinding(controlName as keyof Settings['bindings'], location);
       }
 
       // T to toggle z.
@@ -1063,7 +1063,7 @@ export class Game {
         if ((binding.alt || false) !== e.altKey) continue;
         if ((binding.meta || false) !== e.metaKey) continue;
 
-        this.handleControl(controlName as keyof Settings['bindings'], location);
+        this.handleBinding(controlName as keyof Settings['bindings'], location);
       }
     };
     this.canvasesEl.addEventListener('auxclick', onClickCallback);
@@ -1126,8 +1126,8 @@ export class Game {
     }
   }
 
-  handleControl(controlName: keyof Settings['bindings'], location: ItemLocation) {
-    switch (controlName) {
+  handleBinding(bindingName: keyof Settings['bindings'], location: ItemLocation) {
+    switch (bindingName) {
     case 'actionMenu':
       ContextMenu.openForLocation(this.state.mouse, location);
       break;
@@ -1161,6 +1161,17 @@ export class Game {
     case 'targetNext':
       this.cycleSelectedTarget(1);
       break;
+    case 'toggleInventory':
+      if (!this.client.inventory?.id) return;
+
+      this.containerWindows.get(this.client.inventory.id)?.delegate.toggle();
+      break;
+    case 'toggleMap':
+      this.windowManager.getWindow('map').toggle();
+      break;
+    case 'toggleSkills':
+      this.windowManager.getWindow('skills').toggle();
+      break;
     case 'attack':
       if (this.state.selectedView.creatureId) {
         this.client.connection.sendCommand(CommandBuilder.creatureAction({
@@ -1177,7 +1188,7 @@ export class Game {
 
       break;
     default:
-      throw new Error('unknown control: ' + controlName);
+      throw new Error('unknown control: ' + bindingName);
     }
   }
 

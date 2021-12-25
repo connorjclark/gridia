@@ -60,6 +60,9 @@ type BindingsNames = |
 'pickup' |
 'targetNext' |
 'targetPrevious' |
+'toggleInventory' |
+'toggleMap' |
+'toggleSkills' |
 'useHand' |
 'useTool';
 

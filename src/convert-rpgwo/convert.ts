@@ -249,7 +249,6 @@ function parseItemsIni() {
       if (item.class.match(/wrist/i)) item.equipSlot = 'Wrist';
       item.class = 'Jewelry';
     }
-    if (item.class === 'Ammo') item.equipSlot = 'Ammo';
   }
 
   for (const item of items) {
