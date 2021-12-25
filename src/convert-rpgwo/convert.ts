@@ -851,15 +851,12 @@ function convertSkills() {
   return skills.map((usage) => sortObject(usage, explicitOrder));
 }
 
-function calculateFloorColor(id: number) {
-  const imageName = `${assetFolder}/gfx/floors${Math.floor(id / 100)}.png`;
-  const x = (id % 10) * 32;
-  const y = Math.floor((id % 100) / 10) * 32;
+function calculateAverageColor(imagePath: string, x: number, y: number, size: number) {
   const args = [
     'convert',
-    imageName,
+    imagePath,
     '+set', 'date:modify',
-    ...`-crop 32x32+${x}+${y} +repage`.split(' '),
+    ...`-crop ${size}x${size}+${x}+${y} +repage`.split(' '),
     ...'-resize 1x1 txt:-'.split(' '),
   ];
   const output = childProcess.execFileSync('magick', args, { encoding: 'utf-8' });
@@ -873,26 +870,30 @@ function convertFloors() {
   const floors: MetaFloor[] = [];
   const oldFloors = loadContent('floors.json');
 
-  for (let i = 0; i <= 51; i++) {
+  for (let id = 0; id <= 51; id++) {
+    const x = (id % 10) * 32;
+    const y = Math.floor((id % 100) / 10) * 32;
     floors.push({
-      id: i,
+      id,
       graphics: {
         file: 'rpgwo-floors0.png',
-        frames: [i],
+        frames: [id],
       },
-      color: oldFloors[i]?.color || calculateFloorColor(i),
+      color: calculateAverageColor(`${assetFolder}/gfx/floors0.png`, x, y, 32),
     });
   }
   for (let i = 0; i < 25; i++) {
     const graphicIndex = 100 + i * 20;
     const id = 52 + i;
+    const x = (graphicIndex % 10) * 32;
+    const y = Math.floor((graphicIndex % 100) / 10) * 32;
     floors.push({
       id,
       graphics: {
         file: `rpgwo-floors${Math.floor(graphicIndex / 100)}.png`,
         frames: [graphicIndex % 100],
       },
-      color: oldFloors[id]?.color || calculateFloorColor(i),
+      color: calculateAverageColor(`${assetFolder}/gfx/floors${Math.floor(graphicIndex / 100)}.png`, x, y, 32),
     });
   }
 

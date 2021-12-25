@@ -4,6 +4,8 @@
 * trash can
 * selected tool + space (with no selected view) should use the item on tile below player.
 * Writing on signs
+* Show stats on View
+* in-range indicator
 
 ____
 

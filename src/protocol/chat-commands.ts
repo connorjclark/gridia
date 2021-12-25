@@ -330,6 +330,19 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
         item.textContent = args.content;
       },
     },
+    debugTile: {
+      args: [],
+      do() {
+        const loc = {...clientConnection.creature.pos};
+
+        const tile = server.context.map.getTile(loc);
+        server.send(EventBuilder.chat({
+          section: 'World',
+          from: 'SERVER',
+          text: JSON.stringify(tile, null, 2),
+        }), clientConnection);
+      },
+    },
     help: {
       args: [],
       do() {

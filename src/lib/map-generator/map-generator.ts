@@ -8,6 +8,7 @@ import * as d3 from 'd3-polygon';
 import SeedRandomBrowser from 'seedrandom';
 import * as SeedRandomNode from 'seedrandom';
 
+import * as Utils from '../../utils.js';
 import * as Perlin from '../perlin/perlin.js';
 
 // For some reason, different imports are needed for browser/node.
@@ -547,7 +548,7 @@ function makeArray(size: number, maxValue: number) {
 }
 
 function rasterize(ctx: Context) {
-  const raster: Array<{[n: number]: number}> = [];
+  const raster: Array<{[n: number]: number; length: number}> = [];
   for (let x = 0; x < ctx.options.width; x++) {
     raster.push(makeArray(ctx.options.height, ctx.polygons.length));
   }
@@ -626,6 +627,28 @@ function rasterize(ctx: Context) {
       add(x - 1, y);
       add(x, y + 1);
       add(x, y - 1);
+    }
+  }
+
+  function dist2(p1: {x: number; y: number}, p2: {x: number; y: number}) {
+    return Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2);
+  }
+
+  // Fill the missed cells with the closest polygon.
+  for (let i = 0; i < raster.length; i++) {
+    for (let j = 0; j < raster[i].length; j++) {
+      if (raster[i][j] !== 0) continue;
+
+      const point = {x: i, y: j};
+      const closestPolygon = ctx.polygons.reduce((acc, cur) => {
+        if (dist2(cur.center, point) >= dist2(acc.center, point)) {
+          return acc;
+        } else {
+          return cur;
+        }
+      });
+      const index = ctx.polygons.indexOf(closestPolygon);
+      raster[i][j] = index + 1;
     }
   }
 
