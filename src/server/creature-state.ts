@@ -55,29 +55,31 @@ const Facts: Record<string, Fact> = {
   'on-grass'(server) {
     return isGrass(server.context.map.getTile(this.creature.pos).floor);
   },
-  'too-close-target'() {
-    if (!this.targetCreature) return false;
-
-    const weapon = this.creature.equipment?.[Container.EQUIP_SLOTS.Weapon];
-    let minRange = 1;
-    if (weapon) {
-      const meta = Content.getMetaItem(weapon.type);
-      if (meta.minRange !== undefined) minRange = meta.minRange;
+  'too-close-target'(server) {
+    // TODO: This overloading feels wrong.
+    let creatureToFollow = this.targetCreature?.creature;
+    if (this.creature.tamedBy) {
+      const tamedByPlayer = server.context.players.get(this.creature.tamedBy);
+      if (tamedByPlayer){
+        creatureToFollow = server.findCreatureForPlayer(tamedByPlayer);
+      }
     }
+    if (!creatureToFollow) return false;
 
-    return Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos) < minRange;
+    return Utils.maxDiff(this.creature.pos, creatureToFollow.pos) < this.getFollowRange().minRange;
   },
-  'too-far-target'() {
-    if (!this.targetCreature) return false;
-
-    const weapon = this.creature.equipment?.[Container.EQUIP_SLOTS.Weapon];
-    let maxRange = 1;
-    if (weapon) {
-      const meta = Content.getMetaItem(weapon.type);
-      if (meta.maxRange !== undefined) maxRange = meta.maxRange;
+  'too-far-target'(server) {
+    // TODO: This overloading feels wrong.
+    let creatureToFollow = this.targetCreature?.creature;
+    if (this.creature.tamedBy) {
+      const tamedByPlayer = server.context.players.get(this.creature.tamedBy);
+      if (tamedByPlayer){
+        creatureToFollow = server.findCreatureForPlayer(tamedByPlayer);
+      }
     }
+    if (!creatureToFollow) return false;
 
-    return Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos) > maxRange;
+    return Utils.maxDiff(this.creature.pos, creatureToFollow.pos) > this.getFollowRange().maxRange;
   },
   'near-target'(server) {
     return !Facts['too-close-target'].call(this, server) && !Facts['too-far-target'].call(this, server);
@@ -299,6 +301,12 @@ export class CreatureState {
     return this.ticksUntilNextAttack === 0;
   }
 
+  resetGoals() {
+    this.goals = [];
+    this.path = [];
+    this._shouldRecreatePlan = true;
+  }
+
   addGoal(newGoal: Goal) {
     for (const goal of this.goals) {
       if (goal.desiredEffect === newGoal.desiredEffect) {
@@ -349,11 +357,13 @@ export class CreatureState {
     }
 
     if (this.creature.tamedBy) {
+      const tamedByPlayer = server.context.players.get(this.creature.tamedBy);
       this.addGoal({
         desiredEffect: 'near-target',
-        priority: 10,
+        priority: 50,
         satisfied() {
-          return false;
+          if (!tamedByPlayer) return true;
+          return Utils.maxDiff(this.creature.pos, tamedByPlayer.loc) <= 2;
         },
       });
     }
@@ -404,6 +414,7 @@ export class CreatureState {
     for (const goal of this.goals) {
       const plan = this.goalActionPlans.get(goal);
       if (!plan) continue; // Shouldn't happen.
+      if (plan.actions.length === 0) continue;
 
       const action = plan.actions[plan.actions.length - 1];
       if (action.isAvailable && !action.isAvailable.call(this)) continue;
@@ -438,6 +449,29 @@ export class CreatureState {
         this.path = [];
       }
     }
+  }
+
+  getFollowRange() {
+    if (this.creature.tamedBy) {
+      return {
+        minRange: 2,
+        maxRange: 2,
+      };
+    }
+
+    const weapon = this.creature.equipment?.[Container.EQUIP_SLOTS.Weapon];
+    let minRange = 1;
+    let maxRange = 1;
+    if (weapon) {
+      const meta = Content.getMetaItem(weapon.type);
+      if (meta.minRange !== undefined) minRange = meta.minRange;
+      if (meta.maxRange !== undefined) maxRange = meta.maxRange;
+    }
+
+    return {
+      minRange,
+      maxRange,
+    };
   }
 
   respondToCreatureRemoval(creature: Creature) {

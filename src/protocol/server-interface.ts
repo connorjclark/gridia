@@ -316,6 +316,7 @@ export class ServerInterface implements ICommands {
     if (type === 'tame') {
       if (creature.tamedBy) return Promise.reject('Creature is already tamed');
       creature.tamedBy = clientConnection.player.id;
+      server.creatureStates[creature.id].resetGoals();
       server.broadcastPartialCreatureUpdate(creature, ['tamedBy']);
     }
 
