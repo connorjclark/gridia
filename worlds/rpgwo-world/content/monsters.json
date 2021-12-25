@@ -13381,7 +13381,9 @@
       "file": "rpgwo-player4.png",
       "frames": [
         62
-      ]
+      ],
+      "width": 2,
+      "height": 2
     },
     "level": 2,
     "life": 300,
@@ -13423,7 +13425,9 @@
       "file": "rpgwo-player4.png",
       "frames": [
         66
-      ]
+      ],
+      "width": 2,
+      "height": 2
     },
     "level": 2,
     "life": 500,
@@ -13462,7 +13466,9 @@
       "file": "rpgwo-player4.png",
       "frames": [
         64
-      ]
+      ],
+      "width": 2,
+      "height": 2
     },
     "level": 2,
     "life": 300,
@@ -13515,7 +13521,9 @@
       "file": "rpgwo-player4.png",
       "frames": [
         62
-      ]
+      ],
+      "width": 2,
+      "height": 2
     },
     "level": 2,
     "life": 300,
@@ -13557,7 +13565,9 @@
       "file": "rpgwo-player4.png",
       "frames": [
         66
-      ]
+      ],
+      "width": 2,
+      "height": 2
     },
     "level": 2,
     "life": 500,
@@ -13599,7 +13609,9 @@
       "file": "rpgwo-player4.png",
       "frames": [
         64
-      ]
+      ],
+      "width": 2,
+      "height": 2
     },
     "level": 2,
     "life": 300,

@@ -1004,7 +1004,7 @@ function parseMonsterIni() {
     // @ts-expect-error
     const image = monster.image;
     // @ts-expect-error
-    const imageType = monster.imageType || 0;
+    const imageType = monster.imageType || monster.imagetype || 0;
 
     let width, height;
     if (imageType === 1) {
