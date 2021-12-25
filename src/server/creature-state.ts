@@ -432,13 +432,48 @@ export class CreatureState {
       // Constantly try to attack if player. For monsters, this is only called if
       // in the AttackTarget state.
       this._handleAttack(server);
-    } else {
-      // For monsters only.
-      this._createPlan(server);
-      this._handleMovement(server);
+      return;
     }
 
-    if (this.creature.isPlayer) return;
+    this._createPlan(server);
+    this._handleMovement(server);
+
+    // Target the closest enemy.
+    if (this.enemyCreatures.length && !this.targetCreature) {
+      let closestEnemy: CreatureState | null = null;
+      let closestDist = Number.MAX_VALUE;
+      for (const enemy of this.enemyCreatures) {
+        if (!enemy) continue;
+        if (enemy.creature.pos.w !== this.creature.pos.w) continue;
+
+        const dist = Utils.dist(enemy.creature.pos, this.creature.pos);
+        // TODO: LOS
+        if (dist >= 20) continue;
+
+        if (!closestEnemy || closestDist > dist) {
+          closestEnemy = enemy;
+          closestDist = dist;
+        }
+      }
+
+      if (closestEnemy) {
+        this.targetCreature = closestEnemy;
+        this.path = [];
+        this.addGoal({
+          desiredEffect: 'kill-creature',
+          priority: 100,
+          // TODO: LOS
+          satisfied: () => closestEnemy ? closestEnemy.creature.life.current <= 0 : true,
+        });
+        this.addGoal({
+          desiredEffect: 'hidden-from-target',
+          priority: 90,
+          // TODO: LOS
+          satisfied: () => closestEnemy ? closestEnemy.creature.life.current <= 0 : true,
+        });
+      }
+    }
+
     if (this.ticksUntilNotIdle > 0) return;
     if (!this.goalActionPlans.size) return;
     if (!this.goals.length) return;
@@ -628,46 +663,8 @@ export class CreatureState {
     const durationInMs = durationThresholds[Utils.clamp(this.creature.speed, 0, durationThresholds.length)];
     this.ticksUntilNextMovement = server.taskRunner.rateToTicks({ms: durationInMs});
 
-    const w = this.creature.pos.w;
-
-    // Target the closest enemy.
-    if (this.enemyCreatures.length && !this.targetCreature) {
-      let closestEnemy: CreatureState | null = null;
-      let closestDist = Number.MAX_VALUE;
-      for (const enemy of this.enemyCreatures) {
-        if (!enemy) continue;
-        if (enemy.creature.pos.w !== w) continue;
-
-        const dist = Utils.dist(enemy.creature.pos, this.creature.pos);
-        // TODO: LOS
-        if (dist >= 20) continue;
-
-        if (!closestEnemy || closestDist > dist) {
-          closestEnemy = enemy;
-          closestDist = dist;
-        }
-      }
-
-      if (closestEnemy) {
-        this.targetCreature = closestEnemy;
-        this.path = [];
-        this.addGoal({
-          desiredEffect: 'kill-creature',
-          priority: 100,
-          // TODO: LOS
-          satisfied: () => closestEnemy ? closestEnemy.creature.life.current <= 0 : true,
-        });
-        this.addGoal({
-          desiredEffect: 'hidden-from-target',
-          priority: 90,
-          // TODO: LOS
-          satisfied: () => closestEnemy ? closestEnemy.creature.life.current <= 0 : true,
-        });
-      }
-    }
-
     if (this.path.length) {
-      const newPos = {w, ...this.path.splice(0, 1)[0]};
+      const newPos = {w: this.creature.pos.w, ...this.path.splice(0, 1)[0]};
       if (this.context.walkable(newPos)) {
         server.moveCreature(this.creature, newPos);
       } else {

@@ -1,4 +1,4 @@
-import {MAX_STACK, SECTOR_SIZE} from '../constants.js';
+import {MAX_STACK, SECTOR_SIZE, WATER} from '../constants.js';
 import * as Container from '../container.js';
 import * as Content from '../content.js';
 import {calcStraightLine} from '../lib/line.js';
@@ -582,10 +582,32 @@ export class Server {
     return creature;
   }
 
-  moveCreature(creature: Creature, pos: TilePoint | null) {
-    if (pos) {
-      creature.pos = pos;
+  moveCreature(creature: Creature, pos: TilePoint) {
+    const tile = this.context.map.getTile(pos);
+
+    // TODO: generalize
+    if (tile.floor === WATER && Content.getBaseDir() === 'worlds/rpgwo-world') {
+      const isRaft = (item?: Item) => item && Content.getMetaItem(item.type).class === 'Raft';
+      const itemBelowPlayer = this.context.map.getItem(creature.pos);
+      const itemBelowPlayerDest = this.context.map.getItem(pos);
+      const isOnRaft = isRaft(itemBelowPlayer) || isRaft(itemBelowPlayerDest);
+
+      if (isRaft(itemBelowPlayer) && !this.context.map.getItem(pos)) {
+        this.setItem(creature.pos, undefined);
+        this.setItem(pos, itemBelowPlayer);
+      }
+
+      if (!isOnRaft) {
+        this.creatureStates[creature.id].resetRegenerationTimer(this);
+        if (attributeCheck(creature, 'stamina', 1)) {
+          this.modifyCreatureStamina(null, creature, -2);
+        } else {
+          this.modifyCreatureLife(null, creature, -2);
+        }
+      }
     }
+
+    creature.pos = pos;
     this.broadcastPartialCreatureUpdate(creature, ['pos']);
     this.creatureStates[creature.id].warped = false;
   }
@@ -616,10 +638,10 @@ export class Server {
     }
   }
 
-  async warpCreature(creature: Creature, pos: TilePoint | null) {
-    if (pos && !this.context.map.inBounds(pos)) return;
+  async warpCreature(creature: Creature, pos: TilePoint) {
+    if (!this.context.map.inBounds(pos)) return;
 
-    if (pos) await this.ensureSectorLoadedForPoint(pos);
+    await this.ensureSectorLoadedForPoint(pos);
     this.moveCreature(creature, pos);
     this.creatureStates[creature.id].warped = true;
     this.creatureStates[creature.id].path = [];
