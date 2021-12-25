@@ -125,7 +125,38 @@ const Actions: Record<string, Action> = {
       return this.canAttackAgain();
     },
     tick(server) {
+      if (this.creature.magicChances?.length) {
+        const val = Utils.randInt(0, 100);
+        let spellIdChosen;
+        let sumSoFar = 0;
+        for (const {spellId, chance} of this.creature.magicChances) {
+          sumSoFar += chance;
+          if (val < sumSoFar) {
+            spellIdChosen = spellId;
+            break;
+          }
+        }
+
+        if (spellIdChosen !== undefined) {
+          this.currentSpell = Content.getSpell(spellIdChosen);
+        }
+      }
+
+      if (this.currentSpell) {
+        if (this.currentSpell.target === 'other') {
+          this._handleAttack(server, true);
+        } else {
+          // TODO: send message to attacking player ?
+          // TODO: don't do heal if already full health...
+          const failed = !!server.castSpell(this.currentSpell, this.creature, this.creature, this.creature.pos);
+          if (failed) this._handleAttack(server);
+        }
+      } else {
+        this._handleAttack(server);
+      }
+
       this._handleAttack(server);
+      this.currentSpell = undefined;
     },
   },
   EvadeTarget: {
@@ -133,7 +164,7 @@ const Actions: Record<string, Action> = {
     cost: 5,
     preconditions: [],
     effects: ['hidden-from-target'],
-    tick(server) {
+    tick() {
       const targetCreature = this.targetCreature?.creature;
       if (!targetCreature) return false;
 
@@ -473,6 +504,13 @@ export class CreatureState {
       const meta = Content.getMetaItem(weapon.type);
       if (meta.minRange !== undefined) minRange = meta.minRange;
       if (meta.maxRange !== undefined) maxRange = meta.maxRange;
+    } else {
+      for (const {spellId} of this.creature.magicChances || []) {
+        const spell = Content.getSpell(spellId);
+        if (spell.target === 'other') {
+          maxRange = Math.max(maxRange, spell.range);
+        }
+      }
     }
 
     return {
@@ -639,7 +677,7 @@ export class CreatureState {
     }
   }
 
-  _handleAttack(server: Server) {
+  _handleAttack(server: Server, forceSpell = false) {
     if (!this.targetCreature || this.ticksUntilNextAttack > 0) return;
 
     let attackSkill = Content.getSkillByNameOrThrowError('Unarmed Attack');
@@ -654,7 +692,7 @@ export class CreatureState {
       }
     }
 
-    const attackType = attackSkill?.purpose || 'melee';
+    const attackType = forceSpell ? 'magic' : (attackSkill?.purpose || 'melee');
     if (attackType === 'magic' && !this.currentSpell) {
       return;
     }

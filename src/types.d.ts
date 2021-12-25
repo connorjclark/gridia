@@ -180,6 +180,8 @@ interface Creature {
     meleeDefense: number;
     missleDefense: number;
   };
+  magicLevel?: number;
+  magicChances?: Monster['magicChances']; // TODO ...
   buffs: Buff[];
 }
 
@@ -377,6 +379,12 @@ interface Monster {
   deadItem?: number;
   equipment?: Array<Item | null>;
   lootTable?: LootTable;
+  magicLevel?: number;
+  magicChances?: Array<{
+    spellId: number;
+    /** 0-100 */
+    chance: number;
+  }>;
 }
 
 interface Quest {

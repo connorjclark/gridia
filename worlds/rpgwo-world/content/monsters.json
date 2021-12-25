@@ -180,7 +180,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 30
+      },
+      {
+        "spellId": 1,
+        "chance": 30
+      }
+    ],
     "magicDefense": 100,
+    "magicLevel": 20,
+    "mana": 100,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -243,7 +255,19 @@
         "chance": 25
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 30
+      },
+      {
+        "spellId": 1,
+        "chance": 30
+      }
+    ],
     "magicDefense": 130,
+    "magicLevel": 40,
+    "mana": 100,
     "meleeDefense": 130,
     "missleDefense": 130,
     "speed": 2,
@@ -732,7 +756,23 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 5
+      },
+      {
+        "spellId": 1,
+        "chance": 50
+      },
+      {
+        "spellId": 34,
+        "chance": 45
+      }
+    ],
     "magicDefense": 200,
+    "magicLevel": 100,
+    "mana": 600,
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
@@ -779,7 +819,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 80
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      }
+    ],
     "magicDefense": 100,
+    "magicLevel": 100,
+    "mana": 200,
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
@@ -851,7 +903,15 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      }
+    ],
     "magicDefense": 90,
+    "magicLevel": 30,
+    "mana": 100,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -989,7 +1049,23 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 30
+      },
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      }
+    ],
     "magicDefense": 150,
+    "magicLevel": 100,
+    "mana": 200,
     "meleeDefense": 175,
     "missleDefense": 175,
     "speed": 2,
@@ -1203,7 +1279,23 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 30
+      },
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      }
+    ],
     "magicDefense": 210,
+    "magicLevel": 150,
+    "mana": 400,
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
@@ -1298,7 +1390,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 50
+      },
+      {
+        "spellId": 1,
+        "chance": 30
+      }
+    ],
     "magicDefense": 450,
+    "magicLevel": 400,
+    "mana": 1000,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -1375,7 +1479,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 60
+      },
+      {
+        "spellId": 1,
+        "chance": 30
+      }
+    ],
     "magicDefense": 400,
+    "magicLevel": 400,
+    "mana": 5000,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 1,
@@ -1529,7 +1645,23 @@
         "chance": 5
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 30
+      },
+      {
+        "spellId": 3,
+        "chance": 10
+      },
+      {
+        "spellId": 1,
+        "chance": 30
+      }
+    ],
     "magicDefense": 650,
+    "magicLevel": 650,
+    "mana": 1000,
     "meleeDefense": 650,
     "missleDefense": 650,
     "speed": 1,
@@ -1627,7 +1759,31 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 15
+      },
+      {
+        "spellId": 3,
+        "chance": 40
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      },
+      {
+        "spellId": 34,
+        "chance": 10
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 450,
+    "magicLevel": 450,
+    "mana": 4000,
     "meleeDefense": 250,
     "missleDefense": 350,
     "speed": 1,
@@ -1812,6 +1968,7 @@
       }
     ],
     "magicDefense": 300,
+    "mana": 10,
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
@@ -1864,7 +2021,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 100,
+    "magicLevel": 100,
+    "mana": 400,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -1952,7 +2129,19 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      }
+    ],
     "magicDefense": 200,
+    "magicLevel": 50,
+    "mana": 100,
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 1,
@@ -2057,7 +2246,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 34,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 300,
+    "magicLevel": 200,
+    "mana": 200,
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
@@ -2144,7 +2353,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 34,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 600,
+    "magicLevel": 500,
+    "mana": 500,
     "meleeDefense": 600,
     "missleDefense": 600,
     "speed": 1,
@@ -2197,7 +2426,31 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 9
+      },
+      {
+        "spellId": 3,
+        "chance": 66
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 600,
+    "magicLevel": 600,
+    "mana": 700,
     "meleeDefense": 600,
     "missleDefense": 600,
     "speed": 2,
@@ -2313,7 +2566,23 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 80
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 140,
+    "magicLevel": 100,
+    "mana": 200,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -2421,7 +2690,23 @@
         "chance": 100
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 50
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 160,
+    "magicLevel": 150,
+    "mana": 200,
     "meleeDefense": 160,
     "missleDefense": 160,
     "speed": 2,
@@ -2467,7 +2752,15 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      }
+    ],
     "magicDefense": 150,
+    "magicLevel": 50,
+    "mana": 100,
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
@@ -2513,7 +2806,15 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      }
+    ],
     "magicDefense": 165,
+    "magicLevel": 50,
+    "mana": 100,
     "meleeDefense": 140,
     "missleDefense": 140,
     "speed": 2,
@@ -2673,7 +2974,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 80
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      }
+    ],
     "magicDefense": 150,
+    "magicLevel": 150,
+    "mana": 300,
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
@@ -2709,7 +3022,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 80
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      }
+    ],
     "magicDefense": 260,
+    "magicLevel": 250,
+    "mana": 300,
     "meleeDefense": 160,
     "missleDefense": 160,
     "speed": 2,
@@ -2900,7 +3225,15 @@
         "chance": 5
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 20
+      }
+    ],
     "magicDefense": 200,
+    "magicLevel": 50,
+    "mana": 100,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 3,
@@ -2965,7 +3298,14 @@
         "chance": 2
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 20
+      }
+    ],
     "magicDefense": 200,
+    "mana": 200,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -2989,7 +3329,14 @@
     },
     "level": 50,
     "life": 100,
+    "magicChances": [
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 300,
+    "mana": 200,
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 1,
@@ -3269,7 +3616,23 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 30
+      },
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      }
+    ],
     "magicDefense": 310,
+    "magicLevel": 250,
+    "mana": 400,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -3310,7 +3673,23 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 30
+      },
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      }
+    ],
     "magicDefense": 250,
+    "magicLevel": 150,
+    "mana": 200,
     "meleeDefense": 275,
     "missleDefense": 275,
     "speed": 2,
@@ -3358,7 +3737,31 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 15
+      },
+      {
+        "spellId": 3,
+        "chance": 40
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      },
+      {
+        "spellId": 34,
+        "chance": 10
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 450,
+    "magicLevel": 500,
+    "mana": 4000,
     "meleeDefense": 150,
     "missleDefense": 350,
     "speed": 2,
@@ -3415,7 +3818,23 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 300,
+    "magicLevel": 300,
+    "mana": 600,
     "meleeDefense": 160,
     "missleDefense": 160,
     "speed": 2,
@@ -3491,7 +3910,23 @@
         "chance": 5
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 10
+      },
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 34,
+        "chance": 30
+      }
+    ],
     "magicDefense": 750,
+    "magicLevel": 750,
+    "mana": 1000,
     "meleeDefense": 750,
     "missleDefense": 750,
     "speed": 2,
@@ -3534,7 +3969,27 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 34,
+        "chance": 15
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 450,
+    "magicLevel": 450,
+    "mana": 500,
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 2,
@@ -3592,7 +4047,27 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 34,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 450,
+    "magicLevel": 450,
+    "mana": 500,
     "meleeDefense": 500,
     "missleDefense": 450,
     "speed": 2,
@@ -3848,7 +4323,18 @@
         "chance": 100
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      }
+    ],
     "magicDefense": 190,
+    "mana": 100,
     "meleeDefense": 190,
     "missleDefense": 190,
     "speed": 2,
@@ -4390,7 +4876,23 @@
         "chance": 100
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 70
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      },
+      {
+        "spellId": 11,
+        "chance": 10
+      }
+    ],
     "magicDefense": 300,
+    "magicLevel": 300,
+    "mana": 400,
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
@@ -4513,7 +5015,19 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 34,
+        "chance": 10
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 100,
+    "magicLevel": 2000,
+    "mana": 10000,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -4841,7 +5355,19 @@
         "chance": 5
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 70
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      }
+    ],
     "magicDefense": 250,
+    "magicLevel": 300,
+    "mana": 400,
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
@@ -4965,7 +5491,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 80
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      }
+    ],
     "magicDefense": 130,
+    "magicLevel": 130,
+    "mana": 300,
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
@@ -5372,7 +5910,27 @@
         "chance": 25
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 70
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      },
+      {
+        "spellId": 34,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 350,
+    "magicLevel": 350,
+    "mana": 1000,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -5408,7 +5966,27 @@
         "chance": 25
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 70
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      },
+      {
+        "spellId": 34,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 320,
+    "magicLevel": 320,
+    "mana": 1000,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -5453,6 +6031,7 @@
       }
     ],
     "magicDefense": 1000,
+    "mana": 500,
     "meleeDefense": 1000,
     "missleDefense": 1000,
     "speed": 2,
@@ -5490,6 +6069,7 @@
       }
     ],
     "magicDefense": 1200,
+    "mana": 500,
     "meleeDefense": 1200,
     "missleDefense": 1200,
     "speed": 2,
@@ -5533,6 +6113,7 @@
       }
     ],
     "magicDefense": 600,
+    "mana": 400,
     "meleeDefense": 500,
     "missleDefense": 700,
     "speed": 2,
@@ -5557,6 +6138,7 @@
     "level": 2,
     "life": 300,
     "magicDefense": 350,
+    "mana": 300,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -5652,7 +6234,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 10
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      }
+    ],
     "magicDefense": 275,
+    "magicLevel": 200,
+    "mana": 200,
     "meleeDefense": 275,
     "missleDefense": 275,
     "speed": 2,
@@ -5700,7 +6294,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 10
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      }
+    ],
     "magicDefense": 300,
+    "magicLevel": 250,
+    "mana": 200,
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
@@ -5741,7 +6347,27 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 10
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 275,
+    "magicLevel": 200,
+    "mana": 300,
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
@@ -5782,7 +6408,15 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 34,
+        "chance": 40
+      }
+    ],
     "magicDefense": 400,
+    "magicLevel": 400,
+    "mana": 300,
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
@@ -5828,7 +6462,15 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 26,
+        "chance": 40
+      }
+    ],
     "magicDefense": 350,
+    "magicLevel": 300,
+    "mana": 350,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -5869,7 +6511,27 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 50
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 34,
+        "chance": 20
+      },
+      {
+        "spellId": 26,
+        "chance": 20
+      }
+    ],
     "magicDefense": 600,
+    "magicLevel": 600,
+    "mana": 300,
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
@@ -5915,7 +6577,15 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 26,
+        "chance": 40
+      }
+    ],
     "magicDefense": 600,
+    "magicLevel": 300,
+    "mana": 350,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -5985,7 +6655,14 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 26,
+        "chance": 20
+      }
+    ],
     "magicDefense": 700,
+    "magicLevel": 500,
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 2,
@@ -6022,6 +6699,7 @@
       }
     ],
     "magicDefense": 110,
+    "mana": 0,
     "meleeDefense": 90,
     "missleDefense": 60,
     "speed": 2,
@@ -6198,6 +6876,12 @@
       {
         "type": 42,
         "chance": 5
+      }
+    ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
       }
     ],
     "magicDefense": 210,
@@ -6670,7 +7354,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 800,
+    "magicLevel": 800,
+    "mana": 1000,
     "meleeDefense": 800,
     "missleDefense": 800,
     "speed": 2,
@@ -6714,7 +7410,23 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 11,
+        "chance": 50
+      },
+      {
+        "spellId": 26,
+        "chance": 20
+      }
+    ],
     "magicDefense": 830,
+    "magicLevel": 830,
+    "mana": 2000,
     "meleeDefense": 830,
     "missleDefense": 830,
     "speed": 2,
@@ -6764,7 +7476,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 26,
+        "chance": 20
+      }
+    ],
     "magicDefense": 860,
+    "magicLevel": 860,
+    "mana": 2000,
     "meleeDefense": 860,
     "missleDefense": 860,
     "speed": 2,
@@ -6818,7 +7542,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 34,
+        "chance": 20
+      }
+    ],
     "magicDefense": 900,
+    "magicLevel": 800,
+    "mana": 2000,
     "meleeDefense": 800,
     "missleDefense": 900,
     "speed": 2,
@@ -6877,7 +7613,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      }
+    ],
     "magicDefense": 900,
+    "magicLevel": 900,
+    "mana": 2000,
     "meleeDefense": 900,
     "missleDefense": 900,
     "speed": 2,
@@ -6932,7 +7680,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 950,
+    "magicLevel": 950,
+    "mana": 2000,
     "meleeDefense": 950,
     "missleDefense": 950,
     "speed": 2,
@@ -6986,7 +7746,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 1000,
+    "magicLevel": 1000,
+    "mana": 2000,
     "meleeDefense": 1000,
     "missleDefense": 1000,
     "speed": 2,
@@ -7039,7 +7811,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 70
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 400,
+    "magicLevel": 400,
+    "mana": 300,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -7092,7 +7884,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 72
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 300,
+    "magicLevel": 300,
+    "mana": 250,
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
@@ -7146,6 +7958,7 @@
       }
     ],
     "magicDefense": 300,
+    "mana": 10,
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
@@ -7199,6 +8012,7 @@
       }
     ],
     "magicDefense": 500,
+    "mana": 10,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -7361,7 +8175,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 20
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 700,
+    "magicLevel": 200,
+    "mana": 1000,
     "meleeDefense": 600,
     "missleDefense": 600,
     "speed": 2,
@@ -7459,7 +8285,27 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 34,
+        "chance": 10
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 600,
+    "magicLevel": 300,
+    "mana": 500,
     "meleeDefense": 600,
     "missleDefense": 600,
     "speed": 2,
@@ -7617,7 +8463,14 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 26,
+        "chance": 20
+      }
+    ],
     "magicDefense": 500,
+    "magicLevel": 500,
     "meleeDefense": 500,
     "missleDefense": 700,
     "speed": 2,
@@ -7676,7 +8529,27 @@
         "chance": 100
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 20
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 34,
+        "chance": 20
+      },
+      {
+        "spellId": 26,
+        "chance": 20
+      }
+    ],
     "magicDefense": 1000,
+    "magicLevel": 700,
+    "mana": 400,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -7706,7 +8579,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 10
+      },
+      {
+        "spellId": 34,
+        "chance": 40
+      }
+    ],
     "magicDefense": 500,
+    "magicLevel": 1000,
+    "mana": 500,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -7760,6 +8645,7 @@
       }
     ],
     "magicDefense": 500,
+    "mana": 10,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -7803,6 +8689,7 @@
       }
     ],
     "magicDefense": 250,
+    "mana": 300,
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
@@ -7847,7 +8734,22 @@
         "chance": 20
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 34,
+        "chance": 15
+      }
+    ],
     "magicDefense": 2000,
+    "mana": 1000,
     "meleeDefense": 2000,
     "missleDefense": 2000,
     "speed": 2,
@@ -7889,6 +8791,7 @@
       }
     ],
     "magicDefense": 1000,
+    "mana": 1000,
     "meleeDefense": 1000,
     "missleDefense": 1000,
     "speed": 2,
@@ -7943,7 +8846,19 @@
     },
     "level": 100,
     "life": 500,
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 20
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      }
+    ],
     "magicDefense": 500,
+    "magicLevel": 500,
+    "mana": 500,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -8648,7 +9563,19 @@
     },
     "level": 1,
     "life": 100,
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 90
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      }
+    ],
     "magicDefense": 150,
+    "magicLevel": 150,
+    "mana": 200,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -8741,6 +9668,7 @@
     },
     "level": 1,
     "life": 100,
+    "mana": 200,
     "speed": 2,
     "stamina": 200
   },
@@ -8876,6 +9804,8 @@
     "level": 20,
     "life": 100,
     "magicDefense": 100,
+    "magicLevel": 100,
+    "mana": 200,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -8924,6 +9854,7 @@
     "level": 1,
     "life": 100,
     "magicDefense": 250,
+    "magicLevel": 500,
     "meleeDefense": 250,
     "missleDefense": 500,
     "speed": 2,
@@ -8972,6 +9903,7 @@
     "level": 15,
     "life": 150,
     "magicDefense": 300,
+    "mana": 100,
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
@@ -9104,7 +10036,19 @@
     },
     "level": 100,
     "life": 500,
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 20
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      }
+    ],
     "magicDefense": 500,
+    "magicLevel": 500,
+    "mana": 500,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -9129,6 +10073,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9158,7 +10103,19 @@
         "chance": 100
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 80
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      }
+    ],
     "magicDefense": 400,
+    "magicLevel": 500,
+    "mana": 1000,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -9207,6 +10164,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9231,6 +10189,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9255,6 +10214,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9279,6 +10239,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9303,6 +10264,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9327,6 +10289,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9423,6 +10386,7 @@
     "level": 20,
     "life": 50,
     "magicDefense": 100,
+    "magicLevel": 100,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -9475,6 +10439,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9499,6 +10464,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9575,6 +10541,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9599,6 +10566,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9623,6 +10591,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9647,6 +10616,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9695,6 +10665,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9719,6 +10690,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9767,6 +10739,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9791,6 +10764,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9839,6 +10813,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9863,6 +10838,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9967,6 +10943,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -9991,6 +10968,7 @@
     "level": 100,
     "life": 50,
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -10039,6 +11017,7 @@
     "level": 20,
     "life": 50,
     "magicDefense": 100,
+    "mana": 50,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -10054,6 +11033,7 @@
       ]
     },
     "life": 80,
+    "mana": 10,
     "speed": 2,
     "stamina": 160
   },
@@ -10124,6 +11104,7 @@
     "level": 95,
     "life": 350,
     "magicDefense": 100,
+    "mana": 50,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -10141,6 +11122,7 @@
     "level": 1,
     "life": 5,
     "magicDefense": 10,
+    "mana": 100,
     "meleeDefense": 10,
     "missleDefense": 10,
     "speed": 2,
@@ -10165,6 +11147,7 @@
     "level": 20,
     "life": 50,
     "magicDefense": 100,
+    "magicLevel": 100,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -10284,6 +11267,7 @@
       }
     ],
     "magicDefense": 100,
+    "mana": 100,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -10320,6 +11304,7 @@
       }
     ],
     "magicDefense": 175,
+    "mana": 100,
     "meleeDefense": 175,
     "missleDefense": 175,
     "speed": 2,
@@ -10356,6 +11341,7 @@
       }
     ],
     "magicDefense": 250,
+    "mana": 100,
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
@@ -10392,6 +11378,7 @@
       }
     ],
     "magicDefense": 325,
+    "mana": 100,
     "meleeDefense": 325,
     "missleDefense": 325,
     "speed": 2,
@@ -10428,6 +11415,7 @@
       }
     ],
     "magicDefense": 400,
+    "mana": 100,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -10464,6 +11452,7 @@
       }
     ],
     "magicDefense": 475,
+    "mana": 100,
     "meleeDefense": 475,
     "missleDefense": 475,
     "speed": 2,
@@ -10500,6 +11489,7 @@
       }
     ],
     "magicDefense": 550,
+    "mana": 100,
     "meleeDefense": 550,
     "missleDefense": 550,
     "speed": 2,
@@ -10536,6 +11526,7 @@
       }
     ],
     "magicDefense": 625,
+    "mana": 100,
     "meleeDefense": 625,
     "missleDefense": 625,
     "speed": 2,
@@ -10572,6 +11563,7 @@
       }
     ],
     "magicDefense": 700,
+    "mana": 100,
     "meleeDefense": 700,
     "missleDefense": 700,
     "speed": 2,
@@ -10608,6 +11600,7 @@
       }
     ],
     "magicDefense": 800,
+    "mana": 100,
     "meleeDefense": 800,
     "missleDefense": 800,
     "speed": 2,
@@ -10644,6 +11637,7 @@
       }
     ],
     "magicDefense": 900,
+    "mana": 100,
     "meleeDefense": 900,
     "missleDefense": 900,
     "speed": 2,
@@ -10690,6 +11684,7 @@
       }
     ],
     "magicDefense": 350,
+    "mana": 300,
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
@@ -10738,6 +11733,7 @@
       }
     ],
     "magicDefense": 400,
+    "mana": 100,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -10781,6 +11777,7 @@
       }
     ],
     "magicDefense": 50,
+    "mana": 50,
     "meleeDefense": 50,
     "missleDefense": 50,
     "roam": 15,
@@ -10830,6 +11827,7 @@
       }
     ],
     "magicDefense": 400,
+    "mana": 100,
     "meleeDefense": 500,
     "missleDefense": 400,
     "speed": 2,
@@ -10878,6 +11876,7 @@
       }
     ],
     "magicDefense": 500,
+    "mana": 100,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -10908,6 +11907,7 @@
     },
     "level": 60,
     "life": 50,
+    "mana": 60,
     "speed": 2,
     "stamina": 100
   },
@@ -10930,6 +11930,7 @@
     "level": 95,
     "life": 350,
     "magicDefense": 100,
+    "mana": 50,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -10971,7 +11972,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 80
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      }
+    ],
     "magicDefense": 200,
+    "magicLevel": 200,
+    "mana": 300,
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
@@ -11013,7 +12026,23 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 70
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      },
+      {
+        "spellId": 11,
+        "chance": 10
+      }
+    ],
     "magicDefense": 250,
+    "magicLevel": 250,
+    "mana": 400,
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
@@ -11133,6 +12162,7 @@
       }
     ],
     "magicDefense": 600,
+    "mana": 1000,
     "meleeDefense": 600,
     "missleDefense": 600,
     "speed": 2,
@@ -11173,6 +12203,7 @@
       }
     ],
     "magicDefense": 250,
+    "mana": 100,
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
@@ -11213,6 +12244,7 @@
       }
     ],
     "magicDefense": 275,
+    "mana": 100,
     "meleeDefense": 275,
     "missleDefense": 275,
     "speed": 2,
@@ -11253,6 +12285,7 @@
       }
     ],
     "magicDefense": 300,
+    "mana": 100,
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
@@ -11276,7 +12309,19 @@
     },
     "level": 100,
     "life": 75,
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 20
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      }
+    ],
     "magicDefense": 50,
+    "magicLevel": 150,
+    "mana": 100,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -11301,6 +12346,7 @@
     "level": 100,
     "life": 100,
     "magicDefense": 50,
+    "mana": 100,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -11319,6 +12365,7 @@
     "level": 10,
     "life": 50,
     "magicDefense": 0,
+    "mana": 100,
     "meleeDefense": 0,
     "missleDefense": 0,
     "speed": 2,
@@ -11360,7 +12407,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 80
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      }
+    ],
     "magicDefense": 90,
+    "magicLevel": 80,
+    "mana": 200,
     "meleeDefense": 130,
     "missleDefense": 130,
     "speed": 2,
@@ -11407,7 +12466,19 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 80
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      }
+    ],
     "magicDefense": 110,
+    "magicLevel": 120,
+    "mana": 250,
     "meleeDefense": 160,
     "missleDefense": 160,
     "speed": 2,
@@ -11454,7 +12525,23 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 70
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      },
+      {
+        "spellId": 34,
+        "chance": 10
+      }
+    ],
     "magicDefense": 150,
+    "magicLevel": 150,
+    "mana": 300,
     "meleeDefense": 175,
     "missleDefense": 175,
     "speed": 2,
@@ -11490,7 +12577,15 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      }
+    ],
     "magicDefense": 125,
+    "magicLevel": 50,
+    "mana": 150,
     "meleeDefense": 125,
     "missleDefense": 125,
     "speed": 2,
@@ -11526,7 +12621,19 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 10
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      }
+    ],
     "magicDefense": 150,
+    "magicLevel": 70,
+    "mana": 200,
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
@@ -11664,6 +12771,7 @@
       }
     ],
     "magicDefense": 500,
+    "mana": 100,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -11700,6 +12808,7 @@
       }
     ],
     "magicDefense": 1000,
+    "mana": 100,
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
@@ -11736,6 +12845,7 @@
       }
     ],
     "magicDefense": 400,
+    "mana": 500,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -11772,6 +12882,7 @@
       }
     ],
     "magicDefense": 450,
+    "mana": 500,
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 2,
@@ -11808,6 +12919,7 @@
       }
     ],
     "magicDefense": 700,
+    "mana": 2000,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -11833,7 +12945,15 @@
     },
     "level": 160,
     "life": 4000,
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 10
+      }
+    ],
     "magicDefense": 1250,
+    "magicLevel": 200,
+    "mana": 2000,
     "meleeDefense": 1250,
     "missleDefense": 1250,
     "speed": 2,
@@ -11874,6 +12994,7 @@
       }
     ],
     "magicDefense": 3000,
+    "mana": 5000,
     "meleeDefense": 3000,
     "missleDefense": 3000,
     "speed": 2,
@@ -11910,6 +13031,7 @@
       }
     ],
     "magicDefense": 500,
+    "mana": 500,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -11992,7 +13114,18 @@
         "chance": 10
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 90
+      },
+      {
+        "spellId": 34,
+        "chance": 10
+      }
+    ],
     "magicDefense": 100,
+    "mana": 700,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -12099,7 +13232,18 @@
         "chance": 10
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 90
+      },
+      {
+        "spellId": 34,
+        "chance": 10
+      }
+    ],
     "magicDefense": 250,
+    "mana": 700,
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
@@ -12194,7 +13338,18 @@
         "chance": 10
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 90
+      },
+      {
+        "spellId": 34,
+        "chance": 10
+      }
+    ],
     "magicDefense": 400,
+    "mana": 700,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -12317,7 +13472,18 @@
         "chance": 10
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 90
+      },
+      {
+        "spellId": 34,
+        "chance": 10
+      }
+    ],
     "magicDefense": 600,
+    "mana": 700,
     "meleeDefense": 600,
     "missleDefense": 600,
     "speed": 2,
@@ -12443,7 +13609,18 @@
         "chance": 10
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 90
+      },
+      {
+        "spellId": 34,
+        "chance": 10
+      }
+    ],
     "magicDefense": 850,
+    "mana": 900,
     "meleeDefense": 850,
     "missleDefense": 850,
     "speed": 2,
@@ -12561,6 +13738,7 @@
       }
     ],
     "magicDefense": 450,
+    "mana": 100,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -12618,6 +13796,7 @@
       }
     ],
     "magicDefense": 450,
+    "mana": 100,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -12679,6 +13858,7 @@
       }
     ],
     "magicDefense": 480,
+    "mana": 100,
     "meleeDefense": 430,
     "missleDefense": 430,
     "speed": 2,
@@ -12736,6 +13916,7 @@
       }
     ],
     "magicDefense": 450,
+    "mana": 100,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -12793,6 +13974,7 @@
       }
     ],
     "magicDefense": 450,
+    "mana": 100,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -12850,6 +14032,7 @@
       }
     ],
     "magicDefense": 400,
+    "mana": 100,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -12907,6 +14090,7 @@
       }
     ],
     "magicDefense": 400,
+    "mana": 100,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -12961,6 +14145,7 @@
       }
     ],
     "magicDefense": 250,
+    "mana": 100,
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
@@ -13018,6 +14203,7 @@
       }
     ],
     "magicDefense": 400,
+    "mana": 100,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -13079,7 +14265,27 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 20
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 400,
+    "magicLevel": 350,
+    "mana": 200,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -13137,6 +14343,7 @@
       }
     ],
     "magicDefense": 400,
+    "mana": 100,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -13194,6 +14401,7 @@
       }
     ],
     "magicDefense": 425,
+    "mana": 100,
     "meleeDefense": 375,
     "missleDefense": 375,
     "speed": 2,
@@ -13251,6 +14459,7 @@
       }
     ],
     "magicDefense": 400,
+    "mana": 100,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -13312,7 +14521,31 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 50
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 34,
+        "chance": 15
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 400,
+    "magicLevel": 350,
+    "mana": 400,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -13373,7 +14606,31 @@
         "chance": 0.1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 50
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 34,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 450,
+    "magicLevel": 350,
+    "mana": 400,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -13432,6 +14689,7 @@
       }
     ],
     "magicDefense": 1300,
+    "mana": 1000,
     "meleeDefense": 1250,
     "missleDefense": 1250,
     "speed": 2,
@@ -13690,6 +14948,7 @@
       }
     ],
     "magicDefense": 600,
+    "mana": 100,
     "meleeDefense": 600,
     "missleDefense": 600,
     "speed": 2,
@@ -13725,6 +14984,7 @@
       }
     ],
     "magicDefense": 360,
+    "mana": 100,
     "meleeDefense": 220,
     "missleDefense": 220,
     "speed": 2,
@@ -14173,7 +15433,15 @@
     },
     "level": 160,
     "life": 3000,
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 10
+      }
+    ],
     "magicDefense": 1200,
+    "magicLevel": 200,
+    "mana": 2000,
     "meleeDefense": 1200,
     "missleDefense": 1200,
     "speed": 2,
@@ -14199,7 +15467,15 @@
     },
     "level": 160,
     "life": 4000,
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 10
+      }
+    ],
     "magicDefense": 1250,
+    "magicLevel": 200,
+    "mana": 2000,
     "meleeDefense": 1250,
     "missleDefense": 1250,
     "speed": 2,
@@ -14250,6 +15526,7 @@
       }
     ],
     "magicDefense": 50,
+    "mana": 100,
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
@@ -14303,6 +15580,7 @@
       }
     ],
     "magicDefense": 150,
+    "mana": 10,
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
@@ -14349,6 +15627,7 @@
       }
     ],
     "magicDefense": 500,
+    "mana": 100,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -14395,6 +15674,7 @@
       }
     ],
     "magicDefense": 525,
+    "mana": 100,
     "meleeDefense": 525,
     "missleDefense": 525,
     "speed": 2,
@@ -14441,6 +15721,7 @@
       }
     ],
     "magicDefense": 400,
+    "mana": 100,
     "meleeDefense": 600,
     "missleDefense": 400,
     "speed": 2,
@@ -14487,6 +15768,7 @@
       }
     ],
     "magicDefense": 450,
+    "mana": 100,
     "meleeDefense": 700,
     "missleDefense": 450,
     "speed": 2,
@@ -14533,6 +15815,7 @@
       }
     ],
     "magicDefense": 550,
+    "mana": 100,
     "meleeDefense": 550,
     "missleDefense": 550,
     "speed": 2,
@@ -14578,7 +15861,23 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 80
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 34,
+        "chance": 10
+      }
+    ],
     "magicDefense": 600,
+    "magicLevel": 500,
+    "mana": 1000,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -14624,7 +15923,23 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 80
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 34,
+        "chance": 10
+      }
+    ],
     "magicDefense": 700,
+    "magicLevel": 550,
+    "mana": 1200,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -14671,6 +15986,7 @@
       }
     ],
     "magicDefense": 575,
+    "mana": 100,
     "meleeDefense": 575,
     "missleDefense": 575,
     "speed": 2,
@@ -14717,6 +16033,7 @@
       }
     ],
     "magicDefense": 550,
+    "mana": 100,
     "meleeDefense": 550,
     "missleDefense": 550,
     "speed": 2,
@@ -14762,7 +16079,23 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 25
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 34,
+        "chance": 15
+      }
+    ],
     "magicDefense": 550,
+    "magicLevel": 400,
+    "mana": 1000,
     "meleeDefense": 550,
     "missleDefense": 550,
     "speed": 2,
@@ -14816,6 +16149,7 @@
       }
     ],
     "magicDefense": 350,
+    "mana": 10,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -14868,7 +16202,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 150,
+    "magicLevel": 150,
+    "mana": 400,
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
@@ -14953,7 +16307,18 @@
         "chance": 5
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 90
+      },
+      {
+        "spellId": 34,
+        "chance": 10
+      }
+    ],
     "magicDefense": 250,
+    "mana": 700,
     "meleeDefense": 150,
     "missleDefense": 150,
     "roam": 50,
@@ -15164,7 +16529,15 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 34,
+        "chance": 10
+      }
+    ],
     "magicDefense": 300,
+    "magicLevel": 300,
+    "mana": 200,
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
@@ -15187,7 +16560,15 @@
       ]
     },
     "life": 300,
+    "magicChances": [
+      {
+        "spellId": 34,
+        "chance": 10
+      }
+    ],
     "magicDefense": 325,
+    "magicLevel": 325,
+    "mana": 200,
     "meleeDefense": 325,
     "missleDefense": 325,
     "speed": 2,
@@ -15212,7 +16593,15 @@
       "height": 2
     },
     "life": 500,
+    "magicChances": [
+      {
+        "spellId": 34,
+        "chance": 10
+      }
+    ],
     "magicDefense": 525,
+    "magicLevel": 525,
+    "mana": 400,
     "meleeDefense": 525,
     "missleDefense": 525,
     "speed": 2,
@@ -15404,7 +16793,18 @@
     },
     "level": 2,
     "life": 5500,
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 1500
+      },
+      {
+        "spellId": 1,
+        "chance": 100
+      }
+    ],
     "magicDefense": 5000,
+    "mana": 7500,
     "meleeDefense": 5000,
     "missleDefense": 5000,
     "speed": 2,
@@ -15543,7 +16943,18 @@
     },
     "level": 2,
     "life": 5500,
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 1500
+      },
+      {
+        "spellId": 1,
+        "chance": 100
+      }
+    ],
     "magicDefense": 5000,
+    "mana": 7500,
     "meleeDefense": 5000,
     "missleDefense": 5000,
     "speed": 2,
@@ -15577,7 +16988,18 @@
     },
     "level": 2,
     "life": 5500,
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 1500
+      },
+      {
+        "spellId": 1,
+        "chance": 100
+      }
+    ],
     "magicDefense": 5000,
+    "mana": 7500,
     "meleeDefense": 5000,
     "missleDefense": 5000,
     "speed": 2,
@@ -16002,6 +17424,8 @@
     "level": 20,
     "life": 100,
     "magicDefense": 100,
+    "magicLevel": 100,
+    "mana": 200,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -16130,7 +17554,18 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      }
+    ],
     "magicDefense": 330,
+    "mana": 100,
     "meleeDefense": 330,
     "missleDefense": 330,
     "speed": 1,
@@ -16184,6 +17619,7 @@
       }
     ],
     "magicDefense": 400,
+    "mana": 10,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -16294,7 +17730,19 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 70
+      },
+      {
+        "spellId": 3,
+        "chance": 150
+      }
+    ],
     "magicDefense": 550,
+    "magicLevel": 550,
+    "mana": 750,
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 2,
@@ -16347,7 +17795,19 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      }
+    ],
     "magicDefense": 250,
+    "magicLevel": 100,
+    "mana": 100,
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 1,
@@ -16400,7 +17860,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 34,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 350,
+    "magicLevel": 250,
+    "mana": 200,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -16453,7 +17933,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 34,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 400,
+    "magicLevel": 300,
+    "mana": 250,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -16506,7 +18006,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 34,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 450,
+    "magicLevel": 350,
+    "mana": 250,
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 2,
@@ -16559,7 +18079,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 34,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 500,
+    "magicLevel": 400,
+    "mana": 300,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -16612,7 +18152,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 34,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 550,
+    "magicLevel": 450,
+    "mana": 300,
     "meleeDefense": 550,
     "missleDefense": 550,
     "speed": 2,
@@ -16665,7 +18225,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 34,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 650,
+    "magicLevel": 550,
+    "mana": 550,
     "meleeDefense": 650,
     "missleDefense": 650,
     "speed": 1,
@@ -17216,7 +18796,27 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 34,
+        "chance": 10
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 650,
+    "magicLevel": 350,
+    "mana": 500,
     "meleeDefense": 650,
     "missleDefense": 650,
     "speed": 2,
@@ -17269,7 +18869,31 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 1
+      },
+      {
+        "spellId": 3,
+        "chance": 74
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 200,
+    "magicLevel": 200,
+    "mana": 450,
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
@@ -17322,7 +18946,31 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 2
+      },
+      {
+        "spellId": 3,
+        "chance": 73
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 250,
+    "magicLevel": 250,
+    "mana": 450,
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
@@ -17375,7 +19023,31 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 3
+      },
+      {
+        "spellId": 3,
+        "chance": 72
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 300,
+    "magicLevel": 300,
+    "mana": 500,
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
@@ -17428,7 +19100,31 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 4
+      },
+      {
+        "spellId": 3,
+        "chance": 71
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 350,
+    "magicLevel": 350,
+    "mana": 550,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -17481,7 +19177,31 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 5
+      },
+      {
+        "spellId": 3,
+        "chance": 70
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 400,
+    "magicLevel": 400,
+    "mana": 600,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -17534,7 +19254,31 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 6
+      },
+      {
+        "spellId": 3,
+        "chance": 69
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 450,
+    "magicLevel": 450,
+    "mana": 600,
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 2,
@@ -17587,7 +19331,31 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 7
+      },
+      {
+        "spellId": 3,
+        "chance": 68
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 500,
+    "magicLevel": 500,
+    "mana": 650,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -17640,7 +19408,31 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 8
+      },
+      {
+        "spellId": 3,
+        "chance": 67
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 550,
+    "magicLevel": 550,
+    "mana": 650,
     "meleeDefense": 550,
     "missleDefense": 550,
     "speed": 2,
@@ -17694,7 +19486,31 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 10
+      },
+      {
+        "spellId": 3,
+        "chance": 65
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 650,
+    "magicLevel": 650,
+    "mana": 700,
     "meleeDefense": 650,
     "missleDefense": 650,
     "speed": 2,
@@ -17747,7 +19563,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 100,
+    "magicLevel": 100,
+    "mana": 100,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -17800,7 +19636,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 150,
+    "magicLevel": 150,
+    "mana": 150,
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
@@ -17853,7 +19709,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 74
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 200,
+    "magicLevel": 200,
+    "mana": 200,
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
@@ -17906,7 +19782,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 73
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 250,
+    "magicLevel": 250,
+    "mana": 200,
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
@@ -17960,7 +19856,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 71
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 350,
+    "magicLevel": 350,
+    "mana": 250,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -18014,7 +19930,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 69
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 450,
+    "magicLevel": 450,
+    "mana": 300,
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 2,
@@ -18067,7 +20003,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 68
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 500,
+    "magicLevel": 500,
+    "mana": 350,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -18120,7 +20076,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 67
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 550,
+    "magicLevel": 550,
+    "mana": 350,
     "meleeDefense": 550,
     "missleDefense": 550,
     "speed": 2,
@@ -18173,7 +20149,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 66
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 600,
+    "magicLevel": 600,
+    "mana": 400,
     "meleeDefense": 600,
     "missleDefense": 600,
     "speed": 2,
@@ -18226,7 +20222,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 65
+      },
+      {
+        "spellId": 1,
+        "chance": 15
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 650,
+    "magicLevel": 650,
+    "mana": 400,
     "meleeDefense": 650,
     "missleDefense": 650,
     "speed": 2,
@@ -18280,6 +20296,7 @@
       }
     ],
     "magicDefense": 100,
+    "mana": 10,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -18333,6 +20350,7 @@
       }
     ],
     "magicDefense": 150,
+    "mana": 10,
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
@@ -18386,6 +20404,7 @@
       }
     ],
     "magicDefense": 200,
+    "mana": 10,
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
@@ -18439,6 +20458,7 @@
       }
     ],
     "magicDefense": 250,
+    "mana": 10,
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
@@ -18492,6 +20512,7 @@
       }
     ],
     "magicDefense": 350,
+    "mana": 10,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -18545,6 +20566,7 @@
       }
     ],
     "magicDefense": 400,
+    "mana": 10,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -18598,6 +20620,7 @@
       }
     ],
     "magicDefense": 450,
+    "mana": 10,
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 2,
@@ -18651,6 +20674,7 @@
       }
     ],
     "magicDefense": 550,
+    "mana": 10,
     "meleeDefense": 550,
     "missleDefense": 550,
     "speed": 2,
@@ -18704,6 +20728,7 @@
       }
     ],
     "magicDefense": 100,
+    "mana": 10,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -18757,6 +20782,7 @@
       }
     ],
     "magicDefense": 150,
+    "mana": 10,
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
@@ -18810,6 +20836,7 @@
       }
     ],
     "magicDefense": 200,
+    "mana": 10,
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
@@ -18863,6 +20890,7 @@
       }
     ],
     "magicDefense": 250,
+    "mana": 10,
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
@@ -18916,6 +20944,7 @@
       }
     ],
     "magicDefense": 450,
+    "mana": 10,
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 2,
@@ -18969,6 +20998,7 @@
       }
     ],
     "magicDefense": 550,
+    "mana": 10,
     "meleeDefense": 550,
     "missleDefense": 550,
     "speed": 2,
@@ -20245,7 +22275,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 100,
+    "magicLevel": 100,
+    "mana": 100,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -20298,7 +22348,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 150,
+    "magicLevel": 150,
+    "mana": 100,
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
@@ -20351,7 +22421,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 74
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 200,
+    "magicLevel": 200,
+    "mana": 150,
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
@@ -20404,7 +22494,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 73
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 250,
+    "magicLevel": 250,
+    "mana": 150,
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
@@ -20457,7 +22567,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 72
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 300,
+    "magicLevel": 300,
+    "mana": 200,
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
@@ -20510,7 +22640,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 71
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 350,
+    "magicLevel": 350,
+    "mana": 200,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -20563,7 +22713,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 70
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 400,
+    "magicLevel": 400,
+    "mana": 250,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -20616,7 +22786,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 69
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 450,
+    "magicLevel": 450,
+    "mana": 250,
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 2,
@@ -20669,7 +22859,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 68
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 500,
+    "magicLevel": 500,
+    "mana": 300,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -20722,7 +22932,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 67
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 550,
+    "magicLevel": 550,
+    "mana": 300,
     "meleeDefense": 550,
     "missleDefense": 550,
     "speed": 2,
@@ -20775,7 +23005,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 66
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 600,
+    "magicLevel": 600,
+    "mana": 350,
     "meleeDefense": 600,
     "missleDefense": 600,
     "speed": 2,
@@ -20828,7 +23078,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 65
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 650,
+    "magicLevel": 650,
+    "mana": 400,
     "meleeDefense": 650,
     "missleDefense": 650,
     "speed": 2,
@@ -22112,6 +24382,7 @@
       }
     ],
     "magicDefense": 1000,
+    "mana": 100,
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
@@ -22148,6 +24419,7 @@
       }
     ],
     "magicDefense": 400,
+    "mana": 500,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -22184,6 +24456,7 @@
       }
     ],
     "magicDefense": 450,
+    "mana": 500,
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 2,
@@ -22220,6 +24493,7 @@
       }
     ],
     "magicDefense": 500,
+    "mana": 500,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -22256,6 +24530,7 @@
       }
     ],
     "magicDefense": 700,
+    "mana": 2000,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -22308,7 +24583,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 100,
+    "magicLevel": 100,
+    "mana": 100,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -22361,7 +24656,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 150,
+    "magicLevel": 150,
+    "mana": 150,
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
@@ -22414,7 +24729,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 200,
+    "magicLevel": 200,
+    "mana": 200,
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
@@ -22467,7 +24802,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 250,
+    "magicLevel": 250,
+    "mana": 200,
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
@@ -22520,7 +24875,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 300,
+    "magicLevel": 300,
+    "mana": 250,
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
@@ -22573,7 +24948,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 350,
+    "magicLevel": 350,
+    "mana": 300,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -22626,7 +25021,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 400,
+    "magicLevel": 400,
+    "mana": 300,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -22679,7 +25094,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 450,
+    "magicLevel": 450,
+    "mana": 350,
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 2,
@@ -22732,7 +25167,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 500,
+    "magicLevel": 500,
+    "mana": 400,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -22785,7 +25240,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 550,
+    "magicLevel": 550,
+    "mana": 400,
     "meleeDefense": 550,
     "missleDefense": 550,
     "speed": 2,
@@ -22838,7 +25313,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 600,
+    "magicLevel": 600,
+    "mana": 450,
     "meleeDefense": 600,
     "missleDefense": 600,
     "speed": 2,
@@ -22891,7 +25386,27 @@
         "chance": 30
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 75
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 650,
+    "magicLevel": 650,
+    "mana": 500,
     "meleeDefense": 650,
     "missleDefense": 650,
     "speed": 2,
@@ -23116,7 +25631,15 @@
         "chance": 5
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 34,
+        "chance": 5
+      }
+    ],
     "magicDefense": 160,
+    "magicLevel": 160,
+    "mana": 100,
     "meleeDefense": 160,
     "missleDefense": 160,
     "speed": 2,
@@ -23147,7 +25670,15 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 20
+      }
+    ],
     "magicDefense": 200,
+    "magicLevel": 150,
+    "mana": 200,
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 3,
@@ -23187,7 +25718,15 @@
         "chance": 5
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 34,
+        "chance": 5
+      }
+    ],
     "magicDefense": 170,
+    "magicLevel": 170,
+    "mana": 100,
     "meleeDefense": 170,
     "missleDefense": 170,
     "speed": 2,
@@ -23218,7 +25757,15 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 20
+      }
+    ],
     "magicDefense": 225,
+    "magicLevel": 175,
+    "mana": 250,
     "meleeDefense": 175,
     "missleDefense": 175,
     "speed": 3,
@@ -23493,6 +26040,24 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 40
+      },
+      {
+        "spellId": 3,
+        "chance": 20
+      },
+      {
+        "spellId": 1,
+        "chance": 20
+      },
+      {
+        "spellId": 34,
+        "chance": 10
+      }
+    ],
     "magicDefense": 200,
     "meleeDefense": 250,
     "missleDefense": 150,
@@ -23532,7 +26097,15 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 34,
+        "chance": 20
+      }
+    ],
     "magicDefense": 1000,
+    "magicLevel": 800,
+    "mana": 100,
     "meleeDefense": 800,
     "missleDefense": 800,
     "speed": 2,
@@ -23571,7 +26144,14 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 34,
+        "chance": 20
+      }
+    ],
     "magicDefense": 1100,
+    "magicLevel": 900,
     "meleeDefense": 900,
     "missleDefense": 900,
     "speed": 2,
@@ -23615,7 +26195,27 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 3,
+        "chance": 80
+      },
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 34,
+        "chance": 5
+      },
+      {
+        "spellId": 26,
+        "chance": 5
+      }
+    ],
     "magicDefense": 1000,
+    "magicLevel": 800,
+    "mana": 900,
     "meleeDefense": 800,
     "missleDefense": 800,
     "speed": 2,
@@ -23655,7 +26255,15 @@
         "chance": 2
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 34,
+        "chance": 30
+      }
+    ],
     "magicDefense": 1100,
+    "magicLevel": 1000,
+    "mana": 1000,
     "meleeDefense": 1000,
     "missleDefense": 1000,
     "speed": 2,
@@ -23696,7 +26304,23 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 1,
+        "chance": 10
+      },
+      {
+        "spellId": 34,
+        "chance": 20
+      },
+      {
+        "spellId": 26,
+        "chance": 20
+      }
+    ],
     "magicDefense": 500,
+    "magicLevel": 700,
+    "mana": 900,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -23730,7 +26354,31 @@
         "chance": 1
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 50
+      },
+      {
+        "spellId": 1,
+        "chance": 30
+      },
+      {
+        "spellId": 24,
+        "chance": 5
+      },
+      {
+        "spellId": 34,
+        "chance": 15
+      },
+      {
+        "spellId": 26,
+        "chance": 10
+      }
+    ],
     "magicDefense": 450,
+    "magicLevel": 1000,
+    "mana": 2000,
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 2,
@@ -23802,6 +26450,7 @@
       }
     ],
     "magicDefense": 350,
+    "mana": 300,
     "meleeDefense": 300,
     "missleDefense": 450,
     "speed": 2,
@@ -23905,7 +26554,15 @@
         "chance": 5
       }
     ],
+    "magicChances": [
+      {
+        "spellId": 34,
+        "chance": 50
+      }
+    ],
     "magicDefense": 1000,
+    "magicLevel": 1000,
+    "mana": 1000,
     "meleeDefense": 1000,
     "missleDefense": 1000,
     "speed": 2,
@@ -24199,6 +26856,7 @@
       }
     ],
     "magicDefense": 300,
+    "mana": 50,
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
@@ -24235,6 +26893,7 @@
       }
     ],
     "magicDefense": 350,
+    "mana": 50,
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
@@ -24266,6 +26925,7 @@
       }
     ],
     "magicDefense": 400,
+    "mana": 50,
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
@@ -24298,6 +26958,7 @@
       }
     ],
     "magicDefense": 500,
+    "mana": 50,
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
@@ -24330,7 +26991,18 @@
     },
     "level": 2,
     "life": 5500,
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 1500
+      },
+      {
+        "spellId": 1,
+        "chance": 100
+      }
+    ],
     "magicDefense": 5000,
+    "mana": 7500,
     "meleeDefense": 5000,
     "missleDefense": 5000,
     "speed": 2,
@@ -24364,7 +27036,18 @@
     },
     "level": 2,
     "life": 5500,
+    "magicChances": [
+      {
+        "spellId": 10,
+        "chance": 1500
+      },
+      {
+        "spellId": 1,
+        "chance": 100
+      }
+    ],
     "magicDefense": 5000,
+    "mana": 7500,
     "meleeDefense": 5000,
     "missleDefense": 5000,
     "speed": 2,
@@ -24443,6 +27126,7 @@
     "level": 32,
     "life": 200,
     "magicDefense": 100,
+    "mana": 100,
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
@@ -24495,6 +27179,7 @@
       }
     ],
     "magicDefense": 150,
+    "mana": 50,
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
@@ -24599,6 +27284,7 @@
     },
     "level": 1,
     "life": 100,
+    "mana": 200,
     "speed": 2,
     "stamina": 200
   },
@@ -24613,6 +27299,7 @@
     },
     "level": 1,
     "life": 100,
+    "mana": 200,
     "speed": 2,
     "stamina": 200
   },
@@ -24627,6 +27314,7 @@
     },
     "level": 1,
     "life": 100,
+    "mana": 200,
     "speed": 2,
     "stamina": 200
   },

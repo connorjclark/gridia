@@ -557,6 +557,8 @@ export class Server {
         missleDefense: template.missleDefense || 0,
       },
       buffs: [],
+      magicLevel: template.magicLevel,
+      magicChances: template.magicChances,
       ...descriptor.partial,
     };
 

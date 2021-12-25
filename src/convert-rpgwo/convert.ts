@@ -1025,6 +1025,36 @@ function parseMonsterIni() {
     };
 
     if (monster.speed === undefined) monster.speed = 2;
+
+    // @ts-expect-error
+    monster.magicLevel = monster.castSpell;
+    [
+      'castBlackhole',
+      'castHarm',
+      'castHeal',
+      'castHero',
+      'castIce',
+      'castLifeRenewal',
+      'castLightning',
+      'castManaRenewal',
+      'castNova',
+      'castRevive',
+      'castStaminaRenewal',
+    ].forEach(prop => {
+      const spellName = prop.replace('cast', '');
+      // @ts-expect-error
+      const chance = monster[prop] || monster[prop.toLowerCase()] as number|undefined;
+      if (!chance) return;
+
+      const spell = state.spells.find(spell => spell.name.replace(' ', '').includes(spellName));
+      if (!spell) throw new Error('did not find spell for ' + prop);
+
+      monster.magicChances = monster.magicChances || [];
+      monster.magicChances.push({
+        spellId: spell.id,
+        chance,
+      });
+    });
   }
 
   // Just in case monsters are defined out of order.
@@ -1042,7 +1072,10 @@ function parseMonsterIni() {
     'level',
     'life',
     'lootTable',
+    'magicChances',
     'magicDefense',
+    'magicLevel',
+    'mana',
     'meleeDefense',
     'missleDefense',
     'name',
