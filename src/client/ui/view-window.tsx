@@ -92,7 +92,7 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
 
             const children = [];
             if (action.type === 'split' && quantity > 1) {
-              const quantityToSplit = props.quantity || quantity - 1;
+              const quantityToSplit = props.quantity || 1;
               children.push(
                 <input
                   type="number"
