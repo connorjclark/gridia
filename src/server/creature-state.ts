@@ -166,6 +166,12 @@ const Actions: Record<string, Action> = {
 
       this.goto(creatureToFollow.pos);
       this.idle(server, 2000); // Throttle how often pathfinding runs.
+
+      if (this.path.length === 0 || this.path.length >= 20) {
+        this.targetCreature = null;
+        this.resetGoals();
+        return false;
+      }
     },
   },
   EatGrass: {
@@ -401,6 +407,7 @@ export class CreatureState {
       this._handleMovement(server);
     }
 
+    if (this.creature.isPlayer) return;
     if (this.ticksUntilNotIdle > 0) return;
     if (!this.goalActionPlans.size) return;
     if (!this.goals.length) return;
@@ -594,6 +601,9 @@ export class CreatureState {
         if (enemy.creature.pos.w !== w) continue;
 
         const dist = Utils.dist(enemy.creature.pos, this.creature.pos);
+        // TODO: LOS
+        if (dist >= 20) continue;
+
         if (!closestEnemy || closestDist > dist) {
           closestEnemy = enemy;
           closestDist = dist;
