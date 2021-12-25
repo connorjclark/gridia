@@ -12,6 +12,9 @@ import {adjustAttribute} from './creature-utils.js';
 import {aStar} from './plan.js';
 import {Server} from './server.js';
 
+// State that clients don't need and shouldn't have.
+// Also isn't serialized - this state is transient.
+
 interface Goal {
   desiredEffect: string;
   priority: number;
@@ -22,11 +25,25 @@ interface Action {
   name: string;
   cost: number;
   preconditions: string[];
+  /**
+   * Effects that will (potentially) become true if this action is taken.
+   * If an effect corresponds to a fact (see Facts), then the action will
+   * likely do logic that result in the Fact logic eventually returning true.
+   * If there is no associated Fact callback, then the effect is "fake" and
+   * is only used to force the plan creation to use this fact (see "wander").
+   */
   effects: string[];
-  // If returns:
-  //    true - action completed successfully, move on to next action
-  //    false - action cannot complete, replan how to reach goal
-  //    void - maintain action for another tick
+  /**
+   * Used to determine if this action is immedietly applicable. If returns false,
+   * then some other goal's plan will be attempted first.
+   */
+  isAvailable?(this: CreatureState): boolean;
+  /**
+   * If returns:
+   * - true: action completed successfully, move on to next action
+   * - false: action cannot complete, replan how to reach goal
+   * - void: maintain action for another tick
+   */
   tick?(this: CreatureState, server: Server): boolean | void;
 }
 
@@ -38,9 +55,38 @@ const Facts: Record<string, Fact> = {
   'on-grass'(server) {
     return isGrass(server.context.map.getTile(this.creature.pos).floor);
   },
-  'near-target'() {
+  'too-close-target'() {
     if (!this.targetCreature) return false;
-    return Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos) <= 1;
+
+    const weapon = this.creature.equipment?.[Container.EQUIP_SLOTS.Weapon];
+    let minRange = 1;
+    if (weapon) {
+      const meta = Content.getMetaItem(weapon.type);
+      if (meta.minRange !== undefined) minRange = meta.minRange;
+    }
+
+    return Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos) < minRange;
+  },
+  'too-far-target'() {
+    if (!this.targetCreature) return false;
+
+    const weapon = this.creature.equipment?.[Container.EQUIP_SLOTS.Weapon];
+    let maxRange = 1;
+    if (weapon) {
+      const meta = Content.getMetaItem(weapon.type);
+      if (meta.maxRange !== undefined) maxRange = meta.maxRange;
+    }
+
+    return Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos) > maxRange;
+  },
+  'near-target'(server) {
+    return !Facts['too-close-target'].call(this, server) && !Facts['too-far-target'].call(this, server);
+  },
+  'hidden-from-target'(server) {
+    if (!this.targetCreature) return false;
+
+    // TODO: actually use target LOS and attack range
+    return Utils.maxDiff(this.creature.pos, this.targetCreature.creature.pos) >= 7;
   },
   'kill-creature'() {
     return !Boolean(this.targetCreature); // ?
@@ -54,6 +100,9 @@ const Actions: Record<string, Action> = {
     cost: 100,
     preconditions: [],
     effects: ['wander'],
+    isAvailable() {
+      return this.targetCreature === null;
+    },
     tick() {
       // Just wander baby.
       if (this.path.length) return;
@@ -65,11 +114,33 @@ const Actions: Record<string, Action> = {
       this.goto(randomDest);
     },
   },
-  UnarmedMeleeAttack: {
-    name: 'UnarmedMeleeAttack',
+  AttackTarget: {
+    name: 'AttackTarget',
     cost: 10,
     preconditions: ['near-target'],
     effects: ['kill-creature'],
+    isAvailable() {
+      return this.canAttackAgain();
+    },
+    tick(server) {
+      this._handleAttack(server);
+    },
+  },
+  EvadeTarget: {
+    name: 'EvadeTarget',
+    cost: 5,
+    preconditions: [],
+    effects: ['hidden-from-target'],
+    tick(server) {
+      const targetCreature = this.targetCreature?.creature;
+      if (!targetCreature) return false;
+
+      const dir = Utils.direction(targetCreature.pos, this.creature.pos);
+      const dest = {...this.creature.pos};
+      if (dir.x) dest.x += Math.sign(dir.x);
+      if (dir.y) dest.y += Math.sign(dir.y);
+      this.goto(dest);
+    },
   },
   FollowTarget: {
     name: 'FollowTarget',
@@ -81,7 +152,9 @@ const Actions: Record<string, Action> = {
       let creatureToFollow = this.targetCreature?.creature;
       if (this.creature.tamedBy) {
         const tamedByPlayer = server.context.players.get(this.creature.tamedBy);
-        if (tamedByPlayer) creatureToFollow = server.findCreatureForPlayer(tamedByPlayer);
+        if (tamedByPlayer){
+          creatureToFollow = server.findCreatureForPlayer(tamedByPlayer);
+        }
       }
 
       if (!creatureToFollow) return false;
@@ -139,8 +212,6 @@ const Actions: Record<string, Action> = {
   },
 };
 
-// State that clients don't need and shouldn't have.
-// Also isn't serialized - this state is transient.
 export class CreatureState {
   mode: string[] = [];
   // True if last movement was a warp. Prevents infinite stairs.
@@ -165,18 +236,31 @@ export class CreatureState {
 
   // GOAP
   private _actions: Action[];
+  /** Sorted by highest priority first. */
   private goals: Goal[] = [];
-  private currentGoal: Goal | null = null;
-  private plannedActions: Action[] = [];
+  private goalActionPlans: Map<Goal, {shouldRecreate: boolean; createdAt: number; actions: Action[]}> = new Map();
 
   private _shouldRecreatePlan = false;
 
   constructor(public creature: Creature, private context: Context) {
     this.home = creature.pos;
     this._actions = [
-      Actions.UnarmedMeleeAttack,
+      Actions.AttackTarget,
       Actions.FollowTarget,
     ];
+
+    // TODO: this only allows ranged monsters to evade ...
+    // otherwise melee monsters will always run way too far away in combat.
+    // Instead, maybe tune "EvadeTarget" action?
+    const weapon = this.creature.equipment?.[Container.EQUIP_SLOTS.Weapon];
+    let maxRange = 1;
+    if (weapon) {
+      const meta = Content.getMetaItem(weapon.type);
+      if (meta.maxRange !== undefined) maxRange = meta.maxRange;
+    }
+    if (maxRange > 5) {
+      this._actions.push(Actions.EvadeTarget);
+    }
 
     if (this.creature.eatGrass) {
       this._actions.push(Actions.FindGrass);
@@ -211,19 +295,23 @@ export class CreatureState {
     this.ticksUntilNotIdle = server.taskRunner.rateToTicks({ms: time});
   }
 
+  canAttackAgain() {
+    return this.ticksUntilNextAttack === 0;
+  }
+
   addGoal(newGoal: Goal) {
     for (const goal of this.goals) {
       if (goal.desiredEffect === newGoal.desiredEffect) {
         if (goal.priority !== newGoal.priority) {
           goal.priority = newGoal.priority;
-          this._shouldRecreatePlan = true;
+          this._shouldRecreatePlan = true; // TODO why?
         }
         return;
       }
     }
 
     this.goals.push(newGoal);
-    this._shouldRecreatePlan = true;
+    this.goals.sort((a, b) => b.priority - a.priority);
   }
 
   resetRegenerationTimer(server: Server) {
@@ -270,42 +358,85 @@ export class CreatureState {
       });
     }
 
-    if (this.currentGoal && this.currentGoal.satisfied.call(this, server)) {
-      this.goals.splice(this.goals.indexOf(this.currentGoal), 1);
-      this._shouldRecreatePlan = true;
-    }
-    if (!this.plannedActions.length) {
-      this._shouldRecreatePlan = true;
-    }
-    if (this._shouldRecreatePlan) this._createPlan(server);
+    const currentFacts = new Map<string, boolean>();
+    const testFact = (factName: string) => {
+      let isFact = currentFacts.get(factName);
+      if (isFact === undefined) {
+        if (Facts[factName]) {
+          isFact = Facts[factName].call(this, server);
+        } else {
+          // Not all facts are "real" (like wander).
+          isFact = false;
+        }
+      }
 
-    this._handleMovement(server);
-    this._handleAttack(server);
+      currentFacts.set(factName, isFact);
+      return isFact;
+    };
+
+    for (const goal of this.goals) {
+      if (goal.satisfied.call(this, server)) {
+        this.goals.splice(this.goals.indexOf(goal), 1);
+        this.goalActionPlans.delete(goal);
+      }
+    }
+
+    if (this.creature.isPlayer) {
+      // Constantly try to attack if player. For monsters, this is only called if
+      // in the AttackTarget state.
+      this._handleAttack(server);
+    } else {
+      // For monsters only.
+      this._createPlan(server);
+      this._handleMovement(server);
+    }
 
     if (this.ticksUntilNotIdle > 0) return;
+    if (!this.goalActionPlans.size) return;
+    if (!this.goals.length) return;
 
     this.partition = server.context.map.getPartition(this.creature.pos.w);
 
-    if (!this.goals.length) {
-      return;
+    // Find an action for the highest priority goal that can be done now.
+    let currentGoal;
+    let currentPlan;
+    let currentAction;
+    for (const goal of this.goals) {
+      const plan = this.goalActionPlans.get(goal);
+      if (!plan) continue; // Shouldn't happen.
+
+      const action = plan.actions[plan.actions.length - 1];
+      if (action.isAvailable && !action.isAvailable.call(this)) continue;
+      if (!action.preconditions.every(testFact)) {
+        plan.shouldRecreate = true;
+        continue;
+      }
+
+      currentGoal = goal;
+      currentPlan = plan;
+      currentAction = action;
+      break;
     }
 
-    if (!this.plannedActions.length) return;
-
-    const currentAction = this.plannedActions[this.plannedActions.length - 1];
-
-    const passesPreconditons = currentAction.preconditions.every((p) => Facts[p].call(this, server));
-    if (!passesPreconditons) {
+    if (!currentAction || !currentGoal || !currentPlan) {
       this._shouldRecreatePlan = true;
       return;
     }
 
     if (!currentAction.tick) return;
+
     const result = currentAction.tick.call(this, server);
     if (result) {
-      this.plannedActions.pop();
+      this.goalActionPlans.get(currentGoal)?.actions.pop();
     } else if (result === false) {
-      this._shouldRecreatePlan = true;
+      currentPlan.shouldRecreate = true;
+    } else {
+      // Stop action if all effects are fulfilled.
+      currentFacts.clear();
+      if (currentAction.effects.every(testFact)) {
+        this.goalActionPlans.get(currentGoal)?.actions.pop();
+        this.path = [];
+      }
     }
   }
 
@@ -318,32 +449,9 @@ export class CreatureState {
     if (index !== -1) this.enemyCreatures.splice(index, 1);
   }
 
-  private _createPlan(server: Server) {
-    this._shouldRecreatePlan = false;
-    this.plannedActions = [];
-    this.currentGoal = null;
-    if (!this.goals.length) return;
-
-    this.currentGoal = this.goals.reduce((acc, cur) => acc.priority >= cur.priority ? acc : cur);
-    this.ticksUntilNotIdle = 0;
-    this.path = [];
-
-    // Find plan.
+  private _createPlanForGoal(server: Server, goal: Goal, initialState: string[]) {
     const actions = this._actions;
-    const preconditions = new Set<string>();
-    for (const action of actions) {
-      for (const precondition of action.preconditions) {
-        preconditions.add(precondition);
-      }
-    }
-
-    const initialState: string[] = [];
-    for (const precondition of preconditions) {
-      if (Facts[precondition].call(this, server)) initialState.push(precondition);
-    }
-    initialState.sort();
-
-    const desiredState = [this.currentGoal.desiredEffect];
+    const desiredState = [goal.desiredEffect];
 
     // Nodes are the state of the world from the creatures perspective.
     // Edges are actions that move the state from one to another (removing/adding an effect).
@@ -386,16 +494,55 @@ export class CreatureState {
     });
 
     if (result.status !== 'success') {
+      // TODO: potential source of wasted cpu? if a goal cannot be completed may want to
+      // mark it 'impossible' and not try again for X seconds.
       return;
     }
 
-    // @ts-expect-error
-    this.plannedActions = result.path.map((p) => p.edge && p.edge.action).filter(Boolean).reverse();
-    // console.log(this.plannedActions.map((a) => a.name).reverse());
+    const plannedActions: Action[] = result.path.map((p: any) => p.edge && p.edge.action).filter(Boolean).reverse();
+    this.goalActionPlans.set(goal, {
+      shouldRecreate: false,
+      actions: plannedActions,
+      createdAt: server.context.time.epoch,
+    });
+    // console.log(goal.desiredEffect, goal.priority, plannedActions.map((a) => a.name).reverse());
+  }
+
+  private _createPlan(server: Server) {
+    if (this._shouldRecreatePlan) {
+      this._shouldRecreatePlan = false;
+      this.goalActionPlans = new Map();
+      this.ticksUntilNotIdle = 0;
+      this.path = [];
+    }
+
+    // If no goals, there's nothing to do.
+    if (!this.goals.length) return;
+
+    // Find plan.
+    const actions = this._actions;
+    const preconditions = new Set<string>();
+    for (const action of actions) {
+      for (const precondition of action.preconditions) {
+        preconditions.add(precondition);
+      }
+    }
+
+    const initialState: string[] = [];
+    for (const precondition of preconditions) {
+      if (Facts[precondition].call(this, server)) initialState.push(precondition);
+    }
+    initialState.sort();
+
+    for (const goal of this.goals) {
+      const plan = this.goalActionPlans.get(goal);
+      if (!plan || plan.shouldRecreate || plan.actions.length === 0) {
+        this._createPlanForGoal(server, goal, initialState);
+      }
+    }
   }
 
   private _handleMovement(server: Server) {
-    if (this.creature.isPlayer) return;
     if (this.ticksUntilNextMovement > 0) return;
 
     const durationThresholds = [400, 750, 1000, 1500, 3500, 5000];
@@ -428,6 +575,12 @@ export class CreatureState {
           // TODO: LOS
           satisfied: () => closestEnemy ? closestEnemy.creature.life.current <= 0 : true,
         });
+        this.addGoal({
+          desiredEffect: 'hidden-from-target',
+          priority: 90,
+          // TODO: LOS
+          satisfied: () => closestEnemy ? closestEnemy.creature.life.current <= 0 : true,
+        });
       }
     }
 
@@ -442,7 +595,7 @@ export class CreatureState {
     }
   }
 
-  private _handleAttack(server: Server) {
+  _handleAttack(server: Server) {
     if (!this.targetCreature || this.ticksUntilNextAttack > 0) return;
 
     let attackSkill = Content.getSkillByNameOrThrowError('Unarmed Attack');

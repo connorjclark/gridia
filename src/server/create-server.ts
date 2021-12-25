@@ -49,7 +49,7 @@ export async function startServer(options: ServerOptions, db: Database) {
 
   if (server.context.worldDataDefinition.baseDir === 'worlds/rpgwo-world') {
     server.taskRunner.registerTickSection({
-      description: 'cows',
+      description: 'random monsters',
       rate: {seconds: 1},
       fn: () => {
         if (context.clientConnections.length > 0) {
