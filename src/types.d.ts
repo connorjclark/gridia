@@ -142,6 +142,7 @@ interface Item {
   quantity: number;
   growth?: number;
   containerId?: string;
+  buff?: Buff;
   warpTo?: TilePoint;
   oreType?: number;
   textContent?: string;
@@ -193,7 +194,7 @@ interface CreatureDescriptor {
 
 interface Buff {
   id: string;
-  /** UNIX epoch. */
+  /** UNIX epoch. For items, this field is used as a turn counter (buff goes away at 0). */
   expiresAt: number;
   /** -1 is all */
   skill?: number;
@@ -241,8 +242,8 @@ interface MetaItem {
   class:
   'Normal' | 'Armor' | 'Ore' | 'CaveDown' | 'CaveUp' | 'Container' |
   'Ball' | 'Weapon' | 'Ammo' | 'Plant' | 'Shield' | 'Wand' | 'Raft' |
-  'Goal';
-  equipSlot?: 'Head' | 'Weapon' | 'Chest' | 'Shield' | 'Legs' | 'Ammo';
+  'Goal' | 'Jewelry';
+  equipSlot?: 'Head' | 'Weapon' | 'Chest' | 'Shield' | 'Legs' | 'Ammo' | 'Neck' | 'Finger' | 'Wrist';
   equipImage?: Graphics;
   graphics: Graphics;
   burden: number;

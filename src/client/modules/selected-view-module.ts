@@ -87,10 +87,20 @@ export class SelectedViewModule extends ClientModule {
       const meta = Content.getMetaItem(item.type);
       data = {
         name: meta.name,
+        buff: '',
         quantity: item.quantity.toLocaleString(),
         burden: String(item.quantity * meta.burden),
         id: String(meta.id),
       };
+      if (item.buff) {
+        const modifiers = [];
+        if (item.buff.linearChange) modifiers.push('+' + item.buff.linearChange);
+        if (item.buff.percentChange) modifiers.push('+' + item.buff.percentChange + '%');
+        const boosts = item.buff.skill ? Content.getSkill(item.buff.skill).name : item.buff.attribute || '?';
+        data.buff = `${modifiers.join(', ')} ${boosts}`;
+      } else {
+        delete data.buff;
+      }
       if (meta.damageLow !== undefined && meta.damageHigh !== undefined) {
         data.damage = `${meta.damageLow} - ${meta.damageHigh}`;
       }

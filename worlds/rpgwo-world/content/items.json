@@ -7703,9 +7703,10 @@
   {
     "id": 376,
     "name": "Amulet",
-    "class": "JewelryNeck",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Neck",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -7720,9 +7721,10 @@
   {
     "id": 377,
     "name": "Ruby Necklace",
-    "class": "JewelryNeck",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Neck",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -7737,9 +7739,10 @@
   {
     "id": 378,
     "name": "Emerald Necklace",
-    "class": "JewelryNeck",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Neck",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -7754,9 +7757,10 @@
   {
     "id": 379,
     "name": "Diamond Necklace",
-    "class": "JewelryNeck",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Neck",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -15606,9 +15610,10 @@
   {
     "id": 789,
     "name": "Turquoise Necklace",
-    "class": "JewelryNeck",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Neck",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -15623,9 +15628,10 @@
   {
     "id": 790,
     "name": "Garnet Necklace",
-    "class": "JewelryNeck",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Neck",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -15640,9 +15646,10 @@
   {
     "id": 791,
     "name": "Sapphire Necklace",
-    "class": "JewelryNeck",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Neck",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -15657,7 +15664,7 @@
   {
     "id": 792,
     "name": "Ruby Ring",
-    "class": "JewelryFinger",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
     "graphics": {
@@ -15674,7 +15681,7 @@
   {
     "id": 793,
     "name": "Emerald Ring",
-    "class": "JewelryFinger",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
     "graphics": {
@@ -15691,7 +15698,7 @@
   {
     "id": 794,
     "name": "Diamond Ring",
-    "class": "JewelryFinger",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
     "graphics": {
@@ -15708,7 +15715,7 @@
   {
     "id": 795,
     "name": "Turquoise Ring",
-    "class": "JewelryFinger",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
     "graphics": {
@@ -15725,7 +15732,7 @@
   {
     "id": 796,
     "name": "Garnet Ring",
-    "class": "JewelryFinger",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
     "graphics": {
@@ -15742,7 +15749,7 @@
   {
     "id": 797,
     "name": "Sapphire Ring",
-    "class": "JewelryFinger",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
     "graphics": {
@@ -15759,9 +15766,10 @@
   {
     "id": 798,
     "name": "Ruby Bracelet",
-    "class": "JewelryWrist",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Wrist",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -15776,9 +15784,10 @@
   {
     "id": 799,
     "name": "Emerald Bracelet",
-    "class": "JewelryWrist",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Wrist",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -15793,9 +15802,10 @@
   {
     "id": 800,
     "name": "Diamond Bracelet",
-    "class": "JewelryWrist",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Wrist",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -15810,9 +15820,10 @@
   {
     "id": 801,
     "name": "Turquoise Bracelet",
-    "class": "JewelryWrist",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Wrist",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -15827,9 +15838,10 @@
   {
     "id": 802,
     "name": "Garnet Bracelet",
-    "class": "JewelryWrist",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Wrist",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -15844,9 +15856,10 @@
   {
     "id": 803,
     "name": "Sapphire Bracelet",
-    "class": "JewelryWrist",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Wrist",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -23111,9 +23124,10 @@
   {
     "id": 1201,
     "name": "Refraction Amulet",
-    "class": "JewelryNeck",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Neck",
     "graphics": {
       "file": "rpgwo-item10.png",
       "frames": [
@@ -23285,9 +23299,10 @@
   {
     "id": 1208,
     "name": "Viking Amulet",
-    "class": "JewelryNeck",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Neck",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -36488,9 +36503,10 @@
   {
     "id": 1890,
     "name": "Reflection Amulet",
-    "class": "JewelryNeck",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Neck",
     "graphics": {
       "file": "rpgwo-item16.png",
       "frames": [
@@ -36821,9 +36837,10 @@
   {
     "id": 1907,
     "name": "Sharks Tooth Necklace",
-    "class": "JewelryNeck",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Neck",
     "graphics": {
       "file": "rpgwo-item16.png",
       "frames": [
@@ -37238,9 +37255,10 @@
   {
     "id": 1929,
     "name": "Blank Necklace",
-    "class": "JewelryNeck",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Neck",
     "graphics": {
       "file": "rpgwo-item16.png",
       "frames": [
@@ -37255,9 +37273,10 @@
   {
     "id": 1930,
     "name": "Blank Ring",
-    "class": "JewelryNeck",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Neck",
     "graphics": {
       "file": "rpgwo-item16.png",
       "frames": [
@@ -37272,9 +37291,10 @@
   {
     "id": 1931,
     "name": "Blank Bracelet",
-    "class": "JewelryNeck",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Neck",
     "graphics": {
       "file": "rpgwo-item16.png",
       "frames": [
@@ -42889,9 +42909,10 @@
   {
     "id": 2219,
     "name": "Rosette Necklace",
-    "class": "JewelryNeck",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Neck",
     "graphics": {
       "file": "rpgwo-item19.png",
       "frames": [
@@ -42906,7 +42927,7 @@
   {
     "id": 2220,
     "name": "Rosette Ring",
-    "class": "JewelryFinger",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
     "graphics": {
@@ -42923,9 +42944,10 @@
   {
     "id": 2221,
     "name": "Rosette Bracelet",
-    "class": "JewelryWrist",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
+    "equipSlot": "Wrist",
     "graphics": {
       "file": "rpgwo-item19.png",
       "frames": [
@@ -47381,7 +47403,7 @@
   {
     "id": 3060,
     "name": "Drake Ring",
-    "class": "JewelryFinger",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
     "graphics": {
@@ -47755,7 +47777,7 @@
   {
     "id": 3080,
     "name": "Engagement Ring",
-    "class": "JewelryFinger",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
     "graphics": {
@@ -47772,7 +47794,7 @@
   {
     "id": 3081,
     "name": "Wedding Ring",
-    "class": "JewelryFinger",
+    "class": "Jewelry",
     "blocksLight": false,
     "burden": 10,
     "graphics": {

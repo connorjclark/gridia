@@ -505,9 +505,9 @@ button {
 
 .window--equipment .container__slots {
   display: grid;
-  grid-template: 'p a .'
-                 'b c d'
-                 'f e .';
+  grid-template: 'p a . g'
+                 'b c d i'
+                 'f e . h';
   grid-auto-columns: min-content;
 }
 .window--equipment .container__slot:nth-child(1) {
@@ -530,6 +530,15 @@ button {
 }
 .window--equipment .container__slot:nth-child(7) {
   grid-area: f;
+}
+.window--equipment .container__slot:nth-child(8) {
+  grid-area: g;
+}
+.window--equipment .container__slot:nth-child(9) {
+  grid-area: h;
+}
+.window--equipment .container__slot:nth-child(10) {
+  grid-area: i;
 }
 .window--equipment .container__slot {
   margin: 5px;

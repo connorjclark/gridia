@@ -330,6 +330,25 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
         item.textContent = args.content;
       },
     },
+    jewelry: {
+      args: [],
+      do() {
+        const loc = {...clientConnection.creature.pos};
+
+        const meta = Content.getRandomMetaItemOfClass('Jewelry');
+        const item: Item = {
+          type: meta.id,
+          quantity: 1,
+          buff: {
+            id: '',
+            expiresAt: 0,
+            skill: 1,
+            linearChange: 10,
+          },
+        };
+        server.addItemNear(loc, item);
+      },
+    },
     debugTile: {
       args: [],
       do() {

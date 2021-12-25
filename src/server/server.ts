@@ -1233,7 +1233,20 @@ export class Server {
       magicDefense: 0,
       meleeDefense: 0,
     };
-    if (opts.broadcast) this.broadcastPartialCreatureUpdate(creature, ['equipmentGraphics', 'stats']);
+
+    creature.buffs = creature.buffs.filter((buff) => buff.id !== 'from-equipment');
+    for (let i = Container.EQUIP_SLOTS.Neck; i <= Container.EQUIP_SLOTS.Wrist; i++) {
+      const item = equipment.items[i];
+      if (!item || !item.buff) continue;
+
+      creature.buffs.push({
+        ...item.buff,
+        id: 'from-equipment',
+        expiresAt: 0,
+      });
+    }
+
+    if (opts.broadcast) this.broadcastPartialCreatureUpdate(creature, ['equipmentGraphics', 'stats', 'buffs']);
   }
 
   makeCreatureImageData(equipmentItems: Array<Item | null>): Graphics[] {
@@ -1492,6 +1505,8 @@ export class Server {
 
           let modified = false;
           for (let i = creature.buffs.length - 1; i >= 0; i--) {
+            if (creature.buffs[i].expiresAt === 0) continue;
+
             if (creature.buffs[i].expiresAt <= now) {
               creature.buffs.splice(i, 1);
               modified = true;

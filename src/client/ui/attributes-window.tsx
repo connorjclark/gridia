@@ -1,4 +1,4 @@
-import {render, h, Component} from 'preact';
+import {render, h, Component, Fragment} from 'preact';
 
 import {Game} from '../game.js';
 
@@ -33,12 +33,16 @@ export function makeAttributesWindow(game: Game) {
     render(props: Props) {
       const buffs = [];
       for (const buff of props.buffs) {
+        const expiresAtMarkup = buff.expiresAt > 0 ?
+          <>(expires <span class='relative-time' data-time={buff.expiresAt}></span>)</> :
+          null;
+
         buffs.push(<div>
           <div class='buff tooltip-on-hover'>
             <Graphic file='rpgwo-animations0.png' index={6}></Graphic>
           </div>
           <div className="tooltip">
-            {buff.name} (expires <span class='relative-time' data-time={buff.expiresAt}></span>)
+            {buff.name} {expiresAtMarkup}
             {buff.linearChange ? <div>+{buff.linearChange} {buff.skillName}</div> : null}
             {buff.percentChange ? <div>+{100 * buff.percentChange}% {buff.skillName}</div> : null}
           </div>

@@ -242,6 +242,14 @@ function parseItemsIni() {
     if (item.class === 'Ammo') item.equipSlot = 'Weapon';
     if (item.class === 'Shield') item.equipSlot = 'Shield';
     if (item.class === 'Ammo') item.equipSlot = 'Ammo';
+
+    if (item.class?.startsWith('Jewelry')) {
+      if (item.class.match(/neck/i)) item.equipSlot = 'Neck';
+      if (item.class.match(/ring/i)) item.equipSlot = 'Finger';
+      if (item.class.match(/wrist/i)) item.equipSlot = 'Wrist';
+      item.class = 'Jewelry';
+    }
+    if (item.class === 'Ammo') item.equipSlot = 'Ammo';
   }
 
   for (const item of items) {
