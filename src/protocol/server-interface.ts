@@ -708,10 +708,11 @@ export class ServerInterface implements ICommands {
       clientConnection.creature.food += meta.food;
       server.broadcastPartialCreatureUpdate(clientConnection.creature, ['food']);
     }
-    // TODO: really gotta batch these things
-    if (meta.foodLife) server.modifyCreatureLife(null, clientConnection.creature, meta.foodLife);
-    if (meta.foodStamina) server.modifyCreatureStamina(null, clientConnection.creature, meta.foodStamina);
-    // TODO: mana
+    server.modifyCreatureAttributes(null, clientConnection.creature, {
+      life: meta.foodLife,
+      stamina: meta.foodStamina,
+      mana: meta.foodMana,
+    });
   }
 
   async onSaveSettings(server: Server, clientConnection: ClientConnection, {settings}: { settings: Settings }): Promise<void> {

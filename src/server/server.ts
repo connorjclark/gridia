@@ -79,7 +79,7 @@ export class Server {
         script.onPlayerKillCreature(player, creature);
       }
     },
-    onPlayerMove: (opts: {clientConnection: ClientConnection; from: Point4; to: Point4}) => {
+    onPlayerMove: (opts: { clientConnection: ClientConnection; from: Point4; to: Point4 }) => {
       Object.freeze(opts);
       for (const script of this._scripts) {
         script.onPlayerMove(opts);
@@ -453,7 +453,7 @@ export class Server {
       };
     } else if (this.context.worldDataDefinition.baseDir === 'worlds/bit-world') {
       creature.graphics = {
-        file: 'tileset_1bit_001.png', frames: [5*8 + 4],
+        file: 'tileset_1bit_001.png', frames: [5 * 8 + 4],
       };
     } else if (this.context.worldDataDefinition.baseDir === 'worlds/urizen-world') {
       creature.graphics = {
@@ -880,23 +880,22 @@ export class Server {
     return missReason;
   }
 
-  // TODO: refactor
-  modifyCreatureLife(actor: Creature | null, creature: Creature, delta: number) {
-    adjustAttribute(creature, 'life', delta);
-
-    this.broadcastPartialCreatureUpdate(creature, ['life']);
-    this.conditionalBroadcast(EventBuilder.creatureStatus({
-      creatureId: creature.id,
-      text: delta > 0 ? `+${delta}` : `${delta}`,
-      color: 'red',
-    }), (client) => client.subscribedCreatureIds.has(creature.id));
-
-    // if (delta < 0) {
-    //   this.broadcastAnimation({
-    //     name: 'Attack',
-    //     path: [creature.pos],
-    //   });
-    // }
+  modifyCreatureAttributes(actor: Creature | null, creature: Creature,
+                           deltas: { life?: number; stamina?: number; mana?: number }) {
+    const keys: Array<keyof typeof deltas> = [];
+    const process = (key: keyof typeof deltas, delta: number, color: string) => {
+      adjustAttribute(creature, key, delta);
+      keys.push(key);
+      this.conditionalBroadcast(EventBuilder.creatureStatus({
+        creatureId: creature.id,
+        text: delta > 0 ? `+${delta}` : `${delta}`,
+        color,
+      }), (client) => client.subscribedCreatureIds.has(creature.id));
+    };
+    if (deltas.life) process('life', deltas.life, 'red');
+    if (deltas.stamina) process('stamina', deltas.stamina, 'gold');
+    if (deltas.mana) process('mana', deltas.mana, 'blue');
+    if (keys.length) this.broadcastPartialCreatureUpdate(creature, keys);
 
     if (creature.life.current <= 0) {
       if (creature.isPlayer) {
@@ -945,14 +944,16 @@ export class Server {
     }
   }
 
+  modifyCreatureLife(actor: Creature | null, creature: Creature, delta: number) {
+    this.modifyCreatureAttributes(actor, creature, {life: delta});
+  }
+
   modifyCreatureStamina(actor: Creature | null, creature: Creature, delta: number) {
-    adjustAttribute(creature, 'stamina', delta);
-    this.broadcastPartialCreatureUpdate(creature, ['stamina']);
-    this.conditionalBroadcast(EventBuilder.creatureStatus({
-      creatureId: creature.id,
-      text: delta > 0 ? `+${delta}` : `${delta}`,
-      color: 'gold',
-    }), (client) => client.subscribedCreatureIds.has(creature.id));
+    this.modifyCreatureAttributes(actor, creature, {stamina: delta});
+  }
+
+  modifyCreatureMana(actor: Creature | null, creature: Creature, delta: number) {
+    this.modifyCreatureAttributes(actor, creature, {mana: delta});
   }
 
   assignCreatureBuff(creature: Creature, buff: Buff) {
@@ -976,15 +977,12 @@ export class Server {
     }
 
     const variance = spell.variance ? Utils.randInt(0, spell.variance) : 0;
-
-    if (targetCreature && spell.life) {
-      const life = spell.life + variance;
-      this.modifyCreatureLife(creature, targetCreature, life);
-    }
-
-    if (targetCreature && spell.stamina) {
-      const stamina = spell.stamina + variance;
-      this.modifyCreatureStamina(creature, targetCreature, stamina);
+    const deltas = {
+      life: targetCreature && spell.life ? spell.life + variance : 0,
+      stamina: targetCreature && spell.stamina ? spell.stamina + variance : 0,
+    };
+    if (targetCreature) {
+      this.modifyCreatureAttributes(creature, targetCreature, deltas);
     }
 
     if (targetCreature) {
@@ -1191,7 +1189,7 @@ export class Server {
 
     // TODO: should these things be elsewhere? Only monsters use stats.x_defense ... player creatures
     // use their skill values.
-    const stats: Omit<Creature['stats'], 'magicDefense'|'meleeDefense'|'missleDefense'> = {
+    const stats: Omit<Creature['stats'], 'magicDefense' | 'meleeDefense' | 'missleDefense'> = {
       armor: 0,
       attackSpeed: 0,
       damageLow: 0,
