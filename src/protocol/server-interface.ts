@@ -702,9 +702,7 @@ export class ServerInterface implements ICommands {
     if (!item || !meta) return;
 
     item.quantity -= 1;
-    // TODO: better interface ... maybe setItem should act like clearItem if quanity <= 0
-    if (item.quantity <= 0) server.clearItem(location);
-    else server.setItem(location, item);
+    server.setItem(location, item);
 
     if (meta.food) {
       clientConnection.creature.food += meta.food;

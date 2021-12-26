@@ -1469,13 +1469,18 @@ export class Server {
     }
   }
 
+  /**
+   * Sets an item at a world or container location. If quantity is >0, the
+   * item will be removed from the given location.
+   */
   setItem(location: ItemLocation, item: Item) {
+    const maybeItem = item.quantity > 0 ? item : undefined;
     if (location.source === 'world') {
       if (!location.loc) throw new Error('invariant violated');
-      this.setItemInWorld(location.loc, item);
+      this.setItemInWorld(location.loc, maybeItem);
     } else {
       if (location.index === undefined) throw new Error('invariant violated');
-      this.setItemInContainer(location.id, location.index, item);
+      this.setItemInContainer(location.id, location.index, maybeItem);
     }
   }
 
