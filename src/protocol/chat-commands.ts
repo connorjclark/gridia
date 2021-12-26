@@ -115,7 +115,7 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
         const loc = server.findNearest(clientConnection.creature.pos, 10, true,
           (t) => !t.item);
         if (loc) {
-          server.setItem(loc, {type: meta.id, quantity});
+          server.setItemInWorld(loc, {type: meta.id, quantity});
         }
       },
     },

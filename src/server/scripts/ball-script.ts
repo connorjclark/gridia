@@ -25,8 +25,8 @@ export class BallScript extends Script<{}> {
           const itemAtNewLoc = this.server.context.map.getItem(newLoc);
 
           if (itemAtNewLoc && Content.getMetaItem(itemAtNewLoc.type).class === 'Goal') {
-            this.server.setItem(kick.loc, undefined);
-            this.server.setItem(newLoc, {type: itemAtNewLoc.type + 1, quantity: 1});
+            this.server.setItemInWorld(kick.loc, undefined);
+            this.server.setItemInWorld(newLoc, {type: itemAtNewLoc.type + 1, quantity: 1});
             kick.momentum = 0;
           } else if (itemAtNewLoc) {
             if (kick.dir.x && kick.dir.y) {
@@ -36,8 +36,8 @@ export class BallScript extends Script<{}> {
               kick.dir.y *= -1;
             }
           } else {
-            this.server.setItem(kick.loc, undefined);
-            this.server.setItem(newLoc, kick.item);
+            this.server.setItemInWorld(kick.loc, undefined);
+            this.server.setItemInWorld(newLoc, kick.item);
             kick.loc = newLoc;
           }
 

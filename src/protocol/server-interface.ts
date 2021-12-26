@@ -41,7 +41,7 @@ export class ServerInterface implements ICommands {
 
       const oreType = tile.item.oreType || Content.getMetaItemByName('Pile of Dirt').id;
       const minedItem = {type: oreType, quantity: 1};
-      server.setItem(loc, minedItem);
+      server.setItemInWorld(loc, minedItem);
       server.broadcastAnimation({
         name: 'MiningSound',
         path: [loc],
@@ -441,7 +441,7 @@ export class ServerInterface implements ICommands {
       return Promise.reject(); // TODO
     }
 
-    server.setItem(loc, item);
+    server.setItemInWorld(loc, item);
     return Promise.resolve();
   }
 
@@ -460,17 +460,6 @@ export class ServerInterface implements ICommands {
         const container = await server.context.getContainer(location.id);
         if (!container) return false;
         return location.index < container.items.length;
-      }
-    }
-
-    async function getItem(location: ItemLocation) {
-      if (location.source === 'world') {
-        if (!location.loc) return;
-        return server.context.map.getItem(location.loc);
-      } else {
-        if (location.index === undefined) return;
-        const container = await server.context.getContainer(location.id);
-        return container.items[location.index];
       }
     }
 
@@ -521,25 +510,6 @@ export class ServerInterface implements ICommands {
       }
     }
 
-    function setItem(location: ItemLocation, item: Item) {
-      if (location.source === 'world') {
-        if (!location.loc) throw new Error('invariant violated');
-        server.setItem(location.loc, item);
-      } else {
-        if (location.index === undefined) throw new Error('invariant violated');
-        server.setItemInContainer(location.id, location.index, item);
-      }
-    }
-
-    function clearItem(location: ItemLocation) {
-      if (location.source === 'world') {
-        server.setItem(location.loc, undefined);
-      } else {
-        if (location.index === undefined) throw new Error('invariant violated');
-        server.setItemInContainer(location.id, location.index, undefined);
-      }
-    }
-
     // Ignore if moving to same location.
     if (Utils.ItemLocation.Equal(from, to)) {
       return;
@@ -549,14 +519,14 @@ export class ServerInterface implements ICommands {
       return;
     }
 
-    const fromItem = await getItem(from);
+    const fromItem = await server.getItem(from);
     if (!fromItem) {
       return;
     }
 
     // Dragging to a container.
     if (to.source === 'world') {
-      const itemInWorld = await getItem(to);
+      const itemInWorld = await server.getItem(to);
       if (itemInWorld && Content.getMetaItem(itemInWorld.type).class === 'Container') {
         to = {source: 'container', id: server.context.getContainerIdFromItem(itemInWorld)};
       }
@@ -581,7 +551,7 @@ export class ServerInterface implements ICommands {
     //   return
     // }
 
-    const toItem = await getItem(validToLocation);
+    const toItem = await server.getItem(validToLocation);
     if (toItem && fromItem.type !== toItem.type) return;
 
     const fromOwner = from.source === 'world' && server.getSectorOwner(from.loc);
@@ -663,12 +633,12 @@ export class ServerInterface implements ICommands {
       newItem.quantity += toItem.quantity;
     }
 
-    setItem(validToLocation, newItem);
+    server.setItem(validToLocation, newItem);
 
     if (quantityToMove === fromItem.quantity) {
-      clearItem(from);
+      server.clearItem(from);
     } else {
-      setItem(from, {...fromItem, quantity: fromItem.quantity - quantityToMove});
+      server.setItem(from, {...fromItem, quantity: fromItem.quantity - quantityToMove});
     }
 
     // TODO queue changes and send to all clients.
@@ -715,6 +685,35 @@ export class ServerInterface implements ICommands {
     return Promise.resolve({
       content: item.textContent || 'It\'s blank.',
     });
+  }
+
+  async onEatItem(server: Server, clientConnection: ClientConnection, {location}: { location: ItemLocation }): Promise<void> {
+    if (location.source === 'world') {
+      server.send(EventBuilder.chat({
+        section: 'World',
+        from: 'World',
+        text: 'Pick it up first, you animal',
+      }), clientConnection);
+      return;
+    }
+
+    const item = await server.getItem(location);
+    const meta = item && Content.getMetaItem(item.type);
+    if (!item || !meta) return;
+
+    item.quantity -= 1;
+    // TODO: better interface ... maybe setItem should act like clearItem if quanity <= 0
+    if (item.quantity <= 0) server.clearItem(location);
+    else server.setItem(location, item);
+
+    if (meta.food) {
+      clientConnection.creature.food += meta.food;
+      server.broadcastPartialCreatureUpdate(clientConnection.creature, ['food']);
+    }
+    // TODO: really gotta batch these things
+    if (meta.foodLife) server.modifyCreatureLife(null, clientConnection.creature, meta.foodLife);
+    if (meta.foodStamina) server.modifyCreatureStamina(null, clientConnection.creature, meta.foodStamina);
+    // TODO: mana
   }
 
   async onSaveSettings(server: Server, clientConnection: ClientConnection, {settings}: { settings: Settings }): Promise<void> {

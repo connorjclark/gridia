@@ -245,7 +245,7 @@ interface MetaItem {
   class:
   'Normal' | 'Armor' | 'Ore' | 'CaveDown' | 'CaveUp' | 'Container' |
   'Ball' | 'Weapon' | 'Ammo' | 'Plant' | 'Shield' | 'Wand' | 'Raft' |
-  'Goal' | 'Jewelry';
+  'Goal' | 'Jewelry' | 'Food';
   equipSlot?: 'Head' | 'Weapon' | 'Chest' | 'Shield' | 'Legs' | 'Ammo' | 'Neck' | 'Finger' | 'Wrist';
   equipImage?: Graphics;
   graphics: Graphics;
@@ -268,6 +268,10 @@ interface MetaItem {
   minRange?: number;
   maxRange?: number;
   readable?: boolean;
+  food?: number;
+  foodStamina?: number;
+  foodMana?: number;
+  foodLife?: number;
 }
 
 interface ItemUse {

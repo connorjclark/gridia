@@ -292,6 +292,10 @@ function parseItemsIni() {
     'minRange',
     'maxRange',
     'readable',
+    'food',
+    'foodStamina',
+    'foodMana',
+    'foodLife',
   ];
   for (const item of items) {
     filterProperties(item, allowlist);

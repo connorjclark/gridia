@@ -87,20 +87,21 @@ export class SelectedViewModule extends ClientModule {
       const meta = Content.getMetaItem(item.type);
       data = {
         name: meta.name,
-        buff: '',
-        quantity: item.quantity.toLocaleString(),
-        burden: String(item.quantity * meta.burden),
-        id: String(meta.id),
       };
+
+      if (meta.food) data.food = String(meta.food);
+      if (meta.foodLife) data.foodLife = String(meta.foodLife);
+      if (meta.foodStamina) data.foodStamina = String(meta.foodStamina);
+      if (meta.foodMana) data.foodMana = String(meta.foodMana);
       if (item.buff) {
         const modifiers = [];
         if (item.buff.linearChange) modifiers.push('+' + item.buff.linearChange);
         if (item.buff.percentChange) modifiers.push('+' + item.buff.percentChange + '%');
         const boosts = item.buff.skill ? Content.getSkill(item.buff.skill).name : item.buff.attribute || '?';
         data.buff = `${modifiers.join(', ')} ${boosts}`;
-      } else {
-        delete data.buff;
       }
+      if (item.quantity !== 1) data.quantity = item.quantity.toLocaleString();
+      data.burden = String(item.quantity * meta.burden);
       if (meta.damageLow !== undefined && meta.damageHigh !== undefined) {
         data.damage = `${meta.damageLow} - ${meta.damageHigh}`;
       }
@@ -110,6 +111,7 @@ export class SelectedViewModule extends ClientModule {
       if (meta.armorLevel !== undefined) {
         data.armor = String(meta.armorLevel);
       }
+      data.id = String(meta.id);
     } else {
       data = {
         name: '-',

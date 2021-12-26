@@ -2879,6 +2879,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 10,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -2896,6 +2897,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -3042,6 +3044,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "food": 50,
+    "foodStamina": 25,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -3061,6 +3065,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -3078,6 +3083,7 @@
     "class": "Plant",
     "blocksLight": false,
     "burden": 2,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -3471,6 +3477,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 10,
+    "food": 10,
+    "foodStamina": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -3490,6 +3498,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 10,
+    "food": 10,
+    "foodStamina": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -3537,6 +3547,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 50,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -3556,6 +3567,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -3575,6 +3587,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 5,
+    "foodStamina": 2,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -3594,6 +3608,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 50,
+    "food": 200,
+    "foodStamina": 30,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -3613,6 +3629,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 30,
+    "food": 150,
+    "foodStamina": 20,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -3632,6 +3650,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 100,
+    "foodStamina": 20,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -3708,6 +3728,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 50,
+    "food": 200,
+    "foodStamina": 40,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -3727,6 +3749,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 30,
+    "food": 150,
+    "foodStamina": 30,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -3746,6 +3770,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 100,
+    "foodStamina": 20,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -3822,6 +3848,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -4171,6 +4198,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -4188,6 +4216,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 20,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -5902,6 +5931,8 @@
     "class": "Normal",
     "blocksLight": false,
     "burden": 50,
+    "food": 0,
+    "foodStamina": 0,
     "graphics": {
       "file": "rpgwo-item6.png",
       "frames": [
@@ -5921,6 +5952,8 @@
     "class": "Normal",
     "blocksLight": false,
     "burden": 30,
+    "food": 0,
+    "foodStamina": 0,
     "graphics": {
       "file": "rpgwo-item6.png",
       "frames": [
@@ -5940,6 +5973,8 @@
     "class": "Normal",
     "blocksLight": false,
     "burden": 5,
+    "food": 0,
+    "foodStamina": 0,
     "graphics": {
       "file": "rpgwo-item6.png",
       "frames": [
@@ -5959,6 +5994,8 @@
     "class": "Normal",
     "blocksLight": false,
     "burden": 50,
+    "food": 0,
+    "foodStamina": 0,
     "graphics": {
       "file": "rpgwo-item6.png",
       "frames": [
@@ -5978,6 +6015,8 @@
     "class": "Normal",
     "blocksLight": false,
     "burden": 30,
+    "food": 0,
+    "foodStamina": 0,
     "graphics": {
       "file": "rpgwo-item6.png",
       "frames": [
@@ -5997,6 +6036,8 @@
     "class": "Normal",
     "blocksLight": false,
     "burden": 5,
+    "food": 0,
+    "foodStamina": 0,
     "graphics": {
       "file": "rpgwo-item6.png",
       "frames": [
@@ -6016,6 +6057,8 @@
     "class": "Normal",
     "blocksLight": false,
     "burden": 500,
+    "food": 0,
+    "foodStamina": 0,
     "graphics": {
       "file": "rpgwo-item6.png",
       "frames": [
@@ -6052,6 +6095,8 @@
     "class": "Normal",
     "blocksLight": false,
     "burden": 300,
+    "food": 0,
+    "foodStamina": 0,
     "graphics": {
       "file": "rpgwo-item13.png",
       "frames": [
@@ -6071,6 +6116,8 @@
     "class": "Normal",
     "blocksLight": false,
     "burden": 100,
+    "food": 0,
+    "foodStamina": 0,
     "graphics": {
       "file": "rpgwo-item13.png",
       "frames": [
@@ -6090,6 +6137,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 50,
+    "food": 50,
+    "foodStamina": 25,
     "graphics": {
       "file": "rpgwo-item6.png",
       "frames": [
@@ -6109,6 +6158,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 30,
+    "food": 30,
+    "foodStamina": 15,
     "graphics": {
       "file": "rpgwo-item6.png",
       "frames": [
@@ -6128,6 +6179,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 100,
+    "food": 10,
+    "foodStamina": 5,
     "graphics": {
       "file": "rpgwo-item6.png",
       "frames": [
@@ -6147,6 +6200,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 100,
+    "food": 50,
+    "foodStamina": 25,
     "graphics": {
       "file": "rpgwo-item6.png",
       "frames": [
@@ -6166,6 +6221,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 50,
+    "food": 10,
+    "foodStamina": 5,
     "graphics": {
       "file": "rpgwo-item6.png",
       "frames": [
@@ -6185,6 +6242,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 50,
+    "food": 50,
+    "foodStamina": 25,
     "graphics": {
       "file": "rpgwo-item6.png",
       "frames": [
@@ -8316,6 +8375,10 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "food": 25,
+    "foodLife": 25,
+    "foodMana": 25,
+    "foodStamina": 25,
     "graphics": {
       "file": "rpgwo-item10.png",
       "frames": [
@@ -8333,6 +8396,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "foodStamina": 25,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -8350,6 +8414,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "foodMana": 25,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -8367,6 +8432,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "foodLife": 25,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -8515,6 +8581,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -8570,6 +8637,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -8625,6 +8693,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -8680,6 +8749,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -11461,6 +11531,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 5,
+    "foodStamina": 3,
     "graphics": {
       "file": "rpgwo-item8.png",
       "frames": [
@@ -11480,6 +11552,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -11893,6 +11966,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -11910,6 +11984,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 5,
+    "foodStamina": 5,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -12120,6 +12196,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 40,
+    "food": 50,
+    "foodStamina": 25,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -12139,6 +12217,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 40,
+    "food": 50,
+    "foodStamina": 25,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -12157,6 +12237,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 40,
+    "food": 50,
+    "foodStamina": 25,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -12175,6 +12257,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 40,
+    "food": 50,
+    "foodStamina": 25,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -12194,6 +12278,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -12213,6 +12298,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -12232,6 +12318,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -12327,6 +12414,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -12344,6 +12432,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -12479,6 +12568,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 10,
+    "food": 12,
+    "foodStamina": 6,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -12498,6 +12589,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 10,
+    "food": 12,
+    "foodStamina": 6,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -12517,6 +12610,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 10,
+    "food": 12,
+    "foodStamina": 6,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -12536,6 +12631,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 10,
+    "food": 12,
+    "foodStamina": 6,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -12574,6 +12671,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 40,
+    "food": 50,
+    "foodStamina": 25,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -12593,6 +12692,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 10,
+    "food": 12,
+    "foodStamina": 6,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -13700,6 +13801,10 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "food": 50,
+    "foodLife": 50,
+    "foodMana": 50,
+    "foodStamina": 50,
     "graphics": {
       "file": "rpgwo-item10.png",
       "frames": [
@@ -13717,6 +13822,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "foodStamina": 50,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -13734,6 +13840,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "foodMana": 50,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -13751,6 +13858,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "foodLife": 50,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -16390,6 +16498,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -19399,6 +19508,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 10,
+    "food": 20,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -19418,6 +19528,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 2,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -19820,6 +19931,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "food": 5,
+    "foodStamina": 5,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -20025,6 +20138,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 100,
+    "food": 30,
+    "foodStamina": 30,
     "graphics": {
       "file": "rpgwo-item4.png",
       "frames": [
@@ -20044,6 +20159,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 100,
+    "food": 30,
+    "foodStamina": 30,
     "graphics": {
       "file": "rpgwo-item4.png",
       "frames": [
@@ -20080,6 +20197,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -20131,6 +20249,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 20,
+    "foodStamina": 10,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -20150,6 +20270,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 40,
+    "foodStamina": 20,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -20169,6 +20291,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 10,
+    "foodStamina": 5,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -20188,6 +20312,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 4,
+    "food": 4,
+    "foodStamina": 4,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -20207,6 +20333,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 10,
+    "food": 12,
+    "foodStamina": 12,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -20320,6 +20448,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 4,
+    "food": 4,
+    "foodStamina": 4,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -20358,6 +20488,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 2,
+    "foodStamina": 2,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -20375,6 +20507,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 10,
+    "food": 10,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -20394,6 +20527,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 4,
+    "food": 4,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -20413,6 +20547,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 15,
+    "food": 20,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -20470,6 +20605,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 10,
+    "food": 10,
+    "foodStamina": 10,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -20489,6 +20626,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 5,
+    "foodStamina": 10,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -20525,6 +20664,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 3,
+    "food": 3,
+    "foodStamina": 3,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -20600,6 +20741,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 2,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -20677,6 +20819,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 15,
+    "foodStamina": 5,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -20696,6 +20840,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 30,
+    "foodStamina": 15,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -20715,6 +20861,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 10,
+    "foodStamina": 2,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -21329,6 +21477,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 36,
+    "food": 30,
     "graphics": {
       "file": "rpgwo-item4.png",
       "frames": [
@@ -21346,6 +21495,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 6,
+    "food": 10,
     "graphics": {
       "file": "rpgwo-item4.png",
       "frames": [
@@ -21363,6 +21513,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 10,
+    "food": 20,
     "graphics": {
       "file": "rpgwo-item4.png",
       "frames": [
@@ -21380,6 +21531,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 25,
+    "food": 50,
     "graphics": {
       "file": "rpgwo-item4.png",
       "frames": [
@@ -26996,6 +27148,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 5,
+    "foodStamina": 2,
     "graphics": {
       "file": "rpgwo-item8.png",
       "frames": [
@@ -27015,6 +27169,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 1,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -27146,6 +27301,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 2,
+    "foodStamina": 1,
     "graphics": {
       "file": "rpgwo-item8.png",
       "frames": [
@@ -27165,6 +27322,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 1,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -27199,6 +27357,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 50,
+    "food": 0,
+    "foodStamina": 0,
     "graphics": {
       "file": "rpgwo-item6.png",
       "frames": [
@@ -27216,6 +27376,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 30,
+    "food": 0,
+    "foodStamina": 0,
     "graphics": {
       "file": "rpgwo-item6.png",
       "frames": [
@@ -27233,6 +27395,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 0,
+    "foodStamina": 0,
     "graphics": {
       "file": "rpgwo-item6.png",
       "frames": [
@@ -27250,6 +27414,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 50,
+    "food": 0,
+    "foodStamina": 0,
     "graphics": {
       "file": "rpgwo-item6.png",
       "frames": [
@@ -27267,6 +27433,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 30,
+    "food": 0,
+    "foodStamina": 0,
     "graphics": {
       "file": "rpgwo-item6.png",
       "frames": [
@@ -27284,6 +27452,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 0,
+    "foodStamina": 0,
     "graphics": {
       "file": "rpgwo-item6.png",
       "frames": [
@@ -27570,6 +27740,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 5,
+    "foodStamina": 2,
     "graphics": {
       "file": "rpgwo-item8.png",
       "frames": [
@@ -27589,6 +27761,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 1,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -27720,6 +27893,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 5,
+    "foodStamina": 2,
     "graphics": {
       "file": "rpgwo-item8.png",
       "frames": [
@@ -27739,6 +27914,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 1,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -27756,6 +27932,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -27775,6 +27952,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -27794,6 +27972,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 1,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -27811,6 +27990,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -27830,6 +28010,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -27849,6 +28030,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item5.png",
       "frames": [
@@ -29549,6 +29731,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 25,
+    "foodStamina": 5,
     "graphics": {
       "file": "rpgwo-item13.png",
       "frames": [
@@ -29585,6 +29769,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 2,
+    "food": 3,
+    "foodStamina": 1,
     "graphics": {
       "file": "rpgwo-item13.png",
       "frames": [
@@ -29602,6 +29788,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 15,
+    "foodStamina": 8,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -29621,6 +29809,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 10,
+    "foodStamina": 5,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -29640,6 +29830,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 10,
+    "foodStamina": 2,
     "graphics": {
       "file": "rpgwo-item13.png",
       "frames": [
@@ -33447,6 +33639,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 10,
+    "food": 20,
+    "foodStamina": 5,
     "graphics": {
       "file": "rpgwo-item15.png",
       "frames": [
@@ -33604,6 +33798,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 10,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item15.png",
       "frames": [
@@ -33655,6 +33850,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 5,
+    "food": 10,
+    "foodStamina": 2,
     "graphics": {
       "file": "rpgwo-item15.png",
       "frames": [
@@ -37554,6 +37751,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37571,6 +37769,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37588,6 +37787,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37605,6 +37805,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37622,6 +37823,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37639,6 +37841,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37656,6 +37859,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37673,6 +37877,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37690,6 +37895,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37707,6 +37913,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37724,6 +37931,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37741,6 +37949,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37758,6 +37967,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37775,6 +37985,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37792,6 +38003,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37809,6 +38021,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37826,6 +38039,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37843,6 +38057,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37860,6 +38075,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37877,6 +38093,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37894,6 +38111,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37911,6 +38129,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37928,6 +38147,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37945,6 +38165,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37962,6 +38183,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37979,6 +38201,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -37996,6 +38219,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -38013,6 +38237,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -38030,6 +38255,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -38047,6 +38273,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -38064,6 +38291,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -38081,6 +38309,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -38098,6 +38327,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -38115,6 +38345,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -38132,6 +38363,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -38149,6 +38381,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -38166,6 +38399,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -44093,6 +44327,10 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "food": 75,
+    "foodLife": 75,
+    "foodMana": 75,
+    "foodStamina": 75,
     "graphics": {
       "file": "rpgwo-item10.png",
       "frames": [
@@ -44110,6 +44348,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "foodStamina": 75,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -44127,6 +44366,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "foodMana": 75,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -44144,6 +44384,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "foodLife": 75,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -44178,6 +44419,10 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "food": 100,
+    "foodLife": 100,
+    "foodMana": 100,
+    "foodStamina": 100,
     "graphics": {
       "file": "rpgwo-item10.png",
       "frames": [
@@ -44195,6 +44440,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "foodStamina": 100,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -44212,6 +44458,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "foodMana": 100,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -44229,6 +44476,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "foodLife": 100,
     "graphics": {
       "file": "rpgwo-item3.png",
       "frames": [
@@ -47237,6 +47485,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1500,
+    "food": 250,
+    "foodStamina": 100,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -47331,6 +47581,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 20,
+    "food": 25,
     "graphics": {
       "file": "rpgwo-item17.png",
       "frames": [
@@ -47678,6 +47929,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 40,
+    "food": 50,
+    "foodStamina": 25,
     "graphics": {
       "file": "rpgwo-item18.png",
       "frames": [
@@ -47695,6 +47948,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 40,
+    "food": 50,
+    "foodStamina": 25,
     "graphics": {
       "file": "rpgwo-item18.png",
       "frames": [
@@ -47712,6 +47967,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 40,
+    "food": 50,
+    "foodStamina": 25,
     "graphics": {
       "file": "rpgwo-item18.png",
       "frames": [
@@ -47729,6 +47986,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 10,
+    "food": 12,
+    "foodStamina": 6,
     "graphics": {
       "file": "rpgwo-item18.png",
       "frames": [
@@ -47746,6 +48005,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 10,
+    "food": 12,
+    "foodStamina": 6,
     "graphics": {
       "file": "rpgwo-item18.png",
       "frames": [
@@ -47763,6 +48024,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 10,
+    "food": 12,
+    "foodStamina": 6,
     "graphics": {
       "file": "rpgwo-item18.png",
       "frames": [
@@ -48638,6 +48901,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 30,
+    "food": 250,
+    "foodStamina": 50,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -48657,6 +48922,8 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 30,
+    "food": 250,
+    "foodStamina": 50,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -48995,6 +49262,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [
@@ -49520,6 +49788,7 @@
     "class": "Food",
     "blocksLight": false,
     "burden": 1,
+    "food": 5,
     "graphics": {
       "file": "rpgwo-item0.png",
       "frames": [

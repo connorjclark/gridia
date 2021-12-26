@@ -55,6 +55,14 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
     return actions;
   }
 
+  if (item && meta.class === 'Food') {
+    actions.push({
+      type: 'eat',
+      innerText: 'Eat',
+      title: '',
+    });
+  }
+
   if (item && meta.readable) {
     actions.push({
       type: 'read',
@@ -191,6 +199,11 @@ function globalOnActionHandler(e: GameActionEvent) {
     })).then((response) => {
       game.addToChat('World', response.content);
     });
+    break;
+  case 'eat':
+    client.connection.sendCommand(CommandBuilder.eatItem({
+      location,
+    }));
     break;
   }
 }

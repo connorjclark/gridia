@@ -593,8 +593,8 @@ export class Server {
       const isOnRaft = isRaft(itemBelowPlayer) || isRaft(itemBelowPlayerDest);
 
       if (isRaft(itemBelowPlayer) && !this.context.map.getItem(pos)) {
-        this.setItem(creature.pos, undefined);
-        this.setItem(pos, itemBelowPlayer);
+        this.setItemInWorld(creature.pos, undefined);
+        this.setItemInWorld(pos, itemBelowPlayer);
       }
 
       if (!isOnRaft) {
@@ -972,7 +972,7 @@ export class Server {
     if (spell.transformItemFrom && spell.transformItemTo) {
       if (!loc || this.context.map.getItem(loc)?.type !== spell.transformItemFrom.type) return 'Invalid item';
 
-      this.setItem(loc, {...spell.transformItemTo});
+      this.setItemInWorld(loc, {...spell.transformItemTo});
     }
 
     const variance = spell.variance ? Utils.randInt(0, spell.variance) : 0;
@@ -1121,7 +1121,7 @@ export class Server {
     }));
   }
 
-  setItem(loc: TilePoint, item?: Item) {
+  setItemInWorld(loc: TilePoint, item?: Item) {
     this.context.map.getTile(loc).item = item;
     this.broadcast(EventBuilder.setItem({
       location: Utils.ItemLocation.World(loc),
@@ -1456,6 +1456,36 @@ export class Server {
         path: [clientConnection.creature.pos],
       });
     }, 1000);
+  }
+
+  async getItem(location: ItemLocation) {
+    if (location.source === 'world') {
+      if (!location.loc) return;
+      return this.context.map.getItem(location.loc);
+    } else {
+      if (location.index === undefined) return;
+      const container = await this.context.getContainer(location.id);
+      return container.items[location.index];
+    }
+  }
+
+  setItem(location: ItemLocation, item: Item) {
+    if (location.source === 'world') {
+      if (!location.loc) throw new Error('invariant violated');
+      this.setItemInWorld(location.loc, item);
+    } else {
+      if (location.index === undefined) throw new Error('invariant violated');
+      this.setItemInContainer(location.id, location.index, item);
+    }
+  }
+
+  clearItem(location: ItemLocation) {
+    if (location.source === 'world') {
+      this.setItemInWorld(location.loc, undefined);
+    } else {
+      if (location.index === undefined) throw new Error('invariant violated');
+      this.setItemInContainer(location.id, location.index, undefined);
+    }
   }
 
   getScriptStates() {
@@ -1815,7 +1845,7 @@ export class Server {
         type: meta.growthItem,
         growth: 0,
       } : undefined;
-      this.setItem({...pos, w}, newItem);
+      this.setItemInWorld({...pos, w}, newItem);
     }
 
     // for (let x = 0; x < partition.width; x++) {
