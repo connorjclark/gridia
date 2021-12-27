@@ -365,8 +365,7 @@ export class Game {
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   modules = {
-    // @ts-expect-error
-    admin: null as AdminModule,
+    admin: null as AdminModule|null,
     movement: new MovementModule(this),
     selectedView: new SelectedViewModule(this),
     settings: new SettingsModule(this),
@@ -398,9 +397,6 @@ export class Game {
 
     if (client.player.isAdmin) {
       this.modules.admin = new AdminModule(this);
-    } else {
-      // TODO: AdminClientModule should create the panel. Until then, manually remove panel.
-      Helper.find('.panels__tab[data-panel="admin"]').remove();
     }
 
     this.tick = this.tick.bind(this);
@@ -441,7 +437,7 @@ export class Game {
   }
 
   isEditingMode() {
-    return this._isEditing && this.modules?.admin.window.delegate.isOpen();
+    return this._isEditing && this.modules.admin?.window.delegate.isOpen();
   }
 
   addActionCreator(actionCreator: GameActionCreator) {
@@ -674,7 +670,7 @@ export class Game {
     // this.world.filters.push(testFilter);
 
     for (const module of Object.values(this.modules)) {
-      module.onStart();
+      module?.onStart();
     }
 
     this.app.ticker.add(this.tick);
@@ -1508,7 +1504,7 @@ export class Game {
     }
 
     for (const clientModule of Object.values(this.modules)) {
-      clientModule.onTick(now);
+      clientModule?.onTick(now);
     }
   }
 

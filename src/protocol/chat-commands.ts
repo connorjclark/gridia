@@ -71,6 +71,8 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
         {name: 'name', type: 'string'},
       ],
       do(args: { name: string }) {
+        if (!playerConnection.player.isAdmin) return 'not allowed';
+
         const template = Content.getMonsterTemplateByNameNoError(args.name);
         if (!template) {
           server.send(EventBuilder.chat({
@@ -94,6 +96,8 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
         {name: 'quantity', type: 'number', optional: true},
       ],
       do(args: { nameOrId: string; quantity?: number }) {
+        if (!playerConnection.player.isAdmin) return 'not allowed';
+
         let meta;
         if (args.nameOrId.match(/\d+/)) {
           meta = Content.getMetaItem(parseInt(args.nameOrId, 10));
@@ -191,6 +195,8 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
     newPartition: {
       args: [],
       do() {
+        if (!playerConnection.player.isAdmin) return 'not allowed';
+
         const nextPartitionId = Math.max(...server.context.map.partitions.keys()) + 1;
         const partition = makeBareMap(100, 100, 1);
         server.context.map.addPartition(nextPartitionId, partition);
@@ -210,6 +216,8 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
       ],
       help: `1 hour=${server.context.ticksPerWorldDay / 24}`,
       do(args: { ticks: number }) {
+        if (!playerConnection.player.isAdmin) return 'not allowed';
+
         server.advanceTime(args.ticks);
       },
     },
@@ -282,6 +290,8 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
         {name: 'xp', type: 'number'},
       ],
       do(args: { skillName: string; xp: number }) {
+        if (!playerConnection.player.isAdmin) return 'not allowed';
+
         const skill = Content.getSkillByName(args.skillName);
         if (!skill) {
           server.send(EventBuilder.chat({
@@ -333,6 +343,8 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
     jewelry: {
       args: [],
       do() {
+        if (!playerConnection.player.isAdmin) return 'not allowed';
+
         const loc = {...playerConnection.creature.pos};
 
         const meta = Content.getRandomMetaItemOfClass('Jewelry');
@@ -360,6 +372,22 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
           from: 'SERVER',
           text: JSON.stringify(tile, null, 2),
         }), playerConnection);
+      },
+    },
+    setAdmin: {
+      args: [
+        {name: 'playerName', type: 'string'},
+      ],
+      do(args: { playerName: string }) {
+        if (!playerConnection.player.isAdmin) return 'not allowed';
+
+        const playerId = server.context.playerNamesToIds.get(args.playerName);
+        if (!playerId) return; // TODO
+        const player = server.context.players.get(playerId);
+        if (!player) return;
+
+        player.isAdmin = true;
+        // TODO: for now, player must refresh page to see Admin panel.
       },
     },
     help: {

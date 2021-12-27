@@ -321,8 +321,8 @@ export class Server {
       skillPoints: characterCreation.skillPoints,
       questStates: new Map(),
       tilesSeenLog: new Map(),
-      // everyone is an admin, for now.
-      isAdmin: true,
+      // anyone could be an admin, for now.
+      isAdmin: opts.name.startsWith('@'),
       // set later
       containerId: '',
       // set later
