@@ -371,8 +371,8 @@ export class CreatureState {
     if (this.ticksUntilRegeneration > 0) this.ticksUntilRegeneration--;
 
     if (this.ticksUntilRegeneration === 0 && server.context.map.getTile(this.creature.pos).floor !== WATER) {
-      this.ticksUntilRegeneration = server.taskRunner.rateToTicks({seconds: 1});
-      const changed = (['life', 'stamina', 'mana'] as const).filter((attribute) => {
+      this.ticksUntilRegeneration = server.taskRunner.rateToTicks({seconds: 2});
+      const changed = (['stamina', 'mana'] as const).filter((attribute) => {
         if (this.creature[attribute].current < this.creature[attribute].max) {
           adjustAttribute(this.creature, attribute, 1);
           return true;
