@@ -16,6 +16,8 @@ import Commands = Protocol.Commands;
 
 export class ServerInterface implements ICommands {
   onMove(server: Server, clientConnection: ClientConnection, {...loc}: Commands.Move['params']): Promise<Commands.Move['response']> {
+    clientConnection.assertsPlayerConnection();
+
     if (!server.context.map.inBounds(loc)) {
       return Promise.reject('out of bounds');
     }
@@ -51,7 +53,7 @@ export class ServerInterface implements ICommands {
 
     if (!server.context.walkable(loc)) return Promise.reject('not walkable');
 
-    server.scriptDelegates.onPlayerMove({clientConnection, from: creature.pos, to: loc});
+    server.scriptDelegates.onPlayerMove({playerConnection: clientConnection, from: creature.pos, to: loc});
 
     // if (!server.inView(loc)) {
     //   return false
@@ -155,6 +157,8 @@ export class ServerInterface implements ICommands {
   }
 
   async onCastSpell(server: Server, clientConnection: ClientConnection, {id, creatureId, loc}: Commands.CastSpell['params']): Promise<void> {
+    clientConnection.assertsPlayerConnection();
+
     const creature = clientConnection.creature;
     const otherCreature = creatureId ? server.context.getCreature(creatureId) : null;
     const spell = Content.getSpell(id);
@@ -192,6 +196,8 @@ export class ServerInterface implements ICommands {
   }
 
   async onRequestContainer(server: Server, clientConnection: ClientConnection, {containerId, loc}: Commands.RequestContainer['params']): Promise<Commands.RequestContainer['response']> {
+    clientConnection.assertsPlayerConnection();
+
     if (!containerId && !loc) throw new Error('expected containerId or loc');
     if (containerId && loc) throw new Error('expected only one of containerId or loc');
 
@@ -215,6 +221,8 @@ export class ServerInterface implements ICommands {
   }
 
   onCloseContainer(server: Server, clientConnection: ClientConnection, {containerId}: Commands.CloseContainer['params']): Promise<Commands.CloseContainer['response']> {
+    clientConnection.assertsPlayerConnection();
+
     const index = clientConnection.registeredContainers.indexOf(containerId);
     if (index !== -1) {
       clientConnection.registeredContainers.splice(index, 1);
@@ -223,6 +231,8 @@ export class ServerInterface implements ICommands {
   }
 
   onRequestCreature(server: Server, clientConnection: ClientConnection, {id}: Commands.RequestCreature['params']): Promise<Commands.RequestCreature['response']> {
+    clientConnection.assertsPlayerConnection();
+
     const creature = server.context.getCreature(id);
     if (!creature) {
       return Promise.reject('requested invalid creature: ' + id);
@@ -269,6 +279,8 @@ export class ServerInterface implements ICommands {
   }
 
   onCreatureAction(server: Server, clientConnection: ClientConnection, {creatureId, type}: Commands.CreatureAction['params']): Promise<Commands.CreatureAction['response']> {
+    clientConnection.assertsPlayerConnection();
+
     if (type === 'attack' && creatureId === 0) {
       server.creatureStates[clientConnection.creature.id].targetCreature = null;
       clientConnection.sendEvent(EventBuilder.setAttackTarget({creatureId: null}));
@@ -316,11 +328,15 @@ export class ServerInterface implements ICommands {
   }
 
   onDialogueResponse(server: Server, clientConnection: ClientConnection, {choiceIndex}: Commands.DialogueResponse['params']): Promise<Commands.DialogueResponse['response']> {
+    clientConnection.assertsPlayerConnection();
+
     server.processDialogueResponse(clientConnection, choiceIndex);
     return Promise.resolve();
   }
 
   onUse(server: Server, clientConnection: ClientConnection, {toolIndex, location, usageIndex}: Commands.Use['params']): Promise<Commands.Use['response']> {
+    clientConnection.assertsPlayerConnection();
+
     if (location.source === 'container') {
       return Promise.reject(); // TODO
     }
@@ -435,6 +451,8 @@ export class ServerInterface implements ICommands {
   }
 
   onAdminSetItem(server: Server, clientConnection: ClientConnection, {item, ...loc}: Commands.AdminSetItem['params']): Promise<Commands.AdminSetItem['response']> {
+    clientConnection.assertsPlayerConnection();
+
     if (!clientConnection.player.isAdmin) return Promise.reject(); // TODO
 
     if (!server.context.map.inBounds(loc)) {
@@ -449,6 +467,8 @@ export class ServerInterface implements ICommands {
   // container, within a container, from a container to the world, or even between containers.
   // If "to" is null for a container, no location is specified and the item will be place in the first viable slot.
   async onMoveItem(server: Server, clientConnection: ClientConnection, {from, quantity, to}: Commands.MoveItem['params']) {
+    clientConnection.assertsPlayerConnection();
+
     async function boundsCheck(location: ItemLocation) {
       if (location.source === 'world') {
         if (!location.loc) throw new Error('invariant violated');
@@ -476,7 +496,7 @@ export class ServerInterface implements ICommands {
       if (container.type === 'equipment') {
         const meta = Content.getMetaItem(item.type);
         const requiredSkill = meta.combatSkill;
-        if (requiredSkill && !clientConnection.player.skills.has(requiredSkill)) {
+        if (requiredSkill && !clientConnection.ensurePlayerConnection().player.skills.has(requiredSkill)) {
           return {
             error: `Missing ${Content.getSkill(requiredSkill).name} skill`,
           };
@@ -647,6 +667,8 @@ export class ServerInterface implements ICommands {
   }
 
   onLearnSkill(server: Server, clientConnection: ClientConnection, {id}: { id: number }): Promise<void> {
+    clientConnection.assertsPlayerConnection();
+
     const skill = Content.getSkill(id);
     if (clientConnection.player.skillPoints < skill.skillPoints) {
       return Promise.reject('not enough skill points');
@@ -667,6 +689,8 @@ export class ServerInterface implements ICommands {
   }
 
   async onChat(server: Server, clientConnection: ClientConnection, {text}: Commands.Chat['params']): Promise<Commands.Chat['response']> {
+    clientConnection.assertsPlayerConnection();
+
     if (text.startsWith('/')) {
       await processChatCommand(server, clientConnection, text);
     } else {
@@ -679,6 +703,8 @@ export class ServerInterface implements ICommands {
   }
 
   onReadItem(server: Server, clientConnection: ClientConnection, {location}: { location: ItemLocation }): Promise<{ content: string }> {
+    clientConnection.assertsPlayerConnection();
+
     const item = location.source === 'world' ? server.context.map.getItem(location.loc) : undefined;
     if (!item || !Content.getMetaItem(item.type).readable) return Promise.reject('invalid item');
 
@@ -688,6 +714,8 @@ export class ServerInterface implements ICommands {
   }
 
   async onEatItem(server: Server, clientConnection: ClientConnection, {location}: { location: ItemLocation }): Promise<void> {
+    clientConnection.assertsPlayerConnection();
+
     if (location.source === 'world') {
       server.send(EventBuilder.chat({
         section: 'World',
@@ -716,15 +744,19 @@ export class ServerInterface implements ICommands {
   }
 
   async onItemAction(server: Server, clientConnection: ClientConnection, {type, from, to}: Commands.ItemAction['params']): Promise<void> {
+    clientConnection.assertsPlayerConnection();
+
     const item = await server.getItem(from);
     if (!item) {
       return;
     }
 
-    server.scriptDelegates.onItemAction({clientConnection, type, location: from, to});
+    server.scriptDelegates.onItemAction({playerConnection: clientConnection, type, location: from, to});
   }
 
   async onSaveSettings(server: Server, clientConnection: ClientConnection, {settings}: { settings: Settings }): Promise<void> {
+    clientConnection.assertsPlayerConnection();
+
     clientConnection.account.settings = settings;
     await server.context.saveAccount(clientConnection.account);
   }

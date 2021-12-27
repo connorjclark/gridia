@@ -10,7 +10,7 @@ import {ServerInterface} from '../protocol/server-interface.js';
 import * as Utils from '../utils.js';
 import {WorldMapPartition} from '../world-map-partition.js';
 
-import {ClientConnection} from './client-connection.js';
+import {ClientConnection, PlayerConnection} from './client-connection.js';
 import {CreatureState} from './creature-state.js';
 import {adjustAttribute, attributeCheck} from './creature-utils.js';
 import {Script} from './script.js';
@@ -52,7 +52,7 @@ export class Server {
   outboundMessages = [] as Array<{
     message: Message;
     to?: ClientConnection;
-    filter?: (client: ClientConnection) => boolean;
+    filter?: (playerConnection: PlayerConnection) => boolean;
   }>;
   creatureStates: Record<number, CreatureState> = {};
 
@@ -64,14 +64,14 @@ export class Server {
   private _quests: Quest[] = [];
 
   scriptDelegates = {
-    onPlayerCreated: (player: Player, clientConnection: ClientConnection) => {
+    onPlayerCreated: (player: Player, playerConnection: PlayerConnection) => {
       for (const script of this._scripts) {
-        script.onPlayerCreated(player, clientConnection);
+        script.onPlayerCreated(player, playerConnection);
       }
     },
-    onPlayerEnterWorld: (player: Player, clientConnection: ClientConnection) => {
+    onPlayerEnterWorld: (player: Player, playerConnection: PlayerConnection) => {
       for (const script of this._scripts) {
-        script.onPlayerEnterWorld(player, clientConnection);
+        script.onPlayerEnterWorld(player, playerConnection);
       }
     },
     onPlayerKillCreature: (player: Player, creature: Creature) => {
@@ -79,14 +79,14 @@ export class Server {
         script.onPlayerKillCreature(player, creature);
       }
     },
-    onPlayerMove: (opts: { clientConnection: ClientConnection; from: Point4; to: Point4 }) => {
+    onPlayerMove: (opts: { playerConnection: PlayerConnection; from: Point4; to: Point4 }) => {
       Object.freeze(opts);
       for (const script of this._scripts) {
         script.onPlayerMove(opts);
       }
     },
     onItemAction: (opts:
-    { clientConnection: ClientConnection; type: string; location: ItemLocation; to?: ItemLocation }) => {
+    { playerConnection: PlayerConnection; type: string; location: ItemLocation; to?: ItemLocation }) => {
       Object.freeze(opts);
       for (const script of this._scripts) {
         script.onItemAction(opts);
@@ -114,7 +114,7 @@ export class Server {
     this.outboundMessages.push({to: toClient, message});
   }
 
-  conditionalBroadcast(event: ProtocolEvent, filter: (client: ClientConnection) => boolean) {
+  conditionalBroadcast(event: ProtocolEvent, filter: (playerConnection: PlayerConnection) => boolean) {
     const message = {data: event};
     this.outboundMessages.push({filter, message});
   }
@@ -271,6 +271,7 @@ export class Server {
   }
 
   async createPlayer(clientConnection: ClientConnection, opts: Protocol.Commands.CreatePlayer['params']) {
+    if (!clientConnection.account) return Promise.reject('Not logged in');
     if (opts.name.length > 20) return Promise.reject('Name too long');
     if (opts.name.length <= 2) return Promise.reject('Name too short');
     if (opts.name.match(/\s{2,}/) || opts.name.trim() !== opts.name) return Promise.reject('Name has bad spacing');
@@ -474,6 +475,8 @@ export class Server {
 
     this.context.players.set(player.id, player);
     clientConnection.player = player;
+    clientConnection.assertsPlayerConnection();
+
     await this.initClient(clientConnection);
     this.broadcastChatFromServer(`${clientConnection.player.name} has entered the world.`);
     player.loggedIn = true;
@@ -486,13 +489,13 @@ export class Server {
 
   getClientConnectionForCreature(creature: Creature) {
     for (const clientConnection of this.context.clientConnections) {
-      if (clientConnection.creature.id === creature.id) return clientConnection;
+      if (clientConnection.creature?.id === creature.id) return clientConnection.ensurePlayerConnection();
     }
   }
 
   getClientConnectionForPlayer(player: Player) {
     for (const clientConnection of this.context.clientConnections) {
-      if (clientConnection.player?.id === player.id) return clientConnection;
+      if (clientConnection.player?.id === player.id) return clientConnection.ensurePlayerConnection();
     }
   }
 
@@ -501,7 +504,7 @@ export class Server {
     if (index === -1) return;
 
     this.context.clientConnections.splice(index, 1);
-    if (clientConnection.player) {
+    if (clientConnection.isPlayerConnection()) {
       this.context.savePlayer(clientConnection.player, clientConnection.creature);
       this.removeCreature(clientConnection.creature);
       // Do not remove player yet, not until the next server.save(), in case player logs back in
@@ -512,6 +515,12 @@ export class Server {
         path: [clientConnection.creature.pos],
       });
       this.broadcastChatFromServer(`${clientConnection.player.name} has left the world.`);
+
+      const clientConnectionBase = clientConnection as ClientConnection;
+      clientConnectionBase.creature = undefined;
+      clientConnectionBase.player = undefined;
+      clientConnectionBase.container = undefined;
+      clientConnectionBase.equipment = undefined;
     }
   }
 
@@ -815,9 +824,9 @@ export class Server {
     if (targetAttributesChanged.length) this.broadcastPartialCreatureUpdate(data.target, targetAttributesChanged);
     if (targetAttributesDelta.life) this.modifyCreatureLife(data.actor, data.target, targetAttributesDelta.life);
 
-    const notifyClient = (clientConnection: ClientConnection) => {
-      const thisCreature = clientConnection.creature;
-      const otherCreature = clientConnection.creature === data.actor ? data.target : data.actor;
+    const notifyClient = (playerConnection: PlayerConnection) => {
+      const thisCreature = playerConnection.creature;
+      const otherCreature = playerConnection.creature === data.actor ? data.target : data.actor;
 
       let text;
       if (thisCreature === data.actor) {
@@ -866,14 +875,14 @@ export class Server {
         }
       }
 
-      if (text) this.send(EventBuilder.chat({section: 'Combat', text}), clientConnection);
+      if (text) this.send(EventBuilder.chat({section: 'Combat', text}), playerConnection);
 
       if (!missReason) {
         const xpModifier = otherCreature.combatLevel / thisCreature.combatLevel;
         const xp = Math.round(xpModifier * damage * 10);
         const skill = thisCreature === data.actor ? data.attackSkill : data.defenseSkill;
-        if (clientConnection.player.skills.has(skill.id)) {
-          this.grantXp(clientConnection, skill.id, xp);
+        if (playerConnection.player.skills.has(skill.id)) {
+          this.grantXp(playerConnection, skill.id, xp);
         }
       }
     };
@@ -1134,15 +1143,15 @@ export class Server {
     }));
   }
 
-  updateCreatureLight(client: ClientConnection) {
-    const light = client.container.items.reduce((acc, cur) => {
+  updateCreatureLight(playerConnection: PlayerConnection) {
+    const light = playerConnection.container.items.reduce((acc, cur) => {
       if (!cur) return acc;
       return Math.max(acc, Content.getMetaItem(cur.type).light);
     }, 0);
-    if (light === client.creature.light) return;
+    if (light === playerConnection.creature.light) return;
 
-    client.creature.light = light;
-    this.broadcastPartialCreatureUpdate(client.creature, ['light']);
+    playerConnection.creature.light = light;
+    this.broadcastPartialCreatureUpdate(playerConnection.creature, ['light']);
   }
 
   setItemInContainer(id: string, index: number, item?: Item) {
@@ -1165,14 +1174,14 @@ export class Server {
 
     // TODO: should light sources be equippable and only set creature light then?
     if ((prevItem && Content.getMetaItem(prevItem.type).light) || (item && Content.getMetaItem(item.type).light)) {
-      const client = this.context.clientConnections.find((c) => c.container.id === id);
-      if (client) this.updateCreatureLight(client);
+      const client = this.context.clientConnections.find((c) => c.container?.id === id);
+      if (client) this.updateCreatureLight(client.ensurePlayerConnection());
     }
 
     if (container.type === 'equipment') {
       const creature = [
         ...this.context.clientConnections.values(),
-      ].find((client) => client.equipment.id === id)?.creature;
+      ].find((client) => client.equipment?.id === id)?.creature;
       if (creature) {
         this.updateCreatureDataBasedOnEquipment(creature, container, {broadcast: true});
       }
@@ -1273,15 +1282,15 @@ export class Server {
     return [];
   }
 
-  grantXp(clientConnection: ClientConnection, skill: number, xp: number) {
+  grantXp(playerConnection: PlayerConnection, skill: number, xp: number) {
     if (xp <= 0) return;
-    if (!Player.hasSkill(clientConnection.player, skill)) return;
+    if (!Player.hasSkill(playerConnection.player, skill)) return;
 
-    const skillSummaryBefore = Player.getSkillSummary(clientConnection.player, clientConnection.creature.buffs, skill);
+    const skillSummaryBefore = Player.getSkillSummary(playerConnection.player, playerConnection.creature.buffs, skill);
     const {skillLevelIncreased, combatLevelIncreased} =
-      Player.incrementSkillXp(clientConnection.player, skill, xp) || {};
+      Player.incrementSkillXp(playerConnection.player, skill, xp) || {};
     const skillSummaryAfter =
-      skillLevelIncreased && Player.getSkillSummary(clientConnection.player, clientConnection.creature.buffs, skill);
+      skillLevelIncreased && Player.getSkillSummary(playerConnection.player, playerConnection.creature.buffs, skill);
 
     if (skillLevelIncreased && skillSummaryAfter) {
       const skillName = Content.getSkill(skill).name;
@@ -1290,7 +1299,7 @@ export class Server {
         text: skillSummaryAfter.buffAmount ?
           `${skillName} is now level ${skillSummaryAfter.unbuffedLevel}! (${skillSummaryAfter.level} buffed)` :
           `${skillName} is now level ${skillSummaryAfter.level}!`,
-      }), clientConnection);
+      }), playerConnection);
       this.send(EventBuilder.notifaction({
         details: {
           type: 'skill-level',
@@ -1298,35 +1307,35 @@ export class Server {
           from: skillSummaryBefore.unbuffedLevel,
           to: skillSummaryAfter.unbuffedLevel,
         },
-      }), clientConnection);
+      }), playerConnection);
     }
 
     if (combatLevelIncreased) {
-      const combatLevel = Player.getCombatLevel(clientConnection.player).combatLevel;
+      const combatLevel = Player.getCombatLevel(playerConnection.player).combatLevel;
       this.send(EventBuilder.chat({
         section: 'Skills',
         text: `You are now combat level ${combatLevel}!`,
-      }), clientConnection);
+      }), playerConnection);
 
       if (combatLevel % 5 === 0) {
         this.broadcastChat({
           from: 'SERVER',
-          text: `${clientConnection.player.name} is now combat level ${combatLevel}!`,
+          text: `${playerConnection.player.name} is now combat level ${combatLevel}!`,
         });
       }
 
       this.broadcastAnimation({
         name: 'LevelUp',
-        path: [clientConnection.creature.pos],
+        path: [playerConnection.creature.pos],
       });
 
-      this.updateClientPlayer(clientConnection);
+      this.updateClientPlayer(playerConnection);
     }
 
     this.send(EventBuilder.xp({
       skill,
       xp,
-    }), clientConnection);
+    }), playerConnection);
   }
 
   ensureSectorLoaded(sectorPoint: TilePoint) {
@@ -1402,11 +1411,11 @@ export class Server {
     return this.context.claims[key];
   }
 
-  updateClientPlayer(clientConnection: ClientConnection) {
+  updateClientPlayer(playerConnection: PlayerConnection) {
     // Lazy way to update Player.
-    clientConnection.sendEvent(EventBuilder.initialize({
-      player: clientConnection.player,
-      creatureId: clientConnection.creature.id,
+    playerConnection.sendEvent(EventBuilder.initialize({
+      player: playerConnection.player,
+      creatureId: playerConnection.creature.id,
       secondsPerWorldTick: this.context.secondsPerWorldTick,
       ticksPerWorldDay: this.context.ticksPerWorldDay,
     }));
@@ -1417,18 +1426,18 @@ export class Server {
     this.context.setCreature(creature);
   }
 
-  private async initClient(clientConnection: ClientConnection) {
-    const player = clientConnection.player;
+  private async initClient(playerConnection: PlayerConnection) {
+    const player = playerConnection.player;
 
-    clientConnection.sendEvent(EventBuilder.initialize({
+    playerConnection.sendEvent(EventBuilder.initialize({
       player,
-      creatureId: clientConnection.creature.id,
+      creatureId: playerConnection.creature.id,
       secondsPerWorldTick: this.context.secondsPerWorldTick,
       ticksPerWorldDay: this.context.ticksPerWorldDay,
     }));
-    clientConnection.sendEvent(EventBuilder.time({epoch: this.context.time.epoch}));
+    playerConnection.sendEvent(EventBuilder.time({epoch: this.context.time.epoch}));
 
-    clientConnection.sendEvent(EventBuilder.chat({
+    playerConnection.sendEvent(EventBuilder.chat({
       section: 'World',
       from: 'SERVER',
       text: [
@@ -1438,27 +1447,27 @@ export class Server {
       ].join('\n'),
     }));
 
-    const partition = this.context.map.getPartition(clientConnection.creature.pos.w);
-    clientConnection.sendEvent(EventBuilder.initializePartition({
-      w: clientConnection.creature.pos.w,
+    const partition = this.context.map.getPartition(playerConnection.creature.pos.w);
+    playerConnection.sendEvent(EventBuilder.initializePartition({
+      w: playerConnection.creature.pos.w,
       x: partition.width,
       y: partition.height,
       z: partition.depth,
     }));
 
     // TODO: next line not necessary. but removing breaks tests ...
-    clientConnection.sendEvent(EventBuilder.setCreature({partial: false, ...clientConnection.creature}));
-    clientConnection.sendEvent(EventBuilder.container({
-      container: await this.context.getContainer(clientConnection.equipment.id),
+    playerConnection.sendEvent(EventBuilder.setCreature({partial: false, ...playerConnection.creature}));
+    playerConnection.sendEvent(EventBuilder.container({
+      container: await this.context.getContainer(playerConnection.equipment.id),
     }));
-    clientConnection.sendEvent(EventBuilder.container(
-      {container: await this.context.getContainer(clientConnection.container.id)},
+    playerConnection.sendEvent(EventBuilder.container(
+      {container: await this.context.getContainer(playerConnection.container.id)},
     ));
-    this.updateCreatureLight(clientConnection);
+    this.updateCreatureLight(playerConnection);
     setTimeout(() => {
       this.broadcastAnimation({
         name: 'WarpIn',
-        path: [clientConnection.creature.pos],
+        path: [playerConnection.creature.pos],
       });
     }, 1000);
   }
@@ -1568,8 +1577,7 @@ export class Server {
       description: 'update subscribed creatures',
       fn: () => {
         for (const clientConnection of this.context.clientConnections) {
-          // TODO ?
-          if (!clientConnection.player) continue;
+          if (!clientConnection.isPlayerConnection()) continue;
 
           for (const creatureId of clientConnection.subscribedCreatureIds) {
             const creature = this.context.creatures.get(creatureId);
@@ -1651,7 +1659,7 @@ export class Server {
       rate: {seconds: 5},
       fn: () => {
         for (const clientConnection of this.context.clientConnections.values()) {
-          if (!clientConnection.player) continue;
+          if (!clientConnection.isPlayerConnection()) continue;
 
           server.context.map.forEach(clientConnection.creature.pos, 30, (loc) => {
             Player.markTileSeen(clientConnection.player, server.context.map, loc);
@@ -1782,13 +1790,13 @@ export class Server {
           } else if (filter) {
             for (const clientConnection of this.context.clientConnections) {
               // If connection is not logged in yet, skip.
-              if (!clientConnection.player) continue;
+              if (!clientConnection.isPlayerConnection()) continue;
               if (filter(clientConnection)) clientConnection.send(message);
             }
           } else {
             for (const clientConnection of this.context.clientConnections) {
               // If connection is not logged in yet, skip.
-              if (!clientConnection.player) continue;
+              if (!clientConnection.isPlayerConnection()) continue;
               clientConnection.send(message);
             }
           }

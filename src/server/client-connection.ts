@@ -1,22 +1,34 @@
 import {ProtocolEvent} from '../protocol/event-builder.js';
 
-// TODO: this whole thing smells.
+export type PlayerConnection = Required<ClientConnection>;
 
 export class ClientConnection {
   messageQueue: Message[] = [];
-  // @ts-expect-error
-  account: GridiaAccount;
-  // @ts-expect-error
-  player: Player;
-  // @ts-expect-error
-  creature: Creature;
-  // @ts-expect-error
-  container: Container;
-  // @ts-expect-error
-  equipment: Container;
+  account?: GridiaAccount;
+  player?: Player;
+  creature?: Creature;
+  container?: Container;
+  equipment?: Container;
   subscribedCreatureIds = new Set<number>();
   registeredContainers = [] as string[];
   activeDialogue?: { dialogue: Dialogue; partIndex: number };
+
+  isPlayerConnection(this: ClientConnection): this is PlayerConnection {
+    if (this.account && this.player && this.creature && this.container && this.equipment) {
+      return true;
+    }
+
+    return false;
+  }
+
+  ensurePlayerConnection(this: ClientConnection): PlayerConnection {
+    if (this.isPlayerConnection()) return this;
+    throw new Error('not a player connection');
+  }
+
+  assertsPlayerConnection(this: ClientConnection): asserts this is PlayerConnection {
+    if (!this.isPlayerConnection()) throw new Error('not a player connection');
+  }
 
   // @ts-expect-error
   send: (message: Message) => void;

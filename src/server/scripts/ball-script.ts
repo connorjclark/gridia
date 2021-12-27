@@ -1,6 +1,6 @@
 import * as Content from '../../content.js';
 import * as Utils from '../../utils.js';
-import {ClientConnection} from '../client-connection.js';
+import {PlayerConnection} from '../client-connection.js';
 import {Script} from '../script.js';
 import {Server} from '../server.js';
 
@@ -50,7 +50,7 @@ export class BallScript extends Script<{}> {
     });
   }
 
-  onPlayerMove(opts: {clientConnection: ClientConnection; from: Point4; to: Point4}) {
+  onPlayerMove(opts: {playerConnection: PlayerConnection; from: Point4; to: Point4}) {
     const item = this.server.context.map.getItem(opts.to);
     if (!item || Content.getMetaItem(item.type).class !== 'Ball') return;
 
@@ -72,14 +72,14 @@ export class BallScript extends Script<{}> {
   }
 
   async onItemAction(opts:
-  {clientConnection: ClientConnection; type: string; location: ItemLocation; to?: ItemLocation}) {
+  {playerConnection: PlayerConnection; type: string; location: ItemLocation; to?: ItemLocation}) {
     if (opts.type !== 'throw') return;
     if (opts.location.source !== 'container' || opts.to?.source !== 'world') return;
 
     const item = await this.server.getItem(opts.location);
     if (!item || Content.getMetaItem(item.type).class !== 'Ball') return;
 
-    const throwerLoc = opts.clientConnection.creature.pos;
+    const throwerLoc = opts.playerConnection.creature.pos;
     const dir = Utils.direction(throwerLoc, opts.to.loc);
 
     const startingLocFirstAttempt =

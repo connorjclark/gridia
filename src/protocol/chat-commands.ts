@@ -2,14 +2,14 @@ import {MAX_STACK, SECTOR_SIZE} from '../constants.js';
 import * as Content from '../content.js';
 import * as CommandParser from '../lib/command-parser.js';
 import {makeBareMap} from '../mapgen.js';
-import {ClientConnection} from '../server/client-connection.js';
+import {ClientConnection, PlayerConnection} from '../server/client-connection.js';
 import {Server} from '../server/server.js';
 import * as Utils from '../utils.js';
 
 import * as EventBuilder from './event-builder.js';
 
-export function processChatCommand(server: Server, clientConnection: ClientConnection, text: string) {
-  const creature = clientConnection.creature;
+export function processChatCommand(server: Server, playerConnection: PlayerConnection, text: string) {
+  const creature = playerConnection.creature;
 
   const CHAT_COMMANDS: Record<string, CommandParser.Command> = {
     warp: {
@@ -20,7 +20,7 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
         {name: 'map', type: 'number', optional: true},
       ],
       do(args: { x: number; y: number; z?: number; map?: number }) {
-        const destination = {...clientConnection.creature.pos};
+        const destination = {...playerConnection.creature.pos};
         if (args.z !== undefined && args.map !== undefined) {
           destination.w = args.map;
           destination.x = args.x;
@@ -44,7 +44,7 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
           return 'not walkable';
         }
 
-        server.warpCreature(clientConnection.creature, destination);
+        server.warpCreature(playerConnection.creature, destination);
       },
     },
     warpTo: {
@@ -77,11 +77,11 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
             section: 'World',
             from: 'SERVER',
             text: `No monster named ${args.name}`,
-          }), clientConnection);
+          }), playerConnection);
           return;
         }
 
-        const loc = server.findNearest(clientConnection.creature.pos, 10, true,
+        const loc = server.findNearest(playerConnection.creature.pos, 10, true,
           (_, l) => server.context.walkable(l));
         if (loc) {
           server.createCreature({type: template.id}, loc);
@@ -105,14 +105,14 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
             section: 'World',
             from: 'SERVER',
             text: `No item: ${args.nameOrId}`,
-          }), clientConnection);
+          }), playerConnection);
           return;
         }
 
         let quantity = args.quantity || 1;
         if (quantity > MAX_STACK) quantity = MAX_STACK;
 
-        const loc = server.findNearest(clientConnection.creature.pos, 10, true,
+        const loc = server.findNearest(playerConnection.creature.pos, 10, true,
           (t) => !t.item);
         if (loc) {
           server.setItemInWorld(loc, {type: meta.id, quantity});
@@ -122,7 +122,7 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
     time: {
       args: [],
       do() {
-        clientConnection.sendEvent(EventBuilder.chat({
+        playerConnection.sendEvent(EventBuilder.chat({
           section: 'World',
           from: 'World',
           text: `The time is ${server.context.time.toString()}`,
@@ -132,7 +132,7 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
     who: {
       args: [],
       do() {
-        clientConnection.sendEvent(EventBuilder.chat({
+        playerConnection.sendEvent(EventBuilder.chat({
           section: 'World',
           from: 'World',
           text: server.getMessagePlayersOnline(),
@@ -144,10 +144,10 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
         {name: 'server', type: 'boolean', optional: true},
       ],
       do(args: { server?: boolean }) {
-        if (args.server && !clientConnection.player.isAdmin) return 'not allowed';
+        if (args.server && !playerConnection.player.isAdmin) return 'not allowed';
 
         const sectorPoint = Utils.worldToSector(creature.pos, SECTOR_SIZE);
-        const id = args.server ? 'SERVER' : clientConnection.player.id;
+        const id = args.server ? 'SERVER' : playerConnection.player.id;
         return server.claimSector(id, creature.pos.w, sectorPoint)?.error;
       },
     },
@@ -158,9 +158,9 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
         if (!id) return 'land is not claimed';
 
         if (id === 'SERVER') {
-          if (!clientConnection.player.isAdmin) return 'not allowed';
+          if (!playerConnection.player.isAdmin) return 'not allowed';
         } else {
-          if (id !== clientConnection.player.id) return 'not allowed';
+          if (id !== playerConnection.player.id) return 'not allowed';
         }
 
         const sectorPoint = Utils.worldToSector(creature.pos, SECTOR_SIZE);
@@ -172,7 +172,7 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
       do() {
         const id = server.getSectorOwner(creature.pos);
         if (!id) {
-          clientConnection.sendEvent(EventBuilder.chat({
+          playerConnection.sendEvent(EventBuilder.chat({
             section: 'World',
             from: 'World',
             text: 'Unclaimed',
@@ -181,7 +181,7 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
         }
 
         const player = server.context.players.get(id);
-        clientConnection.sendEvent(EventBuilder.chat({
+        playerConnection.sendEvent(EventBuilder.chat({
           section: 'World',
           from: 'World',
           text: player?.name || id,
@@ -196,7 +196,7 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
         server.context.map.addPartition(nextPartitionId, partition);
         server.save().then(() => {
           partition.loaded = true;
-          clientConnection.sendEvent(EventBuilder.chat({
+          playerConnection.sendEvent(EventBuilder.chat({
             section: 'World',
             from: 'World',
             text: `Made partition ${nextPartitionId}`,
@@ -217,7 +217,7 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
       args: [],
       do() {
         server.save().then(() => {
-          clientConnection.sendEvent(EventBuilder.chat({
+          playerConnection.sendEvent(EventBuilder.chat({
             section: 'World',
             from: 'World',
             text: 'Server saved.',
@@ -252,28 +252,28 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
         // Hacky way to allow setting graphic back to default 3 player images.
         if (server.context.worldDataDefinition.baseDir === 'worlds/rpgwo-world') {
           if (args.monsterId !== 0 && monster) {
-            clientConnection.creature.graphics = {
+            playerConnection.creature.graphics = {
               ...monster.graphics,
             };
           } else {
-            clientConnection.creature.graphics = {
+            playerConnection.creature.graphics = {
               file: 'rpgwo-player0.png',
               frames: [Utils.randInt(0, 3)],
             };
           }
-          server.broadcastPartialCreatureUpdate(clientConnection.creature, ['graphics']);
+          server.broadcastPartialCreatureUpdate(playerConnection.creature, ['graphics']);
           // Equipment graphics might change.
           server.updateCreatureDataBasedOnEquipment(
-            clientConnection.creature, clientConnection.equipment, {broadcast: true});
+            playerConnection.creature, playerConnection.equipment, {broadcast: true});
           return;
         }
 
         if (!monster) return;
 
-        clientConnection.creature.graphics = {
+        playerConnection.creature.graphics = {
           ...monster.graphics,
         };
-        server.broadcastPartialCreatureUpdate(clientConnection.creature, ['graphics']);
+        server.broadcastPartialCreatureUpdate(playerConnection.creature, ['graphics']);
       },
     },
     xp: {
@@ -288,11 +288,11 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
             section: 'World',
             from: 'SERVER',
             text: `No skill named ${args.skillName}`,
-          }), clientConnection);
+          }), playerConnection);
           return;
         }
 
-        server.grantXp(clientConnection, skill.id, args.xp);
+        server.grantXp(playerConnection, skill.id, args.xp);
       },
     },
     animation: {
@@ -306,13 +306,13 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
             section: 'World',
             from: 'SERVER',
             text: `No animation named ${args.name}`,
-          }), clientConnection);
+          }), playerConnection);
           return;
         }
 
         server.broadcastAnimation({
           name: args.name,
-          path: [clientConnection.creature.pos],
+          path: [playerConnection.creature.pos],
         });
       },
     },
@@ -321,7 +321,7 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
         {name: 'content', type: 'string'},
       ],
       do(args: { content: string }) {
-        const loc = {...clientConnection.creature.pos};
+        const loc = {...playerConnection.creature.pos};
         loc.y -= 1;
 
         const item = server.context.map.getItem(loc);
@@ -333,7 +333,7 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
     jewelry: {
       args: [],
       do() {
-        const loc = {...clientConnection.creature.pos};
+        const loc = {...playerConnection.creature.pos};
 
         const meta = Content.getRandomMetaItemOfClass('Jewelry');
         const item: Item = {
@@ -352,14 +352,14 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
     debugTile: {
       args: [],
       do() {
-        const loc = {...clientConnection.creature.pos};
+        const loc = {...playerConnection.creature.pos};
 
         const tile = server.context.map.getTile(loc);
         server.send(EventBuilder.chat({
           section: 'World',
           from: 'SERVER',
           text: JSON.stringify(tile, null, 2),
-        }), clientConnection);
+        }), playerConnection);
       },
     },
     help: {
@@ -376,7 +376,7 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
           section: 'World',
           from: 'SERVER',
           text: messageBody,
-        }), clientConnection);
+        }), playerConnection);
       },
     },
   };
@@ -388,7 +388,7 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
       section: 'World',
       from: 'SERVER',
       text: `unknown command: ${text}`,
-    }), clientConnection);
+    }), playerConnection);
     return Promise.reject();
   }
 
@@ -399,7 +399,7 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
       section: 'World',
       from: 'SERVER',
       text: `error: ${parsedArgs.error}`,
-    }), clientConnection);
+    }), playerConnection);
     return Promise.reject();
   }
 
@@ -409,6 +409,6 @@ export function processChatCommand(server: Server, clientConnection: ClientConne
       section: 'World',
       from: 'SERVER',
       text: `error: ${maybeError}`,
-    }), clientConnection);
+    }), playerConnection);
   }
 }

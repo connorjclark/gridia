@@ -1,5 +1,5 @@
 import * as Player from '../../player.js';
-import {ClientConnection} from '../client-connection.js';
+import {ClientConnection, PlayerConnection} from '../client-connection.js';
 import {Script} from '../script.js';
 import {Server} from '../server.js';
 
@@ -63,7 +63,7 @@ export class BasicScript extends Script<typeof configDefinition> {
     this.server.registerQuest(this.quest);
   }
 
-  onPlayerCreated(player: Player, clientConnection: ClientConnection) {
+  onPlayerCreated(player: Player, clientConnection: PlayerConnection) {
     const loc = {...this.creatureSpawners[0].region};
     loc.x += 2;
     loc.y += 2;
@@ -80,7 +80,7 @@ export class BasicScript extends Script<typeof configDefinition> {
     console.log(Player.getQuestStatusMessage(player, this.quest));
   }
 
-  onSpeakToCaptain(clientConnection: ClientConnection, speaker: Creature): Dialogue | undefined {
+  onSpeakToCaptain(clientConnection: PlayerConnection, speaker: Creature): Dialogue | undefined {
     const player = clientConnection.player;
     const state = Player.getQuestState(player, this.quest) || Player.startQuest(player, this.quest);
     const speakers = [clientConnection.creature, speaker];

@@ -1,6 +1,6 @@
 import * as Utils from '../utils.js';
 
-import {ClientConnection} from './client-connection.js';
+import {PlayerConnection} from './client-connection.js';
 import {ScriptConfigStore} from './scripts/script-config-store.js';
 import {Server} from './server.js';
 import {Rate} from './task-runner.js';
@@ -76,11 +76,11 @@ export abstract class Script<C extends ConfigDefinition> {
     // Can override.
   }
 
-  onPlayerCreated(player: Player, clientConnection: ClientConnection): Promise<void> | void {
+  onPlayerCreated(player: Player, playerConnection: PlayerConnection): Promise<void> | void {
     // Can override.
   }
 
-  onPlayerEnterWorld(player: Player, clientConnection: ClientConnection): Promise<void> | void {
+  onPlayerEnterWorld(player: Player, playerConnection: PlayerConnection): Promise<void> | void {
     // Can override.
   }
 
@@ -88,11 +88,11 @@ export abstract class Script<C extends ConfigDefinition> {
     // Can override.
   }
 
-  onPlayerMove(opts: {clientConnection: ClientConnection; from: Point4; to: Point4}) {
+  onPlayerMove(opts: {playerConnection: PlayerConnection; from: Point4; to: Point4}) {
     throw new Error('Method not implemented.');
   }
 
-  onItemAction(opts: {clientConnection: ClientConnection; location: ItemLocation; to?: ItemLocation}) {
+  onItemAction(opts: {playerConnection: PlayerConnection; location: ItemLocation; to?: ItemLocation}) {
     throw new Error('Method not implemented.');
   }
 
