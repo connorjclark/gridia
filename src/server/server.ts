@@ -85,6 +85,13 @@ export class Server {
         script.onPlayerMove(opts);
       }
     },
+    onItemAction: (opts:
+    { clientConnection: ClientConnection; type: string; location: ItemLocation; to?: ItemLocation }) => {
+      Object.freeze(opts);
+      for (const script of this._scripts) {
+        script.onItemAction(opts);
+      }
+    },
   };
 
   constructor(opts: CtorOpts) {

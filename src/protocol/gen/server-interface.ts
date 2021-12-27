@@ -27,5 +27,6 @@ export interface ICommands {
     onRequestScripts(server: Server, clientConnection: ClientConnection, {}: Protocol.Commands.RequestScripts["params"]): Promise<Protocol.Commands.RequestScripts["response"]>;
     onReadItem(server: Server, clientConnection: ClientConnection, { location }: Protocol.Commands.ReadItem["params"]): Promise<Protocol.Commands.ReadItem["response"]>;
     onEatItem(server: Server, clientConnection: ClientConnection, { location }: Protocol.Commands.EatItem["params"]): Promise<Protocol.Commands.EatItem["response"]>;
+    onItemAction(server: Server, clientConnection: ClientConnection, { type, from, to }: Protocol.Commands.ItemAction["params"]): Promise<Protocol.Commands.ItemAction["response"]>;
     onSaveSettings(server: Server, clientConnection: ClientConnection, { settings }: Protocol.Commands.SaveSettings["params"]): Promise<Protocol.Commands.SaveSettings["response"]>;
 }

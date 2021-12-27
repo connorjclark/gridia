@@ -191,7 +191,14 @@ function globalOnActionHandler(e: GameActionEvent) {
     }));
     break;
   case 'throw':
-    // TODO
+    game.enterClickTileMode((selectedLocation) => {
+      client.connection.sendCommand(CommandBuilder.itemAction({
+        type: 'throw',
+        from: location,
+        to: selectedLocation,
+      }));
+      return {finished: true};
+    });
     break;
   case 'read':
     client.connection.sendCommand(CommandBuilder.readItem({

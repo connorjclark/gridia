@@ -936,6 +936,10 @@ export class Game {
 
       const loc = worldToTile(mouseToWorld({x: e.data.global.x, y: e.data.global.y}));
       this.client.eventEmitter.emit('pointerUp', {...loc});
+
+      if (this.state.clickTileMode) {
+        this.state.clickTileMode.onClick(Utils.ItemLocation.World(loc));
+      }
     }, evtOptions);
     this.world.on('pointerdown', (e: PIXI.InteractionEvent) => {
       if (ContextMenu.isOpen()) {
@@ -1048,6 +1052,10 @@ export class Game {
           ...focusPos,
           z: (focusPos.z + 1) % partition.depth,
         }));
+      }
+
+      if (this.state.clickTileMode && e.keyCode === KEYS.ESCAPE) {
+        this.exitClickTileMode();
       }
     }, evtOptions);
 
@@ -1522,6 +1530,21 @@ export class Game {
       chatTextarea.value += `${this.formatChatEntry(text, from)}\n`;
       if (isMaxScroll) chatTextarea.scrollTop = chatTextarea.scrollHeight;
     }
+  }
+
+  enterClickTileMode(onClickTile: (location: WorldLocation) => {finished: boolean}) {
+    Helper.find('.game').classList.add('select-tile-mode');
+    this.state.clickTileMode = {
+      onClick: (location: WorldLocation) => {
+        const result = onClickTile(location);
+        if (result.finished === true) this.exitClickTileMode();
+      },
+    };
+  }
+
+  exitClickTileMode() {
+    Helper.find('.game').classList.remove('select-tile-mode');
+    this.state.clickTileMode = undefined;
   }
 
   private setChatSection(name: string) {

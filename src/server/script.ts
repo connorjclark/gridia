@@ -92,6 +92,10 @@ export abstract class Script<C extends ConfigDefinition> {
     throw new Error('Method not implemented.');
   }
 
+  onItemAction(opts: {clientConnection: ClientConnection; location: ItemLocation; to?: ItemLocation}) {
+    throw new Error('Method not implemented.');
+  }
+
   // TODO: time budget for tick.
   // TODO: only run script if player is nearby.
   tick(): Promise<void> | void {

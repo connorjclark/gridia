@@ -715,6 +715,15 @@ export class ServerInterface implements ICommands {
     });
   }
 
+  async onItemAction(server: Server, clientConnection: ClientConnection, {type, from, to}: Commands.ItemAction['params']): Promise<void> {
+    const item = await server.getItem(from);
+    if (!item) {
+      return;
+    }
+
+    server.scriptDelegates.onItemAction({clientConnection, type, location: from, to});
+  }
+
   async onSaveSettings(server: Server, clientConnection: ClientConnection, {settings}: { settings: Settings }): Promise<void> {
     clientConnection.account.settings = settings;
     await server.context.saveAccount(clientConnection.account);

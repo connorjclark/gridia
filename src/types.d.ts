@@ -420,6 +420,9 @@ interface DialoguePart {
 }
 
 interface UIState {
+  clickTileMode?: {
+    onClick(location: WorldLocation);
+  };
   mouse: {
     x: number;
     y: number;

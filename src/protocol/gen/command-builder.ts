@@ -92,12 +92,16 @@ type EatItemCommand = {
     type: "eatItem";
     args: Protocol.Commands.EatItem;
 };
+type ItemActionCommand = {
+    type: "itemAction";
+    args: Protocol.Commands.ItemAction;
+};
 type SaveSettingsCommand = {
     type: "saveSettings";
     args: Protocol.Commands.SaveSettings;
 };
 
-export type ProtocolCommand = AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | RequestScriptsCommand | ReadItemCommand | EatItemCommand | SaveSettingsCommand;
+export type ProtocolCommand = AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | RequestScriptsCommand | ReadItemCommand | EatItemCommand | ItemActionCommand | SaveSettingsCommand;
 
 export function adminSetFloor({ floor, ...loc }: Protocol.Commands.AdminSetFloor["params"]): AdminSetFloorCommand {
     return { type: "adminSetFloor", args: arguments[0] };
@@ -167,6 +171,9 @@ export function readItem({ location }: Protocol.Commands.ReadItem["params"]): Re
 }
 export function eatItem({ location }: Protocol.Commands.EatItem["params"]): EatItemCommand {
     return { type: "eatItem", args: arguments[0] };
+}
+export function itemAction({ type, from, to }: Protocol.Commands.ItemAction["params"]): ItemActionCommand {
+    return { type: "itemAction", args: arguments[0] };
 }
 export function saveSettings({ settings }: Protocol.Commands.SaveSettings["params"]): SaveSettingsCommand {
     return { type: "saveSettings", args: arguments[0] };

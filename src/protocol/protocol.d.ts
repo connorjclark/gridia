@@ -46,6 +46,7 @@ declare namespace Protocol {
     type RequestScripts = Command<{}, Array<{ id: string; config: any; errors: any[] }>>;
     type ReadItem = Command<{ location: ItemLocation }, { content: string }>;
     type EatItem = Command<{ location: ItemLocation }>;
+    type ItemAction = Command<{ type: string; from: ItemLocation; to?: ItemLocation }>;
     type SaveSettings = Command<{ settings: Settings }>;
   }
 

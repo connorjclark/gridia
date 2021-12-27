@@ -72,6 +72,9 @@ button {
 #canvases {
   cursor: cell;
 }
+.game.select-tile-mode #canvases {
+  cursor: pointer;
+}
 
 .status-texts {
   position: absolute;

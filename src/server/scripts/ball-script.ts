@@ -5,7 +5,7 @@ import {Script} from '../script.js';
 import {Server} from '../server.js';
 
 export class BallScript extends Script<{}> {
-  private activeKicks: Array<{item: Item; loc: Point4; dir: Point2; momentum: number}> = [];
+  private activeKicks: Array<{item: Item; loc: Point4; locFloating: Point4; dir: Point2; momentum: number}> = [];
 
   constructor(protected server: Server) {
     super('ball', server, {});
@@ -14,15 +14,16 @@ export class BallScript extends Script<{}> {
   onStart() {
     this.server.taskRunner.registerTickSection({
       description: 'ball script',
-      rate: {ms: 100},
+      rate: {ms: 75},
       fn: () => {
         for (let i = this.activeKicks.length - 1; i >= 0; i-- ) {
           const kick = this.activeKicks[i];
 
-          const ballDestX = kick.loc.x + Math.round(Utils.clamp(kick.dir.x, -1, 1));
-          const ballDestY = kick.loc.y + Math.round(Utils.clamp(kick.dir.y, -1, 1));
-          const newLoc = {...kick.loc, x: ballDestX, y: ballDestY};
-          const itemAtNewLoc = this.server.context.map.getItem(newLoc);
+          const ballDestX = kick.locFloating.x + Utils.clamp(kick.dir.x, -1, 1);
+          const ballDestY = kick.locFloating.y + Utils.clamp(kick.dir.y, -1, 1);
+          const newLocFloating = {...kick.loc, x: ballDestX, y: ballDestY};
+          const newLoc = {...kick.loc, x: Math.round(ballDestX), y: Math.round(ballDestY)};
+          const itemAtNewLoc = !Utils.equalPoints(kick.loc, newLoc) && this.server.context.map.getItem(newLoc);
 
           if (itemAtNewLoc && Content.getMetaItem(itemAtNewLoc.type).class === 'Goal') {
             this.server.setItemInWorld(kick.loc, undefined);
@@ -39,6 +40,7 @@ export class BallScript extends Script<{}> {
             this.server.setItemInWorld(kick.loc, undefined);
             this.server.setItemInWorld(newLoc, kick.item);
             kick.loc = newLoc;
+            kick.locFloating = newLocFloating;
           }
 
           kick.momentum -= 1;
@@ -62,9 +64,42 @@ export class BallScript extends Script<{}> {
       this.activeKicks.push({
         item,
         loc: opts.to,
+        locFloating: {...opts.to},
         dir,
         momentum,
       });
     }
+  }
+
+  async onItemAction(opts:
+  {clientConnection: ClientConnection; type: string; location: ItemLocation; to?: ItemLocation}) {
+    if (opts.type !== 'throw') return;
+    if (opts.location.source !== 'container' || opts.to?.source !== 'world') return;
+
+    const item = await this.server.getItem(opts.location);
+    if (!item || Content.getMetaItem(item.type).class !== 'Ball') return;
+
+    const throwerLoc = opts.clientConnection.creature.pos;
+    const dir = Utils.direction(throwerLoc, opts.to.loc);
+
+    const startingLocFirstAttempt =
+      {...throwerLoc, x: throwerLoc.x + Math.sign(dir.x), y: throwerLoc.y + Math.sign(dir.y)};
+    const startingLoc = this.server.findNearest(startingLocFirstAttempt, 6, true,
+      (tile) => {
+        if (!tile.item) return true;
+        return false;
+      });
+    if (!startingLoc) return;
+
+    this.server.setItem(Utils.ItemLocation.World(startingLoc), item);
+    this.server.clearItem(opts.location);
+
+    this.activeKicks.push({
+      item,
+      loc: startingLoc,
+      locFloating: {...startingLoc},
+      dir,
+      momentum: Math.ceil(Utils.dist(startingLoc, opts.to.loc)),
+    });
   }
 }
