@@ -272,6 +272,7 @@ interface MetaItem {
   foodStamina?: number;
   foodMana?: number;
   foodLife?: number;
+  standDamage?: number;
 }
 
 interface ItemUse {

@@ -600,6 +600,7 @@ export class Server {
 
   moveCreature(creature: Creature, pos: TilePoint) {
     const tile = this.context.map.getTile(pos);
+    const meta = tile.item && Content.getMetaItem(tile.item.type);
 
     // TODO: generalize
     if (tile.floor === WATER && Content.getBaseDir() === 'worlds/rpgwo-world') {
@@ -621,6 +622,10 @@ export class Server {
           this.modifyCreatureLife(null, creature, -2);
         }
       }
+    }
+
+    if (meta?.standDamage) {
+      this.modifyCreatureLife(null, creature, -meta.standDamage);
     }
 
     creature.pos = pos;

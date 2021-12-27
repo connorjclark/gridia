@@ -4025,7 +4025,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 10
   },
   {
     "id": 181,
@@ -4044,7 +4045,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 20
   },
   {
     "id": 182,
@@ -4063,7 +4065,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 30
   },
   {
     "id": 183,
@@ -4284,7 +4287,8 @@
     "light": 5,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 20
   },
   {
     "id": 195,
@@ -6722,7 +6726,8 @@
     "light": 7,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 10
   },
   {
     "id": 324,
@@ -7090,7 +7095,8 @@
     "light": 3,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 10
   },
   {
     "id": 343,
@@ -7307,7 +7313,8 @@
     "light": 1,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 1
   },
   {
     "id": 355,
@@ -8554,7 +8561,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 5
   },
   {
     "id": 420,
@@ -8573,7 +8581,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 10
   },
   {
     "id": 421,
@@ -8610,7 +8619,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 5
   },
   {
     "id": 423,
@@ -8629,7 +8639,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 10
   },
   {
     "id": 424,
@@ -8666,7 +8677,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 5
   },
   {
     "id": 426,
@@ -8685,7 +8697,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 10
   },
   {
     "id": 427,
@@ -8722,7 +8735,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 5
   },
   {
     "id": 429,
@@ -8741,7 +8755,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 10
   },
   {
     "id": 430,
@@ -9609,7 +9624,8 @@
     "light": 4,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 10
   },
   {
     "id": 478,
@@ -9632,7 +9648,8 @@
     "light": 6,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 20
   },
   {
     "id": 479,
@@ -16766,7 +16783,8 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 10
   },
   {
     "id": 847,
@@ -16800,7 +16818,8 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 25
   },
   {
     "id": 849,
@@ -16834,7 +16853,8 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 50
   },
   {
     "id": 851,
@@ -20898,7 +20918,8 @@
     "light": 5,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 15
   },
   null,
   {
@@ -21076,7 +21097,8 @@
     "light": 5,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 15
   },
   {
     "id": 1086,
@@ -21099,7 +21121,8 @@
     "light": 8,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 50
   },
   null,
   null,
@@ -21171,7 +21194,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 750,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 5
   },
   {
     "id": 1094,
@@ -22501,7 +22525,8 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 10
   },
   {
     "id": 1157,
@@ -22537,7 +22562,8 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 25
   },
   {
     "id": 1159,
@@ -22573,7 +22599,8 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 50
   },
   {
     "id": 1161,
@@ -22615,7 +22642,8 @@
     "light": 5,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 15
   },
   {
     "id": 1163,
@@ -22638,7 +22666,8 @@
     "light": 3,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 5
   },
   {
     "id": 1164,
@@ -27637,7 +27666,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 5
   },
   {
     "id": 1406,
@@ -27656,7 +27686,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 10
   },
   {
     "id": 1407,
@@ -27675,7 +27706,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 15
   },
   {
     "id": 1408,
@@ -27694,7 +27726,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 15
   },
   {
     "id": 1409,
@@ -27713,7 +27746,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 15
   },
   {
     "id": 1410,
@@ -27732,7 +27766,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 20
   },
   {
     "id": 1411,
@@ -27790,7 +27825,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 5
   },
   {
     "id": 1414,
@@ -27809,7 +27845,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 10
   },
   {
     "id": 1415,
@@ -27828,7 +27865,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 15
   },
   {
     "id": 1416,
@@ -27847,7 +27885,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 15
   },
   {
     "id": 1417,
@@ -27866,7 +27905,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 15
   },
   {
     "id": 1418,
@@ -27885,7 +27925,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 20
   },
   {
     "id": 1419,
@@ -33267,7 +33308,8 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 50
   },
   {
     "id": 1689,
@@ -33301,7 +33343,8 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 50
   },
   {
     "id": 1691,
@@ -33335,7 +33378,8 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 50
   },
   {
     "id": 1693,
@@ -35845,7 +35889,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 5
   },
   {
     "id": 1833,
@@ -37977,7 +38022,8 @@
     "light": 1,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "standDamage": 1
   },
   {
     "id": 1959,
@@ -40502,7 +40548,8 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 10
   },
   {
     "id": 2093,
@@ -40536,7 +40583,8 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 25
   },
   {
     "id": 2095,
@@ -40570,7 +40618,8 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 50
   },
   {
     "id": 2097,
@@ -40587,7 +40636,8 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 10
   },
   {
     "id": 2098,
@@ -40623,7 +40673,8 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 25
   },
   {
     "id": 2100,
@@ -41091,7 +41142,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 20
   },
   {
     "id": 2121,
@@ -41112,7 +41164,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 10
   },
   {
     "id": 2122,
@@ -41624,7 +41677,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 5
   },
   {
     "id": 2152,
@@ -41642,7 +41696,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 10
   },
   {
     "id": 2153,
@@ -41661,7 +41716,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 15
   },
   {
     "id": 2154,
@@ -41680,7 +41736,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 20
   },
   {
     "id": 2155,
@@ -41699,7 +41756,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 25
   },
   {
     "id": 2156,
@@ -43505,7 +43563,8 @@
     "light": 8,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 100
   },
   {
     "id": 2238,
@@ -44297,7 +44356,8 @@
     "light": 8,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 200
   },
   null,
   null,
@@ -46525,7 +46585,8 @@
     "light": 0,
     "moveable": true,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 25
   },
   {
     "id": 3002,
@@ -49761,7 +49822,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 5
   },
   {
     "id": 3161,
@@ -49780,7 +49842,8 @@
     "light": 0,
     "moveable": false,
     "rarity": 1,
-    "stackable": false
+    "stackable": false,
+    "standDamage": 10
   },
   {
     "id": 3162,
