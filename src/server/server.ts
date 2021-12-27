@@ -626,6 +626,10 @@ export class Server {
 
     if (meta?.standDamage) {
       this.modifyCreatureLife(null, creature, -meta.standDamage);
+      this.broadcastAnimation({
+        name: 'Attack',
+        path: [pos],
+      });
     }
 
     creature.pos = pos;
