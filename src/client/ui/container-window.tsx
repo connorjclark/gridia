@@ -31,6 +31,12 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
     setSelectedIndex: (state: State, selectedIndex: number | null): State => {
       if (selectedIndex === state.selectedIndex) selectedIndex = null;
 
+      // Only allow selecting items with usages.
+      const item = selectedIndex !== null && state.container.items[selectedIndex];
+      if (item && Content.getItemUsesForTool(item.type).size === 0) {
+        selectedIndex = null;
+      }
+
       // lol
       game.state.containers[state.container.id] = game.state.containers[state.container.id] || {};
       game.state.containers[state.container.id].selectedIndex = selectedIndex;
