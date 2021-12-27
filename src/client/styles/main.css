@@ -461,9 +461,11 @@ button {
   display: flex;
   justify-content: center;
   max-width: 32px;
+  padding: 1px;
 }
 .admin__selection--selected {
   border: 1px solid gold;
+  padding: 0;
 }
 
 .admin__tool--selected {
