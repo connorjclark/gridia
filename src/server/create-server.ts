@@ -64,6 +64,8 @@ export async function startServer(options: ServerOptions, db: Database) {
           }
         } else {
           for (const {creature} of Object.values(server.creatureStates)) {
+            if (creature.tamedBy) continue;
+
             server.removeCreature(creature);
           }
         }

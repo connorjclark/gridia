@@ -492,7 +492,7 @@ export class Server {
 
   getClientConnectionForPlayer(player: Player) {
     for (const clientConnection of this.context.clientConnections) {
-      if (clientConnection.player.id === player.id) return clientConnection;
+      if (clientConnection.player?.id === player.id) return clientConnection;
     }
   }
 

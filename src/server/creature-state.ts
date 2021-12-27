@@ -400,7 +400,9 @@ export class CreatureState {
         priority: 50,
         satisfied() {
           if (!tamedByPlayer) return true;
-          return Utils.maxDiff(this.creature.pos, tamedByPlayer.loc) <= 2;
+          const clientConnection = server.getClientConnectionForPlayer(tamedByPlayer);
+          if (!clientConnection) return true;
+          return Utils.maxDiff(this.creature.pos, clientConnection.creature.pos) <= 2;
         },
       });
     }
