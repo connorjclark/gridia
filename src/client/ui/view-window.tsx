@@ -94,6 +94,10 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
             if (action.type === 'split' && quantity > 1) {
               const quantityToSplit = props.quantity || 1;
               children.push(
+                <button class='action' title={action.title} {...dataset} data-click-mode={true}>
+                  Click + {action.innerText}
+                </button>);
+              children.push(
                 <input
                   type="number"
                   onInput={(e) => props.setQuantity(val(e.target))}

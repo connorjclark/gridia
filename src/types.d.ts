@@ -422,6 +422,7 @@ interface DialoguePart {
 interface UIState {
   clickTileMode?: {
     onClick(location: WorldLocation);
+    itemCursor?: Item | null;
   };
   mouse: {
     x: number;

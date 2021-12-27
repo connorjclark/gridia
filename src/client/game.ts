@@ -332,7 +332,8 @@ export class Game {
   protected canvasesEl = Helper.find('#canvases');
   protected world = new PIXI.Container();
   protected itemMovingState?: ItemMoveBeginEvent;
-  protected itemMovingGraphic = makeGraphicComponent();
+  /** Follows the cursor, displaying an item graphic. Used for moving items / click tile mode */
+  protected itemCursorGraphic = makeGraphicComponent();
   protected actionCreators: GameActionCreator[] = [];
 
   protected creatureSprites = new Map<number, CreatureSprite>();
@@ -391,7 +392,7 @@ export class Game {
 
     this.worldContainer = new WorldContainer(client.context.map);
 
-    this.itemMovingGraphic.el.classList.add('moving-item');
+    this.itemCursorGraphic.el.classList.add('moving-item');
 
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
@@ -761,9 +762,10 @@ export class Game {
     this.client.eventEmitter.on('itemMoveBegin', (e: ItemMoveBeginEvent) => {
       if (!e.item) return;
 
+      this.exitClickTileMode();
       this.itemMovingState = e;
       const metaItem = Content.getMetaItem(e.item.type);
-      this.itemMovingGraphic.setState({
+      this.itemCursorGraphic.setState({
         graphic: {
           file: metaItem.graphics.file,
           index: metaItem.graphics.frames[0],
@@ -783,6 +785,9 @@ export class Game {
       }
 
       this.itemMovingState = undefined;
+      this.itemCursorGraphic.setState({
+        graphic: undefined,
+      });
     });
 
     this.client.eventEmitter.on('containerWindowSelectedIndexChanged', () => {
@@ -821,15 +826,41 @@ export class Game {
       const creatureId = Number(dataset.creatureId);
       const creature = this.client.context.getCreature(creatureId);
       const quantity = dataset.quantity ? Number(dataset.quantity) : undefined;
+      const isClickMode = Boolean(dataset.clickMode);
       if (creature && !location) location = Utils.ItemLocation.World(creature.pos);
       if (!location) return;
 
-      this.client.eventEmitter.emit('action', {
-        action,
-        location,
-        creature,
-        quantity,
-      });
+      if (isClickMode) {
+        this.enterClickTileMode({
+          onClickTile: (selectedLocation) => {
+            if (!location) return {finished: true};
+
+            // TODO make more generic. right now this is just for item splitting.
+            //   this.client.eventEmitter.emit('action', {
+            //     action,
+            //     location: selectedLocation,
+            //     creature,
+            //     quantity,
+            //   });
+            this.client.connection.sendCommand(CommandBuilder.moveItem({
+              from: location,
+              quantity: quantity || 1,
+              to: selectedLocation,
+            }));
+            return {finished: false};
+          },
+          itemCursor: location.source === 'world' ?
+            this.client.context.map.getItem(location.loc) :
+            this.client.context.containers.get(location.id)?.items[location.index || 0],
+        });
+      } else {
+        this.client.eventEmitter.emit('action', {
+          action,
+          location,
+          creature,
+          quantity,
+        });
+      }
     };
     document.body.addEventListener('click', onActionSelection, evtOptions);
 
@@ -1054,7 +1085,8 @@ export class Game {
         }));
       }
 
-      if (this.state.clickTileMode && e.keyCode === KEYS.ESCAPE) {
+      if (this.state.clickTileMode &&
+        [KEYS.BACKSPACE, KEYS.ESCAPE, KEYS.W, KEYS.A, KEYS.S, KEYS.D].includes(e.keyCode)) {
         this.exitClickTileMode();
       }
     }, evtOptions);
@@ -1379,15 +1411,11 @@ export class Game {
       creatureSprite.destroy();
     }
 
-    // Draw item being moved.
-    if (this.itemMovingState && this.itemMovingState.item) {
+    // Draw item under cursor.
+    {
       const {x, y} = this.state.mouse;
-      this.itemMovingGraphic.el.style.left = `${x - GFX_SIZE / 2}px`;
-      this.itemMovingGraphic.el.style.top = `${y - GFX_SIZE / 2}px`;
-    } else {
-      this.itemMovingGraphic.setState({
-        graphic: undefined,
-      });
+      this.itemCursorGraphic.el.style.left = `${x - GFX_SIZE / 2}px`;
+      this.itemCursorGraphic.el.style.top = `${y - GFX_SIZE / 2}px`;
     }
 
     // Set _selectedViewCursor.
@@ -1532,18 +1560,37 @@ export class Game {
     }
   }
 
-  enterClickTileMode(onClickTile: (location: WorldLocation) => {finished: boolean}) {
+  enterClickTileMode(opts: {
+    onClickTile: (location: WorldLocation) => {finished: boolean};
+    itemCursor?: Item | null;
+  }) {
     Helper.find('.game').classList.add('select-tile-mode');
+    this.canvasesEl.focus();
+
+    if (opts.itemCursor) {
+      const meta = Content.getMetaItem(opts.itemCursor.type);
+      this.itemCursorGraphic.setState({
+        graphic: {
+          file: meta.graphics.file,
+          index: meta.graphics.frames[0],
+        },
+      });
+    }
+
     this.state.clickTileMode = {
       onClick: (location: WorldLocation) => {
-        const result = onClickTile(location);
+        const result = opts.onClickTile(location);
         if (result.finished === true) this.exitClickTileMode();
       },
+      itemCursor: opts.itemCursor,
     };
   }
 
   exitClickTileMode() {
+    if (!this.state.clickTileMode) return;
+
     Helper.find('.game').classList.remove('select-tile-mode');
+    if (this.state.clickTileMode.itemCursor) this.itemCursorGraphic.setState({graphic: undefined});
     this.state.clickTileMode = undefined;
   }
 

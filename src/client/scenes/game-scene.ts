@@ -147,6 +147,8 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
   return actions;
 }
 
+// TODO: make this match an action on the protocol:
+// type, location, to?
 function globalOnActionHandler(e: GameActionEvent) {
   const client = game.client;
 
@@ -191,13 +193,18 @@ function globalOnActionHandler(e: GameActionEvent) {
     }));
     break;
   case 'throw':
-    game.enterClickTileMode((selectedLocation) => {
-      client.connection.sendCommand(CommandBuilder.itemAction({
-        type: 'throw',
-        from: location,
-        to: selectedLocation,
-      }));
-      return {finished: true};
+    game.enterClickTileMode({
+      onClickTile: (selectedLocation) => {
+        client.connection.sendCommand(CommandBuilder.itemAction({
+          type: 'throw',
+          from: location,
+          to: selectedLocation,
+        }));
+        return {finished: true};
+      },
+      itemCursor: location.source === 'world' ?
+        client.context.map.getItem(location.loc) :
+        client.context.containers.get(location.id)?.items[location.index || 0],
     });
     break;
   case 'read':

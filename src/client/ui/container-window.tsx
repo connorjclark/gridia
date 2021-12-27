@@ -189,6 +189,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
         if (container.type === 'normal') exportedActions.setSelectedIndex(mouseDownIndex);
         game.modules.selectedView.selectView(Utils.ItemLocation.Container(container.id, mouseDownIndex));
       }
+      game.exitClickTileMode();
     });
   }
 
