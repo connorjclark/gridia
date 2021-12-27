@@ -440,10 +440,6 @@ button {
   color: gold;
 }
 
-.window--admin > div {
-  display: flex;
-}
-
 .admin__filter {
   margin: 5px;
   white-space: nowrap;

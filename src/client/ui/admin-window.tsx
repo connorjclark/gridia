@@ -5,7 +5,9 @@ import * as Content from '../../content.js';
 import * as Helper from '../helper.js';
 import {AdminModule} from '../modules/admin-module.js';
 
-import {Graphic, Input, PaginatedContent} from './ui-common.js';
+import {
+  ComponentProps, createSubApp, Graphic, Input, PaginatedContent, TabbedPane, TabbedPaneProps,
+} from './ui-common.js';
 
 const TOOLS = ['point', 'rectangle', 'fill'] as const;
 type Tool = typeof TOOLS[number];
@@ -18,7 +20,7 @@ export interface State {
   tool: Tool;
   safeMode: boolean;
 }
-const DEFAULT_STATE: State = {
+const initialState: State = {
   selectionFilter: {
     itemClass: '',
     text: '',
@@ -101,12 +103,23 @@ const FloorSelections = (props: FloorSelectionsProps) => {
 function tryRegex(value: string, flags = '') {
   try {
     return new RegExp(value, flags);
-  } catch (_) {
+  } catch {
     return;
   }
 }
 
 export function makeAdminWindow(adminModule: AdminModule) {
+  const actions = () => ({
+    setState(state: State, newState: Partial<State>) {
+      return {
+        ...state,
+        ...newState,
+      };
+    },
+  });
+
+  type Props = ComponentProps<State, typeof actions>;
+
   const validMetaItems = Content.getMetaItems().filter((item) => item.name !== 'Unknown');
 
   const classToMetaItem = new Map<string, MetaItem[]>();
@@ -139,17 +152,15 @@ export function makeAdminWindow(adminModule: AdminModule) {
     return metaItems;
   }
 
-  class AdminWindow extends Component<any, State> {
-    state = DEFAULT_STATE;
-
+  class ItemsFloorsTab extends Component<Props> {
     renderFloorSelections = (floors: MetaFloor[]) => <FloorSelections
       onClickSelection={this.onClickSelection}
-      selectedId={this.state.selected?.type === 'floors' ? this.state.selected?.id : undefined}
+      selectedId={this.props.selected?.type === 'floors' ? this.props.selected?.id : undefined}
       floors={floors}></FloorSelections>;
 
     renderItemSelections = (items: MetaItem[]) => <ItemSelections
       onClickSelection={this.onClickSelection}
-      selectedId={this.state.selected?.type === 'items' ? this.state.selected?.id : undefined}
+      selectedId={this.props.selected?.type === 'items' ? this.props.selected?.id : undefined}
       metaItems={items}></ItemSelections>;
 
     constructor() {
@@ -159,13 +170,13 @@ export function makeAdminWindow(adminModule: AdminModule) {
       this.renderItemSelections = this.renderItemSelections.bind(this);
     }
 
-    render(props: any, state: State) {
+    render(props: Props) {
       const FilterMenuItems = selectionFilters.map((filter) => {
         let length = 0;
         if (filter.type === 'floors') {
           length = Content.getFloors().length;
         } else {
-          const metaItems = filterMetaItems(filter.value, state.selectionFilter.text);
+          const metaItems = filterMetaItems(filter.value, props.selectionFilter.text);
           length = metaItems.length;
         }
 
@@ -174,22 +185,22 @@ export function makeAdminWindow(adminModule: AdminModule) {
         ];
         const nonEmpty = length > 0;
         const enabled = nonEmpty &&
-          (!state.selectionFilter.itemClass || state.selectionFilter.itemClass === filter.value) &&
-          (filter.value !== 'Floors' || state.selectionFilter.itemClass === 'Floors');
+          (!props.selectionFilter.itemClass || props.selectionFilter.itemClass === filter.value) &&
+          (filter.value !== 'Floors' || props.selectionFilter.itemClass === 'Floors');
         if (!enabled) classes.push('admin__filter--empty');
         return <div class={classes.join(' ')} onClick={() => nonEmpty && this.setItemClassFilter(filter.value)}>
           {filter.value} - {length}
         </div>;
       });
 
-      const isFloors = state.selectionFilter.itemClass === 'Floors';
+      const isFloors = props.selectionFilter.itemClass === 'Floors';
       const filteredItems = isFloors ?
         Content.getFloors() :
-        filterMetaItems(state.selectionFilter.itemClass, state.selectionFilter.text);
+        filterMetaItems(props.selectionFilter.itemClass, props.selectionFilter.text);
 
       const renderSelections = isFloors ? this.renderFloorSelections : this.renderItemSelections;
 
-      return <div>
+      return <div class="flex">
         <div>
           {FilterMenuItems}
         </div>
@@ -198,7 +209,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
             name="textFilter"
             type={'text'}
             onInput={linkState(this, 'selectionFilter.text')}
-            value={state.selectionFilter.text}>
+            value={props.selectionFilter.text}>
             Name Filter
           </Input>
 
@@ -207,13 +218,13 @@ export function makeAdminWindow(adminModule: AdminModule) {
 
           {TOOLS.map((tool) => {
             return <div
-              class={`admin__tool ${state.tool === tool ? 'admin__tool--selected' : ''}`}
+              class={`admin__tool ${props.tool === tool ? 'admin__tool--selected' : ''}`}
               onClick={() => this.onClickTool(tool)}
             >{tool}</div>;
           })}
 
           <div
-            class={`admin__tool ${state.safeMode ? 'admin__tool--selected' : ''}`}
+            class={`admin__tool ${props.safeMode ? 'admin__tool--selected' : ''}`}
             title="Enable to prevent overwriting existing items"
             onClick={() => this.onClickSafeMode()}
           >Safe Mode</div>
@@ -227,51 +238,66 @@ export function makeAdminWindow(adminModule: AdminModule) {
     }
 
     onClickSelection(selected?: { type: SelectionType; id: number }) {
-      if (selected?.type === this.state.selected?.type && selected?.id === this.state.selected?.id) {
+      if (selected?.type === this.props.selected?.type && selected?.id === this.props.selected?.id) {
         selected = undefined;
       }
-      this.setState({
+      this.props.setState({
         selected,
-      }, () => this.updateAdminModule());
+      });
     }
 
     onClickTool(tool: Tool) {
-      this.setState({
+      this.props.setState({
         tool,
-      }, () => this.updateAdminModule());
+      });
     }
 
     onClickSafeMode() {
-      this.setState({
-        safeMode: !this.state.safeMode,
-      }, () => this.updateAdminModule());
-    }
-
-    // TODO: this all feels very hacky.
-    updateAdminModule() {
-      adminModule.setUIState({...this.state});
+      this.props.setState({
+        safeMode: !this.props.safeMode,
+      });
     }
 
     setItemClassFilter(itemClass: string) {
-      const isSame = itemClass === this.state.selectionFilter.itemClass;
+      const isSame = itemClass === this.props.selectionFilter.itemClass;
       const newValue = isSame ? '' : itemClass;
-      this.setState({
+      this.props.setState({
         selectionFilter: {
-          ...this.state.selectionFilter,
+          ...this.props.selectionFilter,
           itemClass: newValue,
         },
       });
     }
   }
 
+  const tabs: TabbedPaneProps['tabs'] = {
+    skills: {
+      label: 'Items/Floors',
+      content: ItemsFloorsTab,
+    },
+    maps: {
+      label: 'Maps',
+      content: () => {
+        return <div>TODO</div>;
+      },
+    },
+  };
+
+  class AdminWindow extends Component<Props> {
+    render(props: Props) {
+      return <TabbedPane tabs={tabs} childProps={props}></TabbedPane>;
+    }
+  }
+
+  const {SubApp, exportedActions, subscribe} = createSubApp(AdminWindow, initialState, actions);
   const delegate = adminModule.game.windowManager.createWindow({
     id: 'admin',
     cell: 'right',
     tabLabel: 'Admin',
     onInit(el) {
-      render(<AdminWindow />, el);
+      render(<SubApp />, el);
     },
   });
 
-  return {delegate};
+  return {delegate, actions: exportedActions, subscribe};
 }

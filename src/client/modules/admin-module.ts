@@ -29,16 +29,6 @@ export class AdminModule extends ClientModule {
     });
   }
 
-  setUIState(state: State) {
-    if (state.selected) {
-      this.game.client.eventEmitter.emit('editingMode', {enabled: true});
-    } else {
-      this.game.client.eventEmitter.emit('editingMode', {enabled: false});
-    }
-
-    this._state = state;
-  }
-
   addToHistory(entry: HistoryEntry) {
     if (!entry.items?.length && !entry.floors?.length) return;
 
@@ -50,6 +40,17 @@ export class AdminModule extends ClientModule {
   }
 
   private init() {
+    this.window.subscribe((state) => {
+      console.log(state.selected);
+      if (state.selected) {
+        this.game.client.eventEmitter.emit('editingMode', {enabled: true});
+      } else {
+        this.game.client.eventEmitter.emit('editingMode', {enabled: false});
+      }
+
+      this._state = state;
+    });
+
     // const scripts = await this.game.client.connection.sendCommand(CommandBuilder.requestScripts({}));
     // console.log({scripts}); // TODO ?
 
