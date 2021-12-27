@@ -1,6 +1,11 @@
 import {ProtocolEvent} from '../protocol/event-builder.js';
 
-export type PlayerConnection = Required<ClientConnection>;
+type PartialRequired<T, K extends keyof T> = Omit<T, K> & {
+  [P in K]-?: T[P];
+};
+
+export type PlayerConnection =
+  PartialRequired<ClientConnection, 'account' | 'player' | 'creature' | 'container' | 'equipment'>;
 
 export class ClientConnection {
   messageQueue: Message[] = [];
