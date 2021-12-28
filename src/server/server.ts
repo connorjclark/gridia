@@ -1516,7 +1516,7 @@ export class Server {
     }
   }
 
-  getScriptStates() {
+  getScriptStates(): ScriptState[] {
     return this._scripts.map((s) => s.getScriptState());
   }
 

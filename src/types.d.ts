@@ -490,6 +490,12 @@ interface WorldDataDefinition {
   };
 }
 
+interface ScriptState {
+  id: string;
+  config: any;
+  errors: any[];
+}
+
 declare module 'js-bbcode-parser' {
   // eslint-disable-next-line import/no-default-export
   export default {parse: (text: string) => string};

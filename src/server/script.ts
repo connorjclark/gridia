@@ -60,7 +60,7 @@ export abstract class Script<C extends ConfigDefinition> {
     this.errors = result.errors;
   }
 
-  getScriptState() {
+  getScriptState(): ScriptState {
     return {
       id: this.id,
       config: this.config,

@@ -1,7 +1,10 @@
 import linkState from 'linkstate';
 import {render, h, Component} from 'preact';
+import {useEffect, useState} from 'preact/hooks';
 
 import * as Content from '../../content.js';
+import {game} from '../../game-singleton.js';
+import * as CommandBuilder from '../../protocol/command-builder.js';
 import * as Helper from '../helper.js';
 import {AdminModule} from '../modules/admin-module.js';
 
@@ -270,6 +273,28 @@ export function makeAdminWindow(adminModule: AdminModule) {
     }
   }
 
+  class ScriptsTab extends Component<Props> {
+    render(props: Props) {
+      const [scriptStates, setScriptStates] = useState<ScriptState[]|null>(null);
+
+      useEffect(() => {
+        game.client.connection.sendCommand(CommandBuilder.requestScripts({})).then((newScriptStates) => {
+          setScriptStates(newScriptStates);
+        });
+      });
+
+      if (scriptStates === null) {
+        return <div>
+          loading ...
+        </div>;
+      }
+
+      return <div>
+        {JSON.stringify(scriptStates, null, 2)}
+      </div>;
+    }
+  }
+
   const tabs: TabbedPaneProps['tabs'] = {
     skills: {
       label: 'Items/Floors',
@@ -280,6 +305,10 @@ export function makeAdminWindow(adminModule: AdminModule) {
       content: () => {
         return <div>TODO</div>;
       },
+    },
+    scripts: {
+      label: 'Scripts',
+      content: ScriptsTab,
     },
   };
 
