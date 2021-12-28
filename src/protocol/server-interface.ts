@@ -469,6 +469,20 @@ export class ServerInterface implements ICommands {
   async onMoveItem(server: Server, clientConnection: ClientConnection, {from, quantity, to}: Commands.MoveItem['params']) {
     clientConnection.assertsPlayerConnection();
 
+    if (!clientConnection.player.isAdmin) {
+      const outOfReach =
+        (from.source === 'world' && Utils.maxDiff(from.loc, clientConnection.creature.pos) > 1) ||
+        (to.source === 'world' && Utils.maxDiff(to.loc, clientConnection.creature.pos) > 1);
+      if (outOfReach) {
+        server.send(EventBuilder.chat({
+          section: 'World',
+          from: 'World',
+          text: 'You can\'t reach that.',
+        }), clientConnection);
+        return;
+      }
+    }
+
     async function boundsCheck(location: ItemLocation) {
       if (location.source === 'world') {
         if (!location.loc) throw new Error('invariant violated');
