@@ -166,6 +166,11 @@ export class BallScript extends Script<{}> {
 
         const pos = server.findNearestWalkableTile({pos: this.creature.pos, range: 10}) || this.creature.pos;
         server.addItemNear(pos, state.hasItem);
+        server.broadcastChat({
+          from: this.creature.name,
+          creatureId: this.creature.id,
+          text: 'woof!!!',
+        });
       },
     };
     for (const creature of tamedCreatures) {
@@ -179,6 +184,13 @@ export class BallScript extends Script<{}> {
 
       creatureState.learnAction(FetchAction);
       creatureState.addGoal(goal);
+
+      // TODO: add range property
+      server.broadcastChat({
+        from: creature.name,
+        creatureId: creature.id,
+        text: 'woof!',
+      });
     }
   }
 }
