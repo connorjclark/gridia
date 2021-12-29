@@ -2,7 +2,7 @@ import {MAX_STACK, SECTOR_SIZE} from '../constants.js';
 import * as Content from '../content.js';
 import * as CommandParser from '../lib/command-parser.js';
 import {makeBareMap} from '../mapgen.js';
-import {ClientConnection, PlayerConnection} from '../server/client-connection.js';
+import {PlayerConnection} from '../server/client-connection.js';
 import {Server} from '../server/server.js';
 import * as Utils from '../utils.js';
 
@@ -12,117 +12,6 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
   const creature = playerConnection.creature;
 
   const CHAT_COMMANDS: Record<string, CommandParser.Command> = {
-    warp: {
-      args: [
-        {name: 'x', type: 'number'},
-        {name: 'y', type: 'number'},
-        {name: 'z', type: 'number', optional: true},
-        {name: 'map', type: 'number', optional: true},
-      ],
-      do(args: { x: number; y: number; z?: number; map?: number }) {
-        const destination = {...playerConnection.creature.pos};
-        if (args.z !== undefined && args.map !== undefined) {
-          destination.w = args.map;
-          destination.x = args.x;
-          destination.y = args.y;
-          destination.z = args.z;
-        } else if (args.z !== undefined) {
-          destination.x = args.x;
-          destination.y = args.y;
-          destination.z = args.z;
-        } else {
-          destination.x = args.x;
-          destination.y = args.y;
-        }
-
-        if (!server.context.map.inBounds(destination)) {
-          return 'out of bounds';
-        }
-
-        if (!server.context.walkable(destination)) {
-          // Don't check this?
-          return 'not walkable';
-        }
-
-        server.warpCreature(playerConnection.creature, destination);
-      },
-    },
-    warpTo: {
-      args: [
-        {name: 'playerName', type: 'string'},
-      ],
-      do(args: { playerName: string }) {
-        const playerId = server.context.playerNamesToIds.get(args.playerName);
-        if (!playerId) return; // TODO
-        const player = server.context.players.get(playerId);
-        if (!player) return;
-
-        const creature2 = server.findCreatureForPlayer(player);
-        if (!creature2) return;
-
-        const pos = server.findNearest({pos: creature2.pos, range: 10}, false, (_, l) => server.context.walkable(l));
-        if (!pos) return;
-
-        server.warpCreature(creature, pos);
-      },
-    },
-    creature: {
-      args: [
-        {name: 'name', type: 'string'},
-      ],
-      do(args: { name: string }) {
-        if (!playerConnection.player.isAdmin) return 'not allowed';
-
-        const template = Content.getMonsterTemplateByNameNoError(args.name);
-        if (!template) {
-          server.send(EventBuilder.chat({
-            section: 'World',
-            from: 'SERVER',
-            text: `No monster named ${args.name}`,
-          }), playerConnection);
-          return;
-        }
-
-        const pos = server.findNearest({pos: playerConnection.creature.pos, range: 10}, true,
-          (_, l) => server.context.walkable(l));
-        if (pos) {
-          server.createCreature({type: template.id}, pos);
-        }
-      },
-    },
-    item: {
-      args: [
-        {name: 'nameOrId', type: 'string'},
-        {name: 'quantity', type: 'number', optional: true},
-      ],
-      do(args: { nameOrId: string; quantity?: number }) {
-        if (!playerConnection.player.isAdmin) return 'not allowed';
-
-        let meta;
-        if (args.nameOrId.match(/\d+/)) {
-          meta = Content.getMetaItem(parseInt(args.nameOrId, 10));
-        } else {
-          meta = Content.getMetaItemByName(args.nameOrId);
-        }
-        if (!meta) {
-          server.send(EventBuilder.chat({
-            section: 'World',
-            from: 'SERVER',
-            text: `No item: ${args.nameOrId}`,
-          }), playerConnection);
-          return;
-        }
-
-        let quantity = args.quantity || 1;
-        if (quantity > MAX_STACK) quantity = MAX_STACK;
-
-        const pos = server.findNearest({pos: playerConnection.creature.pos, range: 10}, true,
-          (t) => !t.item);
-        if (pos) {
-          server.setItemInWorld(pos, {type: meta.id, quantity});
-        }
-      },
-    },
     time: {
       args: [],
       do() {
@@ -192,35 +81,6 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
         }));
       },
     },
-    newPartition: {
-      args: [],
-      do() {
-        if (!playerConnection.player.isAdmin) return 'not allowed';
-
-        const nextPartitionId = Math.max(...server.context.map.partitions.keys()) + 1;
-        const partition = makeBareMap(100, 100, 1);
-        server.context.map.addPartition(nextPartitionId, partition);
-        server.save().then(() => {
-          partition.loaded = true;
-          playerConnection.sendEvent(EventBuilder.chat({
-            section: 'World',
-            from: 'World',
-            text: `Made partition ${nextPartitionId}`,
-          }));
-        });
-      },
-    },
-    advanceTime: {
-      args: [
-        {name: 'ticks', type: 'number'},
-      ],
-      help: `1 hour=${server.context.ticksPerWorldDay / 24}`,
-      do(args: { ticks: number }) {
-        if (!playerConnection.player.isAdmin) return 'not allowed';
-
-        server.advanceTime(args.ticks);
-      },
-    },
     save: {
       args: [],
       do() {
@@ -284,27 +144,6 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
         server.broadcastPartialCreatureUpdate(playerConnection.creature, ['graphics']);
       },
     },
-    xp: {
-      args: [
-        {name: 'skillName', type: 'string'},
-        {name: 'xp', type: 'number'},
-      ],
-      do(args: { skillName: string; xp: number }) {
-        if (!playerConnection.player.isAdmin) return 'not allowed';
-
-        const skill = Content.getSkillByName(args.skillName);
-        if (!skill) {
-          server.send(EventBuilder.chat({
-            section: 'World',
-            from: 'SERVER',
-            text: `No skill named ${args.skillName}`,
-          }), playerConnection);
-          return;
-        }
-
-        server.grantXp(playerConnection, skill.id, args.xp);
-      },
-    },
     animation: {
       args: [
         {name: 'name', type: 'string'},
@@ -340,27 +179,6 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
         item.textContent = args.content;
       },
     },
-    jewelry: {
-      args: [],
-      do() {
-        if (!playerConnection.player.isAdmin) return 'not allowed';
-
-        const pos = {...playerConnection.creature.pos};
-
-        const meta = Content.getRandomMetaItemOfClass('Jewelry');
-        const item: Item = {
-          type: meta.id,
-          quantity: 1,
-          buff: {
-            id: '',
-            expiresAt: 0,
-            skill: 1,
-            linearChange: 10,
-          },
-        };
-        server.addItemNear(pos, item);
-      },
-    },
     debugTile: {
       args: [],
       do() {
@@ -372,22 +190,6 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
           from: 'SERVER',
           text: JSON.stringify(tile, null, 2),
         }), playerConnection);
-      },
-    },
-    setAdmin: {
-      args: [
-        {name: 'playerName', type: 'string'},
-      ],
-      do(args: { playerName: string }) {
-        if (!playerConnection.player.isAdmin) return 'not allowed';
-
-        const playerId = server.context.playerNamesToIds.get(args.playerName);
-        if (!playerId) return; // TODO
-        const player = server.context.players.get(playerId);
-        if (!player) return;
-
-        player.isAdmin = true;
-        // TODO: for now, player must refresh page to see Admin panel.
       },
     },
     help: {
@@ -408,6 +210,205 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
       },
     },
   };
+
+  const ADMIN_CHAT_COMMANDS: Record<string, CommandParser.Command> = {
+    warp: {
+      args: [
+        {name: 'x', type: 'number'},
+        {name: 'y', type: 'number'},
+        {name: 'z', type: 'number', optional: true},
+        {name: 'map', type: 'number', optional: true},
+      ],
+      do(args: { x: number; y: number; z?: number; map?: number }) {
+        const destination = {...playerConnection.creature.pos};
+        if (args.z !== undefined && args.map !== undefined) {
+          destination.w = args.map;
+          destination.x = args.x;
+          destination.y = args.y;
+          destination.z = args.z;
+        } else if (args.z !== undefined) {
+          destination.x = args.x;
+          destination.y = args.y;
+          destination.z = args.z;
+        } else {
+          destination.x = args.x;
+          destination.y = args.y;
+        }
+
+        if (!server.context.map.inBounds(destination)) {
+          return 'out of bounds';
+        }
+
+        if (!server.context.walkable(destination)) {
+          // Don't check this?
+          return 'not walkable';
+        }
+
+        server.warpCreature(playerConnection.creature, destination);
+      },
+    },
+    warpTo: {
+      args: [
+        {name: 'playerName', type: 'string'},
+      ],
+      do(args: { playerName: string }) {
+        const playerId = server.context.playerNamesToIds.get(args.playerName);
+        if (!playerId) return; // TODO
+        const player = server.context.players.get(playerId);
+        if (!player) return;
+
+        const creature2 = server.findCreatureForPlayer(player);
+        if (!creature2) return;
+
+        const pos = server.findNearest({pos: creature2.pos, range: 10}, false, (_, l) => server.context.walkable(l));
+        if (!pos) return;
+
+        server.warpCreature(creature, pos);
+      },
+    },
+    creature: {
+      args: [
+        {name: 'name', type: 'string'},
+      ],
+      do(args: { name: string }) {
+        const template = Content.getMonsterTemplateByNameNoError(args.name);
+        if (!template) {
+          server.send(EventBuilder.chat({
+            section: 'World',
+            from: 'SERVER',
+            text: `No monster named ${args.name}`,
+          }), playerConnection);
+          return;
+        }
+
+        const pos = server.findNearest({pos: playerConnection.creature.pos, range: 10}, true,
+          (_, l) => server.context.walkable(l));
+        if (pos) {
+          server.createCreature({type: template.id}, pos);
+        }
+      },
+    },
+    item: {
+      args: [
+        {name: 'nameOrId', type: 'string'},
+        {name: 'quantity', type: 'number', optional: true},
+      ],
+      do(args: { nameOrId: string; quantity?: number }) {
+        let meta;
+        if (args.nameOrId.match(/\d+/)) {
+          meta = Content.getMetaItem(parseInt(args.nameOrId, 10));
+        } else {
+          meta = Content.getMetaItemByName(args.nameOrId);
+        }
+        if (!meta) {
+          server.send(EventBuilder.chat({
+            section: 'World',
+            from: 'SERVER',
+            text: `No item: ${args.nameOrId}`,
+          }), playerConnection);
+          return;
+        }
+
+        let quantity = args.quantity || 1;
+        if (quantity > MAX_STACK) quantity = MAX_STACK;
+
+        const pos = server.findNearest({pos: playerConnection.creature.pos, range: 10}, true,
+          (t) => !t.item);
+        if (pos) {
+          server.setItemInWorld(pos, {type: meta.id, quantity});
+        }
+      },
+    },
+    who: {
+      args: [],
+      do() {
+        playerConnection.sendEvent(EventBuilder.chat({
+          section: 'World',
+          from: 'World',
+          text: server.getMessagePlayersOnline(),
+        }));
+      },
+    },
+    newPartition: {
+      args: [],
+      do() {
+        const nextPartitionId = Math.max(...server.context.map.partitions.keys()) + 1;
+        const partition = makeBareMap(100, 100, 1);
+        server.context.map.addPartition(nextPartitionId, partition);
+        server.save().then(() => {
+          partition.loaded = true;
+          playerConnection.sendEvent(EventBuilder.chat({
+            section: 'World',
+            from: 'World',
+            text: `Made partition ${nextPartitionId}`,
+          }));
+        });
+      },
+    },
+    advanceTime: {
+      args: [
+        {name: 'ticks', type: 'number'},
+      ],
+      help: `1 hour=${server.context.ticksPerWorldDay / 24}`,
+      do(args: { ticks: number }) {
+        server.advanceTime(args.ticks);
+      },
+    },
+    xp: {
+      args: [
+        {name: 'skillName', type: 'string'},
+        {name: 'xp', type: 'number'},
+      ],
+      do(args: { skillName: string; xp: number }) {
+        const skill = Content.getSkillByName(args.skillName);
+        if (!skill) {
+          server.send(EventBuilder.chat({
+            section: 'World',
+            from: 'SERVER',
+            text: `No skill named ${args.skillName}`,
+          }), playerConnection);
+          return;
+        }
+
+        server.grantXp(playerConnection, skill.id, args.xp);
+      },
+    },
+    jewelry: {
+      args: [],
+      do() {
+        const pos = {...playerConnection.creature.pos};
+
+        const meta = Content.getRandomMetaItemOfClass('Jewelry');
+        const item: Item = {
+          type: meta.id,
+          quantity: 1,
+          buff: {
+            id: '',
+            expiresAt: 0,
+            skill: 1,
+            linearChange: 10,
+          },
+        };
+        server.addItemNear(pos, item);
+      },
+    },
+    setAdmin: {
+      args: [
+        {name: 'playerName', type: 'string'},
+      ],
+      do(args: { playerName: string }) {
+        const playerId = server.context.playerNamesToIds.get(args.playerName);
+        if (!playerId) return; // TODO
+        const player = server.context.players.get(playerId);
+        if (!player) return;
+
+        player.isAdmin = true;
+        // TODO: for now, player must refresh page to see Admin panel.
+      },
+    },
+  };
+
+  if (playerConnection.player.isAdmin) Object.assign(CHAT_COMMANDS, ADMIN_CHAT_COMMANDS);
 
   const parsedCommand = CommandParser.parseCommand(text.substring(1));
   const command = CHAT_COMMANDS[parsedCommand.commandName];
