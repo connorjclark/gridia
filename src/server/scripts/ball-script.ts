@@ -164,6 +164,7 @@ export class BallScript extends Script<{}> {
         const state = creatureToFetchState.get(this.creature);
         if (!state || !state.hasItem) return;
 
+        creatureToFetchState.delete(this.creature);
         const pos = server.findNearestWalkableTile({pos: this.creature.pos, range: 10}) || this.creature.pos;
         server.addItemNear(pos, state.hasItem);
         server.broadcastChat({
