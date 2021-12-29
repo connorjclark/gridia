@@ -84,7 +84,7 @@ export class BallScript extends Script<{}> {
 
     const startingLocFirstAttempt =
       {...throwerLoc, x: throwerLoc.x + Math.sign(dir.x), y: throwerLoc.y + Math.sign(dir.y)};
-    const startingLoc = this.server.findNearest(startingLocFirstAttempt, 6, true,
+    const startingLoc = this.server.findNearest({loc: startingLocFirstAttempt, range: 6}, true,
       (tile) => {
         if (!tile.item) return true;
         return false;

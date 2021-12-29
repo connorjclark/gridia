@@ -257,7 +257,7 @@ export class Server {
     // TODO: is this still needed?
     // Make sure sector is loaded. Prevents hidden creature (race condition, happens often in worker).
     await this.ensureSectorLoadedForPoint(center);
-    const spawnLoc = this.findNearest(center, 10, true, (_, loc) => this.context.walkable(loc)) || center;
+    const spawnLoc = this.findNearest({loc: center, range: 10}, true, (_, loc) => this.context.walkable(loc)) || center;
     await this.ensureSectorLoadedForPoint(spawnLoc);
 
     return spawnLoc;
@@ -266,7 +266,7 @@ export class Server {
   getInitialSpawnLoc2() {
     const {width, height} = this.context.map.getPartition(0);
     const center = {w: 0, x: Math.round(width / 2), y: Math.round(height / 2) + 3, z: 0};
-    const spawnLoc = this.findNearest(center, 10, true, (_, loc) => this.context.walkable(loc)) || center;
+    const spawnLoc = this.findNearest({loc: center, range: 10}, true, (_, loc) => this.context.walkable(loc)) || center;
     return spawnLoc;
   }
 
@@ -537,7 +537,7 @@ export class Server {
       template = Content.getMonsterTemplate(1);
     }
 
-    pos = this.findNearest(pos, 10, true, (_, loc) => this.context.walkable(loc)) || pos;
+    pos = this.findNearest({loc: pos, range: 10}, true, (_, loc) => this.context.walkable(loc)) || pos;
 
     const life = template.life || 10;
     const stamina = template.stamina || 10;
@@ -1071,27 +1071,65 @@ export class Server {
     }));
   }
 
-  findNearest(loc: TilePoint, range: number, includeTargetLocation: boolean,
+  findNearest(locOrRegion: {loc: TilePoint; range: number} | {region: Region}, includeTargetLocation: boolean,
               predicate: (tile: Tile, loc2: TilePoint) => boolean): TilePoint | null {
-    const w = loc.w;
-    const partition = this.context.map.getPartition(w);
+    let region;
+    if ('loc' in locOrRegion) {
+      region = {
+        w: locOrRegion.loc.w,
+        x: locOrRegion.loc.x - locOrRegion.range,
+        y: locOrRegion.loc.y - locOrRegion.range,
+        z: locOrRegion.loc.z,
+        width: locOrRegion.range,
+        height: locOrRegion.range,
+      };
+    } else {
+      region = locOrRegion.region;
+    }
+
+    return this._findNearestImpl(region, includeTargetLocation, predicate);
+  }
+
+  _findNearestImpl(region: Region, includeTargetLocation: boolean,
+                   predicate: (tile: Tile, loc2: TilePoint) => boolean): TilePoint | null {
+    const centerLoc = {
+      w: region.w,
+      x: region.x + Math.floor(region.width / 2),
+      y: region.y + Math.floor(region.height / 2),
+      z: region.z,
+    };
+    const minX = region.x;
+    const maxX = region.x + region.width;
+    const minY = region.y;
+    const maxY = region.y + region.height;
+    const partition = this.context.map.getPartition(region.w);
     const test = (l: TilePoint) => {
+      if (l.x < minX || l.y < minY || l.x > maxX || l.y >= maxY) return false;
       if (!partition.inBounds(l)) return false;
       return predicate(partition.getTile(l), l);
     };
 
-    const x0 = loc.x;
-    const y0 = loc.y;
-    const z = loc.z;
+    // Starting at the center, test every location going out 1 distance
+    // from the center in a spiral.
+
+    const w = centerLoc.w;
+    const x0 = centerLoc.x;
+    const y0 = centerLoc.y;
+    const z = centerLoc.z;
+    const range = Math.ceil(Math.max(region.width, region.height) / 2);
     for (let offset = includeTargetLocation ? 0 : 1; offset <= range; offset++) {
       for (let y1 = y0 - offset; y1 <= offset + y0; y1++) {
         if (y1 === y0 - offset || y1 === y0 + offset) {
+          // First and last iterations of `let y1` loop test a row at
+          // distance=offset from the center, going from left to right.
           for (let x1 = x0 - offset; x1 <= offset + x0; x1++) {
             if (test({w, x: x1, y: y1, z})) {
               return {w, x: x1, y: y1, z};
             }
           }
         } else {
+          // The rest of the iterations test the columns at
+          // distance=offset from the center.
           if (test({w, x: x0 - offset, y: y1, z})) {
             return {w, x: x0 - offset, y: y1, z};
           }
@@ -1114,7 +1152,7 @@ export class Server {
     }
 
     const stackable = Content.getMetaItem(item.type).stackable;
-    const nearestLoc = this.findNearest(loc, 6, opts.includeTargetLocation,
+    const nearestLoc = this.findNearest({loc, range: 6}, opts.includeTargetLocation,
       (tile, loc2) => {
         if (opts?.checkCreatures && this.context.getCreatureAt(loc2)) return false;
         if (!tile.item) return true;

@@ -156,10 +156,39 @@ export abstract class Script<C extends ConfigDefinition> {
     if (opts.loc) {
       loc = opts.loc;
     } else if (opts.region) {
+      let spawnLoc;
+
+      function getRandomLoc(region: Region) {
+        const x = region.x + Utils.randInt(0, region.width);
+        const y = region.y + Utils.randInt(0, region.height);
+        return {w: region.w, x, y, z: region.z};
+      }
+
+      // 1 try to pick a random, walkable location (try a few times)
+      for (let i = 0; i < 5; i++) {
+        const tryLoc = getRandomLoc(opts.region);
+        if (this.server.context.walkable(tryLoc)) {
+          spawnLoc = tryLoc;
+          break;
+        }
+      }
+
+      // 2 if fail, just pick nearest walkable
+      if (!spawnLoc) {
+        spawnLoc = this.server.findNearest({region: opts.region}, true, (tile, loc2) => {
+          return this.server.context.walkable(loc2);
+        });
+      }
+
+      // 3 else, just choose a random location
+      if (!spawnLoc) spawnLoc = getRandomLoc(opts.region);
+
+      loc = spawnLoc;
+
       // TODO: find nearest walkable tile INSIDE region.
-      const x = opts.region.x + Utils.randInt(0, opts.region.width);
-      const y = opts.region.y + Utils.randInt(0, opts.region.height);
-      loc = {w: opts.region.w, x, y, z: opts.region.z};
+      // const x = opts.region.x + Utils.randInt(0, opts.region.width);
+      // const y = opts.region.y + Utils.randInt(0, opts.region.height);
+      // loc = {w: opts.region.w, x, y, z: opts.region.z};
     } else {
       throw new Error('invalid parameters');
     }
