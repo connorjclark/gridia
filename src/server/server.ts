@@ -568,9 +568,9 @@ export class Server {
         attackSpeed: template.speed,
         damageLow: 1,
         damageHigh: 2,
-        magicDefense: template.magicDefense || 0,
         meleeDefense: template.meleeDefense || 0,
         missleDefense: template.missleDefense || 0,
+        magicDefense: template.magicDefense || 0,
       },
       buffs: [],
       magicLevel: template.magicLevel,
@@ -580,12 +580,9 @@ export class Server {
 
     if (creature.equipment) {
       Object.assign(creature, this.deriveCreaturePropertiesFromEquipment(creature, creature.equipment));
-      creature.stats.magicDefense = template.magicDefense || 0;
       creature.stats.meleeDefense = template.meleeDefense || 0;
       creature.stats.missleDefense = template.missleDefense || 0;
-      // magicDefense: template.magicDefense || 0,
-      // meleeDefense: template.meleeDefense || 0,
-      // missleDefense: template.missleDefense || 0,
+      creature.stats.magicDefense = template.magicDefense || 0;
     }
 
     this.registerCreature(creature);
@@ -1291,9 +1288,9 @@ export class Server {
     creature.equipmentGraphics = equipmentGraphics;
     creature.stats = {
       ...stats,
+      meleeDefense: 0,
       missleDefense: 0,
       magicDefense: 0,
-      meleeDefense: 0,
     };
 
     creature.buffs = creature.buffs.filter((buff) => buff.id !== 'from-equipment');
