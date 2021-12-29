@@ -12,6 +12,7 @@ export class DogScript extends Script<{}> {
     const creature = this.server.createCreature({type: 96}, pos);
     if (!creature) return;
 
+    creature.speed = 0;
     // TODO: make server.tameCreature
     creature.tamedBy = playerConnection.player.id;
     this.server.creatureStates[creature.id].resetGoals();
