@@ -164,10 +164,7 @@ export class BallScript extends Script<{}> {
         const state = creatureToFetchState.get(this.creature);
         if (!state || !state.hasItem) return;
 
-        const pos = server.findNearest({pos: this.creature.pos, range: 10}, false, (tile, pos2) => {
-          // TODO: server.findNearestWalkableTile helper
-          return server.context.walkable(pos2);
-        }) || this.creature.pos;
+        const pos = server.findNearestWalkableTile({pos: this.creature.pos, range: 10}) || this.creature.pos;
         server.addItemNear(pos, state.hasItem);
       },
     };
@@ -175,6 +172,7 @@ export class BallScript extends Script<{}> {
       if (Utils.maxDiff(creature.pos, opts.playerConnection.creature.pos) > 20) {
         continue;
       }
+      if (creatureToFetchState.has(creature)) continue;
 
       const creatureState = this.server.creatureStates[creature.id];
       creatureToFetchState.set(creature, {done: false, kick});

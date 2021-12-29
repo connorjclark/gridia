@@ -260,7 +260,7 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
         const creature2 = server.findCreatureForPlayer(player);
         if (!creature2) return;
 
-        const pos = server.findNearest({pos: creature2.pos, range: 10}, false, (_, l) => server.context.walkable(l));
+        const pos = server.findNearestWalkableTile({pos: creature2.pos, range: 10});
         if (!pos) return;
 
         server.warpCreature(creature, pos);
@@ -281,8 +281,7 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
           return;
         }
 
-        const pos = server.findNearest({pos: playerConnection.creature.pos, range: 10}, true,
-          (_, l) => server.context.walkable(l));
+        const pos = server.findNearestWalkableTile({pos: playerConnection.creature.pos, range: 10});
         if (pos) {
           server.createCreature({type: template.id}, pos);
         }

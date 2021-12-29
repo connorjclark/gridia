@@ -8,11 +8,13 @@ export class DogScript extends Script<{}> {
   }
 
   onPlayerEnterWorld(player: Player, playerConnection: PlayerConnection) {
-    const pos = this.server.findNearest({pos: player.pos, range: 10}, false, (tile, pos2) => {
-      // TODO: server.findNearestWalkableTile helper
-      return this.server.context.walkable(pos2);
-    }) || player.pos;
-    this.server.createCreature({type: 96}, pos);
-    console.log('dog', pos);
+    const pos = this.server.findNearestWalkableTile({pos: player.pos, range: 10}) || player.pos;
+    const creature = this.server.createCreature({type: 96}, pos);
+    if (!creature) return;
+
+    // TODO: make server.tameCreature
+    creature.tamedBy = playerConnection.player.id;
+    this.server.creatureStates[creature.id].resetGoals();
+    this.server.broadcastPartialCreatureUpdate(creature, ['tamedBy']);
   }
 }

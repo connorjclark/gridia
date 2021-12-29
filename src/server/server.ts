@@ -259,7 +259,7 @@ export class Server {
     // TODO: is this still needed?
     // Make sure sector is loaded. Prevents hidden creature (race condition, happens often in worker).
     await this.ensureSectorLoadedForPoint(center);
-    const spawnPos = this.findNearest({pos: center, range: 10}, true, (_, pos) => this.context.walkable(pos)) || center;
+    const spawnPos = this.findNearestWalkableTile({pos: center, range: 10}) || center;
     await this.ensureSectorLoadedForPoint(spawnPos);
 
     return spawnPos;
@@ -268,7 +268,7 @@ export class Server {
   getInitialSpawnpos2() {
     const {width, height} = this.context.map.getPartition(0);
     const center = {w: 0, x: Math.round(width / 2), y: Math.round(height / 2) + 3, z: 0};
-    const spawnPos = this.findNearest({pos: center, range: 10}, true, (_, pos) => this.context.walkable(pos)) || center;
+    const spawnPos = this.findNearestWalkableTile({pos: center, range: 10}) || center;
     return spawnPos;
   }
 
@@ -1088,6 +1088,12 @@ export class Server {
     }
 
     return this._findNearestImpl(region, includeTargetLocation, predicate);
+  }
+
+  findNearestWalkableTile(posOrRegion: {pos: TilePoint; range: number} | {region: Region}): TilePoint | null {
+    return this.findNearest(posOrRegion, true, (tile, pos) => {
+      return this.context.walkable(pos);
+    });
   }
 
   _findNearestImpl(region: Region, includeTargetLocation: boolean,

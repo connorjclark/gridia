@@ -175,9 +175,7 @@ export abstract class Script<C extends ConfigDefinition> {
 
       // 2 if fail, just pick nearest walkable
       if (!spawnPos) {
-        spawnPos = this.server.findNearest({region: opts.region}, true, (tile, pos2) => {
-          return this.server.context.walkable(pos2);
-        });
+        spawnPos = this.server.findNearestWalkableTile({region: opts.region});
       }
 
       // 3 else, just choose a random location
