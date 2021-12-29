@@ -1080,8 +1080,8 @@ export class Server {
         x: posOrRegion.pos.x - posOrRegion.range,
         y: posOrRegion.pos.y - posOrRegion.range,
         z: posOrRegion.pos.z,
-        width: posOrRegion.range,
-        height: posOrRegion.range,
+        width: posOrRegion.range * 2,
+        height: posOrRegion.range * 2,
       };
     } else {
       region = posOrRegion.region;
@@ -1111,6 +1111,7 @@ export class Server {
 
     // Starting at the center, test every location going out 1 distance
     // from the center in a spiral.
+    // TODO: this isn't really the "nearest" by cartesian coordinates. Should fix.
 
     const w = centerPos.w;
     const x0 = centerPos.x;
