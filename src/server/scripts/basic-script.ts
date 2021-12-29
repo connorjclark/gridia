@@ -1,5 +1,5 @@
 import * as Player from '../../player.js';
-import {ClientConnection, PlayerConnection} from '../client-connection.js';
+import {PlayerConnection} from '../client-connection.js';
 import {Script} from '../script.js';
 import {Server} from '../server.js';
 
@@ -63,12 +63,12 @@ export class BasicScript extends Script<typeof configDefinition> {
     this.server.registerQuest(this.quest);
   }
 
-  onPlayerCreated(player: Player, clientConnection: PlayerConnection) {
+  onPlayerCreated(player: Player, playerConnection: PlayerConnection) {
     const pos = {...this.creatureSpawners[0].region};
     pos.x += 2;
     pos.y += 2;
-    clientConnection.player.spawnPos = pos;
-    this.server.moveCreature(clientConnection.creature, pos);
+    playerConnection.player.spawnPos = pos;
+    this.server.moveCreature(playerConnection.creature, pos);
   }
 
   onPlayerKillCreature(player: Player, creature: Creature) {

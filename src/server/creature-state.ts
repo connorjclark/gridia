@@ -15,13 +15,14 @@ import {Server} from './server.js';
 // State that clients don't need and shouldn't have.
 // Also isn't serialized - this state is transient.
 
-interface Goal {
+export interface Goal {
   desiredEffect: string;
   priority: number;
   satisfied(this: CreatureState, server: Server): boolean;
+  onDone?(this: CreatureState): void;
 }
 
-interface Action {
+export interface Action {
   name: string;
   cost: number;
   preconditions: string[];
@@ -327,6 +328,7 @@ export class CreatureState {
   goto(destination: TilePoint) {
     if (Utils.equalPoints(destination, this.creature.pos)) return;
     if (destination.w !== this.creature.pos.w) return;
+    // TODO: try to not call this so much
     this.path = findPath(this.context, this.partition, this.creature.pos, destination);
   }
 
@@ -357,6 +359,19 @@ export class CreatureState {
 
     this.goals.push(newGoal);
     this.goals.sort((a, b) => b.priority - a.priority);
+  }
+
+  removeGoal(goal: Goal) {
+    const index = this.goals.indexOf(goal);
+    if (index !== undefined) {
+      this.goals.splice(index, 1);
+      this.goalActionPlans.delete(goal);
+      if (goal.onDone) goal.onDone.call(this);
+    }
+  }
+
+  learnAction(action: Action) {
+    if (!this._actions.find((a) => a.name === action.name)) this._actions.push(action);
   }
 
   resetRegenerationTimer(server: Server) {
@@ -425,8 +440,7 @@ export class CreatureState {
 
     for (const goal of this.goals) {
       if (goal.satisfied.call(this, server)) {
-        this.goals.splice(this.goals.indexOf(goal), 1);
-        this.goalActionPlans.delete(goal);
+        this.removeGoal(goal);
       }
     }
 

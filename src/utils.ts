@@ -39,6 +39,7 @@ export function worldToSector(ps: PartitionPoint, SECTOR_SIZE: number): Partitio
 }
 
 export function maxDiff(p1: TilePoint, p2: TilePoint): number {
+  // TODO: return infinity if not in same w, z
   return Math.max(Math.abs(p1.x - p2.x), Math.abs(p1.y - p2.y));
 }
 

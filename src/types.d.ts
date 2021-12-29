@@ -164,7 +164,8 @@ interface Creature {
   canSpeak?: boolean;
   pos: TilePoint;
   isPlayer: boolean;
-  tamedBy?: string; // player id
+  /** player id */
+  tamedBy?: string;
   roam?: number;
   speed: number;
   life: { current: number; max: number };

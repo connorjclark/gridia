@@ -89,11 +89,11 @@ export abstract class Script<C extends ConfigDefinition> {
   }
 
   onPlayerMove(opts: {playerConnection: PlayerConnection; from: Point4; to: Point4}) {
-    throw new Error('Method not implemented.');
+    // Can override.
   }
 
   onItemAction(opts: {playerConnection: PlayerConnection; location: ItemLocation; to?: ItemLocation}) {
-    throw new Error('Method not implemented.');
+    // Can override.
   }
 
   // TODO: time budget for tick.

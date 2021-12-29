@@ -1,11 +1,56 @@
 import * as Content from '../../content.js';
 import * as Utils from '../../utils.js';
 import {PlayerConnection} from '../client-connection.js';
+import {Action, Goal} from '../creature-state.js';
 import {Script} from '../script.js';
 import {Server} from '../server.js';
 
+interface Kick {
+  item: Item;
+  pos: Point4;
+  posFloating: Point4;
+  dir: Point2;
+  momentum: number;
+}
+
+const creatureToFetchState = new WeakMap<Creature, {done: boolean; kick: Kick; hasItem?: Item}>();
+const FetchAction: Action = {
+  name: 'Fetch',
+  cost: 1,
+  preconditions: [],
+  effects: ['fetch'],
+  tick(server: Server) {
+    const state = creatureToFetchState.get(this.creature);
+    if (!state || !this.creature.tamedBy) return false;
+
+    this.goto(state.kick.pos);
+
+    if (!state.hasItem) {
+      if (Utils.equalPoints(this.creature.pos, state.kick.pos)) {
+        const item = server.context.map.getItem(state.kick.pos);
+        if (!item) return false;
+        server.clearItem(Utils.ItemLocation.World(state.kick.pos));
+        state.hasItem = item;
+      }
+    } else {
+      const tamedByPlayer = server.context.players.get(this.creature.tamedBy);
+      if (!tamedByPlayer) return false;
+
+      const tamedByCreature = server.getClientConnectionForPlayer(tamedByPlayer)?.creature;
+      if (!tamedByCreature) return false;
+
+      this.goto(tamedByCreature.pos);
+
+      if (Utils.maxDiff(this.creature.pos, tamedByCreature.pos) <= 1) {
+        state.done = true;
+        return true;
+      }
+    }
+  },
+};
+
 export class BallScript extends Script<{}> {
-  private activeKicks: Array<{item: Item; pos: Point4; locFloating: Point4; dir: Point2; momentum: number}> = [];
+  private activeKicks: Kick[] = [];
 
   constructor(protected server: Server) {
     super('ball', server, {});
@@ -19,8 +64,8 @@ export class BallScript extends Script<{}> {
         for (let i = this.activeKicks.length - 1; i >= 0; i-- ) {
           const kick = this.activeKicks[i];
 
-          const ballDestX = kick.locFloating.x + Utils.clamp(kick.dir.x, -1, 1);
-          const ballDestY = kick.locFloating.y + Utils.clamp(kick.dir.y, -1, 1);
+          const ballDestX = kick.posFloating.x + Utils.clamp(kick.dir.x, -1, 1);
+          const ballDestY = kick.posFloating.y + Utils.clamp(kick.dir.y, -1, 1);
           const newLocFloating = {...kick.pos, x: ballDestX, y: ballDestY};
           const newLoc = {...kick.pos, x: Math.round(ballDestX), y: Math.round(ballDestY)};
           const itemAtNewLoc = !Utils.equalPoints(kick.pos, newLoc) && this.server.context.map.getItem(newLoc);
@@ -40,7 +85,7 @@ export class BallScript extends Script<{}> {
             this.server.setItemInWorld(kick.pos, undefined);
             this.server.setItemInWorld(newLoc, kick.item);
             kick.pos = newLoc;
-            kick.locFloating = newLocFloating;
+            kick.posFloating = newLocFloating;
           }
 
           kick.momentum -= 1;
@@ -64,7 +109,7 @@ export class BallScript extends Script<{}> {
       this.activeKicks.push({
         item,
         pos: opts.to,
-        locFloating: {...opts.to},
+        posFloating: {...opts.to},
         dir,
         momentum,
       });
@@ -94,12 +139,48 @@ export class BallScript extends Script<{}> {
     this.server.setItem(Utils.ItemLocation.World(startingLoc), item);
     this.server.clearItem(opts.location);
 
-    this.activeKicks.push({
+    const kick = {
       item,
       pos: startingLoc,
-      locFloating: {...startingLoc},
+      posFloating: {...startingLoc},
       dir,
       momentum: Math.ceil(Utils.dist(startingLoc, opts.to.pos)),
-    });
+    };
+    this.activeKicks.push(kick);
+
+    // Fetch!
+    // TODO: a player should have a list of tamed creatures.
+    const tamedCreatures = [...this.server.context.creatures.values()]
+      .filter((c) => c.tamedBy === opts.playerConnection.player.id);
+    const server = this.server;
+    const goal: Goal = {
+      desiredEffect: 'fetch',
+      priority: 1_000,
+      satisfied() {
+        const state = creatureToFetchState.get(this.creature);
+        return !state || state.done;
+      },
+      onDone() {
+        const state = creatureToFetchState.get(this.creature);
+        if (!state || !state.hasItem) return;
+
+        const pos = server.findNearest({pos: this.creature.pos, range: 10}, false, (tile, pos2) => {
+          // TODO: server.findNearestWalkableTile helper
+          return server.context.walkable(pos2);
+        }) || this.creature.pos;
+        server.addItemNear(pos, state.hasItem);
+      },
+    };
+    for (const creature of tamedCreatures) {
+      if (Utils.maxDiff(creature.pos, opts.playerConnection.creature.pos) > 20) {
+        continue;
+      }
+
+      const creatureState = this.server.creatureStates[creature.id];
+      creatureToFetchState.set(creature, {done: false, kick});
+
+      creatureState.learnAction(FetchAction);
+      creatureState.addGoal(goal);
+    }
   }
 }

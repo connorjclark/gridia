@@ -16,6 +16,7 @@ import {adjustAttribute, attributeCheck} from './creature-utils.js';
 import {Script} from './script.js';
 import {BallScript} from './scripts/ball-script.js';
 import {BasicScript} from './scripts/basic-script.js';
+import {DogScript} from './scripts/dog-script.js';
 import {ServerContext} from './server-context.js';
 import {TaskRunner} from './task-runner.js';
 
@@ -54,6 +55,7 @@ export class Server {
     to?: ClientConnection;
     filter?: (playerConnection: PlayerConnection) => boolean;
   }>;
+  // TODO: WeakMap
   creatureStates: Record<number, CreatureState> = {};
 
   verbose: boolean;
@@ -374,6 +376,7 @@ export class Server {
       container.items[10] = {type: Content.getMetaItemByName('Bow').id, quantity: 1};
       container.items[11] = {type: Content.getMetaItemByName('Arrow').id, quantity: 500};
       container.items[12] = {type: Content.getMetaItemByName('Iron Wand').id, quantity: 1};
+      container.items[13] = {type: Content.getMetaItemByName('Soccer Ball').id, quantity: 1};
 
       equipment.items[0] = {type: Content.getMetaItemByName('Iron Helmet Plate').id, quantity: 1};
     }
@@ -1069,7 +1072,7 @@ export class Server {
   }
 
   findNearest(posOrRegion: {pos: TilePoint; range: number} | {region: Region}, includeTargetLocation: boolean,
-              predicate: (tile: Tile, loc2: TilePoint) => boolean): TilePoint | null {
+              predicate: (tile: Tile, pos2: TilePoint) => boolean): TilePoint | null {
     let region;
     if ('pos' in posOrRegion) {
       region = {
@@ -1088,7 +1091,7 @@ export class Server {
   }
 
   _findNearestImpl(region: Region, includeTargetLocation: boolean,
-                   predicate: (tile: Tile, loc2: TilePoint) => boolean): TilePoint | null {
+                   predicate: (tile: Tile, pos2: TilePoint) => boolean): TilePoint | null {
     const centerPos = {
       w: region.w,
       x: region.x + Math.floor(region.width / 2),
@@ -1560,7 +1563,8 @@ export class Server {
     const script = new ScriptClass(this);
     const errors = script.getScriptState().errors;
     if (errors.length) {
-      console.error(`Failed to add script ${ScriptClass.name}.\n` + errors.map((err) => err.toString()).join('\n'));
+      // TODO: these aren't showing in admin Scripts panel.
+      console.error(`Failed to add script ${ScriptClass.name}.\n` + JSON.stringify(errors, null, 2));
     } else {
       this._scripts.push(script);
       script.onStart();
@@ -1579,6 +1583,8 @@ export class Server {
 
     this.addScript(BasicScript);
     this.addScript(BallScript);
+    this.addScript(DogScript);
+
     this.taskRunner.registerTickSection({
       description: 'scripts',
       fn: async () => {
