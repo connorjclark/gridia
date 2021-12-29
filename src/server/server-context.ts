@@ -173,8 +173,12 @@ export class ServerContext extends Context {
     if (equipment) this.saveContainer(equipment);
   }
 
-  loadPlayer(playerId: string): Promise<Player> {
-    return readJson(this.db, Store.player, this.jsonKey(playerId));
+  async loadPlayer(playerId: string): Promise<Player> {
+    const player = await readJson(this.db, Store.player, this.jsonKey(playerId));
+    // TODO: remove
+    if (!player.pos) player.pos = player.loc;
+    return player;
+    // return readJson(this.db, Store.player, this.jsonKey(playerId));
   }
 
   makeContainer(type: Container['type'], size = 30) {
