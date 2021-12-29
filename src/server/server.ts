@@ -123,10 +123,10 @@ export class Server {
 
   broadcastInRange(event: ProtocolEvent, pos: TilePoint, range: number) {
     this.conditionalBroadcast(event, (client) => {
-      const loc2 = client.creature.pos;
-      if (loc2.z !== pos.z || loc2.w !== pos.w) return false;
+      const pos2 = client.creature.pos;
+      if (pos2.z !== pos.z || pos2.w !== pos.w) return false;
 
-      return Utils.dist(pos, loc2) <= range;
+      return Utils.dist(pos, pos2) <= range;
     });
   }
 
@@ -265,7 +265,7 @@ export class Server {
     return spawnPos;
   }
 
-  getInitialSpawnLoc2() {
+  getInitialSpawnpos2() {
     const {width, height} = this.context.map.getPartition(0);
     const center = {w: 0, x: Math.round(width / 2), y: Math.round(height / 2) + 3, z: 0};
     const spawnPos = this.findNearest({pos: center, range: 10}, true, (_, pos) => this.context.walkable(pos)) || center;
@@ -930,7 +930,7 @@ export class Server {
         });
 
         const player = this.findPlayerForCreature(creature);
-        this.warpCreature(creature, player?.spawnPos || this.getInitialSpawnLoc2());
+        this.warpCreature(creature, player?.spawnPos || this.getInitialSpawnpos2());
         adjustAttribute(creature, 'life', Math.floor(creature.life.max / 4));
         adjustAttribute(creature, 'stamina', Math.floor(creature.stamina.max / 4));
         adjustAttribute(creature, 'mana', Math.floor(creature.mana.max / 4));
@@ -1154,8 +1154,8 @@ export class Server {
 
     const stackable = Content.getMetaItem(item.type).stackable;
     const nearestLoc = this.findNearest({pos, range: 6}, opts.includeTargetLocation,
-      (tile, loc2) => {
-        if (opts?.checkCreatures && this.context.getCreatureAt(loc2)) return false;
+      (tile, pos2) => {
+        if (opts?.checkCreatures && this.context.getCreatureAt(pos2)) return false;
         if (!tile.item) return true;
         if (stackable && tile.item.type === item.type && tile.item.quantity + item.quantity <= MAX_STACK) return true;
         return false;

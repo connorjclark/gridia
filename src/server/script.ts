@@ -175,8 +175,8 @@ export abstract class Script<C extends ConfigDefinition> {
 
       // 2 if fail, just pick nearest walkable
       if (!spawnPos) {
-        spawnPos = this.server.findNearest({region: opts.region}, true, (tile, loc2) => {
-          return this.server.context.walkable(loc2);
+        spawnPos = this.server.findNearest({region: opts.region}, true, (tile, pos2) => {
+          return this.server.context.walkable(pos2);
         });
       }
 
