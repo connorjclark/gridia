@@ -197,28 +197,28 @@ class Camera {
    * Adjusts `camera.left` and `camera.top` if necessary to maintain `camera.centerElasticity` constraint.
    * If new camera focus is much different from previous, center the camera on the new focus location.
    *
-   * @param loc New location of camera focus (example: player location).
+   * @param pos New location of camera focus (example: player location).
    */
-  adjustFocus(loc: Point4) {
-    const shouldCenter = this.focus.w !== loc.w || this.focus.z !== loc.z || Utils.dist(loc, this.focus) >= 20;
+  adjustFocus(pos: Point4) {
+    const shouldCenter = this.focus.w !== pos.w || this.focus.z !== pos.z || Utils.dist(pos, this.focus) >= 20;
 
-    this.focus = {...loc};
+    this.focus = {...pos};
 
     const leftBoundary = Math.round(this.left + this.width * this.centerElasticity.left);
     const rightBoundary = Math.round(this.left + this.width * this.centerElasticity.right);
     const topBoundary = Math.round(this.top + this.height * this.centerElasticity.top);
     const botomBoundary = Math.round(this.top + this.height * this.centerElasticity.bottom);
 
-    if (loc.x < leftBoundary) {
-      this.left = loc.x - Math.round(this.width * this.centerElasticity.left);
-    } else if (loc.x > rightBoundary) {
-      this.left = loc.x - Math.round(this.width * this.centerElasticity.right);
+    if (pos.x < leftBoundary) {
+      this.left = pos.x - Math.round(this.width * this.centerElasticity.left);
+    } else if (pos.x > rightBoundary) {
+      this.left = pos.x - Math.round(this.width * this.centerElasticity.right);
     }
 
-    if (loc.y < topBoundary) {
-      this.top = loc.y - Math.round(this.height * this.centerElasticity.top);
-    } else if (loc.y > botomBoundary) {
-      this.top = loc.y - Math.round(this.height * this.centerElasticity.bottom);
+    if (pos.y < topBoundary) {
+      this.top = pos.y - Math.round(this.height * this.centerElasticity.top);
+    } else if (pos.y > botomBoundary) {
+      this.top = pos.y - Math.round(this.height * this.centerElasticity.bottom);
     }
 
     if (shouldCenter) this.center();
@@ -233,10 +233,10 @@ class Camera {
     // this.adjustFocus(this.focus);
   }
 
-  contains(loc: Point4) {
-    if (this.focus.w !== loc.w) return false;
-    if (this.focus.z !== loc.z) return false;
-    return Utils.rectContains(this, loc);
+  contains(pos: Point4) {
+    if (this.focus.w !== pos.w) return false;
+    if (this.focus.z !== pos.z) return false;
+    return Utils.rectContains(this, pos);
   }
 }
 
@@ -296,8 +296,8 @@ export class WorldContainer extends PIXI.Container {
     }
 
     this.animationController.tick();
-    this.forEachInCamera((tile, loc) => {
-      const {item, floor} = this.map.getTile(loc);
+    this.forEachInCamera((tile, pos) => {
+      const {item, floor} = this.map.getTile(pos);
       tile.setFloor(floor);
       tile.setItem(item);
     });
@@ -332,14 +332,14 @@ export class WorldContainer extends PIXI.Container {
     }
   }
 
-  forEachInCamera(cb: (tile: Tile, loc: Point4, screenX: number, screenY: number) => void) {
+  forEachInCamera(cb: (tile: Tile, pos: Point4, screenX: number, screenY: number) => void) {
     for (let x = 0; x < this.camera.width; x++) {
       for (let y = 0; y < this.camera.height; y++) {
         const mapX = this.camera.left + x;
         const mapY = this.camera.top + y;
 
-        const loc = {...this.camera.focus, x: mapX, y: mapY};
-        cb(this.getTile(loc), loc, x, y);
+        const pos = {...this.camera.focus, x: mapX, y: mapY};
+        cb(this.getTile(pos), pos, x, y);
       }
     }
   }
@@ -356,18 +356,18 @@ export class WorldContainer extends PIXI.Container {
       lights[x][y].alpha = animation.alpha;
     }
 
-    this.forEachInCamera((tile, loc, screenX, screenY) => {
+    this.forEachInCamera((tile, pos, screenX, screenY) => {
       const {light, tint, alpha} = lights[screenX][screenY];
       tile.setLight(light);
       tile.setTint(tint !== undefined ? tint : 0xFFFFFF, alpha || 0);
     });
   }
 
-  getTile(loc: Point4) {
-    const key = `${loc.w},${loc.x},${loc.y},${loc.z}`;
+  getTile(pos: Point4) {
+    const key = `${pos.w},${pos.x},${pos.y},${pos.z}`;
     let tile = this.tiles.get(key);
     if (!tile) {
-      tile = new Tile({...loc}, this);
+      tile = new Tile({...pos}, this);
       this.tiles.set(key, tile);
     }
 
@@ -405,7 +405,7 @@ export class WorldContainer extends PIXI.Container {
 
   private pruneTiles() {
     for (const [key, tile] of this.tiles.entries()) {
-      const {w, x, y, z} = tile.loc;
+      const {w, x, y, z} = tile.pos;
       if (w === this.camera.focus.w && z === this.camera.focus.z &&
         x >= this.camera.left && x < this.camera.right && y >= this.camera.top && y < this.camera.bottom) continue;
 
@@ -428,21 +428,21 @@ class Tile {
 
   private animationSprites = new WeakMap<Animation, PIXI.Sprite>();
 
-  constructor(readonly loc: Point4, private worldContainer: WorldContainer) {
+  constructor(readonly pos: Point4, private worldContainer: WorldContainer) {
     this.tint = new PIXI.Graphics();
     this.tint.alpha = 0;
     this.tint.beginFill(0xFFFFFF);
     this.tint.drawRect(0, 0, GFX_SIZE, GFX_SIZE);
-    this.tint.x = loc.x * GFX_SIZE;
-    this.tint.y = loc.y * GFX_SIZE;
+    this.tint.x = pos.x * GFX_SIZE;
+    this.tint.y = pos.y * GFX_SIZE;
     worldContainer.layers.tint.addChild(this.tint);
 
     this.light = new PIXI.Graphics();
     this.light.alpha = 0;
     this.light.beginFill(0);
     this.light.drawRect(0, 0, GFX_SIZE, GFX_SIZE);
-    this.light.x = loc.x * GFX_SIZE;
-    this.light.y = loc.y * GFX_SIZE;
+    this.light.x = pos.x * GFX_SIZE;
+    this.light.y = pos.y * GFX_SIZE;
     worldContainer.layers.light.addChild(this.light);
   }
 
@@ -474,7 +474,7 @@ class Tile {
         for (let y1 = -1; y1 <= 1; y1++) {
           if (x1 === 0 && y1 === 0) continue;
 
-          const tile = this.worldContainer.getTile({...this.loc, x: this.loc.x + x1, y: this.loc.y + y1});
+          const tile = this.worldContainer.getTile({...this.pos, x: this.pos.x + x1, y: this.pos.y + y1});
           tile.redrawFloor();
         }
       }
@@ -492,9 +492,9 @@ class Tile {
 
     let texture;
     if (meta.graphics.templateType) {
-      const partition = this.worldContainer.map.getPartition(this.loc.w);
+      const partition = this.worldContainer.map.getPartition(this.pos.w);
       const offset =
-        getIndexOffsetForTemplate(partition, this.floorValue, this.loc, meta.graphics, 'floor');
+        getIndexOffsetForTemplate(partition, this.floorValue, this.pos, meta.graphics, 'floor');
       texture = Draw.getTexture(meta.graphics.file, meta.graphics.frames[0] + offset);
     } else {
       texture = Draw.getTexture(meta.graphics.file, meta.graphics.frames[0]);
@@ -506,8 +506,8 @@ class Tile {
     }
 
     this.floor = new PIXI.Sprite(texture);
-    this.floor.x = this.loc.x * GFX_SIZE;
-    this.floor.y = this.loc.y * GFX_SIZE;
+    this.floor.x = this.pos.x * GFX_SIZE;
+    this.floor.y = this.pos.y * GFX_SIZE;
     container.addChild(this.floor);
   }
 
@@ -525,7 +525,7 @@ class Tile {
         for (let y1 = -1; y1 <= 1; y1++) {
           if (x1 === 0 && y1 === 0) continue;
 
-          const tile = this.worldContainer.getTile({...this.loc, x: this.loc.x + x1, y: this.loc.y + y1});
+          const tile = this.worldContainer.getTile({...this.pos, x: this.pos.x + x1, y: this.pos.y + y1});
           tile.redrawItem();
         }
       }
@@ -544,9 +544,9 @@ class Tile {
 
     let sprite;
     if (meta.graphics.templateType) {
-      const partition = this.worldContainer.map.getPartition(this.loc.w);
+      const partition = this.worldContainer.map.getPartition(this.pos.w);
       const offset =
-        getIndexOffsetForTemplate(partition, this.itemValue.type, this.loc, meta.graphics, 'item');
+        getIndexOffsetForTemplate(partition, this.itemValue.type, this.pos, meta.graphics, 'item');
       const texture = Draw.getTexture(meta.graphics.file, meta.graphics.frames[0] + offset);
       sprite = new PIXI.Sprite(texture);
     } else {
@@ -559,9 +559,9 @@ class Tile {
     }
 
     this.item = sprite;
-    this.item.x = this.loc.x * GFX_SIZE;
-    this.item.y = this.loc.y * GFX_SIZE;
-    this.item.zIndex = this.loc.y;
+    this.item.x = this.pos.x * GFX_SIZE;
+    this.item.y = this.pos.y * GFX_SIZE;
+    this.item.zIndex = this.pos.y;
     container.addChild(this.item);
   }
 
@@ -625,15 +625,15 @@ function realLighting(focusLoc: Point3, worldContainer: WorldContainer, lightMod
   new Visibility(blocksLight, setVisible_LOS, getDistance).Compute(focusLoc, 100);
 
   const lightSources: Array<{ x: number; y: number; power: number; tint?: number; alpha?: number }> = [];
-  worldContainer.forEachInCamera((tile, loc) => {
-    const {item} = worldContainer.map.getTile(loc);
-    const creature = game.client.context.getCreatureAt(loc);
+  worldContainer.forEachInCamera((tile, pos) => {
+    const {item} = worldContainer.map.getTile(pos);
+    const creature = game.client.context.getCreatureAt(pos);
 
     const meta = item && Content.getMetaItem(item.type);
     if (meta && meta.light) {
       lightSources.push({
-        x: loc.x,
-        y: loc.y,
+        x: pos.x,
+        y: pos.y,
         tint: 0x550000,
         // TODO: makes torches look odd in full daylight. Maybe will be ok after color blending.
         // power: 6 + Math.sin(performance.now() / 500) * 0.5,
@@ -644,8 +644,8 @@ function realLighting(focusLoc: Point3, worldContainer: WorldContainer, lightMod
 
     if (creature && creature.light) {
       lightSources.push({
-        x: loc.x,
-        y: loc.y,
+        x: pos.x,
+        y: pos.y,
         // tint: 0x000000,
         // TODO: makes torches look odd in full daylight. Maybe will be ok after color blending.
         // power: 6 + Math.sin(performance.now() / 500) * 0.5,

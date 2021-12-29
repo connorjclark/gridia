@@ -55,8 +55,8 @@ export function makeBareMap(width: number, height: number, depth: number) {
   for (let x = 0; x < width; x++) {
     for (let y = 0; y < height; y++) {
       for (let z = 0; z < depth; z++) {
-        const loc = {x, y, z};
-        map.setTile(loc, {
+        const pos = {x, y, z};
+        map.setTile(pos, {
           floor: z ? MINE : 1,
         });
       }
@@ -90,7 +90,7 @@ export function mapgen(opts: MapGenOptions) {
   for (let x = 0; x < width; x++) {
     for (let y = 0; y < height; y++) {
       for (let z = 0; z < depth; z++) {
-        const loc = {x, y, z};
+        const pos = {x, y, z};
         let floor = 0;
         let item;
 
@@ -113,7 +113,7 @@ export function mapgen(opts: MapGenOptions) {
           item = {type: MINE, quantity: 1};
         }
 
-        map.setTile(loc, {
+        map.setTile(pos, {
           floor,
           item,
         });

@@ -24,8 +24,8 @@ export function findPath(context: Context, partition: WorldMapPartition, from: P
 
 // Does not include the starting location.
 function _findPath({width, height, from, to, walkable}: Options) {
-  function encodePoint(loc: PartitionPoint) {
-    return loc.x + loc.y * width + loc.z * width * height;
+  function encodePoint(pos: PartitionPoint) {
+    return pos.x + pos.y * width + pos.z * width * height;
   }
 
   function decodePoint(encoded: number): PartitionPoint {

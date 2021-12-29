@@ -43,7 +43,7 @@ export class MovementModule extends ClientModule {
     this.game.addActionCreator((location) => {
       if (location.source !== 'world') return;
 
-      const creature = this.game.client.context.getCreatureAt(location.loc);
+      const creature = this.game.client.context.getCreatureAt(location.pos);
       if (creature) {
         return {
           type: 'follow',
@@ -160,11 +160,11 @@ export class MovementModule extends ClientModule {
     }
   }
 
-  moveTo(loc: TilePoint) {
+  moveTo(pos: TilePoint) {
     const focusPos = this.game.getPlayerPosition();
     const partition = this.game.client.context.map.getPartition(focusPos.w);
 
-    this.pathToDestination = findPath(this.game.client.context, partition, focusPos, loc);
+    this.pathToDestination = findPath(this.game.client.context, partition, focusPos, pos);
     this.followCreature = undefined;
   }
 
@@ -174,7 +174,7 @@ export class MovementModule extends ClientModule {
     if (location.source !== 'world') return;
 
     if (type === 'move-here') {
-      this.moveTo(location.loc);
+      this.moveTo(location.pos);
     } else if (type === 'follow') {
       this.followCreature = e.creature;
       this.pathToDestination = undefined;

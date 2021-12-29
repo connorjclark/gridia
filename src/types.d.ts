@@ -97,8 +97,8 @@ interface Player {
   isAdmin: boolean;
   questStates: Map<string, QuestState>;
   tilesSeenLog: Map<string, Uint16Array>;
-  loc: Point4;
-  spawnLoc: Point4;
+  pos: Point4;
+  spawnPos: Point4;
   life: number;
   stamina: number;
   mana: number;
@@ -118,7 +118,7 @@ interface Tile {
 
 interface WorldLocation {
   source: 'world';
-  loc: TilePoint;
+  pos: TilePoint;
 }
 
 interface ContainerLocation {

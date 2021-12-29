@@ -21,23 +21,23 @@ export class WorldMapPartition {
     this.sectors = Utils.matrix(width / SECTOR_SIZE, height / SECTOR_SIZE, depth);
   }
 
-  inBounds(point: PartitionPoint): boolean {
-    return point.x >= 0 && point.y >= 0 && point.x < this.width && point.y < this.height &&
-      point.z >= 0 && point.z < this.depth;
+  inBounds(pos: PartitionPoint): boolean {
+    return pos.x >= 0 && pos.y >= 0 && pos.x < this.width && pos.y < this.height &&
+      pos.z >= 0 && pos.z < this.depth;
   }
 
-  walkable(point: PartitionPoint): boolean {
-    if (!this.inBounds(point)) return false;
+  walkable(pos: PartitionPoint): boolean {
+    if (!this.inBounds(pos)) return false;
 
-    const tile = this.getTile(point);
+    const tile = this.getTile(pos);
     if (tile.item && Content.getMetaItem(tile.item.type).blocksMovement) return false;
 
     return true;
   }
 
-  async walkableAsync(point: PartitionPoint): Promise<boolean> {
-    await this.getSectorAsync(Utils.worldToSector(point, SECTOR_SIZE));
-    return this.walkable(point);
+  async walkableAsync(pos: PartitionPoint): Promise<boolean> {
+    await this.getSectorAsync(Utils.worldToSector(pos, SECTOR_SIZE));
+    return this.walkable(pos);
   }
 
   getSector(sectorPoint: PartitionPoint): Sector {
@@ -60,20 +60,20 @@ export class WorldMapPartition {
     return this._loadSector(sectorPoint);
   }
 
-  getTile(point: PartitionPoint): Tile {
-    if (!this.inBounds(point)) return {floor: 0};
+  getTile(pos: PartitionPoint): Tile {
+    if (!this.inBounds(pos)) return {floor: 0};
 
-    const sector = this.getSector(Utils.worldToSector(point, SECTOR_SIZE));
-    return sector[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE];
+    const sector = this.getSector(Utils.worldToSector(pos, SECTOR_SIZE));
+    return sector[pos.x % SECTOR_SIZE][pos.y % SECTOR_SIZE];
   }
 
-  setTile(point: PartitionPoint, tile: Tile) {
-    const sector = this.getSector(Utils.worldToSector(point, SECTOR_SIZE));
-    sector[point.x % SECTOR_SIZE][point.y % SECTOR_SIZE] = tile;
+  setTile(pos: PartitionPoint, tile: Tile) {
+    const sector = this.getSector(Utils.worldToSector(pos, SECTOR_SIZE));
+    sector[pos.x % SECTOR_SIZE][pos.y % SECTOR_SIZE] = tile;
   }
 
-  getItem(point: PartitionPoint) {
-    return this.getTile(point).item;
+  getItem(pos: PartitionPoint) {
+    return this.getTile(pos).item;
   }
 
   createEmptySector() {

@@ -333,37 +333,37 @@ describe('use', () => {
 
   it('cut down tree', async () => {
     const toolIndex = 0;
-    const loc = {w: 0, x: 0, y: 0, z: 0};
+    const pos = {w: 0, x: 0, y: 0, z: 0};
 
     setItemInContainer(client.player.containerId, 0, {type: Content.getMetaItemByName('Wood Axe').id, quantity: 1});
-    setItem(loc, {type: Content.getMetaItemByName('Pine Tree').id, quantity: 1});
+    setItem(pos, {type: Content.getMetaItemByName('Pine Tree').id, quantity: 1});
 
     await send(CommandBuilder.use({
       toolIndex,
-      location: Utils.ItemLocation.World(loc),
+      location: Utils.ItemLocation.World(pos),
     }));
 
-    assertItemInWorld(loc, {type: Content.getMetaItemByName('Pine Tree Stump').id, quantity: 1});
-    assertItemInWorldNear(loc, {type: Content.getMetaItemByName('Small Branches').id, quantity: 6});
-    assertItemInWorldNear(loc, {type: Content.getMetaItemByName('Small Log').id, quantity: 2});
+    assertItemInWorld(pos, {type: Content.getMetaItemByName('Pine Tree Stump').id, quantity: 1});
+    assertItemInWorldNear(pos, {type: Content.getMetaItemByName('Small Branches').id, quantity: 6});
+    assertItemInWorldNear(pos, {type: Content.getMetaItemByName('Small Log').id, quantity: 2});
   });
 
   it('plant a seed', async () => {
     const toolIndex = 1;
-    const loc = {w: 0, x: 0, y: 0, z: 0};
+    const pos = {w: 0, x: 0, y: 0, z: 0};
 
     setItemInContainer(client.player.containerId, 1, {
       type: Content.getMetaItemByName('Mana Plant Seeds').id,
       quantity: 100,
     });
-    setItem(loc, {type: Content.getMetaItemByName('Ploughed Ground').id, quantity: 1});
+    setItem(pos, {type: Content.getMetaItemByName('Ploughed Ground').id, quantity: 1});
 
     await send(CommandBuilder.use({
       toolIndex,
-      location: Utils.ItemLocation.World(loc),
+      location: Utils.ItemLocation.World(pos),
     }));
 
-    assertItemInWorld(loc, {type: Content.getMetaItemByName('Mana Plant Seeded Ground').id, quantity: 1});
+    assertItemInWorld(pos, {type: Content.getMetaItemByName('Mana Plant Seeded Ground').id, quantity: 1});
     assertItemInContainer(container.id, toolIndex, {
       type: Content.getMetaItemByName('Mana Plant Seeds').id,
       quantity: 99,
@@ -372,21 +372,21 @@ describe('use', () => {
 
   it('cook food', async () => {
     const toolIndex = 0;
-    const loc = {w: 0, x: 0, y: 0, z: 0};
+    const pos = {w: 0, x: 0, y: 0, z: 0};
 
     setItemInContainer(container.id, toolIndex, {
       type: Content.getMetaItemByName('Un-Cooked Large Ribs').id,
       quantity: 5,
     });
     setItemInContainer(container.id, toolIndex + 1, undefined);
-    setItem(loc, {type: Content.getMetaItemByName('Large Camp Fire').id, quantity: 1});
+    setItem(pos, {type: Content.getMetaItemByName('Large Camp Fire').id, quantity: 1});
 
     await send(CommandBuilder.use({
       toolIndex,
-      location: Utils.ItemLocation.World(loc),
+      location: Utils.ItemLocation.World(pos),
     }));
 
-    assertItemInWorld(loc, {type: Content.getMetaItemByName('Large Camp Fire').id, quantity: 1});
+    assertItemInWorld(pos, {type: Content.getMetaItemByName('Large Camp Fire').id, quantity: 1});
     assertItemInContainer(container.id, toolIndex, {
       type: Content.getMetaItemByName('Un-Cooked Large Ribs').id,
       quantity: 4,
@@ -399,22 +399,22 @@ describe('use', () => {
   });
 
   it('closing/opening chest retains container id', async () => {
-    const loc = {w: 0, x: 0, y: 0, z: 0};
+    const pos = {w: 0, x: 0, y: 0, z: 0};
 
-    setItem(loc, {type: Content.getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123});
-
-    await send(CommandBuilder.use({
-      toolIndex: -1,
-      location: Utils.ItemLocation.World(loc),
-    }));
-
-    assertItemInWorld(loc, {type: Content.getMetaItemByName('Wooden Box').id, quantity: 1, containerId: 123});
+    setItem(pos, {type: Content.getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123});
 
     await send(CommandBuilder.use({
       toolIndex: -1,
-      location: Utils.ItemLocation.World(loc),
+      location: Utils.ItemLocation.World(pos),
     }));
 
-    assertItemInWorld(loc, {type: Content.getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123});
+    assertItemInWorld(pos, {type: Content.getMetaItemByName('Wooden Box').id, quantity: 1, containerId: 123});
+
+    await send(CommandBuilder.use({
+      toolIndex: -1,
+      location: Utils.ItemLocation.World(pos),
+    }));
+
+    assertItemInWorld(pos, {type: Content.getMetaItemByName('Open Wooden Box').id, quantity: 1, containerId: 123});
   });
 });

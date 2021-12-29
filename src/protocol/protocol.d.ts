@@ -18,7 +18,7 @@ declare namespace Protocol {
   namespace Commands {
     type AdminSetFloor = Command<TilePoint & { floor: number }>;
     type AdminSetItem = Command<TilePoint & { item?: Item }>;
-    type CastSpell = Command<{ id: number; creatureId?: number; loc?: Point4 }>;
+    type CastSpell = Command<{ id: number; creatureId?: number; pos?: Point4 }>;
     type Chat = Command<{ text: string }>;
     type CloseContainer = Command<{ containerId: string }>;
     type CreatePlayer = Command<{
@@ -37,7 +37,7 @@ declare namespace Protocol {
     type Move = Command<TilePoint>;
     type MoveItem = Command<{ from: ItemLocation; quantity?: number; to: ItemLocation }>;
     type RegisterAccount = Command<{ firebaseToken: string }>;
-    type RequestContainer = Command<{ containerId?: string; loc?: TilePoint }>;
+    type RequestContainer = Command<{ containerId?: string; pos?: TilePoint }>;
     type RequestCreature = Command<{ id: number }>;
     type RequestPartition = Command<{ w: number }>;
     type RequestSector = Command<TilePoint>;

@@ -2,21 +2,21 @@ import * as Content from '../content.js';
 import {WorldMapPartition} from '../world-map-partition.js';
 
 export function getIndexOffsetForTemplate(partition: WorldMapPartition,
-                                          typeToMatch: number, loc: PartitionPoint,
+                                          typeToMatch: number, pos: PartitionPoint,
                                           graphics: Graphics, match: 'item' | 'floor') {
   if (graphics.templateType === 'bit-offset') {
-    return useBitOffsetTemplate(partition, typeToMatch, loc, match);
+    return useBitOffsetTemplate(partition, typeToMatch, pos, match);
   } else if (graphics.templateType === 'visual-offset') {
-    const offset = useVisualOffsetTemplate(partition, typeToMatch, loc, match);
+    const offset = useVisualOffsetTemplate(partition, typeToMatch, pos, match);
     const tilesAcross = Content.getBaseDir() === 'worlds/rpgwo-world' ? 10 : 8;
     return offset.x + offset.y * tilesAcross;
   } else if (graphics.templateType === 'data-offset') {
     if (!graphics.templateData) throw new Error('missing template data');
 
-    const realIndex = useDataOffsetTemplate(partition, typeToMatch, graphics.templateData, loc, match);
+    const realIndex = useDataOffsetTemplate(partition, typeToMatch, graphics.templateData, pos, match);
     return realIndex - graphics.frames[0];
   } else if (graphics.templateType === 'misc-offset-1') {
-    return useMiscOffset1Template(partition, typeToMatch, loc, match);
+    return useMiscOffset1Template(partition, typeToMatch, pos, match);
   } else {
     throw new Error('unexpected template type: ' + graphics.templateType);
   }
@@ -27,19 +27,19 @@ export function getIndexOffsetForTemplate(partition: WorldMapPartition,
 
 function useDataOffsetTemplate(partition: WorldMapPartition,
                                typeToMatch: number, templateData: TemplateData,
-                               loc: PartitionPoint, match: 'item' | 'floor') {
-  const {x, y, z} = loc;
+                               pos: PartitionPoint, match: 'item' | 'floor') {
+  const {x, y, z} = pos;
   const xl = x - 1;
   const xr = x + 1;
   const yu = y + 1;
   const yd = y - 1;
 
-  function matches(pos: PartitionPoint) {
-    if (!partition.inBounds(pos)) {
+  function matches(pos2: PartitionPoint) {
+    if (!partition.inBounds(pos2)) {
       return true;
     }
 
-    const tile = partition.getTile(pos);
+    const tile = partition.getTile(pos2);
     if (match === 'floor') return tile.floor === typeToMatch;
 
     return tile.item?.type === typeToMatch;
@@ -86,19 +86,19 @@ function useDataOffsetTemplate(partition: WorldMapPartition,
 }
 
 function useMiscOffset1Template(partition: WorldMapPartition,
-                                typeToMatch: number, loc: PartitionPoint, match: 'item' | 'floor') {
-  const {x, y, z} = loc;
+                                typeToMatch: number, pos: PartitionPoint, match: 'item' | 'floor') {
+  const {x, y, z} = pos;
   const xl = x - 1;
   const xr = x + 1;
   const yu = y + 1;
   const yd = y - 1;
 
-  function matches(pos: PartitionPoint) {
-    if (!partition.inBounds(pos)) {
+  function matches(pos2: PartitionPoint) {
+    if (!partition.inBounds(pos2)) {
       return true;
     }
 
-    const tile = partition.getTile(pos);
+    const tile = partition.getTile(pos2);
     if (match === 'floor') return tile.floor === typeToMatch;
 
     return tile.item?.type === typeToMatch;
@@ -145,19 +145,19 @@ function useMiscOffset1Template(partition: WorldMapPartition,
 }
 
 function useVisualOffsetTemplate(partition: WorldMapPartition,
-                                 typeToMatch: number, loc: PartitionPoint, match: 'item' | 'floor') {
-  const {x, y, z} = loc;
+                                 typeToMatch: number, pos: PartitionPoint, match: 'item' | 'floor') {
+  const {x, y, z} = pos;
   const xl = x - 1;
   const xr = x + 1;
   const yu = y + 1;
   const yd = y - 1;
 
-  function matches(pos: PartitionPoint) {
-    if (!partition.inBounds(pos)) {
+  function matches(pos2: PartitionPoint) {
+    if (!partition.inBounds(pos2)) {
       return true;
     }
 
-    const tile = partition.getTile(pos);
+    const tile = partition.getTile(pos2);
     if (match === 'floor') return tile.floor === typeToMatch;
 
     return tile.item?.type === typeToMatch;
@@ -219,8 +219,8 @@ function useVisualOffsetTemplate(partition: WorldMapPartition,
 }
 
 function useBitOffsetTemplate(partition: WorldMapPartition,
-                              typeToMatch: number, loc: PartitionPoint, match: 'item' | 'floor') {
-  const {x, y, z} = loc;
+                              typeToMatch: number, pos: PartitionPoint, match: 'item' | 'floor') {
+  const {x, y, z} = pos;
   // const width = client.world.width;
   // const height = client.world.height;
   // const xl = x == 0 ? width - 1 : x - 1;
@@ -232,12 +232,12 @@ function useBitOffsetTemplate(partition: WorldMapPartition,
   const yu = y + 1;
   const yd = y - 1;
 
-  function matches(pos: PartitionPoint) {
-    if (!partition.inBounds(pos)) {
+  function matches(pos2: PartitionPoint) {
+    if (!partition.inBounds(pos2)) {
       return true;
     }
 
-    const tile = partition.getTile(pos);
+    const tile = partition.getTile(pos2);
     if (match === 'floor') return tile.floor === typeToMatch;
 
     return tile.item?.type === typeToMatch;

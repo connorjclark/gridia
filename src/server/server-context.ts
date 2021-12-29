@@ -156,7 +156,7 @@ export class ServerContext extends Context {
 
   savePlayer(player: Player, creature?: Creature) {
     if (creature) {
-      player.loc = creature.pos;
+      player.pos = creature.pos;
       player.life = creature.life.current;
       player.stamina = creature.stamina.current;
       player.mana = creature.mana.current;

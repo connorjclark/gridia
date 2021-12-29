@@ -103,13 +103,13 @@ type SaveSettingsCommand = {
 
 export type ProtocolCommand = AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | RequestScriptsCommand | ReadItemCommand | EatItemCommand | ItemActionCommand | SaveSettingsCommand;
 
-export function adminSetFloor({ floor, ...loc }: Protocol.Commands.AdminSetFloor["params"]): AdminSetFloorCommand {
+export function adminSetFloor({ floor, ...pos }: Protocol.Commands.AdminSetFloor["params"]): AdminSetFloorCommand {
     return { type: "adminSetFloor", args: arguments[0] };
 }
-export function adminSetItem({ item, ...loc }: Protocol.Commands.AdminSetItem["params"]): AdminSetItemCommand {
+export function adminSetItem({ item, ...pos }: Protocol.Commands.AdminSetItem["params"]): AdminSetItemCommand {
     return { type: "adminSetItem", args: arguments[0] };
 }
-export function castSpell({ id, creatureId, loc }: Protocol.Commands.CastSpell["params"]): CastSpellCommand {
+export function castSpell({ id, creatureId, pos }: Protocol.Commands.CastSpell["params"]): CastSpellCommand {
     return { type: "castSpell", args: arguments[0] };
 }
 export function chat({ text }: Protocol.Commands.Chat["params"]): ChatCommand {
@@ -136,7 +136,7 @@ export function login({ firebaseToken }: Protocol.Commands.Login["params"]): Log
 export function logout({}: Protocol.Commands.Logout["params"]): LogoutCommand {
     return { type: "logout", args: arguments[0] };
 }
-export function move({ ...loc }: Protocol.Commands.Move["params"]): MoveCommand {
+export function move({ ...pos }: Protocol.Commands.Move["params"]): MoveCommand {
     return { type: "move", args: arguments[0] };
 }
 export function moveItem({ from, quantity, to }: Protocol.Commands.MoveItem["params"]): MoveItemCommand {
@@ -145,7 +145,7 @@ export function moveItem({ from, quantity, to }: Protocol.Commands.MoveItem["par
 export function registerAccount({ firebaseToken }: Protocol.Commands.RegisterAccount["params"]): RegisterAccountCommand {
     return { type: "registerAccount", args: arguments[0] };
 }
-export function requestContainer({ containerId, loc }: Protocol.Commands.RequestContainer["params"]): RequestContainerCommand {
+export function requestContainer({ containerId, pos }: Protocol.Commands.RequestContainer["params"]): RequestContainerCommand {
     return { type: "requestContainer", args: arguments[0] };
 }
 export function requestCreature({ id }: Protocol.Commands.RequestCreature["params"]): RequestCreatureCommand {
@@ -154,7 +154,7 @@ export function requestCreature({ id }: Protocol.Commands.RequestCreature["param
 export function requestPartition({ w }: Protocol.Commands.RequestPartition["params"]): RequestPartitionCommand {
     return { type: "requestPartition", args: arguments[0] };
 }
-export function requestSector({ ...loc }: Protocol.Commands.RequestSector["params"]): RequestSectorCommand {
+export function requestSector({ ...pos }: Protocol.Commands.RequestSector["params"]): RequestSectorCommand {
     return { type: "requestSector", args: arguments[0] };
 }
 export function use({ toolIndex, location, usageIndex }: Protocol.Commands.Use["params"]): UseCommand {

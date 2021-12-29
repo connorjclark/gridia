@@ -64,11 +64,11 @@ export class BasicScript extends Script<typeof configDefinition> {
   }
 
   onPlayerCreated(player: Player, clientConnection: PlayerConnection) {
-    const loc = {...this.creatureSpawners[0].region};
-    loc.x += 2;
-    loc.y += 2;
-    clientConnection.player.spawnLoc = loc;
-    this.server.moveCreature(clientConnection.creature, loc);
+    const pos = {...this.creatureSpawners[0].region};
+    pos.x += 2;
+    pos.y += 2;
+    clientConnection.player.spawnPos = pos;
+    this.server.moveCreature(clientConnection.creature, pos);
   }
 
   onPlayerKillCreature(player: Player, creature: Creature) {

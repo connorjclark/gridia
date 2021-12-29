@@ -119,12 +119,12 @@ export class Server {
     this.outboundMessages.push({filter, message});
   }
 
-  broadcastInRange(event: ProtocolEvent, loc: TilePoint, range: number) {
+  broadcastInRange(event: ProtocolEvent, pos: TilePoint, range: number) {
     this.conditionalBroadcast(event, (client) => {
       const loc2 = client.creature.pos;
-      if (loc2.z !== loc.z || loc2.w !== loc.w) return false;
+      if (loc2.z !== pos.z || loc2.w !== pos.w) return false;
 
-      return Utils.dist(loc, loc2) <= range;
+      return Utils.dist(pos, loc2) <= range;
     });
   }
 
@@ -257,17 +257,17 @@ export class Server {
     // TODO: is this still needed?
     // Make sure sector is loaded. Prevents hidden creature (race condition, happens often in worker).
     await this.ensureSectorLoadedForPoint(center);
-    const spawnLoc = this.findNearest({loc: center, range: 10}, true, (_, loc) => this.context.walkable(loc)) || center;
-    await this.ensureSectorLoadedForPoint(spawnLoc);
+    const spawnPos = this.findNearest({pos: center, range: 10}, true, (_, pos) => this.context.walkable(pos)) || center;
+    await this.ensureSectorLoadedForPoint(spawnPos);
 
-    return spawnLoc;
+    return spawnPos;
   }
 
   getInitialSpawnLoc2() {
     const {width, height} = this.context.map.getPartition(0);
     const center = {w: 0, x: Math.round(width / 2), y: Math.round(height / 2) + 3, z: 0};
-    const spawnLoc = this.findNearest({loc: center, range: 10}, true, (_, loc) => this.context.walkable(loc)) || center;
-    return spawnLoc;
+    const spawnPos = this.findNearest({pos: center, range: 10}, true, (_, pos) => this.context.walkable(pos)) || center;
+    return spawnPos;
   }
 
   async createPlayer(clientConnection: ClientConnection, opts: Protocol.Commands.CreatePlayer['params']) {
@@ -311,7 +311,7 @@ export class Server {
       throw new Error(`skill points can't be greater than ${characterCreation.skillPoints}`);
     }
 
-    const loc = await this.getInitialSpawnLoc();
+    const pos = await this.getInitialSpawnLoc();
     const player: Player = {
       id: Utils.uuid(),
       name: opts.name,
@@ -327,8 +327,8 @@ export class Server {
       containerId: '',
       // set later
       equipmentContainerId: '',
-      loc,
-      spawnLoc: loc,
+      pos,
+      spawnPos: pos,
       // set later
       life: 0,
       // set later
@@ -425,7 +425,7 @@ export class Server {
       id: this.context.nextCreatureId++,
       dead: false,
       name: player.name,
-      pos: {...player.loc},
+      pos: {...player.pos},
       graphics: {
         file: 'rpgwo-player0.png',
         frames: [Utils.randInt(0, 3)],
@@ -537,7 +537,7 @@ export class Server {
       template = Content.getMonsterTemplate(1);
     }
 
-    pos = this.findNearest({loc: pos, range: 10}, true, (_, loc) => this.context.walkable(loc)) || pos;
+    pos = this.findNearest({pos, range: 10}, true, (_, pos2) => this.context.walkable(pos2)) || pos;
 
     const life = template.life || 10;
     const stamina = template.stamina || 10;
@@ -930,7 +930,7 @@ export class Server {
         });
 
         const player = this.findPlayerForCreature(creature);
-        this.warpCreature(creature, player?.spawnLoc || this.getInitialSpawnLoc2());
+        this.warpCreature(creature, player?.spawnPos || this.getInitialSpawnLoc2());
         adjustAttribute(creature, 'life', Math.floor(creature.life.max / 4));
         adjustAttribute(creature, 'stamina', Math.floor(creature.stamina.max / 4));
         adjustAttribute(creature, 'mana', Math.floor(creature.mana.max / 4));
@@ -992,13 +992,13 @@ export class Server {
     this.broadcastPartialCreatureUpdate(creature, ['buffs']);
   }
 
-  castSpell(spell: Spell, creature: Creature, targetCreature?: Creature, loc?: Point4, consumeMana = true) {
+  castSpell(spell: Spell, creature: Creature, targetCreature?: Creature, pos?: Point4, consumeMana = true) {
     if (creature.mana.current < spell.mana) return 'Not enough mana';
 
     if (spell.transformItemFrom && spell.transformItemTo) {
-      if (!loc || this.context.map.getItem(loc)?.type !== spell.transformItemFrom.type) return 'Invalid item';
+      if (!pos || this.context.map.getItem(pos)?.type !== spell.transformItemFrom.type) return 'Invalid item';
 
-      this.setItemInWorld(loc, {...spell.transformItemTo});
+      this.setItemInWorld(pos, {...spell.transformItemTo});
     }
 
     const variance = spell.variance ? Utils.randInt(0, spell.variance) : 0;
@@ -1031,14 +1031,14 @@ export class Server {
 
     for (const item of spell.spawnItems || []) {
       for (let i = 0; i < item.quantity; i++) {
-        this.addItemNear(loc || creature.pos, {
+        this.addItemNear(pos || creature.pos, {
           ...item,
           quantity: 1,
         }, {includeTargetLocation: true, checkCreatures: true});
       }
     }
 
-    const somePos = loc || targetCreature?.pos;
+    const somePos = pos || targetCreature?.pos;
     if (spell.animation && somePos) {
       this.broadcastAnimation({
         name: Content.getAnimationByIndex(spell.animation - 1).name,
@@ -1071,20 +1071,20 @@ export class Server {
     }));
   }
 
-  findNearest(locOrRegion: {loc: TilePoint; range: number} | {region: Region}, includeTargetLocation: boolean,
+  findNearest(posOrRegion: {pos: TilePoint; range: number} | {region: Region}, includeTargetLocation: boolean,
               predicate: (tile: Tile, loc2: TilePoint) => boolean): TilePoint | null {
     let region;
-    if ('loc' in locOrRegion) {
+    if ('pos' in posOrRegion) {
       region = {
-        w: locOrRegion.loc.w,
-        x: locOrRegion.loc.x - locOrRegion.range,
-        y: locOrRegion.loc.y - locOrRegion.range,
-        z: locOrRegion.loc.z,
-        width: locOrRegion.range,
-        height: locOrRegion.range,
+        w: posOrRegion.pos.w,
+        x: posOrRegion.pos.x - posOrRegion.range,
+        y: posOrRegion.pos.y - posOrRegion.range,
+        z: posOrRegion.pos.z,
+        width: posOrRegion.range,
+        height: posOrRegion.range,
       };
     } else {
-      region = locOrRegion.region;
+      region = posOrRegion.region;
     }
 
     return this._findNearestImpl(region, includeTargetLocation, predicate);
@@ -1092,7 +1092,7 @@ export class Server {
 
   _findNearestImpl(region: Region, includeTargetLocation: boolean,
                    predicate: (tile: Tile, loc2: TilePoint) => boolean): TilePoint | null {
-    const centerLoc = {
+    const centerPos = {
       w: region.w,
       x: region.x + Math.floor(region.width / 2),
       y: region.y + Math.floor(region.height / 2),
@@ -1112,10 +1112,10 @@ export class Server {
     // Starting at the center, test every location going out 1 distance
     // from the center in a spiral.
 
-    const w = centerLoc.w;
-    const x0 = centerLoc.x;
-    const y0 = centerLoc.y;
-    const z = centerLoc.z;
+    const w = centerPos.w;
+    const x0 = centerPos.x;
+    const y0 = centerPos.y;
+    const z = centerPos.z;
     const range = Math.ceil(Math.max(region.width, region.height) / 2);
     for (let offset = includeTargetLocation ? 0 : 1; offset <= range; offset++) {
       for (let y1 = y0 - offset; y1 <= offset + y0; y1++) {
@@ -1143,7 +1143,7 @@ export class Server {
     return null;
   }
 
-  addItemNear(loc: TilePoint, item: Item, opts?: { includeTargetLocation: boolean; checkCreatures: boolean }) {
+  addItemNear(pos: TilePoint, item: Item, opts?: { includeTargetLocation: boolean; checkCreatures: boolean }) {
     if (!opts) {
       opts = {
         includeTargetLocation: true,
@@ -1152,7 +1152,7 @@ export class Server {
     }
 
     const stackable = Content.getMetaItem(item.type).stackable;
-    const nearestLoc = this.findNearest({loc, range: 6}, opts.includeTargetLocation,
+    const nearestLoc = this.findNearest({pos, range: 6}, opts.includeTargetLocation,
       (tile, loc2) => {
         if (opts?.checkCreatures && this.context.getCreatureAt(loc2)) return false;
         if (!tile.item) return true;
@@ -1174,18 +1174,18 @@ export class Server {
     }));
   }
 
-  setFloor(loc: TilePoint, floor: number) {
-    this.context.map.getTile(loc).floor = floor;
+  setFloor(pos: TilePoint, floor: number) {
+    this.context.map.getTile(pos).floor = floor;
     this.broadcast(EventBuilder.setFloor({
-      ...loc,
+      ...pos,
       floor,
     }));
   }
 
-  setItemInWorld(loc: TilePoint, item?: Item) {
-    this.context.map.getTile(loc).item = item;
+  setItemInWorld(pos: TilePoint, item?: Item) {
+    this.context.map.getTile(pos).item = item;
     this.broadcast(EventBuilder.setItem({
-      location: Utils.ItemLocation.World(loc),
+      location: Utils.ItemLocation.World(pos),
       item,
     }));
   }
@@ -1389,9 +1389,9 @@ export class Server {
     return this.context.map.getPartition(sectorPoint.w).getSectorAsync(sectorPoint);
   }
 
-  ensureSectorLoadedForPoint(loc: TilePoint) {
-    const sectorPoint = Utils.worldToSector(loc, SECTOR_SIZE);
-    return this.ensureSectorLoaded({w: loc.w, ...sectorPoint});
+  ensureSectorLoadedForPoint(pos: TilePoint) {
+    const sectorPoint = Utils.worldToSector(pos, SECTOR_SIZE);
+    return this.ensureSectorLoaded({w: pos.w, ...sectorPoint});
   }
 
   advanceTime(ticks: number) {
@@ -1452,9 +1452,9 @@ export class Server {
     }
   }
 
-  getSectorOwner(loc: Point4): string | undefined {
-    const sectorPoint = Utils.worldToSector(loc, SECTOR_SIZE);
-    const key = `${loc.w},${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}`;
+  getSectorOwner(pos: Point4): string | undefined {
+    const sectorPoint = Utils.worldToSector(pos, SECTOR_SIZE);
+    const key = `${pos.w},${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}`;
     return this.context.claims[key];
   }
 
@@ -1521,8 +1521,8 @@ export class Server {
 
   async getItem(location: ItemLocation) {
     if (location.source === 'world') {
-      if (!location.loc) return;
-      return this.context.map.getItem(location.loc);
+      if (!location.pos) return;
+      return this.context.map.getItem(location.pos);
     } else {
       if (location.index === undefined) return;
       const container = await this.context.getContainer(location.id);
@@ -1537,8 +1537,8 @@ export class Server {
   setItem(location: ItemLocation, item: Item) {
     const maybeItem = item.quantity > 0 ? item : undefined;
     if (location.source === 'world') {
-      if (!location.loc) throw new Error('invariant violated');
-      this.setItemInWorld(location.loc, maybeItem);
+      if (!location.pos) throw new Error('invariant violated');
+      this.setItemInWorld(location.pos, maybeItem);
     } else {
       if (location.index === undefined) throw new Error('invariant violated');
       this.setItemInContainer(location.id, location.index, maybeItem);
@@ -1547,7 +1547,7 @@ export class Server {
 
   clearItem(location: ItemLocation) {
     if (location.source === 'world') {
-      this.setItemInWorld(location.loc, undefined);
+      this.setItemInWorld(location.pos, undefined);
     } else {
       if (location.index === undefined) throw new Error('invariant violated');
       this.setItemInContainer(location.id, location.index, undefined);
@@ -1708,8 +1708,8 @@ export class Server {
         for (const clientConnection of this.context.clientConnections.values()) {
           if (!clientConnection.isPlayerConnection()) continue;
 
-          server.context.map.forEach(clientConnection.creature.pos, 30, (loc) => {
-            Player.markTileSeen(clientConnection.player, server.context.map, loc);
+          server.context.map.forEach(clientConnection.creature.pos, 30, (pos) => {
+            Player.markTileSeen(clientConnection.player, server.context.map, pos);
           });
         }
       },

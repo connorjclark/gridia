@@ -41,8 +41,8 @@ export class MapModule extends ClientModule {
     this.context = context;
 
     this.game.client.eventEmitter.on('playerMove', () => {
-      this.game.worldContainer.forEachInCamera((_, loc) => {
-        Player.markTileSeen(this.game.client.player, this.game.client.context.map, loc);
+      this.game.worldContainer.forEachInCamera((_, pos) => {
+        Player.markTileSeen(this.game.client.player, this.game.client.context.map, pos);
       });
     });
   }
@@ -79,10 +79,10 @@ export class MapModule extends ClientModule {
 
     for (let x = 0; x < chunk; x++) {
       for (let y = 0; y < chunk; y++) {
-        const loc = {...playerLoc, x: x + startX, y: y + startY};
-        if (!partition.inBounds(loc)) continue;
+        const pos = {...playerLoc, x: x + startX, y: y + startY};
+        if (!partition.inBounds(pos)) continue;
 
-        const mark = Player.getTileSeenData(this.game.client.player, loc);
+        const mark = Player.getTileSeenData(this.game.client.player, pos);
         if (mark.floor === 0 && !mark.walkable) continue;
 
         const {floor, walkable} = mark;

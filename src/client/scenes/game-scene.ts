@@ -12,9 +12,9 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
   let item;
   let creature;
   if (location.source === 'world') {
-    const tile = game.client.context.map.getTile(location.loc);
+    const tile = game.client.context.map.getTile(location.pos);
     item = tile.item;
-    creature = game.client.context.getCreatureAt(location.loc);
+    creature = game.client.context.getCreatureAt(location.pos);
   } else {
     const container = game.client.context.containers.get(location.id);
     if (!container || location.index === undefined) return [];
@@ -176,13 +176,13 @@ function globalOnActionHandler(e: GameActionEvent) {
     }));
     break;
   case 'use-hand':
-    if (location.source === 'world') Helper.useHand(location.loc);
+    if (location.source === 'world') Helper.useHand(location.pos);
     break;
   case 'use-tool':
-    if (location.source === 'world') Helper.useTool(location.loc, {toolIndex: e.action.extra.index});
+    if (location.source === 'world') Helper.useTool(location.pos, {toolIndex: e.action.extra.index});
     break;
   case 'open-container':
-    if (location.source === 'world') Helper.openContainer(location.loc);
+    if (location.source === 'world') Helper.openContainer(location.pos);
     break;
   case 'attack':
   case 'tame':
@@ -203,7 +203,7 @@ function globalOnActionHandler(e: GameActionEvent) {
         return {finished: true};
       },
       itemCursor: location.source === 'world' ?
-        client.context.map.getItem(location.loc) :
+        client.context.map.getItem(location.pos) :
         client.context.containers.get(location.id)?.items[location.index || 0],
     });
     break;

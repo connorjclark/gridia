@@ -33,32 +33,32 @@ export class WorldMap {
     return this.partitions;
   }
 
-  inBounds(point: TilePoint): boolean {
-    return this.getPartition(point.w).inBounds(point);
+  inBounds(pos: TilePoint): boolean {
+    return this.getPartition(pos.w).inBounds(pos);
   }
 
-  walkable(point: TilePoint): boolean {
-    return this.getPartition(point.w).walkable(point);
+  walkable(pos: TilePoint): boolean {
+    return this.getPartition(pos.w).walkable(pos);
   }
 
-  walkableAsync(point: TilePoint): Promise<boolean> {
-    return this.getPartition(point.w).walkableAsync(point);
+  walkableAsync(pos: TilePoint): Promise<boolean> {
+    return this.getPartition(pos.w).walkableAsync(pos);
   }
 
   getSector(sectorPoint: TilePoint): Sector {
     return this.getPartition(sectorPoint.w).getSector(sectorPoint);
   }
 
-  getTile(point: TilePoint): Tile {
-    return this.getPartition(point.w).getTile(point);
+  getTile(pos: TilePoint): Tile {
+    return this.getPartition(pos.w).getTile(pos);
   }
 
-  setTile(point: TilePoint, tile: Tile) {
-    return this.getPartition(point.w).setTile(point, tile);
+  setTile(pos: TilePoint, tile: Tile) {
+    return this.getPartition(pos.w).setTile(pos, tile);
   }
 
-  getItem(point: TilePoint) {
-    return this.getPartition(point.w).getItem(point);
+  getItem(pos: TilePoint) {
+    return this.getPartition(pos.w).getItem(pos);
   }
 
   createEmptySector() {
@@ -76,7 +76,7 @@ export class WorldMap {
     return tiles;
   }
 
-  forEach(center: TilePoint, radius: number, fn: (loc: TilePoint, tile: Tile) => void) {
+  forEach(center: TilePoint, radius: number, fn: (pos: TilePoint, tile: Tile) => void) {
     const startX = Math.max(0, center.x - radius);
     const startY = Math.max(0, center.y - radius);
     const endX = Math.min(this.getPartition(center.w).width, center.x + radius);
@@ -84,8 +84,8 @@ export class WorldMap {
 
     for (let x = startX; x <= endX; x++) {
       for (let y = startY; y <= endY; y++) {
-        const loc = {...center, x, y};
-        fn(loc, this.getTile(loc));
+        const pos = {...center, x, y};
+        fn(pos, this.getTile(pos));
       }
     }
   }

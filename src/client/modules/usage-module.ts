@@ -49,8 +49,8 @@ export class UsageModule extends ClientModule {
     // empty.
   }
 
-  openUsages(usages: ItemUse[], loc: TilePoint, toolIndex: number) {
-    this.currentUsagesLoc = loc;
+  openUsages(usages: ItemUse[], pos: TilePoint, toolIndex: number) {
+    this.currentUsagesLoc = pos;
     this.currentUsagesToolIndex = toolIndex;
     this.getUsagesWindow().delegate.show();
     this.getUsagesWindow().setState({usages});
@@ -99,18 +99,18 @@ export class UsageModule extends ClientModule {
 
     center = center || game.getPlayerCreature().pos;
     const selectedTool = Helper.getSelectedTool();
-    const selectedTile = game.state.selectedView.location?.source === 'world' && game.state.selectedView.location.loc;
+    const selectedTile = game.state.selectedView.location?.source === 'world' && game.state.selectedView.location.pos;
 
     const possibleUsageActions: PossibleUsage[] = [];
     const inventory = game.client.inventory;
     if (!inventory) return [];
 
-    const nearbyItems: Array<{ loc: TilePoint; item?: Item }> = [];
-    game.client.context.map.forEach(center, 1, (loc, tile) => {
+    const nearbyItems: Array<{ pos: TilePoint; item?: Item }> = [];
+    game.client.context.map.forEach(center, 1, (pos, tile) => {
       // If a tile is selected, limit results to usages on that tile.
-      if (selectedTile && !Utils.equalPoints(selectedTile, loc)) return;
+      if (selectedTile && !Utils.equalPoints(selectedTile, pos)) return;
 
-      nearbyItems.push({loc, item: tile.item});
+      nearbyItems.push({pos, item: tile.item});
     });
 
     Container.forEach(inventory, (tool, toolIndex) => {
@@ -140,7 +140,7 @@ export class UsageModule extends ClientModule {
               toolIndex,
               usageIndex: Number(usageIndex),
               use,
-              focusLocation: Utils.ItemLocation.World(nearbyItem.loc),
+              focusLocation: Utils.ItemLocation.World(nearbyItem.pos),
             });
           }
         }

@@ -132,7 +132,7 @@ function createMessageType({ qualifier, node, commandOrEvent }) {
  */
 function createMessageParamsBinding({ qualifier, messageDeclaration, commandOrEvent }) {
   /*
-    { item, ...loc }: ServerInterface.AdminSetItem
+    { item, ...pos }: ServerInterface.AdminSetItem
   */
   const elements = [];
   const restElements = [];
@@ -162,7 +162,7 @@ function createMessageParamsBinding({ qualifier, messageDeclaration, commandOrEv
         .replace(' extends ', '');
       let bindName;
       if (extendedType === "TilePoint") {
-        bindName = "loc";
+        bindName = "pos";
       } else if (extendedType === "Creature") {
         bindName = "creature";
       } else if (extendedType === "GridiaAnimationInstance") {
@@ -204,7 +204,7 @@ function createMessageParamsBinding({ qualifier, messageDeclaration, commandOrEv
  */
 function createMessageBuilderFn({ messageDeclaration, typeName }) {
   /*
-    export function adminSetItem({ item, ...loc }: Protocol.Commands.AdminSetItem): AdminSetFloorCommand {
+    export function adminSetItem({ item, ...pos }: Protocol.Commands.AdminSetItem): AdminSetFloorCommand {
       return { type: "adminSetItem", args: arguments[0] };
     }
   */
@@ -222,7 +222,7 @@ function createMessageBuilderFn({ messageDeclaration, typeName }) {
       ts.createReturn(
         ts.createObjectLiteral([
           ts.createPropertyAssignment("type", ts.createLiteral(lowercasedType)),
-          // Using arguments is probably faster than making an expression like "{item, ...loc}".
+          // Using arguments is probably faster than making an expression like "{item, ...pos}".
           ts.createPropertyAssignment("args", ts.createElementAccess(ts.createIdentifier("arguments"), 0)),
         ]),
       ),

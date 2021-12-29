@@ -24,7 +24,7 @@ export class SelectedViewModule extends ClientModule {
     const game = this.game;
     let creature;
     if (location?.source === 'world') {
-      creature = game.client.context.getCreatureAt(location.loc);
+      creature = game.client.context.getCreatureAt(location.pos);
     }
 
     if (creature) {
@@ -63,8 +63,8 @@ export class SelectedViewModule extends ClientModule {
       // tilePos = creature.pos;
       tile = game.client.context.map.getTile(creature.pos);
     } else if (state.selectedView.location?.source === 'world') {
-      // tilePos = state.selectedView.location.loc;
-      tile = game.client.context.map.getTile(state.selectedView.location.loc);
+      // tilePos = state.selectedView.location.pos;
+      tile = game.client.context.map.getTile(state.selectedView.location.pos);
       item = tile?.item;
     } else if (state.selectedView.location?.source === 'container') {
       const container = game.client.context.containers.get(state.selectedView.location.id);

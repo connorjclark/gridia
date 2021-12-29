@@ -59,14 +59,14 @@ export class ClientInterface implements IEvents {
     Object.assign(creature, partialCreature);
   }
 
-  onSetFloor(client: Client, {floor, ...loc}: Events.SetFloor): void {
-    client.context.map.getTile(loc).floor = floor;
+  onSetFloor(client: Client, {floor, ...pos}: Events.SetFloor): void {
+    client.context.map.getTile(pos).floor = floor;
   }
 
   onSetItem(client: Client, {location, item}: Events.SetItem): void {
     if (location.source === 'world') {
-      if (client.context.map.partitions.get(location.loc.w)) {
-        client.context.map.getTile(location.loc).item = item;
+      if (client.context.map.partitions.get(location.pos.w)) {
+        client.context.map.getTile(location.pos).item = item;
       }
     } else {
       if (location.index === undefined) throw new Error('invariant violated');

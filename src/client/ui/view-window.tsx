@@ -40,7 +40,7 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
         index = creature.graphics.frames[0];
         equipmentGraphics = creature.equipmentGraphics;
       } else if (selectedView.location?.source === 'world') {
-        const item = selectedViewModule.game.client.context.map.getItem(selectedView.location.loc);
+        const item = selectedViewModule.game.client.context.map.getItem(selectedView.location.pos);
         const metaItem = item && Content.getMetaItem(item.type);
         if (metaItem) {
           file = metaItem?.graphics.file;

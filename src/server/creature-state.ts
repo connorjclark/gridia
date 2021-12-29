@@ -235,10 +235,10 @@ const Actions: Record<string, Action> = {
       if (this.path.length) return;
 
       // If there is grass nearby, go there.
-      const loc = server.findNearest({loc: this.creature.pos, range: 8}, true,
+      const pos = server.findNearest({pos: this.creature.pos, range: 8}, true,
         (tile, l) => server.context.walkable(l) && isGrass(tile.floor));
-      if (loc) {
-        this.goto(loc);
+      if (pos) {
+        this.goto(pos);
         return;
       }
 

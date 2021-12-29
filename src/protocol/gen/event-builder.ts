@@ -80,7 +80,7 @@ export function container({ container }: Protocol.Events.Container): ContainerEv
 export function initialize({ player, creatureId, secondsPerWorldTick, ticksPerWorldDay }: Protocol.Events.Initialize): InitializeEvent {
     return { type: "initialize", args: arguments[0] };
 }
-export function initializePartition({ ...loc }: Protocol.Events.InitializePartition): InitializePartitionEvent {
+export function initializePartition({ ...pos }: Protocol.Events.InitializePartition): InitializePartitionEvent {
     return { type: "initializePartition", args: arguments[0] };
 }
 export function log({ msg }: Protocol.Events.Log): LogEvent {
@@ -89,13 +89,13 @@ export function log({ msg }: Protocol.Events.Log): LogEvent {
 export function removeCreature({ id }: Protocol.Events.RemoveCreature): RemoveCreatureEvent {
     return { type: "removeCreature", args: arguments[0] };
 }
-export function sector({ tiles, ...loc }: Protocol.Events.Sector): SectorEvent {
+export function sector({ tiles, ...pos }: Protocol.Events.Sector): SectorEvent {
     return { type: "sector", args: arguments[0] };
 }
 export function setCreature({ partial, ...creature }: Protocol.Events.SetCreature): SetCreatureEvent {
     return { type: "setCreature", args: arguments[0] };
 }
-export function setFloor({ floor, ...loc }: Protocol.Events.SetFloor): SetFloorEvent {
+export function setFloor({ floor, ...pos }: Protocol.Events.SetFloor): SetFloorEvent {
     return { type: "setFloor", args: arguments[0] };
 }
 export function setItem({ location, item }: Protocol.Events.SetItem): SetItemEvent {

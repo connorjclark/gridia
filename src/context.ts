@@ -13,8 +13,8 @@ export class Context {
   constructor(public worldDataDefinition: WorldDataDefinition, public map: WorldMap) {
   }
 
-  walkable(loc: TilePoint) {
-    return this.map.walkable(loc) && !this.getCreatureAt(loc);
+  walkable(pos: TilePoint) {
+    return this.map.walkable(pos) && !this.getCreatureAt(pos);
   }
 
   getCreature(id: number): Creature {
@@ -23,8 +23,8 @@ export class Context {
     return this.creatures.get(id);
   }
 
-  getCreatureAt(loc: TilePoint): Creature | undefined {
-    return this.locationToCreature.get(`${loc.w},${loc.x},${loc.y},${loc.z}`);
+  getCreatureAt(pos: TilePoint): Creature | undefined {
+    return this.locationToCreature.get(`${pos.w},${pos.x},${pos.y},${pos.z}`);
   }
 
   setCreature(creature: Creature) {

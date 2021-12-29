@@ -60,10 +60,10 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
         const creature2 = server.findCreatureForPlayer(player);
         if (!creature2) return;
 
-        const loc = server.findNearest({loc: creature2.pos, range: 10}, false, (_, l) => server.context.walkable(l));
-        if (!loc) return;
+        const pos = server.findNearest({pos: creature2.pos, range: 10}, false, (_, l) => server.context.walkable(l));
+        if (!pos) return;
 
-        server.warpCreature(creature, loc);
+        server.warpCreature(creature, pos);
       },
     },
     creature: {
@@ -83,10 +83,10 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
           return;
         }
 
-        const loc = server.findNearest({loc: playerConnection.creature.pos, range: 10}, true,
+        const pos = server.findNearest({pos: playerConnection.creature.pos, range: 10}, true,
           (_, l) => server.context.walkable(l));
-        if (loc) {
-          server.createCreature({type: template.id}, loc);
+        if (pos) {
+          server.createCreature({type: template.id}, pos);
         }
       },
     },
@@ -116,10 +116,10 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
         let quantity = args.quantity || 1;
         if (quantity > MAX_STACK) quantity = MAX_STACK;
 
-        const loc = server.findNearest({loc: playerConnection.creature.pos, range: 10}, true,
+        const pos = server.findNearest({pos: playerConnection.creature.pos, range: 10}, true,
           (t) => !t.item);
-        if (loc) {
-          server.setItemInWorld(loc, {type: meta.id, quantity});
+        if (pos) {
+          server.setItemInWorld(pos, {type: meta.id, quantity});
         }
       },
     },
@@ -331,10 +331,10 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
         {name: 'content', type: 'string'},
       ],
       do(args: { content: string }) {
-        const loc = {...playerConnection.creature.pos};
-        loc.y -= 1;
+        const pos = {...playerConnection.creature.pos};
+        pos.y -= 1;
 
-        const item = server.context.map.getItem(loc);
+        const item = server.context.map.getItem(pos);
         if (!item || !Content.getMetaItem(item.type).readable) return 'invalid item';
 
         item.textContent = args.content;
@@ -345,7 +345,7 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
       do() {
         if (!playerConnection.player.isAdmin) return 'not allowed';
 
-        const loc = {...playerConnection.creature.pos};
+        const pos = {...playerConnection.creature.pos};
 
         const meta = Content.getRandomMetaItemOfClass('Jewelry');
         const item: Item = {
@@ -358,15 +358,15 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
             linearChange: 10,
           },
         };
-        server.addItemNear(loc, item);
+        server.addItemNear(pos, item);
       },
     },
     debugTile: {
       args: [],
       do() {
-        const loc = {...playerConnection.creature.pos};
+        const pos = {...playerConnection.creature.pos};
 
-        const tile = server.context.map.getTile(loc);
+        const tile = server.context.map.getTile(pos);
         server.send(EventBuilder.chat({
           section: 'World',
           from: 'SERVER',

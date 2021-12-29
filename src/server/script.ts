@@ -151,12 +151,12 @@ export abstract class Script<C extends ConfigDefinition> {
     return state;
   }
 
-  protected spawnCreature(opts: { descriptor: CreatureDescriptor; loc?: Point4; region?: Region }) {
-    let loc;
-    if (opts.loc) {
-      loc = opts.loc;
+  protected spawnCreature(opts: { descriptor: CreatureDescriptor; pos?: Point4; region?: Region }) {
+    let pos;
+    if (opts.pos) {
+      pos = opts.pos;
     } else if (opts.region) {
-      let spawnLoc;
+      let spawnPos;
 
       function getRandomLoc(region: Region) {
         const x = region.x + Utils.randInt(0, region.width);
@@ -168,32 +168,32 @@ export abstract class Script<C extends ConfigDefinition> {
       for (let i = 0; i < 5; i++) {
         const tryLoc = getRandomLoc(opts.region);
         if (this.server.context.walkable(tryLoc)) {
-          spawnLoc = tryLoc;
+          spawnPos = tryLoc;
           break;
         }
       }
 
       // 2 if fail, just pick nearest walkable
-      if (!spawnLoc) {
-        spawnLoc = this.server.findNearest({region: opts.region}, true, (tile, loc2) => {
+      if (!spawnPos) {
+        spawnPos = this.server.findNearest({region: opts.region}, true, (tile, loc2) => {
           return this.server.context.walkable(loc2);
         });
       }
 
       // 3 else, just choose a random location
-      if (!spawnLoc) spawnLoc = getRandomLoc(opts.region);
+      if (!spawnPos) spawnPos = getRandomLoc(opts.region);
 
-      loc = spawnLoc;
+      pos = spawnPos;
 
       // TODO: find nearest walkable tile INSIDE region.
       // const x = opts.region.x + Utils.randInt(0, opts.region.width);
       // const y = opts.region.y + Utils.randInt(0, opts.region.height);
-      // loc = {w: opts.region.w, x, y, z: opts.region.z};
+      // pos = {w: opts.region.w, x, y, z: opts.region.z};
     } else {
       throw new Error('invalid parameters');
     }
 
-    const creature = this.server.createCreature(opts.descriptor, loc);
+    const creature = this.server.createCreature(opts.descriptor, pos);
     return creature;
   }
 

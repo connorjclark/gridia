@@ -124,8 +124,8 @@ export function emptyArray(n: number) {
   return [...Array(n)];
 }
 
-export function rectContains(rect: { left: number; top: number; width: number; height: number }, loc: Point4) {
-  return rect.left <= loc.x && loc.x <= rect.left + rect.width && rect.top <= loc.y && loc.y <= rect.top + rect.height;
+export function rectContains(rect: { left: number; top: number; width: number; height: number }, pos: Point4) {
+  return rect.left <= pos.x && pos.x <= rect.left + rect.width && rect.top <= pos.y && pos.y <= rect.top + rect.height;
 }
 
 export function assert(val: any) {
@@ -133,10 +133,10 @@ export function assert(val: any) {
 }
 
 export const ItemLocation = {
-  World(loc: TilePoint): WorldLocation {
+  World(pos: TilePoint): WorldLocation {
     return {
       source: 'world',
-      loc,
+      pos,
     };
   },
   Container(containerId: string, index?: number): ContainerLocation {
@@ -151,7 +151,7 @@ export const ItemLocation = {
       return location1.index === location2.index && location1.source === location2.source;
     }
     if (location1.source === 'world' && location2.source === 'world') {
-      return equalPoints(location1.loc, location2.loc);
+      return equalPoints(location1.pos, location2.pos);
     }
     return false;
   },

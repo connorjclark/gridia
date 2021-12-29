@@ -15,15 +15,15 @@ import {ICommands} from './gen/server-interface.js';
 import Commands = Protocol.Commands;
 
 export class ServerInterface implements ICommands {
-  onMove(server: Server, clientConnection: ClientConnection, {...loc}: Commands.Move['params']): Promise<Commands.Move['response']> {
+  onMove(server: Server, clientConnection: ClientConnection, {...pos}: Commands.Move['params']): Promise<Commands.Move['response']> {
     clientConnection.assertsPlayerConnection();
 
-    if (!server.context.map.inBounds(loc)) {
+    if (!server.context.map.inBounds(pos)) {
       return Promise.reject('out of bounds');
     }
 
     const creature = clientConnection.creature;
-    const tile = server.context.map.getTile(loc);
+    const tile = server.context.map.getTile(pos);
 
     if (tile.item?.type === MINE) {
       const player = clientConnection.player;
@@ -43,23 +43,23 @@ export class ServerInterface implements ICommands {
 
       const oreType = tile.item.oreType || Content.getMetaItemByName('Pile of Dirt').id;
       const minedItem = {type: oreType, quantity: 1};
-      server.setItemInWorld(loc, minedItem);
+      server.setItemInWorld(pos, minedItem);
       server.broadcastAnimation({
         name: 'MiningSound',
-        path: [loc],
+        path: [pos],
       });
       server.grantXp(clientConnection, miningSkill.id, 10);
     }
 
-    if (!server.context.walkable(loc)) return Promise.reject('not walkable');
+    if (!server.context.walkable(pos)) return Promise.reject('not walkable');
 
-    server.scriptDelegates.onPlayerMove({playerConnection: clientConnection, from: creature.pos, to: loc});
+    server.scriptDelegates.onPlayerMove({playerConnection: clientConnection, from: creature.pos, to: pos});
 
-    // if (!server.inView(loc)) {
+    // if (!server.inView(pos)) {
     //   return false
     // }
 
-    server.moveCreature(creature, {...loc});
+    server.moveCreature(creature, {...pos});
 
     return Promise.resolve();
   }
@@ -156,7 +156,7 @@ export class ServerInterface implements ICommands {
     return Promise.resolve();
   }
 
-  async onCastSpell(server: Server, clientConnection: ClientConnection, {id, creatureId, loc}: Commands.CastSpell['params']): Promise<void> {
+  async onCastSpell(server: Server, clientConnection: ClientConnection, {id, creatureId, pos}: Commands.CastSpell['params']): Promise<void> {
     clientConnection.assertsPlayerConnection();
 
     const creature = clientConnection.creature;
@@ -174,11 +174,11 @@ export class ServerInterface implements ICommands {
       targetCreature = creature;
     }
 
-    if (spell.target === 'world' && !loc) {
-      loc = otherCreature?.pos || targetCreature?.pos;
+    if (spell.target === 'world' && !pos) {
+      pos = otherCreature?.pos || targetCreature?.pos;
     }
 
-    if (!targetCreature && !loc) {
+    if (!targetCreature && !pos) {
       return Promise.reject('No target selected');
     }
 
@@ -188,21 +188,21 @@ export class ServerInterface implements ICommands {
       state.targetCreature = server.creatureStates[targetCreature.id];
       state.currentSpell = spell;
     } else {
-      const failureReason = server.castSpell(spell, creature, targetCreature, loc);
+      const failureReason = server.castSpell(spell, creature, targetCreature, pos);
       if (failureReason) return Promise.reject(failureReason);
     }
 
     return Promise.resolve();
   }
 
-  async onRequestContainer(server: Server, clientConnection: ClientConnection, {containerId, loc}: Commands.RequestContainer['params']): Promise<Commands.RequestContainer['response']> {
+  async onRequestContainer(server: Server, clientConnection: ClientConnection, {containerId, pos}: Commands.RequestContainer['params']): Promise<Commands.RequestContainer['response']> {
     clientConnection.assertsPlayerConnection();
 
-    if (!containerId && !loc) throw new Error('expected containerId or loc');
-    if (containerId && loc) throw new Error('expected only one of containerId or loc');
+    if (!containerId && !pos) throw new Error('expected containerId or pos');
+    if (containerId && pos) throw new Error('expected only one of containerId or pos');
 
-    if (!containerId && loc) {
-      const item = server.context.map.getItem(loc);
+    if (!containerId && pos) {
+      const item = server.context.map.getItem(pos);
       if (item) containerId = server.context.getContainerIdFromItem(item);
     }
 
@@ -256,13 +256,13 @@ export class ServerInterface implements ICommands {
     return Promise.resolve();
   }
 
-  async onRequestSector(server: Server, clientConnection: ClientConnection, {...loc}: Commands.RequestSector['params']) {
+  async onRequestSector(server: Server, clientConnection: ClientConnection, {...pos}: Commands.RequestSector['params']) {
     const isClose = true; // TODO
-    if (loc.x < 0 || loc.y < 0 || loc.z < 0 || !isClose) {
+    if (pos.x < 0 || pos.y < 0 || pos.z < 0 || !isClose) {
       return;
     }
 
-    const tiles: Tile[][] = JSON.parse(JSON.stringify(await server.ensureSectorLoaded(loc)));
+    const tiles: Tile[][] = JSON.parse(JSON.stringify(await server.ensureSectorLoaded(pos)));
     // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let i = 0; i < tiles.length; i++) {
       for (let j = 0; j < tiles[0].length; j++) {
@@ -273,7 +273,7 @@ export class ServerInterface implements ICommands {
     }
 
     server.send(EventBuilder.sector({
-      ...loc,
+      ...pos,
       tiles,
     }), clientConnection);
   }
@@ -340,9 +340,9 @@ export class ServerInterface implements ICommands {
     if (location.source === 'container') {
       return Promise.reject(); // TODO
     }
-    const loc = location.loc;
+    const pos = location.pos;
 
-    if (!server.context.map.inBounds(loc)) {
+    if (!server.context.map.inBounds(pos)) {
       return Promise.reject(); // TODO
     }
 
@@ -354,7 +354,7 @@ export class ServerInterface implements ICommands {
     // Got a request to use nothing as a tool - doesn't make sense to do that.
     if (!tool) return Promise.reject(); // TODO
 
-    const focus = server.context.map.getItem(loc) || {type: 0, quantity: 0};
+    const focus = server.context.map.getItem(pos) || {type: 0, quantity: 0};
 
     const uses = Content.getItemUses(tool.type, focus.type);
     if (!uses.length) return Promise.reject(); // TODO
@@ -393,34 +393,34 @@ export class ServerInterface implements ICommands {
       if (containerLocation && containerLocation.index !== undefined) {
         server.setItemInContainer(containerLocation.id, containerLocation.index, usageResult.successTool);
       } else {
-        server.addItemNear(loc, usageResult.successTool);
+        server.addItemNear(pos, usageResult.successTool);
       }
     }
 
     server.setItemInContainer(inventory.id, toolIndex, usageResult.tool);
-    server.context.map.getTile(loc).item = usageResult.focus;
+    server.context.map.getTile(pos).item = usageResult.focus;
     server.broadcast(EventBuilder.setItem({
-      location: Utils.ItemLocation.World(loc),
+      location: Utils.ItemLocation.World(pos),
       item: usageResult.focus,
     }));
     for (const product of usageResult.products) {
-      server.addItemNear(loc, product);
+      server.addItemNear(pos, product);
     }
 
     if (use.animation) {
       server.broadcastAnimation({
         name: use.animation,
-        path: [loc],
+        path: [pos],
       });
     }
 
     if (use.successFloor) {
-      server.setFloor(loc, use.successFloor);
+      server.setFloor(pos, use.successFloor);
     }
 
     const focusMeta = Content.getMetaItem(focus.type);
     if (focusMeta.name === 'Life Stone' || focusMeta.name === 'Attune Warp Stone') {
-      const distance = Utils.maxDiff(location.loc, clientConnection.creature.pos);
+      const distance = Utils.maxDiff(location.pos, clientConnection.creature.pos);
       if (distance > 1) {
         // TODO replace these with new Error() ...
         return Promise.reject('too far away');
@@ -435,7 +435,7 @@ export class ServerInterface implements ICommands {
         from: 'World',
         text: 'You will respawn here',
       }), clientConnection);
-      clientConnection.player.spawnLoc = clientConnection.creature.pos;
+      clientConnection.player.spawnPos = clientConnection.creature.pos;
     }
 
     if (skill && use.skillSuccessXp) {
@@ -445,21 +445,21 @@ export class ServerInterface implements ICommands {
     return Promise.resolve();
   }
 
-  onAdminSetFloor(server: Server, clientConnection: ClientConnection, {floor, ...loc}: Commands.AdminSetFloor['params']): Promise<Commands.AdminSetFloor['response']> {
-    server.setFloor(loc, floor);
+  onAdminSetFloor(server: Server, clientConnection: ClientConnection, {floor, ...pos}: Commands.AdminSetFloor['params']): Promise<Commands.AdminSetFloor['response']> {
+    server.setFloor(pos, floor);
     return Promise.resolve();
   }
 
-  onAdminSetItem(server: Server, clientConnection: ClientConnection, {item, ...loc}: Commands.AdminSetItem['params']): Promise<Commands.AdminSetItem['response']> {
+  onAdminSetItem(server: Server, clientConnection: ClientConnection, {item, ...pos}: Commands.AdminSetItem['params']): Promise<Commands.AdminSetItem['response']> {
     clientConnection.assertsPlayerConnection();
 
     if (!clientConnection.player.isAdmin) return Promise.reject(); // TODO
 
-    if (!server.context.map.inBounds(loc)) {
+    if (!server.context.map.inBounds(pos)) {
       return Promise.reject(); // TODO
     }
 
-    server.setItemInWorld(loc, item);
+    server.setItemInWorld(pos, item);
     return Promise.resolve();
   }
 
@@ -471,8 +471,8 @@ export class ServerInterface implements ICommands {
 
     if (!clientConnection.player.isAdmin) {
       const outOfReach =
-        (from.source === 'world' && Utils.maxDiff(from.loc, clientConnection.creature.pos) > 1) ||
-        (to.source === 'world' && Utils.maxDiff(to.loc, clientConnection.creature.pos) > 1);
+        (from.source === 'world' && Utils.maxDiff(from.pos, clientConnection.creature.pos) > 1) ||
+        (to.source === 'world' && Utils.maxDiff(to.pos, clientConnection.creature.pos) > 1);
       if (outOfReach) {
         server.send(EventBuilder.chat({
           section: 'World',
@@ -485,8 +485,8 @@ export class ServerInterface implements ICommands {
 
     async function boundsCheck(location: ItemLocation) {
       if (location.source === 'world') {
-        if (!location.loc) throw new Error('invariant violated');
-        return server.context.map.inBounds(location.loc);
+        if (!location.pos) throw new Error('invariant violated');
+        return server.context.map.inBounds(location.pos);
       } else {
         // No location specified, so no way it could be out of bounds.
         if (!location.index) return true;
@@ -588,7 +588,7 @@ export class ServerInterface implements ICommands {
     const toItem = await server.getItem(validToLocation);
     if (toItem && fromItem.type !== toItem.type) return;
 
-    const fromOwner = from.source === 'world' && server.getSectorOwner(from.loc);
+    const fromOwner = from.source === 'world' && server.getSectorOwner(from.pos);
     if (fromOwner && fromOwner !== clientConnection.player.id) {
       server.send(EventBuilder.chat({
         section: 'World',
@@ -598,7 +598,7 @@ export class ServerInterface implements ICommands {
       return;
     }
 
-    const toOwner = to.source === 'world' && server.getSectorOwner(to.loc);
+    const toOwner = to.source === 'world' && server.getSectorOwner(to.pos);
     if (toOwner && toOwner !== clientConnection.player.id) {
       server.send(EventBuilder.chat({
         section: 'World',
@@ -719,7 +719,7 @@ export class ServerInterface implements ICommands {
   onReadItem(server: Server, clientConnection: ClientConnection, {location}: { location: ItemLocation }): Promise<{ content: string }> {
     clientConnection.assertsPlayerConnection();
 
-    const item = location.source === 'world' ? server.context.map.getItem(location.loc) : undefined;
+    const item = location.source === 'world' ? server.context.map.getItem(location.pos) : undefined;
     if (!item || !Content.getMetaItem(item.type).readable) return Promise.reject('invalid item');
 
     return Promise.resolve({

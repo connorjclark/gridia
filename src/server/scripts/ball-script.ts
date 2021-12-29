@@ -5,7 +5,7 @@ import {Script} from '../script.js';
 import {Server} from '../server.js';
 
 export class BallScript extends Script<{}> {
-  private activeKicks: Array<{item: Item; loc: Point4; locFloating: Point4; dir: Point2; momentum: number}> = [];
+  private activeKicks: Array<{item: Item; pos: Point4; locFloating: Point4; dir: Point2; momentum: number}> = [];
 
   constructor(protected server: Server) {
     super('ball', server, {});
@@ -21,12 +21,12 @@ export class BallScript extends Script<{}> {
 
           const ballDestX = kick.locFloating.x + Utils.clamp(kick.dir.x, -1, 1);
           const ballDestY = kick.locFloating.y + Utils.clamp(kick.dir.y, -1, 1);
-          const newLocFloating = {...kick.loc, x: ballDestX, y: ballDestY};
-          const newLoc = {...kick.loc, x: Math.round(ballDestX), y: Math.round(ballDestY)};
-          const itemAtNewLoc = !Utils.equalPoints(kick.loc, newLoc) && this.server.context.map.getItem(newLoc);
+          const newLocFloating = {...kick.pos, x: ballDestX, y: ballDestY};
+          const newLoc = {...kick.pos, x: Math.round(ballDestX), y: Math.round(ballDestY)};
+          const itemAtNewLoc = !Utils.equalPoints(kick.pos, newLoc) && this.server.context.map.getItem(newLoc);
 
           if (itemAtNewLoc && Content.getMetaItem(itemAtNewLoc.type).class === 'Goal') {
-            this.server.setItemInWorld(kick.loc, undefined);
+            this.server.setItemInWorld(kick.pos, undefined);
             this.server.setItemInWorld(newLoc, {type: itemAtNewLoc.type + 1, quantity: 1});
             kick.momentum = 0;
           } else if (itemAtNewLoc) {
@@ -37,9 +37,9 @@ export class BallScript extends Script<{}> {
               kick.dir.y *= -1;
             }
           } else {
-            this.server.setItemInWorld(kick.loc, undefined);
+            this.server.setItemInWorld(kick.pos, undefined);
             this.server.setItemInWorld(newLoc, kick.item);
-            kick.loc = newLoc;
+            kick.pos = newLoc;
             kick.locFloating = newLocFloating;
           }
 
@@ -63,7 +63,7 @@ export class BallScript extends Script<{}> {
     } else {
       this.activeKicks.push({
         item,
-        loc: opts.to,
+        pos: opts.to,
         locFloating: {...opts.to},
         dir,
         momentum,
@@ -80,11 +80,11 @@ export class BallScript extends Script<{}> {
     if (!item || Content.getMetaItem(item.type).class !== 'Ball') return;
 
     const throwerLoc = opts.playerConnection.creature.pos;
-    const dir = Utils.direction(throwerLoc, opts.to.loc);
+    const dir = Utils.direction(throwerLoc, opts.to.pos);
 
     const startingLocFirstAttempt =
       {...throwerLoc, x: throwerLoc.x + Math.sign(dir.x), y: throwerLoc.y + Math.sign(dir.y)};
-    const startingLoc = this.server.findNearest({loc: startingLocFirstAttempt, range: 6}, true,
+    const startingLoc = this.server.findNearest({pos: startingLocFirstAttempt, range: 6}, true,
       (tile) => {
         if (!tile.item) return true;
         return false;
@@ -96,10 +96,10 @@ export class BallScript extends Script<{}> {
 
     this.activeKicks.push({
       item,
-      loc: startingLoc,
+      pos: startingLoc,
       locFloating: {...startingLoc},
       dir,
-      momentum: Math.ceil(Utils.dist(startingLoc, opts.to.loc)),
+      momentum: Math.ceil(Utils.dist(startingLoc, opts.to.pos)),
     });
   }
 }

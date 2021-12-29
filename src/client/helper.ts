@@ -11,29 +11,29 @@ export function usageExists(tool: number, focus: number) {
   return Content.getItemUses(tool, focus).length !== 0;
 }
 
-export function useHand(loc: TilePoint) {
+export function useHand(pos: TilePoint) {
   game.client.connection.sendCommand(CommandBuilder.use({
     toolIndex: -1,
-    location: Utils.ItemLocation.World(loc),
+    location: Utils.ItemLocation.World(pos),
   }));
 }
 
 /**
- * Uses selected tool on item at `loc`.
+ * Uses selected tool on item at `pos`.
  * If there are multiple options for the usage, and `usageIndex` is not provided,
  * a dialog box is shown to choose.
  */
-export function useTool(loc: TilePoint, opts: { toolIndex: number; usageIndex?: number }) {
+export function useTool(pos: TilePoint, opts: { toolIndex: number; usageIndex?: number }) {
   const {toolIndex, usageIndex} = opts;
 
   const tool = getInventory().items[toolIndex];
   if (!tool || toolIndex === -1) {
     // TODO: Remove this special case.
-    useHand(loc);
+    useHand(pos);
     return;
   }
 
-  const focus = game.client.context.map.getItem(loc) || {type: 0, quantity: 0};
+  const focus = game.client.context.map.getItem(pos) || {type: 0, quantity: 0};
   const usages = Content.getItemUses(tool.type, focus.type);
 
   if (usages.length === 0) {
@@ -43,19 +43,19 @@ export function useTool(loc: TilePoint, opts: { toolIndex: number; usageIndex?: 
   if (usages.length === 1 || usageIndex !== undefined) {
     game.client.connection.sendCommand(CommandBuilder.use({
       toolIndex,
-      location: Utils.ItemLocation.World(loc),
+      location: Utils.ItemLocation.World(pos),
       usageIndex,
     }));
   } else {
-    game.modules.usage.openUsages(usages, loc, toolIndex);
+    game.modules.usage.openUsages(usages, pos, toolIndex);
   }
 }
 
 // TODO: add tests checking that subscribed containers are updated in all clients.
 // TODO: don't keep requesting container if already open.
-export function openContainer(loc: TilePoint) {
+export function openContainer(pos: TilePoint) {
   game.client.connection.sendCommand(CommandBuilder.requestContainer({
-    loc,
+    pos,
   }));
 }
 

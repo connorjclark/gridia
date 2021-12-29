@@ -57,13 +57,13 @@ function addDebugStuff(map: WorldMapPartition) {
   }
 
   // Some stairs.
-  const loc = {x: 5, y: 5, z: 0};
-  map.getTile({...loc, z: 1}).floor = map.getTile(loc).floor = 10;
-  map.getTile({...loc, z: 1}).item = {
+  const pos = {x: 5, y: 5, z: 0};
+  map.getTile({...pos, z: 1}).floor = map.getTile(pos).floor = 10;
+  map.getTile({...pos, z: 1}).item = {
     type: Content.getMetaItemByName('Royal Stairs Up').id,
     quantity: 1,
   };
-  map.getTile(loc).item = {
+  map.getTile(pos).item = {
     type: Content.getMetaItemByName('Royal Stairs Down').id,
     quantity: 1,
   };

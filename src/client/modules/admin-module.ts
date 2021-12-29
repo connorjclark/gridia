@@ -5,8 +5,8 @@ import {KEYS} from '../keys.js';
 import {makeAdminWindow, State} from '../ui/admin-window.js';
 
 interface HistoryEntry {
-  floors?: Array<{loc: Point4; from: number; to: number}>;
-  items?: Array<{loc: Point4; from: Item|undefined; to: Item|undefined}>;
+  floors?: Array<{pos: Point4; from: number; to: number}>;
+  items?: Array<{pos: Point4; from: Item|undefined; to: Item|undefined}>;
 }
 
 export class AdminModule extends ClientModule {
@@ -24,7 +24,7 @@ export class AdminModule extends ClientModule {
         this.removeFromHistory(e.args, e.args.floor, 'floor');
       }
       if (e.type === 'setItem' && e.args.location.source === 'world') {
-        this.removeFromHistory(e.args.location.loc, e.args.item?.type, 'item');
+        this.removeFromHistory(e.args.location.pos, e.args.item?.type, 'item');
       }
     });
   }
@@ -55,46 +55,46 @@ export class AdminModule extends ClientModule {
     // console.log({scripts}); // TODO ?
 
     let downAt: Point4 | undefined;
-    this.game.client.eventEmitter.on('pointerDown', (loc) => {
+    this.game.client.eventEmitter.on('pointerDown', (pos) => {
       if (!this.window.delegate.isOpen()) return;
       if (!this._state) return;
 
       this._uncommitedHistoryEntry = {};
-      downAt = loc;
+      downAt = pos;
       if (this._state.tool === 'point') {
-        this.setTile(loc, this._uncommitedHistoryEntry);
+        this.setTile(pos, this._uncommitedHistoryEntry);
       }
     });
-    this.game.client.eventEmitter.on('pointerMove', (loc) => {
+    this.game.client.eventEmitter.on('pointerMove', (pos) => {
       if (!this.window.delegate.isOpen()) return;
       if (!this._state || !this._state.selected || !downAt) return;
 
       if (this._state.tool === 'point') {
-        this.setTile(loc, this._uncommitedHistoryEntry);
+        this.setTile(pos, this._uncommitedHistoryEntry);
       }
     });
-    this.game.client.eventEmitter.on('pointerUp', (loc) => {
+    this.game.client.eventEmitter.on('pointerUp', (pos) => {
       if (!this.window.delegate.isOpen()) return;
 
-      if (!this.game.client.context.map.inBounds(loc)) {
+      if (!this.game.client.context.map.inBounds(pos)) {
         downAt = undefined;
         return;
       }
 
       if (downAt && this._state?.tool === 'rectangle') {
-        const minx = Math.min(downAt.x, loc.x);
-        const maxx = Math.max(downAt.x, loc.x);
-        const miny = Math.min(downAt.y, loc.y);
-        const maxy = Math.max(downAt.y, loc.y);
+        const minx = Math.min(downAt.x, pos.x);
+        const maxx = Math.max(downAt.x, pos.x);
+        const miny = Math.min(downAt.y, pos.y);
+        const maxy = Math.max(downAt.y, pos.y);
         for (let x = minx; x <= maxx; x++) {
           for (let y = miny; y <= maxy; y++) {
-            this.setTile({x, y, w: loc.w, z: loc.z}, this._uncommitedHistoryEntry);
+            this.setTile({x, y, w: pos.w, z: pos.z}, this._uncommitedHistoryEntry);
           }
         }
       }
 
       if (this._state?.tool === 'fill') {
-        const start = this.game.client.context.map.getTile(loc);
+        const start = this.game.client.context.map.getTile(pos);
         const seen = new Set<string>();
         const pending = new Set<string>();
         const locsToSet: Point4[] = [];
@@ -114,12 +114,12 @@ export class AdminModule extends ClientModule {
           pending.add(data);
         };
 
-        add(loc);
+        add(pos);
         while (pending.size) {
           for (const data of pending.values()) {
             pending.delete(data);
             const [x, y] = data.split(',').map(Number);
-            const l = {...loc, x, y};
+            const l = {...pos, x, y};
             locsToSet.push(l);
 
             add({...l, x: x + 1, y});
@@ -158,26 +158,26 @@ export class AdminModule extends ClientModule {
     });
   }
 
-  private setTile(loc: Point4, historyEntry: HistoryEntry) {
+  private setTile(pos: Point4, historyEntry: HistoryEntry) {
     if (!this.window.delegate.isOpen()) return;
     if (!this._state?.selected) return;
 
     if (this._state.selected.type === 'items') {
       const item = this._state.selected.id > 0 ? {type: this._state.selected.id, quantity: 1} : undefined;
-      const currentItem = this.game.client.context.map.getItem(loc);
+      const currentItem = this.game.client.context.map.getItem(pos);
       if (Utils.equalItems(currentItem, item)) return;
 
       // Don't overwrite existing items - must explictly select the "null" item to delete items.
       if (this._state.safeMode && currentItem && item) return;
 
       this.game.client.connection.sendCommand(CommandBuilder.adminSetItem({
-        ...loc,
+        ...pos,
         item,
       }));
 
       historyEntry.items = historyEntry.items || [];
       historyEntry.items.push({
-        loc,
+        pos,
         from: currentItem,
         to: item,
       });
@@ -185,35 +185,35 @@ export class AdminModule extends ClientModule {
       // Set immeditely in client, b/c server will take a while to respond and this prevents sending multiple
       // messages for the same tile.
       // TODO: seems like a bad idea.
-      this.game.client.context.map.getTile(loc).item = item;
+      this.game.client.context.map.getTile(pos).item = item;
     } else if (this._state.selected.type === 'floors') {
-      const currentFloor = this.game.client.context.map.getTile(loc).floor;
+      const currentFloor = this.game.client.context.map.getTile(pos).floor;
       const floor = this._state.selected.id;
       if (currentFloor === floor) return;
       this.game.client.connection.sendCommand(CommandBuilder.adminSetFloor({
-        ...loc,
+        ...pos,
         floor,
       }));
 
       historyEntry.floors = historyEntry.floors || [];
       historyEntry.floors.push({
-        loc,
+        pos,
         from: currentFloor,
         to: floor,
       });
 
-      this.game.client.context.map.getTile(loc).floor = floor;
+      this.game.client.context.map.getTile(pos).floor = floor;
     }
   }
 
-  private removeFromHistory(loc: Point4, id: number | undefined, type: 'floor' | 'item') {
+  private removeFromHistory(pos: Point4, id: number | undefined, type: 'floor' | 'item') {
     function handleEntry(entry: HistoryEntry) {
       if (type === 'floor' && entry.floors) {
-        const index = entry.floors.findIndex((f) => Utils.equalPoints(loc, f.loc) && f.to !== id);
+        const index = entry.floors.findIndex((f) => Utils.equalPoints(pos, f.pos) && f.to !== id);
         if (index !== -1) entry.floors.splice(index, 1);
       }
       if (type === 'item' && entry.items) {
-        const index = entry.items.findIndex((i) => Utils.equalPoints(loc, i.loc) && i.to?.type !== id);
+        const index = entry.items.findIndex((i) => Utils.equalPoints(pos, i.pos) && i.to?.type !== id);
         if (index !== -1) entry.items.splice(index, 1);
       }
     }
@@ -231,14 +231,14 @@ export class AdminModule extends ClientModule {
 
     for (const item of entry.items || []) {
       this.game.client.connection.sendCommand(CommandBuilder.adminSetItem({
-        ...item.loc,
+        ...item.pos,
         item: item.from,
       }));
     }
 
     for (const floor of entry.floors || []) {
       this.game.client.connection.sendCommand(CommandBuilder.adminSetFloor({
-        ...floor.loc,
+        ...floor.pos,
         floor: floor.from,
       }));
     }
@@ -252,14 +252,14 @@ export class AdminModule extends ClientModule {
 
     for (const item of entry.items || []) {
       this.game.client.connection.sendCommand(CommandBuilder.adminSetItem({
-        ...item.loc,
+        ...item.pos,
         item: item.to,
       }));
     }
 
     for (const floor of entry.floors || []) {
       this.game.client.connection.sendCommand(CommandBuilder.adminSetFloor({
-        ...floor.loc,
+        ...floor.pos,
         floor: floor.to,
       }));
     }

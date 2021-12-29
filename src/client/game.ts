@@ -111,14 +111,14 @@ const ContextMenu = {
     contextMenuEl.style.top = `${screen.y}px`;
 
     contextMenuEl.innerHTML = '';
-    const creature = game.client.context.getCreatureAt(location.loc);
-    const actions = game.getActionsFor(Utils.ItemLocation.World(location.loc));
+    const creature = game.client.context.getCreatureAt(location.pos);
+    const actions = game.getActionsFor(Utils.ItemLocation.World(location.pos));
     actions.push({
       type: 'cancel',
       innerText: 'Cancel',
       title: '',
     });
-    if (game.client.context.walkable(location.loc)) {
+    if (game.client.context.walkable(location.pos)) {
       actions.push({
         type: 'move-here',
         innerText: 'Move Here',
@@ -129,7 +129,7 @@ const ContextMenu = {
       const actionEl = document.createElement('div');
       game.addDataToActionEl(actionEl, {
         action,
-        location: Utils.ItemLocation.World(location.loc),
+        location: Utils.ItemLocation.World(location.pos),
         creatureId: creature?.id,
       });
       contextMenuEl.appendChild(actionEl);
@@ -475,7 +475,7 @@ export class Game {
     if (event.type === 'setItem') {
       let shouldUpdateUsages = false;
       if (event.args.location.source === 'container') shouldUpdateUsages = true;
-      else if (Utils.maxDiff(this.getPlayerPosition(), event.args.location.loc) <= 1) shouldUpdateUsages = true;
+      else if (Utils.maxDiff(this.getPlayerPosition(), event.args.location.pos) <= 1) shouldUpdateUsages = true;
       if (shouldUpdateUsages) this.modules.usage.updatePossibleUsages();
 
       if (this.state.selectedView.location &&
@@ -679,16 +679,16 @@ export class Game {
     makeUsageSearchWindow(this);
     makeSpellsWindow((spell) => {
       const creatureId = this.state.selectedView.creatureId;
-      let loc;
+      let pos;
       if (spell.target === 'world' && !creatureId) {
         if (this.state.selectedView.location?.source === 'world') {
-          loc = this.state.selectedView.location.loc;
+          pos = this.state.selectedView.location.pos;
         } else {
-          loc = this.client.creature.pos;
+          pos = this.client.creature.pos;
         }
       }
 
-      this.client.connection.sendCommand(CommandBuilder.castSpell({id: spell.id, creatureId, loc}));
+      this.client.connection.sendCommand(CommandBuilder.castSpell({id: spell.id, creatureId, pos}));
     });
 
     this.registerListeners();
@@ -846,7 +846,7 @@ export class Game {
             return {finished: false};
           },
           itemCursor: location.source === 'world' ?
-            this.client.context.map.getItem(location.loc) :
+            this.client.context.map.getItem(location.pos) :
             this.client.context.containers.get(location.id)?.items[location.index || 0],
         });
       } else {
@@ -861,16 +861,16 @@ export class Game {
     document.body.addEventListener('click', onActionSelection, evtOptions);
 
     window.document.addEventListener('pointermove', (e: MouseEvent) => {
-      const loc = worldToTile(mouseToWorld({x: e.clientX, y: e.clientY}));
+      const pos = worldToTile(mouseToWorld({x: e.clientX, y: e.clientY}));
       this.state.mouse = {
         ...this.state.mouse,
         x: e.clientX,
         y: e.clientY,
-        tile: loc,
+        tile: pos,
       };
-      if (this.client.context.map.inBounds(loc)) {
-        this.client.eventEmitter.emit('mouseMovedOverTile', {...loc}); // TODO remove
-        this.client.eventEmitter.emit('pointerMove', {...loc});
+      if (this.client.context.map.inBounds(pos)) {
+        this.client.eventEmitter.emit('mouseMovedOverTile', {...pos}); // TODO remove
+        this.client.eventEmitter.emit('pointerMove', {...pos});
       }
 
       if (!(e.target as HTMLElement).closest('.ui')) {
@@ -961,11 +961,11 @@ export class Game {
         });
       }
 
-      const loc = worldToTile(mouseToWorld({x: e.data.global.x, y: e.data.global.y}));
-      this.client.eventEmitter.emit('pointerUp', {...loc});
+      const pos = worldToTile(mouseToWorld({x: e.data.global.x, y: e.data.global.y}));
+      this.client.eventEmitter.emit('pointerUp', {...pos});
 
       if (this.state.clickTileMode) {
-        this.state.clickTileMode.onClick(Utils.ItemLocation.World(loc));
+        this.state.clickTileMode.onClick(Utils.ItemLocation.World(pos));
       }
     }, evtOptions);
     this.world.on('pointerdown', (e: PIXI.InteractionEvent) => {
@@ -974,12 +974,12 @@ export class Game {
         return;
       }
 
-      const loc = worldToTile(mouseToWorld({x: e.data.global.x, y: e.data.global.y}));
-      this.modules.selectedView.selectView(Utils.ItemLocation.World(loc));
+      const pos = worldToTile(mouseToWorld({x: e.data.global.x, y: e.data.global.y}));
+      this.modules.selectedView.selectView(Utils.ItemLocation.World(pos));
 
-      if (this.client.context.map.inBounds(loc)) {
-        this.client.eventEmitter.emit('tileClicked', {...loc}); // TODO remove
-        this.client.eventEmitter.emit('pointerDown', {...loc});
+      if (this.client.context.map.inBounds(pos)) {
+        this.client.eventEmitter.emit('tileClicked', {...pos}); // TODO remove
+        this.client.eventEmitter.emit('pointerDown', {...pos});
       }
 
       // Temporary.
@@ -991,7 +991,7 @@ export class Game {
 
         this.worldContainer.animationController.addEmitter({
           tint: 0x000055,
-          path: calcStraightLine(this.worldContainer.camera.focus, loc),
+          path: calcStraightLine(this.worldContainer.camera.focus, pos),
           light: 4,
           offshootRate: 0.2,
           frames,
@@ -1046,7 +1046,7 @@ export class Game {
         if (this.state.selectedView.creatureId) {
           currentCursor = {...this.client.context.getCreature(this.state.selectedView.creatureId).pos};
         } else if (this.state.selectedView.location?.source === 'world') {
-          currentCursor = this.state.selectedView.location.loc;
+          currentCursor = this.state.selectedView.location.pos;
         } else {
           currentCursor = {...focusPos};
         }
@@ -1089,8 +1089,8 @@ export class Game {
 
     const onClickCallback = (e: MouseEvent) => {
       const mouse = {x: e.pageX, y: e.pageY};
-      const loc = worldToTile(mouseToWorld(mouse));
-      const location = Utils.ItemLocation.World(loc);
+      const pos = worldToTile(mouseToWorld(mouse));
+      const location = Utils.ItemLocation.World(pos);
 
       for (const [controlName, binding] of Object.entries(this.client.settings.bindings)) {
         if (binding.mouse !== e.button) continue;
@@ -1172,24 +1172,24 @@ export class Game {
       if (location.source !== 'world') return;
 
       this.client.connection.sendCommand(CommandBuilder.moveItem({
-        from: Utils.ItemLocation.World(location.loc),
+        from: Utils.ItemLocation.World(location.pos),
         to: Utils.ItemLocation.Container(this.client.player.containerId),
       }));
       break;
     case 'useHand':
       if (this.state.selectedView.location?.source === 'world') {
-        Helper.useHand(this.state.selectedView.location.loc);
+        Helper.useHand(this.state.selectedView.location.pos);
       }
       break;
     case 'useTool':
       if (location.source !== 'world') return;
 
-      Helper.useTool(location.loc, {toolIndex: Helper.getSelectedToolIndex()});
+      Helper.useTool(location.pos, {toolIndex: Helper.getSelectedToolIndex()});
       break;
     case 'moveTo':
       if (location.source !== 'world') return;
 
-      this.modules.movement.moveTo(location.loc);
+      this.modules.movement.moveTo(location.pos);
       break;
     case 'targetPrevious':
       this.cycleSelectedTarget(-1);
@@ -1418,7 +1418,7 @@ export class Game {
     const selectedCreatureId = this.state.selectedView.creatureId;
     const selectedViewLoc = selectedCreatureId ?
       this.client.context.getCreature(selectedCreatureId).pos :
-      (this.state.selectedView.location?.source === 'world' && this.state.selectedView.location.loc);
+      (this.state.selectedView.location?.source === 'world' && this.state.selectedView.location.pos);
     if (selectedViewLoc) {
       this._selectedViewCursor.location = Utils.ItemLocation.World(selectedViewLoc);
       if (selectedCreatureId && selectedCreatureId === this.client.attackingCreatureId) {
@@ -1448,8 +1448,8 @@ export class Game {
       if (cursor.location.source !== 'world') continue;
 
       const size = GFX_SIZE * this.client.settings.scale;
-      const x = (cursor.location.loc.x - this.worldContainer.camera.left) * size;
-      const y = (cursor.location.loc.y - this.worldContainer.camera.top) * size;
+      const x = (cursor.location.pos.x - this.worldContainer.camera.left) * size;
+      const y = (cursor.location.pos.y - this.worldContainer.camera.top) * size;
       cursor.el.style.setProperty('--size', size + 'px');
       cursor.el.style.setProperty('--color', cursor.color);
       cursor.el.style.setProperty('--x', x + 'px');
@@ -1459,12 +1459,12 @@ export class Game {
       // Draw selected tool if usable.
       if (cursor === this._selectedViewCursor && !this.state.selectedView.creatureId) {
         const sprite = new PIXI.Sprite();
-        sprite.x = cursor.location.loc.x * GFX_SIZE;
-        sprite.y = cursor.location.loc.y * GFX_SIZE;
+        sprite.x = cursor.location.pos.x * GFX_SIZE;
+        sprite.y = cursor.location.pos.y * GFX_SIZE;
         this.worldContainer.layers.top.addChild(sprite);
 
         const tool = Helper.getSelectedTool();
-        const selectedItem = this.client.context.map.getItem(cursor.location.loc);
+        const selectedItem = this.client.context.map.getItem(cursor.location.pos);
         if (tool && selectedItem && Helper.usageExists(tool.type, selectedItem.type)) {
           const itemSprite = Draw.makeItemSprite({type: tool.type, quantity: 1});
           itemSprite.anchor.x = itemSprite.anchor.y = 0.5;
