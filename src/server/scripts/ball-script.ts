@@ -26,9 +26,14 @@ const FetchAction: Action = {
     this.goto(state.kick.pos);
 
     if (!state.hasItem) {
+      const item = server.context.map.getItem(state.kick.pos);
+      if (!item) return false;
+
+      // TODO: should remove active kick ... for now, just don't allow
+      // creature to pick up item until kick is done.
+      if (state.kick.momentum) return;
+
       if (Utils.equalPoints(this.creature.pos, state.kick.pos)) {
-        const item = server.context.map.getItem(state.kick.pos);
-        if (!item) return false;
         server.clearItem(Utils.ItemLocation.World(state.kick.pos));
         state.hasItem = item;
       }
@@ -129,22 +134,22 @@ export class BallScript extends Script<{}> {
 
     const startingLocFirstAttempt =
       {...throwerLoc, x: throwerLoc.x + Math.sign(dir.x), y: throwerLoc.y + Math.sign(dir.y)};
-    const startingLoc = this.server.findNearest({pos: startingLocFirstAttempt, range: 6}, true,
+    const startingPos = this.server.findNearest({pos: startingLocFirstAttempt, range: 6}, true,
       (tile) => {
         if (!tile.item) return true;
         return false;
       });
-    if (!startingLoc) return;
+    if (!startingPos) return;
 
-    this.server.setItem(Utils.ItemLocation.World(startingLoc), item);
+    this.server.setItem(Utils.ItemLocation.World(startingPos), item);
     this.server.clearItem(opts.location);
 
     const kick = {
       item,
-      pos: startingLoc,
-      posFloating: {...startingLoc},
+      pos: startingPos,
+      posFloating: {...startingPos},
       dir,
-      momentum: Math.ceil(Utils.dist(startingLoc, opts.to.pos)),
+      momentum: Math.ceil(Utils.dist(startingPos, opts.to.pos)),
     };
     this.activeKicks.push(kick);
 
@@ -153,15 +158,16 @@ export class BallScript extends Script<{}> {
     const goal: Goal = {
       desiredEffect: 'fetch',
       priority: 1_000,
+      doNotRetry: true,
       satisfied() {
         const state = creatureToFetchState.get(this.creature);
         return !state || state.done;
       },
       onDone() {
         const state = creatureToFetchState.get(this.creature);
-        if (!state || !state.hasItem) return;
-
         creatureToFetchState.delete(this.creature);
+        if (!state?.hasItem) return;
+
         const pos = server.findNearestWalkableTile({pos: this.creature.pos, range: 10}) || this.creature.pos;
         server.addItemNear(pos, state.hasItem);
         server.broadcastChat({

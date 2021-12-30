@@ -18,6 +18,7 @@ import {Server} from './server.js';
 export interface Goal {
   desiredEffect: string;
   priority: number;
+  doNotRetry?: boolean;
   satisfied(this: CreatureState, server: Server): boolean;
   onDone?(this: CreatureState): void;
 }
@@ -529,7 +530,11 @@ export class CreatureState {
     if (result) {
       this.goalActionPlans.get(currentGoal)?.actions.pop();
     } else if (result === false) {
-      currentPlan.shouldRecreate = true;
+      if (currentGoal.doNotRetry) {
+        this.removeGoal(currentGoal);
+      } else {
+        currentPlan.shouldRecreate = true;
+      }
     } else {
       // Stop action if all effects are fulfilled.
       currentFacts.clear();
