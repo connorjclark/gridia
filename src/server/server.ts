@@ -338,6 +338,7 @@ export class Server {
       // set later
       mana: 0,
       buffs: [],
+      tamedCreatureIds: new Set(),
     };
 
     for (const attribute of Player.ATTRIBUTES) {
@@ -475,6 +476,10 @@ export class Server {
     this.updateCreatureDataBasedOnEquipment(creature, clientConnection.equipment, {broadcast: false});
     clientConnection.creature = creature;
     this.registerCreature(creature);
+
+    for (const creatureId of player.tamedCreatureIds) {
+      if (!this.context.creatures.has(creatureId)) player.tamedCreatureIds.delete(creatureId);
+    }
 
     this.context.players.set(player.id, player);
     clientConnection.player = player;
@@ -1066,6 +1071,13 @@ export class Server {
       delete this.creatureStates[creature.id];
     }
 
+    if (creature.tamedBy) {
+      const player = this.context.players.get(creature.tamedBy);
+      if (player) player.tamedCreatureIds.delete(creature.id);
+      // If player is not loaded in memory, that's okay–next time it is loaded
+      // all of its tamed creatures will be checked.
+    }
+
     this.broadcast(EventBuilder.removeCreature({
       id: creature.id,
     }));
@@ -1390,6 +1402,13 @@ export class Server {
       skill,
       xp,
     }), playerConnection);
+  }
+
+  tameCreature(player: Player, creature: Creature) {
+    player.tamedCreatureIds.add(creature.id);
+    creature.tamedBy = player.id;
+    this.creatureStates[creature.id].resetGoals();
+    this.broadcastPartialCreatureUpdate(creature, ['tamedBy']);
   }
 
   ensureSectorLoaded(sectorPoint: TilePoint) {

@@ -174,9 +174,10 @@ export class ServerContext extends Context {
   }
 
   async loadPlayer(playerId: string): Promise<Player> {
-    const player = await readJson(this.db, Store.player, this.jsonKey(playerId));
+    const player: Player = await readJson(this.db, Store.player, this.jsonKey(playerId));
     // TODO: remove
-    if (!player.pos) player.pos = player.loc;
+    if (!player.pos) player.pos = (player as any).loc;
+    if (!player.tamedCreatureIds) player.tamedCreatureIds = new Set();
     return player;
     // return readJson(this.db, Store.player, this.jsonKey(playerId));
   }

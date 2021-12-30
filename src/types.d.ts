@@ -103,6 +103,7 @@ interface Player {
   stamina: number;
   mana: number;
   buffs: Buff[];
+  tamedCreatureIds: Set<number>;
 }
 
 interface Container {

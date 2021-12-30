@@ -149,9 +149,6 @@ export class BallScript extends Script<{}> {
     this.activeKicks.push(kick);
 
     // Fetch!
-    // TODO: a player should have a list of tamed creatures.
-    const tamedCreatures = [...this.server.context.creatures.values()]
-      .filter((c) => c.tamedBy === opts.playerConnection.player.id);
     const server = this.server;
     const goal: Goal = {
       desiredEffect: 'fetch',
@@ -174,7 +171,8 @@ export class BallScript extends Script<{}> {
         });
       },
     };
-    for (const creature of tamedCreatures) {
+    for (const creatureId of opts.playerConnection.player.tamedCreatureIds) {
+      const creature = this.server.context.getCreature(creatureId);
       if (Utils.maxDiff(creature.pos, opts.playerConnection.creature.pos) > 20) {
         continue;
       }
