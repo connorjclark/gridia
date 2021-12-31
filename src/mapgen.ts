@@ -2,14 +2,14 @@ import * as assert from 'assert';
 
 import {MINE, SECTOR_SIZE, WATER} from './constants.js';
 import * as Content from './content.js';
-import {generate, GenerateOptions} from './lib/map-generator/map-generator.js';
+import {generate, GenerateOptions, Polygon} from './lib/map-generator/map-generator.js';
 import * as Perlin from './lib/perlin/perlin.js';
 import * as Utils from './utils.js';
 import {WorldMapPartition} from './world-map-partition.js';
 
 function biomeToFloor(biome: string) {
-  if (biome === 'BARE') return 49;
-  if (biome === 'BEACH') return 44;
+  if (biome === 'BARE') return 71;
+  if (biome === 'BEACH') return 73;
   if (biome === 'LAKE') return WATER;
   if (biome === 'OCEAN') return WATER;
   if (biome === 'SNOW') return 42;
@@ -58,6 +58,7 @@ export function makeBareMap(width: number, height: number, depth: number) {
         const pos = {x, y, z};
         map.setTile(pos, {
           floor: z ? MINE : 1,
+          elevation: 0,
         });
       }
     }
@@ -68,6 +69,72 @@ export function makeBareMap(width: number, height: number, depth: number) {
 
 interface MapGenOptions extends GenerateOptions {
   depth: number;
+}
+
+// function findAveragedElevation(polygon: Polygon, point: Point2) {
+//   let totalInvertedDistance = 0;
+//   let weightedElevation = 0;
+//   const invertedDistances = [];
+
+//   for (const corner of polygon.corners) {
+//     const invertedDistance = 1 / Utils.dist2(corner, point);
+//     if (invertedDistance === Infinity) return corner.elevation;
+//     invertedDistances.push(invertedDistance);
+
+//     totalInvertedDistance += invertedDistance;
+//   }
+//   for (let i = 0; i < invertedDistances.length; i++) {
+//     const corner = polygon.corners[i];
+//     weightedElevation += corner.elevation * (invertedDistances[i] / totalInvertedDistance);
+//   }
+//   return weightedElevation;
+// }
+
+/**
+ * Represents a 2D height map that obeys the following rule:
+ * every cell is no more than one height different than every neighbor
+ */
+class ElevationMap {
+  static MIN_VALUE = 0;
+  static MAX_VALUE = 100;
+
+  private elevations: number[][];
+
+  constructor(private width: number, private height: number) {
+    this.elevations = Utils.matrix(1, width, height, 0)[0];
+  }
+
+  getElevation(x: number, y: number) {
+    return this.elevations[x][y];
+  }
+
+  setElevation(x: number, y: number, value: number) {
+    const raise = this.getElevation(x, y) < value;
+    while (this.getElevation(x, y) !== value) {
+      this.changeElevation(x, y, raise);
+    }
+  }
+
+  changeElevation(x: number, y: number, raise: boolean) {
+    if (raise && this.getElevation(x, y) === ElevationMap.MAX_VALUE) return;
+    if (!raise && this.getElevation(x, y) === ElevationMap.MIN_VALUE) return;
+
+    this.elevations[x][y] += raise ? 1 : -1;
+
+    for (let i = -1; i <= 1; i++) {
+      for (let j = -1; j <= 1; j++) {
+        const x1 = x + i;
+        const y1 = y + j;
+        if (i === 0 && j === 0) continue;
+        if (x1 >= this.width || x1 < 0) continue;
+        if (y1 >= this.height || y1 < 0) continue;
+
+        if (Math.abs(this.getElevation(x1, y1) - this.getElevation(x, y)) > 1) {
+          this.changeElevation(x1, y1, raise);
+        }
+      }
+    }
+  }
 }
 
 export function mapgen(opts: MapGenOptions) {
@@ -87,6 +154,7 @@ export function mapgen(opts: MapGenOptions) {
     }
   }
 
+  let minElevation = Infinity, maxElevation = -Infinity;
   for (let x = 0; x < width; x++) {
     for (let y = 0; y < height; y++) {
       for (let z = 0; z < depth; z++) {
@@ -98,15 +166,10 @@ export function mapgen(opts: MapGenOptions) {
           // floor = 100 + ((x + y) % 10) * 20;
           const polygonIndex = mapGenResult.raster[x][y] - 1;
           const polygon = mapGenResult.polygons[polygonIndex];
-          if (polygon) {
-            floor = biomeToFloor(polygon.center.biome);
-            // const dist = (Math.abs(width / 2 - x) + Math.abs(height / 2 - y)) / (width / 2 + height / 2);
-            // floor = 100 + (Math.round(dist * 10)) * 20;
-          } else {
-            // TODO ?
-            // console.warn({x, y, val: raster[x][y]});
-            floor = 0;
-          }
+          floor = biomeToFloor(polygon.center.biome);
+
+          // const dist = (Math.abs(width / 2 - x) + Math.abs(height / 2 - y)) / (width / 2 + height / 2);
+          // floor = 100 + (Math.round(dist * 10)) * 20;
           // floor = 100 + (raster[x][y] % 10) * 20;
         } else {
           floor = 19;
@@ -116,8 +179,31 @@ export function mapgen(opts: MapGenOptions) {
         map.setTile(pos, {
           floor,
           item,
+          elevation: 0,
         });
       }
+    }
+  }
+
+  for (const polygon of mapGenResult.polygons) {
+    const elevation = polygon.center.elevation;
+    if (elevation > maxElevation) maxElevation = elevation;
+    if (elevation < minElevation) minElevation = elevation;
+  }
+
+  const em = new ElevationMap(width, height);
+  for (const polygon of mapGenResult.polygons) {
+    // Normalize elevation from 0-50.
+    const percentile = (polygon.center.elevation - minElevation) / (maxElevation - minElevation);
+    const elevation = Math.round(percentile * 50);
+    em.setElevation(polygon.center.x, polygon.center.y, elevation);
+  }
+
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+      const pos = {x, y, z: 0};
+      const tile = map.getTile(pos);
+      tile.elevation = em.getElevation(x, y);
     }
   }
 

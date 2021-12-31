@@ -526,7 +526,8 @@
       "file": "rpgwo-floors1.png",
       "frames": [
         0
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "A67E4E"
   },
@@ -536,7 +537,8 @@
       "file": "rpgwo-floors1.png",
       "frames": [
         20
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "9F7E4B"
   },
@@ -546,7 +548,8 @@
       "file": "rpgwo-floors1.png",
       "frames": [
         40
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "917D44"
   },
@@ -556,7 +559,8 @@
       "file": "rpgwo-floors1.png",
       "frames": [
         60
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "807E3C"
   },
@@ -566,7 +570,8 @@
       "file": "rpgwo-floors1.png",
       "frames": [
         80
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "647D2F"
   },
@@ -576,7 +581,8 @@
       "file": "rpgwo-floors2.png",
       "frames": [
         0
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "4E7D24"
   },
@@ -586,7 +592,8 @@
       "file": "rpgwo-floors2.png",
       "frames": [
         20
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "3D7D1C"
   },
@@ -596,7 +603,8 @@
       "file": "rpgwo-floors2.png",
       "frames": [
         40
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "2B7D14"
   },
@@ -606,7 +614,8 @@
       "file": "rpgwo-floors2.png",
       "frames": [
         60
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "1E7C0E"
   },
@@ -616,7 +625,8 @@
       "file": "rpgwo-floors2.png",
       "frames": [
         80
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "0B7C05"
   },
@@ -626,7 +636,8 @@
       "file": "rpgwo-floors3.png",
       "frames": [
         0
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "B29777"
   },
@@ -636,7 +647,8 @@
       "file": "rpgwo-floors3.png",
       "frames": [
         20
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "D4CFC7"
   },
@@ -646,7 +658,8 @@
       "file": "rpgwo-floors3.png",
       "frames": [
         40
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "DADCDA"
   },
@@ -656,7 +669,8 @@
       "file": "rpgwo-floors3.png",
       "frames": [
         60
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "BA5D3F"
   },
@@ -666,7 +680,8 @@
       "file": "rpgwo-floors3.png",
       "frames": [
         80
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "BA9262"
   },
@@ -676,7 +691,8 @@
       "file": "rpgwo-floors4.png",
       "frames": [
         0
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "999999"
   },
@@ -686,7 +702,8 @@
       "file": "rpgwo-floors4.png",
       "frames": [
         20
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "656565"
   },
@@ -696,7 +713,8 @@
       "file": "rpgwo-floors4.png",
       "frames": [
         40
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "0B7C05"
   },
@@ -706,7 +724,8 @@
       "file": "rpgwo-floors4.png",
       "frames": [
         60
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "B9160D"
   },
@@ -716,7 +735,8 @@
       "file": "rpgwo-floors4.png",
       "frames": [
         80
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "442807"
   },
@@ -726,7 +746,8 @@
       "file": "rpgwo-floors5.png",
       "frames": [
         0
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "917D44"
   },
@@ -736,7 +757,8 @@
       "file": "rpgwo-floors5.png",
       "frames": [
         20
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "D3AB7B"
   },
@@ -746,7 +768,8 @@
       "file": "rpgwo-floors5.png",
       "frames": [
         40
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "ABAAAA"
   },
@@ -756,7 +779,8 @@
       "file": "rpgwo-floors5.png",
       "frames": [
         60
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "686F40"
   },
@@ -766,7 +790,8 @@
       "file": "rpgwo-floors5.png",
       "frames": [
         80
-      ]
+      ],
+      "templateType": "elevation-offset"
     },
     "color": "656B2B"
   }

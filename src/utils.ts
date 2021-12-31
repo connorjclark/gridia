@@ -47,6 +47,10 @@ export function dist(p1: PartitionPoint, p2: PartitionPoint): number {
   return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
 }
 
+export function dist2(p1: Point2, p2: Point2): number {
+  return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
+}
+
 export function direction(p1: Point2, p2: Point2): Point2 {
   const x = p2.x - p1.x;
   const y = p2.y - p1.y;
@@ -89,6 +93,7 @@ export function formatQuantity(quantity: number) {
 
 // 3d matrix
 // TODO: this doesn't seem properly typed.
+// TODO: rename array3d
 export function matrix<T>(x: number, y: number, z: number, val?: T): T[][][] {
   const m = Array(x) as T[][][];
 

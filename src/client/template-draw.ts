@@ -17,6 +17,10 @@ export function getIndexOffsetForTemplate(partition: WorldMapPartition,
     return realIndex - graphics.frames[0];
   } else if (graphics.templateType === 'misc-offset-1') {
     return useMiscOffset1Template(partition, typeToMatch, pos, match);
+  } else if (graphics.templateType === 'elevation-offset') {
+    if (match !== 'floor') throw new Error('must be floor');
+
+    return useElevationOffsetTemplate(partition, pos);
   } else {
     throw new Error('unexpected template type: ' + graphics.templateType);
   }
@@ -335,4 +339,43 @@ function useBitOffsetTemplate(partition: WorldMapPartition,
   }
 
   return v;
+}
+
+function useElevationOffsetTemplate(partition: WorldMapPartition, pos: PartitionPoint) {
+  function getElevation(x_: number, y_: number) {
+    return partition.getTile({x: x_, y: y_, z}).elevation;
+  }
+
+  let v = 0;
+  const {x, y, z} = pos;
+  const e = getElevation(x, y);
+
+  try {
+    const u = y - 1 >= 0 ? getElevation(x, y - 1) > e : false;
+    const d = y + 1 < partition.height ? getElevation(x, y + 1) > e : false;
+    const r = x + 1 < partition.width ? getElevation(x + 1, y) > e : false;
+    const l = x - 1 >= 0 ? getElevation(x - 1, y) > e : false;
+    const ur = y - 1 >= 0 || x + 1 < partition.width ? getElevation(x + 1, y - 1) > e : false;
+    const dr = y + 1 < partition.height || x + 1 < partition.width ? getElevation(x + 1, y + 1) > e : false;
+    const ul = y - 1 >= 0 || x - 1 >= 0 ? getElevation(x - 1, y - 1) > e : false;
+    const dl = x - 1 >= 0 || y + 1 < partition.height ? getElevation(x - 1, y + 1) > e : false;
+    if (u || d || r || l || ur || dr || ul || dl) {
+      if (l && !u && !d) v = 14;
+      else if (r && !u && !d) v = 11;
+      else if (ur && !u && !r) v = 7;
+      else if (u && r) v = 12;
+      else if (ul && !l && !u) v = 6;
+      else if (u && !l && !r) v = 8;
+      else if (u && l) v = 16;
+      else if (dr && !d && !r) v = 9;
+      else if (d && !l && !r) v = 17;
+      else if (dl && !d && !l) v = 13;
+      else if (dl && d && l) v = 18;
+      else if (dr && d && r) v = 19;
+    }
+  } catch {
+    // ignore
+  }
+
+  return v === 0 ? (x + y) % 6 : v;
 }

@@ -891,7 +891,7 @@ function convertFloors() {
         file: 'rpgwo-floors0.png',
         frames: [id],
       },
-      color: calculateAverageColor(`${assetFolder}/gfx/floors0.png`, x, y, 32),
+      color: oldFloors[id].color || calculateAverageColor(`${assetFolder}/gfx/floors0.png`, x, y, 32),
     });
   }
   for (let i = 0; i < 25; i++) {
@@ -904,8 +904,9 @@ function convertFloors() {
       graphics: {
         file: `rpgwo-floors${Math.floor(graphicIndex / 100)}.png`,
         frames: [graphicIndex % 100],
+        templateType: 'elevation-offset',
       },
-      color: calculateAverageColor(`${assetFolder}/gfx/floors${Math.floor(graphicIndex / 100)}.png`, x, y, 32),
+      color: oldFloors[id].color || calculateAverageColor(`${assetFolder}/gfx/floors${Math.floor(graphicIndex / 100)}.png`, x, y, 32),
     });
   }
 

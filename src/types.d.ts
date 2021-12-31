@@ -129,6 +129,7 @@ interface Container {
 interface Tile {
   floor: number;
   item?: Item; // Prefer undefined over null.
+  elevation: number;
 }
 
 interface WorldLocation {
@@ -247,7 +248,7 @@ interface TemplateData {
   la: number;
 }
 
-type TemplateType = 'bit-offset' | 'visual-offset' | 'misc-offset-1' | 'data-offset';
+type TemplateType = 'bit-offset' | 'visual-offset' | 'misc-offset-1' | 'data-offset' | 'elevation-offset';
 
 interface MetaFloor {
   id: number;

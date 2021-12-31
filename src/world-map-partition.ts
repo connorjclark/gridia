@@ -72,7 +72,7 @@ export class WorldMapPartition {
   }
 
   getTile(pos: PartitionPoint): Tile {
-    if (!this.inBounds(pos)) return {floor: 0};
+    if (!this.inBounds(pos)) return {floor: 0, elevation: 0};
 
     const sector = this.getSector(Utils.worldToSector(pos, SECTOR_SIZE));
     return sector[pos.x % SECTOR_SIZE][pos.y % SECTOR_SIZE];
@@ -95,6 +95,7 @@ export class WorldMapPartition {
       for (let y = 0; y < SECTOR_SIZE; y++) {
         tiles[x][y] = {
           floor: 0,
+          elevation: 0,
         };
       }
     }

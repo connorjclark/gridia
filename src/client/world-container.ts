@@ -6,7 +6,6 @@ import * as Utils from '../utils.js';
 import {WorldMap} from '../world-map.js';
 
 import * as Draw from './draw.js';
-import * as Helper from './helper.js';
 import {getIndexOffsetForTemplate} from './template-draw.js';
 
 const MAX_LIGHT_POWER = 6;

@@ -129,9 +129,7 @@ export class ServerContext extends Context {
 
   saveSector(sectorPoint: TilePoint) {
     const sector = this.map.getSector(sectorPoint);
-    // Don't save creatures.
-    const data = sector.map((tiles) => tiles.map((tile) => ({floor: tile.floor, item: tile.item})));
-    const json = JSON.stringify(data, null, 2);
+    const json = JSON.stringify(sector, null, 2);
     this.db.addToTransaction(Store.sector, this.sectorKey(sectorPoint), json);
   }
 

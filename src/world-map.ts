@@ -69,6 +69,7 @@ export class WorldMap {
       for (let y = 0; y < SECTOR_SIZE; y++) {
         tiles[x][y] = {
           floor: 0,
+          elevation: 0,
         };
       }
     }
