@@ -637,9 +637,11 @@ export class Server {
       });
     }
 
-    creature.pos = pos;
-    this.broadcastPartialCreatureUpdate(creature, ['pos']);
-    this.creatureStates[creature.id].warped = false;
+    if (!creature.dead) {
+      this.creatureStates[creature.id].warped = false;
+      creature.pos = pos;
+      this.broadcastPartialCreatureUpdate(creature, ['pos']);
+    }
   }
 
   broadcastPartialCreatureUpdate(creature: Creature, keys: Array<keyof Creature>) {
@@ -1084,7 +1086,16 @@ export class Server {
 
     if (creature.tamedBy) {
       const player = this.context.players.get(creature.tamedBy);
-      if (player) player.tamedCreatureIds.delete(creature.id);
+      if (player) {
+        player.tamedCreatureIds.delete(creature.id);
+        const playerConnection = this.getClientConnectionForPlayer(player);
+        if (playerConnection) {
+          this.send(EventBuilder.chat({
+            section: 'World',
+            text: `${creature.name} has died :(`,
+          }), playerConnection);
+        }
+      }
       // If player is not loaded in memory, that's okay–next time it is loaded
       // all of its tamed creatures will be checked.
     }
