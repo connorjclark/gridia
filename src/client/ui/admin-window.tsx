@@ -2,6 +2,7 @@ import linkState from 'linkstate';
 import {render, h, Component} from 'preact';
 import {useEffect, useState} from 'preact/hooks';
 
+import {SECTOR_SIZE} from '../../constants.js';
 import * as Content from '../../content.js';
 import {game} from '../../game-singleton.js';
 import * as CommandBuilder from '../../protocol/command-builder.js';
@@ -321,6 +322,21 @@ export function makeAdminWindow(adminModule: AdminModule) {
                 text: `/warp ${Math.round(meta.width / 2)} ${Math.round(meta.height / 2)} 0 ${index}`,
               }));
             }}>Warp</button>
+            <button onClick={() => {
+              game.client.connection.sendCommand(CommandBuilder.chat({
+                text: '/expandPartition x',
+              }));
+            }}>Expand width {SECTOR_SIZE} tiles</button>
+            <button onClick={() => {
+              game.client.connection.sendCommand(CommandBuilder.chat({
+                text: '/expandPartition y',
+              }));
+            }}>Expand height {SECTOR_SIZE} tiles</button>
+            <button onClick={() => {
+              game.client.connection.sendCommand(CommandBuilder.chat({
+                text: '/expandPartition z',
+              }));
+            }}>Expand depth</button>
             {destructive ? <button>Delete</button> : null}
           </div>;
         })}

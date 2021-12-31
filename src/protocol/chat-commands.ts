@@ -1,4 +1,4 @@
-import {MAX_STACK, SECTOR_SIZE} from '../constants.js';
+import {MAX_STACK, MINE, SECTOR_SIZE} from '../constants.js';
 import * as Content from '../content.js';
 import * as CommandParser from '../lib/command-parser.js';
 import {makeBareMap} from '../mapgen.js';
@@ -335,7 +335,7 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
         {name: 'height', type: 'number'},
         {name: 'depth', type: 'number', optional: true},
       ],
-      do(args: {name: string; width: number; height: number; depth?: number}) {
+      do(args: { name: string; width: number; height: number; depth?: number }) {
         const nextPartitionId = Math.max(...server.context.map.partitions.keys()) + 1;
         const partition = makeBareMap(args.width, args.height, args.depth || 1);
         partition.name = args.name;
@@ -348,6 +348,118 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
             text: `Made partition ${nextPartitionId}`,
           }));
         });
+      },
+    },
+    expandPartition: {
+      args: [
+        {name: 'coordinate', type: 'string'},
+      ],
+      do(args: { coordinate: string }) {
+        if (!['x', 'y', 'z'].includes(args.coordinate)) {
+          return 'must be one of: x y z';
+        }
+
+        const w = creature.pos.w;
+
+        async function expand() {
+          const partition = server.context.map.getPartition(w);
+
+          // Need everything to be loaded.
+          for (let sx = 0; sx < partition.sectors.length; sx++) {
+            for (let sy = 0; sy < partition.sectors[sx].length; sy++) {
+              for (let sz = 0; sz < partition.sectors[sx][sy].length; sz++) {
+                await partition.getSectorAsync({x: sx, y: sy, z: sz});
+              }
+            }
+          }
+
+          let newWidth = partition.width;
+          let newHeight = partition.height;
+          let newDepth = partition.depth;
+          if (args.coordinate === 'x') {
+            newWidth += SECTOR_SIZE;
+          } else if (args.coordinate === 'y') {
+            newHeight += SECTOR_SIZE;
+          } else if (args.coordinate === 'z') {
+            newDepth += 1;
+          }
+
+          const oldSectors = partition.sectors;
+          const newSectors = Utils.matrix<Sector | null>(newWidth / SECTOR_SIZE, newHeight / SECTOR_SIZE, newDepth);
+          for (let sx = 0; sx < newSectors.length; sx++) {
+            for (let sy = 0; sy < newSectors[sx].length; sy++) {
+              for (let sz = 0; sz < newSectors[sx][sy].length; sz++) {
+                const oldSector = oldSectors?.[sx]?.[sy]?.[sz];
+                if (oldSector) {
+                  newSectors[sx][sy][sz] = oldSector;
+                } else {
+                  const newSector = partition.createEmptySector();
+                  newSectors[sx][sy][sz] = newSector;
+
+                  function getFloor(x: number, y: number) {
+                    if (args.coordinate === 'x') {
+                      const sector = oldSectors[sx - 1][sy][sz];
+                      if (!sector) throw new Error('unexpected error in getFloor');
+
+                      return sector[SECTOR_SIZE - 1][y].floor;
+                    } else if (args.coordinate === 'y') {
+                      const sector = oldSectors[sx][sy - 1][sz];
+                      if (!sector) throw new Error('unexpected error in getFloor');
+
+                      return sector[x][SECTOR_SIZE - 1].floor;
+                    } else {
+                      return 0;
+                    }
+                  }
+
+                  function getElevation(x: number, y: number) {
+                    if (args.coordinate === 'x') {
+                      const sector = oldSectors[sx - 1][sy][sz];
+                      if (!sector) throw new Error('unexpected error in getElevation');
+
+                      return sector[SECTOR_SIZE - 1][y].elevation;
+                    } else if (args.coordinate === 'y') {
+                      const sector = oldSectors[sx][sy - 1][sz];
+                      if (!sector) throw new Error('unexpected error in getElevation');
+
+                      return sector[x][SECTOR_SIZE - 1].elevation;
+                    } else {
+                      return 0;
+                    }
+                  }
+
+                  // eslint-disable-next-line @typescript-eslint/prefer-for-of
+                  for (let x = 0; x < SECTOR_SIZE; x++) {
+                    // eslint-disable-next-line @typescript-eslint/prefer-for-of
+                    for (let y = 0; y < SECTOR_SIZE; y++) {
+                      newSector[x][y].floor = getFloor(x, y);
+                      newSector[x][y].elevation = getElevation(x, y);
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          partition.sectors = newSectors;
+          partition.width = newWidth;
+          partition.height = newHeight;
+          partition.depth = newDepth;
+
+          await server.context.save();
+
+          // TODO: don't simply send it to everyone.
+          server.broadcast(EventBuilder.initializePartition({
+            name: partition.name,
+            w,
+            x: partition.width,
+            y: partition.height,
+            z: partition.depth,
+          }));
+        }
+
+        // TODO: make commands async
+        expand();
       },
     },
     advanceTime: {

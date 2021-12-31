@@ -57,7 +57,7 @@ export function makeBareMap(width: number, height: number, depth: number) {
       for (let z = 0; z < depth; z++) {
         const pos = {x, y, z};
         map.setTile(pos, {
-          floor: z ? MINE : 1,
+          floor: z ? MINE : 0,
           elevation: 0,
         });
       }
