@@ -29,10 +29,6 @@ const FetchAction: Action = {
       const item = server.context.map.getItem(state.kick.pos);
       if (!item) return false;
 
-      // TODO: should remove active kick ... for now, just don't allow
-      // creature to pick up item until kick is done.
-      if (state.kick.momentum) return;
-
       if (Utils.equalPoints(this.creature.pos, state.kick.pos)) {
         server.clearItem(Utils.ItemLocation.World(state.kick.pos));
         state.hasItem = item;
@@ -66,8 +62,13 @@ export class BallScript extends Script<{}> {
       description: 'ball script',
       rate: {ms: 75},
       fn: () => {
-        for (let i = this.activeKicks.length - 1; i >= 0; i-- ) {
+        for (let i = this.activeKicks.length - 1; i >= 0; i--) {
           const kick = this.activeKicks[i];
+          if (this.server.context.map.getItem(kick.pos) !== kick.item) {
+            // Item being tracked is no longer there.
+            this.activeKicks.splice(i, 1);
+            continue;
+          }
 
           const ballDestX = kick.posFloating.x + Utils.clamp(kick.dir.x, -1, 1);
           const ballDestY = kick.posFloating.y + Utils.clamp(kick.dir.y, -1, 1);
