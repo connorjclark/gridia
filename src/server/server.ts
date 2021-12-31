@@ -337,6 +337,7 @@ export class Server {
       stamina: 0,
       // set later
       mana: 0,
+      food: 300,
       buffs: [],
       tamedCreatureIds: new Set(),
     };
@@ -449,8 +450,7 @@ export class Server {
         current: player.mana,
         max: Player.getAttributeValue(player, 'mana', player.buffs).level,
       },
-      // TODO
-      food: 100,
+      food: player.food,
       eatGrass: false,
       light: 0,
       combatLevel: Player.getCombatLevel(player).combatLevel,

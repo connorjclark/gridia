@@ -102,6 +102,7 @@ interface Player {
   life: number;
   stamina: number;
   mana: number;
+  food: number;
   buffs: Buff[];
   tamedCreatureIds: Set<number>;
 }
