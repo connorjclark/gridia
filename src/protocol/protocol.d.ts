@@ -10,7 +10,6 @@ type Message = { id?: number; data: any };
 
 type Command<P, R = void> = {
   params: P;
-  // response: R extends void ? void : Promise<R>;
   response: R;
 };
 

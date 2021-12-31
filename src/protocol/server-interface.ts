@@ -137,7 +137,7 @@ export class ServerInterface implements ICommands {
     return {worldData: server.context.worldDataDefinition, account, players, graphics, equipmentGraphics};
   }
 
-  onCreatePlayer(server: Server, clientConnection: ClientConnection, args: Commands.CreatePlayer['params']): Promise<void> {
+  onCreatePlayer(server: Server, clientConnection: ClientConnection, args: Commands.CreatePlayer['params']): Promise<Commands.CreatePlayer['response']> {
     return server.createPlayer(clientConnection, args);
   }
 
@@ -156,7 +156,7 @@ export class ServerInterface implements ICommands {
     return Promise.resolve();
   }
 
-  async onCastSpell(server: Server, clientConnection: ClientConnection, {id, creatureId, pos}: Commands.CastSpell['params']): Promise<void> {
+  async onCastSpell(server: Server, clientConnection: ClientConnection, {id, creatureId, pos}: Commands.CastSpell['params']): Promise<Commands.CastSpell['response']> {
     clientConnection.assertsPlayerConnection();
 
     const creature = clientConnection.creature;
@@ -679,7 +679,7 @@ export class ServerInterface implements ICommands {
     // context.queueTileChange(to)
   }
 
-  onLearnSkill(server: Server, clientConnection: ClientConnection, {id}: { id: number }): Promise<void> {
+  onLearnSkill(server: Server, clientConnection: ClientConnection, {id}: Commands.LearnSkill['params']): Promise<Commands.LearnSkill['response']> {
     clientConnection.assertsPlayerConnection();
 
     const skill = Content.getSkill(id);
@@ -715,7 +715,7 @@ export class ServerInterface implements ICommands {
     }
   }
 
-  onReadItem(server: Server, clientConnection: ClientConnection, {location}: { location: ItemLocation }): Promise<{ content: string }> {
+  onReadItem(server: Server, clientConnection: ClientConnection, {location}: Commands.ReadItem['params']): Promise<Commands.ReadItem['response']> {
     clientConnection.assertsPlayerConnection();
 
     const item = location.source === 'world' ? server.context.map.getItem(location.pos) : undefined;
@@ -726,7 +726,7 @@ export class ServerInterface implements ICommands {
     });
   }
 
-  async onEatItem(server: Server, clientConnection: ClientConnection, {location}: { location: ItemLocation }): Promise<void> {
+  async onEatItem(server: Server, clientConnection: ClientConnection, {location}: Commands.EatItem['params']): Promise<Commands.EatItem['response']> {
     clientConnection.assertsPlayerConnection();
 
     if (location.source === 'world') {
@@ -756,7 +756,7 @@ export class ServerInterface implements ICommands {
     });
   }
 
-  async onItemAction(server: Server, clientConnection: ClientConnection, {type, from, to}: Commands.ItemAction['params']): Promise<void> {
+  async onItemAction(server: Server, clientConnection: ClientConnection, {type, from, to}: Commands.ItemAction['params']): Promise<Commands.ItemAction['response']> {
     clientConnection.assertsPlayerConnection();
 
     const item = await server.getItem(from);
@@ -767,7 +767,7 @@ export class ServerInterface implements ICommands {
     server.scriptDelegates.onItemAction({playerConnection: clientConnection, type, location: from, to});
   }
 
-  async onSaveSettings(server: Server, clientConnection: ClientConnection, {settings}: { settings: Settings }): Promise<void> {
+  async onSaveSettings(server: Server, clientConnection: ClientConnection, {settings}: Commands.SaveSettings['params']): Promise<Commands.SaveSettings['response']> {
     clientConnection.assertsPlayerConnection();
 
     clientConnection.account.settings = settings;
