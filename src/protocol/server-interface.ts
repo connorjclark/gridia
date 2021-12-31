@@ -248,6 +248,7 @@ export class ServerInterface implements ICommands {
   onRequestPartition(server: Server, clientConnection: ClientConnection, {w}: Commands.RequestPartition['params']): Promise<Commands.RequestPartition['response']> {
     const partition = server.context.map.getPartition(w);
     server.send(EventBuilder.initializePartition({
+      name: partition.name,
       w,
       x: partition.width,
       y: partition.height,

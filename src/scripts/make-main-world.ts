@@ -1,4 +1,4 @@
-// rm -rf server-data && yarn ts-node src/scripts/make-main-world.ts
+// rm -rf server-data && GRIDIA_EXECUTION_ENV=node yarn ts-node src/scripts/make-main-world.ts
 
 import * as fs from 'fs';
 

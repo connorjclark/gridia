@@ -80,7 +80,7 @@ export function container({ container }: Protocol.Events.Container): ContainerEv
 export function initialize({ player, creatureId, secondsPerWorldTick, ticksPerWorldDay }: Protocol.Events.Initialize): InitializeEvent {
     return { type: "initialize", args: arguments[0] };
 }
-export function initializePartition({ ...pos }: Protocol.Events.InitializePartition): InitializePartitionEvent {
+export function initializePartition({ name, ...pos }: Protocol.Events.InitializePartition): InitializePartitionEvent {
     return { type: "initializePartition", args: arguments[0] };
 }
 export function log({ msg }: Protocol.Events.Log): LogEvent {

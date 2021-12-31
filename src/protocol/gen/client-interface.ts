@@ -6,7 +6,7 @@ export interface IEvents {
     onAnimation(client: Client, { ...animationInstance }: Protocol.Events.Animation): void;
     onContainer(client: Client, { container }: Protocol.Events.Container): void;
     onInitialize(client: Client, { player, creatureId, secondsPerWorldTick, ticksPerWorldDay }: Protocol.Events.Initialize): void;
-    onInitializePartition(client: Client, { ...pos }: Protocol.Events.InitializePartition): void;
+    onInitializePartition(client: Client, { name, ...pos }: Protocol.Events.InitializePartition): void;
     onLog(client: Client, { msg }: Protocol.Events.Log): void;
     onRemoveCreature(client: Client, { id }: Protocol.Events.RemoveCreature): void;
     onSector(client: Client, { tiles, ...pos }: Protocol.Events.Sector): void;

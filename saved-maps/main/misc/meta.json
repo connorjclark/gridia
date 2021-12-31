@@ -1,0 +1,16 @@
+{
+  "nextCreatureId": 1,
+  "worldDataDefinition": {
+    "baseDir": "worlds/rpgwo-world",
+    "tileSize": 32,
+    "characterCreation": {
+      "attributePoints": 1000,
+      "skillPoints": 100,
+      "requiredSkills": [
+        1,
+        25
+      ]
+    }
+  },
+  "time": 0
+}

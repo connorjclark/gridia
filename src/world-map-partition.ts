@@ -3,6 +3,7 @@ import * as Content from './content.js';
 import * as Utils from './utils.js';
 
 export class WorldMapPartition {
+  name = '';
   // TODO remove?
   loaded = false;
   width: number;
@@ -12,9 +13,10 @@ export class WorldMapPartition {
   loader?: (sectorPoint: PartitionPoint) => Promise<Sector>;
   private _sectorLoadPromises = new Map<string, Promise<Sector>>();
 
-  constructor(width: number, height: number, depth: number) {
+  constructor(name: string, width: number, height: number, depth: number) {
     if (depth < 0 || depth > 20) throw new Error('invalid depth');
 
+    this.name = name;
     this.width = width;
     this.height = height;
     this.depth = depth;

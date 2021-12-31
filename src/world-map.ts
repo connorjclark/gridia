@@ -15,8 +15,8 @@ export class WorldMap {
     };
   }
 
-  initPartition(w: number, width: number, height: number, depth: number) {
-    const partition = new WorldMapPartition(width, height, depth);
+  initPartition(name: string, w: number, width: number, height: number, depth: number) {
+    const partition = new WorldMapPartition(name, width, height, depth);
     // TODO: refactor sector requesting / loading.
     this.addPartition(w, partition);
   }

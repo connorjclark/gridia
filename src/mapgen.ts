@@ -41,7 +41,7 @@ function sanityCheck(width: number, height: number, depth: number) {
 export function makeBareMap(width: number, height: number, depth: number) {
   sanityCheck(width, height, depth);
 
-  const map = new WorldMapPartition(width, height, depth);
+  const map = new WorldMapPartition('bare-map', width, height, depth);
 
   // eslint-disable-next-line @typescript-eslint/prefer-for-of
   for (let sx = 0; sx < map.sectors.length; sx++) {
@@ -74,7 +74,7 @@ export function mapgen(opts: MapGenOptions) {
   const {width, height, depth} = opts;
   sanityCheck(width, height, depth);
 
-  const map = new WorldMapPartition(width, height, depth);
+  const map = new WorldMapPartition('generated-map', width, height, depth);
   const mapGenResult = generate(opts);
   const random = mapGenResult.makeRandom('mines');
 

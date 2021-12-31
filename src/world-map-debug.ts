@@ -96,6 +96,7 @@ export function createTestPartitions(map: WorldMap) {
 
   const testMapResult = mapgen({width, height, depth, partitionStrategy, waterStrategy, borderIsAlwaysWater: false});
   const testPartition = testMapResult.partition;
+  testPartition.name = 'test-map';
   const testPartitionW = map.partitions.size;
   map.addPartition(testPartitionW, testPartition);
 

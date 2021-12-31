@@ -220,7 +220,11 @@
       "floor": 5
     },
     {
-      "floor": 5
+      "floor": 5,
+      "item": {
+        "type": 1,
+        "quantity": 1
+      }
     },
     {
       "floor": 5
@@ -229,69 +233,11 @@
       "floor": 5
     },
     {
-      "floor": 5
-    },
-    {
-      "floor": 5
-    },
-    {
-      "floor": 5
-    },
-    {
-      "floor": 5
-    },
-    {
-      "floor": 5
-    },
-    {
-      "floor": 5
-    }
-  ],
-  [
-    {
-      "floor": 5
-    },
-    {
-      "floor": 5
-    },
-    {
-      "floor": 5
-    },
-    {
-      "floor": 5
-    },
-    {
-      "floor": 5
-    },
-    {
-      "floor": 5
-    },
-    {
-      "floor": 5
-    },
-    {
-      "floor": 5
-    },
-    {
-      "floor": 5
-    },
-    {
-      "floor": 5
-    },
-    {
-      "floor": 5
-    },
-    {
-      "floor": 5
-    },
-    {
-      "floor": 5
-    },
-    {
-      "floor": 5
-    },
-    {
-      "floor": 5
+      "floor": 5,
+      "item": {
+        "type": 1,
+        "quantity": 1
+      }
     },
     {
       "floor": 5
@@ -356,7 +302,11 @@
       "floor": 5
     },
     {
-      "floor": 5
+      "floor": 5,
+      "item": {
+        "type": 1,
+        "quantity": 1
+      }
     },
     {
       "floor": 5
@@ -416,6 +366,80 @@
     },
     {
       "floor": 5
+    },
+    {
+      "floor": 5,
+      "item": {
+        "type": 1,
+        "quantity": 1
+      }
+    },
+    {
+      "floor": 5
+    },
+    {
+      "floor": 5
+    },
+    {
+      "floor": 5
+    },
+    {
+      "floor": 5
+    }
+  ],
+  [
+    {
+      "floor": 5
+    },
+    {
+      "floor": 5
+    },
+    {
+      "floor": 5
+    },
+    {
+      "floor": 5
+    },
+    {
+      "floor": 5
+    },
+    {
+      "floor": 5
+    },
+    {
+      "floor": 5
+    },
+    {
+      "floor": 5
+    },
+    {
+      "floor": 5
+    },
+    {
+      "floor": 5
+    },
+    {
+      "floor": 5
+    },
+    {
+      "floor": 5,
+      "item": {
+        "type": 1,
+        "quantity": 1
+      }
+    },
+    {
+      "floor": 5
+    },
+    {
+      "floor": 5
+    },
+    {
+      "floor": 5,
+      "item": {
+        "type": 1,
+        "quantity": 1
+      }
     },
     {
       "floor": 5

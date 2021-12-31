@@ -1,7 +1,17 @@
 [
   [
     {
-      "floor": 13
+      "floor": 13,
+      "item": {
+        "type": 1249,
+        "quantity": 1,
+        "warpTo": {
+          "w": 1,
+          "x": 20,
+          "y": 10,
+          "z": 0
+        }
+      }
     },
     {
       "floor": 13

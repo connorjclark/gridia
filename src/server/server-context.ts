@@ -114,7 +114,7 @@ export class ServerContext extends Context {
   async loadPartition(w: number) {
     const key = `${w}/meta.json`;
     const partitionMeta = await readJson(this.db, Store.sector, key);
-    this.map.initPartition(w, partitionMeta.width, partitionMeta.height, partitionMeta.depth);
+    this.map.initPartition(partitionMeta.name, w, partitionMeta.width, partitionMeta.height, partitionMeta.depth);
   }
 
   async loadSector(sectorPoint: TilePoint) {
@@ -259,6 +259,7 @@ export class ServerContext extends Context {
 
   protected savePartition(w: number, partition: WorldMapPartition) {
     const meta = {
+      name: partition.name,
       width: partition.width,
       height: partition.height,
       depth: partition.depth,

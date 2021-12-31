@@ -67,6 +67,7 @@ declare namespace Protocol {
     }
 
     interface InitializePartition extends TilePoint {
+      name: string;
     }
 
     interface Log {

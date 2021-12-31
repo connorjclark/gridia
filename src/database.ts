@@ -112,8 +112,12 @@ export class NodeFsDb extends Database {
   async put(store: string, key: string, data: string) {
     check(store, key);
     const path = `${this.rootDirectoryPath}/${store}/${key}`;
+    const pathSplit = path.split('/');
+    pathSplit.pop();
+    const dir = pathSplit.join('/');
+
     const fs = await this.fs();
-    await fs.mkdir(`${this.rootDirectoryPath}/${store}`, {recursive: true});
+    await fs.mkdir(dir, {recursive: true});
     return fs.writeFile(path, data);
   }
 

@@ -24,8 +24,8 @@ export class ClientInterface implements IEvents {
     client.context.ticksPerWorldDay = opts.ticksPerWorldDay;
   }
 
-  onInitializePartition(client: Client, {...pos}: Events.InitializePartition): void {
-    client.context.map.initPartition(pos.w, pos.x, pos.y, pos.z);
+  onInitializePartition(client: Client, {name, ...pos}: Events.InitializePartition): void {
+    client.context.map.initPartition(name, pos.w, pos.x, pos.y, pos.z);
   }
 
   onLog(client: Client, {msg}: Events.Log): void {
