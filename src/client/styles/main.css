@@ -468,6 +468,14 @@ button {
   color: gold;
 }
 
+.partition {
+  padding: 5px;
+  border-bottom: 1px solid white;
+}
+.partition__name {
+  font-size: larger;
+}
+
 .window--view {
   order: 2;
 }

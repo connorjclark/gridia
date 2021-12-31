@@ -23,6 +23,15 @@ export class WorldMapPartition {
     this.sectors = Utils.matrix(width / SECTOR_SIZE, height / SECTOR_SIZE, depth);
   }
 
+  getMeta(): PartitionMeta {
+    return {
+      name: this.name,
+      width: this.width,
+      height: this.height,
+      depth: this.depth,
+    };
+  }
+
   inBounds(pos: PartitionPoint): boolean {
     return pos.x >= 0 && pos.y >= 0 && pos.x < this.width && pos.y < this.height &&
       pos.z >= 0 && pos.z < this.depth;

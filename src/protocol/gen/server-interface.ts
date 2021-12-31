@@ -25,6 +25,7 @@ export interface ICommands {
     onUse(server: Server, clientConnection: ClientConnection, { toolIndex, location, usageIndex }: Protocol.Commands.Use["params"]): Promise<Protocol.Commands.Use["response"]>;
     onLearnSkill(server: Server, clientConnection: ClientConnection, { id }: Protocol.Commands.LearnSkill["params"]): Promise<Protocol.Commands.LearnSkill["response"]>;
     onRequestScripts(server: Server, clientConnection: ClientConnection, {}: Protocol.Commands.RequestScripts["params"]): Promise<Protocol.Commands.RequestScripts["response"]>;
+    onRequestPartitionMetas(server: Server, clientConnection: ClientConnection, {}: Protocol.Commands.RequestPartitionMetas["params"]): Promise<Protocol.Commands.RequestPartitionMetas["response"]>;
     onReadItem(server: Server, clientConnection: ClientConnection, { location }: Protocol.Commands.ReadItem["params"]): Promise<Protocol.Commands.ReadItem["response"]>;
     onEatItem(server: Server, clientConnection: ClientConnection, { location }: Protocol.Commands.EatItem["params"]): Promise<Protocol.Commands.EatItem["response"]>;
     onItemAction(server: Server, clientConnection: ClientConnection, { type, from, to }: Protocol.Commands.ItemAction["params"]): Promise<Protocol.Commands.ItemAction["response"]>;

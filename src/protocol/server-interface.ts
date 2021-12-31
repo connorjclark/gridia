@@ -773,4 +773,9 @@ export class ServerInterface implements ICommands {
     clientConnection.account.settings = settings;
     await server.context.saveAccount(clientConnection.account);
   }
+
+  onRequestPartitionMetas(server: Server, clientConnection: ClientConnection): Promise<PartitionMeta[]> {
+    const metas = [...server.context.map.partitions.values()].map((p) => p.getMeta());
+    return Promise.resolve(metas);
+  }
 }

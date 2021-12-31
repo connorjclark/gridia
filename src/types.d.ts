@@ -38,6 +38,19 @@ interface Point4 {
   z: number;
 }
 
+interface Meta {
+  nextCreatureId: number;
+  worldDataDefinition: WorldDataDefinition;
+  time: number;
+}
+
+interface PartitionMeta {
+  name: string;
+  width: number;
+  height: number;
+  depth: number;
+}
+
 type ScreenPoint = Point2;
 type PartitionPoint = Point3;
 type TilePoint = Point4; // `w` is world index

@@ -668,8 +668,19 @@ export class Server {
     }
   }
 
-  async warpCreature(creature: Creature, pos: TilePoint) {
+  async warpCreature(creature: Creature, pos: TilePoint, opts: {warpAnimation: boolean}) {
     if (!this.context.map.inBounds(pos)) return;
+
+    if (opts.warpAnimation) {
+      this.broadcastAnimation({
+        name: 'WarpOut',
+        path: [creature.pos],
+      });
+      this.broadcastAnimation({
+        name: 'WarpIn',
+        path: [pos],
+      });
+    }
 
     await this.ensureSectorLoadedForPoint(pos);
     this.moveCreature(creature, pos);
@@ -935,7 +946,7 @@ export class Server {
         });
 
         const player = this.findPlayerForCreature(creature);
-        this.warpCreature(creature, player?.spawnPos || this.getInitialSpawnpos2());
+        this.warpCreature(creature, player?.spawnPos || this.getInitialSpawnpos2(), {warpAnimation: false});
         adjustAttribute(creature, 'life', Math.floor(creature.life.max / 4));
         adjustAttribute(creature, 'stamina', Math.floor(creature.stamina.max / 4));
         adjustAttribute(creature, 'mana', Math.floor(creature.mana.max / 4));
@@ -1714,17 +1725,7 @@ export class Server {
             }
             if (!newPos || !map.inBounds(newPos) || !await map.walkableAsync(newPos)) continue;
 
-            if (playWarpSound) {
-              this.broadcastAnimation({
-                name: 'WarpOut',
-                path: [creature.pos],
-              });
-              this.broadcastAnimation({
-                name: 'WarpIn',
-                path: [newPos],
-              });
-            }
-            await this.warpCreature(creature, newPos);
+            await this.warpCreature(creature, newPos, {warpAnimation: playWarpSound});
           }
         }
       },

@@ -244,7 +244,7 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
           return 'not walkable';
         }
 
-        server.warpCreature(playerConnection.creature, destination);
+        server.warpCreature(playerConnection.creature, destination, {warpAnimation: true});
       },
     },
     warpTo: {
@@ -263,7 +263,7 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
         const pos = server.findNearestWalkableTile({pos: creature2.pos, range: 10});
         if (!pos) return;
 
-        server.warpCreature(creature, pos);
+        server.warpCreature(creature, pos, {warpAnimation: true});
       },
     },
     creature: {
@@ -329,10 +329,16 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
       },
     },
     newPartition: {
-      args: [],
-      do() {
+      args: [
+        {name: 'name', type: 'string'},
+        {name: 'width', type: 'number'},
+        {name: 'height', type: 'number'},
+        {name: 'depth', type: 'number', optional: true},
+      ],
+      do(args: {name: string; width: number; height: number; depth?: number}) {
         const nextPartitionId = Math.max(...server.context.map.partitions.keys()) + 1;
-        const partition = makeBareMap(100, 100, 1);
+        const partition = makeBareMap(args.width, args.height, args.depth || 1);
+        partition.name = args.name;
         server.context.map.addPartition(nextPartitionId, partition);
         server.save().then(() => {
           partition.loaded = true;

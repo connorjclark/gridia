@@ -217,7 +217,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
           </Input>
 
           <button title="Cmd-Z" onClick={() => adminModule.undo()}>Undo</button>
-          <button title="Shift-Cmd-Z"onClick={() => adminModule.redo()}>Redo</button>
+          <button title="Shift-Cmd-Z" onClick={() => adminModule.redo()}>Redo</button>
 
           {TOOLS.map((tool) => {
             return <div
@@ -273,9 +273,64 @@ export function makeAdminWindow(adminModule: AdminModule) {
     }
   }
 
+  class MapsTab extends Component<Props> {
+    render(props: Props) {
+      const [metas, setMetas] = useState<PartitionMeta[] | null>(null);
+      const [destructive, setDestructive] = useState(false);
+
+      function requestMetas() {
+        game.client.connection.sendCommand(CommandBuilder.requestPartitionMetas({})).then((newMetas) => {
+          setMetas(newMetas);
+        });
+      }
+
+      useEffect(() => {
+        requestMetas();
+      });
+
+      if (metas === null) {
+        return <div>
+          loading ...
+        </div>;
+      }
+
+      return <div>
+        <label>
+          DESTRUCTIVE MODE
+          <input type="checkbox" checked={destructive}
+            onChange={(e) => setDestructive((e.target as HTMLInputElement).checked)}></input>
+        </label>
+
+        <div>
+          <button onClick={async () => {
+            // TODO: also add to chatbox.
+            await game.client.connection.sendCommand(CommandBuilder.chat({
+              text: '/newPartition test 100 100',
+            }));
+            requestMetas();
+          }}>New Map</button>
+        </div>
+
+        {metas.map((meta, index) => {
+          return <div class="partition">
+            <div class="partition__name">{meta.name}</div>
+            <div class="partition__size">Width, Height, Depth: {meta.width}, {meta.height}, {meta.depth}</div>
+
+            <button onClick={() => {
+              game.client.connection.sendCommand(CommandBuilder.chat({
+                text: `/warp ${Math.round(meta.width / 2)} ${Math.round(meta.height / 2)} 0 ${index}`,
+              }));
+            }}>Warp</button>
+            {destructive ? <button>Delete</button> : null}
+          </div>;
+        })}
+      </div>;
+    }
+  }
+
   class ScriptsTab extends Component<Props> {
     render(props: Props) {
-      const [scriptStates, setScriptStates] = useState<ScriptState[]|null>(null);
+      const [scriptStates, setScriptStates] = useState<ScriptState[] | null>(null);
 
       useEffect(() => {
         game.client.connection.sendCommand(CommandBuilder.requestScripts({})).then((newScriptStates) => {
@@ -289,9 +344,9 @@ export function makeAdminWindow(adminModule: AdminModule) {
         </div>;
       }
 
-      return <div>
+      return <pre>
         {JSON.stringify(scriptStates, null, 2)}
-      </div>;
+      </pre>;
     }
   }
 
@@ -302,9 +357,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
     },
     maps: {
       label: 'Maps',
-      content: () => {
-        return <div>TODO</div>;
-      },
+      content: MapsTab,
     },
     scripts: {
       label: 'Scripts',

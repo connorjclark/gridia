@@ -9,12 +9,6 @@ import {WorldMap} from '../world-map.js';
 import {ClientConnection} from './client-connection.js';
 import {ScriptConfigStore} from './scripts/script-config-store.js';
 
-interface Meta {
-  nextCreatureId: number;
-  worldDataDefinition: WorldDataDefinition;
-  time: number;
-}
-
 async function readJson(fs: Database, store: string, key: string) {
   const json = await fs.get(store, key);
 
@@ -258,12 +252,7 @@ export class ServerContext extends Context {
   }
 
   protected savePartition(w: number, partition: WorldMapPartition) {
-    const meta = {
-      name: partition.name,
-      width: partition.width,
-      height: partition.height,
-      depth: partition.depth,
-    };
+    const meta = partition.getMeta();
     this.db.addToTransaction(Store.sector, `${w}/meta.json`, JSON.stringify(meta, null, 2));
 
     for (let sx = 0; sx < partition.sectors.length; sx++) {
