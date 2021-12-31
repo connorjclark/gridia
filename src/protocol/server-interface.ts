@@ -697,7 +697,7 @@ export class ServerInterface implements ICommands {
     return Promise.resolve();
   }
 
-  onRequestScripts(server: Server): Promise<Array<{ id: string; config: any; errors: any[] }>> {
+  onAdminRequestScripts(server: Server): Promise<Array<{ id: string; config: any; errors: any[] }>> {
     return Promise.resolve(server.getScriptStates());
   }
 
@@ -774,7 +774,7 @@ export class ServerInterface implements ICommands {
     await server.context.saveAccount(clientConnection.account);
   }
 
-  onRequestPartitionMetas(server: Server, clientConnection: ClientConnection): Promise<PartitionMeta[]> {
+  onAdminRequestPartitionMetas(server: Server, clientConnection: ClientConnection): Promise<PartitionMeta[]> {
     const metas = [...server.context.map.partitions.values()].map((p) => p.getMeta());
     return Promise.resolve(metas);
   }

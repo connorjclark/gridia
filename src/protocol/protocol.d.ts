@@ -16,9 +16,10 @@ type Command<P, R = void> = {
 
 declare namespace Protocol {
   namespace Commands {
+    type AdminRequestPartitionMetas = Command<{}, PartitionMeta[]>;
+    type AdminRequestScripts = Command<{}, ScriptState[]>;
     type AdminSetFloor = Command<TilePoint & { floor: number }>;
     type AdminSetItem = Command<TilePoint & { item?: Item }>;
-    // TODO: start all admin-only commands with Admin*
     type CastSpell = Command<{ id: number; creatureId?: number; pos?: Point4 }>;
     type Chat = Command<{ text: string }>;
     type CloseContainer = Command<{ containerId: string }>;
@@ -44,8 +45,6 @@ declare namespace Protocol {
     type RequestSector = Command<TilePoint>;
     type Use = Command<{ toolIndex: number; location: ItemLocation; usageIndex?: number }>;
     type LearnSkill = Command<{ id: number }>;
-    type RequestScripts = Command<{}, ScriptState[]>;
-    type RequestPartitionMetas = Command<{}, PartitionMeta[]>;
     type ReadItem = Command<{ location: ItemLocation }, { content: string }>;
     type EatItem = Command<{ location: ItemLocation }>;
     type ItemAction = Command<{ type: string; from: ItemLocation; to?: ItemLocation }>;

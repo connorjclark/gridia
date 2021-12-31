@@ -279,7 +279,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
       const [destructive, setDestructive] = useState(false);
 
       function requestMetas() {
-        game.client.connection.sendCommand(CommandBuilder.requestPartitionMetas()).then((newMetas) => {
+        game.client.connection.sendCommand(CommandBuilder.adminRequestPartitionMetas()).then((newMetas) => {
           setMetas(newMetas);
         });
       }
@@ -333,7 +333,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
       const [scriptStates, setScriptStates] = useState<ScriptState[] | null>(null);
 
       useEffect(() => {
-        game.client.connection.sendCommand(CommandBuilder.requestScripts()).then((newScriptStates) => {
+        game.client.connection.sendCommand(CommandBuilder.adminRequestScripts()).then((newScriptStates) => {
           setScriptStates(newScriptStates);
         });
       });
