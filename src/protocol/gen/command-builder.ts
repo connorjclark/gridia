@@ -137,7 +137,7 @@ export function enterWorld({ playerId }: Protocol.Commands.EnterWorld["params"])
 export function login({ firebaseToken }: Protocol.Commands.Login["params"]): LoginCommand {
     return { type: "login", args: arguments[0] };
 }
-export function logout({}: Protocol.Commands.Logout["params"]): LogoutCommand {
+export function logout(): LogoutCommand {
     return { type: "logout", args: arguments[0] };
 }
 export function move({ ...pos }: Protocol.Commands.Move["params"]): MoveCommand {
@@ -167,10 +167,10 @@ export function use({ toolIndex, location, usageIndex }: Protocol.Commands.Use["
 export function learnSkill({ id }: Protocol.Commands.LearnSkill["params"]): LearnSkillCommand {
     return { type: "learnSkill", args: arguments[0] };
 }
-export function requestScripts({}: Protocol.Commands.RequestScripts["params"]): RequestScriptsCommand {
+export function requestScripts(): RequestScriptsCommand {
     return { type: "requestScripts", args: arguments[0] };
 }
-export function requestPartitionMetas({}: Protocol.Commands.RequestPartitionMetas["params"]): RequestPartitionMetasCommand {
+export function requestPartitionMetas(): RequestPartitionMetasCommand {
     return { type: "requestPartitionMetas", args: arguments[0] };
 }
 export function readItem({ location }: Protocol.Commands.ReadItem["params"]): ReadItemCommand {

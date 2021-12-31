@@ -1,7 +1,7 @@
 const fs = require("fs");
 const ts = require("typescript");
 
-/** @typedef {{node: ts.Node, name: ts.Identifier, params: ts.ParameterDeclaration, typeAlias: ts.TypeAliasDeclaration}} MessageDeclaration */
+/** @typedef {{node: ts.Node, name: ts.Identifier, params?: ts.ParameterDeclaration, typeAlias: ts.TypeAliasDeclaration}} MessageDeclaration */
 
 function lowercase(str) {
   return str.charAt(0).toLocaleLowerCase() + str.substr(1);
@@ -216,7 +216,7 @@ function createMessageBuilderFn({ messageDeclaration, typeName }) {
     undefined,
     lowercasedType,
     undefined,
-    [messageDeclaration.params],
+    messageDeclaration.params.name.elements.length ? [messageDeclaration.params] : undefined,
     messageDeclaration.typeAlias.name,
     ts.createBlock([
       ts.createReturn(
