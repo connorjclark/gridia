@@ -1,0 +1,13 @@
+[
+  null,
+  {
+    "id": 1,
+    "name": "Guy",
+    "graphics": {
+      "file": "tileset_1bit_001.png",
+      "frames": [
+        44
+      ]
+    }
+  }
+]

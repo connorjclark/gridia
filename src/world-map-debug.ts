@@ -1,5 +1,5 @@
 import * as Content from './content.js';
-import {mapgen} from './mapgen.js';
+import {makeBareMap, mapgen} from './mapgen.js';
 import {WorldMapPartition} from './world-map-partition.js';
 import {WorldMap} from './world-map.js';
 
@@ -111,7 +111,7 @@ export function createTestPartitions(map: WorldMap) {
   addDebugStuff(testPartition);
 
   // middle defaultMap <-> topleft defaultMap
-  testPartition.getTile({x: Math.floor(width / 2), y: Math.floor(height / 2), z: 0}).item = {
+  testPartition.getTile({x: Math.floor(width / 2), y: Math.floor(height / 2) - 8, z: 0}).item = {
     type: Content.getMetaItemByName('Warp Portal').id,
     quantity: 1,
     warpTo: {w: testPartitionW, x: 1, y: 1, z: 0},
@@ -127,8 +127,18 @@ export function createTestPartitions(map: WorldMap) {
 }
 
 export function createMainWorldMap() {
-  // TODO: standardize naming for map, world map, partiton, etc.
   const world = new WorldMap();
+
+  if (Content.getWorldDataDefinition().baseDir !== 'worlds/rpgwo-world') {
+    world.addPartition(0, makeBareMap(100, 100, 1));
+    return {
+      world,
+      mapGenData: [],
+    };
+  }
+  // TODO: make a creature for 1-bit world
+
+  // TODO: standardize naming for map, world map, partiton, etc.
   const mapGenResult = createTestPartitions(world);
   return {
     world,

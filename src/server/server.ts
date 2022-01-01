@@ -68,32 +68,23 @@ export class Server {
 
   scriptDelegates = {
     onPlayerCreated: (player: Player, playerConnection: PlayerConnection) => {
-      for (const script of this._scripts) {
-        script.onPlayerCreated(player, playerConnection);
-      }
+      // TODO: capture errors
+      this.forStartedScripts((script) => script.onPlayerCreated(player, playerConnection));
     },
     onPlayerEnterWorld: (player: Player, playerConnection: PlayerConnection) => {
-      for (const script of this._scripts) {
-        script.onPlayerEnterWorld(player, playerConnection);
-      }
+      this.forStartedScripts((script) => script.onPlayerEnterWorld(player, playerConnection));
     },
     onPlayerKillCreature: (player: Player, creature: Creature) => {
-      for (const script of this._scripts) {
-        script.onPlayerKillCreature(player, creature);
-      }
+      this.forStartedScripts((script) => script.onPlayerKillCreature(player, creature));
     },
     onPlayerMove: (opts: { playerConnection: PlayerConnection; from: Point4; to: Point4 }) => {
       Object.freeze(opts);
-      for (const script of this._scripts) {
-        script.onPlayerMove(opts);
-      }
+      this.forStartedScripts((script) => script.onPlayerMove(opts));
     },
     onItemAction: (opts:
     { playerConnection: PlayerConnection; type: string; location: ItemLocation; to?: ItemLocation }) => {
       Object.freeze(opts);
-      for (const script of this._scripts) {
-        script.onItemAction(opts);
-      }
+      this.forStartedScripts((script) => script.onItemAction(opts));
     },
   };
 
@@ -682,7 +673,7 @@ export class Server {
     }
   }
 
-  async warpCreature(creature: Creature, pos: TilePoint, opts: {warpAnimation: boolean}) {
+  async warpCreature(creature: Creature, pos: TilePoint, opts: { warpAnimation: boolean }) {
     if (!this.context.map.inBounds(pos)) return;
 
     if (opts.warpAnimation) {
@@ -1120,7 +1111,7 @@ export class Server {
     }));
   }
 
-  findNearest(posOrRegion: {pos: TilePoint; range: number} | {region: Region}, includeTargetLocation: boolean,
+  findNearest(posOrRegion: { pos: TilePoint; range: number } | { region: Region }, includeTargetLocation: boolean,
               predicate: (tile: Tile, pos2: TilePoint) => boolean): TilePoint | null {
     let region;
     if ('pos' in posOrRegion) {
@@ -1139,7 +1130,7 @@ export class Server {
     return this._findNearestImpl(region, includeTargetLocation, predicate);
   }
 
-  findNearestWalkableTile(posOrRegion: {pos: TilePoint; range: number} | {region: Region}): TilePoint | null {
+  findNearestWalkableTile(posOrRegion: { pos: TilePoint; range: number } | { region: Region }): TilePoint | null {
     return this.findNearest(posOrRegion, true, (tile, pos) => {
       return this.context.walkable(pos);
     });
@@ -1618,21 +1609,37 @@ export class Server {
     }
   }
 
+  forStartedScripts(fn: (script: Script<any>) => void) {
+    for (const script of this._scripts) {
+      if (script.state === 'started') fn(script);
+    }
+  }
+
   getScriptStates(): ScriptState[] {
     return this._scripts.map((s) => s.getScriptState());
   }
 
   private async addScript(ScriptClass: new (...args: any) => Script<any>) {
     const script = new ScriptClass(this);
+    this._scripts.push(script);
+    script.state = 'starting';
+
     const errors = script.getScriptState().errors;
     if (errors.length) {
+      script.state = 'failed';
       // TODO: these aren't showing in admin Scripts panel.
+      // TODO: class.name does not survive minification
       console.error(`Failed to add script ${ScriptClass.name}.\n` + JSON.stringify(errors, null, 2));
-    } else {
-      this._scripts.push(script);
-      script.state = 'starting';
+      return;
+    }
+
+    try {
       await script.onStart();
       script.state = 'started';
+    } catch (e: any) {
+      console.error(`Failed to add start script ${ScriptClass.name}.\n` + e.toString());
+      script.state = 'failed';
+      script.addError(e.toString());
     }
   }
 

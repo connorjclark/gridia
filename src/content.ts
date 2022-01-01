@@ -113,10 +113,11 @@ export async function initializeWorldData(worldDataDef_: WorldDataDefinition): P
       loadDataFile('worlds/rpgwo-world/content/skills.json'),
     ]);
   } else if (worldDataDef_.baseDir === 'worlds/bit-world') {
-    [floors, items, itemUses, skills] = await Promise.all([
+    [floors, items, itemUses, monsters, skills] = await Promise.all([
       loadDataFile('worlds/bit-world/content/floors.json'),
       loadDataFile('worlds/bit-world/content/items.json'),
       loadDataFile('worlds/bit-world/content/itemuses.json'),
+      loadDataFile('worlds/bit-world/content/monsters.json'),
       loadDataFile('worlds/rpgwo-world/content/skills.json'),
     ]);
   } else if (worldDataDef_.baseDir === 'worlds/urizen-world') {

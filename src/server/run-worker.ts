@@ -82,7 +82,11 @@ async function listMaps() {
 
 interface GenerateMapArgs {
   worldDataDefinition: WorldDataDefinition;
-  bare: boolean; width: number; height: number; depth: number; seeds: { [id: string]: number };
+  bare: boolean;
+  width: number;
+  height: number;
+  depth: number;
+  seeds: { [id: string]: number };
   canvas?: OffscreenCanvas;
 }
 async function generateMap(args: GenerateMapArgs): Promise<void> {

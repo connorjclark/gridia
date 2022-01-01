@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const esbuild = require("esbuild");
 const {nodeBuiltIns} = require('esbuild-node-builtins');
+const GlobalsPolyfills = require('@esbuild-plugins/node-globals-polyfill').NodeGlobalsPolyfillPlugin;
 
 function copyFileSync(source, target) {
   var targetFile = target;
@@ -58,7 +59,10 @@ async function buildClient({ workerFileName }) {
   const htmlPlugin = (await import('@chialab/esbuild-plugin-html')).default;
 
   await esbuild.build({
-    plugins: [htmlPlugin(), fixPixiBundling],
+    plugins: [
+      htmlPlugin(),
+      fixPixiBundling,
+    ],
     entryPoints: entries,
     entryNames: '[dir]/[name]-[hash]',
     bundle: true,
@@ -87,7 +91,7 @@ async function buildWorker() {
   }
 
   const results = await esbuild.build({
-    plugins: [ignorePlugin, nodeBuiltIns({include: ['events']})],
+    plugins: [ignorePlugin, nodeBuiltIns({include: ['events']}), GlobalsPolyfills({process: true})],
     entryPoints: ['src/server/run-worker.ts'],
     entryNames: '[dir]/[name]-[hash]',
     bundle: true,

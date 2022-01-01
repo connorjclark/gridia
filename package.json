@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "@chialab/esbuild-plugin-html": "^0.12.2",
+    "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
     "@types/d3-delaunay": "^4.1.0",
     "@types/d3-polygon": "^2.0.0",
     "@types/glob": "^7.1.3",

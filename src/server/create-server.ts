@@ -12,8 +12,7 @@ export async function startServer(options: ServerOptions, db: Database) {
 
   let isDbAlreadySetup = false;
   try {
-    const keys = await db.getAllKeysInStore(Store.misc);
-    isDbAlreadySetup = keys.length > 0;
+    isDbAlreadySetup = await db.exists(Store.misc, 'meta.json');
   } catch {
     // Nope.
   }

@@ -41,7 +41,6 @@ export class AdminModule extends ClientModule {
 
   private init() {
     this.window.subscribe((state) => {
-      console.log(state.selected);
       if (state.selected) {
         this.game.client.eventEmitter.emit('editingMode', {enabled: true});
       } else {
