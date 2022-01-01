@@ -38,20 +38,6 @@ async function createMainWorldMap() {
 
   createTestPartitions(map);
 
-  // main world <-> test world
-  const mainWorld = context.map.getPartition(0);
-  const testWorld = context.map.getPartition(numMainPartitions);
-  mainWorld.getTile({x: 40, y: 20, z: 0}).item = {
-    type: Content.getMetaItemByName('Warp Portal').id,
-    quantity: 1,
-    warpTo: {w: numMainPartitions, x: 20, y: 10, z: 0},
-  };
-  testWorld.getTile({x: 20, y: 12, z: 0}).item = {
-    type: Content.getMetaItemByName('Warp Portal').id,
-    quantity: 1,
-    warpTo: {w: 0, x: 40, y: 22, z: 0},
-  };
-
   fs.mkdirSync('server-data', {recursive: true});
   // context.db = new NodeFs('server-data');
   context.db = new LevelDb('server-data');

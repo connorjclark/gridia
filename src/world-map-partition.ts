@@ -138,7 +138,7 @@ export class WorldMapPartition {
   private _loadSector(sectorPoint: PartitionPoint) {
     if (!this.loader) throw new Error('loader not set');
 
-    const key = JSON.stringify(sectorPoint);
+    const key = JSON.stringify({x: sectorPoint.x, y: sectorPoint.y, z: sectorPoint.z});
     let sectorLoadPromise = this._sectorLoadPromises.get(key);
     if (sectorLoadPromise) return sectorLoadPromise;
 

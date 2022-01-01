@@ -625,8 +625,7 @@ export class ServerInterface implements ICommands {
       return;
     }
 
-    // TODO: temporary code until not everyone is an admin.
-    if (Content.getMetaItem(fromItem.type).trapEffect === 'Warp') {
+    if (!clientConnection.player.isAdmin) {
       server.send(EventBuilder.chat({
         section: 'World',
         from: 'World',

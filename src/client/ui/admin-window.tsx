@@ -306,7 +306,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
           <button onClick={async () => {
             // TODO: also add to chatbox.
             await game.client.connection.sendCommand(CommandBuilder.chat({
-              text: '/newPartition test 100 100',
+              text: `/newPartition test ${SECTOR_SIZE} ${SECTOR_SIZE} 1`,
             }));
             requestMetas();
           }}>New Map</button>

@@ -1,5 +1,5 @@
 import * as Content from './content.js';
-import {mapgen, makeBareMap} from './mapgen.js';
+import {mapgen} from './mapgen.js';
 import {WorldMapPartition} from './world-map-partition.js';
 import {WorldMap} from './world-map.js';
 
@@ -106,10 +106,6 @@ export function createTestPartitions(map: WorldMap) {
 
   addDebugStuff(testPartition);
 
-  const smallPartition = makeBareMap(20, 20, 1);
-  const smallPartitionW = map.partitions.size;
-  map.addPartition(smallPartitionW, smallPartition);
-
   // middle defaultMap <-> topleft defaultMap
   testPartition.getTile({x: Math.floor(width / 2), y: Math.floor(height / 2), z: 0}).item = {
     type: Content.getMetaItemByName('Warp Portal').id,
@@ -121,18 +117,6 @@ export function createTestPartitions(map: WorldMap) {
     type: Content.getMetaItemByName('Warp Portal').id,
     quantity: 1,
     warpTo: {w: testPartitionW, x: Math.floor(width / 2), y: Math.floor(height / 2) - 1, z: 0},
-  };
-
-  // defaultMap <-> smallMap
-  testPartition.getTile({x: 7, y: 5, z: 0}).item = {
-    type: Content.getMetaItemByName('Warp Portal').id,
-    quantity: 1,
-    warpTo: {w: smallPartitionW, x: 5, y: 5, z: 0},
-  };
-  smallPartition.getTile({x: 7, y: 5, z: 0}).item = {
-    type: Content.getMetaItemByName('Warp Portal').id,
-    quantity: 1,
-    warpTo: {w: testPartitionW, x: 9, y: 12, z: 0},
   };
 
   return testMapResult.mapGenResult;

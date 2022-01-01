@@ -17,6 +17,7 @@ import {Script} from './script.js';
 import {BallScript} from './scripts/ball-script.js';
 import {BasicScript} from './scripts/basic-script.js';
 import {DogScript} from './scripts/dog-script.js';
+import {HubWorldScript} from './scripts/hub-world-script.js';
 import {ServerContext} from './server-context.js';
 import {TaskRunner} from './task-runner.js';
 
@@ -99,7 +100,18 @@ export class Server {
   constructor(opts: CtorOpts) {
     this.context = opts.context;
     this.verbose = opts.verbose;
+  }
+
+  async init() {
+    await this.loadScripts();
     this.setupTickSections();
+  }
+
+  private async loadScripts() {
+    await this.addScript(BasicScript);
+    await this.addScript(BallScript);
+    await this.addScript(DogScript);
+    await this.addScript(HubWorldScript);
   }
 
   addClientConnection(clientConnection: ClientConnection) {
@@ -685,6 +697,9 @@ export class Server {
     }
 
     await this.ensureSectorLoadedForPoint(pos);
+    // TODO: this could be abused ... instead, should make it possible for
+    // multiple creatures to be in the same location.
+    pos = this.findNearestWalkableTile({pos, range: 5}) || pos;
     this.moveCreature(creature, pos);
     this.creatureStates[creature.id].warped = true;
     this.creatureStates[creature.id].path = [];
@@ -1607,7 +1622,7 @@ export class Server {
     return this._scripts.map((s) => s.getScriptState());
   }
 
-  private addScript(ScriptClass: new (...args: any) => Script<any>) {
+  private async addScript(ScriptClass: new (...args: any) => Script<any>) {
     const script = new ScriptClass(this);
     const errors = script.getScriptState().errors;
     if (errors.length) {
@@ -1615,7 +1630,8 @@ export class Server {
       console.error(`Failed to add script ${ScriptClass.name}.\n` + JSON.stringify(errors, null, 2));
     } else {
       this._scripts.push(script);
-      script.onStart();
+      script.state = 'starting';
+      await script.onStart();
       script.state = 'started';
     }
   }
@@ -1628,10 +1644,6 @@ export class Server {
         this.context.syncCreaturesOnTiles();
       },
     });
-
-    this.addScript(BasicScript);
-    this.addScript(BallScript);
-    this.addScript(DogScript);
 
     this.taskRunner.registerTickSection({
       description: 'scripts',
@@ -1734,7 +1746,7 @@ export class Server {
               newPos = {...item.warpTo};
               playWarpSound = true;
             }
-            if (!newPos || !map.inBounds(newPos) || !await map.walkableAsync(newPos)) continue;
+            if (!newPos || !map.inBounds(newPos)) continue;
 
             await this.warpCreature(creature, newPos, {warpAnimation: playWarpSound});
           }

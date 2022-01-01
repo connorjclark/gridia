@@ -29,6 +29,10 @@ export class WorldMap {
     return partition;
   }
 
+  getPartitionByName(name: string) {
+    return [...this.partitions.values()].find((p) => p.name === name);
+  }
+
   getPartitions() {
     return this.partitions;
   }
