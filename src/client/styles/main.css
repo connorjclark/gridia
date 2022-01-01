@@ -39,14 +39,14 @@ button {
   margin: 5px;
 }
 
-.scene.start {
+.scene--start {
   background-size: 32px 32px;
   background-image: linear-gradient(to right, grey 1px, transparent 1px), linear-gradient(to bottom, grey 1px, transparent 1px);
 }
 .start__ui {
   background-color: #a9a9a97a;
 }
-.start--connect-btn {
+.start-scene__button--connect {
   width: 100%;
 }
 
@@ -233,12 +233,12 @@ button {
   background-color: lightgray;
 }
 
-.generate--input-form,
-.generate--input-form input {
+.scene-map-select__form,
+.scene-map-select__form input {
   margin: 10px;
 }
 
-.generate--preview {
+.scene-map-select__preview {
   overflow: scroll;
   width: 400px;
   height: 400px;
@@ -252,15 +252,15 @@ button {
   border-bottom: 1px solid black;
 }
 
-.map-list {
+.scene-map-select__map-list {
   list-style-type: none;
   overflow-y: scroll;
   max-height: 20vh;
 }
-.map-list--item {
+.scene-map-select__map-list--item {
   margin: 20px;
 }
-.map-list--item:hover {
+.scene-map-select__map-list--item:hover {
   background-color: #cccca9;
 }
 

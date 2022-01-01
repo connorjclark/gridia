@@ -15,10 +15,10 @@ class StartScene extends Scene {
   private serverLocationInput: HTMLInputElement;
 
   constructor(private controller: SceneController) {
-    super(Helper.find('.start'));
-    this.localBtn = Helper.find('.start--local-btn', this.element);
-    this.connectBtn = Helper.find('.start--connect-btn', this.element);
-    this.serverLocationInput = Helper.find('#start--server-location', this.element) as HTMLInputElement;
+    super(Helper.find('.start-scene'));
+    this.localBtn = Helper.find('.start-scene__button--local', this.element);
+    this.connectBtn = Helper.find('.start-scene__button--connect', this.element);
+    this.serverLocationInput = Helper.find('#start-scene__input--server-location', this.element) as HTMLInputElement;
     this.onClickLocalBtn = this.onClickLocalBtn.bind(this);
     this.onClickConnectBtn = this.onClickConnectBtn.bind(this);
 

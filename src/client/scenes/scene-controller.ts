@@ -21,7 +21,7 @@ export class SceneController {
   private scenes: Scene[] = [];
   private client_: Client | null = null;
   private serverWorker_: ServerWorker | null = null;
-  private backBtn_ = Helper.find('.scene-controller--back-btn');
+  private backBtn_ = Helper.find('.scene-controller__button--back');
   qs = parseQuery(window.location.search);
 
   constructor() {

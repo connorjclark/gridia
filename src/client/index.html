@@ -18,41 +18,41 @@
 
 <body>
   <div class="scene-controller hidden">
-    <button class="scene-controller--back-btn hidden">Back</button>
+    <button class="scene-controller__button--back hidden">Back</button>
   </div>
 
-  <div class="scene start hidden">
+  <div class="scene start-scene hidden">
     <div class="flex flex-column items-center">
       <h1 class="game-title">Gridia</h1>
   
-      <div class="start__ui flex flex-column align-items-center">
+      <div class="start-scene__ui flex flex-column align-items-center">
         <div>
-          <button class="blue start--connect-btn">Join Server</button>
+          <button class="blue start-scene__button--connect">Join Server</button>
           <div>
-            <label for="start--server-location">Server</label>
-            <input type="text" name="server-location" id="start--server-location"></label>
+            <label for="start-scene__input--server-location">Server</label>
+            <input type="text" name="server-location" id="start-scene__input--server-location"></label>
           </div>
         </div>
 
         <div>
-          <button class="start--local-btn">Single Player</button>
+          <button class="start-scene__button--local">Single Player</button>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="scene map-select hidden">
+  <div class="scene scene-map-select hidden">
     <div class="flex flex-column items-center">
       <h1>Existing worlds</h1>
-      <ul class="map-list"></ul>
+      <ul class="scene-map-select__map-list"></ul>
       
       <h1>New world</h1>
-      <div class="generate flex flex-column items-center">
+      <div class="flex flex-column items-center">
         <div class="flex">
-          <div class="generate--preview"></div>
-          <div class="generate--input-form"></div>
+          <div class="scene-map-select__preview"></div>
+          <div class="scene-map-select__form"></div>
         </div>
-        <button class="blue generate--select-btn">Select</button>
+        <button class="scene-map-select__button--select blue">Select</button>
       </div>
     </div>
   </div>

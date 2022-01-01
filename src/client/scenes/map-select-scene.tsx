@@ -194,11 +194,11 @@ export class MapSelectScene extends Scene {
   private loadingPreviewName = '';
 
   constructor(private controller: SceneController) {
-    super(Helper.find('.map-select'));
-    this.mapListEl = Helper.find('.map-list');
-    this.selectBtn = Helper.find('.generate--select-btn', this.element);
-    this.previewEl = Helper.find('.generate--preview', this.element);
-    this.inputFormEl = Helper.find('.generate--input-form', this.element);
+    super(Helper.find('.scene-map-select'));
+    this.mapListEl = Helper.find('.scene-map-select__map-list');
+    this.selectBtn = Helper.find('.scene-map-select__button--select', this.element);
+    this.previewEl = Helper.find('.scene-map-select__preview', this.element);
+    this.inputFormEl = Helper.find('.scene-map-select__form', this.element);
     this.generateMap = this.generateMap.bind(this);
     this.onClickSelectBtn = this.onClickSelectBtn.bind(this);
     this.onSelectMap = this.onSelectMap.bind(this);
@@ -227,7 +227,7 @@ export class MapSelectScene extends Scene {
     const mapNames = await this.controller.getMapNames();
     for (const name of mapNames) {
       const mapEl = document.createElement('li');
-      mapEl.classList.add('map-list--item');
+      mapEl.classList.add('scene-map-select__map-list--item');
       mapEl.setAttribute('data-name', name);
       mapEl.innerText = name;
       this.mapListEl.append(mapEl);
