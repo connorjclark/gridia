@@ -163,7 +163,10 @@ export const Graphic = (props: GraphicProps) => {
     };
   }
 
-  return <div class="graphic" style={style} title={props.title}>{label}</div>;
+  const optionalProps: any = {};
+  if (props.title) optionalProps.title = props.title;
+
+  return <div class="graphic" style={style} {...optionalProps}>{label}</div>;
 };
 
 export const ItemGraphic = (props: {item: Item; showLabel?: boolean}) => {

@@ -1,4 +1,3 @@
-import linkState from 'linkstate';
 import {render, h, Component} from 'preact';
 import {useEffect, useState} from 'preact/hooks';
 
@@ -19,7 +18,6 @@ export interface State {
   selected?: { type: SelectionType; id: number };
   selectionFilter: {
     itemClass: string;
-    text: string;
   };
   tool: Tool;
   safeMode: boolean;
@@ -27,7 +25,6 @@ export interface State {
 const initialState: State = {
   selectionFilter: {
     itemClass: '',
-    text: '',
   },
   tool: 'point',
   safeMode: true,
@@ -175,12 +172,14 @@ export function makeAdminWindow(adminModule: AdminModule) {
     }
 
     render(props: Props) {
+      const [filterText, setFilterText] = useState('');
+
       const FilterMenuItems = selectionFilters.map((filter) => {
         let length = 0;
         if (filter.type === 'floors') {
           length = Content.getFloors().length;
         } else {
-          const metaItems = filterMetaItems(filter.value, props.selectionFilter.text);
+          const metaItems = filterMetaItems(filter.value, filterText);
           length = metaItems.length;
         }
 
@@ -200,7 +199,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
       const isFloors = props.selectionFilter.itemClass === 'Floors';
       const filteredItems = isFloors ?
         Content.getFloors() :
-        filterMetaItems(props.selectionFilter.itemClass, props.selectionFilter.text);
+        filterMetaItems(props.selectionFilter.itemClass, filterText);
 
       const renderSelections = isFloors ? this.renderFloorSelections : this.renderItemSelections;
 
@@ -212,8 +211,8 @@ export function makeAdminWindow(adminModule: AdminModule) {
           <Input
             name="textFilter"
             type={'text'}
-            onInput={linkState(this, 'selectionFilter.text')}
-            value={props.selectionFilter.text}>
+            onInput={(e: any) => setFilterText(e.target.value)}
+            value={filterText}>
             Name Filter
           </Input>
 
