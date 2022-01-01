@@ -11,6 +11,10 @@ function addDebugStuff(map: WorldMapPartition) {
     for (let y = 0; y < map.height; y++) {
       let item;
 
+      if (Math.abs(x - map.width / 2) <= 5 || Math.abs(y - map.height / 2) <= 5) {
+        continue;
+      }
+
       if (x === y) {
         item = {
           type: treeType,
@@ -46,7 +50,7 @@ function addDebugStuff(map: WorldMapPartition) {
     .sort(([_, a], [__, b]) => b.length - a.length)
     .slice(0, 30);
   for (const [tool, uses] of itemUsesSample) {
-    const startX = 25;
+    const startX = 20;
     const y = i * 3;
     map.getTile({x: startX, y, z: 0}).item = {type: tool, quantity: 1};
     const focusItems = [...new Set(uses.map((u) => u.focus))];

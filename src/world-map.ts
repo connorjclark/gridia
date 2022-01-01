@@ -30,7 +30,7 @@ export class WorldMap {
   }
 
   getPartitionByName(name: string) {
-    return [...this.partitions.values()].find((p) => p.name === name);
+    return [...this.partitions.entries()].find(([, p]) => p.name === name);
   }
 
   getPartitions() {

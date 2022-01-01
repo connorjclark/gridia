@@ -1,6 +1,5 @@
 import {SECTOR_SIZE} from '../../constants.js';
 import * as Content from '../../content.js';
-import {PlayerConnection} from '../client-connection.js';
 import {Script} from '../script.js';
 import {Server} from '../server.js';
 
@@ -11,11 +10,8 @@ export class HubWorldScript extends Script<{}> {
 
   async onStart() {
     const floor = 10;
-    const hubWorldPartition = this.server.context.map.getPartitionByName('Hub World');
-    if (!hubWorldPartition) throw new Error('missing Hub World partition');
-
-    // TODO: :(
-    const hubWorldW = [...this.server.context.map.partitions.values()].indexOf(hubWorldPartition);
+    const [hubWorldW, hubWorldPartition] = this.server.context.map.getPartitionByName('Hub World') || [];
+    if (!hubWorldPartition || hubWorldW === undefined) throw new Error('missing Hub World partition');
 
     await hubWorldPartition.getSectorAsync({x: 0, y: 0, z: 0});
 
@@ -27,6 +23,7 @@ export class HubWorldScript extends Script<{}> {
         }
       }
     }
+    warpPositions.reverse();
 
     for (const [w, partition] of this.server.context.map.getPartitions()) {
       if (partition === hubWorldPartition) continue;
@@ -34,7 +31,6 @@ export class HubWorldScript extends Script<{}> {
       const warpFromPos = warpPositions.pop();
       if (!warpFromPos) throw new Error('ran out of warp positions');
 
-      console.log({w}, !!partition);
       const warpToPos = {
         w,
         x: Math.floor(partition.width / 2),
@@ -54,13 +50,18 @@ export class HubWorldScript extends Script<{}> {
       });
 
       await this.server.ensureSectorLoadedForPoint(warpToPos);
-
       this.server.setFloor(warpToPos, floor);
       this.server.setItemInWorld(warpToPos, {
         type: Content.getMetaItemByName('Warp Portal').id,
         quantity: 1,
-        warpTo: warpFromPos,
+        warpTo: {
+          w: hubWorldW,
+          x: Math.floor(hubWorldPartition.width / 2),
+          y: Math.floor(hubWorldPartition.height / 2),
+          z: 0,
+        },
       });
+      await this.server.ensureSectorLoadedForPoint({...warpToPos, y: warpToPos.y - 1});
       this.server.setItemInWorld({...warpToPos, y: warpToPos.y - 1}, {
         type: Content.getMetaItemByName('Small Sign').id,
         quantity: 1,

@@ -49,6 +49,7 @@ export async function startServer(options: ServerOptions, db: Database) {
   await server.init();
 
   if (server.context.worldDataDefinition.baseDir === 'worlds/rpgwo-world') {
+    const thunderDomeW = context.map.getPartitionByName('Thunder Dome')?.[0] || 0;
     server.taskRunner.registerTickSection({
       description: 'random monsters',
       rate: {seconds: 1},
@@ -57,7 +58,7 @@ export async function startServer(options: ServerOptions, db: Database) {
           if (Object.keys(server.creatureStates).length < 10) {
             const x = Utils.randInt(width / 2 - 5, width / 2 + 5);
             const y = Utils.randInt(height / 2 - 5, height / 2 + 5);
-            const pos = {w: 2, x, y, z: 0};
+            const pos = {w: thunderDomeW, x, y, z: 0};
             const monster = Content.getRandomMonsterTemplate();
             if (monster && server.context.walkable(pos)) {
               server.createCreature({type: monster.id}, pos);
