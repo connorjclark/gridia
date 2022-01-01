@@ -340,6 +340,10 @@ export function getMonsterTemplate(id: number) {
   return data.monsters[id];
 }
 
+export function getMonsterTemplates() {
+  return data.monsters;
+}
+
 export function getRandomMonsterTemplate() {
   const id = randInt(0, data.monsters.length - 1);
   return data.monsters[id];

@@ -18,6 +18,7 @@ import {BallScript} from './scripts/ball-script.js';
 import {BasicScript} from './scripts/basic-script.js';
 import {DogScript} from './scripts/dog-script.js';
 import {HubWorldScript} from './scripts/hub-world-script.js';
+import {ThunderDomeScript} from './scripts/thunder-dome-script.js';
 import {ServerContext} from './server-context.js';
 import {TaskRunner} from './task-runner.js';
 
@@ -81,6 +82,7 @@ export class Server {
     await this.scriptManager.addScript(BallScript);
     await this.scriptManager.addScript(DogScript);
     await this.scriptManager.addScript(HubWorldScript);
+    await this.scriptManager.addScript(ThunderDomeScript);
   }
 
   addClientConnection(clientConnection: ClientConnection) {
