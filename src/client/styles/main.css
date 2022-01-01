@@ -39,6 +39,13 @@ button {
   margin: 5px;
 }
 
+.scene.start {
+  background-size: 32px 32px;
+  background-image: linear-gradient(to right, grey 1px, transparent 1px), linear-gradient(to bottom, grey 1px, transparent 1px);
+}
+.start__ui {
+  background-color: #a9a9a97a;
+}
 .start--connect-btn {
   width: 100%;
 }
