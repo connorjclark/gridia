@@ -1240,7 +1240,7 @@ export class Server {
   updateCreatureLight(playerConnection: PlayerConnection) {
     const light = playerConnection.container.items.reduce((acc, cur) => {
       if (!cur) return acc;
-      return Math.max(acc, Content.getMetaItem(cur.type).light);
+      return Math.max(acc, Content.getMetaItem(cur.type).light || 0);
     }, 0);
     if (light === playerConnection.creature.light) return;
 

@@ -133,8 +133,6 @@ export async function initializeWorldData(worldDataDef_: WorldDataDefinition): P
         burden: 0,
         stackable: false,
         moveable: true,
-        light: 0,
-        blocksLight: false,
         rarity: 0,
         ...item,
       });
@@ -173,7 +171,6 @@ export async function initializeWorldData(worldDataDef_: WorldDataDefinition): P
       name: 'Unknown',
       burden: 0,
       blocksMovement: true,
-      light: 0,
       moveable: true,
       stackable: false,
     };

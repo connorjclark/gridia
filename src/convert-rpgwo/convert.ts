@@ -150,7 +150,6 @@ function parseItemsIni() {
     moveable: true,
     rarity: 1,
     stackable: false,
-    light: 0,
   };
   const items = [];
 
@@ -234,6 +233,8 @@ function parseItemsIni() {
 
     item.growthItem = item.growthItem || item.degradeItem;
     item.growthDelta = item.growthDelta || item.degradeDelta;
+
+    if (!item.blocksLight) delete item.blocksLight;
   }
 
   for (const item of items) {
@@ -708,10 +709,8 @@ function convertItems() {
       },
       class: 'Normal',
       burden: 0,
-      light: 0,
       moveable: true,
       stackable: false,
-      blocksLight: false,
     },
     ...parseItemsIni(),
   ];

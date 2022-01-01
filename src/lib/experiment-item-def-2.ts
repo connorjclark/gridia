@@ -41,7 +41,6 @@ function item(partial: ItemOpts) {
     class: 'Normal' as const,
     burden: 1,
     rarity: 1,
-    light: 0,
     stackable: true,
     moveable: true,
     blocksLight: false,

@@ -68,13 +68,11 @@ function makeAssetsFromOryx16Bit() {
     "id": 0,
     "name": "Nothing",
     "class": "Normal",
-    "blocksLight": false,
     "burden": 0,
     "graphics": {
       "file": "",
       "frames": []
     },
-    "light": 0,
     "moveable": true,
     "stackable": false,
   });

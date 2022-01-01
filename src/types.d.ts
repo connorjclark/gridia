@@ -270,8 +270,8 @@ interface MetaItem {
   growthDelta?: number;
   growthItem?: number;
   moveable: boolean;
-  light: number;
-  blocksLight: boolean;
+  light?: number;
+  blocksLight?: boolean;
   rarity: number;
   stackable: boolean;
   blocksMovement?: boolean;
