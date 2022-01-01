@@ -13,7 +13,7 @@ import {WorldMapPartition} from '../world-map-partition.js';
 import {ClientConnection, PlayerConnection} from './client-connection.js';
 import {CreatureState} from './creature-state.js';
 import {adjustAttribute, attributeCheck} from './creature-utils.js';
-import {Script} from './script.js';
+import {ScriptManager} from './script-manager.js';
 import {BallScript} from './scripts/ball-script.js';
 import {BasicScript} from './scripts/basic-script.js';
 import {DogScript} from './scripts/dog-script.js';
@@ -61,31 +61,10 @@ export class Server {
 
   verbose: boolean;
   taskRunner = new TaskRunner(50);
+  scriptManager = new ScriptManager(this);
 
   private _serverInterface = new ServerInterface();
-  private _scripts: Array<Script<any>> = [];
   private _quests: Quest[] = [];
-
-  scriptDelegates = {
-    onPlayerCreated: (player: Player, playerConnection: PlayerConnection) => {
-      this.forStartedScripts((script) => script.onPlayerCreated(player, playerConnection));
-    },
-    onPlayerEnterWorld: (player: Player, playerConnection: PlayerConnection) => {
-      this.forStartedScripts((script) => script.onPlayerEnterWorld(player, playerConnection));
-    },
-    onPlayerKillCreature: (player: Player, creature: Creature) => {
-      this.forStartedScripts((script) => script.onPlayerKillCreature(player, creature));
-    },
-    onPlayerMove: (opts: { playerConnection: PlayerConnection; from: Point4; to: Point4 }) => {
-      Object.freeze(opts);
-      this.forStartedScripts((script) => script.onPlayerMove(opts));
-    },
-    onItemAction: (opts:
-    { playerConnection: PlayerConnection; type: string; location: ItemLocation; to?: ItemLocation }) => {
-      Object.freeze(opts);
-      this.forStartedScripts((script) => script.onItemAction(opts));
-    },
-  };
 
   constructor(opts: CtorOpts) {
     this.context = opts.context;
@@ -98,10 +77,10 @@ export class Server {
   }
 
   private async loadScripts() {
-    await this.addScript(BasicScript);
-    await this.addScript(BallScript);
-    await this.addScript(DogScript);
-    await this.addScript(HubWorldScript);
+    await this.scriptManager.addScript(BasicScript);
+    await this.scriptManager.addScript(BallScript);
+    await this.scriptManager.addScript(DogScript);
+    await this.scriptManager.addScript(HubWorldScript);
   }
 
   addClientConnection(clientConnection: ClientConnection) {
@@ -492,9 +471,9 @@ export class Server {
     player.loggedIn = true;
 
     if (opts.justCreated) {
-      this.scriptDelegates.onPlayerCreated(player, clientConnection);
+      this.scriptManager.delegates.onPlayerCreated(player, clientConnection);
     }
-    this.scriptDelegates.onPlayerEnterWorld(player, clientConnection);
+    this.scriptManager.delegates.onPlayerEnterWorld(player, clientConnection);
   }
 
   getClientConnectionForCreature(creature: Creature) {
@@ -966,7 +945,7 @@ export class Server {
       if (actor?.isPlayer) {
         const player = this.findPlayerForCreature(actor);
         if (player) {
-          this.scriptDelegates.onPlayerKillCreature(player, creature);
+          this.scriptManager.delegates.onPlayerKillCreature(player, creature);
         }
       }
 
@@ -1608,41 +1587,6 @@ export class Server {
     }
   }
 
-  forStartedScripts(fn: (script: Script<any>) => Promise<any> | void) {
-    for (const script of this._scripts) {
-      if (script.state === 'started') script.tryCatchFn(() => fn(script));
-    }
-  }
-
-  getScriptStates(): ScriptState[] {
-    return this._scripts.map((s) => s.getScriptState());
-  }
-
-  private async addScript(ScriptClass: new (...args: any) => Script<any>) {
-    const script = new ScriptClass(this);
-    this._scripts.push(script);
-    script.state = 'starting';
-
-    const errors = script.getScriptState().errors;
-    if (errors.length) {
-      script.state = 'failed';
-      // TODO: these aren't showing in admin Scripts panel.
-      // TODO: class.name does not survive minification
-      console.error(`Failed to add script ${ScriptClass.name}\n` + JSON.stringify(errors, null, 2));
-      return;
-    }
-
-    try {
-      await script.onStart();
-      script.state = 'started';
-    } catch (e: any) {
-      script.state = 'failed';
-      console.error(`Failed to start script ${ScriptClass.name}`);
-      console.error(e);
-      script.addError(e);
-    }
-  }
-
   private setupTickSections() {
     // super lame.
     this.taskRunner.registerTickSection({
@@ -1654,13 +1598,7 @@ export class Server {
 
     this.taskRunner.registerTickSection({
       description: 'scripts',
-      fn: async () => {
-        for (const script of this._scripts) {
-          if (script.state === 'started') {
-            await script.tryCatchFn(() => script.tick());
-          }
-        }
-      },
+      fn: () => this.scriptManager.tick(),
     });
 
     this.taskRunner.registerTickSection({

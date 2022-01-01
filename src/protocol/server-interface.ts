@@ -53,7 +53,7 @@ export class ServerInterface implements ICommands {
 
     if (!server.context.walkable(pos)) return Promise.reject('not walkable');
 
-    server.scriptDelegates.onPlayerMove({playerConnection: clientConnection, from: creature.pos, to: pos});
+    server.scriptManager.delegates.onPlayerMove({playerConnection: clientConnection, from: creature.pos, to: pos});
 
     // if (!server.inView(pos)) {
     //   return false
@@ -697,7 +697,7 @@ export class ServerInterface implements ICommands {
   }
 
   onAdminRequestScripts(server: Server): Promise<Array<{ id: string; config: any; errors: any[] }>> {
-    return Promise.resolve(server.getScriptStates());
+    return Promise.resolve(server.scriptManager.getScriptStates());
   }
 
   async onChat(server: Server, clientConnection: ClientConnection, {text}: Commands.Chat['params']): Promise<Commands.Chat['response']> {
@@ -763,7 +763,7 @@ export class ServerInterface implements ICommands {
       return;
     }
 
-    server.scriptDelegates.onItemAction({playerConnection: clientConnection, type, location: from, to});
+    server.scriptManager.delegates.onItemAction({playerConnection: clientConnection, type, location: from, to});
   }
 
   async onSaveSettings(server: Server, clientConnection: ClientConnection, {settings}: Commands.SaveSettings['params']): Promise<Commands.SaveSettings['response']> {
