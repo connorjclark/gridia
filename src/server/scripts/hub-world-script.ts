@@ -1,5 +1,6 @@
 import {SECTOR_SIZE} from '../../constants.js';
 import * as Content from '../../content.js';
+import {WorldMapPartition} from '../../world-map-partition.js';
 import {Script} from '../script.js';
 import {Server} from '../server.js';
 
@@ -9,29 +10,39 @@ export class HubWorldScript extends Script<{}> {
   }
 
   async onStart() {
+    async function findWarpPositions(w: number, partition: WorldMapPartition) {
+      for (let sx = 0; sx < partition.width / SECTOR_SIZE; sx++) {
+        for (let sy = 0; sy < partition.height / SECTOR_SIZE; sy++) {
+          await partition.getSectorAsync({x: sx, y: sy, z: 0});
+        }
+      }
+
+      const warpPositions = [];
+      for (let x = 0; x < SECTOR_SIZE; x++) {
+        for (let y = 0; y < SECTOR_SIZE; y++) {
+          if (partition.getTile({x, y, z: 0}).floor === floor) {
+            warpPositions.push({w, x, y, z: 0});
+          }
+        }
+      }
+
+      warpPositions.reverse();
+      return warpPositions;
+    }
+
     const floor = 10;
     const [hubWorldW, hubWorldPartition] = this.server.context.map.getPartitionByName('Hub World') || [];
     if (!hubWorldPartition || hubWorldW === undefined) throw new Error('missing Hub World partition');
 
-    await hubWorldPartition.getSectorAsync({x: 0, y: 0, z: 0});
-
-    const warpPositions = [];
-    for (let x = 0; x < SECTOR_SIZE; x++) {
-      for (let y = 0; y < SECTOR_SIZE; y++) {
-        if (hubWorldPartition.getTile({x, y, z: 0}).floor === floor) {
-          warpPositions.push({w: hubWorldW, x, y, z: 0});
-        }
-      }
-    }
-    warpPositions.reverse();
+    const hubWorldWarpPositions = await findWarpPositions(hubWorldW, hubWorldPartition);
 
     for (const [w, partition] of this.server.context.map.getPartitions()) {
       if (partition === hubWorldPartition) continue;
 
-      const warpFromPos = warpPositions.pop();
+      const warpFromPos = hubWorldWarpPositions.pop();
       if (!warpFromPos) throw new Error('ran out of warp positions');
 
-      const warpToPos = {
+      const warpToPos = (await findWarpPositions(w, partition))[0] || {
         w,
         x: Math.floor(partition.width / 2),
         y: Math.floor(partition.height / 2),

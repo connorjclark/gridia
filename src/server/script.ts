@@ -60,8 +60,12 @@ export abstract class Script<C extends ConfigDefinition> {
     this.errors = result.errors;
   }
 
-  addError(text: string) {
-    this.errors.push({error: text});
+  addError(error: Error | string) {
+    if (typeof error === 'string') {
+      this.errors.push({text: error});
+    } else {
+      this.errors.push({text: error.toString(), error});
+    }
 
     // not super great, but maybe ok to do this?
     if (this.errors.length >= 20) {
@@ -109,7 +113,7 @@ export abstract class Script<C extends ConfigDefinition> {
     try {
       await fn();
     } catch (e: any) {
-      this.addError(e.toString());
+      this.addError(e);
     }
   }
 

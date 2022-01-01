@@ -1628,7 +1628,7 @@ export class Server {
       script.state = 'failed';
       // TODO: these aren't showing in admin Scripts panel.
       // TODO: class.name does not survive minification
-      console.error(`Failed to add script ${ScriptClass.name}.\n` + JSON.stringify(errors, null, 2));
+      console.error(`Failed to add script ${ScriptClass.name}\n` + JSON.stringify(errors, null, 2));
       return;
     }
 
@@ -1636,9 +1636,10 @@ export class Server {
       await script.onStart();
       script.state = 'started';
     } catch (e: any) {
-      console.error(`Failed to add start script ${ScriptClass.name}.\n` + e.toString());
       script.state = 'failed';
-      script.addError(e.toString());
+      console.error(`Failed to start script ${ScriptClass.name}`);
+      console.error(e);
+      script.addError(e);
     }
   }
 
