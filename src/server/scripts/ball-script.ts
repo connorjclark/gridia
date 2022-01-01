@@ -52,13 +52,14 @@ const FetchAction: Action = {
 
 export class BallScript extends Script<{}> {
   private activeKicks: Kick[] = [];
+  private tickSection: any;
 
   constructor(protected server: Server) {
     super('ball', server, {});
   }
 
   onStart() {
-    this.server.taskRunner.registerTickSection({
+    this.tickSection = this.server.taskRunner.registerTickSection({
       description: 'ball script',
       rate: {ms: 75},
       fn: () => {
@@ -99,6 +100,10 @@ export class BallScript extends Script<{}> {
         }
       },
     });
+  }
+
+  onStop() {
+    if (this.tickSection) this.server.taskRunner.unregisterTickSection(this.tickSection);
   }
 
   onPlayerMove(opts: {playerConnection: PlayerConnection; from: Point4; to: Point4}) {

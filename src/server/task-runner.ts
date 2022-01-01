@@ -71,6 +71,12 @@ export class TaskRunner {
 
   registerTickSection(section: TickSection) {
     this.tickSections.push(section);
+    return section;
+  }
+
+  unregisterTickSection(section: TickSection) {
+    const index = this.tickSections.indexOf(section);
+    if (index !== undefined) this.tickSections.splice(index, 1);
   }
 
   registerForNextTick(options: Exclude<TickSection, 'rate'>) {

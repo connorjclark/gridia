@@ -86,6 +86,10 @@ export abstract class Script<C extends ConfigDefinition> {
     // Can override.
   }
 
+  onStop(): Promise<void> | void {
+    // Can override.
+  }
+
   onTick(): Promise<void> | void {
     // Can override.
   }

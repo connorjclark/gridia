@@ -31,7 +31,12 @@ export class ScriptManager {
   }
 
   tick() {
-    return this.forRunningScripts((script) => script.tick());
+    return this.forRunningScripts(async (script) => {
+      await script.tick();
+      if (script.state === 'failed') {
+        await script.onStop();
+      }
+    });
   }
 
   getScriptStates(): ScriptState[] {
