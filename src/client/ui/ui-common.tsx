@@ -122,6 +122,8 @@ interface GraphicProps {
   title?: string;
 }
 export const Graphic = (props: GraphicProps) => {
+  if (!props.file) return <div class="graphic"></div>;
+
   const baseDir = Content.getBaseDir();
   const templateImageSrc = `${baseDir}/graphics/${props.file}`;
   const [image, status] = useImage(templateImageSrc);

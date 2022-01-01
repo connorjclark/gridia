@@ -4,10 +4,8 @@
     "name": "Nothing",
     "class": "Normal",
     "graphics": {
-      "file": "tileset_1bit_001.png",
-      "frames": [
-        63
-      ]
+      "file": "",
+      "frames": []
     },
     "burden": 0,
     "stackable": false,

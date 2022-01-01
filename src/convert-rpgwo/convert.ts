@@ -910,6 +910,9 @@ function convertFloors() {
     });
   }
 
+  floors[0].graphics.file = '';
+  floors[0].graphics.frames = [];
+
   // Water
   floors[1].color = 'ADBCE6';
   floors[1].graphics = {

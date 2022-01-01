@@ -6,10 +6,8 @@
     "blocksLight": false,
     "burden": 0,
     "graphics": {
-      "file": "world_001.png",
-      "frames": [
-        1
-      ]
+      "file": "",
+      "frames": []
     },
     "light": 0,
     "moveable": true,

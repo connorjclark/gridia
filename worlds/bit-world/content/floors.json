@@ -2,10 +2,8 @@
   {
     "id": 0,
     "graphics": {
-      "file": "tileset_1bit_001.png",
-      "frames": [
-        63
-      ]
+      "file": "",
+      "frames": []
     },
     "color": "0"
   },

@@ -2,12 +2,10 @@
   {
     "id": 0,
     "graphics": {
-      "file": "rpgwo-floors0.png",
-      "frames": [
-        0
-      ]
+      "file": "",
+      "frames": []
     },
-    "color": "333333"
+    "color": "0"
   },
   {
     "id": 1,

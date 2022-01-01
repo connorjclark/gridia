@@ -45,13 +45,19 @@ function makeAssetsFromOryx16Bit() {
     'worlds/16bit-world/graphics/world_002.png',
   ]);
 
-  const floors = [];
+  const floors = [
+    {
+      id: 0,
+      graphics: { file: '', frames: [] },
+      color: '0',
+    },
+  ];
   for (let y = 0; y <= 20; y++) {
     for (let x = 3; x <= 6; x++) {
       floors.push({
         id: floors.length,
-        color: '0',
         graphics: { file: 'world_001.png', frames: [x + y * 27] },
+        color: '0',
       });
     }
   }
@@ -65,10 +71,8 @@ function makeAssetsFromOryx16Bit() {
     "blocksLight": false,
     "burden": 0,
     "graphics": {
-      "file": "world_001.png",
-      "frames": [
-        1
-      ]
+      "file": "",
+      "frames": []
     },
     "light": 0,
     "moveable": true,

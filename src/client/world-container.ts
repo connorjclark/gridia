@@ -488,6 +488,7 @@ class Tile {
     }
 
     const meta = Content.getMetaFloor(this.floorValue);
+    if (!meta.graphics.file) return;
 
     let texture;
     if (meta.graphics.templateType) {
@@ -540,6 +541,7 @@ class Tile {
     if (!this.itemValue) return;
 
     const meta = Content.getMetaItem(this.itemValue.type);
+    if (!meta.graphics.file) return;
 
     let sprite;
     if (meta.graphics.templateType) {
