@@ -68,7 +68,6 @@ export class Server {
 
   scriptDelegates = {
     onPlayerCreated: (player: Player, playerConnection: PlayerConnection) => {
-      // TODO: capture errors
       this.forStartedScripts((script) => script.onPlayerCreated(player, playerConnection));
     },
     onPlayerEnterWorld: (player: Player, playerConnection: PlayerConnection) => {
@@ -1609,9 +1608,9 @@ export class Server {
     }
   }
 
-  forStartedScripts(fn: (script: Script<any>) => void) {
+  forStartedScripts(fn: (script: Script<any>) => Promise<any> | void) {
     for (const script of this._scripts) {
-      if (script.state === 'started') fn(script);
+      if (script.state === 'started') script.tryCatchFn(() => fn(script));
     }
   }
 
@@ -1657,7 +1656,7 @@ export class Server {
       fn: async () => {
         for (const script of this._scripts) {
           if (script.state === 'started') {
-            await script.tick();
+            await script.tryCatchFn(() => script.tick());
           }
         }
       },

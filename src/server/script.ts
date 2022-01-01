@@ -62,6 +62,11 @@ export abstract class Script<C extends ConfigDefinition> {
 
   addError(text: string) {
     this.errors.push({error: text});
+
+    // not super great, but maybe ok to do this?
+    if (this.errors.length >= 20) {
+      this.state = 'failed';
+    }
   }
 
   getScriptState(): ScriptState {
@@ -98,6 +103,14 @@ export abstract class Script<C extends ConfigDefinition> {
 
   onItemAction(opts: {playerConnection: PlayerConnection; location: ItemLocation; to?: ItemLocation}) {
     // Can override.
+  }
+
+  async tryCatchFn(fn: () => Promise<any> | void) {
+    try {
+      await fn();
+    } catch (e: any) {
+      this.addError(e.toString());
+    }
   }
 
   // TODO: time budget for tick.

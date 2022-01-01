@@ -48,6 +48,7 @@ export async function startServer(options: ServerOptions, db: Database) {
   await server.init();
 
   if (server.context.worldDataDefinition.baseDir === 'worlds/rpgwo-world') {
+    // TODO: make this a script.
     const thunderDomeW = context.map.getPartitionByName('Thunder Dome')?.[0] || 0;
     server.taskRunner.registerTickSection({
       description: 'random monsters',
