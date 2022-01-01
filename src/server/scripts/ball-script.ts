@@ -80,7 +80,7 @@ export class BallScript extends Script<{}> {
             this.server.setItemInWorld(kick.pos, undefined);
             this.server.setItemInWorld(newLoc, {type: itemAtNewLoc.type + 1, quantity: 1});
             kick.momentum = 0;
-          } else if (itemAtNewLoc) {
+          } else if (itemAtNewLoc || !this.server.context.map.inBounds(newLoc)) {
             if (kick.dir.x && kick.dir.y) {
               kick.dir.y *= -1;
             } else {
