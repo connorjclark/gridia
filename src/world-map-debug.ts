@@ -62,7 +62,7 @@ function addDebugStuff(map: WorldMapPartition) {
 
   // Some stairs.
   const pos = {x: 5, y: 5, z: 0};
-  map.getTile({...pos, z: 1}).floor = map.getTile(pos).floor = 10;
+  map.getTile({...pos, z: 1}).floor = map.getTile(pos).floor = 32;
   map.getTile({...pos, z: 1}).item = {
     type: Content.getMetaItemByName('Royal Stairs Up').id,
     quantity: 1,
@@ -136,7 +136,6 @@ export function createMainWorldMap() {
       mapGenData: [],
     };
   }
-  // TODO: make a creature for 1-bit world
 
   // TODO: standardize naming for map, world map, partiton, etc.
   const mapGenResult = createTestPartitions(world);
