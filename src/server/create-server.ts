@@ -5,6 +5,12 @@ import {ServerContext, Store} from '../server/server-context.js';
 import {Server} from '../server/server.js';
 import {createMainWorldMap} from '../world-map-debug.js';
 
+import {BallScript} from './scripts/ball-script.js';
+import {BasicScript} from './scripts/basic-script.js';
+import {DogScript} from './scripts/dog-script.js';
+import {HubWorldScript} from './scripts/hub-world-script.js';
+import {ThunderDomeScript} from './scripts/thunder-dome-script.js';
+
 // TODO: separate initializing a world from starting a server
 export async function startServer(options: ServerOptions, db: Database) {
   const {verbose} = options;
@@ -42,7 +48,12 @@ export async function startServer(options: ServerOptions, db: Database) {
     context,
     verbose,
   });
-  await server.init();
+
+  await server.scriptManager.addScript(BasicScript);
+  await server.scriptManager.addScript(BallScript);
+  await server.scriptManager.addScript(DogScript);
+  await server.scriptManager.addScript(HubWorldScript);
+  await server.scriptManager.addScript(ThunderDomeScript);
 
   server.taskRunner.registerTickSection({
     description: 'save',

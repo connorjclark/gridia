@@ -14,11 +14,6 @@ import {ClientConnection, PlayerConnection} from './client-connection.js';
 import {CreatureState} from './creature-state.js';
 import {adjustAttribute, attributeCheck} from './creature-utils.js';
 import {ScriptManager} from './script-manager.js';
-import {BallScript} from './scripts/ball-script.js';
-import {BasicScript} from './scripts/basic-script.js';
-import {DogScript} from './scripts/dog-script.js';
-import {HubWorldScript} from './scripts/hub-world-script.js';
-import {ThunderDomeScript} from './scripts/thunder-dome-script.js';
 import {ServerContext} from './server-context.js';
 import {TaskRunner} from './task-runner.js';
 
@@ -70,19 +65,7 @@ export class Server {
   constructor(opts: CtorOpts) {
     this.context = opts.context;
     this.verbose = opts.verbose;
-  }
-
-  async init() {
-    await this.loadScripts();
     this.setupTickSections();
-  }
-
-  private async loadScripts() {
-    await this.scriptManager.addScript(BasicScript);
-    await this.scriptManager.addScript(BallScript);
-    await this.scriptManager.addScript(DogScript);
-    await this.scriptManager.addScript(HubWorldScript);
-    await this.scriptManager.addScript(ThunderDomeScript);
   }
 
   addClientConnection(clientConnection: ClientConnection) {
