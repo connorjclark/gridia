@@ -8,7 +8,6 @@
       "frames": []
     },
     "burden": 0,
-    "stackable": false,
     "moveable": true,
     "rarity": 0
   },
@@ -23,7 +22,6 @@
       ]
     },
     "burden": 0,
-    "stackable": false,
     "moveable": true,
     "rarity": 0,
     "blocksMovement": true
@@ -39,7 +37,6 @@
       ]
     },
     "burden": 0,
-    "stackable": false,
     "moveable": true,
     "rarity": 0,
     "blocksMovement": true
@@ -55,7 +52,6 @@
       ]
     },
     "burden": 0,
-    "stackable": false,
     "moveable": true,
     "rarity": 0,
     "blocksMovement": true
@@ -71,7 +67,6 @@
       ]
     },
     "burden": 0,
-    "stackable": false,
     "moveable": true,
     "rarity": 0,
     "blocksMovement": true
@@ -87,7 +82,6 @@
       ]
     },
     "burden": 0,
-    "stackable": false,
     "moveable": true,
     "rarity": 1
   },
@@ -102,7 +96,6 @@
       ]
     },
     "burden": 0,
-    "stackable": false,
     "moveable": true,
     "rarity": 0,
     "blocksMovement": true
@@ -118,7 +111,6 @@
       ]
     },
     "burden": 0,
-    "stackable": false,
     "moveable": true,
     "rarity": 0,
     "blocksMovement": true

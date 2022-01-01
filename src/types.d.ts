@@ -269,11 +269,12 @@ interface MetaItem {
   burden: number;
   growthDelta?: number;
   growthItem?: number;
+  // TODO: notMoveable?: boolean;
   moveable: boolean;
   light?: number;
   blocksLight?: boolean;
   rarity: number;
-  stackable: boolean;
+  stackable?: boolean;
   blocksMovement?: boolean;
   trapEffect?: 'Warp';
   combatSkill?: number;

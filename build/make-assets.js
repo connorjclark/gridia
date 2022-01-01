@@ -74,7 +74,6 @@ function makeAssetsFromOryx16Bit() {
       "frames": []
     },
     "moveable": true,
-    "stackable": false,
   });
   items.push({
     id: items.length,

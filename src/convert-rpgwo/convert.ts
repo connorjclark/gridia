@@ -149,7 +149,6 @@ function parseItemsIni() {
     burden: 10000,
     moveable: true,
     rarity: 1,
-    stackable: false,
   };
   const items = [];
 
@@ -312,7 +311,6 @@ function parseItemUsagesIni(): ItemUse[] {
   const defaults: Partial<ItemUse> = {
     // burden: 10000,
     // moveable: true,
-    // stackable: false,
   };
   const usages: ItemUse[] = [];
 
@@ -704,13 +702,12 @@ function convertItems() {
       id: 0,
       name: 'Nothing',
       graphics: {
-        file: "rpgwo-item0.png",
-        frames: [1],
+        file: "",
+        frames: [],
       },
       class: 'Normal',
       burden: 0,
       moveable: true,
-      stackable: false,
     },
     ...parseItemsIni(),
   ];
