@@ -1686,6 +1686,7 @@ export class Server {
     });
 
     // Handle tiles seen logs.
+    // TODO: this seems like a waste of resources. Should just trust client to do this.
     this.taskRunner.registerTickSection({
       description: 'tiles seen logs',
       rate: {seconds: 5},

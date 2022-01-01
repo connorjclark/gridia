@@ -1,3 +1,4 @@
+/* eslint-disable no-bitwise */
 import {SECTOR_SIZE} from './constants.js';
 import {EQUIP_SLOTS} from './container.js';
 import * as Content from './content.js';
@@ -261,24 +262,42 @@ export function getTileSeenData(player: Player, point: TilePoint) {
   return sectorTileSeenLogGet(data, point.x % SECTOR_SIZE, point.y % SECTOR_SIZE);
 }
 
-export function markTileSeen(player: Player, map: WorldMap, point: TilePoint) {
-  if (!map.inBounds(point)) return;
+export function markTileSeen(player: Player, map: WorldMap, pos: TilePoint) {
+  if (!map.inBounds(pos)) return;
 
-  const data = getTileSeenSectorData(player, point);
-  const tile = map.getTile(point);
+  const data = getTileSeenSectorData(player, pos);
+  const tile = map.getTile(pos);
   const walkable = !tile.item || !Content.getMetaItem(tile.item.type)?.blocksMovement;
-  sectorTileSeenLogSet(data, point.x % SECTOR_SIZE, point.y % SECTOR_SIZE, tile.floor, walkable);
+
+  let elevationGrade = 0;
+  const elevation = map.getTile(pos).elevation;
+  const getElevation = (dx: number, dy: number) => map.getTile({...pos, x: pos.x + dx, y: pos.y + dy}).elevation;
+  if (getElevation(-1, 0) < elevation || getElevation(1, 0) > elevation) elevationGrade = 1;
+  else if (getElevation(-1, 0) > elevation || getElevation(1, 0) < elevation) elevationGrade = -1;
+  else if (getElevation(0, -1) < elevation || getElevation(0, -1) > elevation) elevationGrade = 1;
+  else if (getElevation(0, -1) > elevation || getElevation(0, -1) < elevation) elevationGrade = -1;
+
+  sectorTileSeenLogSet(data, pos.x % SECTOR_SIZE, pos.y % SECTOR_SIZE, tile.floor, elevationGrade, walkable);
 }
 
 export function sectorTileSeenLogGet(data: Uint16Array, x: number, y: number) {
+  // 0000 0000 0000 |    000    |    0
+  //      floor       elevation   walkable
   const num = data[x + y * SECTOR_SIZE];
-  // eslint-disable-next-line no-bitwise
-  return {floor: num >> 1, walkable: num % 2 === 1};
+  const elevationGradeRaw = (num >> 1) & 0b111;
+
+  return {
+    floor: num >> 4,
+    // 0: 0, 1: 1, 2: -1
+    elevationGrade: elevationGradeRaw === 2 ? -1 : elevationGradeRaw,
+    walkable: num % 2 === 1,
+  };
 }
 
-function sectorTileSeenLogSet(data: Uint16Array, x: number, y: number, floor: number, walkable: boolean) {
-  // eslint-disable-next-line no-bitwise
-  data[x + y * SECTOR_SIZE] = (floor << 1) + (walkable ? 1 : 0);
+function sectorTileSeenLogSet(data: Uint16Array, x: number, y: number,
+                              floor: number, elevationGrade: number, walkable: boolean) {
+  const elevationGradeRaw = elevationGrade === -1 ? 2 : elevationGrade;
+  data[x + y * SECTOR_SIZE] = (floor << 4) + (elevationGradeRaw << 1) + (walkable ? 1 : 0);
 }
 
 // TODO shouldnt be here ...

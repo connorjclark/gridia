@@ -696,7 +696,7 @@ export class ServerInterface implements ICommands {
     return Promise.resolve();
   }
 
-  onAdminRequestScripts(server: Server): Promise<Array<{ id: string; config: any; errors: any[] }>> {
+  onAdminRequestScripts(server: Server): Promise<Commands.AdminRequestScripts['response']> {
     return Promise.resolve(server.scriptManager.getScriptStates());
   }
 
