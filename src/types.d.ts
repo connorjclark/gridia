@@ -510,6 +510,7 @@ interface WorldDataDefinition {
 
 interface ScriptState {
   id: string;
+  state: string;
   config: any;
   errors: any[];
 }

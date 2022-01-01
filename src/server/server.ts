@@ -115,6 +115,7 @@ export class Server {
   }
 
   start() {
+    console.log('Server started.');
     this.taskRunner.start();
   }
 

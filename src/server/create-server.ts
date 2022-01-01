@@ -63,6 +63,5 @@ export async function startServer(options: ServerOptions, db: Database) {
 
   server.start();
 
-  console.log('Server started.');
   return server;
 }

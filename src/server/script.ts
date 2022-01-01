@@ -76,6 +76,7 @@ export abstract class Script<C extends ConfigDefinition> {
   getScriptState(): ScriptState {
     return {
       id: this.id,
+      state: this.state,
       config: this.config,
       errors: this.errors,
     };

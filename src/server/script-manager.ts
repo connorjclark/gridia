@@ -8,22 +8,22 @@ export class ScriptManager {
   // TODO: should all of these delegates be async/await'd?
   delegates = {
     onPlayerCreated: (player: Player, playerConnection: PlayerConnection) => {
-      this.forStartedScripts((script) => script.onPlayerCreated(player, playerConnection));
+      this.forRunningScripts((script) => script.onPlayerCreated(player, playerConnection));
     },
     onPlayerEnterWorld: (player: Player, playerConnection: PlayerConnection) => {
-      this.forStartedScripts((script) => script.onPlayerEnterWorld(player, playerConnection));
+      this.forRunningScripts((script) => script.onPlayerEnterWorld(player, playerConnection));
     },
     onPlayerKillCreature: (player: Player, creature: Creature) => {
-      this.forStartedScripts((script) => script.onPlayerKillCreature(player, creature));
+      this.forRunningScripts((script) => script.onPlayerKillCreature(player, creature));
     },
     onPlayerMove: (opts: { playerConnection: PlayerConnection; from: Point4; to: Point4 }) => {
       Object.freeze(opts);
-      this.forStartedScripts((script) => script.onPlayerMove(opts));
+      this.forRunningScripts((script) => script.onPlayerMove(opts));
     },
     onItemAction: (opts:
     { playerConnection: PlayerConnection; type: string; location: ItemLocation; to?: ItemLocation }) => {
       Object.freeze(opts);
-      this.forStartedScripts((script) => script.onItemAction(opts));
+      this.forRunningScripts((script) => script.onItemAction(opts));
     },
   };
 
@@ -31,7 +31,7 @@ export class ScriptManager {
   }
 
   tick() {
-    return this.forStartedScripts((script) => script.tick());
+    return this.forRunningScripts((script) => script.tick());
   }
 
   getScriptStates(): ScriptState[] {
@@ -54,7 +54,7 @@ export class ScriptManager {
 
     try {
       await script.onStart();
-      script.state = 'started';
+      script.state = 'running';
     } catch (e: any) {
       script.state = 'failed';
       console.error(`Failed to start script ${ScriptClass.name}`);
@@ -63,9 +63,9 @@ export class ScriptManager {
     }
   }
 
-  private async forStartedScripts(fn: (script: Script<any>) => Promise<any> | void) {
+  private async forRunningScripts(fn: (script: Script<any>) => Promise<any> | void) {
     for (const script of this._scripts) {
-      if (script.state === 'started') await script.tryCatchFn(() => fn(script));
+      if (script.state === 'running') await script.tryCatchFn(() => fn(script));
     }
   }
 }
