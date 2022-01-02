@@ -402,6 +402,10 @@ export class Game {
     this.tick = this.tick.bind(this);
   }
 
+  focus() {
+    this.canvasesEl.focus();
+  }
+
   async onDisconnect() {
     this.app.ticker.remove(this.tick);
     document.body.classList.add('disconnected');
@@ -704,6 +708,8 @@ export class Game {
       this.onProtocolEvent(event);
     }
     this.client.storedEvents = [];
+
+    this.focus();
   }
 
   addAnimation(animationInstance: GridiaAnimationInstance) {
@@ -999,14 +1005,12 @@ export class Game {
       }
     }, evtOptions);
 
-    const canvases = Helper.find('#canvases');
-    canvases.focus();
-    canvases.addEventListener('keydown', (e) => {
+    this.canvasesEl.addEventListener('keydown', (e) => {
       this.keys[e.keyCode] = true;
     }, evtOptions);
 
     // TODO: listen to the document.body
-    canvases.addEventListener('keyup', (e) => {
+    this.canvasesEl.addEventListener('keyup', (e) => {
       delete this.keys[e.keyCode];
 
       // TODO replace with something better - game loaded / ready.
@@ -1561,7 +1565,7 @@ export class Game {
     itemCursor?: Item | null;
   }) {
     Helper.find('.game').classList.add('select-tile-mode');
-    this.canvasesEl.focus();
+    this.focus();
 
     if (opts.itemCursor) {
       const meta = Content.getMetaItem(opts.itemCursor.type);

@@ -83,6 +83,7 @@ export function makeSpellsWindow(onCastSpell: (spell: Spell) => void) {
         this.props.useSpell(spell.id);
         onCastSpell(spell);
       }
+      game.focus();
     }
   }
 

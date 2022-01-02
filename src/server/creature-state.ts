@@ -448,7 +448,7 @@ export class CreatureState {
     if (this.creature.isPlayer) {
       // Constantly try to attack if player. For monsters, this is only called if
       // in the AttackTarget state.
-      this._handleAttack(server);
+      this._handleAttack(server, !!this.currentSpell);
       return;
     }
 
@@ -711,8 +711,12 @@ export class CreatureState {
     }
 
     const attackType = forceSpell ? 'magic' : (attackSkill?.purpose || 'melee');
-    if (attackType === 'magic' && !this.currentSpell) {
-      return;
+    if (attackType === 'magic') {
+      if (this.currentSpell) {
+        attackSkill = Content.getSkill(this.currentSpell.skill);
+      } else {
+        return;
+      }
     }
 
     let minRange = 0;
