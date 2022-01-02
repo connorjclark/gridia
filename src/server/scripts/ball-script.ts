@@ -6,6 +6,7 @@ import {Script} from '../script.js';
 import {Server} from '../server.js';
 
 interface Kick {
+  kicker: Creature;
   item: Item;
   pos: Point4;
   posFloating: Point4;
@@ -80,6 +81,11 @@ export class BallScript extends Script<{}> {
             this.server.setItemInWorld(kick.pos, undefined);
             this.server.setItemInWorld(newLoc, {type: itemAtNewLoc.type + 1, quantity: 1});
             kick.momentum = 0;
+            this.server.broadcastChat({
+              from: kick.kicker.name,
+              creatureId: kick.kicker.id,
+              text: 'Goal!!!',
+            });
           } else if (itemAtNewLoc || !this.server.context.map.inBounds(newLoc)) {
             if (kick.dir.x && kick.dir.y) {
               kick.dir.y *= -1;
@@ -113,6 +119,7 @@ export class BallScript extends Script<{}> {
       this.activeKicks[indexOfActiveKick].momentum = momentum;
     } else {
       this.activeKicks.push({
+        kicker: opts.playerConnection.creature,
         item,
         pos: opts.to,
         posFloating: {...opts.to},
@@ -146,6 +153,7 @@ export class BallScript extends Script<{}> {
     this.server.clearItem(opts.location);
 
     const kick = {
+      kicker: opts.playerConnection.creature,
       item,
       pos: startingPos,
       posFloating: {...startingPos},
