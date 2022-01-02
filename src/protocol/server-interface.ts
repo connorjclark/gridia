@@ -534,8 +534,8 @@ export class ServerInterface implements ICommands {
 
         // For equipment, don't check if there is already an item in that slot.
         // It will be swapped later.
-        if (location.index === undefined && meta.equipSlot) {
-          const equipIndex = Container.EQUIP_SLOTS[meta.equipSlot];
+        const equipIndex = meta.equipSlot && Container.EQUIP_SLOTS[meta.equipSlot];
+        if (equipIndex !== undefined && (location.index === undefined || location.index === equipIndex)) {
           return Utils.ItemLocation.Container(container.id, equipIndex);
         }
       }

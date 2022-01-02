@@ -25,18 +25,18 @@ export function hasItem(container: Container, itemType: number) {
 export function isValidLocationToAddItemInContainer(container: Container, index: number, item: Item): boolean {
   const meta = Content.getMetaItem(item.type);
 
-  if (container.type === 'normal') {
-    const itemAtIndex = container.items[index];
-    if (!itemAtIndex) return true;
-    if (!meta.stackable) return false;
-    if (itemAtIndex.type !== item.type) return false;
-    if (itemAtIndex.quantity + item.quantity > MAX_STACK) return false;
-    return true;
-  } else if (container.type === 'equipment') {
-    return meta.equipSlot !== undefined && EQUIP_SLOTS[meta.equipSlot] === index;
+  if (container.type === 'equipment') {
+    if (!meta.equipSlot) return false;
+    if (EQUIP_SLOTS[meta.equipSlot] !== index) return false;
   }
 
-  return false;
+  const itemAtIndex = container.items[index];
+  if (!itemAtIndex) return true;
+  if (!meta.stackable) return false;
+  if (itemAtIndex.type !== item.type) return false;
+  if (itemAtIndex.quantity + item.quantity > MAX_STACK) return false;
+
+  return true;
 }
 
 export function findValidLocationToAddItemToContainer(
