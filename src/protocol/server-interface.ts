@@ -164,11 +164,18 @@ export class ServerInterface implements ICommands {
     const spell = Content.getSpell(id);
     if (!spell) return Promise.reject('No such spell');
 
+    const hasWand = Boolean(
+      creature.equipment?.[Container.EQUIP_SLOTS.Weapon] &&
+      Content.getMetaItem(creature.equipment[Container.EQUIP_SLOTS.Weapon]?.type || 0).class === 'Wand'
+    );
+    if (!hasWand) return Promise.reject('You must equip a wand');
+
     let targetCreature;
     if (spell.target === 'other') {
       // `other` spells target the provided creatureId, else they target the currently targeted creature.
       const creatureState = server.creatureStates[clientConnection.creature.id];
       targetCreature = otherCreature || creatureState.targetCreature?.creature;
+      if (targetCreature === creature) return Promise.reject('You cannot cast that on yourself');
     } else {
       // `self` and `world` spells may only target the caster.
       targetCreature = creature;

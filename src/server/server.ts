@@ -1020,6 +1020,12 @@ export class Server {
   }
 
   castSpell(spell: Spell, creature: Creature, targetCreature?: Creature, pos?: Point4, consumeMana = true) {
+    const hasWand = Boolean(
+      creature.equipment?.[Container.EQUIP_SLOTS.Weapon] &&
+      Content.getMetaItem(creature.equipment[Container.EQUIP_SLOTS.Weapon]?.type || 0).class === 'Wand'
+    );
+    if (!hasWand) return 'You must equip a wand';
+
     if (creature.mana.current < spell.mana) return 'Not enough mana';
 
     if (spell.transformItemFrom && spell.transformItemTo) {

@@ -448,7 +448,7 @@ export class CreatureState {
     if (this.creature.isPlayer) {
       // Constantly try to attack if player. For monsters, this is only called if
       // in the AttackTarget state.
-      this._handleAttack(server, !!this.currentSpell);
+      this._handleAttack(server, Boolean(this.currentSpell));
       return;
     }
 
@@ -717,6 +717,11 @@ export class CreatureState {
       } else {
         return;
       }
+
+      if (this.creature.isPlayer && weaponMeta?.class !== 'Wand') {
+        this.currentSpell = undefined;
+        return;
+      }
     }
 
     let minRange = 0;
@@ -803,12 +808,23 @@ export class CreatureState {
       }
     }
 
+    let untargetCreature = false;
+
     // Only keep doing the same spell if it does damage.
     if (attackType === 'magic' && this.currentSpell && !(this.currentSpell.life && this.currentSpell.life < 0)) {
       this.currentSpell = undefined;
+      untargetCreature = true;
+    }
+
+    if (missReason === 'need-ammo') {
+      untargetCreature = true;
+    }
+
+    if (untargetCreature) {
       this.targetCreature = null;
       const clientConnection = server.getClientConnectionForCreature(this.creature);
       if (clientConnection) clientConnection.sendEvent(EventBuilder.setAttackTarget({creatureId: null}));
     }
+
   }
 }
