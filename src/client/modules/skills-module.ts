@@ -14,7 +14,8 @@ export class SkillsModule extends ClientModule {
       attributes: this.getAttributes(),
       skills: this.getSkills(),
       skillPoints: this.game.client.player.skillPoints,
-      unlearnedSkills: Player.getUnlearnedSkills(this.game.client.player),
+      unlearnedSkills: Player.getUnlearnedSkills(this.game.client.player)
+        .sort((a,b) => a.name.localeCompare(b.name)),
       onLearnSkill: (id) => {
         this.game.client.connection.sendCommand(CommandBuilder.learnSkill({id}));
       },
