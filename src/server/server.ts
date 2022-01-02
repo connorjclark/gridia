@@ -119,8 +119,9 @@ export class Server {
     this.taskRunner.start();
   }
 
-  stop() {
+  async stop() {
     this.taskRunner.stop();
+    await this.scriptManager.stop();
   }
 
   save() {

@@ -109,13 +109,16 @@ async function main(options: CLIOptions) {
     if (!signal) return;
 
     nodeCleanup.uninstall();
-    console.log('Shutting down server ...');
+    console.log('Shutting down server ...', {exitCode, signal});
     webserver.close();
-    server.stop();
-    server.save().then(() => {
-      console.log('Saved! Exiting now.');
-      process.kill(process.pid, signal);
+    server.stop().then(() => {
+      console.log('Stopped! Saving now.');
+      server.save().then(() => {
+        console.log('Saved! Exiting now.');
+        process.kill(process.pid, signal);
+      });
     });
+
     return false;
   });
 

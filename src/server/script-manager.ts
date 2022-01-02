@@ -30,42 +30,63 @@ export class ScriptManager {
   constructor(private server: Server) {
   }
 
-  tick() {
-    return this.forRunningScripts(async (script) => {
-      await script.tick();
-      if (script.state === 'failed') {
-        await script.onStop();
+  async tick() {
+    for (const script of this._scripts) {
+      if (script.state === 'starting') {
+        try {
+          await script.onStart();
+          script.state = 'running';
+        } catch (e: any) {
+          script.state = 'failed';
+          console.error(`Failed to start script ${script.id}`);
+          console.error(e);
+          script.addError(e);
+        }
+      } else if (script.state === 'running') {
+        await script.tryCatchFn(() => script.onTick());
+      } else if (script.state === 'failed' || script.state === 'will-stop') {
+        script.state = 'stopped';
+        await script.tryCatchFn(() => script.onStop());
         script.unload();
       }
-    });
+    }
+  }
+
+  /**
+   * Sets all scripts to 'starting' state.
+   * The real work only happens in the next tick.
+   */
+  start() {
+    for (const script of this._scripts) {
+      script.state = 'starting';
+    }
+  }
+
+  /**
+   * Sets all scripts to 'stopped' state.
+   * The real work also happens (all scripts will unload and have onStop called).
+   */
+  async stop() {
+    for (const script of this._scripts) {
+      script.state = 'will-stop';
+    }
+    await this.tick();
   }
 
   getScriptStates(): ScriptState[] {
     return this._scripts.map((s) => s.getScriptState());
   }
 
-  async addScript(ScriptClass: new (...args: any) => Script<any>) {
+  addScript(ScriptClass: new (...args: any) => Script<any>) {
     const script = new ScriptClass(this.server);
     this._scripts.push(script);
-    script.state = 'starting';
 
     const errors = script.getScriptState().errors;
     if (errors.length) {
       script.state = 'failed';
-      // TODO: these aren't showing in admin Scripts panel.
-      // TODO: class.name does not survive minification
-      console.error(`Failed to add script ${ScriptClass.name}\n` + JSON.stringify(errors, null, 2));
-      return;
-    }
-
-    try {
-      await script.onStart();
-      script.state = 'running';
-    } catch (e: any) {
-      script.state = 'failed';
-      console.error(`Failed to start script ${ScriptClass.name}`);
-      console.error(e);
-      script.addError(e);
+      console.error(`Failed to add script ${script.id}\n` + JSON.stringify(errors, null, 2));
+    } else {
+      script.state = 'starting';
     }
   }
 
