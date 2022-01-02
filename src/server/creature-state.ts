@@ -825,6 +825,5 @@ export class CreatureState {
       const clientConnection = server.getClientConnectionForCreature(this.creature);
       if (clientConnection) clientConnection.sendEvent(EventBuilder.setAttackTarget({creatureId: null}));
     }
-
   }
 }

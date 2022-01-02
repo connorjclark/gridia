@@ -19,7 +19,7 @@ async function copyOverMainWorldMap() {
   context.map.loader = (pos) => context.loadSector(pos);
 
   for (const [key, partition] of context.map.partitions) {
-    if (partition.name === 'test-map' || partition.name === 'bare-map') {
+    if (partition.name.startsWith('test')) {
       console.log(`ignoring ${partition.name}`);
       context.map.partitions.delete(key);
       continue;

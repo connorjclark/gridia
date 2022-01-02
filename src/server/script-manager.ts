@@ -35,6 +35,7 @@ export class ScriptManager {
       await script.tick();
       if (script.state === 'failed') {
         await script.onStop();
+        script.unload();
       }
     });
   }

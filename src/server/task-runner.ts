@@ -11,7 +11,7 @@ interface TickSectionBase {
   rate?: Rate;
 }
 
-type TickSection = TickSectionBase & (
+export type TickSection = TickSectionBase & (
   | { fn: (() => Promise<void>) | (() => void) }
   | { generator: Generator | (() => Generator) }
 );

@@ -3,7 +3,7 @@ import * as Utils from '../utils.js';
 import {PlayerConnection} from './client-connection.js';
 import {ScriptConfigStore} from './scripts/script-config-store.js';
 import {Server} from './server.js';
-import {Rate} from './task-runner.js';
+import {Rate, TickSection} from './task-runner.js';
 
 interface CreatureSpawner {
   descriptors: CreatureDescriptor[];
@@ -46,6 +46,7 @@ function readConfig<T extends ConfigDefinition>(
 }
 
 export abstract class Script<C extends ConfigDefinition> {
+  protected tickSections: TickSection[] = [];
   protected creatureSpawners: CreatureSpawner[] = [];
   protected creatureSpawnerState = new Map<CreatureSpawner, CreatureSpawnerState>();
   // TODO: be able to set these values in-game (drawing a rectangle for a region),
@@ -155,6 +156,10 @@ export abstract class Script<C extends ConfigDefinition> {
   }
 
   unload() {
+    for (const section of this.tickSections) {
+      this.unregisterTickSection(section);
+    }
+
     for (const spawner of this.creatureSpawners) {
       const state = this.creatureSpawnerState.get(spawner);
       if (!state) throw new Error('missing state');
@@ -165,6 +170,17 @@ export abstract class Script<C extends ConfigDefinition> {
       state.spawnedCreatures = [];
       state.scheduledSpawnTicks = [];
     }
+  }
+
+  protected registerTickSection(section: TickSection) {
+    this.server.taskRunner.registerTickSection(section);
+    this.tickSections.push(section);
+  }
+
+  protected unregisterTickSection(section: TickSection) {
+    this.server.taskRunner.unregisterTickSection(section);
+    const index = this.tickSections.indexOf(section);
+    if (index !== -1) this.tickSections.splice(index, 1);
   }
 
   protected addCreatureSpawner(spawner: CreatureSpawner): CreatureSpawnerState {
