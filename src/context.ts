@@ -45,7 +45,6 @@ export class Context {
     const creature = this.creatures.get(id);
     if (creature) {
       this.creatures.delete(id);
-      // delete this.map.getTile(creature.pos).creature;
     }
   }
 }

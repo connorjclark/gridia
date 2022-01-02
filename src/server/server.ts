@@ -571,6 +571,7 @@ export class Server {
   }
 
   moveCreature(creature: Creature, pos: TilePoint) {
+    const creatureState = this.creatureStates[creature.id];
     const tile = this.context.map.getTile(pos);
     const meta = tile.item && Content.getMetaItem(tile.item.type);
 
@@ -604,13 +605,37 @@ export class Server {
       });
     }
 
+    let warpToPos: Point4 | null = null;
+    let playWarpSound = false;
+    if (tile.item && meta && !creatureState.warped) {
+      if (meta.class === 'CaveDown') {
+        warpToPos = {...creature.pos, z: creature.pos.z + 1};
+      } else if (meta.class === 'CaveUp') {
+        warpToPos = {...creature.pos, z: creature.pos.z - 1};
+      } else if (meta.trapEffect === 'Warp' && tile.item.warpTo) {
+        warpToPos = {...tile.item.warpTo};
+        playWarpSound = true;
+      }
+      if (warpToPos && !this.context.map.inBounds(warpToPos)) warpToPos = null;
+    }
+
     if (!creature.dead) {
+      if (warpToPos) {
+        // Bit weird, but it works.
+        new Promise((resolve) => setTimeout(resolve, 250)).then(() => {
+          if (!creature.dead && Utils.equalPoints(creature.pos, pos) && warpToPos) {
+            this.warpCreature(creature, warpToPos, {warpAnimation: playWarpSound});
+          }
+        });
+      }
+
       if (creature.pos.w !== pos.w || creature.pos.z !== pos.z) {
         // Player has moved in an unusual way, probably by pressing T.
         // Disable warps so that player doesn't possibly get warped back.
-        this.creatureStates[creature.id].warped = true;
+        creatureState.warped = true;
       } else {
-        this.creatureStates[creature.id].warped = false;
+        // Player simply moved, warping is OK again.
+        creatureState.warped = false;
       }
 
       creature.pos = pos;
@@ -647,6 +672,9 @@ export class Server {
   async warpCreature(creature: Creature, pos: TilePoint, opts: { warpAnimation: boolean }) {
     if (!this.context.map.inBounds(pos)) return;
 
+    this.creatureStates[creature.id].warped = true;
+    this.creatureStates[creature.id].path = [];
+
     if (opts.warpAnimation) {
       this.broadcastAnimation({
         name: 'WarpOut',
@@ -663,8 +691,6 @@ export class Server {
     // multiple creatures to be in the same location.
     pos = this.findNearestWalkableTile({pos, range: 5}) || pos;
     this.moveCreature(creature, pos);
-    this.creatureStates[creature.id].warped = true;
-    this.creatureStates[creature.id].path = [];
   }
 
   // TODO: rename
@@ -1538,6 +1564,8 @@ export class Server {
     ));
     this.updateCreatureLight(playerConnection);
     setTimeout(() => {
+      if (!playerConnection.creature) return;
+
       this.broadcastAnimation({
         name: 'WarpIn',
         path: [playerConnection.creature.pos],
@@ -1633,7 +1661,7 @@ export class Server {
             if (creature && closeEnoughToSubscribe(clientConnection.creature.pos, creature.pos)) continue;
 
             clientConnection.subscribedCreatureIds.delete(creatureId);
-            // TODO send unregister command.
+            this.send(EventBuilder.removeCreature({id: creatureId}), clientConnection);
           }
 
           for (const creature of this.context.creatures.values()) {
@@ -1656,37 +1684,6 @@ export class Server {
             state.tick(this);
           } catch (err) {
             console.error(err);
-          }
-        }
-      },
-    });
-
-    // Handle stairs and warps.
-    this.taskRunner.registerTickSection({
-      description: 'stairs and warps',
-      fn: async () => {
-        for (const state of Object.values(this.creatureStates)) {
-          const creature = state.creature;
-          if (state.warped) continue;
-
-          const map = this.context.map;
-          const item = map.getItem(creature.pos);
-          if (item) {
-            const meta = Content.getMetaItem(item.type);
-
-            let newPos = null;
-            let playWarpSound = false;
-            if (meta.class === 'CaveDown') {
-              newPos = {...creature.pos, z: creature.pos.z + 1};
-            } else if (meta.class === 'CaveUp') {
-              newPos = {...creature.pos, z: creature.pos.z - 1};
-            } else if (meta.trapEffect === 'Warp' && item.warpTo) {
-              newPos = {...item.warpTo};
-              playWarpSound = true;
-            }
-            if (!newPos || !map.inBounds(newPos)) continue;
-
-            await this.warpCreature(creature, newPos, {warpAnimation: playWarpSound});
           }
         }
       },
