@@ -635,7 +635,8 @@ function realLighting(focusLoc: Point3, worldContainer: WorldContainer, lightMod
       lightSources.push({
         x: pos.x,
         y: pos.y,
-        tint: 0x550000,
+        // TODO: tinting just looks bad.
+        // tint: 0x550000,
         // TODO: makes torches look odd in full daylight. Maybe will be ok after color blending.
         // power: 6 + Math.sin(performance.now() / 500) * 0.5,
         power: meta.light + Math.sin(performance.now() / 500) * 0.5,

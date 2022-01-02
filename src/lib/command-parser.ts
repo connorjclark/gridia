@@ -21,6 +21,7 @@ export function parseArgs(input: string, args: Command['args']) {
 
     if (arg.type === 'number') {
       result[arg.name] = Number(tokens[i]);
+      if (Number.isNaN(result[arg.name])) return {error: `could not parse as number: ${tokens[i]}`};
     } else if (arg.type === 'string') {
       let str = tokens[i];
       if (str[0] === '\'' && str[str.length - 1] === '\'') str = str.substr(1, str.length - 2);
