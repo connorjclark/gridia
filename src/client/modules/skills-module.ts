@@ -74,6 +74,7 @@ export class SkillsModule extends ClientModule {
     return {
       ...skill,
       ...summary,
+      learned: this.game.client.player.skills.has(id),
       xpBar: {
         current: summary.xp - Player.getXpTotalForLevel(summary.earnedLevel),
         max: Player.getXpTotalForLevel(summary.earnedLevel + 1) - Player.getXpTotalForLevel(summary.earnedLevel),
@@ -95,6 +96,14 @@ export class SkillsModule extends ClientModule {
   }
 
   getSkills() {
-    return Player.getLearnedSkills(this.game.client.player).map((id) => this.getSkill(id));
+    // TODO: tsconfig ES2019
+    // return [...Content.getSkillsGroupedByCategory().values()]
+    //   .flat()
+    //   .map((skill) => this.getSkill(skill.id));
+
+    const grouped = [...Content.getSkillsGroupedByCategory().values()];
+    const skills: Skill[] = [];
+    grouped.forEach((g) => skills.push(...g));
+    return skills.map((skill) => this.getSkill(skill.id));
   }
 }

@@ -1,3 +1,4 @@
+import * as Helper from './client/helper.js';
 import {setGfxSize} from './constants.js';
 import {ATTRIBUTES} from './player.js';
 import {randInt} from './utils.js';
@@ -362,6 +363,26 @@ export function getMonsterTemplateByNameNoError(name: string) {
 
 export function getSkills() {
   return data.skills;
+}
+
+export function getSkillsGroupedByCategory() {
+  const skillsByCategory = new Map<string, Skill[]>();
+  for (const skill of getSkills()) {
+    const skills = skillsByCategory.get(skill.category) || [];
+    skills.push(skill);
+    skillsByCategory.set(skill.category, skills);
+  }
+
+  // TODO there's a ts-node bug here ...
+  // const skillsByCategoryOrdered = Helper.sortByPrecedence([...skillsByCategory.entries()], [
+  //   {type: 'predicate', fn: (kv) => kv[0] === 'combat basics'},
+  //   {type: 'predicate', fn: (kv) => kv[0] === 'combat'},
+  //   {type: 'predicate', fn: (kv) => kv[0] === 'magic'},
+  //   {type: 'predicate', fn: (kv) => kv[0] === 'crafts'},
+  // ]);
+
+  // return new Map(skillsByCategoryOrdered);
+  return skillsByCategory;
 }
 
 export function getSkill(id: number) {

@@ -39,11 +39,11 @@ button {
   margin: 5px;
 }
 
-.scene--start {
+.start-scene {
   background-size: 32px 32px;
   background-image: linear-gradient(to right, grey 1px, transparent 1px), linear-gradient(to bottom, grey 1px, transparent 1px);
 }
-.start__ui {
+.start-scene__ui {
   background-color: #a9a9a97a;
 }
 .start-scene__button--connect {
@@ -434,6 +434,9 @@ button {
   color: gold;
 }
 
+.skill--learned-false {
+  opacity: 0.5;
+}
 .skill__level {
   margin: 3px;
   font-size: 22px;

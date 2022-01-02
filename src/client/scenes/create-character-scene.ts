@@ -72,32 +72,23 @@ export class CreateCharacterScene extends Scene {
       });
     }
 
-    const skillsByCategory = new Map<string, number[]>();
-    for (const skill of Content.getSkills()) {
-      const skills = skillsByCategory.get(skill.category) || [];
-      skills.push(skill.id);
-      skillsByCategory.set(skill.category, skills);
-    }
-
-    const skillsByCategoryOrdered = Helper.sortByPrecedence([...skillsByCategory.entries()], [
+    const skillsByCategory = Helper.sortByPrecedence([...Content.getSkillsGroupedByCategory().entries()], [
       {type: 'predicate', fn: (kv) => kv[0] === 'combat basics'},
       {type: 'predicate', fn: (kv) => kv[0] === 'combat'},
       {type: 'predicate', fn: (kv) => kv[0] === 'magic'},
       {type: 'predicate', fn: (kv) => kv[0] === 'crafts'},
     ]);
-
     const requiredSkills = characterCreation.requiredSkills || [];
 
     const skillsEl = Helper.find('.create--skills', this.element);
     skillsEl.textContent = '';
-    for (const [category, skills] of skillsByCategoryOrdered) {
+    for (const [category, skills] of skillsByCategory) {
       const categoryEl = Helper.createChildOf(skillsEl, 'div', 'create--skill-category');
       Helper.createChildOf(categoryEl, 'h3').textContent = category;
-      for (const id of skills) {
-        const skill = Content.getSkill(id);
+      for (const skill of skills) {
         const el = Helper.createChildOf(categoryEl, 'div', 'create--skill flex tooltip-on-hover');
         Helper.createChildOf(el, 'div').textContent = `${skill.name} (${skill.skillPoints})`;
-        const required = requiredSkills.includes(id);
+        const required = requiredSkills.includes(skill.id);
 
         let tooltip = skill.description + '<br> base level = ' + Content.getSkillAttributeDescription(skill);
         if (required) {
@@ -108,12 +99,12 @@ export class CreateCharacterScene extends Scene {
 
         if (required) continue;
         el.addEventListener('click', () => {
-          let selected = this.selectedSkills.has(id);
+          let selected = this.selectedSkills.has(skill.id);
           if (selected) {
-            this.selectedSkills.delete(id);
+            this.selectedSkills.delete(skill.id);
             selected = false;
           } else if (skillPoints >= skill.skillPoints) {
-            this.selectedSkills.add(id);
+            this.selectedSkills.add(skill.id);
             selected = true;
           }
           el.classList.toggle('selected', selected);

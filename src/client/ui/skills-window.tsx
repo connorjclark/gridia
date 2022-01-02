@@ -18,6 +18,7 @@ export interface State {
   skills: Array<{
     id: number;
     name: string;
+    learned: boolean;
     level: number;
     baseLevel: number;
     earnedLevel: number;
@@ -68,9 +69,6 @@ export function makeSkillsWindow(game: Game, initialState: State) {
 
   class SkillsTab extends Component<Props> {
     render(props: Props) {
-      const skillsSortedByName = Object.values(props.skills)
-        .sort((a, b) => a.name.localeCompare(b.name));
-
       const combatXpUntilNextLevel = props.combatLevel.xpBar.max - props.combatLevel.xpBar.current;
       const combatLevelTitle = `combat xp until next level: ${combatXpUntilNextLevel.toLocaleString()}`;
       const combatLevelXpPercent = props.combatLevel.xpBar.current / props.combatLevel.xpBar.max;
@@ -82,22 +80,29 @@ export function makeSkillsWindow(game: Game, initialState: State) {
 
         <br></br>
 
-        <div>
-          Skills
-        </div>
         <div class='flex flex-wrap justify-evenly'>
-          {skillsSortedByName.map((skill) => {
+          {props.skills.map((skill) => {
             const xpUntilNextLevel = skill.xpBar.max - skill.xpBar.current;
             const percent = skill.xpBar.current / skill.xpBar.max;
 
-            const skillEl = <div class='skill tooltip-on-hover'>
-              <span class="flex justify-between items-center">
-                <span>{skill.name}</span>
-                {skill.buffAmount ? <span>+{skill.buffAmount}</span> : null}
-                <span class="skill__level">{skill.level}</span>
-              </span>
-              <div class="skill__xp-bar" style={{'--percent': percent}}></div>
-            </div>;
+            let skillEl;
+            if (skill.learned) {
+              skillEl = <div class={`skill tooltip-on-hover skill--learned-${skill.learned}`}>
+                <span class="flex justify-between items-center">
+                  <span>{skill.name}</span>
+                  {skill.buffAmount ? <span>+{skill.buffAmount}</span> : null}
+                  <span class="skill__level">{skill.level}</span>
+                </span>
+                <div class="skill__xp-bar" style={{'--percent': percent}}></div>
+              </div>;
+            } else {
+              skillEl = <div class={`skill tooltip-on-hover skill--learned-${skill.learned}`}>
+                <span class="flex justify-between items-center">
+                  <span>{skill.name}</span>
+                  <span class="skill__level">–</span>
+                </span>
+              </div>;
+            }
 
             const l = (str: string | number) => str.toLocaleString();
             return <span style={{width: '30%'}}>
