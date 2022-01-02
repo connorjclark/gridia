@@ -736,10 +736,10 @@ export class CreatureState {
       successAnimationName = Content.getAnimationByIndex(this.currentSpell.animation - 1).name;
     }
 
-    let successProjectileAnimationName;
-    if (attackType === 'missle') successProjectileAnimationName = 'Arrow';
+    let projectileAnimationName;
+    if (attackType === 'missle') projectileAnimationName = 'Arrow';
     if (attackType === 'magic' && this.currentSpell?.projectileAnimation) {
-      successProjectileAnimationName = Content.getAnimationByIndex(this.currentSpell.projectileAnimation - 1).name;
+      projectileAnimationName = Content.getAnimationByIndex(this.currentSpell.projectileAnimation - 1).name;
     }
 
     let damage = 0;
@@ -784,7 +784,7 @@ export class CreatureState {
       target: this.targetCreature.creature,
       defenseSkill,
       successAnimationName,
-      successProjectileAnimationName,
+      projectileAnimationName,
     });
 
     if (!missReason || missReason === 'blocked') {

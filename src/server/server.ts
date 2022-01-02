@@ -42,7 +42,7 @@ interface AttackData {
   target: Creature;
   defenseSkill: Skill;
   successAnimationName?: string;
-  successProjectileAnimationName?: string;
+  projectileAnimationName?: string;
 }
 
 export class Server {
@@ -784,7 +784,15 @@ export class Server {
     // const isCriticial = hitSuccess && hitSuccess && hitSuccess
     // const modifier = isCriticial ? Utils.randInt(2, 3) : 1;
 
-    let path;
+    // Only some code paths need this, but kind of expensive, so cache it.
+    let path_: Point4[];
+    const getPath = () => {
+      if (path_) return path_;
+      path_ = calcStraightLine(data.actor.pos, data.target.pos)
+        .map((p) => ({...data.actor.pos, ...p}));
+      return path_;
+    };
+
     let damage = 0;
     if (!missReason && data.damage) {
       // Armor can absorb some damage.
@@ -797,13 +805,11 @@ export class Server {
     }
 
     if (!missReason && data.lineOfSight) {
-      path = calcStraightLine(data.actor.pos, data.target.pos)
-        .map((p) => ({...data.actor.pos, ...p}));
       // using findPath does a cool "homing" attack, around corners. could be used for a neat weapon?
       // findPath(this.context, this.partition, data.actor.pos, data.target.pos)
       //   .map((p) => ({...p, w: data.actor.pos.w})),
 
-      const isObstructed = !path.every((p) => {
+      const isObstructed = !getPath().every((p) => {
         if (Utils.equalPoints(p, data.target.pos) || Utils.equalPoints(p, data.actor.pos)) {
           return true;
         }
@@ -826,16 +832,16 @@ export class Server {
         });
       }
 
-      if (data.successProjectileAnimationName && path) {
-        this.broadcastAnimation({
-          name: data.successProjectileAnimationName,
-          path,
-        });
-      }
-
       if (data.spell) {
         this.castSpell(data.spell, data.actor, data.target, undefined, false);
       }
+    }
+
+    if (data.projectileAnimationName && (!missReason || missReason === 'blocked')) {
+      this.broadcastAnimation({
+        name: data.projectileAnimationName,
+        path: getPath(),
+      });
     }
 
     // TODO: This bit is a little silly.
