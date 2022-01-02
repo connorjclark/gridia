@@ -55,6 +55,11 @@ export class SelectedViewModule extends ClientModule {
     // let tilePos;
     let item;
 
+    if (game.client.attackingCreatureId) {
+      state.selectedView.creatureId = game.client.attackingCreatureId;
+      state.selectedView.location = undefined;
+    }
+
     if (state.selectedView.creatureId) {
       creature = game.client.context.getCreature(state.selectedView.creatureId);
     }

@@ -557,6 +557,14 @@ export class Game {
         creatureSprite.dirty = true;
       }
     }
+    if (event.type === 'removeCreature' && this.client.attackingCreatureId === this.state.selectedView.creatureId) {
+      // Disable attack.
+      this.client.connection.sendCommand(CommandBuilder.creatureAction({
+        type: 'attack',
+        creatureId: 0,
+      }));
+      this.client.attackingCreatureId = null;
+    }
     if (event.type === 'removeCreature' && event.args.id === this.state.selectedView.creatureId) {
       delete this.state.selectedView.creatureId;
       this.modules.selectedView.clearSelectedView();
@@ -565,6 +573,11 @@ export class Game {
       const animation = Content.getAnimation(event.args.name);
       if (!animation) throw new Error('no animation found: ' + event.args.name);
       this.addAnimation(event.args);
+    }
+
+    if (event.type === 'setAttackTarget') {
+      // "Attack" action text may change.
+      this.modules.selectedView.renderSelectedView();
     }
 
     if (event.type === 'chat') {
@@ -1213,19 +1226,19 @@ export class Game {
       this.windowManager.getWindow('skills').toggle();
       break;
     case 'attack':
-      if (this.state.selectedView.creatureId) {
-        this.client.connection.sendCommand(CommandBuilder.creatureAction({
-          type: 'attack',
-          creatureId: this.state.selectedView.creatureId,
-        }));
-      } else {
+      if (this.client.attackingCreatureId) {
         // Disable attack.
         this.client.connection.sendCommand(CommandBuilder.creatureAction({
           type: 'attack',
           creatureId: 0,
         }));
+        this.client.attackingCreatureId = null;
+      } else if (this.state.selectedView.creatureId) {
+        this.client.connection.sendCommand(CommandBuilder.creatureAction({
+          type: 'attack',
+          creatureId: this.state.selectedView.creatureId,
+        }));
       }
-
       break;
     default:
       throw new Error('unknown control: ' + bindingName);
