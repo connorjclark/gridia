@@ -57,16 +57,23 @@ export class SoundModule extends ClientModule {
     }
 
     // TODO: stereo sound https://github.com/pixijs/pixi-sound/issues/73
-    let multiplier = 1;
-    if (pos) {
-      const range = 50;
-      const x = Utils.dist(this.game.client.creature.pos, pos) / range;
-      // https://www.desmos.com/calculator/mqvwdlklo7
-      multiplier = Utils.clamp(1.1 - 3.6 * Math.log10(x + 1), 0, 1);
-    }
+    const getVolume = () => {
+      let multiplier = 1;
+      if (pos) {
+        const range = 50;
+        const x = Utils.dist(this.game.client.creature.pos, pos) / range;
+        // https://www.desmos.com/calculator/mqvwdlklo7
+        multiplier = Utils.clamp(1.1 - 3.6 * Math.log10(x + 1), 0, 1);
+      }
+      return multiplier * globalVolume * this.game.client.settings.sfxVolume;
+    };
 
-    const volume = globalVolume * multiplier * this.game.client.settings.sfxVolume;
-    void this._soundCache[name].play({volume});
+    const sound = this._soundCache[name];
+    const handle = setInterval(() => {
+      sound.volume = getVolume();
+    }, 100);
+    sound.volume = getVolume();
+    void sound.play(() => clearInterval(handle));
   }
 
   async playSong(name: string) {
