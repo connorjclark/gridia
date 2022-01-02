@@ -1,8 +1,8 @@
 import * as Content from '../../content.js';
 import * as Player from '../../player.js';
 import * as CommandBuilder from '../../protocol/command-builder.js';
+import * as Utils from '../../utils.js';
 import {ClientModule} from '../client-module.js';
-import * as Helper from '../helper.js';
 import {State, makeSkillsWindow} from '../ui/skills-window.js';
 
 export class SkillsModule extends ClientModule {
@@ -88,7 +88,7 @@ export class SkillsModule extends ClientModule {
     for (const [name, value] of this.game.client.player.attributes) {
       result.push({name, ...value});
     }
-    return Helper.sortByPrecedence(result, [
+    return Utils.sortByPrecedence(result, [
       {type: 'predicate', fn: (item) => item.name === 'life'},
       {type: 'predicate', fn: (item) => item.name === 'mana'},
       {type: 'predicate', fn: (item) => item.name === 'stamina'},

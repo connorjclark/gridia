@@ -1,3 +1,5 @@
+// Common helper functions for the client.
+
 import * as Content from '../content.js';
 import {game} from '../game-singleton.js';
 import * as CommandBuilder from '../protocol/command-builder.js';
@@ -139,42 +141,4 @@ export function createChildOf<T extends string>(
   const element = createElement(elementName, className, attrs);
   parentElem.appendChild(element);
   return element;
-}
-
-type PrecedenceMatcher<T> =
-  | { type: 'equal'; value: T }
-  | { type: 'predicate'; fn: (val: T) => boolean };
-function matches<T>(item: T, matcher: PrecedenceMatcher<T>) {
-  if (matcher.type === 'equal') {
-    return item === matcher.value;
-  } if (matcher.type === 'predicate') {
-    return matcher.fn(item);
-  } else {
-    return false;
-  }
-}
-
-export function sortByPrecedence<T>(items: T[], matchers: Array<PrecedenceMatcher<T>>) {
-  items.sort((a, b) => {
-    const aMatcherIndex = matchers.findIndex((m) => matches(a, m));
-    const bMatcherIndex = matchers.findIndex((m) => matches(b, m));
-
-    // If neither value has a match, or they are equal, use an alphabetical comparison.
-    if (aMatcherIndex === -1 && bMatcherIndex === -1) {
-      return String(a).localeCompare(String(b));
-    }
-
-    // If just one value has a match, it is greater.
-    if (aMatcherIndex === -1 && bMatcherIndex >= 0) {
-      return 1;
-    }
-    if (bMatcherIndex === -1 && aMatcherIndex >= 0) {
-      return -1;
-    }
-
-    // Both values have a match, so do a simple comparison.
-    return aMatcherIndex - bMatcherIndex;
-  });
-
-  return items;
 }

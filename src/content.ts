@@ -1,7 +1,6 @@
-import * as Helper from './client/helper.js';
 import {setGfxSize} from './constants.js';
 import {ATTRIBUTES} from './player.js';
-import {randInt} from './utils.js';
+import * as Utils from './utils.js';
 
 interface WorldData {
   floors: MetaFloor[];
@@ -346,7 +345,7 @@ export function getMonsterTemplates() {
 }
 
 export function getRandomMonsterTemplate() {
-  const id = randInt(0, data.monsters.length - 1);
+  const id = Utils.randInt(0, data.monsters.length - 1);
   return data.monsters[id];
 }
 
@@ -373,16 +372,14 @@ export function getSkillsGroupedByCategory() {
     skillsByCategory.set(skill.category, skills);
   }
 
-  // TODO there's a ts-node bug here ...
-  // const skillsByCategoryOrdered = Helper.sortByPrecedence([...skillsByCategory.entries()], [
-  //   {type: 'predicate', fn: (kv) => kv[0] === 'combat basics'},
-  //   {type: 'predicate', fn: (kv) => kv[0] === 'combat'},
-  //   {type: 'predicate', fn: (kv) => kv[0] === 'magic'},
-  //   {type: 'predicate', fn: (kv) => kv[0] === 'crafts'},
-  // ]);
+  const skillsByCategoryOrdered = Utils.sortByPrecedence([...skillsByCategory.entries()], [
+    {type: 'predicate', fn: (kv) => kv[0] === 'combat basics'},
+    {type: 'predicate', fn: (kv) => kv[0] === 'combat'},
+    {type: 'predicate', fn: (kv) => kv[0] === 'magic'},
+    {type: 'predicate', fn: (kv) => kv[0] === 'crafts'},
+  ]);
 
-  // return new Map(skillsByCategoryOrdered);
-  return skillsByCategory;
+  return new Map(skillsByCategoryOrdered);
 }
 
 export function getSkill(id: number) {

@@ -5,7 +5,7 @@ import {SECTOR_SIZE} from '../../constants.js';
 import * as Content from '../../content.js';
 import {game} from '../../game-singleton.js';
 import * as CommandBuilder from '../../protocol/command-builder.js';
-import * as Helper from '../helper.js';
+import * as Utils from '../../utils.js';
 import {AdminModule} from '../modules/admin-module.js';
 
 import {
@@ -133,7 +133,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
     classToMetaItem.set(itemClass, metaItems);
   }
 
-  const itemClassesOrdered = Helper.sortByPrecedence([...classToMetaItem.keys()], [
+  const itemClassesOrdered = Utils.sortByPrecedence([...classToMetaItem.keys()], [
     {type: 'equal', value: 'Normal'},
     {type: 'equal', value: 'None'},
   ]);

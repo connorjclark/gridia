@@ -1,6 +1,7 @@
 import * as Content from '../../content.js';
 import {ATTRIBUTES} from '../../player.js';
 import * as CommandBuilder from '../../protocol/command-builder.js';
+import * as Utils from '../../utils.js';
 import * as Helper from '../helper.js';
 
 import {SceneController} from './scene-controller.js';
@@ -41,7 +42,7 @@ export class CreateCharacterScene extends Scene {
       }
     };
 
-    const attributesSorted = Helper.sortByPrecedence([...ATTRIBUTES], [
+    const attributesSorted = Utils.sortByPrecedence([...ATTRIBUTES], [
       {type: 'equal', value: 'life'},
       {type: 'equal', value: 'mana'},
       {type: 'equal', value: 'stamina'},
@@ -72,12 +73,7 @@ export class CreateCharacterScene extends Scene {
       });
     }
 
-    const skillsByCategory = Helper.sortByPrecedence([...Content.getSkillsGroupedByCategory().entries()], [
-      {type: 'predicate', fn: (kv) => kv[0] === 'combat basics'},
-      {type: 'predicate', fn: (kv) => kv[0] === 'combat'},
-      {type: 'predicate', fn: (kv) => kv[0] === 'magic'},
-      {type: 'predicate', fn: (kv) => kv[0] === 'crafts'},
-    ]);
+    const skillsByCategory = Content.getSkillsGroupedByCategory();
     const requiredSkills = characterCreation.requiredSkills || [];
 
     const skillsEl = Helper.find('.create--skills', this.element);
