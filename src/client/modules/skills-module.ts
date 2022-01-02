@@ -96,14 +96,8 @@ export class SkillsModule extends ClientModule {
   }
 
   getSkills() {
-    // TODO: tsconfig ES2019
-    // return [...Content.getSkillsGroupedByCategory().values()]
-    //   .flat()
-    //   .map((skill) => this.getSkill(skill.id));
-
-    const grouped = [...Content.getSkillsGroupedByCategory().values()];
-    const skills: Skill[] = [];
-    grouped.forEach((g) => skills.push(...g));
-    return skills.map((skill) => this.getSkill(skill.id));
+    return [...Content.getSkillsGroupedByCategory().values()]
+      .flat()
+      .map((skill) => this.getSkill(skill.id));
   }
 }

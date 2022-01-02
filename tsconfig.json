@@ -3,7 +3,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "target": "ES2018",
+    "target": "ES2021",
     "strict": true,
     "diagnostics": true,
     "sourceMap": true,
