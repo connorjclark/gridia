@@ -32,6 +32,12 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
         }));
       },
     },
+    home: {
+      args: [],
+      do() {
+        server.warpCreature(creature, playerConnection.player.spawnPos, {warpAnimation: true});
+      },
+    },
     landClaim: {
       args: [
         {name: 'server', type: 'boolean', optional: true},

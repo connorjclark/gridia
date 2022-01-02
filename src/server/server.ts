@@ -605,7 +605,14 @@ export class Server {
     }
 
     if (!creature.dead) {
-      this.creatureStates[creature.id].warped = false;
+      if (creature.pos.w !== pos.w || creature.pos.z !== pos.z) {
+        // Player has moved in an unusual way, probably by pressing T.
+        // Disable warps so that player doesn't possibly get warped back.
+        this.creatureStates[creature.id].warped = true;
+      } else {
+        this.creatureStates[creature.id].warped = false;
+      }
+
       creature.pos = pos;
       this.broadcastPartialCreatureUpdate(creature, ['pos']);
     }
