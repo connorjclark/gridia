@@ -483,7 +483,7 @@ export class ServerInterface implements ICommands {
         server.send(EventBuilder.chat({
           section: 'World',
           from: 'World',
-          text: 'You can\'t reach that.',
+          text: 'You can\'t reach that',
         }), clientConnection);
         return;
       }
@@ -510,7 +510,7 @@ export class ServerInterface implements ICommands {
 
       const container = server.context.containers.get(location.id);
       if (!container) {
-        return {error: 'Container does not exist.'};
+        return {error: 'Container does not exist'};
       }
 
       if (container.type === 'equipment') {
@@ -531,18 +531,25 @@ export class ServerInterface implements ICommands {
             };
           }
         }
+
+        // For equipment, don't check if there is already an item in that slot.
+        // It will be swapped later.
+        if (location.index === undefined && meta.equipSlot) {
+          const equipIndex = Container.EQUIP_SLOTS[meta.equipSlot];
+          return Utils.ItemLocation.Container(container.id, equipIndex);
+        }
       }
 
       if (location.index === undefined) {
         // Don't allow stacking if this is an item split operation.
         const allowStacking = quantity === undefined;
         return Container.findValidLocationToAddItemToContainer(container, item, {allowStacking}) || {
-          error: 'No possible location for that item in this container.',
+          error: 'No possible location for that item in this container',
         };
       } else {
         if (!Container.isValidLocationToAddItemInContainer(container, location.index, item)) {
           return {
-            error: 'Not a valid location for that item in this container.',
+            error: 'Not a valid location for that item in this container',
           };
         }
 
@@ -592,6 +599,17 @@ export class ServerInterface implements ICommands {
     // }
 
     const toItem = await server.getItem(validToLocation);
+
+    // Special case: swapping equipment.
+    if (toItem && fromItem && (toItem.type !== fromItem.type || !Content.getMetaItem(fromItem.type).stackable) &&
+        validToLocation.source === 'container' && server.context.containers.get(validToLocation.id)?.type === 'equipment' &&
+        fromItem && from.source === 'container' && from.id === clientConnection.container.id &&
+        from.index !== undefined && validToLocation.index !== undefined) {
+      server.setItemInContainer(from.id, from.index, toItem);
+      server.setItemInContainer(validToLocation.id, validToLocation.index, fromItem);
+      return;
+    }
+
     if (toItem && fromItem.type !== toItem.type) return;
 
     const fromOwner = from.source === 'world' && server.getSectorOwner(from.pos);
