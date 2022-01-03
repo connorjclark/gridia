@@ -53,7 +53,7 @@ export abstract class Script<C extends ConfigDefinition> {
   // and having the script reload.
   protected config: MapConfigType<C>;
   protected errors: any[] = [];
-  state = 'not-started';
+  state = 'stopped';
 
   constructor(public id: string, protected server: Server, public configDefinition: C) {
     const result = readConfig(id, configDefinition, server.context.scriptConfigStore);

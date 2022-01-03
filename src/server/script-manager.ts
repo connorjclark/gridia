@@ -43,8 +43,8 @@ export class ScriptManager {
           script.addError(e);
         }
       } else if (script.state === 'running') {
-        await script.tryCatchFn(() => script.onTick());
-      } else if (script.state === 'failed' || script.state === 'will-stop') {
+        await script.tryCatchFn(() => script.tick());
+      } else if (script.state === 'failed' || script.state === 'stopping') {
         script.state = 'stopped';
         await script.tryCatchFn(() => script.onStop());
         script.unload();
@@ -68,7 +68,7 @@ export class ScriptManager {
    */
   async stop() {
     for (const script of this._scripts) {
-      script.state = 'will-stop';
+      script.state = 'stopping';
     }
     await this.tick();
   }

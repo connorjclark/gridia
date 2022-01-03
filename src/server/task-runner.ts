@@ -35,6 +35,7 @@ export class TaskRunner {
   private tickTimeoutHandle?: NodeJS.Timeout;
   private lastTickTime = 0;
   private unprocessedTickTime = 0;
+  private isProcessingTick = false;
 
   constructor(private tickDuration: number) {
   }
@@ -51,6 +52,9 @@ export class TaskRunner {
   }
 
   async tick() {
+    if (this.isProcessingTick) return;
+    this.isProcessingTick = true;
+
     const now = performance.now();
     this.unprocessedTickTime += now - this.lastTickTime;
     this.lastTickTime = now;
@@ -60,9 +64,12 @@ export class TaskRunner {
       try {
         await this.tickImpl();
       } catch (err) {
+        this.isProcessingTick = false;
         throw err;
       }
     }
+
+    this.isProcessingTick = false;
   }
 
   getTicks() {
