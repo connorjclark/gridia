@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 
 import linkState from 'linkstate';
-import {render, h, Component, Fragment} from 'preact';
+import {render, h, Component} from 'preact';
 
 import {WORLD_DATA_DEFINITIONS} from '../../content.js';
 import * as CommandBuilder from '../../protocol/command-builder.js';

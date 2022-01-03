@@ -1,5 +1,5 @@
-import linkState from 'linkstate';
 import {render, h, Component} from 'preact';
+import {useState} from 'preact/hooks';
 
 import * as Content from '../../content.js';
 import {Game} from '../game.js';
@@ -7,12 +7,9 @@ import {Game} from '../game.js';
 import {Input, ItemGraphic, PaginatedContent} from './ui-common.js';
 
 export interface State {
-  text: string;
   skillId?: number;
 }
-const DEFAULT_STATE: State = {
-  text: '',
-};
+const DEFAULT_STATE: State = {};
 
 function renderItemUsages(usages: ItemUse[]) {
   return <div class="item-usages-search grid">
@@ -65,11 +62,13 @@ export function makeUsageSearchWindow(game: Game) {
   class UsageSearchWindow extends Component<any, State> {
     state = DEFAULT_STATE;
 
-    render(props: any, state: State) {
+    render() {
+      const [textFilter, setTextFilter] = useState('');
+
       let usages = [...Content.getAllItemUses()];
 
-      if (state.text) {
-        const regex = new RegExp(state.text, 'i');
+      if (textFilter) {
+        const regex = new RegExp(textFilter, 'i');
         usages = usages.filter((usage) => {
           if (Content.getMetaItem(usage.tool).name.match(regex)) return true;
           if (Content.getMetaItem(usage.focus).name.match(regex)) return true;
@@ -92,8 +91,8 @@ export function makeUsageSearchWindow(game: Game) {
           <Input
             name="textFilter"
             type={'text'}
-            onInput={linkState(this, 'text')}
-            value={state.text}>
+            onInput={(e: any) => setTextFilter(e.target.value)}
+            value={textFilter}>
             Filter
           </Input>
         </div>
