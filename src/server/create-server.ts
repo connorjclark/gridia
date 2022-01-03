@@ -49,11 +49,11 @@ export async function startServer(options: ServerOptions, db: Database) {
     verbose,
   });
 
-  await server.scriptManager.addScript(BasicScript);
-  await server.scriptManager.addScript(BallScript);
-  await server.scriptManager.addScript(DogScript);
-  await server.scriptManager.addScript(HubWorldScript);
-  await server.scriptManager.addScript(ThunderDomeScript);
+  server.scriptManager.addScript(BasicScript);
+  server.scriptManager.addScript(BallScript);
+  server.scriptManager.addScript(DogScript);
+  server.scriptManager.addScript(HubWorldScript);
+  server.scriptManager.addScript(ThunderDomeScript);
 
   server.taskRunner.registerTickSection({
     description: 'save',

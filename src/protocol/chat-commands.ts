@@ -324,16 +324,6 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
         }
       },
     },
-    who: {
-      args: [],
-      do() {
-        playerConnection.sendEvent(EventBuilder.chat({
-          section: 'World',
-          from: 'World',
-          text: server.getMessagePlayersOnline(),
-        }));
-      },
-    },
     newPartition: {
       args: [
         {name: 'name', type: 'string'},

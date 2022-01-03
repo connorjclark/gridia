@@ -4,7 +4,7 @@ import * as fs from 'fs';
 
 import * as Content from '../content.js';
 import {LevelDb, NodeFsDb} from '../database.js';
-import {ServerContext} from '../server/server-context.js';
+import {ServerContext, Store} from '../server/server-context.js';
 import {createTestPartitions} from '../world-map-debug.js';
 import {WorldMap} from '../world-map.js';
 
@@ -38,10 +38,15 @@ async function createMainWorldMap() {
 
   createTestPartitions(map);
 
+  const scriptConfig = await context.db.get(Store.misc, 'script-config.json');
+
   fs.mkdirSync('server-data', {recursive: true});
   // context.db = new NodeFs('server-data');
   context.db = new LevelDb('server-data');
   await context.save();
+
+  // TODO: handle this in context.save()
+  context.db.put(Store.misc, 'script-config.json', scriptConfig);
 }
 
 createMainWorldMap();

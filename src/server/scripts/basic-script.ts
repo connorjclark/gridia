@@ -29,7 +29,7 @@ export class BasicScript extends Script<typeof configDefinition> {
   };
   ratSpawnerState = this.addCreatureSpawner({
     descriptors: [{type: 41}, {type: 43}, {type: 98}],
-    limit: 10,
+    limit: 5,
     rate: {seconds: 5},
     region: this.config.ratSpawnerRegion,
   });
@@ -39,13 +39,6 @@ export class BasicScript extends Script<typeof configDefinition> {
   }
 
   onStart() {
-    this.ratSpawnerState = this.addCreatureSpawner({
-      descriptors: [{type: 41}, {type: 43}, {type: 98}],
-      limit: 10,
-      rate: {seconds: 5},
-      region: this.config.ratSpawnerRegion,
-    });
-
     // TODO better primitive that always keeps a creature alive / respawn if needed ?
     this.addCreatureSpawner({
       descriptors: [{

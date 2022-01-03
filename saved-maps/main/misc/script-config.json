@@ -1,16 +1,16 @@
 {
   "basic-script.ratSpawnerRegion": {
-    "w": 0,
-    "x": 25,
-    "y": 20,
+    "w": 3,
+    "x": 15,
+    "y": 18,
     "z": 0,
-    "width": 25,
-    "height": 12
+    "width": 13,
+    "height": 6
   },
   "basic-script.captainRegion": {
-    "w": 0,
-    "x": 25,
-    "y": 20,
+    "w": 3,
+    "x": 13,
+    "y": 16,
     "z": 0,
     "width": 1,
     "height": 1
