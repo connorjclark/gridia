@@ -47,6 +47,7 @@ declare namespace Protocol {
     type ReadItem = Command<{ location: ItemLocation }, { content: string }>;
     type EatItem = Command<{ location: ItemLocation }>;
     type ItemAction = Command<{ type: string; from: ItemLocation; to?: ItemLocation }>;
+    type ContainerAction = Command<{ type: string; id: string }>;
     type SaveSettings = Command<{ settings: Settings }>;
   }
 

@@ -100,12 +100,16 @@ type ItemActionCommand = {
     type: "itemAction";
     args: Protocol.Commands.ItemAction;
 };
+type ContainerActionCommand = {
+    type: "containerAction";
+    args: Protocol.Commands.ContainerAction;
+};
 type SaveSettingsCommand = {
     type: "saveSettings";
     args: Protocol.Commands.SaveSettings;
 };
 
-export type ProtocolCommand = AdminRequestPartitionMetasCommand | AdminRequestScriptsCommand | AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | ReadItemCommand | EatItemCommand | ItemActionCommand | SaveSettingsCommand;
+export type ProtocolCommand = AdminRequestPartitionMetasCommand | AdminRequestScriptsCommand | AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | ReadItemCommand | EatItemCommand | ItemActionCommand | ContainerActionCommand | SaveSettingsCommand;
 
 export function adminRequestPartitionMetas(): AdminRequestPartitionMetasCommand {
     return { type: "adminRequestPartitionMetas", args: arguments[0] };
@@ -181,6 +185,9 @@ export function eatItem({ location }: Protocol.Commands.EatItem["params"]): EatI
 }
 export function itemAction({ type, from, to }: Protocol.Commands.ItemAction["params"]): ItemActionCommand {
     return { type: "itemAction", args: arguments[0] };
+}
+export function containerAction({ type, id }: Protocol.Commands.ContainerAction["params"]): ContainerActionCommand {
+    return { type: "containerAction", args: arguments[0] };
 }
 export function saveSettings({ settings }: Protocol.Commands.SaveSettings["params"]): SaveSettingsCommand {
     return { type: "saveSettings", args: arguments[0] };

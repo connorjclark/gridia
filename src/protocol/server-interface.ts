@@ -602,9 +602,9 @@ export class ServerInterface implements ICommands {
 
     // Special case: swapping equipment.
     if (toItem && fromItem && (toItem.type !== fromItem.type || !Content.getMetaItem(fromItem.type).stackable) &&
-        validToLocation.source === 'container' && server.context.containers.get(validToLocation.id)?.type === 'equipment' &&
-        fromItem && from.source === 'container' && from.id === clientConnection.container.id &&
-        from.index !== undefined && validToLocation.index !== undefined) {
+      validToLocation.source === 'container' && server.context.containers.get(validToLocation.id)?.type === 'equipment' &&
+      fromItem && from.source === 'container' && from.id === clientConnection.container.id &&
+      from.index !== undefined && validToLocation.index !== undefined) {
       server.setItemInContainer(from.id, from.index, toItem);
       server.setItemInContainer(validToLocation.id, validToLocation.index, fromItem);
       return;
@@ -801,5 +801,49 @@ export class ServerInterface implements ICommands {
   onAdminRequestPartitionMetas(server: Server, clientConnection: ClientConnection): Promise<PartitionMeta[]> {
     const metas = [...server.context.map.partitions.values()].map((p) => p.getMeta());
     return Promise.resolve(metas);
+  }
+
+  async onContainerAction(server: Server, clientConnection: ClientConnection, {type, id}: Commands.ContainerAction['params']): Promise<Commands.ContainerAction['response']> {
+    const canAccess = clientConnection.container?.id === id || clientConnection.registeredContainers.includes(id);
+    if (!canAccess) throw new Error('invalid access');
+
+    const container = await server.context.getContainer(id);
+    if (!container) throw new Error('invalid container');
+
+    switch (type) {
+    case 'sort':
+      const sortedItems = [...container.items].sort((a, b) => {
+        if (!a && !b) return 0;
+        if (!a) return 1;
+        if (!b) return -1;
+        return Content.getMetaItem(a.type).name.localeCompare(Content.getMetaItem(b.type).name);
+      });
+      sortedItems.forEach((item, index) => {
+        server.setItemInContainer(id, index, item || undefined);
+      });
+      break;
+    case 'stack':
+      const itemTypeToIndices = new Map<number, number[]>();
+      container.items.forEach((item, index) => {
+        if (!item || !Content.getMetaItem(item.type).stackable) return;
+
+        const indices = itemTypeToIndices.get(item.type) || [];
+        indices.push(index);
+        itemTypeToIndices.set(item.type, indices);
+      });
+
+      for (const indices of itemTypeToIndices.values()) {
+        for (let i = 1; i < indices.length; i++) {
+          // Lazy way to reuse the stacking limit logic.
+          await this.onMoveItem(server, clientConnection, {
+            from: Utils.ItemLocation.Container(id, indices[i]),
+            to: Utils.ItemLocation.Container(id, indices[0]),
+          });
+        }
+      }
+      break;
+    default:
+      throw new Error('invalid action type');
+    }
   }
 }

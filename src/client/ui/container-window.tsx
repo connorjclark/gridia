@@ -1,6 +1,7 @@
 import {render, h, Component} from 'preact';
 
 import * as Content from '../../content.js';
+import * as CommandBuilder from '../../protocol/command-builder.js';
 import * as Utils from '../../utils.js';
 import {Game} from '../game.js';
 
@@ -62,6 +63,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
       }
 
       let statsEl = null;
+      let actionsEl = null;
       if (props.equipmentWindow) {
         const stats: any = {...props.equipmentWindow.stats};
         stats.damage = `${props.equipmentWindow.stats.damageLow} - ${props.equipmentWindow.stats.damageHigh}`;
@@ -71,6 +73,21 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
         statsEl = <div>{Object.entries(stats).map(([key, value]) => {
           return <div>{key}: {value}</div>;
         })}</div>;
+      } else {
+        actionsEl = <div class="container__actions">
+          <button onClick={() => {
+            game.client.connection.sendCommand(CommandBuilder.containerAction({
+              type: 'sort',
+              id: props.container.id,
+            }));
+          }}>Sort</button>
+          <button onClick={() => {
+            game.client.connection.sendCommand(CommandBuilder.containerAction({
+              type: 'stack',
+              id: props.container.id,
+            }));
+          }}>Stack</button>
+        </div>;
       }
 
       return <div>
@@ -98,6 +115,8 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
             return <div class={classes.join(' ')} data-index={i}>{gfx}</div>;
           })}
         </div>
+
+        {actionsEl}
         {statsEl}
       </div>;
     }
