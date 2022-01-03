@@ -6,31 +6,31 @@ import Typed from 'typed.js';
 import * as CommandBuilder from '../../protocol/command-builder.js';
 import {Game} from '../game.js';
 
-import {CustomCreatureGraphic, Graphic} from './ui-common.js';
+import {ComponentProps, createSubApp, CustomCreatureGraphic, Graphic} from './ui-common.js';
+
+interface State {
+  dialogue: Exclude<Dialogue, 'onFinish'>;
+  index: number;
+}
 
 export function makeDialogueWindow(game: Game) {
-  let setState = (_: Partial<State>) => {
-    // Do nothing.
-  };
-  interface State {
-    dialogue: Exclude<Dialogue, 'onFinish'>;
-    index: number;
-  }
-  class DialogueWindow extends Component {
-    // @ts-expect-error
-    state: State = {};
+  const actions = () => ({
+    setState: (state: State, newState: State): State => {
+      return {
+        ...newState,
+      };
+    },
+  });
 
-    componentDidMount() {
-      setState = this.setState.bind(this);
-    }
-
-    render(props: any, state: State) {
+  type Props = ComponentProps<State, typeof actions>;
+  class DialogueWindow extends Component<Props> {
+    render(props: any) {
       const part = useMemo(() => {
         // TODO ...
-        if (!this.state.dialogue) return;
+        if (!props.dialogue) return;
 
-        return this.state.dialogue.parts[this.state.index];
-      }, [this.state.dialogue, this.state.index]);
+        return props.dialogue.parts[props.index];
+      }, [props.dialogue, props.index]);
 
       if (!part) return;
 
@@ -40,8 +40,8 @@ export function makeDialogueWindow(game: Game) {
           if (!textEl.current) return;
 
           const string = bbCodeParser.parse(part.text);
-          const el = textEl.current.id;
-          const typed = new Typed(el, {
+          const el = textEl.current;
+          const typed = new Typed(el as unknown as string, {
             strings: [string],
             typeSpeed: 10,
             showCursor: false,
@@ -51,8 +51,8 @@ export function makeDialogueWindow(game: Game) {
         [part, textEl.current]
       );
 
-      const speakerGfx1 = this.createSpeakerGfx(this.state.dialogue.speakers[0].id);
-      const speakerGfx2 = this.createSpeakerGfx(this.state.dialogue.speakers[1].id);
+      const speakerGfx1 = this.createSpeakerGfx(props.dialogue.speakers[0].id);
+      const speakerGfx2 = this.createSpeakerGfx(props.dialogue.speakers[1].id);
 
       return <div>
         <div>
@@ -63,7 +63,7 @@ export function makeDialogueWindow(game: Game) {
             <span class={part.speaker === 0 ? 'active-speaker' : ''}>
               {speakerGfx1}
             </span>
-            <span>{this.state.dialogue.speakers[part.speaker].name}</span>
+            <span>{props.dialogue.speakers[part.speaker].name}</span>
             <span class={part.speaker === 1 ? 'active-speaker' : ''}>
               {speakerGfx2}
             </span>
@@ -95,12 +95,14 @@ export function makeDialogueWindow(game: Game) {
     }
   }
 
-  game.windowManager.createWindow({
+  const {SubApp, exportedActions, subscribe} = createSubApp(DialogueWindow, {}, actions);
+  const delegate = game.windowManager.createWindow({
     id: 'dialogue',
     cell: 'center',
     onInit(el) {
-      render(<DialogueWindow />, el);
+      render(<SubApp />, el);
     },
   });
-  return {setState: (s: Partial<State>) => setState(s)};
+
+  return {delegate, actions: exportedActions, subscribe};
 }

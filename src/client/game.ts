@@ -613,12 +613,14 @@ export class Game {
         this.dialogueWindow = makeDialogueWindow(this);
       }
 
-      this.dialogueWindow.setState(event.args);
+      // @ts-expect-error
+      this.dialogueWindow.actions.setState(event.args);
+      this.dialogueWindow.delegate.show();
       this.client.eventEmitter.once('playerMove', closeDialogueWindow);
 
       // TODO: better window management.
       function closeDialogueWindow() {
-        game.windowManager.hideWindow('dialogue');
+        game.dialogueWindow?.delegate.hide();
         game.dialogueWindow = undefined;
         game.client.eventEmitter.removeListener('playerMove', closeDialogueWindow);
       }

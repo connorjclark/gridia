@@ -1293,7 +1293,7 @@ export class Server {
   }
 
   deriveCreaturePropertiesFromEquipment(creature: Creature, equipmentItems: Array<Item | null>) {
-    let equipmentGraphics: Graphics[];
+    let equipmentGraphics: Graphics[] | undefined;
     let makeEquipmentGraphics = true;
 
     if (this.context.worldDataDefinition.baseDir === 'worlds/rpgwo-world') {
@@ -1303,8 +1303,6 @@ export class Server {
 
     if (makeEquipmentGraphics) {
       equipmentGraphics = this.makeCreatureImageData(equipmentItems);
-    } else {
-      equipmentGraphics = [];
     }
 
     // TODO: should these things be elsewhere? Only monsters use stats.x_defense ... player creatures
