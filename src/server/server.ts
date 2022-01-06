@@ -548,6 +548,7 @@ export class Server {
       buffs: [],
       magicLevel: template.magicLevel,
       magicChances: template.magicChances,
+      tameable: template.tameable,
       ...descriptor.partial,
     };
 
@@ -1438,6 +1439,8 @@ export class Server {
   }
 
   tameCreature(player: Player, creature: Creature) {
+    if (!creature.tameable || creature.isPlayer) return;
+
     player.tamedCreatureIds.add(creature.id);
     creature.tamedBy = player.id;
     this.creatureStates[creature.id].resetGoals();

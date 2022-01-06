@@ -44,7 +44,7 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
       });
     }
 
-    if (!creature.tamedBy && !creature.isPlayer) {
+    if (!creature.tamedBy && !creature.isPlayer && creature.tameable) {
       actions.push({
         type: 'tame',
         innerText: 'Tame',

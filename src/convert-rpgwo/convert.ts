@@ -1068,6 +1068,11 @@ function parseMonsterIni() {
         chance,
       });
     });
+
+    monster.tameable =
+      // @ts-expect-error
+      !monster.notTamable;
+    if (!monster.tameable) delete monster.tameable;
   }
 
   // Just in case monsters are defined out of order.
@@ -1095,6 +1100,7 @@ function parseMonsterIni() {
     'roam',
     'speed',
     'stamina',
+    'tameable',
     'weapon',
   ];
   for (const item of monsters) {

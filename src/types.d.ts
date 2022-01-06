@@ -204,6 +204,7 @@ interface Creature {
   magicLevel?: number;
   magicChances?: Monster['magicChances']; // TODO ...
   buffs: Buff[];
+  tameable?: boolean;
 }
 
 interface CreatureDescriptor {
@@ -412,6 +413,7 @@ interface Monster {
     /** 0-100 */
     chance: number;
   }>;
+  tameable?: boolean;
 }
 
 interface Quest {

@@ -37,7 +37,8 @@
     "meleeDefense": 15,
     "missleDefense": 15,
     "speed": 2,
-    "stamina": 60
+    "stamina": 60,
+    "tameable": true
   },
   {
     "id": 2,
@@ -83,7 +84,8 @@
     "meleeDefense": 30,
     "missleDefense": 30,
     "speed": 2,
-    "stamina": 60
+    "stamina": 60,
+    "tameable": true
   },
   {
     "id": 3,
@@ -133,7 +135,8 @@
     "meleeDefense": 70,
     "missleDefense": 80,
     "speed": 2,
-    "stamina": 120
+    "stamina": 120,
+    "tameable": true
   },
   {
     "id": 4,
@@ -196,7 +199,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 5,
@@ -271,7 +275,8 @@
     "meleeDefense": 130,
     "missleDefense": 130,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 6,
@@ -310,7 +315,8 @@
     "meleeDefense": 50,
     "missleDefense": 10,
     "speed": 2,
-    "stamina": 150
+    "stamina": 150,
+    "tameable": true
   },
   {
     "id": 7,
@@ -332,7 +338,8 @@
     ],
     "roam": 5,
     "speed": 4,
-    "stamina": 20
+    "stamina": 20,
+    "tameable": true
   },
   {
     "id": 8,
@@ -354,7 +361,8 @@
     ],
     "roam": 5,
     "speed": 4,
-    "stamina": 30
+    "stamina": 30,
+    "tameable": true
   },
   {
     "id": 9,
@@ -394,7 +402,8 @@
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 1,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 10,
@@ -440,7 +449,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 11,
@@ -486,7 +496,8 @@
     "meleeDefense": 125,
     "missleDefense": 125,
     "speed": 2,
-    "stamina": 130
+    "stamina": 130,
+    "tameable": true
   },
   {
     "id": 12,
@@ -531,7 +542,8 @@
     "meleeDefense": 60,
     "missleDefense": 60,
     "speed": 2,
-    "stamina": 170
+    "stamina": 170,
+    "tameable": true
   },
   {
     "id": 13,
@@ -572,7 +584,8 @@
     "meleeDefense": 80,
     "missleDefense": 80,
     "speed": 2,
-    "stamina": 170
+    "stamina": 170,
+    "tameable": true
   },
   {
     "id": 14,
@@ -611,7 +624,8 @@
     "meleeDefense": 110,
     "missleDefense": 110,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 15,
@@ -650,7 +664,8 @@
     "meleeDefense": 155,
     "missleDefense": 155,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 16,
@@ -690,7 +705,8 @@
     "meleeDefense": 30,
     "missleDefense": 30,
     "speed": 1,
-    "stamina": 60
+    "stamina": 60,
+    "tameable": true
   },
   {
     "id": 17,
@@ -726,7 +742,8 @@
     "meleeDefense": 60,
     "missleDefense": 60,
     "speed": 2,
-    "stamina": 120
+    "stamina": 120,
+    "tameable": true
   },
   {
     "id": 18,
@@ -776,7 +793,8 @@
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
-    "stamina": 600
+    "stamina": 600,
+    "tameable": true
   },
   {
     "id": 19,
@@ -835,7 +853,8 @@
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 20,
@@ -871,7 +890,8 @@
     "meleeDefense": 120,
     "missleDefense": 120,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 21,
@@ -915,7 +935,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 22,
@@ -961,7 +982,8 @@
     "meleeDefense": 140,
     "missleDefense": 140,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 23,
@@ -1012,7 +1034,8 @@
     "meleeDefense": 100,
     "missleDefense": 130,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 24,
@@ -1069,7 +1092,8 @@
     "meleeDefense": 175,
     "missleDefense": 175,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 25,
@@ -1120,7 +1144,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 1,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 26,
@@ -1159,7 +1184,8 @@
     "meleeDefense": 155,
     "missleDefense": 155,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 27,
@@ -1198,7 +1224,8 @@
     "meleeDefense": 10,
     "missleDefense": 10,
     "speed": 4,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 28,
@@ -1237,7 +1264,8 @@
     "meleeDefense": 185,
     "missleDefense": 185,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 29,
@@ -1299,7 +1327,8 @@
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 30,
@@ -1344,7 +1373,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 800
+    "stamina": 800,
+    "tameable": true
   },
   {
     "id": 31,
@@ -1406,7 +1436,8 @@
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
-    "stamina": 800
+    "stamina": 800,
+    "tameable": true
   },
   {
     "id": 32,
@@ -1445,7 +1476,8 @@
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 1,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 33,
@@ -1495,7 +1527,8 @@
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 1,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 34,
@@ -1530,7 +1563,8 @@
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 1,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 35,
@@ -1569,7 +1603,8 @@
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 1,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 36,
@@ -1608,7 +1643,8 @@
     "meleeDefense": 550,
     "missleDefense": 550,
     "speed": 1,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 37,
@@ -1665,7 +1701,8 @@
     "meleeDefense": 650,
     "missleDefense": 650,
     "speed": 1,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 38,
@@ -1696,7 +1733,8 @@
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 39,
@@ -1727,7 +1765,8 @@
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 1,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 40,
@@ -1787,7 +1826,8 @@
     "meleeDefense": 250,
     "missleDefense": 350,
     "speed": 1,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 41,
@@ -1808,7 +1848,8 @@
     ],
     "roam": 10,
     "speed": 4,
-    "stamina": 20
+    "stamina": 20,
+    "tameable": true
   },
   {
     "id": 42,
@@ -1843,7 +1884,8 @@
     "meleeDefense": 20,
     "missleDefense": 20,
     "speed": 2,
-    "stamina": 40
+    "stamina": 40,
+    "tameable": true
   },
   {
     "id": 43,
@@ -1865,7 +1907,8 @@
     ],
     "roam": 10,
     "speed": 4,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 44,
@@ -2524,7 +2567,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 56,
@@ -2586,7 +2630,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 57,
@@ -2636,7 +2681,8 @@
     "meleeDefense": 140,
     "missleDefense": 140,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 58,
@@ -2710,7 +2756,8 @@
     "meleeDefense": 160,
     "missleDefense": 160,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 59,
@@ -2764,7 +2811,8 @@
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
-    "stamina": 240
+    "stamina": 240,
+    "tameable": true
   },
   {
     "id": 60,
@@ -2818,7 +2866,8 @@
     "meleeDefense": 140,
     "missleDefense": 140,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 61,
@@ -2858,7 +2907,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 62,
@@ -2888,7 +2938,8 @@
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 1,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 63,
@@ -2912,7 +2963,8 @@
     "meleeDefense": 80,
     "missleDefense": 80,
     "speed": 1,
-    "stamina": 170
+    "stamina": 170,
+    "tameable": true
   },
   {
     "id": 64,
@@ -2936,7 +2988,8 @@
     "meleeDefense": 130,
     "missleDefense": 130,
     "speed": 1,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 65,
@@ -2990,7 +3043,8 @@
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 66,
@@ -3038,7 +3092,8 @@
     "meleeDefense": 160,
     "missleDefense": 160,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 67,
@@ -3091,7 +3146,8 @@
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 68,
@@ -3121,7 +3177,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 69,
@@ -3151,7 +3208,8 @@
     "meleeDefense": 150,
     "missleDefense": 200,
     "speed": 1,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 70,
@@ -3199,7 +3257,8 @@
     "meleeDefense": 100,
     "missleDefense": 300,
     "speed": 2,
-    "stamina": 10000
+    "stamina": 10000,
+    "tameable": true
   },
   {
     "id": 72,
@@ -3237,7 +3296,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 3,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 73,
@@ -3272,7 +3332,8 @@
     "meleeDefense": 55,
     "missleDefense": 55,
     "speed": 2,
-    "stamina": 170
+    "stamina": 170,
+    "tameable": true
   },
   {
     "id": 74,
@@ -3309,7 +3370,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 600
+    "stamina": 600,
+    "tameable": true
   },
   {
     "id": 75,
@@ -3340,7 +3402,8 @@
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 1,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 76,
@@ -3395,7 +3458,8 @@
     "meleeDefense": 175,
     "missleDefense": 175,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 78,
@@ -3426,7 +3490,8 @@
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 79,
@@ -3457,7 +3522,8 @@
     "meleeDefense": 40,
     "missleDefense": 40,
     "speed": 1,
-    "stamina": 60
+    "stamina": 60,
+    "tameable": true
   },
   {
     "id": 80,
@@ -3481,7 +3547,8 @@
     "meleeDefense": 175,
     "missleDefense": 175,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 81,
@@ -3505,7 +3572,8 @@
     "meleeDefense": 360,
     "missleDefense": 360,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 82,
@@ -3567,7 +3635,8 @@
     "meleeDefense": 225,
     "missleDefense": 225,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 84,
@@ -3636,7 +3705,8 @@
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 85,
@@ -3693,7 +3763,8 @@
     "meleeDefense": 275,
     "missleDefense": 275,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 86,
@@ -3765,7 +3836,8 @@
     "meleeDefense": 150,
     "missleDefense": 350,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 87,
@@ -3838,7 +3910,8 @@
     "meleeDefense": 160,
     "missleDefense": 160,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 88,
@@ -3873,7 +3946,8 @@
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 1,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 89,
@@ -3930,7 +4004,8 @@
     "meleeDefense": 750,
     "missleDefense": 750,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 90,
@@ -3993,7 +4068,8 @@
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 2,
-    "stamina": 800
+    "stamina": 800,
+    "tameable": true
   },
   {
     "id": 91,
@@ -4071,7 +4147,8 @@
     "meleeDefense": 500,
     "missleDefense": 450,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 92,
@@ -4095,7 +4172,8 @@
     "meleeDefense": 650,
     "missleDefense": 650,
     "speed": 1,
-    "stamina": 2000
+    "stamina": 2000,
+    "tameable": true
   },
   {
     "id": 93,
@@ -4119,7 +4197,8 @@
     "meleeDefense": 220,
     "missleDefense": 150,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   null,
   {
@@ -4144,7 +4223,8 @@
     "meleeDefense": 600,
     "missleDefense": 600,
     "speed": 2,
-    "stamina": 2000
+    "stamina": 2000,
+    "tameable": true
   },
   {
     "id": 96,
@@ -4159,7 +4239,8 @@
     "life": 10,
     "roam": 10,
     "speed": 2,
-    "stamina": 20
+    "stamina": 20,
+    "tameable": true
   },
   {
     "id": 97,
@@ -4174,7 +4255,8 @@
     "life": 10,
     "roam": 10,
     "speed": 2,
-    "stamina": 20
+    "stamina": 20,
+    "tameable": true
   },
   {
     "id": 98,
@@ -4195,7 +4277,8 @@
     ],
     "roam": 10,
     "speed": 2,
-    "stamina": 20
+    "stamina": 20,
+    "tameable": true
   },
   {
     "id": 99,
@@ -4235,7 +4318,8 @@
     "meleeDefense": 60,
     "missleDefense": 60,
     "speed": 2,
-    "stamina": 60
+    "stamina": 60,
+    "tameable": true
   },
   {
     "id": 100,
@@ -4270,7 +4354,8 @@
     "meleeDefense": 90,
     "missleDefense": 90,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 101,
@@ -4372,7 +4457,8 @@
     "meleeDefense": 205,
     "missleDefense": 205,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 103,
@@ -4410,7 +4496,8 @@
     "meleeDefense": 135,
     "missleDefense": 135,
     "speed": 2,
-    "stamina": 250
+    "stamina": 250,
+    "tameable": true
   },
   {
     "id": 104,
@@ -4452,7 +4539,8 @@
     "meleeDefense": 145,
     "missleDefense": 145,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 105,
@@ -4487,7 +4575,8 @@
     "meleeDefense": 200,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 10000
+    "stamina": 10000,
+    "tameable": true
   },
   {
     "id": 106,
@@ -4522,7 +4611,8 @@
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 107,
@@ -4557,7 +4647,8 @@
     "meleeDefense": 140,
     "missleDefense": 140,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 108,
@@ -4597,7 +4688,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 70
+    "stamina": 70,
+    "tameable": true
   },
   {
     "id": 109,
@@ -4631,7 +4723,8 @@
     "meleeDefense": 145,
     "missleDefense": 145,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 110,
@@ -4666,7 +4759,8 @@
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 111,
@@ -4700,7 +4794,8 @@
     "meleeDefense": 130,
     "missleDefense": 130,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 112,
@@ -4735,7 +4830,8 @@
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 113,
@@ -4770,7 +4866,8 @@
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 114,
@@ -4804,7 +4901,8 @@
     "meleeDefense": 110,
     "missleDefense": 110,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 115,
@@ -4838,7 +4936,8 @@
     "meleeDefense": 130,
     "missleDefense": 130,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   null,
   {
@@ -4896,7 +4995,8 @@
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 118,
@@ -4940,7 +5040,8 @@
     "meleeDefense": 120,
     "missleDefense": 120,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 119,
@@ -4970,7 +5071,8 @@
     "meleeDefense": 80,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 120,
@@ -5065,7 +5167,8 @@
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 122,
@@ -5099,7 +5202,8 @@
     "meleeDefense": 160,
     "missleDefense": 160,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 123,
@@ -5137,7 +5241,8 @@
     "meleeDefense": 180,
     "missleDefense": 180,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 124,
@@ -5181,7 +5286,8 @@
     "meleeDefense": 15,
     "missleDefense": 15,
     "speed": 2,
-    "stamina": 60
+    "stamina": 60,
+    "tameable": true
   },
   {
     "id": 125,
@@ -5221,7 +5327,8 @@
     "meleeDefense": 190,
     "missleDefense": 180,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 126,
@@ -5275,7 +5382,8 @@
     "meleeDefense": 240,
     "missleDefense": 230,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 127,
@@ -5315,7 +5423,8 @@
     "meleeDefense": 260,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 128,
@@ -5371,7 +5480,8 @@
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 129,
@@ -5415,7 +5525,8 @@
     "meleeDefense": 210,
     "missleDefense": 200,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 130,
@@ -5455,7 +5566,8 @@
     "meleeDefense": 220,
     "missleDefense": 210,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 131,
@@ -5507,7 +5619,8 @@
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 132,
@@ -5546,7 +5659,8 @@
     "meleeDefense": 150,
     "missleDefense": 200,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 133,
@@ -5586,7 +5700,8 @@
     "meleeDefense": 240,
     "missleDefense": 230,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 134,
@@ -5657,7 +5772,8 @@
     "meleeDefense": 120,
     "missleDefense": 120,
     "speed": 2,
-    "stamina": 240
+    "stamina": 240,
+    "tameable": true
   },
   {
     "id": 136,
@@ -5692,7 +5808,8 @@
     "meleeDefense": 140,
     "missleDefense": 140,
     "speed": 2,
-    "stamina": 280
+    "stamina": 280,
+    "tameable": true
   },
   {
     "id": 137,
@@ -5726,7 +5843,8 @@
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 138,
@@ -5760,7 +5878,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 139,
@@ -5817,7 +5936,8 @@
     "meleeDefense": 100,
     "missleDefense": 110,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 140,
@@ -5878,7 +5998,8 @@
     "meleeDefense": 120,
     "missleDefense": 130,
     "speed": 2,
-    "stamina": 240
+    "stamina": 240,
+    "tameable": true
   },
   {
     "id": 141,
@@ -5934,7 +6055,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 142,
@@ -5990,7 +6112,8 @@
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 143,
@@ -6035,7 +6158,8 @@
     "meleeDefense": 1000,
     "missleDefense": 1000,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 144,
@@ -6073,7 +6197,8 @@
     "meleeDefense": 1200,
     "missleDefense": 1200,
     "speed": 2,
-    "stamina": 800
+    "stamina": 800,
+    "tameable": true
   },
   {
     "id": 145,
@@ -6117,7 +6242,8 @@
     "meleeDefense": 500,
     "missleDefense": 700,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 146,
@@ -6142,7 +6268,8 @@
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 147,
@@ -6190,7 +6317,8 @@
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 148,
@@ -6250,7 +6378,8 @@
     "meleeDefense": 275,
     "missleDefense": 275,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 149,
@@ -6310,7 +6439,8 @@
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 150,
@@ -6371,7 +6501,8 @@
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
-    "stamina": 460
+    "stamina": 460,
+    "tameable": true
   },
   {
     "id": 151,
@@ -6420,7 +6551,8 @@
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 152,
@@ -6474,7 +6606,8 @@
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
-    "stamina": 600
+    "stamina": 600,
+    "tameable": true
   },
   {
     "id": 153,
@@ -6535,7 +6668,8 @@
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 154,
@@ -6589,7 +6723,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 155,
@@ -6666,7 +6801,8 @@
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 157,
@@ -6703,7 +6839,8 @@
     "meleeDefense": 90,
     "missleDefense": 60,
     "speed": 2,
-    "stamina": 120
+    "stamina": 120,
+    "tameable": true
   },
   {
     "id": 158,
@@ -6743,7 +6880,8 @@
     "meleeDefense": 100,
     "missleDefense": 60,
     "speed": 2,
-    "stamina": 170
+    "stamina": 170,
+    "tameable": true
   },
   {
     "id": 159,
@@ -6788,7 +6926,8 @@
     "meleeDefense": 120,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 170
+    "stamina": 170,
+    "tameable": true
   },
   {
     "id": 160,
@@ -6833,7 +6972,8 @@
     "meleeDefense": 150,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 161,
@@ -6888,7 +7028,8 @@
     "meleeDefense": 170,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 220
+    "stamina": 220,
+    "tameable": true
   },
   {
     "id": 162,
@@ -6933,7 +7074,8 @@
     "meleeDefense": 120,
     "missleDefense": 150,
     "speed": 2,
-    "stamina": 170
+    "stamina": 170,
+    "tameable": true
   },
   {
     "id": 163,
@@ -6973,7 +7115,8 @@
     "meleeDefense": 120,
     "missleDefense": 120,
     "speed": 2,
-    "stamina": 140
+    "stamina": 140,
+    "tameable": true
   },
   {
     "id": 164,
@@ -7018,7 +7161,8 @@
     "meleeDefense": 150,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 165,
@@ -7049,7 +7193,8 @@
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 166,
@@ -7081,7 +7226,8 @@
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 2,
-    "stamina": 450
+    "stamina": 450,
+    "tameable": true
   },
   {
     "id": 167,
@@ -7112,7 +7258,8 @@
     "meleeDefense": 375,
     "missleDefense": 300,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 168,
@@ -7143,7 +7290,8 @@
     "meleeDefense": 425,
     "missleDefense": 500,
     "speed": 2,
-    "stamina": 350
+    "stamina": 350,
+    "tameable": true
   },
   {
     "id": 169,
@@ -7178,7 +7326,8 @@
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
-    "stamina": 600
+    "stamina": 600,
+    "tameable": true
   },
   {
     "id": 170,
@@ -7214,7 +7363,8 @@
     "meleeDefense": 200,
     "missleDefense": 500,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 171,
@@ -7314,7 +7464,8 @@
     "meleeDefense": 600,
     "missleDefense": 600,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 174,
@@ -7370,7 +7521,8 @@
     "meleeDefense": 800,
     "missleDefense": 800,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 175,
@@ -7430,7 +7582,8 @@
     "meleeDefense": 830,
     "missleDefense": 830,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 176,
@@ -7492,7 +7645,8 @@
     "meleeDefense": 860,
     "missleDefense": 860,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 177,
@@ -7558,7 +7712,8 @@
     "meleeDefense": 800,
     "missleDefense": 900,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 178,
@@ -7629,7 +7784,8 @@
     "meleeDefense": 900,
     "missleDefense": 900,
     "speed": 2,
-    "stamina": 1200
+    "stamina": 1200,
+    "tameable": true
   },
   {
     "id": 179,
@@ -7696,7 +7852,8 @@
     "meleeDefense": 950,
     "missleDefense": 950,
     "speed": 2,
-    "stamina": 1200
+    "stamina": 1200,
+    "tameable": true
   },
   {
     "id": 180,
@@ -7762,7 +7919,8 @@
     "meleeDefense": 1000,
     "missleDefense": 1000,
     "speed": 2,
-    "stamina": 1300
+    "stamina": 1300,
+    "tameable": true
   },
   {
     "id": 181,
@@ -8191,7 +8349,8 @@
     "meleeDefense": 600,
     "missleDefense": 600,
     "speed": 2,
-    "stamina": 800
+    "stamina": 800,
+    "tameable": true
   },
   {
     "id": 188,
@@ -8231,7 +8390,8 @@
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 189,
@@ -8401,7 +8561,8 @@
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 192,
@@ -8436,7 +8597,8 @@
     "meleeDefense": 650,
     "missleDefense": 650,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 193,
@@ -8474,7 +8636,8 @@
     "meleeDefense": 500,
     "missleDefense": 700,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 194,
@@ -8553,7 +8716,8 @@
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
-    "stamina": 600
+    "stamina": 600,
+    "tameable": true
   },
   {
     "id": 195,
@@ -8595,7 +8759,8 @@
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 196,
@@ -8795,7 +8960,8 @@
     "meleeDefense": 1000,
     "missleDefense": 1000,
     "speed": 2,
-    "stamina": 4000
+    "stamina": 4000,
+    "tameable": true
   },
   {
     "id": 200,
@@ -8819,7 +8985,8 @@
     "meleeDefense": 15,
     "missleDefense": 15,
     "speed": 2,
-    "stamina": 60
+    "stamina": 60,
+    "tameable": true
   },
   {
     "id": 201,
@@ -8862,7 +9029,8 @@
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 202,
@@ -8886,7 +9054,8 @@
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 203,
@@ -8910,7 +9079,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 204,
@@ -8934,7 +9104,8 @@
     "meleeDefense": 15,
     "missleDefense": 15,
     "speed": 2,
-    "stamina": 30
+    "stamina": 30,
+    "tameable": true
   },
   {
     "id": 205,
@@ -8958,7 +9129,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 206,
@@ -8982,7 +9154,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 207,
@@ -9013,7 +9186,8 @@
     "meleeDefense": 100,
     "missleDefense": 75,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 208,
@@ -9027,7 +9201,8 @@
     "level": 1,
     "life": 20,
     "speed": 2,
-    "stamina": 60
+    "stamina": 60,
+    "tameable": true
   },
   {
     "id": 209,
@@ -9041,7 +9216,8 @@
     "level": 1,
     "life": 30,
     "speed": 2,
-    "stamina": 60
+    "stamina": 60,
+    "tameable": true
   },
   {
     "id": 210,
@@ -9080,7 +9256,8 @@
     "meleeDefense": 70,
     "missleDefense": 70,
     "speed": 2,
-    "stamina": 80
+    "stamina": 80,
+    "tameable": true
   },
   {
     "id": 211,
@@ -9104,7 +9281,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 212,
@@ -9143,7 +9321,8 @@
     "meleeDefense": 25,
     "missleDefense": 25,
     "speed": 2,
-    "stamina": 70
+    "stamina": 70,
+    "tameable": true
   },
   {
     "id": 213,
@@ -9167,7 +9346,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 214,
@@ -9191,7 +9371,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 215,
@@ -9215,7 +9396,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 216,
@@ -9239,7 +9421,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 217,
@@ -9263,7 +9446,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 218,
@@ -9287,7 +9471,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 219,
@@ -9311,7 +9496,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 220,
@@ -9335,7 +9521,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 221,
@@ -9359,7 +9546,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 222,
@@ -9383,7 +9571,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 223,
@@ -9407,7 +9596,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 224,
@@ -9446,7 +9636,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 226,
@@ -9460,7 +9651,8 @@
     "level": 1,
     "life": 100,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 227,
@@ -9474,7 +9666,8 @@
     "level": 1,
     "life": 100,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 228,
@@ -9505,7 +9698,8 @@
     "meleeDefense": 150,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 229,
@@ -9536,7 +9730,8 @@
     "meleeDefense": 100,
     "missleDefense": 150,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 230,
@@ -9579,7 +9774,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 231,
@@ -9610,7 +9806,8 @@
     "meleeDefense": 150,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 232,
@@ -9641,7 +9838,8 @@
     "meleeDefense": 120,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 233,
@@ -9655,7 +9853,8 @@
     "level": 1,
     "life": 100,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 234,
@@ -9670,7 +9869,8 @@
     "life": 100,
     "mana": 200,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   null,
   null,
@@ -9696,7 +9896,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   null,
   {
@@ -9728,7 +9929,8 @@
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 240,
@@ -9759,7 +9961,8 @@
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 241,
@@ -9783,7 +9986,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 242,
@@ -9809,7 +10013,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 243,
@@ -9833,7 +10038,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 244,
@@ -9858,7 +10064,8 @@
     "meleeDefense": 250,
     "missleDefense": 500,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 245,
@@ -9882,7 +10089,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 246,
@@ -9907,7 +10115,8 @@
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 247,
@@ -9934,7 +10143,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 248,
@@ -9958,7 +10168,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 249,
@@ -9982,7 +10193,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 250,
@@ -9999,7 +10211,8 @@
     "meleeDefense": 10,
     "missleDefense": 10,
     "speed": 2,
-    "stamina": 40
+    "stamina": 40,
+    "tameable": true
   },
   {
     "id": 251,
@@ -10023,7 +10236,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 252,
@@ -10052,7 +10266,8 @@
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 253,
@@ -10077,7 +10292,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 254,
@@ -10119,7 +10335,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 255,
@@ -10143,7 +10360,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 256,
@@ -10168,7 +10386,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 257,
@@ -10193,7 +10412,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 258,
@@ -10218,7 +10438,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 259,
@@ -10243,7 +10464,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 260,
@@ -10268,7 +10490,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 261,
@@ -10293,7 +10516,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 262,
@@ -10317,7 +10541,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 263,
@@ -10341,7 +10566,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 264,
@@ -10365,7 +10591,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 265,
@@ -10390,7 +10617,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 266,
@@ -10418,7 +10646,8 @@
     "missleDefense": 50,
     "roam": 5,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 267,
@@ -10443,7 +10672,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 268,
@@ -10468,7 +10698,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 269,
@@ -10492,7 +10723,8 @@
     "meleeDefense": 15,
     "missleDefense": 15,
     "speed": 2,
-    "stamina": 60
+    "stamina": 60,
+    "tameable": true
   },
   {
     "id": 270,
@@ -10520,7 +10752,8 @@
     "missleDefense": 50,
     "roam": 5,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 271,
@@ -10545,7 +10778,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 272,
@@ -10570,7 +10804,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 273,
@@ -10595,7 +10830,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 274,
@@ -10620,7 +10856,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 275,
@@ -10644,7 +10881,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 276,
@@ -10669,7 +10907,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 277,
@@ -10694,7 +10933,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 278,
@@ -10718,7 +10958,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 279,
@@ -10743,7 +10984,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 280,
@@ -10768,7 +11010,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 281,
@@ -10792,7 +11035,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 282,
@@ -10817,7 +11061,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 283,
@@ -10842,7 +11087,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 284,
@@ -10856,7 +11102,8 @@
     "level": 1,
     "life": 30,
     "speed": 2,
-    "stamina": 60
+    "stamina": 60,
+    "tameable": true
   },
   {
     "id": 285,
@@ -10870,7 +11117,8 @@
     "level": 1,
     "life": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 286,
@@ -10894,7 +11142,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 287,
@@ -10922,7 +11171,8 @@
     "missleDefense": 50,
     "roam": 5,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 288,
@@ -10947,7 +11197,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 289,
@@ -10972,7 +11223,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 290,
@@ -10996,7 +11248,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 291,
@@ -11021,7 +11274,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 292,
@@ -11035,7 +11289,8 @@
     "life": 80,
     "mana": 10,
     "speed": 2,
-    "stamina": 160
+    "stamina": 160,
+    "tameable": true
   },
   {
     "id": 293,
@@ -11059,7 +11314,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 294,
@@ -11083,7 +11339,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 295,
@@ -11108,7 +11365,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 296,
@@ -11126,7 +11384,8 @@
     "meleeDefense": 10,
     "missleDefense": 10,
     "speed": 2,
-    "stamina": 5
+    "stamina": 5,
+    "tameable": true
   },
   {
     "id": 297,
@@ -11151,7 +11410,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 298,
@@ -11165,7 +11425,8 @@
     "level": 1,
     "life": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 299,
@@ -11188,7 +11449,8 @@
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 300,
@@ -11234,7 +11496,8 @@
     "meleeDefense": 110,
     "missleDefense": 110,
     "speed": 2,
-    "stamina": 160
+    "stamina": 160,
+    "tameable": true
   },
   {
     "id": 301,
@@ -11271,7 +11534,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 302,
@@ -11308,7 +11572,8 @@
     "meleeDefense": 175,
     "missleDefense": 175,
     "speed": 2,
-    "stamina": 600
+    "stamina": 600,
+    "tameable": true
   },
   {
     "id": 303,
@@ -11345,7 +11610,8 @@
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 800
+    "stamina": 800,
+    "tameable": true
   },
   {
     "id": 304,
@@ -11382,7 +11648,8 @@
     "meleeDefense": 325,
     "missleDefense": 325,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 305,
@@ -11419,7 +11686,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 1200
+    "stamina": 1200,
+    "tameable": true
   },
   {
     "id": 306,
@@ -11456,7 +11724,8 @@
     "meleeDefense": 475,
     "missleDefense": 475,
     "speed": 2,
-    "stamina": 1400
+    "stamina": 1400,
+    "tameable": true
   },
   {
     "id": 307,
@@ -11493,7 +11762,8 @@
     "meleeDefense": 550,
     "missleDefense": 550,
     "speed": 2,
-    "stamina": 1600
+    "stamina": 1600,
+    "tameable": true
   },
   {
     "id": 308,
@@ -11530,7 +11800,8 @@
     "meleeDefense": 625,
     "missleDefense": 625,
     "speed": 2,
-    "stamina": 1800
+    "stamina": 1800,
+    "tameable": true
   },
   {
     "id": 309,
@@ -11567,7 +11838,8 @@
     "meleeDefense": 700,
     "missleDefense": 700,
     "speed": 2,
-    "stamina": 2000
+    "stamina": 2000,
+    "tameable": true
   },
   {
     "id": 310,
@@ -11604,7 +11876,8 @@
     "meleeDefense": 800,
     "missleDefense": 800,
     "speed": 2,
-    "stamina": 2200
+    "stamina": 2200,
+    "tameable": true
   },
   {
     "id": 311,
@@ -11641,7 +11914,8 @@
     "meleeDefense": 900,
     "missleDefense": 900,
     "speed": 2,
-    "stamina": 2400
+    "stamina": 2400,
+    "tameable": true
   },
   {
     "id": 312,
@@ -11688,7 +11962,8 @@
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 313,
@@ -11737,7 +12012,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 314,
@@ -11782,7 +12058,8 @@
     "missleDefense": 50,
     "roam": 15,
     "speed": 2,
-    "stamina": 50
+    "stamina": 50,
+    "tameable": true
   },
   {
     "id": 315,
@@ -11831,7 +12108,8 @@
     "meleeDefense": 500,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 316,
@@ -11880,7 +12158,8 @@
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
-    "stamina": 600
+    "stamina": 600,
+    "tameable": true
   },
   {
     "id": 317,
@@ -11894,7 +12173,8 @@
     "level": 1,
     "life": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 318,
@@ -11909,7 +12189,8 @@
     "life": 50,
     "mana": 60,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 319,
@@ -11934,7 +12215,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 320,
@@ -11988,7 +12270,8 @@
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 321,
@@ -12046,7 +12329,8 @@
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 322,
@@ -12069,7 +12353,8 @@
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 323,
@@ -12126,7 +12411,8 @@
     "meleeDefense": 225,
     "missleDefense": 225,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 324,
@@ -12166,7 +12452,8 @@
     "meleeDefense": 600,
     "missleDefense": 600,
     "speed": 2,
-    "stamina": 2000
+    "stamina": 2000,
+    "tameable": true
   },
   {
     "id": 325,
@@ -12207,7 +12494,8 @@
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 326,
@@ -12248,7 +12536,8 @@
     "meleeDefense": 275,
     "missleDefense": 275,
     "speed": 2,
-    "stamina": 240
+    "stamina": 240,
+    "tameable": true
   },
   {
     "id": 327,
@@ -12289,7 +12578,8 @@
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 328,
@@ -12325,7 +12615,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 329,
@@ -12350,7 +12641,8 @@
     "meleeDefense": 50,
     "missleDefense": 50,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 330,
@@ -12369,7 +12661,8 @@
     "meleeDefense": 0,
     "missleDefense": 0,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 331,
@@ -12423,7 +12716,8 @@
     "meleeDefense": 130,
     "missleDefense": 130,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 332,
@@ -12482,7 +12776,8 @@
     "meleeDefense": 160,
     "missleDefense": 160,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 333,
@@ -12545,7 +12840,8 @@
     "meleeDefense": 175,
     "missleDefense": 175,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 334,
@@ -12589,7 +12885,8 @@
     "meleeDefense": 125,
     "missleDefense": 125,
     "speed": 2,
-    "stamina": 150
+    "stamina": 150,
+    "tameable": true
   },
   {
     "id": 335,
@@ -12637,7 +12934,8 @@
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 336,
@@ -12688,7 +12986,8 @@
     "meleeDefense": 130,
     "missleDefense": 130,
     "speed": 1,
-    "stamina": 330
+    "stamina": 330,
+    "tameable": true
   },
   {
     "id": 337,
@@ -12738,7 +13037,8 @@
     "meleeDefense": 160,
     "missleDefense": 160,
     "speed": 1,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 338,
@@ -12775,7 +13075,8 @@
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   null,
   {
@@ -12812,7 +13113,8 @@
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 341,
@@ -12849,7 +13151,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 2000
+    "stamina": 2000,
+    "tameable": true
   },
   {
     "id": 342,
@@ -12886,7 +13189,8 @@
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 2,
-    "stamina": 2200
+    "stamina": 2200,
+    "tameable": true
   },
   {
     "id": 343,
@@ -12923,7 +13227,8 @@
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
-    "stamina": 2400
+    "stamina": 2400,
+    "tameable": true
   },
   {
     "id": 344,
@@ -12957,7 +13262,8 @@
     "meleeDefense": 1250,
     "missleDefense": 1250,
     "speed": 2,
-    "stamina": 12000
+    "stamina": 12000,
+    "tameable": true
   },
   {
     "id": 345,
@@ -12998,7 +13304,8 @@
     "meleeDefense": 3000,
     "missleDefense": 3000,
     "speed": 2,
-    "stamina": 5000
+    "stamina": 5000,
+    "tameable": true
   },
   {
     "id": 346,
@@ -13035,7 +13342,8 @@
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
-    "stamina": 2400
+    "stamina": 2400,
+    "tameable": true
   },
   {
     "id": 347,
@@ -13065,7 +13373,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 348,
@@ -13095,7 +13404,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 349,
@@ -13129,7 +13439,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 350,
@@ -13171,7 +13482,8 @@
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 351,
@@ -13213,7 +13525,8 @@
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 352,
@@ -13247,7 +13560,8 @@
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 353,
@@ -13289,7 +13603,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 354,
@@ -13319,7 +13634,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 355,
@@ -13353,7 +13669,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 356,
@@ -13397,7 +13714,8 @@
     "meleeDefense": 600,
     "missleDefense": 600,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 357,
@@ -13441,7 +13759,8 @@
     "meleeDefense": 600,
     "missleDefense": 600,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 358,
@@ -13493,7 +13812,8 @@
     "meleeDefense": 600,
     "missleDefense": 600,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 359,
@@ -13537,7 +13857,8 @@
     "meleeDefense": 850,
     "missleDefense": 850,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 360,
@@ -13581,7 +13902,8 @@
     "meleeDefense": 850,
     "missleDefense": 850,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 361,
@@ -13636,7 +13958,8 @@
     "meleeDefense": 850,
     "missleDefense": 850,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 362,
@@ -13659,7 +13982,8 @@
     "meleeDefense": 600,
     "missleDefense": 600,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   null,
   null,
@@ -13754,7 +14078,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 600
+    "stamina": 600,
+    "tameable": true
   },
   {
     "id": 401,
@@ -13812,7 +14137,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 600
+    "stamina": 600,
+    "tameable": true
   },
   {
     "id": 402,
@@ -13874,7 +14200,8 @@
     "meleeDefense": 430,
     "missleDefense": 430,
     "speed": 2,
-    "stamina": 700
+    "stamina": 700,
+    "tameable": true
   },
   {
     "id": 403,
@@ -13932,7 +14259,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 600
+    "stamina": 600,
+    "tameable": true
   },
   {
     "id": 404,
@@ -13990,7 +14318,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 600
+    "stamina": 600,
+    "tameable": true
   },
   {
     "id": 405,
@@ -14048,7 +14377,8 @@
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 406,
@@ -14106,7 +14436,8 @@
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 407,
@@ -14161,7 +14492,8 @@
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 408,
@@ -14219,7 +14551,8 @@
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 409,
@@ -14301,7 +14634,8 @@
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 410,
@@ -14359,7 +14693,8 @@
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 411,
@@ -14417,7 +14752,8 @@
     "meleeDefense": 375,
     "missleDefense": 375,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 412,
@@ -14475,7 +14811,8 @@
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 413,
@@ -14561,7 +14898,8 @@
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 414,
@@ -14646,7 +14984,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 415,
@@ -14705,7 +15044,8 @@
     "meleeDefense": 1250,
     "missleDefense": 1250,
     "speed": 2,
-    "stamina": 1350
+    "stamina": 1350,
+    "tameable": true
   },
   {
     "id": 416,
@@ -14745,7 +15085,8 @@
     "meleeDefense": 310,
     "missleDefense": 310,
     "speed": 2,
-    "stamina": 600
+    "stamina": 600,
+    "tameable": true
   },
   {
     "id": 417,
@@ -14781,7 +15122,8 @@
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
-    "stamina": 800
+    "stamina": 800,
+    "tameable": true
   },
   {
     "id": 418,
@@ -14821,7 +15163,8 @@
     "meleeDefense": 370,
     "missleDefense": 370,
     "speed": 2,
-    "stamina": 800
+    "stamina": 800,
+    "tameable": true
   },
   {
     "id": 419,
@@ -14857,7 +15200,8 @@
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
-    "stamina": 800
+    "stamina": 800,
+    "tameable": true
   },
   {
     "id": 420,
@@ -14892,7 +15236,8 @@
     "meleeDefense": 290,
     "missleDefense": 290,
     "speed": 2,
-    "stamina": 600
+    "stamina": 600,
+    "tameable": true
   },
   {
     "id": 421,
@@ -14927,7 +15272,8 @@
     "meleeDefense": 260,
     "missleDefense": 260,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 422,
@@ -14964,7 +15310,8 @@
     "meleeDefense": 600,
     "missleDefense": 600,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 423,
@@ -15000,7 +15347,8 @@
     "meleeDefense": 220,
     "missleDefense": 220,
     "speed": 2,
-    "stamina": 600
+    "stamina": 600,
+    "tameable": true
   },
   {
     "id": 424,
@@ -15030,7 +15378,8 @@
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 425,
@@ -15054,7 +15403,8 @@
     "meleeDefense": 75,
     "missleDefense": 75,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 426,
@@ -15078,7 +15428,8 @@
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 427,
@@ -15104,7 +15455,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 428,
@@ -15143,7 +15495,8 @@
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 429,
@@ -15182,7 +15535,8 @@
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 430,
@@ -15221,7 +15575,8 @@
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
-    "stamina": 600
+    "stamina": 600,
+    "tameable": true
   },
   {
     "id": 431,
@@ -15339,7 +15694,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 435,
@@ -15383,7 +15739,8 @@
     "meleeDefense": 120,
     "missleDefense": 120,
     "speed": 2,
-    "stamina": 120
+    "stamina": 120,
+    "tameable": true
   },
   {
     "id": 436,
@@ -15423,7 +15780,8 @@
     "meleeDefense": 130,
     "missleDefense": 130,
     "speed": 2,
-    "stamina": 130
+    "stamina": 130,
+    "tameable": true
   },
   {
     "id": 437,
@@ -15457,7 +15815,8 @@
     "meleeDefense": 1200,
     "missleDefense": 1200,
     "speed": 2,
-    "stamina": 10000
+    "stamina": 10000,
+    "tameable": true
   },
   {
     "id": 438,
@@ -15491,7 +15850,8 @@
     "meleeDefense": 1250,
     "missleDefense": 1250,
     "speed": 2,
-    "stamina": 12000
+    "stamina": 12000,
+    "tameable": true
   },
   {
     "id": 439,
@@ -15643,7 +16003,8 @@
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 442,
@@ -15690,7 +16051,8 @@
     "meleeDefense": 525,
     "missleDefense": 525,
     "speed": 2,
-    "stamina": 1050
+    "stamina": 1050,
+    "tameable": true
   },
   {
     "id": 443,
@@ -15737,7 +16099,8 @@
     "meleeDefense": 600,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 444,
@@ -15784,7 +16147,8 @@
     "meleeDefense": 700,
     "missleDefense": 450,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 445,
@@ -15831,7 +16195,8 @@
     "meleeDefense": 550,
     "missleDefense": 550,
     "speed": 2,
-    "stamina": 1100
+    "stamina": 1100,
+    "tameable": true
   },
   {
     "id": 446,
@@ -15893,7 +16258,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 447,
@@ -15955,7 +16321,8 @@
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 448,
@@ -16002,7 +16369,8 @@
     "meleeDefense": 575,
     "missleDefense": 575,
     "speed": 2,
-    "stamina": 1200
+    "stamina": 1200,
+    "tameable": true
   },
   {
     "id": 449,
@@ -16049,7 +16417,8 @@
     "meleeDefense": 550,
     "missleDefense": 550,
     "speed": 2,
-    "stamina": 1200
+    "stamina": 1200,
+    "tameable": true
   },
   {
     "id": 450,
@@ -16111,7 +16480,8 @@
     "meleeDefense": 550,
     "missleDefense": 550,
     "speed": 2,
-    "stamina": 1200
+    "stamina": 1200,
+    "tameable": true
   },
   {
     "id": 451,
@@ -16269,7 +16639,8 @@
     "missleDefense": 150,
     "roam": 50,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 454,
@@ -16300,7 +16671,8 @@
     "missleDefense": 100,
     "roam": 50,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 455,
@@ -16335,7 +16707,8 @@
     "missleDefense": 150,
     "roam": 50,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 456,
@@ -16357,7 +16730,8 @@
     ],
     "roam": 10,
     "speed": 4,
-    "stamina": 50
+    "stamina": 50,
+    "tameable": true
   },
   {
     "id": 457,
@@ -16392,7 +16766,8 @@
     "meleeDefense": 75,
     "missleDefense": 75,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 458,
@@ -16423,7 +16798,8 @@
     "meleeDefense": 200,
     "missleDefense": 200,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 459,
@@ -16454,7 +16830,8 @@
     "meleeDefense": 225,
     "missleDefense": 225,
     "speed": 2,
-    "stamina": 450
+    "stamina": 450,
+    "tameable": true
   },
   {
     "id": 460,
@@ -16499,7 +16876,8 @@
     "meleeDefense": 70,
     "missleDefense": 70,
     "speed": 2,
-    "stamina": 190
+    "stamina": 190,
+    "tameable": true
   },
   {
     "id": 461,
@@ -16553,7 +16931,8 @@
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 463,
@@ -16680,7 +17059,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 505,
@@ -16704,7 +17084,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 506,
@@ -16728,7 +17109,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 507,
@@ -16752,7 +17134,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 508,
@@ -16776,7 +17159,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 509,
@@ -16821,6 +17205,7 @@
     "missleDefense": 5000,
     "speed": 2,
     "stamina": 5500,
+    "tameable": true,
     "weapon": "viking wand"
   },
   {
@@ -16856,7 +17241,8 @@
     "meleeDefense": 65,
     "missleDefense": 65,
     "speed": 2,
-    "stamina": 80
+    "stamina": 80,
+    "tameable": true
   },
   {
     "id": 511,
@@ -16891,7 +17277,8 @@
     "meleeDefense": 75,
     "missleDefense": 75,
     "speed": 2,
-    "stamina": 80
+    "stamina": 80,
+    "tameable": true
   },
   {
     "id": 512,
@@ -16926,7 +17313,8 @@
     "meleeDefense": 95,
     "missleDefense": 95,
     "speed": 2,
-    "stamina": 80
+    "stamina": 80,
+    "tameable": true
   },
   {
     "id": 513,
@@ -16971,6 +17359,7 @@
     "missleDefense": 5000,
     "speed": 2,
     "stamina": 5500,
+    "tameable": true,
     "weapon": "viking wand"
   },
   {
@@ -17016,6 +17405,7 @@
     "missleDefense": 5000,
     "speed": 2,
     "stamina": 5500,
+    "tameable": true,
     "weapon": "viking wand"
   },
   {
@@ -17055,7 +17445,8 @@
     "meleeDefense": 15,
     "missleDefense": 15,
     "speed": 2,
-    "stamina": 60
+    "stamina": 60,
+    "tameable": true
   },
   {
     "id": 517,
@@ -17079,7 +17470,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 518,
@@ -17103,7 +17495,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 519,
@@ -17127,7 +17520,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 520,
@@ -17151,7 +17545,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 521,
@@ -17175,7 +17570,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 522,
@@ -17199,7 +17595,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 523,
@@ -17223,7 +17620,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 524,
@@ -17247,7 +17645,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 525,
@@ -17271,7 +17670,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 526,
@@ -17295,7 +17695,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 527,
@@ -17319,7 +17720,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 528,
@@ -17343,7 +17745,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 529,
@@ -17367,7 +17770,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 530,
@@ -17391,7 +17795,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 531,
@@ -17415,7 +17820,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 532,
@@ -17441,7 +17847,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 533,
@@ -17465,7 +17872,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 534,
@@ -17489,7 +17897,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 535,
@@ -24398,7 +24807,8 @@
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 692,
@@ -24435,7 +24845,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 2000
+    "stamina": 2000,
+    "tameable": true
   },
   {
     "id": 693,
@@ -24472,7 +24883,8 @@
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 2,
-    "stamina": 2200
+    "stamina": 2200,
+    "tameable": true
   },
   {
     "id": 694,
@@ -24509,7 +24921,8 @@
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
-    "stamina": 2400
+    "stamina": 2400,
+    "tameable": true
   },
   {
     "id": 695,
@@ -24546,7 +24959,8 @@
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
-    "stamina": 2400
+    "stamina": 2400,
+    "tameable": true
   },
   {
     "id": 696,
@@ -25655,7 +26069,8 @@
     "meleeDefense": 160,
     "missleDefense": 160,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 716,
@@ -25694,7 +26109,8 @@
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 3,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 717,
@@ -25742,7 +26158,8 @@
     "meleeDefense": 170,
     "missleDefense": 170,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 718,
@@ -25781,7 +26198,8 @@
     "meleeDefense": 175,
     "missleDefense": 175,
     "speed": 3,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   null,
   {
@@ -25806,7 +26224,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 721,
@@ -25830,7 +26249,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 722,
@@ -25854,7 +26274,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 723,
@@ -25878,7 +26299,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 724,
@@ -25902,7 +26324,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 725,
@@ -25926,7 +26349,8 @@
     "meleeDefense": 15,
     "missleDefense": 15,
     "speed": 2,
-    "stamina": 60
+    "stamina": 60,
+    "tameable": true
   },
   {
     "id": 726,
@@ -25950,7 +26374,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 727,
@@ -26011,7 +26436,8 @@
     "meleeDefense": 250,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 728,
@@ -26074,7 +26500,8 @@
     "meleeDefense": 250,
     "missleDefense": 150,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 729,
@@ -26121,7 +26548,8 @@
     "meleeDefense": 800,
     "missleDefense": 800,
     "speed": 2,
-    "stamina": 800
+    "stamina": 800,
+    "tameable": true
   },
   {
     "id": 730,
@@ -26167,7 +26595,8 @@
     "meleeDefense": 900,
     "missleDefense": 900,
     "speed": 2,
-    "stamina": 1200
+    "stamina": 1200,
+    "tameable": true
   },
   {
     "id": 731,
@@ -26231,7 +26660,8 @@
     "meleeDefense": 800,
     "missleDefense": 800,
     "speed": 2,
-    "stamina": 800
+    "stamina": 800,
+    "tameable": true
   },
   {
     "id": 732,
@@ -26279,7 +26709,8 @@
     "meleeDefense": 1000,
     "missleDefense": 1000,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 733,
@@ -26336,7 +26767,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 734,
@@ -26394,7 +26826,8 @@
     "meleeDefense": 450,
     "missleDefense": 450,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 735,
@@ -26425,7 +26858,8 @@
     "meleeDefense": 100,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 1500
+    "stamina": 1500,
+    "tameable": true
   },
   {
     "id": 736,
@@ -26466,7 +26900,8 @@
     "meleeDefense": 300,
     "missleDefense": 450,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 737,
@@ -26487,7 +26922,8 @@
     "level": 30,
     "life": 350,
     "speed": 2,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 738,
@@ -26521,7 +26957,8 @@
     "meleeDefense": 100,
     "missleDefense": 250,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 739,
@@ -26578,7 +27015,8 @@
     "meleeDefense": 1000,
     "missleDefense": 1000,
     "speed": 2,
-    "stamina": 1200
+    "stamina": 1200,
+    "tameable": true
   },
   {
     "id": 740,
@@ -26602,7 +27040,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 1,
-    "stamina": 400
+    "stamina": 400,
+    "tameable": true
   },
   {
     "id": 741,
@@ -26626,7 +27065,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 742,
@@ -26650,7 +27090,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 743,
@@ -26674,7 +27115,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 744,
@@ -26698,7 +27140,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 745,
@@ -26722,7 +27165,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 746,
@@ -26746,7 +27190,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 747,
@@ -26770,7 +27215,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 748,
@@ -26794,7 +27240,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 749,
@@ -26818,7 +27265,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   null,
   null,
@@ -26872,7 +27320,8 @@
     "meleeDefense": 300,
     "missleDefense": 300,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 768,
@@ -26909,7 +27358,8 @@
     "meleeDefense": 350,
     "missleDefense": 350,
     "speed": 2,
-    "stamina": 500
+    "stamina": 500,
+    "tameable": true
   },
   {
     "id": 769,
@@ -26941,7 +27391,8 @@
     "meleeDefense": 400,
     "missleDefense": 400,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 770,
@@ -26974,7 +27425,8 @@
     "meleeDefense": 500,
     "missleDefense": 500,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 771,
@@ -27019,6 +27471,7 @@
     "missleDefense": 5000,
     "speed": 2,
     "stamina": 5500,
+    "tameable": true,
     "weapon": "viking wand"
   },
   {
@@ -27064,6 +27517,7 @@
     "missleDefense": 5000,
     "speed": 2,
     "stamina": 5500,
+    "tameable": true,
     "weapon": "viking wand"
   },
   {
@@ -27088,7 +27542,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   null,
   null,
@@ -27142,7 +27597,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 1000
+    "stamina": 1000,
+    "tameable": true
   },
   {
     "id": 801,
@@ -27220,7 +27676,8 @@
     "meleeDefense": 750,
     "missleDefense": 750,
     "speed": 2,
-    "stamina": 1500
+    "stamina": 1500,
+    "tameable": true
   },
   {
     "id": 805,
@@ -27244,7 +27701,8 @@
     "meleeDefense": 100,
     "missleDefense": 100,
     "speed": 2,
-    "stamina": 100
+    "stamina": 100,
+    "tameable": true
   },
   {
     "id": 806,
@@ -27260,7 +27718,8 @@
     "meleeDefense": 10,
     "missleDefense": 10,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 807,
@@ -27283,7 +27742,8 @@
     "meleeDefense": 150,
     "missleDefense": 150,
     "speed": 2,
-    "stamina": 300
+    "stamina": 300,
+    "tameable": true
   },
   {
     "id": 808,
@@ -27298,7 +27758,8 @@
     "life": 100,
     "mana": 200,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 809,
@@ -27313,7 +27774,8 @@
     "life": 100,
     "mana": 200,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 810,
@@ -27328,7 +27790,8 @@
     "life": 100,
     "mana": 200,
     "speed": 2,
-    "stamina": 200
+    "stamina": 200,
+    "tameable": true
   },
   {
     "id": 811,
@@ -27364,6 +27827,7 @@
     "meleeDefense": 900,
     "missleDefense": 1000,
     "speed": 2,
-    "stamina": 600
+    "stamina": 600,
+    "tameable": true
   }
 ]
