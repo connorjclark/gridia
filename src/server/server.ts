@@ -513,8 +513,6 @@ export class Server {
       template = Content.getMonsterTemplate(1);
     }
 
-    pos = this.findNearest({pos, range: 10}, true, (_, pos2) => this.context.walkable(pos2)) || pos;
-
     const life = template.life || 10;
     const stamina = template.stamina || 10;
     const mana = template.mana || 10;
@@ -525,7 +523,7 @@ export class Server {
       dead: false,
       graphics: template.graphics,
       name: template.name,
-      pos,
+      pos: this.findNearestWalkableTile({pos, range: 10}) || pos,
       isPlayer: false,
       roam: template.roam,
       speed: template.speed,
@@ -538,12 +536,11 @@ export class Server {
       equipment: template.equipment ? [...template.equipment] : undefined,
       // @ts-expect-error TODO
       combatLevel: template.level || 5,
-      // TODO: get stats from monster.ini
       stats: {
         armor: 0,
         attackSpeed: template.speed,
         damageLow: 1,
-        damageHigh: 2,
+        damageHigh: 1,
         meleeDefense: template.meleeDefense || 0,
         missleDefense: template.missleDefense || 0,
         magicDefense: template.magicDefense || 0,
