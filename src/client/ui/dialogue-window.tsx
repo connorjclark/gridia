@@ -68,7 +68,7 @@ export function makeDialogueWindow(game: Game) {
               {speakerGfx2}
             </span>
           </h2>
-          <div ref={textEl} class='dialogue__text'></div>
+          <div ref={textEl} class={`dialogue__text dialouge__text--speaker-${part.speaker}`}></div>
           <button onClick={this.onClickNextButton}>Next</button>
         </div>
       </div>;
