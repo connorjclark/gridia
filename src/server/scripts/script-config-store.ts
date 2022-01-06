@@ -1,5 +1,5 @@
 export class ScriptConfigStore {
-  private errors: Array<{error: string; key: string}> = [];
+  private errors: ScriptError[] = [];
 
   constructor(private store: Record<string, any>) { }
 
@@ -12,12 +12,12 @@ export class ScriptConfigStore {
   getNumber(key: string): number {
     const value = this.store[key];
     if (value === undefined) {
-      this.errors.push({key, error: `no config value for ${key}`});
+      this.errors.push({text: `no config value for ${key}`, data: {key}});
       // @ts-expect-error
       return;
     }
     if (typeof value !== 'number') {
-      this.errors.push({key, error: `config value for ${key} should be a number`});
+      this.errors.push({text: `config value for ${key} should be a number`, data: {key}});
       // @ts-expect-error
       return;
     }
@@ -27,7 +27,7 @@ export class ScriptConfigStore {
   getRegion(key: string): Region {
     const value = this.store[key];
     if (value === undefined) {
-      this.errors.push({key, error: `no config value for ${key}`});
+      this.errors.push({text: `no config value for ${key}`, data: {key}});
       // @ts-expect-error
       return;
     }

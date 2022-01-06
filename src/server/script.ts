@@ -26,7 +26,7 @@ export type MapConfigType<T extends ConfigDefinition> = Required<{ [K in keyof T
 }>;
 
 function readConfig<T extends ConfigDefinition>(
-  scriptName: string, configDef: T, configStore: ScriptConfigStore): {config: MapConfigType<T>; errors: any[]} {
+  scriptName: string, configDef: T, configStore: ScriptConfigStore): {config: MapConfigType<T>; errors: ScriptError[]} {
 
   // @ts-expect-error
   const config: MapConfigType<T> = {};
@@ -65,7 +65,7 @@ export abstract class Script<C extends ConfigDefinition> {
     if (typeof error === 'string') {
       this.errors.push({text: error});
     } else {
-      this.errors.push({text: error.toString(), error});
+      this.errors.push({text: error.toString(), stack: error});
     }
 
     // not super great, but maybe ok to do this?

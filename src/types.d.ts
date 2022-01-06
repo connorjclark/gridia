@@ -514,7 +514,13 @@ interface ScriptState {
   id: string;
   state: string;
   config: any;
-  errors: any[];
+  errors: ScriptError[];
+}
+
+interface ScriptError {
+  text: string;
+  stack?: Error;
+  data?: any;
 }
 
 declare module 'js-bbcode-parser' {
