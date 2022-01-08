@@ -478,6 +478,20 @@ button {
   color: gold;
 }
 
+.mapview__row {
+  display: flex;
+}
+.mapview__tile {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+.mapview__tile .graphic {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .partition {
   padding: 5px;
   border-bottom: 1px solid white;

@@ -20,7 +20,7 @@ export interface ItemMoveEndEvent {
   location: ItemLocation;
 }
 
-interface Events {
+export interface ClientEvents {
   action: GameActionEvent;
   containerWindowSelectedIndexChanged: void;
   editingMode: {enabled: boolean};
@@ -35,4 +35,4 @@ interface Events {
   pointerUp: TilePoint;
 }
 
-export const TypedEventEmitter: new() => StrictEventEmitter<EventEmitter, Events> = EventEmitter;
+export const TypedEventEmitter: new() => StrictEventEmitter<EventEmitter, ClientEvents> = EventEmitter;

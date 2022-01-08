@@ -198,3 +198,9 @@ export function sortByPrecedence<T>(items: T[], matchers: Array<PrecedenceMatche
 
   return items;
 }
+
+export function clone<T>(obj: T): T {
+  // @ts-expect-error
+  if (globalThis.structuredClone) return structuredClone(obj);
+  return JSON.parse(JSON.stringify(obj)) as T;
+}

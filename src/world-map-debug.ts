@@ -123,12 +123,16 @@ export function createTestPartitions(map: WorldMap) {
     warpTo: {w: testPartitionW, x: Math.floor(width / 2), y: Math.floor(height / 2) - 1, z: 0},
   };
 
-  const inputTiles = [
+  const inputTiles: Tile[] = [
     {floor: 2}, {floor: 2}, {floor: 2}, {floor: 2},
     {floor: 2}, {item: 10}, {item: 10}, {item: 10},
     {floor: 2}, {item: 10}, {floor: 10}, {item: 10},
     {floor: 2}, {item: 10}, {item: 10}, {item: 10},
-  ];
+  ].map((t) => ({
+    floor: t.floor || 2,
+    item: t.item ? {type: t.item, quantity: 1} : undefined,
+    elevation: 0,
+  }));
   const wfcMap = gen_wfc({
     inputTiles,
     inputTilesWidth: 4,
@@ -136,7 +140,6 @@ export function createTestPartitions(map: WorldMap) {
     n: 2,
     width: 40,
     height: 40,
-    defaultFloor: 2,
   });
   map.addPartition(map.partitions.size, wfcMap);
 

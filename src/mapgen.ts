@@ -306,19 +306,17 @@ export function mapgen(opts: MapGenOptions) {
 }
 
 interface GenerateWfcOptions {
-  inputTiles: Array<{floor?: number; item?: number}>;
+  inputTiles: Tile[];
   inputTilesWidth: number;
   inputTilesHeight: number;
   n: number;
   width: number;
   height: number;
-  defaultFloor: number;
 }
 
 export function gen_wfc(opts: GenerateWfcOptions) {
   sanityCheck(opts.width, opts.height, 1);
 
-  const inputSize = 4;
   const canvas = new Canvas(opts.inputTilesWidth, opts.inputTilesHeight);
   const context = canvas.getContext('2d');
 
@@ -336,13 +334,13 @@ export function gen_wfc(opts: GenerateWfcOptions) {
       colorToTileIndexMap.set(color, i);
     }
 
-    const x = i % inputSize;
-    const y = Math.floor(i / inputSize);
+    const x = i % opts.inputTilesWidth;
+    const y = Math.floor(i / opts.inputTilesWidth);
     context.fillStyle = '#' + color.toString(16).padStart(6, '0');
     context.fillRect(x, y, 1, 1);
   }
 
-  const inputImageData = context.getImageData(0, 0, inputSize, inputSize);
+  const inputImageData = context.getImageData(0, 0, opts.inputTilesWidth, opts.inputTilesHeight);
 
   const model = new wfc.OverlappingModel(
     inputImageData.data, inputImageData.width, inputImageData.height, opts.n, opts.width, opts.height, true, false, 8);
@@ -374,11 +372,7 @@ export function gen_wfc(opts: GenerateWfcOptions) {
       if (tileIndex === undefined) throw new Error('unexpected');
 
       const tile = opts.inputTiles[tileIndex];
-      map.setTile({x, y, z: 0}, {
-        floor: tile.floor !== undefined ? tile.floor : opts.defaultFloor,
-        item: tile.item ? {type: tile.item, quantity: 1} : undefined,
-        elevation: 0,
-      });
+      map.setTile({x, y, z: 0}, Utils.clone(tile));
     }
   }
 

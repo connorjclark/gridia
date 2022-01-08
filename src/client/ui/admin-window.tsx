@@ -6,10 +6,12 @@ import * as Content from '../../content.js';
 import {game} from '../../game-singleton.js';
 import * as CommandBuilder from '../../protocol/command-builder.js';
 import * as Utils from '../../utils.js';
+import {ClientEvents} from '../event-emitter.js';
 import {AdminModule} from '../modules/admin-module.js';
 
 import {
-  ComponentProps, createSubApp, Graphic, Input, PaginatedContent, TabbedPane, TabbedPaneProps,
+  ComponentProps, createSubApp, FloorGraphic, Graphic,
+  Input, ItemGraphic, PaginatedContent, TabbedPane, TabbedPaneProps,
 } from './ui-common.js';
 
 const TOOLS = ['point', 'rectangle', 'fill'] as const;
@@ -273,6 +275,46 @@ export function makeAdminWindow(adminModule: AdminModule) {
     }
   }
 
+  interface MapViewProps {
+    w: number;
+    x: number;
+    y: number;
+    z: number;
+    width: number;
+    height: number;
+  }
+  class MapView extends Component<MapViewProps> {
+    render(props: MapViewProps) {
+      if (!game.client.context.map.partitions.has(props.w)) return;
+
+      const rows: any[][] = [];
+
+      for (let j = 0; j < props.height; j++) {
+        const row: any[] = [];
+        rows.push(row);
+        for (let i = 0; i < props.width; i++) {
+          const tile = game.client.context.map.getTile({w: props.w, x: i + props.x, y: j + props.y, z: props.z});
+          const floorGfx = <FloorGraphic floor={tile.floor}></FloorGraphic>;
+          const itemGfx = tile.item && <ItemGraphic item={tile.item}></ItemGraphic>;
+          if (!itemGfx) {
+            row.push(floorGfx);
+          } else {
+            row.push(<div class="mapview__tile">
+              {floorGfx}
+              {itemGfx}
+            </div>);
+          }
+        }
+      }
+
+      return <div>
+        {rows.map((row) => {
+          return <div class='mapview__row'>{row}</div>;
+        })}
+      </div>;
+    }
+  }
+
   class MapsTab extends Component<Props> {
     render(props: Props) {
       const [metas, setMetas] = useState<PartitionMeta[] | null>(null);
@@ -343,6 +385,53 @@ export function makeAdminWindow(adminModule: AdminModule) {
     }
   }
 
+  class NewMapTab extends Component<Props> {
+    render(props: Props) {
+      const [pos, setPos] = useState({...game.client.creature.pos});
+      const [wfcInputWidth, setWfcInputWidth] = useState(5);
+      const [wfcInputHeight, setWfcInputHeight] = useState(5);
+      const [, rerender] = useState({});
+
+      useEffect(() => {
+        const fn1 = ({to}: ClientEvents['playerMove']) => {
+          setPos(to);
+        };
+        const fn2 = ({type}: ClientEvents['event']) => {
+          if (type === 'setItem' || type === 'setFloor') {
+            rerender({});
+          }
+        };
+        game.client.eventEmitter.on('playerMove', fn1);
+        game.client.eventEmitter.on('event', fn2);
+        return () => {
+          game.client.eventEmitter.off('playerMove', fn1);
+          game.client.eventEmitter.off('event', fn2);
+        };
+      }, []);
+
+      return <div>
+        <div>Wave form collapse</div>
+        <div>
+          <label>Width:</label>
+          <button onClick={() => setWfcInputWidth(Math.max(wfcInputWidth - 1, 1))}>-</button>
+          <button onClick={() => setWfcInputWidth(Math.min(wfcInputWidth + 1, 10))}>+</button>
+          <label>Height:</label>
+          <button onClick={() => setWfcInputHeight(Math.max(wfcInputHeight - 1, 1))}>-</button>
+          <button onClick={() => setWfcInputHeight(Math.min(wfcInputHeight + 1, 10))}>+</button>
+        </div>
+        <div>
+          Input: {wfcInputWidth}x{wfcInputHeight}
+          <MapView {...pos} width={wfcInputWidth} height={wfcInputHeight}></MapView>
+        </div>
+        <button onClick={async () => {
+          await game.client.connection.sendCommand(CommandBuilder.chat({
+            text: `/wfc wfc-map ${wfcInputWidth} ${wfcInputHeight} 40 40`,
+          }));
+        }}>Generate</button>
+      </div>;
+    }
+  }
+
   class ScriptsTab extends Component<Props> {
     render(props: Props) {
       const [scriptStates, setScriptStates] = useState<ScriptState[] | null>(null);
@@ -373,6 +462,10 @@ export function makeAdminWindow(adminModule: AdminModule) {
     maps: {
       label: 'Maps',
       content: MapsTab,
+    },
+    newMap: {
+      label: 'New Map',
+      content: NewMapTab,
     },
     scripts: {
       label: 'Scripts',

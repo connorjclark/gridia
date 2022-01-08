@@ -122,7 +122,7 @@ interface GraphicProps {
   title?: string;
 }
 export const Graphic = (props: GraphicProps) => {
-  if (!props.file) return <div class="graphic"></div>;
+  if (!props.file) return <div class="graphic">&nbsp;</div>;
 
   const baseDir = Content.getBaseDir();
   const templateImageSrc = `${baseDir}/graphics/${props.file}`;
@@ -136,7 +136,7 @@ export const Graphic = (props: GraphicProps) => {
     console.error(`failed to load image: ${props.file}`);
   }
 
-  if (!width || !height) return <div class="graphic">?</div>;
+  if (!width || !height) return <div class="graphic">&nbsp;</div>;
 
   const tilesAcross = Math.round(width / GFX_SIZE);
   const tilesColumn = Math.round(height / GFX_SIZE);
@@ -167,6 +167,12 @@ export const Graphic = (props: GraphicProps) => {
   if (props.title) optionalProps.title = props.title;
 
   return <div class="graphic" style={style} {...optionalProps}>{label}</div>;
+};
+
+export const FloorGraphic = (props: {floor: number}) => {
+  const metaFloor = Content.getMetaFloor(props.floor);
+  const graphicIndex = metaFloor.graphics?.frames[0] || 0;
+  return <Graphic file={metaFloor.graphics.file} index={graphicIndex}></Graphic>;
 };
 
 export const ItemGraphic = (props: {item: Item; showLabel?: boolean}) => {
