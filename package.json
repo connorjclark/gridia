@@ -25,6 +25,7 @@
     "strict-event-emitter-types": "^2.0.0",
     "typed.js": "^2.0.11",
     "uuid": "^8.3.2",
+    "wavefunctioncollapse": "^2.1.0",
     "wrtc": "^0.4.7",
     "ws": "8.3.0",
     "yargs": "^13.2.2"

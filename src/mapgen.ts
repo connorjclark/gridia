@@ -1,5 +1,8 @@
 import * as assert from 'assert';
 
+import {Canvas} from 'canvas';
+import wfc from 'wavefunctioncollapse';
+
 import {MINE, SECTOR_SIZE, WATER} from './constants.js';
 import * as Content from './content.js';
 import {generate, GenerateOptions, Polygon} from './lib/map-generator/map-generator.js';
@@ -300,4 +303,84 @@ export function mapgen(opts: MapGenOptions) {
     partition: map,
     mapGenResult,
   };
+}
+
+interface GenerateWfcOptions {
+  inputTiles: Array<{floor?: number; item?: number}>;
+  inputTilesWidth: number;
+  inputTilesHeight: number;
+  n: number;
+  width: number;
+  height: number;
+  defaultFloor: number;
+}
+
+export function gen_wfc(opts: GenerateWfcOptions) {
+  sanityCheck(opts.width, opts.height, 1);
+
+  const inputSize = 4;
+  const canvas = new Canvas(opts.inputTilesWidth, opts.inputTilesHeight);
+  const context = canvas.getContext('2d');
+
+  let nextColor = 0;
+  const tileToColorMap = new Map<string, number>();
+  const colorToTileIndexMap = new Map<number, number>();
+
+  for (let i = 0; i < opts.inputTiles.length; i++) {
+    const tile = opts.inputTiles[i];
+    const tileKey = `${tile.floor},${tile.item}`;
+    let color = tileToColorMap.get(tileKey);
+    if (color === undefined) {
+      color = nextColor++;
+      tileToColorMap.set(tileKey, color);
+      colorToTileIndexMap.set(color, i);
+    }
+
+    const x = i % inputSize;
+    const y = Math.floor(i / inputSize);
+    context.fillStyle = '#' + color.toString(16).padStart(6, '0');
+    context.fillRect(x, y, 1, 1);
+  }
+
+  const inputImageData = context.getImageData(0, 0, inputSize, inputSize);
+
+  const model = new wfc.OverlappingModel(
+    inputImageData.data, inputImageData.width, inputImageData.height, opts.n, opts.width, opts.height, true, false, 8);
+  // @ts-expect-error
+  model.generate(Math.random);
+
+  const outputImageData = context.createImageData(opts.width, opts.height);
+  model.graphics(outputImageData.data);
+
+  const map = new WorldMapPartition('wfc', opts.width, opts.height, 1);
+  // eslint-disable-next-line @typescript-eslint/prefer-for-of
+  for (let sx = 0; sx < map.sectors.length; sx++) {
+    for (let sy = 0; sy < map.sectors[0].length; sy++) {
+      for (let sz = 0; sz < map.sectors[0][0].length; sz++) {
+        map.sectors[sx][sy][sz] = map.createEmptySector();
+      }
+    }
+  }
+
+  for (let x = 0; x < opts.width; x++) {
+    for (let y = 0; y < opts.height; y++) {
+      const offset = (x + y * opts.width) * 4;
+      const r = outputImageData.data[offset + 0];
+      const g = outputImageData.data[offset + 1];
+      const b = outputImageData.data[offset + 2];
+      // eslint-disable-next-line no-bitwise
+      const color = (r << 16) + (g << 8) + b;
+      const tileIndex = colorToTileIndexMap.get(color);
+      if (tileIndex === undefined) throw new Error('unexpected');
+
+      const tile = opts.inputTiles[tileIndex];
+      map.setTile({x, y, z: 0}, {
+        floor: tile.floor !== undefined ? tile.floor : opts.defaultFloor,
+        item: tile.item ? {type: tile.item, quantity: 1} : undefined,
+        elevation: 0,
+      });
+    }
+  }
+
+  return map;
 }

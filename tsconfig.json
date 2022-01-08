@@ -8,6 +8,7 @@
     "diagnostics": true,
     "sourceMap": true,
     "allowJs": true,
+    "noEmit": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "jsxFactory": "h",
@@ -24,6 +25,8 @@
   "include": [
     "src",
     "test",
+    "node_modules/js-bbcode-parser",
+    "node_modules/wavefunctioncollapse"
   ],
   "ts-node": {
     "files": true

@@ -1,5 +1,5 @@
 import * as Content from './content.js';
-import {makeBareMap, mapgen} from './mapgen.js';
+import {gen_wfc, makeBareMap, mapgen} from './mapgen.js';
 import {WorldMapPartition} from './world-map-partition.js';
 import {WorldMap} from './world-map.js';
 
@@ -122,6 +122,23 @@ export function createTestPartitions(map: WorldMap) {
     quantity: 1,
     warpTo: {w: testPartitionW, x: Math.floor(width / 2), y: Math.floor(height / 2) - 1, z: 0},
   };
+
+  const inputTiles = [
+    {floor: 2}, {floor: 2}, {floor: 2}, {floor: 2},
+    {floor: 2}, {item: 10}, {item: 10}, {item: 10},
+    {floor: 2}, {item: 10}, {floor: 10}, {item: 10},
+    {floor: 2}, {item: 10}, {item: 10}, {item: 10},
+  ];
+  const wfcMap = gen_wfc({
+    inputTiles,
+    inputTilesWidth: 4,
+    inputTilesHeight: 4,
+    n: 2,
+    width: 40,
+    height: 40,
+    defaultFloor: 2,
+  });
+  map.addPartition(map.partitions.size, wfcMap);
 
   return testMapResult.mapGenResult;
 }
