@@ -56,14 +56,6 @@ export class BasicScript extends Script<typeof configDefinition> {
     this.server.registerQuest(this.quest);
   }
 
-  onPlayerCreated(player: Player, playerConnection: PlayerConnection) {
-    const pos = {...this.creatureSpawners[0].region};
-    pos.x += 2;
-    pos.y += 2;
-    playerConnection.player.spawnPos = pos;
-    this.server.moveCreature(playerConnection.creature, pos);
-  }
-
   onPlayerKillCreature(player: Player, creature: Creature) {
     if (!Player.hasStartedQuest(player, this.quest)) return;
     if (!this.ratSpawnerState.spawnedCreatures.includes(creature)) return;
