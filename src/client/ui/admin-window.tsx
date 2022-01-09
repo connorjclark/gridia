@@ -4,8 +4,10 @@ import {useEffect, useState} from 'preact/hooks';
 import {SECTOR_SIZE} from '../../constants.js';
 import * as Content from '../../content.js';
 import {game} from '../../game-singleton.js';
+import {gen_wfc} from '../../mapgen.js';
 import * as CommandBuilder from '../../protocol/command-builder.js';
 import * as Utils from '../../utils.js';
+import {WorldMapPartition} from '../../world-map-partition.js';
 import {ClientEvents} from '../event-emitter.js';
 import {AdminModule} from '../modules/admin-module.js';
 
@@ -276,7 +278,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
   }
 
   interface MapViewProps {
-    w: number;
+    partition: WorldMapPartition;
     x: number;
     y: number;
     z: number;
@@ -285,15 +287,13 @@ export function makeAdminWindow(adminModule: AdminModule) {
   }
   class MapView extends Component<MapViewProps> {
     render(props: MapViewProps) {
-      if (!game.client.context.map.partitions.has(props.w)) return;
-
       const rows: any[][] = [];
 
       for (let j = 0; j < props.height; j++) {
         const row: any[] = [];
         rows.push(row);
         for (let i = 0; i < props.width; i++) {
-          const tile = game.client.context.map.getTile({w: props.w, x: i + props.x, y: j + props.y, z: props.z});
+          const tile = props.partition.getTile({x: i + props.x, y: j + props.y, z: props.z});
           const floorGfx = <FloorGraphic floor={tile.floor}></FloorGraphic>;
           const itemGfx = tile.item && <ItemGraphic item={tile.item}></ItemGraphic>;
           if (!itemGfx) {
@@ -390,6 +390,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
       const [pos, setPos] = useState({...game.client.creature.pos});
       const [wfcInputWidth, setWfcInputWidth] = useState(5);
       const [wfcInputHeight, setWfcInputHeight] = useState(5);
+      const [preview, setPreview] = useState<WorldMapPartition|null>(null);
       const [, rerender] = useState({});
 
       useEffect(() => {
@@ -409,25 +410,66 @@ export function makeAdminWindow(adminModule: AdminModule) {
         };
       }, []);
 
+      const currentCreaturePartition = game.client.context.map.partitions.get(game.client.creature.pos.w);
+
       return <div>
         <div>Wave form collapse</div>
+
         <div>
           <label>Width:</label>
           <button onClick={() => setWfcInputWidth(Math.max(wfcInputWidth - 1, 1))}>-</button>
-          <button onClick={() => setWfcInputWidth(Math.min(wfcInputWidth + 1, 10))}>+</button>
+          <button onClick={() => setWfcInputWidth(Math.min(wfcInputWidth + 1, 20))}>+</button>
           <label>Height:</label>
           <button onClick={() => setWfcInputHeight(Math.max(wfcInputHeight - 1, 1))}>-</button>
-          <button onClick={() => setWfcInputHeight(Math.min(wfcInputHeight + 1, 10))}>+</button>
+          <button onClick={() => setWfcInputHeight(Math.min(wfcInputHeight + 1, 20))}>+</button>
         </div>
+
         <div>
           Input: {wfcInputWidth}x{wfcInputHeight}
-          <MapView {...pos} width={wfcInputWidth} height={wfcInputHeight}></MapView>
+          {currentCreaturePartition &&
+            <MapView partition={currentCreaturePartition} {...pos}
+              width={wfcInputWidth} height={wfcInputHeight}></MapView>}
+
+          <button onClick={() => {
+            const creature = game.client.creature;
+            const inputPos = {...creature.pos};
+            const inputTiles = [];
+            for (let i = 0; i < wfcInputWidth; i++) {
+              for (let j = 0; j < wfcInputHeight; j++) {
+                const tile =
+                Utils.clone(game.client.context.map.getTile({...inputPos, x: inputPos.x + i, y: inputPos.y + j}));
+                tile.elevation = 0;
+                inputTiles.push(tile);
+              }
+            }
+            const partition = gen_wfc({
+              inputTiles,
+              inputTilesWidth: wfcInputWidth,
+              inputTilesHeight: wfcInputHeight,
+              n: 2,
+              width: 20,
+              height: 20,
+            });
+            setPreview(partition);
+          }}>Generate</button>
+          <button onClick={() => {
+            if (!preview) return;
+
+            const tiles = [];
+            for (const {tile} of preview.getIteratorForArea({x: 0, y: 0, z: 0}, preview.width, preview.height)) {
+              tiles.push(tile);
+            }
+
+            game.client.connection.sendCommand(CommandBuilder.createPartition({
+              tiles,
+              width: preview.width,
+              height: preview.height,
+            }));
+          }}>Save</button>
+
+          Output: {preview &&
+            <MapView partition={preview} x={0} y={0} z={0} width={preview.width} height={preview.height}></MapView>}
         </div>
-        <button onClick={async () => {
-          await game.client.connection.sendCommand(CommandBuilder.chat({
-            text: `/wfc wfc-map ${wfcInputWidth} ${wfcInputHeight} 40 40`,
-          }));
-        }}>Generate</button>
       </div>;
     }
   }

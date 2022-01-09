@@ -1,6 +1,6 @@
-import * as assert from 'assert';
+// import assert from 'assert'; // TODO: messes up browser build
 
-import {Canvas} from 'canvas';
+import Canvas from 'canvas';
 import wfc from 'wavefunctioncollapse';
 
 import {MINE, SECTOR_SIZE, WATER} from './constants.js';
@@ -9,6 +9,10 @@ import {generate, GenerateOptions, Polygon} from './lib/map-generator/map-genera
 import * as Perlin from './lib/perlin/perlin.js';
 import * as Utils from './utils.js';
 import {WorldMapPartition} from './world-map-partition.js';
+
+const assert = {ok: (value: boolean) => {
+  if (!value) throw new Error('assertion failed');
+}};
 
 function biomeToFloor(biome: string) {
   if (biome === 'BARE') return 71;
@@ -317,7 +321,7 @@ interface GenerateWfcOptions {
 export function gen_wfc(opts: GenerateWfcOptions) {
   sanityCheck(opts.width, opts.height, 1);
 
-  const canvas = new Canvas(opts.inputTilesWidth, opts.inputTilesHeight);
+  const canvas = Canvas.createCanvas(opts.inputTilesWidth, opts.inputTilesHeight);
   const context = canvas.getContext('2d');
 
   let nextColor = 0;

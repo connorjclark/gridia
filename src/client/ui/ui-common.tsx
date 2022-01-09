@@ -149,6 +149,7 @@ export const Graphic = (props: GraphicProps) => {
     backgroundPosition: `-${x * 100}% -${y * 100}%`,
     backgroundSize: `${tilesAcross * 100}% ${tilesColumn * 100}%`,
     width: 32 + 'px',
+    minWidth: 32 + 'px',
     maxWidth: 32 + 'px',
     height: 32 + 'px',
   };

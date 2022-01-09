@@ -483,7 +483,7 @@ button {
 }
 .mapview__tile {
   position: relative;
-  width: 32px;
+  min-width: 32px;
   height: 32px;
 }
 .mapview__tile .graphic {

@@ -49,6 +49,7 @@ declare namespace Protocol {
     type ItemAction = Command<{ type: string; from: ItemLocation; to?: ItemLocation }>;
     type ContainerAction = Command<{ type: string; id: string }>;
     type SaveSettings = Command<{ settings: Settings }>;
+    type CreatePartition = Command<{ tiles: Tile[]; width: number; height: number }>;
   }
 
   namespace Events {

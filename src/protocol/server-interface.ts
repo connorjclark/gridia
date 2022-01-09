@@ -7,6 +7,7 @@ import * as Player from '../player.js';
 import {ClientConnection} from '../server/client-connection.js';
 import {Server} from '../server/server.js';
 import * as Utils from '../utils.js';
+import {WorldMapPartition} from '../world-map-partition.js';
 
 import {processChatCommand} from './chat-commands.js';
 import * as EventBuilder from './event-builder.js';
@@ -845,5 +846,36 @@ export class ServerInterface implements ICommands {
     default:
       throw new Error('invalid action type');
     }
+  }
+
+  onCreatePartition(server: Server, clientConnection: ClientConnection, {tiles, width, height}: Commands.CreatePartition['params']): Promise<Commands.CreatePartition['response']> {
+    const partition = new WorldMapPartition('wfc', width, height, 1);
+    // TODO: should have helper for this.
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
+    for (let sx = 0; sx < partition.sectors.length; sx++) {
+      for (let sy = 0; sy < partition.sectors[0].length; sy++) {
+        for (let sz = 0; sz < partition.sectors[0][0].length; sz++) {
+          partition.sectors[sx][sy][sz] = partition.createEmptySector();
+        }
+      }
+    }
+
+    for (let x = 0; x < width; x++) {
+      for (let y = 0; y < height; y++) {
+        partition.setTile({x, y, z: 0}, tiles[x + y * width]);
+      }
+    }
+
+    const nextPartitionId = Math.max(...server.context.map.partitions.keys()) + 1;
+    server.context.map.addPartition(nextPartitionId, partition);
+    server.save().then(() => {
+      partition.loaded = true;
+      clientConnection.sendEvent(EventBuilder.chat({
+        section: 'World',
+        from: 'World',
+        text: `Created partition ${nextPartitionId}`,
+      }));
+    });
+    return Promise.resolve();
   }
 }

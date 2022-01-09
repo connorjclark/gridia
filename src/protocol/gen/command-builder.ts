@@ -108,8 +108,12 @@ type SaveSettingsCommand = {
     type: "saveSettings";
     args: Protocol.Commands.SaveSettings;
 };
+type CreatePartitionCommand = {
+    type: "createPartition";
+    args: Protocol.Commands.CreatePartition;
+};
 
-export type ProtocolCommand = AdminRequestPartitionMetasCommand | AdminRequestScriptsCommand | AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | ReadItemCommand | EatItemCommand | ItemActionCommand | ContainerActionCommand | SaveSettingsCommand;
+export type ProtocolCommand = AdminRequestPartitionMetasCommand | AdminRequestScriptsCommand | AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | ReadItemCommand | EatItemCommand | ItemActionCommand | ContainerActionCommand | SaveSettingsCommand | CreatePartitionCommand;
 
 export function adminRequestPartitionMetas(): AdminRequestPartitionMetasCommand {
     return { type: "adminRequestPartitionMetas", args: arguments[0] };
@@ -191,4 +195,7 @@ export function containerAction({ type, id }: Protocol.Commands.ContainerAction[
 }
 export function saveSettings({ settings }: Protocol.Commands.SaveSettings["params"]): SaveSettingsCommand {
     return { type: "saveSettings", args: arguments[0] };
+}
+export function createPartition({ tiles, width, height }: Protocol.Commands.CreatePartition["params"]): CreatePartitionCommand {
+    return { type: "createPartition", args: arguments[0] };
 }

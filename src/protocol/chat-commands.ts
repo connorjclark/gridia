@@ -1,7 +1,7 @@
 import {MAX_STACK, MINE, SECTOR_SIZE} from '../constants.js';
 import * as Content from '../content.js';
 import * as CommandParser from '../lib/command-parser.js';
-import {gen_wfc, makeBareMap} from '../mapgen.js';
+import {makeBareMap} from '../mapgen.js';
 import {PlayerConnection} from '../server/client-connection.js';
 import {Server} from '../server/server.js';
 import * as Utils from '../utils.js';
@@ -512,46 +512,6 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
 
         player.isAdmin = true;
         // TODO: for now, player must refresh page to see Admin panel.
-      },
-    },
-    wfc: {
-      args: [
-        {name: 'name', type: 'string'},
-        {name: 'inputWidth', type: 'number'},
-        {name: 'inputHeight', type: 'number'},
-        {name: 'width', type: 'number'},
-        {name: 'height', type: 'number'},
-      ],
-      do(args: { name: string; inputWidth: number; inputHeight: number; width: number; height: number }) {
-        const inputPos = {...creature.pos};
-        const inputTiles = [];
-        for (let i = 0; i < args.inputWidth; i++) {
-          for (let j = 0; j < args.inputHeight; j++) {
-            const tile = Utils.clone(server.context.map.getTile({...inputPos, x: inputPos.x + i, y: inputPos.y + j}));
-            tile.elevation = 0;
-            inputTiles.push(tile);
-          }
-        }
-        const partition = gen_wfc({
-          inputTiles,
-          inputTilesWidth: args.inputWidth,
-          inputTilesHeight: args.inputHeight,
-          n: 2,
-          width: args.width,
-          height: args.height,
-        });
-
-        const nextPartitionId = Math.max(...server.context.map.partitions.keys()) + 1;
-        partition.name = args.name;
-        server.context.map.addPartition(nextPartitionId, partition);
-        server.save().then(() => {
-          partition.loaded = true;
-          playerConnection.sendEvent(EventBuilder.chat({
-            section: 'World',
-            from: 'World',
-            text: `Made partition ${nextPartitionId}`,
-          }));
-        });
       },
     },
   };

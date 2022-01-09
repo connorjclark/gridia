@@ -31,4 +31,5 @@ export interface ICommands {
     onItemAction(server: Server, clientConnection: ClientConnection, { type, from, to }: Protocol.Commands.ItemAction["params"]): Promise<Protocol.Commands.ItemAction["response"]>;
     onContainerAction(server: Server, clientConnection: ClientConnection, { type, id }: Protocol.Commands.ContainerAction["params"]): Promise<Protocol.Commands.ContainerAction["response"]>;
     onSaveSettings(server: Server, clientConnection: ClientConnection, { settings }: Protocol.Commands.SaveSettings["params"]): Promise<Protocol.Commands.SaveSettings["response"]>;
+    onCreatePartition(server: Server, clientConnection: ClientConnection, { tiles, width, height }: Protocol.Commands.CreatePartition["params"]): Promise<Protocol.Commands.CreatePartition["response"]>;
 }
