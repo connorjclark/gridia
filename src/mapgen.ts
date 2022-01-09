@@ -330,7 +330,7 @@ export function gen_wfc(opts: GenerateWfcOptions) {
 
   for (let i = 0; i < opts.inputTiles.length; i++) {
     const tile = opts.inputTiles[i];
-    const tileKey = `${tile.floor},${tile.item}`;
+    const tileKey = `${tile.floor},${tile.item?.type},${tile.item?.quantity}`;
     let color = tileToColorMap.get(tileKey);
     if (color === undefined) {
       color = nextColor++;

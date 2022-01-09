@@ -437,7 +437,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
             for (let i = 0; i < wfcInputWidth; i++) {
               for (let j = 0; j < wfcInputHeight; j++) {
                 const tile =
-                Utils.clone(game.client.context.map.getTile({...inputPos, x: inputPos.x + i, y: inputPos.y + j}));
+                  Utils.clone(game.client.context.map.getTile({...inputPos, x: inputPos.x + i, y: inputPos.y + j}));
                 tile.elevation = 0;
                 inputTiles.push(tile);
               }
