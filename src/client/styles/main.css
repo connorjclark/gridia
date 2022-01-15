@@ -483,13 +483,8 @@ button {
 }
 .mapview__tile {
   position: relative;
-  min-width: 32px;
-  height: 32px;
-}
-.mapview__tile .graphic {
-  position: absolute;
-  top: 0;
-  left: 0;
+  min-width: 16px;
+  height: 16px;
 }
 
 .partition {

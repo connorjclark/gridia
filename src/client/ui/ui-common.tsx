@@ -144,25 +144,17 @@ export const Graphic = (props: GraphicProps) => {
   const y = Math.floor(props.index / tilesAcross);
   const label = props.quantity !== undefined && props.quantity !== 1 ? Utils.formatQuantity(props.quantity) : '';
 
-  let style: { [key: string]: string | number } = {
+  const size = 32 * (props.scale || 1);
+
+  const style: { [key: string]: string | number } = {
     backgroundImage: `url(${templateImageSrc})`,
     backgroundPosition: `-${x * 100}% -${y * 100}%`,
     backgroundSize: `${tilesAcross * 100}% ${tilesColumn * 100}%`,
-    width: 32 + 'px',
-    minWidth: 32 + 'px',
-    maxWidth: 32 + 'px',
-    height: 32 + 'px',
+    width: size + 'px',
+    minWidth: size + 'px',
+    maxWidth: size + 'px',
+    height: size + 'px',
   };
-
-  // TODO: remove? could just scale the width/height above ...
-  if (props.scale) {
-    style = {
-      ...style,
-      transform: `scale(${props.scale})`,
-      marginLeft: (props.scale - 1) * GFX_SIZE + 'px',
-      marginRight: (props.scale - 1) * GFX_SIZE + 'px',
-    };
-  }
 
   const optionalProps: any = {};
   if (props.title) optionalProps.title = props.title;
@@ -170,13 +162,13 @@ export const Graphic = (props: GraphicProps) => {
   return <div class="graphic" style={style} {...optionalProps}>{label}</div>;
 };
 
-export const FloorGraphic = (props: {floor: number}) => {
+export const FloorGraphic = (props: {floor: number; scale?: number}) => {
   const metaFloor = Content.getMetaFloor(props.floor);
   const graphicIndex = metaFloor.graphics?.frames[0] || 0;
-  return <Graphic file={metaFloor.graphics.file} index={graphicIndex}></Graphic>;
+  return <Graphic file={metaFloor.graphics.file} index={graphicIndex} scale={props.scale}></Graphic>;
 };
 
-export const ItemGraphic = (props: {item: Item; showLabel?: boolean}) => {
+export const ItemGraphic = (props: {item: Item; showLabel?: boolean; scale?: number}) => {
   const metaItem = Content.getMetaItem(props.item.type);
   const graphicIndex = metaItem.graphics?.frames[0] || 0;
   return <div class="flex flex-column align-items-center">
@@ -185,6 +177,7 @@ export const ItemGraphic = (props: {item: Item; showLabel?: boolean}) => {
       index={graphicIndex}
       quantity={props.item.quantity}
       title={metaItem.name}
+      scale={props.scale}
     ></Graphic> : undefined}
     {props.showLabel ? metaItem.name : undefined}
   </div>;

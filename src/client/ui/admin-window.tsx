@@ -1,4 +1,4 @@
-import {render, h, Component} from 'preact';
+import {render, h, Component, Fragment} from 'preact';
 import {useEffect, useState} from 'preact/hooks';
 
 import {SECTOR_SIZE} from '../../constants.js';
@@ -15,6 +15,8 @@ import {
   ComponentProps, createSubApp, FloorGraphic, Graphic,
   Input, ItemGraphic, PaginatedContent, TabbedPane, TabbedPaneProps,
 } from './ui-common.js';
+import {wfcInputs} from './wfc-inputs.js';
+
 
 const TOOLS = ['point', 'rectangle', 'fill'] as const;
 type Tool = typeof TOOLS[number];
@@ -287,27 +289,24 @@ export function makeAdminWindow(adminModule: AdminModule) {
   }
   class MapView extends Component<MapViewProps> {
     render(props: MapViewProps) {
-      const rows: any[][] = [];
+      const rows = [];
 
       for (let j = 0; j < props.height; j++) {
         const row: any[] = [];
         rows.push(row);
         for (let i = 0; i < props.width; i++) {
           const tile = props.partition.getTile({x: i + props.x, y: j + props.y, z: props.z});
-          const floorGfx = <FloorGraphic floor={tile.floor}></FloorGraphic>;
-          const itemGfx = tile.item && <ItemGraphic item={tile.item}></ItemGraphic>;
-          if (!itemGfx) {
-            row.push(floorGfx);
-          } else {
-            row.push(<div class="mapview__tile">
-              {floorGfx}
-              {itemGfx}
-            </div>);
-          }
+          const floorGfx = <FloorGraphic floor={tile.floor} scale={0.5}></FloorGraphic>;
+          const itemGfx = tile.item && <ItemGraphic item={tile.item} scale={0.5}></ItemGraphic>;
+
+          row.push(<div class="mapview__tile">
+            {floorGfx}
+            <div style="position: absolute; top: 0; left: 0">{itemGfx}</div>
+          </div>);
         }
       }
 
-      return <div>
+      return <div class="mapview">
         {rows.map((row) => {
           return <div class='mapview__row'>{row}</div>;
         })}
@@ -387,10 +386,11 @@ export function makeAdminWindow(adminModule: AdminModule) {
 
   class NewMapTab extends Component<Props> {
     render(props: Props) {
+      const [inputSelectionIndex, setInputSelectionIndex] = useState(0);
       const [pos, setPos] = useState({...game.client.creature.pos});
       const [wfcInputWidth, setWfcInputWidth] = useState(5);
       const [wfcInputHeight, setWfcInputHeight] = useState(5);
-      const [preview, setPreview] = useState<WorldMapPartition|null>(null);
+      const [preview, setPreview] = useState<WorldMapPartition | null>(null);
       const [, rerender] = useState({});
 
       useEffect(() => {
@@ -410,42 +410,95 @@ export function makeAdminWindow(adminModule: AdminModule) {
         };
       }, []);
 
-      const currentCreaturePartition = game.client.context.map.partitions.get(game.client.creature.pos.w);
+      const savedInputs = Content.getWorldDataDefinition().baseDir === 'worlds/rpgwo-world' ? wfcInputs : [];
+
+      let inputPreview;
+      if (inputSelectionIndex === 0) {
+        const currentCreaturePartition = game.client.context.map.partitions.get(game.client.creature.pos.w);
+        if (currentCreaturePartition) {
+          inputPreview = <MapView {...pos} partition={currentCreaturePartition}
+            width={wfcInputWidth} height={wfcInputHeight}></MapView>;
+        }
+      } else {
+        const savedInput = savedInputs[inputSelectionIndex - 1];
+        // TODO: hardcoding 40, which is bigger than max of 32.
+        const partition = new WorldMapPartition('', 40, 40, 1);
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
+        for (let sx = 0; sx < partition.sectors.length; sx++) {
+          for (let sy = 0; sy < partition.sectors[0].length; sy++) {
+            for (let sz = 0; sz < partition.sectors[0][0].length; sz++) {
+              partition.sectors[sx][sy][sz] = partition.createEmptySector();
+            }
+          }
+        }
+
+        for (let i = 0; i < savedInput.tiles.length; i++) {
+          partition.setTile({x: i % savedInput.width, y: Math.floor(i / savedInput.width), z: 0}, savedInput.tiles[i]);
+        }
+
+        inputPreview = <MapView x={0} y={0} z={0} partition={partition}
+          width={savedInput.width} height={savedInput.height}></MapView>;
+      }
 
       return <div>
         <div>Wave form collapse</div>
 
-        <div>
-          <label>Width:</label>
-          <button onClick={() => setWfcInputWidth(Math.max(wfcInputWidth - 1, 1))}>-</button>
-          <button onClick={() => setWfcInputWidth(Math.min(wfcInputWidth + 1, 20))}>+</button>
-          <label>Height:</label>
-          <button onClick={() => setWfcInputHeight(Math.max(wfcInputHeight - 1, 1))}>-</button>
-          <button onClick={() => setWfcInputHeight(Math.min(wfcInputHeight + 1, 20))}>+</button>
-        </div>
+        <h3>Input</h3>
+
+        <select onChange={(e: any) => setInputSelectionIndex(Number(e.target.value))} value={inputSelectionIndex}>
+          <option value={0}>Use current location</option>
+          {savedInputs.map((_, i) => <option value={i + 1}>Input #{i + 1}</option>)}
+        </select>
+
+        {inputSelectionIndex === 0 &&
+          <>
+            <div>
+              {wfcInputWidth}x{wfcInputHeight}
+              <label>Width:</label>
+              <button onClick={() => setWfcInputWidth(Math.max(wfcInputWidth - 1, 1))}>-</button>
+              <button onClick={() => setWfcInputWidth(Math.min(wfcInputWidth + 1, 32))}>+</button>
+              <label>Height:</label>
+              <button onClick={() => setWfcInputHeight(Math.max(wfcInputHeight - 1, 1))}>-</button>
+              <button onClick={() => setWfcInputHeight(Math.min(wfcInputHeight + 1, 32))}>+</button>
+            </div>
+          </>
+        }
+
+        {inputPreview}
 
         <div>
-          Input: {wfcInputWidth}x{wfcInputHeight}
-          {currentCreaturePartition &&
-            <MapView partition={currentCreaturePartition} {...pos}
-              width={wfcInputWidth} height={wfcInputHeight}></MapView>}
-
           <button onClick={() => {
-            const creature = game.client.creature;
-            const inputPos = {...creature.pos};
-            const inputTiles = [];
-            for (let i = 0; i < wfcInputWidth; i++) {
-              for (let j = 0; j < wfcInputHeight; j++) {
-                const tile =
-                  Utils.clone(game.client.context.map.getTile({...inputPos, x: inputPos.x + i, y: inputPos.y + j}));
-                tile.elevation = 0;
-                inputTiles.push(tile);
+            let input;
+            if (inputSelectionIndex === 0) {
+              const creature = game.client.creature;
+              const inputPos = {...creature.pos};
+              const inputTiles = [];
+              for (let i = 0; i < wfcInputWidth; i++) {
+                for (let j = 0; j < wfcInputHeight; j++) {
+                  const tile =
+                    Utils.clone(game.client.context.map.getTile({...inputPos, x: inputPos.x + i, y: inputPos.y + j}));
+                  tile.elevation = 0;
+                  inputTiles.push(tile);
+                }
               }
+              input = {
+                inputTiles,
+                inputTilesWidth: wfcInputWidth,
+                inputTilesHeight: wfcInputHeight,
+              };
+              // @ts-expect-error
+              window.Gridia.debugAdminWfcTiles =
+                {width: wfcInputWidth, height: wfcInputHeight, tiles: inputTiles};
+            } else {
+              input = {
+                inputTiles: savedInputs[inputSelectionIndex - 1].tiles,
+                inputTilesWidth: savedInputs[inputSelectionIndex - 1].width,
+                inputTilesHeight: savedInputs[inputSelectionIndex - 1].height,
+              };
             }
+
             const partition = gen_wfc({
-              inputTiles,
-              inputTilesWidth: wfcInputWidth,
-              inputTilesHeight: wfcInputHeight,
+              ...input,
               n: 2,
               width: 20,
               height: 20,
@@ -465,11 +518,12 @@ export function makeAdminWindow(adminModule: AdminModule) {
               width: preview.width,
               height: preview.height,
             }));
-          }}>Save</button>
-
-          Output: {preview &&
-            <MapView partition={preview} x={0} y={0} z={0} width={preview.width} height={preview.height}></MapView>}
+          }}>Create Map</button>
         </div>
+
+        <h3>Preview</h3>
+        {preview &&
+            <MapView partition={preview} x={0} y={0} z={0} width={preview.width} height={preview.height}></MapView>}
       </div>;
     }
   }
