@@ -10,7 +10,6 @@ import {FloorGraphic, ItemGraphic} from './ui-common.js';
 
 // TODO: drag
 // TODO: chunked vs centered focusPos
-// TODO: blinkFocusPos
 // TODO: min/max zoomLevel
 // TODO: figure out sizing
 // TODO: use to replace MapViewOld
@@ -30,6 +29,7 @@ interface MapViewProps {
   focusPos: Point4;
   sizing: FixedCanvasSize | FitContentCanvasSize;
   allowZoom: boolean;
+  blinkFocusPos: boolean;
   // usePlayerTileSeenData?: boolean;
 }
 export function MapView(props: MapViewProps) {
@@ -155,7 +155,7 @@ function draw(props: MapViewProps, pixelsPerTile: number, numDraws: number, canv
     }
   }
 
-  if (numDraws % 2 === 0) {
+  if (props.blinkFocusPos && numDraws % 2 === 0) {
     context.fillStyle = 'gold';
     const x = ((focusPos.x % chunkSize) - 3 / 2) * pixelsPerTile;
     const y = ((focusPos.y % chunkSize) - 3 / 2) * pixelsPerTile;

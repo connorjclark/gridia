@@ -42,7 +42,13 @@ export function makeMapWindow(game: Game, initialState: State) {
       } as const;
 
       return <div>
-        <MapView partition={partition} focusPos={pos} sizing={sizing} allowZoom={true}></MapView>
+        <MapView
+          partition={partition}
+          focusPos={pos}
+          sizing={sizing}
+          allowZoom={true}
+          blinkFocusPos={true}
+        ></MapView>
         <div class="location">{locationText}</div>
         <div class="time">Time: {props.time}</div>
       </div>;
