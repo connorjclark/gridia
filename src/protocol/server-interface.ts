@@ -848,7 +848,7 @@ export class ServerInterface implements ICommands {
     }
   }
 
-  onCreatePartition(server: Server, clientConnection: ClientConnection, {tiles, width, height}: Commands.CreatePartition['params']): Promise<Commands.CreatePartition['response']> {
+  async onCreatePartition(server: Server, clientConnection: ClientConnection, {tiles, width, height}: Commands.CreatePartition['params']): Promise<Commands.CreatePartition['response']> {
     const partition = WorldMapPartition.createEmptyWorldMapPartition('wfc', width, height, 1);
     for (let x = 0; x < width; x++) {
       for (let y = 0; y < height; y++) {
@@ -858,14 +858,15 @@ export class ServerInterface implements ICommands {
 
     const nextPartitionId = Math.max(...server.context.map.partitions.keys()) + 1;
     server.context.map.addPartition(nextPartitionId, partition);
-    server.save().then(() => {
-      partition.loaded = true;
-      clientConnection.sendEvent(EventBuilder.chat({
-        section: 'World',
-        from: 'World',
-        text: `Created partition ${nextPartitionId}`,
-      }));
-    });
+    await server.save();
+
+    partition.loaded = true;
+    clientConnection.sendEvent(EventBuilder.chat({
+      section: 'World',
+      from: 'World',
+      text: `Created partition ${nextPartitionId}`,
+    }));
+
     return Promise.resolve();
   }
 }

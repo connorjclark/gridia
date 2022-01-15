@@ -316,6 +316,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
 
   class MapsTab extends Component<Props> {
     render(props: Props) {
+      const [selectedMapIndex, setSelectedMapIndex] = useState(0);
       const [metas, setMetas] = useState<PartitionMeta[] | null>(null);
       const [destructive, setDestructive] = useState(false);
 
@@ -352,34 +353,45 @@ export function makeAdminWindow(adminModule: AdminModule) {
           }}>New Map</button>
         </div>
 
-        {metas.map((meta, index) => {
-          return <div class="partition">
-            <div class="partition__name">{meta.name}</div>
-            <div class="partition__size">Width, Height, Depth: {meta.width}, {meta.height}, {meta.depth}</div>
+        <div>
+          <h3>Modify current map #{game.client.creature.pos.w} {metas[game.client.creature.pos.w].name}</h3>
 
-            <button onClick={() => {
-              game.client.connection.sendCommand(CommandBuilder.chat({
-                text: `/warp ${Math.round(meta.width / 2)} ${Math.round(meta.height / 2)} 0 ${index}`,
-              }));
-            }}>Warp</button>
-            <button onClick={() => {
-              game.client.connection.sendCommand(CommandBuilder.chat({
-                text: '/expandPartition x',
-              }));
-            }}>Expand width {SECTOR_SIZE} tiles</button>
-            <button onClick={() => {
-              game.client.connection.sendCommand(CommandBuilder.chat({
-                text: '/expandPartition y',
-              }));
-            }}>Expand height {SECTOR_SIZE} tiles</button>
-            <button onClick={() => {
-              game.client.connection.sendCommand(CommandBuilder.chat({
-                text: '/expandPartition z',
-              }));
-            }}>Expand depth</button>
-            {destructive ? <button>Delete</button> : null}
-          </div>;
-        })}
+          <button onClick={() => {
+            game.client.connection.sendCommand(CommandBuilder.chat({
+              text: '/expandPartition x',
+            }));
+          }}>Expand width {SECTOR_SIZE} tiles</button>
+          <button onClick={() => {
+            game.client.connection.sendCommand(CommandBuilder.chat({
+              text: '/expandPartition y',
+            }));
+          }}>Expand height {SECTOR_SIZE} tiles</button>
+          <button onClick={() => {
+            game.client.connection.sendCommand(CommandBuilder.chat({
+              text: '/expandPartition z',
+            }));
+          }}>Expand depth</button>
+          {destructive ? <button>Delete</button> : null}
+        </div>
+
+        <div class="partition-list">
+          {metas.map((meta, index) => {
+            return <div class={`partition ${index === selectedMapIndex ? 'partition--selected' : ''}`}
+              onClick={() => setSelectedMapIndex(index)}>
+              <div class="partition__name">#{index} {meta.name}</div>
+              <div class="partition__size">Width, Height, Depth: {meta.width}, {meta.height}, {meta.depth}</div>
+            </div>;
+          })}
+        </div>
+
+        <button onClick={() => {
+          const meta = metas[selectedMapIndex];
+          game.client.connection.sendCommand(CommandBuilder.chat({
+            text: `/warp ${Math.round(meta.width / 2)} ${Math.round(meta.height / 2)} 0 ${selectedMapIndex}`,
+          }));
+        }}>Warp</button>
+
+        TODO: map view
       </div>;
     }
   }
@@ -513,7 +525,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
 
         <h3>Preview</h3>
         {preview &&
-            <MapView partition={preview} x={0} y={0} z={0} width={preview.width} height={preview.height}></MapView>}
+          <MapView partition={preview} x={0} y={0} z={0} width={preview.width} height={preview.height}></MapView>}
       </div>;
     }
   }

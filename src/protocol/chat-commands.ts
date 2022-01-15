@@ -241,6 +241,8 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
           destination.y = args.y;
         }
 
+        // TODO: make chat commands async
+        void server.ensureSectorLoadedForPoint(destination);
         if (!server.context.map.inBounds(destination)) {
           return 'out of bounds';
         }

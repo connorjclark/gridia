@@ -487,9 +487,16 @@ button {
   height: 16px;
 }
 
+.partition-list {
+  overflow: scroll;
+  max-height: 250px;
+}
 .partition {
   padding: 5px;
   border-bottom: 1px solid white;
+}
+.partition--selected {
+  background-color: #00724c;
 }
 .partition__name {
   font-size: larger;
