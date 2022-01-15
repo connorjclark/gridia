@@ -6,6 +6,15 @@ import {game} from '../../game-singleton.js';
 import * as Player from '../../player.js';
 import {WorldMapPartition} from '../../world-map-partition.js';
 
+import {FloorGraphic, ItemGraphic} from './ui-common.js';
+
+// TODO: drag
+// TODO: chunked vs centered focusPos
+// TODO: blinkFocusPos
+// TODO: min/max zoomLevel
+// TODO: figure out sizing
+// TODO: use to replace MapViewOld
+
 interface FixedCanvasSize {
   type: 'fixed';
   canvasWidth: number;
@@ -29,6 +38,8 @@ export function MapView(props: MapViewProps) {
   }
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Higher is more zoomed out. 0 renders the actual tiles.
   const [zoomLevel, setZoomLevel] = useState(3);
 
   // Hacky way to reference the latest props in useEffect.
@@ -39,16 +50,10 @@ export function MapView(props: MapViewProps) {
     let numDraws = 0;
     const redraw = () => {
       if (!canvasRef.current) return;
+      if (zoomLevel === 0) return;
 
-      // Higher is more zoomed out. 0 renders the actual tiles.
-      // const zoomLevel = zoomLevelRef.current;
-      if (zoomLevel === 0) {
-        // TODO show tiles
-      } else {
-        const pixelsPerTile = [4, 3, 2, 1][zoomLevel - 1];
-        draw(propsRef.current, pixelsPerTile, numDraws, canvasRef.current);
-      }
-
+      const pixelsPerTile = [4, 3, 2, 1][zoomLevel - 1];
+      draw(propsRef.current, pixelsPerTile, numDraws, canvasRef.current);
       numDraws += 1;
     };
     const handle = setInterval(redraw, 500);
@@ -56,19 +61,56 @@ export function MapView(props: MapViewProps) {
     return () => clearInterval(handle);
   }, [zoomLevel]);
 
-  return <div>
-    {props.sizing.type === 'fixed' ?
+  let view;
+  if (zoomLevel === 0) {
+    view = <MapViewTiles {...props}></MapViewTiles>;
+  } else {
+    view = props.sizing.type === 'fixed' ?
       <canvas ref={canvasRef} width={props.sizing.canvasWidth} height={props.sizing.canvasHeight}></canvas> :
-      <canvas ref={canvasRef}></canvas>
-    }
+      <canvas ref={canvasRef}></canvas>;
+  }
+
+  return <div>
+    {view}
     {props.allowZoom && <div>
       <button onClick={() => setZoomLevel(Math.min(zoomLevel + 1, 4))}>-</button>
-      {/* TODO min should be 0 */}
-      <button onClick={() => setZoomLevel(Math.max(zoomLevel - 1, 1))}>+</button>
+      <button onClick={() => setZoomLevel(Math.max(zoomLevel - 1, 0))}>+</button>
     </div>
     }
   </div>;
 }
+
+const MapViewTiles = (props: MapViewProps) => {
+  // if (props.sizing.type !== 'fit-content') return <div>?</div>;
+
+  const width = 5;
+  const height = 5;
+  const {x, y, z} = props.focusPos;
+
+  const rows = [];
+
+  for (let j = 0; j < height; j++) {
+    const row: any[] = [];
+    rows.push(row);
+    for (let i = 0; i < width; i++) {
+      const tile = props.partition.getTile({x: i + x, y: j + y, z});
+      const floorGfx = <FloorGraphic floor={tile.floor} scale={0.5}></FloorGraphic>;
+      const itemGfx = tile.item && <ItemGraphic item={tile.item} scale={0.5}></ItemGraphic>;
+
+      row.push(<div class="mapview__tile">
+        {floorGfx}
+        <div style="position: absolute; top: 0; left: 0">{itemGfx}</div>
+      </div>);
+    }
+  }
+
+  // TODO: rename class mapviewtiles
+  return <div class="mapview">
+    {rows.map((row) => {
+      return <div class='mapview__row'>{row}</div>;
+    })}
+  </div>;
+};
 
 function draw(props: MapViewProps, pixelsPerTile: number, numDraws: number, canvas: HTMLCanvasElement) {
   const context = canvas.getContext('2d');

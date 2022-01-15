@@ -11,6 +11,7 @@ import {WorldMapPartition} from '../../world-map-partition.js';
 import {ClientEvents} from '../event-emitter.js';
 import {AdminModule} from '../modules/admin-module.js';
 
+import {MapView} from './map-view.js';
 import {
   ComponentProps, createSubApp, FloorGraphic, Graphic,
   Input, ItemGraphic, PaginatedContent, TabbedPane, TabbedPaneProps,
@@ -287,7 +288,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
     width: number;
     height: number;
   }
-  class MapView extends Component<MapViewProps> {
+  class MapViewOld extends Component<MapViewProps> {
     render(props: MapViewProps) {
       const rows = [];
 
@@ -392,7 +393,8 @@ export function makeAdminWindow(adminModule: AdminModule) {
           }));
         }}>Warp</button>
 
-        TODO: map view
+        TODO mapview
+        {/* <MapView partition={}></MapView> */}
       </div>;
     }
   }
@@ -429,8 +431,8 @@ export function makeAdminWindow(adminModule: AdminModule) {
       if (inputSelectionIndex === 0) {
         const currentCreaturePartition = game.client.context.map.partitions.get(game.client.creature.pos.w);
         if (currentCreaturePartition) {
-          inputPreview = <MapView {...pos} partition={currentCreaturePartition}
-            width={wfcInputWidth} height={wfcInputHeight}></MapView>;
+          inputPreview = <MapViewOld {...pos} partition={currentCreaturePartition}
+            width={wfcInputWidth} height={wfcInputHeight}></MapViewOld>;
         }
       } else {
         const savedInput = savedInputs[inputSelectionIndex - 1];
@@ -439,8 +441,8 @@ export function makeAdminWindow(adminModule: AdminModule) {
         for (let i = 0; i < savedInput.tiles.length; i++) {
           partition.setTile({x: i % savedInput.width, y: Math.floor(i / savedInput.width), z: 0}, savedInput.tiles[i]);
         }
-        inputPreview = <MapView x={0} y={0} z={0} partition={partition}
-          width={savedInput.width} height={savedInput.height}></MapView>;
+        inputPreview = <MapViewOld x={0} y={0} z={0} partition={partition}
+          width={savedInput.width} height={savedInput.height}></MapViewOld>;
       }
 
       return <div>
@@ -526,7 +528,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
 
         <h3>Preview</h3>
         {preview &&
-          <MapView partition={preview} x={0} y={0} z={0} width={preview.width} height={preview.height}></MapView>}
+          <MapViewOld partition={preview} x={0} y={0} z={0} width={preview.width} height={preview.height}></MapViewOld>}
       </div>;
     }
   }
