@@ -374,6 +374,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
           {destructive ? <button>Delete</button> : null}
         </div>
 
+        <h3>Select Map</h3>
         <div class="partition-list">
           {metas.map((meta, index) => {
             return <div class={`partition ${index === selectedMapIndex ? 'partition--selected' : ''}`}

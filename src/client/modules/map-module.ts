@@ -97,16 +97,17 @@ export class MapModule extends ClientModule {
     this.context.fillStyle = 'grey';
     this.context.fillRect(0, 0, this.mapEl.width, this.mapEl.height);
 
-    const chunk = this.mapEl.width;
+    const pixelsPerTile = 3;
+    const chunkSize = Math.floor(this.mapEl.width / pixelsPerTile);
     const playerLoc = this.game.getPlayerPosition();
     const partition = this.game.client.context.map.getPartition(playerLoc.w);
 
-    const startX = Math.floor(playerLoc.x / chunk) * chunk;
-    const startY = Math.floor(playerLoc.y / chunk) * chunk;
+    const startX = Math.floor(playerLoc.x / chunkSize) * chunkSize;
+    const startY = Math.floor(playerLoc.y / chunkSize) * chunkSize;
     const floors = Content.getFloors();
 
-    for (let x = 0; x < chunk; x++) {
-      for (let y = 0; y < chunk; y++) {
+    for (let x = 0; x < chunkSize; x++) {
+      for (let y = 0; y < chunkSize; y++) {
         const pos = {...playerLoc, x: x + startX, y: y + startY};
         if (!partition.inBounds(pos)) continue;
 
@@ -129,13 +130,15 @@ export class MapModule extends ClientModule {
         }
 
         this.context.fillStyle = color;
-        this.context.fillRect(x, y, 1, 1);
+        this.context.fillRect(x * pixelsPerTile, y * pixelsPerTile, pixelsPerTile, pixelsPerTile);
       }
     }
 
     if (this.numDraws % 2 === 0) {
-      this.context.fillStyle = 'red';
-      this.context.fillRect(playerLoc.x % chunk - 3, playerLoc.y % chunk - 3, 6, 6);
+      this.context.fillStyle = 'gold';
+      const x = ((playerLoc.x % chunkSize) - 3/2) * pixelsPerTile;
+      const y = ((playerLoc.y % chunkSize) - 3/2) * pixelsPerTile;
+      this.context.fillRect(x, y, pixelsPerTile * 3, pixelsPerTile * 3);
     }
   }
 }
