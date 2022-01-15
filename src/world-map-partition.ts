@@ -3,6 +3,19 @@ import * as Content from './content.js';
 import * as Utils from './utils.js';
 
 export class WorldMapPartition {
+  static createEmptyWorldMapPartition(name: string, width: number, height: number, depth: number) {
+    const partition = new WorldMapPartition(name, width, height, depth);
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
+    for (let sx = 0; sx < partition.sectors.length; sx++) {
+      for (let sy = 0; sy < partition.sectors[0].length; sy++) {
+        for (let sz = 0; sz < partition.sectors[0][0].length; sz++) {
+          partition.sectors[sx][sy][sz] = partition.createEmptySector();
+        }
+      }
+    }
+    return partition;
+  }
+
   name = '';
   // TODO remove?
   loaded = false;

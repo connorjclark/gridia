@@ -48,17 +48,7 @@ function sanityCheck(width: number, height: number, depth: number) {
 export function makeBareMap(width: number, height: number, depth: number) {
   sanityCheck(width, height, depth);
 
-  const map = new WorldMapPartition('bare-map', width, height, depth);
-
-  // eslint-disable-next-line @typescript-eslint/prefer-for-of
-  for (let sx = 0; sx < map.sectors.length; sx++) {
-    for (let sy = 0; sy < map.sectors[0].length; sy++) {
-      for (let sz = 0; sz < map.sectors[0][0].length; sz++) {
-        map.sectors[sx][sy][sz] = map.createEmptySector();
-      }
-    }
-  }
-
+  const map = WorldMapPartition.createEmptyWorldMapPartition('bare-map', width, height, depth);
   for (let x = 0; x < width; x++) {
     for (let y = 0; y < height; y++) {
       for (let z = 0; z < depth; z++) {
@@ -148,18 +138,9 @@ export function mapgen(opts: MapGenOptions) {
   const {width, height, depth} = opts;
   sanityCheck(width, height, depth);
 
-  const map = new WorldMapPartition('generated-map', width, height, depth);
+  const map = WorldMapPartition.createEmptyWorldMapPartition('generated-map', width, height, depth);
   const mapGenResult = generate(opts);
   const random = mapGenResult.makeRandom('mines');
-
-  // eslint-disable-next-line @typescript-eslint/prefer-for-of
-  for (let sx = 0; sx < map.sectors.length; sx++) {
-    for (let sy = 0; sy < map.sectors[0].length; sy++) {
-      for (let sz = 0; sz < map.sectors[0][0].length; sz++) {
-        map.sectors[sx][sy][sz] = map.createEmptySector();
-      }
-    }
-  }
 
   let minElevation = Infinity, maxElevation = -Infinity;
   for (let x = 0; x < width; x++) {
@@ -354,16 +335,7 @@ export function gen_wfc(opts: GenerateWfcOptions) {
   const outputImageData = context.createImageData(opts.width, opts.height);
   model.graphics(outputImageData.data);
 
-  const map = new WorldMapPartition('wfc', opts.width, opts.height, 1);
-  // eslint-disable-next-line @typescript-eslint/prefer-for-of
-  for (let sx = 0; sx < map.sectors.length; sx++) {
-    for (let sy = 0; sy < map.sectors[0].length; sy++) {
-      for (let sz = 0; sz < map.sectors[0][0].length; sz++) {
-        map.sectors[sx][sy][sz] = map.createEmptySector();
-      }
-    }
-  }
-
+  const map = WorldMapPartition.createEmptyWorldMapPartition('wfc', opts.width, opts.height, 1);
   for (let x = 0; x < opts.width; x++) {
     for (let y = 0; y < opts.height; y++) {
       const offset = (x + y * opts.width) * 4;

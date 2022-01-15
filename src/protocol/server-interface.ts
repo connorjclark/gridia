@@ -849,17 +849,7 @@ export class ServerInterface implements ICommands {
   }
 
   onCreatePartition(server: Server, clientConnection: ClientConnection, {tiles, width, height}: Commands.CreatePartition['params']): Promise<Commands.CreatePartition['response']> {
-    const partition = new WorldMapPartition('wfc', width, height, 1);
-    // TODO: should have helper for this.
-    // eslint-disable-next-line @typescript-eslint/prefer-for-of
-    for (let sx = 0; sx < partition.sectors.length; sx++) {
-      for (let sy = 0; sy < partition.sectors[0].length; sy++) {
-        for (let sz = 0; sz < partition.sectors[0][0].length; sz++) {
-          partition.sectors[sx][sy][sz] = partition.createEmptySector();
-        }
-      }
-    }
-
+    const partition = WorldMapPartition.createEmptyWorldMapPartition('wfc', width, height, 1);
     for (let x = 0; x < width; x++) {
       for (let y = 0; y < height; y++) {
         partition.setTile({x, y, z: 0}, tiles[x + y * width]);

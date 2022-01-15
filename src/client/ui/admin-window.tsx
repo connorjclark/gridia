@@ -422,20 +422,10 @@ export function makeAdminWindow(adminModule: AdminModule) {
       } else {
         const savedInput = savedInputs[inputSelectionIndex - 1];
         // TODO: hardcoding 40, which is bigger than max of 32.
-        const partition = new WorldMapPartition('', 40, 40, 1);
-        // eslint-disable-next-line @typescript-eslint/prefer-for-of
-        for (let sx = 0; sx < partition.sectors.length; sx++) {
-          for (let sy = 0; sy < partition.sectors[0].length; sy++) {
-            for (let sz = 0; sz < partition.sectors[0][0].length; sz++) {
-              partition.sectors[sx][sy][sz] = partition.createEmptySector();
-            }
-          }
-        }
-
+        const partition = WorldMapPartition.createEmptyWorldMapPartition('', 40, 40, 1);
         for (let i = 0; i < savedInput.tiles.length; i++) {
           partition.setTile({x: i % savedInput.width, y: Math.floor(i / savedInput.width), z: 0}, savedInput.tiles[i]);
         }
-
         inputPreview = <MapView x={0} y={0} z={0} partition={partition}
           width={savedInput.width} height={savedInput.height}></MapView>;
       }
