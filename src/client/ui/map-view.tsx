@@ -1,5 +1,5 @@
-import {h, Fragment} from 'preact';
-import {useEffect, useRef} from 'preact/hooks';
+import {h} from 'preact';
+import {useEffect, useRef, useState} from 'preact/hooks';
 
 import * as Content from '../../content.js';
 import {game} from '../../game-singleton.js';
@@ -12,18 +12,24 @@ interface FixedCanvasSize {
   canvasHeight: number;
 }
 
+interface FitContentCanvasSize {
+  type: 'fit-content';
+}
+
 interface MapViewProps {
   partition: WorldMapPartition;
-  x: number;
-  y: number;
-  z: number;
-  sizing: FixedCanvasSize;
+  focusPos: Point4;
+  sizing: FixedCanvasSize | FitContentCanvasSize;
+  allowZoom: boolean;
   // usePlayerTileSeenData?: boolean;
 }
 export function MapView(props: MapViewProps) {
-  if (props.sizing.canvasWidth !== props.sizing.canvasHeight) throw new Error('TODO');
+  if (props.sizing.type === 'fixed') {
+    if (props.sizing.canvasWidth !== props.sizing.canvasHeight) throw new Error('TODO');
+  }
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [zoomLevel, setZoomLevel] = useState(3);
 
   // Hacky way to reference the latest props in useEffect.
   const propsRef = useRef(props);
@@ -31,30 +37,48 @@ export function MapView(props: MapViewProps) {
 
   useEffect(() => {
     let numDraws = 0;
-    const handle = setInterval(() => {
+    const redraw = () => {
       if (!canvasRef.current) return;
 
+      // Higher is more zoomed out. 0 renders the actual tiles.
+      // const zoomLevel = zoomLevelRef.current;
+      if (zoomLevel === 0) {
+        // TODO show tiles
+      } else {
+        const pixelsPerTile = [4, 3, 2, 1][zoomLevel - 1];
+        draw(propsRef.current, pixelsPerTile, numDraws, canvasRef.current);
+      }
+
       numDraws += 1;
-      draw(propsRef.current, numDraws, canvasRef.current);
-    }, 500);
+    };
+    const handle = setInterval(redraw, 500);
+    redraw();
     return () => clearInterval(handle);
-  }, []);
+  }, [zoomLevel]);
 
   return <div>
-    <canvas width={props.sizing.canvasWidth} height={props.sizing.canvasHeight} ref={canvasRef}></canvas>
+    {props.sizing.type === 'fixed' ?
+      <canvas ref={canvasRef} width={props.sizing.canvasWidth} height={props.sizing.canvasHeight}></canvas> :
+      <canvas ref={canvasRef}></canvas>
+    }
+    {props.allowZoom && <div>
+      <button onClick={() => setZoomLevel(Math.min(zoomLevel + 1, 4))}>-</button>
+      {/* TODO min should be 0 */}
+      <button onClick={() => setZoomLevel(Math.max(zoomLevel - 1, 1))}>+</button>
+    </div>
+    }
   </div>;
 }
 
-function draw(props: MapViewProps, numDraws: number, canvas: HTMLCanvasElement) {
+function draw(props: MapViewProps, pixelsPerTile: number, numDraws: number, canvas: HTMLCanvasElement) {
   const context = canvas.getContext('2d');
   if (!context) throw new Error('could not make context');
 
   context.fillStyle = 'grey';
   context.fillRect(0, 0, canvas.width, canvas.height);
 
-  const pixelsPerTile = 3;
   const chunkSize = Math.floor(canvas.width / pixelsPerTile);
-  const focusPos = {w: game.getPlayerPosition().w, x: props.x, y: props.y, z: props.z};
+  const focusPos = props.focusPos;
   const partition = props.partition;
 
   const startX = Math.floor(focusPos.x / chunkSize) * chunkSize;
@@ -91,8 +115,8 @@ function draw(props: MapViewProps, numDraws: number, canvas: HTMLCanvasElement) 
 
   if (numDraws % 2 === 0) {
     context.fillStyle = 'gold';
-    const x = ((focusPos.x % chunkSize) - 3/2) * pixelsPerTile;
-    const y = ((focusPos.y % chunkSize) - 3/2) * pixelsPerTile;
+    const x = ((focusPos.x % chunkSize) - 3 / 2) * pixelsPerTile;
+    const y = ((focusPos.y % chunkSize) - 3 / 2) * pixelsPerTile;
     context.fillRect(x, y, pixelsPerTile * 3, pixelsPerTile * 3);
   }
 }

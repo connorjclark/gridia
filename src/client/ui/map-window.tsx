@@ -1,14 +1,11 @@
 import {render, h, Component} from 'preact';
-import {useEffect, useState} from 'preact/hooks';
 
-import {WorldTime} from '../../world-time.js';
 import {Game} from '../game.js';
-import * as Helper from '../helper.js';
 
 import {MapView} from './map-view.js';
 import {ComponentProps, createSubApp} from './ui-common.js';
 
-export interface State {
+interface State {
   pos: Point4;
   time: string;
 }
@@ -45,7 +42,7 @@ export function makeMapWindow(game: Game, initialState: State) {
       } as const;
 
       return <div>
-        <MapView partition={partition} {...pos} sizing={sizing}></MapView>
+        <MapView partition={partition} focusPos={pos} sizing={sizing} allowZoom={true}></MapView>
         <div class="location">{locationText}</div>
         <div class="time">Time: {props.time}</div>
       </div>;
