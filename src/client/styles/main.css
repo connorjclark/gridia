@@ -507,14 +507,7 @@ button {
 }
 
 .window--map {
-  order: 0;
-  display: flex;
-  flex-direction: column;
   font-family: monospace;
-}
-.window--map .map {
-  width: 150px;
-  height: 150px;
 }
 
 .window--container {
