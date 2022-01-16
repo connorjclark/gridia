@@ -20,6 +20,7 @@ interface FixedCanvasSize {
   canvasHeight: number;
 }
 
+// TODO: remove or implement
 interface FitContentCanvasSize {
   type: 'fit-content';
 }
@@ -27,7 +28,8 @@ interface FitContentCanvasSize {
 interface MapViewProps {
   partition: WorldMapPartition;
   focusPos: Point4;
-  sizing: FixedCanvasSize | FitContentCanvasSize;
+  // sizing: FixedCanvasSize | FitContentCanvasSize;
+  sizing: FixedCanvasSize;
   allowZoom: boolean;
   blinkFocusPos: boolean;
   // usePlayerTileSeenData?: boolean;
@@ -40,7 +42,7 @@ export function MapView(props: MapViewProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // Higher is more zoomed out. 0 renders the actual tiles.
-  const [zoomLevel, setZoomLevel] = useState(3);
+  const [zoomLevel, setZoomLevel] = useState(2);
 
   // Hacky way to reference the latest props in useEffect.
   const propsRef = useRef(props);
@@ -63,7 +65,9 @@ export function MapView(props: MapViewProps) {
 
   let view;
   if (zoomLevel === 0) {
-    view = <MapViewTiles {...props}></MapViewTiles>;
+    view = <div style={`width: ${props.sizing.canvasWidth}px; height: ${props.sizing.canvasHeight}px`}>
+      <MapViewTiles {...props}></MapViewTiles>
+    </div>;
   } else {
     view = props.sizing.type === 'fixed' ?
       <canvas ref={canvasRef} width={props.sizing.canvasWidth} height={props.sizing.canvasHeight}></canvas> :

@@ -337,6 +337,19 @@ export function makeAdminWindow(adminModule: AdminModule) {
         </div>;
       }
 
+      // TODO: ctrl f, lol_lazy. better interface to request partitions.
+      const currentPartition = game.client.context.map.partitions.get(selectedMapIndex);
+      let currentMapView;
+      if (currentPartition) {
+        currentMapView = <MapView
+          partition={currentPartition}
+          focusPos={{w: selectedMapIndex, x: 0, y: 0, z: 0}}
+          sizing={{type: 'fixed', canvasWidth: 300, canvasHeight: 300}}
+          allowZoom={true}
+          blinkFocusPos={false}
+        ></MapView>;
+      }
+
       return <div>
         <label>
           DESTRUCTIVE MODE
@@ -393,8 +406,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
           }));
         }}>Warp</button>
 
-        TODO mapview
-        {/* <MapView partition={}></MapView> */}
+        {currentMapView}
       </div>;
     }
   }
