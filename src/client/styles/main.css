@@ -412,6 +412,10 @@ button {
   display: flex;
   margin-bottom: 15px;
   border-bottom: 1px solid #80753c;
+  position: sticky;
+  top: 0;
+  background-color: #323132;
+  z-index: 1;
 }
 .tabbed-pane__tab {
   flex-grow: 1;
