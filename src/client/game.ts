@@ -1293,17 +1293,8 @@ export class Game {
 
     const focusPos = this.getPlayerPosition();
     const {w, z} = focusPos;
-    const partition = this.client.context.map.partitions.get(w);
-
-    if (!partition) {
-      // @ts-expect-error
-      const lazy = window.lol_lazy = window.lol_lazy || [];
-      if (!lazy.includes(w)) {
-        lazy.push(w);
-        this.client.connection.sendCommand(CommandBuilder.requestPartition({w}));
-      }
-      return;
-    }
+    const {partition} = this.client.getOrRequestPartition(w);
+    if (!partition) return;
 
     if (!this.getPlayerCreature()) return;
     if (partition.width === 0) return;

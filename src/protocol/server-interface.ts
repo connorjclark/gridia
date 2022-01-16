@@ -253,16 +253,16 @@ export class ServerInterface implements ICommands {
     return Promise.resolve();
   }
 
-  onRequestPartition(server: Server, clientConnection: ClientConnection, {w}: Commands.RequestPartition['params']): Promise<Commands.RequestPartition['response']> {
+  async onRequestPartition(server: Server, clientConnection: ClientConnection, {w}: Commands.RequestPartition['params']): Promise<Commands.RequestPartition['response']> {
+    await server.ensureSectorLoadedForPoint({w, x: 0, y: 0, z: 0});
     const partition = server.context.map.getPartition(w);
-    server.send(EventBuilder.initializePartition({
+    return {
       name: partition.name,
       w,
       x: partition.width,
       y: partition.height,
       z: partition.depth,
-    }), clientConnection);
-    return Promise.resolve();
+    };
   }
 
   async onRequestSector(server: Server, clientConnection: ClientConnection, {...pos}: Commands.RequestSector['params']) {

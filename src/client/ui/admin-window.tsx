@@ -337,8 +337,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
         </div>;
       }
 
-      // TODO: ctrl f, lol_lazy. better interface to request partitions.
-      const currentPartition = game.client.context.map.partitions.get(selectedMapIndex);
+      const {partition: currentPartition} = game.client.getOrRequestPartition(selectedMapIndex);
       let currentMapView;
       if (currentPartition) {
         currentMapView = <MapView

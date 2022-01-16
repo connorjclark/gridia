@@ -1,7 +1,9 @@
 import {Context} from '../context.js';
 import {game} from '../game-singleton.js';
 import {ClientInterface} from '../protocol/client-interface.js';
+import * as CommandBuilder from '../protocol/command-builder.js';
 import {ProtocolEvent} from '../protocol/event-builder.js';
+import {WorldMapPartition} from '../world-map-partition.js';
 import {WorldTime} from '../world-time.js';
 
 import {Connection} from './connection.js';
@@ -28,6 +30,8 @@ export class Client {
   private _protocol = new ClientInterface();
   firebaseToken?: string;
 
+  private requestedPartitionPromises = new Map<number, Promise<WorldMapPartition>>();
+
   constructor(private connection_: Connection, public context: Context) {
     this.eventEmitter.on('event', this.handleEventFromServer.bind(this));
     this.connection = connection_;
@@ -52,6 +56,29 @@ export class Client {
     // @ts-expect-error
     const p = this._protocol[onMethodName];
     p(this, event.args);
+  }
+
+  getOrRequestPartition(w: number) {
+    const partition = game.client.context.map.partitions.get(w);
+    if (partition) return {partition, promise: null};
+
+    let promise = this.requestedPartitionPromises.get(w);
+    if (!promise) {
+      promise = new Promise(async (resolve) => {
+        const response = await this.connection.sendCommand(CommandBuilder.requestPartition({w}));
+        this.context.map.initPartition(response.name, response.w, response.x, response.y, response.z);
+        const newPartition = game.client.context.map.partitions.get(w);
+        if (!newPartition) throw new Error('unexpected');
+
+        resolve(newPartition);
+      });
+      this.requestedPartitionPromises.set(w, promise);
+    }
+
+    return {
+      partition: null,
+      promise,
+    };
   }
 
   get worldTime() {

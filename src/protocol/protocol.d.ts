@@ -40,7 +40,7 @@ declare namespace Protocol {
     type RegisterAccount = Command<{ firebaseToken: string }>;
     type RequestContainer = Command<{ containerId?: string; pos?: TilePoint }>;
     type RequestCreature = Command<{ id: number }>;
-    type RequestPartition = Command<{ w: number }>;
+    type RequestPartition = Command<{ w: number }, {name: string} & TilePoint>;
     type RequestSector = Command<TilePoint>;
     type Use = Command<{ toolIndex: number; location: ItemLocation; usageIndex?: number }>;
     type LearnSkill = Command<{ id: number }>;
