@@ -9,7 +9,6 @@ import {WorldMapPartition} from '../../world-map-partition.js';
 import {FloorGraphic, ItemGraphic} from './ui-common.js';
 
 // TODO: drag
-// TODO: chunked vs centered focusPos
 // TODO: min/max zoomLevel
 // TODO: figure out sizing
 // TODO: use to replace MapViewOld
@@ -32,6 +31,7 @@ interface MapViewProps {
   sizing: FixedCanvasSize;
   allowZoom: boolean;
   blinkFocusPos: boolean;
+  chunked: boolean;
   // usePlayerTileSeenData?: boolean;
 }
 export function MapView(props: MapViewProps) {
@@ -128,10 +128,16 @@ function draw(props: MapViewProps, pixelsPerTile: number, numDraws: number, canv
   const chunkSize = Math.floor(canvas.width / pixelsPerTile);
   const focusPos = props.focusPos;
   const partition = props.partition;
-
-  const startX = Math.floor(focusPos.x / chunkSize) * chunkSize;
-  const startY = Math.floor(focusPos.y / chunkSize) * chunkSize;
   const floors = Content.getFloors();
+
+  let startX, startY;
+  if (props.chunked) {
+    startX = Math.floor(focusPos.x / chunkSize) * chunkSize;
+    startY = Math.floor(focusPos.y / chunkSize) * chunkSize;
+  } else {
+    startX = Math.max(0, focusPos.x - Math.floor(chunkSize / 2));
+    startY = Math.max(0, focusPos.y - Math.floor(chunkSize / 2));
+  }
 
   for (let x = 0; x < chunkSize; x++) {
     for (let y = 0; y < chunkSize; y++) {
@@ -162,10 +168,10 @@ function draw(props: MapViewProps, pixelsPerTile: number, numDraws: number, canv
   }
 
   if (props.blinkFocusPos && numDraws % 2 === 0) {
+    const x = focusPos.x - startX;
+    const y = focusPos.y - startY;
     context.fillStyle = 'gold';
-    const x = ((focusPos.x % chunkSize) - 3 / 2) * pixelsPerTile;
-    const y = ((focusPos.y % chunkSize) - 3 / 2) * pixelsPerTile;
-    context.fillRect(x, y, pixelsPerTile * 3, pixelsPerTile * 3);
+    context.fillRect((x - 1.5) * pixelsPerTile, (y - 1.5) * pixelsPerTile, pixelsPerTile * 3, pixelsPerTile * 3);
   }
 }
 

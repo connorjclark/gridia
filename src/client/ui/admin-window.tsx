@@ -346,6 +346,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
           sizing={{type: 'fixed', canvasWidth: 300, canvasHeight: 300}}
           allowZoom={true}
           blinkFocusPos={false}
+          chunked={false}
         ></MapView>;
       }
 

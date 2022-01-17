@@ -1,5 +1,5 @@
 import {render, h, Component} from 'preact';
-import {useEffect, useMemo, useState} from 'preact/hooks';
+import {useMemo, useState} from 'preact/hooks';
 
 import {WorldMapPartition} from '../../world-map-partition.js';
 import {Game} from '../game.js';
@@ -60,6 +60,7 @@ export function makeMapWindow(game: Game, initialState: State) {
           sizing={sizing}
           allowZoom={true}
           blinkFocusPos={true}
+          chunked={true}
         ></MapView>
         <div class="location">{locationText}</div>
         <div class="time">Time: {props.time}</div>
