@@ -15,16 +15,23 @@ export class MapModule extends ClientModule {
   onStart() {
     this.getMapWindow();
 
+    const updatePos = () => {
+      this.getMapWindow().actions.setPos({...this.game.client.creature.pos});
+    };
+    const updateTime = () => {
+      this.getMapWindow().actions.setTime(this.game.client.worldTime.toString());
+    };
+
     this.game.client.eventEmitter.on('playerMove', () => {
       this.game.worldContainer.forEachInCamera((_, pos) => {
         Player.markTileSeen(this.game.client.player, this.game.client.context.map, pos);
       });
+
+      updatePos();
     });
 
-    setInterval(() => {
-      if (!this.game.client.context.map.partitions.get(this.game.client.creature.pos.w)) return;
-
-      this.getMapWindow().actions.setPos({...this.game.client.creature.pos});
-    }, 50);
+    setInterval(updateTime, 1000);
+    updateTime();
+    updatePos();
   }
 }

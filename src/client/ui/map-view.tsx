@@ -48,13 +48,15 @@ export function MapView(props: MapViewProps) {
   const propsRef = useRef(props);
   propsRef.current = props;
 
+  const zoomLevelToPixelsPerTile = [0, 4, 3, 2, 1];
+
   useEffect(() => {
     let numDraws = 0;
     const redraw = () => {
       if (!canvasRef.current) return;
       if (zoomLevel === 0) return;
 
-      const pixelsPerTile = [4, 3, 2, 1][zoomLevel - 1];
+      const pixelsPerTile = zoomLevelToPixelsPerTile[zoomLevel];
       draw(propsRef.current, pixelsPerTile, numDraws, canvasRef.current);
       numDraws += 1;
     };
@@ -77,7 +79,7 @@ export function MapView(props: MapViewProps) {
   return <div class="mapview">
     {view}
     {props.allowZoom && <div class="mapview__zoom">
-      <button onClick={() => setZoomLevel(Math.min(zoomLevel + 1, 4))}>-</button>
+      <button onClick={() => setZoomLevel(Math.min(zoomLevel + 1, zoomLevelToPixelsPerTile.length - 1))}>-</button>
       <button onClick={() => setZoomLevel(Math.max(zoomLevel - 1, 0))}>+</button>
     </div>
     }

@@ -1,5 +1,7 @@
 import {render, h, Component} from 'preact';
+import {useEffect, useMemo, useState} from 'preact/hooks';
 
+import {WorldMapPartition} from '../../world-map-partition.js';
 import {Game} from '../game.js';
 
 import {MapView} from './map-view.js';
@@ -32,7 +34,17 @@ export function makeMapWindow(game: Game, initialState: State) {
     render(props: Props) {
       const pos = props.pos;
       const locationText = `${pos.x}, ${pos.y}, ${pos.z} (map ${pos.w})`;
-      const partition = game.client.context.map.partitions.get(pos.w);
+
+      const [partition, setPartition] = useState<WorldMapPartition | null>(null);
+      const partitionRequest = useMemo(() => {
+        return game.client.getOrRequestPartition(pos.w);
+      }, [pos.w]);
+      if (!partitionRequest.partition) {
+        partitionRequest.promise.then(setPartition);
+      } else if (partitionRequest.partition !== partition) {
+        setPartition(partitionRequest.partition);
+      }
+
       if (!partition) return <div>loading ...</div>;
 
       const sizing = {

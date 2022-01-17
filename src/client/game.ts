@@ -541,6 +541,10 @@ export class Game {
             stats: this.client.creature.stats,
           });
         }
+
+        if (event.args.pos) {
+          this.modules.map.getMapWindow().actions.setPos({...event.args.pos});
+        }
       }
 
       if (this.state.selectedView.creatureId === event.args.id) {
