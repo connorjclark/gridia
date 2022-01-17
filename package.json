@@ -19,7 +19,7 @@
     "panzoom": "^9.4.2",
     "pixi-sound": "^3.0.5",
     "pixi.js": "^6.2.1",
-    "preact": "^10.5.14",
+    "preact": "^10.6.4",
     "redux-zero": "^5.1.7",
     "seedrandom": "^3.0.5",
     "source-map-support": "^0.5.12",
