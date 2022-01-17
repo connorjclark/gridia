@@ -1,4 +1,5 @@
 import {render, h} from 'preact';
+import {useState} from 'preact/hooks';
 
 import * as Content from '../../content.js';
 import * as CommandBuilder from '../../protocol/command-builder.js';
@@ -17,6 +18,15 @@ interface State {
     stats: Creature['stats'];
   };
 }
+
+const getIndex = (e: PointerEvent): number | undefined => {
+  const target = e.target as HTMLElement;
+  const slotEl = target.closest('.container__slot') as HTMLElement;
+  if (!slotEl) return;
+
+  const index = Number(slotEl.dataset.index);
+  return index;
+};
 
 export function makeContainerWindow(game: Game, container: Container, name?: string) {
   const initialState: State = {
@@ -89,7 +99,40 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
       </div>;
     }
 
-    return <div>
+    const [mouseDownIndex, setMouseDownIndex] = useState<number | null>(null);
+    const [mouseOverIndex, setMouseOverIndex] = useState<number | null>(null);
+    const onPointerDown = (e: PointerEvent) => {
+      const index = getIndex(e);
+      if (index === undefined || !props.container.items[index]) return;
+
+      setMouseDownIndex(index);
+      game.client.eventEmitter.emit('itemMoveBegin', {
+        location: Utils.ItemLocation.Container(props.container.id, index),
+        item: props.container.items[index] || undefined,
+      });
+    };
+    const onPointerMove = (e: PointerEvent) => {
+      const index = getIndex(e);
+      if (index === undefined) return;
+
+      setMouseOverIndex(index);
+      // TODO: show selected view temporarily when hovering.
+      // game.modules.selectedView.selectView(Utils.ItemLocation.Container(container.id, index));
+    };
+    const onPointerUp = () => {
+      if (mouseOverIndex !== null) {
+        game.client.eventEmitter.emit('itemMoveEnd', {
+          location: Utils.ItemLocation.Container(container.id, mouseOverIndex),
+        });
+      }
+      if (mouseDownIndex !== null && mouseDownIndex === mouseOverIndex) {
+        if (container.type === 'normal') props.setSelectedIndex(mouseDownIndex);
+        game.modules.selectedView.selectView(Utils.ItemLocation.Container(container.id, mouseDownIndex));
+      }
+      game.exitClickTileMode();
+    };
+
+    return <div onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp}>
       <div>
         {props.name || 'Container'}
       </div>
@@ -131,7 +174,6 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
       noscroll: true,
       onInit(el) {
         render(<SubApp />, el);
-        addListeners(el);
       },
     });
   } else if (container.type === 'normal' && container.id === game.client.player.containerId) {
@@ -143,7 +185,6 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
       noscroll: true,
       onInit(el) {
         render(<SubApp />, el);
-        addListeners(el);
       },
     });
   } else {
@@ -153,66 +194,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
       noscroll: true,
       onInit(el) {
         render(<SubApp />, el);
-        addListeners(el);
       },
-    });
-  }
-
-  let mouseDownIndex: number;
-  let mouseOverIndex: number;
-
-  const getIndex = (e: PointerEvent): number | undefined => {
-    const target = e.target as HTMLElement;
-    const slotEl = target.closest('.container__slot') as HTMLElement;
-    if (!slotEl) return;
-
-    const index = Number(slotEl.dataset.index);
-    return index;
-  };
-
-  function addListeners(el: HTMLElement) {
-    el.addEventListener('pointerdown', (e) => {
-      // lol
-      // @ts-expect-error
-      container = game.client.context.containers.get(container.id);
-
-      const index = getIndex(e);
-      if (index === undefined || !container.items[index]) return;
-
-      mouseDownIndex = index;
-
-      game.client.eventEmitter.emit('itemMoveBegin', {
-        location: Utils.ItemLocation.Container(container.id, index),
-        item: container.items[index] || undefined,
-      });
-    });
-
-    el.addEventListener('pointermove', (e) => {
-      const index = getIndex(e);
-      if (index === undefined) return;
-
-      mouseOverIndex = index;
-      // TODO: show selected view temporarily when hovering.
-      // game.modules.selectedView.selectView(Utils.ItemLocation.Container(container.id, index));
-    });
-
-    // el.addEventListener('pointerout', () => {
-    //   if (game.state.selectedView.location?.source === 'container') {
-    //     game.modules.selectedView.clearSelectedView();
-    //   }
-    // });
-
-    el.addEventListener('pointerup', () => {
-      if (mouseOverIndex !== undefined) {
-        game.client.eventEmitter.emit('itemMoveEnd', {
-          location: Utils.ItemLocation.Container(container.id, mouseOverIndex),
-        });
-      }
-      if (mouseDownIndex === mouseOverIndex) {
-        if (container.type === 'normal') exportedActions.setSelectedIndex(mouseDownIndex);
-        game.modules.selectedView.selectView(Utils.ItemLocation.Container(container.id, mouseDownIndex));
-      }
-      game.exitClickTileMode();
     });
   }
 
