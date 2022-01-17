@@ -22,7 +22,6 @@ interface FixedCanvasSize {
 interface MapViewProps {
   partition: WorldMapPartition;
   focusPos: Point4;
-  // sizing: FixedCanvasSize | FitContentCanvasSize;
   sizing: FixedCanvasSize;
   zoom0TileScale?: number;
   allowDrag: boolean;
@@ -122,9 +121,12 @@ const MapViewTiles = (props: MapViewProps) => {
     const row: any[] = [];
     rows.push(row);
     for (let i = 0; i < width; i++) {
-      const tile = props.partition.getTile({x: i + x, y: j + y, z});
-      const floorGfx = <FloorGraphic floor={tile.floor} scale={scale}></FloorGraphic>;
-      const itemGfx = tile.item && <ItemGraphic item={tile.item} scale={scale}></ItemGraphic>;
+      const pos = {x: i + x, y: j + y, z};
+      const tile = props.partition.getTile(pos);
+      const templatingContext = {pos, partition: props.partition};
+      const floorGfx = <FloorGraphic floor={tile.floor} scale={scale} templating={templatingContext}></FloorGraphic>;
+      const itemGfx = tile.item &&
+        <ItemGraphic item={tile.item} scale={scale} templating={templatingContext}></ItemGraphic>;
 
       row.push(<div class="mapviewtiles__tile">
         {floorGfx}

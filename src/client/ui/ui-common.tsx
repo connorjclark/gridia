@@ -10,6 +10,7 @@ import * as Utils from '../../utils.js';
 import {WorldMapPartition} from '../../world-map-partition.js';
 import {Game} from '../game.js';
 import * as Helper from '../helper.js';
+import {getIndexOffsetForTemplate} from '../template-draw.js';
 
 export type ComponentProps<S, T extends Actions<S>> = S & BoundActions<S, T>;
 type OmitFirstArg<F> = F extends (x: any, ...args: infer P) => infer R ? (...args: P) => R : never;
@@ -164,15 +165,34 @@ export const Graphic = (props: GraphicProps) => {
   return <div class="graphic" style={style} {...optionalProps}>{label}</div>;
 };
 
-export const FloorGraphic = (props: { floor: number; scale?: number }) => {
+interface GraphicTemplatingContext {
+  pos: Point3;
+  partition: WorldMapPartition;
+}
+
+export const FloorGraphic = (props: { floor: number; scale?: number; templating?: GraphicTemplatingContext }) => {
   const metaFloor = Content.getMetaFloor(props.floor);
-  const graphicIndex = metaFloor.graphics?.frames[0] || 0;
+  let graphicIndex = metaFloor.graphics?.frames[0] || 0;
+
+  let meta;
+  if (props.templating && (meta = Content.getMetaFloor(props.floor)) && meta.graphics.templateType) {
+    const {pos, partition} = props.templating;
+    graphicIndex += getIndexOffsetForTemplate(partition, props.floor, pos, meta.graphics, 'floor');
+  }
+
   return <Graphic file={metaFloor.graphics.file} index={graphicIndex} scale={props.scale}></Graphic>;
 };
 
-export const ItemGraphic = (props: { item: Item; showLabel?: boolean; scale?: number }) => {
+export const ItemGraphic = (props:
+{ item: Item; showLabel?: boolean; scale?: number; templating?: GraphicTemplatingContext }) => {
   const metaItem = Content.getMetaItem(props.item.type);
-  const graphicIndex = metaItem.graphics?.frames[0] || 0;
+  let graphicIndex = metaItem.graphics?.frames[0] || 0;
+
+  if (props.templating && metaItem.graphics.templateType) {
+    const {pos, partition} = props.templating;
+    graphicIndex += getIndexOffsetForTemplate(partition, props.item.type, pos, metaItem.graphics, 'item');
+  }
+
   return <div class="flex flex-column align-items-center">
     {metaItem.graphics ? <Graphic
       file={metaItem.graphics.file}
