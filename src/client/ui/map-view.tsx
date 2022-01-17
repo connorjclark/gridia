@@ -32,7 +32,7 @@ interface MapViewProps {
   chunked: boolean;
   usePlayerTileSeenData?: boolean;
 }
-export function MapView(props: MapViewProps) {
+export const MapView = (props: MapViewProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const zoomLevel0DivRef = useRef<HTMLDivElement>(null);
 
@@ -108,7 +108,7 @@ export function MapView(props: MapViewProps) {
     </div>
     }
   </div>;
-}
+};
 
 const MapViewTiles = (props: MapViewProps) => {
   const scale = props.zoom0TileScale || 0.5;

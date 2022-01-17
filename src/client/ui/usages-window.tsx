@@ -13,6 +13,7 @@ export function makeUsagesWindow(usageModule: UsageModule) {
   interface State {
     usages: ItemUse[];
   }
+  // TODO: use functions instead of classes
   class UsagesWindow extends Component {
     state: State = {usages: []};
 

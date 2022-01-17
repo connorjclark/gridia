@@ -1,4 +1,4 @@
-import {render, h, Component, Fragment} from 'preact';
+import {render, h, Fragment} from 'preact';
 
 import {Game} from '../game.js';
 
@@ -29,38 +29,36 @@ export function makeAttributesWindow(game: Game) {
   });
 
   type Props = ComponentProps<State, typeof actions>;
-  class AttributesWindow extends Component<Props> {
-    render(props: Props) {
-      const buffs = [];
-      for (const buff of props.buffs) {
-        const expiresAtMarkup = buff.expiresAt > 0 ?
-          <>(expires <span class='relative-time' data-time={buff.expiresAt}></span>)</> :
-          null;
+  const AttributesWindow = (props: Props) => {
+    const buffs = [];
+    for (const buff of props.buffs) {
+      const expiresAtMarkup = buff.expiresAt > 0 ?
+        <>(expires <span class='relative-time' data-time={buff.expiresAt}></span>)</> :
+        null;
 
-        buffs.push(<div>
-          <div class='buff tooltip-on-hover'>
-            <Graphic file='rpgwo-animations0.png' index={6}></Graphic>
-          </div>
-          <div className="tooltip">
-            {buff.name} {expiresAtMarkup}
-            {buff.linearChange ? <div>+{buff.linearChange} {buff.skillName}</div> : null}
-            {buff.percentChange ? <div>+{100 * buff.percentChange}% {buff.skillName}</div> : null}
-          </div>
-        </div>);
-      }
-
-      return <div>
-        <div>
-          <Bar label='Life' color='red' {...props.life}></Bar>
-          <Bar label='Stamina' color='yellow' {...props.stamina}></Bar>
-          <Bar label='Mana' color='blue' {...props.mana}></Bar>
+      buffs.push(<div>
+        <div class='buff tooltip-on-hover'>
+          <Graphic file='rpgwo-animations0.png' index={6}></Graphic>
         </div>
-        <div class="flex">
-          {buffs}
+        <div className="tooltip">
+          {buff.name} {expiresAtMarkup}
+          {buff.linearChange ? <div>+{buff.linearChange} {buff.skillName}</div> : null}
+          {buff.percentChange ? <div>+{100 * buff.percentChange}% {buff.skillName}</div> : null}
         </div>
-      </div>;
+      </div>);
     }
-  }
+
+    return <div>
+      <div>
+        <Bar label='Life' color='red' {...props.life}></Bar>
+        <Bar label='Stamina' color='yellow' {...props.stamina}></Bar>
+        <Bar label='Mana' color='blue' {...props.mana}></Bar>
+      </div>
+      <div class="flex">
+        {buffs}
+      </div>
+    </div>;
+  };
 
   const {SubApp, exportedActions, subscribe} = createSubApp(AttributesWindow, initialState, actions);
   game.windowManager.createWindow({

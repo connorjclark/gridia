@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 
-import {render, h, Component} from 'preact';
+import {render, h} from 'preact';
 import {useState} from 'preact/hooks';
 
 import {Game} from '../game.js';
@@ -56,25 +56,23 @@ const sections: Record<string, string> = {
 };
 
 export function makeHelpWindow(game: Game) {
-  class HelpWindow extends Component {
-    render() {
-      const [currentSection, setCurrentSection] = useState('General');
+  const HelpWindow = () => {
+    const [currentSection, setCurrentSection] = useState('General');
 
-      return <div class="help flex">
-        <div class="sections">
-          {Object.keys(sections).map((name) => {
-            const classes = ['section'];
-            if (name === currentSection) classes.push('selected');
-            return <div class={classes.join(' ')} onClick={() => setCurrentSection(name)}>{name}</div>;
-          })}
-        </div>
+    return <div class="help flex">
+      <div class="sections">
+        {Object.keys(sections).map((name) => {
+          const classes = ['section'];
+          if (name === currentSection) classes.push('selected');
+          return <div class={classes.join(' ')} onClick={() => setCurrentSection(name)}>{name}</div>;
+        })}
+      </div>
 
-        <div class="current-section">
-          <div dangerouslySetInnerHTML={{__html: sections[currentSection].replace(/\n/g, '<br>')}}></div>
-        </div>
-      </div>;
-    }
-  }
+      <div class="current-section">
+        <div dangerouslySetInnerHTML={{__html: sections[currentSection].replace(/\n/g, '<br>')}}></div>
+      </div>
+    </div>;
+  };
 
   game.windowManager.createWindow({
     id: 'help',

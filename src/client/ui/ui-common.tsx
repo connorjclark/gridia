@@ -52,30 +52,28 @@ export interface TabbedPaneProps {
   tabs: Record<string, { label: string; content: Component['constructor'] }>;
   childProps: any;
 }
-export class TabbedPane extends Component<TabbedPaneProps> {
-  render(props: TabbedPaneProps) {
-    const [currentId, setCurrentId] = useState(Object.keys(props.tabs)[0]);
+export const TabbedPane = (props: TabbedPaneProps) => {
+  const [currentId, setCurrentId] = useState(Object.keys(props.tabs)[0]);
 
-    const tab = props.tabs[currentId];
-    if (!tab) throw new Error('no tab');
+  const tab = props.tabs[currentId];
+  if (!tab) throw new Error('no tab');
 
-    return <div class='tabbed-pane'>
-      <div role='tablist' class='tabbed-pane__tabs flex justify-around'>
-        {Object.entries(props.tabs).map(([id, t]) => {
-          return <button
-            role='tab'
-            aria-controls={id}
-            aria-selected={id === currentId}
-            className={'tabbed-pane__tab ' + (id === currentId ? 'selected' : '')}
-            onClick={() => setCurrentId(id)}>{t.label}</button>;
-        })}
-      </div>
-      <div role='tabpanel' aria-labelledby={currentId}>
-        <tab.content {...props.childProps}></tab.content>
-      </div>
-    </div>;
-  }
-}
+  return <div class='tabbed-pane'>
+    <div role='tablist' class='tabbed-pane__tabs flex justify-around'>
+      {Object.entries(props.tabs).map(([id, t]) => {
+        return <button
+          role='tab'
+          aria-controls={id}
+          aria-selected={id === currentId}
+          className={'tabbed-pane__tab ' + (id === currentId ? 'selected' : '')}
+          onClick={() => setCurrentId(id)}>{t.label}</button>;
+      })}
+    </div>
+    <div role='tabpanel' aria-labelledby={currentId}>
+      <tab.content {...props.childProps}></tab.content>
+    </div>
+  </div>;
+};
 
 export function usePartition(game: Game, w: number) {
   const [partition, setPartition] = useState<WorldMapPartition | null>(null);
@@ -209,7 +207,7 @@ interface CustomCreatureGraphicProps {
   graphics: Graphics[];
   scale?: number;
 }
-export function CustomCreatureGraphic(props: CustomCreatureGraphicProps) {
+export const CustomCreatureGraphic = (props: CustomCreatureGraphicProps) => {
   const size = (props.scale || 1) * GFX_SIZE;
   // TODO: using margin here is a hack ...
   return <div class="custom-creature-graphic" style={
@@ -220,7 +218,7 @@ export function CustomCreatureGraphic(props: CustomCreatureGraphicProps) {
       </div>;
     })}
   </div>;
-}
+};
 
 export function makeCustomCreatureGraphicComponent(props: CustomCreatureGraphicProps) {
   const el = Helper.createElement('div');
@@ -283,23 +281,21 @@ interface PaginatedContentProps {
   renderItems: (items: any[]) => VNode;
 }
 
-export class PaginatedContent extends Component<PaginatedContentProps> {
-  render() {
-    const {itemsPerPage, items, renderItems} = this.props;
-    const [currentPage, setCurrentPage] = useState(0);
-    useEffect(() => {
-      setCurrentPage(0);
-    }, [items]);
+export const PaginatedContent = (props: PaginatedContentProps) => {
+  const {itemsPerPage, items, renderItems} = props;
+  const [currentPage, setCurrentPage] = useState(0);
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [items]);
 
-    const numPages = Math.ceil(items.length / itemsPerPage);
-    const startIndex = itemsPerPage * currentPage;
-    const paginatedItems = items.slice(startIndex, startIndex + itemsPerPage);
+  const numPages = Math.ceil(items.length / itemsPerPage);
+  const startIndex = itemsPerPage * currentPage;
+  const paginatedItems = items.slice(startIndex, startIndex + itemsPerPage);
 
-    return <div>
-      <button disabled={currentPage === 0} onClick={() => setCurrentPage(currentPage - 1)}>{'<'}</button>
-      <button disabled={currentPage === numPages - 1} onClick={() => setCurrentPage(currentPage + 1)}>{'>'}</button>
+  return <div>
+    <button disabled={currentPage === 0} onClick={() => setCurrentPage(currentPage - 1)}>{'<'}</button>
+    <button disabled={currentPage === numPages - 1} onClick={() => setCurrentPage(currentPage + 1)}>{'>'}</button>
       page {currentPage + 1} of {numPages}
-      {renderItems(paginatedItems)}
-    </div>;
-  }
-}
+    {renderItems(paginatedItems)}
+  </div>;
+};

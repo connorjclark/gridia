@@ -1,4 +1,4 @@
-import {render, h, Component} from 'preact';
+import {render, h} from 'preact';
 
 import * as Content from '../../content.js';
 import * as CommandBuilder from '../../protocol/command-builder.js';
@@ -55,72 +55,70 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
   });
 
   type Props = ComponentProps<State, typeof actions>;
-  class ContainerWindow extends Component<Props> {
-    render(props: Props) {
-      let previewEl = <div></div>;
-      if (props.equipmentWindow && props.equipmentWindow.equipmentGraphics) {
-        previewEl = <CustomCreatureGraphic graphics={props.equipmentWindow.equipmentGraphics}></CustomCreatureGraphic>;
-      }
+  const ContainerWindow = (props: Props) => {
+    let previewEl = <div></div>;
+    if (props.equipmentWindow && props.equipmentWindow.equipmentGraphics) {
+      previewEl = <CustomCreatureGraphic graphics={props.equipmentWindow.equipmentGraphics}></CustomCreatureGraphic>;
+    }
 
-      let statsEl = null;
-      let actionsEl = null;
-      if (props.equipmentWindow) {
-        const stats: any = {...props.equipmentWindow.stats};
-        stats.damage = `${props.equipmentWindow.stats.damageLow} - ${props.equipmentWindow.stats.damageHigh}`;
-        delete stats.damageLow;
-        delete stats.damageHigh;
+    let statsEl = null;
+    let actionsEl = null;
+    if (props.equipmentWindow) {
+      const stats: any = {...props.equipmentWindow.stats};
+      stats.damage = `${props.equipmentWindow.stats.damageLow} - ${props.equipmentWindow.stats.damageHigh}`;
+      delete stats.damageLow;
+      delete stats.damageHigh;
 
-        statsEl = <div>{Object.entries(stats).map(([key, value]) => {
-          return <div>{key}: {value}</div>;
-        })}</div>;
-      } else {
-        actionsEl = <div class="container__actions">
-          <button onClick={() => {
-            game.client.connection.sendCommand(CommandBuilder.containerAction({
-              type: 'sort',
-              id: props.container.id,
-            }));
-          }}>Sort</button>
-          <button onClick={() => {
-            game.client.connection.sendCommand(CommandBuilder.containerAction({
-              type: 'stack',
-              id: props.container.id,
-            }));
-          }}>Stack</button>
-        </div>;
-      }
-
-      return <div>
-        <div>
-          {props.name || 'Container'}
-        </div>
-        <div class="container__slots">
-          {previewEl}
-
-          {props.container.items.map((item, i) => {
-            let gfx;
-            if (item) {
-              const metaItem = Content.getMetaItem(item.type);
-              gfx = <Graphic
-                file={metaItem.graphics.file}
-                index={metaItem.graphics.frames[0]}
-                quantity={item.quantity}
-                title={metaItem.name}
-              ></Graphic>;
-            }
-
-            const classes = ['container__slot'];
-            if (props.selectedIndex === i) classes.push('container__slot--selected');
-
-            return <div class={classes.join(' ')} data-index={i}>{gfx}</div>;
-          })}
-        </div>
-
-        {actionsEl}
-        {statsEl}
+      statsEl = <div>{Object.entries(stats).map(([key, value]) => {
+        return <div>{key}: {value}</div>;
+      })}</div>;
+    } else {
+      actionsEl = <div class="container__actions">
+        <button onClick={() => {
+          game.client.connection.sendCommand(CommandBuilder.containerAction({
+            type: 'sort',
+            id: props.container.id,
+          }));
+        }}>Sort</button>
+        <button onClick={() => {
+          game.client.connection.sendCommand(CommandBuilder.containerAction({
+            type: 'stack',
+            id: props.container.id,
+          }));
+        }}>Stack</button>
       </div>;
     }
-  }
+
+    return <div>
+      <div>
+        {props.name || 'Container'}
+      </div>
+      <div class="container__slots">
+        {previewEl}
+
+        {props.container.items.map((item, i) => {
+          let gfx;
+          if (item) {
+            const metaItem = Content.getMetaItem(item.type);
+            gfx = <Graphic
+              file={metaItem.graphics.file}
+              index={metaItem.graphics.frames[0]}
+              quantity={item.quantity}
+              title={metaItem.name}
+            ></Graphic>;
+          }
+
+          const classes = ['container__slot'];
+          if (props.selectedIndex === i) classes.push('container__slot--selected');
+
+          return <div class={classes.join(' ')} data-index={i}>{gfx}</div>;
+        })}
+      </div>
+
+      {actionsEl}
+      {statsEl}
+    </div>;
+  };
 
   const {SubApp, exportedActions, subscribe} = createSubApp(ContainerWindow, initialState, actions);
 

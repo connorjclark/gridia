@@ -59,6 +59,7 @@ function renderItemUsages(usages: ItemUse[]) {
 }
 
 export function makeUsageSearchWindow(game: Game) {
+  // TODO: use functions instead of classes
   class UsageSearchWindow extends Component<any, State> {
     state = DEFAULT_STATE;
 

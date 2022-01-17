@@ -18,7 +18,6 @@ import {
 } from './ui-common.js';
 import {wfcInputs} from './wfc-inputs.js';
 
-
 const TOOLS = ['point', 'rectangle', 'fill'] as const;
 type Tool = typeof TOOLS[number];
 export interface State {
@@ -160,6 +159,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
     return metaItems;
   }
 
+  // TODO: use functions instead of classes
   class ItemsFloorsTab extends Component<Props> {
     renderFloorSelections = (floors: MetaFloor[]) => <FloorSelections
       onClickSelection={this.onClickSelection}
@@ -280,275 +280,269 @@ export function makeAdminWindow(adminModule: AdminModule) {
     }
   }
 
-  class MapsTab extends Component<Props> {
-    render(props: Props) {
-      const [selectedMapIndex, setSelectedMapIndex] = useState(0);
-      const [metas, setMetas] = useState<PartitionMeta[] | null>(null);
-      const [destructive, setDestructive] = useState(false);
+  const MapsTab = () => {
+    const [selectedMapIndex, setSelectedMapIndex] = useState(0);
+    const [metas, setMetas] = useState<PartitionMeta[] | null>(null);
+    const [destructive, setDestructive] = useState(false);
 
-      function requestMetas() {
-        game.client.connection.sendCommand(CommandBuilder.adminRequestPartitionMetas()).then((newMetas) => {
-          setMetas(newMetas);
-        });
+    function requestMetas() {
+      game.client.connection.sendCommand(CommandBuilder.adminRequestPartitionMetas()).then((newMetas) => {
+        setMetas(newMetas);
+      });
+    }
+
+    useEffect(() => {
+      requestMetas();
+    }, []);
+
+    if (metas === null) {
+      return <div>
+        loading ...
+      </div>;
+    }
+
+    const currentPartition = usePartition(game, selectedMapIndex);
+    let currentMapView;
+    if (currentPartition) {
+      currentMapView = <MapView
+        partition={currentPartition}
+        focusPos={{w: selectedMapIndex, x: 0, y: 0, z: 0}}
+        sizing={{type: 'fixed', canvasWidth: 300, canvasHeight: 300}}
+        allowDrag={true}
+        allowZoom={true}
+        blinkFocusPos={false}
+        chunked={false}
+      ></MapView>;
+    }
+
+    return <div>
+      <label>
+        DESTRUCTIVE MODE
+        <input type="checkbox" checked={destructive}
+          onChange={(e) => setDestructive((e.target as HTMLInputElement).checked)}></input>
+      </label>
+
+      <div>
+        <button onClick={async () => {
+          // TODO: also add to chatbox.
+          await game.client.connection.sendCommand(CommandBuilder.chat({
+            text: `/newPartition test ${SECTOR_SIZE} ${SECTOR_SIZE} 1`,
+          }));
+          requestMetas();
+        }}>New Map</button>
+      </div>
+
+      <div>
+        <h3>Modify current map #{game.client.creature.pos.w} {metas[game.client.creature.pos.w].name}</h3>
+
+        <button onClick={() => {
+          game.client.connection.sendCommand(CommandBuilder.chat({
+            text: '/expandPartition x',
+          }));
+        }}>Expand width {SECTOR_SIZE} tiles</button>
+        <button onClick={() => {
+          game.client.connection.sendCommand(CommandBuilder.chat({
+            text: '/expandPartition y',
+          }));
+        }}>Expand height {SECTOR_SIZE} tiles</button>
+        <button onClick={() => {
+          game.client.connection.sendCommand(CommandBuilder.chat({
+            text: '/expandPartition z',
+          }));
+        }}>Expand depth</button>
+        {destructive ? <button>Delete</button> : null}
+      </div>
+
+      <h3>Select Map</h3>
+      <div class="partition-list">
+        {metas.map((meta, index) => {
+          return <div class={`partition ${index === selectedMapIndex ? 'partition--selected' : ''}`}
+            onClick={() => setSelectedMapIndex(index)}>
+            <div class="partition__name">#{index} {meta.name}</div>
+            <div class="partition__size">Width, Height, Depth: {meta.width}, {meta.height}, {meta.depth}</div>
+          </div>;
+        })}
+      </div>
+
+      <button onClick={() => {
+        const meta = metas[selectedMapIndex];
+        game.client.connection.sendCommand(CommandBuilder.chat({
+          text: `/warp ${Math.round(meta.width / 2)} ${Math.round(meta.height / 2)} 0 ${selectedMapIndex}`,
+        }));
+      }}>Warp</button>
+
+      {currentMapView}
+    </div>;
+  };
+
+  const NewMapTab = () => {
+    const [inputSelectionIndex, setInputSelectionIndex] = useState(0);
+    const [pos, setPos] = useState({...game.client.creature.pos});
+    const [wfcInputWidth, setWfcInputWidth] = useState(5);
+    const [wfcInputHeight, setWfcInputHeight] = useState(5);
+    const [preview, setPreview] = useState<WorldMapPartition | null>(null);
+    const [, rerender] = useState({});
+
+    const savedInputs = Content.getWorldDataDefinition().baseDir === 'worlds/rpgwo-world' ? wfcInputs : [];
+
+    useEffect(() => {
+      const fn1 = ({to}: ClientEvents['playerMove']) => {
+        setPos(to);
+      };
+      const fn2 = ({type}: ClientEvents['event']) => {
+        if (type === 'setItem' || type === 'setFloor') {
+          rerender({});
+        }
+      };
+      game.client.eventEmitter.on('playerMove', fn1);
+      game.client.eventEmitter.on('event', fn2);
+      return () => {
+        game.client.eventEmitter.off('playerMove', fn1);
+        game.client.eventEmitter.off('event', fn2);
+      };
+    }, []);
+
+    const inputTiles = useMemo(() => {
+      let input;
+      if (inputSelectionIndex === 0) {
+        const inputPos = pos;
+        const tiles = [];
+        for (let j = 0; j < wfcInputHeight; j++) {
+          for (let i = 0; i < wfcInputWidth; i++) {
+            const tile =
+              Utils.clone(game.client.context.map.getTile({...inputPos, x: inputPos.x + i, y: inputPos.y + j}));
+            tile.elevation = 0;
+            tiles.push(tile);
+          }
+        }
+        input = {
+          tiles,
+          width: wfcInputWidth,
+          height: wfcInputHeight,
+        };
+        // @ts-expect-error
+        window.Gridia.debugAdminWfcTiles =
+          {width: wfcInputWidth, height: wfcInputHeight, tiles};
+      } else {
+        input = savedInputs[inputSelectionIndex - 1];
       }
 
-      useEffect(() => {
-        requestMetas();
-      }, []);
+      return input;
+    }, [inputSelectionIndex, pos, wfcInputWidth, wfcInputHeight]);
 
-      if (metas === null) {
-        return <div>
-          loading ...
-        </div>;
+    const inputPartition = useMemo(() => {
+      // TODO: hardcoding 40, which is bigger than max of 32.
+      const partition = WorldMapPartition.createEmptyWorldMapPartition('', 40, 40, 1);
+      for (let i = 0; i < inputTiles.tiles.length; i++) {
+        const inputPos = {x: i % inputTiles.width, y: Math.floor(i / inputTiles.width), z: 0};
+        partition.setTile(inputPos, inputTiles.tiles[i]);
+      }
+      return partition;
+    }, [inputTiles]);
+
+    const inputPreview = <MapView
+      partition={inputPartition}
+      focusPos={{w: 0, x: 0, y: 0, z: 0}}
+      sizing={{
+        type: 'fixed',
+        canvasWidth: inputTiles.width * GFX_SIZE * 0.5,
+        canvasHeight: inputTiles.height * GFX_SIZE * 0.5,
+      }}
+      zoom0TileScale={0.5}
+      allowDrag={true}
+      allowZoom={false}
+      initialZoomLevel={0}
+      blinkFocusPos={false}
+      chunked={false}
+    ></MapView>;
+
+    return <div>
+      <div>Wave form collapse</div>
+
+      <h3>Input</h3>
+
+      <select onChange={(e: any) => setInputSelectionIndex(Number(e.target.value))} value={inputSelectionIndex}>
+        <option value={0}>Use current location</option>
+        {savedInputs.map((_, i) => <option value={i + 1}>Input #{i + 1}</option>)}
+      </select>
+
+      {inputSelectionIndex === 0 &&
+        <>
+          <div>
+            {wfcInputWidth}x{wfcInputHeight}
+            <label>Width:</label>
+            <button onClick={() => setWfcInputWidth(Math.max(wfcInputWidth - 1, 1))}>-</button>
+            <button onClick={() => setWfcInputWidth(Math.min(wfcInputWidth + 1, 32))}>+</button>
+            <label>Height:</label>
+            <button onClick={() => setWfcInputHeight(Math.max(wfcInputHeight - 1, 1))}>-</button>
+            <button onClick={() => setWfcInputHeight(Math.min(wfcInputHeight + 1, 32))}>+</button>
+          </div>
+        </>
       }
 
-      const currentPartition = usePartition(game, selectedMapIndex);
-      let currentMapView;
-      if (currentPartition) {
-        currentMapView = <MapView
-          partition={currentPartition}
-          focusPos={{w: selectedMapIndex, x: 0, y: 0, z: 0}}
+      {inputPreview}
+
+      <div>
+        <button onClick={() => {
+          const partition = gen_wfc({
+            inputTiles: inputTiles.tiles,
+            inputTilesWidth: inputTiles.width,
+            inputTilesHeight: inputTiles.height,
+            n: 2,
+            width: 100,
+            height: 100,
+          });
+          setPreview(partition);
+        }}>Generate</button>
+        <button onClick={() => {
+          if (!preview) return;
+
+          const tiles = [];
+          for (const {tile} of preview.getIteratorForArea({x: 0, y: 0, z: 0}, preview.width, preview.height)) {
+            tiles.push(tile);
+          }
+
+          game.client.connection.sendCommand(CommandBuilder.createPartition({
+            tiles,
+            width: preview.width,
+            height: preview.height,
+          }));
+        }}>Create Map</button>
+      </div>
+
+      <h3>Preview</h3>
+      {preview &&
+        <MapView
+          partition={preview}
+          focusPos={{w: 0, x: 0, y: 0, z: 0}}
           sizing={{type: 'fixed', canvasWidth: 300, canvasHeight: 300}}
           allowDrag={true}
           allowZoom={true}
           blinkFocusPos={false}
           chunked={false}
-        ></MapView>;
-      }
+        ></MapView>}
+    </div>;
+  };
 
+  const ScriptsTab = () => {
+    const [scriptStates, setScriptStates] = useState<ScriptState[] | null>(null);
+
+    useEffect(() => {
+      game.client.connection.sendCommand(CommandBuilder.adminRequestScripts()).then((newScriptStates) => {
+        setScriptStates(newScriptStates);
+      });
+    }, []);
+
+    if (scriptStates === null) {
       return <div>
-        <label>
-          DESTRUCTIVE MODE
-          <input type="checkbox" checked={destructive}
-            onChange={(e) => setDestructive((e.target as HTMLInputElement).checked)}></input>
-        </label>
-
-        <div>
-          <button onClick={async () => {
-            // TODO: also add to chatbox.
-            await game.client.connection.sendCommand(CommandBuilder.chat({
-              text: `/newPartition test ${SECTOR_SIZE} ${SECTOR_SIZE} 1`,
-            }));
-            requestMetas();
-          }}>New Map</button>
-        </div>
-
-        <div>
-          <h3>Modify current map #{game.client.creature.pos.w} {metas[game.client.creature.pos.w].name}</h3>
-
-          <button onClick={() => {
-            game.client.connection.sendCommand(CommandBuilder.chat({
-              text: '/expandPartition x',
-            }));
-          }}>Expand width {SECTOR_SIZE} tiles</button>
-          <button onClick={() => {
-            game.client.connection.sendCommand(CommandBuilder.chat({
-              text: '/expandPartition y',
-            }));
-          }}>Expand height {SECTOR_SIZE} tiles</button>
-          <button onClick={() => {
-            game.client.connection.sendCommand(CommandBuilder.chat({
-              text: '/expandPartition z',
-            }));
-          }}>Expand depth</button>
-          {destructive ? <button>Delete</button> : null}
-        </div>
-
-        <h3>Select Map</h3>
-        <div class="partition-list">
-          {metas.map((meta, index) => {
-            return <div class={`partition ${index === selectedMapIndex ? 'partition--selected' : ''}`}
-              onClick={() => setSelectedMapIndex(index)}>
-              <div class="partition__name">#{index} {meta.name}</div>
-              <div class="partition__size">Width, Height, Depth: {meta.width}, {meta.height}, {meta.depth}</div>
-            </div>;
-          })}
-        </div>
-
-        <button onClick={() => {
-          const meta = metas[selectedMapIndex];
-          game.client.connection.sendCommand(CommandBuilder.chat({
-            text: `/warp ${Math.round(meta.width / 2)} ${Math.round(meta.height / 2)} 0 ${selectedMapIndex}`,
-          }));
-        }}>Warp</button>
-
-        {currentMapView}
+        loading ...
       </div>;
     }
-  }
 
-  class NewMapTab extends Component<Props> {
-    render(props: Props) {
-      const [inputSelectionIndex, setInputSelectionIndex] = useState(0);
-      const [pos, setPos] = useState({...game.client.creature.pos});
-      const [wfcInputWidth, setWfcInputWidth] = useState(5);
-      const [wfcInputHeight, setWfcInputHeight] = useState(5);
-      const [preview, setPreview] = useState<WorldMapPartition | null>(null);
-      const [, rerender] = useState({});
-
-      const savedInputs = Content.getWorldDataDefinition().baseDir === 'worlds/rpgwo-world' ? wfcInputs : [];
-
-      useEffect(() => {
-        const fn1 = ({to}: ClientEvents['playerMove']) => {
-          setPos(to);
-        };
-        const fn2 = ({type}: ClientEvents['event']) => {
-          if (type === 'setItem' || type === 'setFloor') {
-            rerender({});
-          }
-        };
-        game.client.eventEmitter.on('playerMove', fn1);
-        game.client.eventEmitter.on('event', fn2);
-        return () => {
-          game.client.eventEmitter.off('playerMove', fn1);
-          game.client.eventEmitter.off('event', fn2);
-        };
-      }, []);
-
-      const inputTiles = useMemo(() => {
-        let input;
-        if (inputSelectionIndex === 0) {
-          const inputPos = pos;
-          const tiles = [];
-          for (let j = 0; j < wfcInputHeight; j++) {
-            for (let i = 0; i < wfcInputWidth; i++) {
-              const tile =
-                Utils.clone(game.client.context.map.getTile({...inputPos, x: inputPos.x + i, y: inputPos.y + j}));
-              tile.elevation = 0;
-              tiles.push(tile);
-            }
-          }
-          input = {
-            tiles,
-            width: wfcInputWidth,
-            height: wfcInputHeight,
-          };
-          // @ts-expect-error
-          window.Gridia.debugAdminWfcTiles =
-            {width: wfcInputWidth, height: wfcInputHeight, tiles};
-        } else {
-          input = savedInputs[inputSelectionIndex - 1];
-        }
-
-        return input;
-      }, [inputSelectionIndex, pos, wfcInputWidth, wfcInputHeight]);
-
-      const inputPartition = useMemo(() => {
-        // TODO: hardcoding 40, which is bigger than max of 32.
-        const partition = WorldMapPartition.createEmptyWorldMapPartition('', 40, 40, 1);
-        for (let i = 0; i < inputTiles.tiles.length; i++) {
-          const inputPos = {x: i % inputTiles.width, y: Math.floor(i / inputTiles.width), z: 0};
-          partition.setTile(inputPos, inputTiles.tiles[i]);
-        }
-        return partition;
-      }, [inputTiles]);
-
-      const inputPreview = <MapView
-        partition={inputPartition}
-        focusPos={{w: 0, x: 0, y: 0, z: 0}}
-        sizing={{
-          type: 'fixed',
-          canvasWidth: inputTiles.width * GFX_SIZE * 0.5,
-          canvasHeight: inputTiles.height * GFX_SIZE * 0.5,
-        }}
-        zoom0TileScale={0.5}
-        allowDrag={true}
-        allowZoom={false}
-        initialZoomLevel={0}
-        blinkFocusPos={false}
-        chunked={false}
-      ></MapView>;
-
-      return <div>
-        <div>Wave form collapse</div>
-
-        <h3>Input</h3>
-
-        <select onChange={(e: any) => setInputSelectionIndex(Number(e.target.value))} value={inputSelectionIndex}>
-          <option value={0}>Use current location</option>
-          {savedInputs.map((_, i) => <option value={i + 1}>Input #{i + 1}</option>)}
-        </select>
-
-        {inputSelectionIndex === 0 &&
-          <>
-            <div>
-              {wfcInputWidth}x{wfcInputHeight}
-              <label>Width:</label>
-              <button onClick={() => setWfcInputWidth(Math.max(wfcInputWidth - 1, 1))}>-</button>
-              <button onClick={() => setWfcInputWidth(Math.min(wfcInputWidth + 1, 32))}>+</button>
-              <label>Height:</label>
-              <button onClick={() => setWfcInputHeight(Math.max(wfcInputHeight - 1, 1))}>-</button>
-              <button onClick={() => setWfcInputHeight(Math.min(wfcInputHeight + 1, 32))}>+</button>
-            </div>
-          </>
-        }
-
-        {inputPreview}
-
-        <div>
-          <button onClick={() => {
-            const partition = gen_wfc({
-              inputTiles: inputTiles.tiles,
-              inputTilesWidth: inputTiles.width,
-              inputTilesHeight: inputTiles.height,
-              n: 2,
-              width: 100,
-              height: 100,
-            });
-            setPreview(partition);
-          }}>Generate</button>
-          <button onClick={() => {
-            if (!preview) return;
-
-            const tiles = [];
-            for (const {tile} of preview.getIteratorForArea({x: 0, y: 0, z: 0}, preview.width, preview.height)) {
-              tiles.push(tile);
-            }
-
-            game.client.connection.sendCommand(CommandBuilder.createPartition({
-              tiles,
-              width: preview.width,
-              height: preview.height,
-            }));
-          }}>Create Map</button>
-        </div>
-
-        <h3>Preview</h3>
-        {preview &&
-          <MapView
-            partition={preview}
-            focusPos={{w: 0, x: 0, y: 0, z: 0}}
-            sizing={{type: 'fixed', canvasWidth: 300, canvasHeight: 300}}
-            allowDrag={true}
-            allowZoom={true}
-            blinkFocusPos={false}
-            chunked={false}
-          ></MapView>}
-      </div>;
-    }
-  }
-
-  class ScriptsTab extends Component<Props> {
-    render(props: Props) {
-      const [scriptStates, setScriptStates] = useState<ScriptState[] | null>(null);
-
-      useEffect(() => {
-        game.client.connection.sendCommand(CommandBuilder.adminRequestScripts()).then((newScriptStates) => {
-          setScriptStates(newScriptStates);
-        });
-      }, []);
-
-      if (scriptStates === null) {
-        return <div>
-          loading ...
-        </div>;
-      }
-
-      return <pre>
-        {JSON.stringify(scriptStates, null, 2)}
-      </pre>;
-    }
-  }
+    return <pre>
+      {JSON.stringify(scriptStates, null, 2)}
+    </pre>;
+  };
 
   const tabs: TabbedPaneProps['tabs'] = {
     skills: {
@@ -569,11 +563,9 @@ export function makeAdminWindow(adminModule: AdminModule) {
     },
   };
 
-  class AdminWindow extends Component<Props> {
-    render(props: Props) {
-      return <TabbedPane tabs={tabs} childProps={props}></TabbedPane>;
-    }
-  }
+  const AdminWindow = (props: Props) => {
+    return <TabbedPane tabs={tabs} childProps={props}></TabbedPane>;
+  };
 
   const {SubApp, exportedActions, subscribe} = createSubApp(AdminWindow, initialState, actions);
   const delegate = adminModule.game.windowManager.createWindow({

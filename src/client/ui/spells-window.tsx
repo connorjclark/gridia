@@ -53,6 +53,8 @@ export function makeSpellsWindow(onCastSpell: (spell: Spell) => void) {
   }
 
   type Props = ComponentProps<State, typeof actions>;
+
+  // TODO: use functions instead of classes
   class SpellsTab extends Component<Props> {
     render(props: Props) {
       const spells = [];
@@ -87,30 +89,28 @@ export function makeSpellsWindow(onCastSpell: (spell: Spell) => void) {
     }
   }
 
-  class SpellsWindow extends Component<Props> {
-    render(props: Props) {
-      useEffect(() => {
-        const handle = setInterval(() => {
-          if (!el_) return;
+  const SpellsWindow = (props: Props) => {
+    useEffect(() => {
+      const handle = setInterval(() => {
+        if (!el_) return;
 
-          const now = Date.now();
-          for (const spellEl of Helper.findAll('.spell', el_)) {
-            const cooldown = Number(spellEl.getAttribute('data-cooldown'));
-            const seconds = cooldown > now ? (cooldown - now) / 1000 : 0;
-            const timerEl = Helper.find('.timer', spellEl);
-            timerEl.textContent = seconds.toFixed(1);
-            timerEl.hidden = seconds === 0;
+        const now = Date.now();
+        for (const spellEl of Helper.findAll('.spell', el_)) {
+          const cooldown = Number(spellEl.getAttribute('data-cooldown'));
+          const seconds = cooldown > now ? (cooldown - now) / 1000 : 0;
+          const timerEl = Helper.find('.timer', spellEl);
+          timerEl.textContent = seconds.toFixed(1);
+          timerEl.hidden = seconds === 0;
 
-            const graphicEl = Helper.find('.graphic', spellEl);
-            graphicEl.style.opacity = seconds === 0 ? '1' : '0.3';
-          }
-        }, 50);
-        return () => clearInterval(handle);
-      }, []);
+          const graphicEl = Helper.find('.graphic', spellEl);
+          graphicEl.style.opacity = seconds === 0 ? '1' : '0.3';
+        }
+      }, 50);
+      return () => clearInterval(handle);
+    }, []);
 
-      return <TabbedPane tabs={tabs} childProps={props}></TabbedPane>;
-    }
-  }
+    return <TabbedPane tabs={tabs} childProps={props}></TabbedPane>;
+  };
 
   const {SubApp, exportedActions, subscribe} = createSubApp(SpellsWindow, initialState, actions);
   let el_: HTMLElement; // TODO: remove

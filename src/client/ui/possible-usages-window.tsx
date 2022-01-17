@@ -1,10 +1,10 @@
-import {render, h, Component} from 'preact';
+import {render, h} from 'preact';
 
 import * as Content from '../../content.js';
 import * as Utils from '../../utils.js';
 import {UsageModule} from '../modules/usage-module.js';
 
-import {ComponentProps, Graphic, createSubApp, ItemGraphic} from './ui-common.js';
+import {ComponentProps, createSubApp, ItemGraphic} from './ui-common.js';
 
 interface State {
   possibleUsages: PossibleUsage[];
@@ -38,60 +38,58 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
   });
 
   type Props = ComponentProps<State, typeof actions>;
-  class PossibleUsagesWindow extends Component<Props> {
-    render(props: Props) {
-      // Group by usage.
-      const possibleUsagesGroupedMap = new Map<ItemUse, PossibleUsage[]>();
-      for (const possibleUsage of props.possibleUsages) {
-        const group = possibleUsagesGroupedMap.get(possibleUsage.use) || [];
-        group.push(possibleUsage);
-        possibleUsagesGroupedMap.set(possibleUsage.use, group);
-      }
-      possibleUsagesGrouped = [...possibleUsagesGroupedMap.values()];
-
-      const entries = [];
-      for (const possibleUsagesGroup of possibleUsagesGrouped) {
-        const possibleUsage = possibleUsagesGroup[0];
-        const products = possibleUsage.use.products.filter((p) => p.type);
-        if (possibleUsage.use.successTool) products.unshift({type: possibleUsage.use.successTool, quantity: 1});
-        entries.push({
-          tool: {
-            type: possibleUsage.use.tool,
-            quantity: possibleUsage.use.toolQuantityConsumed,
-          },
-          focus: {
-            type: possibleUsage.use.focus,
-            quantity: possibleUsage.use.focusQuantityConsumed,
-          },
-          products,
-        });
-      }
-
-      let title = 'Possible Usages';
-      if (props.selectedTool) title += ` (using ${Content.getMetaItem(props.selectedTool.type).name})`;
-
-      return <div>
-        <div>
-          {title}
-        </div>
-        <div class="possible-usages__usages">
-          {entries.map(({tool, focus, products}, i) => {
-            return <div class="possible-usages__usage" data-index={i}>
-              <div class="possible-usages__usage__tool">
-                <ItemGraphic item={tool} showLabel={true}></ItemGraphic>
-              </div>
-              <div class="possible-usages__usage__focus">
-                <ItemGraphic item={focus} showLabel={true}></ItemGraphic>
-              </div>
-              <div class="possible-usages__usage__products">
-                {products.map((product) => <ItemGraphic item={product} showLabel={true}></ItemGraphic>)}
-              </div>
-            </div>;
-          })}
-        </div>
-      </div>;
+  const PossibleUsagesWindow = (props: Props) => {
+    // Group by usage.
+    const possibleUsagesGroupedMap = new Map<ItemUse, PossibleUsage[]>();
+    for (const possibleUsage of props.possibleUsages) {
+      const group = possibleUsagesGroupedMap.get(possibleUsage.use) || [];
+      group.push(possibleUsage);
+      possibleUsagesGroupedMap.set(possibleUsage.use, group);
     }
-  }
+    possibleUsagesGrouped = [...possibleUsagesGroupedMap.values()];
+
+    const entries = [];
+    for (const possibleUsagesGroup of possibleUsagesGrouped) {
+      const possibleUsage = possibleUsagesGroup[0];
+      const products = possibleUsage.use.products.filter((p) => p.type);
+      if (possibleUsage.use.successTool) products.unshift({type: possibleUsage.use.successTool, quantity: 1});
+      entries.push({
+        tool: {
+          type: possibleUsage.use.tool,
+          quantity: possibleUsage.use.toolQuantityConsumed,
+        },
+        focus: {
+          type: possibleUsage.use.focus,
+          quantity: possibleUsage.use.focusQuantityConsumed,
+        },
+        products,
+      });
+    }
+
+    let title = 'Possible Usages';
+    if (props.selectedTool) title += ` (using ${Content.getMetaItem(props.selectedTool.type).name})`;
+
+    return <div>
+      <div>
+        {title}
+      </div>
+      <div class="possible-usages__usages">
+        {entries.map(({tool, focus, products}, i) => {
+          return <div class="possible-usages__usage" data-index={i}>
+            <div class="possible-usages__usage__tool">
+              <ItemGraphic item={tool} showLabel={true}></ItemGraphic>
+            </div>
+            <div class="possible-usages__usage__focus">
+              <ItemGraphic item={focus} showLabel={true}></ItemGraphic>
+            </div>
+            <div class="possible-usages__usage__products">
+              {products.map((product) => <ItemGraphic item={product} showLabel={true}></ItemGraphic>)}
+            </div>
+          </div>;
+        })}
+      </div>
+    </div>;
+  };
 
   const {SubApp, exportedActions, subscribe} = createSubApp(PossibleUsagesWindow, initialState, actions);
   const delegate = usageModule.game.windowManager.createWindow({

@@ -23,6 +23,7 @@ export function makeDialogueWindow(game: Game) {
   });
 
   type Props = ComponentProps<State, typeof actions>;
+  // TODO: use functions instead of classes
   class DialogueWindow extends Component<Props> {
     render(props: any) {
       const part = useMemo(() => {
