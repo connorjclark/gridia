@@ -518,8 +518,8 @@ export function makeAdminWindow(adminModule: AdminModule) {
             const partition = gen_wfc({
               ...input,
               n: 2,
-              width: 20,
-              height: 20,
+              width: 100,
+              height: 100,
             });
             setPreview(partition);
           }}>Generate</button>
@@ -541,7 +541,15 @@ export function makeAdminWindow(adminModule: AdminModule) {
 
         <h3>Preview</h3>
         {preview &&
-          <MapViewOld partition={preview} x={0} y={0} z={0} width={preview.width} height={preview.height}></MapViewOld>}
+          <MapView
+            partition={preview}
+            focusPos={{w: 0, x: 0, y: 0, z: 0}}
+            sizing={{type: 'fixed', canvasWidth: 300, canvasHeight: 300}}
+            allowDrag={true}
+            allowZoom={true}
+            blinkFocusPos={false}
+            chunked={false}
+          ></MapView>}
       </div>;
     }
   }

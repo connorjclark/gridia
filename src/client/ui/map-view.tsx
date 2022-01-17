@@ -37,7 +37,7 @@ interface MapViewProps {
   minZoomLevel?: number;
   blinkFocusPos: boolean;
   chunked: boolean;
-  // usePlayerTileSeenData?: boolean;
+  usePlayerTileSeenData?: boolean;
 }
 export function MapView(props: MapViewProps) {
   if (props.sizing.type === 'fixed') {
@@ -187,10 +187,17 @@ function draw(props: MapViewProps, focusPos: Point4, pixelsPerTile: number,
       const pos = {...focusPos, x: x + startX, y: y + startY};
       if (!partition.inBounds(pos)) continue;
 
-      const mark = Player.getTileSeenData(game.client.player, pos);
-      if (mark.floor === 0 && !mark.walkable) continue;
+      let floor, walkable, elevationGrade;
+      if (props.usePlayerTileSeenData) {
+        ({floor, walkable, elevationGrade} = Player.getTileSeenData(game.client.player, pos));
+      } else {
+        const tile = props.partition.getTile(pos);
+        floor = tile.floor;
+        walkable = !(tile.item && Content.getMetaItem(tile.item.type).blocksMovement);
+        elevationGrade = tile.elevation;
+      }
 
-      const {floor, walkable, elevationGrade} = mark;
+      if (floor === 0 && !walkable) continue;
 
       let color;
       if (!walkable) {
