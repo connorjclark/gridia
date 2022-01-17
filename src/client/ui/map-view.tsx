@@ -4,6 +4,7 @@ import makePanzoomDomController from 'panzoom/lib/domController.js';
 import {h} from 'preact';
 import {useCallback, useEffect, useRef, useState} from 'preact/hooks';
 
+import {GFX_SIZE} from '../../constants.js';
 import * as Content from '../../content.js';
 import {game} from '../../game-singleton.js';
 import * as Player from '../../player.js';
@@ -14,7 +15,6 @@ import {WorldMapPartition} from '../../world-map-partition.js';
 import {FloorGraphic, ItemGraphic} from './ui-common.js';
 
 // TODO: figure out sizing
-// TODO: use to replace MapViewOld
 
 interface FixedCanvasSize {
   type: 'fixed';
@@ -34,6 +34,7 @@ interface MapViewProps {
   sizing: FixedCanvasSize;
   allowDrag: boolean;
   allowZoom: boolean;
+  initialZoomLevel?: number;
   minZoomLevel?: number;
   blinkFocusPos: boolean;
   chunked: boolean;
@@ -47,7 +48,7 @@ export function MapView(props: MapViewProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // Higher is more zoomed out. 0 renders the actual tiles.
-  const [zoomLevel, setZoomLevel] = useState(Math.max(2, props.minZoomLevel || 2));
+  const [zoomLevel, setZoomLevel] = useState(props.initialZoomLevel ?? 2);
 
   // Hacky way to reference the latest props in useEffect.
   const propsRef = useRef(props);
@@ -130,10 +131,9 @@ export function MapView(props: MapViewProps) {
 }
 
 const MapViewTiles = (props: MapViewProps) => {
-  // if (props.sizing.type !== 'fit-content') return <div>?</div>;
-
-  const width = 5;
-  const height = 5;
+  const scale = 0.5;
+  const width = Math.round(props.sizing.canvasWidth / (GFX_SIZE * scale));
+  const height = Math.round(props.sizing.canvasHeight / (GFX_SIZE * scale));
   const {x, y, z} = props.focusPos;
 
   const rows = [];
@@ -143,8 +143,8 @@ const MapViewTiles = (props: MapViewProps) => {
     rows.push(row);
     for (let i = 0; i < width; i++) {
       const tile = props.partition.getTile({x: i + x, y: j + y, z});
-      const floorGfx = <FloorGraphic floor={tile.floor} scale={0.5}></FloorGraphic>;
-      const itemGfx = tile.item && <ItemGraphic item={tile.item} scale={0.5}></ItemGraphic>;
+      const floorGfx = <FloorGraphic floor={tile.floor} scale={scale}></FloorGraphic>;
+      const itemGfx = tile.item && <ItemGraphic item={tile.item} scale={scale}></ItemGraphic>;
 
       row.push(<div class="mapviewtiles__tile">
         {floorGfx}
@@ -153,7 +153,6 @@ const MapViewTiles = (props: MapViewProps) => {
     }
   }
 
-  // TODO: rename class mapviewtiles
   return <div class="mapviewtiles">
     {rows.map((row) => {
       return <div class='mapviewtiles__row'>{row}</div>;

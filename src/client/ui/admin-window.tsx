@@ -1,5 +1,5 @@
 import {render, h, Component, Fragment} from 'preact';
-import {useEffect, useState} from 'preact/hooks';
+import {useEffect, useMemo, useState} from 'preact/hooks';
 
 import {SECTOR_SIZE} from '../../constants.js';
 import * as Content from '../../content.js';
@@ -13,8 +13,8 @@ import {AdminModule} from '../modules/admin-module.js';
 
 import {MapView} from './map-view.js';
 import {
-  ComponentProps, createSubApp, FloorGraphic, Graphic,
-  Input, ItemGraphic, PaginatedContent, TabbedPane, TabbedPaneProps, usePartition,
+  ComponentProps, createSubApp, Graphic,
+  Input, PaginatedContent, TabbedPane, TabbedPaneProps, usePartition,
 } from './ui-common.js';
 import {wfcInputs} from './wfc-inputs.js';
 
@@ -280,41 +280,6 @@ export function makeAdminWindow(adminModule: AdminModule) {
     }
   }
 
-  interface MapViewProps {
-    partition: WorldMapPartition;
-    x: number;
-    y: number;
-    z: number;
-    width: number;
-    height: number;
-  }
-  class MapViewOld extends Component<MapViewProps> {
-    render(props: MapViewProps) {
-      const rows = [];
-
-      for (let j = 0; j < props.height; j++) {
-        const row: any[] = [];
-        rows.push(row);
-        for (let i = 0; i < props.width; i++) {
-          const tile = props.partition.getTile({x: i + props.x, y: j + props.y, z: props.z});
-          const floorGfx = <FloorGraphic floor={tile.floor} scale={0.5}></FloorGraphic>;
-          const itemGfx = tile.item && <ItemGraphic item={tile.item} scale={0.5}></ItemGraphic>;
-
-          row.push(<div class="mapviewtiles__tile">
-            {floorGfx}
-            <div style="position: absolute; top: 0; left: 0">{itemGfx}</div>
-          </div>);
-        }
-      }
-
-      return <div class="mapviewtiles">
-        {rows.map((row) => {
-          return <div class='mapviewtiles__row'>{row}</div>;
-        })}
-      </div>;
-    }
-  }
-
   class MapsTab extends Component<Props> {
     render(props: Props) {
       const [selectedMapIndex, setSelectedMapIndex] = useState(0);
@@ -421,6 +386,8 @@ export function makeAdminWindow(adminModule: AdminModule) {
       const [preview, setPreview] = useState<WorldMapPartition | null>(null);
       const [, rerender] = useState({});
 
+      const savedInputs = Content.getWorldDataDefinition().baseDir === 'worlds/rpgwo-world' ? wfcInputs : [];
+
       useEffect(() => {
         const fn1 = ({to}: ClientEvents['playerMove']) => {
           setPos(to);
@@ -438,25 +405,55 @@ export function makeAdminWindow(adminModule: AdminModule) {
         };
       }, []);
 
-      const savedInputs = Content.getWorldDataDefinition().baseDir === 'worlds/rpgwo-world' ? wfcInputs : [];
-
-      let inputPreview;
-      if (inputSelectionIndex === 0) {
-        const currentCreaturePartition = game.client.context.map.partitions.get(game.client.creature.pos.w);
-        if (currentCreaturePartition) {
-          inputPreview = <MapViewOld {...pos} partition={currentCreaturePartition}
-            width={wfcInputWidth} height={wfcInputHeight}></MapViewOld>;
+      const inputTiles = useMemo(() => {
+        let input;
+        if (inputSelectionIndex === 0) {
+          const inputPos = pos;
+          const tiles = [];
+          for (let j = 0; j < wfcInputHeight; j++) {
+            for (let i = 0; i < wfcInputWidth; i++) {
+              const tile =
+                Utils.clone(game.client.context.map.getTile({...inputPos, x: inputPos.x + i, y: inputPos.y + j}));
+              tile.elevation = 0;
+              tiles.push(tile);
+            }
+          }
+          input = {
+            tiles,
+            width: wfcInputWidth,
+            height: wfcInputHeight,
+          };
+          // @ts-expect-error
+          window.Gridia.debugAdminWfcTiles =
+            {width: wfcInputWidth, height: wfcInputHeight, tiles};
+        } else {
+          input = savedInputs[inputSelectionIndex - 1];
         }
-      } else {
-        const savedInput = savedInputs[inputSelectionIndex - 1];
+
+        return input;
+      }, [inputSelectionIndex, pos, wfcInputWidth, wfcInputHeight]);
+
+      const inputPartition = useMemo(() => {
         // TODO: hardcoding 40, which is bigger than max of 32.
         const partition = WorldMapPartition.createEmptyWorldMapPartition('', 40, 40, 1);
-        for (let i = 0; i < savedInput.tiles.length; i++) {
-          partition.setTile({x: i % savedInput.width, y: Math.floor(i / savedInput.width), z: 0}, savedInput.tiles[i]);
+        for (let i = 0; i < inputTiles.tiles.length; i++) {
+          const inputPos = {x: i % inputTiles.width, y: Math.floor(i / inputTiles.width), z: 0};
+          partition.setTile(inputPos, inputTiles.tiles[i]);
         }
-        inputPreview = <MapViewOld x={0} y={0} z={0} partition={partition}
-          width={savedInput.width} height={savedInput.height}></MapViewOld>;
-      }
+        return partition;
+      }, [inputTiles]);
+
+      const inputPreviewSize = Math.max(inputTiles.width, inputTiles.height) * 32;
+      const inputPreview = <MapView
+        partition={inputPartition}
+        focusPos={{w: 0, x: 0, y: 0, z: 0}}
+        sizing={{type: 'fixed', canvasWidth: inputPreviewSize, canvasHeight: inputPreviewSize}}
+        allowDrag={true}
+        allowZoom={false}
+        initialZoomLevel={0}
+        blinkFocusPos={false}
+        chunked={false}
+      ></MapView>;
 
       return <div>
         <div>Wave form collapse</div>
@@ -486,37 +483,10 @@ export function makeAdminWindow(adminModule: AdminModule) {
 
         <div>
           <button onClick={() => {
-            let input;
-            if (inputSelectionIndex === 0) {
-              const creature = game.client.creature;
-              const inputPos = {...creature.pos};
-              const inputTiles = [];
-              for (let i = 0; i < wfcInputWidth; i++) {
-                for (let j = 0; j < wfcInputHeight; j++) {
-                  const tile =
-                    Utils.clone(game.client.context.map.getTile({...inputPos, x: inputPos.x + i, y: inputPos.y + j}));
-                  tile.elevation = 0;
-                  inputTiles.push(tile);
-                }
-              }
-              input = {
-                inputTiles,
-                inputTilesWidth: wfcInputWidth,
-                inputTilesHeight: wfcInputHeight,
-              };
-              // @ts-expect-error
-              window.Gridia.debugAdminWfcTiles =
-                {width: wfcInputWidth, height: wfcInputHeight, tiles: inputTiles};
-            } else {
-              input = {
-                inputTiles: savedInputs[inputSelectionIndex - 1].tiles,
-                inputTilesWidth: savedInputs[inputSelectionIndex - 1].width,
-                inputTilesHeight: savedInputs[inputSelectionIndex - 1].height,
-              };
-            }
-
             const partition = gen_wfc({
-              ...input,
+              inputTiles: inputTiles.tiles,
+              inputTilesWidth: inputTiles.width,
+              inputTilesHeight: inputTiles.height,
               n: 2,
               width: 100,
               height: 100,
