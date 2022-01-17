@@ -16,6 +16,7 @@
     "linkstate": "^1.1.1",
     "luxon": "^1.26.0",
     "node-cleanup": "^2.1.2",
+    "panzoom": "^9.4.2",
     "pixi-sound": "^3.0.5",
     "pixi.js": "^6.2.1",
     "preact": "^10.5.14",

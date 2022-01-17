@@ -1,14 +1,18 @@
+import panzoom from 'panzoom';
+// @ts-expect-error
+import makePanzoomDomController from 'panzoom/lib/domController.js';
 import {h} from 'preact';
-import {useEffect, useRef, useState} from 'preact/hooks';
+import {useCallback, useEffect, useRef, useState} from 'preact/hooks';
 
 import * as Content from '../../content.js';
 import {game} from '../../game-singleton.js';
 import * as Player from '../../player.js';
+import * as Utils from '../../utils.js';
 import {WorldMapPartition} from '../../world-map-partition.js';
+
 
 import {FloorGraphic, ItemGraphic} from './ui-common.js';
 
-// TODO: drag
 // TODO: figure out sizing
 // TODO: use to replace MapViewOld
 
@@ -28,6 +32,7 @@ interface MapViewProps {
   focusPos: Point4;
   // sizing: FixedCanvasSize | FitContentCanvasSize;
   sizing: FixedCanvasSize;
+  allowDrag: boolean;
   allowZoom: boolean;
   minZoomLevel?: number;
   blinkFocusPos: boolean;
@@ -50,25 +55,63 @@ export function MapView(props: MapViewProps) {
 
   const zoomLevelToPixelsPerTile = [0, 4, 3, 2, 1];
 
+  const [focusPosDelta, setFocusPosDelta] = useState({x: 0, y: 0});
   useEffect(() => {
-    let numDraws = 0;
-    const redraw = () => {
-      if (!canvasRef.current) return;
-      if (zoomLevel === 0) return;
+    if (!canvasRef.current) return;
+    if (!props.allowDrag) return;
 
-      const pixelsPerTile = zoomLevelToPixelsPerTile[zoomLevel];
-      draw(propsRef.current, pixelsPerTile, numDraws, canvasRef.current);
-      numDraws += 1;
+    const instance = panzoom(canvasRef.current, {
+      zoomSpeed: 0,
+      pinchSpeed: 0,
+      smoothScroll: false,
+      controller: {
+        ...makePanzoomDomController(canvasRef.current, {}),
+        applyTransform(transform) {
+          transform.x = Utils.clamp(transform.x, -props.partition.width, 0);
+          transform.y = Utils.clamp(transform.y, -props.partition.height, 0);
+          setFocusPosDelta({x: -Math.floor(transform.x), y: -Math.floor(transform.y)});
+        },
+      },
+      initialX: props.focusPos.x,
+      initialY: props.focusPos.y,
+    });
+    return () => instance.dispose();
+  }, [canvasRef.current, props.allowDrag, props.focusPos, props.partition]);
+
+  let numDraws = 0;
+  const drawCanvasCb = useCallback(() => {
+    if (!canvasRef.current) return;
+    if (zoomLevel === 0) return;
+
+    const pixelsPerTile = zoomLevelToPixelsPerTile[zoomLevel];
+    // TODO: Utils.posAdd
+    const focusPos = {
+      ...props.focusPos,
+      x: props.focusPos.x + focusPosDelta.x,
+      y: props.focusPos.y + focusPosDelta.y,
     };
-    const handle = setInterval(redraw, 500);
-    redraw();
+    draw(propsRef.current, focusPos, pixelsPerTile, numDraws, canvasRef.current);
+    numDraws += 1;
+  }, [canvasRef.current, zoomLevel, props.focusPos, focusPosDelta]);
+
+  useEffect(() => {
+    if (zoomLevel === 0) return;
+
+    const handle = setInterval(drawCanvasCb, 500);
+    drawCanvasCb();
     return () => clearInterval(handle);
-  }, [zoomLevel]);
+  }, [zoomLevel, drawCanvasCb]);
 
   let view;
   if (zoomLevel === 0) {
+    // TODO: Utils.posAdd
+    const focusPos = {
+      ...propsRef.current.focusPos,
+      x: propsRef.current.focusPos.x + focusPosDelta.x,
+      y: propsRef.current.focusPos.y + focusPosDelta.y,
+    };
     view = <div style={`width: ${props.sizing.canvasWidth}px; height: ${props.sizing.canvasHeight}px`}>
-      <MapViewTiles {...props}></MapViewTiles>
+      <MapViewTiles {...props} {...focusPos}></MapViewTiles>
     </div>;
   } else {
     view = props.sizing.type === 'fixed' ?
@@ -118,7 +161,8 @@ const MapViewTiles = (props: MapViewProps) => {
   </div>;
 };
 
-function draw(props: MapViewProps, pixelsPerTile: number, numDraws: number, canvas: HTMLCanvasElement) {
+function draw(props: MapViewProps, focusPos: Point4, pixelsPerTile: number,
+              numDraws: number, canvas: HTMLCanvasElement) {
   const context = canvas.getContext('2d');
   if (!context) throw new Error('could not make context');
 
@@ -126,7 +170,6 @@ function draw(props: MapViewProps, pixelsPerTile: number, numDraws: number, canv
   context.fillRect(0, 0, canvas.width, canvas.height);
 
   const chunkSize = Math.floor(canvas.width / pixelsPerTile);
-  const focusPos = props.focusPos;
   const partition = props.partition;
   const floors = Content.getFloors();
 

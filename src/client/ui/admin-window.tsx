@@ -329,7 +329,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
 
       useEffect(() => {
         requestMetas();
-      });
+      }, []);
 
       if (metas === null) {
         return <div>
@@ -337,6 +337,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
         </div>;
       }
 
+      // TODO: need a useState helper for this ...
       const {partition: currentPartition} = game.client.getOrRequestPartition(selectedMapIndex);
       let currentMapView;
       if (currentPartition) {
@@ -344,6 +345,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
           partition={currentPartition}
           focusPos={{w: selectedMapIndex, x: 0, y: 0, z: 0}}
           sizing={{type: 'fixed', canvasWidth: 300, canvasHeight: 300}}
+          allowDrag={true}
           allowZoom={true}
           blinkFocusPos={false}
           chunked={false}

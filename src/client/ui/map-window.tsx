@@ -58,6 +58,7 @@ export function makeMapWindow(game: Game, initialState: State) {
           partition={partition}
           focusPos={pos}
           sizing={sizing}
+          allowDrag={false}
           allowZoom={true}
           minZoomLevel={1}
           blinkFocusPos={true}
