@@ -11,10 +11,7 @@ import * as Player from '../../player.js';
 import * as Utils from '../../utils.js';
 import {WorldMapPartition} from '../../world-map-partition.js';
 
-
 import {FloorGraphic, ItemGraphic} from './ui-common.js';
-
-// TODO: figure out sizing
 
 interface FixedCanvasSize {
   type: 'fixed';
@@ -22,16 +19,12 @@ interface FixedCanvasSize {
   canvasHeight: number;
 }
 
-// TODO: remove or implement
-interface FitContentCanvasSize {
-  type: 'fit-content';
-}
-
 interface MapViewProps {
   partition: WorldMapPartition;
   focusPos: Point4;
   // sizing: FixedCanvasSize | FitContentCanvasSize;
   sizing: FixedCanvasSize;
+  zoom0TileScale?: number;
   allowDrag: boolean;
   allowZoom: boolean;
   initialZoomLevel?: number;
@@ -41,10 +34,6 @@ interface MapViewProps {
   usePlayerTileSeenData?: boolean;
 }
 export function MapView(props: MapViewProps) {
-  if (props.sizing.type === 'fixed') {
-    if (props.sizing.canvasWidth !== props.sizing.canvasHeight) throw new Error('TODO');
-  }
-
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // Higher is more zoomed out. 0 renders the actual tiles.
@@ -77,7 +66,7 @@ export function MapView(props: MapViewProps) {
       initialY: props.focusPos.y,
     });
     return () => instance.dispose();
-  }, [canvasRef.current, props.allowDrag, props.focusPos, props.partition]);
+  }, [canvasRef.current, props.allowDrag, props.focusPos, props.partition, zoomLevel]);
 
   let numDraws = 0;
   const drawCanvasCb = useCallback(() => {
@@ -115,9 +104,7 @@ export function MapView(props: MapViewProps) {
       <MapViewTiles {...props} {...focusPos}></MapViewTiles>
     </div>;
   } else {
-    view = props.sizing.type === 'fixed' ?
-      <canvas ref={canvasRef} width={props.sizing.canvasWidth} height={props.sizing.canvasHeight}></canvas> :
-      <canvas ref={canvasRef}></canvas>;
+    view = <canvas ref={canvasRef} width={props.sizing.canvasWidth} height={props.sizing.canvasHeight}></canvas>;
   }
 
   return <div class="mapview">
@@ -131,7 +118,7 @@ export function MapView(props: MapViewProps) {
 }
 
 const MapViewTiles = (props: MapViewProps) => {
-  const scale = 0.5;
+  const scale = props.zoom0TileScale || 0.5;
   const width = Math.round(props.sizing.canvasWidth / (GFX_SIZE * scale));
   const height = Math.round(props.sizing.canvasHeight / (GFX_SIZE * scale));
   const {x, y, z} = props.focusPos;
@@ -168,21 +155,22 @@ function draw(props: MapViewProps, focusPos: Point4, pixelsPerTile: number,
   context.fillStyle = 'grey';
   context.fillRect(0, 0, canvas.width, canvas.height);
 
-  const chunkSize = Math.floor(canvas.width / pixelsPerTile);
+  const chunkWidth = Math.floor(canvas.width / pixelsPerTile);
+  const chunkHeight = Math.floor(canvas.height / pixelsPerTile);
   const partition = props.partition;
   const floors = Content.getFloors();
 
   let startX, startY;
   if (props.chunked) {
-    startX = Math.floor(focusPos.x / chunkSize) * chunkSize;
-    startY = Math.floor(focusPos.y / chunkSize) * chunkSize;
+    startX = Math.floor(focusPos.x / chunkWidth) * chunkWidth;
+    startY = Math.floor(focusPos.y / chunkHeight) * chunkHeight;
   } else {
-    startX = Math.max(0, focusPos.x - Math.floor(chunkSize / 2));
-    startY = Math.max(0, focusPos.y - Math.floor(chunkSize / 2));
+    startX = Math.max(0, focusPos.x - Math.floor(chunkWidth / 2));
+    startY = Math.max(0, focusPos.y - Math.floor(chunkHeight / 2));
   }
 
-  for (let x = 0; x < chunkSize; x++) {
-    for (let y = 0; y < chunkSize; y++) {
+  for (let x = 0; x < chunkWidth; x++) {
+    for (let y = 0; y < chunkHeight; y++) {
       const pos = {...focusPos, x: x + startX, y: y + startY};
       if (!partition.inBounds(pos)) continue;
 

@@ -1,7 +1,7 @@
 import {render, h, Component, Fragment} from 'preact';
 import {useEffect, useMemo, useState} from 'preact/hooks';
 
-import {SECTOR_SIZE} from '../../constants.js';
+import {GFX_SIZE, SECTOR_SIZE} from '../../constants.js';
 import * as Content from '../../content.js';
 import {game} from '../../game-singleton.js';
 import {gen_wfc} from '../../mapgen.js';
@@ -443,11 +443,15 @@ export function makeAdminWindow(adminModule: AdminModule) {
         return partition;
       }, [inputTiles]);
 
-      const inputPreviewSize = Math.max(inputTiles.width, inputTiles.height) * 32;
       const inputPreview = <MapView
         partition={inputPartition}
         focusPos={{w: 0, x: 0, y: 0, z: 0}}
-        sizing={{type: 'fixed', canvasWidth: inputPreviewSize, canvasHeight: inputPreviewSize}}
+        sizing={{
+          type: 'fixed',
+          canvasWidth: inputTiles.width * GFX_SIZE * 0.5,
+          canvasHeight: inputTiles.height * GFX_SIZE * 0.5,
+        }}
+        zoom0TileScale={0.5}
         allowDrag={true}
         allowZoom={false}
         initialZoomLevel={0}
