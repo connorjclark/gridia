@@ -59,6 +59,7 @@ export function makeMapWindow(game: Game, initialState: State) {
           focusPos={pos}
           sizing={sizing}
           allowZoom={true}
+          minZoomLevel={1}
           blinkFocusPos={true}
           chunked={true}
         ></MapView>

@@ -9,7 +9,6 @@ import {WorldMapPartition} from '../../world-map-partition.js';
 import {FloorGraphic, ItemGraphic} from './ui-common.js';
 
 // TODO: drag
-// TODO: min/max zoomLevel
 // TODO: figure out sizing
 // TODO: use to replace MapViewOld
 
@@ -30,6 +29,7 @@ interface MapViewProps {
   // sizing: FixedCanvasSize | FitContentCanvasSize;
   sizing: FixedCanvasSize;
   allowZoom: boolean;
+  minZoomLevel?: number;
   blinkFocusPos: boolean;
   chunked: boolean;
   // usePlayerTileSeenData?: boolean;
@@ -42,7 +42,7 @@ export function MapView(props: MapViewProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // Higher is more zoomed out. 0 renders the actual tiles.
-  const [zoomLevel, setZoomLevel] = useState(2);
+  const [zoomLevel, setZoomLevel] = useState(Math.max(2, props.minZoomLevel || 2));
 
   // Hacky way to reference the latest props in useEffect.
   const propsRef = useRef(props);
@@ -80,7 +80,7 @@ export function MapView(props: MapViewProps) {
     {view}
     {props.allowZoom && <div class="mapview__zoom">
       <button onClick={() => setZoomLevel(Math.min(zoomLevel + 1, zoomLevelToPixelsPerTile.length - 1))}>-</button>
-      <button onClick={() => setZoomLevel(Math.max(zoomLevel - 1, 0))}>+</button>
+      <button onClick={() => setZoomLevel(Math.max(zoomLevel - 1, props.minZoomLevel || 0))}>+</button>
     </div>
     }
   </div>;
