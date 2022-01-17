@@ -67,6 +67,13 @@ export function equalPoints(p1?: TilePoint | PartitionPoint, p2?: TilePoint | Pa
   return p1.x === p2.x && p1.y === p2.y && p1.z === p2.z;
 }
 
+export function pointAdd<T extends Point2>(p1: T, p2: Point2): T {
+  const p = {...p1};
+  p.x += p2.x;
+  p.y += p2.y;
+  return p;
+}
+
 export function equalItems(i1?: Item, i2?: Item) {
   if (!i1 && !i2) return true;
   if (!i1 || !i2) return false;

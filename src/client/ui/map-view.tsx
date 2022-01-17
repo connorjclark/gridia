@@ -35,6 +35,7 @@ interface MapViewProps {
 }
 export function MapView(props: MapViewProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const zoomLevel0DivRef = useRef<HTMLDivElement>(null);
 
   // Higher is more zoomed out. 0 renders the actual tiles.
   const [zoomLevel, setZoomLevel] = useState(props.initialZoomLevel ?? 2);
@@ -47,15 +48,16 @@ export function MapView(props: MapViewProps) {
 
   const [focusPosDelta, setFocusPosDelta] = useState({x: 0, y: 0});
   useEffect(() => {
-    if (!canvasRef.current) return;
+    const ref = zoomLevel === 0 ? zoomLevel0DivRef : canvasRef;
+    if (!ref.current) return;
     if (!props.allowDrag) return;
 
-    const instance = panzoom(canvasRef.current, {
+    const instance = panzoom(ref.current, {
       zoomSpeed: 0,
       pinchSpeed: 0,
       smoothScroll: false,
       controller: {
-        ...makePanzoomDomController(canvasRef.current, {}),
+        ...makePanzoomDomController(ref.current, {}),
         applyTransform(transform) {
           transform.x = Utils.clamp(transform.x, -props.partition.width, 0);
           transform.y = Utils.clamp(transform.y, -props.partition.height, 0);
@@ -66,7 +68,7 @@ export function MapView(props: MapViewProps) {
       initialY: props.focusPos.y,
     });
     return () => instance.dispose();
-  }, [canvasRef.current, props.allowDrag, props.focusPos, props.partition, zoomLevel]);
+  }, [canvasRef.current, zoomLevel0DivRef.current, props.allowDrag, props.focusPos, props.partition, zoomLevel]);
 
   let numDraws = 0;
   const drawCanvasCb = useCallback(() => {
@@ -74,12 +76,7 @@ export function MapView(props: MapViewProps) {
     if (zoomLevel === 0) return;
 
     const pixelsPerTile = zoomLevelToPixelsPerTile[zoomLevel];
-    // TODO: Utils.posAdd
-    const focusPos = {
-      ...props.focusPos,
-      x: props.focusPos.x + focusPosDelta.x,
-      y: props.focusPos.y + focusPosDelta.y,
-    };
+    const focusPos = Utils.pointAdd(props.focusPos, focusPosDelta);
     draw(propsRef.current, focusPos, pixelsPerTile, numDraws, canvasRef.current);
     numDraws += 1;
   }, [canvasRef.current, zoomLevel, props.focusPos, focusPosDelta]);
@@ -94,14 +91,11 @@ export function MapView(props: MapViewProps) {
 
   let view;
   if (zoomLevel === 0) {
-    // TODO: Utils.posAdd
-    const focusPos = {
-      ...propsRef.current.focusPos,
-      x: propsRef.current.focusPos.x + focusPosDelta.x,
-      y: propsRef.current.focusPos.y + focusPosDelta.y,
-    };
-    view = <div style={`width: ${props.sizing.canvasWidth}px; height: ${props.sizing.canvasHeight}px`}>
-      <MapViewTiles {...props} {...focusPos}></MapViewTiles>
+    // TODO: pos doesn't persist between zoom level 0 and 1+.
+    const focusPos = Utils.pointAdd(propsRef.current.focusPos, focusPosDelta);
+    view = <div ref={zoomLevel0DivRef}
+      style={`width: ${props.sizing.canvasWidth}px; height: ${props.sizing.canvasHeight}px`}>
+      <MapViewTiles {...props} focusPos={focusPos}></MapViewTiles>
     </div>;
   } else {
     view = <canvas ref={canvasRef} width={props.sizing.canvasWidth} height={props.sizing.canvasHeight}></canvas>;
@@ -124,7 +118,6 @@ const MapViewTiles = (props: MapViewProps) => {
   const {x, y, z} = props.focusPos;
 
   const rows = [];
-
   for (let j = 0; j < height; j++) {
     const row: any[] = [];
     rows.push(row);
