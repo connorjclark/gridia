@@ -191,6 +191,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
     delegate = game.windowManager.createWindow({
       id: `container${container.id}`,
       cell: 'center',
+      show: true,
       noscroll: true,
       onInit(el) {
         render(<SubApp />, el);
