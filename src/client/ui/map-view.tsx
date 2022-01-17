@@ -74,9 +74,9 @@ export function MapView(props: MapViewProps) {
       <canvas ref={canvasRef}></canvas>;
   }
 
-  return <div>
+  return <div class="mapview">
     {view}
-    {props.allowZoom && <div>
+    {props.allowZoom && <div class="mapview__zoom">
       <button onClick={() => setZoomLevel(Math.min(zoomLevel + 1, 4))}>-</button>
       <button onClick={() => setZoomLevel(Math.max(zoomLevel - 1, 0))}>+</button>
     </div>
@@ -101,7 +101,7 @@ const MapViewTiles = (props: MapViewProps) => {
       const floorGfx = <FloorGraphic floor={tile.floor} scale={0.5}></FloorGraphic>;
       const itemGfx = tile.item && <ItemGraphic item={tile.item} scale={0.5}></ItemGraphic>;
 
-      row.push(<div class="mapview__tile">
+      row.push(<div class="mapviewtiles__tile">
         {floorGfx}
         <div style="position: absolute; top: 0; left: 0">{itemGfx}</div>
       </div>);
@@ -109,9 +109,9 @@ const MapViewTiles = (props: MapViewProps) => {
   }
 
   // TODO: rename class mapviewtiles
-  return <div class="mapview">
+  return <div class="mapviewtiles">
     {rows.map((row) => {
-      return <div class='mapview__row'>{row}</div>;
+      return <div class='mapviewtiles__row'>{row}</div>;
     })}
   </div>;
 };

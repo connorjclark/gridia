@@ -300,16 +300,16 @@ export function makeAdminWindow(adminModule: AdminModule) {
           const floorGfx = <FloorGraphic floor={tile.floor} scale={0.5}></FloorGraphic>;
           const itemGfx = tile.item && <ItemGraphic item={tile.item} scale={0.5}></ItemGraphic>;
 
-          row.push(<div class="mapview__tile">
+          row.push(<div class="mapviewtiles__tile">
             {floorGfx}
             <div style="position: absolute; top: 0; left: 0">{itemGfx}</div>
           </div>);
         }
       }
 
-      return <div class="mapview">
+      return <div class="mapviewtiles">
         {rows.map((row) => {
-          return <div class='mapview__row'>{row}</div>;
+          return <div class='mapviewtiles__row'>{row}</div>;
         })}
       </div>;
     }

@@ -482,10 +482,27 @@ button {
   color: gold;
 }
 
-.mapview__row {
+.mapview {
+  position: relative;
+  width: fit-content;
+}
+.mapview__zoom {
+  position: absolute;
+  top: 0;
+  right: 0;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+.mapview:hover .mapview__zoom {
+  visibility: visible;
+}
+
+.mapviewtiles__row {
   display: flex;
 }
-.mapview__tile {
+.mapviewtiles__tile {
   position: relative;
   min-width: 16px;
   height: 16px;
