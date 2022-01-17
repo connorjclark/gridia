@@ -76,46 +76,6 @@ export class TabbedPane extends Component<TabbedPaneProps> {
   }
 }
 
-// source: https://github.com/konvajs/use-image/blob/master/index.js
-function useImage(url: string, crossOrigin = null) {
-  const defaultState = {image: undefined, status: 'loading'};
-  const res = useState<{ image?: HTMLImageElement; status: string }>(defaultState);
-  const image = res[0].image;
-  const status = res[0].status;
-
-  const setState = res[1];
-
-  useEffect(
-    function() {
-      if (!url) return;
-
-      const img = document.createElement('img');
-
-      function onload() {
-        setState({image: img, status: 'loaded'});
-      }
-
-      function onerror() {
-        setState({image: undefined, status: 'failed'});
-      }
-
-      img.addEventListener('load', onload);
-      img.addEventListener('error', onerror);
-      crossOrigin && (img.crossOrigin = crossOrigin);
-      img.src = url;
-
-      return function cleanup() {
-        img.removeEventListener('load', onload);
-        img.removeEventListener('error', onerror);
-        setState(defaultState);
-      };
-    },
-    [url, crossOrigin]
-  );
-
-  return [image, status] as const;
-}
-
 export function usePartition(game: Game, w: number) {
   const [partition, setPartition] = useState<WorldMapPartition | null>(null);
 
@@ -131,6 +91,32 @@ export function usePartition(game: Game, w: number) {
   return partition;
 }
 
+interface ImageSizeResult {
+  status: string;
+  width: number;
+  height: number;
+}
+const imageSizeCache = new Map<string, ImageSizeResult>();
+const imageSizeCachePromises = new Map<string, Promise<ImageSizeResult>>();
+function getImageSize(url: string) {
+  const size = imageSizeCache.get(url);
+  if (size) return {size, promise: null};
+
+  const promise = new Promise<ImageSizeResult>((resolve) => {
+    const img = document.createElement('img');
+    img.addEventListener('load', () => resolve({status: 'loaded', width: img.width, height: img.height}));
+    img.addEventListener('error', () => resolve({status: 'failed', width: 0, height: 0}));
+    img.src = url;
+  }).then((result) => {
+    imageSizeCache.set(url, result);
+    imageSizeCachePromises.delete(url);
+    return result;
+  });
+  imageSizeCachePromises.set(url, promise);
+
+  return {size: null, promise};
+}
+
 interface GraphicProps {
   file: string;
   index: number;
@@ -143,20 +129,19 @@ export const Graphic = (props: GraphicProps) => {
 
   const baseDir = Content.getBaseDir();
   const templateImageSrc = `${baseDir}/graphics/${props.file}`;
-  const [image, status] = useImage(templateImageSrc);
 
-  let width, height;
-  if (image && status === 'loaded') {
-    width = image.width;
-    height = image.height;
-  } else if (status === 'failed') {
-    console.error(`failed to load image: ${props.file}`);
-  }
+  // Need to know how big the spritesheet is before we can crop based on tile index.
+  const imageSizeQuery = getImageSize(templateImageSrc);
+  const [imageSize, setImageSize] = useState(imageSizeQuery.size);
+  useEffect(() => {
+    if (imageSizeQuery.size) return;
 
-  if (!width || !height) return <div class="graphic">&nbsp;</div>;
+    imageSizeQuery.promise.then(setImageSize);
+  }, [templateImageSrc]);
+  if (!imageSize) return <div class="graphic">&nbsp;</div>;
 
-  const tilesAcross = Math.round(width / GFX_SIZE);
-  const tilesColumn = Math.round(height / GFX_SIZE);
+  const tilesAcross = Math.round(imageSize.width / GFX_SIZE);
+  const tilesColumn = Math.round(imageSize.height / GFX_SIZE);
   const x = props.index % tilesAcross;
   const y = Math.floor(props.index / tilesAcross);
   const label = props.quantity !== undefined && props.quantity !== 1 ? Utils.formatQuantity(props.quantity) : '';
