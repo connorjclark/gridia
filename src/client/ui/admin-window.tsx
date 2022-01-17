@@ -536,7 +536,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
         game.client.connection.sendCommand(CommandBuilder.adminRequestScripts()).then((newScriptStates) => {
           setScriptStates(newScriptStates);
         });
-      });
+      }, []);
 
       if (scriptStates === null) {
         return <div>
