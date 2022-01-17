@@ -14,7 +14,7 @@ import {AdminModule} from '../modules/admin-module.js';
 import {MapView} from './map-view.js';
 import {
   ComponentProps, createSubApp, FloorGraphic, Graphic,
-  Input, ItemGraphic, PaginatedContent, TabbedPane, TabbedPaneProps,
+  Input, ItemGraphic, PaginatedContent, TabbedPane, TabbedPaneProps, usePartition,
 } from './ui-common.js';
 import {wfcInputs} from './wfc-inputs.js';
 
@@ -337,8 +337,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
         </div>;
       }
 
-      // TODO: need a useState helper for this ...
-      const {partition: currentPartition} = game.client.getOrRequestPartition(selectedMapIndex);
+      const currentPartition = usePartition(game, selectedMapIndex);
       let currentMapView;
       if (currentPartition) {
         currentMapView = <MapView

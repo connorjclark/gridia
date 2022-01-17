@@ -5,7 +5,7 @@ import {WorldMapPartition} from '../../world-map-partition.js';
 import {Game} from '../game.js';
 
 import {MapView} from './map-view.js';
-import {ComponentProps, createSubApp} from './ui-common.js';
+import {ComponentProps, createSubApp, usePartition} from './ui-common.js';
 
 interface State {
   pos: Point4;
@@ -34,16 +34,7 @@ export function makeMapWindow(game: Game, initialState: State) {
     render(props: Props) {
       const pos = props.pos;
       const locationText = `${pos.x}, ${pos.y}, ${pos.z} (map ${pos.w})`;
-
-      const [partition, setPartition] = useState<WorldMapPartition | null>(null);
-      const partitionRequest = useMemo(() => {
-        return game.client.getOrRequestPartition(pos.w);
-      }, [pos.w]);
-      if (!partitionRequest.partition) {
-        partitionRequest.promise.then(setPartition);
-      } else if (partitionRequest.partition !== partition) {
-        setPartition(partitionRequest.partition);
-      }
+      const partition = usePartition(game, pos.w);
 
       if (!partition) return <div>loading ...</div>;
 

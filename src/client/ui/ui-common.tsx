@@ -1,5 +1,5 @@
 import {h, render, Component, Fragment, VNode} from 'preact';
-import {useEffect, useState} from 'preact/hooks';
+import {useEffect, useMemo, useState} from 'preact/hooks';
 import createStore from 'redux-zero';
 import {Provider, connect} from 'redux-zero/preact';
 import {Actions, BoundActions} from 'redux-zero/types/Actions';
@@ -7,6 +7,8 @@ import {Actions, BoundActions} from 'redux-zero/types/Actions';
 import {GFX_SIZE} from '../../constants.js';
 import * as Content from '../../content.js';
 import * as Utils from '../../utils.js';
+import {WorldMapPartition} from '../../world-map-partition.js';
+import {Game} from '../game.js';
 import * as Helper from '../helper.js';
 
 export type ComponentProps<S, T extends Actions<S>> = S & BoundActions<S, T>;
@@ -46,7 +48,7 @@ export function createSubApp<S, A>(component: any, initialState: S, actions: () 
 }
 
 export interface TabbedPaneProps {
-  tabs: Record<string, {label: string; content: Component['constructor']}>;
+  tabs: Record<string, { label: string; content: Component['constructor'] }>;
   childProps: any;
 }
 export class TabbedPane extends Component<TabbedPaneProps> {
@@ -77,7 +79,7 @@ export class TabbedPane extends Component<TabbedPaneProps> {
 // source: https://github.com/konvajs/use-image/blob/master/index.js
 function useImage(url: string, crossOrigin = null) {
   const defaultState = {image: undefined, status: 'loading'};
-  const res = useState<{image?: HTMLImageElement; status: string}>(defaultState);
+  const res = useState<{ image?: HTMLImageElement; status: string }>(defaultState);
   const image = res[0].image;
   const status = res[0].status;
 
@@ -112,6 +114,21 @@ function useImage(url: string, crossOrigin = null) {
   );
 
   return [image, status] as const;
+}
+
+export function usePartition(game: Game, w: number) {
+  const [partition, setPartition] = useState<WorldMapPartition | null>(null);
+
+  const partitionRequest = useMemo(() => {
+    return game.client.getOrRequestPartition(w);
+  }, [w]);
+  if (!partitionRequest.partition) {
+    partitionRequest.promise.then(setPartition);
+  } else if (partitionRequest.partition !== partition) {
+    setPartition(partitionRequest.partition);
+  }
+
+  return partition;
 }
 
 interface GraphicProps {
@@ -162,13 +179,13 @@ export const Graphic = (props: GraphicProps) => {
   return <div class="graphic" style={style} {...optionalProps}>{label}</div>;
 };
 
-export const FloorGraphic = (props: {floor: number; scale?: number}) => {
+export const FloorGraphic = (props: { floor: number; scale?: number }) => {
   const metaFloor = Content.getMetaFloor(props.floor);
   const graphicIndex = metaFloor.graphics?.frames[0] || 0;
   return <Graphic file={metaFloor.graphics.file} index={graphicIndex} scale={props.scale}></Graphic>;
 };
 
-export const ItemGraphic = (props: {item: Item; showLabel?: boolean; scale?: number}) => {
+export const ItemGraphic = (props: { item: Item; showLabel?: boolean; scale?: number }) => {
   const metaItem = Content.getMetaItem(props.item.type);
   const graphicIndex = metaItem.graphics?.frames[0] || 0;
   return <div class="flex flex-column align-items-center">
