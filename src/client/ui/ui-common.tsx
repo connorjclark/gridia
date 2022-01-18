@@ -17,13 +17,13 @@ export type ComponentProps<S, T extends ActionsObject<S>> = S & BoundActions<S, 
 type OmitFirstArg<F> = F extends (x: any, ...args: infer P) => infer R ? (...args: P) => R : never;
 type ExportedActions<A> = { [K in keyof A]: A[K] extends Function ? OmitFirstArg<A[K]> : never };
 
-export function createSubApp<S, A={}>(component: any, initialState: S, actions: A) {
+export function createSubApp<S, A = {}>(component: any, initialState: S, actions: A) {
   const mapToProps = (f: any) => f;
   const ConnectedComponent = connect(mapToProps, () => actions)(component);
   const store = createStore(initialState);
   const SubApp = () => (
     <Provider store={store}>
-      <ConnectedComponent value={10} />
+      <ConnectedComponent />
     </Provider>
   );
 
@@ -291,7 +291,7 @@ export const PaginatedContent = (props: PaginatedContentProps) => {
   return <div>
     <button disabled={currentPage === 0} onClick={() => setCurrentPage(currentPage - 1)}>{'<'}</button>
     <button disabled={currentPage === numPages - 1} onClick={() => setCurrentPage(currentPage + 1)}>{'>'}</button>
-      page {currentPage + 1} of {numPages}
+    page {currentPage + 1} of {numPages}
     {renderItems(paginatedItems)}
   </div>;
 };
