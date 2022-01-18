@@ -16,13 +16,13 @@
 
 <body>
   <div class="game">
-    <div id="canvases" tabindex="0">
-      <div class="status-texts"></div>
-    </div>
+    <div id="canvases" tabindex="0"></div>
+
     <div class="ui">
       <div class="grid-container">
-        <div class="bottom">
+        <div class="grid-section bottom">
           <div class="chat">
+            <div class="chat-sections flex justify-around"></div>
             <textarea class="chat-area" tabindex="-1" readonly></textarea>
             <form class="flex chat-form">
               <input class="flex-grow chat-input" type="text">
@@ -30,15 +30,18 @@
             </form>
           </div>
 
-          <div class="panels-container">
-            <div class="panels__tabs"></div>
-          </div>
+          <div class="status-texts"></div>
         </div>
-        <div class="center"></div>
-        <div class="map"></div>
-        <div class="right"></div>
-        <div class="left"></div>
-        <div class="top"></div>
+        <div class="grid-section center"></div>
+        <div class="grid-section right"></div>
+        <div class="grid-section left"></div>
+        <div class="grid-section top"></div>
+      </div>
+
+      <div class="toolbar">
+        <div class="panels-container">
+          <div class="panels__tabs"></div>
+        </div>
       </div>
 
       <div class="mobile">
@@ -55,6 +58,7 @@
         </div>
       </div>
     </div>
+
     <div class="contextmenu"></div>
     <div class="grid-cursor" hidden></div>
   </div>
