@@ -10,7 +10,7 @@
 
 ____
 
-* Inventory system-burden, limit container size
+* Inventory system-burden
 * Merchants
 
 * Use item attributes to build usage system

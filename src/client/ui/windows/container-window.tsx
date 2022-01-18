@@ -133,22 +133,24 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
     };
 
     return <div onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp}>
-      <div>
+      <div class="m1">
         {props.name || 'Container'}
       </div>
-      <div class="container__slots">
-        {previewEl}
 
-        {props.container.items.map((item, i) => {
-          const gfx = item && <ItemGraphic item={item}></ItemGraphic>;
-          const classes = ['container__slot'];
-          if (props.selectedIndex === i) classes.push('container__slot--selected');
-          return <div class={classes.join(' ')} data-index={i}>{gfx}</div>;
-        })}
+      <div class="flex align-items-center justify-around">
+        <div class="container__slots m1">
+          {previewEl}
+          {props.container.items.map((item, i) => {
+            const gfx = item && <ItemGraphic item={item}></ItemGraphic>;
+            const classes = ['container__slot'];
+            if (props.selectedIndex === i) classes.push('container__slot--selected');
+            return <div class={classes.join(' ')} data-index={i}>{gfx}</div>;
+          })}
+        </div>
+        {statsEl}
       </div>
 
       {actionsEl}
-      {statsEl}
     </div>;
   };
 

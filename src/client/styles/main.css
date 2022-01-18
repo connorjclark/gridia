@@ -546,11 +546,14 @@ button {
 .container__slots {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background-color: antiquewhite;
+  border: 1px solid antiquewhite;
 }
 .container__slot {
   width: 32px;
   height: 32px;
-  border: 1px solid white;
+  background-color: #604f4f;
 }
 .container__slot:hover {
   background-color: #cccca9;
@@ -565,6 +568,8 @@ button {
                  'b c d i'
                  'f e . h';
   grid-auto-columns: min-content;
+  background: none;
+  border: none;
 }
 .window--equipment .container__slot:nth-child(1) {
   grid-area: p;
@@ -598,6 +603,7 @@ button {
 }
 .window--equipment .container__slot {
   margin: 5px;
+  border: 1px solid antiquewhite;
 }
 /* lol */
 .window--equipment .custom-creature-graphic {
