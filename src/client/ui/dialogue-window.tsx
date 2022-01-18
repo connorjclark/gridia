@@ -13,7 +13,7 @@ interface State {
   index: number;
 }
 
-export function makeDialogueWindow(game: Game) {
+export function makeDialogueWindow(game: Game, initialState: State) {
   const actions = {
     setState: (state: State, newState: State): State => {
       return {
@@ -96,7 +96,7 @@ export function makeDialogueWindow(game: Game) {
     }
   }
 
-  const {SubApp, exportedActions, subscribe} = createSubApp(DialogueWindow, {}, actions);
+  const {SubApp, exportedActions, subscribe} = createSubApp(DialogueWindow, initialState, actions);
   const delegate = game.windowManager.createWindow({
     id: 'dialogue',
     cell: 'center',

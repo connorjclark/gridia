@@ -178,7 +178,7 @@ class CreatureSprite extends PIXI.Sprite {
 
   tick() {
     if (this.statusTextsEl) {
-      const screenCoords = this.toGlobal({x: GFX_SIZE/2, y: -GFX_SIZE/2});
+      const screenCoords = this.toGlobal({x: GFX_SIZE / 2, y: -GFX_SIZE / 2});
       this.statusTextsEl.style.left = screenCoords.x + 'px';
       this.statusTextsEl.style.bottom = (window.innerHeight - screenCoords.y) + 'px';
     }
@@ -224,7 +224,7 @@ class CreatureSprite extends PIXI.Sprite {
     }
   }
 
-  addStatusText(opts: {text: string; color?: string; msUntilFade?: number}) {
+  addStatusText(opts: { text: string; color?: string; msUntilFade?: number }) {
     if (!this.statusTextsEl) {
       this.statusTextsEl = Helper.createChildOf(document.body, 'div', 'status-texts status-texts--creature');
     }
@@ -365,7 +365,7 @@ export class Game {
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   modules = {
-    admin: null as AdminModule|null,
+    admin: null as AdminModule | null,
     movement: new MovementModule(this),
     selectedView: new SelectedViewModule(this),
     settings: new SettingsModule(this),
@@ -614,11 +614,10 @@ export class Game {
       }
 
       if (!this.dialogueWindow) {
-        this.dialogueWindow = makeDialogueWindow(this);
+        if (!event.args.dialogue) throw new Error('missing dialogue');
+        this.dialogueWindow = makeDialogueWindow(this, {index: event.args.index, dialogue: event.args.dialogue});
       }
 
-      // @ts-expect-error
-      this.dialogueWindow.actions.setState(event.args);
       this.dialogueWindow.delegate.show();
       this.client.eventEmitter.once('playerMove', closeDialogueWindow);
 
@@ -1571,7 +1570,7 @@ export class Game {
   }
 
   enterClickTileMode(opts: {
-    onClickTile: (location: WorldLocation) => {finished: boolean};
+    onClickTile: (location: WorldLocation) => { finished: boolean };
     itemCursor?: Item | null;
   }) {
     Helper.find('.game').classList.add('select-tile-mode');
