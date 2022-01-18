@@ -116,14 +116,14 @@ function tryRegex(value: string, flags = '') {
 }
 
 export function makeAdminWindow(adminModule: AdminModule) {
-  const actions = () => ({
+  const actions = {
     setState(state: State, newState: Partial<State>) {
       return {
         ...state,
         ...newState,
       };
     },
-  });
+  };
 
   type Props = ComponentProps<State, typeof actions>;
 

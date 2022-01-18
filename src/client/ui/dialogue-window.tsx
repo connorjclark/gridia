@@ -14,13 +14,13 @@ interface State {
 }
 
 export function makeDialogueWindow(game: Game) {
-  const actions = () => ({
+  const actions = {
     setState: (state: State, newState: State): State => {
       return {
         ...newState,
       };
     },
-  });
+  };
 
   type Props = ComponentProps<State, typeof actions>;
   // TODO: use functions instead of classes

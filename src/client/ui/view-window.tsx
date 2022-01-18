@@ -15,14 +15,14 @@ interface State {
 export function makeViewWindow(selectedViewModule: SelectedViewModule) {
   const initialState: State = {};
 
-  const actions = () => ({
+  const actions = {
     setView: (state: State, newState: State): State => {
       return {...newState, quantity: undefined};
     },
     setQuantity: (state: State, quantity: number): State => {
       return {...state, quantity};
     },
-  });
+  };
 
   type Props = ComponentProps<State, typeof actions>;
   const ViewWindow = (props: Props) => {

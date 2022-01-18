@@ -28,7 +28,7 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
     possibleUsages: [],
   };
 
-  const actions = () => ({
+  const actions = {
     setPossibleUsages: (state: State, possibleUsages: PossibleUsage[]): State => {
       if (state.possibleUsages.length === possibleUsages.length) {
         const allSame = possibleUsages.every((use1, i) => {
@@ -44,7 +44,7 @@ export function makePossibleUsagesWindow(usageModule: UsageModule) {
       };
     },
     setSelectedTool: (state: State, selectedTool: Item | undefined): State => ({...state, selectedTool}),
-  });
+  };
 
   type Props = ComponentProps<State, typeof actions>;
   const PossibleUsagesWindow = (props: Props) => {

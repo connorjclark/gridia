@@ -1,8 +1,9 @@
 import {h, render, Component, Fragment, VNode} from 'preact';
 import {useEffect, useMemo, useState} from 'preact/hooks';
 import createStore from 'redux-zero';
+import Store from 'redux-zero/interfaces/Store';
 import {Provider, connect} from 'redux-zero/preact';
-import {Actions, BoundActions} from 'redux-zero/types/Actions';
+import {ActionsObject, BoundActions} from 'redux-zero/types/Actions';
 
 import {GFX_SIZE} from '../../constants.js';
 import * as Content from '../../content.js';
@@ -12,14 +13,13 @@ import {Game} from '../game.js';
 import * as Helper from '../helper.js';
 import {getIndexOffsetForTemplate} from '../template-draw.js';
 
-export type ComponentProps<S, T extends Actions<S>> = S & BoundActions<S, T>;
+export type ComponentProps<S, T extends ActionsObject<S>> = S & BoundActions<S, (store: Store<S>) => T>;
 type OmitFirstArg<F> = F extends (x: any, ...args: infer P) => infer R ? (...args: P) => R : never;
 type ExportedActions<A> = { [K in keyof A]: A[K] extends Function ? OmitFirstArg<A[K]> : never };
 
-export function createSubApp<S, A>(component: any, initialState: S, actions: () => A) {
-  // const mapToProps = ({ possibleUsages, selectedTool }: State) => ({ possibleUsages, selectedTool });
+export function createSubApp<S, A={}>(component: any, initialState: S, actions: A) {
   const mapToProps = (f: any) => f;
-  const ConnectedComponent = connect(mapToProps, actions)(component);
+  const ConnectedComponent = connect(mapToProps, () => actions)(component);
   const store = createStore(initialState);
   const SubApp = () => (
     <Provider store={store}>
@@ -27,16 +27,12 @@ export function createSubApp<S, A>(component: any, initialState: S, actions: () 
     </Provider>
   );
 
-  const actionsObj = actions();
   // @ts-expect-error
-  const exportedActions: ExportedActions<A> = actionsObj;
-  // eslint-disable-next-line guard-for-in
-  for (const key in exportedActions) {
-    const fn = exportedActions[key];
+  const exportedActions: ExportedActions<A> = {};
+  for (const [key, fn] of Object.entries(actions)) {
     // @ts-expect-error
     exportedActions[key] = (...args: any[]) => {
       const newState = fn(store.getState(), ...args);
-      // @ts-expect-error
       store.setState(newState);
     };
   }

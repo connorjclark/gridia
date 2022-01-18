@@ -33,7 +33,7 @@ export interface State {
 }
 
 export function makeSkillsWindow(game: Game, initialState: State) {
-  const actions = () => ({
+  const actions = {
     setState(state: State, newState: State) {
       return {
         ...state,
@@ -63,7 +63,7 @@ export function makeSkillsWindow(game: Game, initialState: State) {
         skills,
       };
     },
-  });
+  };
 
   type Props = ComponentProps<State, typeof actions>;
 

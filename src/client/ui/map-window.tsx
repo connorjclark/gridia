@@ -11,7 +11,7 @@ interface State {
 }
 
 export function makeMapWindow(game: Game, initialState: State) {
-  const actions = () => ({
+  const actions = {
     setPos(state: State, pos: Point4) {
       return {
         ...state,
@@ -24,7 +24,7 @@ export function makeMapWindow(game: Game, initialState: State) {
         time,
       };
     },
-  });
+  };
 
   type Props = ComponentProps<State, typeof actions>;
   const MapWindow = (props: Props) => {

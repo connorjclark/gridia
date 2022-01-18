@@ -97,11 +97,11 @@ const Bindings = (props: BindingsProps) => {
 };
 
 export function makeSettingsWindow(game: Game, initialState: State) {
-  const actions = () => ({
+  const actions = {
     setSettings: (state: State, settings: Settings): State => {
       return {...state, settings};
     },
-  });
+  };
 
   type Props = ComponentProps<State, typeof actions>;
   const SettingsWindow = (props: Props) => {

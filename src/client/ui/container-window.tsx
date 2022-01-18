@@ -35,7 +35,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
     selectedIndex: null,
   };
 
-  const actions = () => ({
+  const actions = {
     setContainer: (state: State, container_: Container): State => {
       return {...state, container: {...container_}};
     },
@@ -62,7 +62,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
       if (container.type !== 'equipment') return state;
       return {...state, equipmentWindow};
     },
-  });
+  };
 
   type Props = ComponentProps<State, typeof actions>;
   const ContainerWindow = (props: Props) => {

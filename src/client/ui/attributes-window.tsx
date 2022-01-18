@@ -19,14 +19,14 @@ export function makeAttributesWindow(game: Game) {
     buffs: [],
   };
 
-  const actions = () => ({
+  const actions = {
     setAttribute: (state: State, key: keyof State, obj: State['life']): State => {
       return {...state, [key]: {...obj}};
     },
     setBuffs: (state: State, buffs: State['buffs']): State => {
       return {...state, buffs};
     },
-  });
+  };
 
   type Props = ComponentProps<State, typeof actions>;
   const AttributesWindow = (props: Props) => {

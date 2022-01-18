@@ -24,7 +24,7 @@ export function makeSpellsWindow(onCastSpell: (spell: Spell) => void) {
     if (spell) initialState.cooldowns[spell.id] = 0;
   }
 
-  const actions = () => ({
+  const actions = {
     // TODO: shouldn't all of these return Partial<State> ?
     useSpell: (state: State, spellId: number): State => {
       const now = Date.now();
@@ -38,7 +38,7 @@ export function makeSpellsWindow(onCastSpell: (spell: Spell) => void) {
         },
       };
     },
-  });
+  };
 
   const tabs: TabbedPaneProps['tabs'] = {};
   for (const skill of Content.getSkills()) {
