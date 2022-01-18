@@ -26,6 +26,8 @@ export class ServerInterface implements ICommands {
     const creature = clientConnection.creature;
     const tile = server.context.map.getTile(pos);
 
+    if (Utils.equalPoints(pos, creature.pos)) return Promise.resolve();
+
     if (tile.item?.type === MINE) {
       const player = clientConnection.player;
       const miningSkill = Content.getSkillByName('Mining');
