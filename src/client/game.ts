@@ -27,13 +27,13 @@ import {SoundModule} from './modules/sound-module.js';
 import {UsageModule} from './modules/usage-module.js';
 import {ServerWorker} from './server-worker.js';
 import {makeGraphicComponent} from './ui/components/graphic.js';
+import {WindowManager} from './ui/window-manager.js';
 import {makeAttributesWindow} from './ui/windows/attributes-window.js';
 import {makeContainerWindow} from './ui/windows/container-window.js';
 import {makeDialogueWindow} from './ui/windows/dialogue-window.js';
 import {makeHelpWindow} from './ui/windows/help-window.js';
 import {makeSpellsWindow} from './ui/windows/spells-window.js';
 import {makeUsageSearchWindow} from './ui/windows/usage-search-window.js';
-import {WindowManager} from './window-manager.js';
 import {WorldContainer} from './world-container.js';
 
 // WIP lighting shaders.

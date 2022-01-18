@@ -1,6 +1,5 @@
-import * as Utils from '../utils.js';
-
-import * as Helper from './helper.js';
+import * as Utils from '../../utils.js';
+import * as Helper from '../helper.js';
 
 interface GridiaWindowOptions {
   onInit: (el: HTMLElement) => void;

@@ -12,8 +12,8 @@ import {SettingsModule} from '../modules/settings-module.js';
 import {SkillsModule} from '../modules/skills-module.js';
 import {SoundModule} from '../modules/sound-module.js';
 import {UsageModule} from '../modules/usage-module.js';
-import {WindowManager} from '../window-manager.js';
 
+import {WindowManager} from './window-manager.js';
 import {makeContainerWindow} from './windows/container-window.js';
 import {makeHelpWindow} from './windows/help-window.js';
 import {makePossibleUsagesWindow} from './windows/possible-usages-window.js';
