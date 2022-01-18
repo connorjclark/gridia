@@ -551,8 +551,6 @@ button {
   border: 1px solid antiquewhite;
 }
 .container__slot {
-  width: 32px;
-  height: 32px;
   background-color: #604f4f;
 }
 .container__slot:hover {
@@ -602,6 +600,8 @@ button {
   grid-area: i;
 }
 .window--equipment .container__slot {
+  width: 32px;
+  height: 32px;
   margin: 5px;
   border: 1px solid antiquewhite;
 }

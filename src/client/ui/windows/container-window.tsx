@@ -99,6 +99,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
       </div>;
     }
 
+    const [rawMouseDownCoord, setRawMouseDownCoord] = useState<{ x: number; y: number } | null>(null);
     const [mouseDownIndex, setMouseDownIndex] = useState<number | null>(null);
     const [mouseOverIndex, setMouseOverIndex] = useState<number | null>(null);
     const onPointerDown = (e: PointerEvent) => {
@@ -106,14 +107,19 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
       if (index === undefined || !props.container.items[index]) return;
 
       setMouseDownIndex(index);
-      game.client.eventEmitter.emit('itemMoveBegin', {
-        location: Utils.ItemLocation.Container(props.container.id, index),
-        item: props.container.items[index] || undefined,
-      });
+      setRawMouseDownCoord({x: e.x, y: e.y});
     };
     const onPointerMove = (e: PointerEvent) => {
       const index = getIndex(e);
       if (index === undefined) return;
+
+      if (rawMouseDownCoord && Utils.dist2(rawMouseDownCoord, e) >= 5) {
+        setRawMouseDownCoord(null);
+        game.client.eventEmitter.emit('itemMoveBegin', {
+          location: Utils.ItemLocation.Container(props.container.id, index),
+          item: props.container.items[index] || undefined,
+        });
+      }
 
       setMouseOverIndex(index);
       // TODO: show selected view temporarily when hovering.
@@ -129,6 +135,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
         if (container.type === 'normal') props.setSelectedIndex(mouseDownIndex);
         game.modules.selectedView.selectView(Utils.ItemLocation.Container(container.id, mouseDownIndex));
       }
+      setRawMouseDownCoord(null);
       game.exitClickTileMode();
     };
 
