@@ -15,9 +15,10 @@ interface State {
 
 export function makeDialogueWindow(game: Game, initialState: State) {
   const actions = {
-    setState: (state: State, newState: State): State => {
+    setIndex: (state: State, index: number): State => {
       return {
-        ...newState,
+        ...state,
+        index,
       };
     },
   };

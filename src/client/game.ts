@@ -616,6 +616,8 @@ export class Game {
       if (!this.dialogueWindow) {
         if (!event.args.dialogue) throw new Error('missing dialogue');
         this.dialogueWindow = makeDialogueWindow(this, {index: event.args.index, dialogue: event.args.dialogue});
+      } else {
+        this.dialogueWindow.actions.setIndex(event.args.index);
       }
 
       this.dialogueWindow.delegate.show();
