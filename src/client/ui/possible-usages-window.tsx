@@ -4,7 +4,8 @@ import * as Content from '../../content.js';
 import * as Utils from '../../utils.js';
 import {UsageModule} from '../modules/usage-module.js';
 
-import {ComponentProps, createSubApp, ItemGraphic} from './ui-common.js';
+import {ItemGraphic} from './components/graphic.js';
+import {ComponentProps, createSubApp} from './ui-common.js';
 
 interface State {
   possibleUsages: PossibleUsage[];

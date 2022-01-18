@@ -5,7 +5,9 @@ import * as Content from '../../content.js';
 import {game} from '../../game-singleton.js';
 import * as Helper from '../helper.js';
 
-import {Graphic, ComponentProps, createSubApp, TabbedPane, TabbedPaneProps} from './ui-common.js';
+import {Graphic} from './components/graphic.js';
+import {TabbedPane, TabbedPaneProps} from './components/tabbed-pane.js';
+import {ComponentProps, createSubApp} from './ui-common.js';
 
 interface State {
   spells: Spell[];

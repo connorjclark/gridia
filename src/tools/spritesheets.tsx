@@ -1,6 +1,6 @@
 import {h, render, Component} from 'preact';
 
-import {Graphic} from '../client/ui/ui-common.js';
+import {Graphic} from '../client/ui/components/graphic.js';
 import * as Content from '../content.js';
 import {clamp} from '../utils.js';
 

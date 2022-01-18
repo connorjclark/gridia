@@ -6,7 +6,8 @@ import * as CommandBuilder from '../../protocol/command-builder.js';
 import * as Utils from '../../utils.js';
 import {Game} from '../game.js';
 
-import {Graphic, ComponentProps, createSubApp, CustomCreatureGraphic} from './ui-common.js';
+import {CustomCreatureGraphic, Graphic} from './components/graphic.js';
+import {ComponentProps, createSubApp} from './ui-common.js';
 
 interface State {
   name?: string;

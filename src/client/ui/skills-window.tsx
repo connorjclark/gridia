@@ -3,7 +3,8 @@ import {useState} from 'preact/hooks';
 
 import {Game} from '../game.js';
 
-import {ComponentProps, createSubApp, TabbedPane, TabbedPaneProps} from './ui-common.js';
+import {TabbedPane} from './components/tabbed-pane.js';
+import {ComponentProps, createSubApp} from './ui-common.js';
 
 export interface State {
   combatLevel: {
@@ -158,7 +159,7 @@ export function makeSkillsWindow(game: Game, initialState: State) {
     </div>;
   };
 
-  const tabs: TabbedPaneProps['tabs'] = {
+  const tabs = {
     skills: {
       label: 'Skills',
       content: SkillsTab,

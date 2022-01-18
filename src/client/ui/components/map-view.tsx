@@ -4,14 +4,14 @@ import makePanzoomDomController from 'panzoom/lib/domController.js';
 import {h} from 'preact';
 import {useCallback, useEffect, useRef, useState} from 'preact/hooks';
 
-import {GFX_SIZE} from '../../constants.js';
-import * as Content from '../../content.js';
-import {game} from '../../game-singleton.js';
-import * as Player from '../../player.js';
-import * as Utils from '../../utils.js';
-import {WorldMapPartition} from '../../world-map-partition.js';
+import {GFX_SIZE} from '../../../constants.js';
+import * as Content from '../../../content.js';
+import {game} from '../../../game-singleton.js';
+import * as Player from '../../../player.js';
+import * as Utils from '../../../utils.js';
+import {WorldMapPartition} from '../../../world-map-partition.js';
 
-import {FloorGraphic, ItemGraphic} from './ui-common.js';
+import {FloorGraphic, ItemGraphic} from './graphic.js';
 
 interface FixedCanvasSize {
   type: 'fixed';

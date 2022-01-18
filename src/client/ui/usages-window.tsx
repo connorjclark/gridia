@@ -3,7 +3,7 @@ import {render, h, Component} from 'preact';
 import * as Content from '../../content.js';
 import {UsageModule} from '../modules/usage-module.js';
 
-import {Graphic} from './ui-common.js';
+import {Graphic} from './components/graphic.js';
 
 export function makeUsagesWindow(usageModule: UsageModule) {
   let setState = (_: Partial<State>) => {

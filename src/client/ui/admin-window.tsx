@@ -11,11 +11,12 @@ import {WorldMapPartition} from '../../world-map-partition.js';
 import {ClientEvents} from '../event-emitter.js';
 import {AdminModule} from '../modules/admin-module.js';
 
-import {MapView} from './map-view.js';
-import {
-  ComponentProps, createSubApp, Graphic,
-  Input, PaginatedContent, TabbedPane, TabbedPaneProps, usePartition,
-} from './ui-common.js';
+import {Graphic} from './components/graphic.js';
+import {Input} from './components/input.js';
+import {MapView} from './components/map-view.js';
+import {PaginatedContent} from './components/paginated-content.js';
+import {TabbedPane} from './components/tabbed-pane.js';
+import {ComponentProps, createSubApp, usePartition} from './ui-common.js';
 import {wfcInputs} from './wfc-inputs.js';
 
 const TOOLS = ['point', 'rectangle', 'fill'] as const;
@@ -544,7 +545,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
     </pre>;
   };
 
-  const tabs: TabbedPaneProps['tabs'] = {
+  const tabs = {
     skills: {
       label: 'Items/Floors',
       content: ItemsFloorsTab,

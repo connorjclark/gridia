@@ -2,7 +2,7 @@ import {render, h} from 'preact';
 
 import {Game} from '../game.js';
 
-import {MapView} from './map-view.js';
+import {MapView} from './components/map-view.js';
 import {ComponentProps, createSubApp, usePartition} from './ui-common.js';
 
 interface State {

@@ -2,7 +2,7 @@ import {initializeWorldData} from '../../content.js';
 import * as Player from '../../player.js';
 import * as CommandBuilder from '../../protocol/command-builder.js';
 import * as Helper from '../helper.js';
-import {makeCustomCreatureGraphicComponent} from '../ui/ui-common.js';
+import {makeCustomCreatureGraphicComponent} from '../ui/components/graphic.js';
 
 import {CreateCharacterScene} from './create-character-scene.js';
 import {SceneController} from './scene-controller.js';
