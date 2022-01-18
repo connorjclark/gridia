@@ -7,6 +7,7 @@ interface GridiaWindowOptions {
   cell: string;
   tabLabel?: string;
   noscroll?: boolean;
+  fill?: boolean;
   show?: boolean;
   onShow?: (el: HTMLElement) => void;
   onHide?: (el: HTMLElement) => void;
@@ -40,6 +41,7 @@ export class WindowManager {
     const cellEl = Helper.find(`.ui .grid-container > .${opts.cell}`);
     const el = Helper.createChildOf(cellEl, 'div', `window window--${opts.id}`);
     el.classList.toggle('window--noscroll', Boolean(opts.noscroll));
+    el.classList.toggle('window--fill', Boolean(opts.fill));
     this.windows[opts.id] = {
       el,
       initialized: false,

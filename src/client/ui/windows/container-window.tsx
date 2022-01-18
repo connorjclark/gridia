@@ -5,7 +5,7 @@ import * as Content from '../../../content.js';
 import * as CommandBuilder from '../../../protocol/command-builder.js';
 import * as Utils from '../../../utils.js';
 import {Game} from '../../game.js';
-import {CustomCreatureGraphic, Graphic} from '../components/graphic.js';
+import {CustomCreatureGraphic, Graphic, ItemGraphic} from '../components/graphic.js';
 import {ComponentProps, createSubApp} from '../ui-common.js';
 
 interface State {
@@ -66,7 +66,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
 
   type Props = ComponentProps<State, typeof actions>;
   const ContainerWindow = (props: Props) => {
-    let previewEl = <div></div>;
+    let previewEl;
     if (props.equipmentWindow && props.equipmentWindow.equipmentGraphics) {
       previewEl = <CustomCreatureGraphic graphics={props.equipmentWindow.equipmentGraphics}></CustomCreatureGraphic>;
     }
@@ -140,20 +140,9 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
         {previewEl}
 
         {props.container.items.map((item, i) => {
-          let gfx;
-          if (item) {
-            const metaItem = Content.getMetaItem(item.type);
-            gfx = <Graphic
-              file={metaItem.graphics.file}
-              index={metaItem.graphics.frames[0]}
-              quantity={item.quantity}
-              title={metaItem.name}
-            ></Graphic>;
-          }
-
+          const gfx = item && <ItemGraphic item={item}></ItemGraphic>;
           const classes = ['container__slot'];
           if (props.selectedIndex === i) classes.push('container__slot--selected');
-
           return <div class={classes.join(' ')} data-index={i}>{gfx}</div>;
         })}
       </div>

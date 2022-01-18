@@ -572,6 +572,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
     id: 'admin',
     cell: 'right',
     tabLabel: 'Admin',
+    fill: true,
     onInit(el) {
       render(<SubApp />, el);
     },
