@@ -1,12 +1,11 @@
 import {render, h, Component} from 'preact';
 import {useState} from 'preact/hooks';
 
-import * as Content from '../../content.js';
-import {Game} from '../game.js';
-
-import {ItemGraphic} from './components/graphic.js';
-import {Input} from './components/input.js';
-import {PaginatedContent} from './components/paginated-content.js';
+import * as Content from '../../../content.js';
+import {Game} from '../../game.js';
+import {ItemGraphic} from '../components/graphic.js';
+import {Input} from '../components/input.js';
+import {PaginatedContent} from '../components/paginated-content.js';
 
 export interface State {
   skillId?: number;

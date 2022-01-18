@@ -5,8 +5,8 @@ import * as Utils from '../../utils.js';
 import {ClientModule} from '../client-module.js';
 import {Game, CursorReference} from '../game.js';
 import * as Helper from '../helper.js';
-import {makePossibleUsagesWindow} from '../ui/possible-usages-window.js';
-import {makeUsagesWindow} from '../ui/usages-window.js';
+import {makePossibleUsagesWindow} from '../ui/windows/possible-usages-window.js';
+import {makeUsagesWindow} from '../ui/windows/usages-window.js';
 
 export class UsageModule extends ClientModule {
   possibleUsageCursor: CursorReference;

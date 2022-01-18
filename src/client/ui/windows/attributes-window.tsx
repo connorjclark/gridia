@@ -1,10 +1,9 @@
 import {render, h, Fragment} from 'preact';
 
-import {Game} from '../game.js';
-
-import {Bar} from './components/bar.js';
-import {Graphic} from './components/graphic.js';
-import {ComponentProps, createSubApp} from './ui-common.js';
+import {Game} from '../../game.js';
+import {Bar} from '..//components/bar.js';
+import {Graphic} from '..//components/graphic.js';
+import {ComponentProps, createSubApp} from '..//ui-common.js';
 
 interface State {
   life: { current: number; max: number };

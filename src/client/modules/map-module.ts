@@ -1,6 +1,6 @@
 import * as Player from '../../player.js';
 import {ClientModule} from '../client-module.js';
-import {makeMapWindow} from '../ui/map-window.js';
+import {makeMapWindow} from '../ui/windows/map-window.js';
 
 export class MapModule extends ClientModule {
   protected mapWindow?: ReturnType<typeof makeMapWindow>;

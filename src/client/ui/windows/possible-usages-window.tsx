@@ -1,11 +1,10 @@
 import {render, h} from 'preact';
 
-import * as Content from '../../content.js';
-import * as Utils from '../../utils.js';
-import {UsageModule} from '../modules/usage-module.js';
-
-import {ItemGraphic} from './components/graphic.js';
-import {ComponentProps, createSubApp} from './ui-common.js';
+import * as Content from '../../../content.js';
+import * as Utils from '../../../utils.js';
+import {UsageModule} from '../../modules/usage-module.js';
+import {ItemGraphic} from '..//components/graphic.js';
+import {ComponentProps, createSubApp} from '../ui-common.js';
 
 interface State {
   possibleUsages: PossibleUsage[];

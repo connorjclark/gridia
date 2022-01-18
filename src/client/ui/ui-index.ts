@@ -14,9 +14,9 @@ import {SoundModule} from '../modules/sound-module.js';
 import {UsageModule} from '../modules/usage-module.js';
 import {WindowManager} from '../window-manager.js';
 
-import {makeContainerWindow} from './container-window.js';
-import {makeHelpWindow} from './help-window.js';
-import {makePossibleUsagesWindow} from './possible-usages-window.js';
+import {makeContainerWindow} from './windows/container-window.js';
+import {makeHelpWindow} from './windows/help-window.js';
+import {makePossibleUsagesWindow} from './windows/possible-usages-window.js';
 
 // super hacky file to render UI, copies / fakes a bunch of stuff from game.ts
 

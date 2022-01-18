@@ -3,7 +3,7 @@
 import {render, h} from 'preact';
 import {useState} from 'preact/hooks';
 
-import {Game} from '../game.js';
+import {Game} from '../../game.js';
 
 const sections: Record<string, string> = {
   'General': `

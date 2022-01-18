@@ -1,13 +1,12 @@
 import {render, h} from 'preact';
 import {useEffect, useState} from 'preact/hooks';
 
-import {val} from '../../lib/link-state.js';
-import * as CommandBuilder from '../../protocol/command-builder.js';
-import {Game} from '../game.js';
-import {findKeyNameForValue, KEYS} from '../keys.js';
-import {SettingsSchema} from '../modules/settings-module.js';
-
-import {ComponentProps, createSubApp} from './ui-common.js';
+import {val} from '../../../lib/link-state.js';
+import * as CommandBuilder from '../../../protocol/command-builder.js';
+import {Game} from '../../game.js';
+import {findKeyNameForValue, KEYS} from '../../keys.js';
+import {SettingsSchema} from '../../modules/settings-module.js';
+import {ComponentProps, createSubApp} from '../ui-common.js';
 
 interface State {
   settings: Settings;

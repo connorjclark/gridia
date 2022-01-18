@@ -2,7 +2,7 @@ import * as CommandBuilder from '../../protocol/command-builder.js';
 import * as Utils from '../../utils.js';
 import {ClientModule} from '../client-module.js';
 import {KEYS} from '../keys.js';
-import {makeAdminWindow, State} from '../ui/admin-window.js';
+import {makeAdminWindow, State} from '../ui/windows/admin-window.js';
 
 interface HistoryEntry {
   floors?: Array<{pos: Point4; from: number; to: number}>;

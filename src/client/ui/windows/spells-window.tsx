@@ -1,13 +1,12 @@
 import {render, h, Component} from 'preact';
 import {useEffect} from 'preact/hooks';
 
-import * as Content from '../../content.js';
-import {game} from '../../game-singleton.js';
-import * as Helper from '../helper.js';
-
-import {Graphic} from './components/graphic.js';
-import {TabbedPane, TabbedPaneProps} from './components/tabbed-pane.js';
-import {ComponentProps, createSubApp} from './ui-common.js';
+import * as Content from '../../../content.js';
+import {game} from '../../../game-singleton.js';
+import * as Helper from '../../helper.js';
+import {Graphic} from '../components/graphic.js';
+import {TabbedPane, TabbedPaneProps} from '../components/tabbed-pane.js';
+import {ComponentProps, createSubApp} from '../ui-common.js';
 
 interface State {
   spells: Spell[];

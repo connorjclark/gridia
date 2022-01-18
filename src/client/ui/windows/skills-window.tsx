@@ -1,10 +1,9 @@
 import {render, h} from 'preact';
 import {useState} from 'preact/hooks';
 
-import {Game} from '../game.js';
-
-import {TabbedPane} from './components/tabbed-pane.js';
-import {ComponentProps, createSubApp} from './ui-common.js';
+import {Game} from '../../game.js';
+import {TabbedPane} from '../components/tabbed-pane.js';
+import {ComponentProps, createSubApp} from '../ui-common.js';
 
 export interface State {
   combatLevel: {

@@ -3,7 +3,7 @@ import * as Player from '../../player.js';
 import * as CommandBuilder from '../../protocol/command-builder.js';
 import * as Utils from '../../utils.js';
 import {ClientModule} from '../client-module.js';
-import {State, makeSkillsWindow} from '../ui/skills-window.js';
+import {State, makeSkillsWindow} from '../ui/windows/skills-window.js';
 
 export class SkillsModule extends ClientModule {
   protected skillsWindow?: ReturnType<typeof makeSkillsWindow>;

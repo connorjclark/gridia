@@ -3,11 +3,10 @@ import {render, h, Component} from 'preact';
 import {useEffect, useRef, useMemo} from 'preact/hooks';
 import Typed from 'typed.js';
 
-import * as CommandBuilder from '../../protocol/command-builder.js';
-import {Game} from '../game.js';
-
-import {CustomCreatureGraphic, Graphic} from './components/graphic.js';
-import {ComponentProps, createSubApp} from './ui-common.js';
+import * as CommandBuilder from '../../../protocol/command-builder.js';
+import {Game} from '../../game.js';
+import {CustomCreatureGraphic, Graphic} from '../components/graphic.js';
+import {ComponentProps, createSubApp} from '../ui-common.js';
 
 interface State {
   dialogue: Exclude<Dialogue, 'onFinish'>;

@@ -1,6 +1,6 @@
 import {ClientModule} from '../client-module.js';
 import {KEYS} from '../keys.js';
-import {makeSettingsWindow} from '../ui/settings-window.js';
+import {makeSettingsWindow} from '../ui/windows/settings-window.js';
 
 const defaultBindings: Settings['bindings'] = {
   actionMenu: {mouse: 2},

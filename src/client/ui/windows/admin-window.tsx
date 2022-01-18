@@ -1,23 +1,22 @@
 import {render, h, Component, Fragment} from 'preact';
 import {useEffect, useMemo, useState} from 'preact/hooks';
 
-import {GFX_SIZE, SECTOR_SIZE} from '../../constants.js';
-import * as Content from '../../content.js';
-import {game} from '../../game-singleton.js';
-import {gen_wfc} from '../../mapgen.js';
-import * as CommandBuilder from '../../protocol/command-builder.js';
-import * as Utils from '../../utils.js';
-import {WorldMapPartition} from '../../world-map-partition.js';
-import {ClientEvents} from '../event-emitter.js';
-import {AdminModule} from '../modules/admin-module.js';
-
-import {Graphic} from './components/graphic.js';
-import {Input} from './components/input.js';
-import {MapView} from './components/map-view.js';
-import {PaginatedContent} from './components/paginated-content.js';
-import {TabbedPane} from './components/tabbed-pane.js';
-import {ComponentProps, createSubApp, usePartition} from './ui-common.js';
-import {wfcInputs} from './wfc-inputs.js';
+import {GFX_SIZE, SECTOR_SIZE} from '../../../constants.js';
+import * as Content from '../../../content.js';
+import {game} from '../../../game-singleton.js';
+import {gen_wfc} from '../../../mapgen.js';
+import * as CommandBuilder from '../../../protocol/command-builder.js';
+import * as Utils from '../../../utils.js';
+import {WorldMapPartition} from '../../../world-map-partition.js';
+import {ClientEvents} from '../../event-emitter.js';
+import {AdminModule} from '../../modules/admin-module.js';
+import {Graphic} from '../components/graphic.js';
+import {Input} from '../components/input.js';
+import {MapView} from '../components/map-view.js';
+import {PaginatedContent} from '../components/paginated-content.js';
+import {TabbedPane} from '../components/tabbed-pane.js';
+import {ComponentProps, createSubApp, usePartition} from '../ui-common.js';
+import {wfcInputs} from '../wfc-inputs.js';
 
 const TOOLS = ['point', 'rectangle', 'fill'] as const;
 type Tool = typeof TOOLS[number];

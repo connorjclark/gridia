@@ -1,12 +1,11 @@
 import {render, h} from 'preact';
 
-import * as Content from '../../content.js';
-import {val} from '../../lib/link-state.js';
-import {SelectedViewModule} from '../modules/selected-view-module.js';
-
-import {Bar} from './components/bar.js';
-import {CustomCreatureGraphic, Graphic} from './components/graphic.js';
-import {ComponentProps, createSubApp} from './ui-common.js';
+import * as Content from '../../../content.js';
+import {val} from '../../../lib/link-state.js';
+import {SelectedViewModule} from '../../modules/selected-view-module.js';
+import {Bar} from '../components/bar.js';
+import {CustomCreatureGraphic, Graphic} from '../components/graphic.js';
+import {ComponentProps, createSubApp} from '../ui-common.js';
 
 interface State {
   selectedView?: UIState['selectedView'];
