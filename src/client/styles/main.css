@@ -531,6 +531,7 @@ button {
 
 .window--view {
   order: 2;
+  width: 100%;
 }
 
 .window--map {
@@ -645,11 +646,10 @@ button {
   width: 100%;
   color: black;
   font-weight: bold;
-}
-.bar__label span:nth-child(1) {
-  float: left;
-  text-align: right;
-  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .buff {
