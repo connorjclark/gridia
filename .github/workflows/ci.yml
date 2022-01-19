@@ -7,7 +7,7 @@ on:
 
 jobs:
   ci:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: git clone
         uses: actions/checkout@v2
@@ -17,4 +17,5 @@ jobs:
           node-version: 17.2.0
       - run: yarn
       - run: yarn build
-      - run: yarn test
+      - run: sudo apt-get install xvfb
+      - run: xvfb-run --auto-servernum yarn test
