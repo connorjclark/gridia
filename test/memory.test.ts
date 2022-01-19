@@ -23,6 +23,9 @@ async function collect(page: puppeteer.Page, numSamples: number, duration: numbe
   const samples = [];
   for (let i = 0; i < numSamples; i++) {
     const metrics = await page.metrics();
+    if (metrics.JSHeapUsedSize === undefined) throw new Error('missing data');
+    if (baselineMetrics.JSHeapUsedSize === undefined) throw new Error('missing data');
+
     const additionalMemory = metrics.JSHeapUsedSize - baselineMetrics.JSHeapUsedSize;
     const additionalMemoryPercentage = additionalMemory / baselineMetrics.JSHeapUsedSize;
     const sample: MemorySample = {
@@ -52,7 +55,7 @@ async function collect(page: puppeteer.Page, numSamples: number, duration: numbe
     }
 
     samples.push(sample);
-    await page.waitFor(duration);
+    await page.waitForTimeout(duration);
   }
 
   return {
@@ -143,7 +146,7 @@ describe('Check for memory leaks', function() {
 
   it('at login page', async () => {
     // Let things settle.
-    await page.waitFor(5000);
+    await page.waitForTimeout(5000);
 
     const memory = await collect(page, 10, 1000);
     detect(memory);
@@ -154,7 +157,7 @@ describe('Check for memory leaks', function() {
     // Takes too long, so just run if debugging.
     if (!DEBUG) return;
 
-    await page.waitFor(2000);
+    await page.waitForTimeout(2000);
     await page.$eval('.register--form input', (input) => (input as HTMLInputElement).value = '');
     await page.type('.register--form input', 'player');
     await page.waitForSelector('.register-btn');
@@ -163,7 +166,7 @@ describe('Check for memory leaks', function() {
     // await page.$eval('.register--form', (form: HTMLFormElement) => form.submit());
 
     // Let things settle.
-    await page.waitFor(10000);
+    await page.waitForTimeout(10000);
 
     const memory = await collect(page, 60, 1000);
     detect(memory);
