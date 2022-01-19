@@ -34360,7 +34360,7 @@
       "frames": [
         38
       ],
-      "height": 3
+      "width": 2
     },
     "growthDelta": 100,
     "growthItem": 1110,
@@ -34378,7 +34378,7 @@
       "frames": [
         36
       ],
-      "height": 3
+      "width": 2
     },
     "growthDelta": 100,
     "growthItem": 1110,
@@ -34396,7 +34396,7 @@
       "frames": [
         46
       ],
-      "height": 3
+      "width": 2
     },
     "growthDelta": 100,
     "growthItem": 1110,
@@ -37918,7 +37918,8 @@
       "frames": [
         0
       ],
-      "height": 4
+      "width": 2,
+      "height": 2
     },
     "moveable": true,
     "rarity": 1
@@ -41528,7 +41529,8 @@
       "frames": [
         88
       ],
-      "height": 4
+      "width": 2,
+      "height": 2
     },
     "moveable": true,
     "rarity": 1
@@ -42726,7 +42728,8 @@
       "frames": [
         8
       ],
-      "height": 4
+      "width": 2,
+      "height": 2
     },
     "moveable": true,
     "rarity": 1,
@@ -43576,7 +43579,8 @@
       "frames": [
         0
       ],
-      "height": 4
+      "width": 2,
+      "height": 2
     },
     "moveable": true,
     "rarity": 1

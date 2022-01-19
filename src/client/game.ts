@@ -256,7 +256,8 @@ class CreatureSprite extends PIXI.Sprite {
       textures.push(Draw.getTexture(this.creature.graphics.file, this.creature.graphics.frames[0], width, height));
     } else {
       const animTextures = this.creature.graphics.frames
-        .map((index) => Draw.getTexture(this.creature.graphics.file, index));
+        .map((index) => Draw.getTexture(this.creature.graphics.file, index,
+          this.creature.graphics.width ?? 1, this.creature.graphics.height ?? 1));
       if (animTextures.some((t) => t === PIXI.Texture.EMPTY)) return;
 
       animatedSprite = new PIXI.AnimatedSprite(animTextures);
@@ -266,7 +267,7 @@ class CreatureSprite extends PIXI.Sprite {
 
     if (this.creature.equipmentGraphics) {
       for (const graphic of this.creature.equipmentGraphics) {
-        textures.push(Draw.getTexture(graphic.file, graphic.frames[0]));
+        textures.push(Draw.getTexture(graphic.file, graphic.frames[0], graphic.width ?? 1, graphic.height ?? 1));
       }
     }
 

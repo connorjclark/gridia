@@ -176,7 +176,17 @@ function parseItemsIni() {
     } else if (key.match(/^notmovable/i)) {
       currentItem.moveable = false;
     } else if (key.match(/^imagetype/i)) {
-      currentItem.height = forcenum(value) + 1;
+      const num = forcenum(value);
+      if (num === 1) {
+        currentItem.height = 2;
+      } else if (num === 2) {
+        currentItem.width = 2;
+      } else if (num === 3) {
+        currentItem.width = 2;
+        currentItem.height = 2;
+      } else {
+        throw new Error('unknown: ' + num);
+      }
     } else if (key.match(/^BlockMovement/i)) {
       if (value === '1') currentItem.blocksMovement = true;
     } else if (key.match(/^OpenSightLine/i)) {
@@ -214,6 +224,7 @@ function parseItemsIni() {
 
   for (const item of items) {
     if (!item.graphics) item.graphics = { file: 'rpgwo-item0.png', frames: [1] };
+    if (item.width) item.graphics.width = item.width;
     if (item.height) item.graphics.height = item.height;
   }
 

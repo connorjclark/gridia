@@ -47,7 +47,7 @@ function makeTextureCache(file: string) {
 }
 
 const textureCaches = new Map<string, ReturnType<typeof makeTextureCache>>();
-export function getTexture(file: string, index: number, width = 1, height = 1) {
+export function getTexture(file: string, index: number, width: number, height: number) {
   let textureCache = textureCaches.get(file);
   if (!textureCache) {
     textureCache = makeTextureCache(file);
@@ -60,7 +60,7 @@ export function getTexture(file: string, index: number, width = 1, height = 1) {
 export function makeAnimationSprite(animationIndices: number[]) {
   // TODO animation.graphics.
   const textures = animationIndices.map(
-    (index) => getTexture(`rpgwo-animations${Math.floor(index / 100)}.png`, index % 100));
+    (index) => getTexture(`rpgwo-animations${Math.floor(index / 100)}.png`, index % 100, 1, 1));
   const anim = new PIXI.AnimatedSprite(textures);
   return anim;
 }
@@ -68,7 +68,7 @@ export function makeAnimationSprite(animationIndices: number[]) {
 export function makeItemTemplate(item: Item) {
   const meta = Content.getMetaItem(item.type);
   if (!meta.graphics || meta.graphics.frames.length === 0) {
-    return getTexture('rpgwo-item0.png', 1);
+    return getTexture('rpgwo-item0.png', 1, 1, 1);
   }
 
   let index = 0;
@@ -79,7 +79,7 @@ export function makeItemTemplate(item: Item) {
     index = meta.graphics.frames[Math.floor((game.state.elapsedFrames * (60 / 1000)) % numFrames)];
   }
 
-  return getTexture(meta.graphics.file, index, meta.graphics.height);
+  return getTexture(meta.graphics.file, index, meta.graphics.width ?? 1, meta.graphics.height ?? 1);
 }
 
 export function makeItemQuantity(quantity: number) {
@@ -120,14 +120,15 @@ export function makeItemSprite2(item: Item) {
     }
 
     if (meta.graphics.frames.length === 1) {
-      const texture = getTexture(meta.graphics.file, meta.graphics.frames[0], 1, meta.graphics.height);
+      const texture =
+        getTexture(meta.graphics.file, meta.graphics.frames[0], meta.graphics.width ?? 1, meta.graphics.height ?? 1);
       if (texture === PIXI.Texture.EMPTY) return null;
       return new PIXI.Sprite(texture);
     }
 
     const textures = [];
     for (const frame of meta.graphics.frames) {
-      const texture = getTexture(meta.graphics.file, frame, 1, meta.graphics.height);
+      const texture = getTexture(meta.graphics.file, frame, meta.graphics.width ?? 1, meta.graphics.height ?? 1);
       if (texture === PIXI.Texture.EMPTY) return null;
       textures.push(texture);
     }
