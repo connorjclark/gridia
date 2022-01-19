@@ -26,6 +26,8 @@ export async function startServer(options: ServerOptions, db: Database) {
   if (isDbAlreadySetup) {
     context = await ServerContext.load(db);
   } else {
+    await Content.initializeWorldData(options.worldDataDef);
+
     // TODO: shouldn't create a world here...
     const {world, mapGenData} = createMainWorldMap();
     context = new ServerContext(Content.getWorldDataDefinition(), world, db);

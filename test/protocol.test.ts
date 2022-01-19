@@ -87,7 +87,7 @@ function getUnwalkableItem(): Item {
   return {type: Content.getMetaItemByName('Granite Wall').id, quantity: 1};
 }
 
-describe('protocol', () => {
+xdescribe('protocol', () => {
   beforeEach(async () => {
     const {openAndConnectToServerInMemory} = await import('./server-in-memory.js');
 
