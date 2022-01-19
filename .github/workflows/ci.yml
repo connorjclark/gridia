@@ -7,9 +7,9 @@ on:
 
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
-      - name: Check out repository code
+      - name: git clone
         uses: actions/checkout@v2
       - name: Install Node.js
         uses: actions/setup-node@v1
