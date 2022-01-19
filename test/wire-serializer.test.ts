@@ -1,6 +1,8 @@
+import expect from 'expect';
+
 import * as WireSerializer from '../src/lib/wire-serializer.js';
 
-function roundTrip<T>(object: T) {
+function roundTrip<T extends {}>(object: T) {
   const result = WireSerializer.deserialize<T>(WireSerializer.serialize(object));
   expect(result).toMatchObject(object);
   return result;

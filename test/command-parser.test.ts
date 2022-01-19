@@ -1,3 +1,5 @@
+import expect from 'expect';
+
 import * as CommandParser from '../src/lib/command-parser.js';
 
 describe('command parser', () => {

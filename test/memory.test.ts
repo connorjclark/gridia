@@ -1,11 +1,9 @@
 import {ChildProcess, spawn} from 'child_process';
 
-import * as puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer';
 
 const DEBUG = Boolean(process.env.DEBUG);
 const QUERY = Boolean(process.env.QUERY);
-
-jest.setTimeout((QUERY ? 200 : 100) * 1000);
 
 interface MemorySample {
   JSHeapUsedSize: number;
@@ -90,16 +88,18 @@ function detect(memory: Memory) {
     console.table(tabularData);
   }
   if (!passed) {
-    fail('memory leak / churn detected');
+    throw new Error('memory leak / churn detected');
   }
 }
 
-describe('Check for memory leaks', () => {
+describe('Check for memory leaks', function() {
+  this.timeout((QUERY ? 200 : 100) * 1000);
+
   let browser: puppeteer.Browser;
   let page: puppeteer.Page;
   const childProcesses: ChildProcess[] = [];
 
-  beforeAll(async () => {
+  before(async () => {
     browser = await puppeteer.launch({
       headless: !DEBUG,
     });
@@ -125,7 +125,7 @@ describe('Check for memory leaks', () => {
     }).catch(() => process.exit(1));
   });
 
-  afterAll(async () => {
+  after(async () => {
     await browser.close();
     for (const child of childProcesses) {
       child.kill();

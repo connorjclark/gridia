@@ -49,8 +49,9 @@
     "watch-server": "chokidar --initial 'src/*.ts' 'src/server/**/*.ts' -c 'yarn run-server'",
     "type-check": "tsc --noEmit",
     "lint": "eslint '{src,test,build}/**/*.{ts,tsx,js,jsx}'",
-    "test": "yarn lint && yarn type-check && jest --testPathIgnorePatterns memory",
-    "ts-node": "TS_NODE_TRANSPILE_ONLY=1 node --loader ts-node/esm"
+    "test": "yarn lint && yarn type-check && yarn mocha 'test/*.test.ts'",
+    "ts-node": "TS_NODE_TRANSPILE_ONLY=1 node --loader ts-node/esm",
+    "mocha": "cp node_modules/mocha/bin/mocha node_modules/mocha/bin/mocha.js && yarn ts-node node_modules/mocha/bin/mocha.js"
   },
   "devDependencies": {
     "@chialab/esbuild-plugin-html": "^0.12.2",
@@ -58,9 +59,9 @@
     "@types/d3-delaunay": "^4.1.0",
     "@types/d3-polygon": "^2.0.0",
     "@types/glob": "^7.1.3",
-    "@types/jest": "^27.0.2",
     "@types/level": "^6.0.0",
     "@types/luxon": "^1.26.5",
+    "@types/mocha": "^9.0.0",
     "@types/node-cleanup": "^2.1.1",
     "@types/offscreencanvas": "^2019.6.3",
     "@types/puppeteer": "^1.19.1",
@@ -80,11 +81,11 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsdoc": "^30.7.9",
     "eslint-plugin-prefer-arrow": "^1.2.2",
+    "expect": "^27.4.6",
     "glob": "^7.1.6",
     "http-server": "^14.1.0",
-    "jest": "^27.2.4",
+    "mocha": "^9.1.4",
     "puppeteer": "^1.19.0",
-    "ts-jest": "^27.0.5",
     "ts-node": "^10.4.0",
     "tslint": "^6.1.3",
     "typescript": "4.5.4"
