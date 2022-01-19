@@ -59,7 +59,7 @@ export const SettingsSchema = {
   scale: {
     type: 'number',
     label: 'Scale',
-    default: 1.5,
+    default: 1.25,
     min: 1,
     max: 3,
     step: 0.25,
