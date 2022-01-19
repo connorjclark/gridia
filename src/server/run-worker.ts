@@ -7,7 +7,7 @@ import {WorldMapPartition} from '../world-map-partition.js';
 import {WorldMap} from '../world-map.js';
 
 import {ClientConnection} from './client-connection.js';
-import {startServer as _startServer} from './create-server.js';
+import {createServer} from './create-server.js';
 import {ServerContext} from './server-context.js';
 import {Server} from './server.js';
 
@@ -137,7 +137,8 @@ async function startServer(args: ServerWorkerOpts): Promise<void> {
 
   const db = await makeDbForMap(args.mapName);
 
-  server = await _startServer(args, db);
+  server = await createServer(args, db);
+  server.start();
   server.addClientConnection(clientConnection);
 }
 

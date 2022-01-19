@@ -11,8 +11,8 @@ import {DogScript} from './scripts/dog-script.js';
 import {HubWorldScript} from './scripts/hub-world-script.js';
 import {ThunderDomeScript} from './scripts/thunder-dome-script.js';
 
-// TODO: separate initializing a world from starting a server
-export async function startServer(options: ServerOptions, db: Database) {
+// TODO: separate initializing a world from creating a server
+export async function createServer(options: ServerOptions, db: Database) {
   const {verbose} = options;
 
   let isDbAlreadySetup = false;

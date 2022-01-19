@@ -13,7 +13,7 @@ import * as WireSerializer from '../lib/wire-serializer.js';
 import {WebRTCSignalServer} from '../lib/wrtc/signal-server.js';
 
 import {ClientConnection} from './client-connection.js';
-import {startServer} from './create-server.js';
+import {createServer} from './create-server.js';
 
 const wrtcSignalServer = new WebRTCSignalServer();
 
@@ -52,7 +52,7 @@ async function main(options: CLIOptions) {
   });
   webserver.listen(port);
 
-  const server = await startServer(options, new LevelDb(options.directoryPath));
+  const server = await createServer(options, new LevelDb(options.directoryPath));
 
   wrtcSignalServer.onConnectionEstablished = (peerConnection) => {
     // @ts-expect-error
@@ -122,7 +122,7 @@ async function main(options: CLIOptions) {
     return false;
   });
 
-  return server;
+  server.start();
 }
 
 const argv = yargs
