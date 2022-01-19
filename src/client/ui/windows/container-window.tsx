@@ -1,4 +1,4 @@
-import {render, h} from 'preact';
+import {render, h, Fragment} from 'preact';
 import {useState} from 'preact/hooks';
 
 import * as Content from '../../../content.js';
