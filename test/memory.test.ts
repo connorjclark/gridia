@@ -111,7 +111,11 @@ describe('Check for memory leaks', function() {
     await new Promise<void>((resolve, reject) => {
       const childProcess = spawn('yarn', ['run-server']);
       childProcess.stdout.on('data', (data: Buffer) => {
+        console.log('[server STDOUT]', data.toString());
         if (data.toString().includes('Server started')) resolve();
+      });
+      childProcess.stderr.on('data', (data: Buffer) => {
+        console.log('[server STDERR]', data.toString().trimEnd());
       });
       childProcess.on('close', reject);
       childProcess.on('error', reject);
@@ -120,7 +124,11 @@ describe('Check for memory leaks', function() {
     await new Promise<void>((resolve, reject) => {
       const childProcess = spawn('yarn', ['run-static-server']);
       childProcess.stdout.on('data', (data: Buffer) => {
+        console.log('[static-server STDOUT]', data.toString());
         if (data.toString().includes('Available on')) resolve();
+      });
+      childProcess.stderr.on('data', (data: Buffer) => {
+        console.log('[static-server STDERR]', data.toString());
       });
       childProcess.on('close', reject);
       childProcess.on('error', reject);
