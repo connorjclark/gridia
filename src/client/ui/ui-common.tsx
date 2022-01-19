@@ -56,3 +56,7 @@ export function usePartition(game: Game, w: number) {
 
   return partition;
 }
+
+export function c(...classNames: Array<string|false>) {
+  return classNames.filter(Boolean).join(' ');
+}

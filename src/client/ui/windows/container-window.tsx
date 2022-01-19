@@ -6,7 +6,7 @@ import * as CommandBuilder from '../../../protocol/command-builder.js';
 import * as Utils from '../../../utils.js';
 import {Game} from '../../game.js';
 import {CustomCreatureGraphic, Graphic, ItemGraphic} from '../components/graphic.js';
-import {ComponentProps, createSubApp} from '../ui-common.js';
+import {c, ComponentProps, createSubApp} from '../ui-common.js';
 
 interface State {
   name?: string;
@@ -149,9 +149,12 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
           {previewEl}
           {props.container.items.map((item, i) => {
             const gfx = item && <ItemGraphic item={item}></ItemGraphic>;
-            const classes = ['container__slot'];
-            if (props.selectedIndex === i) classes.push('container__slot--selected');
-            return <div class={classes.join(' ')} data-index={i}>{gfx}</div>;
+            return <div
+              class={c('container__slot', props.selectedIndex === i && 'container__slot--selected')}
+              data-index={i}
+            >
+              {gfx}
+            </div>;
           })}
         </div>
         {statsEl}

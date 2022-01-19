@@ -6,7 +6,7 @@ import Typed from 'typed.js';
 import * as CommandBuilder from '../../../protocol/command-builder.js';
 import {Game} from '../../game.js';
 import {CustomCreatureGraphic, Graphic} from '../components/graphic.js';
-import {ComponentProps, createSubApp} from '../ui-common.js';
+import {c, ComponentProps, createSubApp} from '../ui-common.js';
 
 interface State {
   dialogue: Exclude<Dialogue, 'onFinish'>;
@@ -62,11 +62,11 @@ export function makeDialogueWindow(game: Game, initialState: State) {
         </div>
         <div>
           <h2 class='flex justify-between'>
-            <span class={part.speaker === 0 ? 'active-speaker' : ''}>
+            <span class={c(part.speaker === 0 && 'active-speaker')}>
               {speakerGfx1}
             </span>
             <span>{props.dialogue.speakers[part.speaker].name}</span>
-            <span class={part.speaker === 1 ? 'active-speaker' : ''}>
+            <span class={c(part.speaker === 1 && 'active-speaker')}>
               {speakerGfx2}
             </span>
           </h2>

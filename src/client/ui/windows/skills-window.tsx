@@ -3,7 +3,7 @@ import {useState} from 'preact/hooks';
 
 import {Game} from '../../game.js';
 import {TabbedPane} from '../components/tabbed-pane.js';
-import {ComponentProps, createSubApp} from '../ui-common.js';
+import {c, ComponentProps, createSubApp} from '../ui-common.js';
 
 export interface State {
   combatLevel: {
@@ -144,7 +144,11 @@ export function makeSkillsWindow(game: Game, initialState: State) {
         {props.unlearnedSkills.map((skill) => {
           const classes = ['skill'];
           if (skill.id === selectedId) classes.push('selected');
-          return <div class={classes.join(' ')} onClick={() => setSelectedId(skill.id)} style={{width: '33%'}}>
+
+          return <div
+            class={c('skill', skill.id === selectedId && 'selected')}
+            onClick={() => setSelectedId(skill.id)} style={{width: '33%'}}
+          >
             {skill.name} ({skill.skillPoints})
           </div>;
         })}

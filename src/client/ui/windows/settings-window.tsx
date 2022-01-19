@@ -6,7 +6,7 @@ import * as CommandBuilder from '../../../protocol/command-builder.js';
 import {Game} from '../../game.js';
 import {findKeyNameForValue, KEYS} from '../../keys.js';
 import {SettingsSchema} from '../../modules/settings-module.js';
-import {ComponentProps, createSubApp} from '../ui-common.js';
+import {c, ComponentProps, createSubApp} from '../ui-common.js';
 
 interface State {
   settings: Settings;
@@ -84,7 +84,7 @@ const Bindings = (props: BindingsProps) => {
 
   return <div class="bindings">
     {Object.entries(props.bindings).map(([bindingName, binding]) => {
-      return <div class={`grid-contents binding ${selectedBinding === bindingName ? 'binding--selected' : ''}`}>
+      return <div class={c('grid-contents', selectedBinding === bindingName && 'binding--selected')}>
         <label>{bindingName}</label>
         <span class='binding__span'
           onContextMenu={(e) => e.preventDefault()}

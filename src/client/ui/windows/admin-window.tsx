@@ -15,7 +15,7 @@ import {Input} from '../components/input.js';
 import {MapView} from '../components/map-view.js';
 import {PaginatedContent} from '../components/paginated-content.js';
 import {TabbedPane} from '../components/tabbed-pane.js';
-import {ComponentProps, createSubApp, usePartition} from '../ui-common.js';
+import {c, ComponentProps, createSubApp, usePartition} from '../ui-common.js';
 import {wfcInputs} from '../wfc-inputs.js';
 
 const TOOLS = ['point', 'rectangle', 'fill'] as const;
@@ -48,13 +48,8 @@ interface SelectionProps {
   onClickSelection: (arg: { type: SelectionType; id: number }) => void;
 }
 const Selection = (props: SelectionProps) => {
-  const classes = [
-    'admin__selection',
-  ];
-  if (props.selected) classes.push('admin__selection--selected');
-
   return <div
-    class={classes.join(' ')}
+    class={c('admin__selection', props.selected && 'admin__selection--selected')}
     title={props.title}
     onClick={() => props.onClickSelection({type: props.type, id: props.id})}
   >
@@ -190,15 +185,14 @@ export function makeAdminWindow(adminModule: AdminModule) {
           length = metaItems.length;
         }
 
-        const classes = [
-          'admin__filter',
-        ];
         const nonEmpty = length > 0;
         const enabled = nonEmpty &&
           (!props.selectionFilter.itemClass || props.selectionFilter.itemClass === filter.value) &&
           (filter.value !== 'Floors' || props.selectionFilter.itemClass === 'Floors');
-        if (!enabled) classes.push('admin__filter--empty');
-        return <div class={classes.join(' ')} onClick={() => nonEmpty && this.setItemClassFilter(filter.value)}>
+        return <div
+          class={c('admin__filter', !enabled && 'admin__filter--empty')}
+          onClick={() => nonEmpty && this.setItemClassFilter(filter.value)}
+        >
           {filter.value} - {length}
         </div>;
       });
@@ -228,13 +222,13 @@ export function makeAdminWindow(adminModule: AdminModule) {
 
           {TOOLS.map((tool) => {
             return <div
-              class={`admin__tool ${props.tool === tool ? 'admin__tool--selected' : ''}`}
+              class={c('admin__tool', props.tool === tool && 'admin__tool--selected')}
               onClick={() => this.onClickTool(tool)}
             >{tool}</div>;
           })}
 
           <div
-            class={`admin__tool ${props.safeMode ? 'admin__tool--selected' : ''}`}
+            class={c('admin__tool', props.safeMode && 'admin__tool--selected')}
             title="Enable to prevent overwriting existing items"
             onClick={() => this.onClickSafeMode()}
           >Safe Mode</div>
@@ -356,7 +350,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
       <h3>Select Map</h3>
       <div class="partition-list">
         {metas.map((meta, index) => {
-          return <div class={`partition ${index === selectedMapIndex ? 'partition--selected' : ''}`}
+          return <div class={c('partition', index === selectedMapIndex && 'partition--selected')}
             onClick={() => setSelectedMapIndex(index)}>
             <div class="partition__name">#{index} {meta.name}</div>
             <div class="partition__size">Width, Height, Depth: {meta.width}, {meta.height}, {meta.depth}</div>

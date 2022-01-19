@@ -4,6 +4,7 @@ import {render, h} from 'preact';
 import {useState} from 'preact/hooks';
 
 import {Game} from '../../game.js';
+import {c} from '../ui-common.js';
 
 const sections: Record<string, string> = {
   'General': `
@@ -62,9 +63,10 @@ export function makeHelpWindow(game: Game) {
     return <div class="help flex">
       <div class="sections">
         {Object.keys(sections).map((name) => {
-          const classes = ['section'];
-          if (name === currentSection) classes.push('selected');
-          return <div class={classes.join(' ')} onClick={() => setCurrentSection(name)}>{name}</div>;
+          return <div
+            class={c('section', currentSection === name && 'selected')}
+            onClick={() => setCurrentSection(name)}
+          >{name}</div>;
         })}
       </div>
 
