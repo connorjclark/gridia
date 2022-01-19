@@ -96,6 +96,17 @@ export class Server {
     });
   }
 
+  broadcastInRangeExceptFor(event: ProtocolEvent, pos: TilePoint, range: number, playerConnection: PlayerConnection) {
+    this.conditionalBroadcast(event, (client) => {
+      if (client === playerConnection) return false;
+
+      const pos2 = client.creature.pos;
+      if (pos2.z !== pos.z || pos2.w !== pos.w) return false;
+
+      return Utils.dist(pos, pos2) <= range;
+    });
+  }
+
   broadcastAnimation(animationInstance: GridiaAnimationInstance) {
     this.broadcastInRange(EventBuilder.animation({...animationInstance}), animationInstance.path[0], 30);
   }

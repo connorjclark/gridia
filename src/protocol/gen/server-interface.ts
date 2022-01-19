@@ -32,4 +32,5 @@ export interface ICommands {
     onContainerAction(server: Server, clientConnection: ClientConnection, { type, id }: Protocol.Commands.ContainerAction["params"]): Promise<Protocol.Commands.ContainerAction["response"]>;
     onSaveSettings(server: Server, clientConnection: ClientConnection, { settings }: Protocol.Commands.SaveSettings["params"]): Promise<Protocol.Commands.SaveSettings["response"]>;
     onCreatePartition(server: Server, clientConnection: ClientConnection, { tiles, width, height }: Protocol.Commands.CreatePartition["params"]): Promise<Protocol.Commands.CreatePartition["response"]>;
+    onRawAnimation(server: Server, clientConnection: ClientConnection, { pos, tint, path, light, offshootRate, frames }: Protocol.Commands.RawAnimation["params"]): Promise<Protocol.Commands.RawAnimation["response"]>;
 }

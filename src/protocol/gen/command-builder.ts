@@ -112,8 +112,12 @@ type CreatePartitionCommand = {
     type: "createPartition";
     args: Protocol.Commands.CreatePartition;
 };
+type RawAnimationCommand = {
+    type: "rawAnimation";
+    args: Protocol.Commands.RawAnimation;
+};
 
-export type ProtocolCommand = AdminRequestPartitionMetasCommand | AdminRequestScriptsCommand | AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | ReadItemCommand | EatItemCommand | ItemActionCommand | ContainerActionCommand | SaveSettingsCommand | CreatePartitionCommand;
+export type ProtocolCommand = AdminRequestPartitionMetasCommand | AdminRequestScriptsCommand | AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | ReadItemCommand | EatItemCommand | ItemActionCommand | ContainerActionCommand | SaveSettingsCommand | CreatePartitionCommand | RawAnimationCommand;
 
 export function adminRequestPartitionMetas(): AdminRequestPartitionMetasCommand {
     return { type: "adminRequestPartitionMetas", args: arguments[0] };
@@ -198,4 +202,7 @@ export function saveSettings({ settings }: Protocol.Commands.SaveSettings["param
 }
 export function createPartition({ tiles, width, height }: Protocol.Commands.CreatePartition["params"]): CreatePartitionCommand {
     return { type: "createPartition", args: arguments[0] };
+}
+export function rawAnimation({ pos, tint, path, light, offshootRate, frames }: Protocol.Commands.RawAnimation["params"]): RawAnimationCommand {
+    return { type: "rawAnimation", args: arguments[0] };
 }

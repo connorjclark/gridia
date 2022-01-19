@@ -12,6 +12,10 @@ export class ClientInterface implements IEvents {
     // handled by game.ts
   }
 
+  onRawAnimation(client: Client, {pos, tint, path, light, offshootRate, frames}: Events.RawAnimation): void {
+    // handled by game.ts
+  }
+
   onContainer(client: Client, {container}: Events.Container): void {
     client.context.containers.set(container.id, container);
   }

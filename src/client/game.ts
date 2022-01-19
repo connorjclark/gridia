@@ -578,6 +578,9 @@ export class Game {
       if (!animation) throw new Error('no animation found: ' + event.args.name);
       this.addAnimation(event.args);
     }
+    if (event.type === 'rawAnimation') {
+      this.worldContainer.animationController.addEmitter(event.args);
+    }
 
     if (event.type === 'setAttackTarget') {
       // "Attack" action text may change.
@@ -1015,13 +1018,18 @@ export class Game {
           Utils.emptyArray(graphics.graphicFrames).map((_, i) => ({sprite: graphics.graphic + i}));
         frames[0].sound = 'magic';
 
-        this.worldContainer.animationController.addEmitter({
+        const args = {
           tint: 0x000055,
           path: calcStraightLine(this.worldContainer.camera.focus, pos),
           light: 4,
           offshootRate: 0.2,
           frames,
-        });
+        };
+        this.worldContainer.animationController.addEmitter(args);
+        this.client.connection.sendCommand(CommandBuilder.rawAnimation({
+          ...args,
+          pos,
+        }));
       }
     }, evtOptions);
 

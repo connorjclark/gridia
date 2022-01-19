@@ -40,7 +40,7 @@ declare namespace Protocol {
     type RegisterAccount = Command<{ firebaseToken: string }>;
     type RequestContainer = Command<{ containerId?: string; pos?: TilePoint }>;
     type RequestCreature = Command<{ id: number }>;
-    type RequestPartition = Command<{ w: number }, {name: string} & TilePoint>;
+    type RequestPartition = Command<{ w: number }, { name: string } & TilePoint>;
     type RequestSector = Command<TilePoint>;
     type Use = Command<{ toolIndex: number; location: ItemLocation; usageIndex?: number }>;
     type LearnSkill = Command<{ id: number }>;
@@ -50,6 +50,7 @@ declare namespace Protocol {
     type ContainerAction = Command<{ type: string; id: string }>;
     type SaveSettings = Command<{ settings: Settings }>;
     type CreatePartition = Command<{ tiles: Tile[]; width: number; height: number }>;
+    type RawAnimation = Command<{ pos: TilePoint; tint: number; path: Point2[]; light: number; offshootRate: number; frames: GridiaAnimation['frames'] }>;
   }
 
   namespace Events {
@@ -133,6 +134,15 @@ declare namespace Protocol {
 
     interface Notifaction {
       details: NotifactionSkillLevelDetails | NotifactionTextDetails;
+    }
+
+    interface RawAnimation {
+      pos: TilePoint;
+      tint: number;
+      path: Point2[];
+      light: number;
+      offshootRate: number;
+      frames: GridiaAnimation['frames'];
     }
   }
 }

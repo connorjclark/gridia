@@ -871,4 +871,11 @@ export class ServerInterface implements ICommands {
 
     return Promise.resolve();
   }
+
+  onRawAnimation(server: Server, clientConnection: ClientConnection, data: Commands.RawAnimation['params']): Promise<Commands.RawAnimation['response']> {
+    clientConnection.assertsPlayerConnection();
+
+    server.broadcastInRangeExceptFor(EventBuilder.rawAnimation(data), data.pos, 50, clientConnection);
+    return Promise.resolve();
+  }
 }
