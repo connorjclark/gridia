@@ -42,6 +42,7 @@
     "build-client": "node build/build-client.js",
     "convert": "yarn ts-node src/convert-rpgwo/convert.ts",
     "run-server": "GOOGLE_APPLICATION_CREDENTIALS=$PWD/deploy/firebase-service-key.json GRIDIA_EXECUTION_ENV=node yarn ts-node src/server/run.ts",
+    "run-server-no-firebase": "GRIDIA_EXECUTION_ENV=node yarn ts-node src/server/run.ts",
     "run-static-server": "http-server dist/client -c-1",
     "clean": "rm -rf dist",
     "watch": "concurrently --kill-others --names Server,Client,Static --prefix name \"yarn watch-server\" \"yarn watch-client\" \"yarn run-static-server > /dev/null\"",
