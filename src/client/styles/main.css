@@ -418,7 +418,7 @@ button {
   color: white;
   background-color: var(--window-background-color);
   pointer-events: all;
-  overflow-y: scroll;
+  overflow-y: auto;
   align-self: end;
   justify-self: end;
 }
