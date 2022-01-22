@@ -41,6 +41,8 @@ export class TaskRunner {
   }
 
   start() {
+    if (this.tickTimeoutHandle) throw new Error('server has already been started');
+
     this.tickTimeoutHandle = setInterval(() => {
       this.tick();
     }, 10);

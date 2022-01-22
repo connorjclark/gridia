@@ -98,7 +98,6 @@ xdescribe('protocol', () => {
     worldMap.addPartition(0, partition);
     partition.loader = () => Promise.resolve(partition.createEmptySector()); // :(
     const memoryServerData = openAndConnectToServerInMemory({
-      dummyDelay: 0,
       verbose: false,
       worldMap,
     });

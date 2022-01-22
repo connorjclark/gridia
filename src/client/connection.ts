@@ -33,6 +33,8 @@ function debug(prefix: string, msg: Message) {
 }
 
 export abstract class Connection {
+  artificalSendDelayMs = 0;
+
   protected _onEvent?: (event: ProtocolEvent) => void;
 
   private nextId = 1;
@@ -47,10 +49,19 @@ export abstract class Connection {
     const promise = new Promise((resolve, reject) => {
       this.idToCallback.set(id, {resolve, reject});
     });
-    this.send_({
-      id,
-      data: command,
-    });
+
+    if (this.artificalSendDelayMs === 0) {
+      this.send_({
+        id,
+        data: command,
+      });
+    } else {
+      new Promise((resolve) => setTimeout(resolve, this.artificalSendDelayMs)).then(() => this.send_({
+        id,
+        data: command,
+      }));
+    }
+
     // @ts-expect-error
     return promise;
   }

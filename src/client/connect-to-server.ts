@@ -28,15 +28,18 @@ type ConnectToServerOpts = {
   opts: ServerWorkerOpts;
 };
 export async function connectToServer(opts: ConnectToServerOpts): Promise<Client> {
+  let connection;
   if (opts.type === 'webrtc') {
-    return createClient(await connectWithWebRTC(opts.hostname, opts.port));
+    connection = await connectWithWebRTC(opts.hostname, opts.port);
   } else if (opts.type === 'ws') {
-    return createClient(await connectWithWebSocket(opts.hostname, opts.port));
+    connection = await connectWithWebSocket(opts.hostname, opts.port);
   } else if (opts.type === 'serverworker') {
-    return createClient(await connectWithServerWorker(opts.serverWorker, opts.opts));
+    connection = await connectWithServerWorker(opts.serverWorker, opts.opts);
   } else {
     throw new Error('invalid opts: ' + opts);
   }
+
+  return createClient(connection);
 }
 
 async function connectWithWebRTC(hostname: string, port: number): Promise<Connection> {

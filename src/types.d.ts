@@ -495,7 +495,6 @@ interface CLIOptions extends ServerOptions {
 
 interface ServerWorkerOpts extends ServerOptions {
   mapName: string;
-  dummyDelay: number;
   useMapPreview?: boolean;
 }
 

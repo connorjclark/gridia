@@ -34,6 +34,7 @@ class StartScene extends Scene {
   async onClickConnectBtn() {
     const serverUrl = this.serverLocationInput.value;
     this.controller.client = await this.createClientForServer(serverUrl);
+    this.controller.client.connection.artificalSendDelayMs = this.controller.qs.latency ?? 0;
     this.controller.pushScene(new AccountScene(this.controller));
     // TODO: Back doesn't work here.
     Helper.find('.scene-controller').classList.add('hidden');

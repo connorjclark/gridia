@@ -63,7 +63,5 @@ export async function createServer(options: ServerOptions, db: Database) {
     fn: () => server.save(),
   });
 
-  server.start();
-
   return server;
 }

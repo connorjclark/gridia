@@ -210,14 +210,13 @@ export class MapSelectScene extends Scene {
       serverWorker: this.controller.serverWorker,
       opts: {
         mapName: name,
-        dummyDelay: this.controller.qs.latency ?? 0,
         verbose: false,
         // TODO: ?
         // @ts-expect-error
         worldDataDef: undefined,
       },
     });
-
+    this.controller.client.connection.artificalSendDelayMs = this.controller.qs.latency ?? 0;
     await this.loadSelectCharacterScene();
   }
 
@@ -267,13 +266,13 @@ export class MapSelectScene extends Scene {
       serverWorker: this.controller.serverWorker,
       opts: {
         mapName: this.loadingPreviewName,
-        dummyDelay: this.controller.qs.latency ?? 0,
         verbose: false,
         // TODO remove... should already be saved in server!
         // @ts-expect-error
         worldDataDef: undefined,
       },
     });
+    this.controller.client.connection.artificalSendDelayMs = this.controller.qs.latency ?? 0;
     await this.loadSelectCharacterScene();
   }
 

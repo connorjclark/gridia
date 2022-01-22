@@ -21,14 +21,6 @@ let mapPreviewGenData: ReturnType<typeof mapgen>['mapGenResult'] | null = null;
 
 let mapsDb: Database;
 
-function maybeDelay(fn: () => void) {
-  if (opts.dummyDelay > 0) {
-    setTimeout(fn, opts.dummyDelay);
-  } else {
-    fn();
-  }
-}
-
 async function makeDbForMap(mapName: string) {
   if (initArgs_.directoryHandle) {
     return new FsApiDb(await initArgs_.directoryHandle.getDirectoryHandle(mapName));
@@ -130,9 +122,7 @@ async function startServer(args: ServerWorkerOpts): Promise<void> {
 
   clientConnection = new ClientConnection();
   clientConnection.send = (message) => {
-    maybeDelay(() => {
-      self.postMessage(WireSerializer.serialize(message));
-    });
+    self.postMessage(WireSerializer.serialize(message));
   };
 
   const db = await makeDbForMap(args.mapName);
@@ -170,7 +160,5 @@ self.addEventListener('message', async (e) => {
     return;
   }
 
-  maybeDelay(() => {
-    clientConnection.messageQueue.push(WireSerializer.deserialize(e.data));
-  });
+  clientConnection.messageQueue.push(WireSerializer.deserialize(e.data));
 }, false);
