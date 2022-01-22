@@ -50,7 +50,7 @@ export class WindowManager {
 
     if (opts.tabLabel) {
       const tabsContainer = Helper.find('.panels__tabs');
-      const tabEl = Helper.createChildOf(tabsContainer, 'div', 'panels__tab', {'data-panel': opts.id});
+      const tabEl = Helper.createChildOf(tabsContainer, 'button', 'panels__tab', {'data-panel': opts.id});
       tabEl.textContent = opts.tabLabel;
     }
 

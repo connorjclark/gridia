@@ -83,7 +83,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
         return <div>{key}: {value}</div>;
       })}</div>;
     } else {
-      actionsEl = <div class="container__actions">
+      actionsEl = <div class="container__actions m1">
         <button onClick={() => {
           game.client.connection.sendCommand(CommandBuilder.containerAction({
             type: 'sort',
