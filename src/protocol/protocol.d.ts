@@ -156,5 +156,6 @@ interface NotificationSkillLevelDetails {
 
 interface NotificationTextDetails {
   type: 'text';
+  title?: string;
   text: string;
 }

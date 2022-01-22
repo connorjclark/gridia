@@ -23,8 +23,8 @@ export class NotificationsModule extends ClientModule {
     if (!nextNotification) return;
 
     const details = nextNotification.details;
-    let title = '';
-    let content = '';
+    let title = '?';
+    let content = '?';
     if (details.type === 'skill-level') {
       const usagesBefore = new Set(Content.getItemUsesForSkill(details.skillId, details.from));
       const newUsages = new Set(Content.getItemUsesForSkill(details.skillId, details.to));
@@ -37,7 +37,7 @@ export class NotificationsModule extends ClientModule {
         newUsages.size > 0 ? `You can now do ${newUsages.size} new things!` : '',
       ].join('\n');
     } else if (details.type === 'text') {
-      title = 'Notification';
+      title = details.title || 'Notification';
       content = details.text;
     }
 

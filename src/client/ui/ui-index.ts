@@ -294,7 +294,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  game.modules.notifications.addNotification({details: {type: 'text', text: 'You are now level *85* in Farming!'}});
-  game.modules.notifications.addNotification({details: {type: 'text', text: 'You are now level *35* in Eating!'}});
+  game.modules.notifications.addNotification({details: {
+    type: 'text', title: 'Level up!', text: 'You are now level *85* in Farming!'}});
+  game.modules.notifications.addNotification({details: {
+    type: 'text', title: 'Level up!', text: 'You are now level *35* in Eating!'}});
   setInterval(() => game.modules.notifications.onTick(), 100);
 });

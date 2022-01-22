@@ -21,6 +21,7 @@ export class SkillsModule extends ClientModule {
         this.game.modules.notifications.addNotification({
           details: {
             type: 'text',
+            title: 'New Skill',
             text: `You learned ${Content.getSkill(id).name}!`,
           },
         });
