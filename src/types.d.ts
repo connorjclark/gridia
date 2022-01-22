@@ -102,6 +102,10 @@ interface Player {
   id: string;
   name: string;
   loggedIn: boolean;
+  /** In seconds. */
+  timePlayed: number;
+  lastLogin: number;
+  lastSaved: number;
   attributes: Map<string, { baseLevel: number; earnedLevel: number }>;
   skills: Map<number, { xp: number }>;
   skillPoints: number;

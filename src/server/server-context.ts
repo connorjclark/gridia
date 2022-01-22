@@ -155,6 +155,8 @@ export class ServerContext extends Context {
       player.buffs = creature.buffs;
     }
 
+    player.lastSaved = Date.now();
+
     const json = WireSerializer.serialize(player);
     this.db.addToTransaction(Store.player, this.jsonKey(player.id), json);
 
@@ -167,6 +169,8 @@ export class ServerContext extends Context {
 
   async loadPlayer(playerId: string) {
     const player: Player = await readJson(this.db, Store.player, this.jsonKey(playerId));
+    player.timePlayed = player.timePlayed || 0; // TODO: remove
+    player.lastSaved = player.lastSaved || 0; // TODO: remove
     return player;
   }
 

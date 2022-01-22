@@ -54,11 +54,26 @@ const sections: Record<string, string> = {
     /landUnclaim to unclaim a sector
     /landOwner to view who owns a sector
   `,
+  'Time Played': '',
 };
 
 export function makeHelpWindow(game: Game) {
   const HelpWindow = () => {
     const [currentSection, setCurrentSection] = useState('General');
+
+    let content;
+    if (currentSection === 'Time Played') {
+      content = <div>
+        <div>
+          Time played: <span class='relative-time' data-format="hh:mm" data-time={game.client.player.lastLogin - game.client.player.timePlayed * 1000}></span>
+        </div>
+        <div>
+          Current session: <span class='relative-time' data-format="hh:mm" data-time={game.client.player.lastLogin}></span>
+        </div>
+      </div>;
+    } else {
+      content = <div dangerouslySetInnerHTML={{__html: sections[currentSection].replace(/\n/g, '<br>')}}></div>;
+    }
 
     return <div class="help flex">
       <div class="sections">
@@ -69,9 +84,8 @@ export function makeHelpWindow(game: Game) {
           >{name}</div>;
         })}
       </div>
-
       <div class="current-section">
-        <div dangerouslySetInnerHTML={{__html: sections[currentSection].replace(/\n/g, '<br>')}}></div>
+        {content}
       </div>
     </div>;
   };

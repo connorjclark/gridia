@@ -297,6 +297,9 @@ export class Server {
       id: Utils.uuid(),
       name: opts.name,
       loggedIn: true,
+      timePlayed: 0,
+      lastLogin: Date.now(),
+      lastSaved: 0,
       attributes: new Map(),
       skills: new Map(),
       skillPoints: characterCreation.skillPoints,
@@ -460,6 +463,8 @@ export class Server {
       if (!this.context.creatures.has(creatureId)) player.tamedCreatureIds.delete(creatureId);
     }
 
+    player.lastLogin = Date.now();
+
     this.context.players.set(player.id, player);
     clientConnection.player = player;
     clientConnection.assertsPlayerConnection();
@@ -502,6 +507,9 @@ export class Server {
         path: [clientConnection.creature.pos],
       });
       this.broadcastChatFromServer(`${clientConnection.player.name} has left the world.`);
+
+      clientConnection.player.loggedIn = false;
+      this.context.players.delete(clientConnection.player.id);
 
       const clientConnectionBase = clientConnection as ClientConnection;
       clientConnectionBase.creature = undefined;
@@ -1723,6 +1731,18 @@ export class Server {
           server.context.map.forEach(clientConnection.creature.pos, 30, (pos) => {
             Player.markTileSeen(clientConnection.player, server.context.map, pos);
           });
+        }
+      },
+    });
+
+    this.taskRunner.registerTickSection({
+      description: 'timePlayed',
+      rate: {seconds: 1},
+      fn: () => {
+        for (const clientConnection of this.context.clientConnections.values()) {
+          if (!clientConnection.isPlayerConnection()) continue;
+
+          clientConnection.player.timePlayed += 1;
         }
       },
     });

@@ -879,3 +879,7 @@ button {
 .notification__section--content {
   padding: 10px;
 }
+
+.relative-time {
+  font-family: monospace;
+}

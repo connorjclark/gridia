@@ -1,5 +1,5 @@
 import {} from 'event-target-shim/es5';
-import {DateTime} from 'luxon';
+import {DateTime, Duration} from 'luxon';
 
 import {GFX_SIZE} from '../constants.js';
 import * as Content from '../content.js';
@@ -1518,17 +1518,23 @@ export class Game {
 
     for (const el of Helper.findAll('.relative-time')) {
       const time = Number(el.getAttribute('data-time'));
-      const delta = time - Date.now();
-      const expiresAt = DateTime.fromMillis(time);
-      let unit;
-      if (delta > 1000 * 60 * 60 * 2) {
-        unit = 'hours' as const;
-      } else if (delta > 1000 * 60 * 2) {
-        unit = 'minutes' as const;
+      const format = el.getAttribute('data-format');
+      if (format) {
+        const delta = Date.now() - time;
+        el.textContent = Duration.fromMillis(delta).toFormat(format);
       } else {
-        unit = 'seconds' as const;
+        const delta = time - Date.now();
+        let unit;
+        if (delta > 1000 * 60 * 60 * 2) {
+          unit = 'hours' as const;
+        } else if (delta > 1000 * 60 * 2) {
+          unit = 'minutes' as const;
+        } else {
+          unit = 'seconds' as const;
+        }
+        const expiresAt = DateTime.fromMillis(time);
+        el.textContent = expiresAt.toRelative({unit});
       }
-      el.textContent = expiresAt.toRelative({unit});
     }
 
     for (const clientModule of Object.values(this.modules)) {
