@@ -1107,9 +1107,9 @@ export class Game {
       // T to toggle z.
       const partition = this.client.context.map.partitions.get(focusPos.w);
       if (e.key === 't' && partition && partition.depth > 1) {
-        this.client.connection.sendCommand(CommandBuilder.move({
-          ...focusPos,
-          z: (focusPos.z + 1) % partition.depth,
+        const down = focusPos.z === 0;
+        this.client.connection.sendCommand(CommandBuilder.chat({
+          text: down ? '/down' : '/up',
         }));
       }
 

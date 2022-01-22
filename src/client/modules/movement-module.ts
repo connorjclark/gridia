@@ -16,6 +16,7 @@ export class MovementModule extends ClientModule {
   protected followCreature?: Creature;
   protected pathToDestination?: PartitionPoint[];
   protected canMoveAgainAt = 0;
+  protected lastMoveCommandHasAcked = true;
   protected movementDirection: Point2 | null = null;
 
   constructor(game: Game) {
@@ -84,8 +85,8 @@ export class MovementModule extends ClientModule {
     const partition = this.game.client.context.map.getPartition(w);
 
     if (!focusCreature) return;
-    // if (this.game.client.context.map.width === 0) return;
     if (now < this.canMoveAgainAt) return;
+    if (!this.lastMoveCommandHasAcked) return;
 
     let dest: TilePoint = {...focusCreature.pos};
 
@@ -146,16 +147,23 @@ export class MovementModule extends ClientModule {
       }
 
       if (attemptToMine || this.game.client.context.walkable(dest)) {
+        // Show movement right away, but wait for server response+cooldown before allowing next move.
+        this.lastMoveCommandHasAcked = false;
+        this.game.client.connection.sendCommand(CommandBuilder.move(dest)).finally(() => {
+          this.lastMoveCommandHasAcked = true;
+        });
+
         this.canMoveAgainAt = now + MOVEMENT_DURATION;
         this.movementDirection = {
           x: Utils.clamp(dest.x - focusPos.x, -1, 1),
           y: Utils.clamp(dest.y - focusPos.y, -1, 1),
         };
-        // this.game.client.context.map.moveCreature(focusCreature, dest);
-        this.game.client.connection.sendCommand(CommandBuilder.move(dest));
         this.game.client.eventEmitter.emit('playerMove', {from: focusCreature.pos, to: dest});
         this.game.modules.sound.playSfx('move', undefined, 0.5);
         delete this.game.state.mouse.tile;
+
+        // Don't show movement right away for mining.
+        if (!attemptToMine) focusCreature.pos = dest;
       }
     }
   }

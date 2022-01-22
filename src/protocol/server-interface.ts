@@ -27,6 +27,9 @@ export class ServerInterface implements ICommands {
     const tile = server.context.map.getTile(pos);
 
     if (Utils.equalPoints(pos, creature.pos)) return Promise.resolve();
+    if (pos.w !== creature.pos.w) return Promise.resolve();
+    if (pos.z !== creature.pos.z) return Promise.resolve();
+    if (Utils.maxDiff(pos, creature.pos) > 1) return Promise.resolve();
 
     if (tile.item?.type === MINE) {
       const player = clientConnection.player;
@@ -57,10 +60,6 @@ export class ServerInterface implements ICommands {
     if (!server.context.walkable(pos)) return Promise.reject('not walkable');
 
     server.scriptManager.delegates.onPlayerMove({playerConnection: clientConnection, from: creature.pos, to: pos});
-
-    // if (!server.inView(pos)) {
-    //   return false
-    // }
 
     server.moveCreature(creature, {...pos});
 

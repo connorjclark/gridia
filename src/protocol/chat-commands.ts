@@ -198,6 +198,26 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
         }), playerConnection);
       },
     },
+    down: {
+      args: [],
+      do() {
+        const destination = {...playerConnection.creature.pos};
+        destination.z += 1;
+        if (!server.context.map.inBounds(destination)) return;
+
+        server.moveCreature(playerConnection.creature, destination);
+      },
+    },
+    up: {
+      args: [],
+      do() {
+        const destination = {...playerConnection.creature.pos};
+        destination.z -= 1;
+        if (!server.context.map.inBounds(destination)) return;
+
+        server.moveCreature(playerConnection.creature, destination);
+      },
+    },
     help: {
       args: [],
       do() {
