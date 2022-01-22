@@ -642,19 +642,22 @@ export class Game {
     }
 
     if (event.type === 'notifaction') {
-      // TODO special ui
       const details = event.args.details;
       if (details.type === 'skill-level') {
         const usagesBefore = new Set(Content.getItemUsesForSkill(details.skillId, details.from));
         const newUsages = new Set(Content.getItemUsesForSkill(details.skillId, details.to));
         for (const usage of usagesBefore) newUsages.delete(usage);
 
-        if (newUsages.size) {
-          this.addToChat('', `You can now do ${newUsages.size} new things!`);
-        }
-        // this.addToChat('', `${Content.getSkill(details.skillId).name} is now level ${details.to}!`);
+        const deltaText = details.to - details.from === 1 ? '' : ` (+${details.to - details.from})`;
+        this.modules.notifications.addNotification({
+          title: 'Level Up!',
+          content: [
+            `You are now level ${details.to}${deltaText} in ${Content.getSkill(details.skillId).name}!`,
+            newUsages.size > 0 ? `You can now do ${newUsages.size} new things!` : '',
+          ].join('\n'),
+        });
       } else if (details.type === 'text') {
-        this.addToChat('', details.text);
+        this.modules.notifications.addNotification({title: 'Notification', content: details.text});
       }
     }
   }
