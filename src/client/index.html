@@ -26,8 +26,8 @@
       <h1 class="game-title">Gridia</h1>
   
       <div class="start-scene__ui flex flex-column align-items-center">
-        <div>
-          <button class="blue start-scene__button--connect">Join Server</button>
+        <div class="m1">
+          <button class="button--primary start-scene__button--connect">Join Server</button>
           <div>
             <label for="start-scene__input--server-location">Server</label>
             <input type="text" name="server-location" id="start-scene__input--server-location"></label>
@@ -52,7 +52,7 @@
           <div class="scene-map-select__preview"></div>
           <div class="scene-map-select__form"></div>
         </div>
-        <button class="scene-map-select__button--select blue">Select</button>
+        <button class="button--primary scene-map-select__button--select">Select</button>
       </div>
     </div>
   </div>
@@ -65,7 +65,7 @@
 
   <div class="scene select-character hidden">
     <div class="flex flex-column items-center">
-      <button class="blue select-character__create-character-btn">Create New Character</button>
+      <button class="button--primary select-character__create-character-btn">Create New Character</button>
   
       <h1>Existing Characters</h1>
       <div class="select-character__players"></div>
@@ -107,7 +107,7 @@
         </div>
 
       </div>
-      <button class="blue create-btn">Create</button>
+      <button class="button--primary create-btn">Create</button>
       <div class='create--errorlog'></div>
     </div>
   </div>
@@ -123,7 +123,7 @@
             <textarea class="chat-area" tabindex="-1" readonly></textarea>
             <form class="flex chat-form">
               <input class="flex-grow chat-input" type="text">
-              <input class="chat-submit" type="submit">
+              <button class="chat-submit">Enter</button>
             </form>
           </div>
 

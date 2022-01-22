@@ -14,6 +14,16 @@
   user-select: none;
 }
 
+:root {
+  --color-black: #212227;
+  --color-blue: #0053ba;
+
+  --background-color: var(--color-black);
+  --window-background-color: rgb(48 50 58 / 86%);;
+  --text-color: white;
+  --button-color: var(--color-blue);
+}
+
 html {
   font-family: 'Jura';
   box-sizing: border-box;
@@ -28,7 +38,8 @@ html {
 
 body {
   margin: 0;
-  background-color: darkgrey;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 body.disconnected {
@@ -41,13 +52,16 @@ button {
 
 .start-scene {
   background-size: 32px 32px;
-  background-image: linear-gradient(to right, grey 1px, transparent 1px), linear-gradient(to bottom, grey 1px, transparent 1px);
-}
-.start-scene__ui {
-  background-color: #a9a9a97a;
+  background-image: linear-gradient(to right, #2c2a2a 1px, transparent 1px), linear-gradient(to bottom, #2c2a2a 1px, transparent 1px);
 }
 .start-scene__button--connect {
   width: 100%;
+}
+
+.start-scene input {
+  color: var(--text-color);
+  background-color: var(--background-color);
+  border: 1px solid white;
 }
 
 .hidden {
@@ -58,6 +72,9 @@ button {
   font-family: 'VT323';
   font-size: 300px;
   margin: 0;
+  color: #0B0C10;
+  text-shadow: -2px -2px 0 rgb(156, 149, 149),-2px -1px 0 white,-2px 0px 0 white,-2px 1px 0 white,-2px 2px 0 white,-1px -2px 0 white,-1px -1px 0 white,-1px 0px 0 white,-1px 1px 0 white,-1px 2px 0 white,0px -2px 0 white,0px -1px 0 white,0px 0px 0 white,0px 1px 0 white,0px 2px 0 white,1px -2px 0 white,1px -1px 0 white,1px 0px 0 white,1px 1px 0 white,1px 2px 0 white,2px -2px 0 white,2px -1px 0 white,2px 0px 0 white,2px 1px 0 white,2px 2px 0 white;
+  /* -webkit-text-stroke: 5px white; */
 }
 
 .scene {
@@ -73,7 +90,7 @@ button {
 
 .scene-controller {
   height: 40px;
-  border-bottom: solid 1px black;
+  border-bottom: solid 1px var(--text-color);
 }
 
 #canvases {
@@ -121,16 +138,27 @@ button {
 .chat textarea {
   flex-grow: 1;
   resize: none;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+.chat-input {
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 .chat-submit {
-  margin-left: 10px;
+  background-color: var(--background-color);
+  margin: 0;
 }
 .chat-sections {
-  color: black;
-  background-color: navajowhite;
+  background-color: var(--background-color);
+}
+.chat-section {
+  padding: 3px;
+  flex-grow: 1;
+  text-align: center;
 }
 .chat-section.selected {
-  background-color: gold;
+  background-color: var(--color-blue);
 }
 
 .help pre {
@@ -160,13 +188,13 @@ button {
 .contextmenu {
   display: none;
   position: absolute;
-  background: blanchedalmond;
+  background: var(--background-color);
   padding: 5px;
-  border: 2px solid black;
+  border: 1px solid var(--text-color);
 }
 
 .contextmenu div:hover {
-  background: burlywood;
+  background: var(--color-blue);
 }
 
 .panels-container {
@@ -206,10 +234,10 @@ button {
   align-items: center;
   padding: 5px;
   margin: 5px;
-  border: 1px solid black;
+  border: 1px solid var(--text-color);
 }
 .select-character__player:hover {
-  background-color: #cccca9;
+  background-color: var(--color-blue);
 }
 
 .create--form {
@@ -228,9 +256,11 @@ button {
 
 .create--skill.selected {
   background-color: gold;
+  color: var(--color-black);
 }
 .create--skill.selected.required {
   background-color: lightgray;
+  color: var(--color-black);
 }
 
 .scene-map-select__form,
@@ -258,10 +288,10 @@ button {
   max-height: 20vh;
 }
 .scene-map-select__map-list--item {
-  margin: 20px;
+  padding: 5px;
 }
 .scene-map-select__map-list--item:hover {
-  background-color: #cccca9;
+  background-color: var(--color-blue);
 }
 
 .pd-5 {
@@ -384,9 +414,9 @@ button {
 .window {
   max-height: 100%;
   margin: 2px;
-  border: solid 1px rgb(107 103 81);
+  border: solid 1px rgb(186 186 186);
   color: white;
-  background-color: rgb(50 49 50 / 86%);
+  background-color: var(--window-background-color);
   pointer-events: all;
   overflow-y: scroll;
   align-self: end;
@@ -433,12 +463,6 @@ button {
 }
 .tabbed-pane__tab:focus-visible {
   outline: 1px solid gold;
-}
-.tabbed-pane__tab:hover {
-  background-color: transparent;
-  border: none;
-  color: unset;
-  box-shadow: none;
 }
 .tabbed-pane__tab.selected {
   color: gold;
@@ -635,7 +659,7 @@ button {
 
 .bar {
   position: relative;
-  border: 3px solid black;
+  border: 3px solid var(--color-black);
   background-color: darkslategrey;
 }
 .bar__bg {
@@ -673,7 +697,7 @@ button {
 .tooltip {
   display: none;
   position: relative;
-  background-color: #cf8989;
+  background-color: var(--background-color);
   z-index: 10;
   transform: translateY(-200%);
 }
