@@ -19,17 +19,20 @@ export class ServerInterface implements ICommands {
   onMove(server: Server, clientConnection: ClientConnection, {...pos}: Commands.Move['params']): Promise<Commands.Move['response']> {
     clientConnection.assertsPlayerConnection();
 
-    if (!server.context.map.inBounds(pos)) {
-      return Promise.reject('out of bounds');
-    }
+    const failAndResetLocation = () => {
+      return Promise.resolve({resetLocation: clientConnection.creature.pos});
+    };
 
     const creature = clientConnection.creature;
-    const tile = server.context.map.getTile(pos);
+    if (Utils.equalPoints(pos, creature.pos)) return Promise.resolve({});
 
-    if (Utils.equalPoints(pos, creature.pos)) return Promise.resolve();
-    if (pos.w !== creature.pos.w) return Promise.resolve();
-    if (pos.z !== creature.pos.z) return Promise.resolve();
-    if (Utils.maxDiff(pos, creature.pos) > 1) return Promise.resolve();
+    if (!server.context.map.inBounds(pos)) failAndResetLocation();
+    if (Utils.equalPoints(pos, creature.pos)) return failAndResetLocation();
+    if (pos.w !== creature.pos.w) return failAndResetLocation();
+    if (pos.z !== creature.pos.z) return failAndResetLocation();
+    if (Utils.maxDiff(pos, creature.pos) > 1) return failAndResetLocation();
+
+    const tile = server.context.map.getTile(pos);
 
     if (tile.item?.type === MINE) {
       const player = clientConnection.player;
@@ -57,13 +60,13 @@ export class ServerInterface implements ICommands {
       server.grantXp(clientConnection, miningSkill.id, 10);
     }
 
-    if (!server.context.walkable(pos)) return Promise.reject('not walkable');
+    if (!server.context.walkable(pos)) return failAndResetLocation();
 
     server.scriptManager.delegates.onPlayerMove({playerConnection: clientConnection, from: creature.pos, to: pos});
 
     server.moveCreature(creature, {...pos});
 
-    return Promise.resolve();
+    return Promise.resolve({});
   }
 
   async onRegisterAccount(server: Server, clientConnection: ClientConnection, {firebaseToken}: Commands.RegisterAccount['params']): Promise<Commands.RegisterAccount['response']> {

@@ -149,9 +149,13 @@ export class MovementModule extends ClientModule {
       if (attemptToMine || this.game.client.context.walkable(dest)) {
         // Show movement right away, but wait for server response+cooldown before allowing next move.
         this.lastMoveCommandHasAcked = false;
-        this.game.client.connection.sendCommand(CommandBuilder.move(dest)).finally(() => {
-          this.lastMoveCommandHasAcked = true;
-        });
+        this.game.client.connection.sendCommand(CommandBuilder.move(dest))
+          .then((r) => {
+            if (r.resetLocation) focusCreature.pos = r.resetLocation;
+          })
+          .finally(() => {
+            this.lastMoveCommandHasAcked = true;
+          });
 
         this.canMoveAgainAt = now + MOVEMENT_DURATION;
         this.movementDirection = {

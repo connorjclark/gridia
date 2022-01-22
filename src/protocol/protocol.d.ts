@@ -35,7 +35,7 @@ declare namespace Protocol {
       { worldData: WorldDataDefinition; account: GridiaAccount; players: Player[]; graphics: Graphics[]; equipmentGraphics: Array<Graphics[]> }
     >;
     type Logout = Command<{}>;
-    type Move = Command<TilePoint>;
+    type Move = Command<TilePoint, { resetLocation?: Point4 }>;
     type MoveItem = Command<{ from: ItemLocation; quantity?: number; to: ItemLocation }>;
     type RegisterAccount = Command<{ firebaseToken: string }>;
     type RequestContainer = Command<{ containerId?: string; pos?: TilePoint }>;
