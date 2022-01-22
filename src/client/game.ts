@@ -20,6 +20,7 @@ import {LazyResourceLoader} from './lazy-resource-loader.js';
 import {AdminModule} from './modules/admin-module.js';
 import {MapModule} from './modules/map-module.js';
 import {MovementModule} from './modules/movement-module.js';
+import {NotificationsModule} from './modules/notifications-module.js';
 import {SelectedViewModule} from './modules/selected-view-module.js';
 import {getSettings, SettingsModule} from './modules/settings-module.js';
 import {SkillsModule} from './modules/skills-module.js';
@@ -370,6 +371,7 @@ export class Game {
     selectedView: new SelectedViewModule(this),
     settings: new SettingsModule(this),
     map: new MapModule(this),
+    notifications: new NotificationsModule(this),
     skills: new SkillsModule(this),
     sound: new SoundModule(this),
     usage: new UsageModule(this),

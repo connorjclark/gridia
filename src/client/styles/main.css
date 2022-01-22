@@ -777,3 +777,81 @@ button {
 .binding--selected .binding__span {
   background-color: #777727;
 }
+
+@property --inset-top {
+  syntax: '<percentage>';
+  initial-value: 0%;
+  inherits: false;
+}
+@property --inset-right {
+  syntax: '<percentage>';
+  initial-value: 0%;
+  inherits: false;
+}
+@property --inset-bottom {
+  syntax: '<percentage>';
+  initial-value: 0%;
+  inherits: false;
+}
+@property --inset-left {
+  syntax: '<percentage>';
+  initial-value: 0%;
+  inherits: false;
+}
+@keyframes notification-animation {
+  0% {
+    --inset-top: 0%;
+    --inset-right: 50%;
+    --inset-bottom: 55%;
+    --inset-left: 50%;
+  }
+  25% {
+    --inset-top: 0%;
+    --inset-right: 0%;
+    --inset-bottom: 55%;
+    --inset-left: 0%;
+  }
+  100% {
+    --inset-top: 0%;
+    --inset-right: 0%;
+    --inset-bottom: 0%;
+    --inset-left: 0%;
+  }
+}
+.notification-wrapper {
+  animation: notification-animation 1s ease 2 alternate;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  width: fit-content;
+  height: fit-content;
+  --inset-top: 0%;
+  --inset-right: 0%;
+  --inset-bottom: 0%;
+  --inset-left: 0%;
+  clip-path: inset(var(--inset-top) var(--inset-right) var(--inset-bottom) var(--inset-left));
+}
+.notification {
+  display: flex;
+  flex-direction: column;
+  background-color: #315263;
+  padding: 3px;
+  color: white;
+  border: solid 3px #315263;
+  border-radius: 4px;
+}
+.notification__section {
+  background-color: #3C6478;
+  margin: 3px 6px;
+}
+.notification__section--title {
+  font-size: larger;
+  font-weight: bold;
+  text-align: center;
+}
+.notification__section--content {
+  padding: 10px;
+}

@@ -7,6 +7,7 @@ import * as Helper from '../helper.js';
 import {AdminModule} from '../modules/admin-module.js';
 import {MapModule} from '../modules/map-module.js';
 import {MovementModule} from '../modules/movement-module.js';
+import {NotificationsModule} from '../modules/notifications-module.js';
 import {SelectedViewModule} from '../modules/selected-view-module.js';
 import {SettingsModule} from '../modules/settings-module.js';
 import {SkillsModule} from '../modules/skills-module.js';
@@ -57,6 +58,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       map: new MapModule(this),
       // @ts-expect-error
       skills: new SkillsModule(this),
+      // @ts-expect-error
+      notifications: new NotificationsModule(this),
       // @ts-expect-error
       sound: new SoundModule(this),
       // @ts-expect-error
@@ -290,4 +293,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       game.windowManager.hideWindow(name);
     }
   });
+
+  game.modules.notifications.addNotification({title: 'Level Up!', content: 'You are now level *85* in Farming!'});
+  game.modules.notifications.addNotification({title: 'Level Up!', content: 'You are now level *35* in Eating!'});
+  setInterval(() => game.modules.notifications.onTick(), 100);
 });
