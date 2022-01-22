@@ -19,6 +19,6 @@ export interface IEvents {
     onDialogue(client: Client, { dialogue, index }: Protocol.Events.Dialogue): void;
     onSetAttackTarget(client: Client, { creatureId }: Protocol.Events.SetAttackTarget): void;
     onCreatureStatus(client: Client, { creatureId, text, color }: Protocol.Events.CreatureStatus): void;
-    onNotifaction(client: Client, { details }: Protocol.Events.Notifaction): void;
+    onNotification(client: Client, { details }: Protocol.Events.Notification): void;
     onRawAnimation(client: Client, { pos, tint, path, light, offshootRate, frames }: Protocol.Events.RawAnimation): void;
 }

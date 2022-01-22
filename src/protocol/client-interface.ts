@@ -107,7 +107,7 @@ export class ClientInterface implements IEvents {
     // handled by game.ts
   }
 
-  onNotifaction(client: Client, {details}: Events.Notifaction): void {
+  onNotification(client: Client, {details}: Events.Notification): void {
     // handled by game.ts
   }
 }

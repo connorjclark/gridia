@@ -641,7 +641,7 @@ export class Game {
       this.client._lastSyncedRealTime = Date.now();
     }
 
-    if (event.type === 'notifaction') {
+    if (event.type === 'notification') {
       const details = event.args.details;
       if (details.type === 'skill-level') {
         const usagesBefore = new Set(Content.getItemUsesForSkill(details.skillId, details.from));

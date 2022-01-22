@@ -132,8 +132,8 @@ declare namespace Protocol {
       color?: string;
     }
 
-    interface Notifaction {
-      details: NotifactionSkillLevelDetails | NotifactionTextDetails;
+    interface Notification {
+      details: NotificationSkillLevelDetails | NotificationTextDetails;
     }
 
     interface RawAnimation {
@@ -147,14 +147,14 @@ declare namespace Protocol {
   }
 }
 
-interface NotifactionSkillLevelDetails {
+interface NotificationSkillLevelDetails {
   type: 'skill-level';
   skillId: number;
   from: number;
   to: number;
 }
 
-interface NotifactionTextDetails {
+interface NotificationTextDetails {
   type: 'text';
   text: string;
 }

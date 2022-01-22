@@ -1411,7 +1411,7 @@ export class Server {
           `${skillName} is now level ${skillSummaryAfter.unbuffedLevel}! (${skillSummaryAfter.level} buffed)` :
           `${skillName} is now level ${skillSummaryAfter.level}!`,
       }), playerConnection);
-      this.send(EventBuilder.notifaction({
+      this.send(EventBuilder.notification({
         details: {
           type: 'skill-level',
           skillId: skill,
