@@ -12,5 +12,21 @@ Environment=NODE_ENV=production
 Environment=GOOGLE_APPLICATION_CREDENTIALS=/root/gridia/gridia-2019-wip/deploy/firebase-service-key.json
 WorkingDirectory=/root/gridia/gridia-2019-wip
 
+DevicePolicy=closed
+LockPersonality=yes
+NoNewPrivileges=yes
+PrivateDevices=yes
+PrivateTmp=yes
+ProtectControlGroups=yes
+ProtectHome=read-only
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+ProtectSystem=full
+ReadWritePaths=/root/gridia/gridia-2019-wip /usr/local/share/.cache/yarn
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+
 [Install]
 WantedBy=default.target
