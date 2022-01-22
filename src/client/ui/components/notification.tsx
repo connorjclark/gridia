@@ -18,7 +18,6 @@ export const Notification = (props: Props) => {
   </div>;
 };
 
-
 export function makeNotificationComponent(props: Props) {
   const el = Helper.createElement('div', 'notification-wrapper');
   render(<Notification {...props} />, el);

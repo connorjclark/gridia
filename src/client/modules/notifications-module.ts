@@ -1,13 +1,19 @@
+import * as Content from '../../content.js';
 import {ClientModule} from '../client-module.js';
 import * as Helper from '../helper.js';
 import {makeNotificationComponent} from '../ui/components/notification.js';
 
+type Notification = Protocol.Events.Notification;
 export class NotificationsModule extends ClientModule {
   private hasActiveNotification = false;
-  private pendingNotifications: Array<{ title: string; content: string }> = [];
+  private pendingNotifications: Notification[] = [];
 
   onStart() {
-    // ...
+    this.game.client.eventEmitter.on('event', (e) => {
+      if (e.type === 'notification') {
+        this.addNotification(e.args);
+      }
+    });
   }
 
   onTick() {
@@ -16,7 +22,26 @@ export class NotificationsModule extends ClientModule {
     const nextNotification = this.pendingNotifications.shift();
     if (!nextNotification) return;
 
-    const el = makeNotificationComponent(nextNotification);
+    const details = nextNotification.details;
+    let title = '';
+    let content = '';
+    if (details.type === 'skill-level') {
+      const usagesBefore = new Set(Content.getItemUsesForSkill(details.skillId, details.from));
+      const newUsages = new Set(Content.getItemUsesForSkill(details.skillId, details.to));
+      for (const usage of usagesBefore) newUsages.delete(usage);
+
+      const deltaText = details.to - details.from === 1 ? '' : ` (+${details.to - details.from})`;
+      title = 'Level Up!';
+      content = [
+        `You are now level ${details.to}${deltaText} in ${Content.getSkill(details.skillId).name}!`,
+        newUsages.size > 0 ? `You can now do ${newUsages.size} new things!` : '',
+      ].join('\n');
+    } else if (details.type === 'text') {
+      title = 'Notification';
+      content = details.text;
+    }
+
+    const el = makeNotificationComponent({title, content});
     el.addEventListener('animationiteration', () => {
       el.style.animationPlayState = 'paused';
       setTimeout(() => {
@@ -31,7 +56,7 @@ export class NotificationsModule extends ClientModule {
     this.hasActiveNotification = true;
   }
 
-  addNotification(notification: { title: string; content: string }) {
+  addNotification(notification: Notification) {
     this.pendingNotifications.push(notification);
   }
 }
