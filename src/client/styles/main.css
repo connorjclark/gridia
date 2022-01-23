@@ -258,7 +258,7 @@ button {
   background-color: gold;
   color: var(--color-black);
 }
-.create--skill.selected.required {
+.create--skill.required {
   background-color: lightgray;
   color: var(--color-black);
 }

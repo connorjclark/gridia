@@ -7,10 +7,17 @@ import * as Helper from '../helper.js';
 import {SceneController} from './scene-controller.js';
 import {Scene} from './scene.js';
 
+const attributesSorted = Utils.sortByPrecedence([...ATTRIBUTES], [
+  {type: 'equal', value: 'life'},
+  {type: 'equal', value: 'mana'},
+  {type: 'equal', value: 'stamina'},
+]);
+
 export class CreateCharacterScene extends Scene {
   private createBtn: HTMLElement;
   private nameInput: HTMLInputElement;
-  private attributeEls: Record<string, HTMLInputElement> = {};
+  private attributeEls: Record<string, HTMLElement> = {};
+  private attributes = new Map<string, number>();
   private selectedSkills = new Set<number>();
 
   constructor(private controller: SceneController) {
@@ -18,6 +25,22 @@ export class CreateCharacterScene extends Scene {
     this.createBtn = Helper.find('.create-btn', this.element);
     this.nameInput = Helper.find('#create--name', this.element) as HTMLInputElement;
     this.onClickCreateBtn = this.onClickCreateBtn.bind(this);
+
+    const setDefaultValues = () => {
+      if (characterCreation.presets?.length) {
+        setPresetValues(characterCreation.presets[0]);
+      } else {
+        this.selectedSkills = new Set();
+        this.attributes = new Map();
+        for (const attribute of attributesSorted) {
+          this.attributes.set(attribute, 100);
+        }
+      }
+    };
+    const setPresetValues = (preset: CharacterCreationPreset) => {
+      this.attributes = Utils.mapFromRecord(preset.attributes);
+      this.selectedSkills = new Set(preset.skills);
+    };
 
     this.nameInput.placeholder = '<enter player name>';
     this.nameInput.value = '';
@@ -31,8 +54,13 @@ export class CreateCharacterScene extends Scene {
     let attributePoints = characterCreation.attributePoints;
     const updateAttributes = () => {
       attributePoints = characterCreation.attributePoints;
-      for (const attribute of Object.values(this.attributeEls)) {
-        attributePoints -= attribute.valueAsNumber;
+      for (const [attribute, attributeEl] of Object.entries(this.attributeEls)) {
+        const inputEl = Helper.find('input', attributeEl) as HTMLInputElement;
+        const valueEl = Helper.find('.create--attribute__value', attributeEl);
+        inputEl.valueAsNumber = this.attributes.get(attribute) || 0;
+        valueEl.textContent = String(inputEl.valueAsNumber);
+
+        attributePoints -= inputEl.valueAsNumber;
       }
 
       Helper.find('.create--attribute-points', this.element).textContent = attributePoints.toLocaleString();
@@ -42,34 +70,28 @@ export class CreateCharacterScene extends Scene {
       }
     };
 
-    const attributesSorted = Utils.sortByPrecedence([...ATTRIBUTES], [
-      {type: 'equal', value: 'life'},
-      {type: 'equal', value: 'mana'},
-      {type: 'equal', value: 'stamina'},
-    ]);
-
     const attributesEl = Helper.find('.create--attributes', this.element);
     attributesEl.textContent = '';
     for (const attribute of attributesSorted) {
       const el = Helper.createChildOf(attributesEl, 'div', 'create--attribute');
       const el2 = Helper.createChildOf(el, 'div');
       Helper.createChildOf(el2, 'div').textContent = attribute;
-      this.attributeEls[attribute] = Helper.createChildOf(el2, 'input', '', {
+
+      const inputEl = Helper.createChildOf(el2, 'input', '', {
         type: 'range',
         value: '100',
         min: '10',
         max: '200',
       });
-      const valueEl = Helper.createChildOf(el, 'div');
-      valueEl.textContent = this.attributeEls[attribute].value;
-      this.attributeEls[attribute].addEventListener('input', () => {
-        updateAttributes();
-        if (attributePoints < 0) {
-          this.attributeEls[attribute].valueAsNumber += attributePoints;
-          updateAttributes();
-        }
+      Helper.createChildOf(el, 'div', 'create--attribute__value');
+      this.attributeEls[attribute] = el;
 
-        valueEl.textContent = this.attributeEls[attribute].value;
+      this.attributeEls[attribute].addEventListener('input', () => {
+        const currentVal = (this.attributes.get(attribute) || 0);
+        let delta = inputEl.valueAsNumber - currentVal;
+        delta = Math.min(delta, attributePoints);
+        this.attributes.set(attribute, currentVal + delta);
+        updateAttributes();
       });
     }
 
@@ -83,6 +105,7 @@ export class CreateCharacterScene extends Scene {
       Helper.createChildOf(categoryEl, 'h3').textContent = category;
       for (const skill of skills) {
         const el = Helper.createChildOf(categoryEl, 'div', 'create--skill flex tooltip-on-hover');
+        el.setAttribute('data-skill', String(skill.id));
         Helper.createChildOf(el, 'div').textContent = `${skill.name} (${skill.skillPoints})`;
         const required = requiredSkills.includes(skill.id);
 
@@ -94,19 +117,31 @@ export class CreateCharacterScene extends Scene {
         Helper.createChildOf(categoryEl, 'div', 'tooltip').innerHTML = tooltip;
 
         if (required) continue;
+
         el.addEventListener('click', () => {
-          let selected = this.selectedSkills.has(skill.id);
-          if (selected) {
+          if (this.selectedSkills.has(skill.id)) {
             this.selectedSkills.delete(skill.id);
-            selected = false;
           } else if (skillPoints >= skill.skillPoints) {
             this.selectedSkills.add(skill.id);
-            selected = true;
           }
-          el.classList.toggle('selected', selected);
+
           updateSkillPoints();
         });
       }
+    }
+
+    if (characterCreation.presets?.length) {
+      for (const preset of characterCreation.presets || []) {
+        const el = Helper.createChildOf(Helper.find('.presets'), 'button');
+        el.textContent = preset.name;
+        el.addEventListener('click', () => {
+          setPresetValues(preset);
+          updateAttributes();
+          updateSkillPoints();
+        });
+      }
+    } else {
+      Helper.find('.presets').classList.add('hidden');
     }
 
     let skillPoints = characterCreation.skillPoints;
@@ -117,31 +152,25 @@ export class CreateCharacterScene extends Scene {
       }
 
       Helper.find('.create--skill-points', this.element).textContent = skillPoints.toLocaleString();
+
+      for (const skillEl of Helper.findAll('.create--skill')) {
+        const skillId = Number(skillEl.getAttribute('data-skill'));
+        skillEl.classList.toggle('required', requiredSkills.includes(skillId));
+        skillEl.classList.toggle('selected', this.selectedSkills.has(skillId));
+      }
     };
 
-    for (const id of requiredSkills) {
-      this.selectedSkills.add(id);
-      for (const el of Helper.findAll('.create--skill.selected')) {
-        el.classList.add('required');
-      }
-    }
-
+    setDefaultValues();
     updateAttributes();
     updateSkillPoints();
   }
 
   async onClickCreateBtn() {
     const name = this.nameInput.value;
-
-    const attributes = new Map<string, number>();
-    for (const [attribute, el] of Object.entries(this.attributeEls)) {
-      attributes.set(attribute, el.valueAsNumber);
-    }
-
     try {
       await this.controller.client.connection.sendCommand(CommandBuilder.createPlayer({
         name,
-        attributes,
+        attributes: this.attributes,
         skills: this.selectedSkills,
       }));
       this.controller.startGame();

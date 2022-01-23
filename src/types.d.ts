@@ -502,6 +502,12 @@ interface ServerWorkerOpts extends ServerOptions {
   useMapPreview?: boolean;
 }
 
+interface CharacterCreationPreset {
+  name: string;
+  attributes: Record<string, number>;
+  skills: number[];
+}
+
 interface WorldDataDefinition {
   tileSize: number;
   baseDir: string;
@@ -510,6 +516,7 @@ interface WorldDataDefinition {
     skillPoints: number;
     requiredSkills?: number[];
     simple?: boolean;
+    presets?: CharacterCreationPreset[];
   };
 }
 

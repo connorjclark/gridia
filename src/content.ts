@@ -24,6 +24,24 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
         1, // Melee Defence
         25, // Run
       ],
+      presets: [
+        {
+          name: 'Default',
+          skills: [
+            1,
+          ],
+          attributes: {
+            dexterity: 100,
+            intelligence: 100,
+            life: 100,
+            mana: 100,
+            quickness: 100,
+            stamina: 100,
+            strength: 100,
+            wisdom: 100,
+          },
+        },
+      ],
     },
   },
   bit16: {

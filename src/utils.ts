@@ -211,3 +211,11 @@ export function clone<T>(obj: T): T {
   if (globalThis.structuredClone) return structuredClone(obj);
   return JSON.parse(JSON.stringify(obj)) as T;
 }
+
+export function mapFromRecord<K extends string | number | symbol, V>(record: Record<K, V>): Map<K, V> {
+  const map = new Map();
+  for (const [k, v] of Object.entries(record)) {
+    map.set(k, v);
+  }
+  return map;
+}
