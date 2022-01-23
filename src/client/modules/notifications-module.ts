@@ -4,6 +4,7 @@ import * as Helper from '../helper.js';
 import {makeNotificationComponent} from '../ui/components/notification.js';
 
 type Notification = Protocol.Events.Notification;
+
 export class NotificationsModule extends ClientModule {
   private hasActiveNotification = false;
   private pendingNotifications: Notification[] = [];

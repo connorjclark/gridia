@@ -48,7 +48,7 @@
     "watch": "concurrently --kill-others --names Server,Client,Static --prefix name \"yarn watch-server\" \"yarn watch-client\" \"yarn run-static-server > /dev/null\"",
     "watch-no-server": "concurrently --kill-others --names Client,Static --prefix name \"yarn watch-client\" \"yarn run-static-server > /dev/null\"",
     "watch-client": "chokidar --initial src -c 'yarn build-client'",
-    "watch-server": "chokidar --initial 'src/*.ts' 'src/server/**/*.ts' -c 'yarn run-server'",
+    "watch-server": "chokidar --initial 'src/*.ts' 'src/server/**/*.ts' -c 'pkill -f \"yarn.js run-server\" ; yarn run-server'",
     "type-check": "tsc --noEmit",
     "lint": "eslint '{src,test,build}/**/*.{ts,tsx,js,jsx}'",
     "test": "yarn lint && yarn type-check && yarn mocha 'test/*.test.ts'",
