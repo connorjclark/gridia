@@ -27,7 +27,6 @@ export interface ClientEvents {
   itemMoveBegin: ItemMoveBeginEvent;
   itemMoveEnd: ItemMoveEndEvent;
   event: ProtocolEvent;
-  mouseMovedOverTile: TilePoint;
   playerMove: {from: TilePoint; to: TilePoint};
   tileClicked: TilePoint;
   pointerDown: TilePoint;

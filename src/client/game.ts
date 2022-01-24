@@ -875,19 +875,19 @@ export class Game {
     document.body.addEventListener('click', onActionSelection, evtOptions);
 
     window.document.addEventListener('pointermove', (e: MouseEvent) => {
+      const isOverUI = !!(e.target as HTMLElement).closest('.ui');
       const pos = worldToTile(mouseToWorld({x: e.clientX, y: e.clientY}));
       this.state.mouse = {
         ...this.state.mouse,
         x: e.clientX,
         y: e.clientY,
-        tile: pos,
+        tile: !isOverUI ? pos : undefined,
       };
       if (this.client.context.map.inBounds(pos)) {
-        this.client.eventEmitter.emit('mouseMovedOverTile', {...pos}); // TODO remove
         this.client.eventEmitter.emit('pointerMove', {...pos});
       }
 
-      if (!(e.target as HTMLElement).closest('.ui')) {
+      if (!isOverUI) {
         if (!ContextMenu.isOpen()) {
           if (this.state.mouse.tile) {
             this._mouseCursor.location = Utils.ItemLocation.World(this.state.mouse.tile);
