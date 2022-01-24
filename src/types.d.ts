@@ -512,6 +512,7 @@ interface WorldDataDefinition {
   tileSize: number;
   baseDir: string;
   characterCreation: {
+    attributes: Array<{name: string; derived?: {from: string; creationMultiplier?: number}}>;
     attributePoints: number;
     skillPoints: number;
     requiredSkills?: number[];

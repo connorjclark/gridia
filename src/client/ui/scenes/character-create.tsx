@@ -2,23 +2,15 @@ import {h, render} from 'preact';
 import {useEffect, useMemo, useState} from 'preact/hooks';
 
 import * as Content from '../../../content.js';
-import {ATTRIBUTES} from '../../../player.js';
 import * as CommandBuilder from '../../../protocol/command-builder.js';
 import * as Utils from '../../../utils.js';
 import * as Helper from '../../helper.js';
 import {SceneController} from '../../scenes/scene-controller.js';
 import {c} from '../ui-common.js';
 
-const attributesSorted = Utils.sortByPrecedence([...ATTRIBUTES], [
-  {type: 'equal', value: 'life'},
-  {type: 'equal', value: 'mana'},
-  {type: 'equal', value: 'stamina'},
-]);
-
 interface Props {
   controller: SceneController;
   characterCreationData: WorldDataDefinition['characterCreation'];
-  attributes: string[];
   skills: Skill[];
 }
 
@@ -67,8 +59,10 @@ export const CharacterCreate = (props: Props) => {
 
   const setPreset = (preset: CharacterCreationPreset) => {
     const attributes = Utils.mapFromRecord(preset.attributes);
-    for (const attr of props.attributes) {
-      if (!attributes.has(attr)) attributes.set(attr, 10);
+    for (const attribute of props.characterCreationData.attributes) {
+      if (attribute.derived) continue;
+
+      if (!attributes.has(attribute.name)) attributes.set(attribute.name, 10);
     }
     setSelectedAttributes(attributes);
     setSelectedSkills(new Set(preset.skills));
@@ -80,8 +74,10 @@ export const CharacterCreate = (props: Props) => {
       setPreset(props.characterCreationData.presets[0]);
     } else {
       const attributes = new Map();
-      for (const attribute of attributesSorted) {
-        attributes.set(attribute, 100);
+      for (const attribute of props.characterCreationData.attributes) {
+        if (attribute.derived) continue;
+
+        attributes.set(attribute.name, 10);
       }
       setSelectedAttributes(attributes);
       setSelectedSkills(new Set());
@@ -167,17 +163,26 @@ export const CharacterCreate = (props: Props) => {
         </div>
         Points available: <span class="create__attribute-points">{attributePointsAvailable}</span>
 
-        <div class="create__attributes flex flex-wrap">
-          {props.attributes.map((attribute) => {
+        <div class="create__attributes">
+          {props.characterCreationData.attributes.map((attribute) => {
             const onInput = (e: any) => {
-              updateAttr(attribute, e.target.valueAsNumber);
+              updateAttr(attribute.name, e.target.valueAsNumber);
             };
 
+            let value;
+            if (attribute.derived) {
+              const multiplier = attribute.derived.creationMultiplier || 1;
+              value = multiplier * (selectedAttributes.get(attribute.derived.from) || 0);
+            } else {
+              value = selectedAttributes.get(attribute.name) || 0;
+            }
+
             return <div class="create__attribute">
-              <div>{attribute}: {selectedAttributes.get(attribute)}</div>
+              <div>{attribute.name}: {value}</div>
               <input
                 type="range"
-                value={selectedAttributes.get(attribute)}
+                disabled={!!attribute.derived}
+                value={value}
                 min={10}
                 max={200}
                 onInput={onInput}
@@ -240,7 +245,6 @@ export function makeCharacterCreateComponent(controller: SceneController) {
   const el = Helper.createElement('div');
   render(<CharacterCreate
     controller={controller}
-    attributes={attributesSorted}
     skills={Content.getSkills()}
     characterCreationData={Content.getWorldDataDefinition().characterCreation}
   />, el);

@@ -5,18 +5,6 @@ import * as Content from './content.js';
 import * as Utils from './utils.js';
 import {WorldMap} from './world-map.js';
 
-export const ATTRIBUTES = [
-  'dexterity',
-  'intelligence',
-  'life',
-  'mana',
-  'quickness',
-  'stamina',
-  'strength',
-  'wisdom',
-] as const;
-type Attribute = typeof ATTRIBUTES[number];
-
 function costToIncrementSkillOrAttribute(level: number) {
   const x = level;
   return Math.round(0.0391 * Math.pow(x, 3) + 5.0616 * Math.pow(x, 2) + 4.8897 * x + 100);
@@ -65,9 +53,9 @@ export function getXpTotalForCombatLevel(level: number) {
   return combatLevelToXpTotal[level];
 }
 
-export function getAttributeValue(player: Player, id: Attribute, buffs: Buff[]) {
+export function getAttributeValue(player: Player, id: string, buffs: Buff[]) {
   const data = player.attributes.get(id);
-  if (!ATTRIBUTES.includes(id) || !data) throw new Error('unknown attribute ' + id);
+  if (!Content.getAttributes().includes(id) || !data) throw new Error('unknown attribute ' + id);
 
   let percentChange = 0;
   let linearChange = 0;
@@ -89,9 +77,9 @@ export function getAttributeValue(player: Player, id: Attribute, buffs: Buff[]) 
   };
 }
 
-export function incrementAttribute(player: Player, id: Attribute) {
+export function incrementAttribute(player: Player, id: string) {
   const data = player.attributes.get(id);
-  if (!ATTRIBUTES.includes(id) || !data) throw new Error('unknown attribute ' + id);
+  if (!Content.isAttribute(id) || !data) throw new Error('unknown attribute ' + id);
 
   data.earnedLevel += 1;
 }
@@ -122,7 +110,7 @@ function getSkillLevel(player: Player, id: number, buffs: Buff[] = []) {
   const skill = Content.getSkill(id);
   let baseLevelSum = 0;
   let baseLevelSumFromBuffs = 0;
-  for (const attribute of ATTRIBUTES) {
+  for (const attribute of Content.getAttributes()) {
     const multiplier = skill[attribute as keyof Skill];
     if (!multiplier || typeof multiplier !== 'number') continue;
 

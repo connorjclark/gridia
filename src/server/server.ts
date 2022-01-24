@@ -265,11 +265,13 @@ export class Server {
     const characterCreation = this.context.worldDataDefinition.characterCreation;
     if (characterCreation.simple) {
       opts.attributes = new Map();
-      for (const key of Player.ATTRIBUTES) {
+
+      const attributes = Content.getAttributes();
+      for (const key of attributes) {
         opts.attributes.set(key, 0);
       }
       for (let i = 0; i < characterCreation.attributePoints; i++) {
-        const key = Player.ATTRIBUTES[i % Player.ATTRIBUTES.length];
+        const key = attributes[i % attributes.length];
         opts.attributes.set(key, 1 + (opts.attributes.get(key) || 0));
       }
 
@@ -278,6 +280,12 @@ export class Server {
 
     for (const id of characterCreation.requiredSkills || []) {
       opts.skills.add(id);
+    }
+
+    for (const attribute of opts.attributes.keys()) {
+      const attr = characterCreation.attributes.find((a) => a.name === attribute);
+      if (!attr) throw new Error('invalid attribute');
+      if (attr.derived) throw new Error('invalid attribute: is derived');
     }
 
     let attributeValueSum = 0;
@@ -324,9 +332,17 @@ export class Server {
       tamedCreatureIds: new Set(),
     };
 
-    for (const attribute of Player.ATTRIBUTES) {
-      player.attributes.set(attribute, {
-        baseLevel: opts.attributes.get(attribute) || 0,
+    for (const attribute of characterCreation.attributes) {
+      let baseLevel;
+      if (attribute.derived) {
+        const multiplier = attribute.derived.creationMultiplier || 1;
+        baseLevel = multiplier * (opts.attributes.get(attribute.derived.from) || 0);
+      } else {
+        baseLevel = opts.attributes.get(attribute.name) || 0;
+      }
+
+      player.attributes.set(attribute.name, {
+        baseLevel,
         earnedLevel: 0,
       });
     }

@@ -1,5 +1,4 @@
 import {setGfxSize} from './constants.js';
-import {ATTRIBUTES} from './player.js';
 import * as Utils from './utils.js';
 
 interface WorldData {
@@ -18,7 +17,17 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
     baseDir: 'worlds/rpgwo-world',
     tileSize: 32,
     characterCreation: {
-      attributePoints: 360,
+      attributes: [
+        {name: 'life'},
+        {name: 'stamina', derived: {from: 'life', creationMultiplier: 2}},
+        {name: 'mana', derived: {from: 'wisdom'}},
+        {name: 'dexterity'},
+        {name: 'intelligence'},
+        {name: 'quickness'},
+        {name: 'strength'},
+        {name: 'wisdom'},
+      ],
+      attributePoints: 350,
       skillPoints: 66,
       requiredSkills: [
         23, // Swim
@@ -177,6 +186,16 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
     tileSize: 24,
     characterCreation: {
       simple: true,
+      attributes: [
+        {name: 'life'},
+        {name: 'stamina'},
+        {name: 'mana'},
+        {name: 'dexterity'},
+        {name: 'intelligence'},
+        {name: 'quickness'},
+        {name: 'strength'},
+        {name: 'wisdom'},
+      ],
       attributePoints: 1000,
       skillPoints: 100,
     },
@@ -186,6 +205,16 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
     tileSize: 16,
     characterCreation: {
       simple: true,
+      attributes: [
+        {name: 'life'},
+        {name: 'stamina'},
+        {name: 'mana'},
+        {name: 'dexterity'},
+        {name: 'intelligence'},
+        {name: 'quickness'},
+        {name: 'strength'},
+        {name: 'wisdom'},
+      ],
       attributePoints: 1000,
       skillPoints: 100,
     },
@@ -379,6 +408,14 @@ export function getTileSize() {
   return worldDataDef.tileSize;
 }
 
+export function getAttributes() {
+  return worldDataDef.characterCreation.attributes.map((attr) => attr.name);
+}
+
+export function isAttribute(name: string) {
+  return worldDataDef.characterCreation.attributes.some((attr) => attr.name === name);
+}
+
 export function getFloors() {
   return data.floors;
 }
@@ -546,7 +583,7 @@ export function getSkillByNameOrThrowError(name: string) {
 export function getSkillAttributeDescription(skill: Skill) {
   const parts = [];
 
-  for (const key of ATTRIBUTES) {
+  for (const key of getAttributes()) {
     // @ts-expect-error
     const multiplier = skill[key] || 0;
     if (!multiplier) continue;
