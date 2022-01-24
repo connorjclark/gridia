@@ -93,8 +93,8 @@ export class SkillsModule extends ClientModule {
 
   getAttributes() {
     const result = [];
-    for (const [name, value] of this.game.client.player.attributes) {
-      result.push({name, ...value});
+    for (const name of this.game.client.player.attributes.keys()) {
+      result.push({name, ...Player.getAttributeValue(this.game.client.player, name, [])});
     }
     return Utils.sortByPrecedence(result, [
       {type: 'predicate', fn: (item) => item.name === 'life'},

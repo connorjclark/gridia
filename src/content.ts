@@ -408,6 +408,10 @@ export function getTileSize() {
   return worldDataDef.tileSize;
 }
 
+export function getAttribute(name: string) {
+  return worldDataDef.characterCreation.attributes.find((attr) => attr.name === name);
+}
+
 export function getAttributes() {
   return worldDataDef.characterCreation.attributes.map((attr) => attr.name);
 }

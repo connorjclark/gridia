@@ -54,8 +54,18 @@ export function getXpTotalForCombatLevel(level: number) {
 }
 
 export function getAttributeValue(player: Player, id: string, buffs: Buff[]) {
+  const attribute = Content.getAttribute(id);
+  if (!attribute) throw new Error('unknown attribute ' + id);
+
   const data = player.attributes.get(id);
-  if (!Content.getAttributes().includes(id) || !data) throw new Error('unknown attribute ' + id);
+  if (!data) throw new Error('missing data: ' + id);
+
+  if (attribute.derived) {
+    const derivedData = player.attributes.get(attribute.derived.from);
+    if (!derivedData) throw new Error('missing data: ' + attribute.derived.from);
+
+    data.baseLevel = derivedData.earnedLevel + derivedData.baseLevel * (attribute.derived.creationMultiplier || 1);
+  }
 
   let percentChange = 0;
   let linearChange = 0;
