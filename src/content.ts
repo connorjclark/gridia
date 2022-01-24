@@ -21,7 +21,6 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
       attributePoints: 360,
       skillPoints: 66,
       requiredSkills: [
-        1, // Melee Defence
         23, // Swim
         24, // Scan
         25, // Run
@@ -31,18 +30,142 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
       ],
       presets: [
         {
-          name: 'Default',
+          name: 'Swordsman',
           skills: [
-            1,
+            1, 4,
           ],
           attributes: {
-            dexterity: 10,
+            life: 50,
+            strength: 80,
+            dexterity: 100,
+            quickness: 80,
             intelligence: 10,
-            life: 10,
-            mana: 10,
+            wisdom: 10,
+          },
+        },
+        {
+          name: 'Archer',
+          skills: [
+            1, 12,
+          ],
+          attributes: {
+            life: 40,
+            strength: 50,
+            dexterity: 100,
+            quickness: 30,
+            intelligence: 100,
+            wisdom: 10,
+          },
+        },
+        {
+          name: 'Wizard',
+          skills: [
+            16, 17, 20,
+          ],
+          attributes: {
+            life: 50,
+            strength: 60,
+            dexterity: 10,
             quickness: 10,
-            stamina: 10,
+            intelligence: 100,
+            wisdom: 100,
+          },
+        },
+        {
+          name: 'Dagger',
+          skills: [
+            1, 3,
+          ],
+          attributes: {
+            life: 60,
+            strength: 50,
+            dexterity: 100,
+            quickness: 100,
+            intelligence: 10,
+            wisdom: 10,
+          },
+        },
+        {
+          name: 'Berserker',
+          skills: [
+            1, 10,
+          ],
+          attributes: {
+            life: 10,
+            strength: 100,
+            dexterity: 100,
+            quickness: 100,
+            intelligence: 10,
+            wisdom: 10,
+          },
+        },
+        {
+          name: 'Blacksmith',
+          skills: [
+            31, 33, 36,
+          ],
+          attributes: {
+            life: 60,
+            strength: 100,
+            dexterity: 100,
+            quickness: 50,
+            intelligence: 10,
+            wisdom: 10,
+          },
+        },
+        {
+          name: 'Carpentry',
+          skills: [
+            32, 40,
+          ],
+          attributes: {
+            life: 60,
+            strength: 100,
+            dexterity: 100,
+            quickness: 50,
+            intelligence: 10,
+            wisdom: 10,
+          },
+        },
+        {
+          name: 'Cook',
+          skills: [
+            32, 34, 35,
+          ],
+          attributes: {
+            life: 50,
+            strength: 60,
+            dexterity: 10,
+            quickness: 10,
+            intelligence: 100,
+            wisdom: 100,
+          },
+        },
+        {
+          name: 'Alchemist',
+          skills: [
+            21, 32,
+          ],
+          attributes: {
+            life: 50,
+            strength: 60,
+            dexterity: 10,
+            quickness: 10,
+            intelligence: 100,
+            wisdom: 100,
+          },
+        },
+        {
+          name: 'Thief',
+          skills: [
+            3, 28, 29,
+          ],
+          attributes: {
+            life: 60,
             strength: 10,
+            dexterity: 100,
+            quickness: 75,
+            intelligence: 75,
             wisdom: 10,
           },
         },

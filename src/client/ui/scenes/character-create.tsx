@@ -66,7 +66,11 @@ export const CharacterCreate = (props: Props) => {
   };
 
   const setPreset = (preset: CharacterCreationPreset) => {
-    setSelectedAttributes(Utils.mapFromRecord(preset.attributes));
+    const attributes = Utils.mapFromRecord(preset.attributes);
+    for (const attr of props.attributes) {
+      if (!attributes.has(attr)) attributes.set(attr, 10);
+    }
+    setSelectedAttributes(attributes);
     setSelectedSkills(new Set(preset.skills));
   };
 
@@ -170,17 +174,14 @@ export const CharacterCreate = (props: Props) => {
             };
 
             return <div class="create__attribute">
-              <div>
-                <div>{attribute}</div>
-                <input
-                  type="range"
-                  value={selectedAttributes.get(attribute)}
-                  min={10}
-                  max={200}
-                  onInput={onInput}
-                ></input>
-              </div>
-              <div class="create__attribute__value">{selectedAttributes.get(attribute)}</div>
+              <div>{attribute}: {selectedAttributes.get(attribute)}</div>
+              <input
+                type="range"
+                value={selectedAttributes.get(attribute)}
+                min={10}
+                max={200}
+                onInput={onInput}
+              ></input>
             </div>;
           })}
         </div>
@@ -195,6 +196,11 @@ export const CharacterCreate = (props: Props) => {
           later.
         </div>
         Points available: <span class="create__skill-points">{skillPointsAvailable}</span>
+
+        <div class="col-2 p1">
+          <div class="create__skill required">Required</div>
+          <div class="create__skill selected">Selected</div>
+        </div>
 
         <div class='create__skills flex justify-between flex-wrap'>
           {skillCategoryElements}

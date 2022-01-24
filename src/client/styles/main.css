@@ -247,7 +247,6 @@ button {
   padding-right: 15vw;
 }
 .create__attribute {
-  display: flex;
   width: 33%;
 }
 .create__skill-category {
