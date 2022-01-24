@@ -52,7 +52,7 @@ export class Client {
     }
 
     // if (opts.verbose) console.log('from server', event.type, event.args);
-    const onMethodName = 'on' + event.type[0].toUpperCase() + event.type.substr(1);
+    const onMethodName = 'on' + event.type[0].toUpperCase() + event.type.substring(1);
     // @ts-expect-error
     const p = this._protocol[onMethodName];
     p(this, event.args);

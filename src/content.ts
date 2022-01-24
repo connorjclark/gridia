@@ -428,7 +428,7 @@ export function getSkillAttributeDescription(skill: Skill) {
     const multiplier = skill[key] || 0;
     if (!multiplier) continue;
 
-    const abrv = key.substr(0, 3).toUpperCase();
+    const abrv = key.substring(0, 3).toUpperCase();
     if (multiplier === 1) {
       parts.push(abrv);
     } else {

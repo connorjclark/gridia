@@ -4,11 +4,11 @@ const ts = require("typescript");
 /** @typedef {{node: ts.Node, name: ts.Identifier, params?: ts.ParameterDeclaration, typeAlias: ts.TypeAliasDeclaration}} MessageDeclaration */
 
 function lowercase(str) {
-  return str.charAt(0).toLocaleLowerCase() + str.substr(1);
+  return str.charAt(0).toLocaleLowerCase() + str.substring(1);
 }
 
 function uppercase(str) {
-  return str.charAt(0).toLocaleUpperCase() + str.substr(1);
+  return str.charAt(0).toLocaleUpperCase() + str.substring(1);
 }
 
 /**

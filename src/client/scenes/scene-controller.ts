@@ -6,7 +6,7 @@ import {GameScene} from './game-scene.js';
 import {Scene} from './scene.js';
 
 function parseQuery(queryString: string) {
-  const params = new URLSearchParams(queryString ? queryString.substr(1) : '');
+  const params = new URLSearchParams(queryString ? queryString.substring(1) : '');
   return {
     map: params.get('map'),
     type: params.get('type'),

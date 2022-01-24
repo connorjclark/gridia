@@ -1818,7 +1818,7 @@ export class Server {
             if (this.verbose) console.log('from client', message.id, command.type, command.args);
             // performance.mark(`${message.type}-start`);
             try {
-              const onMethodName = 'on' + command.type[0].toUpperCase() + command.type.substr(1);
+              const onMethodName = 'on' + command.type[0].toUpperCase() + command.type.substring(1);
               // @ts-expect-error
               await Promise.resolve(this._serverInterface[onMethodName](this, clientConnection, command.args))
                 .then((data: any) => clientConnection.send({id: message.id, data}))

@@ -491,7 +491,7 @@ class Program {
     let formattedString = str;
     const identifiers = str.match(/\$[a-z]+/g) || [];
     for (const identifier of identifiers) {
-      let value = lookupIdentifier(identifier.substr(1));
+      let value = lookupIdentifier(identifier.substring(1));
       if (value === null) {
         throw new Error(`cannot resolve value for ${identifier}`);
       }

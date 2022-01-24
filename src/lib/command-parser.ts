@@ -24,8 +24,8 @@ export function parseArgs(input: string, args: Command['args']) {
       if (Number.isNaN(result[arg.name])) return {error: `could not parse as number: ${tokens[i]}`};
     } else if (arg.type === 'string') {
       let str = tokens[i];
-      if (str[0] === '\'' && str[str.length - 1] === '\'') str = str.substr(1, str.length - 2);
-      else if (str[0] === '"' && str[str.length - 1] === '"') str = str.substr(1, str.length - 2);
+      if (str[0] === '\'' && str[str.length - 1] === '\'') str = str.substring(1, str.length - 1);
+      else if (str[0] === '"' && str[str.length - 1] === '"') str = str.substring(1, str.length - 1);
       result[arg.name] = str;
     } else if (arg.type === 'boolean') {
       result[arg.name] = tokens[i] === 'true' || tokens[i] === '1';
@@ -40,7 +40,7 @@ export function parseCommand(input: string) {
   if (index === -1) return {commandName: input, argsString: ''};
 
   return {
-    commandName: input.substr(0, index),
-    argsString: input.substr(index + 1),
+    commandName: input.substring(0, index),
+    argsString: input.substring(index + 1),
   };
 }

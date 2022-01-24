@@ -82,7 +82,7 @@ function camelCase(str: string) {
 }
 
 function uppercaseFirstLetter(str: string) {
-  return str.charAt(0).toUpperCase() + str.substr(1);
+  return str.charAt(0).toUpperCase() + str.substring(1);
 }
 
 function filterProperties(object: any, allowlist: string[]) {
@@ -881,7 +881,7 @@ function calculateAverageColor(imagePath: string, x: number, y: number, size: nu
   const output = childProcess.execFileSync('magick', args, { encoding: 'utf-8' });
   // # ImageMagick pixel enumeration: 1,1,255,srgb
   // 0,0: (80.0724,126.613,38.5971)  #507F27  srgb(31.4009%,49.6523%,15.1361%)
-  const hex = output.split('#')[2].substr(0, 6);
+  const hex = output.split('#')[2].substring(0, 6);
   return hex;
 }
 
