@@ -144,75 +144,75 @@ export const CharacterCreate = (props: Props) => {
     }
   }
 
+  const skillsAndAttributesEl = !props.characterCreationData.simple &&
+    <div class="create__skills-and-attributes">
+      <div class={c('presets', !props.characterCreationData.presets?.length && 'hidden')}>
+        <h2>Presets</h2>
+        {props.characterCreationData.presets?.map((preset) => {
+          return <button onClick={() => setPreset(preset)}>
+            {preset.name}
+          </button>;
+        })}
+      </div>
+
+      <div>
+        <h2 class="tooltip-on-hover">Attributes</h2>
+        <div class="tooltip">
+          Attributes determine the base level of skills. As you train combat
+          skills, you can spend xp to increase attributes.
+        </div>
+        Points available: <span class="create__attribute-points">{attributePointsAvailable}</span>
+
+        <div class="create__attributes flex flex-wrap">
+          {props.attributes.map((attribute) => {
+            const onInput = (e: any) => {
+              updateAttr(attribute, e.target.valueAsNumber);
+            };
+
+            return <div class="create__attribute">
+              <div>
+                <div>{attribute}</div>
+                <input
+                  type="range"
+                  value={selectedAttributes.get(attribute)}
+                  min={10}
+                  max={200}
+                  onInput={onInput}
+                ></input>
+              </div>
+              <div class="create__attribute__value">{selectedAttributes.get(attribute)}</div>
+            </div>;
+          })}
+        </div>
+      </div>
+
+      <div>
+        <h2 class="tooltip-on-hover">Skills</h2>
+        <div class="tooltip">
+          Skills allow you to equip certain weapons, craft certain items, and other
+          miscellaneous things. As you increase your combat level, you gain skill points
+          which can be used to learn more skills. Any points you don't spend now can be used
+          later.
+        </div>
+        Points available: <span class="create__skill-points">{skillPointsAvailable}</span>
+
+        <div class='create__skills flex justify-between flex-wrap'>
+          {skillCategoryElements}
+        </div>
+      </div>
+    </div>;
+
   return <div>
     <div class="create__form flex flex-column">
       <div>
         <div>
-          <div>
-            <label for="create__name">Name</label>
-          </div>
-          <input type="text" name="name" id="create__name" max-length="20"
-            value={name} onInput={(e: any) => setName(e.target.value)}></input>
+          <label for="create__name">Name</label>
         </div>
-
-        <div class="create__skills-and-attributes">
-          <div class={c('presets', !props.characterCreationData.presets?.length && 'hidden')}>
-            <h2>Presets</h2>
-            {props.characterCreationData.presets?.map((preset) => {
-              return <button onClick={() => setPreset(preset)}>
-                {preset.name}
-              </button>;
-            })}
-          </div>
-
-          <div>
-            <h2 class="tooltip-on-hover">Attributes</h2>
-            <div class="tooltip">
-              Attributes determine the base level of skills. As you train combat
-              skills, you can spend xp to increase attributes.
-            </div>
-            Points available: <span class="create__attribute-points">{attributePointsAvailable}</span>
-
-            <div class="create__attributes flex flex-wrap">
-              {props.attributes.map((attribute) => {
-                const onInput = (e: any) => {
-                  updateAttr(attribute, e.target.valueAsNumber);
-                };
-
-                return <div class="create__attribute">
-                  <div>
-                    <div>{attribute}</div>
-                    <input
-                      type="range"
-                      value={selectedAttributes.get(attribute)}
-                      min={10}
-                      max={200}
-                      onInput={onInput}
-                    ></input>
-                  </div>
-                  <div class="create__attribute__value">{selectedAttributes.get(attribute)}</div>
-                </div>;
-              })}
-            </div>
-          </div>
-
-          <div>
-            <h2 class="tooltip-on-hover">Skills</h2>
-            <div class="tooltip">
-              Skills allow you to equip certain weapons, craft certain items, and other
-              miscellaneous things. As you increase your combat level, you gain skill points
-              which can be used to learn more skills. Any points you don't spend now can be used
-              later.
-            </div>
-            Points available: <span class="create__skill-points">{skillPointsAvailable}</span>
-
-            <div class='create__skills flex justify-between flex-wrap'>
-              {skillCategoryElements}
-            </div>
-          </div>
-        </div>
-
+        <input type="text" name="name" id="create__name" max-length="20"
+          value={name} onInput={(e: any) => setName(e.target.value)}></input>
       </div>
+
+      {skillsAndAttributesEl}
 
       <div class="flex justify-center">
         <button
