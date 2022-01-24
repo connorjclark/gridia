@@ -14,6 +14,7 @@ export class SkillsModule extends ClientModule {
       attributes: this.getAttributes(),
       skills: this.getSkills(),
       skillPoints: this.game.client.player.skillPoints,
+      spendableXp: Player.getSpendableXp(this.game.client.player),
       unlearnedSkills: Player.getUnlearnedSkills(this.game.client.player)
         .sort((a,b) => a.name.localeCompare(b.name)),
       onLearnSkill: async (id) => {
@@ -25,6 +26,9 @@ export class SkillsModule extends ClientModule {
             text: `You learned ${Content.getSkill(id).name}!`,
           },
         });
+      },
+      onIncrementAttribute: (name) => {
+        this.game.client.connection.sendCommand(CommandBuilder.incrementAttribute({name}));
       },
     };
   }
@@ -45,6 +49,7 @@ export class SkillsModule extends ClientModule {
         if (this.skillsWindow) {
           this.skillsWindow.actions.setCombatLevel(this.getCombatLevel());
           this.skillsWindow.actions.setSkill(this.getSkill(e.args.skill));
+          this.skillsWindow.actions.setSpendableXp(Player.getSpendableXp(this.game.client.player));
         }
       }
 

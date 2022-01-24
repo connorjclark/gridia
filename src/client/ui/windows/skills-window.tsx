@@ -1,6 +1,7 @@
 import {render, h} from 'preact';
 import {useState} from 'preact/hooks';
 
+import * as Player from '../../../player.js';
 import {Game} from '../../game.js';
 import {TabbedPane} from '../components/tabbed-pane.js';
 import {c, ComponentProps, createSubApp} from '../ui-common.js';
@@ -28,8 +29,10 @@ export interface State {
     baseLevelFormula: string;
   }>;
   skillPoints: number;
+  spendableXp: number;
   unlearnedSkills: Skill[];
   onLearnSkill: (id: number) => void;
+  onIncrementAttribute: (name: string) => void;
 }
 
 export function makeSkillsWindow(game: Game, initialState: State) {
@@ -61,6 +64,12 @@ export function makeSkillsWindow(game: Game, initialState: State) {
       return {
         ...state,
         skills,
+      };
+    },
+    setSpendableXp: (state: State, spendableXp: number): State => {
+      return {
+        ...state,
+        spendableXp,
       };
     },
   };
@@ -122,13 +131,23 @@ export function makeSkillsWindow(game: Game, initialState: State) {
 
   const AttributesTab = (props: Props) => {
     return <div>
-      <div>Spendable XP: TODO</div>
-      <div class='flex flex-wrap'>
+      <div>Spendable XP: {props.spendableXp}</div>
+      <div class='attributes'>
         {props.attributes.map((attribute) => {
           const level = attribute.baseLevel + attribute.earnedLevel;
-          const title = `base: ${attribute.baseLevel} earned: ${attribute.earnedLevel}`;
-          return <div class='attribute' title={title} style={{width: '50%'}}>
-            {attribute.name} {level}
+          const cost = Player.costToIncrementSkillOrAttribute(attribute.earnedLevel);
+
+          return <div class='flex items-center'>
+            <button
+              class="tooltip-on-hover m1"
+              disabled={cost > props.spendableXp}
+              onClick={() => props.onIncrementAttribute(attribute.name)}>+</button>
+            <div class="tooltip">
+              <div>{cost} xp to increase</div>
+              <div>base: {attribute.baseLevel} earned: {attribute.earnedLevel}</div>
+            </div>
+
+            <span>{attribute.name} {level}</span>
           </div>;
         })}
       </div>

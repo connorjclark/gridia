@@ -5,7 +5,7 @@ import * as Content from './content.js';
 import * as Utils from './utils.js';
 import {WorldMap} from './world-map.js';
 
-function costToIncrementSkillOrAttribute(level: number) {
+export function costToIncrementSkillOrAttribute(level: number) {
   const x = level;
   return Math.round(0.0391 * Math.pow(x, 3) + 5.0616 * Math.pow(x, 2) + 4.8897 * x + 100);
 }
@@ -90,6 +90,9 @@ export function getAttributeValue(player: Player, id: string, buffs: Buff[]) {
 export function incrementAttribute(player: Player, id: string) {
   const data = player.attributes.get(id);
   if (!Content.isAttribute(id) || !data) throw new Error('unknown attribute ' + id);
+  if (getSpendableXp(player) < costToIncrementSkillOrAttribute(data.earnedLevel)) {
+    throw new Error('not enough xp');
+  }
 
   data.earnedLevel += 1;
 }
@@ -170,6 +173,18 @@ export function getCombatLevel(player: Player) {
     combatLevel,
     xpUntilNextLevel: combatLevelToXpTotal[combatLevel + 1] - xp,
   };
+}
+
+export function getSpendableXp(player: Player) {
+  const totalCombatXp = getCombatLevel(player).xp;
+
+  let spentCombatXp = 0;
+  for (const attribute of Content.getAttributes()) {
+    const level = getAttributeValue(player, attribute, []).earnedLevel;
+    spentCombatXp += getXpTotalForLevel(level);
+  }
+
+  return totalCombatXp - spentCombatXp;
 }
 
 export function hasSkill(player: Player, id: number) {

@@ -726,6 +726,20 @@ export class ServerInterface implements ICommands {
     return Promise.resolve();
   }
 
+  onIncrementAttribute(server: Server, clientConnection: ClientConnection, {name}: Commands.IncrementAttribute['params']): Promise<Commands.IncrementAttribute['response']> {
+    clientConnection.assertsPlayerConnection();
+
+    Player.incrementAttribute(clientConnection.player, name);
+    server.updateClientPlayer(clientConnection);
+
+    clientConnection.creature.life.max = Player.getAttributeValue(clientConnection.player, 'life', clientConnection.creature.buffs).level;
+    clientConnection.creature.mana.max = Player.getAttributeValue(clientConnection.player, 'mana', clientConnection.creature.buffs).level;
+    clientConnection.creature.stamina.max = Player.getAttributeValue(clientConnection.player, 'stamina', clientConnection.creature.buffs).level;
+    server.broadcastPartialCreatureUpdate(clientConnection.creature, ['life', 'stamina', 'mana']);
+
+    return Promise.resolve();
+  }
+
   onAdminRequestScripts(server: Server): Promise<Commands.AdminRequestScripts['response']> {
     return Promise.resolve(server.scriptManager.getScriptStates());
   }

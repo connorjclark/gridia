@@ -44,6 +44,7 @@ declare namespace Protocol {
     type RequestSector = Command<TilePoint>;
     type Use = Command<{ toolIndex: number; location: ItemLocation; usageIndex?: number }>;
     type LearnSkill = Command<{ id: number }>;
+    type IncrementAttribute = Command<{ name: string }>;
     type ReadItem = Command<{ location: ItemLocation }, { content: string }>;
     type EatItem = Command<{ location: ItemLocation }>;
     type ItemAction = Command<{ type: string; from: ItemLocation; to?: ItemLocation }>;

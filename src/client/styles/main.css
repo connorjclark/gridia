@@ -485,6 +485,11 @@ button {
   color: gold;
 }
 
+.attributes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
 .admin__filter {
   margin: 5px;
   white-space: nowrap;

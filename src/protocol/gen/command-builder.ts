@@ -88,6 +88,10 @@ type LearnSkillCommand = {
     type: "learnSkill";
     args: Protocol.Commands.LearnSkill;
 };
+type IncrementAttributeCommand = {
+    type: "incrementAttribute";
+    args: Protocol.Commands.IncrementAttribute;
+};
 type ReadItemCommand = {
     type: "readItem";
     args: Protocol.Commands.ReadItem;
@@ -117,7 +121,7 @@ type RawAnimationCommand = {
     args: Protocol.Commands.RawAnimation;
 };
 
-export type ProtocolCommand = AdminRequestPartitionMetasCommand | AdminRequestScriptsCommand | AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | ReadItemCommand | EatItemCommand | ItemActionCommand | ContainerActionCommand | SaveSettingsCommand | CreatePartitionCommand | RawAnimationCommand;
+export type ProtocolCommand = AdminRequestPartitionMetasCommand | AdminRequestScriptsCommand | AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | IncrementAttributeCommand | ReadItemCommand | EatItemCommand | ItemActionCommand | ContainerActionCommand | SaveSettingsCommand | CreatePartitionCommand | RawAnimationCommand;
 
 export function adminRequestPartitionMetas(): AdminRequestPartitionMetasCommand {
     return { type: "adminRequestPartitionMetas", args: arguments[0] };
@@ -184,6 +188,9 @@ export function use({ toolIndex, location, usageIndex }: Protocol.Commands.Use["
 }
 export function learnSkill({ id }: Protocol.Commands.LearnSkill["params"]): LearnSkillCommand {
     return { type: "learnSkill", args: arguments[0] };
+}
+export function incrementAttribute({ name }: Protocol.Commands.IncrementAttribute["params"]): IncrementAttributeCommand {
+    return { type: "incrementAttribute", args: arguments[0] };
 }
 export function readItem({ location }: Protocol.Commands.ReadItem["params"]): ReadItemCommand {
     return { type: "readItem", args: arguments[0] };
