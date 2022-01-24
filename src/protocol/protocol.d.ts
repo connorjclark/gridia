@@ -25,7 +25,7 @@ declare namespace Protocol {
     type CreatePlayer = Command<{
       name: string,
       attributes: Map<string, number>,
-      skills: Set<number>,
+      skills: Map<number, 'learn' | 'specialize'>,
     }>;
     type CreatureAction = Command<{ creatureId: number; type: 'attack' | 'tame' | 'speak' }>;
     type DialogueResponse = Command<{ choiceIndex?: number }>;

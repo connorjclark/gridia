@@ -171,6 +171,7 @@ export class ServerContext extends Context {
     const player: Player = await readJson(this.db, Store.player, this.jsonKey(playerId));
     player.timePlayed = player.timePlayed || 0; // TODO: remove
     player.lastSaved = player.lastSaved || 0; // TODO: remove
+    player.specializedSkills = player.specializedSkills || new Set(); // TODO: remove
     return player;
   }
 

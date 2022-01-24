@@ -256,6 +256,10 @@ button {
 }
 
 .create__skill.selected {
+  background-color: #137c13;
+  color: ghostwhite;
+}
+.create__skill.specialized {
   background-color: gold;
   color: var(--color-black);
 }
@@ -471,6 +475,9 @@ button {
 
 .skill--learned-false {
   opacity: 0.5;
+}
+.skill--specialized {
+  color: gold;
 }
 .skill__level {
   margin: 3px;

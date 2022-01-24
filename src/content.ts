@@ -27,7 +27,7 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
         {name: 'strength'},
         {name: 'wisdom'},
       ],
-      attributePoints: 350,
+      attributePoints: 330,
       skillPoints: 66,
       requiredSkills: [
         23, // Swim
@@ -40,9 +40,8 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
       presets: [
         {
           name: 'Swordsman',
-          skills: [
-            1, 4,
-          ],
+          skills: [],
+          specializedSkills: [1, 4],
           attributes: {
             life: 50,
             strength: 80,
@@ -54,9 +53,8 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
         },
         {
           name: 'Archer',
-          skills: [
-            1, 12,
-          ],
+          skills: [37],
+          specializedSkills: [1, 12],
           attributes: {
             life: 40,
             strength: 50,
@@ -68,9 +66,8 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
         },
         {
           name: 'Wizard',
-          skills: [
-            16, 17, 20,
-          ],
+          skills: [17],
+          specializedSkills: [16, 20],
           attributes: {
             life: 50,
             strength: 60,
@@ -82,9 +79,8 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
         },
         {
           name: 'Dagger',
-          skills: [
-            1, 3,
-          ],
+          skills: [],
+          specializedSkills: [1, 3],
           attributes: {
             life: 60,
             strength: 50,
@@ -96,9 +92,8 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
         },
         {
           name: 'Berserker',
-          skills: [
-            1, 10,
-          ],
+          skills: [],
+          specializedSkills: [1, 10],
           attributes: {
             life: 10,
             strength: 100,
@@ -110,9 +105,8 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
         },
         {
           name: 'Blacksmith',
-          skills: [
-            31, 33, 36,
-          ],
+          skills: [],
+          specializedSkills: [31, 33, 36],
           attributes: {
             life: 60,
             strength: 100,
@@ -124,9 +118,8 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
         },
         {
           name: 'Carpentry',
-          skills: [
-            32, 40,
-          ],
+          skills: [],
+          specializedSkills: [32, 40],
           attributes: {
             life: 60,
             strength: 100,
@@ -138,9 +131,8 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
         },
         {
           name: 'Cook',
-          skills: [
-            32, 34, 35,
-          ],
+          skills: [34],
+          specializedSkills: [32, 35],
           attributes: {
             life: 50,
             strength: 60,
@@ -152,9 +144,8 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
         },
         {
           name: 'Alchemist',
-          skills: [
-            21, 32,
-          ],
+          skills: [],
+          specializedSkills: [21, 32],
           attributes: {
             life: 50,
             strength: 60,
@@ -166,9 +157,8 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
         },
         {
           name: 'Thief',
-          skills: [
-            3, 28, 29,
-          ],
+          skills: [29],
+          specializedSkills: [3, 28],
           attributes: {
             life: 60,
             strength: 10,

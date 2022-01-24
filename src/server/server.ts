@@ -275,11 +275,11 @@ export class Server {
         opts.attributes.set(key, 1 + (opts.attributes.get(key) || 0));
       }
 
-      opts.skills = new Set([]);
+      opts.skills = new Map();
     }
 
     for (const id of characterCreation.requiredSkills || []) {
-      opts.skills.add(id);
+      if (!opts.skills.has(id)) opts.skills.set(id, 'learn');
     }
 
     for (const attribute of opts.attributes.keys()) {
@@ -295,7 +295,13 @@ export class Server {
     }
 
     let skillPointSum = 0;
-    for (const skill of opts.skills) skillPointSum += Content.getSkill(skill).skillPoints;
+    for (const [skillId, state] of opts.skills) {
+      if (state === 'learn') {
+        skillPointSum += Content.getSkill(skillId).skillPoints;
+      } else {
+        skillPointSum += 2 * Content.getSkill(skillId).skillPoints;
+      }
+    }
     if (skillPointSum > characterCreation.skillPoints) {
       throw new Error(`skill points can't be greater than ${characterCreation.skillPoints}`);
     }
@@ -310,6 +316,7 @@ export class Server {
       lastSaved: 0,
       attributes: new Map(),
       skills: new Map(),
+      specializedSkills: new Set(),
       skillPoints: characterCreation.skillPoints,
       questStates: new Map(),
       tilesSeenLog: new Map(),
@@ -347,9 +354,14 @@ export class Server {
       });
     }
 
-    for (const skill of opts.skills) {
-      Player.learnSkill(player, skill);
-      player.skillPoints -= Content.getSkill(skill).skillPoints;
+    for (const [skillId, state] of opts.skills) {
+      Player.learnSkill(player, skillId);
+      if (state === 'specialize') {
+        player.specializedSkills.add(skillId);
+        player.skillPoints -= 2 * Content.getSkill(skillId).skillPoints;
+      } else {
+        player.skillPoints -= Content.getSkill(skillId).skillPoints;
+      }
     }
 
     player.life = Player.getAttributeValue(player, 'life', player.buffs).level;
@@ -1420,6 +1432,8 @@ export class Server {
   grantXp(playerConnection: PlayerConnection, skill: number, xp: number) {
     if (xp <= 0) return;
     if (!Player.hasSkill(playerConnection.player, skill)) return;
+
+    if (playerConnection.player.specializedSkills.has(skill)) xp *= 2;
 
     const skillSummaryBefore = Player.getSkillSummary(playerConnection.player, playerConnection.creature.buffs, skill);
     const {skillLevelIncreased, combatLevelIncreased} =

@@ -17,8 +17,8 @@ interface Props {
 export const CharacterCreate = (props: Props) => {
   const [errors, setErrors] = useState<string[]>([]);
   const [name, setName] = useState('');
-  const [selectedAttributes, setSelectedAttributes] = useState<Map<string, number>>(new Map());
-  const [selectedSkills, setSelectedSkills] = useState<Set<number>>(new Set());
+  const [selectedAttributes, setSelectedAttributes] = useState(new Map<string, number>());
+  const [selectedSkills, setSelectedSkills] = useState(new Map<number, 'learn' | 'specialize'>());
 
   const skillsByCategory = useMemo(() => {
     return Content.getSkillsGroupedByCategory();
@@ -32,8 +32,12 @@ export const CharacterCreate = (props: Props) => {
   }, [selectedAttributes]);
   const skillPointsAvailable = useMemo(() => {
     let points = props.characterCreationData.skillPoints;
-    for (const skillId of selectedSkills) {
-      points -= props.skills[skillId - 1].skillPoints;
+    for (const [skillId, state] of selectedSkills) {
+      if (state === 'specialize') {
+        points -= 2 * props.skills[skillId - 1].skillPoints;
+      } else {
+        points -= props.skills[skillId - 1].skillPoints;
+      }
     }
     return points;
   }, [selectedSkills]);
@@ -48,13 +52,21 @@ export const CharacterCreate = (props: Props) => {
     setSelectedAttributes(map);
   };
   const toggleSkill = (skillId: number) => {
-    const set = new Set(selectedSkills);
-    if (set.has(skillId)) {
-      set.delete(skillId);
-    } else if (props.skills[skillId - 1].skillPoints <= skillPointsAvailable) {
-      set.add(skillId);
+    const map = new Map(selectedSkills);
+    const states = ['learn', 'specialize', 'none'] as const;
+    const index = states.indexOf(map.get(skillId) || 'none');
+    const nextState = states[(index + 1) % states.length];
+    const canAfford = props.skills[skillId - 1].skillPoints <= skillPointsAvailable;
+
+    if (nextState === 'none') {
+      map.delete(skillId);
+    } else if (canAfford) {
+      map.set(skillId, nextState);
+    } else {
+      map.delete(skillId);
     }
-    setSelectedSkills(set);
+
+    setSelectedSkills(map);
   };
 
   const setPreset = (preset: CharacterCreationPreset) => {
@@ -65,7 +77,11 @@ export const CharacterCreate = (props: Props) => {
       if (!attributes.has(attribute.name)) attributes.set(attribute.name, 10);
     }
     setSelectedAttributes(attributes);
-    setSelectedSkills(new Set(preset.skills));
+
+    const skills = new Map<number, 'learn' | 'specialize'>();
+    preset.skills.forEach((s) => skills.set(s, 'learn'));
+    preset.specializedSkills.forEach((s) => skills.set(s, 'specialize'));
+    setSelectedSkills(skills);
   };
 
   // Initialize values to the first preset.
@@ -80,7 +96,7 @@ export const CharacterCreate = (props: Props) => {
         attributes.set(attribute.name, 10);
       }
       setSelectedAttributes(attributes);
-      setSelectedSkills(new Set());
+      setSelectedSkills(new Map());
     }
   }, []);
 
@@ -111,7 +127,9 @@ export const CharacterCreate = (props: Props) => {
       const required = props.characterCreationData.requiredSkills?.includes(skill.id);
       if (required) {
         classes.push('required');
-      } else if (selectedSkills.has(skill.id)) {
+      } else if (selectedSkills.get(skill.id) === 'specialize') {
+        classes.push('specialized');
+      } else if (selectedSkills.get(skill.id) === 'learn') {
         classes.push('selected');
       }
       skillElements.push(<div>
@@ -202,9 +220,10 @@ export const CharacterCreate = (props: Props) => {
         </div>
         Points available: <span class="create__skill-points">{skillPointsAvailable}</span>
 
-        <div class="col-2 p1">
-          <div class="create__skill required">Required</div>
+        <div class="col-3 p1">
           <div class="create__skill selected">Selected</div>
+          <div class="create__skill specialized">Specialized (2x xp rate)</div>
+          <div class="create__skill required">Required</div>
         </div>
 
         <div class='create__skills flex justify-between flex-wrap'>

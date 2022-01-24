@@ -20,6 +20,7 @@ export interface State {
     id: number;
     name: string;
     learned: boolean;
+    specialized: boolean;
     level: number;
     baseLevel: number;
     earnedLevel: number;
@@ -95,7 +96,10 @@ export function makeSkillsWindow(game: Game, initialState: State) {
 
           let skillEl;
           if (skill.learned) {
-            skillEl = <div class={`skill tooltip-on-hover skill--learned-${skill.learned}`}>
+            skillEl = <div class={c(
+              `skill tooltip-on-hover skill--learned-${skill.learned}`,
+              skill.specialized && 'skill--specialized'
+            )}>
               <span class="flex justify-between items-center">
                 <span>{skill.name}</span>
                 {skill.buffAmount ? <span>+{skill.buffAmount}</span> : null}
@@ -122,6 +126,7 @@ export function makeSkillsWindow(game: Game, initialState: State) {
               <br></br>base level = {skill.baseLevelFormula} = {skill.baseLevel}
               <br></br>buffed levels: {skill.buffAmount}
               <br></br>trained levels: {skill.earnedLevel}
+              <br></br>{skill.specialized ? 'specialized' : ''}
             </div>
           </span>;
         })}

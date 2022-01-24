@@ -88,6 +88,7 @@ export class SkillsModule extends ClientModule {
       ...skill,
       ...summary,
       learned: this.game.client.player.skills.has(id),
+      specialized: this.game.client.player.specializedSkills.has(id),
       xpBar: {
         current: summary.xp - Player.getXpTotalForLevel(summary.earnedLevel),
         max: Player.getXpTotalForLevel(summary.earnedLevel + 1) - Player.getXpTotalForLevel(summary.earnedLevel),

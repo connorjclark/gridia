@@ -108,6 +108,8 @@ interface Player {
   lastSaved: number;
   attributes: Map<string, { baseLevel: number; earnedLevel: number }>;
   skills: Map<number, { xp: number }>;
+  /** Skills that earn 2x xp. */
+  specializedSkills: Set<number>;
   skillPoints: number;
   containerId: string;
   equipmentContainerId: string;
@@ -506,6 +508,7 @@ interface CharacterCreationPreset {
   name: string;
   attributes: Record<string, number>;
   skills: number[];
+  specializedSkills: number[];
 }
 
 interface WorldDataDefinition {
