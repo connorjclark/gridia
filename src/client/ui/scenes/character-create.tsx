@@ -107,13 +107,12 @@ export const CharacterCreate = (props: Props) => {
         toggleSkill(skill.id);
       };
 
-      const classes = ['create--skill flex tooltip-on-hover'];
+      const classes = ['create__skill flex tooltip-on-hover'];
       const required = props.characterCreationData.requiredSkills?.includes(skill.id);
-      if (selectedSkills.has(skill.id)) {
-        classes.push('required');
-      }
       if (required) {
         classes.push('required');
+      } else if (selectedSkills.has(skill.id)) {
+        classes.push('selected');
       }
       skillElements.push(<div>
         <div class={c(...classes)} data-skill={skill.id} onClick={onClick}>
@@ -128,7 +127,7 @@ export const CharacterCreate = (props: Props) => {
       );
     }
 
-    skillCategoryElements.push(<div class="create--skill-category">
+    skillCategoryElements.push(<div class="create__skill-category">
       <h3>{category}</h3>
       {skillElements}
     </div>);
@@ -144,15 +143,17 @@ export const CharacterCreate = (props: Props) => {
   }
 
   return <div>
-    <div class="create--form flex flex-column">
+    <div class="create__form flex flex-column">
       <div>
         <div>
-          <label for="create--name">Name</label>
-          <input type="text" name="name" id="create--name" max-length="20"
+          <div>
+            <label for="create__name">Name</label>
+          </div>
+          <input type="text" name="name" id="create__name" max-length="20"
             value={name} onInput={(e: any) => setName(e.target.value)}></input>
         </div>
 
-        <div class="create--skills-and-attributes">
+        <div class="create__skills-and-attributes">
           <div class={c('presets', !props.characterCreationData.presets?.length && 'hidden')}>
             <h2>Presets</h2>
             {props.characterCreationData.presets?.map((preset) => {
@@ -168,15 +169,15 @@ export const CharacterCreate = (props: Props) => {
               Attributes determine the base level of skills. As you train combat
               skills, you can spend xp to increase attributes.
             </div>
-            Points available: <span class="create--attribute-points">{attributePointsAvailable}</span>
+            Points available: <span class="create__attribute-points">{attributePointsAvailable}</span>
 
-            <div class="create--attributes flex flex-wrap">
+            <div class="create__attributes flex flex-wrap">
               {props.attributes.map((attribute) => {
                 const onInput = (e: any) => {
                   updateAttr(attribute, e.target.valueAsNumber);
                 };
 
-                return <div class="create--attribute">
+                return <div class="create__attribute">
                   <div>
                     <div>{attribute}</div>
                     <input
@@ -187,7 +188,7 @@ export const CharacterCreate = (props: Props) => {
                       onInput={onInput}
                     ></input>
                   </div>
-                  <div class="create--attribute__value">{selectedAttributes.get(attribute)}</div>
+                  <div class="create__attribute__value">{selectedAttributes.get(attribute)}</div>
                 </div>;
               })}
             </div>
@@ -201,9 +202,9 @@ export const CharacterCreate = (props: Props) => {
               which can be used to learn more skills. Any points you don't spend now can be used
               later.
             </div>
-            Points available: <span class="create--skill-points">{skillPointsAvailable}</span>
+            Points available: <span class="create__skill-points">{skillPointsAvailable}</span>
 
-            <div class='create--skills flex justify-between flex-wrap'>
+            <div class='create__skills flex justify-between flex-wrap'>
               {skillCategoryElements}
             </div>
           </div>
@@ -220,8 +221,8 @@ export const CharacterCreate = (props: Props) => {
         <div class="tooltip">{createButtonDisabledReason}</div>
       </div>
 
-      <div class='create--errorlog'>
-        {errors.map((error) => <div class="create--errorlog">{error}</div>)}
+      <div class='create__errorlog'>
+        {errors.map((error) => <div class="create__errorlog">{error}</div>)}
       </div>
     </div>
   </div>;

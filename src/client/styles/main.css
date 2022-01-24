@@ -240,25 +240,25 @@ button {
   background-color: var(--color-blue);
 }
 
-.create--form {
+.create__form {
   padding: 20px;
   width: 100%;
   padding-left: 15vw;
   padding-right: 15vw;
 }
-.create--attribute {
+.create__attribute {
   display: flex;
   width: 33%;
 }
-.create--skill-category {
+.create__skill-category {
   margin: 10px;
 }
 
-.create--skill.selected {
+.create__skill.selected {
   background-color: gold;
   color: var(--color-black);
 }
-.create--skill.required {
+.create__skill.required {
   background-color: lightgray;
   color: var(--color-black);
 }
