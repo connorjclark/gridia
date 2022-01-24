@@ -698,7 +698,9 @@ button {
   display: none;
   position: relative;
   background-color: var(--background-color);
+  border: 1px solid var(--text-color);
   z-index: 10;
+  padding: 5px;
   transform: translateY(-200%);
 }
 .tooltip-on-hover:hover + .tooltip {
