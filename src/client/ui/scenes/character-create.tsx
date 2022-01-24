@@ -119,6 +119,8 @@ export const CharacterCreate = (props: Props) => {
           <div>{skill.name} ({skill.skillPoints})</div>
         </div>
         <div class="tooltip">
+          <div>{skill.name}</div>
+          <div>Points: {skill.skillPoints}</div>
           <div>{skill.description}</div>
           <div>base level = {Content.getSkillAttributeDescription(skill)}</div>
           {required && <div>Required</div>}

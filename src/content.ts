@@ -18,11 +18,16 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
     baseDir: 'worlds/rpgwo-world',
     tileSize: 32,
     characterCreation: {
-      attributePoints: 1000,
-      skillPoints: 100,
+      attributePoints: 360,
+      skillPoints: 66,
       requiredSkills: [
         1, // Melee Defence
+        23, // Swim
+        24, // Scan
         25, // Run
+        27, // Assess
+        42, // Sports
+        44, // Climb
       ],
       presets: [
         {
@@ -31,14 +36,14 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
             1,
           ],
           attributes: {
-            dexterity: 100,
-            intelligence: 100,
-            life: 100,
-            mana: 100,
-            quickness: 100,
-            stamina: 100,
-            strength: 100,
-            wisdom: 100,
+            dexterity: 10,
+            intelligence: 10,
+            life: 10,
+            mana: 10,
+            quickness: 10,
+            stamina: 10,
+            strength: 10,
+            wisdom: 10,
           },
         },
       ],
