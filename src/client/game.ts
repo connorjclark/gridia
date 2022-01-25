@@ -1,4 +1,4 @@
-import {} from 'event-target-shim/es5';
+import { } from 'event-target-shim/es5';
 import {DateTime, Duration} from 'luxon';
 
 import {GFX_SIZE} from '../constants.js';
@@ -363,6 +363,7 @@ export class Game {
 
   private _currentChatSection = 'All';
   private _chatLog: Array<{ section: string; text: string; from?: string }> = [];
+  private _chatMemory: string[] = [];
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   modules = {
@@ -1139,9 +1140,26 @@ export class Game {
       this.client.connection.sendCommand(CommandBuilder.chat({
         text: chatInput.value,
       }));
+      if (chatInput.value.startsWith('/') && chatInput.value !== this._chatMemory[this._chatMemory.length - 1]) {
+        this._chatMemory.push(chatInput.value);
+        this.addToChat('All', chatInput.value);
+      }
       chatInput.value = '';
+      chatMemoryIndex = null;
       chatTextarea.scrollTop = chatTextarea.scrollHeight;
     }, evtOptions);
+
+    let chatMemoryIndex: number | null = null;
+    chatInput.addEventListener('keyup', (e) => {
+      let delta = 0;
+      if (e.keyCode === KEYS.UP_ARROW) delta = -1;
+      if (e.keyCode === KEYS.DOWN_ARROW) delta = 1;
+      if (delta === 0 || this._chatMemory.length === 0 || (chatInput.value && chatMemoryIndex === null)) return;
+
+      if (chatMemoryIndex === null) chatMemoryIndex = this._chatMemory.length;
+      chatMemoryIndex = Utils.clamp(chatMemoryIndex + delta, 0, this._chatMemory.length);
+      chatInput.value = chatMemoryIndex === this._chatMemory.length ? '' : this._chatMemory[chatMemoryIndex];
+    });
 
     // TODO: rename panels cuz they aren't panels anymore.
     Helper.find('.panels__tabs').addEventListener('click', (e) => {

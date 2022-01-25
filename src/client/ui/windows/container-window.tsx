@@ -1,11 +1,11 @@
-import {render, h, Fragment} from 'preact';
+import {render, h} from 'preact';
 import {useMemo, useState} from 'preact/hooks';
 
 import * as Content from '../../../content.js';
 import * as CommandBuilder from '../../../protocol/command-builder.js';
 import * as Utils from '../../../utils.js';
 import {Game} from '../../game.js';
-import {CustomCreatureGraphic, Graphic, ItemGraphic} from '../components/graphic.js';
+import {CustomCreatureGraphic, ItemGraphic} from '../components/graphic.js';
 import {c, ComponentProps, createSubApp, useCreature} from '../ui-common.js';
 
 interface State {
