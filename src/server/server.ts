@@ -384,7 +384,7 @@ export class Server {
       container.items[6] = {type: Content.getMetaItemByName('Saw').id, quantity: 1};
       container.items[7] = {type: Content.getMetaItemByName('Hammer and Nails').id, quantity: 1};
       container.items[8] = {type: Content.getMetaItemByName('Lit Torch').id, quantity: 1};
-      container.items[9] = {type: Content.getMetaItemByName('Wood Planks').id, quantity: 100};
+      container.items[9] = {type: Content.getMetaItemByName('Wood Planks').id, quantity: 10};
       container.items[10] = {type: Content.getMetaItemByName('Bow').id, quantity: 1};
       container.items[11] = {type: Content.getMetaItemByName('Arrow').id, quantity: 500};
       container.items[12] = {type: Content.getMetaItemByName('Iron Wand').id, quantity: 1};

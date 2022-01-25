@@ -473,7 +473,7 @@ button {
   color: gold;
 }
 
-.skill--learned-false {
+.skill--learned {
   opacity: 0.5;
 }
 .skill--specialized {

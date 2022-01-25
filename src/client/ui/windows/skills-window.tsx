@@ -97,7 +97,8 @@ export function makeSkillsWindow(game: Game, initialState: State) {
           let skillEl;
           if (skill.learned) {
             skillEl = <div class={c(
-              `skill tooltip-on-hover skill--learned-${skill.learned}`,
+              'skill tooltip-on-hover',
+              skill.learned && 'skill--learned',
               skill.specialized && 'skill--specialized'
             )}>
               <span class="flex justify-between items-center">
@@ -108,7 +109,7 @@ export function makeSkillsWindow(game: Game, initialState: State) {
               <div class="skill__xp-bar" style={{'--percent': percent}}></div>
             </div>;
           } else {
-            skillEl = <div class={`skill tooltip-on-hover skill--learned-${skill.learned}`}>
+            skillEl = <div class={c('skill tooltip-on-hover', skill.learned && 'skill--learned')}>
               <span class="flex justify-between items-center">
                 <span>{skill.name}</span>
                 <span class="skill__level">–</span>

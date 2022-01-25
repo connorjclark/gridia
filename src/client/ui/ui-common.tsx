@@ -1,10 +1,11 @@
 import {h} from 'preact';
-import {useMemo, useState} from 'preact/hooks';
+import {useEffect, useMemo, useState} from 'preact/hooks';
 import createStore from 'redux-zero';
 import Store from 'redux-zero/interfaces/Store';
 import {Provider, connect} from 'redux-zero/preact';
 import {ActionsObject, BoundActions} from 'redux-zero/types/Actions';
 
+import {ProtocolEvent} from '../../protocol/event-builder.js';
 import {WorldMapPartition} from '../../world-map-partition.js';
 import {Game} from '../game.js';
 
@@ -57,6 +58,23 @@ export function usePartition(game: Game, w: number) {
   return partition;
 }
 
-export function c(...classNames: Array<string|false>) {
+export function useCreature(game: Game, id: number) {
+  const creature = game.client.context.creatures.get(id);
+  const [, setCreature] = useState(creature);
+
+  useEffect(() => {
+    const fn = (event: ProtocolEvent) => {
+      if (event.type === 'setCreature' && event.args.id === id) {
+        setCreature(creature ? {...creature} : undefined);
+      }
+    };
+    game.client.eventEmitter.addListener('event', fn);
+    return () => game.client.eventEmitter.removeListener('event', fn);
+  }, [creature, id]);
+
+  return creature;
+}
+
+export function c(...classNames: Array<string | false>) {
   return classNames.filter(Boolean).join(' ');
 }

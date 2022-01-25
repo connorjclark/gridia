@@ -22,12 +22,7 @@ import {makePossibleUsagesWindow} from './windows/possible-usages-window.js';
 // super hacky file to render UI, copies / fakes a bunch of stuff from game.ts
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await Content.initializeWorldData({
-    baseDir: 'worlds/rpgwo-world',
-    tileSize: 32,
-    // @ts-expect-error
-    characterCreation: {},
-  });
+  await Content.initializeWorldData(Content.WORLD_DATA_DEFINITIONS.rpgwo);
 
   class FakeGame {
     windowManager = new WindowManager();
@@ -37,12 +32,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         bindings: {},
       },
       // eslint-disable-next-line max-len
-      player: deserialize('{"id":"b31f3f4d-859b-41d8-b218-d262ca0f9358","name":"Quick Jill 161","attributes":{"$m":[["dexterity",{"baseLevel":100,"earnedLevel":0}],["intelligence",{"baseLevel":200,"earnedLevel":0}],["life",{"baseLevel":200,"earnedLevel":0}],["mana",{"baseLevel":100,"earnedLevel":0}],["quickness",{"baseLevel":100,"earnedLevel":0}],["stamina",{"baseLevel":100,"earnedLevel":0}],["strength",{"baseLevel":100,"earnedLevel":0}],["wisdom",{"baseLevel":100,"earnedLevel":0}]]},"skills":{"$m":[[1,{"xp":1230}],[25,{"xp":33310}]]},"skillPoints":38,"questStates":{"$m":[]},"tilesSeenLog":{"$m":[]},"isAdmin":true,"containerId":"113cc044-544b-4f1c-a15a-02a4a2d4b651","equipmentContainerId":"1bd2bd07-d270-439d-b780-79e0dc1cef88","pos":{"w":0,"x":50,"y":53,"z":0},"life":200,"stamina":100,"mana":100,"buffs":[{"expiresAt":1620023415194,"skill":1,"percentChange":0.1,"linearChange":10},{"expiresAt":1620023415194,"skill":4,"percentChange":0.2,"linearChange":25}]}'),
-      creature: {buffs: [], pos: {w: 0, x: 10, y: 10, z: 0}},
+      player: deserialize('{"id":"b31f3f4d-859b-41d8-b218-d262ca0f9358","name":"Quick Jill 161","attributes":{"$m":[["dexterity",{"baseLevel":100,"earnedLevel":0}],["intelligence",{"baseLevel":200,"earnedLevel":0}],["life",{"baseLevel":200,"earnedLevel":0}],["mana",{"baseLevel":100,"earnedLevel":0}],["quickness",{"baseLevel":100,"earnedLevel":0}],["stamina",{"baseLevel":100,"earnedLevel":0}],["strength",{"baseLevel":100,"earnedLevel":0}],["wisdom",{"baseLevel":100,"earnedLevel":0}]]},"skills":{"$m":[[1,{"xp":1230}],[25,{"xp":33310}]]},"specializedSkills":{"$s":[1]},"skillPoints":38,"questStates":{"$m":[]},"tilesSeenLog":{"$m":[]},"isAdmin":true,"containerId":"113cc044-544b-4f1c-a15a-02a4a2d4b651","equipmentContainerId":"1bd2bd07-d270-439d-b780-79e0dc1cef88","pos":{"w":0,"x":50,"y":53,"z":0},"life":200,"stamina":100,"mana":100,"buffs":[{"expiresAt":1620023415194,"skill":1,"percentChange":0.1,"linearChange":10},{"expiresAt":1620023415194,"skill":4,"percentChange":0.2,"linearChange":25}]}'),
+      creature: {id: 1, buffs: [], pos: {w: 0, x: 10, y: 10, z: 0}, food: 125},
+      creatureId: 1,
       getOrRequestPartition: () => ({partition: null, promise: new Promise(() => {
         // never
       })}),
       worldTime: 'time',
+      context: {
+        creatures: new Map(),
+      },
     };
     // @ts-expect-error
     modules = {
@@ -74,8 +73,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       // ...
     }
   }
+
   // @ts-expect-error
   const game: Game = new FakeGame();
+
+  game.client.context.creatures.set(1, game.client.creature);
+
   for (const module of Object.values(game.modules)) {
     // @ts-expect-error
     module.onStart();
@@ -216,7 +219,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         },
         {
           type: 406,
-          quantity: 100,
+          quantity: 10,
         },
         null,
         null,

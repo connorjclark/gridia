@@ -1,12 +1,12 @@
 import {render, h, Fragment} from 'preact';
-import {useState} from 'preact/hooks';
+import {useMemo, useState} from 'preact/hooks';
 
 import * as Content from '../../../content.js';
 import * as CommandBuilder from '../../../protocol/command-builder.js';
 import * as Utils from '../../../utils.js';
 import {Game} from '../../game.js';
 import {CustomCreatureGraphic, Graphic, ItemGraphic} from '../components/graphic.js';
-import {c, ComponentProps, createSubApp} from '../ui-common.js';
+import {c, ComponentProps, createSubApp, useCreature} from '../ui-common.js';
 
 interface State {
   name?: string;
@@ -66,6 +66,20 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
 
   type Props = ComponentProps<State, typeof actions>;
   const ContainerWindow = (props: Props) => {
+    const creature = useCreature(game, game.client.creatureId);
+
+    const burden = useMemo(() => {
+      let sum = 0;
+      for (const item of props.container.items) {
+        if (!item) continue;
+
+        sum += Content.getMetaItem(item.type).burden * item.quantity;
+      }
+      return sum;
+    }, props.container.items.map((item) => item));
+
+    const maxBurden = 10_000;
+
     let previewEl;
     if (props.equipmentWindow && props.equipmentWindow.equipmentGraphics) {
       previewEl = <CustomCreatureGraphic graphics={props.equipmentWindow.equipmentGraphics}></CustomCreatureGraphic>;
@@ -96,6 +110,15 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
             id: props.container.id,
           }));
         }}>Stack</button>
+      </div>;
+    }
+
+    let miscInfo = null;
+    const showMiscInfo = !Boolean(props.equipmentWindow) && creature;
+    if (showMiscInfo) {
+      miscInfo = <div>
+        <div>Burden: {burden} / {maxBurden}</div>
+        <div>Food: {creature.food}</div>
       </div>;
     }
 
@@ -139,13 +162,13 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
       game.exitClickTileMode();
     };
 
-    return <div onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp}>
-      <div class="m1">
+    return <div class="m1" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp}>
+      <div>
         {props.name || 'Container'}
       </div>
 
       <div class="flex align-items-center justify-around">
-        <div class="container__slots m1">
+        <div class="container__slots">
           {previewEl}
           {props.container.items.map((item, i) => {
             const gfx = item && <ItemGraphic item={item}></ItemGraphic>;
@@ -159,8 +182,8 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
         </div>
         {statsEl}
       </div>
-
       {actionsEl}
+      {miscInfo}
     </div>;
   };
 
