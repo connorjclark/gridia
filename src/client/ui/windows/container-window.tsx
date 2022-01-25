@@ -1,8 +1,9 @@
 import {render, h} from 'preact';
-import {useMemo, useState} from 'preact/hooks';
+import {useEffect, useMemo, useState} from 'preact/hooks';
 
 import * as Content from '../../../content.js';
 import * as CommandBuilder from '../../../protocol/command-builder.js';
+import {ProtocolEvent} from '../../../protocol/event-builder.js';
 import * as Utils from '../../../utils.js';
 import {Game} from '../../game.js';
 import {CustomCreatureGraphic, ItemGraphic} from '../components/graphic.js';
@@ -10,7 +11,7 @@ import {c, ComponentProps, createSubApp, useCreature} from '../ui-common.js';
 
 interface State {
   name?: string;
-  container: Pick<Container, 'id' | 'items'>;
+  container: Container;
   selectedIndex: number | null;
   // TODO: this should be a separate component.
   equipmentWindow?: {
@@ -26,6 +27,41 @@ const getIndex = (e: PointerEvent): number | undefined => {
 
   const index = Number(slotEl.dataset.index);
   return index;
+};
+
+// function useContainer(game: Game, id: string) {
+//   const container = game.client.context.containers.get(id);
+//   const [, setContainer] = useState(container);
+
+//   useEffect(() => {
+//     const fn = (event: ProtocolEvent) => {
+//       if (event.type === 'setItem' && event.args.location.source === 'container' && event.args.location.id === id) {
+//         setContainer(container ? {...container} : undefined);
+//       }
+//     };
+//     game.client.eventEmitter.addListener('event', fn);
+//     return () => game.client.eventEmitter.removeListener('event', fn);
+//   }, [container, id]);
+
+//   return container;
+// }
+
+interface ContainerSlotsProps {
+  container: Container;
+  selectedIndex: number | null;
+}
+const ContainerSlots = (props: ContainerSlotsProps) => {
+  return <div class="container__slots">
+    {props.container.items.map((item, i) => {
+      const gfx = item && <ItemGraphic item={item}></ItemGraphic>;
+      return <div
+        class={c('container__slot', props.selectedIndex === i && 'container__slot--selected')}
+        data-index={i}
+      >
+        {gfx}
+      </div>;
+    })}
+  </div>;
 };
 
 export function makeContainerWindow(game: Game, container: Container, name?: string) {
@@ -82,7 +118,9 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
 
     let previewEl;
     if (props.equipmentWindow && props.equipmentWindow.equipmentGraphics) {
-      previewEl = <CustomCreatureGraphic graphics={props.equipmentWindow.equipmentGraphics}></CustomCreatureGraphic>;
+      previewEl = <CustomCreatureGraphic
+        scale={2}
+        graphics={props.equipmentWindow.equipmentGraphics}></CustomCreatureGraphic>;
     }
 
     let statsEl = null;
@@ -114,7 +152,8 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
     }
 
     let miscInfo = null;
-    const showMiscInfo = !Boolean(props.equipmentWindow) && creature;
+    const showMiscInfo =
+      !Boolean(props.equipmentWindow) && creature && game.client.player.containerId === props.container.id;
     if (showMiscInfo) {
       miscInfo = <div>
         <div>Burden: {burden} / {maxBurden}</div>
@@ -162,28 +201,31 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
       game.exitClickTileMode();
     };
 
+    let content;
+    if (props.equipmentWindow) {
+      content = <div class="flex align-items-center justify-around">
+        {previewEl}
+        <ContainerSlots container={props.container} selectedIndex={props.selectedIndex}></ContainerSlots>
+        {statsEl}
+      </div>;
+    } else {
+      content = <div>
+        <div class="flex align-items-center justify-around">
+          <ContainerSlots container={props.container} selectedIndex={props.selectedIndex}></ContainerSlots>
+        </div>
+        <div>
+          {actionsEl}
+          {miscInfo}
+        </div>
+      </div>;
+    }
+
     return <div class="m1" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp}>
       <div>
         {props.name || 'Container'}
       </div>
 
-      <div class="flex align-items-center justify-around">
-        <div class="container__slots">
-          {previewEl}
-          {props.container.items.map((item, i) => {
-            const gfx = item && <ItemGraphic item={item}></ItemGraphic>;
-            return <div
-              class={c('container__slot', props.selectedIndex === i && 'container__slot--selected')}
-              data-index={i}
-            >
-              {gfx}
-            </div>;
-          })}
-        </div>
-        {statsEl}
-      </div>
-      {actionsEl}
-      {miscInfo}
+      {content}
     </div>;
   };
 
