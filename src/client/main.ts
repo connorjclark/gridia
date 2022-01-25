@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       await controller.client.connection.sendCommand(CommandBuilder.createPlayer({
         name: playerName,
         attributes: new Map(),
-        skills: new Set(),
+        skills: new Map(),
       }));
       controller.startGame();
     }
