@@ -1818,16 +1818,17 @@ export class Server {
     // Handle hunger.
     this.taskRunner.registerTickSection({
       description: 'hunger',
-      rate: {minutes: 1},
+      rate: {minutes: 2},
       fn: () => {
         for (const creature of this.context.creatures.values()) {
-          if (!creature.eatGrass) return; // TODO: let all creature experience hunger pain.
+          if (!(creature.isPlayer || creature.eatGrass)) continue;
 
           if (creature.food <= 0) {
             // TODO: reduce stamina instead?
             this.modifyCreatureLife(null, creature, -10);
           } else {
             creature.food -= 1;
+            this.broadcastPartialCreatureUpdate(creature, ['food']);
           }
         }
       },
