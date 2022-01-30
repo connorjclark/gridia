@@ -594,10 +594,10 @@ button {
   background-color: #604f4f;
 }
 .container__slot:hover {
-  background-color: #cccca9;
+  background-color: var(--color-blue);
 }
 .container__slot--selected {
-  background-color: gold;
+  background-color: var(--color-blue);
 }
 
 .window--equipment .container__slots {
