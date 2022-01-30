@@ -75,6 +75,22 @@ export function useCreature(game: Game, id: number) {
   return creature;
 }
 
+export function usePlayer(game: Game) {
+  const [player, setPlayer] = useState(game.client.player);
+
+  useEffect(() => {
+    const fn = (event: ProtocolEvent) => {
+      if (event.type === 'initialize') {
+        setPlayer({...game.client.player});
+      }
+    };
+    game.client.eventEmitter.addListener('event', fn);
+    return () => game.client.eventEmitter.removeListener('event', fn);
+  }, []);
+
+  return player;
+}
+
 export function useContainerItems(game: Game, container: Container) {
   const [, setItems] = useState(container.items);
 

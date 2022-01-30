@@ -2,12 +2,13 @@ import {render, h} from 'preact';
 import {useEffect, useMemo, useState} from 'preact/hooks';
 
 import * as Content from '../../../content.js';
+import * as Player from '../../../player.js';
 import * as CommandBuilder from '../../../protocol/command-builder.js';
 import {ProtocolEvent} from '../../../protocol/event-builder.js';
 import * as Utils from '../../../utils.js';
 import {Game} from '../../game.js';
 import {CustomCreatureGraphic, ItemGraphic} from '../components/graphic.js';
-import {c, ComponentProps, createSubApp, useCreature} from '../ui-common.js';
+import {c, ComponentProps, createSubApp, useCreature, usePlayer} from '../ui-common.js';
 
 interface State {
   name?: string;
@@ -103,6 +104,10 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
   type Props = ComponentProps<State, typeof actions>;
   const ContainerWindow = (props: Props) => {
     const creature = useCreature(game, game.client.creatureId);
+    const player = usePlayer(game);
+    const maxBurden = useMemo(() => {
+      return Player.getMaxBurden(player);
+    }, [player]);
 
     const burden = useMemo(() => {
       let sum = 0;
@@ -113,8 +118,6 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
       }
       return sum;
     }, props.container.items.map((item) => item));
-
-    const maxBurden = 10_000;
 
     let previewEl;
     if (props.equipmentWindow && props.equipmentWindow.equipmentGraphics) {

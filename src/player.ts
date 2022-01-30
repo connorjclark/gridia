@@ -87,6 +87,11 @@ export function getAttributeValue(player: Player, id: string, buffs: Buff[]) {
   };
 }
 
+export function getMaxBurden(player: Player) {
+  // TODO: figure out a good multiplier for this.
+  return getAttributeValue(player, 'strength', player.buffs).level * 100;
+}
+
 export function incrementAttribute(player: Player, id: string) {
   const data = player.attributes.get(id);
   if (!Content.isAttribute(id) || !data) throw new Error('unknown attribute ' + id);

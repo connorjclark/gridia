@@ -1372,13 +1372,15 @@ export class Server {
   updateCreatureDataBasedOnInventory(playerConnection: PlayerConnection) {
     this.updateCreatureLight(playerConnection);
 
+    // TODO: count equipment weight ...
     const burden = Container.countBurden(playerConnection.container);
-    const maxBurden = 10_000;
-    // const maxBurden = Player.getAttributeValue(client.player, 'strength', client.player.buffs);
-    if (burden > maxBurden && !playerConnection.creature.buffs.find((b) => b.id === 'overburdened')) {
-      this.assignCreatureBuff(playerConnection.creature, {
-        id: 'overburdened', skill: -1, percentChange: -0.2, expiresAt: 0,
-      });
+    const maxBurden = Player.getMaxBurden(playerConnection.player);
+    if (burden > maxBurden) {
+      if (!playerConnection.creature.buffs.find((b) => b.id === 'overburdened')) {
+        this.assignCreatureBuff(playerConnection.creature, {
+          id: 'overburdened', skill: -1, percentChange: -0.3, expiresAt: 0,
+        });
+      }
     } else {
       this.removeCreatureBuff(playerConnection.creature, 'overburdened');
     }
