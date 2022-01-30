@@ -455,7 +455,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
 
       <h3>Input</h3>
 
-      <select onChange={(e: any) => setInputSelectionIndex(Number(e.target.value))} value={inputSelectionIndex}>
+      <select onChange={(e: any) => setInputSelectionIndex(e.target.valueAsNumber)} value={inputSelectionIndex}>
         <option value={0}>Use current location</option>
         {savedInputs.map((_, i) => <option value={i + 1}>Input #{i + 1}</option>)}
       </select>

@@ -27,7 +27,7 @@ declare namespace Protocol {
       attributes: Map<string, number>,
       skills: Map<number, 'learn' | 'specialize'>,
     }>;
-    type CreatureAction = Command<{ creatureId: number; type: 'attack' | 'tame' | 'speak' }>;
+    type CreatureAction = Command<{ creatureId: number; type: 'attack' | 'tame' | 'speak' | 'trade' }>;
     type DialogueResponse = Command<{ choiceIndex?: number }>;
     type EnterWorld = Command<{ playerId: string }>;
     type Login = Command<
@@ -37,6 +37,7 @@ declare namespace Protocol {
     type Logout = Command<{}>;
     type Move = Command<TilePoint, { resetLocation?: Point4 }>;
     type MoveItem = Command<{ from: ItemLocation; quantity?: number; to: ItemLocation }>;
+    type BuyItem = Command<{ from: ContainerLocation; quantity: number }>;
     type RegisterAccount = Command<{ firebaseToken: string }>;
     type RequestContainer = Command<{ containerId?: string; pos?: TilePoint }>;
     type RequestCreature = Command<{ id: number }>;

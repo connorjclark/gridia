@@ -34,6 +34,7 @@ import {makeContainerWindow} from './ui/windows/container-window.js';
 import {makeDialogueWindow} from './ui/windows/dialogue-window.js';
 import {makeHelpWindow} from './ui/windows/help-window.js';
 import {makeSpellsWindow} from './ui/windows/spells-window.js';
+import {makeStoreWindow} from './ui/windows/store-window.js';
 import {makeUsageSearchWindow} from './ui/windows/usage-search-window.js';
 import {WorldContainer} from './world-container.js';
 
@@ -339,6 +340,7 @@ export class Game {
 
   protected creatureSprites = new Map<number, CreatureSprite>();
   protected containerWindows = new Map<string, ReturnType<typeof makeContainerWindow>>();
+  protected storeWindow?: ReturnType<typeof makeStoreWindow>;
   protected attributesWindow = makeAttributesWindow(this);
   protected chatWindow = this.windowManager.createWindow({
     id: 'chat',
@@ -1325,6 +1327,21 @@ export class Game {
       if (id === this.client.player.containerId) name = 'Inventory';
       if (id === this.client.player.equipmentContainerId) name = 'Equipment';
 
+      if (container.type === 'merchant') {
+        if (this.storeWindow) continue;
+
+        this.storeWindow = makeStoreWindow(this, container, 'Store');
+        const close2 = () => {
+          if (this.storeWindow) this.storeWindow.delegate.remove();
+
+          game.client.eventEmitter.removeListener('playerMove', close2);
+          this.storeWindow = undefined;
+          game.client.context.containers.delete(container.id);
+        };
+        game.client.eventEmitter.on('playerMove', close2);
+        continue;
+      }
+
       containerWindow = makeContainerWindow(this, container, name);
       this.containerWindows.set(id, containerWindow);
 
@@ -1344,6 +1361,7 @@ export class Game {
         game.containerWindows.delete(container.id);
         game.client.context.containers.delete(container.id);
       }
+
     }
 
     const scale = this.client.settings.scale || 1;

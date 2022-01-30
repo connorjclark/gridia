@@ -1303,6 +1303,7 @@ export class Server {
     this.broadcastPartialCreatureUpdate(playerConnection.creature, ['light']);
   }
 
+  // TODO: move to Container
   setItemInContainer(id: string, index: number, item?: Item) {
     if (item?.quantity === 0) item = undefined;
 

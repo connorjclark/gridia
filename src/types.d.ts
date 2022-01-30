@@ -128,7 +128,7 @@ interface Player {
 
 interface Container {
   id: string;
-  type: 'normal' | 'equipment';
+  type: 'normal' | 'equipment' | 'merchant';
   items: Array<Item | null>;
 }
 
@@ -197,6 +197,9 @@ interface Creature {
   eatGrass: boolean;
   light: number;
   equipment?: Array<Item | null>;
+  merchant?: {
+    containerId: string;
+  };
   combatLevel: number;
   stats: {
     armor: number;
@@ -274,6 +277,7 @@ interface MetaItem {
   equipImage?: Graphics;
   graphics: Graphics;
   burden: number;
+  value?: number;
   growthDelta?: number;
   growthItem?: number;
   // TODO: notMoveable?: boolean;

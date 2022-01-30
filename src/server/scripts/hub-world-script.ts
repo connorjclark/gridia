@@ -40,7 +40,10 @@ export class HubWorldScript extends Script<{}> {
       if (partition === hubWorldPartition) continue;
 
       const warpFromPos = hubWorldWarpPositions.pop();
-      if (!warpFromPos) throw new Error('ran out of warp positions');
+      if (!warpFromPos) {
+        this.addError('ran out of warp positions');
+        break;
+      }
 
       const warpToPos = (await findWarpPositions(w, partition))[0] || {
         w,
@@ -78,6 +81,25 @@ export class HubWorldScript extends Script<{}> {
         quantity: 1,
         textContent: `Warp to ${hubWorldPartition.name}`,
       });
+    }
+
+    const creature = this.spawnCreature({
+      descriptor: {type: 203, partial: {name: 'Merchant'}},
+      pos: {
+        w: hubWorldW,
+        x: Math.floor(hubWorldPartition.width / 2),
+        y: Math.floor(hubWorldPartition.height / 2),
+        z: 0,
+      },
+    });
+    if (creature) {
+      const container = this.server.context.makeContainer('merchant', 10);
+      creature.merchant = {
+        containerId: container.id,
+      };
+      container.items[0] = {type: Content.getMetaItemByName('Mana Plant Seeds').id, quantity: 100};
+      container.items[1] = {type: Content.getMetaItemByName('Wood Planks').id, quantity: 100};
+      container.items[2] = {type: Content.getMetaItemByName('Soccer Ball').id, quantity: 100};
     }
   }
 }

@@ -18,6 +18,7 @@ import {WindowManager} from './window-manager.js';
 import {makeContainerWindow} from './windows/container-window.js';
 import {makeHelpWindow} from './windows/help-window.js';
 import {makePossibleUsagesWindow} from './windows/possible-usages-window.js';
+import {makeStoreWindow} from './windows/store-window.js';
 
 // super hacky file to render UI, copies / fakes a bunch of stuff from game.ts
 
@@ -243,7 +244,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         null,
       ],
     };
+
+    game.client.player.containerId = container.id;
     makeContainerWindow(game, container);
+    makeStoreWindow(game, container);
   }
 
   const scale = 1.5;

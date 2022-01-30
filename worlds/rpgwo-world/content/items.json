@@ -72,7 +72,8 @@
     },
     "moveable": true,
     "rarity": 1000,
-    "stackable": true
+    "stackable": true,
+    "value": 2
   },
   {
     "id": 5,
@@ -89,7 +90,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1
   },
   {
     "id": 6,
@@ -210,7 +212,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 13,
@@ -232,7 +235,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 14,
@@ -254,7 +258,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 15,
@@ -276,7 +281,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 16,
@@ -298,7 +304,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1000
   },
   {
     "id": 17,
@@ -320,7 +327,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1500
   },
   {
     "id": 18,
@@ -537,7 +545,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 27,
@@ -558,7 +567,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 28,
@@ -579,7 +589,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 29,
@@ -789,7 +800,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 38,
@@ -810,7 +822,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   null,
   {
@@ -1034,7 +1047,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   null,
   {
@@ -1232,7 +1246,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 59,
@@ -1253,7 +1268,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 60,
@@ -1404,7 +1420,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 66,
@@ -1451,7 +1468,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 68,
@@ -1472,7 +1490,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 69,
@@ -1672,7 +1691,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1000
   },
   {
     "id": 78,
@@ -1686,7 +1706,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 20
   },
   {
     "id": 79,
@@ -1865,7 +1886,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 88,
@@ -1880,7 +1902,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 89,
@@ -1895,7 +1918,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 90,
@@ -2050,7 +2074,8 @@
     "maxRange": 4,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 96,
@@ -2078,7 +2103,8 @@
     "maxRange": 6,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 97,
@@ -2106,7 +2132,8 @@
     "maxRange": 3,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": -1
   },
   {
     "id": 98,
@@ -2134,7 +2161,8 @@
     "maxRange": 5,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 99,
@@ -2385,7 +2413,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 300
   },
   {
     "id": 114,
@@ -2500,7 +2529,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 119,
@@ -2521,7 +2551,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 120,
@@ -2627,7 +2658,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 126,
@@ -2642,7 +2674,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 127,
@@ -2674,7 +2707,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 20
   },
   {
     "id": 129,
@@ -2688,7 +2722,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 130,
@@ -2707,7 +2742,8 @@
     "growthItem": 184,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 131,
@@ -2824,7 +2860,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 30
   },
   {
     "id": 138,
@@ -2879,7 +2916,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 20
   },
   {
     "id": 141,
@@ -2907,7 +2945,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 143,
@@ -2986,7 +3025,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 400
   },
   {
     "id": 148,
@@ -3001,7 +3041,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 149,
@@ -3030,7 +3071,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 20
   },
   {
     "id": 151,
@@ -3045,7 +3087,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 152,
@@ -3077,7 +3120,8 @@
     "growthDelta": 10000,
     "growthItem": 1110,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 5
   },
   {
     "id": 154,
@@ -3096,7 +3140,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 155,
@@ -3139,7 +3184,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 157,
@@ -3157,7 +3203,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 158,
@@ -3176,7 +3223,8 @@
     "growthItem": 171,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 159,
@@ -3513,7 +3561,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 179,
@@ -3528,7 +3577,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 30
   },
   {
     "id": 180,
@@ -3611,7 +3661,8 @@
     "growthDelta": 2000,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 185,
@@ -3639,7 +3690,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 187,
@@ -3687,7 +3739,8 @@
     "growthDelta": 1000,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 190,
@@ -3736,7 +3789,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 193,
@@ -3800,7 +3854,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 197,
@@ -3815,7 +3870,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 198,
@@ -3830,7 +3886,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 199,
@@ -4715,7 +4772,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 2
   },
   {
     "id": 256,
@@ -4730,7 +4788,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 257,
@@ -4905,7 +4964,8 @@
     "growthDelta": 2000,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 267,
@@ -4941,7 +5001,8 @@
     },
     "maxRange": 8,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 269,
@@ -4982,7 +5043,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 271,
@@ -5004,7 +5066,8 @@
     "maxRange": 3,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1
   },
   {
     "id": 272,
@@ -5026,7 +5089,8 @@
     "maxRange": 5,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 273,
@@ -5068,7 +5132,8 @@
     },
     "maxRange": 6,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 275,
@@ -5099,7 +5164,8 @@
     "growthDelta": 1000,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 277,
@@ -5113,7 +5179,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 278,
@@ -5159,7 +5226,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 20
   },
   {
     "id": 281,
@@ -5173,7 +5241,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 20
   },
   {
     "id": 282,
@@ -5188,7 +5257,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 283,
@@ -5321,7 +5391,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 290,
@@ -5335,7 +5406,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 30
   },
   {
     "id": 291,
@@ -5354,7 +5426,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 15
   },
   {
     "id": 292,
@@ -5373,7 +5446,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 293,
@@ -5501,7 +5575,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 30
   },
   {
     "id": 300,
@@ -5516,7 +5591,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 301,
@@ -5531,7 +5607,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 500
   },
   {
     "id": 302,
@@ -5546,7 +5623,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1000
   },
   {
     "id": 303,
@@ -5561,7 +5639,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10000
   },
   {
     "id": 304,
@@ -5576,7 +5655,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100000
   },
   {
     "id": 305,
@@ -5591,7 +5671,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5000
   },
   {
     "id": 306,
@@ -5743,7 +5824,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 316,
@@ -5758,7 +5840,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1
   },
   {
     "id": 317,
@@ -5774,7 +5857,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 318,
@@ -5788,7 +5872,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 319,
@@ -5935,7 +6020,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 5
   },
   {
     "id": 326,
@@ -5966,7 +6052,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 328,
@@ -5980,7 +6067,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 329,
@@ -5994,7 +6082,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 45
   },
   {
     "id": 330,
@@ -6049,7 +6138,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 333,
@@ -6063,7 +6153,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 334,
@@ -6077,7 +6168,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 45
   },
   {
     "id": 335,
@@ -6197,7 +6289,8 @@
     },
     "moveable": true,
     "rarity": 125,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 342,
@@ -6235,7 +6328,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 344,
@@ -6250,7 +6344,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 25
   },
   {
     "id": 345,
@@ -6265,7 +6360,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 25
   },
   {
     "id": 346,
@@ -6280,7 +6376,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 200
   },
   {
     "id": 347,
@@ -6295,7 +6392,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 200
   },
   {
     "id": 348,
@@ -6310,7 +6408,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 45
   },
   {
     "id": 349,
@@ -6325,7 +6424,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 350,
@@ -6341,7 +6441,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 20
   },
   {
     "id": 351,
@@ -6357,7 +6458,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 30
   },
   {
     "id": 352,
@@ -6372,7 +6474,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 353,
@@ -6426,7 +6529,8 @@
     "growthItem": 348,
     "light": 1,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 45
   },
   {
     "id": 356,
@@ -6460,7 +6564,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 358,
@@ -6545,7 +6650,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 362,
@@ -6566,7 +6672,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 300
   },
   {
     "id": 363,
@@ -6580,7 +6687,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 364,
@@ -6628,7 +6736,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 367,
@@ -6745,7 +6854,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 373,
@@ -6803,7 +6913,8 @@
     },
     "light": 8,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 2000
   },
   {
     "id": 376,
@@ -6818,7 +6929,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 377,
@@ -6833,7 +6945,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 378,
@@ -6848,7 +6961,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 379,
@@ -6863,7 +6977,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 380,
@@ -6915,7 +7030,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 250
   },
   {
     "id": 383,
@@ -6966,7 +7082,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 386,
@@ -6980,7 +7097,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 387,
@@ -6995,7 +7113,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 388,
@@ -7010,7 +7129,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 389,
@@ -7025,7 +7145,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 390,
@@ -7040,7 +7161,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 391,
@@ -7055,7 +7177,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 392,
@@ -7069,7 +7192,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 393,
@@ -7083,7 +7207,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 394,
@@ -7097,7 +7222,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 395,
@@ -7111,7 +7237,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 396,
@@ -7125,7 +7252,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 397,
@@ -7139,7 +7267,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 398,
@@ -7257,7 +7386,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 406,
@@ -7272,7 +7402,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 407,
@@ -7287,7 +7418,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 408,
@@ -7336,7 +7468,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 411,
@@ -7352,7 +7485,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 25
   },
   {
     "id": 412,
@@ -7368,7 +7502,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 25
   },
   {
     "id": 413,
@@ -7384,7 +7519,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 25
   },
   {
     "id": 414,
@@ -7467,7 +7603,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 25
   },
   {
     "id": 419,
@@ -7742,7 +7879,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 436,
@@ -7756,7 +7894,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 437,
@@ -7770,7 +7909,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 438,
@@ -7784,7 +7924,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 439,
@@ -7827,7 +7968,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 442,
@@ -7848,7 +7990,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 443,
@@ -7862,7 +8005,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 444,
@@ -7876,7 +8020,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 445,
@@ -7897,7 +8042,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 446,
@@ -7918,7 +8064,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 80
   },
   {
     "id": 447,
@@ -7932,7 +8079,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 448,
@@ -7946,7 +8094,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 449,
@@ -7960,7 +8109,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 450,
@@ -8242,7 +8392,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 468,
@@ -8256,7 +8407,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 469,
@@ -8270,7 +8422,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 470,
@@ -8284,7 +8437,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 471,
@@ -8305,7 +8459,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 300
   },
   {
     "id": 472,
@@ -8365,7 +8520,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 476,
@@ -8458,7 +8614,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 481,
@@ -8474,7 +8631,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 482,
@@ -8488,7 +8646,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 483,
@@ -8502,7 +8661,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 484,
@@ -8516,7 +8676,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 485,
@@ -8530,7 +8691,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 486,
@@ -8544,7 +8706,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 487,
@@ -8558,7 +8721,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 488,
@@ -8572,7 +8736,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 489,
@@ -8595,7 +8760,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 400
   },
   {
     "id": 490,
@@ -8656,7 +8822,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 494,
@@ -8684,7 +8851,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 496,
@@ -8698,7 +8866,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 497,
@@ -8714,7 +8883,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 498,
@@ -8730,7 +8900,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 499,
@@ -8746,7 +8917,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 500,
@@ -9021,7 +9193,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 60
   },
   {
     "id": 518,
@@ -9043,7 +9216,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 80
   },
   {
     "id": 519,
@@ -9065,7 +9239,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 520,
@@ -9087,7 +9262,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 60
   },
   {
     "id": 521,
@@ -9109,7 +9285,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 522,
@@ -9131,7 +9308,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 140
   },
   {
     "id": 523,
@@ -9153,7 +9331,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 300
   },
   {
     "id": 524,
@@ -9175,7 +9354,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 320
   },
   {
     "id": 525,
@@ -9197,7 +9377,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 340
   },
   {
     "id": 526,
@@ -9219,7 +9400,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 320
   },
   {
     "id": 527,
@@ -9241,7 +9423,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 380
   },
   {
     "id": 528,
@@ -9263,7 +9446,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 400
   },
   {
     "id": 529,
@@ -9285,7 +9469,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 120
   },
   {
     "id": 530,
@@ -9307,7 +9492,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 140
   },
   {
     "id": 531,
@@ -9329,7 +9515,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 160
   },
   {
     "id": 532,
@@ -9351,7 +9538,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 240
   },
   {
     "id": 533,
@@ -9373,7 +9561,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 260
   },
   {
     "id": 534,
@@ -9395,7 +9584,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 280
   },
   {
     "id": 535,
@@ -9417,7 +9607,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 420
   },
   {
     "id": 536,
@@ -9439,7 +9630,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 440
   },
   {
     "id": 537,
@@ -9461,7 +9653,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 460
   },
   {
     "id": 538,
@@ -9475,7 +9668,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 539,
@@ -9489,7 +9683,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 540,
@@ -9505,7 +9700,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 300
   },
   {
     "id": 541,
@@ -9519,7 +9715,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 300
   },
   {
     "id": 542,
@@ -9533,7 +9730,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 543,
@@ -9547,7 +9745,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 544,
@@ -9563,7 +9762,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 545,
@@ -9579,7 +9779,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 600
   },
   {
     "id": 546,
@@ -9594,7 +9795,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 547,
@@ -9611,7 +9813,8 @@
     "growthDelta": 1000,
     "growthItem": 546,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 548,
@@ -9625,7 +9828,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 549,
@@ -9639,7 +9843,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 550,
@@ -9773,7 +9978,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 40
   },
   {
     "id": 559,
@@ -9801,7 +10007,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 30
   },
   {
     "id": 561,
@@ -9929,7 +10136,8 @@
     "growthDelta": 1000,
     "growthItem": 548,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 570,
@@ -9945,7 +10153,8 @@
     "growthDelta": 1000,
     "growthItem": 549,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 571,
@@ -10054,7 +10263,8 @@
     "growthItem": 577,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 577,
@@ -10261,7 +10471,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 30
   },
   {
     "id": 590,
@@ -10276,7 +10487,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 30
   },
   {
     "id": 591,
@@ -10291,7 +10503,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 30
   },
   {
     "id": 592,
@@ -10306,7 +10519,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 30
   },
   {
     "id": 593,
@@ -10321,7 +10535,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 30
   },
   {
     "id": 594,
@@ -10336,7 +10551,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 595,
@@ -10351,7 +10567,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 596,
@@ -10366,7 +10583,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 597,
@@ -10381,7 +10599,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 598,
@@ -10396,7 +10615,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 599,
@@ -10411,7 +10631,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 600,
@@ -10634,7 +10855,8 @@
     "growthItem": 607,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 613,
@@ -10652,7 +10874,8 @@
     "growthItem": 607,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 614,
@@ -10670,7 +10893,8 @@
     "growthItem": 607,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 615,
@@ -10689,7 +10913,8 @@
     "growthItem": 607,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 616,
@@ -10964,7 +11189,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 632,
@@ -10983,7 +11209,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 633,
@@ -11002,7 +11229,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 634,
@@ -11021,7 +11249,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 635,
@@ -11057,7 +11286,8 @@
     "growthItem": 607,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 637,
@@ -11076,7 +11306,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 638,
@@ -11093,7 +11324,8 @@
     "growthItem": 1056,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 639,
@@ -11110,7 +11342,8 @@
     "growthItem": 1056,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 640,
@@ -11125,7 +11358,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 641,
@@ -11140,7 +11374,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 642,
@@ -11155,7 +11390,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 643,
@@ -11170,7 +11406,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 644,
@@ -11185,7 +11422,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 645,
@@ -11200,7 +11438,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 646,
@@ -11215,7 +11454,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 647,
@@ -11230,7 +11470,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 648,
@@ -11245,7 +11486,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 649,
@@ -11260,7 +11502,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 650,
@@ -11275,7 +11518,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 651,
@@ -11318,7 +11562,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 654,
@@ -11333,7 +11578,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 655,
@@ -12027,7 +12273,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 701,
@@ -12043,7 +12290,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 702,
@@ -12059,7 +12307,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 703,
@@ -12075,7 +12324,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 704,
@@ -12090,7 +12340,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 705,
@@ -12105,7 +12356,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 706,
@@ -12120,7 +12372,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 707,
@@ -12135,7 +12388,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 708,
@@ -12150,7 +12404,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 709,
@@ -12165,7 +12420,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 710,
@@ -12180,7 +12436,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 711,
@@ -12195,7 +12452,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 712,
@@ -12210,7 +12468,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 713,
@@ -12225,7 +12484,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 714,
@@ -12240,7 +12500,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 715,
@@ -12255,7 +12516,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 716,
@@ -12270,7 +12532,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 717,
@@ -12285,7 +12548,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 718,
@@ -12300,7 +12564,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 719,
@@ -12315,7 +12580,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 720,
@@ -12330,7 +12596,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 721,
@@ -12345,7 +12612,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 722,
@@ -12360,7 +12628,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 723,
@@ -12375,7 +12644,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 724,
@@ -12390,7 +12660,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 725,
@@ -12405,7 +12676,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 726,
@@ -12420,7 +12692,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 727,
@@ -12435,7 +12708,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 728,
@@ -12450,7 +12724,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 70
   },
   {
     "id": 729,
@@ -12472,7 +12747,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 220
   },
   {
     "id": 730,
@@ -12494,7 +12770,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 731,
@@ -12516,7 +12793,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 180
   },
   {
     "id": 732,
@@ -12538,7 +12816,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 60
   },
   {
     "id": 733,
@@ -12560,7 +12839,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 80
   },
   {
     "id": 734,
@@ -12582,7 +12862,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 735,
@@ -12604,7 +12885,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 60
   },
   {
     "id": 736,
@@ -12626,7 +12908,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 737,
@@ -12648,7 +12931,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 140
   },
   {
     "id": 738,
@@ -12670,7 +12954,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 300
   },
   {
     "id": 739,
@@ -12692,7 +12977,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 320
   },
   {
     "id": 740,
@@ -12714,7 +13000,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 340
   },
   {
     "id": 741,
@@ -12736,7 +13023,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 360
   },
   {
     "id": 742,
@@ -12758,7 +13046,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 380
   },
   {
     "id": 743,
@@ -12780,7 +13069,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 400
   },
   {
     "id": 744,
@@ -12802,7 +13092,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 120
   },
   {
     "id": 745,
@@ -12824,7 +13115,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 140
   },
   {
     "id": 746,
@@ -12846,7 +13138,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 160
   },
   {
     "id": 747,
@@ -12868,7 +13161,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 240
   },
   {
     "id": 748,
@@ -12890,7 +13184,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 260
   },
   {
     "id": 749,
@@ -12912,7 +13207,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 280
   },
   {
     "id": 750,
@@ -12934,7 +13230,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 420
   },
   {
     "id": 751,
@@ -12956,7 +13253,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 440
   },
   {
     "id": 752,
@@ -12978,7 +13276,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 460
   },
   {
     "id": 753,
@@ -13000,7 +13299,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 55
   },
   {
     "id": 754,
@@ -13022,7 +13322,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 755,
@@ -13044,7 +13345,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 45
   },
   {
     "id": 756,
@@ -13066,7 +13368,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 15
   },
   {
     "id": 757,
@@ -13088,7 +13391,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 20
   },
   {
     "id": 758,
@@ -13110,7 +13414,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 25
   },
   {
     "id": 759,
@@ -13132,7 +13437,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 15
   },
   {
     "id": 760,
@@ -13154,7 +13460,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 25
   },
   {
     "id": 761,
@@ -13176,7 +13483,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 35
   },
   {
     "id": 762,
@@ -13198,7 +13506,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 75
   },
   {
     "id": 763,
@@ -13220,7 +13529,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 80
   },
   {
     "id": 764,
@@ -13242,7 +13552,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 85
   },
   {
     "id": 765,
@@ -13264,7 +13575,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 90
   },
   {
     "id": 766,
@@ -13286,7 +13598,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 95
   },
   {
     "id": 767,
@@ -13308,7 +13621,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 768,
@@ -13330,7 +13644,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 30
   },
   {
     "id": 769,
@@ -13352,7 +13667,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 35
   },
   {
     "id": 770,
@@ -13374,7 +13690,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 40
   },
   {
     "id": 771,
@@ -13396,7 +13713,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 60
   },
   {
     "id": 772,
@@ -13418,7 +13736,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 65
   },
   {
     "id": 773,
@@ -13440,7 +13759,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 70
   },
   {
     "id": 774,
@@ -13462,7 +13782,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 105
   },
   {
     "id": 775,
@@ -13484,7 +13805,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 110
   },
   {
     "id": 776,
@@ -13506,7 +13828,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 115
   },
   {
     "id": 777,
@@ -13521,7 +13844,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 778,
@@ -13536,7 +13860,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 779,
@@ -13551,7 +13876,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 780,
@@ -13566,7 +13892,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 781,
@@ -13581,7 +13908,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 782,
@@ -13596,7 +13924,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 783,
@@ -13611,7 +13940,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 784,
@@ -13626,7 +13956,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 785,
@@ -13641,7 +13972,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 786,
@@ -13656,7 +13988,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 787,
@@ -13678,7 +14011,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 15
   },
   {
     "id": 788,
@@ -13700,7 +14034,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 20
   },
   {
     "id": 789,
@@ -13715,7 +14050,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 40
   },
   {
     "id": 790,
@@ -13730,7 +14066,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 60
   },
   {
     "id": 791,
@@ -13745,7 +14082,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 792,
@@ -13759,7 +14097,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 793,
@@ -13773,7 +14112,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 794,
@@ -13787,7 +14127,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 795,
@@ -13801,7 +14142,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 40
   },
   {
     "id": 796,
@@ -13815,7 +14157,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 60
   },
   {
     "id": 797,
@@ -13829,7 +14172,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 798,
@@ -13844,7 +14188,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 799,
@@ -13859,7 +14204,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 800,
@@ -13874,7 +14220,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 801,
@@ -13889,7 +14236,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 40
   },
   {
     "id": 802,
@@ -13904,7 +14252,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 60
   },
   {
     "id": 803,
@@ -13919,7 +14268,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 804,
@@ -13933,7 +14283,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 805,
@@ -13947,7 +14298,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 806,
@@ -13961,7 +14313,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 807,
@@ -13975,7 +14328,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 808,
@@ -13989,7 +14343,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 809,
@@ -14003,7 +14358,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 810,
@@ -14020,7 +14376,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 811,
@@ -14035,7 +14392,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 812,
@@ -14049,7 +14407,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 813,
@@ -14063,7 +14422,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 70
   },
   {
     "id": 814,
@@ -14080,7 +14440,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 815,
@@ -14094,7 +14455,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 816,
@@ -14108,7 +14470,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 817,
@@ -14122,7 +14485,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 818,
@@ -14136,7 +14500,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 819,
@@ -14150,7 +14515,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 820,
@@ -14165,7 +14531,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 821,
@@ -14179,7 +14546,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 822,
@@ -14193,7 +14561,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 823,
@@ -14208,7 +14577,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 824,
@@ -14223,7 +14593,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 30
   },
   {
     "id": 825,
@@ -14253,7 +14624,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 150
   },
   {
     "id": 827,
@@ -14403,7 +14775,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 15
   },
   {
     "id": 836,
@@ -14417,7 +14790,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 40
   },
   {
     "id": 837,
@@ -14549,7 +14923,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 844,
@@ -14565,7 +14940,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1000
   },
   {
     "id": 845,
@@ -14579,7 +14955,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 846,
@@ -14594,7 +14971,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "standDamage": 10
+    "standDamage": 10,
+    "value": 100
   },
   {
     "id": 847,
@@ -14608,7 +14986,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 848,
@@ -14623,7 +15002,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "standDamage": 25
+    "standDamage": 25,
+    "value": 200
   },
   {
     "id": 849,
@@ -14637,7 +15017,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 300
   },
   {
     "id": 850,
@@ -14652,7 +15033,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "standDamage": 50
+    "standDamage": 50,
+    "value": 300
   },
   {
     "id": 851,
@@ -14666,7 +15048,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 852,
@@ -14697,7 +15080,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 854,
@@ -14714,7 +15098,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 855,
@@ -14731,7 +15116,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 856,
@@ -14762,7 +15148,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 858,
@@ -14779,7 +15166,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 859,
@@ -14810,7 +15198,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 861,
@@ -14841,7 +15230,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 863,
@@ -14872,7 +15262,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 865,
@@ -14903,7 +15294,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 867,
@@ -14924,7 +15316,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 350
   },
   {
     "id": 868,
@@ -14945,7 +15338,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 350
   },
   {
     "id": 869,
@@ -14966,7 +15360,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 870,
@@ -14987,7 +15382,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 871,
@@ -15008,7 +15404,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 750
   },
   {
     "id": 872,
@@ -15029,7 +15426,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 750
   },
   {
     "id": 873,
@@ -15060,7 +15458,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 875,
@@ -15091,7 +15490,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 877,
@@ -15122,7 +15522,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 879,
@@ -15153,7 +15554,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 881,
@@ -15185,7 +15587,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 883,
@@ -15216,7 +15619,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 885,
@@ -15247,7 +15651,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 887,
@@ -15278,7 +15683,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 889,
@@ -15309,7 +15715,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 891,
@@ -15340,7 +15747,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 893,
@@ -15371,7 +15779,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 895,
@@ -15386,7 +15795,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 896,
@@ -15417,7 +15827,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 898,
@@ -15432,7 +15843,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 899,
@@ -15460,7 +15872,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 901,
@@ -15474,7 +15887,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 902,
@@ -15488,7 +15902,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 903,
@@ -15503,7 +15918,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 5
   },
   {
     "id": 904,
@@ -15518,7 +15934,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 5
   },
   {
     "id": 905,
@@ -15533,7 +15950,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 5
   },
   {
     "id": 906,
@@ -15548,7 +15966,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 5
   },
   {
     "id": 907,
@@ -15563,7 +15982,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 5
   },
   {
     "id": 908,
@@ -15578,7 +15998,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 5
   },
   {
     "id": 909,
@@ -15593,7 +16014,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 5
   },
   {
     "id": 910,
@@ -15608,7 +16030,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 5
   },
   {
     "id": 911,
@@ -15623,7 +16046,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 5
   },
   {
     "id": 912,
@@ -15638,7 +16062,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 5
   },
   {
     "id": 913,
@@ -15717,7 +16142,8 @@
     },
     "moveable": true,
     "rarity": 10,
-    "stackable": true
+    "stackable": true,
+    "value": 250
   },
   {
     "id": 918,
@@ -15732,7 +16158,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 250
   },
   {
     "id": 919,
@@ -15747,7 +16174,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 250
   },
   {
     "id": 920,
@@ -15762,7 +16190,8 @@
     },
     "moveable": true,
     "rarity": 2,
-    "stackable": true
+    "stackable": true,
+    "value": 400
   },
   {
     "id": 921,
@@ -15777,7 +16206,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 400
   },
   {
     "id": 922,
@@ -15792,7 +16222,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 400
   },
   {
     "id": 923,
@@ -15807,7 +16238,8 @@
     },
     "moveable": true,
     "rarity": 100,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 924,
@@ -15822,7 +16254,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 925,
@@ -15837,7 +16270,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 926,
@@ -15852,7 +16286,8 @@
     },
     "moveable": true,
     "rarity": 100,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 927,
@@ -15867,7 +16302,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 928,
@@ -15882,7 +16318,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 929,
@@ -15897,7 +16334,8 @@
     },
     "moveable": true,
     "rarity": 500,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 930,
@@ -15912,7 +16350,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 931,
@@ -15927,7 +16366,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 932,
@@ -15942,7 +16382,8 @@
     },
     "moveable": true,
     "rarity": 400,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 933,
@@ -15957,7 +16398,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 934,
@@ -15972,7 +16414,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 935,
@@ -15987,7 +16430,8 @@
     },
     "moveable": true,
     "rarity": 50,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 936,
@@ -16002,7 +16446,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 937,
@@ -16017,7 +16462,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 938,
@@ -16032,7 +16478,8 @@
     },
     "moveable": true,
     "rarity": 2,
-    "stackable": true
+    "stackable": true,
+    "value": 500
   },
   {
     "id": 939,
@@ -16047,7 +16494,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 500
   },
   {
     "id": 940,
@@ -16062,7 +16510,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 500
   },
   {
     "id": 941,
@@ -16223,7 +16672,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 950,
@@ -16254,7 +16704,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 952,
@@ -16285,7 +16736,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 954,
@@ -16316,7 +16768,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 956,
@@ -16347,7 +16800,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 958,
@@ -16378,7 +16832,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 960,
@@ -16393,7 +16848,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 961,
@@ -16424,7 +16880,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 963,
@@ -16439,7 +16896,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 964,
@@ -16470,7 +16928,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 966,
@@ -16485,7 +16944,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   null,
   {
@@ -16501,7 +16961,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 969,
@@ -16523,7 +16984,8 @@
     },
     "light": 3,
     "moveable": false,
-    "rarity": 50
+    "rarity": 50,
+    "value": 1000
   },
   {
     "id": 970,
@@ -16541,7 +17003,8 @@
     "light": 3,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 971,
@@ -16557,7 +17020,8 @@
     "light": 3,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 200
   },
   {
     "id": 972,
@@ -16572,7 +17036,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 973,
@@ -16587,7 +17052,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 974,
@@ -16602,7 +17068,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 975,
@@ -16617,7 +17084,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 976,
@@ -16632,7 +17100,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 977,
@@ -16838,7 +17307,8 @@
     "moveable": true,
     "rarity": 1,
     "readable": true,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 991,
@@ -16854,7 +17324,8 @@
     "moveable": true,
     "rarity": 1,
     "readable": true,
-    "stackable": true
+    "stackable": true,
+    "value": 30
   },
   {
     "id": 992,
@@ -16868,7 +17339,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 993,
@@ -16882,7 +17354,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 994,
@@ -16896,7 +17369,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 995,
@@ -16911,7 +17385,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   null,
   {
@@ -16943,7 +17418,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 999,
@@ -16958,7 +17434,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1000,
@@ -16972,7 +17449,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1001,
@@ -16990,7 +17468,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1002,
@@ -17008,7 +17487,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 2
   },
   null,
   {
@@ -17042,7 +17522,8 @@
     },
     "light": 5,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 1006,
@@ -17133,7 +17614,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1012,
@@ -17148,7 +17630,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1013,
@@ -17162,7 +17645,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 1014,
@@ -17220,7 +17704,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 30
   },
   {
     "id": 1017,
@@ -17262,7 +17747,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1020,
@@ -17337,7 +17823,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1025,
@@ -17353,7 +17840,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1026,
@@ -17449,7 +17937,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1032,
@@ -17463,7 +17952,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1033,
@@ -17481,7 +17971,8 @@
     "growthItem": 1034,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 1034,
@@ -17498,7 +17989,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 30
   },
   {
     "id": 1035,
@@ -17534,7 +18026,8 @@
     "growthItem": 1039,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1037,
@@ -17553,7 +18046,8 @@
     "growthItem": 1110,
     "light": 3,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1038,
@@ -17583,7 +18077,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1040,
@@ -17597,7 +18092,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1041,
@@ -17611,7 +18107,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1042,
@@ -17630,7 +18127,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1043,
@@ -17649,7 +18147,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1044,
@@ -17668,7 +18167,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1045,
@@ -17687,7 +18187,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1046,
@@ -17706,7 +18207,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1047,
@@ -17723,7 +18225,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1048,
@@ -17773,7 +18276,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1052,
@@ -17809,7 +18313,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   null,
   null,
@@ -17841,7 +18346,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1058,
@@ -17875,7 +18381,8 @@
     "growthDelta": 700,
     "growthItem": 1110,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1060,
@@ -17892,7 +18399,8 @@
     "growthDelta": 700,
     "growthItem": 1110,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 20
   },
   {
     "id": 1061,
@@ -18006,7 +18514,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1068,
@@ -18025,7 +18534,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1069,
@@ -18057,7 +18567,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1071,
@@ -18075,7 +18586,8 @@
     "growthItem": 1072,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 30
   },
   {
     "id": 1072,
@@ -18128,7 +18640,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1075,
@@ -18147,7 +18660,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 15
   },
   {
     "id": 1076,
@@ -18166,7 +18680,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1077,
@@ -18239,7 +18754,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1081,
@@ -18262,7 +18778,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1082,
@@ -18285,7 +18802,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1083,
@@ -18308,7 +18826,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1084,
@@ -18331,7 +18850,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1085,
@@ -18423,7 +18943,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1093,
@@ -18454,7 +18975,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 1095,
@@ -18469,7 +18991,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1096,
@@ -18484,7 +19007,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1097,
@@ -18512,7 +19036,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1099,
@@ -18526,7 +19051,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 150
   },
   {
     "id": 1100,
@@ -18540,7 +19066,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1101,
@@ -18554,7 +19081,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1102,
@@ -18571,7 +19099,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 1103,
@@ -18586,7 +19115,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1104,
@@ -18601,7 +19131,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1105,
@@ -18615,7 +19146,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 1106,
@@ -18646,7 +19178,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 1108,
@@ -18661,7 +19194,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1109,
@@ -18676,7 +19210,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1110,
@@ -18709,7 +19244,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 30
   },
   {
     "id": 1112,
@@ -18724,7 +19260,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1113,
@@ -18739,7 +19276,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 20
   },
   {
     "id": 1114,
@@ -18756,7 +19294,8 @@
     "growthDelta": 288,
     "growthItem": 1110,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1115,
@@ -18770,7 +19309,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1116,
@@ -18836,7 +19376,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 200
   },
   {
     "id": 1120,
@@ -18851,7 +19392,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1121,
@@ -18965,7 +19507,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 2
   },
   {
     "id": 1126,
@@ -18983,7 +19526,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 4
   },
   {
     "id": 1127,
@@ -19002,7 +19546,8 @@
     "light": 2,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 2
   },
   {
     "id": 1128,
@@ -19020,7 +19565,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 2
   },
   {
     "id": 1129,
@@ -19382,7 +19928,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1
   },
   {
     "id": 1146,
@@ -19400,7 +19947,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 2
   },
   {
     "id": 1147,
@@ -19419,7 +19967,8 @@
     "light": 2,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1
   },
   {
     "id": 1148,
@@ -19437,7 +19986,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1
   },
   {
     "id": 1149,
@@ -19454,7 +20004,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": -1
   },
   {
     "id": 1150,
@@ -19471,7 +20022,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": -1
   },
   {
     "id": 1151,
@@ -19566,7 +20118,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 1155,
@@ -19608,7 +20161,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "standDamage": 10
+    "standDamage": 10,
+    "value": 50
   },
   {
     "id": 1157,
@@ -19624,7 +20178,8 @@
     "growthDelta": 2,
     "growthItem": 1156,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1158,
@@ -19639,7 +20194,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "standDamage": 25
+    "standDamage": 25,
+    "value": 100
   },
   {
     "id": 1159,
@@ -19655,7 +20211,8 @@
     "growthDelta": 2,
     "growthItem": 1158,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1160,
@@ -19670,7 +20227,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "standDamage": 50
+    "standDamage": 50,
+    "value": 150
   },
   {
     "id": 1161,
@@ -19686,7 +20244,8 @@
     "growthDelta": 2,
     "growthItem": 1160,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 150
   },
   {
     "id": 1162,
@@ -19745,7 +20304,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1165,
@@ -19760,7 +20320,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1166,
@@ -19777,7 +20338,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 1167,
@@ -19794,7 +20356,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 1168,
@@ -19809,7 +20372,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1169,
@@ -19824,7 +20388,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1170,
@@ -19839,7 +20404,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1171,
@@ -19854,7 +20420,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1172,
@@ -19869,7 +20436,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1173,
@@ -19884,7 +20452,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1174,
@@ -19899,7 +20468,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1175,
@@ -19914,7 +20484,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1176,
@@ -19929,7 +20500,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1177,
@@ -19944,7 +20516,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1178,
@@ -19959,7 +20532,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1179,
@@ -19974,7 +20548,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1180,
@@ -19989,7 +20564,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1181,
@@ -20004,7 +20580,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1182,
@@ -20019,7 +20596,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1183,
@@ -20034,7 +20612,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1184,
@@ -20049,7 +20628,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1185,
@@ -20064,7 +20644,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1186,
@@ -20079,7 +20660,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1187,
@@ -20094,7 +20676,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1188,
@@ -20109,7 +20692,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1189,
@@ -20124,7 +20708,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1190,
@@ -20139,7 +20724,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1191,
@@ -20154,7 +20740,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1192,
@@ -20169,7 +20756,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1193,
@@ -20184,7 +20772,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1194,
@@ -20199,7 +20788,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1195,
@@ -20214,7 +20804,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1196,
@@ -20229,7 +20820,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1197,
@@ -20244,7 +20836,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1198,
@@ -20259,7 +20852,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1199,
@@ -20274,7 +20868,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1200,
@@ -20289,7 +20884,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1201,
@@ -20307,7 +20903,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1000
   },
   {
     "id": 1202,
@@ -20428,7 +21025,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1000
   },
   {
     "id": 1207,
@@ -20444,7 +21042,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1300
   },
   {
     "id": 1208,
@@ -20459,7 +21058,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 1209,
@@ -20480,7 +21080,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1500
   },
   {
     "id": 1210,
@@ -20495,7 +21096,8 @@
     },
     "moveable": true,
     "rarity": 7500,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1211,
@@ -20509,7 +21111,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1212,
@@ -20592,7 +21195,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "Damage"
+    "trapEffect": "Damage",
+    "value": 0
   },
   {
     "id": 1216,
@@ -20607,7 +21211,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "Monster"
+    "trapEffect": "Monster",
+    "value": 0
   },
   {
     "id": 1217,
@@ -20621,7 +21226,8 @@
       ]
     },
     "moveable": false,
-    "rarity": 1
+    "rarity": 1,
+    "value": 0
   },
   {
     "id": 1218,
@@ -20636,7 +21242,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "Warp"
+    "trapEffect": "Warp",
+    "value": 0
   },
   {
     "id": 1219,
@@ -20651,7 +21258,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "Trigger"
+    "trapEffect": "Trigger",
+    "value": 0
   },
   {
     "id": 1220,
@@ -20666,7 +21274,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "Hero"
+    "trapEffect": "Hero",
+    "value": 0
   },
   {
     "id": 1221,
@@ -20681,7 +21290,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "Nova"
+    "trapEffect": "Nova",
+    "value": 0
   },
   {
     "id": 1222,
@@ -20696,7 +21306,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "Ice"
+    "trapEffect": "Ice",
+    "value": 0
   },
   {
     "id": 1223,
@@ -20711,7 +21322,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "Blind"
+    "trapEffect": "Blind",
+    "value": 0
   },
   {
     "id": 1224,
@@ -20726,7 +21338,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "Heal"
+    "trapEffect": "Heal",
+    "value": 0
   },
   {
     "id": 1225,
@@ -20741,7 +21354,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "Revive"
+    "trapEffect": "Revive",
+    "value": 0
   },
   null,
   {
@@ -20757,7 +21371,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "ItemTransform"
+    "trapEffect": "ItemTransform",
+    "value": 0
   },
   {
     "id": 1228,
@@ -20772,7 +21387,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "Warp"
+    "trapEffect": "Warp",
+    "value": 0
   },
   {
     "id": 1229,
@@ -20787,7 +21403,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "Trigger"
+    "trapEffect": "Trigger",
+    "value": 0
   },
   {
     "id": 1230,
@@ -20802,7 +21419,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "Trigger"
+    "trapEffect": "Trigger",
+    "value": 0
   },
   {
     "id": 1231,
@@ -20816,7 +21434,8 @@
       ]
     },
     "moveable": false,
-    "rarity": 1
+    "rarity": 1,
+    "value": 0
   },
   {
     "id": 1232,
@@ -20830,7 +21449,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1233,
@@ -20844,7 +21464,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1234,
@@ -20858,7 +21479,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1235,
@@ -20872,7 +21494,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1236,
@@ -20886,7 +21509,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1237,
@@ -20900,7 +21524,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1238,
@@ -20914,7 +21539,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1239,
@@ -20928,7 +21554,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1240,
@@ -20942,7 +21569,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1241,
@@ -20956,7 +21584,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1242,
@@ -20970,7 +21599,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1243,
@@ -20984,7 +21614,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1244,
@@ -20998,7 +21629,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1245,
@@ -21012,7 +21644,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1246,
@@ -21026,7 +21659,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1247,
@@ -21040,7 +21674,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1248,
@@ -21083,7 +21718,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "Warp"
+    "trapEffect": "Warp",
+    "value": 0
   },
   {
     "id": 1250,
@@ -21158,7 +21794,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 50
   },
   {
     "id": 1255,
@@ -21188,7 +21825,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1257,
@@ -21205,7 +21843,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1258,
@@ -21220,7 +21859,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   null,
   {
@@ -21258,7 +21898,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1000
   },
   {
     "id": 1262,
@@ -21280,7 +21921,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 2500
   },
   {
     "id": 1263,
@@ -21302,7 +21944,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 2500
   },
   {
     "id": 1264,
@@ -21324,7 +21967,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 5000
   },
   {
     "id": 1265,
@@ -21346,7 +21990,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 3500
   },
   {
     "id": 1266,
@@ -21368,7 +22013,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 7000
   },
   {
     "id": 1267,
@@ -21390,7 +22036,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1000
   },
   {
     "id": 1268,
@@ -21405,7 +22052,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1269,
@@ -21420,7 +22068,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 200
   },
   {
     "id": 1270,
@@ -21435,7 +22084,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 300
   },
   {
     "id": 1271,
@@ -21455,7 +22105,8 @@
     "light": 10,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1000
   },
   {
     "id": 1272,
@@ -21470,7 +22121,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1000
   },
   {
     "id": 1273,
@@ -22380,7 +23032,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 2
   },
   {
     "id": 1309,
@@ -22395,7 +23048,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1310,
@@ -22413,7 +23067,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1
   },
   {
     "id": 1311,
@@ -22444,7 +23099,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 1313,
@@ -22459,7 +23115,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1314,
@@ -22474,7 +23131,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1315,
@@ -22489,7 +23147,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1316,
@@ -22504,7 +23163,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1317,
@@ -22519,7 +23179,8 @@
     },
     "moveable": true,
     "rarity": 125,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1318,
@@ -22534,7 +23195,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1319,
@@ -22549,7 +23211,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1320,
@@ -22564,7 +23227,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1321,
@@ -22579,7 +23243,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1322,
@@ -22594,7 +23259,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1323,
@@ -22609,7 +23275,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1324,
@@ -22624,7 +23291,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1325,
@@ -22639,7 +23307,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1326,
@@ -22656,7 +23325,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 2
   },
   {
     "id": 1327,
@@ -22673,7 +23343,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1
   },
   {
     "id": 1328,
@@ -22688,7 +23359,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1329,
@@ -22705,7 +23377,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 2
   },
   {
     "id": 1330,
@@ -22722,7 +23395,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1
   },
   {
     "id": 1331,
@@ -23201,7 +23875,8 @@
     "maxRange": 4,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1350,
@@ -23223,7 +23898,8 @@
     "maxRange": 4,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1351,
@@ -23245,7 +23921,8 @@
     "maxRange": 4,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1352,
@@ -23267,7 +23944,8 @@
     "maxRange": 4,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1353,
@@ -23282,7 +23960,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 30
   },
   {
     "id": 1354,
@@ -23447,7 +24126,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 100
   },
   {
     "id": 1365,
@@ -23462,7 +24142,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 50
   },
   {
     "id": 1366,
@@ -23516,7 +24197,8 @@
     "growthDelta": 1000,
     "growthItem": 1369,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1369,
@@ -23532,7 +24214,8 @@
     "growthDelta": 10000,
     "growthItem": 1370,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1370,
@@ -23709,7 +24392,8 @@
     "growthItem": 1381,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1381,
@@ -23725,7 +24409,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1382,
@@ -23840,7 +24525,8 @@
     "growthItem": 1389,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1389,
@@ -23856,7 +24542,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1390,
@@ -23871,7 +24558,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1391,
@@ -23888,7 +24576,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1392,
@@ -23905,7 +24594,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1393,
@@ -23922,7 +24612,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1394,
@@ -23939,7 +24630,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1395,
@@ -23956,7 +24648,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1396,
@@ -23973,7 +24666,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1397,
@@ -23987,7 +24681,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1398,
@@ -24230,7 +24925,8 @@
     "growthItem": 1412,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1412,
@@ -24246,7 +24942,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1413,
@@ -24367,7 +25064,8 @@
     "growthItem": 1420,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1420,
@@ -24383,7 +25081,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1421,
@@ -24435,7 +25134,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1
   },
   {
     "id": 1424,
@@ -24722,7 +25422,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "Attune"
+    "trapEffect": "Attune",
+    "value": 0
   },
   {
     "id": 1440,
@@ -24737,7 +25438,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1441,
@@ -24752,7 +25454,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1442,
@@ -25066,7 +25769,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 200
   },
   {
     "id": 1462,
@@ -25111,7 +25815,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 2000
   },
   {
     "id": 1465,
@@ -25126,7 +25831,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 2000
   },
   {
     "id": 1466,
@@ -25144,7 +25850,8 @@
     "light": 3,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 2000
   },
   {
     "id": 1467,
@@ -25250,7 +25957,8 @@
     "growthDelta": 1000,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1474,
@@ -25301,7 +26009,8 @@
     },
     "maxRange": 8,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 8000
   },
   {
     "id": 1476,
@@ -25371,7 +26080,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1480,
@@ -25386,7 +26096,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 150
   },
   {
     "id": 1481,
@@ -25401,7 +26112,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 250
   },
   {
     "id": 1482,
@@ -25416,7 +26128,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 500
   },
   {
     "id": 1483,
@@ -25431,7 +26144,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1000
   },
   {
     "id": 1484,
@@ -25446,7 +26160,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 2000
   },
   {
     "id": 1485,
@@ -25461,7 +26176,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 4000
   },
   {
     "id": 1486,
@@ -25476,7 +26192,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 8000
   },
   {
     "id": 1487,
@@ -25492,7 +26209,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 1488,
@@ -25508,7 +26226,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 75
   },
   {
     "id": 1489,
@@ -25524,7 +26243,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 1490,
@@ -25540,7 +26260,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 400
   },
   {
     "id": 1491,
@@ -25556,7 +26277,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1492,
@@ -25572,7 +26294,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 400
   },
   {
     "id": 1493,
@@ -25588,7 +26311,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 600
   },
   {
     "id": 1494,
@@ -25604,7 +26328,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 150
   },
   {
     "id": 1495,
@@ -25620,7 +26345,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 600
   },
   {
     "id": 1496,
@@ -25636,7 +26362,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1000
   },
   {
     "id": 1497,
@@ -25652,7 +26379,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 250
   },
   {
     "id": 1498,
@@ -25668,7 +26396,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1000
   },
   {
     "id": 1499,
@@ -25684,7 +26413,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 2000
   },
   {
     "id": 1500,
@@ -25700,7 +26430,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 1501,
@@ -25716,7 +26447,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 2000
   },
   {
     "id": 1502,
@@ -25732,7 +26464,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 3500
   },
   {
     "id": 1503,
@@ -25748,7 +26481,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 750
   },
   {
     "id": 1504,
@@ -25764,7 +26498,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 3500
   },
   {
     "id": 1505,
@@ -25780,7 +26515,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 5000
   },
   {
     "id": 1506,
@@ -25796,7 +26532,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1250
   },
   {
     "id": 1507,
@@ -25812,7 +26549,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 5000
   },
   {
     "id": 1508,
@@ -25828,7 +26566,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 7000
   },
   {
     "id": 1509,
@@ -25844,7 +26583,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1500
   },
   {
     "id": 1510,
@@ -25860,7 +26600,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 7000
   },
   {
     "id": 1511,
@@ -25875,7 +26616,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 2000
   },
   {
     "id": 1512,
@@ -25960,7 +26702,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1517,
@@ -25977,7 +26720,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1518,
@@ -25994,7 +26738,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1
   },
   {
     "id": 1519,
@@ -26013,7 +26758,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1520,
@@ -26032,7 +26778,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1521,
@@ -26049,7 +26796,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1522,
@@ -26172,7 +26920,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 2200
   },
   {
     "id": 1527,
@@ -26194,7 +26943,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 2000
   },
   {
     "id": 1528,
@@ -26216,7 +26966,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1800
   },
   {
     "id": 1529,
@@ -26231,7 +26982,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1530,
@@ -26246,7 +26998,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1531,
@@ -26268,7 +27021,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 550
   },
   {
     "id": 1532,
@@ -26290,7 +27044,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 1533,
@@ -26312,7 +27067,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 450
   },
   {
     "id": 1534,
@@ -26334,7 +27090,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 2200
   },
   {
     "id": 1535,
@@ -26356,7 +27113,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 2000
   },
   {
     "id": 1536,
@@ -26378,7 +27136,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1800
   },
   {
     "id": 1537,
@@ -26396,7 +27155,8 @@
     "light": 3,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1538,
@@ -26723,7 +27483,8 @@
     },
     "maxRange": 8,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 5000
   },
   {
     "id": 1551,
@@ -26745,7 +27506,8 @@
     "maxRange": 5,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1552,
@@ -26973,7 +27735,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1561,
@@ -26987,7 +27750,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1562,
@@ -27001,7 +27765,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1563,
@@ -27015,7 +27780,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1564,
@@ -27029,7 +27795,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1565,
@@ -27043,7 +27810,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1566,
@@ -27057,7 +27825,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1567,
@@ -27098,7 +27867,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1569,
@@ -27112,7 +27882,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1570,
@@ -27126,7 +27897,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1571,
@@ -27140,7 +27912,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1572,
@@ -27154,7 +27927,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1573,
@@ -27168,7 +27942,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1574,
@@ -27182,7 +27957,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1575,
@@ -27196,7 +27972,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1576,
@@ -27210,7 +27987,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1577,
@@ -27441,7 +28219,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 200
   },
   {
     "id": 1586,
@@ -27496,7 +28275,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1589,
@@ -27513,7 +28293,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1590,
@@ -27530,7 +28311,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1591,
@@ -27547,7 +28329,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1592,
@@ -27562,7 +28345,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 250
   },
   {
     "id": 1593,
@@ -27577,7 +28361,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 500
   },
   {
     "id": 1594,
@@ -27613,7 +28398,8 @@
     "growthDelta": 5000,
     "growthItem": 1110,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1596,
@@ -27629,7 +28415,8 @@
     "growthDelta": 5000,
     "growthItem": 1110,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 75
   },
   {
     "id": 1597,
@@ -27643,7 +28430,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 1598,
@@ -27657,7 +28445,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 150
   },
   {
     "id": 1599,
@@ -27671,7 +28460,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1600,
@@ -27686,7 +28476,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1601,
@@ -28594,7 +29385,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1659,
@@ -28608,7 +29400,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1660,
@@ -28622,7 +29415,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1661,
@@ -28636,7 +29430,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1662,
@@ -28650,7 +29445,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1663,
@@ -28665,7 +29461,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 1664,
@@ -28680,7 +29477,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1665,
@@ -28695,7 +29493,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1666,
@@ -28710,7 +29509,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1667,
@@ -28724,7 +29524,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 250
   },
   {
     "id": 1668,
@@ -28900,7 +29701,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 50
   },
   {
     "id": 1679,
@@ -29055,7 +29857,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "standDamage": 50
+    "standDamage": 50,
+    "value": 100
   },
   {
     "id": 1689,
@@ -29069,7 +29872,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1690,
@@ -29084,7 +29888,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "standDamage": 50
+    "standDamage": 50,
+    "value": 100
   },
   {
     "id": 1691,
@@ -29098,7 +29903,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1692,
@@ -29113,7 +29919,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "standDamage": 50
+    "standDamage": 50,
+    "value": 100
   },
   {
     "id": 1693,
@@ -29127,7 +29934,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1694,
@@ -29142,7 +29950,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1695,
@@ -29157,7 +29966,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1696,
@@ -29172,7 +29982,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1697,
@@ -29187,7 +29998,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1698,
@@ -29201,7 +30013,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1699,
@@ -29216,7 +30029,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 30
   },
   {
     "id": 1700,
@@ -29231,7 +30045,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1
   },
   {
     "id": 1701,
@@ -29246,7 +30061,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "Text"
+    "trapEffect": "Text",
+    "value": 0
   },
   {
     "id": 1702,
@@ -29260,7 +30076,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1
   },
   {
     "id": 1703,
@@ -29274,7 +30091,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1
   },
   {
     "id": 1704,
@@ -29304,7 +30122,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1706,
@@ -29318,7 +30137,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1707,
@@ -29333,7 +30153,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1708,
@@ -29347,7 +30168,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1709,
@@ -29379,7 +30201,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1711,
@@ -29454,7 +30277,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1716,
@@ -29468,7 +30292,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 1717,
@@ -29604,7 +30429,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1726,
@@ -29618,7 +30444,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1727,
@@ -29632,7 +30459,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   null,
   {
@@ -29649,7 +30477,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 5000
   },
   {
     "id": 1730,
@@ -29664,7 +30493,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "trapEffect": "ItemTransform"
+    "trapEffect": "ItemTransform",
+    "value": 0
   },
   {
     "id": 1731,
@@ -29681,7 +30511,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1732,
@@ -29696,7 +30527,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1733,
@@ -29713,7 +30545,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1734,
@@ -29728,7 +30561,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 1735,
@@ -29744,7 +30578,8 @@
     "growthDelta": 200,
     "growthItem": 1736,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1736,
@@ -29760,7 +30595,8 @@
     "growthDelta": 200,
     "growthItem": 1737,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 25
   },
   {
     "id": 1737,
@@ -29776,7 +30612,8 @@
     "growthDelta": 200,
     "growthItem": 1738,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1738,
@@ -29792,7 +30629,8 @@
     "growthDelta": 200,
     "growthItem": 1739,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 75
   },
   {
     "id": 1739,
@@ -29822,7 +30660,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 1741,
@@ -29936,7 +30775,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1000
   },
   {
     "id": 1750,
@@ -29959,7 +30799,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1751,
@@ -29974,7 +30815,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 400
   },
   {
     "id": 1752,
@@ -29988,7 +30830,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 1753,
@@ -30102,7 +30945,8 @@
     "growthDelta": 20,
     "growthItem": 1761,
     "moveable": false,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1761,
@@ -30118,7 +30962,8 @@
     "growthDelta": 20,
     "growthItem": 1762,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 25
   },
   {
     "id": 1762,
@@ -30134,7 +30979,8 @@
     "growthDelta": 20,
     "growthItem": 1763,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1763,
@@ -30150,7 +30996,8 @@
     "growthDelta": 20,
     "growthItem": 1764,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 75
   },
   {
     "id": 1764,
@@ -30180,7 +31027,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1766,
@@ -30194,7 +31042,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1767,
@@ -30208,7 +31057,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1768,
@@ -30222,7 +31072,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1769,
@@ -30236,7 +31087,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1770,
@@ -30250,7 +31102,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1771,
@@ -30264,7 +31117,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1772,
@@ -30278,7 +31132,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1773,
@@ -30292,7 +31147,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1774,
@@ -30306,7 +31162,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1775,
@@ -30320,7 +31177,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1776,
@@ -30334,7 +31192,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1777,
@@ -30348,7 +31207,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1778,
@@ -30362,7 +31222,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1779,
@@ -30376,7 +31237,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1780,
@@ -30390,7 +31252,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1781,
@@ -30414,7 +31277,8 @@
     },
     "growthDelta": 6,
     "moveable": false,
-    "rarity": 1
+    "rarity": 1,
+    "value": 0
   },
   {
     "id": 1782,
@@ -30430,7 +31294,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1783,
@@ -30444,7 +31309,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1784,
@@ -30460,7 +31326,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1785,
@@ -30476,7 +31343,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1786,
@@ -30492,7 +31360,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1787,
@@ -30508,7 +31377,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1788,
@@ -30530,7 +31400,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1789,
@@ -30552,7 +31423,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1790,
@@ -30573,7 +31445,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1791,
@@ -30595,7 +31468,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1792,
@@ -30609,7 +31483,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1793,
@@ -30623,7 +31498,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1794,
@@ -30637,7 +31513,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1795,
@@ -30651,7 +31528,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1796,
@@ -30666,7 +31544,8 @@
     },
     "growthDelta": 30,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 0
   },
   {
     "id": 1797,
@@ -30681,7 +31560,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "Mana"
+    "trapEffect": "Mana",
+    "value": 0
   },
   {
     "id": 1798,
@@ -30808,7 +31688,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1000
   },
   {
     "id": 1807,
@@ -30823,7 +31704,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1000
   },
   {
     "id": 1808,
@@ -30838,7 +31720,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1000
   },
   {
     "id": 1809,
@@ -31046,7 +31929,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1820,
@@ -31063,7 +31947,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1821,
@@ -31078,7 +31963,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 30
   },
   {
     "id": 1822,
@@ -31095,7 +31981,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1823,
@@ -31125,7 +32012,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1825,
@@ -31142,7 +32030,8 @@
     "growthItem": 1821,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 30
   },
   {
     "id": 1826,
@@ -31184,7 +32073,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 1829,
@@ -31198,7 +32088,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1830,
@@ -31232,7 +32123,8 @@
     "growthDelta": 5000,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 1832,
@@ -31331,7 +32223,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 50
   },
   {
     "id": 1838,
@@ -31364,7 +32257,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1840,
@@ -31378,7 +32272,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1841,
@@ -31445,7 +32340,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1845,
@@ -31484,7 +32380,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 25000
   },
   {
     "id": 1847,
@@ -31587,7 +32484,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 50
   },
   {
     "id": 1854,
@@ -31603,7 +32501,8 @@
     "moveable": true,
     "rarity": 1,
     "readable": true,
-    "stackable": true
+    "stackable": true,
+    "value": 10000
   },
   {
     "id": 1855,
@@ -31918,7 +32817,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 50
   },
   null,
   null,
@@ -31999,7 +32899,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1000
   },
   null,
   {
@@ -32015,7 +32916,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "History"
+    "trapEffect": "History",
+    "value": 0
   },
   {
     "id": 1893,
@@ -32029,7 +32931,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 1894,
@@ -32043,7 +32946,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 1895,
@@ -32184,7 +33088,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1901,
@@ -32198,7 +33103,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1902,
@@ -32212,7 +33118,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1903,
@@ -32226,7 +33133,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1904,
@@ -32240,7 +33148,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1905,
@@ -32254,7 +33163,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1906,
@@ -32270,7 +33180,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1907,
@@ -32285,7 +33196,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1908,
@@ -32300,7 +33212,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 25
   },
   {
     "id": 1909,
@@ -32315,7 +33228,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 25
   },
   {
     "id": 1910,
@@ -32329,7 +33243,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1911,
@@ -32343,7 +33258,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1912,
@@ -32357,7 +33273,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1913,
@@ -32380,7 +33297,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 1914,
@@ -32403,7 +33321,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 1915,
@@ -32426,7 +33345,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 1916,
@@ -32449,7 +33369,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 2000
   },
   {
     "id": 1917,
@@ -32463,7 +33384,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 150
   },
   {
     "id": 1918,
@@ -32511,7 +33433,8 @@
     },
     "moveable": true,
     "rarity": 10,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1921,
@@ -32526,7 +33449,8 @@
     },
     "moveable": true,
     "rarity": 5,
-    "stackable": true
+    "stackable": true,
+    "value": 150
   },
   {
     "id": 1922,
@@ -32541,7 +33465,8 @@
     },
     "moveable": true,
     "rarity": 20,
-    "stackable": true
+    "stackable": true,
+    "value": 75
   },
   {
     "id": 1923,
@@ -32556,7 +33481,8 @@
     },
     "moveable": true,
     "rarity": 2,
-    "stackable": true
+    "stackable": true,
+    "value": 200
   },
   {
     "id": 1924,
@@ -32570,7 +33496,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1925,
@@ -32585,7 +33512,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1926,
@@ -32600,7 +33528,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 150
   },
   {
     "id": 1927,
@@ -32615,7 +33544,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 75
   },
   {
     "id": 1928,
@@ -32630,7 +33560,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 200
   },
   {
     "id": 1929,
@@ -32646,7 +33577,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1930,
@@ -32662,7 +33594,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1931,
@@ -32678,7 +33611,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1932,
@@ -32692,7 +33626,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1933,
@@ -32707,7 +33642,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1934,
@@ -32721,7 +33657,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1935,
@@ -32735,7 +33672,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1936,
@@ -32750,7 +33688,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 1937,
@@ -32764,7 +33703,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 1938,
@@ -32816,7 +33756,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1941,
@@ -32830,7 +33771,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   null,
   {
@@ -32853,7 +33795,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 3500
   },
   {
     "id": 1944,
@@ -32871,7 +33814,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "trapEffect": "Warp"
+    "trapEffect": "Warp",
+    "value": 0
   },
   {
     "id": 1945,
@@ -32886,7 +33830,8 @@
     },
     "growthDelta": 2000,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 1946,
@@ -32902,7 +33847,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1947,
@@ -32918,7 +33864,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1948,
@@ -32934,7 +33881,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1949,
@@ -32950,7 +33898,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 1950,
@@ -34097,7 +35046,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1000,
-    "stackable": true
+    "stackable": true,
+    "value": 30
   },
   {
     "id": 2021,
@@ -34114,7 +35064,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 500,
-    "stackable": true
+    "stackable": true,
+    "value": 60
   },
   {
     "id": 2022,
@@ -34131,7 +35082,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 250,
-    "stackable": true
+    "stackable": true,
+    "value": 90
   },
   {
     "id": 2023,
@@ -34148,7 +35100,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 125,
-    "stackable": true
+    "stackable": true,
+    "value": 120
   },
   {
     "id": 2024,
@@ -34165,7 +35118,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 62,
-    "stackable": true
+    "stackable": true,
+    "value": 150
   },
   {
     "id": 2025,
@@ -34182,7 +35136,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 31,
-    "stackable": true
+    "stackable": true,
+    "value": 180
   },
   {
     "id": 2026,
@@ -34198,7 +35153,8 @@
     "growthDelta": 10,
     "growthItem": 1100,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 150
   },
   {
     "id": 2027,
@@ -34214,7 +35170,8 @@
     "growthDelta": 10,
     "growthItem": 1101,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 2028,
@@ -34231,7 +35188,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 500,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 2029,
@@ -34248,7 +35206,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 500,
-    "stackable": true
+    "stackable": true,
+    "value": 80
   },
   {
     "id": 2030,
@@ -34265,7 +35224,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 250,
-    "stackable": true
+    "stackable": true,
+    "value": 120
   },
   {
     "id": 2031,
@@ -34282,7 +35242,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 100,
-    "stackable": true
+    "stackable": true,
+    "value": 160
   },
   {
     "id": 2032,
@@ -34299,7 +35260,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 30,
-    "stackable": true
+    "stackable": true,
+    "value": 200
   },
   {
     "id": 2033,
@@ -34316,7 +35278,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 2
   },
   {
     "id": 2034,
@@ -34332,7 +35295,8 @@
     "growthDelta": 10,
     "growthItem": 1100,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 150
   },
   {
     "id": 2035,
@@ -34348,7 +35312,8 @@
     "growthDelta": 10,
     "growthItem": 1101,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 2036,
@@ -34366,7 +35331,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 15,
-    "stackable": true
+    "stackable": true,
+    "value": 500
   },
   {
     "id": 2037,
@@ -34384,7 +35350,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 10,
-    "stackable": true
+    "stackable": true,
+    "value": 1000
   },
   {
     "id": 2038,
@@ -34402,7 +35369,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 5,
-    "stackable": true
+    "stackable": true,
+    "value": 1500
   },
   null,
   {
@@ -34418,7 +35386,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2041,
@@ -35254,7 +36223,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 2092,
@@ -35269,7 +36239,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "standDamage": 10
+    "standDamage": 10,
+    "value": 100
   },
   {
     "id": 2093,
@@ -35283,7 +36254,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 150
   },
   {
     "id": 2094,
@@ -35298,7 +36270,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "standDamage": 25
+    "standDamage": 25,
+    "value": 150
   },
   {
     "id": 2095,
@@ -35312,7 +36285,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 2096,
@@ -35327,7 +36301,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "standDamage": 50
+    "standDamage": 50,
+    "value": 200
   },
   {
     "id": 2097,
@@ -35342,7 +36317,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "standDamage": 10
+    "standDamage": 10,
+    "value": 150
   },
   {
     "id": 2098,
@@ -35358,7 +36334,8 @@
     "growthDelta": 2,
     "growthItem": 2097,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 150
   },
   {
     "id": 2099,
@@ -35373,7 +36350,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "standDamage": 25
+    "standDamage": 25,
+    "value": 200
   },
   {
     "id": 2100,
@@ -35425,7 +36403,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 3500
   },
   {
     "id": 2103,
@@ -35447,7 +36426,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1500
   },
   {
     "id": 2104,
@@ -35469,7 +36449,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 7000
   },
   {
     "id": 2105,
@@ -35503,7 +36484,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 2107,
@@ -35517,7 +36499,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 2108,
@@ -35539,7 +36522,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 4000
   },
   {
     "id": 2109,
@@ -35561,7 +36545,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 4000
   },
   {
     "id": 2110,
@@ -35583,7 +36568,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 7000
   },
   {
     "id": 2111,
@@ -36183,7 +37169,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 500
   },
   {
     "id": 2149,
@@ -36198,7 +37185,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 500
   },
   {
     "id": 2150,
@@ -36312,7 +37300,8 @@
     "growthDelta": 1000,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 5
   },
   {
     "id": 2157,
@@ -36442,7 +37431,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 2165,
@@ -36457,7 +37447,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2166,
@@ -36472,7 +37463,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 150
   },
   {
     "id": 2167,
@@ -36487,7 +37479,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 200
   },
   {
     "id": 2168,
@@ -36502,7 +37495,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 250
   },
   {
     "id": 2169,
@@ -37057,7 +38051,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 20
   },
   {
     "id": 2193,
@@ -37072,7 +38067,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 200
   },
   {
     "id": 2194,
@@ -37087,7 +38083,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 2000
   },
   {
     "id": 2195,
@@ -37102,7 +38099,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 2000
   },
   {
     "id": 2196,
@@ -37117,7 +38115,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 2000
   },
   null,
   {
@@ -37473,7 +38472,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 5000
   },
   {
     "id": 2213,
@@ -37488,7 +38488,8 @@
       ]
     },
     "moveable": false,
-    "rarity": 1
+    "rarity": 1,
+    "value": 5000
   },
   {
     "id": 2214,
@@ -37534,7 +38535,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 250
   },
   {
     "id": 2217,
@@ -37549,7 +38551,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 250
   },
   {
     "id": 2218,
@@ -37564,7 +38567,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 125
   },
   {
     "id": 2219,
@@ -37579,7 +38583,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 600
   },
   {
     "id": 2220,
@@ -37593,7 +38598,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 400
   },
   {
     "id": 2221,
@@ -37608,7 +38614,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 400
   },
   {
     "id": 2222,
@@ -37623,7 +38630,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1000
   },
   {
     "id": 2223,
@@ -37638,7 +38646,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1000
   },
   {
     "id": 2224,
@@ -37653,7 +38662,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1000
   },
   {
     "id": 2225,
@@ -37675,7 +38685,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2226,
@@ -37697,7 +38708,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2227,
@@ -37719,7 +38731,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2228,
@@ -37752,7 +38765,8 @@
     },
     "moveable": true,
     "rarity": 9,
-    "stackable": true
+    "stackable": true,
+    "value": 250
   },
   {
     "id": 2230,
@@ -37767,7 +38781,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 25
   },
   {
     "id": 2231,
@@ -37782,7 +38797,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 150
   },
   {
     "id": 2232,
@@ -37800,7 +38816,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 2
   },
   {
     "id": 2233,
@@ -37817,7 +38834,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 2
   },
   {
     "id": 2234,
@@ -37832,7 +38850,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2235,
@@ -37850,7 +38869,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 6
   },
   {
     "id": 2236,
@@ -37868,7 +38888,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 6
   },
   {
     "id": 2237,
@@ -37903,7 +38924,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   null,
   {
@@ -37922,7 +38944,8 @@
       "height": 2
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2241,
@@ -37940,7 +38963,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 2
   },
   {
     "id": 2242,
@@ -37962,7 +38986,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2243,
@@ -37984,7 +39009,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2244,
@@ -38006,7 +39032,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2245,
@@ -38028,7 +39055,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2246,
@@ -38050,7 +39078,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2247,
@@ -38072,7 +39101,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2248,
@@ -38094,7 +39124,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2249,
@@ -38116,7 +39147,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2250,
@@ -38138,7 +39170,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2251,
@@ -38160,7 +39193,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2252,
@@ -38182,7 +39216,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2253,
@@ -38204,7 +39239,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2254,
@@ -38226,7 +39262,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2255,
@@ -38248,7 +39285,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2256,
@@ -38270,7 +39308,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2257,
@@ -38292,7 +39331,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 2258,
@@ -38315,7 +39355,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10000
   },
   {
     "id": 2259,
@@ -38338,7 +39379,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10000
   },
   {
     "id": 2260,
@@ -38364,7 +39406,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10000
   },
   {
     "id": 2261,
@@ -38390,7 +39433,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10000
   },
   null,
   null,
@@ -38623,7 +39667,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 150
   },
   {
     "id": 2301,
@@ -38639,7 +39684,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 75
   },
   {
     "id": 2302,
@@ -38655,7 +39701,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 75
   },
   {
     "id": 2303,
@@ -38671,7 +39718,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 75
   },
   {
     "id": 2304,
@@ -38686,7 +39734,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 75
   },
   {
     "id": 2305,
@@ -38705,7 +39754,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 200
   },
   {
     "id": 2306,
@@ -38721,7 +39771,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2307,
@@ -38737,7 +39788,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2308,
@@ -38753,7 +39805,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2309,
@@ -38768,7 +39821,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2310,
@@ -38783,7 +39837,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2311,
@@ -38798,7 +39853,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2312,
@@ -38813,7 +39869,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2313,
@@ -38828,7 +39885,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2314,
@@ -38843,7 +39901,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2315,
@@ -38858,7 +39917,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2316,
@@ -38873,7 +39933,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2317,
@@ -38888,7 +39949,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2318,
@@ -38903,7 +39965,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2319,
@@ -38918,7 +39981,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2320,
@@ -38933,7 +39997,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2321,
@@ -38948,7 +40013,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2322,
@@ -38963,7 +40029,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2323,
@@ -38978,7 +40045,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2324,
@@ -38993,7 +40061,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2325,
@@ -39008,7 +40077,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2326,
@@ -39023,7 +40093,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2327,
@@ -39038,7 +40109,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2328,
@@ -39053,7 +40125,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2329,
@@ -39068,7 +40141,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2330,
@@ -39083,7 +40157,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2331,
@@ -39098,7 +40173,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2332,
@@ -39113,7 +40189,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2333,
@@ -39128,7 +40205,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2334,
@@ -39143,7 +40221,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2335,
@@ -39158,7 +40237,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2336,
@@ -39173,7 +40253,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2337,
@@ -39188,7 +40269,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2338,
@@ -39203,7 +40285,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2339,
@@ -39218,7 +40301,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2340,
@@ -39233,7 +40317,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2341,
@@ -39248,7 +40333,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2342,
@@ -39263,7 +40349,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2343,
@@ -39278,7 +40365,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2344,
@@ -39293,7 +40381,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2345,
@@ -39308,7 +40397,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2346,
@@ -39323,7 +40413,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2347,
@@ -39338,7 +40429,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2348,
@@ -39353,7 +40445,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2349,
@@ -39368,7 +40461,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2350,
@@ -39383,7 +40477,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2351,
@@ -39398,7 +40493,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2352,
@@ -39413,7 +40509,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2353,
@@ -39428,7 +40525,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2354,
@@ -39443,7 +40541,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2355,
@@ -39458,7 +40557,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2356,
@@ -39473,7 +40573,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2357,
@@ -39488,7 +40589,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2358,
@@ -39503,7 +40605,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2359,
@@ -39518,7 +40621,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2360,
@@ -39533,7 +40637,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2361,
@@ -39548,7 +40653,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2362,
@@ -39563,7 +40669,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2363,
@@ -39578,7 +40685,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2364,
@@ -39593,7 +40701,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2365,
@@ -39608,7 +40717,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2366,
@@ -39623,7 +40733,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2367,
@@ -39638,7 +40749,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2368,
@@ -39653,7 +40765,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2369,
@@ -39668,7 +40781,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2370,
@@ -39683,7 +40797,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2371,
@@ -39698,7 +40813,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2372,
@@ -39713,7 +40829,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2373,
@@ -39728,7 +40845,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2374,
@@ -39743,7 +40861,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2375,
@@ -39758,7 +40877,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2376,
@@ -39773,7 +40893,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2377,
@@ -39788,7 +40909,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 130
   },
   {
     "id": 2378,
@@ -39803,7 +40925,8 @@
     },
     "moveable": true,
     "rarity": 200,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 2379,
@@ -39818,7 +40941,8 @@
     },
     "moveable": true,
     "rarity": 100,
-    "stackable": true
+    "stackable": true,
+    "value": 150
   },
   {
     "id": 2380,
@@ -39833,7 +40957,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 300
   },
   {
     "id": 2381,
@@ -39848,7 +40973,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 350
   },
   {
     "id": 2382,
@@ -39863,7 +40989,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 110
   },
   {
     "id": 2383,
@@ -39878,7 +41005,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 120
   },
   {
     "id": 2384,
@@ -39893,7 +41021,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 160
   },
   {
     "id": 2385,
@@ -39908,7 +41037,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 170
   },
   {
     "id": 2386,
@@ -39922,7 +41052,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 2387,
@@ -39936,7 +41067,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 20
   },
   {
     "id": 2388,
@@ -39950,7 +41082,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 20
   },
   {
     "id": 2389,
@@ -39965,7 +41098,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1000
   },
   {
     "id": 2390,
@@ -39980,7 +41114,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1000
   },
   null,
   null,
@@ -40605,7 +41740,8 @@
     "growthDelta": 2,
     "growthItem": 2099,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 3001,
@@ -40620,7 +41756,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "standDamage": 25
+    "standDamage": 25,
+    "value": 250
   },
   {
     "id": 3002,
@@ -40636,7 +41773,8 @@
     "growthDelta": 2,
     "growthItem": 3001,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 250
   },
   {
     "id": 3003,
@@ -40651,7 +41789,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 2000
   },
   {
     "id": 3004,
@@ -40713,7 +41852,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 20
   },
   {
     "id": 3008,
@@ -40727,7 +41867,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 20
   },
   {
     "id": 3009,
@@ -40741,7 +41882,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 3010,
@@ -40781,7 +41923,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 5
   },
   {
     "id": 3012,
@@ -40866,7 +42009,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 3017,
@@ -40880,7 +42024,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 3018,
@@ -40896,7 +42041,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 3019,
@@ -41052,7 +42198,8 @@
     },
     "moveable": true,
     "rarity": 40,
-    "stackable": true
+    "stackable": true,
+    "value": 25
   },
   {
     "id": 3026,
@@ -41067,7 +42214,8 @@
     },
     "moveable": true,
     "rarity": 30,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 3027,
@@ -41082,7 +42230,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 25
   },
   {
     "id": 3028,
@@ -41097,7 +42246,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 3029,
@@ -41111,7 +42261,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 3030,
@@ -41126,7 +42277,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 12
   },
   {
     "id": 3031,
@@ -41141,7 +42293,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 25
   },
   {
     "id": 3032,
@@ -41156,7 +42309,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 35
   },
   {
     "id": 3033,
@@ -41171,7 +42325,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 3034,
@@ -41186,7 +42341,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 75
   },
   {
     "id": 3035,
@@ -41201,7 +42357,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 3036,
@@ -41216,7 +42373,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 3037,
@@ -41231,7 +42389,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 600
   },
   {
     "id": 3038,
@@ -41246,7 +42405,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20
   },
   {
     "id": 3039,
@@ -41261,7 +42421,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 200
   },
   {
     "id": 3040,
@@ -41276,7 +42437,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 2000
   },
   {
     "id": 3041,
@@ -41291,7 +42453,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 20000
   },
   {
     "id": 3042,
@@ -41308,7 +42471,8 @@
       "height": 2
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 3043,
@@ -41330,7 +42494,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 2300
   },
   {
     "id": 3044,
@@ -41354,7 +42519,8 @@
     "growthDelta": 1,
     "growthItem": 3043,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 2300
   },
   {
     "id": 3045,
@@ -41378,7 +42544,8 @@
     "growthDelta": 1,
     "growthItem": 3043,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 2300
   },
   {
     "id": 3046,
@@ -41402,7 +42569,8 @@
     "growthDelta": 1,
     "growthItem": 3043,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 2300
   },
   {
     "id": 3047,
@@ -41416,7 +42584,8 @@
       ]
     },
     "moveable": false,
-    "rarity": 1
+    "rarity": 1,
+    "value": 0
   },
   {
     "id": 3048,
@@ -41433,7 +42602,8 @@
     },
     "light": 4,
     "moveable": false,
-    "rarity": 1
+    "rarity": 1,
+    "value": 0
   },
   {
     "id": 3049,
@@ -41448,7 +42618,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 0
   },
   {
     "id": 3050,
@@ -41466,7 +42637,8 @@
     "growthDelta": 3,
     "growthItem": 1110,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 0
   },
   {
     "id": 3051,
@@ -41481,7 +42653,8 @@
     },
     "light": 10,
     "moveable": false,
-    "rarity": 1
+    "rarity": 1,
+    "value": 0
   },
   {
     "id": 3052,
@@ -41498,7 +42671,8 @@
       "height": 2
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 5000
   },
   {
     "id": 3053,
@@ -41515,7 +42689,8 @@
       "height": 2
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 5000
   },
   {
     "id": 3054,
@@ -41533,7 +42708,8 @@
       "height": 2
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 5000
   },
   null,
   {
@@ -41549,7 +42725,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 3057,
@@ -41585,7 +42762,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 200
   },
   {
     "id": 3059,
@@ -41599,7 +42777,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10
   },
   {
     "id": 3060,
@@ -41613,7 +42792,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 60
   },
   {
     "id": 3061,
@@ -41660,7 +42840,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 20
   },
   {
     "id": 3064,
@@ -41675,7 +42856,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 200
   },
   {
     "id": 3065,
@@ -41690,7 +42872,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 2000
   },
   {
     "id": 3066,
@@ -41705,7 +42888,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 3067,
@@ -41848,7 +43032,8 @@
       ]
     },
     "moveable": false,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 3075,
@@ -41864,7 +43049,8 @@
       ]
     },
     "moveable": false,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 3076,
@@ -41880,7 +43066,8 @@
       ]
     },
     "moveable": false,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 3077,
@@ -41897,7 +43084,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 3078,
@@ -41914,7 +43102,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 3079,
@@ -41931,7 +43120,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 10
   },
   {
     "id": 3080,
@@ -41945,7 +43135,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 3081,
@@ -41959,7 +43150,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 10000
   },
   {
     "id": 3082,
@@ -42018,7 +43210,8 @@
     "growthItem": 1110,
     "light": 2,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 30
   },
   {
     "id": 3086,
@@ -42033,7 +43226,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 300
   },
   {
     "id": 3087,
@@ -42048,7 +43242,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 400
   },
   {
     "id": 3088,
@@ -42134,7 +43329,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 3094,
@@ -42163,7 +43359,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1000
   },
   {
     "id": 3096,
@@ -42239,7 +43436,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1000
   },
   {
     "id": 3101,
@@ -42254,7 +43452,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1000
   },
   {
     "id": 3102,
@@ -42269,7 +43468,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1000
   },
   {
     "id": 3103,
@@ -42287,7 +43487,8 @@
     "light": 3,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 1000
   },
   {
     "id": 3104,
@@ -42608,7 +43809,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 3117,
@@ -42733,7 +43935,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 5000
   },
   {
     "id": 3124,
@@ -42748,7 +43951,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 1000
   },
   {
     "id": 3125,
@@ -42763,7 +43967,8 @@
     },
     "moveable": false,
     "rarity": 1,
-    "readable": true
+    "readable": true,
+    "value": 200
   },
   {
     "id": 3126,
@@ -42781,7 +43986,8 @@
     "growthItem": 3129,
     "light": 3,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1000
   },
   {
     "id": 3127,
@@ -42796,7 +44002,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1000
   },
   {
     "id": 3128,
@@ -42811,7 +44018,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1000
   },
   {
     "id": 3129,
@@ -42829,7 +44037,8 @@
     "growthItem": 3127,
     "light": 1,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 1000
   },
   {
     "id": 3130,
@@ -42868,7 +44077,8 @@
     "growthItem": 3132,
     "light": 1,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 450
   },
   {
     "id": 3132,
@@ -42883,7 +44093,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 450
   },
   {
     "id": 3133,
@@ -42898,7 +44109,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 500
   },
   {
     "id": 3134,
@@ -42915,7 +44127,8 @@
     "growthItem": 1110,
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 40
   },
   {
     "id": 3135,
@@ -42976,7 +44189,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 3139,
@@ -42991,7 +44205,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 250
   },
   {
     "id": 3140,
@@ -43007,7 +44222,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 3141,
@@ -43021,7 +44237,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 3142,
@@ -43035,7 +44252,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 3143,
@@ -43049,7 +44267,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 100
   },
   {
     "id": 3144,
@@ -43063,7 +44282,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 3145,
@@ -43092,7 +44312,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 3147,
@@ -43310,7 +44531,8 @@
     "growthItem": 1332,
     "maxRange": 8,
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 5000
   },
   {
     "id": 3155,
@@ -43328,7 +44550,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 100
   },
   {
     "id": 3156,
@@ -43518,7 +44741,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 50
   },
   {
     "id": 3166,
@@ -43550,7 +44774,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 50
   },
   {
     "id": 3168,
@@ -43565,7 +44790,8 @@
     },
     "moveable": true,
     "rarity": 1,
-    "stackable": true
+    "stackable": true,
+    "value": 250
   },
   {
     "id": 3169,
@@ -43614,7 +44840,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 5000
   },
   {
     "id": 3172,
@@ -43636,7 +44863,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 7500
   },
   {
     "id": 3173,
@@ -43672,7 +44900,8 @@
       ]
     },
     "moveable": true,
-    "rarity": 1
+    "rarity": 1,
+    "value": 4000
   },
   null,
   null,

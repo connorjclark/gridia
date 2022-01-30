@@ -1,5 +1,6 @@
 import {MAX_STACK} from './constants.js';
 import * as Content from './content.js';
+import {Server} from './server/server.js';
 import * as Utils from './utils.js';
 
 export const EQUIP_SLOTS = {
@@ -80,10 +81,56 @@ export function findValidLocationToAddItemToContainer(
   }
 }
 
+export function countItem(container: Container, type: number): number {
+  let value = 0;
+  forEach(container, (item) => {
+    if (item.type === type) value += item.quantity;
+  });
+  return value;
+}
+
 export function forEach(container: Container, fn: (value: Item, index: number, array: Array<Item | null>) => void) {
   for (let i = 0; i < container.items.length; i++) {
     const item = container.items[i];
     if (!item) continue;
     fn(item, i, container.items);
   }
+}
+
+export function addItemToContainer(server: Server, container: Container, item: Item): boolean {
+  const location = findValidLocationToAddItemToContainer(container, item, {allowStacking: true});
+  if (location?.index === undefined) return false;
+
+  const curItemQuantity = container.items[location.index]?.quantity || 0;
+  server.setItemInContainer(container.id, location.index, {...item, quantity: curItemQuantity + item.quantity});
+  return true;
+}
+
+export function removeItemAmount(server: Server, container: Container, type: number, quantity: number): boolean {
+  const indicesToQuantityToRemove = new Map<number, number>();
+
+  let countLeft = quantity;
+  for (let i = 0; i < container.items.length; i++) {
+    const item = container.items[i];
+    if (!item) continue;
+    if (item.type !== type) continue;
+
+    const amountToTake = Math.min(item.quantity, countLeft);
+    countLeft -= amountToTake;
+    indicesToQuantityToRemove.set(i, amountToTake);
+
+    if (countLeft === 0) break;
+  }
+
+  if (countLeft > 0) return false;
+
+  for (const [index, amountToTake] of indicesToQuantityToRemove) {
+    const item = container.items[index];
+    if (!item) throw new Error();
+
+    item.quantity -= amountToTake;
+    server.setItemInContainer(container.id, index, item);
+  }
+
+  return true;
 }

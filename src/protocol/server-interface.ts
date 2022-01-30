@@ -291,7 +291,7 @@ export class ServerInterface implements ICommands {
     }), clientConnection);
   }
 
-  onCreatureAction(server: Server, clientConnection: ClientConnection, {creatureId, type}: Commands.CreatureAction['params']): Promise<Commands.CreatureAction['response']> {
+  async onCreatureAction(server: Server, clientConnection: ClientConnection, {creatureId, type}: Commands.CreatureAction['params']): Promise<Commands.CreatureAction['response']> {
     clientConnection.assertsPlayerConnection();
 
     if (type === 'attack' && creatureId === 0) {
@@ -333,6 +333,15 @@ export class ServerInterface implements ICommands {
           text: '...',
         }), clientConnection);
       }
+    }
+
+    if (type === 'trade') {
+      if (!creature.merchant) return Promise.reject('Creature is not a merchant');
+
+      const containerId = creature.merchant.containerId;
+      clientConnection.registeredContainers.push(containerId);
+      const container = await server.context.getContainer(containerId);
+      server.send(EventBuilder.container({container}), clientConnection);
     }
 
     return Promise.resolve();
@@ -706,6 +715,25 @@ export class ServerInterface implements ICommands {
     // TODO queue changes and send to all clients.
     // context.queueTileChange(from)
     // context.queueTileChange(to)
+  }
+
+  async onBuyItem(server: Server, clientConnection: ClientConnection, {from, quantity}: Commands.BuyItem['params']): Promise<Commands.BuyItem['response']> {
+    clientConnection.assertsPlayerConnection();
+
+    const item = (await server.getItem(from));
+    if (!item) throw new Error('invalid item');
+
+    const meta = Content.getMetaItem(item.type);
+    const price = (meta.value || 1) * quantity;
+    const goldOnHand = Container.countItem(clientConnection.container, Content.getMetaItemByName('Gold').id);
+    const paid = goldOnHand >= price && Container.removeItemAmount(server, clientConnection.container, Content.getMetaItemByName('Gold').id, price);
+    if (!paid) throw new Error('not enough gold');
+
+    const purchasedItem = {type: item.type, quantity};
+    const location = Container.findValidLocationToAddItemToContainer(clientConnection.container, purchasedItem, {allowStacking: true});
+    if (location?.index === undefined) throw new Error('no room for item');
+
+    Container.addItemToContainer(server, clientConnection.container, purchasedItem);
   }
 
   onLearnSkill(server: Server, clientConnection: ClientConnection, {id}: Commands.LearnSkill['params']): Promise<Commands.LearnSkill['response']> {

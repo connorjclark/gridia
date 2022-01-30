@@ -308,6 +308,7 @@ function parseItemsIni() {
     'foodMana',
     'foodLife',
     'standDamage',
+    'value',
   ];
   for (const item of items) {
     filterProperties(item, allowlist);

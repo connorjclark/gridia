@@ -399,7 +399,7 @@ button {
 .grid-container .top { grid-area: top; display: flex; flex-flow: row-reverse; }
 
 .ui .toolbar {
-  align-self: flex-end;
+  align-self: end;
 }
 @media only screen and (max-width: 1000px) {
   .ui .toolbar {
@@ -665,7 +665,7 @@ button {
 .window--attributes {
   flex-grow: 1;
   max-width: 20vw;
-  align-self: flex-end;
+  align-self: end;
   background-color: unset;
   border: unset;
 }
@@ -794,7 +794,7 @@ button {
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
+  gap: 20px;
 }
 
 .dpad__button {
@@ -897,4 +897,53 @@ button {
 
 .relative-time {
   font-family: monospace;
+}
+
+.store-items {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  --background-color: #5f645c;
+  --selected-color: #282828;
+}
+.store-item {
+  display: flex;
+  border: 2px solid var(--background-color);
+  border-radius: 2px;
+}
+.store-item--selected {
+  background-color: var(--selected-color);
+}
+.store-item__gfx {
+  background-color: var(--background-color);
+}
+.store-item__gfx .graphic {
+  background-color: var(--window-background-color);
+  border: inset 2px var(--background-color);
+}
+.store-item__label {
+  padding: 0 3px;
+}
+span.store-item__quantity {
+  opacity: 0.7;
+}
+.store-item__price {
+  width: 30%;
+  align-self: end;
+  text-align: end;
+  margin-left: auto;
+}
+.store-item__price__leftborder {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 1rem 1rem;
+  border-color: transparent transparent var(--background-color) transparent;
+}
+.store-item__price__inner {
+  padding: 2px;
+  height: 1rem;
+  width: 100%;
+  background-color: var(--background-color);
 }

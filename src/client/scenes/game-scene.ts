@@ -28,6 +28,15 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
   const actions: GameAction[] = [];
 
   if (creature) {
+    if (creature.merchant) {
+      actions.push({
+        type: 'trade',
+        innerText: 'Trade',
+        title: 'Trade',
+      });
+      return actions;
+    }
+
     if (creature.canSpeak) {
       actions.push({
         type: 'speak',
@@ -187,6 +196,7 @@ function globalOnActionHandler(e: GameActionEvent) {
   case 'attack':
   case 'tame':
   case 'speak':
+  case 'trade':
     client.connection.sendCommand(CommandBuilder.creatureAction({
       creatureId: creature.id,
       type,
