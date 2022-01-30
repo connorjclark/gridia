@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     controller.pushScene(new StartScene(controller));
     await (controller.currentScene as StartScene).onClickConnectBtn();
     if (controller.qs.playerId) {
-      (controller.currentScene as SelectCharacterScene).selectPlayer(controller.qs.playerId);
+      controller.selectPlayer(controller.qs.playerId);
     }
   } else if (controller.qs.quick === 'local') {
     const type = controller.qs.type || 'rpgwo';
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const playerName = controller.qs.playerId || 'Quicksilver'; // TODO ...
     const existingPlayer = playerName && players.find((p) => p.name === playerName);
     if (existingPlayer) {
-      (controller.currentScene as SelectCharacterScene).selectPlayer(existingPlayer.id);
+      controller.selectPlayer(existingPlayer.id);
     } else {
       await controller.client.connection.sendCommand(CommandBuilder.createPlayer({
         name: playerName,
