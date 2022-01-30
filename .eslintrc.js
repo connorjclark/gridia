@@ -118,6 +118,7 @@ module.exports = {
         ],
         "@typescript-eslint/require-await": "error",
         "@typescript-eslint/restrict-plus-operands": "off", // TODO
+        "@typescript-eslint/no-unsafe-argument": "off", // TODO
         "@typescript-eslint/restrict-template-expressions": "off",
         "@typescript-eslint/semi": [
             "error",

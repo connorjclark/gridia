@@ -79,7 +79,7 @@ export abstract class Connection {
     }
   }
 
-  public abstract close(): void;
+  abstract close(): void;
 
   protected abstract send_(message: { id: number; data: ProtocolCommand }): void;
 }
