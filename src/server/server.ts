@@ -708,10 +708,6 @@ export class Server {
         name: 'WarpOut',
         path: [creature.pos],
       });
-      this.broadcastAnimation({
-        name: 'WarpIn',
-        path: [pos],
-      });
     }
 
     await this.ensureSectorLoadedForPoint(pos);
@@ -719,6 +715,13 @@ export class Server {
     // multiple creatures to be in the same location.
     pos = this.findNearestWalkableTile({pos, range: 5}) || pos;
     this.moveCreature(creature, pos);
+
+    if (opts.warpAnimation) {
+      this.broadcastAnimation({
+        name: 'WarpIn',
+        path: [pos],
+      });
+    }
   }
 
   // TODO: rename
