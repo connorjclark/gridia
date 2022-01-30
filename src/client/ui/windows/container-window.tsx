@@ -10,6 +10,8 @@ import {Game} from '../../game.js';
 import {CustomCreatureGraphic, ItemGraphic} from '../components/graphic.js';
 import {c, ComponentProps, createSubApp, useCreature, usePlayer} from '../ui-common.js';
 
+import {Window} from './window.js';
+
 interface State {
   name?: string;
   container: Container;
@@ -223,13 +225,11 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
       </div>;
     }
 
-    return <div class="m1" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp}>
-      <div>
-        {props.name || 'Container'}
+    return <Window name={props.name || 'Container'}>
+      <div class="m1" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp}>
+        {content}
       </div>
-
-      {content}
-    </div>;
+    </Window>;
   };
 
   const {SubApp, exportedActions, subscribe} = createSubApp(ContainerWindow, initialState, actions);

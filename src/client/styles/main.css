@@ -416,6 +416,10 @@ button {
   } 
 }
 
+.preact-window__title {
+  text-align: center;
+}
+
 .window {
   max-height: 100%;
   margin: 2px;
