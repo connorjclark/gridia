@@ -1,5 +1,6 @@
 // https://gist.github.com/jimmywarting/a6ae45a9f445ca352ed62374a2855ff2
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const TextDecoder = globalThis.TextDecoder || require('u' + 'til').TextDecoder;
 
 /* eslint-disable */

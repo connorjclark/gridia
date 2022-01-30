@@ -63,7 +63,7 @@ async function main(options: CLIOptions) {
     if (!guarenteedChannel) throw new Error('missing channel');
 
     for (const channel of channels) {
-      channel.addEventListener('message', (e) => {
+      channel.addEventListener('message', (e: MessageEvent<Buffer>) => {
         const message = WireSerializer.deserialize<any>(e.data.toString('utf-8'));
         if (server.verbose) console.log('got', message);
         clientConnection.messageQueue.push(message);

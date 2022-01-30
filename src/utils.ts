@@ -213,9 +213,9 @@ export function clone<T>(obj: T): T {
 }
 
 export function mapFromRecord<K extends string | number | symbol, V>(record: Record<K, V>): Map<K, V> {
-  const map = new Map();
+  const map = new Map<K, V>();
   for (const [k, v] of Object.entries(record)) {
-    map.set(k, v);
+    map.set(k as K, v as V);
   }
   return map;
 }

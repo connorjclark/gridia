@@ -56,6 +56,11 @@ export function makeDialogueWindow(game: Game, initialState: State) {
       const speakerGfx1 = this.createSpeakerGfx(props.dialogue.speakers[0].id);
       const speakerGfx2 = this.createSpeakerGfx(props.dialogue.speakers[1].id);
 
+      const onClickNextButton = () => {
+        // TODO: don't do this in ui/
+        game.client.connection.sendCommand(CommandBuilder.dialogueResponse({}));
+      };
+
       return <div>
         <div>
           Dialogue
@@ -71,7 +76,7 @@ export function makeDialogueWindow(game: Game, initialState: State) {
             </span>
           </h2>
           <div ref={textEl} class={`dialogue__text dialouge__text--speaker-${part.speaker}`}></div>
-          <button onClick={this.onClickNextButton}>Next</button>
+          <button onClick={onClickNextButton}>Next</button>
         </div>
       </div>;
     }
@@ -89,11 +94,6 @@ export function makeDialogueWindow(game: Game, initialState: State) {
       }
 
       return speakerGfx;
-    }
-
-    onClickNextButton() {
-      // TODO: don't do this in ui/
-      game.client.connection.sendCommand(CommandBuilder.dialogueResponse({}));
     }
   }
 

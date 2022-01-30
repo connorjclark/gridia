@@ -89,11 +89,8 @@ module.exports = {
             "checksConditionals": true,
             "checksVoidReturn": false
         }],
-        "@typescript-eslint/no-namespace": "off",
         "@typescript-eslint/no-non-null-asserted-optional-chain": "error",
         "@typescript-eslint/no-non-null-assertion": "warn",
-        "@typescript-eslint/no-parameter-properties": "off",
-        "@typescript-eslint/no-this-alias": "off",
         "@typescript-eslint/no-unnecessary-type-assertion": "error",
         "@typescript-eslint/no-unsafe-assignment": "off", // TODO
         "@typescript-eslint/no-unsafe-call": "off", // TODO
@@ -105,13 +102,10 @@ module.exports = {
         //     {"argsIgnorePattern": "_+"}
         // ],
         "@typescript-eslint/no-unused-vars": "off", // TODO. keeps deleting my WIP code! >:(
-        "@typescript-eslint/no-use-before-define": "off",
-        "@typescript-eslint/no-var-requires": "off",
         "@typescript-eslint/prefer-as-const": "error",
         "@typescript-eslint/prefer-for-of": "error",
         "@typescript-eslint/prefer-function-type": "error",
         "@typescript-eslint/prefer-namespace-keyword": "error",
-        "@typescript-eslint/prefer-regexp-exec": "off",
         "@typescript-eslint/quotes": [
             "error",
             "single"
@@ -142,7 +136,7 @@ module.exports = {
             }
         ],
         "@typescript-eslint/type-annotation-spacing": "error",
-        "@typescript-eslint/unbound-method": "off",
+        "@typescript-eslint/unbound-method": "off", // TODO
         "@typescript-eslint/unified-signatures": "error",
         "arrow-parens": [
             "error",

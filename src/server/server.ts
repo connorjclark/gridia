@@ -1763,6 +1763,7 @@ export class Server {
 
     // Handle time.
     // TODO: Only load part of the world in memory and simulate growth of inactive areas on load.
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const server = this;
     this.taskRunner.registerTickSection({
       description: 'time',
@@ -1781,7 +1782,7 @@ export class Server {
       description: 'sync time',
       rate: {minutes: 1},
       fn: () => {
-        server.broadcast(EventBuilder.time({epoch: server.context.time.epoch}));
+        this.broadcast(EventBuilder.time({epoch: this.context.time.epoch}));
       },
     });
 
