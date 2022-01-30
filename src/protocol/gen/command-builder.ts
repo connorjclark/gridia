@@ -64,6 +64,10 @@ type BuyItemCommand = {
     type: "buyItem";
     args: Protocol.Commands.BuyItem;
 };
+type SellItemCommand = {
+    type: "sellItem";
+    args: Protocol.Commands.SellItem;
+};
 type RegisterAccountCommand = {
     type: "registerAccount";
     args: Protocol.Commands.RegisterAccount;
@@ -125,7 +129,7 @@ type RawAnimationCommand = {
     args: Protocol.Commands.RawAnimation;
 };
 
-export type ProtocolCommand = AdminRequestPartitionMetasCommand | AdminRequestScriptsCommand | AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | BuyItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | IncrementAttributeCommand | ReadItemCommand | EatItemCommand | ItemActionCommand | ContainerActionCommand | SaveSettingsCommand | CreatePartitionCommand | RawAnimationCommand;
+export type ProtocolCommand = AdminRequestPartitionMetasCommand | AdminRequestScriptsCommand | AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | BuyItemCommand | SellItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | IncrementAttributeCommand | ReadItemCommand | EatItemCommand | ItemActionCommand | ContainerActionCommand | SaveSettingsCommand | CreatePartitionCommand | RawAnimationCommand;
 
 export function adminRequestPartitionMetas(): AdminRequestPartitionMetasCommand {
     return { type: "adminRequestPartitionMetas", args: arguments[0] };
@@ -174,6 +178,9 @@ export function moveItem({ from, quantity, to }: Protocol.Commands.MoveItem["par
 }
 export function buyItem({ from, quantity, price }: Protocol.Commands.BuyItem["params"]): BuyItemCommand {
     return { type: "buyItem", args: arguments[0] };
+}
+export function sellItem({ from, to, quantity, price }: Protocol.Commands.SellItem["params"]): SellItemCommand {
+    return { type: "sellItem", args: arguments[0] };
 }
 export function registerAccount({ firebaseToken }: Protocol.Commands.RegisterAccount["params"]): RegisterAccountCommand {
     return { type: "registerAccount", args: arguments[0] };

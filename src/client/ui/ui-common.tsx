@@ -75,6 +75,23 @@ export function useCreature(game: Game, id: number) {
   return creature;
 }
 
+export function useContainerItems(game: Game, container: Container) {
+  const [, setItems] = useState(container.items);
+
+  useEffect(() => {
+    const fn = (event: ProtocolEvent) => {
+      if (event.type === 'setItem' && event.args.location.source === 'container' &&
+        event.args.location.id === container.id) {
+        setItems([...container.items]);
+      }
+    };
+    game.client.eventEmitter.addListener('event', fn);
+    return () => game.client.eventEmitter.removeListener('event', fn);
+  });
+
+  return container.items;
+}
+
 export function c(...classNames: Array<string | false>) {
   return classNames.filter(Boolean).join(' ');
 }

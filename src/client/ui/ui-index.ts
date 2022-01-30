@@ -246,7 +246,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     game.client.player.containerId = container.id;
+    game.client.inventory = container;
     makeContainerWindow(game, container);
+  }
+
+  {
+    const container = {
+      id: '2',
+      type: 'merchant' as const,
+      items: [
+        {type: Content.getMetaItemByName('Mana Plant Seeds').id, quantity: 100},
+        {type: Content.getMetaItemByName('Wood Planks').id, quantity: 100},
+        {type: Content.getMetaItemByName('Soccer Ball').id, quantity: 100},
+      ],
+    };
     makeStoreWindow(game, container);
   }
 

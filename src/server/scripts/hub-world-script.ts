@@ -97,9 +97,9 @@ export class HubWorldScript extends Script<{}> {
       creature.merchant = {
         containerId: container.id,
       };
-      container.items[0] = {type: Content.getMetaItemByName('Mana Plant Seeds').id, quantity: 100};
-      container.items[1] = {type: Content.getMetaItemByName('Wood Planks').id, quantity: 100};
-      container.items[2] = {type: Content.getMetaItemByName('Soccer Ball').id, quantity: 100};
+      container.items[0] = {type: Content.getMetaItemByName('Mana Plant Seeds').id, quantity: 100_000};
+      container.items[1] = {type: Content.getMetaItemByName('Wood Planks').id, quantity: 100_000};
+      container.items[2] = {type: Content.getMetaItemByName('Soccer Ball').id, quantity: 100_000};
     }
   }
 }

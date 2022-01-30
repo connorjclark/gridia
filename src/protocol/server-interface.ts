@@ -720,8 +720,14 @@ export class ServerInterface implements ICommands {
   async onBuyItem(server: Server, clientConnection: ClientConnection, {from, quantity, price}: Commands.BuyItem['params']): Promise<Commands.BuyItem['response']> {
     clientConnection.assertsPlayerConnection();
 
-    const item = (await server.getItem(from));
+    if (from.index === undefined) throw new Error('invalid index');
+
+    const merchantContainer = await server.context.getContainer(from.id);
+    if (merchantContainer.type !== 'merchant') throw new Error('invalid container');
+
+    const item = merchantContainer.items[from.index];
     if (!item) throw new Error('invalid item');
+    if (!(quantity > 0 && quantity <= item.quantity)) throw new Error('invalid quantity');
 
     const meta = Content.getMetaItem(item.type);
     if (!Number.isFinite(price) || price !== (meta.value || 1) * quantity) throw new Error('invalid price');
@@ -735,6 +741,32 @@ export class ServerInterface implements ICommands {
     if (location?.index === undefined) throw new Error('no room for item');
 
     Container.addItemToContainer(server, clientConnection.container, purchasedItem);
+    Container.removeItemAmount(server, merchantContainer, purchasedItem.type, purchasedItem.quantity);
+  }
+
+  async onSellItem(server: Server, clientConnection: ClientConnection, {from, to, quantity, price}: Commands.SellItem['params']): Promise<Commands.SellItem['response']> {
+    clientConnection.assertsPlayerConnection();
+
+    if (from.index === undefined) throw new Error('invalid index');
+    if (from.id !== clientConnection.container.id) throw new Error('invalid container');
+    if (to.index !== undefined) throw new Error('invalid index');
+
+    const merchantContainer = await server.context.getContainer(to.id);
+    if (merchantContainer.type !== 'merchant') throw new Error('invalid container');
+
+    const item = clientConnection.container.items[from.index];
+    if (!item) throw new Error('invalid item');
+
+    const meta = Content.getMetaItem(item.type);
+    if (!Number.isFinite(price) || price !== (meta.value || 1) * quantity) throw new Error('invalid price');
+
+    const soldGold = {type: Content.getMetaItemByName('Gold').id, quantity: price};
+    const location = Container.findValidLocationToAddItemToContainer(clientConnection.container, soldGold, {allowStacking: true});
+    if (location?.index === undefined) throw new Error('no room for gold');
+
+    Container.removeItemAmount(server, clientConnection.container, item.type, quantity);
+    Container.addItemToContainer(server, clientConnection.container, soldGold);
+    Container.addItemToContainer(server, merchantContainer, {type: item.type, quantity});
   }
 
   onLearnSkill(server: Server, clientConnection: ClientConnection, {id}: Commands.LearnSkill['params']): Promise<Commands.LearnSkill['response']> {

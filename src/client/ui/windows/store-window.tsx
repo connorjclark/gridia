@@ -6,19 +6,20 @@ import * as CommandBuilder from '../../../protocol/command-builder.js';
 import {ItemLocation} from '../../../utils.js';
 import {Game} from '../../game.js';
 import {ItemGraphic} from '../components/graphic.js';
-import {c, ComponentProps, createSubApp} from '../ui-common.js';
+import {TabbedPane, TabbedPaneProps} from '../components/tabbed-pane.js';
+import {c, ComponentProps, createSubApp, useContainerItems} from '../ui-common.js';
 
 interface State {
   name?: string;
-  container: Container;
-  selectedIndex: number | null;
+  buyingContainer: Container;
+  sellingContainer?: Container;
 }
 
-export function makeStoreWindow(game: Game, container: Container, name?: string) {
+export function makeStoreWindow(game: Game, buyingContainer: Container, name?: string) {
   const initialState: State = {
     name,
-    container,
-    selectedIndex: null,
+    buyingContainer,
+    sellingContainer: game.client.inventory,
   };
 
   const actions = {
@@ -26,14 +27,22 @@ export function makeStoreWindow(game: Game, container: Container, name?: string)
   };
 
   type Props = ComponentProps<State, typeof actions>;
-  const StoreWindow = (props: Props) => {
+
+  const StoreWindowPanel = (props: Props & { isBuying: boolean }) => {
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
     const [quantity, setQuantity] = useState(1);
 
-    const selectedItem = selectedIndex !== null ? props.container.items[selectedIndex] : undefined;
+    const container = props.isBuying ? props.buyingContainer : props.sellingContainer;
+    if (!container) throw new Error();
+
+    const items = useContainerItems(game, container);
+    const selectedItem = selectedIndex !== null ? container.items[selectedIndex] : undefined;
     const selectedItemMeta = selectedItem ? Content.getMetaItem(selectedItem.type) : undefined;
     const price = quantity * (selectedItemMeta ? selectedItemMeta.value || 1 : 0);
-    const buyText = selectedItemMeta ? `Buy ${quantity} ${selectedItemMeta.name} for ${price} gold` : '-';
+    const buyOrSellText = props.isBuying ? 'Buy' : 'Sell';
+    const buttonText = selectedItemMeta ?
+      `${buyOrSellText} ${quantity} ${selectedItemMeta.name} for ${price} gold` :
+      '-';
 
     const goldItemType = Content.getMetaItemByName('Gold').id;
 
@@ -52,7 +61,7 @@ export function makeStoreWindow(game: Game, container: Container, name?: string)
       </div>
 
       <div class="store-items">
-        {props.container.items.map((item, i) => {
+        {items.map((item, i) => {
           if (!item) return;
 
           const meta = Content.getMetaItem(item.type);
@@ -64,7 +73,7 @@ export function makeStoreWindow(game: Game, container: Container, name?: string)
               <ItemGraphic item={{type: item.type, quantity: 1}}></ItemGraphic>
             </div>
             <div class="store-item__label">
-              {meta.name} <span class="store-item__quantity">(x{item.quantity})</span>
+              {meta.name} <span class="store-item__quantity">(x{item.quantity.toLocaleString()})</span>
             </div>
             <div class="store-item__price flex align-bottom">
               <div class="store-item__price__leftborder"></div>
@@ -88,20 +97,51 @@ export function makeStoreWindow(game: Game, container: Container, name?: string)
         <button disabled={!selectedItem} onClick={() => {
           if (selectedIndex === null) return;
 
-          game.client.connection.sendCommand(CommandBuilder.buyItem({
-            from: ItemLocation.Container(props.container.id, selectedIndex),
-            quantity,
-            price,
-          }));
-        }}>{buyText}</button>
+          if (props.isBuying) {
+            game.client.connection.sendCommand(CommandBuilder.buyItem({
+              from: ItemLocation.Container(props.buyingContainer.id, selectedIndex),
+              quantity,
+              price,
+            }));
+          } else {
+            if (!props.sellingContainer) throw new Error();
+
+            game.client.connection.sendCommand(CommandBuilder.sellItem({
+              from: ItemLocation.Container(props.sellingContainer.id, selectedIndex),
+              to: ItemLocation.Container(props.buyingContainer.id),
+              quantity,
+              price,
+            }));
+          }
+        }}>{buttonText}</button>
       </div>
+    </div>;
+  };
+
+  const tabs: TabbedPaneProps['tabs'] = {
+    buy: {
+      label: 'Buy',
+      content: (props: Props) => <StoreWindowPanel {...props} isBuying={true}></StoreWindowPanel>,
+    },
+  };
+
+  if (initialState.sellingContainer) {
+    tabs.sell = {
+      label: 'Sell',
+      content: (props: Props) => <StoreWindowPanel {...props} isBuying={false}></StoreWindowPanel>,
+    };
+  }
+
+  const StoreWindow = (props: Props) => {
+    return <div class="m1">
+      <TabbedPane tabs={tabs} childProps={props}></TabbedPane>
     </div>;
   };
 
   const {SubApp, exportedActions, subscribe} = createSubApp(StoreWindow, initialState, actions);
 
   const delegate = game.windowManager.createWindow({
-    id: `store${container.id}`,
+    id: `store${buyingContainer.id}`,
     cell: 'center',
     show: true,
     noscroll: true,
