@@ -417,25 +417,6 @@ export class Server {
     clientConnection.container = await this.context.getContainer(player.containerId);
     clientConnection.equipment = await this.context.getContainer(player.equipmentContainerId);
 
-    if (Content.getBaseDir() === 'worlds/rpgwo-world') {
-      player.buffs = [
-        {
-          id: 'fakebuff0',
-          expiresAt: Date.now() + Math.round(1000 * 60 * 60 * 10),
-          skill: 1,
-          percentChange: 0.1,
-          linearChange: 10,
-        },
-        {
-          id: 'fakebuff1',
-          expiresAt: Date.now() + Math.round(1000 * 60 * 60 * 10),
-          skill: 4,
-          percentChange: 0.2,
-          linearChange: 25,
-        },
-      ];
-    }
-
     const creature: Creature = {
       id: this.context.nextCreatureId++,
       dead: false,
@@ -496,6 +477,7 @@ export class Server {
     this.context.players.set(player.id, player);
     clientConnection.player = player;
     clientConnection.assertsPlayerConnection();
+    this.updateCreatureDataBasedOnInventory(clientConnection);
 
     await this.initClient(clientConnection);
     this.broadcastChatFromServer(`${clientConnection.player.name} has entered the world.`);
@@ -1065,6 +1047,14 @@ export class Server {
     this.broadcastPartialCreatureUpdate(creature, ['buffs']);
   }
 
+  removeCreatureBuff(creature: Creature, id: string) {
+    const index = creature.buffs.findIndex((buff) => id === buff.id);
+    if (index !== -1) {
+      creature.buffs.splice(index, 1);
+      this.broadcastPartialCreatureUpdate(creature, ['buffs']);
+    }
+  }
+
   castSpell(spell: Spell, creature: Creature, targetCreature?: Creature, pos?: Point4, consumeMana = true) {
     const hasWand = Boolean(
       creature.equipment?.[Container.EQUIP_SLOTS.Weapon] &&
@@ -1374,6 +1364,21 @@ export class Server {
     }
 
     if (opts.broadcast) this.broadcastPartialCreatureUpdate(creature, ['equipmentGraphics', 'stats', 'buffs']);
+  }
+
+  updateCreatureDataBasedOnInventory(playerConnection: PlayerConnection) {
+    this.updateCreatureLight(playerConnection);
+
+    const burden = Container.countBurden(playerConnection.container);
+    const maxBurden = 10_000;
+    // const maxBurden = Player.getAttributeValue(client.player, 'strength', client.player.buffs);
+    if (burden > maxBurden && !playerConnection.creature.buffs.find((b) => b.id === 'overburdened')) {
+      this.assignCreatureBuff(playerConnection.creature, {
+        id: 'overburdened', skill: -1, percentChange: -0.2, expiresAt: 0,
+      });
+    } else {
+      this.removeCreatureBuff(playerConnection.creature, 'overburdened');
+    }
   }
 
   makeCreatureImageData(equipmentItems: Array<Item | null>): Graphics[] {

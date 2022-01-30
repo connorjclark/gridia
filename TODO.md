@@ -10,8 +10,6 @@
 
 ____
 
-* Inventory system-burden
-
 * Use item attributes to build usage system
 * * ex: Instead of defining a usage for Axe + (4 stages of banana tree), Axe + (4 stages of apple tree), ... mark each of those items as an "Tree" and define Axes to tear down trees
 

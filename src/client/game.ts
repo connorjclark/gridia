@@ -519,7 +519,11 @@ export class Game {
         this.attributesWindow.actions.setBuffs(this.client.creature.buffs.map((buff) => {
           let name = 'Buff';
           let skillName = '?';
-          if (buff.skill === -1) {
+          if (buff.id === 'overburdened') {
+            // TODO name should be part of Buff
+            skillName = 'All Skills';
+            name = 'Overburdened';
+          } else if (buff.skill === -1) {
             skillName = 'All Skills';
             name = 'Hero Buff';
           } else if (buff.skill) {

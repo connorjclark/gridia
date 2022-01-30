@@ -1,6 +1,8 @@
 import {MAX_STACK} from './constants.js';
 import * as Content from './content.js';
+import * as Player from './player.js';
 import * as EventBuilder from './protocol/event-builder.js';
+import {ClientConnection} from './server/client-connection.js';
 import {Server} from './server/server.js';
 import * as Utils from './utils.js';
 
@@ -90,6 +92,15 @@ export function countItem(container: Container, type: number): number {
   return value;
 }
 
+export function countBurden(container: Container): number {
+  let value = 0;
+  forEach(container, (item) => {
+    const meta = Content.getMetaItem(item.type);
+    value += item.quantity * meta.burden;
+  });
+  return value;
+}
+
 export function forEach(container: Container, fn: (value: Item, index: number, array: Array<Item | null>) => void) {
   for (let i = 0; i < container.items.length; i++) {
     const item = container.items[i];
@@ -113,19 +124,14 @@ export function setItemInContainer(server: Server, container: Container, index: 
     return clientConnection.registeredContainers.includes(container.id);
   });
 
-  // TODO: should light sources be equippable and only set creature light then?
-  if ((prevItem && Content.getMetaItem(prevItem.type).light) || (item && Content.getMetaItem(item.type).light)) {
-    const client = server.context.clientConnections.find((c) => c.container?.id === container.id);
-    if (client) server.updateCreatureLight(client.ensurePlayerConnection());
-  }
+  const client = server.context.clientConnections
+    .find((c) => c.container?.id === container.id || c.equipment?.id === container.id);
+  if (!client?.isPlayerConnection()) return;
 
-  if (container.type === 'equipment') {
-    const creature = [
-      ...server.context.clientConnections.values(),
-    ].find((client) => client.equipment?.id === container.id)?.creature;
-    if (creature) {
-      server.updateCreatureDataBasedOnEquipment(creature, container, {broadcast: true});
-    }
+  if (container.type === 'normal') {
+    server.updateCreatureDataBasedOnInventory(client);
+  } else if (container.type === 'equipment') {
+    server.updateCreatureDataBasedOnEquipment(client.creature, container, {broadcast: true});
   }
 }
 

@@ -78,6 +78,8 @@ export function makeSkillsWindow(game: Game, initialState: State) {
   type Props = ComponentProps<State, typeof actions>;
 
   const SkillsTab = (props: Props) => {
+    const fmt = (num: number) => num > 0 ? `+${num}` : num;
+
     const combatXpUntilNextLevel = props.combatLevel.xpBar.max - props.combatLevel.xpBar.current;
     const combatLevelTitle = `combat xp until next level: ${combatXpUntilNextLevel.toLocaleString()}`;
     const combatLevelXpPercent = props.combatLevel.xpBar.current / props.combatLevel.xpBar.max;
@@ -103,7 +105,7 @@ export function makeSkillsWindow(game: Game, initialState: State) {
             )}>
               <span class="flex justify-between items-center">
                 <span>{skill.name}</span>
-                {skill.buffAmount ? <span>+{skill.buffAmount}</span> : null}
+                {skill.buffAmount ? <span>{fmt(skill.buffAmount)}</span> : null}
                 <span class="skill__level">{skill.level}</span>
               </span>
               <div class="skill__xp-bar" style={{'--percent': percent}}></div>
@@ -125,7 +127,7 @@ export function makeSkillsWindow(game: Game, initialState: State) {
               <br></br>total xp: {l(skill.xp)}
               <br></br>xp until next level: {l(xpUntilNextLevel)}
               <br></br>base level = {skill.baseLevelFormula} = {skill.baseLevel}
-              <br></br>buffed levels: {skill.buffAmount}
+              <br></br>buffed levels: {fmt(skill.buffAmount)}
               <br></br>trained levels: {skill.earnedLevel}
               <br></br>{skill.specialized ? 'specialized' : ''}
             </div>
