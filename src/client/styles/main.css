@@ -905,7 +905,7 @@ button {
   gap: 3px;
 
   --background-color: #5f645c;
-  --selected-color: #282828;
+  --selected-color: #b5c1a3;
 }
 .store-item {
   display: flex;
@@ -914,6 +914,9 @@ button {
 }
 .store-item--selected {
   background-color: var(--selected-color);
+}
+.store-item--selected .store-item__label {
+  color: black;
 }
 .store-item__gfx {
   background-color: var(--background-color);
