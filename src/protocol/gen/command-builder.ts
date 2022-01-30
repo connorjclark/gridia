@@ -172,7 +172,7 @@ export function move({ ...pos }: Protocol.Commands.Move["params"]): MoveCommand 
 export function moveItem({ from, quantity, to }: Protocol.Commands.MoveItem["params"]): MoveItemCommand {
     return { type: "moveItem", args: arguments[0] };
 }
-export function buyItem({ from, quantity }: Protocol.Commands.BuyItem["params"]): BuyItemCommand {
+export function buyItem({ from, quantity, price }: Protocol.Commands.BuyItem["params"]): BuyItemCommand {
     return { type: "buyItem", args: arguments[0] };
 }
 export function registerAccount({ firebaseToken }: Protocol.Commands.RegisterAccount["params"]): RegisterAccountCommand {

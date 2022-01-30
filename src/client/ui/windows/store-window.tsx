@@ -14,15 +14,6 @@ interface State {
   selectedIndex: number | null;
 }
 
-const getIndex = (e: PointerEvent): number | undefined => {
-  const target = e.target as HTMLElement;
-  const slotEl = target.closest('.container__slot') as HTMLElement;
-  if (!slotEl) return;
-
-  const index = Number(slotEl.dataset.index);
-  return index;
-};
-
 export function makeStoreWindow(game: Game, container: Container, name?: string) {
   const initialState: State = {
     name,
@@ -100,6 +91,7 @@ export function makeStoreWindow(game: Game, container: Container, name?: string)
           game.client.connection.sendCommand(CommandBuilder.buyItem({
             from: ItemLocation.Container(props.container.id, selectedIndex),
             quantity,
+            price,
           }));
         }}>{buyText}</button>
       </div>

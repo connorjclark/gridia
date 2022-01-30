@@ -717,14 +717,15 @@ export class ServerInterface implements ICommands {
     // context.queueTileChange(to)
   }
 
-  async onBuyItem(server: Server, clientConnection: ClientConnection, {from, quantity}: Commands.BuyItem['params']): Promise<Commands.BuyItem['response']> {
+  async onBuyItem(server: Server, clientConnection: ClientConnection, {from, quantity, price}: Commands.BuyItem['params']): Promise<Commands.BuyItem['response']> {
     clientConnection.assertsPlayerConnection();
 
     const item = (await server.getItem(from));
     if (!item) throw new Error('invalid item');
 
     const meta = Content.getMetaItem(item.type);
-    const price = (meta.value || 1) * quantity;
+    if (!Number.isFinite(price) || price !== (meta.value || 1) * quantity) throw new Error('invalid price');
+
     const goldOnHand = Container.countItem(clientConnection.container, Content.getMetaItemByName('Gold').id);
     const paid = goldOnHand >= price && Container.removeItemAmount(server, clientConnection.container, Content.getMetaItemByName('Gold').id, price);
     if (!paid) throw new Error('not enough gold');

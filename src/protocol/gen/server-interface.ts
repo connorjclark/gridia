@@ -19,7 +19,7 @@ export interface ICommands {
     onLogout(server: Server, clientConnection: ClientConnection, {}: Protocol.Commands.Logout["params"]): Promise<Protocol.Commands.Logout["response"]>;
     onMove(server: Server, clientConnection: ClientConnection, { ...pos }: Protocol.Commands.Move["params"]): Promise<Protocol.Commands.Move["response"]>;
     onMoveItem(server: Server, clientConnection: ClientConnection, { from, quantity, to }: Protocol.Commands.MoveItem["params"]): Promise<Protocol.Commands.MoveItem["response"]>;
-    onBuyItem(server: Server, clientConnection: ClientConnection, { from, quantity }: Protocol.Commands.BuyItem["params"]): Promise<Protocol.Commands.BuyItem["response"]>;
+    onBuyItem(server: Server, clientConnection: ClientConnection, { from, quantity, price }: Protocol.Commands.BuyItem["params"]): Promise<Protocol.Commands.BuyItem["response"]>;
     onRegisterAccount(server: Server, clientConnection: ClientConnection, { firebaseToken }: Protocol.Commands.RegisterAccount["params"]): Promise<Protocol.Commands.RegisterAccount["response"]>;
     onRequestContainer(server: Server, clientConnection: ClientConnection, { containerId, pos }: Protocol.Commands.RequestContainer["params"]): Promise<Protocol.Commands.RequestContainer["response"]>;
     onRequestCreature(server: Server, clientConnection: ClientConnection, { id }: Protocol.Commands.RequestCreature["params"]): Promise<Protocol.Commands.RequestCreature["response"]>;

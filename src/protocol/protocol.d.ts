@@ -37,7 +37,7 @@ declare namespace Protocol {
     type Logout = Command<{}>;
     type Move = Command<TilePoint, { resetLocation?: Point4 }>;
     type MoveItem = Command<{ from: ItemLocation; quantity?: number; to: ItemLocation }>;
-    type BuyItem = Command<{ from: ContainerLocation; quantity: number }>;
+    type BuyItem = Command<{ from: ContainerLocation; quantity: number; price: number }>;
     type RegisterAccount = Command<{ firebaseToken: string }>;
     type RequestContainer = Command<{ containerId?: string; pos?: TilePoint }>;
     type RequestCreature = Command<{ id: number }>;
