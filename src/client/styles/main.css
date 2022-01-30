@@ -905,18 +905,15 @@ button {
   gap: 3px;
 
   --background-color: #5f645c;
-  --selected-color: #b5c1a3;
+  --selected-color: var(--color-blue);
 }
 .store-item {
   display: flex;
   border: 2px solid var(--background-color);
   border-radius: 2px;
 }
-.store-item--selected {
+.store-item--selected, .store-item:hover {
   background-color: var(--selected-color);
-}
-.store-item--selected .store-item__label {
-  color: black;
 }
 .store-item__gfx {
   background-color: var(--background-color);

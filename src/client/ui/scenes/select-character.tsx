@@ -13,7 +13,7 @@ interface Props {
 
 export const SelectCharacter = (props: Props) => {
   return <div>
-    <div class="flex flex-column items-center">
+    <div class="flex flex-column">
       <button
         class="select-character__create-character-btn button--primary"
         onClick={() => props.controller.pushScene(new CreateCharacterScene(props.controller))}
