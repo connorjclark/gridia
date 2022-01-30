@@ -793,7 +793,7 @@ export class Server {
 
         const clientConnection = this.getClientConnectionForCreature(data.actor);
         if (hasAmmoForAttack && clientConnection && ammoItemEquipped) {
-          this.setItemInContainer(clientConnection.equipment.id, Container.EQUIP_SLOTS.Ammo, {
+          Container.setItemInContainer(this, clientConnection.equipment, Container.EQUIP_SLOTS.Ammo, {
             ...ammoItemEquipped,
             quantity: ammoItemEquipped.quantity - 1,
           });
@@ -1303,41 +1303,6 @@ export class Server {
     this.broadcastPartialCreatureUpdate(playerConnection.creature, ['light']);
   }
 
-  // TODO: move to Container
-  setItemInContainer(id: string, index: number, item?: Item) {
-    if (item?.quantity === 0) item = undefined;
-
-    const container = this.context.containers.get(id);
-    if (!container) throw new Error(`no container: ${id}`);
-
-    const prevItem = container.items[index];
-    container.items[index] = item || null;
-
-    this.conditionalBroadcast(EventBuilder.setItem({
-      location: Utils.ItemLocation.Container(id, index),
-      item,
-    }), (clientConnection) => {
-      if (clientConnection.container.id === id) return true;
-      if (clientConnection.equipment.id === id) return true;
-      return clientConnection.registeredContainers.includes(id);
-    });
-
-    // TODO: should light sources be equippable and only set creature light then?
-    if ((prevItem && Content.getMetaItem(prevItem.type).light) || (item && Content.getMetaItem(item.type).light)) {
-      const client = this.context.clientConnections.find((c) => c.container?.id === id);
-      if (client) this.updateCreatureLight(client.ensurePlayerConnection());
-    }
-
-    if (container.type === 'equipment') {
-      const creature = [
-        ...this.context.clientConnections.values(),
-      ].find((client) => client.equipment?.id === id)?.creature;
-      if (creature) {
-        this.updateCreatureDataBasedOnEquipment(creature, container, {broadcast: true});
-      }
-    }
-  }
-
   deriveCreaturePropertiesFromEquipment(creature: Creature, equipmentItems: Array<Item | null>) {
     let equipmentGraphics: Graphics[] | undefined;
     let makeEquipmentGraphics = true;
@@ -1656,7 +1621,11 @@ export class Server {
       this.setItemInWorld(location.pos, maybeItem);
     } else {
       if (location.index === undefined) throw new Error('invariant violated');
-      this.setItemInContainer(location.id, location.index, maybeItem);
+
+      const container = this.context.containers.get(location.id);
+      if (!container) throw new Error('invalid container');
+
+      Container.setItemInContainer(this, container, location.index, maybeItem);
     }
   }
 
@@ -1665,7 +1634,11 @@ export class Server {
       this.setItemInWorld(location.pos, undefined);
     } else {
       if (location.index === undefined) throw new Error('invariant violated');
-      this.setItemInContainer(location.id, location.index, undefined);
+
+      const container = this.context.containers.get(location.id);
+      if (!container) throw new Error('invalid container');
+
+      Container.setItemInContainer(this, container, location.index, undefined);
     }
   }
 

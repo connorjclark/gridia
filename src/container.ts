@@ -1,5 +1,6 @@
 import {MAX_STACK} from './constants.js';
 import * as Content from './content.js';
+import * as EventBuilder from './protocol/event-builder.js';
 import {Server} from './server/server.js';
 import * as Utils from './utils.js';
 
@@ -97,12 +98,43 @@ export function forEach(container: Container, fn: (value: Item, index: number, a
   }
 }
 
+export function setItemInContainer(server: Server, container: Container, index: number, item?: Item) {
+  if (item?.quantity === 0) item = undefined;
+
+  const prevItem = container.items[index];
+  container.items[index] = item || null;
+
+  server.conditionalBroadcast(EventBuilder.setItem({
+    location: Utils.ItemLocation.Container(container.id, index),
+    item,
+  }), (clientConnection) => {
+    if (clientConnection.container.id === container.id) return true;
+    if (clientConnection.equipment.id === container.id) return true;
+    return clientConnection.registeredContainers.includes(container.id);
+  });
+
+  // TODO: should light sources be equippable and only set creature light then?
+  if ((prevItem && Content.getMetaItem(prevItem.type).light) || (item && Content.getMetaItem(item.type).light)) {
+    const client = server.context.clientConnections.find((c) => c.container?.id === container.id);
+    if (client) server.updateCreatureLight(client.ensurePlayerConnection());
+  }
+
+  if (container.type === 'equipment') {
+    const creature = [
+      ...server.context.clientConnections.values(),
+    ].find((client) => client.equipment?.id === container.id)?.creature;
+    if (creature) {
+      server.updateCreatureDataBasedOnEquipment(creature, container, {broadcast: true});
+    }
+  }
+}
+
 export function addItemToContainer(server: Server, container: Container, item: Item): boolean {
   const location = findValidLocationToAddItemToContainer(container, item, {allowStacking: true});
   if (location?.index === undefined) return false;
 
   const curItemQuantity = container.items[location.index]?.quantity || 0;
-  server.setItemInContainer(container.id, location.index, {...item, quantity: curItemQuantity + item.quantity});
+  setItemInContainer(server, container, location.index, {...item, quantity: curItemQuantity + item.quantity});
   return true;
 }
 
@@ -129,7 +161,7 @@ export function removeItemAmount(server: Server, container: Container, type: num
     if (!item) throw new Error();
 
     item.quantity -= amountToTake;
-    server.setItemInContainer(container.id, index, item);
+    setItemInContainer(server, container, index, item);
   }
 
   return true;

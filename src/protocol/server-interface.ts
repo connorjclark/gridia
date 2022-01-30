@@ -411,13 +411,13 @@ export class ServerInterface implements ICommands {
         allowStacking: true,
       });
       if (containerLocation && containerLocation.index !== undefined) {
-        server.setItemInContainer(containerLocation.id, containerLocation.index, usageResult.successTool);
+        Container.setItemInContainer(server, inventory, containerLocation.index, usageResult.successTool);
       } else {
         server.addItemNear(pos, usageResult.successTool);
       }
     }
 
-    server.setItemInContainer(inventory.id, toolIndex, usageResult.tool);
+    Container.setItemInContainer(server, inventory, toolIndex, usageResult.tool);
     server.context.map.getTile(pos).item = usageResult.focus;
     server.broadcast(EventBuilder.setItem({
       location: Utils.ItemLocation.World(pos),
@@ -616,11 +616,11 @@ export class ServerInterface implements ICommands {
 
     // Special case: swapping equipment.
     if (toItem && fromItem && (toItem.type !== fromItem.type || !Content.getMetaItem(fromItem.type).stackable) &&
-      validToLocation.source === 'container' && server.context.containers.get(validToLocation.id)?.type === 'equipment' &&
+      validToLocation.source === 'container' && validToLocation.id === clientConnection.equipment.id &&
       fromItem && from.source === 'container' && from.id === clientConnection.container.id &&
       from.index !== undefined && validToLocation.index !== undefined) {
-      server.setItemInContainer(from.id, from.index, toItem);
-      server.setItemInContainer(validToLocation.id, validToLocation.index, fromItem);
+      Container.setItemInContainer(server, clientConnection.container, from.index, toItem);
+      Container.setItemInContainer(server, clientConnection.equipment, validToLocation.index, fromItem);
       return;
     }
 
@@ -899,7 +899,7 @@ export class ServerInterface implements ICommands {
         return Content.getMetaItem(a.type).name.localeCompare(Content.getMetaItem(b.type).name);
       });
       sortedItems.forEach((item, index) => {
-        server.setItemInContainer(id, index, item || undefined);
+        Container.setItemInContainer(server, container, index, item || undefined);
       });
       break;
     case 'stack':

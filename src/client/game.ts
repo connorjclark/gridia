@@ -367,7 +367,6 @@ export class Game {
   private _chatLog: Array<{ section: string; text: string; from?: string }> = [];
   private _chatMemory: string[] = [];
 
-  // eslint-disable-next-line @typescript-eslint/member-ordering
   modules = {
     admin: null as AdminModule | null,
     movement: new MovementModule(this),
