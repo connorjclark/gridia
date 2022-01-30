@@ -1,3 +1,4 @@
+import * as CommandBuilder from '../../protocol/command-builder.js';
 import {Client} from '../client.js';
 import * as Helper from '../helper.js';
 import {ServerWorker} from '../server-worker.js';
@@ -109,6 +110,18 @@ export class SceneController {
   async getMapNames() {
     const {mapNames} = await this.serverWorker.listMaps();
     return mapNames;
+  }
+
+  async selectPlayer(playerId: string) {
+    try {
+      await this.client.connection.sendCommand(CommandBuilder.enterWorld({
+        playerId,
+      }));
+      this.startGame();
+    } catch (error) {
+      // TODO: UI
+      console.error(error);
+    }
   }
 
   private setBackButtonClass() {
