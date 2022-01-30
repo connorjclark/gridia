@@ -602,7 +602,7 @@ button {
 
 .window--equipment .container__slots {
   display: grid;
-  grid-template: 'p a . g'
+  grid-template: '. a . g'
                  'b c d i'
                  'f e . h';
   grid-auto-columns: min-content;
@@ -610,33 +610,30 @@ button {
   border: none;
 }
 .window--equipment .container__slot:nth-child(1) {
-  grid-area: p;
-}
-.window--equipment .container__slot:nth-child(2) {
   grid-area: a;
 }
-.window--equipment .container__slot:nth-child(3) {
+.window--equipment .container__slot:nth-child(2) {
   grid-area: b;
 }
-.window--equipment .container__slot:nth-child(4) {
+.window--equipment .container__slot:nth-child(3) {
   grid-area: c;
 }
-.window--equipment .container__slot:nth-child(5) {
+.window--equipment .container__slot:nth-child(4) {
   grid-area: d;
 }
-.window--equipment .container__slot:nth-child(6) {
+.window--equipment .container__slot:nth-child(5) {
   grid-area: e;
 }
-.window--equipment .container__slot:nth-child(7) {
+.window--equipment .container__slot:nth-child(6) {
   grid-area: f;
 }
-.window--equipment .container__slot:nth-child(8) {
+.window--equipment .container__slot:nth-child(7) {
   grid-area: g;
 }
-.window--equipment .container__slot:nth-child(9) {
+.window--equipment .container__slot:nth-child(8) {
   grid-area: h;
 }
-.window--equipment .container__slot:nth-child(10) {
+.window--equipment .container__slot:nth-child(9) {
   grid-area: i;
 }
 .window--equipment .container__slot {
