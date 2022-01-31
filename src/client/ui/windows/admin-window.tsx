@@ -6,14 +6,16 @@ import * as Content from '../../../content.js';
 import {game} from '../../../game-singleton.js';
 import {gen_wfc} from '../../../mapgen.js';
 import * as CommandBuilder from '../../../protocol/command-builder.js';
+import {Rate} from '../../../server/task-runner.js';
 import * as Utils from '../../../utils.js';
 import {WorldMapPartition} from '../../../world-map-partition.js';
 import {ClientEvents} from '../../event-emitter.js';
 import {AdminModule} from '../../modules/admin-module.js';
-import {Graphic} from '../components/graphic.js';
+import {CreatureGraphic, Graphic} from '../components/graphic.js';
 import {Input} from '../components/input.js';
 import {MapView} from '../components/map-view.js';
 import {PaginatedContent} from '../components/paginated-content.js';
+import {Schema, SchemaForm, TypeProps} from '../components/schema-form.js';
 import {TabbedPane} from '../components/tabbed-pane.js';
 import {c, ComponentProps, createSubApp, usePartition} from '../ui-common.js';
 import {wfcInputs} from '../wfc-inputs.js';
@@ -520,12 +522,15 @@ export function makeAdminWindow(adminModule: AdminModule) {
 
   const ScriptsTab = () => {
     const [scriptStates, setScriptStates] = useState<ScriptState[] | null>(null);
+    const [selectedIndex, setSelectedIndex] = useState(0);
 
-    useEffect(() => {
+    const requestStates = () => {
       game.client.connection.sendCommand(CommandBuilder.adminRequestScripts()).then((newScriptStates) => {
         setScriptStates(newScriptStates);
       });
-    }, []);
+    };
+
+    useEffect(requestStates, []);
 
     if (scriptStates === null) {
       return <div>
@@ -533,9 +538,180 @@ export function makeAdminWindow(adminModule: AdminModule) {
       </div>;
     }
 
-    return <pre>
-      {JSON.stringify(scriptStates, null, 2)}
-    </pre>;
+    const selectedScriptState = scriptStates[selectedIndex];
+
+    const schema: Schema = {};
+    for (const [k, v] of Object.entries(selectedScriptState.configDefinition)) {
+      if (typeof v === 'string') {
+        switch (v) {
+        case 'CreatureSpawner':
+          schema[k] = {
+            object: {
+              region: 'Region',
+              descriptors: {array: 'CreatureDescriptor'},
+              limit: 'number',
+              rate: 'Rate',
+            },
+          };
+          break;
+        case 'Region':
+          schema[k] = 'Region';
+          break;
+        case 'number':
+          schema[k] = 'number';
+          break;
+        }
+      } else {
+        // ...
+      }
+    }
+
+    return <div class="m1">
+      <div>
+        {scriptStates.map((script, i) => {
+          return <div
+            class={c('script', selectedIndex === i && 'script--selected')}
+            onClick={() => setSelectedIndex(i)}
+          >
+            {script.id}
+          </div>;
+        })}
+      </div>
+      <pre>
+        {JSON.stringify(scriptStates[selectedIndex], null, 2)}
+      </pre>
+      <div>
+        <h2>Config</h2>
+
+        <SchemaForm
+          initialValue={selectedScriptState.config}
+          schema={schema}
+          typeToDefaultExtras={{
+            Region: () => ({w: 0, x: 0, y: 0, z: 0, width: 0, height: 0}),
+            Rate: () => ({minutes: 1}),
+            CreatureDescriptor: () => ({type: Content.getMonsterTemplates().find((m) => m)?.id || 0}),
+          }}
+          typeToFieldComponentExtras={{
+            Region: (props: TypeProps<Region>) => {
+              const [value, setValue] = useState(props.initialValue);
+              const update = (newValue: Region) => {
+                setValue(newValue);
+                props.onValueUpdated(newValue);
+              };
+
+              return <div>
+                <label>
+                  w
+                  <input
+                    type="number"
+                    value={value.w}
+                    onChange={(e: any) => update({...value, w: e.target.valueAsNumber})}>
+                  </input>
+                </label>
+                <label>
+                  x
+                  <input
+                    type="number"
+                    value={value.x}
+                    onChange={(e: any) => update({...value, x: e.target.valueAsNumber})}>
+                  </input>
+                </label>
+                <label>
+                  y
+                  <input
+                    type="number"
+                    value={value.y}
+                    onChange={(e: any) => update({...value, y: e.target.valueAsNumber})}>
+                  </input>
+                </label>
+                <label>
+                  z
+                  <input
+                    type="number"
+                    value={value.z}
+                    onChange={(e: any) => update({...value, z: e.target.valueAsNumber})}>
+                  </input>
+                </label>
+
+                <label>
+                  Width
+                  <input
+                    type="number"
+                    value={value.width}
+                    onChange={(e: any) => update({...value, width: e.target.valueAsNumber})}>
+                  </input>
+                </label>
+                <label>
+                  Height
+                  <input
+                    type="number"
+                    value={value.height}
+                    onChange={(e: any) => update({...value, height: e.target.valueAsNumber})}>
+                  </input>
+                </label>
+              </div>;
+            },
+            Rate: (props: TypeProps<Rate>) => {
+              const [value, setValue] = useState(props.initialValue);
+              const update = (newValue: Rate) => {
+                setValue(newValue);
+                props.onValueUpdated(newValue);
+              };
+
+              return <div>
+                <label>
+                  Minutes
+                  <input
+                    type="number"
+                    value={value.minutes}
+                    onChange={(e: any) => update({...value, minutes: e.target.valueAsNumber})}>
+                  </input>
+                </label>
+              </div>;
+            },
+            CreatureDescriptor: (props: TypeProps<CreatureDescriptor>) => {
+              const [value, setValue] = useState(props.initialValue);
+              const update = (newValue: CreatureDescriptor) => {
+                setValue(newValue);
+                props.onValueUpdated(newValue);
+              };
+
+              const creatureData = useMemo(() => {
+                return Content.getMonsterTemplates().filter(Boolean).map((monster) => {
+                  return {
+                    id: monster.id,
+                    name: monster.name,
+                  };
+                });
+              }, []);
+
+              return <div>
+                <CreatureGraphic type={value.type}></CreatureGraphic>
+                <label>
+                  Type
+                  <select
+                    value={value.type}
+                    onChange={(e: any) => update({...value, type: Number(e.target.value)})}
+                  >
+                    {creatureData.map((data) => {
+                      return <option value={data.id}>{data.name}</option>;
+                    })}
+                  </select>
+                </label>
+              </div>;
+            },
+          }}
+          onValueUpdated={async (value: any, key: string) => {
+            await game.client.connection.sendCommand(CommandBuilder.adminSetScriptConfig({
+              id: selectedScriptState.id,
+              key,
+              value,
+            }));
+            requestStates();
+          }}
+        ></SchemaForm>
+      </div>
+    </div>;
   };
 
   const tabs = {

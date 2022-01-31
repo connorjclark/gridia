@@ -14,5 +14,25 @@
     "z": 0,
     "width": 1,
     "height": 1
+  },
+  "thunder-dome.limit": 10,
+  "hub-world.spawner": {
+    "descriptors": [
+      {
+        "type": 1
+      }
+    ],
+    "limit": 3,
+    "rate": {
+      "minutes": 1
+    },
+    "region": {
+      "w": 0,
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "width": 3,
+      "height": 3
+    }
   }
 }

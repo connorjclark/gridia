@@ -529,6 +529,10 @@ button {
   color: gold;
 }
 
+.script--selected {
+  background-color: var(--color-blue);
+}
+
 .mapview {
   position: relative;
   width: fit-content;
@@ -947,4 +951,8 @@ span.store-item__quantity {
   height: 1rem;
   width: 100%;
   background-color: var(--background-color);
+}
+
+.schema-form input[type="number"] {
+  width: 3rem;
 }

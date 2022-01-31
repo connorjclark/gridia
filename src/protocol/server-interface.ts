@@ -805,6 +805,11 @@ export class ServerInterface implements ICommands {
     return Promise.resolve(server.scriptManager.getScriptStates());
   }
 
+  onAdminSetScriptConfig(server: Server, clientConnection: ClientConnection, {id, key, value}: Commands.AdminSetScriptConfig['params']): Promise<Commands.AdminSetScriptConfig['response']> {
+    server.scriptManager.updateScriptConfig(id, value, key);
+    return Promise.resolve();
+  }
+
   async onChat(server: Server, clientConnection: ClientConnection, {text}: Commands.Chat['params']): Promise<Commands.Chat['response']> {
     clientConnection.assertsPlayerConnection();
 

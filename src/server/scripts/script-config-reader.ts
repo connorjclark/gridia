@@ -1,4 +1,29 @@
-export class ScriptConfigStore {
+export function readConfig<T extends ConfigDefinition>(
+  scriptName: string, configDef: T, configStore: object): {config: MapConfigType<T>; errors: ScriptError[]} {
+
+  const reader = new ScriptConfigReader(configStore);
+
+  // @ts-expect-error
+  const config: MapConfigType<T> = {};
+  for (const [k, v] of Object.entries(configDef)) {
+    const key = `${scriptName}.${k}`;
+    if (v === 'Region') {
+      // @ts-expect-error
+      config[k] = reader.getRegion(key);
+    } else if (v === 'CreatureSpawner') {
+      // @ts-expect-error
+      config[k] = reader.getCreatureSpawner(key);
+    } else if (v === 'number') {
+      // @ts-expect-error
+      config[k] = reader.getNumber(key);
+    }
+  }
+
+  const errors = reader.takeErrors();
+  return {config, errors};
+}
+
+class ScriptConfigReader {
   private errors: ScriptError[] = [];
 
   constructor(private store: Record<string, any>) { }
@@ -40,6 +65,30 @@ export class ScriptConfigStore {
       {key: 'x', type: 'number'},
       {key: 'y', type: 'number'},
       {key: 'z', type: 'number'},
+    ]);
+
+    return object;
+  }
+
+  getCreatureSpawner(key: string, index?: number): CreatureSpawner {
+    const value = this.store[key];
+    if (value === undefined) {
+      this.errors.push({text: `no config value for ${key}`, data: {key}});
+      // @ts-expect-error
+      return;
+    }
+    if (index !== undefined && !Array.isArray(value)) {
+      this.errors.push({text: `config value is not an array: ${key}`, data: {key}});
+      // @ts-expect-error
+      return;
+    }
+
+    const object = value;
+    this.objCheck(key, object, [
+      {key: 'limit', type: 'number'},
+      {key: 'rate', type: 'object'},
+      {key: 'region', type: 'object'},
+      {key: 'descriptors', type: 'object'},
     ]);
 
     return object;

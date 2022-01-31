@@ -1,48 +1,13 @@
 import * as Utils from '../utils.js';
 
 import {PlayerConnection} from './client-connection.js';
-import {ScriptConfigStore} from './scripts/script-config-store.js';
+import {readConfig} from './scripts/script-config-reader.js';
 import {Server} from './server.js';
-import {Rate, TickSection} from './task-runner.js';
-
-interface CreatureSpawner {
-  descriptors: CreatureDescriptor[];
-  limit: number;
-  rate: Rate;
-  region: Region;
-}
+import {TickSection} from './task-runner.js';
 
 interface CreatureSpawnerState {
   spawnedCreatures: Creature[];
   scheduledSpawnTicks: number[];
-}
-
-type ConfigDefinition = Record<string, 'Region'|'number'>;
-
-export type MapConfigType<T extends ConfigDefinition> = Required<{ [K in keyof T]?:
-  T[K] extends 'Region' ? Region :
-    T[K] extends 'number' ? number :
-      never
-}>;
-
-function readConfig<T extends ConfigDefinition>(
-  scriptName: string, configDef: T, configStore: ScriptConfigStore): {config: MapConfigType<T>; errors: ScriptError[]} {
-
-  // @ts-expect-error
-  const config: MapConfigType<T> = {};
-  for (const [k, v] of Object.entries(configDef)) {
-    const key = `${scriptName}.${k}`;
-    if (v === 'Region') {
-      // @ts-expect-error
-      config[k] = configStore.getRegion(key);
-    } else if (v === 'number') {
-      // @ts-expect-error
-      config[k] = configStore.getNumber(key);
-    }
-  }
-
-  const errors = configStore.takeErrors();
-  return {config, errors};
 }
 
 export abstract class Script<C extends ConfigDefinition> {
@@ -61,6 +26,11 @@ export abstract class Script<C extends ConfigDefinition> {
     this.errors = result.errors;
   }
 
+  setConfig(config: MapConfigType<C>) {
+    this.config = config;
+    this.state = 'restarting';
+  }
+
   addError(error: Error | string) {
     if (typeof error === 'string') {
       this.errors.push({text: error});
@@ -74,11 +44,16 @@ export abstract class Script<C extends ConfigDefinition> {
     }
   }
 
+  clearErrors() {
+    this.errors = [];
+  }
+
   getScriptState(): ScriptState {
     return {
       id: this.id,
       state: this.state,
       config: this.config,
+      configDefinition: this.configDefinition,
       errors: this.errors,
     };
   }
@@ -167,9 +142,9 @@ export abstract class Script<C extends ConfigDefinition> {
       for (const creature of state.spawnedCreatures) {
         this.server.removeCreature(creature);
       }
-      state.spawnedCreatures = [];
-      state.scheduledSpawnTicks = [];
     }
+    this.creatureSpawners = [];
+    this.creatureSpawnerState.clear();
   }
 
   protected registerTickSection(section: TickSection) {

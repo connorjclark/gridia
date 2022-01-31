@@ -8,6 +8,10 @@ type AdminRequestScriptsCommand = {
     type: "adminRequestScripts";
     args: Protocol.Commands.AdminRequestScripts;
 };
+type AdminSetScriptConfigCommand = {
+    type: "adminSetScriptConfig";
+    args: Protocol.Commands.AdminSetScriptConfig;
+};
 type AdminSetFloorCommand = {
     type: "adminSetFloor";
     args: Protocol.Commands.AdminSetFloor;
@@ -129,13 +133,16 @@ type RawAnimationCommand = {
     args: Protocol.Commands.RawAnimation;
 };
 
-export type ProtocolCommand = AdminRequestPartitionMetasCommand | AdminRequestScriptsCommand | AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | BuyItemCommand | SellItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | IncrementAttributeCommand | ReadItemCommand | EatItemCommand | ItemActionCommand | ContainerActionCommand | SaveSettingsCommand | CreatePartitionCommand | RawAnimationCommand;
+export type ProtocolCommand = AdminRequestPartitionMetasCommand | AdminRequestScriptsCommand | AdminSetScriptConfigCommand | AdminSetFloorCommand | AdminSetItemCommand | CastSpellCommand | ChatCommand | CloseContainerCommand | CreatePlayerCommand | CreatureActionCommand | DialogueResponseCommand | EnterWorldCommand | LoginCommand | LogoutCommand | MoveCommand | MoveItemCommand | BuyItemCommand | SellItemCommand | RegisterAccountCommand | RequestContainerCommand | RequestCreatureCommand | RequestPartitionCommand | RequestSectorCommand | UseCommand | LearnSkillCommand | IncrementAttributeCommand | ReadItemCommand | EatItemCommand | ItemActionCommand | ContainerActionCommand | SaveSettingsCommand | CreatePartitionCommand | RawAnimationCommand;
 
 export function adminRequestPartitionMetas(): AdminRequestPartitionMetasCommand {
     return { type: "adminRequestPartitionMetas", args: arguments[0] };
 }
 export function adminRequestScripts(): AdminRequestScriptsCommand {
     return { type: "adminRequestScripts", args: arguments[0] };
+}
+export function adminSetScriptConfig({ id, key, value }: Protocol.Commands.AdminSetScriptConfig["params"]): AdminSetScriptConfigCommand {
+    return { type: "adminSetScriptConfig", args: arguments[0] };
 }
 export function adminSetFloor({ floor, ...pos }: Protocol.Commands.AdminSetFloor["params"]): AdminSetFloorCommand {
     return { type: "adminSetFloor", args: arguments[0] };

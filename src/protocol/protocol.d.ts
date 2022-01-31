@@ -17,6 +17,7 @@ declare namespace Protocol {
   namespace Commands {
     type AdminRequestPartitionMetas = Command<{}, PartitionMeta[]>;
     type AdminRequestScripts = Command<{}, ScriptState[]>;
+    type AdminSetScriptConfig = Command<{ id: string; key?: string; value: any }>;
     type AdminSetFloor = Command<TilePoint & { floor: number }>;
     type AdminSetItem = Command<TilePoint & { item?: Item }>;
     type CastSpell = Command<{ id: number; creatureId?: number; pos?: Point4 }>;

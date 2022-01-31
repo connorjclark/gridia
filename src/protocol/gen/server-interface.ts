@@ -6,6 +6,7 @@ import {Server} from '../../server/server.js'
 export interface ICommands {
     onAdminRequestPartitionMetas(server: Server, clientConnection: ClientConnection, {}: Protocol.Commands.AdminRequestPartitionMetas["params"]): Promise<Protocol.Commands.AdminRequestPartitionMetas["response"]>;
     onAdminRequestScripts(server: Server, clientConnection: ClientConnection, {}: Protocol.Commands.AdminRequestScripts["params"]): Promise<Protocol.Commands.AdminRequestScripts["response"]>;
+    onAdminSetScriptConfig(server: Server, clientConnection: ClientConnection, { id, key, value }: Protocol.Commands.AdminSetScriptConfig["params"]): Promise<Protocol.Commands.AdminSetScriptConfig["response"]>;
     onAdminSetFloor(server: Server, clientConnection: ClientConnection, { floor, ...pos }: Protocol.Commands.AdminSetFloor["params"]): Promise<Protocol.Commands.AdminSetFloor["response"]>;
     onAdminSetItem(server: Server, clientConnection: ClientConnection, { item, ...pos }: Protocol.Commands.AdminSetItem["params"]): Promise<Protocol.Commands.AdminSetItem["response"]>;
     onCastSpell(server: Server, clientConnection: ClientConnection, { id, creatureId, pos }: Protocol.Commands.CastSpell["params"]): Promise<Protocol.Commands.CastSpell["response"]>;

@@ -1,5 +1,6 @@
 import {PlayerConnection} from './client-connection.js';
 import {Script} from './script.js';
+import {readConfig} from './scripts/script-config-reader.js';
 import {Server} from './server.js';
 
 export class ScriptManager {
@@ -48,6 +49,12 @@ export class ScriptManager {
         script.state = 'stopped';
         await script.tryCatchFn(() => script.onStop());
         script.unload();
+      } else if (script.state === 'restarting') {
+        script.state = 'stopped';
+        script.clearErrors();
+        await script.tryCatchFn(() => script.onStop());
+        script.unload();
+        script.state = 'starting';
       }
     }
   }
@@ -87,6 +94,21 @@ export class ScriptManager {
       console.error(`Failed to add script ${script.id}\n` + JSON.stringify(errors, null, 2));
     } else {
       script.state = 'starting';
+    }
+  }
+
+  // TODO: use `key`.
+  updateScriptConfig(id: string, value: any, key: string | undefined) {
+    const script = this._scripts.find((s) => s.id === id);
+    if (!script) throw new Error('invalid script');
+
+    const tempConfigStore = Object.fromEntries(Object.entries(value).map(([k, v]) => [`${id}.${k}`, v]));
+    const result = readConfig(id, script.configDefinition, tempConfigStore);
+    if (result.errors.length) throw new Error('errors: ' + JSON.stringify(result.errors));
+
+    script.setConfig(result.config);
+    for (const [k, v] of Object.entries(tempConfigStore)) {
+      this.server.context.scriptConfigStore[k] = v;
     }
   }
 

@@ -4,9 +4,13 @@ import {WorldMapPartition} from '../../world-map-partition.js';
 import {Script} from '../script.js';
 import {Server} from '../server.js';
 
-export class HubWorldScript extends Script<{}> {
+const configDefinition = {
+  spawner: 'CreatureSpawner',
+} as const;
+
+export class HubWorldScript extends Script<typeof configDefinition> {
   constructor(protected server: Server) {
-    super('hub-world', server, {});
+    super('hub-world', server, configDefinition);
   }
 
   async onStart() {
@@ -101,5 +105,7 @@ export class HubWorldScript extends Script<{}> {
       container.items[1] = {type: Content.getMetaItemByName('Wood Planks').id, quantity: 100_000};
       container.items[2] = {type: Content.getMetaItemByName('Soccer Ball').id, quantity: 100_000};
     }
+
+    this.addCreatureSpawner(this.config.spawner);
   }
 }

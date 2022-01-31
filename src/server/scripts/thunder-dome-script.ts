@@ -2,9 +2,13 @@ import * as Content from '../../content.js';
 import {Script} from '../script.js';
 import {Server} from '../server.js';
 
-export class ThunderDomeScript extends Script<{}> {
+const configDefinition = {
+  limit: 'number',
+} as const;
+
+export class ThunderDomeScript extends Script<typeof configDefinition> {
   constructor(protected server: Server) {
-    super('thunder-dome', server, {});
+    super('thunder-dome', server, configDefinition);
   }
 
   onStart() {
@@ -16,7 +20,7 @@ export class ThunderDomeScript extends Script<{}> {
 
     this.addCreatureSpawner({
       descriptors: Content.getMonsterTemplates().filter(Boolean).map((m) => ({type: m.id})),
-      limit: 15,
+      limit: this.config.limit,
       rate: {seconds: 1},
       region: {
         w,

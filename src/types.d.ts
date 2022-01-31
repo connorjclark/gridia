@@ -57,6 +57,13 @@ type TilePoint = Point4; // `w` is world index
 
 type Region = Point4 & { width: number; height: number };
 
+interface CreatureSpawner {
+  descriptors: CreatureDescriptor[];
+  limit: number;
+  rate: import('../src/server/task-runner').Rate;
+  region: Region;
+}
+
 interface Binding {
   key?: number;
   mouse?: number;
@@ -519,7 +526,7 @@ interface WorldDataDefinition {
   tileSize: number;
   baseDir: string;
   characterCreation: {
-    attributes: Array<{name: string; derived?: {from: string; creationMultiplier?: number}}>;
+    attributes: Array<{ name: string; derived?: { from: string; creationMultiplier?: number } }>;
     attributePoints: number;
     skillPoints: number;
     requiredSkills?: number[];
@@ -528,10 +535,22 @@ interface WorldDataDefinition {
   };
 }
 
+type ConfigValueType = 'CreatureSpawner' | 'Region' | 'number';
+type ConfigDefinition = Record<string, ConfigValueType | { array: ConfigValueType }>;
+
+type MapConfigValueType<T extends ConfigValueType> =
+  T extends 'CreatureSpawner' ? CreatureSpawner :
+    T extends 'Region' ? Region :
+      T extends 'number' ? number :
+        never
+  ;
+type MapConfigType<T extends ConfigDefinition> = Required<{ [K in keyof T]?: MapConfigValueType<T[K]> }>;
+
 interface ScriptState {
   id: string;
   state: string;
   config: any;
+  configDefinition: ConfigDefinition;
   errors: ScriptError[];
 }
 

@@ -99,6 +99,14 @@ export const FloorGraphic = (props: { floor: number; scale?: number; templating?
   return <Graphic file={metaFloor.graphics.file} index={graphicIndex} scale={props.scale}></Graphic>;
 };
 
+export const CreatureGraphic = (props: { type: number; scale?: number }) => {
+  const monster = Content.getMonsterTemplate(props.type);
+  if (!monster) return <div></div>;
+
+  const graphicIndex = monster.graphics?.frames[0] || 0;
+  return <Graphic file={monster.graphics.file} index={graphicIndex} scale={props.scale}></Graphic>;
+};
+
 export const ItemGraphic = (props:
 { item: Item; showLabel?: boolean; scale?: number; templating?: GraphicTemplatingContext }) => {
   const metaItem = Content.getMetaItem(props.item.type);

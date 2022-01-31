@@ -7,7 +7,6 @@ import {WorldMapPartition} from '../world-map-partition.js';
 import {WorldMap} from '../world-map.js';
 
 import {ClientConnection} from './client-connection.js';
-import {ScriptConfigStore} from './scripts/script-config-store.js';
 
 async function readJson(fs: Database, store: string, key: string) {
   const json = await fs.get(store, key);
@@ -32,7 +31,7 @@ export class ServerContext extends Context {
   playerNamesToIds = new Map<string, string>();
   claims: Record<string, string> = {};
   nextCreatureId = 1;
-  scriptConfigStore = new ScriptConfigStore({});
+  scriptConfigStore: Record<string, any> = {};
 
   constructor(worldDataDefinition: WorldDataDefinition, map: WorldMap, public db: Database) {
     super(worldDataDefinition, map);
@@ -86,9 +85,9 @@ export class ServerContext extends Context {
 
     const scriptConfigKey = 'script-config.json';
     if (await db.exists(Store.misc, scriptConfigKey)) {
-      context.scriptConfigStore = new ScriptConfigStore(await readJson(db, Store.misc, scriptConfigKey));
+      context.scriptConfigStore = await readJson(db, Store.misc, scriptConfigKey);
     } else {
-      context.scriptConfigStore = new ScriptConfigStore({});
+      context.scriptConfigStore = {};
     }
 
     return context;
