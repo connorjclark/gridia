@@ -18,6 +18,7 @@ export abstract class Script<C extends ConfigDefinition> {
   // and having the script reload.
   protected config: MapConfigType<C>;
   protected errors: any[] = [];
+  private spawnedCreatures: Creature[] = [];
   state = 'stopped';
 
   constructor(public id: string, protected server: Server, public configDefinition: C) {
@@ -120,7 +121,7 @@ export abstract class Script<C extends ConfigDefinition> {
       for (const scheduledTicks of state.scheduledSpawnTicks) {
         if (scheduledTicks <= ticks) {
           const descriptor = spawner.descriptors[Utils.randInt(0, spawner.descriptors.length - 1)];
-          const creature = this.spawnCreature({descriptor, region: spawner.region});
+          const creature = this.spawnCreatureInternal({descriptor, region: spawner.region});
           if (creature) state.spawnedCreatures.push(creature);
           state.scheduledSpawnTicks.splice(state.scheduledSpawnTicks.indexOf(scheduledTicks), 1);
         }
@@ -145,6 +146,10 @@ export abstract class Script<C extends ConfigDefinition> {
     }
     this.creatureSpawners = [];
     this.creatureSpawnerState.clear();
+
+    for (const creature of this.spawnedCreatures) {
+      this.server.removeCreature(creature);
+    }
   }
 
   protected registerTickSection(section: TickSection) {
@@ -169,6 +174,12 @@ export abstract class Script<C extends ConfigDefinition> {
   }
 
   protected spawnCreature(opts: { descriptor: CreatureDescriptor; pos?: Point4; region?: Region }) {
+    const creature = this.spawnCreatureInternal(opts);
+    if (creature) this.spawnedCreatures.push(creature);
+    return creature;
+  }
+
+  private spawnCreatureInternal(opts: { descriptor: CreatureDescriptor; pos?: Point4; region?: Region }) {
     let pos;
     if (opts.pos) {
       pos = opts.pos;
