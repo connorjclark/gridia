@@ -25,6 +25,8 @@ export const Store = {
   sector: 'sector',
 };
 
+const scriptConfigKey = 'script-config.json';
+
 export class ServerContext extends Context {
   clientConnections: ClientConnection[] = [];
   players = new Map<string, Player>();
@@ -83,7 +85,6 @@ export class ServerContext extends Context {
       context.playerNamesToIds.set(player.name, player.id);
     }
 
-    const scriptConfigKey = 'script-config.json';
     if (await db.exists(Store.misc, scriptConfigKey)) {
       context.scriptConfigStore = await readJson(db, Store.misc, scriptConfigKey);
     } else {
@@ -215,6 +216,7 @@ export class ServerContext extends Context {
   async save() {
     this.saveMeta();
     this.saveSectorClaims();
+    this.db.addToTransaction(Store.misc, scriptConfigKey, JSON.stringify(this.scriptConfigStore, null, 2));
 
     for (const clientConnection of this.clientConnections) {
       if (clientConnection.player) {
