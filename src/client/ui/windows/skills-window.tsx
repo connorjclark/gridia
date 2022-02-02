@@ -145,7 +145,7 @@ export function makeSkillsWindow(game: Game, initialState: State) {
 
   const AttributesTab = (props: Props) => {
     return <div>
-      <div>Spendable XP: {props.spendableXp}</div>
+      <div>Spendable XP: {props.spendableXp.toLocaleString()}</div>
       <div class='attributes'>
         {props.attributes.map((attribute) => {
           const level = attribute.baseLevel + attribute.earnedLevel;
