@@ -555,7 +555,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
       }}
       widgets={{
         CreatureTypeWidget: (props: FieldProps<number>) => {
-          const [value, setValue] = useState(props.formData || 0);
+          const [value, setValue] = useState(props.formData ?? props.value ?? 0);
           const update = (newValue: number) => {
             setValue(newValue);
             props.onChange(newValue);
