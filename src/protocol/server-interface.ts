@@ -736,12 +736,32 @@ export class ServerInterface implements ICommands {
     const paid = goldOnHand >= price && Container.removeItemAmount(server, clientConnection.container, Content.getMetaItemByName('Gold').id, price);
     if (!paid) throw new Error('not enough gold');
 
-    const purchasedItem = {type: item.type, quantity};
-    const location = Container.findValidLocationToAddItemToContainer(clientConnection.container, purchasedItem, {allowStacking: true});
-    if (location?.index === undefined) throw new Error('no room for item');
+    const purchasedItems = [];
+    if (meta.stackable) {
+      purchasedItems.push({type: item.type, quantity});
+    } else {
+      for (let i = 0; i < quantity; i++) {
+        purchasedItems.push({type: item.type, quantity: 1});
+      }
+    }
 
-    Container.addItemToContainer(server, clientConnection.container, purchasedItem);
-    Container.removeItemAmount(server, merchantContainer, purchasedItem.type, purchasedItem.quantity);
+    const locationsToAddItems = [];
+    const excludeIndices = [];
+    for (const purchasedItem of purchasedItems) {
+      const location = Container.findValidLocationToAddItemToContainer(clientConnection.container, purchasedItem, {
+        allowStacking: true,
+        excludeIndices,
+      });
+      if (location?.index === undefined) throw new Error('no room for item');
+
+      locationsToAddItems.push(location);
+      excludeIndices.push(location.index);
+    }
+
+    for (const purchasedItem of purchasedItems) {
+      Container.addItemToContainer(server, clientConnection.container, purchasedItem);
+    }
+    Container.removeItemAmount(server, merchantContainer, item.type, quantity);
   }
 
   async onSellItem(server: Server, clientConnection: ClientConnection, {from, to, quantity, price}: Commands.SellItem['params']): Promise<Commands.SellItem['response']> {

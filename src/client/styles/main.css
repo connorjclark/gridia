@@ -908,6 +908,8 @@ button {
   display: flex;
   flex-direction: column;
   gap: 3px;
+  overflow-y: auto;
+  height: 50%;
 
   --background-color: #5f645c;
   --selected-color: var(--color-blue);

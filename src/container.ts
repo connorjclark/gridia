@@ -43,8 +43,13 @@ export function isValidLocationToAddItemInContainer(container: Container, index:
   return true;
 }
 
-export function findValidLocationToAddItemToContainer(
-  container: Container, item: Item, opts: { allowStacking: boolean }): ContainerLocation | undefined {
+interface FindLocationOptions {
+  allowStacking: boolean;
+  excludeIndices?: number[];
+}
+
+export function findValidLocationToAddItemToContainer(container: Container, item: Item,
+                                                      opts: FindLocationOptions): ContainerLocation | undefined {
   const meta = Content.getMetaItem(item.type);
 
   if (container.type === 'equipment') {
@@ -61,6 +66,8 @@ export function findValidLocationToAddItemToContainer(
   let firstOpenSlot = null;
   let firstStackableSlot = null;
   for (let i = 0; i < container.items.length; i++) {
+    if (opts.excludeIndices?.includes(i)) continue;
+
     if (firstOpenSlot === null && !container.items[i]) {
       firstOpenSlot = i;
     }
