@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const esbuild = require("esbuild");
-const {nodeBuiltIns} = require('esbuild-node-builtins');
+const { nodeBuiltIns } = require('esbuild-node-builtins');
 const GlobalsPolyfills = require('@esbuild-plugins/node-globals-polyfill').NodeGlobalsPolyfillPlugin;
 
 function copyFileSync(source, target) {
@@ -81,7 +81,7 @@ async function buildClient({ workerFileName }) {
 }
 
 async function buildWorker() {
-  let ignorePlugin = {
+  const ignorePlugin = {
     name: 'ignorePlugin',
     setup(build) {
       build.onResolve({ filter: /firebase-admin|fs|perf_hooks/ }, args => {
@@ -90,8 +90,23 @@ async function buildWorker() {
     },
   }
 
+  const inlineFsPlugin = {
+    name: 'inlineFsPlugin',
+    setup(build) {
+      build.onLoad({ filter: /script-config-reader\.ts/ }, (args) => {
+        let contents = fs.readFileSync(args.path, 'utf-8');
+        // contents = inlineFs(contents, args.path);
+        contents = contents.replace(
+          `JSON.parse(fs.readFileSync('./src/client/ui/components/schemas.json', 'utf-8'))`,
+          fs.readFileSync('./src/client/ui/components/schemas.json', 'utf-8')
+        );
+        return { contents, loader: 'ts' };
+      });
+    },
+  };
+
   const results = await esbuild.build({
-    plugins: [ignorePlugin, nodeBuiltIns({include: ['events']}), GlobalsPolyfills({process: true})],
+    plugins: [ignorePlugin, inlineFsPlugin, nodeBuiltIns({ include: ['events'] }), GlobalsPolyfills({ process: true })],
     entryPoints: ['src/server/run-worker.ts'],
     entryNames: '[dir]/[name]-[hash]',
     bundle: true,
