@@ -17,7 +17,6 @@ import {ItemMoveBeginEvent, ItemMoveEndEvent} from './event-emitter.js';
 import * as Helper from './helper.js';
 import {KEYS} from './keys.js';
 import {LazyResourceLoader} from './lazy-resource-loader.js';
-import {AdminModule} from './modules/admin-module.js';
 import {MapModule} from './modules/map-module.js';
 import {MovementModule} from './modules/movement-module.js';
 import {NotificationsModule} from './modules/notifications-module.js';
@@ -368,7 +367,7 @@ export class Game {
   private _chatMemory: string[] = [];
 
   modules = {
-    admin: null as AdminModule | null,
+    admin: null as import('./modules/admin-module.js').AdminModule | null,
     movement: new MovementModule(this),
     selectedView: new SelectedViewModule(this),
     settings: new SettingsModule(this),
@@ -398,10 +397,6 @@ export class Game {
     this.itemCursorGraphic.el.classList.add('moving-item');
 
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
-
-    if (client.player.isAdmin) {
-      this.modules.admin = new AdminModule(this);
-    }
 
     this.tick = this.tick.bind(this);
   }
@@ -674,8 +669,17 @@ export class Game {
     this.createChatSection('Combat');
     this.createChatSection('Skills');
 
-    // ?
-    setTimeout(() => this.onLoad());
+    if (this.client.player.isAdmin) {
+      // TODO: code split this
+      import('./modules/admin-module.js').then(({AdminModule}) => {
+        this.modules.admin = new AdminModule(this);
+        // ?
+        setTimeout(() => this.onLoad());
+      });
+    } else {
+      // ?
+      setTimeout(() => this.onLoad());
+    }
   }
 
   onLoad() {

@@ -535,6 +535,11 @@ interface WorldDataDefinition {
   };
 }
 
+type SchemaTypeToDefault = Record<string, () => any>;
+type SchemaTypeToFieldComponent = Record<string, preact.ComponentType<TypeProps<any>>>;
+type SchemaType = string | { array: SchemaType } | { object: Record<string, SchemaType> };
+type Schema = Record<string, SchemaType>;
+
 type ConfigValueType = 'CreatureSpawner' | 'Region' | 'number';
 type ConfigDefinition = Record<string, ConfigValueType | { array: ConfigValueType }>;
 
@@ -550,7 +555,7 @@ interface ScriptState {
   id: string;
   state: string;
   config: any;
-  configDefinition: ConfigDefinition;
+  configSchemaType?: string;
   errors: ScriptError[];
 }
 

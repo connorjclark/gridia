@@ -3,14 +3,14 @@ import {PlayerConnection} from '../client-connection.js';
 import {Script} from '../script.js';
 import {Server} from '../server.js';
 
-const configDefinition = {
-  captainRegion: 'Region',
-  ratSpawnerRegion: 'Region',
-} as const;
-
 // TODO make scripts not use a class.
 
-export class BasicScript extends Script<typeof configDefinition> {
+interface BasicScriptConfig {
+  captainRegion: Region;
+  ratSpawnerRegion: Region;
+}
+
+export class BasicScript extends Script<BasicScriptConfig> {
   quest: Quest = {
     id: 'TEST_QUEST',
     name: 'Your First Quest',
@@ -35,7 +35,7 @@ export class BasicScript extends Script<typeof configDefinition> {
   });
 
   constructor(protected server: Server) {
-    super('basic-script', server, configDefinition);
+    super('basic-script', server, 'BasicScriptConfig');
   }
 
   onStart() {

@@ -4,13 +4,13 @@ import {WorldMapPartition} from '../../world-map-partition.js';
 import {Script} from '../script.js';
 import {Server} from '../server.js';
 
-const configDefinition = {
-  spawner: 'CreatureSpawner',
-} as const;
+interface HubWorldScriptConfig {
+  spawner: CreatureSpawner;
+}
 
-export class HubWorldScript extends Script<typeof configDefinition> {
+export class HubWorldScript extends Script<HubWorldScriptConfig> {
   constructor(protected server: Server) {
-    super('hub-world', server, configDefinition);
+    super('hub-world', server, 'HubWorldScriptConfig');
   }
 
   async onStart() {

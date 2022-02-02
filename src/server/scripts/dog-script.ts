@@ -2,9 +2,9 @@ import {PlayerConnection} from '../client-connection.js';
 import {Script} from '../script.js';
 import {Server} from '../server.js';
 
-export class DogScript extends Script<{}> {
+export class DogScript extends Script {
   constructor(protected server: Server) {
-    super('dog', server, {});
+    super('dog', server);
   }
 
   onPlayerEnterWorld(player: Player, playerConnection: PlayerConnection) {

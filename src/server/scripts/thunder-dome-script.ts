@@ -2,13 +2,13 @@ import * as Content from '../../content.js';
 import {Script} from '../script.js';
 import {Server} from '../server.js';
 
-const configDefinition = {
-  limit: 'number',
-} as const;
+interface ThunderDomeScriptConfig {
+  limit: number;
+}
 
-export class ThunderDomeScript extends Script<typeof configDefinition> {
+export class ThunderDomeScript extends Script<ThunderDomeScriptConfig> {
   constructor(protected server: Server) {
-    super('thunder-dome', server, configDefinition);
+    super('thunder-dome', server, 'ThunderDomeScriptConfig');
   }
 
   onStart() {

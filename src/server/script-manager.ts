@@ -101,9 +101,10 @@ export class ScriptManager {
   updateScriptConfig(id: string, value: any, key: string | undefined) {
     const script = this._scripts.find((s) => s.id === id);
     if (!script) throw new Error('invalid script');
+    if (!script.configSchemaType) throw new Error('script does not have a config type');
 
     const tempConfigStore = Object.fromEntries(Object.entries(value).map(([k, v]) => [`${id}.${k}`, v]));
-    const result = readConfig(id, script.configDefinition, tempConfigStore);
+    const result = readConfig(id, script.configSchemaType, tempConfigStore);
     if (result.errors.length) throw new Error('errors: ' + JSON.stringify(result.errors));
 
     script.setConfig(result.config);

@@ -1,153 +1,68 @@
+import Form_, {FieldProps, FormProps, UiSchema} from '@rjsf/core';
 import {h} from 'preact';
+import {createPortal} from 'preact/compat';
 import {useEffect, useMemo, useState} from 'preact/hooks';
 
-type TypeToDefault = Record<string, () => any>;
-type TypeToFieldComponent = Record<string, preact.ComponentType<TypeProps<any>>>;
-
-type SchemaType = string | { array: SchemaType } | { object: Record<string, SchemaType> };
-export type Schema = Record<string, SchemaType>;
-
-interface Props<T> {
-  initialValue: T;
-  schema: Schema;
-  typeToDefaultExtras?: TypeToDefault;
-  typeToFieldComponentExtras?: TypeToFieldComponent;
-  onValueUpdated: (value: T, key: string) => void;
+// The simplest way to customize widgets for particular fields in complex objects
+// (ex: CreatureDescriptor.type) is to put the `ui:` schema right next to the associated
+// json schema definition. That's not supported directly by the library, but this simple
+// HOC can augment the uiSchema used on a field-by-field basis.
+// https://github.com/rjsf-team/react-jsonschema-form/issues/701#issuecomment-806625768
+function useUiSchemaFromSchema(schema: any, uiSchema: UiSchema) {
+  return useMemo(() => {
+    const extracted: UiSchema = {};
+    for (const key in schema) {
+      if (key.startsWith('ui:')) {
+        extracted[key] = schema[key];
+      }
+    }
+    return {...extracted, ...uiSchema};
+  }, [schema, uiSchema]);
 }
 
-export interface TypeProps<T> {
-  onValueUpdated: (value: T) => void;
-  initialValue: T;
-  key: string;
-}
-
-const typeToDefaultBase: TypeToDefault = {
-  number: () => 0,
-  string: () => '',
+export const withUiSchemaFromSchema = (WrappedComponent: any) => (props: FieldProps) => {
+  const uiSchema = useUiSchemaFromSchema(props.schema, props.uiSchema);
+  return <WrappedComponent {...props} uiSchema={uiSchema} />;
 };
 
-const typeToFieldComponentBase: TypeToFieldComponent = {
-  number: (props: TypeProps<number>) => {
-    const [value, setValue] = useState(props.initialValue);
-    const update = (newValue: number) => {
-      setValue(newValue);
-      props.onValueUpdated(newValue);
-    };
-
-    return <input
-      name={props.key}
-      type="number"
-      value={value}
-      onChange={(e: any) => update(e.target.valueAsNumber)}>
-    </input>;
-  },
-  string: (props: TypeProps<string>) => {
-    const [value, setValue] = useState(props.initialValue);
-    const update = (newValue: string) => {
-      setValue(newValue);
-      props.onValueUpdated(newValue);
-    };
-
-    return <input
-      name={props.key}
-      type="string"
-      value={value}
-      onChange={(e: any) => update(e.target.value)}>
-    </input>;
-  },
-};
-
-function get(object: any, key: string) {
-  let val = object;
-  for (const keyPart of key.split('.')) {
-    val = val[keyPart];
-  }
-  return val;
-}
-
-function tryGet(object: any, key: string) {
-  try {
-    return get(object, key);
-  } catch {
-    return;
-  }
-}
-
-function set(object: any, key: string, value: any) {
-  let val = object;
-  const keySplit = key.split('.');
-  for (const keyPart of keySplit.slice(0, -1)) {
-    val = val[keyPart];
-  }
-  val[keySplit[keySplit.length - 1]] = value;
-}
-
-export const SchemaForm = <T,>(props: Props<T>) => {
-  const [value, setValue] = useState({...props.initialValue});
+export const IFrame = (props: any) => {
+  const [contentRef, setContentRef] = useState<HTMLIFrameElement | null>(null);
+  const mountNode = contentRef?.contentWindow?.document?.body;
 
   useEffect(() => {
-    setValue({...props.initialValue});
-  }, [props.initialValue]);
+    //   if (!contentRef) return;
 
-  const typeToDefault = useMemo(() => {
-    return {...typeToDefaultBase, ...props.typeToDefaultExtras};
-  }, [props.typeToDefaultExtras]);
-  const typeToFieldComponent = useMemo(() => {
-    return {...typeToFieldComponentBase, ...props.typeToFieldComponentExtras};
-  }, [props.typeToFieldComponentExtras]);
+    //   const contentWindow = contentRef.contentWindow;
+    //   const body = contentWindow?.document.body;
+    //   if (!body || !contentWindow) return;
 
-  const fields: h.JSX.Element[] = [];
-  const renderFieldRaw = (schemaKey: string, schemaTypeString: string) => {
-    let initialValue = tryGet(props.initialValue, schemaKey);
-    if (initialValue === undefined) {
-      initialValue = typeToDefault[schemaTypeString]();
-      if (tryGet(value, schemaKey) === undefined) {
-        set(value, schemaKey, initialValue);
-      }
-    }
+    //   const updateSize = () => {
+    //     if (contentRef)contentRef.height = body.scrollHeight + 'px';
+    //   };
+    //   const observer = new MutationObserver(updateSize);
+    //   observer.observe(body, {attributes: true, childList: true, subtree: true});
+    //   updateSize();
+    //   // contentWindow.document.addEventListener('load', updateSize);
+    //   // contentWindow.document.addEventListener('DOMContentLoaded', updateSize);
 
-    const Field = typeToFieldComponent[schemaTypeString];
-    if (!Field) throw new Error(`no field component found for type: ${schemaTypeString}`);
+    //   return () => observer.disconnect();
+  }, [contentRef]);
 
-    fields.push(<div key={schemaKey}>
-      <label>{schemaKey}</label>
-      <Field initialValue={initialValue} key={schemaKey} onValueUpdated={(fieldValue: any) => {
-        set(value, schemaKey, fieldValue);
-        setValue({...value});
-        props.onValueUpdated(value, schemaKey);
-      }}></Field>
-    </div>);
-  };
+  return (
+    <iframe {...props} ref={setContentRef} width="100%" height="400px">
+      {mountNode && createPortal(props.children, mountNode)}
+    </iframe>
+  );
+};
 
-  const renderField = (schemaKey: string, schemaType: SchemaType) => {
-    if (typeof schemaType === 'string') {
-      renderFieldRaw(schemaKey, schemaType);
-    } else if ('array' in schemaType) {
-      let currentArray = get(value, schemaKey);
-      if (!currentArray) set(value, schemaKey, currentArray = []);
-      if (!Array.isArray(currentArray) || !schemaType.array) throw new Error();
-
-      for (let i = 0; i < currentArray.length; i++) {
-        renderField(`${schemaKey}.${i}`, schemaType.array);
-      }
-
-      // TODO add more, delete items.
-    } else if ('object' in schemaType) {
-      let currentObject = get(value, schemaKey);
-      if (!currentObject) set(value, schemaKey, currentObject = {});
-      if (Array.isArray(currentObject) || !schemaType.object) throw new Error();
-
-      for (const [k, v] of Object.entries(schemaType.object)) {
-        renderField(`${schemaKey}.${k}`, v);
-      }
-    } else {
-      throw Error();
-    }
-  };
-
-  for (const [schemaKey, schemaType] of Object.entries(props.schema)) {
-    renderField(schemaKey, schemaType);
-  }
-
-  return <div class="schema-form">{fields}</div>;
+export const Form = <T,>(props: FormProps<T>) => {
+  // Render in an iframe to keep the stylesheets used isolated from the rest of the page.
+  return <IFrame>
+    <link
+      rel="stylesheet"
+      id="theme"
+      href={'//cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.6/journal/bootstrap.min.css'}
+    />
+    <Form_<T>{...props}></Form_>
+  </IFrame>;
 };

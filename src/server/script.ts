@@ -10,24 +10,28 @@ interface CreatureSpawnerState {
   scheduledSpawnTicks: number[];
 }
 
-export abstract class Script<C extends ConfigDefinition> {
+export abstract class Script<C extends object={}> {
   protected tickSections: TickSection[] = [];
   protected creatureSpawners: CreatureSpawner[] = [];
   protected creatureSpawnerState = new Map<CreatureSpawner, CreatureSpawnerState>();
   // TODO: be able to set these values in-game (drawing a rectangle for a region),
   // and having the script reload.
-  protected config: MapConfigType<C>;
+  protected config: C;
   protected errors: any[] = [];
   private spawnedCreatures: Creature[] = [];
   state = 'stopped';
 
-  constructor(public id: string, protected server: Server, public configDefinition: C) {
-    const result = readConfig(id, configDefinition, server.context.scriptConfigStore);
-    this.config = result.config;
-    this.errors = result.errors;
+  constructor(public id: string, protected server: Server, public configSchemaType?: string) {
+    if (configSchemaType) {
+      const result = readConfig(id, configSchemaType, server.context.scriptConfigStore);
+      this.config = result.config as any;
+      this.errors = result.errors;
+    } else {
+      this.config = {} as any;
+    }
   }
 
-  setConfig(config: MapConfigType<C>) {
+  setConfig(config: C) {
     this.config = config;
     this.state = 'restarting';
   }
@@ -54,7 +58,7 @@ export abstract class Script<C extends ConfigDefinition> {
       id: this.id,
       state: this.state,
       config: this.config,
-      configDefinition: this.configDefinition,
+      configSchemaType: this.configSchemaType,
       errors: this.errors,
     };
   }

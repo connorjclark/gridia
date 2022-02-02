@@ -51,11 +51,11 @@ const FetchAction: Action = {
   },
 };
 
-export class BallScript extends Script<{}> {
+export class BallScript extends Script {
   private activeKicks: Kick[] = [];
 
   constructor(protected server: Server) {
-    super('ball', server, {});
+    super('ball', server);
   }
 
   onStart() {

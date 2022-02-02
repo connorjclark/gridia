@@ -14,17 +14,20 @@
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment",
     "skipLibCheck": true,
+    "resolveJsonModule": true,
     // PIXI Loaders needs this to use the more strict mini-signal types
     "paths": {
       "mini-signals": [
         "node_modules/resource-loader/typings/mini-signals.d.ts"
-      ]
+      ],
+      "react": ["node_modules/preact/compat"],
     },
     "baseUrl": "./",
   },
   "include": [
     "src",
     "test",
+    "build/typed",
     "node_modules/js-bbcode-parser",
     "node_modules/wavefunctioncollapse"
   ],
