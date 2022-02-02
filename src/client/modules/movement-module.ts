@@ -1,6 +1,6 @@
 import {MINE} from '../../constants.js';
 import * as Content from '../../content.js';
-import {findPath} from '../../path-finding.js';
+import {findPath} from '../../lib/path-finding.js';
 import * as Player from '../../player.js';
 import * as CommandBuilder from '../../protocol/command-builder.js';
 import * as Utils from '../../utils.js';

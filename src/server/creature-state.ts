@@ -2,7 +2,7 @@ import {WATER} from '../constants.js';
 import * as Container from '../container.js';
 import * as Content from '../content.js';
 import {Context} from '../context.js';
-import {findPath} from '../path-finding.js';
+import {findPath} from '../lib/path-finding.js';
 import * as EventBuilder from '../protocol/event-builder.js';
 import * as Utils from '../utils.js';
 import {WorldMapPartition} from '../world-map-partition.js';
