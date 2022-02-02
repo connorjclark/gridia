@@ -670,7 +670,7 @@ export class Game {
     this.createChatSection('Skills');
 
     if (this.client.player.isAdmin) {
-      // TODO: code split this
+      // TODO: code split the AdminWindow portion of this.
       import('./modules/admin-module.js').then(({AdminModule}) => {
         this.modules.admin = new AdminModule(this);
         // ?
