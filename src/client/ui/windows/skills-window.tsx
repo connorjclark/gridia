@@ -1,4 +1,4 @@
-import {render, h} from 'preact';
+import {render, h, Fragment} from 'preact';
 import {useState} from 'preact/hooks';
 
 import * as Player from '../../../player.js';
@@ -79,6 +79,7 @@ export function makeSkillsWindow(game: Game, initialState: State) {
 
   const SkillsTab = (props: Props) => {
     const fmt = (num: number) => num > 0 ? `+${num}` : num;
+    const l = (str: string | number) => str.toLocaleString();
 
     const combatXpUntilNextLevel = props.combatLevel.xpBar.max - props.combatLevel.xpBar.current;
     const combatLevelTitle = `combat xp until next level: ${combatXpUntilNextLevel.toLocaleString()}`;
@@ -97,6 +98,7 @@ export function makeSkillsWindow(game: Game, initialState: State) {
           const percent = skill.xpBar.current / skill.xpBar.max;
 
           let skillEl;
+          let tooltipEl;
           if (skill.learned) {
             skillEl = <div class={c(
               'skill tooltip-on-hover',
@@ -110,19 +112,7 @@ export function makeSkillsWindow(game: Game, initialState: State) {
               </span>
               <div class="skill__xp-bar" style={{'--percent': percent}}></div>
             </div>;
-          } else {
-            skillEl = <div class={c('skill tooltip-on-hover', skill.learned && 'skill--learned')}>
-              <span class="flex justify-between items-center">
-                <span>{skill.name}</span>
-                <span class="skill__level">–</span>
-              </span>
-            </div>;
-          }
-
-          const l = (str: string | number) => str.toLocaleString();
-          return <span style={{width: '30%'}}>
-            {skillEl}
-            <div class='tooltip'>
+            tooltipEl = <>
               {skill.name} Lvl. {skill.level}
               <br></br>total xp: {l(skill.xp)}
               <br></br>xp until next level: {l(xpUntilNextLevel)}
@@ -130,7 +120,23 @@ export function makeSkillsWindow(game: Game, initialState: State) {
               <br></br>buffed levels: {fmt(skill.buffAmount)}
               <br></br>trained levels: {skill.earnedLevel}
               <br></br>{skill.specialized ? 'specialized' : ''}
-            </div>
+            </>;
+          } else {
+            skillEl = <div class={'skill tooltip-on-hover skill--not-learned'}>
+              <span class="flex justify-between items-center">
+                <span>{skill.name}</span>
+                <span class="skill__level">–</span>
+              </span>
+            </div>;
+            tooltipEl = <>
+              {skill.name}
+              <br></br>NOT LEARNED
+            </>;
+          }
+
+          return <span style={{width: '30%'}}>
+            {skillEl}
+            <div class='tooltip'>{tooltipEl}</div>
           </span>;
         })}
       </div>

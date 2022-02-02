@@ -477,8 +477,8 @@ button {
   color: gold;
 }
 
-.skill--learned {
-  opacity: 0.5;
+.skill--not-learned {
+  opacity: 0.6;
 }
 .skill--specialized {
   color: gold;

@@ -124,7 +124,11 @@ function getSkillLevel(player: Player, id: number, buffs: Buff[] = []) {
     }
   }
 
-  const xp = player.skills.get(id)?.xp || 0;
+  const xp = player.skills.get(id)?.xp;
+  if (xp === undefined) {
+    return {baseLevel: 0, earnedLevel: 0, buffAmount: 0, level: 0};
+  }
+
   const skill = Content.getSkill(id);
   let baseLevelSum = 0;
   let baseLevelSumFromBuffs = 0;
