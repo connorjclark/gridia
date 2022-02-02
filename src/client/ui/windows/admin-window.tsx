@@ -612,12 +612,15 @@ export function makeAdminWindow(adminModule: AdminModule) {
           </div>;
         })}
       </div>
-      <pre>
-        {JSON.stringify(scriptStates[selectedIndex], null, 2)}
-      </pre>
       <div>
         <h2>Config</h2>
         {configForm}
+      </div>
+      <div>
+        <h2>State</h2>
+        <pre>
+          {JSON.stringify(scriptStates[selectedIndex], null, 2)}
+        </pre>
       </div>
     </div>;
   };
