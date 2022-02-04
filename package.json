@@ -78,7 +78,7 @@
     "@typescript-eslint/parser": "^5.10.1",
     "chokidar-cli": "^3.0.0",
     "concurrently": "^7.0.0",
-    "esbuild": "^0.14.2",
+    "esbuild": "^0.14.18",
     "esbuild-node-builtins": "^0.1.0",
     "eslint": "^7.16.0",
     "eslint-plugin-import": "^2.22.1",

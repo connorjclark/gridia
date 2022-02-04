@@ -7,6 +7,7 @@ import htmlPlugin from '@chialab/esbuild-plugin-html';
 import {NodeGlobalsPolyfillPlugin} from '@esbuild-plugins/node-globals-polyfill';
 import esbuild from 'esbuild';
 import {nodeBuiltIns} from 'esbuild-node-builtins';
+import glob from 'glob';
 
 function copyFileSync(source: string, target: string) {
   let targetFile = target;
@@ -62,6 +63,7 @@ async function buildClient({workerFileName}: { workerFileName: string }) {
 
   await esbuild.build({
     plugins: [
+      // @ts-expect-error
       htmlPlugin(),
       fixPixiBundling,
     ],
@@ -80,6 +82,18 @@ async function buildClient({workerFileName}: { workerFileName: string }) {
     minify: true,
     sourcemap: true,
   });
+
+  for (const entry of entries) {
+    const fileParts = entry.split('/');
+    const file = `./dist/${fileParts[fileParts.length - 1]}`;
+    fs.copyFileSync(file, `./dist/client/${fileParts[fileParts.length - 1]}`);
+  }
+
+  for (const file of glob.sync('./dist/tools/iife/*.js')) {
+    const fileParts = file.split('/');
+    const name = fileParts[fileParts.length - 1];
+    fs.copyFileSync(file, `./dist/client/iife/${name}`);
+  }
 }
 
 async function buildWorker() {
