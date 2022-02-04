@@ -1034,5 +1034,15 @@
         "sprite":0
       }
     ]
+  },
+  {
+    "id":47,
+    "name":"FoodConsume",
+    "frames":[
+      {
+        "sound":"pop_drip",
+        "sprite":0
+      }
+    ]
   }
 ]

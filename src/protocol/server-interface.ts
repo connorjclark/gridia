@@ -906,6 +906,11 @@ export class ServerInterface implements ICommands {
         server.assignCreatureBuff(clientConnection.creature, buff);
       }
     }
+
+    server.broadcastAnimation({
+      name: 'FoodConsume',
+      path: [clientConnection.creature.pos],
+    });
   }
 
   async onItemAction(server: Server, clientConnection: ClientConnection, {type, from, to}: Commands.ItemAction['params']): Promise<Commands.ItemAction['response']> {
