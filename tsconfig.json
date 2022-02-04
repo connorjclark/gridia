@@ -27,6 +27,7 @@
   "include": [
     "src",
     "test",
+    "build",
     "build/typed",
     "node_modules/js-bbcode-parser",
     "node_modules/wavefunctioncollapse"

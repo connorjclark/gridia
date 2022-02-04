@@ -1,12 +1,14 @@
+// yarn ts-node build/make-assets.ts
+
 // This script converts the (purchased) assets from https://www.oryxdesignlab.com/products/16-bit-fantasy-tileset
 // into spritesheets / gridia world data.
 
-const fs = require('fs');
-const { execFileSync } = require('child_process');
+import {execFileSync} from 'child_process';
+import fs from 'fs';
 
-function runImageMagick(args) {
-  args = args.flatMap(a => a.split(' '));
-  return execFileSync('magick', args, { encoding: 'utf-8' });
+function runImageMagick(args: string[]) {
+  args = args.flatMap((a) => a.split(' '));
+  return execFileSync('magick', args, {encoding: 'utf-8'});
 }
 
 function makeAssetsFromOryx16Bit() {
@@ -45,10 +47,10 @@ function makeAssetsFromOryx16Bit() {
     'worlds/16bit-world/graphics/world_002.png',
   ]);
 
-  const floors = [
+  const floors: MetaFloor[] = [
     {
       id: 0,
-      graphics: { file: '', frames: [] },
+      graphics: {file: '', frames: []},
       color: '0',
     },
   ];
@@ -56,7 +58,7 @@ function makeAssetsFromOryx16Bit() {
     for (let x = 3; x <= 6; x++) {
       floors.push({
         id: floors.length,
-        graphics: { file: 'world_001.png', frames: [x + y * 27] },
+        graphics: {file: 'world_001.png', frames: [x + y * 27]},
         color: '0',
       });
     }
@@ -65,20 +67,20 @@ function makeAssetsFromOryx16Bit() {
   const items = [];
   const itemUses = [];
   items.push({
-    "id": 0,
-    "name": "Nothing",
-    "class": "Normal",
-    "burden": 0,
-    "graphics": {
-      "file": "",
-      "frames": []
+    id: 0,
+    name: 'Nothing',
+    class: 'Normal',
+    burden: 0,
+    graphics: {
+      file: '',
+      frames: [],
     },
-    "moveable": true,
+    moveable: true,
   });
   items.push({
     id: items.length,
     name: 'Wall',
-    graphics: { file: 'world_001.png', frames: [9], templateType: 'misc-offset-1' },
+    graphics: {file: 'world_001.png', frames: [9], templateType: 'misc-offset-1'},
     blocksMovement: true,
   });
   items.push({
@@ -132,29 +134,29 @@ function makeAssetsFromOryx16Bit() {
   items.push({
     id: items.length,
     name: 'Tree Stump',
-    graphics: { file: 'world_002.png', frames: [100] },
+    graphics: {file: 'world_002.png', frames: [100]},
     blocksMovement: true,
   });
   items.push({
     id: items.length,
     name: 'Woodcutting Axe',
-    graphics: { file: 'items_001.png', frames: [167] },
+    graphics: {file: 'items_001.png', frames: [167]},
     blocksMovement: true,
   });
   items.push({
     id: items.length,
     name: 'Branches',
-    graphics: { file: 'items_001.png', frames: [178] },
+    graphics: {file: 'items_001.png', frames: [178]},
     blocksMovement: true,
     stackable: true,
   });
   itemUses.push({
-    tool: items.findIndex(item => item.name === 'Woodcutting Axe'),
-    focus: items.findIndex(item => item.name === 'Tree'),
+    tool: items.findIndex((item) => item.name === 'Woodcutting Axe'),
+    focus: items.findIndex((item) => item.name === 'Tree'),
     focusQuantityConsumed: 1,
     products: [
-      { type: items.findIndex(item => item.name === 'Tree Stump'), quantity: 1 },
-      { type: items.findIndex(item => item.name === 'Branches'), quantity: 3 },
+      {type: items.findIndex((item) => item.name === 'Tree Stump'), quantity: 1},
+      {type: items.findIndex((item) => item.name === 'Branches'), quantity: 3},
     ],
   });
 
@@ -178,8 +180,11 @@ function makeAssetsFromOryx16Bit() {
     'worlds/16bit-world/graphics/creatures_001.png',
   ]);
 
-  const creatureNames = require('./16bit-creature-names.json');
-  const creatures = [null];
+  const creatureNames = JSON.parse(fs.readFileSync('./build/16bit-creature-names.json', 'utf-8'));
+  const creatures: Array<Partial<Monster>> = [
+    // @ts-expect-error
+    null,
+  ];
   for (let i = 0; i < 100; i++) {
     const x = i % 18;
     const y = Math.floor(i / 18) * 2;
@@ -188,7 +193,7 @@ function makeAssetsFromOryx16Bit() {
     creatures.push({
       id: i + 1,
       name: creatureNames[i],
-      graphics: { file: 'creatures_001.png', frames: [index, index + 18] },
+      graphics: {file: 'creatures_001.png', frames: [index, index + 18]},
     });
   }
 
@@ -207,7 +212,7 @@ function makeAssetsFromOryx16Bit() {
     items.push({
       id: items.length,
       name: 'Unamed item',
-      graphics: { file: 'items_001.png', frames: [i] },
+      graphics: {file: 'items_001.png', frames: [i]},
     });
   }
 

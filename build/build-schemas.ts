@@ -1,4 +1,4 @@
-// yarn ts-node build/typed/build-schemas.ts
+// yarn ts-node build/build-schemas.ts
 
 import fs from 'fs';
 import {resolve} from 'path';
