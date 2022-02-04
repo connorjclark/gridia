@@ -986,13 +986,19 @@ export class Server {
           path: [creature.pos],
         });
 
-        const player = this.findPlayerForCreature(creature);
-        this.warpCreature(creature, player?.spawnPos || this.getInitialSpawnpos2(), {warpAnimation: false});
+        const clientConnection = this.getClientConnectionForCreature(creature);
+        this.warpCreature(creature, clientConnection?.player.spawnPos || this.getInitialSpawnpos2(), {
+          warpAnimation: false,
+        });
         adjustAttribute(creature, 'life', Math.floor(creature.life.max / 4));
         adjustAttribute(creature, 'stamina', Math.floor(creature.stamina.max / 4));
         adjustAttribute(creature, 'mana', Math.floor(creature.mana.max / 4));
         this.broadcastPartialCreatureUpdate(creature, ['life', 'stamina', 'mana']);
-        this.creatureStates[creature.id].targetCreature = null;
+        if (clientConnection) {
+          this.creatureStates[clientConnection.creature.id].targetCreature = null;
+          clientConnection.sendEvent(EventBuilder.setAttackTarget({creatureId: null}));
+        }
+        if (actor) this.creatureStates[actor.id].targetCreature = null;
       } else {
         this.removeCreature(creature);
       }
