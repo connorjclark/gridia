@@ -6,7 +6,6 @@
 * Writing on signs
 * Show stats on View
 * in-range indicator
-* potions
 
 ____
 

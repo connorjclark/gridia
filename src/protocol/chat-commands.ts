@@ -522,6 +522,19 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
         server.addItemNear(pos, item);
       },
     },
+    potion: {
+      args: [],
+      do() {
+        const pos = {...playerConnection.creature.pos};
+        const metas = Content.getMetaItems().filter((m) => m.bonus);
+        const meta = metas[Utils.randInt(0, metas.length - 1)];
+        const item: Item = {
+          type: meta.id,
+          quantity: 1,
+        };
+        server.addItemNear(pos, item);
+      },
+    },
     setAdmin: {
       args: [
         {name: 'playerName', type: 'string'},

@@ -260,6 +260,31 @@ function parseItemsIni() {
       if (item.class.match(/wrist/i)) item.equipSlot = 'Wrist';
       item.class = 'Jewelry';
     }
+
+    if (item.skillBonus) {
+      item.bonus = item.bonus || {};
+      item.bonus.skills = item.bonus.skills || {};
+      const skill = getSkillByName(item.skillIDBonus);
+      if (!skill) throw new Error();
+
+      const duration = item.bonusCount ? Math.floor(item.bonusCount / 10) : 2;
+      item.bonus.skills[skill.id] = { value: item.skillBonus, duration };
+    }
+
+    // TODO: CriticalBonus
+
+    const attrs = ['quickness', 'dexterity', 'strength', 'intelligence', 'wisdom'];
+    for (const attr of attrs) {
+      const value = item[`${attr}Bonus`]
+      if (value) {
+        item.bonus = item.bonus || {};
+        item.bonus.attributes = item.bonus.attributes || {};
+
+        const duration = item.bonusCount ? Math.floor(item.bonusCount / 10) : 2;
+        item.bonus.attributes[attr] = { value, duration };
+        break;
+      }
+    }
   }
 
   for (const item of items) {
@@ -309,6 +334,7 @@ function parseItemsIni() {
     'foodLife',
     'standDamage',
     'value',
+    'bonus',
   ];
   for (const item of items) {
     filterProperties(item, allowlist);
@@ -1068,7 +1094,7 @@ function parseMonsterIni() {
     ].forEach(prop => {
       const spellName = prop.replace('cast', '');
       // @ts-expect-error
-      const chance = monster[prop] || monster[prop.toLowerCase()] as number|undefined;
+      const chance = monster[prop] || monster[prop.toLowerCase()] as number | undefined;
       if (!chance) return;
 
       const spell = state.spells.find(spell => spell.name.replace(' ', '').includes(spellName));

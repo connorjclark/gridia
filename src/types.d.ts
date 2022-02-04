@@ -309,6 +309,18 @@ interface MetaItem {
   foodMana?: number;
   foodLife?: number;
   standDamage?: number;
+  bonus?: {
+    attributes?: Record<string, {
+      value: number;
+      /** In minutes. */
+      duration: number;
+    }>;
+    skills?: Record<string, {
+      value: number;
+      /** In minutes. */
+      duration: number;
+    }>;
+  };
 }
 
 interface ItemUse {

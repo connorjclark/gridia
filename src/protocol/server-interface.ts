@@ -883,6 +883,29 @@ export class ServerInterface implements ICommands {
       stamina: meta.foodStamina,
       mana: meta.foodMana,
     });
+
+    if (meta.bonus) {
+      const buffs: Buff[] = [];
+      for (const [skillId, obj] of Object.entries(meta.bonus?.skills || {})) {
+        buffs.push({
+          id: `itembonusskill-${skillId}`,
+          expiresAt: Date.now() + obj.duration * 1000 * 60,
+          skill: Number(skillId),
+          linearChange: obj.value,
+        });
+      }
+      for (const [attribute, obj] of Object.entries(meta.bonus?.attributes || {})) {
+        buffs.push({
+          id: `itembonusattr-${attribute}`,
+          expiresAt: Date.now() + obj.duration * 1000 * 60,
+          attribute,
+          linearChange: obj.value,
+        });
+      }
+      for (const buff of buffs) {
+        server.assignCreatureBuff(clientConnection.creature, buff);
+      }
+    }
   }
 
   async onItemAction(server: Server, clientConnection: ClientConnection, {type, from, to}: Commands.ItemAction['params']): Promise<Commands.ItemAction['response']> {

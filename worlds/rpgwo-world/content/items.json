@@ -10462,6 +10462,14 @@
     "id": 589,
     "name": "Minor Strength Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "strength": {
+          "value": 15,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item3.png",
@@ -10478,6 +10486,14 @@
     "id": 590,
     "name": "Minor Dexterity Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "dexterity": {
+          "value": 15,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item3.png",
@@ -10494,6 +10510,14 @@
     "id": 591,
     "name": "Minor Quickness Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "quickness": {
+          "value": 15,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item3.png",
@@ -10510,6 +10534,14 @@
     "id": 592,
     "name": "Minor Intelligence Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "intelligence": {
+          "value": 15,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item3.png",
@@ -10526,6 +10558,14 @@
     "id": 593,
     "name": "Minor Wisdom Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "wisdom": {
+          "value": 15,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -10542,6 +10582,14 @@
     "id": 594,
     "name": "Minor Sword Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "4": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -10558,6 +10606,14 @@
     "id": 595,
     "name": "Minor Melee Defense Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "1": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -10574,6 +10630,14 @@
     "id": 596,
     "name": "Minor Dagger Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "3": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -10590,6 +10654,14 @@
     "id": 597,
     "name": "Minor Axe Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "5": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -10606,6 +10678,14 @@
     "id": 598,
     "name": "Minor Unarmed Attack Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "2": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -10622,6 +10702,14 @@
     "id": 599,
     "name": "Minor Mace Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "6": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -11349,6 +11437,14 @@
     "id": 640,
     "name": "Minor Spear Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "7": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -11365,6 +11461,14 @@
     "id": 641,
     "name": "Minor Staff Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "8": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -11381,6 +11485,14 @@
     "id": 642,
     "name": "Minor Flail Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "9": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -11397,6 +11509,14 @@
     "id": 643,
     "name": "Minor Missle Defense Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "11": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -11413,6 +11533,14 @@
     "id": 644,
     "name": "Minor Bow Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "12": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -11429,6 +11557,14 @@
     "id": 645,
     "name": "Minor Crossbow Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "13": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -11445,6 +11581,14 @@
     "id": 646,
     "name": "Minor Blue Magic Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "19": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -11461,6 +11605,14 @@
     "id": 647,
     "name": "Minor Magic Defense Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "15": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -11477,6 +11629,14 @@
     "id": 648,
     "name": "Minor Mana Conversion Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "20": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -11493,6 +11653,14 @@
     "id": 649,
     "name": "Minor Stealth Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "28": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -11509,6 +11677,14 @@
     "id": 650,
     "name": "Minor Scan Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "24": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -11553,6 +11729,14 @@
     "id": 653,
     "name": "Minor Assess Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "27": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -11569,6 +11753,14 @@
     "id": 654,
     "name": "Minor Scythe Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "10": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12347,6 +12539,14 @@
     "id": 705,
     "name": "Major Strength Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "strength": {
+          "value": 30,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item3.png",
@@ -12363,6 +12563,14 @@
     "id": 706,
     "name": "Major Dexterity Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "dexterity": {
+          "value": 30,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item3.png",
@@ -12379,6 +12587,14 @@
     "id": 707,
     "name": "Major Quickness Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "quickness": {
+          "value": 30,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item3.png",
@@ -12395,6 +12611,14 @@
     "id": 708,
     "name": "Major Intelligence Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "intelligence": {
+          "value": 30,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item3.png",
@@ -12411,6 +12635,14 @@
     "id": 709,
     "name": "Major Wisdom Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "wisdom": {
+          "value": 30,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12427,6 +12659,14 @@
     "id": 710,
     "name": "Major Sword Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "4": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12443,6 +12683,14 @@
     "id": 711,
     "name": "Major Melee Defense Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "1": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12459,6 +12707,14 @@
     "id": 712,
     "name": "Major Dagger Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "3": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12475,6 +12731,14 @@
     "id": 713,
     "name": "Major Axe Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "5": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12491,6 +12755,14 @@
     "id": 714,
     "name": "Major Unarmed Attack Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "2": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12507,6 +12779,14 @@
     "id": 715,
     "name": "Major Mace Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "6": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12523,6 +12803,14 @@
     "id": 716,
     "name": "Major Spear Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "7": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12539,6 +12827,14 @@
     "id": 717,
     "name": "Major Staff Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "8": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12555,6 +12851,14 @@
     "id": 718,
     "name": "Major Flail Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "9": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12571,6 +12875,14 @@
     "id": 719,
     "name": "Major Missle Defense Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "11": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12587,6 +12899,14 @@
     "id": 720,
     "name": "Major Bow Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "12": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12603,6 +12923,14 @@
     "id": 721,
     "name": "Major Crossbow Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "13": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12619,6 +12947,14 @@
     "id": 722,
     "name": "Major Blue Magic Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "19": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12635,6 +12971,14 @@
     "id": 723,
     "name": "Major Magic Defense Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "15": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12651,6 +12995,14 @@
     "id": 724,
     "name": "Major Mana Conversion Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "20": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12667,6 +13019,14 @@
     "id": 725,
     "name": "Major Stealth Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "28": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12683,6 +13043,14 @@
     "id": 726,
     "name": "Major Scan Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "24": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12699,6 +13067,14 @@
     "id": 727,
     "name": "Major Assess Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "27": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -12715,6 +13091,14 @@
     "id": 728,
     "name": "Major Scythe Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "10": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -15786,6 +16170,14 @@
     "id": 895,
     "name": "Minor Throwing Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "14": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -15834,6 +16226,14 @@
     "id": 898,
     "name": "Minor Black Magic Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "16": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -16839,6 +17239,14 @@
     "id": 960,
     "name": "Minor White Magic Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "17": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -16887,6 +17295,14 @@
     "id": 963,
     "name": "Minor Red Magic Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "18": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -16935,6 +17351,14 @@
     "id": 966,
     "name": "Minor Trap Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "29": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -16952,6 +17376,14 @@
     "id": 968,
     "name": "Minor Alchemy Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "21": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -17027,6 +17459,14 @@
     "id": 972,
     "name": "Major Throwing Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "14": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -17043,6 +17483,14 @@
     "id": 973,
     "name": "Major Black Magic Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "16": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -17059,6 +17507,14 @@
     "id": 974,
     "name": "Major Alchemy Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "21": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -17075,6 +17531,14 @@
     "id": 975,
     "name": "Major White Magic Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "17": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -17091,6 +17555,14 @@
     "id": 976,
     "name": "Major Red Magic Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "18": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -17376,6 +17848,14 @@
     "id": 995,
     "name": "Major Trap Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "29": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -17425,6 +17905,14 @@
     "id": 999,
     "name": "Minor Blacksmith Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "31": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -18934,6 +19422,14 @@
     "id": 1092,
     "name": "Major Blacksmith Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "31": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -18982,6 +19478,14 @@
     "id": 1095,
     "name": "Minor Fletching Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "37": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -18998,6 +19502,14 @@
     "id": 1096,
     "name": "Major Fletching Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "37": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -19106,6 +19618,14 @@
     "id": 1103,
     "name": "Minor Locksmith Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "38": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -19122,6 +19642,14 @@
     "id": 1104,
     "name": "Major Locksmith Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "38": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -19185,6 +19713,14 @@
     "id": 1108,
     "name": "Minor Carpentry Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "40": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -19201,6 +19737,14 @@
     "id": 1109,
     "name": "Major Carpentry Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "40": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -39828,6 +40372,14 @@
     "id": 2310,
     "name": "Megas Strength Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "strength": {
+          "value": 45,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item3.png",
@@ -39844,6 +40396,14 @@
     "id": 2311,
     "name": "Megas Dexterity Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "dexterity": {
+          "value": 45,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item3.png",
@@ -39860,6 +40420,14 @@
     "id": 2312,
     "name": "Megas Quickness Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "quickness": {
+          "value": 45,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item3.png",
@@ -39876,6 +40444,14 @@
     "id": 2313,
     "name": "Megas Intelligence Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "intelligence": {
+          "value": 45,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item3.png",
@@ -39892,6 +40468,14 @@
     "id": 2314,
     "name": "Megas Wisdom Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "wisdom": {
+          "value": 45,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -39908,6 +40492,14 @@
     "id": 2315,
     "name": "Gigas Strength Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "strength": {
+          "value": 60,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item3.png",
@@ -39924,6 +40516,14 @@
     "id": 2316,
     "name": "Gigas Dexterity Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "dexterity": {
+          "value": 60,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item3.png",
@@ -39940,6 +40540,14 @@
     "id": 2317,
     "name": "Gigas Quickness Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "quickness": {
+          "value": 60,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item3.png",
@@ -39956,6 +40564,14 @@
     "id": 2318,
     "name": "Gigas Intelligence Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "intelligence": {
+          "value": 60,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item3.png",
@@ -39972,6 +40588,14 @@
     "id": 2319,
     "name": "Gigas Wisdom Potion",
     "class": "Food",
+    "bonus": {
+      "attributes": {
+        "wisdom": {
+          "value": 60,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -39988,6 +40612,14 @@
     "id": 2320,
     "name": "Megas Sword Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "4": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40004,6 +40636,14 @@
     "id": 2321,
     "name": "Megas Melee Defense Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "1": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40020,6 +40660,14 @@
     "id": 2322,
     "name": "Megas Dagger Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "3": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40036,6 +40684,14 @@
     "id": 2323,
     "name": "Megas Axe Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "5": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40052,6 +40708,14 @@
     "id": 2324,
     "name": "Megas Unarmed Attack Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "2": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40068,6 +40732,14 @@
     "id": 2325,
     "name": "Megas Mace Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "6": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40084,6 +40756,14 @@
     "id": 2326,
     "name": "Megas Spear Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "7": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40100,6 +40780,14 @@
     "id": 2327,
     "name": "Megas Staff Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "8": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40116,6 +40804,14 @@
     "id": 2328,
     "name": "Megas Flail Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "9": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40132,6 +40828,14 @@
     "id": 2329,
     "name": "Megas Missle Defense Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "11": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40148,6 +40852,14 @@
     "id": 2330,
     "name": "Megas Bow Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "12": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40164,6 +40876,14 @@
     "id": 2331,
     "name": "Megas Crossbow Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "13": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40180,6 +40900,14 @@
     "id": 2332,
     "name": "Megas Blue Magic Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "19": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40196,6 +40924,14 @@
     "id": 2333,
     "name": "Megas Magic Defense Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "15": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40212,6 +40948,14 @@
     "id": 2334,
     "name": "Megas Mana Conversion Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "20": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40228,6 +40972,14 @@
     "id": 2335,
     "name": "Megas Stealth Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "28": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40244,6 +40996,14 @@
     "id": 2336,
     "name": "Megas Scan Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "24": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40260,6 +41020,14 @@
     "id": 2337,
     "name": "Megas Assess Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "27": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40276,6 +41044,14 @@
     "id": 2338,
     "name": "Megas Scythe Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "10": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40292,6 +41068,14 @@
     "id": 2339,
     "name": "Megas Throwing Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "14": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40308,6 +41092,14 @@
     "id": 2340,
     "name": "Megas Black Magic Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "16": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40324,6 +41116,14 @@
     "id": 2341,
     "name": "Megas Alchemy Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "21": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40340,6 +41140,14 @@
     "id": 2342,
     "name": "Megas White Magic Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "17": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40356,6 +41164,14 @@
     "id": 2343,
     "name": "Megas Red Magic Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "18": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40372,6 +41188,14 @@
     "id": 2344,
     "name": "Megas Trap Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "29": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40388,6 +41212,14 @@
     "id": 2345,
     "name": "Megas Blacksmith Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "31": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40404,6 +41236,14 @@
     "id": 2346,
     "name": "Megas Fletching Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "37": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40420,6 +41260,14 @@
     "id": 2347,
     "name": "Megas Locksmith Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "38": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40436,6 +41284,14 @@
     "id": 2348,
     "name": "Megas Carpentry Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "40": {
+          "value": 30,
+          "duration": 10
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40452,6 +41308,14 @@
     "id": 2349,
     "name": "Gigas Sword Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "4": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40468,6 +41332,14 @@
     "id": 2350,
     "name": "Gigas Melee Defense Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "1": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40484,6 +41356,14 @@
     "id": 2351,
     "name": "Gigas Dagger Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "3": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40500,6 +41380,14 @@
     "id": 2352,
     "name": "Gigas Axe Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "5": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40516,6 +41404,14 @@
     "id": 2353,
     "name": "Gigas Unarmed Attack Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "2": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40532,6 +41428,14 @@
     "id": 2354,
     "name": "Gigas Mace Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "6": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40548,6 +41452,14 @@
     "id": 2355,
     "name": "Gigas Spear Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "7": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40564,6 +41476,14 @@
     "id": 2356,
     "name": "Gigas Staff Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "8": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40580,6 +41500,14 @@
     "id": 2357,
     "name": "Gigas Flail Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "9": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40596,6 +41524,14 @@
     "id": 2358,
     "name": "Gigas Missle Defense Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "11": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40612,6 +41548,14 @@
     "id": 2359,
     "name": "Gigas Bow Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "12": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40628,6 +41572,14 @@
     "id": 2360,
     "name": "Gigas Crossbow Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "13": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40644,6 +41596,14 @@
     "id": 2361,
     "name": "Gigas Blue Magic Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "19": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40660,6 +41620,14 @@
     "id": 2362,
     "name": "Gigas Magic Defense Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "15": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40676,6 +41644,14 @@
     "id": 2363,
     "name": "Gigas Mana Conversion Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "20": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40692,6 +41668,14 @@
     "id": 2364,
     "name": "Gigas Stealth Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "28": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40708,6 +41692,14 @@
     "id": 2365,
     "name": "Gigas Scan Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "24": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40724,6 +41716,14 @@
     "id": 2366,
     "name": "Gigas Assess Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "27": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40740,6 +41740,14 @@
     "id": 2367,
     "name": "Gigas Scythe Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "10": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40756,6 +41764,14 @@
     "id": 2368,
     "name": "Gigas Throwing Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "14": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40772,6 +41788,14 @@
     "id": 2369,
     "name": "Gigas Black Magic Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "16": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40788,6 +41812,14 @@
     "id": 2370,
     "name": "Gigas Alchemy Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "21": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40804,6 +41836,14 @@
     "id": 2371,
     "name": "Gigas White Magic Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "17": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40820,6 +41860,14 @@
     "id": 2372,
     "name": "Gigas Red Magic Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "18": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40836,6 +41884,14 @@
     "id": 2373,
     "name": "Gigas Trap Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "29": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40852,6 +41908,14 @@
     "id": 2374,
     "name": "Gigas Blacksmith Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "31": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40868,6 +41932,14 @@
     "id": 2375,
     "name": "Gigas Fletching Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "37": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40884,6 +41956,14 @@
     "id": 2376,
     "name": "Gigas Locksmith Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "38": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -40900,6 +41980,14 @@
     "id": 2377,
     "name": "Gigas Carpentry Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "40": {
+          "value": 40,
+          "duration": 12
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item10.png",
@@ -44180,6 +45268,14 @@
     "id": 3138,
     "name": "Minor Jeweler Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "43": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item19.png",
@@ -44196,6 +45292,14 @@
     "id": 3139,
     "name": "Major Jeweler Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "43": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item19.png",
@@ -44765,6 +45869,14 @@
     "id": 3167,
     "name": "Minor Mining Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "36": {
+          "value": 10,
+          "duration": 5
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item21.png",
@@ -44781,6 +45893,14 @@
     "id": 3168,
     "name": "Major Mining Potion",
     "class": "Food",
+    "bonus": {
+      "skills": {
+        "36": {
+          "value": 20,
+          "duration": 7
+        }
+      }
+    },
     "burden": 20,
     "graphics": {
       "file": "rpgwo-item21.png",
