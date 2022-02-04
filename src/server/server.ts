@@ -509,9 +509,6 @@ export class Server {
     if (clientConnection.isPlayerConnection()) {
       this.context.savePlayer(clientConnection.player, clientConnection.creature);
       this.removeCreature(clientConnection.creature);
-      // Do not remove player yet, not until the next server.save(), in case player logs back in
-      // before the next save.
-      // this.context.players.delete(clientConnection.player.id);
       this.broadcastAnimation({
         name: 'WarpOut',
         path: [clientConnection.creature.pos],
@@ -519,13 +516,15 @@ export class Server {
       this.broadcastChatFromServer(`${clientConnection.player.name} has left the world.`);
 
       clientConnection.player.loggedIn = false;
-      this.context.players.delete(clientConnection.player.id);
 
       const clientConnectionBase = clientConnection as ClientConnection;
       clientConnectionBase.creature = undefined;
       clientConnectionBase.player = undefined;
       clientConnectionBase.container = undefined;
       clientConnectionBase.equipment = undefined;
+
+      // Do not remove player from `this.context.players` yet, not until
+      // the next server.save(), in case player logs back in before the next save.
     }
   }
 
