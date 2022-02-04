@@ -779,15 +779,15 @@ button {
   --size: 64px;
   --x: 0px;
   --y: 0px;
-  --delta: 0px;
-  --thickness: 2px;
-  --width: 10px;
+  --delta: 5px;
+  --thickness: 5px;
+  --width: 16px;
   --color: gold;
 
   top: calc(var(--y) - var(--delta) - var(--thickness));
   left: calc(var(--x) - var(--delta) - var(--thickness));
-  width: calc(var(--size) + var(--delta) * 2 + var(--thickness));
-  height: calc(var(--size) + var(--delta) * 2 + var(--thickness));
+  width: calc(var(--size) + var(--delta) * 2);
+  height: calc(var(--size) + var(--delta) * 2);
 
   position: absolute;
   animation: 0.75s linear gridCursor infinite alternate;
