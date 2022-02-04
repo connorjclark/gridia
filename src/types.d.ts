@@ -230,6 +230,7 @@ interface CreatureDescriptor {
 }
 
 interface Buff {
+  /** If set, multiple buffs of the same id will overwrite each other when assigned. */
   id: string;
   /** UNIX epoch. For items, this field is used as a turn counter (buff goes away at 0). */
   expiresAt: number;

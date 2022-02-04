@@ -1044,11 +1044,30 @@ export class Server {
     this.modifyCreatureAttributes(actor, creature, {mana: delta});
   }
 
+  /**
+   * Assigns and broadcasts a buff to a creature.
+   * If a buff has an id and there is a existing buff of that id:
+   * When the existing buff's value is greater than the new one, the
+   * new buff is ignored.
+   * When the existing buff's value is less than the new one, the existing
+   * one is removed.
+   * When the same, the existing one remains but its duration is replaced with the
+   * longest of the two.
+   */
   assignCreatureBuff(creature: Creature, buff: Buff) {
-    const existingBuff = creature.buffs.find((b) => b.id === buff.id);
+    const existingBuff = buff.id && creature.buffs.find((b) => b.id === buff.id);
     if (existingBuff) {
-      // TODO: keep the larger buff.
-      existingBuff.expiresAt = Math.max(existingBuff.expiresAt, buff.expiresAt);
+      // TODO ignoring linearchange+percentchange combination here...
+      const existingAmount = existingBuff.linearChange || existingBuff.percentChange || 0;
+      const newAmount = buff.linearChange || buff.percentChange || 0;
+      if (existingAmount > newAmount) {
+        return;
+      } else if (existingAmount < newAmount) {
+        creature.buffs.splice(creature.buffs.indexOf(existingBuff), 1);
+        creature.buffs.push(buff);
+      } else {
+        existingBuff.expiresAt = Math.max(existingBuff.expiresAt, buff.expiresAt);
+      }
     } else {
       creature.buffs.push(buff);
     }
