@@ -256,7 +256,7 @@ function parseItemsIni() {
 
     if (item.class?.startsWith('Jewelry')) {
       if (item.class.match(/neck/i)) item.equipSlot = 'Neck';
-      if (item.class.match(/ring/i)) item.equipSlot = 'Finger';
+      if (item.class.match(/finger/i)) item.equipSlot = 'Finger';
       if (item.class.match(/wrist/i)) item.equipSlot = 'Wrist';
       item.class = 'Jewelry';
     }

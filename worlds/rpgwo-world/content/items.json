@@ -14474,6 +14474,7 @@
     "name": "Ruby Ring",
     "class": "Jewelry",
     "burden": 10,
+    "equipSlot": "Finger",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -14489,6 +14490,7 @@
     "name": "Emerald Ring",
     "class": "Jewelry",
     "burden": 10,
+    "equipSlot": "Finger",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -14504,6 +14506,7 @@
     "name": "Diamond Ring",
     "class": "Jewelry",
     "burden": 10,
+    "equipSlot": "Finger",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -14519,6 +14522,7 @@
     "name": "Turquoise Ring",
     "class": "Jewelry",
     "burden": 10,
+    "equipSlot": "Finger",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -14534,6 +14538,7 @@
     "name": "Garnet Ring",
     "class": "Jewelry",
     "burden": 10,
+    "equipSlot": "Finger",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -14549,6 +14554,7 @@
     "name": "Sapphire Ring",
     "class": "Jewelry",
     "burden": 10,
+    "equipSlot": "Finger",
     "graphics": {
       "file": "rpgwo-item9.png",
       "frames": [
@@ -39135,6 +39141,7 @@
     "name": "Rosette Ring",
     "class": "Jewelry",
     "burden": 10,
+    "equipSlot": "Finger",
     "graphics": {
       "file": "rpgwo-item19.png",
       "frames": [
@@ -43873,6 +43880,7 @@
     "name": "Drake Ring",
     "class": "Jewelry",
     "burden": 10,
+    "equipSlot": "Finger",
     "graphics": {
       "file": "rpgwo-item17.png",
       "frames": [
@@ -44216,6 +44224,7 @@
     "name": "Engagement Ring",
     "class": "Jewelry",
     "burden": 10,
+    "equipSlot": "Finger",
     "graphics": {
       "file": "rpgwo-item18.png",
       "frames": [
@@ -44231,6 +44240,7 @@
     "name": "Wedding Ring",
     "class": "Jewelry",
     "burden": 10,
+    "equipSlot": "Finger",
     "graphics": {
       "file": "rpgwo-item18.png",
       "frames": [

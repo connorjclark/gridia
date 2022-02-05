@@ -1,8 +1,6 @@
 import {MAX_STACK} from './constants.js';
 import * as Content from './content.js';
-import * as Player from './player.js';
 import * as EventBuilder from './protocol/event-builder.js';
-import {ClientConnection} from './server/client-connection.js';
 import {Server} from './server/server.js';
 import * as Utils from './utils.js';
 
