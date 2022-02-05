@@ -159,7 +159,8 @@ export const ItemLocation = {
   },
   Equal(location1: ItemLocation, location2: ItemLocation) {
     if (location1.source === 'container' && location2.source === 'container') {
-      return location1.index === location2.index && location1.source === location2.source;
+      return location1.id === location2.id &&
+        location1.index === location2.index && location1.source === location2.source;
     }
     if (location1.source === 'world' && location2.source === 'world') {
       return equalPoints(location1.pos, location2.pos);
