@@ -19,9 +19,15 @@ import Commands = Protocol.Commands;
  * When a protocol function throws this error, the stack trace will be supressed.
  * Use this for "expected" errors.
  */
-export class InvalidProtocolError extends Error {}
+export class InvalidProtocolError extends Error { }
 
 export class ServerInterface implements ICommands {
+  async processCommand(server: Server, clientConnection: ClientConnection, type: string, args: any) {
+    const onMethodName = 'on' + type[0].toUpperCase() + type.substring(1);
+    // @ts-expect-error
+    return await this[onMethodName](server, clientConnection, args);
+  }
+
   onMove(server: Server, clientConnection: ClientConnection, {...pos}: Commands.Move['params']): Promise<Commands.Move['response']> {
     clientConnection.assertsPlayerConnection();
 

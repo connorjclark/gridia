@@ -1857,41 +1857,19 @@ export class Server {
             const command = message.data;
             if (this.verbose) console.log('from client', message.id, command.type, command.args);
             // performance.mark(`${message.type}-start`);
-            try {
-              const onMethodName = 'on' + command.type[0].toUpperCase() + command.type.substring(1);
-              // @ts-expect-error
-              await Promise.resolve(this._serverInterface[onMethodName](this, clientConnection, command.args))
-                .then((data: any) => clientConnection.send({id: message.id, data}))
-                .catch((e?: Error | string) => {
-                  // TODO: why is this catch AND the try/catch needed?
-                  let error;
-                  if (e && e instanceof InvalidProtocolError) {
-                    error = {message: e.message};
-                  } else if (e && e instanceof Error) {
-                    error = {message: e.message, stack: e.stack};
-                  } else {
-                    error = {message: e || 'Unknown error'};
-                  }
-                  // console.log('ERROR 1');
-                  clientConnection.send({id: message.id, error});
-                });
-            } catch (e: any) {
-              // Don't let a bad message kill the message loop.
-              console.error(e, message);
-              // console.log('ERROR 2');
-              let error;
-              if (e && e instanceof InvalidProtocolError) {
-                error = {message: e.message};
-              } else if (e && e instanceof Error) {
-                error = {message: e.message, stack: e.stack};
-              } else {
-                error = {message: e || 'Unknown error'};
-              }
-              clientConnection.send({
-                id: message.id,
-                error,
+            await this._serverInterface.processCommand(this, clientConnection, command.type, command.args)
+              .then((data: any) => clientConnection.send({id: message.id, data}))
+              .catch((e?: Error | string) => {
+                let error;
+                if (e && e instanceof InvalidProtocolError) {
+                  error = {message: e.message};
+                } else if (e && e instanceof Error) {
+                  error = {message: e.message, stack: e.stack};
+                } else {
+                  error = {message: e || 'Unknown error'};
+                }
+                clientConnection.send({id: message.id, error});
               });
-            }
             // performance.mark(`${message.type}-end`);
             // performance.measure(message.type, `${message.type}-start`, `${message.type}-end`);
           }
