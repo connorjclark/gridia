@@ -56,6 +56,7 @@ export function serialize(object: any) {
   return JSON.stringify(object, replacer);
 }
 
+// TODO: add T return type
 export function deserialize<T>(json: string) {
   return JSON.parse(json, reviver);
 }

@@ -15,6 +15,12 @@ import {ICommands} from './gen/server-interface.js';
 
 import Commands = Protocol.Commands;
 
+/**
+ * When a protocol function throws this error, the stack trace will be supressed.
+ * Use this for "expected" errors.
+ */
+export class InvalidProtocolError extends Error {}
+
 export class ServerInterface implements ICommands {
   onMove(server: Server, clientConnection: ClientConnection, {...pos}: Commands.Move['params']): Promise<Commands.Move['response']> {
     clientConnection.assertsPlayerConnection();
@@ -37,17 +43,17 @@ export class ServerInterface implements ICommands {
     if (tile.item?.type === MINE) {
       const player = clientConnection.player;
       const miningSkill = Content.getSkillByName('Mining');
-      if (!miningSkill) return Promise.reject('no mining skill');
+      if (!miningSkill) throw new InvalidProtocolError('no mining skill');
       if (!clientConnection.player.isAdmin) {
-        if (!miningSkill || !player.skills.has(miningSkill.id)) return Promise.reject('need mining skill');
+        if (!miningSkill || !player.skills.has(miningSkill.id)) throw new InvalidProtocolError('need mining skill');
       }
 
       const container = clientConnection.container;
       const playerHasPick = Container.hasItem(container, Content.getMetaItemByName('Pick').id);
-      if (!playerHasPick) return Promise.reject('missing pick');
+      if (!playerHasPick) throw new InvalidProtocolError('missing pick');
 
       const staminaCost = 5;
-      if (creature.stamina.current < staminaCost) return Promise.reject('you are exhausted');
+      if (creature.stamina.current < staminaCost) throw new InvalidProtocolError('you are exhausted');
       server.modifyCreatureStamina(null, creature, -staminaCost);
 
       const oreType = tile.item.oreType || Content.getMetaItemByName('Pile of Dirt').id;
@@ -73,7 +79,7 @@ export class ServerInterface implements ICommands {
     if (clientConnection.account) return Promise.reject('Already logged in');
 
     if (process.env.GRIDIA_EXECUTION_ENV === 'browser') {
-      throw new Error('should not use firebase locally');
+      throw new InvalidProtocolError('should not use firebase locally');
     }
 
     // TODO: do not include firebase-admin in worker server.
@@ -87,11 +93,11 @@ export class ServerInterface implements ICommands {
   }
 
   async onLogin(server: Server, clientConnection: ClientConnection, {firebaseToken}: Commands.Login['params']): Promise<Commands.Login['response']> {
-    if (clientConnection.account) throw new Error('Already logged in');
+    if (clientConnection.account) throw new InvalidProtocolError('Already logged in');
 
     let account: GridiaAccount;
     if (process.env.GRIDIA_EXECUTION_ENV === 'browser') {
-      if (firebaseToken !== 'local') throw new Error('expected token: local');
+      if (firebaseToken !== 'local') throw new InvalidProtocolError('expected token: local');
 
       // Create account if not already made.
       try {
@@ -147,9 +153,9 @@ export class ServerInterface implements ICommands {
   }
 
   async onEnterWorld(server: Server, clientConnection: ClientConnection, {playerId}: Commands.EnterWorld['params']): Promise<Commands.EnterWorld['response']> {
-    if (!clientConnection.account) throw new Error('Not logged in');
-    if (clientConnection.player) throw new Error('Already in world');
-    if (!clientConnection.account.playerIds.includes(playerId)) throw new Error('No such player');
+    if (!clientConnection.account) throw new InvalidProtocolError('Not logged in');
+    if (clientConnection.player) throw new InvalidProtocolError('Already in world');
+    if (!clientConnection.account.playerIds.includes(playerId)) throw new InvalidProtocolError('No such player');
 
     await server.playerEnterWorld(clientConnection, {
       playerId,
@@ -167,20 +173,20 @@ export class ServerInterface implements ICommands {
     const creature = clientConnection.creature;
     const otherCreature = creatureId ? server.context.getCreature(creatureId) : null;
     const spell = Content.getSpell(id);
-    if (!spell) return Promise.reject('No such spell');
+    if (!spell) throw new InvalidProtocolError('No such spell');
 
     const hasWand = Boolean(
       creature.equipment?.[Container.EQUIP_SLOTS.Weapon] &&
       Content.getMetaItem(creature.equipment[Container.EQUIP_SLOTS.Weapon]?.type || 0).class === 'Wand'
     );
-    if (!hasWand) return Promise.reject('You must equip a wand');
+    if (!hasWand) throw new InvalidProtocolError('You must equip a wand');
 
     let targetCreature;
     if (spell.target === 'other') {
       // `other` spells target the provided creatureId, else they target the currently targeted creature.
       const creatureState = server.creatureStates[clientConnection.creature.id];
       targetCreature = otherCreature || creatureState.targetCreature?.creature;
-      if (targetCreature === creature) return Promise.reject('You cannot cast that on yourself');
+      if (targetCreature === creature) throw new InvalidProtocolError('You can\'t cast that on yourself');
     } else {
       // `self` and `world` spells may only target the caster.
       targetCreature = creature;
@@ -191,7 +197,7 @@ export class ServerInterface implements ICommands {
     }
 
     if (!targetCreature && !pos) {
-      return Promise.reject('No target selected');
+      throw new InvalidProtocolError('No target selected');
     }
 
     // Defer to creature state.
@@ -201,7 +207,7 @@ export class ServerInterface implements ICommands {
       state.currentSpell = spell;
     } else {
       const failureReason = server.castSpell(spell, creature, targetCreature, pos);
-      if (failureReason) return Promise.reject(failureReason);
+      if (failureReason) throw new InvalidProtocolError(failureReason);
     }
 
     return Promise.resolve();
@@ -210,8 +216,8 @@ export class ServerInterface implements ICommands {
   async onRequestContainer(server: Server, clientConnection: ClientConnection, {containerId, pos}: Commands.RequestContainer['params']): Promise<Commands.RequestContainer['response']> {
     clientConnection.assertsPlayerConnection();
 
-    if (!containerId && !pos) throw new Error('expected containerId or pos');
-    if (containerId && pos) throw new Error('expected only one of containerId or pos');
+    if (!containerId && !pos) throw new InvalidProtocolError('expected containerId or pos');
+    if (containerId && pos) throw new InvalidProtocolError('expected only one of containerId or pos');
 
     if (!containerId && pos) {
       const item = server.context.map.getItem(pos);
@@ -224,7 +230,7 @@ export class ServerInterface implements ICommands {
     }
 
     if (!containerId) {
-      throw new Error('could not find container');
+      throw new InvalidProtocolError('could not find container');
     }
 
     clientConnection.registeredContainers.push(containerId);
@@ -247,7 +253,7 @@ export class ServerInterface implements ICommands {
 
     const creature = server.context.getCreature(id);
     if (!creature) {
-      return Promise.reject('requested invalid creature: ' + id);
+      throw new InvalidProtocolError('requested invalid creature: ' + id);
     }
 
     server.send(EventBuilder.setCreature({
@@ -304,11 +310,11 @@ export class ServerInterface implements ICommands {
     const creatureState = server.creatureStates[creatureId];
     const isClose = true; // TODO
     if (!isClose) {
-      return Promise.reject('Too far away');
+      throw new InvalidProtocolError('Too far away');
     }
 
-    if (!creature) return Promise.reject('Cannot find creature');
-    if (creature.isPlayer) return Promise.reject('Cannot do that to another player');
+    if (!creature) throw new InvalidProtocolError('Cannot find creature');
+    if (creature.isPlayer) throw new InvalidProtocolError('Cannot do that to another player');
 
     if (type === 'attack') {
       server.creatureStates[clientConnection.creature.id].targetCreature = creatureState;
@@ -316,7 +322,7 @@ export class ServerInterface implements ICommands {
     }
 
     if (type === 'tame') {
-      if (creature.tamedBy) return Promise.reject('Creature is already tamed');
+      if (creature.tamedBy) throw new InvalidProtocolError('Creature is already tamed');
       server.tameCreature(clientConnection.player, creature);
     }
 
@@ -336,7 +342,7 @@ export class ServerInterface implements ICommands {
     }
 
     if (type === 'trade') {
-      if (!creature.merchant) return Promise.reject('Creature is not a merchant');
+      if (!creature.merchant) throw new InvalidProtocolError('Creature is not a merchant');
 
       const containerId = creature.merchant.containerId;
       clientConnection.registeredContainers.push(containerId);
@@ -358,12 +364,12 @@ export class ServerInterface implements ICommands {
     clientConnection.assertsPlayerConnection();
 
     if (location.source === 'container') {
-      return Promise.reject(); // TODO
+      throw new InvalidProtocolError('Can\'t use items from inside a container');
     }
     const pos = location.pos;
 
     if (!server.context.map.inBounds(pos)) {
-      return Promise.reject(); // TODO
+      throw new InvalidProtocolError('Out of bounds');
     }
 
     // TODO range check.
@@ -372,18 +378,18 @@ export class ServerInterface implements ICommands {
     // If -1, use an item that represents "Hand".
     const tool = toolIndex === -1 ? {type: 0, quantity: 0} : inventory.items[toolIndex];
     // Got a request to use nothing as a tool - doesn't make sense to do that.
-    if (!tool) return Promise.reject(); // TODO
+    if (!tool) throw new InvalidProtocolError('Can\'t use nothing as a tool');
 
     const focus = server.context.map.getItem(pos) || {type: 0, quantity: 0};
 
     const uses = Content.getItemUses(tool.type, focus.type);
-    if (!uses.length) return Promise.reject(); // TODO
+    if (!uses.length) throw new InvalidProtocolError('No uses found');
     const use = uses[usageIndex || 0];
 
     const skill = use.skillId && Content.getSkill(use.skillId);
     if (!clientConnection.player.isAdmin) {
       if (skill && !clientConnection.player.skills.has(skill.id)) {
-        throw new Error('missing required skill: ' + skill.name);
+        throw new InvalidProtocolError('missing required skill: ' + skill.name);
       }
 
       if (use.minimumSkillLevel !== undefined) {
@@ -391,7 +397,8 @@ export class ServerInterface implements ICommands {
         const maxLevel = use.minimumSkillLevel || minLevel;
         const successRate = Math.min(0.01, minLevel / maxLevel);
         if (Math.random() <= successRate) {
-          return Promise.reject('You fumble it!');
+          // TODO: this shouldn't be an error.
+          throw new InvalidProtocolError('You fumble it!');
         }
       }
     }
@@ -442,8 +449,7 @@ export class ServerInterface implements ICommands {
     if (focusMeta.name === 'Life Stone' || focusMeta.name === 'Attune Warp Stone') {
       const distance = Utils.maxDiff(location.pos, clientConnection.creature.pos);
       if (distance > 1) {
-        // TODO replace these with new Error() ...
-        return Promise.reject('too far away');
+        throw new InvalidProtocolError('too far away');
       }
 
       server.broadcastAnimation({
@@ -494,12 +500,7 @@ export class ServerInterface implements ICommands {
         (from.source === 'world' && Utils.maxDiff(from.pos, clientConnection.creature.pos) > 1) ||
         (to.source === 'world' && Utils.maxDiff(to.pos, clientConnection.creature.pos) > 1);
       if (outOfReach) {
-        server.send(EventBuilder.chat({
-          section: 'World',
-          from: 'World',
-          text: 'You can\'t reach that',
-        }), clientConnection);
-        return;
+        throw new InvalidProtocolError('You can\'t reach that');
       }
     }
 
@@ -595,12 +596,7 @@ export class ServerInterface implements ICommands {
 
     const validToLocation = findValidLocation(to, fromItem);
     if ('error' in validToLocation) {
-      server.send(EventBuilder.chat({
-        section: 'World',
-        from: 'World',
-        text: validToLocation.error,
-      }), clientConnection);
-      return;
+      throw new InvalidProtocolError(validToLocation.error);
     }
 
     // Ignore if moving to same location.
@@ -624,76 +620,43 @@ export class ServerInterface implements ICommands {
       return;
     }
 
-    if (toItem && fromItem.type !== toItem.type) return;
+    if (toItem && fromItem.type !== toItem.type) {
+      throw new InvalidProtocolError('Those items cannot be stacked together');
+    }
 
     const fromOwner = from.source === 'world' && server.getSectorOwner(from.pos);
     if (fromOwner && fromOwner !== clientConnection.player.id) {
-      server.send(EventBuilder.chat({
-        section: 'World',
-        from: 'World',
-        text: 'You cannot move items on land owned by someone else',
-      }), clientConnection);
-      return;
+      throw new InvalidProtocolError('You cannot move items on land owned by someone else');
     }
 
     const toOwner = to.source === 'world' && server.getSectorOwner(to.pos);
     if (toOwner && toOwner !== clientConnection.player.id) {
-      server.send(EventBuilder.chat({
-        section: 'World',
-        from: 'World',
-        text: 'You cannot put items on land owned by someone else',
-      }), clientConnection);
-      return;
+      throw new InvalidProtocolError('You cannot put items on land owned by someone else');
     }
 
     if (!clientConnection.player.isAdmin && !Content.getMetaItem(fromItem.type).moveable) {
-      server.send(EventBuilder.chat({
-        section: 'World',
-        from: 'World',
-        text: 'That item is not moveable',
-      }), clientConnection);
-      return;
+      throw new InvalidProtocolError('That item is not moveable');
     }
 
     if (toItem && !Content.getMetaItem(fromItem.type).stackable) {
-      server.send(EventBuilder.chat({
-        section: 'World',
-        from: 'World',
-        text: 'That item is not stackable',
-      }), clientConnection);
-      return;
+      throw new InvalidProtocolError('That item is not stackable');
     }
 
-    if (!clientConnection.player.isAdmin) {
-      server.send(EventBuilder.chat({
-        section: 'World',
-        from: 'World',
-        text: 'Dont touch that.',
-      }), clientConnection);
-      return;
-    }
+    // if (!clientConnection.player.isAdmin) {
+    //   throw new InvalidProtocolError('Don\'t touch that');
+    // }
 
     // Prevent container-ception.
     if (Content.getMetaItem(fromItem.type).class === 'Container' && to.source === 'container'
       && to.id === fromItem.containerId) {
-      server.send(EventBuilder.chat({
-        section: 'World',
-        from: 'World',
-        text: 'You cannot store a container inside another container',
-      }), clientConnection);
-      return;
+      throw new InvalidProtocolError('You cannot store a container inside another container');
     }
 
     const isStackable = Content.getMetaItem(fromItem.type).stackable && fromItem.type === toItem?.type;
     const quantityToMove = quantity !== undefined ? quantity : fromItem.quantity;
 
     if (isStackable && quantityToMove + (toItem?.quantity || 0) > MAX_STACK) {
-      server.send(EventBuilder.chat({
-        section: 'World',
-        from: 'World',
-        text: 'Item stack would be too large.',
-      }), clientConnection);
-      return;
+      throw new InvalidProtocolError('Item stack would be too large');
     }
 
     const newItem = {
@@ -720,21 +683,21 @@ export class ServerInterface implements ICommands {
   async onBuyItem(server: Server, clientConnection: ClientConnection, {from, quantity, price}: Commands.BuyItem['params']): Promise<Commands.BuyItem['response']> {
     clientConnection.assertsPlayerConnection();
 
-    if (from.index === undefined) throw new Error('invalid index');
+    if (from.index === undefined) throw new InvalidProtocolError('invalid index');
 
     const merchantContainer = await server.context.getContainer(from.id);
-    if (merchantContainer.type !== 'merchant') throw new Error('invalid container');
+    if (merchantContainer.type !== 'merchant') throw new InvalidProtocolError('invalid container');
 
     const item = merchantContainer.items[from.index];
-    if (!item) throw new Error('invalid item');
-    if (!(quantity > 0 && quantity <= item.quantity)) throw new Error('invalid quantity');
+    if (!item) throw new InvalidProtocolError('invalid item');
+    if (!(quantity > 0 && quantity <= item.quantity)) throw new InvalidProtocolError('invalid quantity');
 
     const meta = Content.getMetaItem(item.type);
-    if (!Number.isFinite(price) || price !== (meta.value || 1) * quantity) throw new Error('invalid price');
+    if (!Number.isFinite(price) || price !== (meta.value || 1) * quantity) throw new InvalidProtocolError('invalid price');
 
     const goldOnHand = Container.countItem(clientConnection.container, Content.getMetaItemByName('Gold').id);
     const paid = goldOnHand >= price && Container.removeItemAmount(server, clientConnection.container, Content.getMetaItemByName('Gold').id, price);
-    if (!paid) throw new Error('not enough gold');
+    if (!paid) throw new InvalidProtocolError('not enough gold');
 
     const purchasedItems = [];
     if (meta.stackable) {
@@ -752,7 +715,7 @@ export class ServerInterface implements ICommands {
         allowStacking: true,
         excludeIndices,
       });
-      if (location?.index === undefined) throw new Error('no room for item');
+      if (location?.index === undefined) throw new InvalidProtocolError('no room for item');
 
       locationsToAddItems.push(location);
       excludeIndices.push(location.index);
@@ -767,22 +730,22 @@ export class ServerInterface implements ICommands {
   async onSellItem(server: Server, clientConnection: ClientConnection, {from, to, quantity, price}: Commands.SellItem['params']): Promise<Commands.SellItem['response']> {
     clientConnection.assertsPlayerConnection();
 
-    if (from.index === undefined) throw new Error('invalid index');
-    if (from.id !== clientConnection.container.id) throw new Error('invalid container');
-    if (to.index !== undefined) throw new Error('invalid index');
+    if (from.index === undefined) throw new InvalidProtocolError('invalid index');
+    if (from.id !== clientConnection.container.id) throw new InvalidProtocolError('invalid container');
+    if (to.index !== undefined) throw new InvalidProtocolError('invalid index');
 
     const merchantContainer = await server.context.getContainer(to.id);
-    if (merchantContainer.type !== 'merchant') throw new Error('invalid container');
+    if (merchantContainer.type !== 'merchant') throw new InvalidProtocolError('invalid container');
 
     const item = clientConnection.container.items[from.index];
-    if (!item) throw new Error('invalid item');
+    if (!item) throw new InvalidProtocolError('invalid item');
 
     const meta = Content.getMetaItem(item.type);
-    if (!Number.isFinite(price) || price !== (meta.value || 1) * quantity) throw new Error('invalid price');
+    if (!Number.isFinite(price) || price !== (meta.value || 1) * quantity) throw new InvalidProtocolError('invalid price');
 
     const soldGold = {type: Content.getMetaItemByName('Gold').id, quantity: price};
     const location = Container.findValidLocationToAddItemToContainer(clientConnection.container, soldGold, {allowStacking: true});
-    if (location?.index === undefined) throw new Error('no room for gold');
+    if (location?.index === undefined) throw new InvalidProtocolError('no room for gold');
 
     Container.removeItemAmount(server, clientConnection.container, item.type, quantity);
     Container.addItemToContainer(server, clientConnection.container, soldGold);
@@ -794,10 +757,10 @@ export class ServerInterface implements ICommands {
 
     const skill = Content.getSkill(id);
     if (clientConnection.player.skillPoints < skill.skillPoints) {
-      return Promise.reject('not enough skill points');
+      throw new InvalidProtocolError('not enough skill points');
     }
     if (clientConnection.player.skills.get(id)) {
-      return Promise.reject('you already know that skill');
+      throw new InvalidProtocolError('you already know that skill');
     }
 
     Player.learnSkill(clientConnection.player, id);
@@ -848,7 +811,7 @@ export class ServerInterface implements ICommands {
     clientConnection.assertsPlayerConnection();
 
     const item = location.source === 'world' ? server.context.map.getItem(location.pos) : undefined;
-    if (!item || !Content.getMetaItem(item.type).readable) return Promise.reject('invalid item');
+    if (!item || !Content.getMetaItem(item.type).readable) throw new InvalidProtocolError('invalid item');
 
     return Promise.resolve({
       content: item.textContent || 'It\'s blank.',
@@ -859,17 +822,12 @@ export class ServerInterface implements ICommands {
     clientConnection.assertsPlayerConnection();
 
     if (location.source === 'world') {
-      server.send(EventBuilder.chat({
-        section: 'World',
-        from: 'World',
-        text: 'Pick it up first, you animal',
-      }), clientConnection);
-      return;
+      throw new InvalidProtocolError('Pick it up first, you animal');
     }
 
     const item = await server.getItem(location);
     const meta = item && Content.getMetaItem(item.type);
-    if (!item || !meta) return;
+    if (!item || !meta) throw new InvalidProtocolError('invalid item');
 
     item.quantity -= 1;
     server.setItem(location, item);
@@ -917,9 +875,7 @@ export class ServerInterface implements ICommands {
     clientConnection.assertsPlayerConnection();
 
     const item = await server.getItem(from);
-    if (!item) {
-      return;
-    }
+    if (!item) throw new InvalidProtocolError('invalid item');
 
     server.scriptManager.delegates.onItemAction({playerConnection: clientConnection, type, location: from, to});
   }
@@ -938,10 +894,10 @@ export class ServerInterface implements ICommands {
 
   async onContainerAction(server: Server, clientConnection: ClientConnection, {type, id}: Commands.ContainerAction['params']): Promise<Commands.ContainerAction['response']> {
     const canAccess = clientConnection.container?.id === id || clientConnection.registeredContainers.includes(id);
-    if (!canAccess) throw new Error('invalid access');
+    if (!canAccess) throw new InvalidProtocolError('invalid access');
 
     const container = await server.context.getContainer(id);
-    if (!container) throw new Error('invalid container');
+    if (!container) throw new InvalidProtocolError('invalid container');
 
     switch (type) {
     case 'sort':
@@ -976,7 +932,7 @@ export class ServerInterface implements ICommands {
       }
       break;
     default:
-      throw new Error('invalid action type');
+      throw new InvalidProtocolError('invalid action type');
     }
   }
 

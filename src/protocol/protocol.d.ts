@@ -6,7 +6,8 @@
 
 type Container_ = Container;
 
-type Message = { id?: number; data: any };
+type Message = { id?: number; data?: any; error?: {message: string; stack?: string} };
+type MessageWithId = { id: number; data?: any; error?: {message: string; stack?: string} };
 
 type Command<P, R = void> = {
   params: P;

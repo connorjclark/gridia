@@ -66,16 +66,18 @@ export abstract class Connection {
     return promise;
   }
 
-  protected resolveCommand(id: number, data: any) {
-    const cbs = this.idToCallback.get(id);
-    if (!cbs) throw new Error('unknown id ' + id);
+  protected resolveCommand(message: MessageWithId) {
+    const cbs = this.idToCallback.get(message.id);
+    if (!cbs) throw new Error('unknown id ' + message.id);
 
-    this.idToCallback.delete(id);
-    if (data && data.error) {
-      cbs.reject(data.error);
-      if (game) game.addToChat('World', data.error);
+    this.idToCallback.delete(message.id);
+    if (message.error) {
+      cbs.reject(message.error);
+      if (game) {
+        game.addToChat('World', message.error.message + (message.error.stack ? `\n${message.error.stack}` : ''));
+      }
     } else {
-      cbs.resolve(data);
+      cbs.resolve(message.data);
     }
   }
 
@@ -105,7 +107,7 @@ export class WebRTCConnection extends Connection {
         debug('<-', message);
 
         if (message.id) {
-          this.resolveCommand(message.id, message.data);
+          this.resolveCommand(message as MessageWithId);
           return;
         }
 
@@ -147,7 +149,7 @@ export class WebSocketConnection extends Connection {
       debug('<-', message);
 
       if (message.id) {
-        this.resolveCommand(message.id, message.data);
+        this.resolveCommand(message as MessageWithId);
         return;
       }
 
@@ -188,7 +190,7 @@ export class WorkerConnection extends Connection {
     debug('<-', message);
 
     if (message.id) {
-      this.resolveCommand(message.id, message.data);
+      this.resolveCommand(message as MessageWithId);
       return;
     }
 

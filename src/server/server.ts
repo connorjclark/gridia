@@ -6,7 +6,7 @@ import {roll} from '../lib/loot-table.js';
 import * as Player from '../player.js';
 import * as EventBuilder from '../protocol/event-builder.js';
 import {ProtocolEvent} from '../protocol/event-builder.js';
-import {ServerInterface} from '../protocol/server-interface.js';
+import {InvalidProtocolError, ServerInterface} from '../protocol/server-interface.js';
 import * as Utils from '../utils.js';
 import {WorldMapPartition} from '../world-map-partition.js';
 
@@ -1864,28 +1864,32 @@ export class Server {
                 .then((data: any) => clientConnection.send({id: message.id, data}))
                 .catch((e?: Error | string) => {
                   // TODO: why is this catch AND the try/catch needed?
-                  let error = 'SERVER_ERROR: ';
-                  if (e && e instanceof Error) {
-                    error += e.message;
-                    error += e.stack;
+                  let error;
+                  if (e && e instanceof InvalidProtocolError) {
+                    error = {message: e.message};
+                  } else if (e && e instanceof Error) {
+                    error = {message: e.message, stack: e.stack};
                   } else {
-                    error += e || 'Unknown error';
+                    error = {message: e || 'Unknown error'};
                   }
-                  clientConnection.send({id: message.id, data: {error}});
+                  // console.log('ERROR 1');
+                  clientConnection.send({id: message.id, error});
                 });
             } catch (e: any) {
               // Don't let a bad message kill the message loop.
               console.error(e, message);
-              let error = 'SERVER_ERROR: ';
-              if (e && e instanceof Error) {
-                error += e.message;
-                error += e.stack;
+              // console.log('ERROR 2');
+              let error;
+              if (e && e instanceof InvalidProtocolError) {
+                error = {message: e.message};
+              } else if (e && e instanceof Error) {
+                error = {message: e.message, stack: e.stack};
               } else {
-                error += e || 'Unknown error';
+                error = {message: e || 'Unknown error'};
               }
               clientConnection.send({
                 id: message.id,
-                data: {error},
+                error,
               });
             }
             // performance.mark(`${message.type}-end`);
