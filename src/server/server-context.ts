@@ -8,11 +8,11 @@ import {WorldMap} from '../world-map.js';
 
 import {ClientConnection} from './client-connection.js';
 
-async function readJson(fs: Database, store: string, key: string) {
+async function readJson<T>(fs: Database, store: string, key: string) {
   const json = await fs.get(store, key);
 
   try {
-    return WireSerializer.deserialize(json);
+    return WireSerializer.deserialize<T>(json);
   } catch {
     throw new Error(`cannot parse json at ${store}:${key} – got: ${json}`);
   }
@@ -44,7 +44,7 @@ export class ServerContext extends Context {
       nextCreatureId: 0,
       worldDataDefinition: Content.WORLD_DATA_DEFINITIONS.rpgwo,
       time: 0,
-      ...await readJson(db, Store.misc, 'meta.json'),
+      ...await readJson<Partial<Meta>>(db, Store.misc, 'meta.json'),
     };
 
     // Update stale world definitions with valid values.
@@ -81,7 +81,7 @@ export class ServerContext extends Context {
 
     context.playerNamesToIds.clear();
     for (const key of await db.getAllKeysInStore(Store.player)) {
-      const player: Player = await readJson(db, Store.player, key);
+      const player = await readJson<Player>(db, Store.player, key);
       context.playerNamesToIds.set(player.name, player.id);
     }
 
@@ -107,13 +107,13 @@ export class ServerContext extends Context {
 
   async loadPartition(w: number) {
     const key = `${w}/meta.json`;
-    const partitionMeta = await readJson(this.db, Store.sector, key);
+    const partitionMeta = await readJson<any>(this.db, Store.sector, key);
     this.map.initPartition(partitionMeta.name, w, partitionMeta.width, partitionMeta.height, partitionMeta.depth);
   }
 
   async loadSector(sectorPoint: TilePoint) {
     // TODO ???
-    const sector = await readJson(this.db, Store.sector, this.sectorKey(sectorPoint)) as Sector;
+    const sector = await readJson<Sector>(this.db, Store.sector, this.sectorKey(sectorPoint));
 
     // Set creatures (all of which are always loaded in memory) to the sector (of which only active areas are loaded).
     // Kinda lame, I guess.
@@ -138,7 +138,7 @@ export class ServerContext extends Context {
   }
 
   async loadAccount(username: string): Promise<GridiaAccount> {
-    return readJson(this.db, Store.account, this.jsonKey(username));
+    return readJson<GridiaAccount>(this.db, Store.account, this.jsonKey(username));
   }
 
   async saveAccount(account: GridiaAccount) {
@@ -200,7 +200,7 @@ export class ServerContext extends Context {
     if (container) return container;
 
     // TODO handle error.
-    const data = await readJson(this.db, 'container', this.jsonKey(id)) as {
+    const data = await readJson<any>(this.db, 'container', this.jsonKey(id)) as {
       type: Container['type'];
       items: Array<Item | null>;
     };
