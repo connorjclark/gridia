@@ -800,7 +800,12 @@ export class Game {
       if (!Utils.ItemLocation.Equal(from, to)) {
         this.client.connection.sendCommand(CommandBuilder.moveItem({
           from,
-          to,
+          // When moving an item to an equipment container, delete the index so that `findValidLocation`
+          // will select the correct index in the container to move the item to (if any). This makes
+          // equipping items by dragging them to the equipment window much simpler.
+          to: to.source === 'container' && to.id === this.client.equipment?.id ?
+            {...to, index: undefined} :
+            to,
         }));
       }
 
