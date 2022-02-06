@@ -85,10 +85,19 @@ export function makeSkillsWindow(game: Game, initialState: State) {
     const combatLevelTitle = `combat xp until next level: ${combatXpUntilNextLevel.toLocaleString()}`;
     const combatLevelXpPercent = props.combatLevel.xpBar.current / props.combatLevel.xpBar.max;
 
+    let totalEarnedLevel = 0;
+    for (const skill of props.skills) {
+      totalEarnedLevel += skill.earnedLevel;
+    }
+
     return <div>
       <div class="skill__xp-bar" title={combatLevelTitle} style={{'--percent': combatLevelXpPercent}}>
         Combat Level {props.combatLevel.level}
       </div>
+
+      <br></br>
+
+      <div>Total Trained Level: {totalEarnedLevel}</div>
 
       <br></br>
 
