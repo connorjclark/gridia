@@ -1,6 +1,6 @@
 import * as Player from '../../player.js';
 import {PlayerConnection} from '../client-connection.js';
-import {Script} from '../script.js';
+import {CreatureSpawnerState, Script} from '../script.js';
 import {Server} from '../server.js';
 
 // TODO make scripts not use a class.
@@ -31,12 +31,7 @@ export class BasicScript extends Script<BasicScriptConfig> {
       'finish',
     ],
   };
-  ratSpawnerState = this.addCreatureSpawner({
-    descriptors: [{type: 41}, {type: 43}, {type: 98}],
-    limit: 5,
-    rate: {seconds: 5},
-    region: this.config.ratSpawnerRegion,
-  });
+  ratSpawnerState?: CreatureSpawnerState;
 
   constructor(protected server: Server) {
     super('basic-script', server, 'BasicScriptConfig');
@@ -53,6 +48,12 @@ export class BasicScript extends Script<BasicScriptConfig> {
       },
       region: this.config.captainRegion,
     });
+    this.ratSpawnerState = this.addCreatureSpawner({
+      descriptors: [{type: 41}, {type: 43}, {type: 98}],
+      limit: 5,
+      rate: {seconds: 5},
+      region: this.config.ratSpawnerRegion,
+    });
 
     this.server.registerQuest(this.quest);
   }
@@ -60,7 +61,7 @@ export class BasicScript extends Script<BasicScriptConfig> {
   onPlayerKillCreature(player: Player, creature: Creature) {
     const state = Player.getQuestState(player, this.quest);
     if (!state) return;
-    if (!this.ratSpawnerState.spawnedCreatures.includes(creature)) return;
+    if (!this.ratSpawnerState?.spawnedCreatures.includes(creature)) return;
 
     if (!state.data.kills) state.data.kills = 0; // TODO: remove
     state.data.kills += 1;

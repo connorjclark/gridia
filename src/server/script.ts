@@ -5,7 +5,7 @@ import {readConfig} from './scripts/script-config-reader.js';
 import {Server} from './server.js';
 import {TickSection} from './task-runner.js';
 
-interface CreatureSpawnerState {
+export interface CreatureSpawnerState {
   spawnedCreatures: Creature[];
   scheduledSpawnTicks: number[];
 }
