@@ -323,18 +323,23 @@ export class ServerInterface implements ICommands {
     if (creature.isPlayer) throw new InvalidProtocolError('Cannot do that to another player');
 
     if (type === 'attack') {
+      if (creature.isNPC) throw new InvalidProtocolError('Cannot attack NPC');
+
       server.creatureStates[clientConnection.creature.id].targetCreature = creatureState;
       clientConnection.sendEvent(EventBuilder.setAttackTarget({creatureId}));
     }
 
     if (type === 'tame') {
       if (creature.tamedBy) throw new InvalidProtocolError('Creature is already tamed');
+      if (creature.isNPC) throw new InvalidProtocolError('Cannot tame NPC');
+
       server.tameCreature(clientConnection.player, creature);
     }
 
     if (type === 'speak') {
-      const dialogue =
-        creatureState.onSpeakCallback && creatureState.onSpeakCallback(clientConnection, creature);
+      if (!creatureState.onSpeakCallback) throw new InvalidProtocolError('Cannot speak to that creature');
+
+      const dialogue = creatureState.onSpeakCallback(clientConnection, creature);
       if (dialogue) {
         server.startDialogue(clientConnection, dialogue);
       } else {

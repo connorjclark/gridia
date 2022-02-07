@@ -420,6 +420,7 @@ export class Server {
     const creature: Creature = {
       id: this.context.nextCreatureId++,
       dead: false,
+      isNPC: false,
       name: player.name,
       pos: {...player.pos},
       graphics: {
@@ -549,6 +550,7 @@ export class Server {
       id: this.context.nextCreatureId++,
       type: template.id,
       dead: false,
+      isNPC: false,
       graphics: template.graphics,
       name: template.name,
       pos: this.findNearestWalkableTile({pos, range: 10}) || pos,
@@ -592,6 +594,10 @@ export class Server {
     if (descriptor.onSpeak) {
       creature.canSpeak = true;
       this.creatureStates[creature.id].onSpeakCallback = descriptor.onSpeak;
+    }
+
+    if (descriptor.partial?.merchant || creature.canSpeak) {
+      creature.isNPC = true;
     }
 
     return creature;
@@ -964,6 +970,8 @@ export class Server {
 
   modifyCreatureAttributes(actor: Creature | null, creature: Creature,
                            deltas: { life?: number; stamina?: number; mana?: number }) {
+    if (creature.isNPC) return;
+
     const keys: Array<keyof typeof deltas> = [];
     const process = (key: keyof typeof deltas, delta: number, color: string) => {
       adjustAttribute(creature, key, delta);

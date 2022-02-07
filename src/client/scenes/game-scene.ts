@@ -45,7 +45,7 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
       });
     }
 
-    if (!creature.isPlayer) {
+    if (!creature.isPlayer && !creature.isNPC) {
       actions.push({
         type: 'attack',
         innerText: game.client.attackingCreatureId ? 'Stop Attack [R]' : 'Attack [R]',
@@ -53,7 +53,7 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
       });
     }
 
-    if (!creature.tamedBy && !creature.isPlayer && creature.tameable) {
+    if (!creature.tamedBy && !creature.isPlayer && creature.tameable && !creature.isNPC) {
       actions.push({
         type: 'tame',
         innerText: 'Tame',

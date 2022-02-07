@@ -185,6 +185,8 @@ interface Creature {
   /** Refers to monster template id, if used. */
   type?: number;
   dead: boolean;
+  /** If true, creature cannot be attacked, take damage, or die. */
+  isNPC: boolean;
   graphics: Graphics;
   /** If set, these graphics are composed on top of the main graphic. */
   equipmentGraphics?: Graphics[];
