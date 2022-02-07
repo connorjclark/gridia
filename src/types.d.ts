@@ -453,6 +453,8 @@ interface Quest<T=any> {
   name: string;
   description: string;
   stages: string[];
+  // TODO: should stage + data be combined into a state object?
+  initialData: T;
 }
 
 interface QuestState<T> {

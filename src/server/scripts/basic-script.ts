@@ -30,6 +30,7 @@ export class BasicScript extends Script<BasicScriptConfig> {
       'leave_ship',
       'finish',
     ],
+    initialData: {kills: 0},
   };
   ratSpawnerState?: CreatureSpawnerState;
 
@@ -72,7 +73,7 @@ export class BasicScript extends Script<BasicScriptConfig> {
 
   onSpeakToCaptain(clientConnection: PlayerConnection, speaker: Creature): Dialogue | undefined {
     const player = clientConnection.player;
-    const state = Player.getQuestState(player, this.quest) || Player.startQuest(player, this.quest, {kills: 0});
+    const state = Player.getQuestState(player, this.quest) || Player.startQuest(player, this.quest);
     const speakers = [clientConnection.creature, speaker];
 
     if (state.stage === 'start') {

@@ -219,13 +219,13 @@ export function incrementSkillXp(player: Player, id: number, xp: number) {
   };
 }
 
-export function startQuest<T>(player: Player, quest: Quest, initialData: T): QuestState<T> {
+export function startQuest<T>(player: Player, quest: Quest<T>): QuestState<T> {
   let state = player.questStates.get(quest.id);
   if (state) return state;
 
   state = {
     stage: quest.stages[0],
-    data: initialData,
+    data: Utils.clone(quest.initialData),
   };
   player.questStates.set(quest.id, state);
   return state;
