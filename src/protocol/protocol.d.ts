@@ -125,6 +125,7 @@ declare namespace Protocol {
         parts: DialoguePart[];
       }
       index: number;
+      symbols: Set<string>;
     }
 
     interface SetAttackTarget {

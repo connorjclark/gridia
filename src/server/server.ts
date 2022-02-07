@@ -166,20 +166,35 @@ export class Server {
   }
 
   startDialogue(clientConnection: ClientConnection, dialogue: Dialogue) {
-    clientConnection.activeDialogue = {dialogue, partIndex: 0};
+    // TODO: `symbols` needs to persist.
+    clientConnection.activeDialogue = {dialogue, partIndex: 0, partIndexStack: [], symbols: new Set()};
     this.sendCurrentDialoguePart(clientConnection, true);
   }
 
   processDialogueResponse(clientConnection: ClientConnection, choiceIndex?: number) {
     if (!clientConnection.activeDialogue) return;
 
-    const {dialogue, partIndex} = clientConnection.activeDialogue;
+    const {dialogue, partIndex, partIndexStack, symbols} = clientConnection.activeDialogue;
     const part = dialogue.parts[partIndex];
 
+    if (choiceIndex === undefined && part.choices) {
+      throw new Error('missing choice');
+    }
+
     let nextPartIndex;
-    if (choiceIndex !== undefined && part.choices && part.choices.length < choiceIndex) {
-      // TODO
-      nextPartIndex = partIndex + 1;
+    if (part.annotations && 'return' in part.annotations) {
+      if (part.annotations.return) symbols.add(part.annotations.return);
+      nextPartIndex = partIndexStack.pop();
+    } else if (choiceIndex !== undefined) {
+      if (!part.choices || choiceIndex < 0 || choiceIndex >= part.choices.length) {
+        throw new Error('bad choice');
+      }
+      if (part.choices[choiceIndex].annotations.if && !symbols.has(part.choices[choiceIndex].annotations.if)) {
+        throw new Error('missing symbol');
+      }
+
+      nextPartIndex = Number(part.choices[choiceIndex].annotations.goto);
+      partIndexStack.push(partIndex);
     } else if (partIndex + 1 < dialogue.parts.length) {
       nextPartIndex = partIndex + 1;
     } else {
@@ -191,20 +206,21 @@ export class Server {
       this.sendCurrentDialoguePart(clientConnection, false);
     } else {
       clientConnection.activeDialogue = undefined;
-      clientConnection.sendEvent(EventBuilder.dialogue({index: -1}));
+      clientConnection.sendEvent(EventBuilder.dialogue({index: -1, symbols: new Set()}));
     }
   }
 
   sendCurrentDialoguePart(clientConnection: ClientConnection, start: boolean) {
     if (!clientConnection.activeDialogue) return;
 
-    const {dialogue, partIndex} = clientConnection.activeDialogue;
+    const {dialogue, partIndex, symbols} = clientConnection.activeDialogue;
     clientConnection.sendEvent(EventBuilder.dialogue({
       dialogue: start ? {
         speakers: dialogue.speakers,
         parts: dialogue.parts,
       } : undefined,
       index: partIndex,
+      symbols,
     }));
   }
 

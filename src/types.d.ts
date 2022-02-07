@@ -471,7 +471,8 @@ interface Dialogue {
 interface DialoguePart {
   speaker: number;
   text: string;
-  choices?: any[];
+  annotations?: Record<string, string>;
+  choices?: Array<{ text: string; annotations: Record<string, string> }>;
 }
 
 interface UIState {

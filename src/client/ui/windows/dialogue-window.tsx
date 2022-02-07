@@ -11,6 +11,7 @@ import {c, ComponentProps, createSubApp} from '../ui-common.js';
 interface State {
   dialogue: Exclude<Dialogue, 'onFinish'>;
   index: number;
+  symbols: string[];
 }
 
 export function makeDialogueWindow(game: Game, initialState: State) {
@@ -21,19 +22,19 @@ export function makeDialogueWindow(game: Game, initialState: State) {
         index,
       };
     },
+    setSymbols: (state: State, symbols: string[]): State => {
+      return {
+        ...state,
+        symbols,
+      };
+    },
   };
 
   type Props = ComponentProps<State, typeof actions>;
   // TODO: use functions instead of classes
   class DialogueWindow extends Component<Props> {
-    render(props: any) {
-      const part = useMemo(() => {
-        // TODO ...
-        if (!props.dialogue) return;
-
-        return props.dialogue.parts[props.index];
-      }, [props.dialogue, props.index]);
-
+    render(props: Props) {
+      const part = props.dialogue.parts[props.index];
       if (!part) return;
 
       const textEl = useRef<HTMLDivElement>(null);
@@ -57,9 +58,27 @@ export function makeDialogueWindow(game: Game, initialState: State) {
       const speakerGfx2 = this.createSpeakerGfx(props.dialogue.speakers[1].id);
 
       const onClickNextButton = () => {
-        // TODO: don't do this in ui/
         game.client.connection.sendCommand(CommandBuilder.dialogueResponse({}));
       };
+
+      let inputEl;
+      if (part.choices) {
+        inputEl = <div class="dialogue__choices">
+          {part.choices.map((choice, choiceIndex) => {
+            if (choice.annotations.if && !props.symbols.includes(choice.annotations.if)) return;
+
+            const onClick = () => {
+              game.client.connection.sendCommand(CommandBuilder.dialogueResponse({choiceIndex}));
+            };
+
+            return <div class="dialogue__choice" onClick={onClick}>
+              <button>{choice.text}</button>
+            </div>;
+          })}
+        </div>;
+      } else {
+        inputEl = <button onClick={onClickNextButton}>Next</button>;
+      }
 
       return <div>
         <div>
@@ -76,7 +95,7 @@ export function makeDialogueWindow(game: Game, initialState: State) {
             </span>
           </h2>
           <div ref={textEl} class={`dialogue__text dialouge__text--speaker-${part.speaker}`}></div>
-          <button onClick={onClickNextButton}>Next</button>
+          {inputEl}
         </div>
       </div>;
     }

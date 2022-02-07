@@ -16,7 +16,7 @@ export class ClientConnection {
   equipment?: Container;
   subscribedCreatureIds = new Set<number>();
   registeredContainers = [] as string[];
-  activeDialogue?: { dialogue: Dialogue; partIndex: number };
+  activeDialogue?: { dialogue: Dialogue; partIndex: number; partIndexStack: number[]; symbols: Set<string> };
 
   isPlayerConnection(this: ClientConnection): this is PlayerConnection {
     if (this.account && this.player && this.creature && this.container && this.equipment) {
