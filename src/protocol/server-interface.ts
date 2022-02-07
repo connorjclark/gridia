@@ -181,6 +181,8 @@ export class ServerInterface implements ICommands {
     const spell = Content.getSpell(id);
     if (!spell) throw new InvalidProtocolError('No such spell');
 
+    if (otherCreature?.isNPC) throw new InvalidProtocolError('Can\'t target NPC');
+
     const hasWand = Boolean(
       creature.equipment?.[Container.EQUIP_SLOTS.Weapon] &&
       Content.getMetaItem(creature.equipment[Container.EQUIP_SLOTS.Weapon]?.type || 0).class === 'Wand'

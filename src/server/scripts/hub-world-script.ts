@@ -87,23 +87,26 @@ export class HubWorldScript extends Script<HubWorldScriptConfig> {
       });
     }
 
-    const creature = this.spawnCreature({
-      descriptor: {type: 203, partial: {name: 'Merchant'}},
-      pos: {
-        w: hubWorldW,
-        x: Math.floor(hubWorldPartition.width / 2),
-        y: Math.floor(hubWorldPartition.height / 2),
-        z: 0,
-      },
-    });
-    if (creature) {
+    {
       const container = this.server.context.makeContainer('merchant', 10);
-      creature.merchant = {
-        containerId: container.id,
-      };
       container.items[0] = {type: Content.getMetaItemByName('Mana Plant Seeds').id, quantity: 100_000};
       container.items[1] = {type: Content.getMetaItemByName('Wood Planks').id, quantity: 100_000};
       container.items[2] = {type: Content.getMetaItemByName('Soccer Ball').id, quantity: 100_000};
+
+      this.spawnCreature({
+        descriptor: {
+          type: 203, partial: {
+            name: 'Merchant',
+            merchant: {containerId: container.id},
+          },
+        },
+        pos: {
+          w: hubWorldW,
+          x: Math.floor(hubWorldPartition.width / 2),
+          y: Math.floor(hubWorldPartition.height / 2),
+          z: 0,
+        },
+      });
     }
 
     this.addCreatureSpawner(this.config.spawner);

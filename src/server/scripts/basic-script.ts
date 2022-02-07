@@ -43,18 +43,15 @@ export class BasicScript extends Script<BasicScriptConfig> {
   }
 
   onStart() {
-    // TODO better primitive that always keeps a creature alive / respawn if needed ?
-    this.addCreatureSpawner({
-      descriptors: [{
+    this.spawnCreature({
+      descriptor: {
         type: 11,
         onSpeak: this.onSpeakToCaptain.bind(this),
         partial: {
           name: 'Captain Jack',
         },
-      }],
+      },
       region: this.config.captainRegion,
-      limit: 1,
-      rate: {seconds: 3},
     });
 
     this.server.registerQuest(this.quest);

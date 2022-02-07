@@ -596,7 +596,7 @@ export class Server {
       this.creatureStates[creature.id].onSpeakCallback = descriptor.onSpeak;
     }
 
-    if (descriptor.partial?.merchant || creature.canSpeak) {
+    if (creature.merchant || creature.canSpeak) {
       creature.isNPC = true;
     }
 
