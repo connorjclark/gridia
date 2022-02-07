@@ -139,7 +139,7 @@ export class Server {
     return this.context.save();
   }
 
-  registerQuest(quest: Quest) {
+  registerQuest<T>(quest: Quest<T>) {
     if (quest.stages.length === 0) {
       throw new Error('invalid quest');
     }

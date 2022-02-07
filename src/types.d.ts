@@ -121,7 +121,7 @@ interface Player {
   containerId: string;
   equipmentContainerId: string;
   isAdmin: boolean;
-  questStates: Map<string, QuestState>;
+  questStates: Map<string, QuestState<any>>;
   tilesSeenLog: Map<string, Uint16Array>;
   pos: Point4;
   spawnPos: Point4;
@@ -448,16 +448,16 @@ interface Monster {
   tameable?: boolean;
 }
 
-interface Quest {
+interface Quest<T=any> {
   id: string;
   name: string;
   description: string;
   stages: string[];
 }
 
-interface QuestState {
+interface QuestState<T> {
   stage: string;
-  data: Object;
+  data: T;
 }
 
 interface Dialogue {

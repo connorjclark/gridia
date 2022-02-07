@@ -219,19 +219,19 @@ export function incrementSkillXp(player: Player, id: number, xp: number) {
   };
 }
 
-export function startQuest(player: Player, quest: Quest) {
+export function startQuest<T>(player: Player, quest: Quest, initialData: T): QuestState<T> {
   let state = player.questStates.get(quest.id);
   if (state) return state;
 
   state = {
     stage: quest.stages[0],
-    data: {},
+    data: initialData,
   };
   player.questStates.set(quest.id, state);
   return state;
 }
 
-export function getQuestState(player: Player, quest: Quest) {
+export function getQuestState<T>(player: Player, quest: Quest<T>): QuestState<T> | undefined {
   return player.questStates.get(quest.id);
 }
 
@@ -248,7 +248,9 @@ export function getQuestStatusMessage(player: Player, quest: Quest): string {
   const state = getQuestState(player, quest);
   if (state) {
     parts.push(`Current stage: ${state.stage} (${quest.stages.indexOf(state.stage) + 1} / ${quest.stages.length})`);
-    if (Object.keys(state.data).length) parts.push(JSON.stringify(state.data, null, 2));
+    if (typeof state.data === 'object' && state.data && Object.keys(state.data).length) {
+      parts.push(JSON.stringify(state.data, null, 2));
+    }
   } else {
     parts.push('Current stage: Not Started');
   }

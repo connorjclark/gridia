@@ -10,8 +10,12 @@ interface BasicScriptConfig {
   ratSpawnerRegion: Region;
 }
 
+interface TestQuestData {
+  kills: number;
+}
+
 export class BasicScript extends Script<BasicScriptConfig> {
-  quest: Quest = {
+  quest: Quest<TestQuestData> = {
     id: 'TEST_QUEST',
     name: 'Your First Quest',
     description: 'Basic quest description',
@@ -57,9 +61,12 @@ export class BasicScript extends Script<BasicScriptConfig> {
   }
 
   onPlayerKillCreature(player: Player, creature: Creature) {
-    if (!Player.hasStartedQuest(player, this.quest)) return;
+    const state = Player.getQuestState(player, this.quest);
+    if (!state) return;
     if (!this.ratSpawnerState.spawnedCreatures.includes(creature)) return;
 
+    if (!state.data.kills) state.data.kills = 0; // TODO: remove
+    state.data.kills += 1;
     Player.advanceQuest(player, this.quest);
     // TODO: quest panel
     console.log(Player.getQuestStatusMessage(player, this.quest));
@@ -67,7 +74,7 @@ export class BasicScript extends Script<BasicScriptConfig> {
 
   onSpeakToCaptain(clientConnection: PlayerConnection, speaker: Creature): Dialogue | undefined {
     const player = clientConnection.player;
-    const state = Player.getQuestState(player, this.quest) || Player.startQuest(player, this.quest);
+    const state = Player.getQuestState(player, this.quest) || Player.startQuest(player, this.quest, {kills: 0});
     const speakers = [clientConnection.creature, speaker];
 
     if (state.stage === 'start') {
