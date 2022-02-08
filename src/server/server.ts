@@ -171,10 +171,10 @@ export class Server {
     this.sendCurrentDialoguePart(clientConnection, true);
   }
 
-  processDialogueResponse(clientConnection: ClientConnection, choiceIndex?: number) {
-    if (!clientConnection.activeDialogue) return;
+  processDialogueResponse(playerConnection: PlayerConnection, choiceIndex?: number) {
+    if (!playerConnection.activeDialogue) return;
 
-    const {dialogue, partIndex, partIndexStack, symbols} = clientConnection.activeDialogue;
+    const {dialogue, partIndex, partIndexStack, symbols} = playerConnection.activeDialogue;
     const part = dialogue.parts[partIndex];
 
     if (choiceIndex === undefined && part.choices) {
@@ -183,7 +183,6 @@ export class Server {
 
     let nextPartIndex;
     if (part.annotations && 'return' in part.annotations) {
-      if (part.annotations.return) symbols.add(part.annotations.return);
       nextPartIndex = partIndexStack.pop();
     } else if (choiceIndex !== undefined) {
       if (!part.choices || choiceIndex < 0 || choiceIndex >= part.choices.length) {
@@ -201,12 +200,32 @@ export class Server {
       dialogue.onFinish && dialogue.onFinish();
     }
 
+    if (part.annotations?.symbol) symbols.add(part.annotations.symbol);
+
+    if (part.annotations?.item) {
+      const item = {
+        type: Content.getMetaItemByName(part.annotations.item).id,
+        quantity: Number(part.annotations.item_quantity) || 1,
+      };
+
+      if (Container.addItemToContainer(this, playerConnection.container, item)) {
+        playerConnection.sendEvent(EventBuilder.notification({
+          details: {
+            type: 'text',
+            text: `You were given a ${part.annotations.item}!`,
+          },
+        }));
+      } else {
+        // TODO ?
+      }
+    }
+
     if (nextPartIndex !== undefined) {
-      clientConnection.activeDialogue.partIndex = nextPartIndex;
-      this.sendCurrentDialoguePart(clientConnection, false);
+      playerConnection.activeDialogue.partIndex = nextPartIndex;
+      this.sendCurrentDialoguePart(playerConnection, false);
     } else {
-      clientConnection.activeDialogue = undefined;
-      clientConnection.sendEvent(EventBuilder.dialogue({index: -1, symbols: new Set()}));
+      playerConnection.activeDialogue = undefined;
+      playerConnection.sendEvent(EventBuilder.dialogue({index: -1, symbols: new Set()}));
     }
   }
 

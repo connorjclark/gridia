@@ -24,25 +24,23 @@ const captainDialogueParts = parseDialogueText(`
   - [goto=ask about destination] When will we get to Gridia?
   - [goto=ask about crew, if=X] What's the matter with the crew?
 
-[ask about ship]
+[label=ask about ship]
 1 Yep! She's a beut, eh?
 0 Meh.
 1 ...
 0 Sorry, I get too seasick to appreciate a hunk of wood.
 1 Well, this hunk of wood is keeping you alive, so show some respect!
-0 Uh, right... ok.
-[return]
+[return] 0 Uh, right... ok.
 
-[ask about destination]
+[label=ask about destination, return, symbol=X]
 1 We'll get there soon, but right now I'm too busy dealing with the crew
   to give an exact estimate right now.
-[return=X]
 
-[ask about crew]
+[label=ask about crew]
 1 Glad you asked! Here, time to earn your ticket.
 0 Didn't I earn my ticket when I paid you all that gold?
 1 Look, just take this sword and kill me some rats.
-0 Fine.
+[item=Practice Short Sword] 0 Fine.
 `);
 
 export class BasicScript extends Script<BasicScriptConfig> {

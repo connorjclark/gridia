@@ -12,43 +12,43 @@ export function parseDialogueText(dialogueText: string) {
   const dialogueParts: Dialogue['parts'] = [];
   const labelToPartIndex = new Map<string, number>();
   let currentDialoguePart: Dialogue['parts'][number] | null = null;
+  let pendingAnnotation: object | null = null;
 
   for (const line of dialogueText.trim().split('\n').map((l) => l.trim())) {
     if (!line) continue;
 
-    const [, labelAnnotation] = line.match(/^\[(.*)\]/) || [];
-    if (labelAnnotation) {
-      if (labelAnnotation.includes(',')) throw new Error(`invalid label ${labelAnnotation}`);
-
-      if (labelAnnotation.match(/return=?/)) {
-        if (!currentDialoguePart) throw new Error();
-
-        currentDialoguePart.annotations = parseAnnotationsInnerText(labelAnnotation);
-      } else {
-        if (labelToPartIndex.has(labelAnnotation)) throw new Error(`already used label ${labelAnnotation}`);
-
-        labelToPartIndex.set(labelAnnotation, dialogueParts.length);
-      }
-
+    const [, justLabelAnnotation] = line.match(/^\[(.*)\]$/) || [];
+    if (justLabelAnnotation) {
+      pendingAnnotation = parseAnnotationsInnerText(justLabelAnnotation);
       continue;
     }
 
-    if (line.startsWith('-')) {
-      const [, annotation, text] = line.match(/\[(.*)\] (.*)/) || [];
-      if (!annotation || !text) throw new Error(`bad line, must include annotations: ${line}`);
+    const [, isChoice, labelAnnotation, speakerIndex, rest1] = line.match(/^(-? ?)(?:\[(.*)\])? ?(\d+)? (.*)/) || [];
+    let annotations = labelAnnotation ? parseAnnotationsInnerText(labelAnnotation) : undefined;
+    if (pendingAnnotation) {
+      annotations = {...pendingAnnotation, ...annotations};
+      pendingAnnotation = null;
+    }
+
+    if (annotations?.label) {
+      if (labelToPartIndex.has(annotations.label)) throw new Error(`already used label ${annotations.label}`);
+
+      labelToPartIndex.set(annotations.label, dialogueParts.length);
+      delete annotations.label;
+    }
+
+    if (isChoice) {
+      if (!annotations) throw new Error(`bad line, must include annotations: ${line}`);
       if (!currentDialoguePart) throw new Error();
 
       currentDialoguePart.choices = currentDialoguePart.choices || [];
       currentDialoguePart.choices.push({
-        annotations: parseAnnotationsInnerText(annotation),
-        text,
+        annotations,
+        text: rest1,
       });
-      continue;
-    }
-
-    const [, speakerIndex, rest1] = line.match(/(\d+) (.*)/) || [];
-    if (speakerIndex !== undefined) {
+    } else if (speakerIndex !== undefined) {
       currentDialoguePart = {speaker: Number(speakerIndex), text: rest1};
+      if (annotations && Object.keys(annotations).length > 0) currentDialoguePart.annotations = annotations;
       dialogueParts.push(currentDialoguePart);
     } else if (currentDialoguePart) {
       currentDialoguePart.text += ` ${line}`;
@@ -57,12 +57,17 @@ export function parseDialogueText(dialogueText: string) {
     }
   }
 
+  if (pendingAnnotation) throw new Error('pending annotation!');
+
   const processAnnotations = (annotations: Record<string, string>) => {
     if (annotations.goto) {
       const gotoIndex = labelToPartIndex.get(annotations.goto);
       if (gotoIndex === undefined) throw new Error(`did not find label: ${gotoIndex}`);
 
       annotations.goto = String(gotoIndex);
+    }
+    if ('return' in annotations && annotations.return) {
+      throw new Error('return annotation cannot have a value');
     }
   };
   for (const part of dialogueParts) {
