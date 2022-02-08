@@ -7,13 +7,13 @@
         "captainRegion": {
           "$ref": "#/definitions/Region"
         },
-        "ratSpawnerRegion": {
+        "monsterSpawnerRegion": {
           "$ref": "#/definitions/Region"
         }
       },
       "required": [
         "captainRegion",
-        "ratSpawnerRegion"
+        "monsterSpawnerRegion"
       ]
     },
     "HubWorldScriptConfig": {
@@ -132,6 +132,10 @@
           "type": "number"
         },
         "dead": {
+          "type": "boolean"
+        },
+        "isNPC": {
+          "description": "If true, creature cannot be attacked, take damage, or die.",
           "type": "boolean"
         },
         "graphics": {
@@ -440,6 +444,7 @@
       "type": "object",
       "properties": {
         "id": {
+          "description": "If set, multiple buffs of the same id will overwrite each other when assigned.",
           "type": "string"
         },
         "expiresAt": {

@@ -8,7 +8,7 @@ import {Server} from '../server.js';
 
 interface BasicScriptConfig {
   captainRegion: Region;
-  ratSpawnerRegion: Region;
+  monsterSpawnerRegion: Region;
 }
 
 interface TestQuestData {
@@ -39,7 +39,7 @@ const captainDialogueParts = parseDialogueText(`
 [label=ask about crew]
 1 Glad you asked! Here, time to earn your ticket.
 0 Didn't I earn my ticket when I paid you all that gold?
-1 Look, just take this sword and kill me some rats.
+1 Look, just take this sword and kill me some roaches.
 [item=Practice Short Sword] 0 Fine.
 `);
 
@@ -61,7 +61,7 @@ export class BasicScript extends Script<BasicScriptConfig> {
     ],
     initialData: {kills: 0},
   };
-  ratSpawnerState?: CreatureSpawnerState;
+  monsterSpawnerState?: CreatureSpawnerState;
 
   constructor(protected server: Server) {
     super('basic-script', server, 'BasicScriptConfig');
@@ -78,11 +78,11 @@ export class BasicScript extends Script<BasicScriptConfig> {
       },
       region: this.config.captainRegion,
     });
-    this.ratSpawnerState = this.addCreatureSpawner({
-      descriptors: [{type: 41}, {type: 43}, {type: 98}],
+    this.monsterSpawnerState = this.addCreatureSpawner({
+      descriptors: [{type: 42}],
       limit: 5,
       rate: {seconds: 5},
-      region: this.config.ratSpawnerRegion,
+      region: this.config.monsterSpawnerRegion,
     });
 
     this.server.registerQuest(this.quest);
@@ -91,7 +91,7 @@ export class BasicScript extends Script<BasicScriptConfig> {
   onPlayerKillCreature(player: Player, creature: Creature) {
     const state = Player.getQuestState(player, this.quest);
     if (!state) return;
-    if (!this.ratSpawnerState?.spawnedCreatures.includes(creature)) return;
+    if (!this.monsterSpawnerState?.spawnedCreatures.includes(creature)) return;
 
     if (!state.data.kills) state.data.kills = 0; // TODO: remove
     state.data.kills += 1;
