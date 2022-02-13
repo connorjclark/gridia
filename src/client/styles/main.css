@@ -607,9 +607,11 @@ button {
   border: 1px solid antiquewhite;
 }
 .container__slot {
-  width: 32px;
-  height: 32px;
   background-color: #604f4f;
+}
+.window--equipment .container__slot {
+  min-width: 32px;
+  min-height: 32px;
 }
 .container__slot:hover {
   background-color: var(--color-blue);
@@ -623,7 +625,8 @@ button {
   grid-template: '. a . g'
                  'b c d i'
                  'f e . h';
-  grid-auto-columns: min-content;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
   background: none;
   border: none;
 }
@@ -967,4 +970,17 @@ span.store-item__quantity {
 
 .schema-form input[type="number"] {
   width: 3rem;
+}
+
+.graphic {
+  position: relative;
+  padding: 5px;
+}
+.graphic__quantity {
+  color: gold;
+  font-size: 13px;
+  font-family: monospace;
+  position: absolute;
+  top: 0;
+  left: 0;
 }

@@ -61,7 +61,7 @@ export const Graphic = (props: GraphicProps) => {
   const tilesColumn = Math.round(imageSize.height / GFX_SIZE);
   const x = props.index % tilesAcross;
   const y = Math.floor(props.index / tilesAcross);
-  const label = props.quantity !== undefined && props.quantity !== 1 ? Utils.formatQuantity(props.quantity) : '';
+  const quantityStr = props.quantity !== undefined && props.quantity !== 1 ? Utils.formatQuantity(props.quantity) : '';
 
   const size = 32 * (props.scale || 1);
 
@@ -78,7 +78,10 @@ export const Graphic = (props: GraphicProps) => {
   const optionalProps: any = {};
   if (props.title) optionalProps.title = props.title;
 
-  return <div class="graphic" style={style} {...optionalProps}>{label}</div>;
+  return <div class="graphic" {...optionalProps}>
+    <div class="graphic__image" style={style}></div>
+    {quantityStr ? <div class="graphic__quantity">{quantityStr}</div> : null}
+  </div>;
 };
 
 interface GraphicTemplatingContext {

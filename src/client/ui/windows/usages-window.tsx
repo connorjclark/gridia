@@ -2,7 +2,7 @@ import {render, h, Component} from 'preact';
 
 import * as Content from '../../../content.js';
 import {UsageModule} from '../../modules/usage-module.js';
-import {Graphic} from '../components/graphic.js';
+import {Graphic, ItemGraphic} from '../components/graphic.js';
 
 export function makeUsagesWindow(usageModule: UsageModule) {
   let setState = (_: Partial<State>) => {
@@ -29,15 +29,8 @@ export function makeUsagesWindow(usageModule: UsageModule) {
           {state.usages.map((usage, i) => {
             if (usage.products.length === 0) return;
 
-            const item = usage.products[0];
-            const metaItem = Content.getMetaItem(item.type);
             return <div className="usages__usage" data-index={i}>
-              <Graphic
-                file={metaItem.graphics.file}
-                index={metaItem.graphics.frames[0]}
-                quantity={item.quantity}
-                title={metaItem.name}
-              ></Graphic>
+              <ItemGraphic item={usage.products[0]} showLabel={true}></ItemGraphic>
             </div>;
           })}
         </div>

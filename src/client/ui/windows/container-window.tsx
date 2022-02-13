@@ -140,7 +140,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
         return <div>{key}: {value}</div>;
       })}</div>;
     } else {
-      actionsEl = <div class="container__actions m1">
+      actionsEl = <div class="container__actions">
         <button onClick={() => {
           game.client.connection.sendCommand(CommandBuilder.containerAction({
             type: 'sort',
@@ -218,7 +218,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
         <div class="flex align-items-center justify-around">
           <ContainerSlots container={props.container} selectedIndex={props.selectedIndex}></ContainerSlots>
         </div>
-        <div>
+        <div class="m1">
           {actionsEl}
           {miscInfo}
         </div>
@@ -226,7 +226,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
     }
 
     return <Window name={props.name || 'Container'}>
-      <div class="m1" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp}>
+      <div onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp}>
         {content}
       </div>
     </Window>;
