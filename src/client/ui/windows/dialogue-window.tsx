@@ -84,16 +84,17 @@ export function makeDialogueWindow(game: Game, initialState: State) {
         <div>
           Dialogue
         </div>
-        <div>
-          <h2 class='flex justify-between'>
-            <span class={c(part.speaker === 0 && 'active-speaker')}>
+        <div class="m1">
+          <div class='flex justify-between'>
+            <div class={c(part.speaker === 0 && 'active-speaker')}>
+              <span>{props.dialogue.speakers[0].name}</span>
               {speakerGfx1}
-            </span>
-            <span>{props.dialogue.speakers[part.speaker].name}</span>
-            <span class={c(part.speaker === 1 && 'active-speaker')}>
+            </div>
+            <div class={c(part.speaker === 1 && 'active-speaker')}>
+              <span>{props.dialogue.speakers[1].name}</span>
               {speakerGfx2}
-            </span>
-          </h2>
+            </div>
+          </div>
           <div ref={textEl} class={`dialogue__text dialouge__text--speaker-${part.speaker}`}></div>
           {inputEl}
         </div>

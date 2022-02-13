@@ -665,12 +665,9 @@ button {
 
 .dialogue__text {
   margin: 20px;
-  min-height: 100px;
+  height: 10vh;
   word-break: break-word;
   text-align: start;
-}
-.dialouge__text--speaker-1 {
-  text-align: end;
 }
 .active-speaker {
   border-bottom: 3px solid gold;
