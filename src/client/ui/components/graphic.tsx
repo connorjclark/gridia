@@ -1,4 +1,4 @@
-import {h, render, Component} from 'preact';
+import {h, render, Component, type JSX} from 'preact';
 import {useEffect, useState} from 'preact/hooks';
 
 import {GFX_SIZE} from '../../../constants.js';
@@ -42,8 +42,6 @@ interface GraphicProps {
   title?: string;
 }
 export const Graphic = (props: GraphicProps) => {
-  if (!props.file) return <div class="graphic">&nbsp;</div>;
-
   const baseDir = Content.getBaseDir();
   const templateImageSrc = `${baseDir}/graphics/${props.file}`;
 
@@ -55,24 +53,22 @@ export const Graphic = (props: GraphicProps) => {
 
     imageSizeQuery.promise.then(setImageSize);
   }, [templateImageSrc]);
-  if (!imageSize) return <div class="graphic">&nbsp;</div>;
 
-  const tilesAcross = Math.round(imageSize.width / GFX_SIZE);
-  const tilesColumn = Math.round(imageSize.height / GFX_SIZE);
+  const tilesAcross = imageSize ? Math.round(imageSize.width / GFX_SIZE) : 1;
+  const tilesColumn = imageSize ? Math.round(imageSize.height / GFX_SIZE) : 1;
   const x = props.index % tilesAcross;
   const y = Math.floor(props.index / tilesAcross);
   const quantityStr = props.quantity !== undefined && props.quantity !== 1 ? Utils.formatQuantity(props.quantity) : '';
 
   const size = 32 * (props.scale || 1);
+  const sizePx = `${size}px`;
 
-  const style: { [key: string]: string | number } = {
+  const style: JSX.CSSProperties = {
     backgroundImage: `url(${templateImageSrc})`,
     backgroundPosition: `-${x * 100}% -${y * 100}%`,
     backgroundSize: `${tilesAcross * 100}% ${tilesColumn * 100}%`,
-    width: size + 'px',
-    minWidth: size + 'px',
-    maxWidth: size + 'px',
-    height: size + 'px',
+    width: sizePx,
+    height: sizePx,
   };
 
   const optionalProps: any = {};
@@ -111,20 +107,20 @@ export const CreatureGraphic = (props: { type: number; scale?: number }) => {
 };
 
 export const ItemGraphic = (props:
-{ item: Item; showLabel?: boolean; scale?: number; templating?: GraphicTemplatingContext }) => {
-  const metaItem = Content.getMetaItem(props.item.type);
+{ item: Item|null; showLabel?: boolean; scale?: number; templating?: GraphicTemplatingContext }) => {
+  const metaItem = Content.getMetaItem(props.item?.type || 0);
   let graphicIndex = metaItem.graphics?.frames[0] || 0;
 
   if (props.templating && metaItem.graphics.templateType) {
     const {pos, partition} = props.templating;
-    graphicIndex += getIndexOffsetForTemplate(partition, props.item.type, pos, metaItem.graphics, 'item');
+    graphicIndex += getIndexOffsetForTemplate(partition, metaItem.id, pos, metaItem.graphics, 'item');
   }
 
   return <div class="flex flex-column align-items-center">
     {metaItem.graphics ? <Graphic
       file={metaItem.graphics.file}
       index={graphicIndex}
-      quantity={props.item.quantity}
+      quantity={props.item?.quantity ?? 1}
       title={metaItem.name}
       scale={props.scale}
     ></Graphic> : undefined}

@@ -56,12 +56,11 @@ interface ContainerSlotsProps {
 export const ContainerSlots = (props: ContainerSlotsProps) => {
   return <div class="container__slots">
     {props.container.items.map((item, i) => {
-      const gfx = item && <ItemGraphic item={item}></ItemGraphic>;
       return <div
         class={c('container__slot', props.selectedIndex === i && 'container__slot--selected')}
         data-index={i}
       >
-        {gfx}
+        <ItemGraphic item={item}></ItemGraphic>
       </div>;
     })}
   </div>;

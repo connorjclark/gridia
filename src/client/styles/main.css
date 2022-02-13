@@ -609,10 +609,6 @@ button {
 .container__slot {
   background-color: #604f4f;
 }
-.window--equipment .container__slot {
-  min-width: 32px;
-  min-height: 32px;
-}
 .container__slot:hover {
   background-color: var(--color-blue);
 }
