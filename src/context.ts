@@ -6,7 +6,8 @@ export class Context {
   locationToCreature = new Map<string, Creature>();
   containers = new Map<string, Container>();
   secondsPerWorldTick = 20;
-  ticksPerWorldDay = 24 * 60 * 60 / this.secondsPerWorldTick / 8;
+  // 8 virtual days per real day.
+  ticksPerWorldDay = (24 * 60 * 60) / (this.secondsPerWorldTick * 8);
   // Start new worlds at mid-day.
   time = new WorldTime(this.ticksPerWorldDay, this.ticksPerWorldDay / 2);
 
