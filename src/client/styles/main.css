@@ -657,11 +657,6 @@ button {
   margin: 5px;
   border: 1px solid antiquewhite;
 }
-/* lol */
-.window--equipment .custom-creature-graphic {
-  margin-right: 0 !important;
-  margin: 5px;
-}
 
 .dialogue__text {
   margin: 20px;
@@ -976,4 +971,11 @@ span.store-item__quantity {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.custom-creature-graphic {
+  display: grid;
+}
+.custom-creature-graphic .graphic {
+  grid-area: 1 / 1;
 }

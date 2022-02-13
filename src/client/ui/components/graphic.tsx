@@ -137,14 +137,9 @@ interface CustomCreatureGraphicProps {
   scale?: number;
 }
 export const CustomCreatureGraphic = (props: CustomCreatureGraphicProps) => {
-  const size = (props.scale || 1) * GFX_SIZE;
-  // TODO: using margin here is a hack ...
-  return <div class="custom-creature-graphic" style={
-    {width: size + 'px', height: size + 'px', marginRight: size + 'px'}}>
+  return <div class="custom-creature-graphic">
     {props.graphics.map((graphic) => {
-      return <div style={{position: 'absolute'}}>
-        <Graphic file={graphic.file} index={graphic.frames[0]} scale={props.scale}></Graphic>
-      </div>;
+      return <Graphic file={graphic.file} index={graphic.frames[0]} scale={props.scale}></Graphic>;
     })}
   </div>;
 };
