@@ -43,16 +43,20 @@ interface GraphicProps {
 }
 export const Graphic = (props: GraphicProps) => {
   const baseDir = Content.getBaseDir();
-  const templateImageSrc = `${baseDir}/graphics/${props.file}`;
+  const templateImageSrc = props.file ? `${baseDir}/graphics/${props.file}` : '';
 
   // Need to know how big the spritesheet is before we can crop based on tile index.
-  const imageSizeQuery = getImageSize(templateImageSrc);
-  const [imageSize, setImageSize] = useState(imageSizeQuery.size);
+  const imageSizeQuery = templateImageSrc ? getImageSize(templateImageSrc) : undefined;
+  const [imageSize, setImageSize] = useState(imageSizeQuery?.size);
   useEffect(() => {
-    if (imageSizeQuery.size) return;
+    if (!imageSizeQuery) return;
 
-    imageSizeQuery.promise.then(setImageSize);
-  }, [templateImageSrc]);
+    if (imageSizeQuery.promise) {
+      imageSizeQuery.promise.then(setImageSize);
+    } else {
+      setImageSize(imageSizeQuery.size);
+    }
+  }, [imageSizeQuery]);
 
   const tilesAcross = imageSize ? Math.round(imageSize.width / GFX_SIZE) : 1;
   const tilesColumn = imageSize ? Math.round(imageSize.height / GFX_SIZE) : 1;
@@ -64,7 +68,7 @@ export const Graphic = (props: GraphicProps) => {
   const sizePx = `${size}px`;
 
   const style: JSX.CSSProperties = {
-    backgroundImage: `url(${templateImageSrc})`,
+    backgroundImage: imageSize ? `url(${templateImageSrc})` : '',
     backgroundPosition: `-${x * 100}% -${y * 100}%`,
     backgroundSize: `${tilesAcross * 100}% ${tilesColumn * 100}%`,
     width: sizePx,
@@ -107,7 +111,7 @@ export const CreatureGraphic = (props: { type: number; scale?: number }) => {
 };
 
 export const ItemGraphic = (props:
-{ item: Item|null; showLabel?: boolean; scale?: number; templating?: GraphicTemplatingContext }) => {
+{ item: Item | null; showLabel?: boolean; scale?: number; templating?: GraphicTemplatingContext }) => {
   const metaItem = Content.getMetaItem(props.item?.type || 0);
   let graphicIndex = metaItem.graphics?.frames[0] || 0;
 
