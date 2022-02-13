@@ -85,9 +85,11 @@ export function makeItemTemplate(item: Item) {
 
 export function makeItemQuantity(quantity: number) {
   return text(Utils.formatQuantity(quantity), {
-    fontSize: GFX_SIZE / 2,
-    stroke: 0xffffff,
-    strokeThickness: 4,
+    fontFamily: 'monospace',
+    fontSize: GFX_SIZE / 2.5,
+    stroke: 'black',
+    fill: 'gold',
+    strokeThickness: 2,
   });
 }
 

@@ -84,16 +84,9 @@ export function clamp(val: number, min: number, max: number) {
   return Math.max(Math.min(val, max), min);
 }
 
-export function formatQuantity(quantity: number) {
-  if (quantity > 9999999) {
-    // Ex: 10100000 -> 10.1M
-    return Math.floor(Math.round(quantity / 100000)) / 10 + 'M';
-  } else if (quantity > 9999) {
-    // Ex: 10100 -> 10.1K
-    return Math.floor(Math.round(quantity / 100)) / 10 + 'K';
-  } else {
-    return quantity.toString();
-  }
+const nf = Intl.NumberFormat(undefined, {notation: 'compact'});
+export function formatQuantity(quantity: number): string {
+  return nf.format(quantity);
 }
 
 // 3d matrix
