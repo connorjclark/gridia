@@ -1,7 +1,7 @@
 button {
   display: inline-block;
   border: solid 1px var(--text-color);
-  margin: 0;
+  margin: 5px;
   padding: 5px;
   font-family: sans-serif;
   font-size: 1rem;

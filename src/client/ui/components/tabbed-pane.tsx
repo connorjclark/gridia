@@ -1,6 +1,8 @@
 import {h, Component} from 'preact';
 import {useState} from 'preact/hooks';
 
+import {c} from '../ui-common.js';
+
 export interface TabbedPaneProps {
   tabs: Record<string, { label: string; content: Component['constructor'] }>;
   childProps: any;
@@ -20,7 +22,7 @@ export const TabbedPane = (props: TabbedPaneProps) => {
           role='tab'
           aria-controls={id}
           aria-selected={id === currentId}
-          className={'tabbed-pane__tab ' + (id === currentId ? 'selected' : '')}
+          className={c('tabbed-pane__tab', id === currentId && 'selected')}
           onClick={() => setCurrentId(id)}>{t.label}</button>;
       })}
     </div>

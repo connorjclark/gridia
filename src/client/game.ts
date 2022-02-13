@@ -1676,7 +1676,7 @@ export class Game {
 
   private createChatSection(name: string) {
     const sectionsEl = Helper.find('.chat .chat-sections');
-    const el = Helper.createChildOf(sectionsEl, 'button', 'chat-section', {name});
+    const el = Helper.createChildOf(sectionsEl, 'button', 'chat-section m0', {name});
     el.textContent = name;
   }
 

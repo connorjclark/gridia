@@ -46,10 +46,6 @@ body.disconnected {
   opacity: 0.5;
 }
 
-button {
-  margin: 5px;
-}
-
 .start-scene {
   background-size: 32px 32px;
   background-image: linear-gradient(to right, #2c2a2a 1px, transparent 1px), linear-gradient(to bottom, #2c2a2a 1px, transparent 1px);
@@ -163,7 +159,6 @@ button {
   background-color: var(--background-color);
 }
 .chat-section {
-  padding: 3px;
   flex-grow: 1;
   text-align: center;
 }
@@ -217,8 +212,6 @@ button {
 }
 
 .panels__tab {
-  margin-right: 3px;
-  padding: 5px;
   border: black solid 1px;
   background-color: rgb(85, 85, 85);
   color: white;
