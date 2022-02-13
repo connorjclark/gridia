@@ -91,8 +91,11 @@ export function makeSkillsWindow(game: Game, initialState: State) {
     }
 
     return <div>
-      <div class="skill__xp-bar" title={combatLevelTitle} style={{'--percent': combatLevelXpPercent}}>
+      <div class="skill__xp-bar tooltip-on-hover" title={combatLevelTitle} style={{'--percent': combatLevelXpPercent}}>
         Combat Level {props.combatLevel.level}
+      </div>
+      <div class="tooltip">
+        combat xp until next level: {combatXpUntilNextLevel.toLocaleString()}
       </div>
 
       <br></br>
@@ -160,17 +163,18 @@ export function makeSkillsWindow(game: Game, initialState: State) {
           const level = attribute.baseLevel + attribute.earnedLevel;
           const cost = Player.costToIncrementSkillOrAttribute(attribute.earnedLevel);
 
-          return <div class='flex items-center'>
-            <button
-              class="tooltip-on-hover m1"
-              disabled={cost > props.spendableXp}
-              onClick={() => props.onIncrementAttribute(attribute.name)}>+</button>
+          return <div>
+            <div class='flex items-center tooltip-on-hover'>
+              <button
+                class="m1"
+                disabled={cost > props.spendableXp}
+                onClick={() => props.onIncrementAttribute(attribute.name)}>+</button>
+              <span>{attribute.name} {level}</span>
+            </div>
             <div class="tooltip">
               <div>{cost} xp to increase</div>
               <div>base: {attribute.baseLevel} earned: {attribute.earnedLevel}</div>
             </div>
-
-            <span>{attribute.name} {level}</span>
           </div>;
         })}
       </div>

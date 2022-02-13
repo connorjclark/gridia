@@ -218,7 +218,7 @@ button {
 
 .panels__tab {
   margin-right: 3px;
-  padding: 0 3px;
+  padding: 5px;
   border: black solid 1px;
   background-color: rgb(85, 85, 85);
   color: white;

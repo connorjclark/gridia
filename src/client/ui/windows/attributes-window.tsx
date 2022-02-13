@@ -53,13 +53,11 @@ export function makeAttributesWindow(game: Game) {
     }
 
     return <div>
+      <div class="flex">{buffs}</div>
       <div>
         <Bar label='Life' color='red' {...props.life}></Bar>
         <Bar label='Stamina' color='yellow' {...props.stamina}></Bar>
         <Bar label='Mana' color='blue' {...props.mana}></Bar>
-      </div>
-      <div class="flex">
-        {buffs}
       </div>
     </div>;
   };
