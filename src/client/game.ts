@@ -1315,6 +1315,13 @@ export class Game {
     this.modules.selectedView.selectView(Utils.ItemLocation.World(nextTargetedCreature.pos));
   }
 
+  getOpenContainerId() {
+    const ids = [...this.containerWindows.keys()];
+    const openContainerId =
+      ids.find((id) => id !== this.client.player.equipmentContainerId && id !== this.client.player.containerId);
+    return openContainerId;
+  }
+
   tick() {
     const now = performance.now();
     this.state.elapsedFrames = (this.state.elapsedFrames + 1) % 60000;

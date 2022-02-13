@@ -93,6 +93,15 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
         innerText: 'Take',
         title: '',
       });
+    } else if (game.getOpenContainerId()) {
+      actions.push({
+        type: 'put-away',
+        innerText: 'Put Away',
+        title: '',
+        extra: {
+          containerId: game.getOpenContainerId(),
+        },
+      });
     }
   }
 
@@ -175,6 +184,12 @@ function globalOnActionHandler(e: GameActionEvent) {
     client.connection.sendCommand(CommandBuilder.moveItem({
       from: location,
       to: Utils.ItemLocation.Container(client.player.equipmentContainerId),
+    }));
+    break;
+  case 'put-away':
+    client.connection.sendCommand(CommandBuilder.moveItem({
+      from: location,
+      to: Utils.ItemLocation.Container(e.action.extra.containerId),
     }));
     break;
   case 'split':
