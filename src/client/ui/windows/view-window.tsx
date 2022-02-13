@@ -95,6 +95,9 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
           const children = [];
           if (action.type === 'split' && quantity > 1) {
             const quantityToSplit = props.quantity || 1;
+            // @ts-expect-error
+            dataset['data-quantity'] = quantityToSplit;
+
             children.push(
               <button class='action' title={action.title} {...dataset} data-click-mode={true}>
                 Click + {action.innerText}
@@ -109,8 +112,6 @@ export function makeViewWindow(selectedViewModule: SelectedViewModule) {
                 step="1">
               </input>
             );
-            // @ts-expect-error
-            dataset['data-quantity'] = quantityToSplit;
           }
 
           return <div>
