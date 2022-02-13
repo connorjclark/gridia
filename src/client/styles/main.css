@@ -134,7 +134,8 @@ body.disconnected {
   display: flex;
   flex-direction: column;
   height: 100%;
-  margin: 0 10px;
+  max-width: 50vw;
+  margin-right: 10px;
   opacity: 0.8;
   pointer-events: all;
 }
@@ -208,7 +209,6 @@ body.disconnected {
 
 .panels__tabs {
   display: flex;
-  margin: 5px 0;
 }
 
 .panels__tab {
@@ -395,19 +395,19 @@ body.disconnected {
 .grid-container .grid-section {
   min-height: 0;
 }
-.grid-container .bottom { grid-area: bottom; display: flex; justify-content: space-between; flex-flow: row-reverse; }
+.grid-container .bottom { grid-area: bottom; display: flex; align-items: flex-end; }
 .grid-container .center { grid-area: center; }
 .grid-container .right { grid-area: right; display: flex; flex-direction: column; }
 .grid-container .left { grid-area: left; display: flex; flex-direction: column; }
 .grid-container .top { grid-area: top; display: flex; flex-flow: row-reverse; }
 
-.ui .toolbar {
-  align-self: end;
+.bottom__left {
+  flex-grow: 1;
 }
-@media only screen and (max-width: 1000px) {
-  .ui .toolbar {
-    align-self: unset;
-  }
+.bottom__right {
+  display: flex;
+  flex-direction: column-reverse;
+  height: 100%;
 }
 
 .mobile {
@@ -446,13 +446,13 @@ body.disconnected {
 }
 
 .window--chat {
-  flex-grow: 0.25;
   background-color: unset;
   border: none;
 }
 @media only screen and (max-width: 1000px) {
-  .window--chat {
+  .left .window {
     flex-grow: 1;
+    align-self: flex-start;
   }
 }
 
@@ -662,9 +662,7 @@ body.disconnected {
 }
 
 .window--attributes {
-  flex-grow: 1;
-  max-width: 20vw;
-  align-self: end;
+  width: 20vw;
   background-color: unset;
   border: unset;
 }

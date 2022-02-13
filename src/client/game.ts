@@ -344,7 +344,7 @@ export class Game {
   protected chatWindow = this.windowManager.createWindow({
     id: 'chat',
     tabLabel: 'Chat',
-    cell: 'bottom',
+    cell: 'bottom__left',
     show: true,
     noscroll: true,
     onInit(el) {

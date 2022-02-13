@@ -38,7 +38,7 @@ export class WindowManager {
       }
     }
 
-    const cellEl = Helper.find(`.ui .grid-container > .${opts.cell}`);
+    const cellEl = Helper.find(`.ui .grid-container .${opts.cell}`);
     const el = Helper.createChildOf(cellEl, 'div', `window window--${opts.id}`);
     el.classList.toggle('window--noscroll', Boolean(opts.noscroll));
     el.classList.toggle('window--fill', Boolean(opts.fill));

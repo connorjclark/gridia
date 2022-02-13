@@ -116,7 +116,6 @@ Come up with an artsyle. I like this: https://imgur.com/r/pixelart/kNFhhpW 16x16
 Simplify things. Don't need so many "grass" floors.
 Player character is animated, up/down/left/right perspectives. Monsters are just a single front perspective, or maybe left/right.
 Floor terrain transitions.
-Fix the inventory / toolbar in one spot.
 
 # Environment
 

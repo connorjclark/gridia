@@ -65,7 +65,7 @@ export function makeAttributesWindow(game: Game) {
   const {SubApp, exportedActions, subscribe} = createSubApp(AttributesWindow, initialState, actions);
   game.windowManager.createWindow({
     id: 'attributes',
-    cell: 'bottom',
+    cell: 'bottom__right',
     show: true,
     noscroll: true,
     onInit(el) {

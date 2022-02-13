@@ -76,27 +76,28 @@
     <div class="ui">
       <div class="grid-container">
         <div class="grid-section bottom">
-          <div class="chat">
-            <div class="chat-sections flex justify-around"></div>
-            <textarea class="chat-area" tabindex="-1" readonly></textarea>
-            <form class="flex chat-form">
-              <input class="flex-grow chat-input" type="text">
-              <button class="chat-submit">Enter</button>
-            </form>
+          <div class="bottom__left">
+            <div class="chat">
+              <div class="chat-sections flex justify-around"></div>
+              <textarea class="chat-area" tabindex="-1" readonly></textarea>
+              <form class="flex m0 chat-form">
+                <input class="flex-grow chat-input" type="text">
+                <button class="chat-submit">Enter</button>
+              </form>
+            </div>
           </div>
 
-          <div class="status-texts"></div>
+          <div class="bottom__right">
+            <div class="status-texts"></div>
+            <div class="panels-container">
+              <div class="panels__tabs"></div>
+            </div>
+          </div>
         </div>
         <div class="grid-section center"></div>
         <div class="grid-section right"></div>
         <div class="grid-section left"></div>
         <div class="grid-section top"></div>
-      </div>
-
-      <div class="toolbar">
-        <div class="panels-container">
-          <div class="panels__tabs"></div>
-        </div>
       </div>
 
       <div class="mobile">
