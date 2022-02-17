@@ -52,9 +52,13 @@ type TimeEvent = {
     type: "time";
     args: Protocol.Events.Time;
 };
-type DialogueEvent = {
-    type: "dialogue";
-    args: Protocol.Events.Dialogue;
+type StartDialogueEvent = {
+    type: "startDialogue";
+    args: Protocol.Events.StartDialogue;
+};
+type UpdateDialogueEvent = {
+    type: "updateDialogue";
+    args: Protocol.Events.UpdateDialogue;
 };
 type SetAttackTargetEvent = {
     type: "setAttackTarget";
@@ -73,7 +77,7 @@ type RawAnimationEvent = {
     args: Protocol.Events.RawAnimation;
 };
 
-export type ProtocolEvent = AnimationEvent | ContainerEvent | InitializeEvent | InitializePartitionEvent | LogEvent | RemoveCreatureEvent | SectorEvent | SetCreatureEvent | SetFloorEvent | SetItemEvent | XpEvent | ChatEvent | TimeEvent | DialogueEvent | SetAttackTargetEvent | CreatureStatusEvent | NotificationEvent | RawAnimationEvent;
+export type ProtocolEvent = AnimationEvent | ContainerEvent | InitializeEvent | InitializePartitionEvent | LogEvent | RemoveCreatureEvent | SectorEvent | SetCreatureEvent | SetFloorEvent | SetItemEvent | XpEvent | ChatEvent | TimeEvent | StartDialogueEvent | UpdateDialogueEvent | SetAttackTargetEvent | CreatureStatusEvent | NotificationEvent | RawAnimationEvent;
 
 export function animation({ ...animationInstance }: Protocol.Events.Animation): AnimationEvent {
     return { type: "animation", args: arguments[0] };
@@ -114,8 +118,11 @@ export function chat({ section, from, creatureId, text }: Protocol.Events.Chat):
 export function time({ epoch }: Protocol.Events.Time): TimeEvent {
     return { type: "time", args: arguments[0] };
 }
-export function dialogue({ dialogue, index }: Protocol.Events.Dialogue): DialogueEvent {
-    return { type: "dialogue", args: arguments[0] };
+export function startDialogue({ speakers, dialogue }: Protocol.Events.StartDialogue): StartDialogueEvent {
+    return { type: "startDialogue", args: arguments[0] };
+}
+export function updateDialogue({ id, index, symbols }: Protocol.Events.UpdateDialogue): UpdateDialogueEvent {
+    return { type: "updateDialogue", args: arguments[0] };
 }
 export function setAttackTarget({ creatureId }: Protocol.Events.SetAttackTarget): SetAttackTargetEvent {
     return { type: "setAttackTarget", args: arguments[0] };

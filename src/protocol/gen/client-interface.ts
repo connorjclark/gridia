@@ -16,7 +16,8 @@ export interface IEvents {
     onXp(client: Client, { skill, xp }: Protocol.Events.Xp): void;
     onChat(client: Client, { section, from, creatureId, text }: Protocol.Events.Chat): void;
     onTime(client: Client, { epoch }: Protocol.Events.Time): void;
-    onDialogue(client: Client, { dialogue, index }: Protocol.Events.Dialogue): void;
+    onStartDialogue(client: Client, { speakers, dialogue }: Protocol.Events.StartDialogue): void;
+    onUpdateDialogue(client: Client, { id, index, symbols }: Protocol.Events.UpdateDialogue): void;
     onSetAttackTarget(client: Client, { creatureId }: Protocol.Events.SetAttackTarget): void;
     onCreatureStatus(client: Client, { creatureId, text, color }: Protocol.Events.CreatureStatus): void;
     onNotification(client: Client, { details }: Protocol.Events.Notification): void;

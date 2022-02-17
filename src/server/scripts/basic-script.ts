@@ -15,41 +15,44 @@ interface TestQuestData {
   kills: number;
 }
 
-const captainDialogueParts = parseDialogueText(`
-1 [i]Welcome[/i]!
-0 Who are you?
-1 The [b]captain[/b]!
-0 Alright.
-  - [goto=ask about ship] Is this your ship?
-  - [goto=ask about destination] When will we get to Gridia?
-  - [goto=ask for axe] Can I have an Axe?
-  - [goto=ask about crew, if=X] What's the matter with the crew?
-
-[label=ask about ship]
-1 Yep! She's a beut, eh?
-0 Meh.
-1 ...
-0 Sorry, I get too seasick to appreciate a hunk of wood.
-1 Well, this hunk of wood is keeping you alive, so show some respect!
-[return] 0 Uh, right... ok.
-
-[label=ask about destination, return, symbol=X]
-1 We'll get there soon, but right now I'm too busy dealing with the crew
-  to give an exact estimate right now.
-
-[label=ask for axe, return, if=Axe]
-1 I already gave you one!
-[return, if_has_skill=Farming, item=Wood Axe, symbol=Axe]
-1 Sure, here you go!
-[return]
-1 What would you do with that?! [i](You must learn Farming first)[/i]
-
-[label=ask about crew]
-1 Glad you asked! Here, time to earn your ticket.
-0 Didn't I earn my ticket when I paid you all that gold?
-1 Look, just take this sword and kill me some roaches.
-[item=Practice Short Sword] 0 Fine.
-`);
+const captainDialogue: Dialogue = {
+  id: 'captain-dialogue',
+  parts: parseDialogueText(`
+    1 [i]Welcome[/i]!
+    0 Who are you?
+    1 The [b]captain[/b]!
+    0 Alright.
+      - [goto=ask about ship] Is this your ship?
+      - [goto=ask about destination] When will we get to Gridia?
+      - [goto=ask for axe] Can I have an Axe?
+      - [goto=ask about crew, if=X] What's the matter with the crew?
+    
+    [label=ask about ship]
+    1 Yep! She's a beut, eh?
+    0 Meh.
+    1 ...
+    0 Sorry, I get too seasick to appreciate a hunk of wood.
+    1 Well, this hunk of wood is keeping you alive, so show some respect!
+    [return] 0 Uh, right... ok.
+    
+    [label=ask about destination, return, symbol=X]
+    1 We'll get there soon, but right now I'm too busy dealing with the crew
+      to give an exact estimate right now.
+    
+    [label=ask for axe, return, if=Axe]
+    1 I already gave you one!
+    [return, if_has_skill=Farming, item=Wood Axe, symbol=Axe]
+    1 Sure, here you go!
+    [return]
+    1 What would you do with that?! [i](You must learn Farming first)[/i]
+    
+    [label=ask about crew]
+    1 Glad you asked! Here, time to earn your ticket.
+    0 Didn't I earn my ticket when I paid you all that gold?
+    1 Look, just take this sword and kill me some roaches.
+    [item=Practice Short Sword] 0 Fine.
+  `),
+};
 
 export class BasicScript extends Script<BasicScriptConfig> {
   quest: Quest<TestQuestData> = {
@@ -108,7 +111,7 @@ export class BasicScript extends Script<BasicScriptConfig> {
     console.log(Player.getQuestStatusMessage(player, this.quest));
   }
 
-  onSpeakToCaptain(clientConnection: PlayerConnection, speaker: Creature): Dialogue | undefined {
+  onSpeakToCaptain(clientConnection: PlayerConnection, speaker: Creature): DialogueInstance | undefined {
     const player = clientConnection.player;
     const state = Player.getQuestState(player, this.quest) || Player.startQuest(player, this.quest);
     const speakers = [clientConnection.creature, speaker];
@@ -116,22 +119,15 @@ export class BasicScript extends Script<BasicScriptConfig> {
     if (state.stage === 'start') {
       return {
         speakers,
-        parts: captainDialogueParts,
+        dialogue: captainDialogue,
         onFinish: () => {
           Player.advanceQuest(player, this.quest);
         },
       };
     } else {
-      // return {
-      //   speakers,
-      //   parts: [
-      //     {speaker: 1, text: 'Go away.'},
-      //     {speaker: 0, text: 'Alright.'},
-      //   ],
-      // };
       return {
         speakers,
-        parts: captainDialogueParts,
+        dialogue: captainDialogue,
       };
     }
   }

@@ -122,6 +122,7 @@ interface Player {
   equipmentContainerId: string;
   isAdmin: boolean;
   questStates: Map<string, QuestState<any>>;
+  dialougeSymbols: Map<string, Set<string>>;
   tilesSeenLog: Map<string, Uint16Array>;
   pos: Point4;
   spawnPos: Point4;
@@ -462,10 +463,15 @@ interface QuestState<T> {
   data: T;
 }
 
-interface Dialogue {
+interface DialogueInstance {
   speakers: Creature[];
-  parts: DialoguePart[];
+  dialogue: Dialogue;
   onFinish?: () => void;
+}
+
+interface Dialogue {
+  id: string;
+  parts: DialoguePart[];
 }
 
 interface DialoguePart {

@@ -95,7 +95,11 @@ export class ClientInterface implements IEvents {
     // handled by game.ts
   }
 
-  onDialogue(client: Client, {dialogue, index}: Events.Dialogue): void {
+  onStartDialogue(client: Client, {speakers, dialogue, symbols, index}: Events.StartDialogue): void {
+    // handled by game.ts
+  }
+
+  onUpdateDialogue(client: Client, {symbols, index}: Events.UpdateDialogue): void {
     // handled by game.ts
   }
 

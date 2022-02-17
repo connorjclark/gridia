@@ -119,11 +119,16 @@ declare namespace Protocol {
       epoch: number;
     }
 
-    interface Dialogue {
-      dialogue?: {
-        speakers: Creature[];
-        parts: DialoguePart[];
-      }
+    interface StartDialogue {
+      // TODO: this should just be an array of ids
+      speakers: Array<Pick<Creature, 'id'|'name'>>;
+      dialogue: Dialogue;
+      index: number;
+      symbols: Set<string>;
+    }
+
+    interface UpdateDialogue {
+      id: string;
       index: number;
       symbols: Set<string>;
     }

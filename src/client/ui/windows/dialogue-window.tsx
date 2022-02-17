@@ -9,7 +9,8 @@ import {CustomCreatureGraphic, Graphic} from '../components/graphic.js';
 import {c, ComponentProps, createSubApp} from '../ui-common.js';
 
 interface State {
-  dialogue: Exclude<Dialogue, 'onFinish'>;
+  speakers: Array<Pick<Creature, 'id'|'name'>>;
+  dialogue: Dialogue;
   index: number;
   symbols: string[];
 }
@@ -54,8 +55,8 @@ export function makeDialogueWindow(game: Game, initialState: State) {
         [part, textEl.current]
       );
 
-      const speakerGfx1 = this.createSpeakerGfx(props.dialogue.speakers[0].id);
-      const speakerGfx2 = this.createSpeakerGfx(props.dialogue.speakers[1].id);
+      const speakerGfx1 = this.createSpeakerGfx(props.speakers[0].id);
+      const speakerGfx2 = this.createSpeakerGfx(props.speakers[1].id);
 
       const onClickNextButton = () => {
         game.client.connection.sendCommand(CommandBuilder.dialogueResponse({}));
@@ -87,11 +88,11 @@ export function makeDialogueWindow(game: Game, initialState: State) {
         <div class="m1">
           <div class='flex justify-between'>
             <div class={c(part.speaker === 0 && 'active-speaker')}>
-              <span>{props.dialogue.speakers[0].name}</span>
+              <span>{props.speakers[0].name}</span>
               {speakerGfx1}
             </div>
             <div class={c(part.speaker === 1 && 'active-speaker')}>
-              <span>{props.dialogue.speakers[1].name}</span>
+              <span>{props.speakers[1].name}</span>
               {speakerGfx2}
             </div>
           </div>

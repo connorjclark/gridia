@@ -172,6 +172,7 @@ export class ServerContext extends Context {
     player.timePlayed = player.timePlayed || 0; // TODO: remove
     player.lastSaved = player.lastSaved || 0; // TODO: remove
     player.specializedSkills = player.specializedSkills || new Set(); // TODO: remove
+    player.dialougeSymbols = player.dialougeSymbols || new Map(); // TODO: remove
     return player;
   }
 

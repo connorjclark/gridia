@@ -62,7 +62,7 @@ const Facts: Record<string, Fact> = {
     let creatureToFollow = this.targetCreature?.creature;
     if (this.creature.tamedBy) {
       const tamedByPlayer = server.context.players.get(this.creature.tamedBy);
-      if (tamedByPlayer){
+      if (tamedByPlayer) {
         creatureToFollow = server.findCreatureForPlayer(tamedByPlayer);
       }
     }
@@ -75,7 +75,7 @@ const Facts: Record<string, Fact> = {
     let creatureToFollow = this.targetCreature?.creature;
     if (this.creature.tamedBy) {
       const tamedByPlayer = server.context.players.get(this.creature.tamedBy);
-      if (tamedByPlayer){
+      if (tamedByPlayer) {
         creatureToFollow = server.findCreatureForPlayer(tamedByPlayer);
       }
     }
@@ -187,7 +187,7 @@ const Actions: Record<string, Action> = {
       let creatureToFollow = this.targetCreature?.creature;
       if (this.creature.tamedBy) {
         const tamedByPlayer = server.context.players.get(this.creature.tamedBy);
-        if (tamedByPlayer){
+        if (tamedByPlayer) {
           creatureToFollow = server.findCreatureForPlayer(tamedByPlayer);
         }
       }
@@ -259,7 +259,7 @@ export class CreatureState {
   warped = false;
   home: TilePoint;
   path: PartitionPoint[] = [];
-  onSpeakCallback?: (clientConnection: ClientConnection, speaker: Creature) => Dialogue | undefined;
+  onSpeakCallback?: (clientConnection: ClientConnection, speaker: Creature) => DialogueInstance | undefined;
 
   // For attacking.
   targetCreature: CreatureState | null = null;
@@ -279,7 +279,7 @@ export class CreatureState {
   private _actions: Action[];
   /** Sorted by highest priority first. */
   private goals: Goal[] = [];
-  private goalActionPlans: Map<Goal, {shouldRecreate: boolean; createdAt: number; actions: Action[]}> = new Map();
+  private goalActionPlans: Map<Goal, { shouldRecreate: boolean; createdAt: number; actions: Action[] }> = new Map();
 
   private _shouldRecreatePlan = false;
 

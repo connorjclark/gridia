@@ -165,17 +165,25 @@ export class Server {
     return quest;
   }
 
-  startDialogue(clientConnection: ClientConnection, dialogue: Dialogue) {
-    // TODO: `symbols` needs to persist.
-    clientConnection.activeDialogue = {dialogue, partIndex: 0, partIndexStack: [], symbols: new Set()};
-    this.sendCurrentDialoguePart(clientConnection, true);
+  startDialogue(playerConnection: PlayerConnection, dialogueInstance: DialogueInstance) {
+    // TODO instead of starting at index 0, find first part that passes all conditions
+    playerConnection.activeDialogue = {dialogueInstance, partIndex: 0, partIndexStack: []};
+
+    const symbols = playerConnection.player.dialougeSymbols.get(dialogueInstance.dialogue.id) || new Set();
+    playerConnection.player.dialougeSymbols.set(dialogueInstance.dialogue.id, symbols);
+
+    this.sendCurrentDialoguePart(playerConnection, symbols, true);
   }
 
   processDialogueResponse(playerConnection: PlayerConnection, choiceIndex?: number) {
     if (!playerConnection.activeDialogue) return;
 
-    const {dialogue, partIndex, partIndexStack, symbols} = playerConnection.activeDialogue;
+    const {dialogueInstance, partIndex, partIndexStack} = playerConnection.activeDialogue;
+    const dialogue = dialogueInstance.dialogue;
     const currentPart = dialogue.parts[partIndex];
+
+    const symbols = playerConnection.player.dialougeSymbols.get(dialogue.id) || new Set();
+    playerConnection.player.dialougeSymbols.set(dialogue.id, symbols);
 
     if (choiceIndex === undefined && currentPart.choices) {
       throw new Error('missing choice');
@@ -218,7 +226,7 @@ export class Server {
     } else if (partIndex + 1 < dialogue.parts.length) {
       nextPartIndex = partIndex + 1;
     } else {
-      dialogue.onFinish && dialogue.onFinish();
+      dialogueInstance.onFinish?.();
     }
 
     if (currentPart.annotations?.symbol) symbols.add(currentPart.annotations.symbol);
@@ -243,25 +251,35 @@ export class Server {
 
     if (nextPartIndex !== undefined) {
       playerConnection.activeDialogue.partIndex = nextPartIndex;
-      this.sendCurrentDialoguePart(playerConnection, false);
+      this.sendCurrentDialoguePart(playerConnection, symbols, false);
     } else {
       playerConnection.activeDialogue = undefined;
-      playerConnection.sendEvent(EventBuilder.dialogue({index: -1, symbols: new Set()}));
+      playerConnection.sendEvent(EventBuilder.updateDialogue({id: dialogue.id, index: -1, symbols: new Set()}));
     }
   }
 
-  sendCurrentDialoguePart(clientConnection: ClientConnection, start: boolean) {
-    if (!clientConnection.activeDialogue) return;
+  sendCurrentDialoguePart(playerConnection: PlayerConnection, symbols: Set<string>, start: boolean) {
+    if (!playerConnection.activeDialogue) return;
 
-    const {dialogue, partIndex, symbols} = clientConnection.activeDialogue;
-    clientConnection.sendEvent(EventBuilder.dialogue({
-      dialogue: start ? {
-        speakers: dialogue.speakers,
-        parts: dialogue.parts,
-      } : undefined,
-      index: partIndex,
-      symbols,
-    }));
+    const {dialogueInstance, partIndex} = playerConnection.activeDialogue;
+
+    if (start) {
+      playerConnection.sendEvent(EventBuilder.startDialogue({
+        speakers: dialogueInstance.speakers.map((speaker) => ({
+          id: speaker.id,
+          name: speaker.name,
+        })),
+        dialogue: dialogueInstance.dialogue,
+        index: partIndex,
+        symbols,
+      }));
+    } else {
+      playerConnection.sendEvent(EventBuilder.updateDialogue({
+        id: dialogueInstance.dialogue.id,
+        index: partIndex,
+        symbols,
+      }));
+    }
   }
 
   async registerAccount(clientConnection: ClientConnection, opts: RegisterAccountOpts) {
@@ -375,6 +393,7 @@ export class Server {
       specializedSkills: new Set(),
       skillPoints: characterCreation.skillPoints,
       questStates: new Map(),
+      dialougeSymbols: new Map(),
       tilesSeenLog: new Map(),
       // anyone could be an admin, for now.
       isAdmin: opts.name.startsWith('@'),

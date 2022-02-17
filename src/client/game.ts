@@ -613,30 +613,39 @@ export class Game {
       }
     }
 
-    if (event.type === 'dialogue') {
+    // TODO: better window management.
+    function closeDialogueWindow() {
+      game.dialogueWindow?.delegate.hide();
+      game.dialogueWindow = undefined;
+      game.client.eventEmitter.removeListener('playerMove', closeDialogueWindow);
+    }
+
+    if (event.type === 'startDialogue') {
+      if (this.dialogueWindow) {
+        closeDialogueWindow();
+      } else {
+        if (!event.args.dialogue) throw new Error('missing dialogue');
+
+        this.dialogueWindow = makeDialogueWindow(this, {
+          index: event.args.index,
+          speakers: event.args.speakers,
+          dialogue: event.args.dialogue,
+          symbols: [...event.args.symbols],
+        });
+        this.dialogueWindow.delegate.show();
+        this.client.eventEmitter.once('playerMove', closeDialogueWindow);
+      }
+    }
+
+    if (event.type === 'updateDialogue') {
       if (event.args.index === -1) {
         closeDialogueWindow();
         return;
       }
 
-      if (!this.dialogueWindow) {
-        if (!event.args.dialogue) throw new Error('missing dialogue');
-        this.dialogueWindow = makeDialogueWindow(this, {
-          index: event.args.index, dialogue: event.args.dialogue, symbols: [...event.args.symbols],
-        });
-      } else {
+      if (this.dialogueWindow) {
         this.dialogueWindow.actions.setIndex(event.args.index);
         this.dialogueWindow.actions.setSymbols([...event.args.symbols]);
-      }
-
-      this.dialogueWindow.delegate.show();
-      this.client.eventEmitter.once('playerMove', closeDialogueWindow);
-
-      // TODO: better window management.
-      function closeDialogueWindow() {
-        game.dialogueWindow?.delegate.hide();
-        game.dialogueWindow = undefined;
-        game.client.eventEmitter.removeListener('playerMove', closeDialogueWindow);
       }
     }
 
