@@ -22,6 +22,7 @@ const captainDialogueParts = parseDialogueText(`
 0 Alright.
   - [goto=ask about ship] Is this your ship?
   - [goto=ask about destination] When will we get to Gridia?
+  - [goto=ask for axe] Can I have an Axe?
   - [goto=ask about crew, if=X] What's the matter with the crew?
 
 [label=ask about ship]
@@ -35,6 +36,13 @@ const captainDialogueParts = parseDialogueText(`
 [label=ask about destination, return, symbol=X]
 1 We'll get there soon, but right now I'm too busy dealing with the crew
   to give an exact estimate right now.
+
+[label=ask for axe, return, if=Axe]
+1 I already gave you one!
+[return, if_has_skill=Farming, item=Wood Axe, symbol=Axe]
+1 Sure, here you go!
+[return]
+1 What would you do with that?! [i](You must learn Farming first)[/i]
 
 [label=ask about crew]
 1 Glad you asked! Here, time to earn your ticket.

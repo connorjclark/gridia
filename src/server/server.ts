@@ -175,24 +175,45 @@ export class Server {
     if (!playerConnection.activeDialogue) return;
 
     const {dialogue, partIndex, partIndexStack, symbols} = playerConnection.activeDialogue;
-    const part = dialogue.parts[partIndex];
+    const currentPart = dialogue.parts[partIndex];
 
-    if (choiceIndex === undefined && part.choices) {
+    if (choiceIndex === undefined && currentPart.choices) {
       throw new Error('missing choice');
     }
 
+    const checkConditions = (part: DialoguePart) => {
+      if (part.annotations?.if && !symbols.has(part.annotations.if)) {
+        return false;
+      }
+
+      if (part.annotations?.if_has_skill) {
+        const skillId = Content.getSkillByName(part.annotations.if_has_skill)?.id;
+        if (!skillId) throw new Error('invalid skill check');
+
+        if (!Player.hasSkill(playerConnection.player, skillId)) return false;
+      }
+
+      return true;
+    };
+
     let nextPartIndex;
-    if (part.annotations && 'return' in part.annotations) {
+    if (currentPart.annotations && 'return' in currentPart.annotations) {
       nextPartIndex = partIndexStack.pop();
     } else if (choiceIndex !== undefined) {
-      if (!part.choices || choiceIndex < 0 || choiceIndex >= part.choices.length) {
+      if (!currentPart.choices || choiceIndex < 0 || choiceIndex >= currentPart.choices.length) {
         throw new Error('bad choice');
       }
-      if (part.choices[choiceIndex].annotations.if && !symbols.has(part.choices[choiceIndex].annotations.if)) {
+
+      const choice = currentPart.choices[choiceIndex];
+      if (choice.annotations.if && !symbols.has(choice.annotations.if)) {
         throw new Error('missing symbol');
       }
 
-      nextPartIndex = Number(part.choices[choiceIndex].annotations.goto);
+      nextPartIndex = Number(choice.annotations.goto);
+      while (!checkConditions(dialogue.parts[nextPartIndex])) {
+        nextPartIndex += 1;
+      }
+
       partIndexStack.push(partIndex);
     } else if (partIndex + 1 < dialogue.parts.length) {
       nextPartIndex = partIndex + 1;
@@ -200,19 +221,19 @@ export class Server {
       dialogue.onFinish && dialogue.onFinish();
     }
 
-    if (part.annotations?.symbol) symbols.add(part.annotations.symbol);
+    if (currentPart.annotations?.symbol) symbols.add(currentPart.annotations.symbol);
 
-    if (part.annotations?.item) {
+    if (currentPart.annotations?.item) {
       const item = {
-        type: Content.getMetaItemByName(part.annotations.item).id,
-        quantity: Number(part.annotations.item_quantity) || 1,
+        type: Content.getMetaItemByName(currentPart.annotations.item).id,
+        quantity: Number(currentPart.annotations.item_quantity) || 1,
       };
 
       if (Container.addItemToContainer(this, playerConnection.container, item)) {
         playerConnection.sendEvent(EventBuilder.notification({
           details: {
             type: 'text',
-            text: `You were given a ${part.annotations.item}!`,
+            text: `You were given a ${currentPart.annotations.item}!`,
           },
         }));
       } else {

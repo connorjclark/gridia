@@ -13,6 +13,7 @@ describe('parseDialogueText', () => {
     0 Alright.
       - [goto=ask about ship] Is this your ship?
       - [goto=ask about destination] When will we get to Gridia?
+      - [goto=ask for axe] Can I have an Axe?
       - [goto=ask about crew, if=X] What's the matter with the crew?
     
     [label=ask about ship]
@@ -27,10 +28,17 @@ describe('parseDialogueText', () => {
     1 We'll get there soon, but right now I'm too busy dealing with the crew
       to give an exact estimate right now.
     
+    [label=ask for axe, return, if=Axe]
+    1 I already gave you one!
+    [return, if_has_skill=Farming, item=Wood Axe, symbol=Axe]
+    1 Sure, here you go!
+    [return]
+    1 What would you do with that?! [i](You must learn Farming first)[/i]
+    
     [label=ask about crew]
     1 Glad you asked! Here, time to earn your ticket.
     0 Didn't I earn my ticket when I paid you all that gold?
-    1 Look, just take this sword and kill me some rats.
+    1 Look, just take this sword and kill me some roaches.
     [item=Practice Short Sword] 0 Fine.
     `);
 
@@ -68,6 +76,12 @@ describe('parseDialogueText', () => {
           {
             annotations: {
               goto: '11',
+            },
+            text: 'Can I have an Axe?',
+          },
+          {
+            annotations: {
+              goto: '14',
               if: 'X',
             },
             text: 'What\'s the matter with the crew?',
@@ -111,6 +125,31 @@ describe('parseDialogueText', () => {
       },
       {
         speaker: 1,
+        text: 'I already gave you one!',
+        annotations: {
+          return: '',
+          if: 'Axe',
+        },
+      },
+      {
+        speaker: 1,
+        text: 'Sure, here you go!',
+        annotations: {
+          return: '',
+          if_has_skill: 'Farming',
+          item: 'Wood Axe',
+          symbol: 'Axe',
+        },
+      },
+      {
+        speaker: 1,
+        text: 'What would you do with that?! [i](You must learn Farming first)[/i]',
+        annotations: {
+          return: '',
+        },
+      },
+      {
+        speaker: 1,
         text: 'Glad you asked! Here, time to earn your ticket.',
       },
       {
@@ -119,7 +158,7 @@ describe('parseDialogueText', () => {
       },
       {
         speaker: 1,
-        text: 'Look, just take this sword and kill me some rats.',
+        text: 'Look, just take this sword and kill me some roaches.',
       },
       {
         speaker: 0,
