@@ -42,14 +42,21 @@ export class AccountScene extends Scene {
         href: 'https://www.gstatic.com/firebasejs/ui/5.0.0/firebase-ui-auth.css',
       });
       const ui = new firebaseui.auth.AuthUI(this.firebaseAuth);
+      const signInOptions = [
+        // TODO: why isn't this working any more?
+        // GoogleAuthProvider.PROVIDER_ID,
+        {
+          provider: EmailAuthProvider.PROVIDER_ID,
+          requireDisplayName: false,
+        },
+      ];
+      if (new URL(location.href).searchParams.has('debugFirebase')) {
+        // @ts-expect-error
+        signInOptions.unshift(GoogleAuthProvider.PROVIDER_ID);
+      }
+
       ui.start('.firebaseui-auth-container', {
-        signInOptions: [
-          GoogleAuthProvider.PROVIDER_ID,
-          {
-            provider: EmailAuthProvider.PROVIDER_ID,
-            requireDisplayName: false,
-          },
-        ],
+        signInOptions,
         signInFlow: 'popup',
         callbacks: {
           signInSuccessWithAuthResult: (authResult) => {
@@ -57,6 +64,9 @@ export class AccountScene extends Scene {
 
             // Return control to the game (no redirect).
             return false;
+          },
+          signInFailure: (authResult) => {
+            console.error(authResult);
           },
         },
       });
