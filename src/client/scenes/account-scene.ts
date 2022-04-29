@@ -43,17 +43,12 @@ export class AccountScene extends Scene {
       });
       const ui = new firebaseui.auth.AuthUI(this.firebaseAuth);
       const signInOptions = [
-        // TODO: why isn't this working any more?
-        // GoogleAuthProvider.PROVIDER_ID,
+        GoogleAuthProvider.PROVIDER_ID,
         {
           provider: EmailAuthProvider.PROVIDER_ID,
           requireDisplayName: false,
         },
       ];
-      if (new URL(location.href).searchParams.has('debugFirebase')) {
-        // @ts-expect-error
-        signInOptions.unshift(GoogleAuthProvider.PROVIDER_ID);
-      }
 
       ui.start('.firebaseui-auth-container', {
         signInOptions,
