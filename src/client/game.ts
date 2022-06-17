@@ -177,6 +177,10 @@ class CreatureSprite extends PIXI.Sprite {
     return this.creature.graphics.height || 1;
   }
 
+  get tileScale() {
+    return this.creature.graphics.scale || 1;
+  }
+
   tick() {
     if (this.statusTextsEl) {
       const screenCoords = this.toGlobal({x: GFX_SIZE / 2, y: -GFX_SIZE / 2});
@@ -272,6 +276,7 @@ class CreatureSprite extends PIXI.Sprite {
     }
 
     const creatureGfx = new PIXI.Graphics();
+    creatureGfx.scale.set(this.tileScale);
     for (const texture of Object.values(textures)) {
       // Missing a necessary texture: bail for now.
       if (texture === PIXI.Texture.EMPTY) return false;
@@ -1461,7 +1466,7 @@ export class Game {
         }
 
         creatureSprite.x = x * GFX_SIZE;
-        creatureSprite.y = (y - creatureSprite.tileHeight + 1) * GFX_SIZE;
+        creatureSprite.y = (y - creatureSprite.tileScale * creatureSprite.tileHeight + 1) * GFX_SIZE;
         // Ensure creature is always over an item on the same tile.
         creatureSprite.zIndex = y + 0.1;
         creatureSprite.tick();

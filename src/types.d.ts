@@ -251,6 +251,7 @@ interface Graphics {
   width?: number;
   /** How many tiles tall a frame is. The anchor point is the top-left tile. */
   height?: number;
+  scale?: number;
   templateType?: TemplateType;
   templateData?: TemplateData;
 }
