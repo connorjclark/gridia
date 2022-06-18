@@ -388,13 +388,11 @@ export class CreatureState {
 
     if (this.ticksUntilRegeneration === 0 && server.context.map.getTile(this.creature.pos).floor !== WATER) {
       this.ticksUntilRegeneration = server.taskRunner.rateToTicks({seconds: 2});
-      const changed = (['stamina', 'mana'] as const).filter((attribute) => {
+      (['stamina', 'mana'] as const).forEach((attribute) => {
         if (this.creature[attribute].current < this.creature[attribute].max) {
           adjustAttribute(this.creature, attribute, 1);
-          return true;
         }
       });
-      if (changed.length) server.broadcastPartialCreatureUpdate(this.creature, changed);
     }
 
     if (!this.goals.length && this.creature.eatGrass) {

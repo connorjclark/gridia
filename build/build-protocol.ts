@@ -215,6 +215,13 @@ function createMessageBuilderFn({messageDeclaration, typeName}) {
     }
   */
 
+  let params = messageDeclaration.params.name.elements.length ? [messageDeclaration.params] : undefined;
+  // Support for `type SetCreature = Creature | {id: number; ops: SniffedOperation[]};`
+  if (!params && messageDeclaration.node.type?.types?.length) {
+    const param = ts.createParameter(undefined, undefined, undefined, 'event', undefined, messageDeclaration.node.type);
+    params = [param];
+  }
+
   const lowercasedType = lowercase(typeName);
   return ts.createFunctionDeclaration(
     undefined,
@@ -222,7 +229,7 @@ function createMessageBuilderFn({messageDeclaration, typeName}) {
     undefined,
     lowercasedType,
     undefined,
-    messageDeclaration.params.name.elements.length ? [messageDeclaration.params] : undefined,
+    params,
     messageDeclaration.typeAlias.name,
     ts.createBlock([
       ts.createReturn(

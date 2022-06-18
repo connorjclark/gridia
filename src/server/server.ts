@@ -3,6 +3,7 @@ import * as Container from '../container.js';
 import * as Content from '../content.js';
 import {calcStraightLine} from '../lib/line.js';
 import {roll} from '../lib/loot-table.js';
+import {sniffObject} from '../lib/sniff-object.js';
 import * as Player from '../player.js';
 import * as EventBuilder from '../protocol/event-builder.js';
 import {ProtocolEvent} from '../protocol/event-builder.js';
@@ -52,6 +53,7 @@ export class Server {
     to?: ClientConnection;
     filter?: (playerConnection: PlayerConnection) => boolean;
   }>;
+  pendingCreatureSniffedOperations: Map<number, SniffedOperation[]> = new Map();
   // TODO: WeakMap
   creatureStates: Record<number, CreatureState> = {};
 
@@ -492,7 +494,7 @@ export class Server {
     clientConnection.container = await this.context.getContainer(player.containerId);
     clientConnection.equipment = await this.context.getContainer(player.equipmentContainerId);
 
-    const creature: Creature = {
+    let creature: Creature = {
       id: this.context.nextCreatureId++,
       dead: false,
       isNPC: false,
@@ -541,8 +543,8 @@ export class Server {
     }
 
     this.updateCreatureDataBasedOnEquipment(creature, clientConnection.equipment, {broadcast: false});
+    creature = this.registerCreature(creature);
     clientConnection.creature = creature;
-    this.registerCreature(creature);
 
     for (const creatureId of player.tamedCreatureIds) {
       if (!this.context.creatures.has(creatureId)) player.tamedCreatureIds.delete(creatureId);
@@ -621,7 +623,7 @@ export class Server {
     const stamina = template.stamina || 10;
     const mana = template.mana || 10;
 
-    const creature: Creature = {
+    let creature: Creature = {
       id: this.context.nextCreatureId++,
       type: template.id,
       dead: false,
@@ -664,7 +666,7 @@ export class Server {
       creature.stats.magicDefense = template.magicDefense || 0;
     }
 
-    this.registerCreature(creature);
+    creature = this.registerCreature(creature);
 
     if (descriptor.onSpeak) {
       creature.canSpeak = true;
@@ -747,22 +749,7 @@ export class Server {
       }
 
       creature.pos = pos;
-      this.broadcastPartialCreatureUpdate(creature, ['pos']);
     }
-  }
-
-  broadcastPartialCreatureUpdate(creature: Creature, keys: Array<keyof Creature>) {
-    const partialCreature: Partial<Creature> = {
-      id: creature.id,
-    };
-    for (const key of keys) {
-      // @ts-expect-error
-      partialCreature[key] = creature[key];
-    }
-    this.conditionalBroadcast(EventBuilder.setCreature({
-      partial: true,
-      ...partialCreature,
-    }), (client) => client.subscribedCreatureIds.has(creature.id));
   }
 
   findPlayerForCreature(creature: Creature) {
@@ -961,14 +948,12 @@ export class Server {
     for (const attribute of actorAttributesChanged) {
       adjustAttribute(data.actor, attribute, actorAttributesDelta[attribute]);
     }
-    if (actorAttributesChanged.length) this.broadcastPartialCreatureUpdate(data.actor, actorAttributesChanged);
     if (actorAttributesDelta.life) this.modifyCreatureLife(null, data.actor, actorAttributesDelta.life);
 
     const targetAttributesChanged = attributes.filter((k) => targetAttributesDelta[k] !== 0);
     for (const attribute of targetAttributesChanged) {
       adjustAttribute(data.target, attribute, targetAttributesDelta[attribute]);
     }
-    if (targetAttributesChanged.length) this.broadcastPartialCreatureUpdate(data.target, targetAttributesChanged);
     if (targetAttributesDelta.life) this.modifyCreatureLife(data.actor, data.target, targetAttributesDelta.life);
 
     const notifyClient = (playerConnection: PlayerConnection) => {
@@ -1060,7 +1045,6 @@ export class Server {
     if (deltas.life) process('life', deltas.life, 'red');
     if (deltas.stamina) process('stamina', deltas.stamina, 'gold');
     if (deltas.mana) process('mana', deltas.mana, 'blue');
-    if (keys.length) this.broadcastPartialCreatureUpdate(creature, keys);
 
     if (creature.life.current <= 0) {
       if (creature.isPlayer) {
@@ -1076,7 +1060,6 @@ export class Server {
         adjustAttribute(creature, 'life', Math.floor(creature.life.max / 4));
         adjustAttribute(creature, 'stamina', Math.floor(creature.stamina.max / 4));
         adjustAttribute(creature, 'mana', Math.floor(creature.mana.max / 4));
-        this.broadcastPartialCreatureUpdate(creature, ['life', 'stamina', 'mana']);
         if (clientConnection) {
           this.creatureStates[clientConnection.creature.id].targetCreature = null;
           clientConnection.sendEvent(EventBuilder.updateSessionState({attackingCreatureId: null}));
@@ -1154,14 +1137,12 @@ export class Server {
     } else {
       creature.buffs.push(buff);
     }
-    this.broadcastPartialCreatureUpdate(creature, ['buffs']);
   }
 
   removeCreatureBuff(creature: Creature, id: string) {
     const index = creature.buffs.findIndex((buff) => id === buff.id);
     if (index !== -1) {
       creature.buffs.splice(index, 1);
-      this.broadcastPartialCreatureUpdate(creature, ['buffs']);
     }
   }
 
@@ -1227,7 +1208,6 @@ export class Server {
 
     if (consumeMana) {
       adjustAttribute(creature, 'mana', -spell.mana);
-      this.broadcastPartialCreatureUpdate(creature, ['mana']);
     }
 
     return;
@@ -1400,7 +1380,6 @@ export class Server {
     if (light === playerConnection.creature.light) return;
 
     playerConnection.creature.light = light;
-    this.broadcastPartialCreatureUpdate(playerConnection.creature, ['light']);
   }
 
   deriveCreaturePropertiesFromEquipment(creature: Creature, equipmentItems: Array<Item | null>) {
@@ -1472,8 +1451,6 @@ export class Server {
         expiresAt: 0,
       });
     }
-
-    if (opts.broadcast) this.broadcastPartialCreatureUpdate(creature, ['equipmentGraphics', 'stats', 'buffs']);
   }
 
   updateCreatureDataBasedOnInventory(playerConnection: PlayerConnection) {
@@ -1576,7 +1553,6 @@ export class Server {
     player.tamedCreatureIds.add(creature.id);
     creature.tamedBy = player.id;
     this.creatureStates[creature.id].resetGoals();
-    this.broadcastPartialCreatureUpdate(creature, ['tamedBy']);
   }
 
   ensureSectorLoaded(sectorPoint: TilePoint) {
@@ -1663,8 +1639,14 @@ export class Server {
   }
 
   private registerCreature(creature: Creature) {
+    creature = sniffObject(creature, (op) => {
+      const ops = this.pendingCreatureSniffedOperations.get(creature.id) || [];
+      ops.push(op);
+      this.pendingCreatureSniffedOperations.set(creature.id, ops);
+    });
     this.creatureStates[creature.id] = new CreatureState(creature, this.context);
     this.context.setCreature(creature);
+    return creature;
   }
 
   private async initClient(playerConnection: PlayerConnection) {
@@ -1698,7 +1680,7 @@ export class Server {
     }));
 
     // TODO: next line not necessary. but removing breaks tests ...
-    playerConnection.sendEvent(EventBuilder.setCreature({partial: false, ...playerConnection.creature}));
+    playerConnection.sendEvent(EventBuilder.setCreature(playerConnection.creature));
     playerConnection.sendEvent(EventBuilder.container({
       container: await this.context.getContainer(playerConnection.equipment.id),
     }));
@@ -1780,18 +1762,12 @@ export class Server {
         for (const creature of this.context.creatures.values()) {
           if (!creature.buffs.length) continue;
 
-          let modified = false;
           for (let i = creature.buffs.length - 1; i >= 0; i--) {
             if (creature.buffs[i].expiresAt === 0) continue;
 
             if (creature.buffs[i].expiresAt <= now) {
               creature.buffs.splice(i, 1);
-              modified = true;
             }
-          }
-
-          if (modified) {
-            this.broadcastPartialCreatureUpdate(creature, ['buffs']);
           }
         }
       },
@@ -1820,7 +1796,7 @@ export class Server {
             if (!closeEnoughToSubscribe(clientConnection.creature.pos, creature.pos)) continue;
 
             clientConnection.subscribedCreatureIds.add(creature.id);
-            clientConnection.sendEvent(EventBuilder.setCreature({partial: false, ...creature}));
+            clientConnection.sendEvent(EventBuilder.setCreature(creature));
           }
         }
       },
@@ -1920,7 +1896,6 @@ export class Server {
             this.modifyCreatureLife(null, creature, -10);
           } else {
             creature.food -= 1;
-            this.broadcastPartialCreatureUpdate(creature, ['food']);
           }
         }
       },
@@ -1957,6 +1932,14 @@ export class Server {
             // performance.measure(message.type, `${message.type}-start`, `${message.type}-end`);
           }
         }
+
+        for (const [id, ops] of this.pendingCreatureSniffedOperations.entries()) {
+          this.conditionalBroadcast(EventBuilder.setCreature({
+            id,
+            ops,
+          }), (client) => client.subscribedCreatureIds.has(id));
+        }
+        this.pendingCreatureSniffedOperations.clear();
 
         // TODO stream marks somewhere, and pull in isomorphic node/browser performance.
         // console.log(performance.getEntries());

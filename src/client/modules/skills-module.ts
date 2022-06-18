@@ -53,7 +53,9 @@ export class SkillsModule extends ClientModule {
         }
       }
 
-      if (e.type === 'setCreature' && e.args.buffs && e.args.id === this.game.client.session.creatureId) {
+      const buffsUpdated =
+        e.type === 'setCreature' && 'ops' in e.args && e.args.ops.some((op) => op.path.startsWith('.buffs'));
+      if (buffsUpdated) {
         if (this.skillsWindow) {
           this.skillsWindow.actions.setCombatLevel(this.getCombatLevel());
           this.skillsWindow.actions.setSkills(this.getSkills());

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import {Client} from '../client/client.js';
+import {replaySniffedOperations} from '../lib/sniff-object.js';
 
 import * as CommandBuilder from './command-builder.js';
 import {IEvents} from './gen/client-interface.js';
@@ -48,23 +49,21 @@ export class ClientInterface implements IEvents {
     client.context.map.getPartition(pos.w).sectors[pos.x][pos.y][pos.z] = tiles;
   }
 
-  onSetCreature(client: Client, {partial, ...partialCreature}: Events.SetCreature): void {
-    const id = partialCreature.id;
-    // TODO: fix in types?
-    if (!id) throw new Error('id must exist');
+  onSetCreature(client: Client, creatureOrOps: Events.SetCreature): void {
+    if (!creatureOrOps.id) throw new Error('id must exist'); // TODO: can remove?
 
-    const creature = client.context.getCreature(id);
-    if (!creature) {
-      if (partial) {
-        client.connection.sendCommand(CommandBuilder.requestCreature({id}));
-      } else {
-        // @ts-expect-error - it's not a partial creature.
-        client.context.setCreature(partialCreature);
-      }
+    if (!('ops' in creatureOrOps)) {
+      client.context.setCreature(creatureOrOps);
       return;
     }
 
-    Object.assign(creature, partialCreature);
+    const creature = client.context.getCreature(creatureOrOps.id);
+    if (!creature) {
+      client.connection.sendCommand(CommandBuilder.requestCreature({id: creatureOrOps.id}));
+      return;
+    }
+
+    replaySniffedOperations(creature, creatureOrOps.ops);
   }
 
   onSetFloor(client: Client, {floor, ...pos}: Events.SetFloor): void {

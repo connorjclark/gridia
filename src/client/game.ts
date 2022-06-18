@@ -478,6 +478,7 @@ export class Game {
   }
 
   // Should only be used for refreshing UI, not updating game state.
+  // Event are guaranteed to be first handled by `client-interface.ts`.
   onProtocolEvent(event: ProtocolEvent) {
     // Update the selected view, if the item there changed.
     if (event.type === 'setItem') {
@@ -501,10 +502,10 @@ export class Game {
     }
 
     if (event.type === 'setCreature' && event.args.id) {
-      if (event.args.id && event.args.pos) {
-        const pos = event.args.pos;
+      if (Utils.hasCreatureDataChanged(event.args, 'pos')) {
         const cre = this.client.context.creatures.get(event.args.id);
         if (cre) {
+          const pos = cre.pos;
           // Update so "selectView" will correctly find this creature.
           // TODO This technically puts the creature in two places at once until the next game loop
           // tick... maybe "selectView" should just accept a location or a creature?
@@ -541,7 +542,10 @@ export class Game {
           };
         }));
 
-        const updateEquipmentWindow = event.args.stats || event.args.graphics || event.args.equipmentGraphics;
+        const updateEquipmentWindow =
+          Utils.hasCreatureDataChanged(event.args, 'stats') ||
+          Utils.hasCreatureDataChanged(event.args, 'graphics') ||
+          Utils.hasCreatureDataChanged(event.args, 'equipmentGraphics');
         if (this.client.equipment && updateEquipmentWindow) {
           const equipmentWindow = this.containerWindows.get(this.client.equipment.id);
           equipmentWindow?.actions.setEquipmentWindow({
@@ -550,8 +554,8 @@ export class Game {
           });
         }
 
-        if (event.args.pos) {
-          this.modules.map.getMapWindow().actions.setPos({...event.args.pos});
+        if (Utils.hasCreatureDataChanged(event.args, 'pos')) {
+          this.modules.map.getMapWindow().actions.setPos({...this.client.creature.pos});
         }
       }
 
@@ -562,8 +566,8 @@ export class Game {
         }
       }
 
-      const keys = Object.keys(event.args);
-      const justPosUpdate = event.args.pos && keys.length === 3;
+      const justPosUpdate =
+        Utils.hasCreatureDataChanged(event.args, 'pos') && 'ops' in event.args && event.args.ops.length === 1;
       const creatureSprite = game.creatureSprites.get(event.args.id);
       if (creatureSprite && !justPosUpdate) {
         creatureSprite.dirty = true;

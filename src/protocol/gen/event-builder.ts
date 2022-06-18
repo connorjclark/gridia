@@ -103,7 +103,10 @@ export function removeCreature({ id }: Protocol.Events.RemoveCreature): RemoveCr
 export function sector({ tiles, ...pos }: Protocol.Events.Sector): SectorEvent {
     return { type: "sector", args: arguments[0] };
 }
-export function setCreature({ partial, ...creature }: Protocol.Events.SetCreature): SetCreatureEvent {
+export function setCreature(event: Creature | {
+    id: number;
+    ops: SniffedOperation[];
+}): SetCreatureEvent {
     return { type: "setCreature", args: arguments[0] };
 }
 export function setFloor({ floor, ...pos }: Protocol.Events.SetFloor): SetFloorEvent {

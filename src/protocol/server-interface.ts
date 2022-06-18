@@ -264,10 +264,7 @@ export class ServerInterface implements ICommands {
       throw new InvalidProtocolError('requested invalid creature: ' + id);
     }
 
-    server.send(EventBuilder.setCreature({
-      partial: false,
-      ...creature,
-    }), clientConnection);
+    server.send(EventBuilder.setCreature(creature), clientConnection);
     return Promise.resolve();
   }
 
@@ -792,7 +789,6 @@ export class ServerInterface implements ICommands {
     clientConnection.creature.life.max = Player.getAttributeValue(clientConnection.player, 'life', clientConnection.creature.buffs).level;
     clientConnection.creature.mana.max = Player.getAttributeValue(clientConnection.player, 'mana', clientConnection.creature.buffs).level;
     clientConnection.creature.stamina.max = Player.getAttributeValue(clientConnection.player, 'stamina', clientConnection.creature.buffs).level;
-    server.broadcastPartialCreatureUpdate(clientConnection.creature, ['life', 'stamina', 'mana']);
 
     return Promise.resolve();
   }
@@ -847,7 +843,6 @@ export class ServerInterface implements ICommands {
 
     if (meta.food) {
       clientConnection.creature.food += meta.food;
-      server.broadcastPartialCreatureUpdate(clientConnection.creature, ['food']);
     }
     server.modifyCreatureAttributes(null, clientConnection.creature, {
       life: meta.foodLife,

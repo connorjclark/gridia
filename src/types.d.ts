@@ -594,3 +594,5 @@ interface ScriptError {
   stack?: Error;
   data?: any;
 }
+
+type SniffedOperation = import('./lib/sniff-object').SniffedOperation;

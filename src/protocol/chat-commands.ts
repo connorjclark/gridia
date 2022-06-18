@@ -113,7 +113,6 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
     //       width: args.width || 1,
     //       height: args.height || 1,
     //     };
-    //     server.broadcastPartialCreatureUpdate(clientConnection.creature, ['graphics']);
     //   },
     // },
     image: {
@@ -135,7 +134,6 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
               frames: [Utils.randInt(0, 3)],
             };
           }
-          server.broadcastPartialCreatureUpdate(playerConnection.creature, ['graphics']);
           // Equipment graphics might change.
           server.updateCreatureDataBasedOnEquipment(
             playerConnection.creature, playerConnection.equipment, {broadcast: true});
@@ -147,7 +145,6 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
         playerConnection.creature.graphics = {
           ...monster.graphics,
         };
-        server.broadcastPartialCreatureUpdate(playerConnection.creature, ['graphics']);
       },
     },
     animation: {

@@ -93,9 +93,7 @@ declare namespace Protocol {
       tiles: Tile[][];
     }
 
-    interface SetCreature extends Partial<Creature> {
-      partial: boolean;
-    }
+    type SetCreature = Creature | {id: number; ops: SniffedOperation[]};
 
     interface SetFloor extends TilePoint {
       floor: number;

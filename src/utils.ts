@@ -213,3 +213,11 @@ export function mapFromRecord<K extends string | number | symbol, V>(record: Rec
   }
   return map;
 }
+
+export function hasCreatureDataChanged(event: Protocol.Events.SetCreature, prop: keyof Creature) {
+  if ('ops' in event) {
+    return event.ops.some((op) => op.path.startsWith('.' + prop));
+  } else {
+    return true;
+  }
+}
