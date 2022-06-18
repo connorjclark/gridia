@@ -65,7 +65,9 @@ export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperati
       value = unwrap(value);
 
       if (!(Array.isArray(target) && prop === 'length')) {
-        cb({path, newValue: value});
+        if (value !== Reflect.get(target, prop, reciever)) {
+          cb({path, newValue: value});
+        }
       }
 
       return Reflect.set(target, prop, value, reciever);

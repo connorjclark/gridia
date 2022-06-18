@@ -17,6 +17,19 @@ describe('sniffObject', () => {
     expect(sniffer.name).toEqual('renamed');
   });
 
+  it('ignores same value', () => {
+    const object = {
+      name: 'name',
+    };
+    const ops: SniffedOperation[] = [];
+    const sniffer = sniffObject(object, (op) => {
+      ops.push(op);
+    });
+    sniffer.name = 'name';
+    expect(ops).toEqual([]);
+    expect(sniffer.name).toEqual('name');
+  });
+
   it('nested', () => {
     const object = {
       nested: {
