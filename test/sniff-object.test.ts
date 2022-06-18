@@ -157,13 +157,71 @@ describe('sniffObject', () => {
     });
     sniffer.values[1].entry *= 100;
     expect(ops).toEqual([
-      // {path: '.values', deleteIndices: [0, 2]},
-      {path: '.values', newValue: [{entry: 1}, {entry: 3}]},
+      {path: '.values', deleteIndices: [0, 2]},
       {path: '.values.1.entry', newValue: 300},
     ]);
     expect(object.values).toEqual([
       {entry: 1},
       {entry: 300},
+    ]);
+  });
+
+  it('array.filter deferred', () => {
+    const object = {
+      values: [
+        {entry: 0},
+        {entry: 1},
+        {entry: 2},
+        {entry: 3},
+      ],
+    };
+    const ops: SniffedOperation[] = [];
+    const sniffer = sniffObject(object, (op) => {
+      op.newValue = clone(op.newValue);
+      ops.push(op);
+    });
+
+    const newValues = sniffer.values.filter((_, i) => {
+      return i % 2;
+    });
+    newValues[1].entry *= 100;
+    sniffer.values = newValues;
+
+    expect(ops).toEqual([
+      {path: '.values', deleteIndices: [0, 2]},
+      {path: '.values.1.entry', newValue: 300},
+    ]);
+    expect(object.values).toEqual([
+      {entry: 1},
+      {entry: 300},
+    ]);
+  });
+
+  it('array.filter repeated', () => {
+    const object = {
+      values: [
+        {entry: 0},
+        {entry: 1},
+        {entry: 2},
+        {entry: 3},
+      ],
+    };
+    const ops: SniffedOperation[] = [];
+    const sniffer = sniffObject(object, (op) => {
+      op.newValue = clone(op.newValue);
+      ops.push(op);
+    });
+
+    sniffer.values = sniffer.values
+      .filter((_, i) => i % 2)
+      .filter((value) => value.entry > 2);
+
+    expect(ops).toEqual([
+      {path: '.values', deleteIndices: [0, 2]},
+      {path: '.values', deleteIndices: [0]},
+    ]);
+    expect(object.values).toEqual([
+      {entry: 3},
     ]);
   });
 });
