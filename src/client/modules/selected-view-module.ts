@@ -55,8 +55,8 @@ export class SelectedViewModule extends ClientModule {
     // let tilePos;
     let item;
 
-    if (game.client.attackingCreatureId) {
-      state.selectedView.creatureId = game.client.attackingCreatureId;
+    if (game.client.session.attackingCreatureId) {
+      state.selectedView.creatureId = game.client.session.attackingCreatureId;
       state.selectedView.location = undefined;
     }
 
@@ -126,7 +126,7 @@ export class SelectedViewModule extends ClientModule {
     }
 
     // Don't allow actions on self.
-    const isSelf = creature?.id === game.client.creatureId;
+    const isSelf = creature?.id === game.client.session.creatureId;
     if (isSelf) {
       state.selectedView.actions = [];
     } else {

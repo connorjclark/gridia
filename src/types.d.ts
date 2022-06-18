@@ -98,6 +98,11 @@ interface Settings {
   limitView: boolean;
 }
 
+interface SessionState {
+  creatureId: number;
+  attackingCreatureId: number | null;
+}
+
 interface GridiaAccount {
   /** A unique, secret id. */
   id: string;

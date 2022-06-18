@@ -104,7 +104,7 @@ export function makeContainerWindow(game: Game, container: Container, name?: str
 
   type Props = ComponentProps<State, typeof actions>;
   const ContainerWindow = (props: Props) => {
-    const creature = useCreature(game, game.client.creatureId);
+    const creature = useCreature(game, game.client.session.creatureId);
     const player = usePlayer(game);
     const maxBurden = useMemo(() => {
       return Player.getMaxBurden(player);

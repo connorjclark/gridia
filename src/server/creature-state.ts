@@ -823,7 +823,7 @@ export class CreatureState {
     if (untargetCreature) {
       this.targetCreature = null;
       const clientConnection = server.getClientConnectionForCreature(this.creature);
-      if (clientConnection) clientConnection.sendEvent(EventBuilder.setAttackTarget({creatureId: null}));
+      if (clientConnection) clientConnection.sendEvent(EventBuilder.updateSessionState({attackingCreatureId: null}));
     }
   }
 }

@@ -6,6 +6,7 @@ export interface IEvents {
     onAnimation(client: Client, { ...animationInstance }: Protocol.Events.Animation): void;
     onContainer(client: Client, { container }: Protocol.Events.Container): void;
     onInitialize(client: Client, { player, creatureId, secondsPerWorldTick, ticksPerWorldDay }: Protocol.Events.Initialize): void;
+    onUpdateSessionState(client: Client, { ...session }: Protocol.Events.UpdateSessionState): void;
     onInitializePartition(client: Client, { name, ...pos }: Protocol.Events.InitializePartition): void;
     onLog(client: Client, { msg }: Protocol.Events.Log): void;
     onRemoveCreature(client: Client, { id }: Protocol.Events.RemoveCreature): void;
@@ -16,9 +17,8 @@ export interface IEvents {
     onXp(client: Client, { skill, xp }: Protocol.Events.Xp): void;
     onChat(client: Client, { section, from, creatureId, text }: Protocol.Events.Chat): void;
     onTime(client: Client, { epoch }: Protocol.Events.Time): void;
-    onStartDialogue(client: Client, { speakers, dialogue }: Protocol.Events.StartDialogue): void;
+    onStartDialogue(client: Client, { speakers, dialogue, index, symbols }: Protocol.Events.StartDialogue): void;
     onUpdateDialogue(client: Client, { id, index, symbols }: Protocol.Events.UpdateDialogue): void;
-    onSetAttackTarget(client: Client, { creatureId }: Protocol.Events.SetAttackTarget): void;
     onCreatureStatus(client: Client, { creatureId, text, color }: Protocol.Events.CreatureStatus): void;
     onNotification(client: Client, { details }: Protocol.Events.Notification): void;
     onRawAnimation(client: Client, { pos, tint, path, light, offshootRate, frames }: Protocol.Events.RawAnimation): void;

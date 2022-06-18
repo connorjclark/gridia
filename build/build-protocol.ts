@@ -171,6 +171,8 @@ function createMessageParamsBinding({qualifier, messageDeclaration, commandOrEve
         bindName = 'creature';
       } else if (extendedType === 'GridiaAnimationInstance') {
         bindName = 'animationInstance';
+      } else if (extendedType === 'SessionState') {
+        bindName = 'session';
       } else {
         throw new Error('unexpected type: ' + extendedType);
       }

@@ -569,13 +569,14 @@ export class Game {
         creatureSprite.dirty = true;
       }
     }
-    if (event.type === 'removeCreature' && this.client.attackingCreatureId === this.state.selectedView.creatureId) {
+    if (event.type === 'removeCreature' &&
+        this.client.session.attackingCreatureId === this.state.selectedView.creatureId) {
       // Disable attack.
       this.client.connection.sendCommand(CommandBuilder.creatureAction({
         type: 'attack',
         creatureId: 0,
       }));
-      this.client.attackingCreatureId = null;
+      this.client.session.attackingCreatureId = null;
     }
     if (event.type === 'removeCreature' && event.args.id === this.state.selectedView.creatureId) {
       delete this.state.selectedView.creatureId;
@@ -590,7 +591,7 @@ export class Game {
       this.worldContainer.animationController.addEmitter(event.args);
     }
 
-    if (event.type === 'setAttackTarget') {
+    if (event.type === 'updateSessionState' && event.args.attackingCreatureId !== undefined) {
       // "Attack" action text may change.
       this.modules.selectedView.renderSelectedView();
     }
@@ -1275,13 +1276,13 @@ export class Game {
       this.windowManager.getWindow('skills').toggle();
       break;
     case 'attack':
-      if (this.client.attackingCreatureId) {
+      if (this.client.session.attackingCreatureId) {
         // Disable attack.
         this.client.connection.sendCommand(CommandBuilder.creatureAction({
           type: 'attack',
           creatureId: 0,
         }));
-        this.client.attackingCreatureId = null;
+        this.client.session.attackingCreatureId = null;
       } else if (this.state.selectedView.creatureId) {
         this.client.connection.sendCommand(CommandBuilder.creatureAction({
           type: 'attack',
@@ -1299,7 +1300,7 @@ export class Game {
 
     const creaturesSortedByDistance = [];
     for (const creature of this.client.context.creatures.values()) {
-      if (creature.id === this.client.creatureId) continue;
+      if (creature.id === this.client.session.creatureId) continue;
       if (creature.pos.w !== focusPos.w) continue;
       if (creature.pos.z !== focusPos.z) continue;
       if (!this.worldContainer.camera.contains(creature.pos)) continue;
@@ -1501,7 +1502,7 @@ export class Game {
       (this.state.selectedView.location?.source === 'world' && this.state.selectedView.location.pos);
     if (selectedViewLoc) {
       this._selectedViewCursor.location = Utils.ItemLocation.World(selectedViewLoc);
-      if (selectedCreatureId && selectedCreatureId === this.client.attackingCreatureId) {
+      if (selectedCreatureId && selectedCreatureId === this.client.session.attackingCreatureId) {
         this._selectedViewCursor.color = 'red';
       } else if (selectedCreatureId) {
         this._selectedViewCursor.color = 'green';

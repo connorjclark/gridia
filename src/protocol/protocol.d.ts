@@ -74,6 +74,9 @@ declare namespace Protocol {
       // quests: Array<{id: string, name: string, started: boolean}>;
     }
 
+    interface UpdateSessionState extends Partial<SessionState> {
+    }
+
     interface InitializePartition extends TilePoint {
       name: string;
     }
@@ -131,10 +134,6 @@ declare namespace Protocol {
       id: string;
       index: number;
       symbols: Set<string>;
-    }
-
-    interface SetAttackTarget {
-      creatureId: number | null;
     }
 
     interface CreatureStatus {

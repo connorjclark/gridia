@@ -12,6 +12,10 @@ type InitializeEvent = {
     type: "initialize";
     args: Protocol.Events.Initialize;
 };
+type UpdateSessionStateEvent = {
+    type: "updateSessionState";
+    args: Protocol.Events.UpdateSessionState;
+};
 type InitializePartitionEvent = {
     type: "initializePartition";
     args: Protocol.Events.InitializePartition;
@@ -60,10 +64,6 @@ type UpdateDialogueEvent = {
     type: "updateDialogue";
     args: Protocol.Events.UpdateDialogue;
 };
-type SetAttackTargetEvent = {
-    type: "setAttackTarget";
-    args: Protocol.Events.SetAttackTarget;
-};
 type CreatureStatusEvent = {
     type: "creatureStatus";
     args: Protocol.Events.CreatureStatus;
@@ -77,7 +77,7 @@ type RawAnimationEvent = {
     args: Protocol.Events.RawAnimation;
 };
 
-export type ProtocolEvent = AnimationEvent | ContainerEvent | InitializeEvent | InitializePartitionEvent | LogEvent | RemoveCreatureEvent | SectorEvent | SetCreatureEvent | SetFloorEvent | SetItemEvent | XpEvent | ChatEvent | TimeEvent | StartDialogueEvent | UpdateDialogueEvent | SetAttackTargetEvent | CreatureStatusEvent | NotificationEvent | RawAnimationEvent;
+export type ProtocolEvent = AnimationEvent | ContainerEvent | InitializeEvent | UpdateSessionStateEvent | InitializePartitionEvent | LogEvent | RemoveCreatureEvent | SectorEvent | SetCreatureEvent | SetFloorEvent | SetItemEvent | XpEvent | ChatEvent | TimeEvent | StartDialogueEvent | UpdateDialogueEvent | CreatureStatusEvent | NotificationEvent | RawAnimationEvent;
 
 export function animation({ ...animationInstance }: Protocol.Events.Animation): AnimationEvent {
     return { type: "animation", args: arguments[0] };
@@ -87,6 +87,9 @@ export function container({ container }: Protocol.Events.Container): ContainerEv
 }
 export function initialize({ player, creatureId, secondsPerWorldTick, ticksPerWorldDay }: Protocol.Events.Initialize): InitializeEvent {
     return { type: "initialize", args: arguments[0] };
+}
+export function updateSessionState({ ...session }: Protocol.Events.UpdateSessionState): UpdateSessionStateEvent {
+    return { type: "updateSessionState", args: arguments[0] };
 }
 export function initializePartition({ name, ...pos }: Protocol.Events.InitializePartition): InitializePartitionEvent {
     return { type: "initializePartition", args: arguments[0] };
@@ -118,14 +121,11 @@ export function chat({ section, from, creatureId, text }: Protocol.Events.Chat):
 export function time({ epoch }: Protocol.Events.Time): TimeEvent {
     return { type: "time", args: arguments[0] };
 }
-export function startDialogue({ speakers, dialogue }: Protocol.Events.StartDialogue): StartDialogueEvent {
+export function startDialogue({ speakers, dialogue, index, symbols }: Protocol.Events.StartDialogue): StartDialogueEvent {
     return { type: "startDialogue", args: arguments[0] };
 }
 export function updateDialogue({ id, index, symbols }: Protocol.Events.UpdateDialogue): UpdateDialogueEvent {
     return { type: "updateDialogue", args: arguments[0] };
-}
-export function setAttackTarget({ creatureId }: Protocol.Events.SetAttackTarget): SetAttackTargetEvent {
-    return { type: "setAttackTarget", args: arguments[0] };
 }
 export function creatureStatus({ creatureId, text, color }: Protocol.Events.CreatureStatus): CreatureStatusEvent {
     return { type: "creatureStatus", args: arguments[0] };

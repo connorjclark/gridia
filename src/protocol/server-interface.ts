@@ -310,7 +310,7 @@ export class ServerInterface implements ICommands {
 
     if (type === 'attack' && creatureId === 0) {
       server.creatureStates[clientConnection.creature.id].targetCreature = null;
-      clientConnection.sendEvent(EventBuilder.setAttackTarget({creatureId: null}));
+      clientConnection.sendEvent(EventBuilder.updateSessionState({attackingCreatureId: null}));
       return Promise.resolve();
     }
 
@@ -328,7 +328,7 @@ export class ServerInterface implements ICommands {
       if (creature.isNPC) throw new InvalidProtocolError('Cannot attack NPC');
 
       server.creatureStates[clientConnection.creature.id].targetCreature = creatureState;
-      clientConnection.sendEvent(EventBuilder.setAttackTarget({creatureId}));
+      clientConnection.sendEvent(EventBuilder.updateSessionState({attackingCreatureId: creatureId}));
     }
 
     if (type === 'tame') {

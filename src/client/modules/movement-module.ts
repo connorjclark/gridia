@@ -27,13 +27,13 @@ export class MovementModule extends ClientModule {
   onStart() {
     this.game.client.eventEmitter.on('action', this.onAction);
     this.game.client.eventEmitter.on('event', (e) => {
-      if (e.type === 'setAttackTarget') {
+      if (e.type === 'updateSessionState' && e.args.attackingCreatureId !== undefined) {
         // Only move towards creature if using melee attack.
         const attackType = this.game.client.equipment && Player.getCombatAttackType(this.game.client.equipment);
 
         if (attackType === 'melee') {
-          if (e.args.creatureId) {
-            this.followCreature = this.game.client.context.getCreature(e.args.creatureId);
+          if (e.args.attackingCreatureId) {
+            this.followCreature = this.game.client.context.getCreature(e.args.attackingCreatureId);
           } else {
             this.followCreature = undefined;
           }

@@ -1079,7 +1079,7 @@ export class Server {
         this.broadcastPartialCreatureUpdate(creature, ['life', 'stamina', 'mana']);
         if (clientConnection) {
           this.creatureStates[clientConnection.creature.id].targetCreature = null;
-          clientConnection.sendEvent(EventBuilder.setAttackTarget({creatureId: null}));
+          clientConnection.sendEvent(EventBuilder.updateSessionState({attackingCreatureId: null}));
         }
         if (actor) this.creatureStates[actor.id].targetCreature = null;
       } else {

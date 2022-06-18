@@ -48,7 +48,7 @@ function globalActionCreator(location: ItemLocation): GameAction[] {
     if (!creature.isPlayer && !creature.isNPC) {
       actions.push({
         type: 'attack',
-        innerText: game.client.attackingCreatureId ? 'Stop Attack [R]' : 'Attack [R]',
+        innerText: game.client.session.attackingCreatureId ? 'Stop Attack [R]' : 'Attack [R]',
         title: 'Attack',
       });
     }

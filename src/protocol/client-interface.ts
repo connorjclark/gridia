@@ -22,10 +22,14 @@ export class ClientInterface implements IEvents {
 
   onInitialize(client: Client, opts: Events.Initialize): void {
     client.player = opts.player;
-    client.creatureId = opts.creatureId;
+    client.session.creatureId = opts.creatureId;
     // TODO: move to login.
     client.context.secondsPerWorldTick = opts.secondsPerWorldTick;
     client.context.ticksPerWorldDay = opts.ticksPerWorldDay;
+  }
+
+  onUpdateSessionState(client: Client, opts: Events.UpdateSessionState): void {
+    client.session = {...client.session, ...opts};
   }
 
   onInitializePartition(client: Client, {name, ...pos}: Events.InitializePartition): void {
@@ -101,10 +105,6 @@ export class ClientInterface implements IEvents {
 
   onUpdateDialogue(client: Client, {symbols, index}: Events.UpdateDialogue): void {
     // handled by game.ts
-  }
-
-  onSetAttackTarget(client: Client, {creatureId}: Events.SetAttackTarget): void {
-    client.attackingCreatureId = creatureId;
   }
 
   onCreatureStatus(client: Client, {creatureId, text, color}: Events.CreatureStatus): void {

@@ -17,8 +17,13 @@ export class Client {
   // @ts-expect-error set later.
   settings: Settings = {};
 
-  creatureId = 0;
-  attackingCreatureId: number | null = 0;
+  // creatureId = 0;
+  // attackingCreatureId: number | null = 0;
+
+  session: SessionState = {
+    creatureId: -1,
+    attackingCreatureId: null,
+  };
 
   // TODO: mark private
   _lastSyncedEpoch = 0;
@@ -89,7 +94,7 @@ export class Client {
   }
 
   get creature() {
-    return this.context.getCreature(this.creatureId);
+    return this.context.getCreature(this.session.creatureId);
   }
 
   // TODO remove undefined from return type
