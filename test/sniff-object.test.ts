@@ -259,7 +259,7 @@ describe('sniffObject', () => {
     if (value) value.entry = 101;
 
     expect(ops).toEqual([
-      {path: '.map', deleteMapKey: 0},
+      {path: '.map', delete: 0},
       {path: '.map.1', newValue: {entry: 100}},
       {path: '.map.1.entry', newValue: 101},
     ]);
@@ -274,5 +274,24 @@ describe('sniffObject', () => {
       {path: '.map', clear: true},
     ]);
     expect(object.map).toEqual(new Map());
+  });
+
+  it('Set', () => {
+    const object = {
+      set: new Set([0, 1, 2, 3]),
+    };
+    const ops: SniffedOperation[] = [];
+    const sniffer = sniffObject(object, (op) => {
+      ops.push(op);
+    });
+
+    sniffer.set.delete(0);
+    sniffer.set.add(100);
+
+    expect(ops).toEqual([
+      {path: '.set', delete: 0},
+      {path: '.set', add: 100},
+    ]);
+    expect(object.set).toEqual(new Set([1, 2, 3, 100]));
   });
 });

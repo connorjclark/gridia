@@ -4,9 +4,10 @@ export interface SniffedOperation {
   path: string;
   newValue?: any;
   splice?: {start: number; deleteCount: number; items: any[]};
-  clear?: boolean;
-  deleteMapKey?: string | number;
   deleteIndices?: number[];
+  add?: string | number;
+  delete?: string | number;
+  clear?: boolean;
 }
 
 interface DeferredState {
@@ -120,22 +121,31 @@ export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperati
       }
 
       const targetValue = Reflect.get(target, prop, reciever);
-      if ((target.constructor === Map || target.constructor === Set) && typeof targetValue === 'function') {
+      const isMap = target.constructor === Map;
+      const isSet = target.constructor === Set;
+      if ((isMap || isSet) && typeof targetValue === 'function') {
         const targetMethod = targetValue.bind(target);
-
-        if (prop === 'set') {
+        if (isMap && prop === 'set') {
           const origTargetMethod = targetMethod;
           return (k: string | number, v: string) => {
+            if (typeof k === 'object') throw new Error('Map keys must be string or number');
             origTargetMethod(k, v);
             cb({path: `${prefix}.${k}`, newValue: v});
+          };
+        } else if (isSet && prop === 'add') {
+          const origTargetMethod = targetMethod;
+          return (v: string | number) => {
+            if (typeof v === 'object') throw new Error('Sets can only contain strings or numbers');
+            origTargetMethod(v);
+            cb({path: prefix, add: v});
           };
         } else if (prop === 'delete') {
           const origTargetMethod = targetMethod;
           return (k: string | number, v: string) => {
             origTargetMethod(k, v);
-            cb({path: prefix, deleteMapKey: k});
+            cb({path: prefix, delete: k});
           };
-        } else if (prop === 'get') {
+        } else if (isMap && prop === 'get') {
           const origTargetMethod = targetMethod;
           return (k: string | number) => {
             return sniffObject(origTargetMethod(k), cb, `${prefix}.${k}`);
