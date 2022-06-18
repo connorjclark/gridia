@@ -4,6 +4,8 @@ export interface SniffedOperation {
   path: string;
   newValue?: any;
   splice?: {start: number; deleteCount: number; items: any[]};
+  clear?: boolean;
+  deleteMapKey?: string | number;
   deleteIndices?: number[];
 }
 
@@ -116,6 +118,37 @@ export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperati
       }
 
       const targetValue = Reflect.get(target, prop, reciever);
+      if ((target.constructor === Map || target.constructor === Set) && typeof targetValue === 'function') {
+        const targetMethod = targetValue.bind(target);
+
+        if (prop === 'set') {
+          const origTargetMethod = targetMethod;
+          return (k: string | number, v: string) => {
+            origTargetMethod(k, v);
+            cb({path: `${prefix}.${k}`, newValue: v});
+          };
+        } else if (prop === 'delete') {
+          const origTargetMethod = targetMethod;
+          return (k: string | number, v: string) => {
+            origTargetMethod(k, v);
+            cb({path: prefix, deleteMapKey: k});
+          };
+        } else if (prop === 'get') {
+          const origTargetMethod = targetMethod;
+          return (k: string | number) => {
+            return sniffObject(origTargetMethod(k), cb, `${prefix}.${k}`);
+          };
+        } else if (prop === 'clear') {
+          const origTargetMethod = targetMethod;
+          return () => {
+            origTargetMethod();
+            cb({path: prefix, clear: true});
+          };
+        } else {
+          return targetMethod;
+        }
+      }
+
       if (typeof targetValue === 'object' && targetValue !== null) {
         // @ts-expect-error does not support symbols.
         const path = `${prefix}.${prop}`;

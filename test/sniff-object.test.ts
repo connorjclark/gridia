@@ -224,4 +224,42 @@ describe('sniffObject', () => {
       {entry: 3},
     ]);
   });
+
+  it('Map', () => {
+    const object = {
+      map: new Map([
+        [0, {entry: 0}],
+        [1, {entry: 1}],
+        [2, {entry: 2}],
+        [3, {entry: 3}],
+      ]),
+    };
+    const ops: SniffedOperation[] = [];
+    const sniffer = sniffObject(object, (op) => {
+      op.newValue = clone(op.newValue);
+      ops.push(op);
+    });
+
+    sniffer.map.delete(0);
+    sniffer.map.set(1, {entry: 100});
+    const value = sniffer.map.get(1);
+    if (value) value.entry = 101;
+
+    expect(ops).toEqual([
+      {path: '.map', deleteMapKey: 0},
+      {path: '.map.1', newValue: {entry: 100}},
+      {path: '.map.1.entry', newValue: 101},
+    ]);
+    expect(object.map).toEqual(new Map([
+      [1, {entry: 101}],
+      [2, {entry: 2}],
+      [3, {entry: 3}],
+    ]));
+
+    sniffer.map.clear();
+    expect(ops.slice(3)).toEqual([
+      {path: '.map', clear: true},
+    ]);
+    expect(object.map).toEqual(new Map());
+  });
 });
