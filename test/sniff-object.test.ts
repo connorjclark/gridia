@@ -1,6 +1,6 @@
 import expect from 'expect';
 
-import {sniffObject, SniffedOperation} from '../src/lib/sniff-object.js';
+import {sniffObject, SniffedOperation, replaySniffedOperations} from '../src/lib/sniff-object.js';
 import {clone} from '../src/utils.js';
 
 describe('sniffObject', () => {
@@ -289,6 +289,111 @@ describe('sniffObject', () => {
     sniffer.set.add(100);
 
     expect(ops).toEqual([
+      {path: '.set', delete: 0},
+      {path: '.set', add: 100},
+    ]);
+    expect(object.set).toEqual(new Set([1, 2, 3, 100]));
+  });
+});
+
+describe('replaySniffedOperations', () => {
+  it('basic', () => {
+    const object = {
+      name: 'name',
+    };
+    replaySniffedOperations(object, [
+      {path: '.name', value: 'renamed'},
+    ]);
+    expect(object.name).toEqual('renamed');
+  });
+
+  it('nested', () => {
+    const object = {
+      nested: {
+        name: 'name',
+      },
+    };
+    replaySniffedOperations(object, [
+      {path: '.nested.name', value: 'renamed'},
+    ]);
+    expect(object.nested.name).toEqual('renamed');
+  });
+
+  it('array', () => {
+    const object = {
+      values: [
+        {entry: 0},
+        {entry: 1},
+        {entry: 2},
+        {entry: 3},
+      ],
+    };
+    replaySniffedOperations(object, [
+      {path: '.values.1.entry', value: 100},
+      {path: '.values.4', value: {entry: 4}},
+      {path: '.values', splice: {start: 2, deleteCount: 1, items: [{entry: 200}]}},
+    ]);
+    expect(object.values).toEqual([
+      {entry: 0},
+      {entry: 100},
+      {entry: 200},
+      {entry: 3},
+      {entry: 4},
+    ]);
+  });
+
+  it('array deleteIndices', () => {
+    const object = {
+      values: [
+        {entry: 0},
+        {entry: 1},
+        {entry: 2},
+        {entry: 3},
+      ],
+    };
+    replaySniffedOperations(object, [
+      {path: '.values', deleteIndices: [0, 2]},
+    ]);
+    expect(object.values).toEqual([
+      {entry: 1},
+      {entry: 3},
+    ]);
+  });
+
+  it('add properties if missing', () => {
+    const object: any = {};
+    replaySniffedOperations(object, [
+      {path: '.nested.name', value: 'renamed'},
+    ]);
+    expect(object.nested.name).toEqual('renamed');
+  });
+
+  it('Map', () => {
+    const object = {
+      map: new Map([
+        [0, {entry: 0}],
+        [1, {entry: 1}],
+        [2, {entry: 2}],
+        [3, {entry: 3}],
+      ]),
+    };
+    replaySniffedOperations(object, [
+      {path: '.map', delete: 0},
+      {path: '.map.1', value: {entry: 100}},
+      {path: '.map.1.entry', value: 101},
+    ]);
+    expect(object.map).toEqual(new Map([
+      [1, {entry: 101}],
+      [2, {entry: 2}],
+      [3, {entry: 3}],
+    ]));
+  });
+
+  it('Set', () => {
+    const object = {
+      set: new Set([0, 1, 2, 3]),
+    };
+    replaySniffedOperations(object, [
       {path: '.set', delete: 0},
       {path: '.set', add: 100},
     ]);

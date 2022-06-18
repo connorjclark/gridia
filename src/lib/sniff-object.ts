@@ -1,5 +1,9 @@
 const sniffed = Symbol();
 
+function assert(val: any) {
+  if (!val) throw new Error('assertion failed');
+}
+
 export interface SniffedOperation {
   path: string;
   value?: any;
@@ -173,4 +177,58 @@ export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperati
 
   proxyToOriginalObject.set(proxy, object);
   return proxy;
+}
+
+function stringValueToKey(str: string): string | number {
+  const asNumber = Number(str);
+  if (!Number.isNaN(asNumber)) return asNumber;
+  return str;
+}
+
+export function replaySniffedOperations(object: any, ops: SniffedOperation[]) {
+  assert(typeof object === 'object' && object !== null);
+  assert(!Reflect.get(object, sniffed, object));
+
+  for (const op of ops) {
+    assert(op.path[0] === '.');
+
+    const pathComponents = op.path.split('.');
+    let obj = object;
+    for (let i = 1; i < pathComponents.length - 1; i++) {
+      const nextKey = stringValueToKey(pathComponents[i]);
+      let next = obj.constructor === Map ? obj.get(nextKey) : obj[nextKey];
+      if (!next) {
+        // Assumes this should be an object. May be problematic.
+        next = obj[pathComponents[i]] = {};
+      }
+      obj = next;
+    }
+
+    const key = stringValueToKey(pathComponents[pathComponents.length - 1]);
+    if (op.value !== undefined) {
+      if (obj.constructor === Map) {
+        obj.set(key, op.value);
+      } else {
+        obj[key] = op.value;
+      }
+    } else if (op.splice) {
+      const array = obj[key];
+      assert(Array.isArray(array));
+      array.splice(op.splice.start, op.splice.deleteCount, ...op.splice.items);
+    } else if (op.deleteIndices) {
+      const array: any[] = obj[key];
+      assert(Array.isArray(array));
+      obj[key] = array.filter((_, i) => {
+        return !op.deleteIndices?.includes(i);
+      });
+    } else if (op.delete !== undefined) {
+      const mapOrSet: Map<any, any> | Set<any> = obj[key];
+      assert(mapOrSet.constructor === Map || mapOrSet.constructor === Set);
+      mapOrSet.delete(op.delete);
+    } else if (op.add !== undefined) {
+      const set: Set<any> = obj[key];
+      assert(set.constructor === Set);
+      set.add(op.add);
+    }
+  }
 }
