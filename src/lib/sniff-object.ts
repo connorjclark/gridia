@@ -2,7 +2,7 @@ const sniffed = Symbol();
 
 export interface SniffedOperation {
   path: string;
-  newValue?: any;
+  value?: any;
   splice?: {start: number; deleteCount: number; items: any[]};
   deleteIndices?: number[];
   add?: string | number;
@@ -67,7 +67,7 @@ export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperati
 
       if (!(Array.isArray(target) && prop === 'length')) {
         if (value !== Reflect.get(target, prop, reciever)) {
-          cb({path, newValue: value});
+          cb({path, value});
         }
       }
 
@@ -130,7 +130,7 @@ export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperati
           return (k: string | number, v: string) => {
             if (typeof k === 'object') throw new Error('Map keys must be string or number');
             origTargetMethod(k, v);
-            cb({path: `${prefix}.${k}`, newValue: v});
+            cb({path: `${prefix}.${k}`, value: v});
           };
         } else if (isSet && prop === 'add') {
           const origTargetMethod = targetMethod;

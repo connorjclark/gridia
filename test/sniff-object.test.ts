@@ -13,7 +13,7 @@ describe('sniffObject', () => {
       ops.push(op);
     });
     sniffer.name = 'renamed';
-    expect(ops).toEqual([{path: '.name', newValue: 'renamed'}]);
+    expect(ops).toEqual([{path: '.name', value: 'renamed'}]);
     expect(sniffer.name).toEqual('renamed');
   });
 
@@ -41,7 +41,7 @@ describe('sniffObject', () => {
       ops.push(op);
     });
     sniffer.nested.name = 'renamed';
-    expect(ops).toEqual([{path: '.nested.name', newValue: 'renamed'}]);
+    expect(ops).toEqual([{path: '.nested.name', value: 'renamed'}]);
     expect(sniffer.nested.name).toEqual('renamed');
   });
 
@@ -53,14 +53,14 @@ describe('sniffObject', () => {
     };
     const ops: SniffedOperation[] = [];
     const sniffer = sniffObject(object, (op) => {
-      op.newValue = clone(op.newValue);
+      op.value = clone(op.value);
       ops.push(op);
     });
     sniffer.nested = {name: 'renamed'};
     sniffer.nested.name = 'renamed again';
     expect(ops).toEqual([
-      {path: '.nested', newValue: {name: 'renamed'}},
-      {path: '.nested.name', newValue: 'renamed again'},
+      {path: '.nested', value: {name: 'renamed'}},
+      {path: '.nested.name', value: 'renamed again'},
     ]);
     expect(sniffer.nested.name).toEqual('renamed again');
   });
@@ -85,10 +85,10 @@ describe('sniffObject', () => {
     sniffer.values.splice(0, 1, {entry: 100});
     sniffer.values[0].entry = 101;
     expect(ops).toEqual([
-      {path: '.values.0.entry', newValue: 1},
-      {path: '.values.4', newValue: {entry: 4}},
+      {path: '.values.0.entry', value: 1},
+      {path: '.values.4', value: {entry: 4}},
       {path: '.values', splice: {start: 0, deleteCount: 1, items: [{entry: 100}]}},
-      {path: '.values.0.entry', newValue: 101},
+      {path: '.values.0.entry', value: 101},
     ]);
   });
 
@@ -111,9 +111,9 @@ describe('sniffObject', () => {
       return i % 2 ? {entry: value.entry * 100} : value;
     });
     expect(ops).toEqual([
-      // {path: '.values.1', newValue: {entry: 100}},
-      // {path: '.values.3', newValue: {entry: 300}},
-      {path: '.values', newValue: [
+      // {path: '.values.1', value: {entry: 100}},
+      // {path: '.values.3', value: {entry: 300}},
+      {path: '.values', value: [
         {entry: 0},
         {entry: 100},
         {entry: 2},
@@ -142,8 +142,8 @@ describe('sniffObject', () => {
       object.values[1],
     ];
     expect(ops).toEqual([
-      // {path: '.values.length', newValue: 2},
-      {path: '.values', newValue: [
+      // {path: '.values.length', value: 2},
+      {path: '.values', value: [
         {entry: 0},
         {entry: 1},
       ]},
@@ -161,7 +161,7 @@ describe('sniffObject', () => {
     };
     const ops: SniffedOperation[] = [];
     const sniffer = sniffObject(object, (op) => {
-      op.newValue = clone(op.newValue);
+      op.value = clone(op.value);
       ops.push(op);
     });
 
@@ -171,7 +171,7 @@ describe('sniffObject', () => {
     sniffer.values[1].entry *= 100;
     expect(ops).toEqual([
       {path: '.values', deleteIndices: [0, 2]},
-      {path: '.values.1.entry', newValue: 300},
+      {path: '.values.1.entry', value: 300},
     ]);
     expect(object.values).toEqual([
       {entry: 1},
@@ -190,7 +190,7 @@ describe('sniffObject', () => {
     };
     const ops: SniffedOperation[] = [];
     const sniffer = sniffObject(object, (op) => {
-      op.newValue = clone(op.newValue);
+      op.value = clone(op.value);
       ops.push(op);
     });
 
@@ -202,7 +202,7 @@ describe('sniffObject', () => {
 
     expect(ops).toEqual([
       {path: '.values', deleteIndices: [0, 2]},
-      {path: '.values.1.entry', newValue: 300},
+      {path: '.values.1.entry', value: 300},
     ]);
     expect(object.values).toEqual([
       {entry: 1},
@@ -221,7 +221,7 @@ describe('sniffObject', () => {
     };
     const ops: SniffedOperation[] = [];
     const sniffer = sniffObject(object, (op) => {
-      op.newValue = clone(op.newValue);
+      op.value = clone(op.value);
       ops.push(op);
     });
 
@@ -249,7 +249,7 @@ describe('sniffObject', () => {
     };
     const ops: SniffedOperation[] = [];
     const sniffer = sniffObject(object, (op) => {
-      op.newValue = clone(op.newValue);
+      op.value = clone(op.value);
       ops.push(op);
     });
 
@@ -260,8 +260,8 @@ describe('sniffObject', () => {
 
     expect(ops).toEqual([
       {path: '.map', delete: 0},
-      {path: '.map.1', newValue: {entry: 100}},
-      {path: '.map.1.entry', newValue: 101},
+      {path: '.map.1', value: {entry: 100}},
+      {path: '.map.1.entry', value: 101},
     ]);
     expect(object.map).toEqual(new Map([
       [1, {entry: 101}],
