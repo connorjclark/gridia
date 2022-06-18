@@ -307,6 +307,16 @@ describe('replaySniffedOperations', () => {
     expect(object.name).toEqual('renamed');
   });
 
+  it('can set to undefined', () => {
+    const object = {
+      name: 'name',
+    };
+    replaySniffedOperations(object, [
+      {path: '.name'},
+    ]);
+    expect(object.name).toEqual(undefined);
+  });
+
   it('nested', () => {
     const object = {
       nested: {

@@ -205,13 +205,7 @@ export function replaySniffedOperations(object: any, ops: SniffedOperation[]) {
     }
 
     const key = stringValueToKey(pathComponents[pathComponents.length - 1]);
-    if (op.value !== undefined) {
-      if (obj.constructor === Map) {
-        obj.set(key, op.value);
-      } else {
-        obj[key] = op.value;
-      }
-    } else if (op.splice) {
+    if (op.splice) {
       const array = obj[key];
       assert(Array.isArray(array));
       array.splice(op.splice.start, op.splice.deleteCount, ...op.splice.items);
@@ -229,6 +223,12 @@ export function replaySniffedOperations(object: any, ops: SniffedOperation[]) {
       const set: Set<any> = obj[key];
       assert(set.constructor === Set);
       set.add(op.add);
+    } else {
+      if (obj.constructor === Map) {
+        obj.set(key, op.value);
+      } else {
+        obj[key] = op.value;
+      }
     }
   }
 }
