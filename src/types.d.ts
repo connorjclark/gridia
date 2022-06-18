@@ -12,7 +12,7 @@ declare namespace PIXI {
   export * from 'pixi.js';
 }
 
-// This is code split'd.
+// // This is code split'd.
 declare let PIXI: import('pixi.js');
 declare let pixiSound: import('pixi-sound');
 declare let OutlineFilter: import('@pixi/filter-outline');

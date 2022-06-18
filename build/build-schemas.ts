@@ -3,30 +3,40 @@
 import fs from 'fs';
 import {resolve} from 'path';
 
-import * as TJS from 'typescript-json-schema';
+import * as tsj from 'ts-json-schema-generator';
 
-const settings: TJS.PartialArgs = {
-  // uniqueNames: true,
-  required: true,
-  ignoreErrors: true,
-  ref: true,
-  aliasRef: true,
+// TODO: waiting for https://github.com/vega/ts-json-schema-generator/issues/1294
+
+
+
+const config: tsj.Config = {
+  expose: 'all',
+  tsconfig: resolve('./tsconfig.json'),
+  skipTypeCheck: true,
 };
 
-const program = TJS.getProgramFromFiles([resolve('./src/types.d.ts')]);
-const generator = TJS.buildGenerator(program, settings);
-if (!generator) throw new Error();
+const generator = tsj.createGenerator(config);
 
-const scriptConfigSymbols = generator.getSymbols().filter((s) => s.name.endsWith('ScriptConfig'));
-const symbolNames = scriptConfigSymbols.map((s) => s.name);
-const schemas = generator.getSchemaForSymbols(symbolNames);
+const types = [
+  'TestObject',
+  // 'Player',
+  // 'BasicScriptConfig',
+  // // 'HubWorldScriptConfig',
+  // 'ThunderDomeScriptConfig',
+];
+const schemas = generator.createSchema(types[0]);
+delete schemas.$ref;
+for (const type of types.slice(1)) {
+  const moreSchemas = generator.createSchema(type);
+  schemas.definitions = {...schemas.definitions, ...moreSchemas.definitions};
+}
 
-// @ts-expect-error
-schemas.definitions.CreatureDescriptor.properties.type['ui:widget'] = 'CreatureTypeWidget';
-// https://github.com/rjsf-team/react-jsonschema-form/issues/675
-// @ts-expect-error
-delete schemas.definitions.CreatureDescriptor.properties.partial;
-// @ts-expect-error
-delete schemas.definitions.CreatureDescriptor.properties.onSpeak;
+// // @ts-expect-error
+// schemas.definitions.CreatureDescriptor.properties.type['ui:widget'] = 'CreatureTypeWidget';
+// // https://github.com/rjsf-team/react-jsonschema-form/issues/675
+// // @ts-expect-error
+// delete schemas.definitions.CreatureDescriptor.properties.partial;
+// // @ts-expect-error
+// delete schemas.definitions.CreatureDescriptor.properties.onSpeak;
 
 fs.writeFileSync('./src/client/ui/components/schemas.json', JSON.stringify(schemas, null, 2));
