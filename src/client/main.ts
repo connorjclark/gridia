@@ -155,14 +155,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Create player / enter world as player.
     const players = (controller.currentScene as SelectCharacterScene).getExistingPlayers();
-    const playerName = controller.qs.playerId || 'Quicksilver'; // TODO ...
+    const playerName = controller.qs.playerId || '@TestUser'; // TODO ...
     const existingPlayer = playerName && players.find((p) => p.name === playerName);
     if (existingPlayer) {
       controller.selectPlayer(existingPlayer.id);
     } else {
       await controller.client.connection.sendCommand(CommandBuilder.createPlayer({
         name: playerName,
-        attributes: new Map(),
+        attributes: new Map([]),
         skills: new Map(),
       }));
       controller.startGame();

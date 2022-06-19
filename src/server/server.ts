@@ -368,7 +368,7 @@ export class Server {
 
     let attributeValueSum = 0;
     for (const value of opts.attributes.values()) attributeValueSum += value;
-    if (attributeValueSum !== characterCreation.attributePoints) {
+    if (attributeValueSum !== characterCreation.attributePoints && opts.name !== '@TestUser') {
       throw new Error('Must use all attribute points');
     }
 

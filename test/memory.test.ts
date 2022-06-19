@@ -67,7 +67,7 @@ async function collect(page: puppeteer.Page, numSamples: number, duration: numbe
 
 function detect(memory: Memory) {
   const passed = memory.last.additionalMemoryPercentage < 0.1;
-  const warn = passed && memory.last.additionalMemory > 0;
+  const warn = passed && memory.last.additionalMemoryPercentage >= 0.05;
 
   if (warn) {
     console.warn('slight increase in memory');
@@ -109,19 +109,6 @@ describe('Check for memory leaks', function() {
 
     console.warn('make sure to have run yarn build');
     await new Promise<void>((resolve, reject) => {
-      const childProcess = spawn('yarn', ['run-server-no-firebase']);
-      childProcess.stdout.on('data', (data: Buffer) => {
-        console.log('[server STDOUT]', data.toString());
-        if (data.toString().includes('Server started')) resolve();
-      });
-      childProcess.stderr.on('data', (data: Buffer) => {
-        console.log('[server STDERR]', data.toString().trimEnd());
-      });
-      childProcess.on('close', reject);
-      childProcess.on('error', reject);
-      childProcesses.push(childProcess);
-    }).catch(() => process.exit(1));
-    await new Promise<void>((resolve, reject) => {
       const childProcess = spawn('yarn', ['run-static-server']);
       childProcess.stdout.on('data', (data: Buffer) => {
         if (data.toString().includes('Available on')) resolve();
@@ -144,7 +131,7 @@ describe('Check for memory leaks', function() {
 
   beforeEach(async () => {
     page = await browser.newPage();
-    await page.goto('http://localhost:8080?quick=server', {waitUntil: 'networkidle0'});
+    await page.goto('http://localhost:8080?quick=local', {waitUntil: 'networkidle0'});
   });
 
   afterEach(async () => {
@@ -161,19 +148,10 @@ describe('Check for memory leaks', function() {
 
   // This is basic, just loading the game and letting it idle.
   it('in game', async () => {
-    // Takes too long, so just run if debugging.
-    if (!DEBUG) return;
-
-    await page.waitForTimeout(2000);
-    await page.$eval('.register--form input', (input) => (input as HTMLInputElement).value = '');
-    await page.type('.register--form input', 'player');
-    await page.waitForSelector('.register-btn');
-    await page.click('.register-btn');
     await page.waitForSelector('.game:not(.hidden)');
-    // await page.$eval('.register--form', (form: HTMLFormElement) => form.submit());
 
     // Let things settle.
-    await page.waitForTimeout(10000);
+    await page.waitForTimeout(10_000);
 
     const memory = await collect(page, 60, 1000);
     detect(memory);
