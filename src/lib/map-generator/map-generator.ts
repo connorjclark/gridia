@@ -8,7 +8,6 @@ import * as d3 from 'd3-polygon';
 import SeedRandomBrowser from 'seedrandom';
 import * as SeedRandomNode from 'seedrandom';
 
-import * as Utils from '../../utils.js';
 import * as Perlin from '../perlin/perlin.js';
 
 // For some reason, different imports are needed for browser/node.
