@@ -502,7 +502,7 @@ export class Game {
     }
 
     if (event.type === 'setCreature' && event.args.id) {
-      if (Utils.hasCreatureDataChanged(event.args, 'pos')) {
+      if (Utils.hasSniffedDataChanged<Creature>(event.args, 'pos')) {
         const cre = this.client.context.creatures.get(event.args.id);
         if (cre) {
           const pos = cre.pos;
@@ -543,9 +543,9 @@ export class Game {
         }));
 
         const updateEquipmentWindow =
-          Utils.hasCreatureDataChanged(event.args, 'stats') ||
-          Utils.hasCreatureDataChanged(event.args, 'graphics') ||
-          Utils.hasCreatureDataChanged(event.args, 'equipmentGraphics');
+          Utils.hasSniffedDataChanged<Creature>(event.args, 'stats') ||
+          Utils.hasSniffedDataChanged<Creature>(event.args, 'graphics') ||
+          Utils.hasSniffedDataChanged<Creature>(event.args, 'equipmentGraphics');
         if (this.client.equipment && updateEquipmentWindow) {
           const equipmentWindow = this.containerWindows.get(this.client.equipment.id);
           equipmentWindow?.actions.setEquipmentWindow({
@@ -554,7 +554,7 @@ export class Game {
           });
         }
 
-        if (Utils.hasCreatureDataChanged(event.args, 'pos')) {
+        if (Utils.hasSniffedDataChanged<Creature>(event.args, 'pos')) {
           this.modules.map.getMapWindow().actions.setPos({...this.client.creature.pos});
         }
       }
@@ -567,7 +567,7 @@ export class Game {
       }
 
       const justPosUpdate =
-        Utils.hasCreatureDataChanged(event.args, 'pos') && 'ops' in event.args && event.args.ops.length === 1;
+        Utils.hasSniffedDataChanged<Creature>(event.args, 'pos') && 'ops' in event.args && event.args.ops.length === 1;
       const creatureSprite = game.creatureSprites.get(event.args.id);
       if (creatureSprite && !justPosUpdate) {
         creatureSprite.dirty = true;

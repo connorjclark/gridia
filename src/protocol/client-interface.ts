@@ -95,7 +95,6 @@ export class ClientInterface implements IEvents {
   }
 
   onXp(client: Client, {skill, xp}: Events.Xp): void {
-    // Player.incrementSkillXp(client.player, skill, xp);
     // handled by skills-module.ts
   }
 

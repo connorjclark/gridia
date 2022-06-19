@@ -43,27 +43,22 @@ export class SkillsModule extends ClientModule {
   onStart() {
     this.game.client.eventEmitter.on('event', (e) => {
       if (e.type === 'xp') {
-        Player.incrementSkillXp(this.game.client.player, e.args.skill, e.args.xp);
         this.game.addStatusText(`+${e.args.xp}xp ${Content.getSkill(e.args.skill).name}`);
-
-        if (this.skillsWindow) {
-          this.skillsWindow.actions.setCombatLevel(this.getCombatLevel());
-          this.skillsWindow.actions.setSkill(this.getSkill(e.args.skill));
-          this.skillsWindow.actions.setSpendableXp(Player.getSpendableXp(this.game.client.player));
-        }
       }
 
-      const buffsUpdated =
-        e.type === 'setCreature' && 'ops' in e.args && e.args.ops.some((op) => op.path.startsWith('.buffs'));
-      if (buffsUpdated) {
-        if (this.skillsWindow) {
+      if (this.skillsWindow) {
+        if (Utils.hasSniffedDataChanged<Creature>(e.args, 'buffs')) {
           this.skillsWindow.actions.setCombatLevel(this.getCombatLevel());
           this.skillsWindow.actions.setSkills(this.getSkills());
         }
-      }
 
-      if (this.skillsWindow && e.type === 'setPlayer') {
-        this.getSkillsWindow().actions.setState(this.makeUIState());
+        if (Utils.hasSniffedDataChanged<Player>(e.args, 'skills')) {
+          this.skillsWindow.actions.setState(this.makeUIState());
+          this.skillsWindow.actions.setCombatLevel(this.getCombatLevel());
+          // this.skillsWindow.actions.setSkill(this.getSkill(e.args.skill));
+          this.skillsWindow.actions.setSkills(this.getSkills());
+          this.skillsWindow.actions.setSpendableXp(Player.getSpendableXp(this.game.client.player));
+        }
       }
     });
 
