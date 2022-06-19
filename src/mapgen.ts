@@ -184,6 +184,7 @@ export function mapgen(opts: MapGenOptions) {
     // Normalize elevation from 0-50.
     const percentile = (polygon.center.elevation - minElevation) / (maxElevation - minElevation);
     const elevation = Math.round(percentile * 50);
+    if (Number.isNaN(elevation)) throw new Error('NaN encountered');
     em.setElevation(polygon.center.x, polygon.center.y, elevation);
   }
 

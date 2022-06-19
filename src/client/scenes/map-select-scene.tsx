@@ -69,16 +69,16 @@ function createMapSelectForm(inputFormEl: HTMLElement, onStateUpdate: (state: Fo
     if (choice === 'voronoi') {
       const {points, relaxations} = options[choice];
       return <div>
-        <Input onInput={linkState(parent, `${statePrefix}.points`)} name="points" type={'range'} min={1} value={points} max={5000} step={50}></Input>
-        <Input onInput={linkState(parent, `${statePrefix}.relaxations`)} name="relaxations" type={'range'} min={0} value={relaxations} max={10} step={1}></Input>
+        <Input onInput={linkState(parent, `${statePrefix}.points`)} name="points" type={'range'} value={points} min={50} max={5000} step={10}></Input>
+        <Input onInput={linkState(parent, `${statePrefix}.relaxations`)} name="relaxations" type={'range'} value={relaxations} min={0} max={10} step={1}></Input>
       </div>;
     }
 
     if (choice === 'square') {
       const {size, rand} = options[choice];
       return <div>
-        <Input onInput={linkState(parent, `${statePrefix}.size`)} name="size" type={'range'} min={1} value={size} max={100} step={5}></Input>
-        <Input onInput={linkState(parent, `${statePrefix}.rand`)} name="rand" type={'range'} min={0} value={rand} max={0.5} step={0.1}></Input>
+        <Input onInput={linkState(parent, `${statePrefix}.size`)} name="size" type={'range'} value={size} min={1} max={100} step={5}></Input>
+        <Input onInput={linkState(parent, `${statePrefix}.rand`)} name="rand" type={'range'} value={rand} min={0} max={0.5} step={0.1}></Input>
       </div>;
     }
 
