@@ -104,6 +104,8 @@ function setupDebugging(controller: SceneController) {
         partition._clear();
       }
     },
+    // @ts-expect-error
+    ...window.Gridia,
   };
 
   // TODO: better 'verbose' / logging (make a logger class).

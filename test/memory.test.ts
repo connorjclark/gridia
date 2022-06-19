@@ -1,6 +1,8 @@
-import {ChildProcess, spawn} from 'child_process';
+import {ChildProcess} from 'child_process';
 
 import puppeteer from 'puppeteer';
+
+import {runStaticServer} from './test-utils.js';
 
 const DEBUG = Boolean(process.env.DEBUG);
 const QUERY = Boolean(process.env.QUERY);
@@ -108,20 +110,7 @@ describeSkipInCI('Check for memory leaks', function() {
     browser = await puppeteer.launch({
       headless: !DEBUG,
     });
-
-    console.warn('make sure to have run yarn build');
-    await new Promise<void>((resolve, reject) => {
-      const childProcess = spawn('yarn', ['run-static-server']);
-      childProcess.stdout.on('data', (data: Buffer) => {
-        if (data.toString().includes('Available on')) resolve();
-      });
-      childProcess.stderr.on('data', (data: Buffer) => {
-        console.log('[static-server STDERR]', data.toString());
-      });
-      childProcess.on('close', reject);
-      childProcess.on('error', reject);
-      childProcesses.push(childProcess);
-    }).catch(() => process.exit(1));
+    childProcesses.push(await runStaticServer());
   });
 
   after(async () => {
@@ -133,23 +122,15 @@ describeSkipInCI('Check for memory leaks', function() {
 
   beforeEach(async () => {
     page = await browser.newPage();
-    await page.goto('http://localhost:8080?quick=local', {waitUntil: 'networkidle0'});
   });
 
   afterEach(async () => {
     await page.close();
   });
 
-  it('at login page', async () => {
-    // Let things settle.
-    await page.waitForTimeout(5000);
-
-    const memory = await collect(page, 10, 1000);
-    detect(memory);
-  });
-
   // This is basic, just loading the game and letting it idle.
   it('in game', async () => {
+    await page.goto('http://localhost:8080?quick=local', {waitUntil: 'networkidle0'});
     await page.waitForSelector('.game:not(.hidden)');
 
     // Let things settle.

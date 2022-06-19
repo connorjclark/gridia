@@ -11,6 +11,11 @@ function debug(prefix: string, msg: Message) {
   if (debug_ instanceof RegExp && !debug_.test(msg.data?.type)) return;
   if (debugn instanceof RegExp && debugn.test(msg.data?.type)) return;
 
+  if (typeof debug_ === 'function') {
+    debug_(msg);
+    return;
+  }
+
   let value = '';
   if (msg.data && msg.data.args) value = msg.data.args;
   else if (msg.data) value = msg.data;
