@@ -229,7 +229,7 @@ export function makeSkillsWindow(game: Game, initialState: State) {
   };
 
   const {SubApp, exportedActions, subscribe} = createSubApp(SkillsWindow, initialState, actions);
-  game.windowManager.createWindow({
+  const delegate = game.windowManager.createWindow({
     id: 'skills',
     cell: 'center',
     tabLabel: 'Skills',
@@ -238,5 +238,5 @@ export function makeSkillsWindow(game: Game, initialState: State) {
     },
   });
 
-  return {actions: exportedActions, subscribe};
+  return {actions: exportedActions, subscribe, delegate};
 }

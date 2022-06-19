@@ -3,10 +3,20 @@ import * as Player from '../../player.js';
 import * as CommandBuilder from '../../protocol/command-builder.js';
 import * as Utils from '../../utils.js';
 import {ClientModule} from '../client-module.js';
+import {Game} from '../game.js';
 import {State, makeSkillsWindow} from '../ui/windows/skills-window.js';
 
 export class SkillsModule extends ClientModule {
-  protected skillsWindow?: ReturnType<typeof makeSkillsWindow>;
+  protected skillsWindow;
+
+  constructor(game: Game) {
+    super(game);
+
+    this.skillsWindow = makeSkillsWindow(this.game, this.makeUIState());
+    this.skillsWindow.delegate.setOnShow(() => {
+      this.skillsWindow.actions.setState(this.makeUIState());
+    });
+  }
 
   makeUIState(): State {
     return {
@@ -33,36 +43,24 @@ export class SkillsModule extends ClientModule {
     };
   }
 
-  getSkillsWindow() {
-    if (this.skillsWindow) return this.skillsWindow;
-
-    this.skillsWindow = makeSkillsWindow(this.game, this.makeUIState());
-    return this.skillsWindow;
-  }
-
   onStart() {
     this.game.client.eventEmitter.on('event', (e) => {
       if (e.type === 'xp') {
         this.game.addStatusText(`+${e.args.xp}xp ${Content.getSkill(e.args.skill).name}`);
       }
 
-      if (this.skillsWindow) {
-        if (Utils.hasSniffedDataChanged<Creature>(e.args, 'buffs')) {
+      if (this.skillsWindow.delegate.isOpen()) {
+        if (e.type === 'setCreature' && e.args.id === this.game.client.creature.id &&
+            Utils.hasSniffedDataChanged<Creature>(e.args, 'buffs')) {
           this.skillsWindow.actions.setCombatLevel(this.getCombatLevel());
           this.skillsWindow.actions.setSkills(this.getSkills());
         }
 
-        if (Utils.hasSniffedDataChanged<Player>(e.args, 'skills')) {
+        if (e.type === 'setPlayer') {
           this.skillsWindow.actions.setState(this.makeUIState());
-          this.skillsWindow.actions.setCombatLevel(this.getCombatLevel());
-          // this.skillsWindow.actions.setSkill(this.getSkill(e.args.skill));
-          this.skillsWindow.actions.setSkills(this.getSkills());
-          this.skillsWindow.actions.setSpendableXp(Player.getSpendableXp(this.game.client.player));
         }
       }
     });
-
-    this.getSkillsWindow();
   }
 
   getCombatLevel() {

@@ -78,6 +78,9 @@ export class WindowManager {
       },
       remove: () => this.removeWindow(opts.id),
       isOpen: () => this.isWindowOpen(opts.id),
+      setOnShow: (onShow: (el_: HTMLElement) => void) => {
+        this.windows[opts.id].onShow = onShow;
+      },
     };
     this.windowDelegates[opts.id] = delegate;
     return delegate;

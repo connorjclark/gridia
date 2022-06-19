@@ -1123,7 +1123,7 @@ export class Server {
   }
 
   /**
-   * Assigns and broadcasts a buff to a creature.
+   * Assigns a buff to a creature.
    * If a buff has an id and there is a existing buff of that id:
    * When the existing buff's value is greater than the new one, the
    * new buff is ignored.

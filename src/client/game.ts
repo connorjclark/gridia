@@ -543,9 +543,7 @@ export class Game {
         }));
 
         const updateEquipmentWindow =
-          Utils.hasSniffedDataChanged<Creature>(event.args, 'stats') ||
-          Utils.hasSniffedDataChanged<Creature>(event.args, 'graphics') ||
-          Utils.hasSniffedDataChanged<Creature>(event.args, 'equipmentGraphics');
+          Utils.hasSniffedDataChanged<Creature>(event.args, 'stats', 'graphics', 'equipmentGraphics');
         if (this.client.equipment && updateEquipmentWindow) {
           const equipmentWindow = this.containerWindows.get(this.client.equipment.id);
           equipmentWindow?.actions.setEquipmentWindow({
