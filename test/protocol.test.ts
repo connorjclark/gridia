@@ -1,12 +1,11 @@
+// TODO: type check this file.
 // @ts-nocheck
-
-// TODO: can't get tests to run anymore ...
 
 import assert from 'assert';
 
 import expect from 'expect';
 
-import Client from '../src/client/client.js';
+import {Client} from '../src/client/client.js';
 import {Connection} from '../src/client/connection.js';
 import {MINE} from '../src/constants.js';
 import * as Content from '../src/content.js';
@@ -15,6 +14,16 @@ import * as CommandBuilder from '../src/protocol/command-builder.js';
 import {Server} from '../src/server/server.js';
 import * as Utils from '../src/utils.js';
 import {WorldMap} from '../src/world-map.js';
+
+process.env.GRIDIA_EXECUTION_ENV = 'node';
+process.env.GRIDIA_TEST = '1';
+
+// TODO: try to remove this.
+globalThis.PIXI = {
+  Sprite: class {},
+  Container: class {},
+  Filter: class {},
+};
 
 let client: Client;
 let server: Server;
@@ -53,8 +62,8 @@ function assertItemInWorld(location: TilePoint, item: Item) {
   expect(client.context.map.getItem(location)).toEqual(item);
 }
 
-function assertItemInWorldNear(location: TilePoint, item: Item) {
-  const point = server.findNearest(location, 10, true, (tile) => Utils.equalItems(tile.item, item));
+function assertItemInWorldNear(pos: TilePoint, item: Item) {
+  const point = server.findNearest({pos, range: 10}, true, (tile) => Utils.equalItems(tile.item, item));
   assert(point);
   expect(client.context.map.getItem(point)).toEqual(item);
 }
@@ -87,7 +96,7 @@ function getUnwalkableItem(): Item {
   return {type: Content.getMetaItemByName('Granite Wall').id, quantity: 1};
 }
 
-xdescribe('protocol', () => {
+describe('protocol', () => {
   beforeEach(async () => {
     const {openAndConnectToServerInMemory} = await import('./server-in-memory.js');
 
@@ -107,16 +116,16 @@ xdescribe('protocol', () => {
 
     memoryServerData.clientConnection.account = {id: 'local', playerIds: []};
     connection.sendCommand(CommandBuilder.createPlayer({
-      name: 'TestUser',
+      name: '@TestUser',
       attributes: new Map([
         ['life', server.context.worldDataDefinition.characterCreation.attributePoints - 20],
-        ['stamina', 20],
+        ['intelligence', 20],
       ]),
-      skills: [
-        Content.getSkillByNameOrThrowError('Cooking').id,
-        Content.getSkillByNameOrThrowError('Farming').id,
-        Content.getSkillByNameOrThrowError('Mining').id,
-      ],
+      skills: new Map([
+        [Content.getSkillByNameOrThrowError('Cooking').id, 'learn'],
+        [Content.getSkillByNameOrThrowError('Farming').id, 'learn'],
+        [Content.getSkillByNameOrThrowError('Mining').id, 'learn'],
+      ]),
     }));
 
     // Make client make initial request for the sector, so that partial updates are tested later.
@@ -161,13 +170,12 @@ xdescribe('protocol', () => {
       assertCreatureAt(from, creature.id);
     });
 
-    // TODO
-    it.skip('player can not move where other creature is', async () => {
+    it('player can not move where other creature is', async () => {
       const from = {w: 0, x: 5, y: 5, z: 0};
       const to = {w: 0, x: 6, y: 5, z: 0};
       const otherCreature = server.createCreature({type: 1}, to);
+
       await server.consumeAllMessages();
-      // await new Promise((resolve) => server.taskRunner.registerForNextTick({fn: resolve}));
       assertCreatureAt(to, otherCreature.id);
 
       assertCreatureAt(from, creature.id);
@@ -181,7 +189,7 @@ xdescribe('protocol', () => {
       setItem(to, {type: MINE});
 
       assertCreatureAt(from, creature.id);
-      await send(CommandBuilder.move(to));
+      await expect(send(CommandBuilder.move(to))).rejects.toThrow(/missing pick/);
       assertCreatureAt(from, creature.id);
     });
 
@@ -222,10 +230,13 @@ xdescribe('protocol', () => {
       setItem(from, {type: 1, quantity: 1});
       setItem(to, {type: 2, quantity: 1});
 
-      await send(CommandBuilder.moveItem({
-        from: Utils.ItemLocation.World(from),
-        to: Utils.ItemLocation.World(to),
-      }));
+      await expect(
+        send(CommandBuilder.moveItem({
+          from: Utils.ItemLocation.World(from),
+          to: Utils.ItemLocation.World(to),
+        }))
+      ).rejects.toThrow(/cannot be stacked together/);
+      await server.consumeAllMessages();
 
       assertItemInWorld(from, {type: 1, quantity: 1});
       assertItemInWorld(to, {type: 2, quantity: 1});

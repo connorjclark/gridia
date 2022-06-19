@@ -4195,10 +4195,10 @@ jpeg-js@0.4.2:
   resolved "https://registry.yarnpkg.com/jpeg-js/-/jpeg-js-0.4.2.tgz#8b345b1ae4abde64c2da2fe67ea216a114ac279d"
   integrity sha512-+az2gi/hvex7eLTMTlbRLOhH6P6WFdk2ITI8HJsaH2VqYO0I594zXSYEP+tf4FW+8Cy68ScDXoAsQdyQanv3sw==
 
-js-bbcode-parser@^3.0.4:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/js-bbcode-parser/-/js-bbcode-parser-3.0.4.tgz#e2615fd6ac977ce7d7a7286e0285fc55d36b7169"
-  integrity sha512-rF7oR1LI0mCqqMXEYKKWp3ovllnutT/vu1N+YOmPqGGPlMd73PNpdIJrdN89cbaBF08YUygi2dZUgvjGNAh5Aw==
+js-bbcode-parser@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/js-bbcode-parser/-/js-bbcode-parser-4.0.0.tgz#ca4b8de5c1b52f382f525802b6918071653cb869"
+  integrity sha512-3uoQJBMhhaJQhFY+KeR99MNCUxLjTaacHf930Ln6DQd13yD+EXqtHovhlaN5Jb+J058hx1F0l64rF0rLGM7dJA==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"

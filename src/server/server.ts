@@ -115,7 +115,7 @@ export class Server {
   }
 
   broadcastChat(opts: { from: string; creatureId?: number; text: string }) {
-    console.log(`${opts.from}: ${opts.text}`);
+    if (!process.env.GRIDIA_TEST) console.log(`${opts.from}: ${opts.text}`);
     this.broadcast(EventBuilder.chat({
       section: 'Global',
       from: opts.from,
@@ -362,7 +362,8 @@ export class Server {
     for (const attribute of opts.attributes.keys()) {
       const attr = characterCreation.attributes.find((a) => a.name === attribute);
       if (!attr) throw new Error('invalid attribute');
-      if (attr.derived) throw new Error('invalid attribute: is derived');
+      if (attr.derived) console.trace(opts);
+      if (attr.derived) throw new Error(`invalid attribute: ${attr.name} is derived`);
     }
 
     let attributeValueSum = 0;
@@ -452,7 +453,7 @@ export class Server {
     const equipment = this.context.makeContainer('equipment', Object.keys(Container.EQUIP_SLOTS).length);
     player.equipmentContainerId = equipment.id;
 
-    if (opts.name !== 'TestUser' && this.context.worldDataDefinition.baseDir === 'worlds/rpgwo-world') {
+    if (opts.name !== '@TestUser' && this.context.worldDataDefinition.baseDir === 'worlds/rpgwo-world') {
       container.items[0] = {type: Content.getMetaItemByName('Wood Axe').id, quantity: 1};
       container.items[1] = {type: Content.getMetaItemByName('Fire Starter').id, quantity: 1};
       container.items[2] = {type: Content.getMetaItemByName('Pick').id, quantity: 1};
@@ -619,7 +620,12 @@ export class Server {
   }
 
   async consumeAllMessages() {
-    while (this.context.clientConnections.some((c) => c.hasMessage()) || this.outboundMessages.length) {
+    while (
+      this.pendingCreatureSniffedOperations.size ||
+      this.pendingPlayerSniffedOperations.size ||
+      this.outboundMessages.length ||
+      this.context.clientConnections.some((c) => c.hasMessage())
+    ) {
       await this.taskRunner.tick();
     }
   }
@@ -1650,6 +1656,7 @@ export class Server {
     });
     this.creatureStates[creature.id] = new CreatureState(creature, this.context);
     this.context.setCreature(creature);
+    this.broadcastInRange(EventBuilder.setCreature(creature), creature.pos, 20);
     return creature;
   }
 
@@ -1922,6 +1929,10 @@ export class Server {
             await this._serverInterface.processCommand(this, clientConnection, command.type, command.args)
               .then((data: any) => clientConnection.send({id: message.id, data}))
               .catch((e?: Error | string) => {
+                // This is only done under test, because it makes debugging errors much simpler.
+                // Otherwise, don't let an error kill this loop.
+                if (process.env.GRIDIA_TEST) throw e;
+
                 let error;
                 if (e && e instanceof InvalidProtocolError) {
                   error = {message: e.message};

@@ -1,6 +1,6 @@
 import bbCodeParser from 'js-bbcode-parser';
 import {render, h, Component} from 'preact';
-import {useEffect, useRef, useMemo} from 'preact/hooks';
+import {useEffect, useRef} from 'preact/hooks';
 import Typed from 'typed.js';
 
 import * as CommandBuilder from '../../../protocol/command-builder.js';

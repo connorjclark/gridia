@@ -12,7 +12,7 @@
     "firebase": "9.8.3",
     "firebase-admin": "^11.0.0",
     "firebaseui": "6.0.1",
-    "js-bbcode-parser": "^3.0.4",
+    "js-bbcode-parser": "^4.0.0",
     "json-schema": "^0.4.0",
     "level": "^7.0.0",
     "linkstate": "^1.1.1",
@@ -52,7 +52,7 @@
     "type-check": "tsc --noEmit",
     "lint": "eslint '{src,test,build}/**/*.{ts,tsx,js,jsx}'",
     "test": "yarn lint && yarn type-check && yarn mocha 'test/*.test.ts'",
-    "ts-node": "TS_NODE_TRANSPILE_ONLY=1 node --loader ts-node/esm",
+    "ts-node": "TS_NODE_TRANSPILE_ONLY=1 node --experimental-specifier-resolution=node --loader ts-node/esm",
     "mocha": "cp node_modules/mocha/bin/mocha node_modules/mocha/bin/mocha.js && yarn ts-node node_modules/mocha/bin/mocha.js"
   },
   "devDependencies": {
