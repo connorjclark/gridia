@@ -21,7 +21,7 @@
     "panzoom": "^9.4.2",
     "pixi-sound": "^3.0.5",
     "pixi.js": "^6.4.2",
-    "preact": "^10.6.4",
+    "preact": "^10.8.1",
     "redux-zero": "^5.1.7",
     "seedrandom": "^3.0.5",
     "strict-event-emitter-types": "^2.0.0",
