@@ -1476,9 +1476,13 @@ export class Server {
         this.assignCreatureBuff(playerConnection.creature, {
           id: 'overburdened', skill: -1, percentChange: -0.3, expiresAt: 0,
         });
+        this.send(EventBuilder.chat({section: 'World', text: 'You are overburdened!'}), playerConnection);
       }
     } else {
-      this.removeCreatureBuff(playerConnection.creature, 'overburdened');
+      if (playerConnection.creature.buffs.find((b) => b.id === 'overburdened')) {
+        this.removeCreatureBuff(playerConnection.creature, 'overburdened');
+        this.send(EventBuilder.chat({section: 'World', text: 'You are no longer overburdened!'}), playerConnection);
+      }
     }
   }
 
