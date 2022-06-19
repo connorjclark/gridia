@@ -97,7 +97,14 @@ function getUnwalkableItem(): Item {
 }
 
 describe('protocol', () => {
-  beforeEach(async () => {
+  let isFirst = true;
+  beforeEach(async function() {
+    // For some reason CI takes much longer on the first run.
+    if (isFirst) {
+      isFirst = false;
+      this.timeout(20_000);
+    }
+
     const {openAndConnectToServerInMemory} = await import('./server-in-memory.js');
 
     await Content.initializeWorldData(Content.WORLD_DATA_DEFINITIONS.rpgwo);
