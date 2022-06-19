@@ -102,6 +102,9 @@ body.disconnected {
 #canvases {
   cursor: cell;
 }
+#canvases:focus-visible {
+  outline: none;
+}
 .game.select-tile-mode #canvases {
   cursor: pointer;
 }
