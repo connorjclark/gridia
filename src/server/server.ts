@@ -359,6 +359,14 @@ export class Server {
       if (!opts.skills.has(id)) opts.skills.set(id, 'learn');
     }
 
+    if (!opts.attributes.size && opts.name === '@TestUser') {
+      opts.attributes = new Map([
+        ['life', characterCreation.attributePoints - 20],
+        ['intelligence', 10],
+        ['wisdom', 10],
+      ]);
+    }
+
     for (const attribute of opts.attributes.keys()) {
       const attr = characterCreation.attributes.find((a) => a.name === attribute);
       if (!attr) throw new Error('invalid attribute');
@@ -368,7 +376,7 @@ export class Server {
 
     let attributeValueSum = 0;
     for (const value of opts.attributes.values()) attributeValueSum += value;
-    if (attributeValueSum !== characterCreation.attributePoints && opts.name !== '@TestUser') {
+    if (attributeValueSum !== characterCreation.attributePoints) {
       throw new Error('Must use all attribute points');
     }
 
