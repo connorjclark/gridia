@@ -65,10 +65,10 @@ export function makeHelpWindow(game: Game) {
     if (currentSection === 'Time Played') {
       content = <div>
         <div>
-          Time played: <span class='relative-time' data-format="hh:mm" data-time={game.client.player.lastLogin - game.client.player.timePlayed * 1000}></span>
+          Time played: <span class='relative-time' data-format="d 'days' h 'hours' m 'minutes'" data-time={game.client.player.lastLogin - game.client.player.timePlayed * 1000}></span>
         </div>
         <div>
-          Current session: <span class='relative-time' data-format="hh:mm" data-time={game.client.player.lastLogin}></span>
+          Current session: <span class='relative-time' data-format="h 'hours' m 'minutes' ss 'seconds'" data-time={game.client.player.lastLogin}></span>
         </div>
       </div>;
     } else {
