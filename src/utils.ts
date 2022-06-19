@@ -214,7 +214,8 @@ export function mapFromRecord<K extends string | number | symbol, V>(record: Rec
   return map;
 }
 
-export function hasSniffedDataChanged<T>(event: {ops?: SniffedOperation[]} | {}, ...props: Array<keyof T>) {
+type KeyNoSymbol<T> = Exclude<keyof T, Symbol>;
+export function hasSniffedDataChanged<T>(event: {ops?: SniffedOperation[]} | {}, ...props: Array<KeyNoSymbol<T>>) {
   if ('ops' in event && event.ops) {
     return props.some((prop) => event.ops?.some((op) => op.path.startsWith('.' + prop)));
   } else {
