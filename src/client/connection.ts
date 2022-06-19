@@ -5,11 +5,11 @@ import {ProtocolEvent} from '../protocol/event-builder.js';
 
 function debug(prefix: string, msg: Message) {
   // @ts-expect-error
-  if (!window.Gridia.debug && !window.Gridia.debugn) return;
-  // @ts-expect-error
-  if (window.Gridia.debug instanceof RegExp && !window.Gridia.debug.test(msg.type)) return;
-  // @ts-expect-error
-  if (window.Gridia.debugn instanceof RegExp && window.Gridia.debugn.test(msg.type)) return;
+  const {debug: debug_, debugn} = window.Gridia;
+
+  if (!debug_ && !debugn) return;
+  if (debug_ instanceof RegExp && !debug_.test(msg.data?.type)) return;
+  if (debugn instanceof RegExp && debugn.test(msg.data?.type)) return;
 
   let value = '';
   if (msg.data && msg.data.args) value = msg.data.args;
