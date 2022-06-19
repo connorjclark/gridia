@@ -775,7 +775,6 @@ export class ServerInterface implements ICommands {
 
     Player.learnSkill(clientConnection.player, id);
     clientConnection.player.skillPoints -= skill.skillPoints;
-    server.updateClientPlayer(clientConnection);
 
     return Promise.resolve();
   }
@@ -784,7 +783,6 @@ export class ServerInterface implements ICommands {
     clientConnection.assertsPlayerConnection();
 
     Player.incrementAttribute(clientConnection.player, name);
-    server.updateClientPlayer(clientConnection);
 
     clientConnection.creature.life.max = Player.getAttributeValue(clientConnection.player, 'life', clientConnection.creature.buffs).level;
     clientConnection.creature.mana.max = Player.getAttributeValue(clientConnection.player, 'mana', clientConnection.creature.buffs).level;

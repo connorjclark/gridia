@@ -94,6 +94,7 @@ declare namespace Protocol {
     }
 
     type SetCreature = Creature | {id: number; ops: SniffedOperation[]};
+    type SetPlayer = Player | {ops: SniffedOperation[]};
 
     interface SetFloor extends TilePoint {
       floor: number;

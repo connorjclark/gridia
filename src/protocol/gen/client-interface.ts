@@ -12,6 +12,7 @@ export interface IEvents {
     onRemoveCreature(client: Client, { id }: Protocol.Events.RemoveCreature): void;
     onSector(client: Client, { tiles, ...pos }: Protocol.Events.Sector): void;
     onSetCreature(client: Client, {}: Protocol.Events.SetCreature): void;
+    onSetPlayer(client: Client, {}: Protocol.Events.SetPlayer): void;
     onSetFloor(client: Client, { floor, ...pos }: Protocol.Events.SetFloor): void;
     onSetItem(client: Client, { location, item }: Protocol.Events.SetItem): void;
     onXp(client: Client, { skill, xp }: Protocol.Events.Xp): void;

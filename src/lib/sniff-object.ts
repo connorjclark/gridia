@@ -152,7 +152,12 @@ export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperati
         } else if (isMap && prop === 'get') {
           const origTargetMethod = targetMethod;
           return (k: string | number) => {
-            return sniffObject(origTargetMethod(k), cb, `${prefix}.${k}`);
+            const retValue = origTargetMethod(k);
+            if (typeof retValue === 'object' && retValue !== null) {
+              return sniffObject(retValue, cb, `${prefix}.${k}`);
+            } else {
+              return retValue;
+            }
           };
         } else if (prop === 'clear') {
           const origTargetMethod = targetMethod;

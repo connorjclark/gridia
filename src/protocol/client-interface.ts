@@ -66,6 +66,15 @@ export class ClientInterface implements IEvents {
     replaySniffedOperations(creature, creatureOrOps.ops);
   }
 
+  onSetPlayer(client: Client, playerOrOps: Events.SetPlayer): void {
+    if (!('ops' in playerOrOps)) {
+      client.player = playerOrOps;
+      return;
+    }
+
+    replaySniffedOperations(client.player, playerOrOps.ops);
+  }
+
   onSetFloor(client: Client, {floor, ...pos}: Events.SetFloor): void {
     client.context.map.getTile(pos).floor = floor;
   }

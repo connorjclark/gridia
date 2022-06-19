@@ -62,7 +62,7 @@ export class SkillsModule extends ClientModule {
         }
       }
 
-      if (this.skillsWindow && e.type === 'initialize') {
+      if (this.skillsWindow && e.type === 'setPlayer') {
         this.getSkillsWindow().actions.setState(this.makeUIState());
       }
     });

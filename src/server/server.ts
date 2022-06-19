@@ -54,6 +54,7 @@ export class Server {
     filter?: (playerConnection: PlayerConnection) => boolean;
   }>;
   pendingCreatureSniffedOperations: Map<number, SniffedOperation[]> = new Map();
+  pendingPlayerSniffedOperations: Map<Player, SniffedOperation[]> = new Map();
   // TODO: WeakMap
   creatureStates: Record<number, CreatureState> = {};
 
@@ -484,7 +485,7 @@ export class Server {
 
   async playerEnterWorld(clientConnection: ClientConnection,
                          opts: { justCreated?: boolean; player?: Player; playerId: string }) {
-    let player;
+    let player: Player;
     if (opts.player) {
       player = opts.player;
     } else {
@@ -552,7 +553,6 @@ export class Server {
 
     player.lastLogin = Date.now();
 
-    this.context.players.set(player.id, player);
     clientConnection.player = player;
     clientConnection.assertsPlayerConnection();
     this.updateCreatureDataBasedOnInventory(clientConnection);
@@ -561,10 +561,21 @@ export class Server {
     this.broadcastChatFromServer(`${clientConnection.player.name} has entered the world.`);
     player.loggedIn = true;
 
+    const sniffedPlayer = sniffObject(player, (op) => {
+      if (op.path === '.timePlayed') return;
+
+      const ops = this.pendingPlayerSniffedOperations.get(player) || [];
+      ops.push(op);
+      this.pendingPlayerSniffedOperations.set(player, ops);
+    });
+
+    clientConnection.player = sniffedPlayer;
+    this.context.players.set(player.id, sniffedPlayer);
+
     if (opts.justCreated) {
-      this.scriptManager.delegates.onPlayerCreated(player, clientConnection);
+      this.scriptManager.delegates.onPlayerCreated(sniffedPlayer, clientConnection);
     }
-    this.scriptManager.delegates.onPlayerEnterWorld(player, clientConnection);
+    this.scriptManager.delegates.onPlayerEnterWorld(sniffedPlayer, clientConnection);
   }
 
   getClientConnectionForCreature(creature: Creature) {
@@ -1537,8 +1548,6 @@ export class Server {
         name: 'LevelUp',
         path: [playerConnection.creature.pos],
       });
-
-      this.updateClientPlayer(playerConnection);
     }
 
     this.send(EventBuilder.xp({
@@ -1626,16 +1635,6 @@ export class Server {
     const sectorPoint = Utils.worldToSector(pos, SECTOR_SIZE);
     const key = `${pos.w},${sectorPoint.x},${sectorPoint.y},${sectorPoint.z}`;
     return this.context.claims[key];
-  }
-
-  updateClientPlayer(playerConnection: PlayerConnection) {
-    // Lazy way to update Player.
-    playerConnection.sendEvent(EventBuilder.initialize({
-      player: playerConnection.player,
-      creatureId: playerConnection.creature.id,
-      secondsPerWorldTick: this.context.secondsPerWorldTick,
-      ticksPerWorldDay: this.context.ticksPerWorldDay,
-    }));
   }
 
   private registerCreature(creature: Creature) {
@@ -1940,6 +1939,16 @@ export class Server {
           }), (client) => client.subscribedCreatureIds.has(id));
         }
         this.pendingCreatureSniffedOperations.clear();
+
+        for (const [player, ops] of this.pendingPlayerSniffedOperations.entries()) {
+          const clientConnection = this.getClientConnectionForPlayer(player);
+          if (clientConnection) {
+            this.send(EventBuilder.setPlayer({
+              ops,
+            }), clientConnection);
+          }
+        }
+        this.pendingPlayerSniffedOperations.clear();
 
         // TODO stream marks somewhere, and pull in isomorphic node/browser performance.
         // console.log(performance.getEntries());

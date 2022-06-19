@@ -36,6 +36,10 @@ type SetCreatureEvent = {
     type: "setCreature";
     args: Protocol.Events.SetCreature;
 };
+type SetPlayerEvent = {
+    type: "setPlayer";
+    args: Protocol.Events.SetPlayer;
+};
 type SetFloorEvent = {
     type: "setFloor";
     args: Protocol.Events.SetFloor;
@@ -77,7 +81,7 @@ type RawAnimationEvent = {
     args: Protocol.Events.RawAnimation;
 };
 
-export type ProtocolEvent = AnimationEvent | ContainerEvent | InitializeEvent | UpdateSessionStateEvent | InitializePartitionEvent | LogEvent | RemoveCreatureEvent | SectorEvent | SetCreatureEvent | SetFloorEvent | SetItemEvent | XpEvent | ChatEvent | TimeEvent | StartDialogueEvent | UpdateDialogueEvent | CreatureStatusEvent | NotificationEvent | RawAnimationEvent;
+export type ProtocolEvent = AnimationEvent | ContainerEvent | InitializeEvent | UpdateSessionStateEvent | InitializePartitionEvent | LogEvent | RemoveCreatureEvent | SectorEvent | SetCreatureEvent | SetPlayerEvent | SetFloorEvent | SetItemEvent | XpEvent | ChatEvent | TimeEvent | StartDialogueEvent | UpdateDialogueEvent | CreatureStatusEvent | NotificationEvent | RawAnimationEvent;
 
 export function animation({ ...animationInstance }: Protocol.Events.Animation): AnimationEvent {
     return { type: "animation", args: arguments[0] };
@@ -108,6 +112,11 @@ export function setCreature(event: Creature | {
     ops: SniffedOperation[];
 }): SetCreatureEvent {
     return { type: "setCreature", args: arguments[0] };
+}
+export function setPlayer(event: Player | {
+    ops: SniffedOperation[];
+}): SetPlayerEvent {
+    return { type: "setPlayer", args: arguments[0] };
 }
 export function setFloor({ floor, ...pos }: Protocol.Events.SetFloor): SetFloorEvent {
     return { type: "setFloor", args: arguments[0] };
