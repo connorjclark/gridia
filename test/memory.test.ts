@@ -95,7 +95,9 @@ function detect(memory: Memory) {
   }
 }
 
-describe('Check for memory leaks', function() {
+const describeSkipInCI = process.env.CI ? xdescribe : describe;
+
+describeSkipInCI('Check for memory leaks', function() {
   this.timeout((QUERY ? 200 : 100) * 1000);
 
   let browser: puppeteer.Browser;
