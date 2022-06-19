@@ -1181,6 +1181,7 @@ export class Game {
       chatInput.value = '';
       chatMemoryIndex = null;
       chatTextarea.scrollTop = chatTextarea.scrollHeight;
+      this.focus();
     }, evtOptions);
 
     let chatMemoryIndex: number | null = null;
