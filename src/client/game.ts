@@ -1,4 +1,3 @@
-import { } from 'event-target-shim/es5';
 import {DateTime, Duration} from 'luxon';
 
 import {GFX_SIZE} from '../constants.js';
