@@ -785,6 +785,11 @@ body.disconnected {
   pointer-events: none;
 }
 
+.grid-cursor--smooth {
+  transition: all 0.1s;
+  transition-property: top left;
+}
+
 .dpad {
   position: absolute;
   right: 0;

@@ -8,7 +8,6 @@
 * in-range indicator
 * path finding on server
 * improve quest state
-* grid cursor animate location
 * align server clock with real clock (so a duration of ~10m would happen at 1:00, 1:10, 1:20, ...)
 * dialogue
   - options with requirements (Show but crossed out)

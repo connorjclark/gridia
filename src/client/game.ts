@@ -323,6 +323,7 @@ export interface CursorReference {
   el: HTMLElement;
   location: ItemLocation | null;
   color: string;
+  smooth: boolean;
 }
 
 export class Game {
@@ -363,7 +364,7 @@ export class Game {
   private _isEditing = false;
 
   private _cursors: CursorReference[] = [];
-  private _mouseCursor = this.registerCursor({color: 'gold'});
+  private _mouseCursor = this.registerCursor({color: 'gold', smooth: true});
   private _selectedViewCursor = this.registerCursor({color: 'white'});
 
   private _currentChatSection = 'All';
@@ -432,12 +433,13 @@ export class Game {
     window.document.body.innerText = 'Lost connection to server. Please refresh.';
   }
 
-  registerCursor(opts: { color: string }): CursorReference {
+  registerCursor(opts: { color: string; smooth?: boolean }): CursorReference {
     const el = Helper.createChildOf(Helper.find('.grid-cursors'), 'div', 'grid-cursor');
     const cursor = {
       el,
       location: null,
       color: opts.color,
+      smooth: opts.smooth ?? false,
     };
     this._cursors.push(cursor);
     return cursor;
@@ -1506,10 +1508,13 @@ export class Game {
       this._selectedViewCursor.location = Utils.ItemLocation.World(selectedViewLoc);
       if (selectedCreatureId && selectedCreatureId === this.client.session.attackingCreatureId) {
         this._selectedViewCursor.color = 'red';
+        this._selectedViewCursor.smooth = false;
       } else if (selectedCreatureId) {
         this._selectedViewCursor.color = 'green';
+        this._selectedViewCursor.smooth = false;
       } else {
         this._selectedViewCursor.color = 'white';
+        this._selectedViewCursor.smooth = true;
       }
     } else {
       this._selectedViewCursor.location = null;
@@ -1537,6 +1542,7 @@ export class Game {
       cursor.el.style.setProperty('--color', cursor.color);
       cursor.el.style.setProperty('--x', x + 'px');
       cursor.el.style.setProperty('--y', y + 'px');
+      cursor.el.classList.toggle('grid-cursor--smooth', cursor.smooth);
 
       // TODO: don't redraw these every frame.
       // Draw selected tool if usable.
