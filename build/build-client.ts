@@ -7,7 +7,6 @@ import htmlPlugin from '@chialab/esbuild-plugin-html';
 import {NodeGlobalsPolyfillPlugin} from '@esbuild-plugins/node-globals-polyfill';
 import esbuild from 'esbuild';
 import {nodeBuiltIns} from 'esbuild-node-builtins';
-import glob from 'glob';
 
 function copyFileSync(source: string, target: string) {
   let targetFile = target;
@@ -61,17 +60,16 @@ async function buildClient({workerFileName}: { workerFileName: string }) {
     },
   };
 
-  await esbuild.build({
+  const result = await esbuild.build({
     plugins: [
-      // @ts-expect-error
       htmlPlugin(),
       fixPixiBundling,
     ],
     entryPoints: entries,
-    entryNames: '[dir]/[name]-[hash]',
+    entryNames: '[name]-[hash]',
     bundle: true,
     loader: {
-      '.ttf': 'file', // TODO: remove this
+      '.ttf': 'file',
     },
     define: {
       'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`,
@@ -83,16 +81,13 @@ async function buildClient({workerFileName}: { workerFileName: string }) {
     sourcemap: true,
   });
 
-  for (const entry of entries) {
-    const fileParts = entry.split('/');
-    const file = `./dist/${fileParts[fileParts.length - 1]}`;
-    fs.copyFileSync(file, `./dist/client/${fileParts[fileParts.length - 1]}`);
-  }
-
-  for (const file of glob.sync('./dist/tools/iife/*.js')) {
-    const fileParts = file.split('/');
-    const name = fileParts[fileParts.length - 1];
-    fs.copyFileSync(file, `./dist/client/iife/${name}`);
+  for (const outputFile of Object.keys(result.metafile?.outputs || {})) {
+    const match = outputFile.match(/.*(-.*)\.html/);
+    if (match) {
+      const [, hash] = match;
+      fs.copyFileSync(outputFile, outputFile.replace(hash, ''));
+      fs.unlinkSync(outputFile);
+    }
   }
 }
 
@@ -129,7 +124,7 @@ async function buildWorker() {
       NodeGlobalsPolyfillPlugin({process: true}),
     ],
     entryPoints: ['src/server/run-worker.ts'],
-    entryNames: '[dir]/[name]-[hash]',
+    entryNames: '[name]-[hash]',
     bundle: true,
     define: {
       'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`,
@@ -137,7 +132,7 @@ async function buildWorker() {
       'process.env.NODE_DEBUG': 'false',
       'global': 'globalThis',
     },
-    outdir: 'dist/client',
+    outdir: 'dist',
     minify: true,
     sourcemap: true,
     write: false,
@@ -156,10 +151,10 @@ async function buildWorker() {
 }
 
 async function main() {
-  fs.mkdirSync('./dist/client', {recursive: true});
+  fs.mkdirSync('./dist', {recursive: true});
   const {workerFileName} = await buildWorker();
   await buildClient({workerFileName});
-  copyFolderRecursiveSync('worlds', path.join('dist', 'client'));
+  copyFolderRecursiveSync('worlds', 'dist');
 }
 
-main().catch(console.error);
+await main();

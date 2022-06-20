@@ -44,7 +44,7 @@
     "convert": "yarn ts-node src/convert-rpgwo/convert.ts",
     "run-server": "GOOGLE_APPLICATION_CREDENTIALS=$PWD/deploy/firebase-service-key.json GRIDIA_EXECUTION_ENV=node yarn ts-node src/server/run.ts",
     "run-server-no-firebase": "GRIDIA_EXECUTION_ENV=node yarn ts-node src/server/run.ts",
-    "run-static-server": "http-server dist/client -c-1 --port 8080",
+    "run-static-server": "http-server dist -c-1 --port 8080",
     "clean": "rm -rf dist",
     "watch": "concurrently --kill-others --names Server,Client,Static --prefix name \"yarn watch-server\" \"yarn watch-client\" \"yarn run-static-server > /dev/null\"",
     "watch-no-server": "concurrently --kill-others --names Client,Static --prefix name \"yarn watch-client\" \"yarn run-static-server > /dev/null\"",
@@ -57,7 +57,7 @@
     "mocha": "cp node_modules/mocha/bin/mocha node_modules/mocha/bin/mocha.js && yarn ts-node node_modules/mocha/bin/mocha.js"
   },
   "devDependencies": {
-    "@chialab/esbuild-plugin-html": "^0.12.2",
+    "@chialab/esbuild-plugin-html": "^0.16.1",
     "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
     "@types/d3-delaunay": "^4.1.0",
     "@types/d3-polygon": "^2.0.0",
