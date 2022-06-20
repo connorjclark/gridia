@@ -483,4 +483,27 @@ describe('replaySniffedOperations', () => {
     ]);
     expect(object.set).toEqual(new Set([1, 2, 3, 100]));
   });
+
+  it('equality', () => {
+    const object = {
+      name: 'name',
+      nested: {
+        name: 'name',
+        map: new Map([
+          [0, {entry: 0}],
+        ]),
+      },
+    };
+    const sniffer = sniffObject(object, () => {
+      // ignore
+    });
+    expect(sniffer.name).toBe(sniffer.name);
+    expect(sniffer.nested.name).toBe(sniffer.nested.name);
+    expect(sniffer.nested).toBe(sniffer.nested);
+    expect(sniffer.nested.map).toBe(sniffer.nested.map);
+    expect(sniffer.nested.map.get(0)).toBe(sniffer.nested.map.get(0));
+
+    // Not expected that a proxy would equal the original object.
+    expect(sniffer.nested.map.get(0)).not.toBe(object.nested.map.get(0));
+  });
 });

@@ -22,6 +22,8 @@ interface DeferredState {
 }
 
 const proxyToOriginalObject = new WeakMap();
+const targetObjectToSniffProxy = new WeakMap();
+
 function unwrap(proxy: any) {
   if (typeof proxy !== 'object' || proxy === null) return proxy;
 
@@ -67,7 +69,10 @@ function assertNotSniffed(value: any) {
   }
 }
 
-export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperation) => void, prefix = '') {
+export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperation) => void, prefix = ''): T {
+  const cachedProxy = targetObjectToSniffProxy.get(object);
+  if (cachedProxy) return cachedProxy;
+
   const proxy: T = new Proxy(object, {
     set(target, prop, value, reciever) {
       // @ts-expect-error ignore symbols.
@@ -81,6 +86,7 @@ export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperati
         if (deferredState && deferredState.originalPath === path) {
           handleDeferredState(value, cb);
           value = unwrap(value);
+          targetObjectToSniffProxy.delete(value);
           return Reflect.set(target, prop, value, reciever);
         }
 
@@ -201,6 +207,7 @@ export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperati
   });
 
   proxyToOriginalObject.set(proxy, object);
+  targetObjectToSniffProxy.set(object, proxy);
   return proxy;
 }
 
