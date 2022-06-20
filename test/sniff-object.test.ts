@@ -179,6 +179,24 @@ describe('sniffObject', () => {
     ]);
   });
 
+  it('array.filter noop', () => {
+    const object = {
+      values: [
+        {entry: 0},
+        {entry: 1},
+        {entry: 2},
+        {entry: 3},
+      ],
+    };
+    const ops: SniffedOperation[] = [];
+    const sniffer = sniffObject(object, (op) => {
+      ops.push(op);
+    });
+
+    sniffer.values = sniffer.values.filter(() => true);
+    expect(ops).toEqual([]);
+  });
+
   it('array.filter deferred', () => {
     const object = {
       values: [

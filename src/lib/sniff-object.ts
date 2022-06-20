@@ -130,14 +130,15 @@ export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperati
           // Also, further operations might happen to the intermediate array returned by .filter,
           // so record those operations too.
 
-          const deferredSnifferState = {
+          const deferredSnifferState: DeferredState = {
             target,
             originalPath: prefix,
-            ops: [
-              {path: prefix, deleteIndices},
-            ] as SniffedOperation[],
+            ops: [],
             parentState: deferredStates.get(originalObjectToDeferredProxy.get(object)),
           };
+          if (deleteIndices.length) {
+            deferredSnifferState.ops.push({path: prefix, deleteIndices});
+          }
           const deferredSniffer = sniffObject(filtered, (op: SniffedOperation) => {
             deferredSnifferState.ops.push(op);
           }, prefix);
