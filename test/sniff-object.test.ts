@@ -238,6 +238,80 @@ describe('sniffObject', () => {
     ]);
   });
 
+  it('array items moved around', () => {
+    const object = {
+      values: [
+        {entry: 0},
+        {entry: 1},
+        {entry: 2},
+        {entry: 3},
+      ],
+    };
+    const ops: SniffedOperation[] = [];
+    const sniffer = sniffObject(object, (op) => {
+      op.value = clone(op.value);
+      ops.push(op);
+    });
+
+    const itemA = sniffer.values[1];
+    const itemB = sniffer.values[3];
+    itemA.entry *= 100;
+    itemB.entry *= 100;
+    sniffer.values[1] = itemB;
+    sniffer.values[3] = itemA;
+
+    expect(ops).toEqual([
+      {path: '.values.1.entry', value: 100},
+      {path: '.values.3.entry', value: 300},
+      {path: '.values.1', value: {entry: 300}},
+      {path: '.values.3', value: {entry: 100}},
+    ]);
+    expect(object.values).toEqual([
+      {entry: 0},
+      {entry: 300},
+      {entry: 2},
+      {entry: 100},
+    ]);
+  });
+
+  it('array items moved around complex', () => {
+    const object = {
+      values: [
+        {entries: [0]},
+        {entries: [1]},
+        {entries: [2]},
+        {entries: [3]},
+      ],
+    };
+    const ops: SniffedOperation[] = [];
+    const sniffer = sniffObject(object, (op) => {
+      op.value = clone(op.value);
+      ops.push(op);
+    });
+
+    const itemA = sniffer.values[1];
+    const itemB = sniffer.values[3];
+    itemA.entries[0] *= 100;
+    itemB.entries[0] *= 100;
+    itemB.entries = itemB.entries.filter((value) => false);
+    sniffer.values[1] = itemB;
+    sniffer.values[3] = itemA;
+
+    expect(ops).toEqual([
+      {path: '.values.1.entries.0', value: 100},
+      {path: '.values.3.entries.0', value: 300},
+      {path: '.values.3.entries', deleteIndices: [0]},
+      {path: '.values.1', value: {entries: []}},
+      {path: '.values.3', value: {entries: [100]}},
+    ]);
+    expect(object.values).toEqual([
+      {entries: [0]},
+      {entries: []},
+      {entries: [2]},
+      {entries: [100]},
+    ]);
+  });
+
   it('Map', () => {
     const object = {
       map: new Map([
