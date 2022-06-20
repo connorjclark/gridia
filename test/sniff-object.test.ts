@@ -506,4 +506,18 @@ describe('replaySniffedOperations', () => {
     // Not expected that a proxy would equal the original object.
     expect(sniffer.nested.map.get(0)).not.toBe(object.nested.map.get(0));
   });
+
+  it('undefined for non-existent property', () => {
+    const object: any = {
+      nested: {
+        map: new Map(),
+      },
+    };
+    const sniffer = sniffObject(object, () => {
+      // ignore
+    });
+    expect(sniffer.name).toEqual(undefined);
+    expect(sniffer.nested.name).toEqual(undefined);
+    expect(sniffer.nested.map.get(0)).toEqual(undefined);
+  });
 });
