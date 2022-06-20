@@ -10,10 +10,9 @@ export interface IEvents {
     onInitializePartition(client: Client, { name, ...pos }: Protocol.Events.InitializePartition): void;
     onLog(client: Client, { msg }: Protocol.Events.Log): void;
     onRemoveCreature(client: Client, { id }: Protocol.Events.RemoveCreature): void;
-    onSector(client: Client, { tiles, ...pos }: Protocol.Events.Sector): void;
     onSetCreature(client: Client, {}: Protocol.Events.SetCreature): void;
     onSetPlayer(client: Client, {}: Protocol.Events.SetPlayer): void;
-    onSetFloor(client: Client, { floor, ...pos }: Protocol.Events.SetFloor): void;
+    onSetSector(client: Client, { ...pos }: Protocol.Events.SetSector): void;
     onSetItem(client: Client, { location, item }: Protocol.Events.SetItem): void;
     onXp(client: Client, { skill, xp }: Protocol.Events.Xp): void;
     onChat(client: Client, { section, from, creatureId, text }: Protocol.Events.Chat): void;

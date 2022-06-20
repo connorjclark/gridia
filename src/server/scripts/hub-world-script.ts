@@ -64,7 +64,7 @@ export class HubWorldScript extends Script<HubWorldScriptConfig> {
       this.server.setItemInWorld({...warpFromPos, y: warpFromPos.y - 1}, {
         type: Content.getMetaItemByName('Small Sign').id,
         quantity: 1,
-        textContent: `Warp to ${partition.name}`,
+        _textContent: `Warp to ${partition.name}`,
       });
 
       await this.server.ensureSectorLoadedForPoint(warpToPos);
@@ -83,7 +83,7 @@ export class HubWorldScript extends Script<HubWorldScriptConfig> {
       this.server.setItemInWorld({...warpToPos, y: warpToPos.y - 1}, {
         type: Content.getMetaItemByName('Small Sign').id,
         quantity: 1,
-        textContent: `Warp to ${hubWorldPartition.name}`,
+        _textContent: `Warp to ${hubWorldPartition.name}`,
       });
     }
 

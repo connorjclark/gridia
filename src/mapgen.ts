@@ -262,7 +262,7 @@ export function mapgen(opts: MapGenOptions) {
         if (ind !== -1) points.splice(ind, 1);
         const tile = map.getTile({...point, z});
         if (tile.item?.type !== MINE) continue;
-        if (random() < 0.2) tile.item.oreType = oreType;
+        if (random() < 0.2) tile.item._oreType = oreType;
       }
     }
 
@@ -276,9 +276,9 @@ export function mapgen(opts: MapGenOptions) {
       for (let j = 0; j < numOre; j++) {
         const tile = map.getTile({x, y, z});
         if (tile.item?.type !== MINE) continue;
-        if (tile.item.oreType) continue;
+        if (tile.item._oreType) continue;
 
-        tile.item.oreType = oreType;
+        tile.item._oreType = oreType;
         x += Utils.randInt(-1, 1);
         y += Utils.randInt(-1, 1);
       }

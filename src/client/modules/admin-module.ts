@@ -1,3 +1,4 @@
+import {SECTOR_SIZE} from '../../constants.js';
 import * as CommandBuilder from '../../protocol/command-builder.js';
 import * as Utils from '../../utils.js';
 import {ClientModule} from '../client-module.js';
@@ -20,9 +21,55 @@ export class AdminModule extends ClientModule {
     this.init();
 
     this.game.client.eventEmitter.on('event', (e) => {
-      if (e.type === 'setFloor') {
-        this.removeFromHistory(e.args, e.args.floor, 'floor');
+      if (e.type === 'setSector') {
+        // TODO: no idea if correct because this.removeFromHistory is currently disabled.
+
+        const handleFloor = (sectorPos: TilePoint, x: number, y: number, floor: number) => {
+          const pos = {
+            w: sectorPos.w,
+            x: x + SECTOR_SIZE * sectorPos.x,
+            y: y + SECTOR_SIZE * sectorPos.y,
+            z: sectorPos.z,
+          };
+          this.removeFromHistory(pos, floor, 'floor');
+        };
+        const handleItem = (sectorPos: TilePoint, x: number, y: number, item?: Item) => {
+          const pos = {
+            w: sectorPos.w,
+            x: x + SECTOR_SIZE * sectorPos.x,
+            y: y + SECTOR_SIZE * sectorPos.y,
+            z: sectorPos.z,
+          };
+          this.removeFromHistory(pos, item?.type, 'item');
+        };
+
+        if ('ops' in e.args) {
+          // TODO: this should be its own events; floorupdate, itemupdate
+          for (const op of e.args.ops) {
+            if (op.path.endsWith('.floor')) {
+              const [, x, y] = op.path.match(/\.(\d+)\.(\d+)/) || [];
+              if (x === undefined || y === undefined) throw new Error();
+
+              handleFloor(e.args, Number(x), Number(y), op.value);
+            } else if (op.path.endsWith('.item')) {
+              const [, x, y] = op.path.match(/\.(\d+)\.(\d+)/) || [];
+              if (x === undefined || y === undefined) throw new Error();
+
+              handleItem(e.args, Number(x), Number(y), op.value);
+            }
+          }
+        } else {
+          // eslint-disable-next-line @typescript-eslint/prefer-for-of
+          for (let i = 0; i < e.args.tiles.length; i++) {
+            for (let j = 0; j < e.args.tiles[0].length; j++) {
+              const tile = e.args.tiles[i][j];
+              handleFloor(e.args, i, j, tile.floor);
+              handleItem(e.args, i, j, tile.item);
+            }
+          }
+        }
       }
+
       if (e.type === 'setItem' && e.args.location.source === 'world') {
         this.removeFromHistory(e.args.location.pos, e.args.item?.type, 'item');
       }

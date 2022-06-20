@@ -41,7 +41,7 @@ async function copyOverMainWorldMap() {
           const item = partition.getItem({x, y, z});
           if (!item) continue;
 
-          delete item.growth;
+          delete item._growth;
         }
       }
     }

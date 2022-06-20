@@ -45,10 +45,6 @@ export class ClientInterface implements IEvents {
     client.context.removeCreature(id);
   }
 
-  onSector(client: Client, {tiles, ...pos}: Events.Sector): void {
-    client.context.map.getPartition(pos.w).sectors[pos.x][pos.y][pos.z] = tiles;
-  }
-
   onSetCreature(client: Client, creatureOrOps: Events.SetCreature): void {
     if (!creatureOrOps.id) throw new Error('id must exist'); // TODO: can remove?
 
@@ -75,15 +71,25 @@ export class ClientInterface implements IEvents {
     replaySniffedOperations(client.player, playerOrOps.ops);
   }
 
-  onSetFloor(client: Client, {floor, ...pos}: Events.SetFloor): void {
-    client.context.map.getTile(pos).floor = floor;
+  onSetSector(client: Client, sectorOrOps: Events.SetSector): void {
+    const {w, x, y, z} = sectorOrOps;
+    if (!('ops' in sectorOrOps)) {
+      client.context.map.getPartition(w).sectors[x][y][z] = sectorOrOps.tiles;
+      return;
+    }
+
+    const sector = client.context.map.getPartition(w).sectors[x][y][z];
+    if (!sector) {
+      client.connection.sendCommand(CommandBuilder.requestSector({w, x, y, z}));
+      return;
+    }
+
+    replaySniffedOperations(sector, sectorOrOps.ops);
   }
 
   onSetItem(client: Client, {location, item}: Events.SetItem): void {
     if (location.source === 'world') {
-      if (client.context.map.partitions.get(location.pos.w)) {
-        client.context.map.getTile(location.pos).item = item;
-      }
+      throw new Error('This had been replaced with setSector');
     } else {
       if (location.index === undefined) throw new Error('invariant violated');
 

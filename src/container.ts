@@ -117,7 +117,6 @@ export function forEach(container: Container, fn: (value: Item, index: number, a
 export function setItemInContainer(server: Server, container: Container, index: number, item?: Item) {
   if (item?.quantity === 0) item = undefined;
 
-  const prevItem = container.items[index];
   container.items[index] = item || null;
 
   server.conditionalBroadcast(EventBuilder.setItem({

@@ -55,6 +55,7 @@ export class Server {
   }>;
   pendingCreatureSniffedOperations: Map<number, SniffedOperation[]> = new Map();
   pendingPlayerSniffedOperations: Map<Player, SniffedOperation[]> = new Map();
+  pendingSectorSniffedOperations: Map<Sector, {pos: TilePoint; ops: SniffedOperation[]}> = new Map();
   // TODO: WeakMap
   creatureStates: Record<number, CreatureState> = {};
 
@@ -69,6 +70,31 @@ export class Server {
     this.context = opts.context;
     this.verbose = opts.verbose;
     this.setupTickSections();
+
+    const originalLoader = this.context.map.loader;
+    if (!originalLoader) throw new Error('must set context.map.loader');
+    this.context.map.loader = async (pos) => {
+      const sector = await originalLoader(pos);
+
+      return sniffObject(sector, (op) => {
+        if (op.path.includes('._')) return;
+
+        if (typeof op.value === 'object' && op.value !== null) {
+          const keysToDelete = [];
+          for (const key of Object.keys(op.value)) {
+            if (key.startsWith('_')) keysToDelete.push(key);
+          }
+          if (keysToDelete.length) {
+            op.value = {...op.value};
+            for (const key of keysToDelete) delete op.value[key];
+          }
+        }
+
+        const entry = this.pendingSectorSniffedOperations.get(sector) || {pos, ops: []};
+        entry.ops.push(op);
+        this.pendingSectorSniffedOperations.set(sector, entry);
+      });
+    };
   }
 
   addClientConnection(clientConnection: ClientConnection) {
@@ -632,6 +658,7 @@ export class Server {
     while (
       this.pendingCreatureSniffedOperations.size ||
       this.pendingPlayerSniffedOperations.size ||
+      this.pendingSectorSniffedOperations.size ||
       this.outboundMessages.length ||
       this.context.clientConnections.some((c) => c.hasMessage())
     ) {
@@ -1376,27 +1403,14 @@ export class Server {
     } else {
       nearestTile.item = item;
     }
-
-    this.broadcast(EventBuilder.setItem({
-      location: Utils.ItemLocation.World(nearestLoc),
-      item: nearestTile.item,
-    }));
   }
 
   setFloor(pos: TilePoint, floor: number) {
     this.context.map.getTile(pos).floor = floor;
-    this.broadcast(EventBuilder.setFloor({
-      ...pos,
-      floor,
-    }));
   }
 
   setItemInWorld(pos: TilePoint, item?: Item) {
     this.context.map.getTile(pos).item = item;
-    this.broadcast(EventBuilder.setItem({
-      location: Utils.ItemLocation.World(pos),
-      item,
-    }));
   }
 
   updateCreatureLight(playerConnection: PlayerConnection) {
@@ -1975,6 +1989,15 @@ export class Server {
         }
         this.pendingPlayerSniffedOperations.clear();
 
+        for (const {pos, ops} of this.pendingSectorSniffedOperations.values()) {
+          // TODO: send only to clients that are near / are subscribed to Sector updates.
+          this.broadcast(EventBuilder.setSector({
+            ...pos,
+            ops,
+          }));
+        }
+        this.pendingSectorSniffedOperations.clear();
+
         // TODO stream marks somewhere, and pull in isomorphic node/browser performance.
         // console.log(performance.getEntries());
         // performance.clearMarks();
@@ -2056,15 +2079,14 @@ export class Server {
       const meta = Content.getMetaItem(tile.item.type);
       if (!meta || meta.growthDelta === undefined) continue;
 
-      tile.item.growth = (tile.item.growth || 0) + 1;
-      if (tile.item.growth < meta.growthDelta) continue;
+      tile.item._growth = (tile.item._growth || 0) + 1;
+      if (tile.item._growth < meta.growthDelta) continue;
 
-      const newItem = meta.growthItem ? {
+      tile.item = meta.growthItem ? {
         ...tile.item,
         type: meta.growthItem,
-        growth: 0,
+        _growth: 0,
       } : undefined;
-      this.setItemInWorld({...pos, w}, newItem);
     }
 
     // for (let x = 0; x < partition.width; x++) {
@@ -2079,10 +2101,6 @@ export class Server {
     //     if (item.growth >= meta.growthDelta) {
     //       item.type = meta.growthItem;
     //       item.growth = 0;
-    //       this.broadcast(EventBuilder.setItem({
-    //         location: Utils.ItemLocation.World({ ...pos, w }),
-    //         item,
-    //       }));
     //     }
     //   }
     // }

@@ -178,12 +178,12 @@ type Sector = Tile[][];
 interface Item {
   type: number;
   quantity: number;
-  growth?: number;
   containerId?: string;
   buff?: Buff;
   warpTo?: TilePoint;
-  oreType?: number;
-  textContent?: string;
+  _growth?: number;
+  _oreType?: number;
+  _textContent?: string;
 }
 
 interface Creature {

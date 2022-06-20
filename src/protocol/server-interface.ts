@@ -62,9 +62,9 @@ export class ServerInterface implements ICommands {
       if (creature.stamina.current < staminaCost) throw new InvalidProtocolError('you are exhausted');
       server.modifyCreatureStamina(null, creature, -staminaCost);
 
-      const oreType = tile.item.oreType || Content.getMetaItemByName('Pile of Dirt').id;
+      const oreType = tile.item._oreType || Content.getMetaItemByName('Pile of Dirt').id;
       const minedItem = {type: oreType, quantity: 1};
-      server.setItemInWorld(pos, minedItem);
+      tile.item = minedItem;
       server.broadcastAnimation({
         name: 'MiningSound',
         path: [pos],
@@ -291,12 +291,16 @@ export class ServerInterface implements ICommands {
     for (let i = 0; i < tiles.length; i++) {
       for (let j = 0; j < tiles[0].length; j++) {
         const tile = tiles[i][j];
-        delete tile.item?.oreType;
-        delete tile.item?.textContent;
+        if (tile.item) {
+          for (const key of Object.keys(tile.item)) {
+            // @ts-expect-error
+            if (key.startsWith('_')) delete tile.item[key];
+          }
+        }
       }
     }
 
-    server.send(EventBuilder.sector({
+    server.send(EventBuilder.setSector({
       ...pos,
       tiles,
     }), clientConnection);
@@ -436,10 +440,6 @@ export class ServerInterface implements ICommands {
 
     Container.setItemInContainer(server, inventory, toolIndex, usageResult.tool);
     server.context.map.getTile(pos).item = usageResult.focus;
-    server.broadcast(EventBuilder.setItem({
-      location: Utils.ItemLocation.World(pos),
-      item: usageResult.focus,
-    }));
     for (const product of usageResult.products) {
       server.addItemNear(pos, product);
     }
@@ -821,7 +821,7 @@ export class ServerInterface implements ICommands {
     if (!item || !Content.getMetaItem(item.type).readable) throw new InvalidProtocolError('invalid item');
 
     return Promise.resolve({
-      content: item.textContent || 'It\'s blank.',
+      content: item._textContent || 'It\'s blank.',
     });
   }
 

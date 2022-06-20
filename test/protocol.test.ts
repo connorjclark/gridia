@@ -111,8 +111,9 @@ describe('protocol', () => {
 
     const worldMap = new WorldMap();
     const partition = makeBareMap(20, 20, 1);
+    worldMap.loader = (pos) => partition.getSector(pos);
+
     worldMap.addPartition(0, partition);
-    partition.loader = () => Promise.resolve(partition.createEmptySector()); // :(
     const memoryServerData = openAndConnectToServerInMemory({
       verbose: false,
       worldMap,

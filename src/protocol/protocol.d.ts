@@ -71,7 +71,6 @@ declare namespace Protocol {
       // TODO: move to Login
       secondsPerWorldTick: number;
       ticksPerWorldDay: number;
-      // quests: Array<{id: string, name: string, started: boolean}>;
     }
 
     interface UpdateSessionState extends Partial<SessionState> {
@@ -89,16 +88,9 @@ declare namespace Protocol {
       id: number;
     }
 
-    interface Sector extends TilePoint {
-      tiles: Tile[][];
-    }
-
     type SetCreature = Creature | {id: number; ops: SniffedOperation[]};
     type SetPlayer = Player | {ops: SniffedOperation[]};
-
-    interface SetFloor extends TilePoint {
-      floor: number;
-    }
+    type SetSector = TilePoint & ({tiles: Tile[][]} | {ops: SniffedOperation[]});
 
     interface SetItem {
       location: ItemLocation;

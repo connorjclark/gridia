@@ -179,7 +179,7 @@ export function processChatCommand(server: Server, playerConnection: PlayerConne
         const item = server.context.map.getItem(pos);
         if (!item || !Content.getMetaItem(item.type).readable) return 'invalid item';
 
-        item.textContent = args.content;
+        item._textContent = args.content;
       },
     },
     debugTile: {

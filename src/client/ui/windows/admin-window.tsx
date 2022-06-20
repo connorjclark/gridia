@@ -390,7 +390,7 @@ export function makeAdminWindow(adminModule: AdminModule) {
         setPos(to);
       };
       const fn2 = ({type}: ClientEvents['event']) => {
-        if (type === 'setItem' || type === 'setFloor') {
+        if (type === 'setSector') {
           rerender({});
         }
       };
