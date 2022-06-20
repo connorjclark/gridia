@@ -25,7 +25,16 @@ const proxyToOriginalObject = new WeakMap();
 function unwrap(proxy: any) {
   if (typeof proxy !== 'object' || proxy === null) return proxy;
 
-  const originalObject = proxyToOriginalObject.get(proxy) ?? proxy;
+  let originalObject = proxyToOriginalObject.get(proxy);
+  if (originalObject !== undefined) {
+    // Do not allow for doubly-wrapped sniffed proxies. This ensures that
+    // a proxy object is never written back to the original object graph.
+    assertNotSniffed(originalObject);
+  } else {
+    // Wasn't a sniffed proxy.
+    originalObject = proxy;
+  }
+
   for (const [key, value] of Object.entries(originalObject)) {
     originalObject[key] = unwrap(value);
   }
@@ -52,22 +61,31 @@ function handleDeferredState(proxy: any, cb: any) {
   }
 }
 
+function assertNotSniffed(value: any) {
+  if (typeof value === 'object' && value !== null) {
+    assert(!Reflect.get(value, sniffed, value));
+  }
+}
+
 export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperation) => void, prefix = '') {
   const proxy: T = new Proxy(object, {
     set(target, prop, value, reciever) {
       // @ts-expect-error ignore symbols.
       const path = `${prefix}.${prop}`;
+      const valueIsProxy = typeof value === 'object' && value !== null && Reflect.get(value, sniffed, value);
 
       // Check for deferred state. See .filter in `get`.
-      const deferredState = deferredStates.get(value);
+      if (valueIsProxy) {
+        const deferredState = deferredStates.get(value);
 
-      if (deferredState && deferredState.originalPath === path) {
-        handleDeferredState(value, cb);
+        if (deferredState && deferredState.originalPath === path) {
+          handleDeferredState(value, cb);
+          value = unwrap(value);
+          return Reflect.set(target, prop, value, reciever);
+        }
+
         value = unwrap(value);
-        return Reflect.set(target, prop, value, reciever);
       }
-
-      value = unwrap(value);
 
       if (!(Array.isArray(target) && prop === 'length')) {
         if (value !== Reflect.get(target, prop, reciever)) {
@@ -133,6 +151,7 @@ export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperati
           const origTargetMethod = targetMethod;
           return (k: string | number, v: string) => {
             if (typeof k === 'object') throw new Error('Map keys must be string or number');
+            v = unwrap(v);
             origTargetMethod(k, v);
             cb({path: `${prefix}.${k}`, value: v});
           };
@@ -140,6 +159,7 @@ export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperati
           const origTargetMethod = targetMethod;
           return (v: string | number) => {
             if (typeof v === 'object') throw new Error('Sets can only contain strings or numbers');
+            v = unwrap(v);
             origTargetMethod(v);
             cb({path: prefix, add: v});
           };
@@ -192,7 +212,7 @@ function stringValueToKey(str: string): string | number {
 
 export function replaySniffedOperations(object: any, ops: SniffedOperation[]) {
   assert(typeof object === 'object' && object !== null);
-  assert(!Reflect.get(object, sniffed, object));
+  assertNotSniffed(object);
 
   for (const op of ops) {
     assert(op.path[0] === '.');

@@ -573,6 +573,7 @@ export class Server {
     const sniffedPlayer = sniffObject(player, (op) => {
       if (op.path === '.timePlayed') return;
       if (op.path.startsWith('.tilesSeenLog')) return;
+      if (op.path.startsWith('.dialougeSymbols')) return;
 
       const ops = this.pendingPlayerSniffedOperations.get(player) || [];
       ops.push(op);
