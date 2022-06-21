@@ -3,20 +3,10 @@ import * as Player from '../../player.js';
 import * as CommandBuilder from '../../protocol/command-builder.js';
 import * as Utils from '../../utils.js';
 import {ClientModule} from '../client-module.js';
-import {Game} from '../game.js';
 import {State, makeSkillsWindow} from '../ui/windows/skills-window.js';
 
 export class SkillsModule extends ClientModule {
-  protected skillsWindow;
-
-  constructor(game: Game) {
-    super(game);
-
-    this.skillsWindow = makeSkillsWindow(this.game, this.makeUIState());
-    this.skillsWindow.delegate.setOnShow(() => {
-      this.skillsWindow.actions.setState(this.makeUIState());
-    });
-  }
+  protected skillsWindow: ReturnType<typeof makeSkillsWindow> | undefined;
 
   makeUIState(): State {
     return {
@@ -44,20 +34,24 @@ export class SkillsModule extends ClientModule {
   }
 
   onStart() {
+    this.skillsWindow = makeSkillsWindow(this.game, this.makeUIState());
+    this.skillsWindow.delegate.setOnShow(() => {
+      this.skillsWindow?.actions.setState(this.makeUIState());
+    });
     this.game.client.eventEmitter.on('event', (e) => {
       if (e.type === 'xp') {
         this.game.addStatusText(`+${e.args.xp}xp ${Content.getSkill(e.args.skill).name}`);
       }
 
-      if (this.skillsWindow.delegate.isOpen()) {
+      if (this.skillsWindow?.delegate.isOpen()) {
         if (e.type === 'setCreature' && e.args.id === this.game.client.creature.id &&
             Utils.hasSniffedDataChanged<Creature>(e.args, 'buffs')) {
-          this.skillsWindow.actions.setCombatLevel(this.getCombatLevel());
-          this.skillsWindow.actions.setSkills(this.getSkills());
+          this.skillsWindow?.actions.setCombatLevel(this.getCombatLevel());
+          this.skillsWindow?.actions.setSkills(this.getSkills());
         }
 
         if (e.type === 'setPlayer') {
-          this.skillsWindow.actions.setState(this.makeUIState());
+          this.skillsWindow?.actions.setState(this.makeUIState());
         }
       }
     });

@@ -1715,8 +1715,6 @@ export class Server {
       z: partition.depth,
     }));
 
-    // TODO: next line not necessary. but removing breaks tests ...
-    playerConnection.sendEvent(EventBuilder.setCreature(playerConnection.creature));
     playerConnection.sendEvent(EventBuilder.setContainer(
       await this.context.getContainer(playerConnection.equipment.id)
     ));
