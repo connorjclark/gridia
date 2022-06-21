@@ -386,6 +386,94 @@ describe('sniffObject', () => {
     ]);
     expect(object.set).toEqual(new Set([1, 2, 3, 100]));
   });
+
+  it('equality', () => {
+    const object = {
+      name: 'name',
+      nested: {
+        name: 'name',
+        map: new Map([
+          [0, {entry: 0}],
+        ]),
+      },
+    };
+    const sniffer = sniffObject(object, () => {
+      // ignore
+    });
+    expect(sniffer.name).toBe(sniffer.name);
+    expect(sniffer.nested.name).toBe(sniffer.nested.name);
+    expect(sniffer.nested).toBe(sniffer.nested);
+    expect(sniffer.nested.map).toBe(sniffer.nested.map);
+    expect(sniffer.nested.map.get(0)).toBe(sniffer.nested.map.get(0));
+
+    // Not expected that a proxy would equal the original object.
+    expect(sniffer.nested.map.get(0)).not.toBe(object.nested.map.get(0));
+  });
+
+  it('undefined for non-existent property', () => {
+    const object: any = {
+      nested: {
+        map: new Map(),
+      },
+    };
+    const sniffer = sniffObject(object, () => {
+      // ignore
+    });
+    expect(sniffer.name).toEqual(undefined);
+    expect(sniffer.nested.name).toEqual(undefined);
+    expect(sniffer.nested.map.get(0)).toEqual(undefined);
+  });
+
+  it('can assign values between two sniffed objects', () => {
+    const object1 = {
+      values: [
+        {entry: 0},
+      ],
+    };
+    const object2 = {
+      values: [
+        {entry: 0},
+        {entry: 1},
+        {entry: 2},
+      ],
+    };
+    const ops: Array<{id: number; op: SniffedOperation}> = [];
+    const sniffer1 = sniffObject(object1, (op) => {
+      op.value = clone(op.value);
+      ops.push({id: 1, op});
+    });
+    const sniffer2 = sniffObject(object2, (op) => {
+      op.value = clone(op.value);
+      ops.push({id: 2, op});
+    });
+
+    sniffer1.values = sniffer2.values;
+    sniffer1.values.push({entry: 3});
+
+    expect(ops).toEqual([
+      {id: 1, op: {path: '.values', value: [
+        {entry: 0},
+        {entry: 1},
+        {entry: 2},
+      ]}},
+      {id: 1, op: {path: '.values.3', value: {entry: 3}}},
+      // It'd be nice if this also happened, but at the moment `sniffer1.values = sniffer2.values`
+      // basically transfers the sniffing from one object to the other.
+      // {id: 2, op: {path: '.values.3', value: {entry: 3}}},
+    ]);
+    expect(object1.values).toEqual([
+      {entry: 0},
+      {entry: 1},
+      {entry: 2},
+      {entry: 3},
+    ]);
+    expect(object2.values).toEqual([
+      {entry: 0},
+      {entry: 1},
+      {entry: 2},
+      {entry: 3},
+    ]);
+  });
 });
 
 describe('replaySniffedOperations', () => {
@@ -500,42 +588,5 @@ describe('replaySniffedOperations', () => {
       {path: '.set', add: 100},
     ]);
     expect(object.set).toEqual(new Set([1, 2, 3, 100]));
-  });
-
-  it('equality', () => {
-    const object = {
-      name: 'name',
-      nested: {
-        name: 'name',
-        map: new Map([
-          [0, {entry: 0}],
-        ]),
-      },
-    };
-    const sniffer = sniffObject(object, () => {
-      // ignore
-    });
-    expect(sniffer.name).toBe(sniffer.name);
-    expect(sniffer.nested.name).toBe(sniffer.nested.name);
-    expect(sniffer.nested).toBe(sniffer.nested);
-    expect(sniffer.nested.map).toBe(sniffer.nested.map);
-    expect(sniffer.nested.map.get(0)).toBe(sniffer.nested.map.get(0));
-
-    // Not expected that a proxy would equal the original object.
-    expect(sniffer.nested.map.get(0)).not.toBe(object.nested.map.get(0));
-  });
-
-  it('undefined for non-existent property', () => {
-    const object: any = {
-      nested: {
-        map: new Map(),
-      },
-    };
-    const sniffer = sniffObject(object, () => {
-      // ignore
-    });
-    expect(sniffer.name).toEqual(undefined);
-    expect(sniffer.nested.name).toEqual(undefined);
-    expect(sniffer.nested.map.get(0)).toEqual(undefined);
   });
 });

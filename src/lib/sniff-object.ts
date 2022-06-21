@@ -65,11 +65,17 @@ function handleDeferredState(proxy: any, cb: any) {
 
 function assertNotSniffed(value: any) {
   if (typeof value === 'object' && value !== null) {
+    // if (Reflect.get(value, sniffed, value)) debugger;
     assert(!Reflect.get(value, sniffed, value));
   }
 }
 
-export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperation) => void, prefix = ''): T {
+const sniffProxyToRootObject = new WeakMap();
+
+export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperation) => void, prefix = '',
+                                              rootObject: any = undefined): T {
+  if (!rootObject) rootObject = object;
+
   const cachedProxy = targetObjectToSniffProxy.get(object);
   if (cachedProxy) return cachedProxy;
 
@@ -78,6 +84,14 @@ export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperati
       // @ts-expect-error ignore symbols.
       const path = `${prefix}.${prop}`;
       const valueIsProxy = typeof value === 'object' && value !== null && Reflect.get(value, sniffed, value);
+
+      if (valueIsProxy) {
+        const valueRootObject = sniffProxyToRootObject.get(value);
+        if (valueRootObject !== rootObject) {
+          value = unwrap(value);
+          targetObjectToSniffProxy.delete(value);
+        }
+      }
 
       // Check for deferred state. See .filter in `get`.
       if (valueIsProxy) {
@@ -139,7 +153,7 @@ export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperati
           if (deleteIndices.length) {
             deferredSnifferState.ops.push({path: prefix, deleteIndices});
           }
-          const deferredSniffer = sniffObject(filtered, (op: SniffedOperation) => {
+          const deferredSniffer = sniffSubObject(rootObject, filtered, (op: SniffedOperation) => {
             deferredSnifferState.ops.push(op);
           }, prefix);
           deferredStates.set(deferredSniffer, deferredSnifferState);
@@ -181,7 +195,7 @@ export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperati
           return (k: string | number) => {
             const retValue = origTargetMethod(k);
             if (typeof retValue === 'object' && retValue !== null) {
-              return sniffObject(retValue, cb, `${prefix}.${k}`);
+              return sniffSubObject(rootObject, retValue, cb, `${prefix}.${k}`);
             } else {
               return retValue;
             }
@@ -200,7 +214,7 @@ export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperati
       if (typeof targetValue === 'object' && targetValue !== null) {
         // @ts-expect-error does not support symbols.
         const path = `${prefix}.${prop}`;
-        return sniffObject(targetValue, cb, path);
+        return sniffSubObject(rootObject, targetValue, cb, path);
       }
 
       return targetValue;
@@ -210,6 +224,12 @@ export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperati
   proxyToOriginalObject.set(proxy, object);
   targetObjectToSniffProxy.set(object, proxy);
   return proxy;
+}
+
+function sniffSubObject(rootObject: object, object: object, cb: (op: SniffedOperation) => void, path: string) {
+  const sniffedSubObject = sniffObject(object, cb, path, rootObject);
+  sniffProxyToRootObject.set(sniffedSubObject, rootObject);
+  return sniffedSubObject;
 }
 
 function stringValueToKey(str: string): string | number {
