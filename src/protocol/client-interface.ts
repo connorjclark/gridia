@@ -17,10 +17,6 @@ export class ClientInterface implements IEvents {
     // handled by game.ts
   }
 
-  onContainer(client: Client, {container}: Events.Container): void {
-    client.context.containers.set(container.id, container);
-  }
-
   onInitialize(client: Client, opts: Events.Initialize): void {
     client.player = opts.player;
     client.session.creatureId = opts.creatureId;
@@ -87,17 +83,18 @@ export class ClientInterface implements IEvents {
     replaySniffedOperations(sector, sectorOrOps.ops);
   }
 
-  onSetItem(client: Client, {location, item}: Events.SetItem): void {
-    if (location.source === 'world') {
-      throw new Error('This had been replaced with setSector');
-    } else {
-      if (location.index === undefined) throw new Error('invariant violated');
-
-      const container = client.context.containers.get(location.id);
-      if (container) {
-        container.items[location.index] = item || null;
-      }
+  onSetContainer(client: Client, containerOrOps: Events.SetContainer): void {
+    if (!('ops' in containerOrOps)) {
+      client.context.containers.set(containerOrOps.id, containerOrOps);
+      return;
     }
+
+    const container = client.context.containers.get(containerOrOps.id);
+    if (!container) {
+      throw new Error(`not subscribed to container ${containerOrOps.id}`);
+    }
+
+    replaySniffedOperations(container, containerOrOps.ops);
   }
 
   onXp(client: Client, {skill, xp}: Events.Xp): void {

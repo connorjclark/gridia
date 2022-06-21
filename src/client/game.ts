@@ -479,28 +479,31 @@ export class Game {
   }
 
   // Should only be used for refreshing UI, not updating game state.
-  // Event are guaranteed to be first handled by `client-interface.ts`.
+  // Events are guaranteed to be first handled by `client-interface.ts`.
   onProtocolEvent(event: ProtocolEvent) {
-    // Update the selected view, if the item there changed.
-    if (event.type === 'setItem') {
-      let shouldUpdateUsages = false;
-      if (event.args.location.source === 'container') shouldUpdateUsages = true;
-      else if (Utils.maxDiff(this.getPlayerPosition(), event.args.location.pos) <= 1) shouldUpdateUsages = true;
+    let shouldUpdateUsages = false;
+    if (event.type === 'setContainer') {
+      shouldUpdateUsages = true;
+      // else if (Utils.maxDiff(this.getPlayerPosition(), event.args.location.pos) <= 1) shouldUpdateUsages = true;
       if (shouldUpdateUsages) this.modules.usage.updatePossibleUsages();
 
-      if (this.state.selectedView.location &&
-        Utils.ItemLocation.Equal(this.state.selectedView.location, event.args.location)) {
-        this.modules.selectedView.selectView(this.state.selectedView.location);
-      }
+      // TODO: fix this.
+      // Update the selected view, if the item there changed.
+      // if (this.state.selectedView.location &&
+      //   Utils.ItemLocation.Equal(this.state.selectedView.location, event.args.location)) {
+      //   this.modules.selectedView.selectView(this.state.selectedView.location);
+      // }
 
-      if (event.args.location.source === 'container' && this.containerWindows.has(event.args.location.id)) {
-        const container = this.client.context.containers.get(event.args.location.id);
+      if (this.containerWindows.has(event.args.id)) {
+        const container = this.client.context.containers.get(event.args.id);
         if (container) {
           // TODO: should only update a single slot ...
-          this.containerWindows.get(event.args.location.id)?.actions.setContainer(container);
+          this.containerWindows.get(event.args.id)?.actions.setContainer(container);
         }
       }
     }
+
+    if (shouldUpdateUsages) this.modules.usage.updatePossibleUsages();
 
     if (event.type === 'setCreature' && event.args.id) {
       if (Utils.hasSniffedDataChanged<Creature>(event.args, 'pos')) {

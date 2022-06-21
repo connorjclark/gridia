@@ -243,7 +243,7 @@ export class ServerInterface implements ICommands {
 
     clientConnection.registeredContainers.push(containerId);
     const container = await server.context.getContainer(containerId);
-    server.send(EventBuilder.container({container}), clientConnection);
+    server.send(EventBuilder.setContainer(container), clientConnection);
   }
 
   onCloseContainer(server: Server, clientConnection: ClientConnection, {containerId}: Commands.CloseContainer['params']): Promise<Commands.CloseContainer['response']> {
@@ -359,9 +359,9 @@ export class ServerInterface implements ICommands {
       if (!creature.merchant) throw new InvalidProtocolError('Creature is not a merchant');
 
       const containerId = creature.merchant.containerId;
-      clientConnection.registeredContainers.push(containerId);
       const container = await server.context.getContainer(containerId);
-      server.send(EventBuilder.container({container}), clientConnection);
+      server.send(EventBuilder.setContainer(container), clientConnection);
+      clientConnection.registeredContainers.push(containerId);
     }
 
     return Promise.resolve();

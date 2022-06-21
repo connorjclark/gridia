@@ -96,8 +96,7 @@ export function useContainerItems(game: Game, container: Container) {
 
   useEffect(() => {
     const fn = (event: ProtocolEvent) => {
-      if (event.type === 'setItem' && event.args.location.source === 'container' &&
-        event.args.location.id === container.id) {
+      if (event.type === 'setContainer' && event.args.id === container.id) {
         setItems([...container.items]);
       }
     };

@@ -38,6 +38,7 @@ export function openAndConnectToServerInMemory(
     context: serverContext,
     verbose,
   });
+  serverContext.server = server;
 
   const clientConnection = new ClientConnection();
   clientConnection.send = (message) => {

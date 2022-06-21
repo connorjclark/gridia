@@ -56,6 +56,7 @@ export class Server {
   pendingCreatureSniffedOperations: Map<number, SniffedOperation[]> = new Map();
   pendingPlayerSniffedOperations: Map<Player, SniffedOperation[]> = new Map();
   pendingSectorSniffedOperations: Map<Sector, {pos: TilePoint; ops: SniffedOperation[]}> = new Map();
+  pendingContainerSniffedOperations: Map<Container, SniffedOperation[]> = new Map();
   // TODO: WeakMap
   creatureStates: Record<number, CreatureState> = {};
 
@@ -659,6 +660,7 @@ export class Server {
       this.pendingCreatureSniffedOperations.size ||
       this.pendingPlayerSniffedOperations.size ||
       this.pendingSectorSniffedOperations.size ||
+      this.pendingContainerSniffedOperations.size ||
       this.outboundMessages.length ||
       this.context.clientConnections.some((c) => c.hasMessage())
     ) {
@@ -1715,11 +1717,11 @@ export class Server {
 
     // TODO: next line not necessary. but removing breaks tests ...
     playerConnection.sendEvent(EventBuilder.setCreature(playerConnection.creature));
-    playerConnection.sendEvent(EventBuilder.container({
-      container: await this.context.getContainer(playerConnection.equipment.id),
-    }));
-    playerConnection.sendEvent(EventBuilder.container(
-      {container: await this.context.getContainer(playerConnection.container.id)},
+    playerConnection.sendEvent(EventBuilder.setContainer(
+      await this.context.getContainer(playerConnection.equipment.id)
+    ));
+    playerConnection.sendEvent(EventBuilder.setContainer(
+      await this.context.getContainer(playerConnection.container.id)
     ));
     this.updateCreatureLight(playerConnection);
     setTimeout(() => {
@@ -1997,6 +1999,18 @@ export class Server {
           }));
         }
         this.pendingSectorSniffedOperations.clear();
+
+        for (const [container, ops] of this.pendingContainerSniffedOperations.entries()) {
+          this.conditionalBroadcast(EventBuilder.setContainer({
+            id: container.id,
+            ops,
+          }), (client) => {
+            if (client.container.id === container.id) return true;
+            if (client.equipment.id === container.id) return true;
+            return client.registeredContainers.includes(container.id);
+          });
+        }
+        this.pendingContainerSniffedOperations.clear();
 
         // TODO stream marks somewhere, and pull in isomorphic node/browser performance.
         // console.log(performance.getEntries());

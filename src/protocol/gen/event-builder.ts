@@ -4,10 +4,6 @@ type AnimationEvent = {
     type: "animation";
     args: Protocol.Events.Animation;
 };
-type ContainerEvent = {
-    type: "container";
-    args: Protocol.Events.Container;
-};
 type InitializeEvent = {
     type: "initialize";
     args: Protocol.Events.Initialize;
@@ -40,9 +36,9 @@ type SetSectorEvent = {
     type: "setSector";
     args: Protocol.Events.SetSector;
 };
-type SetItemEvent = {
-    type: "setItem";
-    args: Protocol.Events.SetItem;
+type SetContainerEvent = {
+    type: "setContainer";
+    args: Protocol.Events.SetContainer;
 };
 type XpEvent = {
     type: "xp";
@@ -77,13 +73,10 @@ type RawAnimationEvent = {
     args: Protocol.Events.RawAnimation;
 };
 
-export type ProtocolEvent = AnimationEvent | ContainerEvent | InitializeEvent | UpdateSessionStateEvent | InitializePartitionEvent | LogEvent | RemoveCreatureEvent | SetCreatureEvent | SetPlayerEvent | SetSectorEvent | SetItemEvent | XpEvent | ChatEvent | TimeEvent | StartDialogueEvent | UpdateDialogueEvent | CreatureStatusEvent | NotificationEvent | RawAnimationEvent;
+export type ProtocolEvent = AnimationEvent | InitializeEvent | UpdateSessionStateEvent | InitializePartitionEvent | LogEvent | RemoveCreatureEvent | SetCreatureEvent | SetPlayerEvent | SetSectorEvent | SetContainerEvent | XpEvent | ChatEvent | TimeEvent | StartDialogueEvent | UpdateDialogueEvent | CreatureStatusEvent | NotificationEvent | RawAnimationEvent;
 
 export function animation({ ...animationInstance }: Protocol.Events.Animation): AnimationEvent {
     return { type: "animation", args: arguments[0] };
-}
-export function container({ container }: Protocol.Events.Container): ContainerEvent {
-    return { type: "container", args: arguments[0] };
 }
 export function initialize({ player, creatureId, secondsPerWorldTick, ticksPerWorldDay }: Protocol.Events.Initialize): InitializeEvent {
     return { type: "initialize", args: arguments[0] };
@@ -114,8 +107,11 @@ export function setPlayer(event: Player | {
 export function setSector({ ...pos }: Protocol.Events.SetSector): SetSectorEvent {
     return { type: "setSector", args: arguments[0] };
 }
-export function setItem({ location, item }: Protocol.Events.SetItem): SetItemEvent {
-    return { type: "setItem", args: arguments[0] };
+export function setContainer(event: Container | {
+    id: string;
+    ops: SniffedOperation[];
+}): SetContainerEvent {
+    return { type: "setContainer", args: arguments[0] };
 }
 export function xp({ skill, xp }: Protocol.Events.Xp): XpEvent {
     return { type: "xp", args: arguments[0] };

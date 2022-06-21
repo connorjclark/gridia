@@ -51,6 +51,9 @@ export async function createServer(options: ServerOptions, db: Database) {
     verbose,
   });
 
+  // TODO remove
+  context.server = server;
+
   server.scriptManager.addScript(BasicScript);
   server.scriptManager.addScript(BallScript);
   server.scriptManager.addScript(DogScript);

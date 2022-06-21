@@ -114,19 +114,12 @@ export function forEach(container: Container, fn: (value: Item, index: number, a
   }
 }
 
+// TODO: still needed even after sniffObject because need to clear out item if quantity is zero,
+// and also update creature stats that are dependant on container items. But, maybe could use sniffObject
+// to check for these cases?
 export function setItemInContainer(server: Server, container: Container, index: number, item?: Item) {
   if (item?.quantity === 0) item = undefined;
-
   container.items[index] = item || null;
-
-  server.conditionalBroadcast(EventBuilder.setItem({
-    location: Utils.ItemLocation.Container(container.id, index),
-    item,
-  }), (clientConnection) => {
-    if (clientConnection.container.id === container.id) return true;
-    if (clientConnection.equipment.id === container.id) return true;
-    return clientConnection.registeredContainers.includes(container.id);
-  });
 
   const client = server.context.clientConnections
     .find((c) => c.container?.id === container.id || c.equipment?.id === container.id);

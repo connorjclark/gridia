@@ -61,10 +61,6 @@ declare namespace Protocol {
   namespace Events {
     type Animation = GridiaAnimationInstance;
 
-    interface Container {
-      container: Container_;
-    }
-
     interface Initialize {
       player: Player;
       creatureId: number;
@@ -91,11 +87,7 @@ declare namespace Protocol {
     type SetCreature = Creature | {id: number; ops: SniffedOperation[]};
     type SetPlayer = Player | {ops: SniffedOperation[]};
     type SetSector = TilePoint & ({tiles: Tile[][]} | {ops: SniffedOperation[]});
-
-    interface SetItem {
-      location: ItemLocation;
-      item?: Item;
-    }
+    type SetContainer = Container | {id: string; ops: SniffedOperation[]};
 
     interface Xp {
       skill: number;

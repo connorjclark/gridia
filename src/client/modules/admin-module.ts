@@ -69,10 +69,6 @@ export class AdminModule extends ClientModule {
           }
         }
       }
-
-      if (e.type === 'setItem' && e.args.location.source === 'world') {
-        this.removeFromHistory(e.args.location.pos, e.args.item?.type, 'item');
-      }
     });
   }
 

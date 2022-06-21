@@ -4,7 +4,6 @@ import {Client} from '../../client/client.js'
 
 export interface IEvents {
     onAnimation(client: Client, { ...animationInstance }: Protocol.Events.Animation): void;
-    onContainer(client: Client, { container }: Protocol.Events.Container): void;
     onInitialize(client: Client, { player, creatureId, secondsPerWorldTick, ticksPerWorldDay }: Protocol.Events.Initialize): void;
     onUpdateSessionState(client: Client, { ...session }: Protocol.Events.UpdateSessionState): void;
     onInitializePartition(client: Client, { name, ...pos }: Protocol.Events.InitializePartition): void;
@@ -13,7 +12,7 @@ export interface IEvents {
     onSetCreature(client: Client, {}: Protocol.Events.SetCreature): void;
     onSetPlayer(client: Client, {}: Protocol.Events.SetPlayer): void;
     onSetSector(client: Client, { ...pos }: Protocol.Events.SetSector): void;
-    onSetItem(client: Client, { location, item }: Protocol.Events.SetItem): void;
+    onSetContainer(client: Client, {}: Protocol.Events.SetContainer): void;
     onXp(client: Client, { skill, xp }: Protocol.Events.Xp): void;
     onChat(client: Client, { section, from, creatureId, text }: Protocol.Events.Chat): void;
     onTime(client: Client, { epoch }: Protocol.Events.Time): void;

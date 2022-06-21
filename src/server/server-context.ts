@@ -1,12 +1,14 @@
 import * as Content from '../content.js';
 import {Context} from '../context.js';
 import {Database} from '../database.js';
+import {sniffObject} from '../lib/sniff-object.js';
 import * as WireSerializer from '../lib/wire-serializer.js';
 import * as Utils from '../utils.js';
 import {WorldMapPartition} from '../world-map-partition.js';
 import {WorldMap} from '../world-map.js';
 
 import {ClientConnection} from './client-connection.js';
+import {Server} from './server.js';
 
 async function readJson<T>(fs: Database, store: string, key: string) {
   const json = await fs.get(store, key);
@@ -34,6 +36,8 @@ export class ServerContext extends Context {
   claims: Record<string, string> = {};
   nextCreatureId = 1;
   scriptConfigStore: Record<string, any> = {};
+  // TODO remove
+  server: Server | undefined;
 
   constructor(worldDataDefinition: WorldDataDefinition, map: WorldMap, public db: Database) {
     super(worldDataDefinition, map);
@@ -177,7 +181,14 @@ export class ServerContext extends Context {
   }
 
   makeContainer(type: Container['type'], size = 30) {
-    const container = {id: Utils.uuid(), type, items: Array(size).fill(null)};
+    let container = {id: Utils.uuid(), type, items: Array(size).fill(null)};
+    container = sniffObject(container, (op) => {
+      if (!this.server) throw new Error('missing this.server');
+
+      const ops = this.server.pendingContainerSniffedOperations.get(container) || [];
+      ops.push(op);
+      this.server.pendingContainerSniffedOperations.set(container, ops);
+    });
     this.containers.set(container.id, container);
     return container;
   }
@@ -196,16 +207,25 @@ export class ServerContext extends Context {
   }
 
   // TODO defer to loader like sector is?
-  async getContainer(id: string) {
-    let container = this.containers.get(id);
-    if (container) return container;
+  async getContainer(id: string): Promise<Container> {
+    const cachedContainer = this.containers.get(id);
+    if (cachedContainer) return cachedContainer;
 
     // TODO handle error.
     const data = await readJson<any>(this.db, 'container', this.jsonKey(id)) as {
       type: Container['type'];
       items: Array<Item | null>;
     };
-    container = {id, type: data.type, items: data.items};
+
+    let container = {id, type: data.type, items: data.items};
+    container = sniffObject(container, (op) => {
+      if (!this.server) throw new Error('missing this.server');
+
+      const ops = this.server.pendingContainerSniffedOperations.get(container) || [];
+      ops.push(op);
+      this.server.pendingContainerSniffedOperations.set(container, ops);
+    });
+
     this.containers.set(id, container);
     return container;
   }
