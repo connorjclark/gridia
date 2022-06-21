@@ -91,21 +91,18 @@ export function sniffObject<T extends object>(object: T, cb: (op: SniffedOperati
           value = unwrap(value);
           targetObjectToSniffProxy.delete(value);
         }
-      }
 
-      // Check for deferred state. See .filter in `get`.
-      if (valueIsProxy) {
+        // Check for deferred state. See .filter in `get`.
         const deferredState = deferredStates.get(value);
-
         if (deferredState && deferredState.originalPath === path) {
           handleDeferredState(value, cb);
           value = unwrap(value);
           targetObjectToSniffProxy.delete(value);
           return Reflect.set(target, prop, value, reciever);
         }
-
-        value = unwrap(value);
       }
+
+      value = unwrap(value);
 
       if (!(Array.isArray(target) && prop === 'length')) {
         if (value !== Reflect.get(target, prop, reciever)) {

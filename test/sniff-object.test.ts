@@ -103,7 +103,9 @@ describe('sniffObject', () => {
     };
     const ops: SniffedOperation[] = [];
     const sniffer = sniffObject(object, (op) => {
-      op.splice = clone(op.splice);
+      // Not explicitly needed for assertions, but ensures nothing in the `op.value` array
+      // is a proxy.
+      op.value = clone(op.value);
       ops.push(op);
     });
 
@@ -327,6 +329,39 @@ describe('sniffObject', () => {
       {entries: []},
       {entries: [2]},
       {entries: [100]},
+    ]);
+  });
+
+  it('array spread', () => {
+    const object = {
+      values: [
+        {entry: 0},
+        {entry: 1},
+        {entry: 2},
+      ],
+    };
+    const ops: SniffedOperation[] = [];
+    const sniffer = sniffObject(object, (op) => {
+      op.value = clone(op.value);
+      ops.push(op);
+    });
+
+    sniffer.values = [...sniffer.values];
+    sniffer.values.push({entry: 3});
+
+    expect(ops).toEqual([
+      {path: '.values', value: [
+        {entry: 0},
+        {entry: 1},
+        {entry: 2},
+      ]},
+      {path: '.values.3', value: {entry: 3}},
+    ]);
+    expect(object.values).toEqual([
+      {entry: 0},
+      {entry: 1},
+      {entry: 2},
+      {entry: 3},
     ]);
   });
 
