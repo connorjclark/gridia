@@ -1,6 +1,6 @@
 import {DateTime, Duration} from 'luxon';
 
-import {GFX_SIZE} from '../constants.js';
+import {GFX_SIZE, SECTOR_SIZE} from '../constants.js';
 import * as Content from '../content.js';
 import {game} from '../game-singleton.js';
 import {calcStraightLine} from '../lib/line.js';
@@ -481,18 +481,44 @@ export class Game {
   // Should only be used for refreshing UI, not updating game state.
   // Events are guaranteed to be first handled by `client-interface.ts`.
   onProtocolEvent(event: ProtocolEvent) {
-    let shouldUpdateUsages = false;
-    if (event.type === 'setContainer') {
-      shouldUpdateUsages = true;
-      // else if (Utils.maxDiff(this.getPlayerPosition(), event.args.location.pos) <= 1) shouldUpdateUsages = true;
-      if (shouldUpdateUsages) this.modules.usage.updatePossibleUsages();
+    if (event.type === 'setSector' && 'ops' in event.args) {
+      const handleFloor = (sectorPos: TilePoint, x: number, y: number, floor: number) => {
+        const pos = {
+          w: sectorPos.w,
+          x: x + SECTOR_SIZE * sectorPos.x,
+          y: y + SECTOR_SIZE * sectorPos.y,
+          z: sectorPos.z,
+        };
+        this.client.eventEmitter.emit('floorUpdate', {pos, floor});
+      };
+      const handleItem = (sectorPos: TilePoint, x: number, y: number, item?: Item) => {
+        const pos = {
+          w: sectorPos.w,
+          x: x + SECTOR_SIZE * sectorPos.x,
+          y: y + SECTOR_SIZE * sectorPos.y,
+          z: sectorPos.z,
+        };
+        const location = Utils.ItemLocation.World(pos);
+        this.client.eventEmitter.emit('itemUpdate', {location, item});
+      };
 
-      // TODO: fix this.
-      // Update the selected view, if the item there changed.
-      // if (this.state.selectedView.location &&
-      //   Utils.ItemLocation.Equal(this.state.selectedView.location, event.args.location)) {
-      //   this.modules.selectedView.selectView(this.state.selectedView.location);
-      // }
+      for (const op of event.args.ops) {
+        if (op.path.endsWith('.floor')) {
+          const [, x, y] = op.path.match(/\.(\d+)\.(\d+)/) || [];
+          if (x === undefined || y === undefined) throw new Error();
+
+          handleFloor(event.args, Number(x), Number(y), op.value);
+        } else if (op.path.endsWith('.item')) {
+          const [, x, y] = op.path.match(/\.(\d+)\.(\d+)/) || [];
+          if (x === undefined || y === undefined) throw new Error();
+
+          handleItem(event.args, Number(x), Number(y), op.value);
+        }
+      }
+    }
+
+    if (event.type === 'setContainer') {
+      this.modules.usage.updatePossibleUsages();
 
       if (this.containerWindows.has(event.args.id)) {
         const container = this.client.context.containers.get(event.args.id);
@@ -502,8 +528,6 @@ export class Game {
         }
       }
     }
-
-    if (shouldUpdateUsages) this.modules.usage.updatePossibleUsages();
 
     if (event.type === 'setCreature' && event.args.id) {
       if (Utils.hasSniffedDataChanged<Creature>(event.args, 'pos')) {
@@ -856,6 +880,18 @@ export class Game {
 
     this.client.eventEmitter.on('editingMode', ({enabled}) => {
       this._isEditing = enabled;
+    });
+
+    this.client.eventEmitter.on('itemUpdate', (e) => {
+      // Update the selected view, if the item there changed.
+      if (this.state.selectedView.location &&
+        Utils.ItemLocation.Equal(this.state.selectedView.location, e.location)) {
+        this.modules.selectedView.selectView(this.state.selectedView.location);
+      }
+
+      if (e.location.source === 'world' && Utils.maxDiff(this.getPlayerPosition(), e.location.pos) <= 2) {
+        this.modules.usage.updatePossibleUsages();
+      }
     });
   }
 

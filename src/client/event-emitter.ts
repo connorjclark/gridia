@@ -24,14 +24,16 @@ export interface ClientEvents {
   action: GameActionEvent;
   containerWindowSelectedIndexChanged: void;
   editingMode: {enabled: boolean};
+  event: ProtocolEvent;
+  floorUpdate: {pos: TilePoint; floor: number};
   itemMoveBegin: ItemMoveBeginEvent;
   itemMoveEnd: ItemMoveEndEvent;
-  event: ProtocolEvent;
+  itemUpdate: {location: ItemLocation; item: Item | undefined};
   playerMove: {from: TilePoint; to: TilePoint};
-  tileClicked: TilePoint;
   pointerDown: TilePoint;
   pointerMove: TilePoint;
   pointerUp: TilePoint;
+  tileClicked: TilePoint;
 }
 
 export const TypedEventEmitter: new() => StrictEventEmitter<EventEmitter, ClientEvents> = EventEmitter;
