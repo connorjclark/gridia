@@ -5,6 +5,7 @@ import * as Container from '../container.js';
 import * as Content from '../content.js';
 import * as Player from '../player.js';
 import {ClientConnection} from '../server/client-connection.js';
+import * as Load from '../server/load-data.js';
 import {Server} from '../server/server.js';
 import * as Utils from '../utils.js';
 import {WorldMapPartition} from '../world-map-partition.js';
@@ -124,7 +125,7 @@ export class ServerInterface implements ICommands {
       // Account data is saved on the filesystem, which is frequently cleared since
       // the game is under heavy development. For now, just remake an account for this
       // firebase id when needed.
-      if (!await server.context.accountExists(decodedToken.uid)) {
+      if (!await Load.accountExists(server.context, decodedToken.uid)) {
         await server.registerAccount(clientConnection, {id: decodedToken.uid});
       }
 
@@ -890,7 +891,7 @@ export class ServerInterface implements ICommands {
     clientConnection.assertsPlayerConnection();
 
     clientConnection.account.settings = settings;
-    await server.context.saveAccount(clientConnection.account);
+    await Load.saveAccount(server.context, clientConnection.account);
   }
 
   onAdminRequestPartitionMetas(server: Server, clientConnection: ClientConnection): Promise<PartitionMeta[]> {

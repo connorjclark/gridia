@@ -14,6 +14,7 @@ import {WorldMapPartition} from '../world-map-partition.js';
 import {ClientConnection, PlayerConnection} from './client-connection.js';
 import {CreatureState} from './creature-state.js';
 import {adjustAttribute, attributeCheck} from './creature-utils.js';
+import * as Load from './load-data.js';
 import {ScriptManager} from './script-manager.js';
 import {ServerContext} from './server-context.js';
 import {TaskRunner} from './task-runner.js';
@@ -313,7 +314,7 @@ export class Server {
   }
 
   async registerAccount(clientConnection: ClientConnection, opts: RegisterAccountOpts) {
-    if (await this.context.accountExists(opts.id)) {
+    if (await Load.accountExists(this.context, opts.id)) {
       throw new Error('Account with this id already exists');
     }
 
@@ -322,11 +323,12 @@ export class Server {
       playerIds: [],
     };
 
-    await this.context.saveAccount(account);
+    await Load.saveAccount(this.context, account);
   }
 
   async loginAccount(clientConnection: ClientConnection, opts: RegisterAccountOpts) {
-    const account = await this.context.accountExists(opts.id) && await this.context.loadAccount(opts.id);
+    const account =
+      await Load.accountExists(this.context, opts.id) && await Load.loadAccount(this.context, opts.id);
     if (!account) {
       throw new Error('Invalid login');
     }
@@ -507,11 +509,11 @@ export class Server {
       equipment.items[0] = {type: Content.getMetaItemByName('Iron Helmet Plate').id, quantity: 1};
     }
 
-    this.context.savePlayer(player);
+    Load.savePlayer(this.context, player);
     await this.context.db.endTransaction();
 
     clientConnection.account.playerIds.push(player.id);
-    await this.context.saveAccount(clientConnection.account);
+    await Load.saveAccount(this.context, clientConnection.account);
 
     this.context.playerNamesToIds.set(opts.name, player.id);
 
@@ -634,7 +636,7 @@ export class Server {
 
     this.context.clientConnections.splice(index, 1);
     if (clientConnection.isPlayerConnection()) {
-      this.context.savePlayer(clientConnection.player, clientConnection.creature);
+      Load.savePlayer(this.context, clientConnection.player, clientConnection.creature);
       this.removeCreature(clientConnection.creature);
       this.broadcastAnimation({
         name: 'WarpOut',

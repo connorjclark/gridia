@@ -1,10 +1,11 @@
 import * as Content from '../content.js';
 import {Database, NodeFsDb} from '../database.js';
 import {makeMapImage} from '../lib/map-generator/map-image-maker.js';
-import {ServerContext, Store} from '../server/server-context.js';
+import {ServerContext} from '../server/server-context.js';
 import {Server} from '../server/server.js';
 import {createMainWorldMap} from '../world-map-debug.js';
 
+import * as Load from './load-data.js';
 import {BallScript} from './scripts/ball-script.js';
 import {BasicScript} from './scripts/basic-script.js';
 import {DogScript} from './scripts/dog-script.js';
@@ -17,14 +18,14 @@ export async function createServer(options: ServerOptions, db: Database) {
 
   let isDbAlreadySetup = false;
   try {
-    isDbAlreadySetup = await db.exists(Store.misc, 'meta.json');
+    isDbAlreadySetup = await db.exists(Load.Store.misc, 'meta.json');
   } catch {
     // Nope.
   }
 
   let context: ServerContext;
   if (isDbAlreadySetup) {
-    context = await ServerContext.load(db);
+    context = await Load.loadServerContext(db);
   } else {
     await Content.initializeWorldData(options.worldDataDef);
 
@@ -38,13 +39,13 @@ export async function createServer(options: ServerOptions, db: Database) {
     if (db instanceof NodeFsDb) {
       for (let i = 0; i < mapGenData.length; i++) {
         const canvas = makeMapImage(mapGenData[i]);
-        db.put(Store.misc, `map${i}.svg`, canvas.toBuffer().toString());
+        db.put(Load.Store.misc, `map${i}.svg`, canvas.toBuffer().toString());
       }
     }
   }
 
   // This cyclical dependency between ServerContext and WorldMap could be improved.
-  context.map.loader = (pos) => context.loadSector(pos);
+  context.map.loader = (pos) => Load.loadSector(context, pos);
 
   const server = new Server({
     context,

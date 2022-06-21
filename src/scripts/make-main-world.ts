@@ -4,7 +4,8 @@ import * as fs from 'fs';
 
 import * as Content from '../content.js';
 import {LevelDb, NodeFsDb} from '../database.js';
-import {ServerContext, Store} from '../server/server-context.js';
+import * as Load from '../server/load-data.js';
+import {ServerContext} from '../server/server-context.js';
 import {createTestPartitions} from '../world-map-debug.js';
 import {WorldMap} from '../world-map.js';
 
@@ -19,11 +20,11 @@ async function createMainWorldMap() {
   const map = new WorldMap();
   await Content.initializeWorldData(Content.WORLD_DATA_DEFINITIONS.rpgwo);
   const context = new ServerContext(Content.WORLD_DATA_DEFINITIONS.rpgwo, map, new NodeFsDb('saved-maps/main'));
-  context.map.loader = (pos) => context.loadSector(pos);
+  context.map.loader = (pos) => Load.loadSector(context, pos);
 
   let numMainPartitions = 0;
   for (const _ of fs.readdirSync('saved-maps/main/sector')) {
-    await context.loadPartition(numMainPartitions);
+    await Load.loadPartition(context, numMainPartitions);
     const partition = map.getPartition(numMainPartitions);
     for (let sx = 0; sx < partition.sectors.length; sx++) {
       for (let sy = 0; sy < partition.sectors[0].length; sy++) {
@@ -38,7 +39,7 @@ async function createMainWorldMap() {
 
   createTestPartitions(map);
 
-  const scriptConfig = await context.db.get(Store.misc, 'script-config.json');
+  const scriptConfig = await context.db.get(Load.Store.misc, 'script-config.json');
 
   fs.mkdirSync('server-data', {recursive: true});
   // context.db = new NodeFs('server-data');
@@ -46,7 +47,7 @@ async function createMainWorldMap() {
   await context.save();
 
   // TODO: handle this in context.save()
-  context.db.put(Store.misc, 'script-config.json', scriptConfig);
+  context.db.put(Load.Store.misc, 'script-config.json', scriptConfig);
 }
 
 createMainWorldMap();

@@ -4,7 +4,7 @@ import * as fs from 'fs';
 
 import * as Content from '../content.js';
 import {LevelDb, NodeFsDb} from '../database.js';
-import {ServerContext} from '../server/server-context.js';
+import * as Load from '../server/load-data.js';
 
 // Copies the map saved in `server-data to `saved-maps/main`,
 // plus programatically creates a test map.
@@ -15,8 +15,8 @@ async function copyOverMainWorldMap() {
   }
 
   await Content.initializeWorldData(Content.WORLD_DATA_DEFINITIONS.rpgwo);
-  const context = await ServerContext.load(new LevelDb('server-data'));
-  context.map.loader = (pos) => context.loadSector(pos);
+  const context = await Load.loadServerContext(new LevelDb('server-data'));
+  context.map.loader = (pos) => Load.loadSector(context, pos);
 
   for (const [key, partition] of context.map.partitions) {
     if (partition.name.startsWith('test')) {
