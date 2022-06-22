@@ -1,4 +1,3 @@
-import {WATER} from '../constants.js';
 import * as Container from '../container.js';
 import * as Content from '../content.js';
 import {Context} from '../context.js';
@@ -386,7 +385,8 @@ export class CreatureState {
     if (this.ticksUntilNotIdle > 0) this.ticksUntilNotIdle--;
     if (this.ticksUntilRegeneration > 0) this.ticksUntilRegeneration--;
 
-    if (this.ticksUntilRegeneration === 0 && server.context.map.getTile(this.creature.pos).floor !== WATER) {
+    const waterFloor = Content.getWaterFloor();
+    if (this.ticksUntilRegeneration === 0 && server.context.map.getTile(this.creature.pos).floor !== waterFloor) {
       this.ticksUntilRegeneration = server.taskRunner.rateToTicks({seconds: 2});
       (['stamina', 'mana'] as const).forEach((attribute) => {
         if (this.creature[attribute].current < this.creature[attribute].max) {

@@ -78,7 +78,7 @@
     "graphics": {
       "file": "tileset_1bit_001.png",
       "frames": [
-        6
+        36
       ]
     },
     "burden": 0,
@@ -114,5 +114,17 @@
     "moveable": true,
     "rarity": 0,
     "blocksMovement": true
+  },
+  {
+    "id": 8,
+    "name": "Mine",
+    "graphics": {
+      "file": "tileset_1bit_001.png",
+      "frames": [
+        58
+      ]
+    },
+    "burden": 100,
+    "rarity": 1
   }
 ]

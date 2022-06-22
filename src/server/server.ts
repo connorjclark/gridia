@@ -1,4 +1,4 @@
-import {MAX_STACK, SECTOR_SIZE, WATER} from '../constants.js';
+import {MAX_STACK, SECTOR_SIZE} from '../constants.js';
 import * as Container from '../container.js';
 import * as Content from '../content.js';
 import {calcStraightLine} from '../lib/line.js';
@@ -743,8 +743,7 @@ export class Server {
     const tile = this.context.map.getTile(pos);
     const meta = tile.item && Content.getMetaItem(tile.item.type);
 
-    // TODO: generalize
-    if (tile.floor === WATER && Content.getBaseDir() === 'worlds/rpgwo-world') {
+    if (tile.floor === Content.getWaterFloor()) {
       const isRaft = (item?: Item) => item && Content.getMetaItem(item.type).class === 'Raft';
       const itemBelowPlayer = this.context.map.getItem(creature.pos);
       const itemBelowPlayerDest = this.context.map.getItem(pos);

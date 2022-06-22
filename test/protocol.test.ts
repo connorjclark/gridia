@@ -7,7 +7,6 @@ import expect from 'expect';
 
 import {Client} from '../src/client/client.js';
 import {Connection} from '../src/client/connection.js';
-import {MINE} from '../src/constants.js';
 import * as Content from '../src/content.js';
 import {makeBareMap} from '../src/mapgen.js';
 import * as CommandBuilder from '../src/protocol/command-builder.js';
@@ -194,7 +193,7 @@ describe('protocol', () => {
     it('player can not move to mine wall without pickaxe in inventory', async () => {
       const from = {w: 0, x: 5, y: 5, z: 0};
       const to = {w: 0, x: 6, y: 5, z: 0};
-      setItem(to, {type: MINE});
+      setItem(to, {type: Content.getMineItemType()});
 
       assertCreatureAt(from, creature.id);
       await expect(send(CommandBuilder.move(to))).rejects.toThrow(/missing pick/);
@@ -204,7 +203,7 @@ describe('protocol', () => {
     it('player can move to mine wall with pickaxe in inventory', async () => {
       const from = {w: 0, x: 5, y: 5, z: 0};
       const to = {w: 0, x: 6, y: 5, z: 0};
-      setItem(to, {type: MINE});
+      setItem(to, {type: Content.getMineItemType()});
       setItemInContainer(client.player.containerId, 0, {type: Content.getMetaItemByName('Pick').id, quantity: 1});
 
       assertCreatureAt(from, creature.id);

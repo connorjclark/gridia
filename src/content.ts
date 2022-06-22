@@ -16,6 +16,8 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
   rpgwo: {
     baseDir: 'worlds/rpgwo-world',
     tileSize: 32,
+    waterFloor: 1,
+    mineItemType: 3183,
     characterCreation: {
       attributes: [
         {name: 'life'},
@@ -174,6 +176,10 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
   bit16: {
     baseDir: 'worlds/16bit-world',
     tileSize: 24,
+    // TODO
+    waterFloor: 1,
+    // TODO
+    mineItemType: 1,
     characterCreation: {
       simple: true,
       attributes: [
@@ -193,6 +199,8 @@ export const WORLD_DATA_DEFINITIONS: Record<string, WorldDataDefinition> = {
   bit: {
     baseDir: 'worlds/bit-world',
     tileSize: 16,
+    waterFloor: 2,
+    mineItemType: 8,
     characterCreation: {
       simple: true,
       attributes: [
@@ -408,6 +416,14 @@ export function getAttributes() {
 
 export function isAttribute(name: string) {
   return worldDataDef.characterCreation.attributes.some((attr) => attr.name === name);
+}
+
+export function getWaterFloor() {
+  return worldDataDef.waterFloor;
+}
+
+export function getMineItemType() {
+  return worldDataDef.mineItemType;
 }
 
 export function getFloors() {

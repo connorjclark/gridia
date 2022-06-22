@@ -3,7 +3,7 @@
 import Canvas from 'canvas';
 import wfc from 'wavefunctioncollapse';
 
-import {MINE, SECTOR_SIZE, WATER} from './constants.js';
+import {SECTOR_SIZE} from './constants.js';
 import * as Content from './content.js';
 import {generate, GenerateOptions, Polygon} from './lib/map-generator/map-generator.js';
 import * as Perlin from './lib/perlin/perlin.js';
@@ -17,8 +17,8 @@ const assert = {ok: (value: boolean) => {
 function biomeToFloor(biome: string) {
   if (biome === 'BARE') return 71;
   if (biome === 'BEACH') return 73;
-  if (biome === 'LAKE') return WATER;
-  if (biome === 'OCEAN') return WATER;
+  if (biome === 'LAKE') return Content.getWaterFloor();
+  if (biome === 'OCEAN') return Content.getWaterFloor();
   if (biome === 'SNOW') return 42;
   if (biome === 'TUNDRA') return 62;
   if (biome === 'GRASSLAND') return 57;
@@ -54,7 +54,8 @@ export function makeBareMap(width: number, height: number, depth: number) {
       for (let z = 0; z < depth; z++) {
         const pos = {x, y, z};
         map.setTile(pos, {
-          floor: z ? MINE : 1,
+          floor: 1,
+          item: z ? {type: Content.getMineItemType(), quantity: 1} : undefined,
           elevation: 0,
         });
       }
@@ -161,7 +162,7 @@ export function mapgen(opts: MapGenOptions) {
           // floor = 100 + (raster[x][y] % 10) * 20;
         } else {
           floor = 19;
-          item = {type: MINE, quantity: 1};
+          item = {type: Content.getMineItemType(), quantity: 1};
         }
 
         map.setTile(pos, {
@@ -261,7 +262,7 @@ export function mapgen(opts: MapGenOptions) {
         const ind = points.findIndex((p) => p.x === point.x && point.y === p.y);
         if (ind !== -1) points.splice(ind, 1);
         const tile = map.getTile({...point, z});
-        if (tile.item?.type !== MINE) continue;
+        if (tile.item?.type !== Content.getMineItemType()) continue;
         if (random() < 0.2) tile.item._oreType = oreType;
       }
     }
@@ -275,7 +276,7 @@ export function mapgen(opts: MapGenOptions) {
       const oreType = Content.getRandomMetaItemOfClass('Ore').id;
       for (let j = 0; j < numOre; j++) {
         const tile = map.getTile({x, y, z});
-        if (tile.item?.type !== MINE) continue;
+        if (tile.item?.type !== Content.getMineItemType()) continue;
         if (tile.item._oreType) continue;
 
         tile.item._oreType = oreType;

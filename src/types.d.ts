@@ -554,6 +554,8 @@ interface CharacterCreationPreset {
 
 interface WorldDataDefinition {
   tileSize: number;
+  waterFloor: number;
+  mineItemType: number;
   baseDir: string;
   characterCreation: {
     attributes: Array<{ name: string; derived?: { from: string; creationMultiplier?: number } }>;

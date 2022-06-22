@@ -1,4 +1,4 @@
-import {MAX_STACK, MINE, SECTOR_SIZE} from '../constants.js';
+import {MAX_STACK, SECTOR_SIZE} from '../constants.js';
 import * as Content from '../content.js';
 import * as CommandParser from '../lib/command-parser.js';
 import {makeBareMap} from '../mapgen.js';

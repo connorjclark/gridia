@@ -1,4 +1,3 @@
-import {MINE} from '../../constants.js';
 import * as Content from '../../content.js';
 import {findPath} from '../../lib/path-finding.js';
 import * as Player from '../../player.js';
@@ -142,7 +141,7 @@ export class MovementModule extends ClientModule {
       }
 
       let attemptToMine = false;
-      if (itemToMoveTo && Content.getMetaItem(itemToMoveTo.type).id === MINE) {
+      if (itemToMoveTo && Content.getMetaItem(itemToMoveTo.type).id === Content.getMineItemType()) {
         attemptToMine = true;
       }
 

@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 
-import {MAX_STACK, MINE} from '../constants.js';
+import {MAX_STACK} from '../constants.js';
 import * as Container from '../container.js';
 import * as Content from '../content.js';
 import * as Player from '../player.js';
@@ -47,7 +47,7 @@ export class ServerInterface implements ICommands {
 
     const tile = server.context.map.getTile(pos);
 
-    if (tile.item?.type === MINE) {
+    if (tile.item?.type === Content.getMineItemType()) {
       const player = clientConnection.player;
       const miningSkill = Content.getSkillByName('Mining');
       if (!miningSkill) throw new InvalidProtocolError('no mining skill');
