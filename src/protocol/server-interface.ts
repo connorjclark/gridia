@@ -29,7 +29,7 @@ export class ServerInterface implements ICommands {
     return await this[onMethodName](server, clientConnection, args);
   }
 
-  onMove(server: Server, clientConnection: ClientConnection, {...pos}: Commands.Move['params']): Promise<Commands.Move['response']> {
+  async onMove(server: Server, clientConnection: ClientConnection, {...pos}: Commands.Move['params']): Promise<Commands.Move['response']> {
     clientConnection.assertsPlayerConnection();
 
     const failAndResetLocation = () => {
@@ -75,11 +75,11 @@ export class ServerInterface implements ICommands {
 
     if (!server.context.walkable(pos)) return failAndResetLocation();
 
-    server.scriptManager.delegates.onPlayerMove({playerConnection: clientConnection, from: creature.pos, to: pos});
+    await server.scriptManager.delegates.onPlayerMove({playerConnection: clientConnection, from: creature.pos, to: pos});
 
     server.moveCreature(creature, {...pos});
 
-    return Promise.resolve({});
+    return {};
   }
 
   async onRegisterAccount(server: Server, clientConnection: ClientConnection, {firebaseToken}: Commands.RegisterAccount['params']): Promise<Commands.RegisterAccount['response']> {
@@ -884,7 +884,7 @@ export class ServerInterface implements ICommands {
     const item = await server.getItem(from);
     if (!item) throw new InvalidProtocolError('invalid item');
 
-    server.scriptManager.delegates.onItemAction({playerConnection: clientConnection, type, location: from, to});
+    await server.scriptManager.delegates.onItemAction({playerConnection: clientConnection, type, location: from, to});
   }
 
   async onSaveSettings(server: Server, clientConnection: ClientConnection, {settings}: Commands.SaveSettings['params']): Promise<Commands.SaveSettings['response']> {

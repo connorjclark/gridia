@@ -6,25 +6,24 @@ import {Server} from './server.js';
 export class ScriptManager {
   private _scripts: Array<Script<any>> = [];
 
-  // TODO: should all of these delegates be async/await'd?
   delegates = {
     onPlayerCreated: (player: Player, playerConnection: PlayerConnection) => {
-      this.forRunningScripts((script) => script.onPlayerCreated(player, playerConnection));
+      return this.forRunningScripts((script) => script.onPlayerCreated(player, playerConnection));
     },
     onPlayerEnterWorld: (player: Player, playerConnection: PlayerConnection) => {
-      this.forRunningScripts((script) => script.onPlayerEnterWorld(player, playerConnection));
+      return this.forRunningScripts((script) => script.onPlayerEnterWorld(player, playerConnection));
     },
     onPlayerKillCreature: (player: Player, creature: Creature) => {
-      this.forRunningScripts((script) => script.onPlayerKillCreature(player, creature));
+      return this.forRunningScripts((script) => script.onPlayerKillCreature(player, creature));
     },
     onPlayerMove: (opts: { playerConnection: PlayerConnection; from: Point4; to: Point4 }) => {
       Object.freeze(opts);
-      this.forRunningScripts((script) => script.onPlayerMove(opts));
+      return this.forRunningScripts((script) => script.onPlayerMove(opts));
     },
     onItemAction: (opts:
     { playerConnection: PlayerConnection; type: string; location: ItemLocation; to?: ItemLocation }) => {
       Object.freeze(opts);
-      this.forRunningScripts((script) => script.onItemAction(opts));
+      return this.forRunningScripts((script) => script.onItemAction(opts));
     },
   };
 

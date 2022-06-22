@@ -613,9 +613,9 @@ export class Server {
     this.context.players.set(player.id, sniffedPlayer);
 
     if (opts.justCreated) {
-      this.scriptManager.delegates.onPlayerCreated(sniffedPlayer, clientConnection);
+      await this.scriptManager.delegates.onPlayerCreated(sniffedPlayer, clientConnection);
     }
-    this.scriptManager.delegates.onPlayerEnterWorld(sniffedPlayer, clientConnection);
+    await this.scriptManager.delegates.onPlayerEnterWorld(sniffedPlayer, clientConnection);
   }
 
   getClientConnectionForCreature(creature: Creature) {
