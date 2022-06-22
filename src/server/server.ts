@@ -564,7 +564,7 @@ export class Server {
       combatLevel: Player.getCombatLevel(player).combatLevel,
       // set later
       stats: {} as Creature['stats'],
-      buffs: player.buffs,
+      buffs: [...player.buffs],
     };
 
     if (this.context.worldDataDefinition.baseDir === 'worlds/16bit-world') {
