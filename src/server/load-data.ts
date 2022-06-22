@@ -146,10 +146,6 @@ export function saveSector(context: ServerContext, sectorPoint: TilePoint) {
   context.db.addToTransaction(Store.sector, sectorKey(sectorPoint), json);
 }
 
-// accountExists(username: string) {
-//   return this.db.exists(Store.account, this.jsonKey(username));
-// }
-
 export async function loadAccount(context: ServerContext, username: string): Promise<GridiaAccount> {
   return readJson<GridiaAccount>(context.db, Store.account, jsonKey(username));
 }
@@ -193,27 +189,6 @@ export async function loadPlayer(context: ServerContext, playerId: string) {
   return player;
 }
 
-// makeContainer(type: Container['type'], size = 30) {
-//   let container = {id: Utils.uuid(), type, items: Array(size).fill(null)};
-//   container = sniffObject(container, (op) => {
-//     if (!this.server) throw new Error('missing this.server');
-
-//     const ops = this.server.pendingContainerSniffedOperations.get(container) || [];
-//     ops.push(op);
-//     this.server.pendingContainerSniffedOperations.set(container, ops);
-//   });
-//   this.containers.set(container.id, container);
-//   return container;
-// }
-
-// getContainerIdFromItem(item: Item) {
-//   if (!item.containerId) {
-//     item.containerId = this.makeContainer('normal', 10).id;
-//   }
-
-//   return item.containerId;
-// }
-
 export function saveContainer(context: ServerContext, container: Container) {
   const json = JSON.stringify({type: container.type, items: container.items}, null, 2);
   context.db.addToTransaction('container', jsonKey(container.id), json);
@@ -229,38 +204,6 @@ export async function loadContainer(context: ServerContext, id: string): Promise
 
   return {id, type: data.type, items: data.items};
 }
-
-// async getPlayer(id: string) {
-//   return this.players.get(id) || await this.loadPlayer(id);
-// }
-
-// async save() {
-//   this.saveMeta();
-//   this.saveSectorClaims();
-//   this.db.addToTransaction(Store.misc, scriptConfigKey, JSON.stringify(this.scriptConfigStore, null, 2));
-
-//   for (const clientConnection of this.clientConnections) {
-//     if (clientConnection.player) {
-//       this.savePlayer(clientConnection.player, clientConnection.creature);
-//     }
-//   }
-
-//   for (const [w, partition] of this.map.getPartitions()) {
-//     this.savePartition(w, partition);
-//   }
-
-//   for (const container of this.containers.values()) {
-//     this.saveContainer(container);
-//   }
-
-//   // TODO: eventually want to save _some_ creatures (like tamed creatures).
-
-//   await this.db.endTransaction();
-
-//   for (const player of this.players.values()) {
-//     if (!player.loggedIn) this.players.delete(player.id);
-//   }
-// }
 
 export function saveMeta(context: ServerContext) {
   const meta: Meta = {
