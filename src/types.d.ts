@@ -292,6 +292,7 @@ interface MetaItem {
   'Goal' | 'Jewelry' | 'Food';
   equipSlot?: 'Head' | 'Weapon' | 'Chest' | 'Shield' | 'Legs' | 'Ammo' | 'Neck' | 'Finger' | 'Wrist';
   equipImage?: Graphics;
+  // TODO should be optional
   graphics: Graphics;
   burden: number;
   value?: number;
@@ -557,6 +558,7 @@ interface WorldDataDefinition {
   waterFloor: number;
   mineItemType: number;
   baseDir: string;
+  spritesheets: string[];
   characterCreation: {
     attributes: Array<{ name: string; derived?: { from: string; creationMultiplier?: number } }>;
     attributePoints: number;

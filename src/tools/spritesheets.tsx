@@ -6,10 +6,9 @@ import {clamp} from '../utils.js';
 
 interface Props {
   worldDataDef: WorldDataDefinition;
-  graphicFiles: string[];
 }
 interface State {
-  currentGraphicFileIndex: number;
+  currentSpritesheetIndex: number;
   currentSelection?: {
     type: 'item';
     value: MetaItem;
@@ -21,25 +20,33 @@ interface State {
 
 class App extends Component<Props, State> {
   state: State = {
-    currentGraphicFileIndex: 0,
+    currentSpritesheetIndex: 0,
   };
 
   render(props: Props, state: State) {
+    const curSrc =
+      `/${props.worldDataDef.baseDir}/graphics/${props.worldDataDef.spritesheets[state.currentSpritesheetIndex]}`;
+
     return <div>
+      <div>
+        <button onClick={() => this.updateGraphicIndex(state.currentSpritesheetIndex - 1)}>
+          Prev
+        </button>
+        <button onClick={() => this.updateGraphicIndex(state.currentSpritesheetIndex + 1)}>
+          Next
+        </button>
+        {props.worldDataDef.spritesheets[state.currentSpritesheetIndex]}
+      </div>
       <img
-        src={`/${props.worldDataDef.baseDir}/graphics/${props.graphicFiles[state.currentGraphicFileIndex]}`}
+        src={curSrc}
         draggable={false}
         onClick={this.onClickImage.bind(this)}></img>
-      <button onClick={() => this.updateGraphicIndex(state.currentGraphicFileIndex - 1)}>
-        Prev
-      </button>
-      <button onClick={() => this.updateGraphicIndex(state.currentGraphicFileIndex + 1)}>
-        Next
-      </button>
 
       <h3>Items</h3>
 
       {Content.getMetaItems().map((meta) => {
+        if (!meta.graphics) return;
+
         let className = 'item';
         if (state.currentSelection?.type === 'item' && state.currentSelection.value.id === meta.id) {
           className += ' selected';
@@ -93,7 +100,7 @@ class App extends Component<Props, State> {
       id: Content.getMetaItems().length,
       name: 'Unnamed Item',
       graphics: {
-        file: this.props.graphicFiles[0],
+        file: this.props.worldDataDef.spritesheets[0],
         frames: [0],
       },
     } as MetaItem);
@@ -102,7 +109,7 @@ class App extends Component<Props, State> {
 
   updateGraphicIndex(newValue: number) {
     this.setState({
-      currentGraphicFileIndex: clamp(newValue, 0, this.props.graphicFiles.length - 1),
+      currentSpritesheetIndex: clamp(newValue, 0, this.props.worldDataDef.spritesheets.length - 1),
     });
   }
 
@@ -117,7 +124,7 @@ class App extends Component<Props, State> {
     const index = x + y * tilesAcross;
 
     this.state.currentSelection.value.graphics = {
-      file: this.props.graphicFiles[this.state.currentGraphicFileIndex],
+      file: this.props.worldDataDef.spritesheets[this.state.currentSpritesheetIndex],
       frames: [index],
     };
     this.setState({
@@ -127,15 +134,12 @@ class App extends Component<Props, State> {
 }
 
 async function main() {
-  // @ts-expect-error
-  window.Content = Content;
-  await Content.initializeWorldData(Content.WORLD_DATA_DEFINITIONS.bit);
+  const qs = new URLSearchParams(location.search ? location.search.substring(1) : '');
+  const world = qs.get('world') || 'bit';
+  history.replaceState({}, '', `?world=${world}`);
+  await Content.initializeWorldData(Content.WORLD_DATA_DEFINITIONS[world]);
   const worldDataDef = Content.getWorldDataDefinition();
-  const graphicFiles = [
-    'tileset_1bit_001.png',
-    'tileset_1bit_002.png',
-  ];
-  render(<App worldDataDef={worldDataDef} graphicFiles={graphicFiles} />, document.body);
+  render(<App worldDataDef={worldDataDef}/>, document.body);
 }
 
 main();
