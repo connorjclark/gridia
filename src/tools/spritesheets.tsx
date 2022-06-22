@@ -45,7 +45,7 @@ class App extends Component<Props, State> {
       <h3>Items</h3>
 
       {Content.getMetaItems().map((meta) => {
-        if (!meta.graphics) return;
+        if (!meta.graphics) console.log(meta);
 
         let className = 'item';
         if (state.currentSelection?.type === 'item' && state.currentSelection.value.id === meta.id) {

@@ -292,7 +292,6 @@ interface MetaItem {
   'Goal' | 'Jewelry' | 'Food';
   equipSlot?: 'Head' | 'Weapon' | 'Chest' | 'Shield' | 'Legs' | 'Ammo' | 'Neck' | 'Finger' | 'Wrist';
   equipImage?: Graphics;
-  // TODO should be optional
   graphics: Graphics;
   burden: number;
   value?: number;

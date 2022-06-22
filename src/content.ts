@@ -413,10 +413,16 @@ export async function initializeWorldData(worldDataDef_: WorldDataDefinition): P
   // Tweak some things.
 
   data.items = items.map((item, i) => {
-    return item || {
+    return (item as MetaItem | null) || {
       id: i,
       name: 'Unknown',
+      class: 'Normal',
+      graphics: {
+        file: '',
+        frames: [],
+      },
       burden: 0,
+      rarity: 0,
       blocksMovement: true,
       moveable: true,
       stackable: false,
