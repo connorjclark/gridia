@@ -253,8 +253,6 @@ export class GameScene extends Scene {
   }
 
   onShow() {
-    super.onShow();
-
     const client = this.controller.client;
     const gameSingleton = makeGame(client);
     gameSingleton.addActionCreator(globalActionCreator);

@@ -13,16 +13,12 @@ export class SelectCharacterScene extends Scene {
   }
 
   onShow() {
-    super.onShow();
-
     initializeWorldData(this.loginData.worldData).then(() => {
       this.element.append(makeSelectCharacterComponent({controller: this.controller, loginData: this.loginData}));
     });
   }
 
   onHide() {
-    super.onHide();
-
     this.element.innerText = '';
   }
 
@@ -30,7 +26,7 @@ export class SelectCharacterScene extends Scene {
     return this.loginData.players;
   }
 
-  onDestroy() {
+  onDispose() {
     this.controller.destoryClient();
   }
 }

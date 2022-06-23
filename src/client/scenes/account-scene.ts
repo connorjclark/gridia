@@ -26,8 +26,6 @@ export class AccountScene extends Scene {
   }
 
   onShow() {
-    super.onShow();
-
     const unsubscribe = this.firebaseAuth.onAuthStateChanged(async (user) => {
       unsubscribe();
 

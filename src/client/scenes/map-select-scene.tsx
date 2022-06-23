@@ -292,7 +292,6 @@ export class MapSelectScene extends Scene {
   }
 
   onShow() {
-    super.onShow();
     this.selectBtn.addEventListener('click', this.onClickSelectBtn);
     this.mapListEl.addEventListener('click', this.onSelectMap);
     this.loadingPreview = false;
@@ -304,13 +303,11 @@ export class MapSelectScene extends Scene {
   }
 
   onHide() {
-    super.onHide();
     this.selectBtn.removeEventListener('click', this.onClickSelectBtn);
     this.mapListEl.removeEventListener('click', this.onSelectMap);
   }
 
-  onDestroy() {
-    super.onDestroy();
+  onDispose() {
     this.controller.destoryWorker();
   }
 }

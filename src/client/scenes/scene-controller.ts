@@ -33,19 +33,19 @@ export class SceneController {
   }
 
   pushScene(newScene: Scene) {
-    if (this.currentScene) this.currentScene.onHide();
+    if (this.currentScene) this.currentScene.hide();
     this.scenes.push(newScene);
-    newScene.onShow();
+    newScene.show();
     this.setBackButtonClass();
   }
 
   popScene() {
     if (this.currentScene) {
-      this.currentScene.onHide();
-      this.currentScene.onDestroy();
+      this.currentScene.hide();
+      this.currentScene.dispose();
       this.scenes.pop();
     }
-    this.currentScene.onShow();
+    this.currentScene.show();
     this.setBackButtonClass();
   }
 
