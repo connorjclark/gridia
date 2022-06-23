@@ -1173,6 +1173,10 @@ export class Game {
         }));
       }
 
+      if (e.key === 'p') {
+        this.worldContainer.showElevationValue = !this.worldContainer.showElevationValue;
+      }
+
       if (this.state.clickTileMode &&
         [KEYS.BACKSPACE, KEYS.ESCAPE, KEYS.W, KEYS.A, KEYS.S, KEYS.D].includes(e.keyCode)) {
         this.exitClickTileMode();

@@ -258,11 +258,23 @@ export class WorldContainer extends PIXI.Container {
 
   ambientLight = 0;
 
+  #showElevationValue = false;
   private tiles = new Map<string, Tile>();
   private numTicksUntilNextLightCompute = 0;
   private computeLightCache: {
     lastPlayerPos?: TilePoint;
   } = {};
+
+  set showElevationValue(show: boolean) {
+    this.#showElevationValue = show;
+    this.forEachInCamera((tile) => {
+      tile.redrawFloor();
+    });
+  }
+
+  get showElevationValue() {
+    return this.#showElevationValue;
+  }
 
   constructor(public map: WorldMap) {
     super();
@@ -296,8 +308,8 @@ export class WorldContainer extends PIXI.Container {
 
     this.animationController.tick();
     this.forEachInCamera((tile, pos) => {
-      const {item, floor} = this.map.getTile(pos);
-      tile.setFloor(floor);
+      const {item, floor, elevation} = this.map.getTile(pos);
+      tile.setFloor(floor, elevation);
       tile.setItem(item);
     });
 
@@ -417,6 +429,7 @@ export class WorldContainer extends PIXI.Container {
 class Tile {
   private floor?: PIXI.Sprite;
   private floorValue = 0;
+  private elevation = 0;
 
   private item?: PIXI.Sprite;
   private itemValue?: Item;
@@ -459,13 +472,14 @@ class Tile {
     }
   }
 
-  setFloor(floor: number) {
+  setFloor(floor: number, elevation: number) {
     if (floor === this.floorValue) return;
 
     const shouldRedrawNeighbors =
       Content.getMetaFloor(floor).graphics.templateType ||
       Content.getMetaFloor(this.floorValue).graphics.templateType;
     this.floorValue = floor;
+    this.elevation = elevation;
     this.redrawFloor();
 
     if (shouldRedrawNeighbors) {
@@ -509,6 +523,10 @@ class Tile {
     this.floor.x = this.pos.x * GFX_SIZE;
     this.floor.y = this.pos.y * GFX_SIZE;
     container.addChild(this.floor);
+
+    if (this.worldContainer.showElevationValue) {
+      this.floor.addChild(Draw.text(String(this.elevation), {fontSize: GFX_SIZE / 2}));
+    }
   }
 
   setItem(item?: Item) {
