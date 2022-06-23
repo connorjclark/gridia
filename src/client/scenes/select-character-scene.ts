@@ -10,12 +10,20 @@ export class SelectCharacterScene extends Scene {
     super(Helper.find('.select-character'));
 
     this.controller.client.account = this.loginData.account;
-    this.load();
   }
 
-  async load() {
-    await initializeWorldData(this.loginData.worldData);
-    this.element.append(makeSelectCharacterComponent({controller: this.controller, loginData: this.loginData}));
+  onShow() {
+    super.onShow();
+
+    initializeWorldData(this.loginData.worldData).then(() => {
+      this.element.append(makeSelectCharacterComponent({controller: this.controller, loginData: this.loginData}));
+    });
+  }
+
+  onHide() {
+    super.onHide();
+
+    this.element.innerText = '';
   }
 
   getExistingPlayers() {
