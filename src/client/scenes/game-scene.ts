@@ -267,6 +267,6 @@ export class GameScene extends Scene {
     // @ts-expect-error
     window.Gridia.game = gameSingleton;
 
-    document.documentElement.requestFullscreen();
+    this.controller.requestFullscreen();
   }
 }

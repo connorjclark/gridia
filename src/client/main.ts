@@ -28,7 +28,7 @@ class StartScene extends Scene {
   async onClickLocalBtn() {
     await this.controller.loadWorker();
     this.controller.pushScene(new MapSelectScene(this.controller));
-    await window.document.documentElement.requestFullscreen().catch(console.error);
+    await this.controller.requestFullscreen();
   }
 
   async onClickConnectBtn() {
@@ -38,7 +38,7 @@ class StartScene extends Scene {
     this.controller.pushScene(new AccountScene(this.controller));
     // TODO: Back doesn't work here.
     Helper.find('.scene-controller').classList.add('hidden');
-    await window.document.documentElement.requestFullscreen().catch(console.error);
+    await this.controller.requestFullscreen();
   }
 
   onShow() {

@@ -124,6 +124,13 @@ export class SceneController {
     }
   }
 
+  async requestFullscreen() {
+    if (location.hostname === 'localhost') return;
+
+    await window.document.documentElement.requestFullscreen()
+      .catch(console.error);
+  }
+
   private setBackButtonClass() {
     const shouldHide = this.scenes.length <= 1 ||
       this.currentScene.element.classList.contains('register');
