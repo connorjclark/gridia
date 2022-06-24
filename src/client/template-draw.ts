@@ -346,7 +346,7 @@ function useElevationOffsetTemplate(partition: WorldMapPartition, pos: Partition
     return partition.getTile({x: x_, y: y_, z}).elevation;
   }
 
-  let v = 0;
+  let v = 5;
   const {x, y, z} = pos;
   const e = getElevation(x, y);
 
@@ -355,27 +355,25 @@ function useElevationOffsetTemplate(partition: WorldMapPartition, pos: Partition
     const d = y + 1 < partition.height ? getElevation(x, y + 1) > e : false;
     const r = x + 1 < partition.width ? getElevation(x + 1, y) > e : false;
     const l = x - 1 >= 0 ? getElevation(x - 1, y) > e : false;
-    const ur = y - 1 >= 0 || x + 1 < partition.width ? getElevation(x + 1, y - 1) > e : false;
-    const dr = y + 1 < partition.height || x + 1 < partition.width ? getElevation(x + 1, y + 1) > e : false;
-    const ul = y - 1 >= 0 || x - 1 >= 0 ? getElevation(x - 1, y - 1) > e : false;
-    const dl = x - 1 >= 0 || y + 1 < partition.height ? getElevation(x - 1, y + 1) > e : false;
-    if (u || d || r || l || ur || dr || ul || dl) {
-      if (l && !u && !d) v = 14;
-      else if (r && !u && !d) v = 11;
-      else if (ur && !u && !r) v = 7;
-      else if (u && r) v = 12;
-      else if (ul && !l && !u) v = 6;
-      else if (u && !l && !r) v = 8;
-      else if (u && l) v = 16;
-      else if (dr && !d && !r) v = 9;
-      else if (d && !l && !r) v = 17;
-      else if (dl && !d && !l) v = 13;
-      else if (dl && d && l) v = 18;
-      else if (dr && d && r) v = 19;
-    }
+    const ur = y - 1 >= 0 && x + 1 < partition.width ? getElevation(x + 1, y - 1) > e : false;
+    const dr = y + 1 < partition.height && x + 1 < partition.width ? getElevation(x + 1, y + 1) > e : false;
+    const ul = y - 1 >= 0 && x - 1 >= 0 ? getElevation(x - 1, y - 1) > e : false;
+    const dl = x - 1 >= 0 && y + 1 < partition.height ? getElevation(x - 1, y + 1) > e : false;
+
+    // Marching squares
+    // http://users.polytech.unice.fr/~lingrand/MarchingCubes/resources/marchingS.gif
+    // Ignore Case 0 and 15, both are dropped here.
+    // Case 0 is "flat" and is the first 6 tiles, chosen randomly. Maps to values 0–5.
+    // Cases 1–14 map to values 6–19.
+    // Case 15 is ignored.
+    if (ul || l || u) v+= 1;
+    if (ur || r || u) v+= 2;
+    if (dr || d || r) v+= 4;
+    if (dl || d || l) v+= 8;
+    if (v === 20) v = 5;
   } catch {
     // ignore
   }
 
-  return v === 0 ? (x + y) % 6 : v;
+  return v === 5 ? (x + y) % 6 : v;
 }
