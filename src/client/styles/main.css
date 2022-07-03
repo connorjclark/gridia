@@ -73,13 +73,13 @@ body.disconnected {
   /* -webkit-text-stroke: 5px white; */
 }
 
-.github-link {
+.external-links {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   padding: 20px;
 }
-.github-link a {
+.external-links a {
   color: inherit;
 }
 
