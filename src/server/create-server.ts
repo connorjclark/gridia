@@ -55,11 +55,13 @@ export async function createServer(options: ServerOptions, db: Database) {
   // TODO remove
   context.server = server;
 
-  server.scriptManager.addScript(BasicScript);
-  server.scriptManager.addScript(BallScript);
-  server.scriptManager.addScript(DogScript);
-  server.scriptManager.addScript(HubWorldScript);
-  server.scriptManager.addScript(ThunderDomeScript);
+  if (options.worldDataDef.baseDir === 'worlds/rpgwo-world') {
+    server.scriptManager.addScript(BasicScript);
+    server.scriptManager.addScript(BallScript);
+    server.scriptManager.addScript(DogScript);
+    server.scriptManager.addScript(HubWorldScript);
+    server.scriptManager.addScript(ThunderDomeScript);
+  }
 
   server.taskRunner.registerTickSection({
     description: 'save',
