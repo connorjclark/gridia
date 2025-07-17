@@ -55,7 +55,7 @@ export async function createServer(options: ServerOptions, db: Database) {
   // TODO remove
   context.server = server;
 
-  if (options.worldDataDef.baseDir === 'worlds/rpgwo-world') {
+  if (context.worldDataDefinition.enableScripts) {
     server.scriptManager.addScript(BasicScript);
     server.scriptManager.addScript(BallScript);
     server.scriptManager.addScript(DogScript);

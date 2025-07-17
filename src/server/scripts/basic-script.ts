@@ -78,6 +78,8 @@ export class BasicScript extends Script<BasicScriptConfig> {
     super('basic-script', server, 'BasicScriptConfig');
   }
 
+  // TODO: validate config for scripts
+  // TODO: log script error messages somewhere when shutdown
   onStart() {
     this.spawnCreature({
       descriptor: {

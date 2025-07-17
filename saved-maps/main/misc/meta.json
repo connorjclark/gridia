@@ -3,6 +3,7 @@
   "worldDataDefinition": {
     "baseDir": "worlds/rpgwo-world",
     "tileSize": 32,
+    "enableScripts": true,
     "characterCreation": {
       "attributePoints": 1000,
       "skillPoints": 100,

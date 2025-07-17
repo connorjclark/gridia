@@ -38,9 +38,13 @@ export async function loadServerContext(db: Database): Promise<ServerContext> {
   // TODO: eventually delete this when world data definitions are not
   // just carbon-copies of values from WORLD_DATA_DEFINITIONS.
   {
+    const enableScripts = meta.worldDataDefinition.enableScripts;
     const canonical = Object.values(Content.WORLD_DATA_DEFINITIONS)
       .find((d) => d.baseDir === meta.worldDataDefinition.baseDir);
-    if (canonical) meta.worldDataDefinition = canonical;
+    if (canonical) {
+      meta.worldDataDefinition = structuredClone(canonical);
+      meta.worldDataDefinition.enableScripts = enableScripts;
+    }
   }
 
   await Content.initializeWorldData(meta.worldDataDefinition);

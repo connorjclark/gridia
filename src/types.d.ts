@@ -557,6 +557,7 @@ interface WorldDataDefinition {
   waterFloor: number;
   mineItemType: number;
   baseDir: string;
+  enableScripts: boolean;
   spritesheets: string[];
   characterCreation: {
     attributes: Array<{ name: string; derived?: { from: string; creationMultiplier?: number } }>;
