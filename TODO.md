@@ -179,3 +179,72 @@ Ultima IV has moon gates, portals linking parts of the world that go on/off base
 This is cool: https://www.angelfire.com/super/rummager/ fireplace.
 
 Quest the involves surving keelhauling? good swim stat / stamina potions or something.
+
+
+
+--------
+
+
+
+Fix Context shit
+- maybe split loading code from ServerContext. Done.
+- ?
+
+
+savePlayer broken.... why??? maybe fixed with buffs = [...]
+
+icons for window tabs
+
+make mapgen work for more than just rpgwo
+- rm water/mine constants DONE
+- don't set bare: true
+- water gfx for 16bit
+- Mining / Pickaxes
+
+
+
+Mapgen
+- Cancel while in progress
+- Profile why it takes so long
+- Group polygons by contiguous biome zones
+- Names biomes and rivers
+- Biome-specific structures / item spawning
+- elevation contours https://www.giantbomb.com/images/1300-2144036
+
+
+
+Elevation
+- Change tile elevation -> redraw floor
+- Kill the -1/0/+1 rule
+- Instead, store each tile elevations as literally -1/0/1 and use that to pick which floor to show
+- Then later, when player can change elevation just tweak that one bit in that one tile, not cascade it everywhere.
+
+
+Single player
+- Show map preview before enter world
+- "Loading" indicator when selected world
+- Split mapgen page
+- Scripts errors
+
+
+
+
+
+[Server] Error: assertion failed
+[Server]     at assert (file:///Users/connorclark/code/gridia/src/lib/sniff-object.ts:4:19)
+[Server]     at assertNotSniffed (file:///Users/connorclark/code/gridia/src/lib/sniff-object.ts:69:5)
+[Server]     at unwrap (file:///Users/connorclark/code/gridia/src/lib/sniff-object.ts:34:5)
+[Server]     at unwrap (file:///Users/connorclark/code/gridia/src/lib/sniff-object.ts:41:27)
+[Server]     at Object.set (file:///Users/connorclark/code/gridia/src/lib/sniff-object.ts:91:19)
+[Server]     at savePlayer (file:///Users/connorclark/code/gridia/src/server/load-data.ts:168:17)
+[Server]     at Module.saveServerContext (file:///Users/connorclark/code/gridia/src/server/load-data.ts:91:7)
+[Server]     at ServerContext.save (file:///Users/connorclark/code/gridia/src/server/server-context.ts:58:16)
+[Server]     at Server.save (file:///Users/connorclark/code/gridia/src/server/server.ts:170:25)
+[Server]     at Object.fn (file:///Users/connorclark/code/gridia/src/server/create-server.ts:67:22)
+
+
+
+
+
+http://jamie-wong.com/2014/08/19/metaballs-and-marching-squares/
+
