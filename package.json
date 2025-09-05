@@ -16,7 +16,7 @@
     "json-schema": "^0.4.0",
     "level": "^7.0.0",
     "linkstate": "^1.1.1",
-    "luxon": "^2.4.0",
+    "luxon": "^2.5.2",
     "node-cleanup": "^2.1.2",
     "panzoom": "^9.4.2",
     "pixi-sound": "^3.0.5",
